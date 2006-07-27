@@ -1,0 +1,104 @@
+<?xml version="1.0"?>
+<project name="GData .NET Client" default="build" basedir=".">
+  <property name="output" location="./lib" />
+  <property name="doDebug" value="false"/>
+  <target name="build">
+     <antcall target="copy-sn"/>
+     <antcall target="build_library" />
+     <antcall target="build_extensions" />
+     <antcall target="build_calendar" />
+     <antcall target="build_tests"/>
+     <antcall target="build_samples"/>
+     <antcall target="delete-sn"/>
+  </target>
+
+
+  <target name="copy-sn">
+    <copy todir="${basedir}">
+      <fileset dir="./src/signing">
+      </fileset>
+    </copy>
+  </target>
+
+  <target name="delete-sn" depends="build_samples">
+    <delete>
+      <fileset dir="${basedir}">
+        <filename name="*.sn" />
+      </fileset>
+    </delete>
+  </target>
+  
+  <target name="clean">
+    <delete>
+      <fileset dir="${output}">
+        <include name="*.dll" />
+        <include name="*.exe" />        
+      </fileset>
+    </delete>
+  </target>
+
+  <target name="build_library" depends="copy-sn">
+    <mkdir dir="${output}"/>
+    <csc optimize="false" debug="${doDebug}" docFile="docs/documentation.xml"  
+        warnLevel="4" unsafe="false" targetType="library" incremental="false" 
+        destFile="${output}/gdata.dll" references ="System; System.Xml; System.Web">
+        <src dir="./src/core"  includes="*.cs"/>
+    </csc>    
+  </target>
+
+  <target name="build_extensions" depends="build_library">
+    <csc optimize="false" debug="${doDebug}" docFile="docs/extensions.xml" 
+        warnLevel="4"  unsafe="false" targetType="library" incremental="false" 
+        destFile="${output}/gextensions.dll" references ="${output}/gdata.dll; System; System.Xml; System.Web">
+        <src dir="./src/extensions"  includes="*.cs"/>
+    </csc>    
+  </target>
+
+  <target name="build_calendar" depends="build_extensions">
+    <csc optimize="false" debug="${doDebug}"  docFile="docs/calendar.xml" 
+        warnLevel="4" unsafe="false" targetType="library" incremental="false" 
+        destFile="${output}/gcalendar.dll" references ="${output}/gextensions.dll;${output}/gdata.dll; System; System.Xml; System.Web">
+        <src dir="./src/gcalendar"  includes="*.cs"/>
+    </csc>    
+  </target>
+
+
+  <target name="build_tests" depends="build_library">
+    <copy file="./src/unittests/unittests.dll.config" todir="./lib" />
+    <csc optimize="false" debug="${doDebug}"  warnLevel="4" unsafe="false" 
+    targetType="library" incremental="false" destFile="${output}/unittests.dll"  
+    references ="${output}/gdata.dll;${output}/gextensions.dll;${output}/gcalendar.dll; System; System.Xml; nunit.framework">
+        <src dir="./src/unittests"  includes="*.cs"/>
+     </csc>    
+  </target>
+
+  <target name="build_samples" depends="build_calendar">
+    <antcall target="build_readsample"/>
+    <antcall target="build_updatesample"/>
+    <antcall target="build_insertsample"/>
+  </target>
+	<target name="build_readsample" depends="build_calendar">
+	  <csc optimize="false" debug="${doDebug}" warnLevel="4" unsafe="false" 
+		targetType="exe" incremental="false" destFile="${output}/readsample.exe" 
+		references ="${output}/gdata.dll;${output}/gextensions.dll;${output}/gcalendar.dll; System; System.Xml">
+		<src dir="./samples/read"  includes="*.cs"/>
+	 </csc>    
+	</target>
+
+	<target name="build_updatesample" depends="build_calendar">
+	  <csc optimize="false" debug="${doDebug}"  warnLevel="4" unsafe="false" 
+		targetType="exe" incremental="false" destFile="${output}/updatesample.exe" 
+		references ="${output}/gdata.dll;${output}/gextensions.dll;${output}/gcalendar.dll; System; System.Xml">
+		<src dir="./samples/update"  includes="*.cs"/>
+	 </csc>    
+	</target>
+
+	<target name="build_insertsample" depends="build_calendar">
+	  <csc optimize="false" debug="${doDebug}" warnLevel="4" unsafe="false" 
+		targetType="exe" incremental="false" destFile="${output}/insertsample.exe" 
+		references ="${output}/gdata.dll;${output}/gextensions.dll;${output}/gcalendar.dll; System; System.Xml">
+		<src dir="./samples/insert"  includes="*.cs"/>
+	 </csc>    
+	</target>
+</project>
+
