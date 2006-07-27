@@ -1,0 +1,37 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gdata", "gdata\gdata.csproj", "{B6F6D938-0D45-42BA-8A67-55D92EF03995}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gextension", "gextension\gextension.csproj", "{21BCB644-F9C3-4ADC-8BE1-4E55C6565011}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gcalendar", "gcalendar\gcalendar.csproj", "{0AD0FA26-A071-4CAC-851C-05B6C26B9888}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{B6F6D938-0D45-42BA-8A67-55D92EF03995}.Debug.ActiveCfg = Debug|.NET
+		{B6F6D938-0D45-42BA-8A67-55D92EF03995}.Debug.Build.0 = Debug|.NET
+		{B6F6D938-0D45-42BA-8A67-55D92EF03995}.Release.ActiveCfg = Release|.NET
+		{B6F6D938-0D45-42BA-8A67-55D92EF03995}.Release.Build.0 = Release|.NET
+		{21BCB644-F9C3-4ADC-8BE1-4E55C6565011}.Debug.ActiveCfg = Debug|.NET
+		{21BCB644-F9C3-4ADC-8BE1-4E55C6565011}.Debug.Build.0 = Debug|.NET
+		{21BCB644-F9C3-4ADC-8BE1-4E55C6565011}.Release.ActiveCfg = Release|.NET
+		{21BCB644-F9C3-4ADC-8BE1-4E55C6565011}.Release.Build.0 = Release|.NET
+		{0AD0FA26-A071-4CAC-851C-05B6C26B9888}.Debug.ActiveCfg = Debug|.NET
+		{0AD0FA26-A071-4CAC-851C-05B6C26B9888}.Debug.Build.0 = Debug|.NET
+		{0AD0FA26-A071-4CAC-851C-05B6C26B9888}.Release.ActiveCfg = Release|.NET
+		{0AD0FA26-A071-4CAC-851C-05B6C26B9888}.Release.Build.0 = Release|.NET
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

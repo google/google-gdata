@@ -1,0 +1,34 @@
+== 1.0.3 ==
+- Fixed the namespace creation for extensions, the wireformat should no longer create the namespace declaration when it's not required
+- Fixed the reminder persistence code
+- added a TimeZone property on the EventFeed to retrieve the timezone value 
+- added a FindEvent method on the EventFeed. This one takes an OriginalEvent object, and returns the 
+  Event that this is based on. This will go to the server if required. 
+- Fixed recurrance issues in the extensions 
+- Moved EventFeed and EventEntry from the Google.GData.Extensions namespace to the Google.GData.Calendar namespace
+- Fixed a bug in the parsing of Atom:Content elements. This could cause an endless loop when the content was empty.
+
+Known issues:
+ - .NET 2.0 seems to loose resources in some circumstances. Hard to reproduce.
+- recurrenceException is not fully tested
+- authsubutil and gauthsubrequest are not fully tested
+
+== 1.0.2 ==
+- Fixed a problem persisting feedlink elements
+- added an AllDay flag to the When class to allow parsing and persting of all day events
+- cleaned up the persistence code in the extension classes
+- fixed a problem that resulted in persisting multiple extensionn objects instead of one
+- added a timestamp method to the Tracing class to help measuring performance in simple cases
+
+== 1.0.1 ==
+- Correctly uses 'rel.previous' instead of 'rel.prev' as required by Atom
+  Publishing Protocol.
+- Corrected the time-shift portion of the DateTime output for time zones with a
+  negative shift from UTC.
+- Corrected the time-shift to permit fractional hour shifts from UTC.
+- Correctly output "startTime" and "endTime" as attributes of the "when"
+  extension rather than child elements.
+- Refactored class hierarchy, now based on IExtensionElement. 
+
+== 1.0.0 ==
+- Initial Release
