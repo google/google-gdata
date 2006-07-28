@@ -14,9 +14,6 @@
 */
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using System.Security.Permissions;
-using System.Runtime.InteropServices;
-using System;
 
 //
 // General Information about an assembly is controlled through the following 
@@ -43,7 +40,7 @@ using System;
 // You can specify all the values or you can default the Revision and Build Numbers 
 // by using the '*' as shown below:
 
-[assembly: AssemblyVersion("1.0.4.*")]
+[assembly: AssemblyVersion("1.0.*")]
 
 //
 // In order to sign your assembly you must specify a key to use. Refer to the 
@@ -71,12 +68,5 @@ using System;
 //       documentation for more information on this.
 //
 [assembly: AssemblyDelaySign(false)]
-[assembly: AssemblyKeyFile("clientkey.sn")]
+[assembly: AssemblyKeyFile("")]
 [assembly: AssemblyKeyName("")]
-
-
-[assembly: SecurityPermission(SecurityAction.RequestMinimum, Execution=true)]
-[assembly: ComVisible(false)]
-[assembly: CLSCompliant(true)]
-
-

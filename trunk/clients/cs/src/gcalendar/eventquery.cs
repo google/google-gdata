@@ -155,25 +155,25 @@ namespace Google.GData.Calendar {
             if (this.StartTime != FeedQuery.EmptyDate)
             {
                 newPath.Append(paramInsertion);
-                newPath.AppendFormat("start-min={0}", Utilities.LocalDateTimeInUTC(this.StartTime));
+                newPath.AppendFormat("start-min={0}", Utilities.UriEncodeReserved(Utilities.LocalDateTimeInUTC(this.StartTime)));
                 paramInsertion = '&';
             }
             if (this.EndTime != FeedQuery.EmptyDate)
             {
                 newPath.Append(paramInsertion);
-                newPath.AppendFormat("start-max={0}", Utilities.LocalDateTimeInUTC(this.EndTime));
+                newPath.AppendFormat("start-max={0}", Utilities.UriEncodeReserved(Utilities.LocalDateTimeInUTC(this.EndTime)));
                 paramInsertion = '&';
             }
             if (this.RecurrenceStart != FeedQuery.EmptyDate)
             {
                 newPath.Append(paramInsertion);
-                newPath.AppendFormat("recurrence-expansion-start={0}", Utilities.LocalDateTimeInUTC(this.RecurrenceStart)); 
+                newPath.AppendFormat("recurrence-expansion-start={0}", Utilities.UriEncodeReserved(Utilities.LocalDateTimeInUTC(this.RecurrenceStart))); 
                 paramInsertion = '&';
             }
             if (this.RecurrenceEnd != FeedQuery.EmptyDate)
             {
                 newPath.Append(paramInsertion);
-                newPath.AppendFormat("recurrence-expansion-end={0}", Utilities.LocalDateTimeInUTC(this.RecurrenceEnd)); 
+                newPath.AppendFormat("recurrence-expansion-end={0}", Utilities.UriEncodeReserved(Utilities.LocalDateTimeInUTC(this.RecurrenceEnd))); 
                 paramInsertion = '&';
             }
 

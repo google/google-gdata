@@ -625,13 +625,13 @@ namespace Google.GData.Client
             if (this.StartDate != FeedQuery.EmptyDate)
             {
                 newPath.Append(paramInsertion);
-                newPath.AppendFormat("updated-min={0}", Utilities.LocalDateTimeInUTC(this.StartDate));
+                newPath.AppendFormat("updated-min={0}", Utilities.UriEncodeReserved(Utilities.LocalDateTimeInUTC(this.StartDate)));
                 paramInsertion = '&'; 
             }
             if (this.EndDate != FeedQuery.EmptyDate)
             {
                 newPath.Append(paramInsertion);
-                newPath.AppendFormat("updated-max={0:G}", Utilities.LocalDateTimeInUTC(this.EndDate));
+                newPath.AppendFormat("updated-max={0:G}", Utilities.UriEncodeReserved(Utilities.LocalDateTimeInUTC(this.EndDate)));
                 paramInsertion = '&'; 
             }
             if (this.StartIndex != 0)
