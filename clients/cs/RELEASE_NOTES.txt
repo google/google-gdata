@@ -1,3 +1,7 @@
+== 1.0.4 == 
+- Fixed a bug with created daterange queries if the date component used contained a timezone (it created an URI with a + sign, which was invalid)
+- added a simple calendar form sample, that can pull your gCalendar feed and populate a windows calendar control
+
 == 1.0.3 ==
 - Fixed the namespace creation for extensions, the wireformat should no longer create the namespace declaration when it's not required
 - Fixed the reminder persistence code
