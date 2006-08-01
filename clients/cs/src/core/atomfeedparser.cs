@@ -504,6 +504,10 @@ namespace Google.GData.Client
                     ParseExtensionElements(reader, author);
 
                 }
+                // this will either move the reader to the end of the current element (if nothing was read, 
+                // like in the case of an empty element), or to the start of a new one.
+                reader.Read(); 
+
             }
             return author;
         }
@@ -712,6 +716,10 @@ namespace Google.GData.Client
                     // default extension parsing
                     ParseExtensionElements(reader, entry);
                 }
+                // this will either move the reader to the end of the current element (if nothing was read, 
+                // like in the case of an empty element), or to the start of a new one.
+                reader.Read(); 
+
             }
             OnNewAtomEntry(entry);
 
