@@ -6,6 +6,15 @@
 - Added a calendar example
 - Fixed an issue with updating, where if you used the same AtomEntry/EventEntry several times to update, it could happen that extension 
   elements were doubled, and the update failed.
+- Fixed a bug in the parsing of all elements. This could cause an endless loop when the content was empty.
+
+Known issues:
+- recurrenceException is not fully tested
+- authsubutil and gauthsubrequest are not fully tested
+Solved issues:
+ - .NET 2.0 seems to loose resources in some circumstances. Hard to reproduce.
+
+
 
 == 1.0.3 ==
 - Fixed the namespace creation for extensions, the wireformat should no longer create the namespace declaration when it's not required
@@ -16,11 +25,6 @@
 - Fixed recurrance issues in the extensions 
 - Moved EventFeed and EventEntry from the Google.GData.Extensions namespace to the Google.GData.Calendar namespace
 - Fixed a bug in the parsing of Atom:Content elements. This could cause an endless loop when the content was empty.
-
-Known issues:
- - .NET 2.0 seems to loose resources in some circumstances. Hard to reproduce.
-- recurrenceException is not fully tested
-- authsubutil and gauthsubrequest are not fully tested
 
 == 1.0.2 ==
 - Fixed a problem persisting feedlink elements
