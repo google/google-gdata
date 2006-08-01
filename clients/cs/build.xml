@@ -64,7 +64,7 @@
 
 
   <target name="build_tests" depends="build_library">
-    <copy file="./src/unittests/unittests.dll.config" todir="./lib" />
+    <copy overwrite="false" file="./src/unittests/unittests.dll.config" todir="./lib" />
     <csc optimize="false" debug="${doDebug}"  warnLevel="4" unsafe="false" 
     targetType="library" incremental="false" destFile="${output}/unittests.dll"  
     references ="${output}/gdata.dll;${output}/gextensions.dll;${output}/gcalendar.dll; System; System.Xml; nunit.framework">
