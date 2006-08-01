@@ -73,11 +73,18 @@ namespace Google.GData.Client
         public override void Parse(Stream streamInput, AtomFeed feed)
         {
             Tracing.TraceCall("feedparser starts parsing");
+            try
+            {
+                XmlReader reader = new DecodingTextReader(streamInput, this.nameTable.Nametable);
 
-            XmlReader reader = new DecodingTextReader(streamInput, this.nameTable.Nametable);
+                MoveToStartElement(reader);
+                ParseFeed(reader, feed);
+            }
+            catch (Exception e)
+            {
+                throw new ClientFeedException("Parsing failed", e); 
+            }
 
-            MoveToStartElement(reader); 
-            ParseFeed(reader, feed);
         }
         /////////////////////////////////////////////////////////////////////////////
 

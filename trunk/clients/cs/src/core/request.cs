@@ -113,7 +113,7 @@ namespace Google.GData.Client
         {
             this.type = type;
             this.targetUri = uriTarget;
-	    this.userAgent = userAgent;
+	        this.userAgent = userAgent;
         }
         /////////////////////////////////////////////////////////////////////////////
 
@@ -188,7 +188,7 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         protected virtual void Reset()
         {
-            this.requestStream = null; 
+            this.requestStream = null;
             this.webRequest = null;
             if (this.webResponse != null)
             {
@@ -224,7 +224,7 @@ namespace Google.GData.Client
                 this.webResponse = null; 
                 if (this.webRequest == null)
                 {
-                    return;
+                    throw new OutOfMemoryException("Could not create a new Webrequest"); 
                 }
                 HttpWebRequest web = this.webRequest as HttpWebRequest;
 
