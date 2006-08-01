@@ -94,7 +94,8 @@ namespace Google.GData.Extensions {
         ///  Equal operator overload
         /// </summary>
         /// <param name="o">the object to compare to</param>
-        /// <returns>bool</returns>
+        /// <returns>bool</returns>
+
         public bool equals(Object o)
         {
             //
@@ -129,14 +130,13 @@ namespace Google.GData.Extensions {
         /// <param name="writer">the xmlwriter to write into</param>
         public void Save(XmlWriter writer)
         {
-            writer.WriteStartElement(BaseNameTable.gDataPrefix, XmlName, BaseNameTable.gNamespace);
-
-            if ((value != null) && (value != ""))
+            if (Utilities.IsPersistable(this.value))
             {
+                
+                writer.WriteStartElement(BaseNameTable.gDataPrefix, XmlName, BaseNameTable.gNamespace); 
                 writer.WriteAttributeString("value", this.value);
+                writer.WriteEndElement();
             }
-
-            writer.WriteEndElement();
         }
         #endregion
     }

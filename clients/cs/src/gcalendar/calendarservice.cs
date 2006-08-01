@@ -74,7 +74,7 @@ namespace Google.GData.Calendar {
             Stream feedStream = Query(feedQuery.Uri);
             EventFeed feed = new EventFeed(feedQuery.Uri, this);
             feed.Parse(feedStream, AlternativeFormat.Atom);
-
+            feedStream.Close(); 
             return feed;
         }
 

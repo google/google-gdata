@@ -246,9 +246,11 @@ namespace Google.GData.Client
             returnFeed.NewAtomEntry += new FeedParserEventHandler(this.OnParsedNewEntry); 
             returnFeed.NewExtensionElement += new ExtensionElementEventHandler(this.OnNewExtensionElement);
 
-            returnFeed.Parse(request.GetResponseStream(), AlternativeFormat.Atom);
+            Stream returnStream = request.GetResponseStream();
 
+            returnFeed.Parse(returnStream, AlternativeFormat.Atom);
             // there should be ONE entry echoed back. 
+            returnStream.Close(); 
 
             return returnFeed.Entries[0]; 
 

@@ -78,6 +78,8 @@ namespace Google.GData.Client
         private string gService;         // the service we pass to Gaia for token creation
         private string applicationName;  // the application name we pass to Gaia and append to the user-agent
         private bool fMethodOverride;    // to override using post, or to use PUT/DELETE
+        private int numberOfRetries;        // holds the number of retries the request will undertake
+        
                                          
 
         //////////////////////////////////////////////////////////////////////
@@ -92,6 +94,7 @@ namespace Google.GData.Client
     	    } else {
     	        this.userAgent = GDataGAuthAgent;
     	    }
+            this.numberOfRetries = 0; 
         }
         /////////////////////////////////////////////////////////////////////////////
 
@@ -184,6 +187,15 @@ namespace Google.GData.Client
         }
         /////////////////////////////////////////////////////////////////////////////
 
+        /// <summary>
+        /// property accessor to adjust how often a request of this factory should retry
+        /// </summary>
+        public int NumberOfRetries
+        {
+            get { return this.numberOfRetries; }
+            set { this.numberOfRetries = value; }
+        }
+
 
 
         //////////////////////////////////////////////////////////////////////
@@ -214,7 +226,7 @@ namespace Google.GData.Client
         /// <summary>holds the factory instance</summary> 
         private GDataGAuthRequestFactory factory; 
         /// <summary>holds the application name</summary> 
-        private string applicationName; 
+        private string applicationName;
         
 
         //////////////////////////////////////////////////////////////////////
@@ -229,6 +241,7 @@ namespace Google.GData.Client
         /////////////////////////////////////////////////////////////////////////////
 
 
+        
 
 
         //////////////////////////////////////////////////////////////////////
@@ -273,10 +286,7 @@ namespace Google.GData.Client
                 }
                 this.disposed = true;
             }
-
         }
-
-
 
 
         //////////////////////////////////////////////////////////////////////
@@ -418,7 +428,11 @@ namespace Google.GData.Client
 
                 authToken = Utilities.ParseValueFormStream(response.GetResponseStream(), GoogleAuthentication.AuthToken); 
             }
-            Tracing.Assert(authToken != null, "did not find an auth token in QueryAuthToken"); 
+            Tracing.Assert(authToken != null, "did not find an auth token in QueryAuthToken");
+            if (authResponse != null)
+            {
+                authResponse.Close();
+            }
             return authToken;
         }
         /////////////////////////////////////////////////////////////////////////////
@@ -430,67 +444,79 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         public override void Execute()
         {
+            // call him the first time
+            Execute(1); 
+        }
+        /////////////////////////////////////////////////////////////////////////////
 
+
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Executes the request and prepares the response stream. Also 
+        /// does error checking</summary> 
+        /// <param name="iRetrying">indicates the n-th time this is run</param>
+        //////////////////////////////////////////////////////////////////////
+        protected void Execute(int iRetrying)
+        {
             Tracing.TraceCall("GoogleAuth: Execution called");
             try
             {
-                CopyRequestData(); 
-                base.Execute(); 
+                CopyRequestData();
+                base.Execute();
             }
             catch (GDataRequestException re)
             {
-                Tracing.TraceMsg("Got into exception handling for base.execute"); 
+                Tracing.TraceMsg("Got into exception handling for base.execute");
                 HttpWebResponse response = re.Response as HttpWebResponse;
-            
+
                 if (response != null)
                 {
                     if (response.StatusCode == HttpStatusCode.Forbidden)
                     {
                         Tracing.TraceMsg("need to reauthenticate, got a forbidden back");
                         // do it again, once, reset AuthToken first and streams first
-                        this.Reset(); 
-                        CopyRequestData(); 
+                        base.Reset();
+                        this.factory.GAuthToken = null; 
+                        CopyRequestData();
                         base.Execute();
                     }
-                    else if (response.StatusCode == HttpStatusCode.Found 
-                          || response.StatusCode == HttpStatusCode.Redirect) 
+                    else if (response.StatusCode == HttpStatusCode.Found
+                          || response.StatusCode == HttpStatusCode.Redirect)
                     {
                         // we got a redirect.
-                        Tracing.TraceMsg("Got a redirect. " + response.ResponseUri); 
+                        Tracing.TraceMsg("Got a redirect. " + response.ResponseUri);
                         // only reset the base, the auth cookie is still valid
                         // and cookies are stored in the factory
-                        base.Reset(); 
-                        CopyRequestData(); 
+                        base.Reset();
+                        CopyRequestData();
                         base.Execute();
                     }
-                    else 
-                        throw re; 
+                    else
+                        throw re;
                 }
-                else 
+                else
                 {
-                    Tracing.TraceMsg("Got no response object");
-                    throw re; 
+                    if (iRetrying > this.factory.NumberOfRetries)
+                    {
+                        Tracing.TraceMsg("Got no response object");
+                        throw re;
+                    }
+                    Tracing.TraceMsg("Let's retry this"); 
+                    // only reset the base, the auth cookie is still valid
+                    // and cookies are stored in the factory
+                    base.Reset();
+                    this.Execute(iRetrying + 1); 
                 }
             }
-            catch 
+            catch
             {
                 Tracing.TraceMsg("otherstuff");
             }
             if (this.requestCopy != null)
             {
-                this.requestCopy.Close(); 
-                this.requestCopy = null; 
+                this.requestCopy.Close();
+                this.requestCopy = null;
             }
-        }
-        /////////////////////////////////////////////////////////////////////////////
-
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>Resets the request object</summary> 
-        //////////////////////////////////////////////////////////////////////
-        protected override void Reset()
-        {
-            base.Reset();
-            this.factory.GAuthToken = null; 
         }
         /////////////////////////////////////////////////////////////////////////////
 

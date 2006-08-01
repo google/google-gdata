@@ -576,7 +576,11 @@ namespace Google.GData.Client
             }
 
             // now we need to see if this is the same feed. If not, copy
-            if (AtomFeed.IsFeedIdentical(newEntry.Feed, this) == false)
+            if (newEntry.Feed == null)
+            {
+                newEntry.setFeed(this);
+            }
+            else if (AtomFeed.IsFeedIdentical(newEntry.Feed, this) == false)
             {
                 newEntry = AtomEntry.ImportFromFeed(newEntry); 
                 newEntry.setFeed(this);

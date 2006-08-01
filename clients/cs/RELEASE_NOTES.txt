@@ -1,6 +1,11 @@
 == 1.0.4 == 
-- Fixed a bug with created daterange queries if the date component used contained a timezone (it created an URI with a + sign, which was invalid)
-- added a simple calendar form sample, that can pull your gCalendar feed and populate a windows calendar control
+- Fixed a .NET 2.0 issue in calendarservice.cs, that dropped connections during repeated calls. 
+- Made the execution path more robust. 
+- Added a property, numberOfRetries on the GAuthRequestFactory to indicate how often an Execution should be retried if the server returns an error. 
+- Fixed a bug in the daterange query creation (the +sign for the timezone was not escaped properly)
+- Added a calendar example
+- Fixed an issue with updating, where if you used the same AtomEntry/EventEntry several times to update, it could happen that extension 
+  elements were doubled, and the update failed.
 
 == 1.0.3 ==
 - Fixed the namespace creation for extensions, the wireformat should no longer create the namespace declaration when it's not required

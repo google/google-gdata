@@ -541,16 +541,19 @@ namespace Google.GData.Client
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>commits the item to the server</summary> 
-        /// <returns>throws an exception if an error occured updating</returns>
+        /// <returns>throws an exception if an error occured updating, returns 
+        /// the updated entry from the service</returns>
         //////////////////////////////////////////////////////////////////////
-        public void Update()
+        public AtomEntry Update()
         {
             if (this.Service != null)
             {
                 AtomEntry updatedEntry = Service.Update(this);
                 this.CopyEntry(updatedEntry);
                 this.MarkElementDirty(false);
+                return updatedEntry; 
             }
+            return null;
         }
         /////////////////////////////////////////////////////////////////////////////
 
@@ -592,10 +595,12 @@ namespace Google.GData.Client
             this.content = updatedEntry.Content;
             this.source = updatedEntry.Source;
 
-	    foreach (Object extension in updatedEntry.ExtensionElements)
-	    {
-	        this.ExtensionElements.Add(extension);
-	    }
+            this.ExtensionElements.Clear();
+
+	        foreach (Object extension in updatedEntry.ExtensionElements)
+	        {
+	            this.ExtensionElements.Add(extension);
+	        }
         }
         /////////////////////////////////////////////////////////////////////////////
 
