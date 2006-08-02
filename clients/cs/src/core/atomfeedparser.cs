@@ -248,6 +248,9 @@ namespace Google.GData.Client
                     {
                         ParseEntry(reader);
                     }
+                    // this will either move the reader to the end of an element, or, 
+                    // if at the end, to the start of a new one. 
+                    reader.Read();
                 }
                 else if (feed != null && IsCurrentNameSpace(reader, BaseNameTable.NSOpenSearchRss))
                 {
@@ -269,11 +272,6 @@ namespace Google.GData.Client
                     // default extension parsing.
                     ParseExtensionElements(reader, source);
                 }
-
-                // this will either move the reader to the end of the current element (if nothing was read, 
-                // like in the case of an empty element), or to the start of a new one.
-                reader.Read(); 
-
             }
 
             return;
@@ -489,14 +487,17 @@ namespace Google.GData.Client
                 {
                     // author.Name = Utilities.DecodeString(reader.ReadString());
                     author.Name = reader.ReadString();
+                    reader.Read();
                 }
                 else if (localname.Equals(this.nameTable.Uri))
                 {
                     author.Uri = new AtomUri(reader.ReadString());
+                    reader.Read();
                 }
                 else if (localname.Equals(this.nameTable.Email))
                 {
                     author.Email = reader.ReadString();
+                    reader.Read();
                 }
                 else 
                 {
@@ -504,10 +505,6 @@ namespace Google.GData.Client
                     ParseExtensionElements(reader, author);
 
                 }
-                // this will either move the reader to the end of the current element (if nothing was read, 
-                // like in the case of an empty element), or to the start of a new one.
-                reader.Read(); 
-
             }
             return author;
         }
@@ -710,16 +707,16 @@ namespace Google.GData.Client
                     {
                         entry.Title = ParseTextConstruct(reader, AtomTextConstructElementType.Title);
                     }
+                    // this will either move the reader to the end of an element, or, 
+                    // if at the end, to the start of a new one. 
+                    reader.Read();
+
                 }
                 else
                 {
                     // default extension parsing
                     ParseExtensionElements(reader, entry);
                 }
-                // this will either move the reader to the end of the current element (if nothing was read, 
-                // like in the case of an empty element), or to the start of a new one.
-                reader.Read(); 
-
             }
             OnNewAtomEntry(entry);
 
@@ -893,10 +890,6 @@ namespace Google.GData.Client
                     {
                         content.Content = reader.ReadInnerXml();
                     }
-                    // if that is not reading anything, we are stuck at the start of the same content
-                    // element
-                    reader.Read(); 
-                    
                 }
                 
             }
