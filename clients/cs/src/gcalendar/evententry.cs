@@ -362,6 +362,16 @@ namespace Google.GData.Calendar {
             }
         }
 
+
+        /// <summary>
+        /// returns the first reminder of the Times collection
+        /// </summary>
+        /// <returns>When object for the reminder or NULL</returns>
+        protected When GetFirstReminder()
+        {
+            return this.Times != null && this.Times.Count > 0 ? this.Times[0] : null; 
+        }
+
         /// <summary>
         /// property accessor for the Reminder
         /// </summary>
@@ -372,12 +382,12 @@ namespace Google.GData.Calendar {
                 // if we are a recurrent event, reminder is on the entry/toplevel
                 if (this.Recurrence != null)
                 {
-                    return reminder; 
+                    return this.reminder; 
                 }
                 else
                 {
                     // in the non recurrent case, it's on the first when element
-                    When w = this.Times != null ? this.Times[0] : null;
+                    When w = GetFirstReminder(); 
                     if (w != null)
                     {
                         return w.Reminder; 
@@ -390,18 +400,18 @@ namespace Google.GData.Calendar {
             {
                 if (this.Recurrence != null)
                 {
-                    if (reminder != null)
+                    if (this.reminder != null)
                     {
-                        ExtensionElements.Remove(reminder);
+                        ExtensionElements.Remove(this.reminder);
                     }
-                    reminder = value; 
+                    this.reminder = value; 
                     ExtensionElements.Add(reminder);
                 }
                 else
                 {
                     // non recurring case, set it on the first when
                     // in the non recurrent case, it's on the first when element
-                    When w = this.Times != null ? this.Times[0] : null;
+                    When w = GetFirstReminder(); 
                     if (w != null)
                     {
                         w.Reminder = value; 
@@ -478,7 +488,6 @@ namespace Google.GData.Calendar {
         {
             if (String.Compare(eventNode.NamespaceURI, BaseNameTable.gNamespace, true) == 0)
             {
-
                 // Parse a When Element
                 if (eventNode.LocalName == GDataParserNameTable.XmlWhenElement)
                 {
