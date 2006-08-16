@@ -45,7 +45,7 @@ namespace Google.GData.Client.UnitTests
 
 
         //////////////////////////////////////////////////////////////////////
-        /// <summary>deletes all entries in localhost feed</summary> 
+        /// <summary>deletes all entries in defhost feed</summary> 
         //////////////////////////////////////////////////////////////////////
         [Test] public void DefaultHostDeleteAll()
         {
