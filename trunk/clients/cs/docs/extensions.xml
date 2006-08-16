@@ -53,9 +53,10 @@
             </summary></member>
         <member name="P:Google.GData.Extensions.Where.XmlName">
             <summary>Returns the constant representing this XML element.</summary></member>
-        <member name="M:Google.GData.Extensions.Where.ParseWhere(System.Xml.XmlNode)">
+        <member name="M:Google.GData.Extensions.Where.ParseWhere(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
             <summary>parses an xml node to create a Where object</summary>
             <param name="node">where node</param>
+            <param name="parser">AtomFeedParser to use</param>
             <returns> the created Where object</returns></member>
         <member name="M:Google.GData.Extensions.Where.Save(System.Xml.XmlWriter)">
             <summary>
@@ -271,9 +272,10 @@
             </summary></member>
         <member name="P:Google.GData.Extensions.Who.XmlName">
             <summary>Returns the constant representing this XML element.</summary></member>
-        <member name="M:Google.GData.Extensions.Who.ParseWho(System.Xml.XmlNode)">
+        <member name="M:Google.GData.Extensions.Who.ParseWho(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
             <summary>Parses an xml node to create a Who object.</summary>
             <param name="node">Who node</param>
+            <param name="parser">AtomFeedParser to use</param>
             <returns>the created Who object</returns></member>
         <member name="M:Google.GData.Extensions.Who.Save(System.Xml.XmlWriter)">
             <summary>
@@ -369,9 +371,10 @@
             </summary></member>
         <member name="P:Google.GData.Extensions.RecurrenceException.XmlName">
             <summary>Returns the constant representing this XML element.</summary></member>
-        <member name="M:Google.GData.Extensions.RecurrenceException.ParseRecurrenceException(System.Xml.XmlNode)">
+        <member name="M:Google.GData.Extensions.RecurrenceException.ParseRecurrenceException(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
             <summary>parses an xml node to create a Recurrence object</summary>
             <param name="node">Recurrence node</param>
+            <param name="parser">AtomFeedParser to use</param>
             <returns> the created Recurrence object</returns></member>
         <member name="M:Google.GData.Extensions.RecurrenceException.Save(System.Xml.XmlWriter)">
             <summary>
@@ -442,6 +445,36 @@
             Persistence method for the Comment  object
             </summary>
             <param name="writer">the xmlwriter to write into</param></member>
+        <member name="T:Google.GData.Extensions.ExtendedProperty">
+            <summary>
+            GData schema extension describing an extended property/value pair
+            </summary></member>
+        <member name="F:Google.GData.Extensions.ExtendedProperty.value">
+            <summary>
+            the valueString (required).
+            </summary></member>
+        <member name="F:Google.GData.Extensions.ExtendedProperty.name">
+            <summary>
+            the property name
+            </summary></member>
+        <member name="P:Google.GData.Extensions.ExtendedProperty.Value">
+            <summary>accessor for the value</summary>
+            <returns>the value as string </returns></member>
+        <member name="P:Google.GData.Extensions.ExtendedProperty.Name">
+            <summary>accessor method for the name</summary>
+            <returns></returns></member>
+        <member name="P:Google.GData.Extensions.ExtendedProperty.XmlName">
+            <summary>Returns the constant representing this XML element.
+            </summary></member>
+        <member name="M:Google.GData.Extensions.ExtendedProperty.Parse(System.Xml.XmlNode)">
+            <summary>Parses an xml node to create an ExtendedProperty object.</summary>
+            <param name="node">when node</param>
+            <returns>the created ExtendedProperty object</returns></member>
+        <member name="M:Google.GData.Extensions.ExtendedProperty.Save(System.Xml.XmlWriter)">
+            <summary>
+            Persistence method for the When object
+            </summary>
+            <param name="writer">the xmlwriter to write into</param></member>
         <member name="T:Google.GData.Extensions.GDataParserNameTable">
             <summary>
             Subclass of the nametable, has the extensions for the GNamespace
@@ -510,8 +543,48 @@
             <summary>static string for parsing</summary></member>
         <member name="F:Google.GData.Extensions.GDataParserNameTable.XmlAttributeAbsoluteTime">
             <summary>static string for parsing</summary></member>
+        <member name="F:Google.GData.Extensions.GDataParserNameTable.XmlAttributeSpecialized">
+            <summary>static string for parsing the specialized attribute on a RecurringException</summary></member>
+        <member name="F:Google.GData.Extensions.GDataParserNameTable.XmlExtendedPropertyElement">
+            <summary>static string for parsing the extendedProperty element</summary></member>
         <member name="F:Google.GData.Extensions.GDataParserNameTable.Event">
             <summary>the event prefix </summary></member>
+        <member name="T:Google.GData.Extensions.OriginalEvent">
+            <summary>
+            GData schema extension describing the original recurring event.
+            </summary></member>
+        <member name="F:Google.GData.Extensions.OriginalEvent.href">
+            <summary>
+            Href to the original recurring event entry.
+            </summary></member>
+        <member name="F:Google.GData.Extensions.OriginalEvent.idOriginal">
+            <summary>
+            ID to the orignal recurring event entry.
+            </summary></member>
+        <member name="F:Google.GData.Extensions.OriginalEvent.originalStartTime">
+            <summary>
+            holds the original starttime of the event
+            </summary></member>
+        <member name="P:Google.GData.Extensions.OriginalEvent.Href">
+            <summary>accessor method public Href</summary>
+            <returns></returns></member>
+        <member name="P:Google.GData.Extensions.OriginalEvent.IdOriginal">
+            <summary>accessor method public IdOriginal</summary>
+            <returns></returns></member>
+        <member name="P:Google.GData.Extensions.OriginalEvent.OriginalStartTime">
+            <summary>accessor method public original Start Time</summary>
+            <returns></returns></member>
+        <member name="P:Google.GData.Extensions.OriginalEvent.XmlName">
+            <summary>Returns the constant representing this XML element.</summary></member>
+        <member name="M:Google.GData.Extensions.OriginalEvent.ParseOriginal(System.Xml.XmlNode)">
+            <summary>Parses an xml node to create an OriginalEvent object.</summary>
+            <param name="node">originalEvent node</param>
+            <returns> the created OriginalEvent object</returns></member>
+        <member name="M:Google.GData.Extensions.OriginalEvent.Save(System.Xml.XmlWriter)">
+            <summary>
+            Persistence method for the OriginalEvent object
+            </summary>
+            <param name="writer">the xmlwriter to write into</param></member>
         <member name="T:Google.GData.Extensions.EnumConstruct">
             <summary>
             Extensible enum type used in many places.
@@ -562,42 +635,6 @@
             Persistence method for the EnumConstruct object
             </summary>
             <param name="writer">the xmlwriter to write into</param></member>
-        <member name="T:Google.GData.Extensions.OriginalEvent">
-            <summary>
-            GData schema extension describing the original recurring event.
-            </summary></member>
-        <member name="F:Google.GData.Extensions.OriginalEvent.href">
-            <summary>
-            Href to the original recurring event entry.
-            </summary></member>
-        <member name="F:Google.GData.Extensions.OriginalEvent.idOriginal">
-            <summary>
-            ID to the orignal recurring event entry.
-            </summary></member>
-        <member name="F:Google.GData.Extensions.OriginalEvent.originalStartTime">
-            <summary>
-            holds the original starttime of the event
-            </summary></member>
-        <member name="P:Google.GData.Extensions.OriginalEvent.Href">
-            <summary>accessor method public Href</summary>
-            <returns></returns></member>
-        <member name="P:Google.GData.Extensions.OriginalEvent.IdOriginal">
-            <summary>accessor method public IdOriginal</summary>
-            <returns></returns></member>
-        <member name="P:Google.GData.Extensions.OriginalEvent.OriginalStartTime">
-            <summary>accessor method public original Start Time</summary>
-            <returns></returns></member>
-        <member name="P:Google.GData.Extensions.OriginalEvent.XmlName">
-            <summary>Returns the constant representing this XML element.</summary></member>
-        <member name="M:Google.GData.Extensions.OriginalEvent.ParseOriginal(System.Xml.XmlNode)">
-            <summary>Parses an xml node to create an OriginalEvent object.</summary>
-            <param name="node">originalEvent node</param>
-            <returns> the created OriginalEvent object</returns></member>
-        <member name="M:Google.GData.Extensions.OriginalEvent.Save(System.Xml.XmlWriter)">
-            <summary>
-            Persistence method for the OriginalEvent object
-            </summary>
-            <param name="writer">the xmlwriter to write into</param></member>
         <member name="T:Google.GData.Extensions.EntryLink">
             <summary>
             GData schema extension describing a nested entry link.
@@ -622,10 +659,18 @@
             </summary></member>
         <member name="P:Google.GData.Extensions.EntryLink.XmlName">
             <summary>Returns the constant representing this XML element.</summary></member>
-        <member name="M:Google.GData.Extensions.EntryLink.ParseEntryLink(System.Xml.XmlNode)">
+        <member name="M:Google.GData.Extensions.EntryLink.ParseEntryLink(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
             <summary>parses an xml node to create an EntryLink object</summary>
             <param name="node">entrylink node</param>
+            <param name="parser">AtomFeedParser to use</param>
             <returns> the created EntryLink object</returns></member>
+        <member name="M:Google.GData.Extensions.EntryLink.OnParsedNewEntry(System.Object,Google.GData.Client.FeedParserEventArgs)">
+            <summary>Event chaining. We catch this from the AtomFeedParser
+            we want to set this to our property, and do not add the entry to the collection
+            </summary>
+            <param name="sender"> the object which send the event</param>
+            <param name="e">FeedParserEventArguments, holds the feed entry</param>
+            <returns></returns></member>
         <member name="M:Google.GData.Extensions.EntryLink.Save(System.Xml.XmlWriter)">
             <summary>
             Used to save the EntryLink instance into the passed in xmlwriter

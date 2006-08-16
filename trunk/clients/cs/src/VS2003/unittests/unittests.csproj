@@ -3,22 +3,22 @@
         ProjectType = "Local"
         ProductVersion = "7.10.3077"
         SchemaVersion = "2.0"
-        ProjectGuid = "{0AD0FA26-A071-4CAC-851C-05B6C26B9888}"
+        ProjectGuid = "{22D56E6B-DF29-4675-A655-B33252B7FA4B}"
     >
         <Build>
             <Settings
                 ApplicationIcon = ""
                 AssemblyKeyContainerName = ""
-                AssemblyName = "gcalendar"
+                AssemblyName = "unittests"
                 AssemblyOriginatorKeyFile = ""
                 DefaultClientScript = "JScript"
                 DefaultHTMLPageLayout = "Grid"
                 DefaultTargetSchema = "IE50"
                 DelaySign = "false"
                 OutputType = "Library"
-                PreBuildEvent = 'copy "$(ProjectDir)..\..\signing\*.*"  "$(ProjectDir)\obj\$(ConfigurationName)\*.*"'
+                PreBuildEvent = ""
                 PostBuildEvent = ""
-                RootNamespace = "gcalendar"
+                RootNamespace = "unittests"
                 RunPostBuildEvent = "OnBuildSuccess"
                 StartupObject = ""
             >
@@ -76,8 +76,13 @@
                 />
                 <Reference
                     Name = "System.XML"
-                    AssemblyName = "System.Xml"
+                    AssemblyName = "System.XML"
                     HintPath = "C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.XML.dll"
+                />
+                <Reference
+                    Name = "gcalendar"
+                    Project = "{0AD0FA26-A071-4CAC-851C-05B6C26B9888}"
+                    Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
                 />
                 <Reference
                     Name = "gdata"
@@ -89,37 +94,48 @@
                     Project = "{21BCB644-F9C3-4ADC-8BE1-4E55C6565011}"
                     Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
                 />
+                <Reference
+                    Name = "nunit.framework"
+                    AssemblyName = "nunit.framework"
+                    HintPath = "C:\Program Files\NUnit 2.2\bin\nunit.framework.dll"
+                    AssemblyFolderKey = "hklm\dn\nunit.framework"
+                />
             </References>
         </Build>
         <Files>
             <Include>
                 <File
                     RelPath = "AssemblyInfo.cs"
-                    Link = "..\..\gcalendar\AssemblyInfo.cs"
+                    Link = "..\..\unittests\AssemblyInfo.cs"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "caltest.cs"
+                    Link = "..\..\unittests\caltest.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "calendarservice.cs"
-                    Link = "..\..\gcalendar\calendarservice.cs"
+                    RelPath = "coretest.cs"
+                    Link = "..\..\unittests\coretest.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "evententry.cs"
-                    Link = "..\..\gcalendar\evententry.cs"
+                    RelPath = "objectmodelhelper.cs"
+                    Link = "..\..\unittests\objectmodelhelper.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "eventfeed.cs"
-                    Link = "..\..\gcalendar\eventfeed.cs"
+                    RelPath = "unittests.cs"
+                    Link = "..\..\unittests\unittests.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "eventquery.cs"
-                    Link = "..\..\gcalendar\eventquery.cs"
+                    RelPath = "writetest.cs"
+                    Link = "..\..\unittests\writetest.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />

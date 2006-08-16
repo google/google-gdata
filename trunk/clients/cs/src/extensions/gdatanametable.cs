@@ -106,6 +106,9 @@ namespace Google.GData.Extensions
         public const string XmlAttributeAbsoluteTime = "absoluteTime";
         /// <summary>static string for parsing the specialized attribute on a RecurringException</summary>    
         public const string XmlAttributeSpecialized = "specialized";
+        /// <summary>static string for parsing the extendedProperty element</summary>    
+        public const string XmlExtendedPropertyElement = "extendedProperty";
+
 
 #endregion
 

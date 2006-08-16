@@ -154,6 +154,11 @@
             <summary>
             property accessor for the Comments
             </summary></member>
+        <member name="M:Google.GData.Calendar.EventEntry.GetFirstReminder">
+            <summary>
+            returns the first reminder of the Times collection
+            </summary>
+            <returns>When object for the reminder or NULL</returns></member>
         <member name="M:Google.GData.Calendar.EventEntry.AddOtherNamespaces(System.Xml.XmlWriter)">
             <summary>empty base implementation</summary>
             <param name="writer">the xmlwriter, where we want to add default namespaces to</param></member>
@@ -162,9 +167,10 @@
             decl that we already added</summary>
             <param name="node">XmlNode to check</param>
             <returns>true if this node should be skipped </returns></member>
-        <member name="M:Google.GData.Calendar.EventEntry.parseEvent(System.Xml.XmlNode)">
+        <member name="M:Google.GData.Calendar.EventEntry.parseEvent(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
             <summary>parses the inner state of the element</summary>
-            <param name="eventNode">a g-scheme, xml node</param></member>
+            <param name="eventNode">a g-scheme, xml node</param>
+            <param name="parser">the atomFeedParser that called this</param></member>
         <member name="T:Google.GData.Calendar.EventQuery">
             <summary>
             A subclass of FeedQuery, to create a Calendar query URI.
@@ -234,9 +240,10 @@
             find the original event</summary>
             <param name="original">The original event to find</param>
             <returns></returns></member>
-        <member name="M:Google.GData.Calendar.EventFeed.parseEvent(System.Xml.XmlNode)">
+        <member name="M:Google.GData.Calendar.EventFeed.parseEvent(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
             <summary>Parses the inner state of the element.</summary>
-            <param name="eventNode">a g-scheme, xml node</param></member>
+            <param name="eventNode">a g-scheme, xml node</param>
+            <param name="parser">AtomFeedParser to use</param></member>
         <member name="M:Google.GData.Calendar.EventFeed.AddOtherNamespaces(System.Xml.XmlWriter)">
             <summary>empty base implementation</summary>
             <param name="writer">the xmlwriter, where we want to add default namespaces to</param></member>

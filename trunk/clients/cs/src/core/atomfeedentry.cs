@@ -276,6 +276,7 @@ namespace Google.GData.Client
                 if (link == null)
                 {
                     link = new AtomLink();
+                    link.Rel = BaseNameTable.ServiceEdit; 
                     this.Links.Add(link);
                 }
                 link.HRef = value;
@@ -301,6 +302,7 @@ namespace Google.GData.Client
                 if (link == null)
                 {
                     link = new AtomLink();
+                    link.Rel = BaseNameTable.ServiceSelf; 
                     this.Links.Add(link);
                 }
                 link.HRef = value;

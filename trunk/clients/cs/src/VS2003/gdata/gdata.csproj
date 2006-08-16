@@ -16,7 +16,7 @@
                 DefaultTargetSchema = "IE50"
                 DelaySign = "false"
                 OutputType = "Library"
-                PreBuildEvent = 'copy "$(SolutionDir)..\signing\*.*"  "$(ProjectDir)\obj\$(ConfigurationName)\*.*"'
+                PreBuildEvent = 'copy "$(ProjectDir)..\..\signing\*.*"  "$(ProjectDir)\obj\$(ConfigurationName)\*.*"'
                 PostBuildEvent = ""
                 RootNamespace = "gdata"
                 RunPostBuildEvent = "OnBuildSuccess"

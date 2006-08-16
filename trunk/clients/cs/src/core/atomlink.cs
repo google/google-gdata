@@ -69,7 +69,6 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         public AtomLink()
         {
-            
         }
         /////////////////////////////////////////////////////////////////////////////
 
@@ -82,7 +81,16 @@ namespace Google.GData.Client
         {
             this.HRef = new AtomUri(link);
         }
-        /////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// constructor used in atomfeed to create new links
+        /// </summary>
+        /// <param name="type">the type of link to create</param>
+        /// <param name="rel">the rel value</param>
+        public AtomLink(string type, string rel) 
+        {
+            this.Type = type;
+            this.Rel = rel;
+        }
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>accessor method public Uri HRef</summary> 
@@ -184,6 +192,7 @@ namespace Google.GData.Client
         protected override void SaveXmlAttributes(XmlWriter writer)
         {
             base.SaveXmlAttributes(writer);
+            
             WriteEncodedAttributeString(writer, AtomParserNameTable.XmlAttributeHRef, this.HRef);
             WriteEncodedAttributeString(writer, AtomParserNameTable.XmlAttributeHRefLang, this.HRefLang);
             WriteEncodedAttributeString(writer, AtomParserNameTable.XmlAttributeRel, this.Rel);
