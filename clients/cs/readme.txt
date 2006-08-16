@@ -13,7 +13,7 @@
  * limitations under the License.
 */
 
-The C# code is developed and tested using Visual Studio 1.1, and Mono version
+The C# code is developed and tested using .NET 1.1, and Mono version
 1.1.13.2, on the Macintosh OS X. It should build and run on any platform that has
 Mono available.
 
@@ -30,12 +30,15 @@ Using Mono.
 - go to the clients/cs directory and just type ant, it should build
 
 
-Using Visual Studio, 1.1
+Using Visual Studio, .NET 1.1
 
 - there is 1 solution file. It is in clients/cs/src/VS2003 called gdata.sln. This 
   builds the core library, the extensions and the calendar specifics. 
 - you will need to install NUNIT from www.nunit.org, if you plan to run 
-  unittests. The unittests are in clients/cs/misc/unittests
+  unittests. The unittests are in clients/cs/misc/unittests. They have a seperate 
+  project file that is not part of above solution (as that would require everyone
+  to install nunit). This project file is located in the clients/cs/src/VS2003 
+  directory.
   
 The unit tests
 
@@ -43,8 +46,7 @@ If you are interested to run unittests, or just inspect the code in general,
 the servers spoken to are described in the unittest.dll.config file, which 
 you can find in the clients/cs/src/unittests directory. It's a standard 
 .NET config file, and the important parameters are: 
-  - localHost. This string identifies the host all read/write tests are run
-    against.
+  - defHost. This string identifies the read/write tests host. 
   - defRemoteHost. This string identifies the default remote host for tests
   - The Host1 to HostN identify further remote hosts used to pull data from
   - calendarURI specifies the URI to your calendar feed to test

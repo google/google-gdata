@@ -7,6 +7,9 @@
 - Fixed an issue with updating, where if you used the same AtomEntry/EventEntry several times to update, it could happen that extension 
   elements were doubled, and the update failed.
 - Fixed a bug in the parsing of all elements. This could cause an endless loop when the content was empty.
+- Fixed several content creation issues (issues 5-9 on the issue list)
+- added support for the gd:extendedProperty
+
 
 Known issues:
 - recurrenceException is not fully tested
