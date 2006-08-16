@@ -345,6 +345,10 @@
         <member name="P:Google.GData.Client.GDataGAuthRequestFactory.MethodOverride">
             <summary>accessor method public bool MethodOverride</summary>
             <returns></returns></member>
+        <member name="P:Google.GData.Client.GDataGAuthRequestFactory.NumberOfRetries">
+            <summary>
+            property accessor to adjust how often a request of this factory should retry
+            </summary></member>
         <member name="P:Google.GData.Client.GDataGAuthRequestFactory.Handler">
             <summary>accessor method public string Handler</summary>
             <returns></returns></member>
@@ -380,8 +384,10 @@
         <member name="M:Google.GData.Client.GDataGAuthRequest.Execute">
             <summary>Executes the request and prepares the response stream. Also
             does error checking</summary></member>
-        <member name="M:Google.GData.Client.GDataGAuthRequest.Reset">
-            <summary>Resets the request object</summary></member>
+        <member name="M:Google.GData.Client.GDataGAuthRequest.Execute(System.Int32)">
+            <summary>Executes the request and prepares the response stream. Also
+            does error checking</summary>
+            <param name="iRetrying">indicates the n-th time this is run</param></member>
         <member name="M:Google.GData.Client.GDataGAuthRequest.CopyRequestData">
             <summary>takes our copy of the stream, and puts it into the request stream</summary></member>
         <member name="T:Google.GData.Client.AtomLogo">
@@ -566,6 +572,12 @@
         <member name="M:Google.GData.Client.AtomLink.#ctor(System.String)">
             <summary>public AtomLink(string uri)</summary>
             <param name="link">the uri for the link </param></member>
+        <member name="M:Google.GData.Client.AtomLink.#ctor(System.String,System.String)">
+            <summary>
+            constructor used in atomfeed to create new links
+            </summary>
+            <param name="type">the type of link to create</param>
+            <param name="rel">the rel value</param></member>
         <member name="F:Google.GData.Client.AtomLink.href">
             <summary>property holder exposed over get/set</summary></member>
         <member name="F:Google.GData.Client.AtomLink.rel">
@@ -1377,7 +1389,8 @@
             <returns> the new entry ready to be inserted</returns></member>
         <member name="M:Google.GData.Client.AtomEntry.Update">
             <summary>commits the item to the server</summary>
-            <returns>throws an exception if an error occured updating</returns></member>
+            <returns>throws an exception if an error occured updating, returns
+            the updated entry from the service</returns></member>
         <member name="M:Google.GData.Client.AtomEntry.Delete">
             <summary>deletes the item from the server</summary>
             <returns>throws an exception if an error occured updating</returns></member>

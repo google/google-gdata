@@ -73,7 +73,7 @@ namespace Google.GData.Client.UnitTests
             this.currentDir = Directory.GetCurrentDirectory();
             Tracing.InitTracing();
 
-            this.defaultHost = "";
+            this.defaultHost = "http://localhost";
             this.strRemoteHost = null; 
             this.externalHosts = null; 
             this.iIterations = 10; 
@@ -276,19 +276,21 @@ namespace Google.GData.Client.UnitTests
         [Test] public void TestIt()
         {
             Tracing.TraceMsg("Entering TestIt");
-/*
+
             CalendarTestSuite  test = new CalendarTestSuite();
 
             test.InitTest(); 
-            test.CalendarCommentTest();
+            test.CalendarExtendedPropertyTest();
             test.EndTest(); 
-*/
+
+
+/*
             CoreTestSuite test = new CoreTestSuite();
 
             test.InitTest();
             test.CreateEmptyEntrySaveAndLoad();
             test.EndTest();
-
+*/
 
         }
         /////////////////////////////////////////////////////////////////////////////

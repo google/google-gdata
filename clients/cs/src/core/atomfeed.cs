@@ -187,8 +187,7 @@ namespace Google.GData.Client
                 AtomLink link = this.Links.FindService(BaseNameTable.ServicePost, AtomLink.ATOM_TYPE);
                 if (link == null)
                 {
-                    link = new AtomLink();
-                    link.Rel = BaseNameTable.ServicePost; 
+                    link = new AtomLink(AtomLink.ATOM_TYPE, BaseNameTable.ServicePost);
                     this.Links.Add(link);
                 }
                 link.HRef = new AtomUri(value);
@@ -222,6 +221,16 @@ namespace Google.GData.Client
                 // scan the link collection
                 return link == null ? null : Utilities.CalculateUri(this.Base, this.ImpliedBase, link.HRef.ToString());
             }
+            set 
+            {
+                AtomLink link = this.Links.FindService(BaseNameTable.ServiceNext, AtomLink.ATOM_TYPE);
+                if (link == null)
+                {
+                    link = new AtomLink(AtomLink.ATOM_TYPE, BaseNameTable.ServiceNext);
+                    this.Links.Add(link);
+                }
+                link.HRef = new AtomUri(value);
+            }
         }
         /////////////////////////////////////////////////////////////////////////////
 
@@ -237,6 +246,17 @@ namespace Google.GData.Client
                 // scan the link collection
                 return link == null ? null : Utilities.CalculateUri(this.Base, this.ImpliedBase, link.HRef.ToString());
             }
+            set 
+            {
+                AtomLink link = this.Links.FindService(BaseNameTable.ServicePrev, AtomLink.ATOM_TYPE);
+                if (link == null)
+                {
+                    link = new AtomLink(AtomLink.ATOM_TYPE, BaseNameTable.ServicePrev);
+                    this.Links.Add(link);
+                }
+                link.HRef = new AtomUri(value);
+            }
+
         }
         /////////////////////////////////////////////////////////////////////////////
 
@@ -257,8 +277,7 @@ namespace Google.GData.Client
                 AtomLink link = this.Links.FindService(BaseNameTable.ServiceFeed, AtomLink.ATOM_TYPE);
                 if (link == null)
                 {
-                    link = new AtomLink();
-                    link.Rel = BaseNameTable.ServicePost; 
+                    link = new AtomLink(AtomLink.ATOM_TYPE, BaseNameTable.ServiceFeed);
                     this.Links.Add(link);
                 }
                 link.HRef = new AtomUri(value);
@@ -275,33 +294,20 @@ namespace Google.GData.Client
         public string Self {
 
           get {
-
             AtomLink link = this.Links.FindService(BaseNameTable.ServiceSelf, AtomLink.ATOM_TYPE);
-
             // scan the link collection
-
             return link == null ? null : Utilities.CalculateUri(this.Base, this.ImpliedBase, link.HRef.ToString());
 
           }
 
           set {
-
             AtomLink link = this.Links.FindService(BaseNameTable.ServiceSelf, AtomLink.ATOM_TYPE);
-
             if (link == null) {
-
-              link = new AtomLink();
-
-              link.Rel = BaseNameTable.ServiceSelf;
-
+              link = new AtomLink(AtomLink.ATOM_TYPE, BaseNameTable.ServiceSelf);
               this.Links.Add(link);
-
             }
-
             link.HRef = new AtomUri(value);
-
           }
-
         }
         /////////////////////////////////////////////////////////////////////////////
 

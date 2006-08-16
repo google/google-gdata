@@ -46,15 +46,11 @@ namespace Google.GData.Client.UnitTests
             '\u03a0', // Pi
             '\u03a3',  // Sigma
             '\u03d1', // beta
+            '&',
             };
 
-            // if unicode needs to be disabled for testing, just uncomment this line
-            // chars = new Char[] { 'a', 'b', 'c', 'd', 'e'}; 
-
-    
-    
             AtomPerson author = new AtomPerson(AtomPersonType.Author);
-            author.Name = "John Doe" + chars[0] + chars[1] + chars[2] + chars[3]; 
+            author.Name = "John Doe" + chars[0] + chars[1] + chars[2] + chars[3] + chars[4] + chars[5]; 
             author.Email = "JohnDoe@example.com";
             entry.Authors.Add(author);
     
@@ -64,7 +60,7 @@ namespace Google.GData.Client.UnitTests
             cat.Term = "Default" + chars[4] + " Term";
             entry.Categories.Add(cat);
     
-            entry.Content.Content = "this is the default text entry";
+            entry.Content.Content = "this is the default text & entry";
             entry.Content.Type = "html"; 
             entry.Published = new DateTime(2001, 11, 20, 22, 30, 0);  
             entry.Title.Text = "This is a entry number: " + iCount;
@@ -78,7 +74,7 @@ namespace Google.GData.Client.UnitTests
         /// <summary>creates a new, in memory atom entry</summary> 
         /// <returns>the new AtomEntry </returns>
         //////////////////////////////////////////////////////////////////////
-        public static AtomEntry CreateEventEntry(int iCount)
+        public static EventEntry CreateEventEntry(int iCount)
         {
             EventEntry entry = new EventEntry();
             // some unicode chars

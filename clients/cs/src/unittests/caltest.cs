@@ -48,6 +48,10 @@ namespace Google.GData.Client.UnitTests
         /// </summary>
         protected string defaultCalendarUri; 
 
+        /// <summary>
+        ///  test Uri for google composite calendarURI
+        /// </summary>
+        protected string defaultCompositeUri; 
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>default empty constructor</summary> 
@@ -105,6 +109,11 @@ namespace Google.GData.Client.UnitTests
                 {
                     this.defaultCalendarUri = (string) unitTestDictionary["calendarURI"];
                     Tracing.TraceInfo("Read calendarURI value: " + this.defaultCalendarUri); 
+                }
+                if (unitTestDictionary["compositeURI"] != null)
+                {
+                    this.defaultCompositeUri = (string) unitTestDictionary["compositeURI"];
+                    Tracing.TraceInfo("Read compositeURI value: " + this.defaultCompositeUri); 
                 }
                 if (unitTestDictionary["userName"] != null)
                 {
@@ -271,7 +280,7 @@ namespace Google.GData.Client.UnitTests
                 if (calFeed != null)
                 {
                     // get the first entry
-                    EventEntry entry  = (EventEntry) ObjectModelHelper.CreateEventEntry(1); 
+                    EventEntry entry  = ObjectModelHelper.CreateEventEntry(1); 
                     entry.Title.Text = strTitle;
 
                     EventEntry newEntry = (EventEntry) calFeed.Insert(entry); 
@@ -406,7 +415,7 @@ namespace Google.GData.Client.UnitTests
                     "END:VTIMEZONE\n";
 
 
-                EventEntry entry  = (EventEntry) ObjectModelHelper.CreateEventEntry(1); 
+                EventEntry entry  =  ObjectModelHelper.CreateEventEntry(1); 
                 entry.Title.Text = "New recurring event" + Guid.NewGuid().ToString();  
 
                 // get rid of the when entry
@@ -421,6 +430,10 @@ namespace Google.GData.Client.UnitTests
                 {
                     Tracing.TraceMsg(calFeed.TimeZone.Value); 
                 }
+
+                // requery
+                calFeed = service.Query(query);
+
 
                 ObjectModelHelper.DumpAtomObject(calFeed,CreateDumpFileName("CalendarRecurrance")); 
 
@@ -485,7 +498,7 @@ namespace Google.GData.Client.UnitTests
                 if (calFeed != null)
                 {
                     // get the first entry
-                    EventEntry entry  = (EventEntry) ObjectModelHelper.CreateEventEntry(1); 
+                    EventEntry entry  = ObjectModelHelper.CreateEventEntry(1); 
                     entry.Title.Text = strTitle;
 
                     entry.Times[0].AllDay = true; 
@@ -535,9 +548,49 @@ namespace Google.GData.Client.UnitTests
         }
         /////////////////////////////////////////////////////////////////////////////
 
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>test for composite mode</summary> 
+        //////////////////////////////////////////////////////////////////////
+        [Ignore ("Currently broken on the server")]
+        [Test] public void CalendarCompositeTest()
+        {
+            Tracing.TraceMsg("Entering CalendarCompositeTest");
+
+            // first run the RecurranceTest to create a recurring event
+            this.CalendarRecurranceTest(); 
+
+            // now get the feedService
+
+            EventQuery query = new EventQuery();
+            CalendarService service = new CalendarService(this.strApplicationName);
+
+            if (this.defaultCalendarUri != null)
+            {
+                if (this.userName != null)
+                {
+                    NetworkCredential nc = new NetworkCredential(this.userName, this.passWord); 
+                    service.Credentials = nc;
+                }
+
+                GDataLoggingRequestFactory factory = (GDataLoggingRequestFactory) this.factory;
+                factory.MethodOverride = true;
+                service.RequestFactory = this.factory; 
+
+                query.Uri = new Uri(this.defaultCompositeUri); 
+                EventFeed calFeed = service.Query(query);
+                service.Credentials = null; 
+                factory.MethodOverride = false;
+            }
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+
+
         //////////////////////////////////////////////////////////////////////
         /// <summary>runs an enter all day event test</summary> 
         //////////////////////////////////////////////////////////////////////
+        [Ignore ("Currently broken on the server")]
         [Test] public void CalendarCommentTest()
         {
             Tracing.TraceMsg("Entering CalendarCommentTest");
@@ -571,7 +624,7 @@ namespace Google.GData.Client.UnitTests
                 if (calFeed != null)
                 {
                     // insert a new entry
-                    EventEntry entry  = (EventEntry) ObjectModelHelper.CreateEventEntry(1); 
+                    EventEntry entry  = ObjectModelHelper.CreateEventEntry(1); 
                     entry.Title.Text = strTitle;
 
                     entry.Times[0].AllDay = true; 
@@ -646,11 +699,10 @@ namespace Google.GData.Client.UnitTests
 
                 if (calFeed != null)
                 {
-                    // get the first entry
-                    AtomEntry entry = ObjectModelHelper.CreateAtomEntry(1); 
 
                     for (int i = 0; i<127; i++)
                     {
+                        AtomEntry entry = ObjectModelHelper.CreateAtomEntry(1); 
                         entry.Title.Text = "Entry number: " + i; 
                         calFeed.Insert(entry); 
                     }
@@ -678,7 +730,85 @@ namespace Google.GData.Client.UnitTests
             }
         }
         /////////////////////////////////////////////////////////////////////////////
+        
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>tests the extended property against the calendar</summary> 
+        //////////////////////////////////////////////////////////////////////
+        [Test] public void CalendarExtendedPropertyTest()
+        {
+            Tracing.TraceMsg("Entering CalendarExtendedPropertyTest");
 
+            FeedQuery query = new FeedQuery();
+
+            CalendarService service = new CalendarService(this.strApplicationName);
+
+            if (this.defaultCalendarUri != null)
+            {
+                if (this.userName != null)
+                {
+                    NetworkCredential nc = new NetworkCredential(this.userName, this.passWord); 
+                    service.Credentials = nc;
+                }
+
+                GDataLoggingRequestFactory factory = (GDataLoggingRequestFactory) this.factory;
+                factory.MethodOverride = true;
+                service.RequestFactory = this.factory; 
+
+                query.Uri = new Uri(this.defaultCalendarUri);
+
+                EventFeed calFeed = service.Query(query);
+
+                string guid = Guid.NewGuid().ToString(); 
+
+                ExtendedProperty prop; 
+
+
+                if (calFeed != null)
+                {
+                    EventEntry entry = ObjectModelHelper.CreateEventEntry(1); 
+                    entry.Title.Text = guid; 
+
+                    prop = new ExtendedProperty(); 
+                    prop.Name = "http://frank.schemas/2005#prop"; 
+                    prop.Value = "Mantek"; 
+
+                    entry.ExtensionElements.Add(prop); 
+
+                    calFeed.Insert(entry); 
+                }
+
+                calFeed = service.Query(query);
+
+                prop = null;
+
+                if (calFeed != null && calFeed.Entries.Count > 0)
+                {
+                    EventEntry entry = calFeed.Entries[0] as EventEntry;
+
+                    Assert.AreEqual(entry.Title.Text, guid, "Expected the same entry");
+
+                    foreach (Object o in entry.ExtensionElements )
+                    {
+                        ExtendedProperty p = o as ExtendedProperty; 
+                        if (p != null)
+                        {
+                            Tracing.TraceMsg("Found one extended property"); 
+                            Assert.AreEqual(p.Name, "http://frank.schemas/2005#prop", "Expected the same entry");
+                            Assert.AreEqual(p.Value, "Mantek", "Expected the same entry");
+                            prop = p; 
+                        }
+                    }
+                }
+
+                Assert.IsTrue(prop != null, "prop should not be null"); 
+
+                service.Credentials = null; 
+
+                factory.MethodOverride = false;
+            }
+        }
+        /////////////////////////////////////////////////////////////////////////////
+        
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>empty the calendar</summary> 

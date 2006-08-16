@@ -300,6 +300,11 @@ namespace Google.GData.Calendar {
                         eventFeed.parseEvent(e.ExtensionElement, parser);
                     }
                 }
+                else if (e.ExtensionElement.LocalName == GDataParserNameTable.XmlExtendedPropertyElement)
+                {
+                    ExtendedProperty prop = ExtendedProperty.Parse(e.ExtensionElement); 
+                    e.Base.ExtensionElements.Add(prop); 
+                }
                 else if (e.Base.XmlName == AtomParserNameTable.XmlAtomEntryElement)
                 {
                     EventEntry eventEntry = e.Base as EventEntry;

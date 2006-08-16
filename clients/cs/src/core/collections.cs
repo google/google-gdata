@@ -150,12 +150,12 @@ namespace Google.GData.Client
         /// <summary>standard typed accessor method </summary> 
         public int Add( AtomLink value )  
         {
-	    // Remove link with same relation to avoid duplication.
-	    AtomLink oldLink = FindService(value.Rel, value.Type);
-	    if (oldLink != null)
-	    {
-	        List.Remove(oldLink);
-	    }
+    	    // Remove link with same relation to avoid duplication.
+    	    AtomLink oldLink = FindService(value.Rel, value.Type);
+    	    if (oldLink != null)
+    	    {
+    	        List.Remove(oldLink);
+    	    }
             return( List.Add( value ) );
         }
         /// <summary>standard typed accessor method </summary> 

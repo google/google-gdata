@@ -20,7 +20,7 @@ using System.IO;
 using System.Xml; 
 using System.Collections;
 using System.Configuration;
-using System.Net; 
+using System.Net;
 using NUnit.Framework;
 using Google.GData.Client;
 using Google.GData.Extensions;
@@ -167,6 +167,45 @@ namespace Google.GData.Client.UnitTests
         }
         /////////////////////////////////////////////////////////////////////////////
 
+        ////////////////////////////////////////////////////////////////////
+        /// <summary>[Test] creates a new feed, saves and loads it back</summary> 
+        //////////////////////////////////////////////////////////////////////
+        [Test] public void CreateFeedObjectSaveAndLoad()
+        {
+
+            Tracing.TraceMsg("Entering CreateFeedObjectSaveAndLoad test");
+
+            Service service = new Service(); 
+            AtomFeed feed=new AtomFeed(new Uri("http://www.atomfeed.com/"),service);
+            feed.Self="http://www.atomfeed.com/self";
+            feed.Feed="http://www.atomfeed.com/feed";
+            feed.NextChunk="http://www.atomfeed.com/next";
+            feed.PrevChunk="http://www.atomfeed.com/prev";
+            feed.Post = "http://www.atomfeed.com/post"; 
+
+            ObjectModelHelper.DumpAtomObject(feed, CreateDumpFileName("CreateFeedSaveAndLoad"));
+
+
+            // let's try loading this... 
+            service.RequestFactory = this.factory; 
+
+            FeedQuery query = new FeedQuery();
+            query.Uri = new Uri(CreateUriFileName("CreateFeedSaveAndLoad"));
+
+            feed = service.Query(query);
+
+
+            Assert.AreEqual("http://www.atomfeed.com/self", feed.Self, "Feed.Self is not correct");
+            Assert.AreEqual("http://www.atomfeed.com/feed", feed.Feed, "Feed.Feed is not correct");
+            Assert.AreEqual("http://www.atomfeed.com/next", feed.NextChunk, "Feed.Next is not correct");
+            Assert.AreEqual("http://www.atomfeed.com/prev", feed.PrevChunk, "Feed.Prev is not correct");
+            Assert.AreEqual("http://www.atomfeed.com/post", feed.Post, "Feed.Post is not correct");
+
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+        
+
 
         ////////////////////////////////////////////////////////////////////
         /// <summary>[Test] creates a new entry, saves and loads it back</summary> 
@@ -181,7 +220,7 @@ namespace Google.GData.Client.UnitTests
             entry.Content.Type = "text";
             entry.Content.Content = ""; 
 
-            ObjectModelHelper.DumpAtomObject(entry, CreateDumpFileName("CreateEntrySaveAndLoad"));
+            ObjectModelHelper.DumpAtomObject(entry, CreateDumpFileName("CreateEmptyEntrySaveAndLoad"));
 
 
             // let's try loading this... 
@@ -189,7 +228,7 @@ namespace Google.GData.Client.UnitTests
             service.RequestFactory = this.factory; 
 
             FeedQuery query = new FeedQuery();
-            query.Uri = new Uri(CreateUriFileName("CreateEntrySaveAndLoad"));
+            query.Uri = new Uri(CreateUriFileName("CreateEmptyEntrySaveAndLoad"));
             AtomFeed feed = service.Query(query);
             Assert.IsTrue(feed.Entries != null, "Feed.Entries should not be null");
             Assert.AreEqual(1, feed.Entries.Count, "Feed.Entries should have ONE element");
@@ -235,7 +274,7 @@ namespace Google.GData.Client.UnitTests
 
 
             Tracing.TraceInfo("Comparing feed objects as source"); 
-            Assert.IsTrue(ObjectModelHelper.IsSourceIdentical(f, feed)); 
+            Assert.IsTrue(ObjectModelHelper.IsSourceIdentical(f, feed), "Feeds are not identical"); 
             if (feed.Entries != null)
             {
                 AtomEntry theOtherEntry;
@@ -244,7 +283,7 @@ namespace Google.GData.Client.UnitTests
                 for (int i = 0; i < feed.Entries.Count; i++)
                 {
                     theOtherEntry = feed.Entries[i];
-                    Assert.IsTrue(ObjectModelHelper.IsEntryIdentical(f.Entries[i], theOtherEntry));
+                    Assert.IsTrue(ObjectModelHelper.IsEntryIdentical(f.Entries[i], theOtherEntry), "Entries are not identical");
                 }
 
             }
@@ -291,20 +330,24 @@ namespace Google.GData.Client.UnitTests
         {
             Tracing.TraceMsg("Entering DefaultHostExtensionTest");
 
-            FeedQuery query = new FeedQuery();
-            Service service = new Service();
+            if (this.strRemoteHost != null) 
+            {
 
-            service.NewAtomEntry += new FeedParserEventHandler(this.OnParsedNewEntry); 
-            service.NewExtensionElement += new ExtensionElementEventHandler(this.OnNewExtensionElement);
+                FeedQuery query = new FeedQuery();
+                Service service = new Service();
+
+                service.NewAtomEntry += new FeedParserEventHandler(this.OnParsedNewEntry); 
+                service.NewExtensionElement += new ExtensionElementEventHandler(this.OnNewExtensionElement);
 
 
-            service.RequestFactory  =  (IGDataRequestFactory) new GDataLoggingRequestFactory(this.strServiceName, this.strApplicationName); 
+                service.RequestFactory  =  (IGDataRequestFactory) new GDataLoggingRequestFactory(this.strServiceName, this.strApplicationName); 
 
-            query.Uri = new Uri(this.strRemoteHost);
+                query.Uri = new Uri(this.strRemoteHost);
 
-            AtomFeed returnFeed = service.Query(query);
+                AtomFeed returnFeed = service.Query(query);
 
-            ObjectModelHelper.DumpAtomObject(returnFeed,CreateDumpFileName("ExtensionFeed")); 
+                ObjectModelHelper.DumpAtomObject(returnFeed,CreateDumpFileName("ExtensionFeed")); 
+            }
         }
         /////////////////////////////////////////////////////////////////////////////
 
