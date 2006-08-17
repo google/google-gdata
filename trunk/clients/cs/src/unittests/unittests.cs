@@ -49,11 +49,6 @@ namespace Google.GData.Client.UnitTests
         /// <summary>holds the logging factory</summary> 
         protected IGDataRequestFactory factory; 
 
-        /// <summary>holds the application name</summary> 
-        protected string strApplicationName; 
-        /// <summary>holds the service name</summary> 
-        protected string strServiceName;
-
 
 
         //////////////////////////////////////////////////////////////////////
@@ -63,6 +58,19 @@ namespace Google.GData.Client.UnitTests
         {
         }
 
+        public virtual string ServiceName
+        {
+            get {
+                return "cl"; 
+            }
+        }
+
+        public virtual string ApplicationName
+        {
+            get {
+                return "UnitTests-CS/1.0.0"; 
+            }
+        }
 
 
         //////////////////////////////////////////////////////////////////////
@@ -77,10 +85,9 @@ namespace Google.GData.Client.UnitTests
             this.strRemoteHost = null; 
             this.externalHosts = null; 
             this.iIterations = 10; 
-            this.strApplicationName = "UnitTests-CS/1.0.0";
-            this.strServiceName = "cl";
 
-            GDataLoggingRequestFactory factory = new GDataLoggingRequestFactory(this.strServiceName, this.strApplicationName); 
+            GDataLoggingRequestFactory factory = new GDataLoggingRequestFactory(this.ServiceName, this.ApplicationName); 
+            factory.MethodOverride = true; 
 
             this.factory = (IGDataRequestFactory) factory; 
             ReadConfigFile(); 
@@ -120,7 +127,7 @@ namespace Google.GData.Client.UnitTests
                     {
                         // we are creating the logging factory by default. If 
                         // tester set's it off, create the standard factory. 
-                        this.factory = new GDataGAuthRequestFactory(this.strServiceName, this.strApplicationName); 
+                        this.factory = new GDataGAuthRequestFactory(this.ServiceName, this.ApplicationName); 
                     }
                 }
             }

@@ -313,7 +313,7 @@ namespace Google.GData.Client.UnitTests
                 FeedQuery query = new FeedQuery();
                 Service service = new Service();
 
-                service.RequestFactory  =  (IGDataRequestFactory) new GDataLoggingRequestFactory(this.strServiceName, this.strApplicationName); 
+                service.RequestFactory  =  (IGDataRequestFactory) new GDataLoggingRequestFactory(this.ServiceName, this.ApplicationName); 
                 query.Uri = new Uri(this.strRemoteHost);
                 AtomFeed remoteFeed = service.Query(query);
 

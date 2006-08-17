@@ -248,7 +248,7 @@ namespace Google.GData.Client.UnitTests
             Tracing.TraceMsg("Entering CalendarExtensionTest");
 
             EventQuery query = new EventQuery();
-            CalendarService service = new CalendarService(this.strApplicationName);
+            CalendarService service = new CalendarService(this.ApplicationName);
 
             int iCount; 
 
@@ -374,7 +374,7 @@ namespace Google.GData.Client.UnitTests
             Tracing.TraceMsg("Entering CalendarRecurranceTest");
 
             EventQuery query = new EventQuery();
-            CalendarService service = new CalendarService(this.strApplicationName);
+            CalendarService service = new CalendarService(this.ApplicationName);
 
             if (this.defaultCalendarUri != null)
             {
@@ -471,7 +471,7 @@ namespace Google.GData.Client.UnitTests
             Tracing.TraceMsg("Entering CalendarAllDayEvent");
 
             EventQuery query = new EventQuery();
-            CalendarService service = new CalendarService(this.strApplicationName);
+            CalendarService service = new CalendarService(this.ApplicationName);
 
             int iCount; 
 
@@ -563,7 +563,7 @@ namespace Google.GData.Client.UnitTests
             // now get the feedService
 
             EventQuery query = new EventQuery();
-            CalendarService service = new CalendarService(this.strApplicationName);
+            CalendarService service = new CalendarService(this.ApplicationName);
 
             if (this.defaultCalendarUri != null)
             {
@@ -596,7 +596,7 @@ namespace Google.GData.Client.UnitTests
             Tracing.TraceMsg("Entering CalendarCommentTest");
 
             EventQuery query = new EventQuery();
-            CalendarService service = new CalendarService(this.strApplicationName);
+            CalendarService service = new CalendarService(this.ApplicationName);
 
             int iCount; 
 
@@ -740,7 +740,7 @@ namespace Google.GData.Client.UnitTests
 
             FeedQuery query = new FeedQuery();
 
-            CalendarService service = new CalendarService(this.strApplicationName);
+            CalendarService service = new CalendarService(this.ApplicationName);
 
             if (this.defaultCalendarUri != null)
             {
