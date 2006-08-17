@@ -340,7 +340,7 @@ namespace Google.GData.Client.UnitTests
                 service.NewExtensionElement += new ExtensionElementEventHandler(this.OnNewExtensionElement);
 
 
-                service.RequestFactory  =  (IGDataRequestFactory) new GDataLoggingRequestFactory(this.strServiceName, this.strApplicationName); 
+                service.RequestFactory  =  (IGDataRequestFactory) new GDataLoggingRequestFactory(this.ServiceName, this.ApplicationName); 
 
                 query.Uri = new Uri(this.strRemoteHost);
 
