@@ -119,6 +119,12 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "extended.cs"
+                    Link = "..\..\extensions\extended.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "feedlink.cs"
                     Link = "..\..\extensions\feedlink.cs"
                     SubType = "Code"
