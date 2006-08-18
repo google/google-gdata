@@ -116,6 +116,12 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "blogger.cs"
+                    Link = "..\..\unittests\blogger.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "coretest.cs"
                     Link = "..\..\unittests\coretest.cs"
                     SubType = "Code"
