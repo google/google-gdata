@@ -26,9 +26,11 @@ namespace Blogger
         private System.Windows.Forms.TextBox BloggerURI;
         private System.Windows.Forms.TreeView FeedView;
         private System.Windows.Forms.Button AddEntry;
+        public System.Windows.Forms.ComboBox FeedChooser;
 
 
         private ArrayList entryList; 
+        private string feedUri; 
 
         public Blogger()
         {
@@ -41,6 +43,7 @@ namespace Blogger
             // TODO: Add any constructor code after InitializeComponent call
             //
             this.entryList = new ArrayList();
+            this.feedUri = null; 
         }
 
         /// <summary>
@@ -83,6 +86,7 @@ namespace Blogger
             this.Go = new System.Windows.Forms.Button();
             this.FeedView = new System.Windows.Forms.TreeView();
             this.AddEntry = new System.Windows.Forms.Button();
+            this.FeedChooser = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // BloggerURI
@@ -91,7 +95,7 @@ namespace Blogger
             this.BloggerURI.Name = "BloggerURI";
             this.BloggerURI.Size = new System.Drawing.Size(296, 20);
             this.BloggerURI.TabIndex = 1;
-            this.BloggerURI.Text = "http://beta.blogger.com/feeds/<yourID>/posts/full";
+            this.BloggerURI.Text = "http://beta.blogger.com/feeds/default/blogs";
             // 
             // label1
             // 
@@ -146,14 +150,15 @@ namespace Blogger
             // FeedView
             // 
             this.FeedView.ImageIndex = -1;
-            this.FeedView.Location = new System.Drawing.Point(16, 128);
+            this.FeedView.Location = new System.Drawing.Point(16, 160);
             this.FeedView.Name = "FeedView";
             this.FeedView.SelectedImageIndex = -1;
-            this.FeedView.Size = new System.Drawing.Size(544, 312);
+            this.FeedView.Size = new System.Drawing.Size(544, 280);
             this.FeedView.TabIndex = 8;
             // 
             // AddEntry
             // 
+            this.AddEntry.Enabled = false;
             this.AddEntry.Location = new System.Drawing.Point(440, 56);
             this.AddEntry.Name = "AddEntry";
             this.AddEntry.Size = new System.Drawing.Size(104, 24);
@@ -161,10 +166,20 @@ namespace Blogger
             this.AddEntry.Text = "&Add...";
             this.AddEntry.Click += new System.EventHandler(this.AddEntry_Click);
             // 
+            // FeedChooser
+            // 
+            this.FeedChooser.Location = new System.Drawing.Point(16, 120);
+            this.FeedChooser.Name = "FeedChooser";
+            this.FeedChooser.Size = new System.Drawing.Size(368, 21);
+            this.FeedChooser.TabIndex = 10;
+            this.FeedChooser.Text = "choose the feed.... ";
+            this.FeedChooser.SelectedIndexChanged += new System.EventHandler(this.FeedChooser_SelectedIndexChanged);
+            // 
             // Blogger
             // 
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
             this.ClientSize = new System.Drawing.Size(592, 470);
+            this.Controls.Add(this.FeedChooser);
             this.Controls.Add(this.AddEntry);
             this.Controls.Add(this.FeedView);
             this.Controls.Add(this.Go);
@@ -182,18 +197,13 @@ namespace Blogger
         }
         #endregion
 
-        private void textBox1_TextChanged(object sender, System.EventArgs e)
-        {
-        
-        }
 
         private void Go_Click(object sender, System.EventArgs e)
         {
-            RefreshFeed(); 
+            RefreshFeedList(); 
         }
 
-
-        private void RefreshFeed() 
+        private void RefreshFeedList()
         {
             string bloggerURI  = this.BloggerURI.Text;
             string userName =    this.UserName.Text;
@@ -213,49 +223,114 @@ namespace Blogger
             query.Uri = new Uri(bloggerURI);
 
             Cursor.Current = Cursors.WaitCursor; 
-        
+
+            // start repainting
+            this.FeedChooser.BeginUpdate(); 
 
             AtomFeed bloggerFeed = service.Query(query);
             // Display a wait cursor while the TreeNodes are being created.
-        
-            // Suppress repainting the TreeView until all the objects have been created.
-            this.FeedView.BeginUpdate(); 
 
-            // Clear the TreeView each time the method is called.
-            this.FeedView.Nodes.Clear();
+            this.FeedChooser.DisplayMember = "Title"; 
 
-
-
-            // now populate the calendar
             while (bloggerFeed != null && bloggerFeed.Entries.Count > 0)
             {
                 foreach (AtomEntry entry in bloggerFeed.Entries) 
                 {
-                    int iIndex = this.FeedView.Nodes.Add(new TreeNode(entry.Title.Text)); 
-                    if (iIndex >= 0) 
-                    {
-                        AtomPerson author = entry.Authors[0];
-                        this.FeedView.Nodes[iIndex].Nodes.Add(new TreeNode("by: " + author.Name));
-                        this.FeedView.Nodes[iIndex].Nodes.Add(new TreeNode("published: " + entry.Published.ToString())); 
-                        if (entry.Content.Content.Length > 50) 
-                        {
-                            this.FeedView.Nodes[iIndex].Nodes.Add(new TreeNode(entry.Content.Content.Substring(0, 50)+"....")); 
-                        } 
-                        else 
-                        {
-                            this.FeedView.Nodes[iIndex].Nodes.Add(new TreeNode(entry.Content.Content)); 
-                        }
-
-                    }
+                    int iIndex = this.FeedChooser.Items.Add(new ListEntry(entry)); 
                 }
-
                 // do the chunking...
                 query.Uri = new Uri(bloggerFeed.NextChunk); 
                 bloggerFeed = service.Query(query);
             }
+
+            if (this.FeedChooser.Items.Count > 0) 
+            {
+                this.FeedChooser.Items.Insert(0, "Choose the feed..."); 
+            }
+            else 
+            {
+                 this.FeedChooser.Items.Insert(0, "No feeds for this user..."); 
+            }
+            
+            
             // Reset the cursor to the default for all controls.
             Cursor.Current = Cursors.Default;
-            // Begin repainting the TreeView.
+            // End repainting the combobox
+            this.FeedChooser.EndUpdate();
+        
+            
+        }
+
+
+
+        private void RefreshFeed(string bloggerURI) 
+        {
+            string userName =    this.UserName.Text;
+            string passWord =    this.Password.Text;
+
+            // Suppress repainting the TreeView until all the objects have been created.
+            this.FeedView.BeginUpdate(); 
+            // Clear the TreeView each time the method is called.
+            this.FeedView.Nodes.Clear(); 
+
+            if (this.feedUri != null)
+            {
+                FeedQuery query = new FeedQuery();
+                Service service = new Service("blogger", "BloggerSampleApp");
+
+                if (userName != null && userName.Length > 0)
+                {
+                    NetworkCredential nc = new NetworkCredential(userName, passWord);
+                    service.Credentials = nc; 
+                }
+
+                // only get event's for today - 1 month until today + 1 year
+
+                query.Uri = new Uri(bloggerURI);
+
+                // set wait cursor before...
+                Cursor.Current = Cursors.WaitCursor; 
+            
+
+                AtomFeed bloggerFeed = service.Query(query);
+
+                // Reset the cursor to the default for all controls.
+                Cursor.Current = Cursors.Default;
+
+
+
+                // now populate the calendar
+                while (bloggerFeed != null && bloggerFeed.Entries.Count > 0)
+                {
+                    foreach (AtomEntry entry in bloggerFeed.Entries) 
+                    {
+                        int iIndex = this.FeedView.Nodes.Add(new TreeNode(entry.Title.Text)); 
+                        if (iIndex >= 0) 
+                        {
+                            AtomPerson author = entry.Authors[0];
+                            this.FeedView.Nodes[iIndex].Nodes.Add(new TreeNode("by: " + author.Name));
+                            this.FeedView.Nodes[iIndex].Nodes.Add(new TreeNode("published: " + entry.Published.ToString())); 
+                            if (entry.Content.Content.Length > 50) 
+                            {
+                                this.FeedView.Nodes[iIndex].Nodes.Add(new TreeNode(entry.Content.Content.Substring(0, 50)+"....")); 
+                            } 
+                            else 
+                            {
+                                this.FeedView.Nodes[iIndex].Nodes.Add(new TreeNode(entry.Content.Content)); 
+                            }
+
+                        }
+                    }
+
+                    // do the chunking...
+                    query.Uri = new Uri(bloggerFeed.NextChunk); 
+                    bloggerFeed = service.Query(query);
+                }
+            }
+
+            // Reset the cursor to the default for all controls.
+            Cursor.Current = Cursors.Default;
+            // stop repainting the TreeView.
             this.FeedView.EndUpdate();
         }
 
@@ -274,7 +349,6 @@ namespace Blogger
                 entry.Title.Text = dlg.EntryTitle;
 
 
-                string bloggerURI  = this.BloggerURI.Text;
                 string userName =    this.UserName.Text;
                 string passWord =    this.Password.Text;
 
@@ -287,12 +361,81 @@ namespace Blogger
                     service.Credentials = nc; 
                 }
 
-                service.Insert(new Uri(bloggerURI), entry); 
+                service.Insert(new Uri(this.feedUri), entry); 
 
-                RefreshFeed();
-
+                RefreshFeed(this.feedUri);
             }
+        }
 
+        /// <summary>
+        /// get's called when a new feed was choosen from the combobox
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void FeedChooser_SelectedIndexChanged(object sender, System.EventArgs e)
+        {
+            ListEntry listEntry = this.FeedChooser.SelectedItem as ListEntry; 
+
+            this.AddEntry.Enabled = false; 
+            this.feedUri = null; 
+
+            if (listEntry != null) 
+            {
+                AtomEntry entry = listEntry.Entry; 
+
+                if (entry != null) 
+                {
+                    // find the link.rel==feed uri and refresh the treeview
+                    foreach (AtomLink link in entry.Links) 
+                    {
+                        if (link.Rel == "http://schemas.google.com/g/2005#feed") 
+                        {
+                            this.feedUri = link.HRef.ToString(); 
+                            break;
+                        }
+                    }
+
+                    if (this.feedUri != null) 
+                    {
+                        this.AddEntry.Enabled = true; 
+                        
+                    }
+                }
+            }
+            RefreshFeed(this.feedUri); 
         }
     }
+
+
+    /// <summary>
+    /// little helper class to put an atomentry into a combobox
+    /// </summary>
+    public class ListEntry 
+    {
+        private AtomEntry entry;
+        
+        public AtomEntry Entry 
+        {
+            get 
+            {
+                return this.entry;
+            }
+            set 
+            {
+                this.entry = value;
+            }
+        }
+
+        public ListEntry(AtomEntry entry)
+        {
+            this.entry = entry; 
+        }
+
+        public override string ToString() 
+        {
+            return this.entry != null ? this.entry.Title.Text : "No Entry"; 
+        }
+    }
+
+
 }
