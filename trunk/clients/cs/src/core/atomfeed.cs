@@ -97,7 +97,7 @@ namespace Google.GData.Client
         /// <summary>holds the service interface to use</summary> 
         private IService service;
 
-        private GDataBatchFeed batchData;
+        private GDataBatchFeedData batchData;
         #endregion
         
 
@@ -220,7 +220,7 @@ namespace Google.GData.Client
         /// <summary>accessor to the batchdata for the entry</summary> 
         /// <returns> GDataBatch object </returns>
         //////////////////////////////////////////////////////////////////////
-        public GDataBatchFeed BatchData
+        public GDataBatchFeedData BatchData
         {
             get {return this.batchData;}
             set {this.batchData = value;}

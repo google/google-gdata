@@ -122,7 +122,7 @@ namespace Google.GData.Client
         private AtomFeed feed; 
 
         // holds batch information for an entry
-        private GDataBatchEntry batchData;  
+        private GDataBatchEntryData batchData;  
 
         
 
@@ -309,7 +309,7 @@ namespace Google.GData.Client
         /// <summary>accessor to the batchdata for the entry</summary> 
         /// <returns> GDataBatch object </returns>
         //////////////////////////////////////////////////////////////////////
-        public GDataBatchEntry BatchData
+        public GDataBatchEntryData BatchData
         {
             get {return this.batchData;}
             set {this.batchData = value;}

@@ -294,13 +294,13 @@ namespace Google.GData.Client
     /// for the AtomFeed
     /// </summary> 
     //////////////////////////////////////////////////////////////////////
-    public class GDataBatchFeed : IExtensionElement
+    public class GDataBatchFeedData : IExtensionElement
     {
         private GDataBatchOperationType operationType; 
         /// <summary>
         /// constructor, set's the default for the operation type
         /// </summary>
-        public GDataBatchFeed()
+        public GDataBatchFeedData()
         {
             this.operationType = GDataBatchOperationType.Default;
         }
@@ -342,7 +342,7 @@ namespace Google.GData.Client
     /// for an AtomEntry
     /// </summary> 
     //////////////////////////////////////////////////////////////////////
-    public class GDataBatchEntry : IExtensionElement
+    public class GDataBatchEntryData : IExtensionElement
     {
         private GDataBatchOperationType operationType; 
         private string id; 
@@ -352,7 +352,7 @@ namespace Google.GData.Client
         /// <summary>
         /// constructor, set's the default for the operation type
         /// </summary>
-        public GDataBatchEntry()
+        public GDataBatchEntryData()
         {
             this.operationType = GDataBatchOperationType.Default;
         }
