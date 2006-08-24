@@ -96,6 +96,8 @@ namespace Google.GData.Client
         private StringCollection parameters;
         /// <summary>holds the service interface to use</summary> 
         private IService service;
+
+        private GDataBatchFeed batchData;
         #endregion
         
 
@@ -123,6 +125,24 @@ namespace Google.GData.Client
                 this.ImpliedBase = new AtomUri(uriBase.AbsoluteUri);
             }
             this.Service = service;
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>default constructor</summary> 
+        /// <param name="originalFeed">if you want to create a copy feed, for batch use, e.g</param>        
+        //////////////////////////////////////////////////////////////////////
+        public AtomFeed(AtomFeed originalFeed) : base()
+        {
+            Tracing.TraceCall("Constructing AtomFeed");
+            this.Batch = originalFeed.Batch;
+            this.Post  = originalFeed.Post;
+            this.Self  = originalFeed.Self; 
+            this.Feed  = originalFeed.Feed;
+
+            this.Service=originalFeed.Service; 
+            this.ImpliedBase=originalFeed.ImpliedBase;
         }
         /////////////////////////////////////////////////////////////////////////////
 
@@ -195,6 +215,43 @@ namespace Google.GData.Client
         }
         /////////////////////////////////////////////////////////////////////////////
 
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>accessor to the batchdata for the entry</summary> 
+        /// <returns> GDataBatch object </returns>
+        //////////////////////////////////////////////////////////////////////
+        public GDataBatchFeed BatchData
+        {
+            get {return this.batchData;}
+            set {this.batchData = value;}
+        }
+        // end of accessor public GDataBatch BatchData
+
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>accessor method public string Batch</summary> 
+        /// <returns>the Uri as string to the Batch Service</returns>
+        //////////////////////////////////////////////////////////////////////
+        public string Batch
+        {
+            get 
+            {
+                // scan the link collection
+                AtomLink link = this.Links.FindService(BaseNameTable.ServiceBatch, AtomLink.ATOM_TYPE);
+                return link == null ? null : Utilities.CalculateUri(this.Base, this.ImpliedBase, link.HRef.ToString());
+            }
+            set
+            {
+                AtomLink link = this.Links.FindService(BaseNameTable.ServiceBatch, AtomLink.ATOM_TYPE);
+                if (link == null)
+                {
+                    link = new AtomLink(AtomLink.ATOM_TYPE, BaseNameTable.ServiceBatch);
+                    this.Links.Add(link);
+                }
+                link.HRef = new AtomUri(value);
+            }
+        }
+        /////////////////////////////////////////////////////////////////////////////
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>returns whether or not the entry is read-only </summary> 
@@ -396,6 +453,49 @@ namespace Google.GData.Client
         #endregion
 
         #region Persistence overloads
+
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>checks to see if we are a batch feed, if so, adds the batchNS</summary> 
+        /// <param name="writer">the xmlwriter, where we want to add default namespaces to</param>
+        //////////////////////////////////////////////////////////////////////
+        protected override void AddOtherNamespaces(XmlWriter writer) 
+        {
+            base.AddOtherNamespaces(writer); 
+            if (this.BatchData != null)
+            {
+                Utilities.EnsureGDataBatchNamespace(writer); 
+            }
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>checks if this is a namespace 
+        /// decl that we already added</summary> 
+        /// <param name="node">XmlNode to check</param>
+        /// <returns>true if this node should be skipped </returns>
+        //////////////////////////////////////////////////////////////////////
+        protected override bool SkipNode(XmlNode node)
+        {
+            if (base.SkipNode(node)==true)
+            {
+                return true; 
+            }
+
+            Tracing.TraceMsg("in skipnode for node: " + node.Name + "--" + node.Value); 
+            if (this.BatchData != null)
+            {
+                if (node.NodeType == XmlNodeType.Attribute && 
+                    (node.Name.StartsWith("xmlns") == true) && 
+                    (String.Compare(node.Value,BaseNameTable.gBatchNamespace)==0))
+                    return true;
+
+            }
+            return false; 
+        }
+
+
         //////////////////////////////////////////////////////////////////////
         /// <summary>just returns the constant representing this xml element</summary> 
         //////////////////////////////////////////////////////////////////////
@@ -414,6 +514,12 @@ namespace Google.GData.Client
             // first let the source save it self
             base.SaveInnerXml(writer);
             // now we need to save the entries
+
+            if (this.batchData != null)
+            {
+                this.batchData.Save(writer);
+            }
+
             foreach (AtomEntry entry in this.Entries)
             {
                 entry.SaveToXml(writer);

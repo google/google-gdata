@@ -252,6 +252,11 @@ namespace Google.GData.Client
                     // if at the end, to the start of a new one. 
                     reader.Read();
                 }
+                else if (feed != null && IsCurrentNameSpace(reader, BaseNameTable.gBatchNamespace))
+                {
+                    // parse the google batch extensions if they are there
+                    ParseBatch(reader, feed); 
+                }
                 else if (feed != null && IsCurrentNameSpace(reader, BaseNameTable.NSOpenSearchRss))
                 {
                     if (localname.Equals(this.nameTable.TotalResults))
@@ -273,7 +278,6 @@ namespace Google.GData.Client
                     ParseExtensionElements(reader, source);
                 }
             }
-
             return;
         }
         /////////////////////////////////////////////////////////////////////////////
@@ -644,10 +648,10 @@ namespace Google.GData.Client
             }
 
             AtomEntry entry = OnCreateNewEntry();
-
-            // remember the depth of entry
             ParseBasicAttributes(reader, entry);
 
+
+            // remember the depth of entry
             int depth = -1;
             while(NextChildElement(reader, ref depth))
             {
@@ -710,7 +714,11 @@ namespace Google.GData.Client
                     // this will either move the reader to the end of an element, or, 
                     // if at the end, to the start of a new one. 
                     reader.Read();
-
+                }
+                else if (IsCurrentNameSpace(reader, BaseNameTable.gBatchNamespace))
+                {
+                    // parse the google batch extensions if they are there
+                    ParseBatch(reader, entry); 
                 }
                 else
                 {
@@ -722,7 +730,292 @@ namespace Google.GData.Client
 
             return;
         }
-        /////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+        /// <summary>
+        /// parses the current position in the xml reader and fills 
+        /// the provided GDataEntryBatch property on the entry object 
+        /// </summary>
+        /// <param name="reader">the xmlreader positioned at a batch element</param>
+        /// <param name="entry">the atomentry object to fill in</param>
+        protected void ParseBatch(XmlReader reader, AtomEntry entry)
+        {
+            if (IsCurrentNameSpace(reader, BaseNameTable.gBatchNamespace))
+            {
+                object elementName = reader.LocalName;
+
+                if (entry.BatchData == null)
+                {
+                    entry.BatchData = new GDataBatchEntry(); 
+                }
+
+                GDataBatchEntry batch = entry.BatchData; 
+
+                if (elementName.Equals(this.nameTable.BatchId))
+                {
+                    batch.Id = reader.ReadString(); 
+                }
+                else if (elementName.Equals(this.nameTable.BatchOperation))
+                {
+                    batch.Type = ParseOperationType(reader);
+                }
+                else if (elementName.Equals(this.nameTable.BatchStatus))
+                {
+                    batch.Status = ParseBatchStatus(reader); 
+                }
+                else if (elementName.Equals(this.nameTable.BatchInterrupt))
+                {
+                    batch.Interrupt= ParseBatchInterrupt(reader); 
+                }
+                else 
+                {
+                    Tracing.TraceInfo("got an unknown batch element: "  + elementName.ToString()); 
+                    // default extension parsing
+                    ParseExtensionElements(reader, entry);
+                }
+            }
+        }
+
+        /// <summary>
+        /// reads the current positioned reader and creates a operationtype enum
+        /// </summary>
+        /// <param name="reader">XmlReader positioned at the start of the status element</param>
+        /// <returns>GDataBatchOperationType</returns>
+        protected GDataBatchOperationType ParseOperationType(XmlReader reader) 
+        {
+            Tracing.Assert(reader != null, "reader should not be null");
+            if (reader == null)
+            {
+                throw new ArgumentNullException("reader"); 
+            }
+            GDataBatchOperationType type = GDataBatchOperationType.Default; 
+
+            object localname = reader.LocalName;
+            if (localname.Equals(this.nameTable.BatchOperation))
+            {
+                if (reader.HasAttributes)
+                {
+                    while (reader.MoveToNextAttribute())
+                    {
+                        localname = reader.LocalName;
+                        if (localname.Equals(this.nameTable.BatchOperationType))
+                        {
+                            type = (GDataBatchOperationType)Enum.Parse(typeof(GDataBatchOperationType), reader.Value);
+                        }
+                    }
+                }
+            }
+            return type;
+        }
+
+
+
+        /// <summary>
+        /// parses the current position in the xml reader and fills 
+        /// the provided GDataFeedBatch property on the feed object
+        /// </summary>
+        /// <param name="reader">the xmlreader positioned at a batch element</param>
+        /// <param name="feed">the atomfeed object to fill in</param>
+        protected void ParseBatch(XmlReader reader, AtomFeed feed) 
+        {
+            if (IsCurrentNameSpace(reader, BaseNameTable.gBatchNamespace))
+            {
+                object elementName = reader.LocalName;
+
+                if (feed.BatchData == null)
+                {
+                    feed.BatchData = new GDataBatchFeed(); 
+                }
+
+                GDataBatchFeed batch = feed.BatchData; 
+
+                if (elementName.Equals(this.nameTable.BatchOperation))
+                {
+                    batch.Type = (GDataBatchOperationType)Enum.Parse(typeof(GDataBatchOperationType), reader.Value);
+                }
+                else 
+                {
+                    Tracing.TraceInfo("got an unknown batch element: "  + elementName.ToString()); 
+                    reader.Skip(); 
+                }
+            }
+        }
+
+
+        /// <summary>
+        /// reads the current positioned reader and creates a batchstatus element
+        /// </summary>
+        /// <param name="reader">XmlReader positioned at the start of the status element</param>
+        /// <returns>GDataBatchStatus</returns>
+        protected GDataBatchStatus ParseBatchStatus(XmlReader reader) 
+        {
+            Tracing.Assert(reader != null, "reader should not be null");
+            if (reader == null)
+            {
+                throw new ArgumentNullException("reader"); 
+            }
+            GDataBatchStatus status = null; 
+
+            object localname = reader.LocalName;
+            if (localname.Equals(this.nameTable.BatchStatus))
+            {
+                status = new GDataBatchStatus();
+                if (reader.HasAttributes)
+                {
+                    while (reader.MoveToNextAttribute())
+                    {
+                        localname = reader.LocalName;
+                        if (localname.Equals(this.nameTable.BatchReason))
+                        {
+                            status.Reason = reader.Value;
+                        }
+                        else if (localname.Equals(this.nameTable.BatchContentType))
+                        {
+                            status.ContentType = reader.Value; 
+                        }
+                        else if (localname.Equals(this.nameTable.BatchStatusCode))
+                        {
+                            status.Code = int.Parse(reader.Value, CultureInfo.InvariantCulture);
+                        }
+                    }
+                }
+
+                reader.MoveToElement();
+
+                status.Value = reader.ReadString();
+
+                // status can have one child element, errors
+                // for now disabled, as this is currently not supported on the server
+                // instead the errors come as encoded strings
+                /*
+                int lvl = -1;
+                while(NextChildElement(reader, ref lvl))
+                {
+                    localname = reader.LocalName;
+
+                    if (localname.Equals(this.nameTable.BatchErrors))
+                    {
+                        // author.Name = Utilities.DecodeString(reader.ReadString());
+                        status.Errors = ParseBatchErrors(reader); 
+                    }
+                }
+                */
+            }
+            return status;
+        }
+
+        /// <summary>
+        ///  parses a list of errors
+        /// </summary>
+        /// <param name="reader">XmlReader positioned at the start of the status element</param>
+        /// <returns>GDataBatchErrorCollection</returns>
+        protected GDataBatchErrorCollection ParseBatchErrors(XmlReader reader)
+        {
+            object localname = reader.LocalName;
+            GDataBatchErrorCollection collection = null;
+            if (localname.Equals(this.nameTable.BatchErrors))
+            {
+                collection = new GDataBatchErrorCollection(); 
+
+                int lvl = -1;
+                while(NextChildElement(reader, ref lvl))
+                {
+                    if (localname.Equals(this.nameTable.BatchError))
+                    {
+                        collection.Add(ParseBatchError(reader));
+                    }
+
+                }
+
+            }
+            return collection;
+        }
+
+        /// <summary>
+        /// parses a single error element
+        /// </summary>
+        /// <param name="reader">XmlReader positioned at the start of the status element</param>
+        /// <returns>GDataBatchError</returns>
+        protected GDataBatchError ParseBatchError(XmlReader reader)
+        {
+            object localname = reader.LocalName;
+            GDataBatchError error = null;
+            if (localname.Equals(this.nameTable.BatchError))
+            {
+                error = new GDataBatchError(); 
+                if (reader.HasAttributes)
+                {
+                    while (reader.MoveToNextAttribute())
+                    {
+                        localname = reader.LocalName;
+                        if (localname.Equals(this.nameTable.BatchReason))
+                        {
+                            error.Reason = reader.Value;
+                        }
+                        else if (localname.Equals(this.nameTable.BatchOperationType))
+                        {
+                            error.Type = reader.Value; 
+                        }
+                        else if (localname.Equals(this.nameTable.BatchField))
+                        {
+                            error.Field = reader.Value; 
+                        }
+                    }
+                }
+            }
+            return error; 
+        }
+
+
+        /// <summary>
+        /// parses a batchinterrupt element from a correctly positioned reader
+        /// </summary>
+        /// <param name="reader">XmlReader at the start of the element</param>
+        /// <returns>GDataBatchInterrupt</returns>
+        protected GDataBatchInterrupt ParseBatchInterrupt(XmlReader reader)
+        {
+            object localname = reader.LocalName;
+            GDataBatchInterrupt interrupt = null;
+            if (localname.Equals(this.nameTable.BatchInterrupt))
+            {
+                interrupt = new GDataBatchInterrupt(); 
+                if (reader.HasAttributes)
+                {
+                    while (reader.MoveToNextAttribute())
+                    {
+                        localname = reader.LocalName;
+                        if (localname.Equals(this.nameTable.BatchReason))
+                        {
+                            interrupt.Reason = reader.Value;
+                        }
+                        else if (localname.Equals(this.nameTable.BatchSuccessCount))
+                        {
+                            interrupt.Successes = int.Parse(reader.Value); 
+                        }
+                        else if (localname.Equals(this.nameTable.BatchFailureCount))
+                        {
+                            interrupt.Failures = int.Parse(reader.Value); 
+                        }
+                        else if (localname.Equals(this.nameTable.BatchParsedCount))
+                        {
+                            interrupt.Parsed = int.Parse(reader.Value); 
+                        }
+                        else if (localname.Equals(this.nameTable.BatchUnprocessed))
+                        {
+                            interrupt.Unprocessed= int.Parse(reader.Value); 
+                        }
+
+                    }
+                }
+            }
+            return interrupt; 
+
+        }
+
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>parses an AtomTextConstruct</summary> 

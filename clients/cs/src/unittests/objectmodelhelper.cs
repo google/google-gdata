@@ -70,6 +70,30 @@ namespace Google.GData.Client.UnitTests
             return entry;
         }
         /////////////////////////////////////////////////////////////////////////////
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>creates a new, in memory atom entry for google base</summary> 
+        /// <returns>the new AtomEntry </returns>
+        //////////////////////////////////////////////////////////////////////
+        public static AtomEntry CreateGoogleBaseEntry(int iCount)
+        {
+            AtomEntry entry = CreateAtomEntry(iCount); 
+
+            // now add some base specific nodes. This should later be replaced by 
+            // the GoogleBase classes
+            XmlDocument doc = new XmlDocument();
+            doc.LoadXml("<gb:label xmlns:gb='http://base.google.com/ns/1.0'>Computer</gb:label>");
+            XmlNode gbaseNode1 = doc.DocumentElement;
+            doc.LoadXml("<gb:item_type xmlns:gb='http://base.google.com/ns/1.0'>products</gb:item_type>");
+            XmlNode gbaseNode2 = doc.DocumentElement;
+
+            entry.ExtensionElements.Add(gbaseNode1);
+            entry.ExtensionElements.Add(gbaseNode2);
+
+            return entry;
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
         //////////////////////////////////////////////////////////////////////
         /// <summary>creates a new, in memory atom entry</summary> 
         /// <returns>the new AtomEntry </returns>

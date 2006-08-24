@@ -121,6 +121,9 @@ namespace Google.GData.Client
         /// <summary>holds the owning feed</summary> 
         private AtomFeed feed; 
 
+        // holds batch information for an entry
+        private GDataBatchEntry batchData;  
+
         
 
         #endregion
@@ -137,6 +140,46 @@ namespace Google.GData.Client
         }
         /////////////////////////////////////////////////////////////////////////////
 
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>checks to see if we are a batch feed, if so, adds the batchNS</summary> 
+        /// <param name="writer">the xmlwriter, where we want to add default namespaces to</param>
+        //////////////////////////////////////////////////////////////////////
+        protected override void AddOtherNamespaces(XmlWriter writer) 
+        {
+            base.AddOtherNamespaces(writer); 
+            if (this.BatchData != null)
+            {
+                Utilities.EnsureGDataBatchNamespace(writer); 
+            }
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>checks if this is a namespace 
+        /// decl that we already added</summary> 
+        /// <param name="node">XmlNode to check</param>
+        /// <returns>true if this node should be skipped </returns>
+        //////////////////////////////////////////////////////////////////////
+        protected override bool SkipNode(XmlNode node)
+        {
+            if (base.SkipNode(node)==true)
+            {
+                return true; 
+            }
+
+            Tracing.TraceMsg("in skipnode for node: " + node.Name + "--" + node.Value); 
+            if (this.BatchData != null)
+            {
+                if (node.NodeType == XmlNodeType.Attribute && 
+                    (node.Name.StartsWith("xmlns") == true) && 
+                    (String.Compare(node.Value,BaseNameTable.gBatchNamespace)==0))
+                    return true;
+
+            }
+            return false; 
+        }
+
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>saves the inner state of the element</summary> 
@@ -146,6 +189,12 @@ namespace Google.GData.Client
         {
             // saving title
             Tracing.TraceMsg("Entering save inner XML on AtomEntry");
+
+            if (this.batchData != null)
+            {
+                this.batchData.Save(writer);
+            }
+
             if (this.title != null)
             {
                 Tracing.TraceMsg("Saving Title: " + this.Title.Text);
@@ -256,6 +305,16 @@ namespace Google.GData.Client
         }
         /////////////////////////////////////////////////////////////////////////////
 
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>accessor to the batchdata for the entry</summary> 
+        /// <returns> GDataBatch object </returns>
+        //////////////////////////////////////////////////////////////////////
+        public GDataBatchEntry BatchData
+        {
+            get {return this.batchData;}
+            set {this.batchData = value;}
+        }
+        // end of accessor public GDataBatch BatchData
 
 
         //////////////////////////////////////////////////////////////////////

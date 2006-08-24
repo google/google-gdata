@@ -71,3 +71,70 @@ the Extensions namespace provides extensions to use when dealing with elements
 out of the GData namespace. The Calendar namespace provides a special 
 service implementation to deal with the calendar feed.
 
+
+
+The batch support
+
+Release 1.0.5 includes support for the GoogleBatch protocol extensions. Refer to 
+the code.google.com documentation for details on this in general. 
+
+In the C# libraries this is implemented as basic support on the AtomFeed and AtomEntry.
+Those objects have a new member, called BatchData. Setting this data controls the 
+operations executed on the batchfeed, and this object also holds the return values 
+for from the server. 
+
+To create a feed useful to talk to the batch service, you need to know the service URI 
+for this. Here is a code snippet that retrieves that URI.
+
+    FeedQuery query = new FeedQuery();
+    Service service = new Service("gbase", "mytestapplication"); 
+    NetworkCredential nc = new NetworkCredential(userName, passWord); 
+    service.Credentials = nc;
+
+    // setup the google web key
+    GDataGAuthRequestFactory authFactory = service.RequestFactor as GDataGAuthRequestFactory; 
+    authFactory.GoogleWebKey = "yourkey"; 
+
+    query.Uri = new Uri("http://base.google.com/base/feeds/items");
+    AtomFeed baseFeed = service.Query(query);
+
+    // this should have a batch URI
+    if (baseFeed.Batch != null)  {
+    .... 
+
+
+Note, that to talk to GoogleBase, you also need a web developer key, you can see above
+that, once you have that key, you only need to set the GoogleWebKey property on the service
+to use it. 
+
+Now to set the default operation you want the batchfeed to do, you use code similiar to this:
+
+    batchFeed.BatchData = new GDataBatchFeed();
+    batchFeed.BatchData.Type = GDataBatchOperationType.delete; 
+
+If you do not set this, the feed will default to insert as it's operation type.
+
+You would then go and add entries to your feed. If you want the entry to behave differently
+than the feed itself, you set the BatchData object on the entry. 
+
+    entry.BatchData = new GDataBatchEntry();
+    entry.BatchData.Type = GDataBatchOperationType.insert; 
+    entry.BatchData.Id = "some id"; 
+
+To finally do the batch, you just call the new service method for this purpose:
+
+    AtomFeed resultFeed = service.Batch(batchFeed, new Uri(baseFeed.Batch));
+
+To verify that the operations were successfull, you need to iterate over the returned entries:
+
+	foreach (AtomEntry resultEntry in resultFeed.Entries )
+	{
+	    GDataBatchEntry data = resultEntry.BatchData;
+	    switch (data.Stutus.Code) {
+	       case 200:....
+	    }
+	}
+
+For more details check the online documentation for batch and look into the unittests/gbase.cs file. 
+
+        

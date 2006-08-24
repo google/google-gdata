@@ -240,6 +240,7 @@ namespace Google.GData.Client
                         case GDataRequestType.Update:
                             web.Method = HttpMethods.Put;
                             break;
+                        case GDataRequestType.Batch:
                         case GDataRequestType.Insert:
                             web.Method = HttpMethods.Post;
                             break;

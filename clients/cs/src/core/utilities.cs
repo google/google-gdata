@@ -326,6 +326,28 @@ namespace Google.GData.Client
         /////////////////////////////////////////////////////////////////////////////
 
         //////////////////////////////////////////////////////////////////////
+        /// <summary>Sets the gDataBatch namespace, if it's not already set.
+        /// </summary> 
+        /// <param name="writer"> the xmlwriter to use</param>
+        /// <returns> the namespace prefix</returns>
+        //////////////////////////////////////////////////////////////////////
+        static public string EnsureGDataBatchNamespace(XmlWriter writer)
+        {
+            Tracing.Assert(writer != null, "writer should not be null");
+            if (writer == null)
+            {
+                throw new ArgumentNullException("writer"); 
+            }
+            string strPrefix = writer.LookupPrefix(BaseNameTable.gBatchNamespace);
+            if (strPrefix == null)
+            {
+                writer.WriteAttributeString("xmlns", BaseNameTable.gBatchPrefix, null, BaseNameTable.gBatchNamespace);
+            }
+            return strPrefix;
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+        //////////////////////////////////////////////////////////////////////
         /// <summary>parses a form response stream in token form for a specific value
         /// </summary> 
         /// <param name="inputStream">the stream to read and parse</param>

@@ -349,22 +349,36 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         public Stream StreamInsert(Uri feedUri, AtomEntry newEntry)
         {
+            return StreamInsert(feedUri, newEntry, GDataRequestType.Insert); 
+        }
+
+
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Inserts an AtomBase entry against a Uri</summary> 
+        /// <param name="feedUri">the uri for the feed this object should be posted against</param> 
+        /// <param name="baseEntry">the entry to be inserted</param> 
+        /// <param name="type">the type of request to create</param> 
+        /// <returns> the response as a stream</returns>
+        //////////////////////////////////////////////////////////////////////
+        public Stream StreamInsert(Uri feedUri, AtomBase baseEntry, GDataRequestType type)
+        {
             Tracing.Assert(feedUri != null, "feedUri should not be null");
             if (feedUri == null)
             {
                 throw new ArgumentNullException("feedUri"); 
             }
-            Tracing.Assert(newEntry != null, "newEntry should not be null");
-            if (newEntry == null)
+            Tracing.Assert(baseEntry != null, "baseEntry should not be null");
+            if (baseEntry == null)
             {
-                throw new ArgumentNullException("newEntry"); 
+                throw new ArgumentNullException("baseEntry"); 
             }
 
-            IGDataRequest request = this.RequestFactory.CreateRequest(GDataRequestType.Insert,feedUri);
+            IGDataRequest request = this.RequestFactory.CreateRequest(type,feedUri);
             request.Credentials = this.Credentials;
             Stream outputStream = request.GetRequestStream();
 
-            newEntry.SaveToXml(outputStream);
+            baseEntry.SaveToXml(outputStream);
 
             request.Execute();
 
@@ -372,9 +386,64 @@ namespace Google.GData.Client
             return request.GetResponseStream();
 
         }
-        /////////////////////////////////////////////////////////////////////////////
 
 
+
+
+
+
+
+        /// <summary>
+        /// takes a given feed, and does a batch post of that feed
+        /// against the batchUri parameter. If that one is NULL 
+        /// it will try to use the batch link URI in the feed
+        /// </summary>
+        /// <param name="feed">the feed to post</param>
+        /// <param name="batchUri">the URI to user</param>
+        /// <returns>the returned AtomFeed</returns>
+        public AtomFeed Batch(AtomFeed feed, Uri batchUri) 
+        {
+            Uri uriToUse = batchUri; 
+
+            if (uriToUse == null)
+            {
+                uriToUse = feed.Batch == null ? null : new Uri(feed.Batch); 
+            }
+
+            if (uriToUse == null)
+            {
+                throw new ArgumentNullException("batchUri"); 
+            }
+
+            Tracing.Assert(feed != null, "feed should not be null");
+            if (feed == null)
+            {
+                throw new ArgumentNullException("feed"); 
+            }
+
+            if (feed.BatchData == null) 
+            {
+                // setting this will make the feed output the namespace, instead of each entry
+                feed.BatchData = new GDataBatchFeed(); 
+            }
+
+
+            Stream returnStream = StreamInsert(uriToUse, feed, GDataRequestType.Batch);
+
+            AtomFeed returnFeed = new AtomFeed(uriToUse, this);
+
+
+            returnFeed.NewAtomEntry += new FeedParserEventHandler(this.OnParsedNewEntry); 
+            returnFeed.NewExtensionElement += new ExtensionElementEventHandler(this.OnNewExtensionElement);
+
+            returnFeed.Parse(returnStream, AlternativeFormat.Atom);
+
+            returnStream.Close(); 
+         
+            return returnFeed;  
+            
+        }
+        //////////////////////////////////////////////////////////////////////
 
 
 

@@ -53,6 +53,23 @@ namespace Google.GData.Client
         /// <summary>xml language</summary> 
         private object language;
 
+        // batch extensions
+        private object batchId; 
+        private object batchStatus;
+        private object batchOperation;
+        private object batchInterrupt;
+        private object batchContentType;
+        private object batchStatusCode; 
+        private object batchReason;
+        private object batchErrors;
+        private object batchError;
+        private object batchOperationType;
+        private object batchSuccessCount;
+        private object batchFailureCount;
+        private object batchParsedCount;
+        private object batchField;
+        private object batchUnprocessed; 
+
         /// <summary>static namespace string declaration</summary> 
         public const string NSOpenSearchRss = "http://a9.com/-/spec/opensearchrss/1.0/";
         /// <summary>static namespace string declaration</summary> 
@@ -61,12 +78,16 @@ namespace Google.GData.Client
         public const string NSXml = "http://www.w3.org/XML/1998/namespace";
         /// <summary>GD namespace</summary> 
         public const string gNamespace = "http://schemas.google.com/g/2005";
+        /// <summary>GData batch extension namespace</summary> 
+        public const string gBatchNamespace = "http://schemas.google.com/gdata/batch"; 
         /// <summary>GD namespace prefix</summary> 
         public const string gNamespacePrefix = gNamespace+ "#";
         /// <summary>the post definiton in the link collection</summary> 
         public const string ServicePost = gNamespacePrefix + "post";
         /// <summary>the feed definition in the link collection</summary> 
         public const string ServiceFeed = gNamespacePrefix + "feed";
+        /// <summary>the batch URI definition in the link collection</summary>
+        public const string ServiceBatch = gNamespacePrefix + "batch";
         /// <summary>GData Kind Scheme</summary> 
         public const string gKind = gNamespacePrefix + "kind";
         /// <summary>the edit definition in the link collection</summary> 
@@ -86,6 +107,42 @@ namespace Google.GData.Client
         /// <summary>prefix for gdata if writing</summary> 
         public const string gDataPrefix = "gd"; 
 
+        /// <summary>prefix for gdata:batch if writing</summary> 
+        public const string gBatchPrefix = "batch"; 
+
+
+        // batch strings:
+
+        
+        /// <summary>xmlelement for batch:id</summary> 
+        public const string XmlElementBatchId = "id"; 
+        /// <summary>xmlelement for batch:operation</summary> 
+        public const string XmlElementBatchOperation = "operation"; 
+        /// <summary>xmlelement for batch:status</summary> 
+        public const string XmlElementBatchStatus = "status"; 
+        /// <summary>xmlelement for batch:interrupted</summary> 
+        public const string XmlElementBatchInterrupt = "interrupted"; 
+        /// <summary>xmlattribute for batch:status@contentType</summary> 
+        public const string XmlAttributeBatchContentType = "content-type"; 
+        /// <summary>xmlattribute for batch:status@code</summary> 
+        public const string XmlAttributeBatchStatusCode = "code"; 
+        /// <summary>xmlattribute for batch:status@reason</summary> 
+        public const string XmlAttributeBatchReason = "reason";
+        /// <summary>xmlelement for batch:status:errors</summary> 
+        public const string XmlElementBatchErrors = "errors"; 
+        /// <summary>xmlelement for batch:status:errors:error</summary> 
+        public const string XmlElementBatchError = "error"; 
+        /// <summary>xmlattribute for batch:operation@type</summary> 
+        public const string XmlAttributeBatchOperationType = "type"; 
+        /// <summary>xmlattribute for batch:interrupted@success</summary> 
+        public const string XmlAttributeBatchSuccess = "success";
+        /// <summary>XmlAttribute for batch:interrupted@parsed</summary> 
+        public const string XmlAttributeBatchParsed = "parsed"; 
+        /// <summary>XmlAttribute for batch:interrupted@field</summary> 
+        public const string XmlAttributeBatchField = "field"; 
+        /// <summary>XmlAttribute for batch:interrupted@unprocessed</summary> 
+        public const string XmlAttributeBatchUnprocessed = "unprocessed"; 
+        
         //////////////////////////////////////////////////////////////////////
         /// <summary>initializes the name table for use with atom parsing. This is the
         /// only place where strings are defined for parsing</summary> 
@@ -101,6 +158,24 @@ namespace Google.GData.Client
             this.itemsPerPage = this.atomNameTable.Add("itemsPerPage");
             this.baseUri      = this.atomNameTable.Add("base");  
             this.language     = this.atomNameTable.Add("lang");  
+
+            // batch keywords
+            this.batchId            = this.atomNameTable.Add(BaseNameTable.XmlElementBatchId);
+            this.batchOperation     = this.atomNameTable.Add(BaseNameTable.XmlElementBatchOperation); 
+            this.batchStatus        = this.atomNameTable.Add(BaseNameTable.XmlElementBatchStatus);
+            this.batchInterrupt     = this.atomNameTable.Add(BaseNameTable.XmlElementBatchInterrupt);
+            this.batchContentType   = this.atomNameTable.Add(BaseNameTable.XmlAttributeBatchContentType); 
+            this.batchStatusCode    = this.atomNameTable.Add(BaseNameTable.XmlAttributeBatchStatusCode); 
+            this.batchReason        = this.atomNameTable.Add(BaseNameTable.XmlAttributeBatchReason); 
+            this.batchErrors        = this.atomNameTable.Add(BaseNameTable.XmlElementBatchErrors); 
+            this.batchError         = this.atomNameTable.Add(BaseNameTable.XmlElementBatchError); 
+            this.batchOperationType    = this.atomNameTable.Add(BaseNameTable.XmlAttributeBatchOperationType); 
+            this.batchSuccessCount  = this.atomNameTable.Add(BaseNameTable.XmlAttributeBatchSuccess); 
+            this.batchFailureCount  = this.batchError; 
+            this.batchParsedCount   = this.atomNameTable.Add(BaseNameTable.XmlAttributeBatchParsed); 
+            this.batchField         = this.atomNameTable.Add(BaseNameTable.XmlAttributeBatchField); 
+            this.batchUnprocessed   = this.atomNameTable.Add(BaseNameTable.XmlAttributeBatchUnprocessed); 
+
         }
         /////////////////////////////////////////////////////////////////////////////
 
@@ -114,7 +189,147 @@ namespace Google.GData.Client
             get {return this.atomNameTable;}
         }
         /////////////////////////////////////////////////////////////////////////////
-        
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Read only accessor for BatchId</summary> 
+        //////////////////////////////////////////////////////////////////////
+        public object BatchId
+        {
+            get {return this.batchId;}
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Read only accessor for BatchOperation</summary> 
+        //////////////////////////////////////////////////////////////////////
+        public object BatchOperation
+        {
+            get {return this.batchOperation;}
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Read only accessor for BatchStatus</summary> 
+        //////////////////////////////////////////////////////////////////////
+        public object BatchStatus
+        {
+            get {return this.batchStatus;}
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Read only accessor for BatchInterrupt</summary> 
+        //////////////////////////////////////////////////////////////////////
+        public object BatchInterrupt
+        {
+            get {return this.batchInterrupt;}
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Read only accessor for BatchContentType</summary> 
+        //////////////////////////////////////////////////////////////////////
+        public object BatchContentType
+        {
+            get {return this.batchContentType;}
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Read only accessor for BatchStatusCode</summary> 
+        //////////////////////////////////////////////////////////////////////
+        public object BatchStatusCode
+        {
+            get {return this.batchStatusCode;}
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Read only accessor for BatchErrors</summary> 
+        //////////////////////////////////////////////////////////////////////
+        public object BatchErrors
+        {
+            get {return this.batchErrors;}
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Read only accessor for BatchError</summary> 
+        //////////////////////////////////////////////////////////////////////
+        public object BatchError
+        {
+            get {return this.batchError;}
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Read only accessor for BatchReason</summary> 
+        //////////////////////////////////////////////////////////////////////
+        public object BatchReason
+        {
+            get {return this.batchReason;}
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Read only accessor for BatchReason</summary> 
+        //////////////////////////////////////////////////////////////////////
+        public object BatchField
+        {
+            get {return this.batchField;}
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Read only accessor for BatchUnprocessed</summary> 
+        //////////////////////////////////////////////////////////////////////
+        public object BatchUnprocessed
+        {
+            get {return this.batchUnprocessed;}
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Read only accessor for BatchOperationType</summary> 
+        //////////////////////////////////////////////////////////////////////
+        public object BatchOperationType
+        {
+            get {return this.batchOperationType;}
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Read only accessor for BatchSuccessCount</summary> 
+        //////////////////////////////////////////////////////////////////////
+        public object BatchSuccessCount
+        {
+            get {return this.batchSuccessCount;}
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Read only accessor for BatchFailureCount</summary> 
+        //////////////////////////////////////////////////////////////////////
+        public object BatchFailureCount
+        {
+            get {return this.batchFailureCount;}
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Read only accessor for BatchParsedCount</summary> 
+        //////////////////////////////////////////////////////////////////////
+        public object BatchParsedCount
+        {
+            get {return this.batchParsedCount;}
+        }
+        /////////////////////////////////////////////////////////////////////////////
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>Read only accessor for totalResults</summary> 
@@ -124,6 +339,8 @@ namespace Google.GData.Client
             get {return this.totalResults;}
         }
         /////////////////////////////////////////////////////////////////////////////
+
+
         //////////////////////////////////////////////////////////////////////
         /// <summary>Read only accessor for startIndex</summary> 
         //////////////////////////////////////////////////////////////////////
