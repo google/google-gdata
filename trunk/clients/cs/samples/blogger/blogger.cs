@@ -388,7 +388,7 @@ namespace Blogger
                     // find the link.rel==feed uri and refresh the treeview
                     foreach (AtomLink link in entry.Links) 
                     {
-                        if (link.Rel == "http://schemas.google.com/g/2005#feed") 
+                        if (link.Rel == BaseNameTable.ServiceFeed) 
                         {
                             this.feedUri = link.HRef.ToString(); 
                             break;

@@ -59,6 +59,8 @@ namespace Google.GData.Client
         AtomEntry Insert(AtomFeed feed, AtomEntry entry);
         /// <summary>the more sophisticated one</summary> 
         void Delete(AtomEntry entry);
+        /// <summary>batch operation, posting of a set of entries</summary>
+        AtomFeed Batch(AtomFeed feed, Uri batchUri); 
 
     }
 
@@ -87,7 +89,9 @@ namespace Google.GData.Client
         /// <summary>The request is used for an update</summary>
         Update,                    
         /// <summary>The request is used for a delete</summary>
-        Delete                        
+        Delete, 
+        /// <summary>This request is used for a batch operation</summary>
+        Batch
     }
     /////////////////////////////////////////////////////////////////////////////
 

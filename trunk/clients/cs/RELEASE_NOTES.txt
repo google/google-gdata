@@ -1,15 +1,24 @@
+== 1.0.5 ==
+- Added batch support for GoogleFeeds, the first property to support this is the GoogleBase product
+- Added a unittest for GoogleBase. This code shows update/insert/delete against base for single entries and batch entries
+  refer to clients/cs/src/unittests/gbase.cs for sample code. 
+
+Missing: we are working on base specific classes to make it easier to insert/edit etc google base entries, but this is not ready yet. 
+Refer to readme.txt for more details on GoogleBatch support and GoogleBase. 
+
+
 == 1.0.4 == 
 - Fixed a .NET 2.0 issue in calendarservice.cs, that dropped connections during repeated calls. 
 - Made the execution path more robust. 
 - Added a property, numberOfRetries on the GAuthRequestFactory to indicate how often an Execution should be retried if the server returns an error. 
 - Fixed a bug in the daterange query creation (the +sign for the timezone was not escaped properly)
-- Added a calendar example
 - Fixed an issue with updating, where if you used the same AtomEntry/EventEntry several times to update, it could happen that extension 
   elements were doubled, and the update failed.
 - Fixed a bug in the parsing of all elements. This could cause an endless loop when the content was empty.
 - Fixed several content creation issues (issues 5-9 on the issue list)
 - added support for the gd:extendedProperty
-
+- Added a calendar example application
+- added a sample application to access Blogger feeds, and post to blogger feeds. 
 
 Known issues:
 - recurrenceException is not fully tested

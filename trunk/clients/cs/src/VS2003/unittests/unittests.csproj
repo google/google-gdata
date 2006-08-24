@@ -76,7 +76,7 @@
                 />
                 <Reference
                     Name = "System.XML"
-                    AssemblyName = "System.XML"
+                    AssemblyName = "System.Xml"
                     HintPath = "C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.XML.dll"
                 />
                 <Reference
@@ -107,11 +107,6 @@
                 <File
                     RelPath = "AssemblyInfo.cs"
                     Link = "..\..\unittests\AssemblyInfo.cs"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "caltest.cs"
-                    Link = "..\..\unittests\caltest.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
@@ -122,8 +117,20 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "caltest.cs"
+                    Link = "..\..\unittests\caltest.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "coretest.cs"
                     Link = "..\..\unittests\coretest.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "gbase.cs"
+                    Link = "..\..\unittests\gbase.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />

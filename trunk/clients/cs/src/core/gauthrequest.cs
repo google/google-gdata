@@ -59,6 +59,9 @@ namespace Google.GData.Client
         public const string Header = "Authorization: GoogleLogin auth="; 
         /// <summary>Google method override header</summary>
         public const string Override = "X-HTTP-Method-Override"; 
+        /// <summary>Google webkey identifier</summary>
+        public const string WebKey = "X-Google-Key";
+
     }
     /////////////////////////////////////////////////////////////////////////////
 
@@ -79,6 +82,7 @@ namespace Google.GData.Client
         private string applicationName;  // the application name we pass to Gaia and append to the user-agent
         private bool fMethodOverride;    // to override using post, or to use PUT/DELETE
         private int numberOfRetries;        // holds the number of retries the request will undertake
+        private string webKey;              // holds the webkey
         
                                          
 
@@ -176,6 +180,19 @@ namespace Google.GData.Client
         }
         /////////////////////////////////////////////////////////////////////////////
 
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>property to hold the application key for google applications
+        /// format of the header is key=XXXXX, only the XXXXX is in the property</summary> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        public string GoogleWebKey
+        {
+            get {return this.webKey;}
+            set {this.webKey = value;}
+        }
+        // end of accessor public string GoogleWebKey
+
         //////////////////////////////////////////////////////////////////////
         /// <summary>accessor method public bool MethodOverride</summary> 
         /// <returns> </returns>
@@ -239,9 +256,6 @@ namespace Google.GData.Client
             this.applicationName = applicationName;
         }
         /////////////////////////////////////////////////////////////////////////////
-
-
-        
 
 
         //////////////////////////////////////////////////////////////////////
@@ -348,6 +362,11 @@ namespace Google.GData.Client
                     }
                     http.Headers.Add(GoogleAuthentication.Override, http.Method);
                     http.Method = HttpMethods.Post; 
+                }
+
+                if (this.factory.GoogleWebKey != null)
+                {
+                    http.Headers.Add(GoogleAuthentication.WebKey, "key=" + this.factory.GoogleWebKey);
                 }
             }
         }
