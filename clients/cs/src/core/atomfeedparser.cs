@@ -750,10 +750,10 @@ namespace Google.GData.Client
 
                 if (entry.BatchData == null)
                 {
-                    entry.BatchData = new GDataBatchEntry(); 
+                    entry.BatchData = new GDataBatchEntryData(); 
                 }
 
-                GDataBatchEntry batch = entry.BatchData; 
+                GDataBatchEntryData batch = entry.BatchData; 
 
                 if (elementName.Equals(this.nameTable.BatchId))
                 {
@@ -828,10 +828,10 @@ namespace Google.GData.Client
 
                 if (feed.BatchData == null)
                 {
-                    feed.BatchData = new GDataBatchFeed(); 
+                    feed.BatchData = new GDataBatchFeedData(); 
                 }
 
-                GDataBatchFeed batch = feed.BatchData; 
+                GDataBatchFeedData batch = feed.BatchData; 
 
                 if (elementName.Equals(this.nameTable.BatchOperation))
                 {

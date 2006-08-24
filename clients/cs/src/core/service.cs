@@ -424,7 +424,7 @@ namespace Google.GData.Client
             if (feed.BatchData == null) 
             {
                 // setting this will make the feed output the namespace, instead of each entry
-                feed.BatchData = new GDataBatchFeed(); 
+                feed.BatchData = new GDataBatchFeedData(); 
             }
 
 

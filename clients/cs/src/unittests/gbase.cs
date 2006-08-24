@@ -273,7 +273,7 @@ namespace Google.GData.Client.UnitTests
 
                 // set the default operation. Unneeded, as the default is insert, 
                 // but want to make sure the code is complete
-                batchFeed.BatchData = new GDataBatchFeed();
+                batchFeed.BatchData = new GDataBatchFeedData();
                 batchFeed.BatchData.Type = GDataBatchOperationType.delete; 
 
       
@@ -281,7 +281,7 @@ namespace Google.GData.Client.UnitTests
                 for (int i=0; i<20; i++)
                 {
                     AtomEntry entry = ObjectModelHelper.CreateGoogleBaseEntry(i);
-                    entry.BatchData = new GDataBatchEntry();
+                    entry.BatchData = new GDataBatchEntryData();
 
                     entry.BatchData.Type = GDataBatchOperationType.insert; 
                     entry.BatchData.Id = i.ToString();
@@ -293,7 +293,7 @@ namespace Google.GData.Client.UnitTests
 
                 foreach (AtomEntry resultEntry in resultFeed.Entries )
                 {
-                    GDataBatchEntry data = resultEntry.BatchData;
+                    GDataBatchEntryData data = resultEntry.BatchData;
                     Assert.IsTrue(data.Status.Code == 201, "Status code should be 201, is:" + data.Status.Code);
                 }
             }
@@ -333,7 +333,7 @@ namespace Google.GData.Client.UnitTests
                 AtomFeed batchFeed = new AtomFeed(new Uri(this.gBaseURI), service);
 
                 // set the default operation. 
-                batchFeed.BatchData = new GDataBatchFeed();
+                batchFeed.BatchData = new GDataBatchFeedData();
                 batchFeed.BatchData.Type = GDataBatchOperationType.delete; 
 
                 int i = 1; 
@@ -342,7 +342,7 @@ namespace Google.GData.Client.UnitTests
                     AtomEntry batchEntry = new AtomEntry(); 
                     batchEntry.Id = entry.Id; 
 
-                    batchEntry.BatchData = new GDataBatchEntry();
+                    batchEntry.BatchData = new GDataBatchEntryData();
                     batchEntry.BatchData.Id = i.ToString(); 
                     batchEntry.BatchData.Type = GDataBatchOperationType.delete; 
 
@@ -352,7 +352,7 @@ namespace Google.GData.Client.UnitTests
                 AtomFeed resultFeed = service.Batch(batchFeed, new Uri(baseFeed.Batch));
                 foreach (AtomEntry resultEntry in resultFeed.Entries )
                 {
-                    GDataBatchEntry data = resultEntry.BatchData;
+                    GDataBatchEntryData data = resultEntry.BatchData;
                     Assert.IsTrue(data.Status.Code == 200, "Status code should be 200, is:" + data.Status.Code);
                 }
             }
@@ -393,7 +393,7 @@ namespace Google.GData.Client.UnitTests
                 AtomFeed batchFeed = new AtomFeed(baseFeed);
 
                 // set the default operation. 
-                batchFeed.BatchData = new GDataBatchFeed();
+                batchFeed.BatchData = new GDataBatchFeedData();
                 batchFeed.BatchData.Type = GDataBatchOperationType.delete; 
 
                 int i = 1; 
@@ -403,7 +403,7 @@ namespace Google.GData.Client.UnitTests
                     
                     AtomEntry batchEntry = batchFeed.Entries[i]; 
 
-                    batchEntry.BatchData = new GDataBatchEntry();
+                    batchEntry.BatchData = new GDataBatchEntryData();
                     batchEntry.BatchData.Id = i.ToString(); 
                     batchEntry.BatchData.Type = GDataBatchOperationType.update; 
                     batchEntry.Title.Text = "Updated"; 
@@ -418,7 +418,7 @@ namespace Google.GData.Client.UnitTests
 
                 foreach (AtomEntry resultEntry in resultFeed.Entries )
                 {
-                    GDataBatchEntry data = resultEntry.BatchData;
+                    GDataBatchEntryData data = resultEntry.BatchData;
                     Assert.IsTrue(data.Status.Code == 200, "Status code should be 200, is:" + data.Status.Code);
                 }
             }
@@ -458,7 +458,7 @@ namespace Google.GData.Client.UnitTests
                 AtomFeed batchFeed = new AtomFeed(baseFeed);
 
                 // set the default operation. 
-                batchFeed.BatchData = new GDataBatchFeed();
+                batchFeed.BatchData = new GDataBatchFeedData();
                 batchFeed.BatchData.Type = GDataBatchOperationType.insert; 
 
                 int id = 1; 
@@ -470,7 +470,7 @@ namespace Google.GData.Client.UnitTests
 
                     if (fUpdate==true)
                     {
-                        batchEntry.BatchData = new GDataBatchEntry();
+                        batchEntry.BatchData = new GDataBatchEntryData();
                         batchEntry.BatchData.Id = id.ToString(); 
                         batchEntry.BatchData.Type = GDataBatchOperationType.update; 
                         batchEntry.Title.Text = "Updated"; 
@@ -480,7 +480,7 @@ namespace Google.GData.Client.UnitTests
                     else 
                     {
 
-                        batchEntry.BatchData = new GDataBatchEntry();
+                        batchEntry.BatchData = new GDataBatchEntryData();
                         batchEntry.BatchData.Id = id.ToString(); 
                         batchEntry.BatchData.Type = GDataBatchOperationType.delete; 
                         fUpdate = true;
@@ -490,7 +490,7 @@ namespace Google.GData.Client.UnitTests
                     // insert one
                     id++; 
                     batchEntry = ObjectModelHelper.CreateGoogleBaseEntry(i);
-                    batchEntry.BatchData = new GDataBatchEntry();
+                    batchEntry.BatchData = new GDataBatchEntryData();
                     batchEntry.BatchData.Type = GDataBatchOperationType.insert; 
                     batchEntry.BatchData.Id = id.ToString();
                     batchFeed.Entries.Add(batchEntry); 
@@ -505,7 +505,7 @@ namespace Google.GData.Client.UnitTests
 
                 foreach (AtomEntry resultEntry in resultFeed.Entries )
                 {
-                    GDataBatchEntry data = resultEntry.BatchData;
+                    GDataBatchEntryData data = resultEntry.BatchData;
                     int testcode = 200; 
                     if (data.Type == GDataBatchOperationType.insert)
                     {
