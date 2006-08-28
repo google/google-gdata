@@ -429,6 +429,62 @@ namespace Google.GData.Client.UnitTests
         //////////////////////////////////////////////////////////////////////
         /// <summary>runs a batch upload test</summary> 
         //////////////////////////////////////////////////////////////////////
+        [Test] public void GoogleBaseBatchUpdateSameFeed()
+        {
+            Tracing.TraceMsg("Entering GoogleBaseBatchUpdateSameFeed");
+
+            FeedQuery query = new FeedQuery();
+            Service service = new Service(this.ServiceName, this.ApplicationName);
+
+
+            if (this.gBaseURI != null)
+            {
+                if (this.userName != null)
+                {
+                    NetworkCredential nc = new NetworkCredential(this.userName, this.passWord); 
+                    service.Credentials = nc;
+                }
+
+                // setup the google web key
+                GDataGAuthRequestFactory authFactory = this.factory as GDataGAuthRequestFactory; 
+                authFactory.GoogleWebKey = this.gBaseKey; 
+                service.RequestFactory = this.factory; 
+
+                query.Uri = new Uri(this.gBaseURI);
+                AtomFeed baseFeed = service.Query(query);
+                // this should have a batch URI
+                Assert.IsTrue(baseFeed.Batch != null, "This is a base Feed, it should have batch URI"); 
+
+                int i = 0; 
+
+                foreach (AtomEntry entry in baseFeed.Entries)
+                {
+                    entry.BatchData = new GDataBatchEntryData();
+                    entry.BatchData.Id = i.ToString(); 
+                    entry.BatchData.Type = GDataBatchOperationType.update; 
+                    entry.Title.Text = "Updated"; 
+                    i++; 
+                }
+
+
+
+
+
+                AtomFeed resultFeed = service.Batch(baseFeed, new Uri(baseFeed.Batch));
+
+                foreach (AtomEntry resultEntry in resultFeed.Entries )
+                {
+                    GDataBatchEntryData data = resultEntry.BatchData;
+                    Assert.IsTrue(data.Status.Code == 200, "Status code should be 200, is:" + data.Status.Code);
+                }
+            }
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>runs a batch upload test</summary> 
+        //////////////////////////////////////////////////////////////////////
         [Test] public void GoogleBaseBatchMix()
         {
             Tracing.TraceMsg("Entering GoogleBaseBatchMix");

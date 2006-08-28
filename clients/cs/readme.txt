@@ -109,7 +109,7 @@ to use it.
 
 Now to set the default operation you want the batchfeed to do, you use code similiar to this:
 
-    batchFeed.BatchData = new GDataBatchFeed();
+    batchFeed.BatchData = new GDataBatchFeedData();
     batchFeed.BatchData.Type = GDataBatchOperationType.delete; 
 
 If you do not set this, the feed will default to insert as it's operation type.
@@ -117,7 +117,7 @@ If you do not set this, the feed will default to insert as it's operation type.
 You would then go and add entries to your feed. If you want the entry to behave differently
 than the feed itself, you set the BatchData object on the entry. 
 
-    entry.BatchData = new GDataBatchEntry();
+    entry.BatchData = new GDataBatchEntryData();
     entry.BatchData.Type = GDataBatchOperationType.insert; 
     entry.BatchData.Id = "some id"; 
 
@@ -129,7 +129,7 @@ To verify that the operations were successfull, you need to iterate over the ret
 
 	foreach (AtomEntry resultEntry in resultFeed.Entries )
 	{
-	    GDataBatchEntry data = resultEntry.BatchData;
+	    GDataBatchEntryData data = resultEntry.BatchData;
 	    switch (data.Stutus.Code) {
 	       case 200:....
 	    }
