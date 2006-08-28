@@ -2,6 +2,7 @@
 - Added batch support for GoogleFeeds, the first property to support this is the GoogleBase product
 - Added a unittest for GoogleBase. This code shows update/insert/delete against base for single entries and batch entries
   refer to clients/cs/src/unittests/gbase.cs for sample code. 
+- Added IComparable to atomuri.cs (based on a feature request on our issue list)
 
 Missing: we are working on base specific classes to make it easier to insert/edit etc google base entries, but this is not ready yet. 
 Refer to readme.txt for more details on GoogleBatch support and GoogleBase. 

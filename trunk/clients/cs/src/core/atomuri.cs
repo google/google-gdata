@@ -31,7 +31,7 @@ namespace Google.GData.Client
     /// <summary>AtomUri object representation
     /// </summary> 
     //////////////////////////////////////////////////////////////////////
-    public class AtomUri
+	public class AtomUri : IComparable
     {
         string strContent;
 
@@ -70,25 +70,171 @@ namespace Google.GData.Client
         }
 
         /// <summary>comparison method similar to strings</summary> 
-        public static int Compare(AtomUri theOne, AtomUri theOther)
+        public static int Compare(AtomUri a, AtomUri b)
         {
-            if (theOne == null && theOther == null)
+            if (a != null) 
+            {
+                return a.CompareTo(b);
+            }
+            else if (b == null) 
             {
                 return 0;
             }
-            if (theOther == null)
-            {
-                return 1; 
-            }
-            if (theOne == null)
-            {
-                return -1; 
-            }
-            return String.Compare(theOne.ToString(), theOther.ToString());
-
+            return -1; 
         }
 
-    }
+		#region IComparable Members
+
+        /// <summary>
+        /// as we do comparisons, we need to override this
+        /// we return the hashcode of our string member
+        /// </summary>
+        /// <returns>int</returns>
+        public override int GetHashCode()
+        {
+            return this.ToString().GetHashCode(); 
+        }
+
+
+        /// <summary>
+        /// overloaded IComparable interface method
+        /// </summary>
+        /// <param name="obj">the object to compare this instance with</param>
+        /// <returns>int</returns>
+		public int CompareTo(object obj)
+		{
+			if (obj == null)
+				return -1;
+
+			if (obj is AtomUri == false)
+				throw new ArgumentException("obj is not the same type as this instance.", "obj");
+
+			return String.Compare(this.ToString(), (obj as AtomUri).ToString());
+		}
+
+		#endregion
+
+        /// <summary>
+        /// overridden equal method
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns>bool</returns>
+		public override bool Equals (object obj)
+		{
+			return this.CompareTo(obj) == 0;
+		}
+
+        /// <summary>
+        /// overridden comparson operator
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns>bool</returns>
+		public static bool operator == (AtomUri a, AtomUri b)
+		{
+            if ((object)a == null && (object)b == null) return true;
+            if ((object)a != null && (object)b != null) 
+            {
+                return a.Equals(b);
+            }
+            return false; 
+		}
+
+        /// <summary>
+        /// overridden comparson operator
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns>bool</returns>
+        public static bool operator != (AtomUri a, AtomUri b)
+        {
+            return !(a == b); 
+        }
+
+        /// <summary>
+        /// overridden comparson operator
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns>bool</returns>
+		public static bool operator >(AtomUri a, AtomUri b)
+		{
+            if (a != null) 
+            {
+                return a.CompareTo(b) > 0;
+            }
+            return false; 
+		}
+
+        /// <summary>
+        /// overridden comparson operator
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns>bool</returns>
+		public static bool operator <(AtomUri a, AtomUri b)
+		{
+            if (a != null) 
+            {
+                return a.CompareTo(b) < 0;
+            }
+            return true; 
+		}
+
+        /// <summary>
+        /// overridden comparson operator
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns>bool</returns>
+		public static bool operator >=(AtomUri a, AtomUri b)
+		{
+            if (a != null)
+            {
+                return a.CompareTo(b) > 0 || a.Equals(b);
+            }
+            else if (b == null)
+            {
+                return true;
+            }
+            return false;
+		}
+
+        /// <summary>
+        /// overridden comparson operator
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns>bool</returns>
+		public static bool operator <=(AtomUri a, AtomUri b)
+		{
+            if (a != null)
+            {
+                return a.CompareTo(b) < 0 || a.Equals(b);
+            }
+            return true;
+		}
+
+		/// <summary>
+		/// implicit new instance of AtomUri from string
+		/// </summary>
+		/// <param name="s"></param>
+		/// <returns></returns>
+		public static implicit operator AtomUri(string s)
+		{
+			return new AtomUri(s);
+		}
+
+		/// <summary>
+		/// implicit new instance of AtomUri from Uri object
+		/// </summary>
+		/// <param name="u"></param>
+		/// <returns></returns>
+		public static implicit operator AtomUri(Uri u)
+		{
+			return new AtomUri(u);
+		}
+	}
     /////////////////////////////////////////////////////////////////////////////
 } 
 /////////////////////////////////////////////////////////////////////////////
