@@ -53,18 +53,6 @@ namespace Google.GData.Calendar {
         }
 
         /// <summary>
-        /// Sets the credentials of the user to authenticate requests
-        /// to the server.
-        /// </summary>
-        /// <param name="username"></param>
-        /// <param name="password"></param>
-        public void setUserCredentials(String username, String password)
-        {
-            this.Credentials = new NetworkCredential(username, password);
-        }
-
-
-        /// <summary>
         ///  overwritten Query method
         /// </summary>
         /// <param name="feedQuery">The FeedQuery touse</param>

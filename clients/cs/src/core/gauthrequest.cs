@@ -60,7 +60,7 @@ namespace Google.GData.Client
         /// <summary>Google method override header</summary>
         public const string Override = "X-HTTP-Method-Override"; 
         /// <summary>Google webkey identifier</summary>
-        public const string WebKey = "X-Google-Key";
+        public const string WebKey = "X-Google-Key: key=";
 
     }
     /////////////////////////////////////////////////////////////////////////////
@@ -69,34 +69,31 @@ namespace Google.GData.Client
     //////////////////////////////////////////////////////////////////////
     /// <summary>base GDataRequestFactory implementation</summary> 
     //////////////////////////////////////////////////////////////////////
-    public class GDataGAuthRequestFactory : IGDataRequestFactory
+    public class GDataGAuthRequestFactory : GDataRequestFactory
     {
         /// <summary>this factory's agent</summary> 
         public const string GDataGAuthAgent = "GDataGAuth-CS/1.0.0";
-
-        private string userAgent;    // holds the user-agent
         private string gAuthToken;   // we want to remember the token here
         private string handler;      // so the handler is useroverridable, good for testing
-        private CookieContainer cookies; //  all the cookies we use
         private string gService;         // the service we pass to Gaia for token creation
         private string applicationName;  // the application name we pass to Gaia and append to the user-agent
         private bool fMethodOverride;    // to override using post, or to use PUT/DELETE
         private int numberOfRetries;        // holds the number of retries the request will undertake
-        private string webKey;              // holds the webkey
+
         
                                          
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>default constructor</summary> 
         //////////////////////////////////////////////////////////////////////
-        public GDataGAuthRequestFactory(string service, string applicationName)
+        public GDataGAuthRequestFactory(string service, string applicationName) : base(applicationName)
         {
     	    this.Service = service;
     	    this.ApplicationName = applicationName;
     	    if (applicationName != null) {
-    	        this.userAgent = applicationName + " " + GDataGAuthAgent;
+    	        this.UserAgent = applicationName + " " + GDataGAuthAgent;
     	    } else {
-    	        this.userAgent = GDataGAuthAgent;
+    	        this.UserAgent = GDataGAuthAgent;
     	    }
             this.numberOfRetries = 0; 
         }
@@ -108,7 +105,7 @@ namespace Google.GData.Client
         public GDataGAuthRequestFactory(string service, string applicationName, string library) : this(service, library)
         {
     	    if (applicationName != null) {
-    	        this.userAgent = applicationName + " " + this.userAgent;
+    	        this.UserAgent = applicationName + " " + this.UserAgent;
             }
         }
         /////////////////////////////////////////////////////////////////////////////
@@ -116,9 +113,9 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         /// <summary>default constructor</summary> 
         //////////////////////////////////////////////////////////////////////
-        public virtual IGDataRequest CreateRequest(GDataRequestType type, Uri uriTarget)
+        public override IGDataRequest CreateRequest(GDataRequestType type, Uri uriTarget)
         {
-            return new GDataGAuthRequest(type, uriTarget, this.UserAgent, this.ApplicationName, this); 
+            return new GDataGAuthRequest(type, uriTarget, this); 
         }
         /////////////////////////////////////////////////////////////////////////////
 
@@ -132,31 +129,6 @@ namespace Google.GData.Client
                 Tracing.TraceMsg("set token called with: " + value); 
                 this.gAuthToken = value;
                 }
-        }
-        /////////////////////////////////////////////////////////////////////////////
-
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>Get/Set accessor for the cookie box</summary> 
-        //////////////////////////////////////////////////////////////////////
-        internal CookieContainer GCookies
-        {
-            get {
-                if (this.cookies == null) {
-                    this.cookies = new CookieContainer(); 
-                }
-                return this.cookies;
-            }
-        }
-        /////////////////////////////////////////////////////////////////////////////
-
-
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>Get/Set accessor for the user-agent</summary> 
-        //////////////////////////////////////////////////////////////////////
-        public string UserAgent
-        {
-            get {return this.userAgent;}
-            set {this.userAgent = value;}
         }
         /////////////////////////////////////////////////////////////////////////////
 
@@ -180,18 +152,6 @@ namespace Google.GData.Client
         }
         /////////////////////////////////////////////////////////////////////////////
 
-
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>property to hold the application key for google applications
-        /// format of the header is key=XXXXX, only the XXXXX is in the property</summary> 
-        /// <returns> </returns>
-        //////////////////////////////////////////////////////////////////////
-        public string GoogleWebKey
-        {
-            get {return this.webKey;}
-            set {this.webKey = value;}
-        }
-        // end of accessor public string GoogleWebKey
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>accessor method public bool MethodOverride</summary> 
@@ -242,18 +202,14 @@ namespace Google.GData.Client
         private MemoryStream requestCopy;
         /// <summary>holds the factory instance</summary> 
         private GDataGAuthRequestFactory factory; 
-        /// <summary>holds the application name</summary> 
-        private string applicationName;
-        
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>default constructor</summary> 
         //////////////////////////////////////////////////////////////////////
-        internal GDataGAuthRequest(GDataRequestType type, Uri uriTarget, string userAgent, string applicationName, GDataGAuthRequestFactory factory)  : base(type, uriTarget, userAgent)
+        internal GDataGAuthRequest(GDataRequestType type, Uri uriTarget, GDataGAuthRequestFactory factory)  : base(type, uriTarget, factory as GDataRequestFactory)
         {
             // need to remember the factory, so that we can pass the new authtoken back there if need be
             this.factory = factory; 
-            this.applicationName = applicationName;
         }
         /////////////////////////////////////////////////////////////////////////////
 
@@ -349,8 +305,6 @@ namespace Google.GData.Client
                 // we do not want this to autoredirect, our security header will be 
                 // lost in that case
                 http.AllowAutoRedirect = false;
-                // and we want to set a cookie container
-                http.CookieContainer = this.factory.GCookies;
                 if (this.factory.MethodOverride == true && 
                     http.Method != HttpMethods.Get &&
                     http.Method != HttpMethods.Post)
@@ -362,11 +316,6 @@ namespace Google.GData.Client
                     }
                     http.Headers.Add(GoogleAuthentication.Override, http.Method);
                     http.Method = HttpMethods.Post; 
-                }
-
-                if (this.factory.GoogleWebKey != null)
-                {
-                    http.Headers.Add(GoogleAuthentication.WebKey, "key=" + this.factory.GoogleWebKey);
                 }
             }
         }
@@ -409,7 +358,7 @@ namespace Google.GData.Client
                 // now enter the data in the stream
                 string postData = GoogleAuthentication.Email + "=" + nc.UserName + "&"; 
                 postData += GoogleAuthentication.Password + "=" + nc.Password + "&";  
-                postData += GoogleAuthentication.Source + "=" + this.applicationName + "&"; 
+                postData += GoogleAuthentication.Source + "=" + this.factory.ApplicationName + "&"; 
                 postData += GoogleAuthentication.Service + "=" + this.factory.Service; 
 
                 byte[] encodedData = encoder.GetBytes(postData);

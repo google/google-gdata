@@ -287,7 +287,7 @@ namespace Google.GData.Client.UnitTests
             CalendarTestSuite  test = new CalendarTestSuite();
 
             test.InitTest(); 
-            test.CalendarExtendedPropertyTest();
+            test.CalendarRecurranceTest();
             test.EndTest(); 
 
 

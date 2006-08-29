@@ -100,6 +100,11 @@
                     HintPath = "C:\Program Files\NUnit 2.2\bin\nunit.framework.dll"
                     AssemblyFolderKey = "hklm\dn\nunit.framework"
                 />
+                <Reference
+                    Name = "gbase"
+                    Project = "{C9B83904-8002-455C-AA48-C47CDF74F365}"
+                    Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
+                />
             </References>
         </Build>
         <Files>
@@ -107,6 +112,12 @@
                 <File
                     RelPath = "AssemblyInfo.cs"
                     Link = "..\..\unittests\AssemblyInfo.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "attributehistogramtest.cs"
+                    Link = "..\..\unittests\gbase\attributehistogramtest.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
@@ -129,8 +140,68 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "datetimerangetest.cs"
+                    Link = "..\..\unittests\gbase\datetimerangetest.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "gbase.cs"
                     Link = "..\..\unittests\gbase.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "gbaseattributecollectiontest.cs"
+                    Link = "..\..\unittests\gbase\gbaseattributecollectiontest.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "gbaseattributecollectionwithtypeconversiontest.cs"
+                    Link = "..\..\unittests\gbase\gbaseattributecollectionwithtypeconversiontest.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "gbaseattributetest.cs"
+                    Link = "..\..\unittests\gbase\gbaseattributetest.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "gbaseentrytest.cs"
+                    Link = "..\..\unittests\gbase\gbaseentrytest.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "gbasefeedtest.cs"
+                    Link = "..\..\unittests\gbase\gbasefeedtest.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "gbasequerytest.cs"
+                    Link = "..\..\unittests\gbase\gbasequerytest.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "gbaseutilitiestest.cs"
+                    Link = "..\..\unittests\gbase\gbaseutilitiestest.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "itemtypedefinitiontest.cs"
+                    Link = "..\..\unittests\gbase\itemtypedefinitiontest.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "numberunittest.cs"
+                    Link = "..\..\unittests\gbase\numberunittest.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />

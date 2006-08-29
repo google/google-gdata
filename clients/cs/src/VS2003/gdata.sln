@@ -19,6 +19,22 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blogger", "Blogger\Blogger.
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gbase", "gbase\gbase.csproj", "{C9B83904-8002-455C-AA48-C47CDF74F365}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gbase_customertool", "gbase_customertool\gbase_customertool.csproj", "{A9AB8EB3-8327-4F57-9984-652DB7A8B11F}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gbase_querytool", "gbase_querytool\gbase_querytool.csproj", "{0DB13911-7A1C-4E05-BCEA-B6F3DD6CCEA2}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "gbase_demo", "gbase_demo\gbase_demo.vbproj", "{48D6F5E9-595C-416E-B105-B4CCD5045511}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfiguration) = preSolution
 		Debug = Debug
@@ -45,6 +61,22 @@ Global
 		{D5C537EA-AF47-4BFF-9765-921BF180701F}.Debug.Build.0 = Debug|.NET
 		{D5C537EA-AF47-4BFF-9765-921BF180701F}.Release.ActiveCfg = Release|.NET
 		{D5C537EA-AF47-4BFF-9765-921BF180701F}.Release.Build.0 = Release|.NET
+		{C9B83904-8002-455C-AA48-C47CDF74F365}.Debug.ActiveCfg = Debug|.NET
+		{C9B83904-8002-455C-AA48-C47CDF74F365}.Debug.Build.0 = Debug|.NET
+		{C9B83904-8002-455C-AA48-C47CDF74F365}.Release.ActiveCfg = Release|.NET
+		{C9B83904-8002-455C-AA48-C47CDF74F365}.Release.Build.0 = Release|.NET
+		{A9AB8EB3-8327-4F57-9984-652DB7A8B11F}.Debug.ActiveCfg = Debug|.NET
+		{A9AB8EB3-8327-4F57-9984-652DB7A8B11F}.Debug.Build.0 = Debug|.NET
+		{A9AB8EB3-8327-4F57-9984-652DB7A8B11F}.Release.ActiveCfg = Release|.NET
+		{A9AB8EB3-8327-4F57-9984-652DB7A8B11F}.Release.Build.0 = Release|.NET
+		{0DB13911-7A1C-4E05-BCEA-B6F3DD6CCEA2}.Debug.ActiveCfg = Debug|.NET
+		{0DB13911-7A1C-4E05-BCEA-B6F3DD6CCEA2}.Debug.Build.0 = Debug|.NET
+		{0DB13911-7A1C-4E05-BCEA-B6F3DD6CCEA2}.Release.ActiveCfg = Release|.NET
+		{0DB13911-7A1C-4E05-BCEA-B6F3DD6CCEA2}.Release.Build.0 = Release|.NET
+		{48D6F5E9-595C-416E-B105-B4CCD5045511}.Debug.ActiveCfg = Debug|.NET
+		{48D6F5E9-595C-416E-B105-B4CCD5045511}.Debug.Build.0 = Debug|.NET
+		{48D6F5E9-595C-416E-B105-B4CCD5045511}.Release.ActiveCfg = Release|.NET
+		{48D6F5E9-595C-416E-B105-B4CCD5045511}.Release.Build.0 = Release|.NET
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 	EndGlobalSection

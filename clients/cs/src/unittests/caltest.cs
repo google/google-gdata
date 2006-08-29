@@ -415,6 +415,29 @@ namespace Google.GData.Client.UnitTests
                     "END:VTIMEZONE\n";
 
 
+                recur  = 
+                    "DTSTART;TZID=America/Los_Angeles:20060314T060000\n" +
+                    "DURATION:PT3600S\n" + 
+                    "RRULE:FREQ=DAILY;UNTIL=20060321T220000Z\n" +
+                    "BEGIN:VTIMEZONE\n" + 
+                    "TZID:America/Los_Angeles\n" +
+                    "X-LIC-LOCATION:America/Los_Angeles\n" +
+                    "BEGIN:STANDARD\n" +
+                    "TZOFFSETFROM:-0700\n" +
+                    "TZOFFSETTO:-0800\n" +
+                    "TZNAME:PST\n" +
+                    "DTSTART:19671029T020000\n" +
+                    "RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU\n" +
+                    "END:STANDARD\n" +
+                    "BEGIN:DAYLIGHT\n" +
+                    "TZOFFSETFROM:-0800\n" +
+                    "TZOFFSETTO:-0700\n" +
+                    "TZNAME:PDT\n" +
+                    "DTSTART:19870405T020000\n" +
+                    "RRULE:FREQ=YEARLY;BYMONTH=4;BYDAY=1SU\n" +
+                    "END:DAYLIGHT\n" +
+                    "END:VTIMEZONE\n"; 
+
                 EventEntry entry  =  ObjectModelHelper.CreateEventEntry(1); 
                 entry.Title.Text = "New recurring event" + Guid.NewGuid().ToString();  
 
@@ -579,6 +602,7 @@ namespace Google.GData.Client.UnitTests
 
                 query.Uri = new Uri(this.defaultCompositeUri); 
                 EventFeed calFeed = service.Query(query);
+                Assert.IsTrue(calFeed==null, "that's wrong"); 
                 service.Credentials = null; 
                 factory.MethodOverride = false;
             }
