@@ -61,7 +61,7 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         public override IGDataRequest CreateRequest(GDataRequestType type, Uri uriTarget)
         {
-            return new GAuthSubRequest(type, uriTarget, this.UserAgent, this.ApplicationName, this); 
+            return new GAuthSubRequest(type, uriTarget, this); 
         }
         /////////////////////////////////////////////////////////////////////////////
         // 
@@ -106,8 +106,8 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         /// <summary>default constructor</summary> 
         //////////////////////////////////////////////////////////////////////
-        internal GAuthSubRequest(GDataRequestType type, Uri uriTarget, string userAgent, string applicationName, GAuthSubRequestFactory factory)  : 
-                base(type, uriTarget, userAgent, applicationName, factory)
+        internal GAuthSubRequest(GDataRequestType type, Uri uriTarget, GAuthSubRequestFactory factory)  : 
+                base(type, uriTarget, factory)
         {
             this.factory = factory; 
         }

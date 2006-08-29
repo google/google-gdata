@@ -24,7 +24,7 @@ using System.Net;
 using NUnit.Framework;
 using Google.GData.Client;
 using Google.GData.Extensions;
-using Google.GData.Calendar;
+using Google.GData.GoogleBase;
 
 
 
@@ -32,7 +32,7 @@ using Google.GData.Calendar;
 namespace Google.GData.Client.UnitTests
 {
     [TestFixture] 
-    public class GBaseTestSuite : BaseTestClass
+    public class GBatchTestSuite : BaseTestClass
     {
 
         /// <summary>holds the username to use</summary>
@@ -51,7 +51,7 @@ namespace Google.GData.Client.UnitTests
         //////////////////////////////////////////////////////////////////////
         /// <summary>default empty constructor</summary> 
         //////////////////////////////////////////////////////////////////////
-        public GBaseTestSuite()
+        public GBatchTestSuite()
         {
         }
 
@@ -138,7 +138,7 @@ namespace Google.GData.Client.UnitTests
             Tracing.TraceMsg("Entering Base AuthenticationTest");
 
             FeedQuery query = new FeedQuery();
-            Service service = new Service(this.ServiceName, this.ApplicationName);
+            Service service = new GBaseService(this.ApplicationName, this.gBaseKey);
 
             int iCount; 
 
@@ -150,9 +150,6 @@ namespace Google.GData.Client.UnitTests
                     service.Credentials = nc;
                 }
 
-                // setup the google web key
-                GDataGAuthRequestFactory authFactory = this.factory as GDataGAuthRequestFactory; 
-                authFactory.GoogleWebKey = this.gBaseKey; 
                 service.RequestFactory = this.factory; 
 
                 query.Uri = new Uri(this.gBaseURI);
@@ -244,7 +241,7 @@ namespace Google.GData.Client.UnitTests
             Tracing.TraceMsg("Entering GoogleBaseBatchUpload");
 
             FeedQuery query = new FeedQuery();
-            Service service = new Service(this.ServiceName, this.ApplicationName);
+            Service service = new GBaseService(this.ApplicationName, this.gBaseKey);
 
 
             if (this.gBaseURI != null)
@@ -255,9 +252,6 @@ namespace Google.GData.Client.UnitTests
                     service.Credentials = nc;
                 }
 
-                // setup the google web key
-                GDataGAuthRequestFactory authFactory = this.factory as GDataGAuthRequestFactory; 
-                authFactory.GoogleWebKey = this.gBaseKey; 
                 service.RequestFactory = this.factory; 
 
 
@@ -308,7 +302,7 @@ namespace Google.GData.Client.UnitTests
             Tracing.TraceMsg("Entering GoogleBaseBatchDelete");
 
             FeedQuery query = new FeedQuery();
-            Service service = new Service(this.ServiceName, this.ApplicationName);
+            Service service = new GBaseService(this.ApplicationName, this.gBaseKey);
 
 
             if (this.gBaseURI != null)
@@ -319,9 +313,6 @@ namespace Google.GData.Client.UnitTests
                     service.Credentials = nc;
                 }
 
-                // setup the google web key
-                GDataGAuthRequestFactory authFactory = this.factory as GDataGAuthRequestFactory; 
-                authFactory.GoogleWebKey = this.gBaseKey; 
                 service.RequestFactory = this.factory; 
 
                 query.Uri = new Uri(this.gBaseURI);
@@ -368,7 +359,7 @@ namespace Google.GData.Client.UnitTests
             Tracing.TraceMsg("Entering GoogleBaseBatchUpdates");
 
             FeedQuery query = new FeedQuery();
-            Service service = new Service(this.ServiceName, this.ApplicationName);
+            Service service = new GBaseService(this.ApplicationName, this.gBaseKey);
 
 
             if (this.gBaseURI != null)
@@ -379,9 +370,6 @@ namespace Google.GData.Client.UnitTests
                     service.Credentials = nc;
                 }
 
-                // setup the google web key
-                GDataGAuthRequestFactory authFactory = this.factory as GDataGAuthRequestFactory; 
-                authFactory.GoogleWebKey = this.gBaseKey; 
                 service.RequestFactory = this.factory; 
 
                 query.Uri = new Uri(this.gBaseURI);
@@ -434,7 +422,7 @@ namespace Google.GData.Client.UnitTests
             Tracing.TraceMsg("Entering GoogleBaseBatchUpdateSameFeed");
 
             FeedQuery query = new FeedQuery();
-            Service service = new Service(this.ServiceName, this.ApplicationName);
+            Service service = new GBaseService(this.ApplicationName, this.gBaseKey);
 
 
             if (this.gBaseURI != null)
@@ -445,9 +433,6 @@ namespace Google.GData.Client.UnitTests
                     service.Credentials = nc;
                 }
 
-                // setup the google web key
-                GDataGAuthRequestFactory authFactory = this.factory as GDataGAuthRequestFactory; 
-                authFactory.GoogleWebKey = this.gBaseKey; 
                 service.RequestFactory = this.factory; 
 
                 query.Uri = new Uri(this.gBaseURI);
@@ -490,7 +475,7 @@ namespace Google.GData.Client.UnitTests
             Tracing.TraceMsg("Entering GoogleBaseBatchMix");
 
             FeedQuery query = new FeedQuery();
-            Service service = new Service(this.ServiceName, this.ApplicationName);
+            Service service = new GBaseService(this.ApplicationName, this.gBaseKey);
 
 
             if (this.gBaseURI != null)
@@ -501,9 +486,6 @@ namespace Google.GData.Client.UnitTests
                     service.Credentials = nc;
                 }
 
-                // setup the google web key
-                GDataGAuthRequestFactory authFactory = this.factory as GDataGAuthRequestFactory; 
-                authFactory.GoogleWebKey = this.gBaseKey; 
                 service.RequestFactory = this.factory; 
 
                 query.Uri = new Uri(this.gBaseURI);

@@ -96,10 +96,16 @@ namespace Google.GData.Client
         public IGDataRequestFactory RequestFactory
         {
             get {return this.GDataRequestFactory;}
-            set {this.GDataRequestFactory = value;}
+            set {this.GDataRequestFactory = value; OnRequestFactoryChanged(); }
         }
-        /////////////////////////////////////////////////////////////////////////////
 
+        /// <summary>
+        /// notifier if someone changes the requestfactory of the service
+        /// </summary>
+        public virtual void OnRequestFactoryChanged() 
+        {
+            return; 
+        }
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>accessor method public ICredentials Credentials</summary> 
@@ -134,6 +140,19 @@ namespace Google.GData.Client
             return request.GetResponseStream();
         }
         /////////////////////////////////////////////////////////////////////////////
+
+
+        /// <summary>
+        /// Sets the credentials of the user to authenticate requests
+        /// to the server.
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
+        public void setUserCredentials(String username, String password)
+        {
+            this.Credentials = new NetworkCredential(username, password);
+        }
+
 
 
 
@@ -174,7 +193,7 @@ namespace Google.GData.Client
             {
                 Tracing.TraceCall("Using Atom always.... ");
 
-                feed = new AtomFeed(feedQuery.Uri, this);
+                feed = createFeed(feedQuery.Uri);
 
                 feed.NewAtomEntry += new FeedParserEventHandler(this.OnParsedNewEntry); 
                 feed.NewExtensionElement += new ExtensionElementEventHandler(this.OnNewExtensionElement);
@@ -387,11 +406,19 @@ namespace Google.GData.Client
 
         }
 
-
-
-
-
-
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>creates a new feed instance to be returned by
+        /// Batch() and Query()
+        ///
+        /// Subclasses can supply their own feed implementation by
+        /// overriding this method.
+        /// </summary>
+        //////////////////////////////////////////////////////////////////////
+        protected virtual AtomFeed createFeed(Uri uriToUse)
+        {
+          return new AtomFeed(uriToUse, this);
+        }
+        //////////////////////////////////////////////////////////////////////
 
         /// <summary>
         /// takes a given feed, and does a batch post of that feed
@@ -430,7 +457,7 @@ namespace Google.GData.Client
 
             Stream returnStream = StreamInsert(uriToUse, feed, GDataRequestType.Batch);
 
-            AtomFeed returnFeed = new AtomFeed(uriToUse, this);
+            AtomFeed returnFeed = createFeed(uriToUse);
 
 
             returnFeed.NewAtomEntry += new FeedParserEventHandler(this.OnParsedNewEntry); 

@@ -130,43 +130,43 @@
             Persistence method for the GDataBatchInterrupt object
             </summary>
             <param name="writer">the xmlwriter to write into</param></member>
-        <member name="T:Google.GData.Client.GDataBatchFeed">
+        <member name="T:Google.GData.Client.GDataBatchFeedData">
             <summary>The GDataFeedBatch object holds batch related information
             for the AtomFeed
             </summary></member>
-        <member name="M:Google.GData.Client.GDataBatchFeed.#ctor">
+        <member name="M:Google.GData.Client.GDataBatchFeedData.#ctor">
             <summary>
             constructor, set's the default for the operation type
             </summary></member>
-        <member name="P:Google.GData.Client.GDataBatchFeed.Type">
+        <member name="P:Google.GData.Client.GDataBatchFeedData.Type">
             <summary>accessor method public GDataBatchOperationType Type</summary>
             <returns></returns></member>
-        <member name="M:Google.GData.Client.GDataBatchFeed.Save(System.Xml.XmlWriter)">
+        <member name="M:Google.GData.Client.GDataBatchFeedData.Save(System.Xml.XmlWriter)">
             <summary>
             Persistence method for the GDataBatch object
             </summary>
             <param name="writer">the xmlwriter to write into</param></member>
-        <member name="T:Google.GData.Client.GDataBatchEntry">
+        <member name="T:Google.GData.Client.GDataBatchEntryData">
             <summary>The GDataEntryBatch object holds batch related information\
             for an AtomEntry
             </summary></member>
-        <member name="M:Google.GData.Client.GDataBatchEntry.#ctor">
+        <member name="M:Google.GData.Client.GDataBatchEntryData.#ctor">
             <summary>
             constructor, set's the default for the operation type
             </summary></member>
-        <member name="P:Google.GData.Client.GDataBatchEntry.Type">
+        <member name="P:Google.GData.Client.GDataBatchEntryData.Type">
             <summary>accessor method public GDataBatchOperationType Type</summary>
             <returns></returns></member>
-        <member name="P:Google.GData.Client.GDataBatchEntry.Id">
+        <member name="P:Google.GData.Client.GDataBatchEntryData.Id">
             <summary>accessor method public string Id</summary>
             <returns></returns></member>
-        <member name="P:Google.GData.Client.GDataBatchEntry.Interrupt">
+        <member name="P:Google.GData.Client.GDataBatchEntryData.Interrupt">
             <summary>accessor for the GDataBatchInterrrupt element</summary>
             <returns></returns></member>
-        <member name="P:Google.GData.Client.GDataBatchEntry.Status">
+        <member name="P:Google.GData.Client.GDataBatchEntryData.Status">
             <summary>accessor method public GDataBatchStatus Status</summary>
             <returns></returns></member>
-        <member name="M:Google.GData.Client.GDataBatchEntry.Save(System.Xml.XmlWriter)">
+        <member name="M:Google.GData.Client.GDataBatchEntryData.Save(System.Xml.XmlWriter)">
             <summary>
             Persistence method for the GDataEntryBatch object
             </summary>
@@ -182,11 +182,16 @@
         <member name="P:Google.GData.Client.GDataRequestFactory.UserAgent">
             <summary>accessor method public string UserAgent</summary>
             <returns></returns></member>
+        <member name="P:Google.GData.Client.GDataRequestFactory.CustomHeaders">
+            <summary>accessor method public StringArray CustomHeaders</summary>
+            <returns></returns></member>
+        <member name="P:Google.GData.Client.GDataRequestFactory.Cookies">
+            <summary>Get/Set accessor for the cookie box</summary></member>
         <member name="M:Google.GData.Client.GDataRequestFactory.CreateRequest(Google.GData.Client.GDataRequestType,System.Uri)">
             <summary>default constructor</summary></member>
         <member name="T:Google.GData.Client.GDataRequest">
             <summary>base GDataRequest implmentation</summary></member>
-        <member name="M:Google.GData.Client.GDataRequest.#ctor(Google.GData.Client.GDataRequestType,System.Uri,System.String)">
+        <member name="M:Google.GData.Client.GDataRequest.#ctor(Google.GData.Client.GDataRequestType,System.Uri,Google.GData.Client.GDataRequestFactory)">
             <summary>default constructor</summary></member>
         <member name="F:Google.GData.Client.GDataRequest.webRequest">
             <summary>holds the webRequest object</summary></member>
@@ -198,8 +203,6 @@
             <summary>holds request type</summary></member>
         <member name="F:Google.GData.Client.GDataRequest.credentials">
             <summary>holds the credential information</summary></member>
-        <member name="F:Google.GData.Client.GDataRequest.userAgent">
-            <summary>holds the user-agent</summary></member>
         <member name="F:Google.GData.Client.GDataRequest.requestStream">
             <summary>holds the request if a stream is open</summary></member>
         <member name="F:Google.GData.Client.GDataRequest.disposed">
@@ -450,18 +453,10 @@
             <summary>this factory's agent</summary></member>
         <member name="P:Google.GData.Client.GDataGAuthRequestFactory.GAuthToken">
             <summary>Get/Set accessor for gAuthToken</summary></member>
-        <member name="P:Google.GData.Client.GDataGAuthRequestFactory.GCookies">
-            <summary>Get/Set accessor for the cookie box</summary></member>
-        <member name="P:Google.GData.Client.GDataGAuthRequestFactory.UserAgent">
-            <summary>Get/Set accessor for the user-agent</summary></member>
         <member name="P:Google.GData.Client.GDataGAuthRequestFactory.ApplicationName">
             <summary>Get/Set accessor for the application name</summary></member>
         <member name="P:Google.GData.Client.GDataGAuthRequestFactory.Service">
             <summary>returns the service string</summary></member>
-        <member name="P:Google.GData.Client.GDataGAuthRequestFactory.GoogleWebKey">
-            <summary>property to hold the application key for google applications
-            format of the header is key=XXXXX, only the XXXXX is in the property</summary>
-            <returns></returns></member>
         <member name="P:Google.GData.Client.GDataGAuthRequestFactory.MethodOverride">
             <summary>accessor method public bool MethodOverride</summary>
             <returns></returns></member>
@@ -476,14 +471,12 @@
             <summary>default constructor</summary></member>
         <member name="T:Google.GData.Client.GDataGAuthRequest">
             <summary>base GDataRequest implementation</summary></member>
-        <member name="M:Google.GData.Client.GDataGAuthRequest.#ctor(Google.GData.Client.GDataRequestType,System.Uri,System.String,System.String,Google.GData.Client.GDataGAuthRequestFactory)">
+        <member name="M:Google.GData.Client.GDataGAuthRequest.#ctor(Google.GData.Client.GDataRequestType,System.Uri,Google.GData.Client.GDataGAuthRequestFactory)">
             <summary>default constructor</summary></member>
         <member name="F:Google.GData.Client.GDataGAuthRequest.requestCopy">
             <summary>holds the input in memory stream</summary></member>
         <member name="F:Google.GData.Client.GDataGAuthRequest.factory">
             <summary>holds the factory instance</summary></member>
-        <member name="F:Google.GData.Client.GDataGAuthRequest.applicationName">
-            <summary>holds the application name</summary></member>
         <member name="P:Google.GData.Client.GDataGAuthRequest.RequestCopy">
             <summary>Read only accessor for requestCopy</summary></member>
         <member name="M:Google.GData.Client.GDataGAuthRequest.GetRequestStream">
@@ -668,7 +661,7 @@
             <summary>default constructor</summary></member>
         <member name="T:Google.GData.Client.GAuthSubRequest">
             <summary>base GDataRequest implementation</summary></member>
-        <member name="M:Google.GData.Client.GAuthSubRequest.#ctor(Google.GData.Client.GDataRequestType,System.Uri,System.String,System.String,Google.GData.Client.GAuthSubRequestFactory)">
+        <member name="M:Google.GData.Client.GAuthSubRequest.#ctor(Google.GData.Client.GDataRequestType,System.Uri,Google.GData.Client.GAuthSubRequestFactory)">
             <summary>default constructor</summary></member>
         <member name="F:Google.GData.Client.GAuthSubRequest.factory">
             <summary>holds the factory instance</summary></member>
@@ -1762,7 +1755,7 @@
             <summary>default constructor</summary></member>
         <member name="T:Google.GData.Client.GDataLoggingRequest">
             <summary>base GDataRequest implementation</summary></member>
-        <member name="M:Google.GData.Client.GDataLoggingRequest.#ctor(Google.GData.Client.GDataRequestType,System.Uri,System.String,System.String,Google.GData.Client.GDataGAuthRequestFactory,System.String,System.String,System.String)">
+        <member name="M:Google.GData.Client.GDataLoggingRequest.#ctor(Google.GData.Client.GDataRequestType,System.Uri,Google.GData.Client.GDataGAuthRequestFactory,System.String,System.String,System.String)">
             <summary>default constructor</summary></member>
         <member name="F:Google.GData.Client.GDataLoggingRequest.strInput">
             <summary>holds the filename for the input request</summary></member>
@@ -1938,10 +1931,21 @@
         <member name="P:Google.GData.Client.Service.Credentials">
             <summary>accessor method public ICredentials Credentials</summary>
             <returns></returns></member>
+        <member name="M:Google.GData.Client.Service.OnRequestFactoryChanged">
+            <summary>
+            notifier if someone changes the requestfactory of the service
+            </summary></member>
         <member name="M:Google.GData.Client.Service.Query(System.Uri)">
             <summary>the basic interface. Take a URI and just get it</summary>
             <param name="queryUri">the URI to execute</param>
             <returns> a webresponse object</returns></member>
+        <member name="M:Google.GData.Client.Service.setUserCredentials(System.String,System.String)">
+            <summary>
+            Sets the credentials of the user to authenticate requests
+            to the server.
+            </summary>
+            <param name="username"></param>
+            <param name="password"></param></member>
         <member name="M:Google.GData.Client.Service.Query(Google.GData.Client.FeedQuery)">
             <summary>executes the query and returns an AtomFeed object tree</summary>
             <param name="feedQuery">the query parameters as a FeedQuery object </param>
@@ -1975,6 +1979,12 @@
             <param name="baseEntry">the entry to be inserted</param>
             <param name="type">the type of request to create</param>
             <returns> the response as a stream</returns></member>
+        <member name="M:Google.GData.Client.Service.createFeed(System.Uri)">
+            <summary>creates a new feed instance to be returned by
+            Batch() and Query()
+            Subclasses can supply their own feed implementation by
+            overriding this method.
+            </summary></member>
         <member name="M:Google.GData.Client.Service.Batch(Google.GData.Client.AtomFeed,System.Uri)">
             <summary>
             takes a given feed, and does a batch post of that feed
@@ -2137,6 +2147,78 @@
             <summary>override for ToString</summary></member>
         <member name="M:Google.GData.Client.AtomUri.Compare(Google.GData.Client.AtomUri,Google.GData.Client.AtomUri)">
             <summary>comparison method similar to strings</summary></member>
+        <member name="M:Google.GData.Client.AtomUri.GetHashCode">
+            <summary>
+            as we do comparisons, we need to override this
+            we return the hashcode of our string member
+            </summary>
+            <returns>int</returns></member>
+        <member name="M:Google.GData.Client.AtomUri.CompareTo(System.Object)">
+            <summary>
+            overloaded IComparable interface method
+            </summary>
+            <param name="obj">the object to compare this instance with</param>
+            <returns>int</returns></member>
+        <member name="M:Google.GData.Client.AtomUri.Equals(System.Object)">
+            <summary>
+            overridden equal method
+            </summary>
+            <param name="obj"></param>
+            <returns>bool</returns></member>
+        <member name="M:Google.GData.Client.AtomUri.op_Equality(Google.GData.Client.AtomUri,Google.GData.Client.AtomUri)">
+            <summary>
+            overridden comparson operator
+            </summary>
+            <param name="a"></param>
+            <param name="b"></param>
+            <returns>bool</returns></member>
+        <member name="M:Google.GData.Client.AtomUri.op_Inequality(Google.GData.Client.AtomUri,Google.GData.Client.AtomUri)">
+            <summary>
+            overridden comparson operator
+            </summary>
+            <param name="a"></param>
+            <param name="b"></param>
+            <returns>bool</returns></member>
+        <member name="M:Google.GData.Client.AtomUri.op_GreaterThan(Google.GData.Client.AtomUri,Google.GData.Client.AtomUri)">
+            <summary>
+            overridden comparson operator
+            </summary>
+            <param name="a"></param>
+            <param name="b"></param>
+            <returns>bool</returns></member>
+        <member name="M:Google.GData.Client.AtomUri.op_LessThan(Google.GData.Client.AtomUri,Google.GData.Client.AtomUri)">
+            <summary>
+            overridden comparson operator
+            </summary>
+            <param name="a"></param>
+            <param name="b"></param>
+            <returns>bool</returns></member>
+        <member name="M:Google.GData.Client.AtomUri.op_GreaterThanOrEqual(Google.GData.Client.AtomUri,Google.GData.Client.AtomUri)">
+            <summary>
+            overridden comparson operator
+            </summary>
+            <param name="a"></param>
+            <param name="b"></param>
+            <returns>bool</returns></member>
+        <member name="M:Google.GData.Client.AtomUri.op_LessThanOrEqual(Google.GData.Client.AtomUri,Google.GData.Client.AtomUri)">
+            <summary>
+            overridden comparson operator
+            </summary>
+            <param name="a"></param>
+            <param name="b"></param>
+            <returns>bool</returns></member>
+        <member name="M:Google.GData.Client.AtomUri.op_Implicit(System.String)~Google.GData.Client.AtomUri">
+            <summary>
+            implicit new instance of AtomUri from string
+            </summary>
+            <param name="s"></param>
+            <returns></returns></member>
+        <member name="M:Google.GData.Client.AtomUri.op_Implicit(System.Uri)~Google.GData.Client.AtomUri">
+            <summary>
+            implicit new instance of AtomUri from Uri object
+            </summary>
+            <param name="u"></param>
+            <returns></returns></member>
         <member name="T:Google.GData.Client.AtomGeneratorConverter">
             <summary>TypeConverter, so that AtomGenerator shows up in the property pages
             </summary></member>

@@ -19,6 +19,7 @@
 using System;
 using System.IO;
 using System.Net;
+using System.Collections.Specialized;
 
 #endregion
 
@@ -40,6 +41,8 @@ namespace Google.GData.Client
         public const string GDataAgent = "GData-CS/1.0.0";
         /// <summary>holds the user-agent</summary> 
         private string userAgent;
+        private StringCollection customHeaders;  // holds any custom headers to set
+        private CookieContainer cookies; //  all the cookies we use
 
 
    
@@ -59,9 +62,9 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         /// <summary>default constructor</summary> 
         //////////////////////////////////////////////////////////////////////
-        public IGDataRequest CreateRequest(GDataRequestType type, Uri uriTarget)
+        public virtual IGDataRequest CreateRequest(GDataRequestType type, Uri uriTarget)
         {
-            return new GDataRequest(type, uriTarget, this.UserAgent);
+            return new GDataRequest(type, uriTarget, this);
         }
         /////////////////////////////////////////////////////////////////////////////
 
@@ -76,6 +79,49 @@ namespace Google.GData.Client
             set {this.userAgent = value;}
         }
         /////////////////////////////////////////////////////////////////////////////
+        // 
+        internal bool hasCustomHeaders
+        {
+            get {
+                return this.customHeaders != null; 
+            }
+        }
+
+        //////////////////////////////////////////////////////////////////////
+        // Date: 8/28/2006 
+        /// <summary>accessor method public StringArray CustomHeaders</summary> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        public StringCollection CustomHeaders
+        {
+            get {
+                if (this.customHeaders == null) 
+                {
+                    this.customHeaders = new StringCollection(); 
+                }
+                return this.customHeaders;
+                }
+            set {this.customHeaders = value;}
+        }
+        // end of accessor public StringArray CustomHeaders
+
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Get/Set accessor for the cookie box</summary> 
+        //////////////////////////////////////////////////////////////////////
+        internal CookieContainer Cookies
+        {
+            get {
+                if (this.cookies == null) {
+                    this.cookies = new CookieContainer(); 
+                }
+                return this.cookies;
+            }
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+
+
 
 
     }
@@ -97,23 +143,23 @@ namespace Google.GData.Client
         private GDataRequestType type;
         /// <summary>holds the credential information</summary> 
         private ICredentials credentials; 
-        /// <summary>holds the user-agent</summary> 
-        private string userAgent;
         /// <summary>holds the request if a stream is open</summary> 
         private Stream requestStream;
+        private GDataRequestFactory factory; // holds the factory to use
         /// <summary>holds if we are disposed</summary> 
         protected bool disposed; 
+
 
 
    
         //////////////////////////////////////////////////////////////////////
         /// <summary>default constructor</summary> 
         //////////////////////////////////////////////////////////////////////
-        internal GDataRequest(GDataRequestType type, Uri uriTarget, string userAgent)
+        internal GDataRequest(GDataRequestType type, Uri uriTarget, GDataRequestFactory factory)
         {
             this.type = type;
             this.targetUri = uriTarget;
-	        this.userAgent = userAgent;
+            this.factory = factory; 
         }
         /////////////////////////////////////////////////////////////////////////////
 
@@ -250,7 +296,20 @@ namespace Google.GData.Client
     
                     }
                     web.ContentType = "application/atom+xml; charset=UTF-8";
-                    web.UserAgent = this.userAgent;
+                    web.UserAgent = this.factory.UserAgent;
+
+                    // and we want to set a cookie container
+                    web.CookieContainer = this.factory.Cookies;
+
+
+                    // add all custom headers
+                    if (this.factory.hasCustomHeaders == true)
+                    {
+                        foreach (string s in this.factory.CustomHeaders)
+                        {
+                            this.Request.Headers.Add(s); 
+                        }
+                    }
                 }
                 
                 EnsureCredentials(); 

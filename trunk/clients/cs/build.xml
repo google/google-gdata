@@ -7,6 +7,7 @@
      <antcall target="build_library" />
      <antcall target="build_extensions" />
      <antcall target="build_calendar" />
+     <antcall target="build_gbase"/>
      <antcall target="build_tests"/>
      <antcall target="build_samples"/>
      <antcall target="delete-sn"/>
@@ -62,20 +63,31 @@
     </csc>    
   </target>
 
+  <target name="build_gbase" depends="build_library">
+    <csc optimize="false" debug="${doDebug}"  docFile="docs/gbase.xml" 
+        warnLevel="4" unsafe="false" targetType="library" incremental="false" 
+        destFile="${output}/gbase.dll" references ="${output}/gdata.dll; System; System.Xml; System.Web">
+        <src dir="./src/gbase"  includes="*.cs"/>
+    </csc>    
+  </target>
 
-  <target name="build_tests" depends="build_library">
+  <target name="build_tests" depends="build_library,build_extensions,build_calendar,build_gbase">
     <copy overwrite="false" file="./src/unittests/unittests.dll.config" todir="./lib" />
     <csc optimize="false" debug="${doDebug}"  warnLevel="4" unsafe="false" 
     targetType="library" incremental="false" destFile="${output}/unittests.dll"  
-    references ="${output}/gdata.dll;${output}/gextensions.dll;${output}/gcalendar.dll; System; System.Xml; nunit.framework">
-        <src dir="./src/unittests"  includes="*.cs"/>
+    references ="${output}/gdata.dll;${output}/gextensions.dll;${output}/gcalendar.dll;${output}/gbase.dll; System; System.Xml; nunit.framework">
+        <src dir="./src/unittests"  includes="**/*.cs"/>
+        <src dir="./src/unittests/gbase"  includes="*.cs"/>
+
      </csc>    
   </target>
 
-  <target name="build_samples" depends="build_calendar">
+  <target name="build_samples" depends="build_calendar,build_gbase">
     <antcall target="build_readsample"/>
     <antcall target="build_updatesample"/>
     <antcall target="build_insertsample"/>
+    <antcall target="build_gbase_customertool"/>
+    <antcall target="build_gbase_queryexample"/>
   </target>
 	<target name="build_readsample" depends="build_calendar">
 	  <csc optimize="false" debug="${doDebug}" warnLevel="4" unsafe="false" 
@@ -100,5 +112,29 @@
 		<src dir="./samples/insert"  includes="*.cs"/>
 	 </csc>    
 	</target>
+
+	<target name="build_gbase_customertool" depends="build_gbase">
+	  <csc optimize="false" debug="${doDebug}" warnLevel="4" unsafe="false" 
+		targetType="exe" incremental="false" destFile="${output}/gbase_customertool.exe" 
+		references ="${output}/gdata.dll;${output}/gbase.dll; System; System.Xml">
+		<src dir="./samples/gbase">
+		  <include name="example.cs"/>
+		  <include name="customertool.cs"/>
+		  <include name="commands.cs"/>
+		</src>
+	 </csc>    
+	</target>
+
+	<target name="build_gbase_queryexample" depends="build_gbase">
+	  <csc optimize="false" debug="${doDebug}" warnLevel="4" unsafe="false" 
+		targetType="exe" incremental="false" destFile="${output}/gbase_queryexample.exe" 
+		references ="${output}/gdata.dll;${output}/gbase.dll; System; System.Xml">
+		<src dir="./samples/gbase">
+		  <include name="example.cs"/>
+		  <include name="queryexample.cs"/>
+		</src>
+	 </csc>    
+	</target>
+
 </project>
 

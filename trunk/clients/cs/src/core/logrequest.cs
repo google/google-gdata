@@ -104,7 +104,7 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         public override IGDataRequest CreateRequest(GDataRequestType type, Uri uriTarget)
         {
-            return new GDataLoggingRequest(type, uriTarget, this.UserAgent, this.ApplicationName, this, this.strInput, this.strOutput, this.strCombined);
+            return new GDataLoggingRequest(type, uriTarget, this, this.strInput, this.strOutput, this.strCombined);
         }
         /////////////////////////////////////////////////////////////////////////////
 
@@ -132,7 +132,7 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         /// <summary>default constructor</summary> 
         //////////////////////////////////////////////////////////////////////
-        internal GDataLoggingRequest(GDataRequestType type, Uri uriTarget, string userAgent, string applicationName, GDataGAuthRequestFactory factory, string strInputFileName, string strOutputFileName, string strCombinedLogFileName) : base(type, uriTarget, userAgent, applicationName, factory)
+        internal GDataLoggingRequest(GDataRequestType type, Uri uriTarget, GDataGAuthRequestFactory factory, string strInputFileName, string strOutputFileName, string strCombinedLogFileName) : base(type, uriTarget, factory)
         {
             this.strInput = strInputFileName;
             this.strOutput = strOutputFileName;
