@@ -6,10 +6,13 @@
 - GDataAuthRequestFactory is now a subclass of GDataRequestFactory
 - Moved GCookies from GDataAuthRequestFactory to GDataRequestFactory and renamed it to Cookies
 - removed the debug binaries from the lib directory
-- added a blogger sample application in VB ! 
+- added a GoogleBase sample application in VB ! 
 - added the build executables to the lib directory
 - added java compatible GoogleBase classes to access Google base specific feeds
 
+Known issues:
+- recurrenceException is not fully tested
+- authsubutil and gauthsubrequest are not fully tested
 
 
 == 1.0.4 == 
