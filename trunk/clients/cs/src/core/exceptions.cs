@@ -23,6 +23,8 @@ using System.Net;
 using System.Diagnostics;
 using System.Runtime.Serialization;
 using System.Security.Permissions;
+using System.IO;
+using System.Text; 
 
 
 
@@ -203,7 +205,51 @@ namespace Google.GData.Client
         {
             get {return this.response;}
         }
-        /////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// this uses the webresponse object to get at the
+        /// stream send back from the server and return the 
+        /// error message. 
+        /// </summary>
+        public string ResponseString
+        {
+            get 
+            {
+                string responseText = null; 
+        
+                if (this.response != null)
+                {
+                    // Obtain a 'Stream' object associated with the response object.
+                    Stream receiver = this.response.GetResponseStream();
+                    if (receiver != null)
+                    {
+                        // Pipe the stream to a higher level stream reader with the default encoding format. 
+                        // which is UTF8
+                        // 
+                        StreamReader readStream = new StreamReader(receiver); 
+                        
+                        // Read 256 charcters at a time.    
+                        char []buffer = new char[256]; 
+                        StringBuilder builder = new StringBuilder(1024); 
+                        int count = readStream.Read( buffer, 0, 256 );
+                        while (count > 0) 
+                        {
+                            // Dump the 256 characters on a string and display the string onto the console.
+                            builder.Append(buffer); 
+                            count = readStream.Read(buffer, 0, 256);
+                        }
+                        
+                        // Release the resources of stream object.
+                        readStream.Close();
+                        receiver.Close(); 
+
+                        responseText = builder.ToString(); 
+                    }
+                    
+                }
+
+                return responseText; 
+            }
+        }
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>public GDataRequestException(WebException e)</summary> 
