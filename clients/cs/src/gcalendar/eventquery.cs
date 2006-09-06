@@ -23,6 +23,22 @@ using Google.GData.Client;
 namespace Google.GData.Calendar {
 
     //////////////////////////////////////////////////////////////////////
+    /// <summary>Enum to describe the different sort orders
+    /// </summary> 
+    //////////////////////////////////////////////////////////////////////
+    public enum CalendarSortOrder
+    {
+        /// <summary> do not create the parameter, do whatever the server does</summary>
+        serverDefault,
+        /// <summary>sort in ascending order</summary>
+        ascending,                       
+        /// <summary>sort in descending order</summary>
+        descending
+    }
+    /////////////////////////////////////////////////////////////////////////////
+
+
+    //////////////////////////////////////////////////////////////////////
     /// <summary>
     /// A subclass of FeedQuery, to create a Calendar query URI.
     /// Provides public properties that describe the different
@@ -35,12 +51,56 @@ namespace Google.GData.Calendar {
         public EventQuery()
         : base()
         {
+            this.sortOrder = CalendarSortOrder.serverDefault; 
+            this.singleEvents = false;
+            this.futureEvents = false;
         }
 
         private DateTime startTime;
         private DateTime endTime;
         private DateTime recurrenceStart;
         private DateTime recurrenceEnd;
+        private CalendarSortOrder sortOrder;
+        private bool singleEvents;
+        private bool futureEvents;
+
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>indicates the sortorder of the returned feed</summary> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        public CalendarSortOrder SortOrder
+        {
+            get {return this.sortOrder;}
+            set {this.sortOrder = value;}
+        }
+        // end of accessor public CalendarSortOrder SortOrder
+
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Decides wether recurring events should be expanded or not</summary> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        public bool SingleEvents
+        {
+            get {return this.singleEvents;}
+            set {this.singleEvents = value;}
+        }
+        // end of accessor public bool SingleEvents
+
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Decides wether events in the past should be returned. Defa</summary> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        public bool FutureEvents
+        {
+            get {return this.futureEvents;}
+            set {this.futureEvents = value;}
+        }
+        // end of accessor public bool FutureEvents
+
+
 
         /// <summary>
         ///  Accessor method for StartTime
@@ -114,6 +174,15 @@ namespace Google.GData.Calendar {
                             case "recurrence-expansion-end":
                                 this.recurrenceEnd = DateTime.Parse(parameters[1], CultureInfo.InvariantCulture);
                                 break;
+                            case "singleevents":
+                                this.singleEvents = bool.Parse(parameters[1]); 
+                                break;
+                            case "futureevents":
+                                this.futureEvents = bool.Parse(parameters[1]); 
+                                break;
+                            case "sortorder":
+                                this.sortOrder = (CalendarSortOrder) Enum.Parse(typeof(CalendarSortOrder), parameters[1]); 
+                                break;
                         }
                     }
                 }
@@ -176,6 +245,25 @@ namespace Google.GData.Calendar {
                 newPath.AppendFormat("recurrence-expansion-end={0}", Utilities.UriEncodeReserved(Utilities.LocalDateTimeInUTC(this.RecurrenceEnd))); 
                 paramInsertion = '&';
             }
+            if (this.sortOrder != CalendarSortOrder.serverDefault)
+            {
+                newPath.Append(paramInsertion);
+                newPath.AppendFormat("sortorder={0}", this.sortOrder.ToString()); 
+                paramInsertion = '&';
+            }
+            if (this.futureEvents == true)
+            {
+                newPath.Append(paramInsertion);
+                newPath.AppendFormat("futureevents=true"); 
+                paramInsertion = '&';
+            }
+            if (this.singleEvents == true)
+            {
+                newPath.Append(paramInsertion);
+                newPath.AppendFormat("singleevents=true"); 
+                paramInsertion = '&';
+            }
+
 
             return newPath.ToString();
         }
