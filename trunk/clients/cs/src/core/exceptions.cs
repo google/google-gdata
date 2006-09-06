@@ -205,6 +205,7 @@ namespace Google.GData.Client
         {
             get {return this.response;}
         }
+
         /// <summary>
         /// this uses the webresponse object to get at the
         /// stream send back from the server and return the 
