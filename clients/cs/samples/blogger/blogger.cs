@@ -239,8 +239,15 @@ namespace Blogger
                     int iIndex = this.FeedChooser.Items.Add(new ListEntry(entry)); 
                 }
                 // do the chunking...
-                query.Uri = new Uri(bloggerFeed.NextChunk); 
-                bloggerFeed = service.Query(query);
+                if (bloggerFeed.NextChunk != null) 
+                {
+                    query.Uri = new Uri(bloggerFeed.NextChunk); 
+                    bloggerFeed = service.Query(query);
+                }
+                else 
+                {
+                    bloggerFeed = null; 
+                }
             }
 
             if (this.FeedChooser.Items.Count > 0) 
@@ -323,8 +330,15 @@ namespace Blogger
                     }
 
                     // do the chunking...
-                    query.Uri = new Uri(bloggerFeed.NextChunk); 
-                    bloggerFeed = service.Query(query);
+                    if (bloggerFeed.NextChunk != null) 
+                    {
+                        query.Uri = new Uri(bloggerFeed.NextChunk); 
+                        bloggerFeed = service.Query(query);
+                    }
+                    else
+                    {
+                        bloggerFeed = null;
+                    }
                 }
             }
 
