@@ -1,3 +1,10 @@
+== 1.0.6 == 
+- Added support for sortoder, futurevents, singleevents on the calendarquery
+- Added a ResponseString property on the GDataRequestException to make debugging server side errors easier
+- Fixed an issue with the GoogleBaseService, if you did set the RequestFactory property twice, you would 
+  create too many header entries, and hence end up with request denied responses
+
+
 == 1.0.5 ==
 - Added batch support for GoogleFeeds, the first property to support this is the GoogleBase product
 - Added a unittest for GoogleBase. This code shows update/insert/delete against base for single entries and batch entries
@@ -8,7 +15,7 @@
 - removed the debug binaries from the lib directory
 - added a GoogleBase sample application in VB ! 
 - added the build executables to the lib directory
-- added java compatible GoogleBase classes to access Google base specific feeds
+- added GoogleBase classes (similiar to the java classes) to access Google base specific feeds
 
 Known issues:
 - recurrenceException is not fully tested

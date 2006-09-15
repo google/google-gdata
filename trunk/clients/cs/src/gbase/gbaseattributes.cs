@@ -43,7 +43,7 @@ namespace Google.GData.GoogleBase {
         private const string ExpirationDateAttributeName = "expiration date";
         private const string ImageLinkAttributeName = "image link";
 
-        private const string PaymentMethodAttributeName = "payment";
+        private const string PaymentMethodAttributeName = "payment accepted";
 
         private const string PriceAttributeName = "price";
 
@@ -68,6 +68,8 @@ namespace Google.GData.GoogleBase {
         private const string PaymentNotesAttributeName = "payment notes";
 
         private const string ApplicationAttributeName = "application";
+
+        private const string ShippingAttributeName = "shipping";
 
 
         ///////////////////////////////////////////////////////////////////////
@@ -187,6 +189,22 @@ namespace Google.GData.GoogleBase {
                 {
                     AddPaymentMethod(method);
                 }
+            }
+        }
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>g:shipping tags.</summary>
+        //////////////////////////////////////////////////////////////////////
+        public Shipping Shipping
+        {
+            get
+            {
+                return GetShippingAttribute(ShippingAttributeName);
+            }
+            set
+            {
+                RemoveAll(ShippingAttributeName, GBaseAttributeType.Shipping);
+                AddShippingAttribute(ShippingAttributeName, value);
             }
         }
 

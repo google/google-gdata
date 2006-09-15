@@ -206,6 +206,12 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "shippingtest.cs"
+                    Link = "..\..\unittests\gbase\shippingtest.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "objectmodelhelper.cs"
                     Link = "..\..\unittests\objectmodelhelper.cs"
                     SubType = "Code"

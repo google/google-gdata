@@ -67,6 +67,9 @@ namespace Google.GData.GoogleBase {
         /// <summary>Id of the standard type <c>dateTimeRange</c></summary>
         dateTimeRangeType,
 
+        /// <summary>Id of the standard type <c>shipping</c></summary>
+        shippingType,
+
         /// <summary>An attribute type that could not be recognized by
         /// the library. See the attribute name.</summary>
         otherType
@@ -84,7 +87,6 @@ namespace Google.GData.GoogleBase {
         private readonly string name;
         private readonly StandardGBaseAttributeTypeIds id;
         private readonly GBaseAttributeType supertype;
-
 
         /// <summary>Text attributes.</summary>
         public static readonly GBaseAttributeType Text =
@@ -160,6 +162,12 @@ namespace Google.GData.GoogleBase {
             new GBaseAttributeType(DateTime,
                                    StandardGBaseAttributeTypeIds.dateType,
                                    "date");
+
+        /// <summary>A Shipping object.</summary>
+        public static readonly GBaseAttributeType Shipping =
+            new GBaseAttributeType(StandardGBaseAttributeTypeIds.shippingType,
+                                   "shipping");
+
 
         /// <summary>All standard attribute types.</summary>
         public static readonly GBaseAttributeType[] AllStandardTypes = {
@@ -363,7 +371,13 @@ namespace Google.GData.GoogleBase {
         private string name;
         private GBaseAttributeType type;
         private bool isPrivate;
+        /// <summary>Content, null if subElements != null.</summary>
         private string content;
+
+        /// <summary>Dictionary of: subElementName x subElementValue.
+        /// Null if content != null</summary>
+        private IDictionary subElements;
+
 
         ///////////////////////////////////////////////////////////////////////
         /// <summary>Creates an empty GBaseAttribute.</summary>
@@ -371,6 +385,17 @@ namespace Google.GData.GoogleBase {
         public GBaseAttribute()
         {
         }
+
+        ///////////////////////////////////////////////////////////////////////
+        /// <summary>Creates a GBaseAttribute with a name and an undefined
+        ///  type.</summary>
+        /// <param name="name">attribute name</param>
+        ///////////////////////////////////////////////////////////////////////
+        public GBaseAttribute(String name)
+                : this(name, null, null)
+        {
+        }
+
 
         ///////////////////////////////////////////////////////////////////////
         /// <summary>Creates a GBaseAttribute with a name and a type.</summary>
@@ -426,7 +451,7 @@ namespace Google.GData.GoogleBase {
         }
 
         ///////////////////////////////////////////////////////////////////////
-        /// <summary>Attribute value, as a string</summary>
+        /// <summary>Attribute content, as a string.</summary>
         ///////////////////////////////////////////////////////////////////////
         public string Content
         {
@@ -436,6 +461,10 @@ namespace Google.GData.GoogleBase {
             }
             set
             {
+                if (HasSubElements && value != null)
+                {
+                    throw new InvalidOperationException("Content cannot be set be set on attribute with sub-elements.");
+                }
                 content = value;
             }
         }
@@ -454,6 +483,90 @@ namespace Google.GData.GoogleBase {
                 isPrivate = value;
             }
         }
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Accesses sub-elements.
+        ///
+        /// Sub-elements are XML elements put inside the attribute
+        /// tag. Such as:
+        /// &lt;g:shipping&gt;
+        ///   &lt;g:country&gt;FR&lt;/g:country&gt;
+        ///   &lt;g:price&gt;12 EUR&lt;/g:price&gt;
+        /// &lt;/g:shipping&gt;
+        ///
+        /// An attribute cannot contain both sub-elements and text (content)
+        /// </summary>
+        /// <exception cref="InvalidOperationException">Thrown when the
+        /// attribute Content has already been set.</exception>
+        //////////////////////////////////////////////////////////////////////
+        public string this[string subElementName]
+        {
+            get
+            {
+                if (subElements == null)
+                {
+                    return null;
+                }
+                return (string)subElements[subElementName];
+            }
+            set
+            {
+                if (content != null)
+                {
+                    throw new InvalidOperationException("Sub-elements cannot be set be set on attribute with a non-null content.");
+                }
+
+                if (subElements == null)
+                {
+                    subElements = new Hashtable();
+                }
+
+                if (value == null)
+                {
+                    subElements.Remove(subElementName);
+                }
+                else
+                {
+                    subElements[subElementName] = value;
+                }
+            }
+        }
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Checks whether the attribute has sub-elements.
+        /// You can access sub-element names using the property
+        /// SubElementSames.</summary>
+        //////////////////////////////////////////////////////////////////////
+        public bool HasSubElements
+        {
+            get
+            {
+                return subElements != null && subElements.Count > 0;
+            }
+        }
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>The list of sub-elements name, which might be empty.
+        ///
+        /// The sub-elements names are returned in no particular order.
+        ///
+        /// You can get the value of these sub-elements using this[name].
+        /// </summary>
+        //////////////////////////////////////////////////////////////////////
+        public string[] SubElementNames
+        {
+            get
+            {
+                if (subElements == null)
+                {
+                    return new string[0];
+                }
+                string[] retval = new string[subElements.Count];
+                subElements.Keys.CopyTo(retval, 0);
+                return retval;
+            }
+        }
+
 
         ///////////////////////////////////////////////////////////////////////
         /// <summary>Parses an XML node and create the corresponding
@@ -474,7 +587,16 @@ namespace Google.GData.GoogleBase {
             }
             attribute.IsPrivate = node.Attributes["access"] != null &&
                                   "private".Equals(node.Attributes["access"].Value);
-            attribute.Content = node.InnerXml;
+            bool hasSubElements = false;
+            foreach (XmlNode child in node.ChildNodes)
+            {
+                if (child.NodeType == XmlNodeType.Element)
+                {
+                    attribute[child.LocalName] = child.InnerXml;
+                    hasSubElements = true;
+                }
+            }
+            attribute.Content = hasSubElements ? null : node.InnerXml;
 
             return attribute;
         }
@@ -499,6 +621,21 @@ namespace Google.GData.GoogleBase {
             {
                 writer.WriteString(content);
             }
+            if (subElements != null)
+            {
+                foreach (string elementName in subElements.Keys)
+                {
+                    string elementValue = (string)subElements[elementName];
+                    if (elementValue != null)
+                    {
+                        writer.WriteStartElement(GBaseNameTable.GBasePrefix,
+                                                 ToXmlTagName(elementName),
+                                                 GBaseNameTable.NSGBase);
+                        writer.WriteString(elementValue);
+                        writer.WriteEndElement();
+                    }
+                }
+            }
             writer.WriteEndElement();
         }
 
@@ -508,7 +645,37 @@ namespace Google.GData.GoogleBase {
         ///////////////////////////////////////////////////////////////////////
         public override string ToString()
         {
-            return name + "(" + type + "):\"" + content + "\"";
+            StringBuilder retval = new StringBuilder();
+            retval.Append(name);
+            retval.Append('(');
+            retval.Append(type);
+            retval.Append("):");
+            if (HasSubElements)
+            {
+                bool isFirst = true;
+                foreach (string elementName in subElements.Keys)
+                {
+                    if (isFirst)
+                    {
+                        isFirst = false;
+                    }
+                    else
+                    {
+                        retval.Append(",");
+                    }
+                    retval.Append(elementName);
+                    retval.Append(":\"");
+                    retval.Append(subElements[elementName]);
+                    retval.Append('"');
+                }
+            }
+            else if (content != null)
+            {
+                retval.Append('"');
+                retval.Append(content);
+                retval.Append('"');
+            }
+            return retval.ToString();
         }
 
         ///////////////////////////////////////////////////////////////////////
@@ -529,7 +696,37 @@ namespace Google.GData.GoogleBase {
 
             GBaseAttribute other = o as GBaseAttribute;
             return name == other.name && type == other.type &&
-                   content == other.content && isPrivate == other.isPrivate;
+                   content == other.content && isPrivate == other.isPrivate &&
+                   HashTablesEquals(subElements, other.subElements);
+        }
+
+        /// <summary>Compares two hash tables.</summary>
+        private bool HashTablesEquals(IDictionary a, IDictionary b)
+        {
+            if (a == null)
+            {
+                return b == null;
+            }
+            if (b == null)
+            {
+                return false;
+            }
+            ICollection aKeys = a.Keys;
+            ICollection bKeys = b.Keys;
+            if (aKeys.Count != bKeys.Count)
+            {
+                return false;
+            }
+            foreach (string key in aKeys)
+            {
+                object aValue = a[key];
+                object bValue = b[key];
+                if (aValue != bValue && (aValue == null || !aValue.Equals(bValue)))
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
         ///////////////////////////////////////////////////////////////////////

@@ -284,10 +284,11 @@ namespace Google.GData.Client.UnitTests
         {
             Tracing.TraceMsg("Entering TestIt");
 
-            CalendarTestSuite  test = new CalendarTestSuite();
+          //  CalendarTestSuite  test = new CalendarTestSuite();
+            BloggerTestSuite  test = new BloggerTestSuite();
 
             test.InitTest(); 
-            test.CalendarRecurranceTest();
+            test.GoogleStressTest();
             test.EndTest(); 
 
 
