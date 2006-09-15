@@ -195,7 +195,7 @@ namespace Google.GData.GoogleBase.UnitTests
         private GBaseFeed Parse(String xml)
         {
             byte[] bytes = new UTF8Encoding().GetBytes(xml);
-            GBaseFeed feed = new GBaseFeed(FeedUri, new GBaseService("Test", null));
+            GBaseFeed feed = new GBaseFeed(FeedUri, new GBaseService("Test", "boguskey"));
             feed.Parse(new MemoryStream(bytes), AlternativeFormat.Atom);
             return feed;
         }

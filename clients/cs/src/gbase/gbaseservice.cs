@@ -18,6 +18,7 @@
 using System;
 using System.IO;
 using System.Collections;
+using System.Collections.Specialized;
 using System.Text;
 using System.Net;
 using Google.GData.Client;
@@ -130,6 +131,7 @@ namespace Google.GData.GoogleBase
             GDataGAuthRequestFactory factory = this.RequestFactory as GDataGAuthRequestFactory;
             if (factory != null && this.devKey != null)
             {
+                RemoveWebKey(factory.CustomHeaders);
                 factory.CustomHeaders.Add(GoogleAuthentication.WebKey + this.devKey); 
                 if (this.authHandlerSet == true)
                 {
@@ -137,6 +139,19 @@ namespace Google.GData.GoogleBase
                 }
                 
             }
+        }
+
+        private static void RemoveWebKey(StringCollection headers)
+        {
+            foreach (string header in headers)
+            {
+                if (header.StartsWith(GoogleAuthentication.WebKey))
+                {
+                    headers.Remove(header);
+                    return;
+                }
+            }
+            return;
         }
 
         ///////////////////////////////////////////////////////////////////////

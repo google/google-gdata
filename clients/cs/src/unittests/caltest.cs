@@ -682,7 +682,15 @@ namespace Google.GData.Client.UnitTests
                             AtomFeed commentFeed = feedService.Query(query); 
                             AtomEntry newEntry = ObjectModelHelper.CreateAtomEntry(1); 
                             Tracing.TraceMsg("trying to insert a comment"); 
-                            commentFeed.Insert(newEntry);
+                            try
+                            {
+                                commentFeed.Insert(newEntry);
+                            } catch (GDataRequestException e )
+                            {
+                                Console.WriteLine(e.ResponseString); 
+                                Tracing.TraceMsg(e.ResponseString); 
+                            }
+                            
                         }
                     }
                 }

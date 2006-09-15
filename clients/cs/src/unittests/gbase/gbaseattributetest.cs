@@ -195,6 +195,88 @@ namespace Google.GData.GoogleBase.UnitTests
             AssertRereadIsSame(attribute);
         }
 
+        [Test]
+        public void SubElementsTest()
+        {
+            GBaseAttribute attribute = new GBaseAttribute("x");
+            Assert.IsFalse(attribute.HasSubElements, "HasSubElements(1)");
+            attribute["a"] = "b";
+            attribute["c"] = "d";
+            Assert.IsTrue(attribute.HasSubElements, "HasSubElements(2)");
+            Assert.AreEqual("b", attribute["a"], "a");
+            Assert.AreEqual("d", attribute["c"], "c");
+        }
+
+        [Test]
+        public void ParseSubElementsTest()
+        {
+            GBaseAttribute attribute =
+                Parse("<bozo><a>hello</a><b>world</b></bozo>");
+            Assert.AreEqual("hello", attribute["a"], "<a>");
+            Assert.AreEqual("world", attribute["b"], "<b>");
+            Assert.AreEqual(2, attribute.SubElementNames.Length, "names.length");
+            Assert.IsNull(attribute.Content, "no content");
+        }
+
+        [Test]
+        public void RemoveSubElementsTest()
+        {
+            GBaseAttribute attribute = new GBaseAttribute("x");
+            Assert.IsFalse(attribute.HasSubElements, "HasSubElements(Unset)");
+            attribute["a"] = "hello";
+            Assert.IsTrue(attribute.HasSubElements, "HasSubElements(Set)");
+            attribute["a"] = null;
+            Assert.IsFalse(attribute.HasSubElements, "HasSubElements(Removed)");
+
+            // Make sure this can be set without exceptions
+            attribute.Content = "hello";
+        }
+
+        [Test]
+        public void NoContentIfSubElementsTest()
+        {
+            GBaseAttribute attribute = new GBaseAttribute("x");
+            attribute["a"] = "b";
+            try
+            {
+                attribute.Content = "b";
+                Assert.Fail("expected exception");
+            }
+            #pragma warning disable 0168
+            catch(InvalidOperationException e)
+            {
+                // As expected
+            }
+            #pragma warning restore 0168
+        }
+
+        [Test]
+        public void NoSubElementIfContentTest()
+        {
+            GBaseAttribute attribute = new GBaseAttribute("x");
+            attribute.Content = "x";
+            try
+            {
+                attribute["a"] = "b";
+                Assert.Fail("expected exception");
+            }
+            #pragma warning disable 0168
+            catch(InvalidOperationException e)
+            {
+                // As expected
+            }
+            #pragma warning restore 0168
+        }
+
+        [Test]
+        public void GenerateSubElementsTest()
+        {
+            GBaseAttribute attribute = new GBaseAttribute("x");
+            attribute["a"] = "b";
+            attribute["c"] = "d";
+            AssertRereadIsSame(attribute);
+        }
+
         private void AssertRereadIsSame(GBaseAttribute attribute)
         {
             StringWriter sw = new StringWriter();
@@ -208,6 +290,7 @@ namespace Google.GData.GoogleBase.UnitTests
             Assert.AreEqual(attribute.Type, parsed.Type, "type");
             Assert.AreEqual(attribute.Content, parsed.Content, "content");
             Assert.AreEqual(attribute.IsPrivate, parsed.IsPrivate, "private");
+            Assert.AreEqual(attribute, parsed, "GBaseAttribute.Equals()");
         }
 
         private GBaseAttribute Parse(String xml)

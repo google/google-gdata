@@ -188,6 +188,31 @@ namespace Google.GData.GoogleBase {
             return GetAttributesAsString(name, GBaseAttributeType.Location);
         }
 
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Returns the object representation for an attribute
+        /// of type shipping.</summary>
+        //////////////////////////////////////////////////////////////////////
+        public Shipping GetShippingAttribute(string name)
+        {
+            GBaseAttribute attribute = GetAttribute(name, GBaseAttributeType.Shipping);
+            if (attribute == null)
+            {
+                return null;
+            }
+            return new Shipping(attribute);
+        }
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Adds a new attribute of type shipping.</summary>
+        /// <param name="name">attribute name</param>
+        /// <param name="value">attribute value</param>
+        /// <returns>the newly-created GBaseAttribute object</returns>
+        //////////////////////////////////////////////////////////////////////
+        public GBaseAttribute AddShippingAttribute(string name, Shipping value)
+        {
+            return Add(value.CreateGBaseAttribute(name));
+        }
+
         ///////////////////////////////////////////////////////////////////////
         /// <summary>Adds a new attribute of type location.</summary>
         /// <param name="name">attribute name</param>

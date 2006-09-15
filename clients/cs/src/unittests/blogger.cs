@@ -164,7 +164,7 @@ namespace Google.GData.Client.UnitTests
                     entry.Title.Text = strTitle;
                     AtomEntry newEntry = blogFeed.Insert(entry); 
                     iCount++; 
-                    Tracing.TraceMsg("Created calendar entry");
+                    Tracing.TraceMsg("Created blogger entry");
 
                     // try to get just that guy.....
                     FeedQuery singleQuery = new FeedQuery();
@@ -219,10 +219,7 @@ namespace Google.GData.Client.UnitTests
 
 
                 blogFeed = service.Query(query);
-
                 Assert.AreEqual(iCount, blogFeed.Entries.Count, "Feed should have the same count again, it has: " + blogFeed.Entries.Count); 
-
-
 
                 service.Credentials = null; 
 
@@ -231,6 +228,48 @@ namespace Google.GData.Client.UnitTests
         }
         /////////////////////////////////////////////////////////////////////////////
 
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>runs an authentication test</summary> 
+        //////////////////////////////////////////////////////////////////////
+        [Ignore ("Currently used only for fill up")]
+        [Test] public void GoogleStressTest()
+        {
+            Tracing.TraceMsg("Entering Blogger GoogleStressTest");
+
+            FeedQuery query = new FeedQuery();
+            Service service = new Service(this.ServiceName, this.ApplicationName);
+
+            if (this.bloggerURI != null)
+            {
+                if (this.userName != null)
+                {
+                    NetworkCredential nc = new NetworkCredential(this.userName, this.passWord); 
+                    service.Credentials = nc;
+                }
+
+                service.RequestFactory = this.factory; 
+
+                query.Uri = new Uri(this.bloggerURI);
+                AtomFeed blogFeed = service.Query(query);
+
+                ObjectModelHelper.DumpAtomObject(blogFeed,CreateDumpFileName("AuthenticationTest")); 
+
+                if (blogFeed != null)
+                {
+                    for (int i=0; i< 100; i++)
+                    {
+                        AtomEntry entry = ObjectModelHelper.CreateAtomEntry(i); 
+                        entry.Title.Text = "Title " + i; 
+                        entry.Content.Content = "Some text...";
+                        entry.Content.Type = "html"; 
+
+                        blogFeed.Insert(entry); 
+                    }
+                }
+            }
+
+        }
+        /////////////////////////////////////////////////////////////////////////////
 
     } /////////////////////////////////////////////////////////////////////////////
 }
