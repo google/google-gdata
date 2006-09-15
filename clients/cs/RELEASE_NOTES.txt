@@ -3,7 +3,8 @@
 - Added a ResponseString property on the GDataRequestException to make debugging server side errors easier
 - Fixed an issue with the GoogleBaseService, if you did set the RequestFactory property twice, you would 
   create too many header entries, and hence end up with request denied responses
-
+- Added the shipping attribute for GoogleBase
+- Changed the payment attribute to payment_accepted for GoogleBase
 
 == 1.0.5 ==
 - Added batch support for GoogleFeeds, the first property to support this is the GoogleBase product
