@@ -242,12 +242,10 @@ namespace Google.GData.GoogleBase.UnitTests
                 attribute.Content = "b";
                 Assert.Fail("expected exception");
             }
-            #pragma warning disable 0168
             catch(InvalidOperationException e)
             {
                 // As expected
             }
-            #pragma warning restore 0168
         }
 
         [Test]
@@ -260,12 +258,10 @@ namespace Google.GData.GoogleBase.UnitTests
                 attribute["a"] = "b";
                 Assert.Fail("expected exception");
             }
-            #pragma warning disable 0168
             catch(InvalidOperationException e)
             {
                 // As expected
             }
-            #pragma warning restore 0168
         }
 
         [Test]

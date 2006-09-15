@@ -61,7 +61,6 @@ namespace Google.GData.GoogleBase {
         /// <exception cref="FormatException">If the attribute contains
         /// invalid sub-elements or lacks required sub-elements</exception>
         //////////////////////////////////////////////////////////////////////
-        #pragma warning disable 0168
         public Shipping(GBaseAttribute attribute)
         {
             GBaseAttributeType type = attribute.Type;
@@ -86,7 +85,6 @@ namespace Google.GData.GoogleBase {
                 this.currency = null;
             }
         }
-        #pragma warning restore 0168
 
         private static string GetRequiredAttribute(GBaseAttribute attribute, string name)
         {
