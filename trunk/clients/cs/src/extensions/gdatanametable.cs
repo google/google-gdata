@@ -34,6 +34,10 @@ namespace Google.GData.Extensions
         /// <summary>the google calendar namespace</summary>
         public const string NSGCal  = "http://schemas.google.com/gCal/2005"; 
 
+        /// <summary>the google calendar prefix</summary>
+        public const string gCalPrefix  = "gCal"; 
+
+
         /// <summary>the event prefix </summary>
         public static string Event = gNamespacePrefix + "event";
 
@@ -70,6 +74,7 @@ namespace Google.GData.Extensions
         public const string XmlReminderElement = "reminder";
         /// <summary>static string for parsing</summary>
         public const string XmlCommentsElement = "comments";
+        
 #endregion
 
 #region attribute strings
@@ -106,11 +111,23 @@ namespace Google.GData.Extensions
         public const string XmlAttributeAbsoluteTime = "absoluteTime";
         /// <summary>static string for parsing the specialized attribute on a RecurringException</summary>    
         public const string XmlAttributeSpecialized = "specialized";
-        /// <summary>static string for parsing the extendedProperty element</summary>    
-        public const string XmlExtendedPropertyElement = "extendedProperty";
 
 
 #endregion
+
+#region Calendar specific (consider moving to seperate table)
+        /// <summary>static string for parsing a webcontent element</summary>
+        public const string XmlWebContentElement = "webContent"; 
+        /// <summary>static string for parsing the extendedProperty element</summary>    
+        public const string XmlExtendedPropertyElement = "extendedProperty";
+        /// <summary>static string for the url attribute</summary>    
+        public const string XmlAttributeUrl = "url";
+        /// <summary>static string for the width attribute</summary>    
+        public const string XmlAttributeWidth= "width";
+        /// <summary>static string for the height attribute</summary>    
+        public const string XmlAttributeHeight= "height";
+#endregion
+
 
     }
     /////////////////////////////////////////////////////////////////////////////

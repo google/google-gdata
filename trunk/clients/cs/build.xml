@@ -71,6 +71,14 @@
     </csc>    
   </target>
 
+  <target name="build_gcodesearch" depends="build_extensions">
+    <csc optimize="false" debug="${doDebug}"  docFile="docs/gcodesearch.xml" 
+        warnLevel="4" unsafe="false" targetType="library" incremental="false" 
+        destFile="${output}/gcodesearch.dll" references ="${output}/gextensions.dll;${output}/gdata.dll; System; System.Xml; System.Web">
+        <src dir="./src/gcodesearch"  includes="*.cs"/>
+    </csc>    
+  </target>
+
   <target name="build_tests" depends="build_library,build_extensions,build_calendar,build_gbase">
     <copy overwrite="false" file="./src/unittests/unittests.dll.config" todir="./lib" />
     <csc optimize="false" debug="${doDebug}"  warnLevel="4" unsafe="false" 
@@ -82,7 +90,7 @@
      </csc>    
   </target>
 
-  <target name="build_samples" depends="build_calendar,build_gbase">
+  <target name="build_samples" depends="build_calendar,build_gbase,build_gcodesearch">
     <antcall target="build_readsample"/>
     <antcall target="build_updatesample"/>
     <antcall target="build_insertsample"/>
@@ -135,6 +143,5 @@
 		</src>
 	 </csc>    
 	</target>
-
 </project>
 

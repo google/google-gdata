@@ -66,8 +66,8 @@ namespace Google.GData.Client
             }
         }
         /////////////////////////////////////////////////////////////////////////////
-        
-         
+
+
         //////////////////////////////////////////////////////////////////////
         /// <summary>the eventhandler can set this to discard the entry</summary> 
         //////////////////////////////////////////////////////////////////////
@@ -97,7 +97,7 @@ namespace Google.GData.Client
         }
         /////////////////////////////////////////////////////////////////////////////
 
-        
+
 
 
         //////////////////////////////////////////////////////////////////////
@@ -106,8 +106,8 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         public AtomEntry Entry
         {
-            get {return this.feedEntry; }
-            set {this.feedEntry = value; }
+            get {return this.feedEntry;}
+            set {this.feedEntry = value;}
         }
         /////////////////////////////////////////////////////////////////////////////
 
@@ -194,7 +194,7 @@ namespace Google.GData.Client
 
         /// <summary>the XmlDoc that we use to hand nodes to, in case of extensions</summary> 
         private XmlDocument doc; 
-        
+
 
 
         //////////////////////////////////////////////////////////////////////
@@ -246,7 +246,7 @@ namespace Google.GData.Client
         {
             FeedParserEventArgs args = new FeedParserEventArgs(null, newEntry);
             this.OnNewAtomEntry(args);
-            
+
         }
         /////////////////////////////////////////////////////////////////////////////
 
@@ -260,7 +260,7 @@ namespace Google.GData.Client
             this.OnNewAtomEntry(args);
         }
         /////////////////////////////////////////////////////////////////////////////
-        
+
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>overloaded to make eventfiring easier</summary> 
@@ -309,8 +309,8 @@ namespace Google.GData.Client
             {
                 throw new ArgumentNullException("baseObject"); 
             }
-            
-            if (reader.NodeType == XmlNodeType.Element || reader.NodeType == XmlNodeType.Attribute)             
+
+            if (reader.NodeType == XmlNodeType.Element || reader.NodeType == XmlNodeType.Attribute)
             {
                 XmlNode node = this.Document.ReadNode(reader);
                 if (node != null)
@@ -352,7 +352,7 @@ namespace Google.GData.Client
             {
                 throw new ArgumentNullException("reader"); 
             }
-            while(reader.Read() && reader.NodeType != XmlNodeType.Element); 
+            while (reader.Read() && reader.NodeType != XmlNodeType.Element); 
             return !reader.EOF;
         }
         /////////////////////////////////////////////////////////////////////////////
@@ -391,15 +391,21 @@ namespace Google.GData.Client
             }
 
 
-            while(reader.Read())
+            while (reader.Read())
             {
                 if (reader.NodeType == XmlNodeType.EndElement && reader.Depth == depth)
                 {
                     return false;
                 }
-                else if (reader.NodeType == XmlNodeType.Element && reader.Depth > depth )
+                else if (reader.NodeType == XmlNodeType.Element && reader.Depth > depth)
                 {
                     return true;
+                }
+                else if (reader.NodeType == XmlNodeType.Element && reader.Depth == depth)
+                {
+                    // assume that we had no children. We read once and we are at the 
+                    // next element, same level as the previous one.
+                    return false;
                 }
             }
             return !reader.EOF;
@@ -418,8 +424,8 @@ namespace Google.GData.Client
             {
                 throw new ArgumentNullException("reader"); 
             }
-            
-            
+
+
             if (reader.NodeType == XmlNodeType.Attribute)
             {
                 reader.MoveToElement();
@@ -434,7 +440,7 @@ namespace Google.GData.Client
 
 
 
-        
+
     }
     /////////////////////////////////////////////////////////////////////////////
 }

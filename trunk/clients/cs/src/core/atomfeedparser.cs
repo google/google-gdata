@@ -159,7 +159,7 @@ namespace Google.GData.Client
             {
                 throw new ArgumentNullException("source"); 
             }
-            
+
             Tracing.TraceCall();
             //
             // atomSource =
@@ -184,12 +184,13 @@ namespace Google.GData.Client
             int depth = -1; 
             ParseBasicAttributes(reader, source);
 
-            while(NextChildElement(reader, ref depth))
+            while (NextChildElement(reader, ref depth))
             {
                 object localname = reader.LocalName; 
                 AtomFeed feed = source as AtomFeed; 
                 if (IsCurrentNameSpace(reader, BaseNameTable.NSAtom))
                 {
+                    bool fSkip = true; 
                     if (localname.Equals(this.nameTable.Title))
                     {
                         source.Title = ParseTextConstruct(reader, AtomTextConstructElementType.Title);
@@ -201,6 +202,7 @@ namespace Google.GData.Client
                     else if (localname.Equals(this.nameTable.Link))
                     {
                         // create the link
+                        fSkip = false; 
                         source.Links.Add(ParseLink(reader)); 
                     }
                     else if (localname.Equals(this.nameTable.Id))
@@ -218,7 +220,7 @@ namespace Google.GData.Client
                         source.Logo = new AtomLogo();
                         ParseBaseLink(reader, source.Logo);
                     }
-                    
+
                     else if (localname.Equals(this.nameTable.Author))
                     {
                         source.Authors.Add(ParsePerson(reader, this.nameTable.Author));
@@ -250,7 +252,8 @@ namespace Google.GData.Client
                     }
                     // this will either move the reader to the end of an element, or, 
                     // if at the end, to the start of a new one. 
-                    reader.Read();
+                    if (fSkip)
+                        reader.Read();
                 }
                 else if (feed != null && IsCurrentNameSpace(reader, BaseNameTable.gBatchNamespace))
                 {
@@ -272,7 +275,7 @@ namespace Google.GData.Client
                         feed.ItemsPerPage = int.Parse(reader.ReadString(), CultureInfo.InvariantCulture);
                     }
                 }
-                else 
+                else
                 {
                     // default extension parsing.
                     ParseExtensionElements(reader, source);
@@ -349,8 +352,8 @@ namespace Google.GData.Client
             }
             if (fRet==true)
             {
-               Tracing.TraceInfo("Found an unknown attribute");
-               this.OnNewExtensionElement(reader, baseObject);
+                Tracing.TraceInfo("Found an unknown attribute");
+                this.OnNewExtensionElement(reader, baseObject);
             }
             return fRet;
         }
@@ -375,6 +378,7 @@ namespace Google.GData.Client
             if (IsCurrentNameSpace(reader, BaseNameTable.NSAtom))
             {
                 Tracing.TraceInfo("Found an unknown ATOM element = this might be a bug, either in the code or the document");
+                Tracing.TraceInfo("element: " + reader.LocalName + " position: " + reader.NodeType.ToString());
                 // maybe we should throw here, but I rather not - makes parsing more flexible
             }
             else
@@ -408,7 +412,7 @@ namespace Google.GData.Client
             {
                 throw new ArgumentNullException("baseObject"); 
             }
-            if (reader.NodeType == XmlNodeType.Element && reader.HasAttributes) 
+            if (reader.NodeType == XmlNodeType.Element && reader.HasAttributes)
             {
                 while (reader.MoveToNextAttribute())
                 {
@@ -441,7 +445,7 @@ namespace Google.GData.Client
                 throw new ArgumentNullException("baseLink"); 
             }
             ParseBasicAttributes(reader, baseLink);
-            if (reader.NodeType == XmlNodeType.Element) 
+            if (reader.NodeType == XmlNodeType.Element)
             {
                 // read the element content
                 baseLink.Uri = new AtomUri(reader.ReadString()); 
@@ -475,15 +479,15 @@ namespace Google.GData.Client
             {
                 author = new AtomPerson(AtomPersonType.Author);
             }
-            else 
+            else
             {
                 author = new AtomPerson(AtomPersonType.Contributor);
             }
 
             ParseBasicAttributes(reader, author);
-            
+
             int lvl = -1;
-            while(NextChildElement(reader, ref lvl))
+            while (NextChildElement(reader, ref lvl))
             {
                 localname = reader.LocalName;
 
@@ -503,7 +507,7 @@ namespace Google.GData.Client
                     author.Email = reader.ReadString();
                     reader.Read();
                 }
-                else 
+                else
                 {
                     // default extension parsing.
                     ParseExtensionElements(reader, author);
@@ -554,7 +558,7 @@ namespace Google.GData.Client
                         {
                             category.Label = reader.Value;
                         }
-                        else 
+                        else
                         {
                             ParseBaseAttributes(reader, category);
                         }
@@ -579,8 +583,8 @@ namespace Google.GData.Client
             {
                 throw new ArgumentNullException("reader"); 
             }
-            
-            
+
+
             Tracing.TraceCall();
             AtomLink link = null;
             object localname = null;
@@ -615,11 +619,17 @@ namespace Google.GData.Client
                     {
                         link.Length = int.Parse(reader.Value, CultureInfo.InvariantCulture);
                     }
-                    else 
+                    else
                     {
                         ParseBaseAttributes(reader, link);
                     }
                 }
+            }
+            reader.MoveToElement();
+            int lvl = -1;
+            while (NextChildElement(reader, ref lvl))
+            {
+                ParseExtensionElements(reader, link);
             }
             return link;
         }
@@ -638,8 +648,8 @@ namespace Google.GData.Client
             {
                 throw new ArgumentNullException("reader"); 
             }
-            
-            
+
+
             object localname = reader.LocalName; 
             Tracing.TraceCall("Parsing atom entry");
             if (localname.Equals(this.nameTable.Entry)==false)
@@ -653,12 +663,13 @@ namespace Google.GData.Client
 
             // remember the depth of entry
             int depth = -1;
-            while(NextChildElement(reader, ref depth))
+            while (NextChildElement(reader, ref depth))
             {
                 localname = reader.LocalName; 
 
                 if (IsCurrentNameSpace(reader, BaseNameTable.NSAtom))
                 {
+                    bool fSkip = true; 
                     if (localname.Equals(this.nameTable.Id))
                     {
                         entry.Id = new AtomId();
@@ -666,8 +677,8 @@ namespace Google.GData.Client
                     }
                     else if (localname.Equals(this.nameTable.Link))
                     {
-                        AtomLink link = ParseLink(reader);
-                        entry.Links.Add(link);
+                        fSkip = false; 
+                        entry.Links.Add(ParseLink(reader)); 
                     }
                     else if (localname.Equals(this.nameTable.Updated))
                     {
@@ -713,7 +724,8 @@ namespace Google.GData.Client
                     }
                     // this will either move the reader to the end of an element, or, 
                     // if at the end, to the start of a new one. 
-                    reader.Read();
+                    if (fSkip)
+                        reader.Read();
                 }
                 else if (IsCurrentNameSpace(reader, BaseNameTable.gBatchNamespace))
                 {
@@ -771,7 +783,7 @@ namespace Google.GData.Client
                 {
                     batch.Interrupt= ParseBatchInterrupt(reader); 
                 }
-                else 
+                else
                 {
                     Tracing.TraceInfo("got an unknown batch element: "  + elementName.ToString()); 
                     // default extension parsing
@@ -836,9 +848,9 @@ namespace Google.GData.Client
                 if (elementName.Equals(this.nameTable.BatchOperation))
                 {
                     batch.Type = (GDataBatchOperationType)Enum.Parse(typeof(GDataBatchOperationType), 
-                                                reader.GetAttribute(BaseNameTable.XmlAttributeBatchOperationType));
+                                                                     reader.GetAttribute(BaseNameTable.XmlAttributeBatchOperationType));
                 }
-                else 
+                else
                 {
                     Tracing.TraceInfo("got an unknown batch element: "  + elementName.ToString()); 
                     reader.Skip(); 
@@ -913,7 +925,8 @@ namespace Google.GData.Client
         ///  parses a list of errors
         /// </summary>
         /// <param name="reader">XmlReader positioned at the start of the status element</param>
-        /// <returns>GDataBatchErrorCollection</returns>
+        /// <returns>GDataBatchErrorCollection</returns>
+
         protected GDataBatchErrorCollection ParseBatchErrors(XmlReader reader)
         {
             object localname = reader.LocalName;
@@ -923,7 +936,7 @@ namespace Google.GData.Client
                 collection = new GDataBatchErrorCollection(); 
 
                 int lvl = -1;
-                while(NextChildElement(reader, ref lvl))
+                while (NextChildElement(reader, ref lvl))
                 {
                     if (localname.Equals(this.nameTable.BatchError))
                     {
@@ -1031,27 +1044,27 @@ namespace Google.GData.Client
             {
                 throw new ArgumentNullException("reader"); 
             }
-            
-            
+
+
             AtomTextConstruct construct = null;
 
             Tracing.TraceCall("Parsing atomTextConstruct");
 
             construct = new AtomTextConstruct(elementType);
 
-            if (reader.NodeType == XmlNodeType.Element) 
+            if (reader.NodeType == XmlNodeType.Element)
             {
                 if (reader.HasAttributes)
                 {
                     while (reader.MoveToNextAttribute())
                     {
                         object attributeName = reader.LocalName;
-    
+
                         if (attributeName.Equals(this.nameTable.Type))
                         {
                             construct.Type = (AtomTextConstructType)Enum.Parse(typeof(AtomTextConstructType), reader.Value);
                         }
-                        else 
+                        else
                         {
                             ParseBaseAttributes(reader, construct); 
                         }
@@ -1127,7 +1140,7 @@ namespace Google.GData.Client
                     }
                 }
             }
-            
+
             return generator;
         }
         /////////////////////////////////////////////////////////////////////////////
@@ -1146,7 +1159,7 @@ namespace Google.GData.Client
             {
                 throw new ArgumentNullException("reader"); 
             }
-            
+
             AtomContent content = null;
             object localname = reader.LocalName;
 
@@ -1173,7 +1186,7 @@ namespace Google.GData.Client
                         }
                     }
                 }
-                
+
                 if (MoveToStartElement(reader) == true)
                 {
                     // using readInnerXml has disadvantages, even for HTML/XHTML. in .NET 1.1

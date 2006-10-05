@@ -1220,6 +1220,12 @@
         <member name="F:Google.GData.Client.FeedQuery.datetimeMax">
             <summary>maximum date/time as DateTime</summary>
         </member>
+        <member name="F:Google.GData.Client.FeedQuery.publishedMin">
+            <summary>mininum date/time for the publicationdate as DateTime</summary>
+        </member>
+        <member name="F:Google.GData.Client.FeedQuery.publishedMax">
+            <summary>maximum date/time for the publicationdate as DateTime</summary>
+        </member>
         <member name="F:Google.GData.Client.FeedQuery.startIndex">
             <summary>start-index as integer</summary>
         </member>
@@ -1259,11 +1265,19 @@
             <returns>the requested author</returns>
         </member>
         <member name="P:Google.GData.Client.FeedQuery.StartDate">
-            <summary>Accessor method public DateTime StartDate.</summary>
+            <summary>set's the mininum daterange value for the updated element</summary>
             <returns>the min (inclusive) date/time</returns>
         </member>
         <member name="P:Google.GData.Client.FeedQuery.EndDate">
-            <summary>Accessor method public DateTime EndDate.</summary>
+            <summary>set's the maximum daterange value for the updated element</summary>
+            <returns>the max (exclusive) date/time</returns>
+        </member>
+        <member name="P:Google.GData.Client.FeedQuery.MinPublication">
+            <summary>set's the mininum daterange value for the publication element</summary>
+            <returns>the min (inclusive) date/time</returns>
+        </member>
+        <member name="P:Google.GData.Client.FeedQuery.MaxPublication">
+            <summary>set's the maximum daterange value for the publication element</summary>
             <returns>the max (exclusive) date/time</returns>
         </member>
         <member name="P:Google.GData.Client.FeedQuery.StartIndex">

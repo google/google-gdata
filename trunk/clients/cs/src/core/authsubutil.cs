@@ -290,9 +290,9 @@ namespace Google.GData.Client
        /// <returns>the authorization header </returns>
        //////////////////////////////////////////////////////////////////////
        public static string formAuthorizationHeader(string token, 
-                                                                                            AsymmetricAlgorithm key, 
-                                                                                            Uri requestUri, 
-                                                                                            string requestMethod)
+                                                    AsymmetricAlgorithm key, 
+                                                    Uri requestUri, 
+                                                    string requestMethod)
        {
             if (key == null)
             {
@@ -306,10 +306,10 @@ namespace Google.GData.Client
                 string nounce = generateULONGRnd(); 
 
                 string dataToSign = String.Format("{0} (1} {2} {3}", 
-                                                                            requestMethod, 
-                                                                            requestUri.AbsoluteUri,
-                                                                             timestamp.ToString(), 
-                                                                             nounce);
+                                            requestMethod, 
+                                            requestUri.AbsoluteUri,
+                                            timestamp.ToString(), 
+                                            nounce);
 
 
                 byte[] signature = sign(dataToSign, key);

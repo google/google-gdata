@@ -191,17 +191,18 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         protected override void SaveXmlAttributes(XmlWriter writer)
         {
-            base.SaveXmlAttributes(writer);
-            
             WriteEncodedAttributeString(writer, AtomParserNameTable.XmlAttributeHRef, this.HRef);
             WriteEncodedAttributeString(writer, AtomParserNameTable.XmlAttributeHRefLang, this.HRefLang);
             WriteEncodedAttributeString(writer, AtomParserNameTable.XmlAttributeRel, this.Rel);
             WriteEncodedAttributeString(writer, AtomParserNameTable.XmlAttributeType, this.Type);
-            if (this.length > 0)
+            
+			if (this.length > 0)
             {
                 WriteEncodedAttributeString(writer, AtomParserNameTable.XmlAttributeLength, this.Length.ToString(CultureInfo.InvariantCulture));
             }
             WriteEncodedAttributeString(writer, AtomParserNameTable.XmlTitleElement, this.Title);
+			base.SaveXmlAttributes(writer);
+
         }
         /////////////////////////////////////////////////////////////////////////////
 
