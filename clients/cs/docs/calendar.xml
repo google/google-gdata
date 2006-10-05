@@ -219,6 +219,41 @@
             <param name="eventNode">a g-scheme, xml node</param>
             <param name="parser">the atomFeedParser that called this</param>
         </member>
+        <member name="T:Google.GData.Extensions.WebContent">
+            <summary>
+            GData schema extension describing a webcontent for the calendar
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.WebContent.Url">
+            <summary>url of content</summary>
+            <returns>
+            </returns>
+        </member>
+        <member name="P:Google.GData.Extensions.WebContent.Width">
+            <summary>width of the iframe/gif</summary>
+            <returns>
+            </returns>
+        </member>
+        <member name="P:Google.GData.Extensions.WebContent.Height">
+            <summary>Height of the iframe/gif</summary>
+            <returns>
+            </returns>
+        </member>
+        <member name="P:Google.GData.Extensions.WebContent.XmlName">
+            <summary>Returns the constant representing this XML element.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.WebContent.ParseWebContent(System.Xml.XmlNode)">
+            <summary>Parses an xml node to create an WebContent object.</summary>
+            <param name="node">WebContent node</param>
+            <returns>the created WebContent object</returns>
+        </member>
+        <member name="M:Google.GData.Extensions.WebContent.Save(System.Xml.XmlWriter)">
+            <summary>
+            Persistence method for the When object
+            </summary>
+            <param name="writer">the xmlwriter to write into</param>
+        </member>
         <member name="T:Google.GData.Calendar.EventQuery">
             <summary>
             A subclass of FeedQuery, to create a Calendar query URI.

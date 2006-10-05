@@ -329,6 +329,12 @@ namespace Google.GData.Calendar {
                         eventFeed.TimeZone = TimeZone.ParseTimeZone(e.ExtensionElement);
                     }
                 }
+                else if (e.ExtensionElement.LocalName == GDataParserNameTable.XmlWebContentElement)
+                {
+                    WebContent content = WebContent.ParseWebContent(e.ExtensionElement); 
+                    e.Base.ExtensionElements.Add(content); 
+                }
+
             }
         }
     }

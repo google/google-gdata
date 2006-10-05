@@ -12,6 +12,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 */
+#define USE_TRACING
+
 using System;
 using System.IO;
 using System.Xml;
@@ -96,6 +98,8 @@ namespace Google.GData.GoogleBase.UnitTests
             XmlWriter xmlWriter = new XmlTextWriter(sw);
             feed.SaveToXml(xmlWriter);
             xmlWriter.Close();
+
+            Tracing.TraceMsg(sw.ToString());
 
             GBaseFeed reparsed = Parse(sw.ToString());
             CheckParsedFeedEntries(reparsed);

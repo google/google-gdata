@@ -367,6 +367,136 @@ namespace Google.GData.Client.UnitTests
 
 
         //////////////////////////////////////////////////////////////////////
+        /// <summary>runs an CalendarWebContentTest test</summary> 
+        //////////////////////////////////////////////////////////////////////
+        [Test] public void CalendarWebContentTest()
+        {
+            Tracing.TraceMsg("Entering CalendarWebContentTest");
+
+            EventQuery query = new EventQuery();
+            CalendarService service = new CalendarService(this.ApplicationName);
+
+            if (this.defaultCalendarUri != null)
+            {
+                if (this.userName != null)
+                {
+                    NetworkCredential nc = new NetworkCredential(this.userName, this.passWord); 
+                    service.Credentials = nc;
+                }
+
+                GDataLoggingRequestFactory factory = (GDataLoggingRequestFactory) this.factory;
+                factory.MethodOverride = true;
+                service.RequestFactory = this.factory; 
+
+                query.Uri = new Uri(this.defaultCalendarUri);
+                EventFeed calFeed = service.Query(query);
+
+                if (calFeed.TimeZone != null)
+                {
+                    Tracing.TraceMsg(calFeed.TimeZone.Value); 
+                }
+
+                String strTitle = "Dinner & time" + Guid.NewGuid().ToString(); 
+
+                if (calFeed != null)
+                {
+                    // get the first entry
+                    EventEntry entry  = ObjectModelHelper.CreateEventEntry(1); 
+                    entry.Title.Text = strTitle;
+
+                    AtomLink link = new AtomLink("image/gif", "http://schemas.google.com/gCal/2005/webContent"); 
+
+                    link.Title = "Test content"; 
+                    link.HRef = "http://www.google.com/calendar/images/google-holiday.gif";
+
+                    WebContent content = new WebContent();
+
+                    content.Url = "http://www.google.com/logos/july4th06.gif";
+                    content.Width = 270;
+                    content.Height = 130; 
+
+                    link.ExtensionElements.Add(content);
+                    entry.Links.Add(link); 
+
+                    EventEntry newEntry = (EventEntry) calFeed.Insert(entry); 
+
+                    // check if the link came back
+                    link = newEntry.Links.FindService("http://schemas.google.com/gCal/2005/webContent", "image/gif"); 
+                    Assert.IsTrue(link != null, "the link did not come back for the webContent"); 
+                    Tracing.TraceMsg("Created calendar entry");
+
+                    newEntry.Content.Content = "Updated..";
+                    newEntry.Update();
+
+
+                    // try to get just that guy.....
+                    FeedQuery singleQuery = new FeedQuery();
+                    singleQuery.Uri = new Uri(newEntry.SelfUri.ToString()); 
+
+                    EventFeed newFeed = service.Query(singleQuery);
+
+                    EventEntry sameGuy = newFeed.Entries[0] as EventEntry; 
+
+                    sameGuy.Content.Content = "Updated again..."; 
+                    When x = sameGuy.Times[0]; 
+                    sameGuy.Times.Clear();
+                    x.StartTime = DateTime.Now; 
+                    sameGuy.Times.Add(x); 
+                    sameGuy.Update();
+
+
+                    Assert.IsTrue(sameGuy.Title.Text.Equals(newEntry.Title.Text), "both titles should be identical"); 
+
+                }
+
+                calFeed = service.Query(query);
+
+
+                if (calFeed != null && calFeed.Entries.Count > 0)
+                {
+                    // look for the one with dinner time...
+                    foreach (EventEntry entry in calFeed.Entries)
+                    {
+                        Tracing.TraceMsg("Entrie title: " + entry.Title.Text); 
+                        if (String.Compare(entry.Title.Text, strTitle)==0)
+                        {
+                            Assert.AreEqual(ObjectModelHelper.DEFAULT_REMINDER_TIME, entry.Reminder.Minutes, "Reminder time should be identical"); 
+                            // check if the link came back
+                            AtomLink link = entry.Links.FindService("http://schemas.google.com/gCal/2005/webContent", "image/gif"); 
+                            Assert.IsTrue(link != null, "the link did not come back for the webContent"); 
+
+                        }
+                    }
+                }
+
+                calFeed = service.Query(query);
+
+                if (calFeed != null && calFeed.Entries.Count > 0)
+                {
+                    // look for the one with dinner time...
+                    foreach (AtomEntry entry in calFeed.Entries)
+                    {
+                        Tracing.TraceMsg("Entrie title: " + entry.Title.Text); 
+                        if (String.Compare(entry.Title.Text, strTitle)==0)
+                        {
+                            entry.Delete();
+                            Tracing.TraceMsg("deleted entry");
+                        }
+                    }
+                }
+
+                service.Credentials = null; 
+
+                factory.MethodOverride = false;
+
+            }
+
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+
+
+        //////////////////////////////////////////////////////////////////////
         /// <summary>runs an authentication test</summary> 
         //////////////////////////////////////////////////////////////////////
         [Test] public void CalendarRecurranceTest()
@@ -749,12 +879,20 @@ namespace Google.GData.Client.UnitTests
                 {
                     iCount += calFeed.Entries.Count; 
                     // just query the same query again.
-                    query.Uri = new Uri(calFeed.NextChunk); 
-                    calFeed = service.Query(query);
+                    if (calFeed.NextChunk != null)
+                    {
+                        query.Uri = new Uri(calFeed.NextChunk); 
+                        calFeed = service.Query(query);
+                    }
+                    else 
+                    {
+                        calFeed = null; 
+                    }
+                    
                 }
 
 
-                Assert.AreEqual(127, iCount,  "Feed should have 500 entries, it has: " + calFeed.Entries.Count); 
+                Assert.AreEqual(127, iCount,  "Feed should have 127 entries, it has: " + iCount); 
 
                 service.Credentials = null; 
 

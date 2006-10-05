@@ -643,6 +643,9 @@
         <member name="F:Google.GData.Extensions.GDataParserNameTable.NSGCal">
             <summary>the google calendar namespace</summary>
         </member>
+        <member name="F:Google.GData.Extensions.GDataParserNameTable.gCalPrefix">
+            <summary>the google calendar prefix</summary>
+        </member>
         <member name="F:Google.GData.Extensions.GDataParserNameTable.XmlTimeZoneElement">
             <summary> timezone indicator on the feedlevel</summary>
         </member>
@@ -739,8 +742,20 @@
         <member name="F:Google.GData.Extensions.GDataParserNameTable.XmlAttributeSpecialized">
             <summary>static string for parsing the specialized attribute on a RecurringException</summary>
         </member>
+        <member name="F:Google.GData.Extensions.GDataParserNameTable.XmlWebContentElement">
+            <summary>static string for parsing a webcontent element</summary>
+        </member>
         <member name="F:Google.GData.Extensions.GDataParserNameTable.XmlExtendedPropertyElement">
             <summary>static string for parsing the extendedProperty element</summary>
+        </member>
+        <member name="F:Google.GData.Extensions.GDataParserNameTable.XmlAttributeUrl">
+            <summary>static string for the url attribute</summary>
+        </member>
+        <member name="F:Google.GData.Extensions.GDataParserNameTable.XmlAttributeWidth">
+            <summary>static string for the width attribute</summary>
+        </member>
+        <member name="F:Google.GData.Extensions.GDataParserNameTable.XmlAttributeHeight">
+            <summary>static string for the height attribute</summary>
         </member>
         <member name="F:Google.GData.Extensions.GDataParserNameTable.Event">
             <summary>the event prefix </summary>

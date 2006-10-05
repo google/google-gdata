@@ -1,7 +1,7 @@
 <VisualStudioProject>
     <CSHARP
         ProjectType = "Local"
-        ProductVersion = "7.10.3077"
+        ProductVersion = "7.10.6030"
         SchemaVersion = "2.0"
         ProjectGuid = "{0AD0FA26-A071-4CAC-851C-05B6C26B9888}"
     >
@@ -120,6 +120,12 @@
                 <File
                     RelPath = "eventquery.cs"
                     Link = "..\..\gcalendar\eventquery.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "webcontent.cs"
+                    Link = "..\..\gcalendar\webcontent.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />

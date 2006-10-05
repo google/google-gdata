@@ -3,13 +3,13 @@
         ProjectType = "Local"
         ProductVersion = "7.10.6030"
         SchemaVersion = "2.0"
-        ProjectGuid = "{C9B83904-8002-455C-AA48-C47CDF74F365}"
+        ProjectGuid = "{6C9717F6-4CEF-4665-82DA-31073493FFA0}"
     >
         <Build>
             <Settings
                 ApplicationIcon = ""
                 AssemblyKeyContainerName = ""
-                AssemblyName = "gbase"
+                AssemblyName = "gcodesearch"
                 AssemblyOriginatorKeyFile = ""
                 DefaultClientScript = "JScript"
                 DefaultHTMLPageLayout = "Grid"
@@ -18,7 +18,7 @@
                 OutputType = "Library"
                 PreBuildEvent = 'copy "$(ProjectDir)..\..\signing\*.*"  "$(ProjectDir)\obj\$(ConfigurationName)\*.*"'
                 PostBuildEvent = ""
-                RootNamespace = "gbase"
+                RootNamespace = "gcodesearch"
                 RunPostBuildEvent = "OnBuildSuccess"
                 StartupObject = ""
             >
@@ -29,7 +29,7 @@
                     CheckForOverflowUnderflow = "false"
                     ConfigurationOverrideFile = ""
                     DefineConstants = "DEBUG;TRACE"
-                    DocumentationFile = ""
+                    DocumentationFile = "doc.xml"
                     DebugSymbols = "true"
                     FileAlignment = "4096"
                     IncrementalBuild = "false"
@@ -67,22 +67,22 @@
                 <Reference
                     Name = "System"
                     AssemblyName = "System"
-                    HintPath = "C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.dll"
+                    HintPath = "..\..\..\..\..\..\..\..\..\..\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.dll"
                 />
                 <Reference
                     Name = "System.XML"
                     AssemblyName = "System.Xml"
-                    HintPath = "C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.XML.dll"
+                    HintPath = "..\..\..\..\..\..\..\..\..\..\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.XML.dll"
+                />
+                <Reference
+                    Name = "gextension"
+                    Project = "{21BCB644-F9C3-4ADC-8BE1-4E55C6565011}"
+                    Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
                 />
                 <Reference
                     Name = "gdata"
                     Project = "{B6F6D938-0D45-42BA-8A67-55D92EF03995}"
                     Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
-                />
-                <Reference
-                    Name = "System.Web"
-                    AssemblyName = "System.Web"
-                    HintPath = "C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Web.dll"
                 />
             </References>
         </Build>
@@ -90,109 +90,48 @@
             <Include>
                 <File
                     RelPath = "AssemblyInfo.cs"
-                    Link = "..\..\gbase\AssemblyInfo.cs"
+                    Link = "..\..\gcodesearch\AssemblyInfo.cs"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "codesearchentry.cs"
+                    Link = "..\..\gcodesearch\codesearchentry.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "attributehistogram.cs"
-                    Link = "..\..\gbase\attributehistogram.cs"
+                    RelPath = "codesearchfeed.cs"
+                    Link = "..\..\gcodesearch\codesearchfeed.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "datetimerange.cs"
-                    Link = "..\..\gbase\datetimerange.cs"
+                    RelPath = "codesearchnametable.cs"
+                    Link = "..\..\gcodesearch\codesearchnametable.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "gbaseattribute.cs"
-                    Link = "..\..\gbase\gbaseattribute.cs"
+                    RelPath = "file.cs"
+                    Link = "..\..\gcodesearch\file.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "gbaseattributecollection.cs"
-                    Link = "..\..\gbase\gbaseattributecollection.cs"
+                    RelPath = "gcodesearchservice.cs"
+                    Link = "..\..\gcodesearch\gcodesearchservice.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "gbaseattributecollectionwithtypeconversion.cs"
-                    Link = "..\..\gbase\gbaseattributecollectionwithtypeconversion.cs"
+                    RelPath = "match.cs"
+                    Link = "..\..\gcodesearch\match.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "gbaseattributes.cs"
-                    Link = "..\..\gbase\gbaseattributes.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "gbaseentry.cs"
-                    Link = "..\..\gbase\gbaseentry.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "gbasefeed.cs"
-                    Link = "..\..\gbase\gbasefeed.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "gbasenametable.cs"
-                    Link = "..\..\gbase\gbasenametable.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "gbaseparse.cs"
-                    Link = "..\..\gbase\gbaseparse.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "gbasequery.cs"
-                    Link = "..\..\gbase\gbasequery.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "gbaseservice.cs"
-                    Link = "..\..\gbase\gbaseservice.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "gbaseurifactory.cs"
-                    Link = "..\..\gbase\gbaseurifactory.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "gbaseutilities.cs"
-                    Link = "..\..\gbase\gbaseutilities.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "itemtypedefinition.cs"
-                    Link = "..\..\gbase\itemtypedefinition.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "numberunit.cs"
-                    Link = "..\..\gbase\numberunit.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "shipping.cs"
-                    Link = "..\..\gbase\shipping.cs"
+                    RelPath = "package.cs"
+                    Link = "..\..\gcodesearch\package.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />

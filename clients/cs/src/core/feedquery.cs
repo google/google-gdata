@@ -167,6 +167,10 @@ namespace Google.GData.Client
         private DateTime datetimeMin;
         /// <summary>maximum date/time as DateTime</summary> 
         private DateTime datetimeMax;
+        /// <summary>mininum date/time for the publicationdate as DateTime</summary> 
+        private DateTime publishedMin;
+        /// <summary>maximum date/time for the publicationdate as DateTime</summary> 
+        private DateTime publishedMax;
         /// <summary>start-index as integer</summary> 
         private int startIndex;
         /// <summary>number of entries to retrieve as integer</summary> 
@@ -293,7 +297,7 @@ namespace Google.GData.Client
 
 
         //////////////////////////////////////////////////////////////////////
-        /// <summary>Accessor method public DateTime StartDate.</summary> 
+        /// <summary>set's the mininum daterange value for the updated element</summary> 
         /// <returns>the min (inclusive) date/time</returns>
         //////////////////////////////////////////////////////////////////////
         public DateTime StartDate
@@ -304,13 +308,36 @@ namespace Google.GData.Client
         /////////////////////////////////////////////////////////////////////////////
 
         //////////////////////////////////////////////////////////////////////
-        /// <summary>Accessor method public DateTime EndDate.</summary> 
+        /// <summary>set's the maximum daterange value for the updated element</summary> 
         /// <returns>the max (exclusive) date/time</returns>
         //////////////////////////////////////////////////////////////////////
         public DateTime EndDate
         {
             get {return this.datetimeMax;}
             set {this.datetimeMax = value; }
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>set's the mininum daterange value for the publication element</summary> 
+        /// <returns>the min (inclusive) date/time</returns>
+        //////////////////////////////////////////////////////////////////////
+        public DateTime MinPublication
+        {
+            get {return this.publishedMin;}
+            set {this.publishedMin = value; }
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>set's the maximum daterange value for the publication element</summary> 
+        /// <returns>the max (exclusive) date/time</returns>
+        //////////////////////////////////////////////////////////////////////
+        public DateTime MaxPublication
+        {
+            get {return this.publishedMax;}
+            set {this.publishedMax = value; }
         }
         /////////////////////////////////////////////////////////////////////////////
 
@@ -438,6 +465,12 @@ namespace Google.GData.Client
                                 break;
                             case "updated-max":
                                 this.EndDate = DateTime.Parse(parameters[1], CultureInfo.InvariantCulture);
+                                break;
+                            case "published-min":
+                                this.MinPublication = DateTime.Parse(parameters[1], CultureInfo.InvariantCulture);
+                                break;
+                            case "published-max":
+                                this.MaxPublication = DateTime.Parse(parameters[1], CultureInfo.InvariantCulture);
                                 break;
                             default:
                                 break;
@@ -634,6 +667,20 @@ namespace Google.GData.Client
                 newPath.AppendFormat("updated-max={0:G}", Utilities.UriEncodeReserved(Utilities.LocalDateTimeInUTC(this.EndDate)));
                 paramInsertion = '&'; 
             }
+
+            if (this.MinPublication != FeedQuery.EmptyDate)
+            {
+                newPath.Append(paramInsertion);
+                newPath.AppendFormat("published-min={0:G}", Utilities.UriEncodeReserved(Utilities.LocalDateTimeInUTC(this.MinPublication)));
+                paramInsertion = '&'; 
+            }
+            if (this.MaxPublication != FeedQuery.EmptyDate)
+            {
+                newPath.Append(paramInsertion);
+                newPath.AppendFormat("published-max={0:G}", Utilities.UriEncodeReserved(Utilities.LocalDateTimeInUTC(this.MaxPublication)));
+                paramInsertion = '&'; 
+            }
+
             if (this.StartIndex != 0)
             {
                 newPath.Append(paramInsertion);
