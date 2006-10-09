@@ -1,3 +1,7 @@
+== 1.0.8 == 
+- Fixed issue 13 from the public issue list. If a content element contained xhtml, and not just text, 
+  the content was not read correctly. 
+
 == 1.0.7 ==
 - Added support for published-min/published-max as standard query parameters
 - Added support for codesearch. A new DLL gcodesearch.dll and a new sample for this is available.
