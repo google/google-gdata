@@ -61,6 +61,9 @@ namespace Google.GData.Client
         public const string Override = "X-HTTP-Method-Override"; 
         /// <summary>Google webkey identifier</summary>
         public const string WebKey = "X-Google-Key: key=";
+        /// <summary>Google webkey identifier</summary>
+        public const string AccountType = "accountType=HOSTED_OR_GOOGLE";
+
 
     }
     /////////////////////////////////////////////////////////////////////////////
@@ -359,7 +362,8 @@ namespace Google.GData.Client
                 string postData = GoogleAuthentication.Email + "=" + nc.UserName + "&"; 
                 postData += GoogleAuthentication.Password + "=" + nc.Password + "&";  
                 postData += GoogleAuthentication.Source + "=" + this.factory.ApplicationName + "&"; 
-                postData += GoogleAuthentication.Service + "=" + this.factory.Service; 
+                postData += GoogleAuthentication.Service + "=" + this.factory.Service + "&"; 
+                postData += GoogleAuthentication.AccountType; 
 
                 byte[] encodedData = encoder.GetBytes(postData);
                 authRequest.ContentLength = encodedData.Length; 

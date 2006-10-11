@@ -70,10 +70,13 @@ namespace Google.GData.Client
         private object batchField;
         private object batchUnprocessed; 
 
+
         /// <summary>static namespace string declaration</summary> 
         public const string NSOpenSearchRss = "http://a9.com/-/spec/opensearchrss/1.0/";
         /// <summary>static namespace string declaration</summary> 
         public const string NSAtom = "http://www.w3.org/2005/Atom";
+        /// <summary>namespace for app publishing control</summary> 
+        public const string NSAppPublishing = "http://purl.org/atom/app#"; 
         /// <summary>xml namespace</summary> 
         public const string NSXml = "http://www.w3.org/XML/1998/namespace";
         /// <summary>GD namespace</summary> 
@@ -109,6 +112,20 @@ namespace Google.GData.Client
 
         /// <summary>prefix for gdata:batch if writing</summary> 
         public const string gBatchPrefix = "batch"; 
+
+
+
+        // app publishing control strings
+        /// <summary>prefix for appPublishing if writing</summary> 
+        public const string gAppPublishing = "app"; 
+
+        /// <summary>xmlelement for app:control</summary> 
+        public const string XmlElementPubControl = "control"; 
+
+        /// <summary>xmlelement for app:draft</summary> 
+        public const string XmlElementPubDraft = "draft"; 
+
+        
 
 
         // batch strings:
@@ -175,6 +192,8 @@ namespace Google.GData.Client
             this.batchParsedCount   = this.atomNameTable.Add(BaseNameTable.XmlAttributeBatchParsed); 
             this.batchField         = this.atomNameTable.Add(BaseNameTable.XmlAttributeBatchField); 
             this.batchUnprocessed   = this.atomNameTable.Add(BaseNameTable.XmlAttributeBatchUnprocessed); 
+
+
 
         }
         /////////////////////////////////////////////////////////////////////////////
@@ -383,7 +402,8 @@ namespace Google.GData.Client
             get {return this.language;}
         }
         /////////////////////////////////////////////////////////////////////////////
-        
+
+
 
         #endregion end of Read only accessors
 

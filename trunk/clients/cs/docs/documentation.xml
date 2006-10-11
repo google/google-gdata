@@ -621,6 +621,9 @@
         <member name="F:Google.GData.Client.GoogleAuthentication.WebKey">
             <summary>Google webkey identifier</summary>
         </member>
+        <member name="F:Google.GData.Client.GoogleAuthentication.AccountType">
+            <summary>Google webkey identifier</summary>
+        </member>
         <member name="T:Google.GData.Client.GDataGAuthRequestFactory">
             <summary>base GDataRequestFactory implementation</summary>
         </member>
@@ -1700,6 +1703,9 @@
         <member name="F:Google.GData.Client.BaseNameTable.NSAtom">
             <summary>static namespace string declaration</summary>
         </member>
+        <member name="F:Google.GData.Client.BaseNameTable.NSAppPublishing">
+            <summary>namespace for app publishing control</summary>
+        </member>
         <member name="F:Google.GData.Client.BaseNameTable.NSXml">
             <summary>xml namespace</summary>
         </member>
@@ -1747,6 +1753,15 @@
         </member>
         <member name="F:Google.GData.Client.BaseNameTable.gBatchPrefix">
             <summary>prefix for gdata:batch if writing</summary>
+        </member>
+        <member name="F:Google.GData.Client.BaseNameTable.gAppPublishing">
+            <summary>prefix for appPublishing if writing</summary>
+        </member>
+        <member name="F:Google.GData.Client.BaseNameTable.XmlElementPubControl">
+            <summary>xmlelement for app:control</summary>
+        </member>
+        <member name="F:Google.GData.Client.BaseNameTable.XmlElementPubDraft">
+            <summary>xmlelement for app:draft</summary>
         </member>
         <member name="F:Google.GData.Client.BaseNameTable.XmlElementBatchId">
             <summary>xmlelement for batch:id</summary>
@@ -2183,6 +2198,11 @@
             <returns>
             </returns>
         </member>
+        <member name="P:Google.GData.Client.AtomEntry.IsDraft">
+            <summary>specifies if app:control/app:draft is yes or no.
+            this is determined by walking the extension elements collection</summary>
+            <returns>true if this is a draft element</returns>
+        </member>
         <member name="P:Google.GData.Client.AtomEntry.Authors">
             <summary>accessor method public Contributors AtomPersonCollection</summary>
             <returns>
@@ -2257,6 +2277,10 @@
             <summary>helper method to create a new, decoupled entry based on a feedEntry</summary>
             <param name="entryToImport">the entry from a feed that you want to put somewhere else</param>
             <returns> the new entry ready to be inserted</returns>
+        </member>
+        <member name="M:Google.GData.Client.AtomEntry.FindDraftNode">
+            <summary>searches the extension list for the app:draft node</summary>
+            <returns>null if not there</returns>
         </member>
         <member name="M:Google.GData.Client.AtomEntry.Update">
             <summary>commits the item to the server</summary>
