@@ -120,7 +120,6 @@ namespace Google.GData.Client
         private IService service;
         /// <summary>holds the owning feed</summary> 
         private AtomFeed feed; 
-
         // holds batch information for an entry
         private GDataBatchEntryData batchData;  
 
@@ -392,6 +391,72 @@ namespace Google.GData.Client
         }
         /////////////////////////////////////////////////////////////////////////////
 
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>specifies if app:control/app:draft is yes or no. 
+        /// this is determined by walking the extension elements collection</summary> 
+        /// <returns>true if this is a draft element</returns>
+        //////////////////////////////////////////////////////////////////////
+        public bool IsDraft
+        {
+            get {
+                XmlElement draft = FindDraftNode() as XmlElement;
+                if (draft != null && draft.InnerText == "yes")
+                {
+                    return true; 
+                }
+                return false; 
+            }
+
+            set {
+                this.Dirty = true; 
+                XmlNode draft = FindDraftNode(); 
+                if (draft == null && value == true)
+                {
+                    XmlDocument doc = new XmlDocument();
+                    XmlDocumentFragment fragment = doc.CreateDocumentFragment();
+                    fragment.InnerXml = "<app:control xmlns:app='http://purl.org/atom/app#'>" +
+                        "<app:draft>yes</app:draft></app:control>";
+                    this.ExtensionElements.Add(fragment.FirstChild);
+                }
+                else if (draft != null && value == false)
+                {
+                    draft.Value = value == true ? "yes" : "no"; 
+                }
+
+            }
+        }
+        // end of accessor public bool IsDraft
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>searches the extension list for the app:draft node</summary> 
+        /// <returns>null if not there</returns>
+        //////////////////////////////////////////////////////////////////////
+        protected XmlNode FindDraftNode()
+        {
+            Tracing.TraceCall();
+            foreach (Object extension in this.ExtensionElements)
+            {
+                XmlNode node = extension as XmlNode; 
+
+                if (node != null)
+                {
+                    if (node.NamespaceURI == BaseNameTable.NSAppPublishing
+                         && node.LocalName == BaseNameTable.XmlElementPubControl) 
+                    {
+                        foreach (XmlNode child in node.ChildNodes)
+                        {
+                            if (child.NamespaceURI == BaseNameTable.NSAppPublishing 
+                                && child.LocalName == BaseNameTable.XmlElementPubDraft)
+                            {
+                                return child;
+                            }
+                        }
+                    }
+                }
+            } 
+            return null;
+        }
+        //end of protected XmlNode FindDraftNode()
 
 
         //////////////////////////////////////////////////////////////////////

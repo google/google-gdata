@@ -160,8 +160,11 @@ namespace Google.GData.Client.UnitTests
                     // get the first entry
                     AtomEntry entry = blogFeed.Entries[0];
 
-                    entry = ObjectModelHelper.CreateAtomEntry(1); 
+                    entry = ObjectModelHelper.CreateAtomEntry(1);
+                    // blogger does not like labels yet.
+                    entry.Categories.Clear(); 
                     entry.Title.Text = strTitle;
+                    entry.IsDraft = true; 
                     AtomEntry newEntry = blogFeed.Insert(entry); 
                     iCount++; 
                     Tracing.TraceMsg("Created blogger entry");
@@ -174,7 +177,10 @@ namespace Google.GData.Client.UnitTests
 
                     AtomEntry sameGuy = newFeed.Entries[0]; 
 
+                    Tracing.TraceMsg("retrieved blogger entry");
+
                     Assert.IsTrue(sameGuy.Title.Text.Equals(newEntry.Title.Text), "both titles should be identical"); 
+                    Assert.IsTrue(sameGuy.IsDraft == true); 
 
                 }
 

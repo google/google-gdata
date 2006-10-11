@@ -37,11 +37,11 @@ namespace Google.GData.Extensions {
         /// </summary>
         public FeedLink FeedLink
         {
-            get { return feedLink; }
-            set { feedLink = value; }
+            get { return feedLink;}
+            set { feedLink = value;}
         }
 
-        #region Comments Parser
+#region Comments Parser
         //////////////////////////////////////////////////////////////////////
         /// <summary>parses an xml node to create an Comments object</summary> 
         /// <param name="node">comments node</param>
@@ -72,14 +72,13 @@ namespace Google.GData.Extensions {
                             {
                                 comments.FeedLink = FeedLink.ParseFeedLink(commentsChild);
                             }
-							else
+                            else
                             {
                                 throw new ArgumentException("Only one feedLink is allowed inside the gd:comments");
                             }
                         }
                     }
                 }
-
             }
 
             if (comments.FeedLink == null)
@@ -90,22 +89,22 @@ namespace Google.GData.Extensions {
             return comments;
         }
 
-        #endregion
+#endregion
 
-        #region overloaded for persistence
+#region overloaded for persistence
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>Returns the constant representing this XML element.</summary> 
         //////////////////////////////////////////////////////////////////////
         public string XmlName
         {
-            get { return GDataParserNameTable.XmlCommentsElement; }
+            get { return GDataParserNameTable.XmlCommentsElement;}
         }
 
         /// <summary>
-         /// Persistence method for the Comment  object
-         /// </summary>
-         /// <param name="writer">the xmlwriter to write into</param>
+        /// Persistence method for the Comment  object
+        /// </summary>
+        /// <param name="writer">the xmlwriter to write into</param>
         public void Save(XmlWriter writer)
         {
             if (FeedLink != null)
@@ -116,6 +115,6 @@ namespace Google.GData.Extensions {
                 writer.WriteEndElement();
             }
         }
-        #endregion
+#endregion
     }
 }
