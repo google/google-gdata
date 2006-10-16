@@ -150,13 +150,27 @@ namespace Google.GData.Client
 
 
         //////////////////////////////////////////////////////////////////////
-        /// <summary>saves the inner state of the element</summary> 
+        /// <summary>saves the inner state of the element. Note that if the 
+        /// content type is xhtml, no encoding will be done by this object</summary> 
         /// <param name="writer">the xmlWriter to save into </param>
         //////////////////////////////////////////////////////////////////////
         protected override void SaveInnerXml(XmlWriter writer)
         {
             base.SaveInnerXml(writer);
-            WriteEncodedString(writer, this.content);
+            if (Utilities.IsPersistable(this.content))
+            {
+                if (this.type == "xhtml")
+                {
+                    // in this case we are not going to encode the inner content. 
+                    // Developer has to take care of this
+                    writer.WriteRaw(this.content); 
+                }
+                else 
+                {
+                    // per spec, text/html should be encoded. 
+                    WriteEncodedString(writer, this.content);
+                }
+            }
 
         }
         /////////////////////////////////////////////////////////////////////////////
