@@ -1,10 +1,13 @@
 == 1.0.8 == 
 - Fixed issue 13 from the public issue list. If a content element contained xhtml, and not just text, 
   the content was not read correctly. 
+- Fixed issue 17 from the public issue list. XHTML content was not persisted correctly.
 - Added support for hosted domain feeds. This is done automatically, no codechanges needed for the application developer.
   The authentication code was changed to ask for Hosted domains first, then google accounts. 
 - Added support for the app:control/app:draft element, but only in the way to expose a boolean on the AtomEntry. 
-  The new member on AtomEntry is called IsDraft. 
+  The new member on AtomEntry is called IsDraft.
+- Changed the way atom:content is parsed. Text & HTML types use xmlreader.ReadString() to get the inner content. XHTML and
+  all other types use readInnerXml() to get the content.
 
 == 1.0.7 ==
 - Added support for published-min/published-max as standard query parameters

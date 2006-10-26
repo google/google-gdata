@@ -88,7 +88,6 @@ namespace Google.GData.Client
         }
 
         //////////////////////////////////////////////////////////////////////
-        // Date: 8/28/2006 
         /// <summary>accessor method public StringArray CustomHeaders</summary> 
         /// <returns> </returns>
         //////////////////////////////////////////////////////////////////////

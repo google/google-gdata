@@ -1073,13 +1073,13 @@ namespace Google.GData.Client
                 reader.MoveToElement();
                 switch (construct.Type)
                 {
+                    case AtomTextConstructType.html:
                     case AtomTextConstructType.text:
                         construct.Text = reader.ReadString();
                         break;
+                    
                     case AtomTextConstructType.xhtml:
-                        construct.Text = reader.ReadInnerXml();
-                        break;
-                    case AtomTextConstructType.html:
+                    default:
                         construct.Text = reader.ReadInnerXml();
                         break;
                 }
