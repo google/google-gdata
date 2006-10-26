@@ -2618,7 +2618,8 @@
             <param name="writer">the xmlwriter to save into </param>
         </member>
         <member name="M:Google.GData.Client.AtomContent.SaveInnerXml(System.Xml.XmlWriter)">
-            <summary>saves the inner state of the element</summary>
+            <summary>saves the inner state of the element. Note that if the
+            content type is xhtml, no encoding will be done by this object</summary>
             <param name="writer">the xmlWriter to save into </param>
         </member>
         <member name="T:Google.GData.Client.AtomTextConstructConverter">
