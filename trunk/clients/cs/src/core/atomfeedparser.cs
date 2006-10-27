@@ -1192,14 +1192,14 @@ namespace Google.GData.Client
                     // using readInnerXml has disadvantages, even for HTML/XHTML. in .NET 1.1
                     // decoding will happen and text like "this & that" will come back
                     // as "this &amp; that" 
-					if (content.Type.Equals("text")) 
-					{
-						content.Content = reader.ReadString();
-					}
-					else 
-					{
-						content.Content = reader.ReadInnerXml(); 
-					}
+                  if (content.Type.Equals("text")) 
+                  {
+                    content.Content = reader.ReadString();
+                  }
+                  else 
+                  {
+                    content.Content = reader.ReadInnerXml(); 
+                  }
                 }
             }
             return content;
