@@ -21,7 +21,10 @@ using System;
 using System.Xml; 
 using System.Net;
 using System.Diagnostics;
+#if WindowsCE
+#else 
 using System.Runtime.Serialization;
+#endif
 using System.Security.Permissions;
 using System.IO;
 using System.Text; 
@@ -41,7 +44,10 @@ namespace Google.GData.Client
     /// <summary>standard exception class to be used inside the query object
     /// </summary> 
     //////////////////////////////////////////////////////////////////////
+#if WindowsCE
+#else 
     [Serializable]
+#endif
     public class LoggedException : Exception
     {
 
@@ -76,12 +82,13 @@ namespace Google.GData.Client
         }
         /////////////////////////////////////////////////////////////////////////////
 
-
+#if WindowsCE
+#else 
         /// <summary>here to please FxCop and maybe for future use</summary> 
         protected LoggedException(SerializationInfo info,  StreamingContext context) : base(info, context)
         {
         }
-
+#endif
         //////////////////////////////////////////////////////////////////////
         /// <summary>protected void EnsureLogging()</summary> 
         //////////////////////////////////////////////////////////////////////
@@ -101,7 +108,10 @@ namespace Google.GData.Client
     /// <summary>standard exception class to be used inside the query object
     /// </summary> 
     //////////////////////////////////////////////////////////////////////
+#if WindowsCE
+#else 
     [Serializable]
+#endif
     public class ClientQueryException : LoggedException
     {
         //////////////////////////////////////////////////////////////////////
@@ -128,12 +138,13 @@ namespace Google.GData.Client
         {
         }
 
-
+#if WindowsCE
+#else 
         /// <summary>here to please FxCop and maybe for future use</summary> 
         protected ClientQueryException(SerializationInfo info,  StreamingContext context) : base(info, context)
         {
         }
-
+#endif
     }
     /////////////////////////////////////////////////////////////////////////////
 
@@ -142,7 +153,10 @@ namespace Google.GData.Client
     /// <summary>standard exception class to be used inside the feed object
     /// </summary> 
     //////////////////////////////////////////////////////////////////////
+#if WindowsCE
+#else 
     [Serializable]
+#endif
     public class ClientFeedException : LoggedException
     {
 
@@ -169,11 +183,13 @@ namespace Google.GData.Client
         {
         }
         /////////////////////////////////////////////////////////////////////////////
-
+#if WindowsCE
+#else 
         /// <summary>here to please FxCop and maybe for future use</summary> 
         protected ClientFeedException(SerializationInfo info,  StreamingContext context) : base(info, context)
         {
         }
+#endif
     }
     /////////////////////////////////////////////////////////////////////////////
 
@@ -182,7 +198,10 @@ namespace Google.GData.Client
     /// <summary>standard exception class to be used inside GDataRequest
     /// </summary> 
     //////////////////////////////////////////////////////////////////////
+#if WindowsCE
+#else 
     [Serializable]
+#endif
     public class GDataRequestException : LoggedException
     {
 
@@ -296,18 +315,21 @@ namespace Google.GData.Client
             this.response = response;
         }
         /////////////////////////////////////////////////////////////////////////////
-
+#if WindowsCE
+#else 
         /// <summary>here to please FxCop and maybe for future use</summary> 
         protected GDataRequestException(SerializationInfo info,  StreamingContext context) : base(info, context)
         {
         }
+
+
         /// <summary>overridden to make FxCop happy and future use</summary> 
         [SecurityPermissionAttribute(SecurityAction.Demand, SerializationFormatter=true)]
         public override void GetObjectData( SerializationInfo info,  StreamingContext context ) 
         {
             base.GetObjectData( info, context );
         }
-
+#endif
     }
     /////////////////////////////////////////////////////////////////////////////
 

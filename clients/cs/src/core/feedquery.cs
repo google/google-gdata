@@ -217,14 +217,19 @@ namespace Google.GData.Client
             get {
                 return new Uri(this.baseUri + CalculateQuery());
                 }
+#if WindowsCE
+#else
             set 
                 {
                 ParseUri(value);
                 }
+#endif
         }
         /////////////////////////////////////////////////////////////////////////////
 
 
+#if WindowsCE
+#else
         //////////////////////////////////////////////////////////////////////
         /// <summary>Passing in a complete URI, we strip all the
         /// GData query-related things and then treat the rest
@@ -242,7 +247,7 @@ namespace Google.GData.Client
             service = new Service();
         }
         /////////////////////////////////////////////////////////////////////////////
-
+#endif
 
 
         //////////////////////////////////////////////////////////////////////
@@ -262,13 +267,14 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         public QueryCategoryCollection Categories
         {
-            get {
-                    if (this.categories == null)
-                    {
-                        this.categories = new QueryCategoryCollection(); 
-                    }
-                    return this.categories;
+            get 
+            {
+                if (this.categories == null)
+                {
+                    this.categories = new QueryCategoryCollection(); 
                 }
+                return this.categories;
+            }
         }
         /////////////////////////////////////////////////////////////////////////////
 
@@ -377,7 +383,8 @@ namespace Google.GData.Client
         /////////////////////////////////////////////////////////////////////////////
 
 
-
+#if WindowsCE
+#else
         //////////////////////////////////////////////////////////////////////
         /// <summary>protected void ParseUri</summary> 
         /// <param name="targetUri">takes an incoming Uri string and parses all the properties out of it</param>
@@ -491,7 +498,6 @@ namespace Google.GData.Client
             return null; 
         }
         /////////////////////////////////////////////////////////////////////////////
-
         
 
         //////////////////////////////////////////////////////////////////////
@@ -510,6 +516,7 @@ namespace Google.GData.Client
             
         }
         /////////////////////////////////////////////////////////////////////////////
+#endif
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>Takes an incoming URI segment and removes leading/trailing slashes.</summary> 
@@ -620,11 +627,11 @@ namespace Google.GData.Client
     
                     if (category.Excluded == true)
                     {
-                        newPath.AppendFormat("-{0}", strCategory);
+                        newPath.AppendFormat(CultureInfo.InvariantCulture, "-{0}", strCategory);
                     }
                     else
                     {
-                        newPath.AppendFormat("{0}", strCategory);
+                        newPath.AppendFormat(CultureInfo.InvariantCulture, "{0}", strCategory);
                     }   
                 }
                 else
@@ -638,7 +645,7 @@ namespace Google.GData.Client
             if (this.FeedFormat != AlternativeFormat.Atom)
             {
                 newPath.Append(paramInsertion);
-                newPath.AppendFormat("alt={0}", FormatToString(this.FeedFormat));
+                newPath.AppendFormat(CultureInfo.InvariantCulture, "alt={0}", FormatToString(this.FeedFormat));
                 paramInsertion = '&'; 
             }
 
@@ -646,51 +653,51 @@ namespace Google.GData.Client
             if (Utilities.IsPersistable(this.Query))
             {  
                 newPath.Append(paramInsertion);
-                newPath.AppendFormat("q={0}", Utilities.UriEncodeReserved(this.Query));
+                newPath.AppendFormat(CultureInfo.InvariantCulture, "q={0}", Utilities.UriEncodeReserved(this.Query));
                 paramInsertion = '&'; 
             }
             if (Utilities.IsPersistable(this.Author))
             {
                 newPath.Append(paramInsertion);
-                newPath.AppendFormat("author={0}", Utilities.UriEncodeReserved(this.Author)); 
+                newPath.AppendFormat(CultureInfo.InvariantCulture, "author={0}", Utilities.UriEncodeReserved(this.Author)); 
                 paramInsertion = '&'; 
             }
             if (this.StartDate != FeedQuery.EmptyDate)
             {
                 newPath.Append(paramInsertion);
-                newPath.AppendFormat("updated-min={0}", Utilities.UriEncodeReserved(Utilities.LocalDateTimeInUTC(this.StartDate)));
+                newPath.AppendFormat(CultureInfo.InvariantCulture, "updated-min={0}", Utilities.UriEncodeReserved(Utilities.LocalDateTimeInUTC(this.StartDate)));
                 paramInsertion = '&'; 
             }
             if (this.EndDate != FeedQuery.EmptyDate)
             {
                 newPath.Append(paramInsertion);
-                newPath.AppendFormat("updated-max={0:G}", Utilities.UriEncodeReserved(Utilities.LocalDateTimeInUTC(this.EndDate)));
+                newPath.AppendFormat(CultureInfo.InvariantCulture, "updated-max={0:G}", Utilities.UriEncodeReserved(Utilities.LocalDateTimeInUTC(this.EndDate)));
                 paramInsertion = '&'; 
             }
 
             if (this.MinPublication != FeedQuery.EmptyDate)
             {
                 newPath.Append(paramInsertion);
-                newPath.AppendFormat("published-min={0:G}", Utilities.UriEncodeReserved(Utilities.LocalDateTimeInUTC(this.MinPublication)));
+                newPath.AppendFormat(CultureInfo.InvariantCulture, "published-min={0:G}", Utilities.UriEncodeReserved(Utilities.LocalDateTimeInUTC(this.MinPublication)));
                 paramInsertion = '&'; 
             }
             if (this.MaxPublication != FeedQuery.EmptyDate)
             {
                 newPath.Append(paramInsertion);
-                newPath.AppendFormat("published-max={0:G}", Utilities.UriEncodeReserved(Utilities.LocalDateTimeInUTC(this.MaxPublication)));
+                newPath.AppendFormat(CultureInfo.InvariantCulture, "published-max={0:G}", Utilities.UriEncodeReserved(Utilities.LocalDateTimeInUTC(this.MaxPublication)));
                 paramInsertion = '&'; 
             }
 
             if (this.StartIndex != 0)
             {
                 newPath.Append(paramInsertion);
-                newPath.AppendFormat("start-index={0:d}", this.StartIndex);
+                newPath.AppendFormat(CultureInfo.InvariantCulture, "start-index={0:d}", this.StartIndex);
                 paramInsertion = '&'; 
             }
             if (this.NumberToRetrieve != 0)
             {
                 newPath.Append(paramInsertion);
-                newPath.AppendFormat("max-results={0:d}", this.NumberToRetrieve);
+                newPath.AppendFormat(CultureInfo.InvariantCulture, "max-results={0:d}", this.NumberToRetrieve);
                 paramInsertion = '&'; 
             }
 

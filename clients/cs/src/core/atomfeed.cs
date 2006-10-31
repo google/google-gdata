@@ -73,7 +73,10 @@ namespace Google.GData.Client
     /// 
     /// </summary> 
     //////////////////////////////////////////////////////////////////////
+#if WindowsCE
+#else 
     [TypeConverterAttribute(typeof(AtomSourceConverter)), DescriptionAttribute("Expand to see the options for the feed")]
+#endif
     public class AtomFeed : AtomSource
     {
 

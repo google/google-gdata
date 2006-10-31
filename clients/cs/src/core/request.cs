@@ -42,7 +42,10 @@ namespace Google.GData.Client
         /// <summary>holds the user-agent</summary> 
         private string userAgent;
         private StringCollection customHeaders;  // holds any custom headers to set
+#if WindowsCE
+#else 
         private CookieContainer cookies; //  all the cookies we use
+#endif
 
 
    
@@ -105,6 +108,8 @@ namespace Google.GData.Client
         // end of accessor public StringArray CustomHeaders
 
 
+#if WindowsCE
+#else 
         //////////////////////////////////////////////////////////////////////
         /// <summary>Get/Set accessor for the cookie box</summary> 
         //////////////////////////////////////////////////////////////////////
@@ -118,11 +123,7 @@ namespace Google.GData.Client
             }
         }
         /////////////////////////////////////////////////////////////////////////////
-
-
-
-
-
+#endif
     }
     /////////////////////////////////////////////////////////////////////////////
 
@@ -298,8 +299,10 @@ namespace Google.GData.Client
                     web.UserAgent = this.factory.UserAgent;
 
                     // and we want to set a cookie container
+#if WindowsCE
+#else
                     web.CookieContainer = this.factory.Cookies;
-
+#endif
 
                     // add all custom headers
                     if (this.factory.hasCustomHeaders == true)

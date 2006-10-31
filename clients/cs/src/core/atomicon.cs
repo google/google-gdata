@@ -38,7 +38,10 @@ namespace Google.GData.Client
     ///     for presentation at a small size.
     /// </summary> 
     //////////////////////////////////////////////////////////////////////
+#if WindowsCE
+#else 
     [TypeConverterAttribute(typeof(AtomBaseLinkConverter)), DescriptionAttribute("Expand to see the link attributes for the Icon.")]
+#endif
     public class AtomIcon : AtomBaseLink
     {
         #region Persistence overloads
