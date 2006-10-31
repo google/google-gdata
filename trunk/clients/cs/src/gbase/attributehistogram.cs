@@ -143,7 +143,7 @@ namespace Google.GData.GoogleBase
             string name = node.Attributes["name"].Value;
             GBaseAttributeType type =
                 GBaseAttributeType.ForName(node.Attributes["type"].Value);
-            int count = Convert.ToInt32(node.Attributes["count"].Value);
+            int count = NumberFormat.ToInt(node.Attributes["count"].Value);
 
             ArrayList values = new ArrayList();
             for (XmlNode child = node.FirstChild;
@@ -152,7 +152,7 @@ namespace Google.GData.GoogleBase
             {
                 if (child.LocalName == "value")
                 {
-                    int valueCount = Convert.ToInt32(child.Attributes["count"].Value);
+                    int valueCount = NumberFormat.ToInt(child.Attributes["count"].Value);
                     values.Add(new HistogramValue(child.InnerText, valueCount));
                 }
             }
@@ -170,14 +170,14 @@ namespace Google.GData.GoogleBase
                                      GBaseNameTable.NSGBaseMeta);
             writer.WriteAttributeString("name", name);
             writer.WriteAttributeString("type", type.Name);
-            writer.WriteAttributeString("count", Convert.ToString(count));
+            writer.WriteAttributeString("count", NumberFormat.ToString(count));
 
             foreach (HistogramValue value in values)
             {
                 writer.WriteStartElement(GBaseNameTable.GBaseMetaPrefix,
                                          "value",
                                          GBaseNameTable.NSGBaseMeta);
-                writer.WriteAttributeString("count", Convert.ToString(value.Count));
+                writer.WriteAttributeString("count", NumberFormat.ToString(value.Count));
                 writer.WriteString(value.Content);
                 writer.WriteEndElement();
             }

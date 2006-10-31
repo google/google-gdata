@@ -130,7 +130,7 @@ namespace Google.GData.GoogleBase {
         public FloatUnit(String str)
                 : base(ExtractUnit(str))
         {
-            this.number = (float)Convert.ToDouble(ExtractNumber(str));
+            this.number = NumberFormat.ToFloat(ExtractNumber(str));
         }
 
         ///////////////////////////////////////////////////////////////////////
@@ -139,7 +139,7 @@ namespace Google.GData.GoogleBase {
         ///////////////////////////////////////////////////////////////////////
         public override string ToString()
         {
-            return number + " " + Unit;
+            return NumberFormat.ToString(number) + " " + Unit;
         }
 
         ///////////////////////////////////////////////////////////////////////
@@ -235,7 +235,7 @@ namespace Google.GData.GoogleBase {
         public IntUnit(string str)
                 : base(ExtractUnit(str))
         {
-            this.number = Convert.ToInt32(ExtractNumber(str));
+            this.number = NumberFormat.ToInt(ExtractNumber(str));
         }
 
         ///////////////////////////////////////////////////////////////////////
@@ -244,7 +244,7 @@ namespace Google.GData.GoogleBase {
         ///////////////////////////////////////////////////////////////////////
         public override string ToString()
         {
-            return number + " " + Unit;
+            return NumberFormat.ToString(number) + " " + Unit;
         }
 
         /// <summary>Returns the value as a float.</summary>
