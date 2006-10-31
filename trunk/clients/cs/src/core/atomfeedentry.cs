@@ -33,7 +33,8 @@ using System.Runtime.InteropServices;
 //////////////////////////////////////////////////////////////////////
 namespace Google.GData.Client
 {
-
+#if WindowsCE
+#else 
     //////////////////////////////////////////////////////////////////////
     /// <summary>TypeConverter, so that AtomEntry shows up in the property pages
     /// </summary> 
@@ -87,6 +88,7 @@ namespace Google.GData.Client
     ///  </summary>
     //////////////////////////////////////////////////////////////////////
     [TypeConverterAttribute(typeof(AtomEntryConverter)), DescriptionAttribute("Expand to see the entry objects for the feed.")]
+#endif
     public class AtomEntry : AtomBase
     {
         #region standard entry properties as returned by query
@@ -277,7 +279,7 @@ namespace Google.GData.Client
                 throw new ArgumentNullException("entryToImport"); 
             }
             AtomEntry entry=null; 
-            entry = (AtomEntry)Activator.CreateInstance(entryToImport.GetType(), new Object[] { });
+            entry = (AtomEntry)Activator.CreateInstance(entryToImport.GetType());
             entry.CopyEntry(entryToImport);
 
             entry.Id = null; 

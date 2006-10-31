@@ -29,7 +29,73 @@ using System.Collections;
 //////////////////////////////////////////////////////////////////////
 namespace Google.GData.Client
 {
+#if WindowsCE
+    //////////////////////////////////////////////////////////////////////
+    /// <summary>standard typed collection based on 1.1 framework for FeedEntries
+    /// </summary> 
+    //////////////////////////////////////////////////////////////////////
+    public class StringCollection : CollectionBase
+    {
+     /// <summary>standard typed accessor method </summary> 
+        public String this[ int index ]  
+        {
+            get  
+            {
+                return ((String)List[index]);
+            }
+            set  
+            {
+                List[index] = value;
+            }
+        }
+        /// <summary>standard typed accessor method </summary> 
+        public int Add(String value)  
+        {
+            return( List.Add( value ) );
+        }
+        /// <summary>standard typed accessor method </summary> 
+        public int IndexOf(String value)  
+        {
+            return( List.IndexOf( value ) );
+        }
+        /// <summary>standard typed accessor method </summary> 
+        public void Insert(int index, String value)  
+        {
+            List.Insert( index, value );
+        }
+        /// <summary>standard typed accessor method </summary> 
+        public void Remove(String value)  
+        {
+            List.Remove( value );
+        }
+        /// <summary>standard typed accessor method </summary> 
+        public bool Contains(String value)  
+        {
+            // If value is not of type AtomCategory, this will return false.
+            return( List.Contains( value ) );
+        }
+        /// <summary>standard typed accessor method </summary> 
+        protected override void OnValidate( Object value )  
+        {
+            if ( value.GetType() != Type.GetType("System.String") )
+                throw new ArgumentException( "value must be of type System.String", "value" );
+        }
+    	/// <summary>retrieves the first category with the matching value</summary>
+    	protected virtual AtomCategory FindCategory(string term)
+    	{
+    	    foreach (AtomCategory category in List)
+    	    {
+    	        if (term == category.Term)
+                {
+                    return category;
+                }
+    	    }
+            return null;
+        }
+    }
+    /////////////////////////////////////////////////////////////////////////////
 
+#endif
     //////////////////////////////////////////////////////////////////////
     /// <summary>standard typed collection based on 1.1 framework for FeedEntries
     /// </summary> 

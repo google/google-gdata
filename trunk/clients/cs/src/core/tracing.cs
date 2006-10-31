@@ -15,6 +15,7 @@
 #define TRACE
 #define USE_TRACING
 
+
 using System;
 using System.IO;
 using System.Diagnostics;
@@ -26,6 +27,44 @@ using System.Diagnostics;
 //////////////////////////////////////////////////////////////////////
 namespace Google.GData.Client
 {
+#if WindowsCE
+    //////////////////////////////////////////////////////////////////////
+    /// <summary>Tracing helper class. Does nothing under WindowsCE
+    ///  </summary> 
+    //////////////////////////////////////////////////////////////////////
+    public sealed class Tracing
+    {
+        private Tracing()
+        {
+        }
+        [Conditional("USE_TRACING")]
+        static public void InitTracing()
+        {
+            return;
+        }
+        [Conditional("USE_TRACING")]
+        static public void ExitTracing() {}
+        [Conditional("USE_TRACING")]
+        static public void TraceCall(string msg) {}
+
+        [Conditional("USE_TRACING")]
+        static public void TraceCall() {}
+
+        [Conditional("USE_TRACING")]
+        static public void TraceInfo(string msg) {}
+
+        [Conditional("USE_TRACING")]
+        static public void Timestamp(string msg) {}
+
+        [Conditional("USE_TRACING")]
+        static public void TraceMsg(string msg) {}
+
+        [Conditional("USE_TRACING")]
+        static public void Assert(bool condition, string msg) {}
+    }
+    /////////////////////////////////////////////////////////////////////////////
+
+#else
     //////////////////////////////////////////////////////////////////////
     /// <summary>Tracing helper class. Uses conditional compilation to 
     ///  exclude tracing code in release builds</summary> 
@@ -80,7 +119,7 @@ namespace Google.GData.Client
                 {
                     Trace.WriteLine("Method Unknown: " + msg);
                 }
-                 Trace.Flush();
+                Trace.Flush();
 
 
             } catch 
@@ -149,6 +188,6 @@ namespace Google.GData.Client
 
     }
     /////////////////////////////////////////////////////////////////////////////
-
+#endif
 }
 /////////////////////////////////////////////////////////////////////////////

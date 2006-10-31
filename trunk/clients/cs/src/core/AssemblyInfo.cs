@@ -74,8 +74,11 @@ using System;
 [assembly: AssemblyKeyFile("clientkey.sn")]
 [assembly: AssemblyKeyName("")]
 
+#if WindowsCE
+#else 
+    [assembly: SecurityPermission(SecurityAction.RequestMinimum, Execution=true)]
+#endif
 
-[assembly: SecurityPermission(SecurityAction.RequestMinimum, Execution=true)]
 [assembly: ComVisible(false)]
 [assembly: CLSCompliant(true)]
 

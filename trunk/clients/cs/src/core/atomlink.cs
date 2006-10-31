@@ -196,12 +196,12 @@ namespace Google.GData.Client
             WriteEncodedAttributeString(writer, AtomParserNameTable.XmlAttributeRel, this.Rel);
             WriteEncodedAttributeString(writer, AtomParserNameTable.XmlAttributeType, this.Type);
             
-            if (this.length > 0)
+			if (this.length > 0)
             {
                 WriteEncodedAttributeString(writer, AtomParserNameTable.XmlAttributeLength, this.Length.ToString(CultureInfo.InvariantCulture));
             }
             WriteEncodedAttributeString(writer, AtomParserNameTable.XmlTitleElement, this.Title);
-            base.SaveXmlAttributes(writer);
+			base.SaveXmlAttributes(writer);
 
         }
         /////////////////////////////////////////////////////////////////////////////
@@ -211,7 +211,6 @@ namespace Google.GData.Client
         /// <summary>figures out if this object should be persisted</summary> 
         /// <returns> true, if it's worth saving</returns>
         //////////////////////////////////////////////////////////////////////
-
         public override bool ShouldBePersisted()
         {
             if (base.ShouldBePersisted() == true)

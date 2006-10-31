@@ -30,7 +30,8 @@ using System.Runtime.InteropServices;
 //////////////////////////////////////////////////////////////////////
 namespace Google.GData.Client
 {
-
+#if WindowsCE
+#else 
     //////////////////////////////////////////////////////////////////////
     /// <summary>TypeConverter, so that AtomGenerator shows up in the property pages
     /// </summary> 
@@ -66,6 +67,7 @@ namespace Google.GData.Client
     /// </summary> 
     //////////////////////////////////////////////////////////////////////
     [TypeConverterAttribute(typeof(AtomGeneratorConverter)), DescriptionAttribute("Expand to see the feed generator object.")]
+#endif
     public class AtomGenerator : AtomBase
     {
 

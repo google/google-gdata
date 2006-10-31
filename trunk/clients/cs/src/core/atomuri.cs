@@ -43,13 +43,21 @@ namespace Google.GData.Client
             {
                 throw new ArgumentNullException("uri"); 
             }
+#if WindowsCE
+            this.strContent = uri.ToString(); 
+#else
             this.strContent = System.Web.HttpUtility.UrlDecode(uri.ToString());
+#endif
         }
 
         /// <summary>alternating constructor with a string</summary> 
         public AtomUri(string str)
         {
+#if WindowsCE
+            this.strContent = str; 
+#else
             this.strContent = System.Web.HttpUtility.UrlDecode(str);
+#endif
         }
 
         //////////////////////////////////////////////////////////////////////

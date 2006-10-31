@@ -29,6 +29,9 @@ using System.Runtime.InteropServices;
 //////////////////////////////////////////////////////////////////////
 namespace Google.GData.Client
 {
+
+#if WindowsCE
+#else
     //////////////////////////////////////////////////////////////////////
     /// <summary>TypeConverter, so that AtomBaseLink shows up in the property pages
     /// </summary> 
@@ -65,7 +68,7 @@ namespace Google.GData.Client
 
     }
     /////////////////////////////////////////////////////////////////////////////
-
+#endif
     //////////////////////////////////////////////////////////////////////
     /// <summary>AtomBaselink is an intermediate object that adds the URI property
     /// used as the parent class for a lot of other objects (like atomlink, atomicon, etc)

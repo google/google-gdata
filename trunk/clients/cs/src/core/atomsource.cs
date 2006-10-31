@@ -31,7 +31,8 @@ using System.Runtime.InteropServices;
 //////////////////////////////////////////////////////////////////////
 namespace Google.GData.Client
 {
-
+#if WindowsCE
+#else
     //////////////////////////////////////////////////////////////////////
     /// <summary>TypeConverter, so that AtomHead shows up in the property pages
     /// </summary> 
@@ -62,7 +63,7 @@ namespace Google.GData.Client
 
     }
     /////////////////////////////////////////////////////////////////////////////
-
+#endif 
 
     //////////////////////////////////////////////////////////////////////
     /// <summary>Represents the AtomSource object. If an atom:entry is copied from one feed 
@@ -93,7 +94,10 @@ atomSource =
     }
 */
     //////////////////////////////////////////////////////////////////////
+#if WindowsCE
+#else
     [TypeConverterAttribute(typeof(AtomSourceConverter)), DescriptionAttribute("Expand to see the options for the feed")]
+#endif
     public class AtomSource : AtomBase
     {
         /// <summary>author collection</summary> 

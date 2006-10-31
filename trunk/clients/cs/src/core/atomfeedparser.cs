@@ -816,7 +816,8 @@ namespace Google.GData.Client
                         localname = reader.LocalName;
                         if (localname.Equals(this.nameTable.BatchOperationType))
                         {
-                            type = (GDataBatchOperationType)Enum.Parse(typeof(GDataBatchOperationType), reader.Value); 
+                            type = (GDataBatchOperationType)Enum.Parse(
+                                        typeof(GDataBatchOperationType), reader.Value, true); 
                         }
                     }
                 }
@@ -848,7 +849,7 @@ namespace Google.GData.Client
                 if (elementName.Equals(this.nameTable.BatchOperation))
                 {
                     batch.Type = (GDataBatchOperationType)Enum.Parse(typeof(GDataBatchOperationType), 
-                                                                     reader.GetAttribute(BaseNameTable.XmlAttributeBatchOperationType));
+                                 reader.GetAttribute(BaseNameTable.XmlAttributeBatchOperationType), true);
                 }
                 else
                 {
@@ -1062,7 +1063,8 @@ namespace Google.GData.Client
 
                         if (attributeName.Equals(this.nameTable.Type))
                         {
-                            construct.Type = (AtomTextConstructType)Enum.Parse(typeof(AtomTextConstructType), reader.Value);
+                            construct.Type = (AtomTextConstructType)Enum.Parse(
+                                        typeof(AtomTextConstructType), reader.Value, true);
                         }
                         else
                         {
@@ -1192,14 +1194,14 @@ namespace Google.GData.Client
                     // using readInnerXml has disadvantages, even for HTML/XHTML. in .NET 1.1
                     // decoding will happen and text like "this & that" will come back
                     // as "this &amp; that" 
-                  if (content.Type.Equals("text")) 
-                  {
-                    content.Content = reader.ReadString();
-                  }
-                  else 
-                  {
-                    content.Content = reader.ReadInnerXml(); 
-                  }
+					if (content.Type.Equals("text")) 
+					{
+						content.Content = reader.ReadString();
+					}
+					else 
+					{
+						content.Content = reader.ReadInnerXml(); 
+					}
                 }
             }
             return content;
