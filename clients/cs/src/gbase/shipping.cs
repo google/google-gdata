@@ -81,7 +81,7 @@ namespace Google.GData.GoogleBase {
             catch (FormatException e)
             {
                 e = null;
-                this.price = (float)Convert.ToDouble(priceString);
+                this.price = NumberFormat.ToFloat(priceString);
                 this.currency = null;
             }
         }
@@ -122,7 +122,7 @@ namespace Google.GData.GoogleBase {
             }
             else
             {
-                retval["price"] = Convert.ToString(price);
+                retval["price"] = NumberFormat.ToString(price);
             }
             return retval;
         }

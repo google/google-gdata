@@ -123,7 +123,7 @@ namespace Google.GData.GoogleBase
                             this.bq = System.Web.HttpUtility.UrlDecode(parameters[1]);
                             break;
                         case MaxValuesParameter:
-                            this.maxValues = Convert.ToInt32(parameters[1]);
+                            this.maxValues = NumberFormat.ToInt(parameters[1]);
                             break;
                         }
                     }
@@ -170,7 +170,7 @@ namespace Google.GData.GoogleBase
                 newPath.Append(paramInsertion);
                 newPath.Append(MaxValuesParameter);
                 newPath.Append('=');
-                newPath.Append(Convert.ToString(maxValues));
+                newPath.Append(NumberFormat.ToString(maxValues));
             }
             return newPath.ToString();
         }

@@ -247,7 +247,7 @@ namespace Google.GData.GoogleBase {
         {
             return Add(new GBaseAttribute(name,
                                           GBaseAttributeType.Int,
-                                          Convert.ToString(value)));
+                                          NumberFormat.ToString(value)));
         }
 
 
@@ -261,7 +261,7 @@ namespace Google.GData.GoogleBase {
         {
             return Add(new GBaseAttribute(name,
                                           GBaseAttributeType.Float,
-                                          Convert.ToString(value)));
+                                          NumberFormat.ToString(value)));
         }
 
 
@@ -275,7 +275,7 @@ namespace Google.GData.GoogleBase {
         {
             return Add(new GBaseAttribute(name,
                                           GBaseAttributeType.Number,
-                                          Convert.ToString(value)));
+                                          NumberFormat.ToString(value)));
         }
 
         ///////////////////////////////////////////////////////////////////////
@@ -288,7 +288,7 @@ namespace Google.GData.GoogleBase {
         {
             return Add(new GBaseAttribute(name,
                                           GBaseAttributeType.Number,
-                                          Convert.ToString(value)));
+                                          NumberFormat.ToString(value)));
         }
 
         ///////////////////////////////////////////////////////////////////////
@@ -514,7 +514,7 @@ namespace Google.GData.GoogleBase {
                 value = 0;
                 return false;
             }
-            value = Convert.ToInt32(stringValue);
+            value = NumberFormat.ToInt(stringValue);
             return true;
         }
 
@@ -533,7 +533,7 @@ namespace Google.GData.GoogleBase {
                 String content = attribute.Content;
                 if (content != null)
                 {
-                    list.Add(Convert.ToInt32(content));
+                    list.Add(NumberFormat.ToInt(content));
                 }
             }
             return (int[])list.ToArray(typeof(int));
@@ -606,8 +606,7 @@ namespace Google.GData.GoogleBase {
                 value = 0;
                 return false;
             }
-            // No Convert.ToFloat ?
-            value = (float)Convert.ToDouble(stringValue);
+            value = NumberFormat.ToFloat(stringValue);
             return true;
         }
 
@@ -641,7 +640,7 @@ namespace Google.GData.GoogleBase {
                 String content = attribute.Content;
                 if (content != null)
                 {
-                    list.Add((float)Convert.ToDouble(content));
+                    list.Add(NumberFormat.ToFloat(content));
                 }
             }
             return (float[])list.ToArray(typeof(float));
