@@ -206,7 +206,7 @@ namespace Google.GData.Client
     {
 
         /// <summary>holds the webresponse object</summary> 
-        private WebResponse response;
+        protected WebResponse webResponse;
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>default constructor so that FxCop does not complain</summary> 
@@ -222,7 +222,7 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         public WebResponse Response
         {
-            get {return this.response;}
+            get {return this.webResponse;}
         }
 
         /// <summary>
@@ -236,10 +236,10 @@ namespace Google.GData.Client
             {
                 string responseText = null; 
         
-                if (this.response != null)
+                if (this.webResponse != null)
                 {
                     // Obtain a 'Stream' object associated with the response object.
-                    Stream receiver = this.response.GetResponseStream();
+                    Stream receiver = this.webResponse.GetResponseStream();
                     if (receiver != null)
                     {
                         // Pipe the stream to a higher level stream reader with the default encoding format. 
@@ -299,7 +299,7 @@ namespace Google.GData.Client
         {
             if (exception != null)
             {
-                this.response = exception.Response;    
+                this.webResponse = exception.Response;    
             }
             
         }
@@ -312,7 +312,7 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         public GDataRequestException(string msg, WebResponse response) : base(msg)
         {
-            this.response = response;
+            this.webResponse = response;
         }
         /////////////////////////////////////////////////////////////////////////////
 #if WindowsCE
@@ -332,5 +332,64 @@ namespace Google.GData.Client
 #endif
     }
     /////////////////////////////////////////////////////////////////////////////
+    
+
+
+    //////////////////////////////////////////////////////////////////////
+    /// <summary>exception class thrown when we encounter an access denied
+    /// (HttpSTatusCode.Forbidden) when accessing a server
+    /// </summary> 
+    //////////////////////////////////////////////////////////////////////    
+    public class GDataForbiddenException : GDataRequestException
+    {
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>constructs a forbidden exception</summary> 
+        /// <param name="msg"> the exception message as a string</param>
+        /// <param name="response"> the webresponse object that caused the exception</param>
+        //////////////////////////////////////////////////////////////////////
+        public GDataForbiddenException(string msg, WebResponse response) : base(msg)
+        {
+            this.webResponse = response;
+        }
+
+    }
+
+    //////////////////////////////////////////////////////////////////////
+    /// <summary>exception class thrown when we encounter a redirect
+    /// (302 and 307) when accessing a server
+    /// </summary> 
+    //////////////////////////////////////////////////////////////////////    
+    public class GDataRedirectException : GDataRequestException
+    {
+        private string redirectLocation; 
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>constructs a redirect execption</summary> 
+        /// <param name="msg"> the exception message as a string</param>
+        /// <param name="response"> the webresponse object that caused the exception</param>
+        //////////////////////////////////////////////////////////////////////
+        public GDataRedirectException(string msg, WebResponse response) : base(msg)
+        {
+            this.webResponse = response;
+            if (response != null && response.Headers != null)
+            {
+                this.redirectLocation = response.Headers["Location"]; 
+            }
+            
+        }
+
+
+        /// <summary>
+        /// returns the location header of the webresponse object
+        /// which should be the location we should redirect to
+        /// </summary>
+        public string Location 
+        {
+            get 
+            {
+                return this.redirectLocation != null ? this.redirectLocation : "";
+            }
+        }
+
+    }
 
 } /////////////////////////////////////////////////////////////////////////////
