@@ -82,6 +82,7 @@ namespace Google.GData.Client
         private string applicationName;  // the application name we pass to Gaia and append to the user-agent
         private bool fMethodOverride;    // to override using post, or to use PUT/DELETE
         private int numberOfRetries;        // holds the number of retries the request will undertake
+        private bool fStrictRedirect;       // indicates if redirects should be handled strictly
 
         
                                          
@@ -99,6 +100,7 @@ namespace Google.GData.Client
     	        this.UserAgent = GDataGAuthAgent;
     	    }
             this.numberOfRetries = 0; 
+            this.fStrictRedirect = false; 
         }
         /////////////////////////////////////////////////////////////////////////////
 
@@ -164,6 +166,18 @@ namespace Google.GData.Client
         {
             get {return this.fMethodOverride;}
             set {this.fMethodOverride = value;}
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>indicates if a redirect should be followed on not HTTPGet</summary> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        public bool StrictRedirect
+        {
+            get {return this.fStrictRedirect;}
+            set {this.fStrictRedirect = value;}
         }
         /////////////////////////////////////////////////////////////////////////////
 
@@ -436,58 +450,64 @@ namespace Google.GData.Client
                 CopyRequestData();
                 base.Execute();
             }
+            catch (GDataForbiddenException re) 
+            {
+                Tracing.TraceMsg("need to reauthenticate, got a forbidden back");
+                // do it again, once, reset AuthToken first and streams first
+                base.Reset();
+                this.factory.GAuthToken = null; 
+                CopyRequestData();
+                base.Execute();
+
+            }
+            catch (GDataRedirectException re)
+            {
+                // we got a redirect.
+                Tracing.TraceMsg("Got a redirect to: " + re.Location);
+                // only reset the base, the auth cookie is still valid
+                // and cookies are stored in the factory
+                if (this.factory.StrictRedirect == true)
+                {
+                    HttpWebRequest http = this.Request as HttpWebRequest; 
+                    if (http != null)
+                    {
+                        // only redirect for GET, else throw
+                        if (http.Method != HttpMethods.Get) 
+                        {
+                            throw re; 
+                        }
+                    }
+                }
+                base.Reset();
+                this.TargetUri = new Uri(re.Location);
+                CopyRequestData();
+                base.Execute();
+            }
             catch (GDataRequestException re)
             {
-                Tracing.TraceMsg("Got into exception handling for base.execute");
-                HttpWebResponse response = re.Response as HttpWebResponse;
-
-                if (response != null)
+                if (iRetrying > this.factory.NumberOfRetries)
                 {
-                    if (response.StatusCode == HttpStatusCode.Forbidden)
-                    {
-                        Tracing.TraceMsg("need to reauthenticate, got a forbidden back");
-                        // do it again, once, reset AuthToken first and streams first
-                        base.Reset();
-                        this.factory.GAuthToken = null; 
-                        CopyRequestData();
-                        base.Execute();
-                    }
-                    else if (response.StatusCode == HttpStatusCode.Found
-                          || response.StatusCode == HttpStatusCode.Redirect)
-                    {
-                        // we got a redirect.
-                        Tracing.TraceMsg("Got a redirect. " + response.ResponseUri);
-                        // only reset the base, the auth cookie is still valid
-                        // and cookies are stored in the factory
-                        base.Reset();
-                        CopyRequestData();
-                        base.Execute();
-                    }
-                    else
-                        throw re;
+                    Tracing.TraceMsg("Got no response object");
+                    throw re;
                 }
-                else
+                Tracing.TraceMsg("Let's retry this"); 
+                // only reset the base, the auth cookie is still valid
+                // and cookies are stored in the factory
+                base.Reset();
+                this.Execute(iRetrying + 1); 
+            }
+            catch (Exception e)
+            {
+                Tracing.TraceMsg("we caught an unknown exception");
+                throw e; 
+            }
+            finally
+            {
+                if (this.requestCopy != null)
                 {
-                    if (iRetrying > this.factory.NumberOfRetries)
-                    {
-                        Tracing.TraceMsg("Got no response object");
-                        throw re;
-                    }
-                    Tracing.TraceMsg("Let's retry this"); 
-                    // only reset the base, the auth cookie is still valid
-                    // and cookies are stored in the factory
-                    base.Reset();
-                    this.Execute(iRetrying + 1); 
+                    this.requestCopy.Close();
+                    this.requestCopy = null;
                 }
-            }
-            catch
-            {
-                Tracing.TraceMsg("otherstuff");
-            }
-            if (this.requestCopy != null)
-            {
-                this.requestCopy.Close();
-                this.requestCopy = null;
             }
         }
         /////////////////////////////////////////////////////////////////////////////

@@ -41,11 +41,16 @@ namespace Google.GData.Client
         public const string GDataAgent = "GData-CS/1.0.0";
         /// <summary>holds the user-agent</summary> 
         private string userAgent;
-        private StringCollection customHeaders;  // holds any custom headers to set
-#if WindowsCE
-#else 
-        private CookieContainer cookies; //  all the cookies we use
-#endif
+        private StringCollection customHeaders;     // holds any custom headers to set
+        private String shardingCookie;              // holds the sharding cookie if returned
+                                                    
+
+        /// <summary>Cookie setting header, returned from server</summary>
+        public const string SetCookieHeader = "Set-Cookie"; 
+        /// <summary>Cookie client header</summary>
+        public const string CookieHeader = "Cookie"; 
+
+
 
 
    
@@ -71,6 +76,17 @@ namespace Google.GData.Client
         }
         /////////////////////////////////////////////////////////////////////////////
 
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>set's and get's the sharding cookie</summary> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        public string Cookie
+        {
+            get {return this.shardingCookie;}
+            set {this.shardingCookie = value;}
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>accessor method public string UserAgent</summary> 
@@ -82,7 +98,8 @@ namespace Google.GData.Client
             set {this.userAgent = value;}
         }
         /////////////////////////////////////////////////////////////////////////////
-        // 
+
+         
         internal bool hasCustomHeaders
         {
             get {
@@ -108,22 +125,6 @@ namespace Google.GData.Client
         // end of accessor public StringArray CustomHeaders
 
 
-#if WindowsCE
-#else 
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>Get/Set accessor for the cookie box</summary> 
-        //////////////////////////////////////////////////////////////////////
-        internal CookieContainer Cookies
-        {
-            get {
-                if (this.cookies == null) {
-                    this.cookies = new CookieContainer(); 
-                }
-                return this.cookies;
-            }
-        }
-        /////////////////////////////////////////////////////////////////////////////
-#endif
     }
     /////////////////////////////////////////////////////////////////////////////
 
@@ -172,7 +173,25 @@ namespace Google.GData.Client
             Dispose(true);
             GC.SuppressFinalize(this);
         }
-        /////////////////////////////////////////////////////////////////////////////
+
+
+        /// <summary>
+        /// exposing the private targetUri so that subclasses can override
+        /// the value for redirect handling
+        /// </summary>
+        protected Uri TargetUri 
+        {
+            get 
+            {
+                return this.targetUri;
+            }
+            set 
+            {
+                this.targetUri = value;
+            }
+        }
+        //////////////////////////////////////////////////////////////////////
+
 
 
         
@@ -298,12 +317,6 @@ namespace Google.GData.Client
                     web.ContentType = "application/atom+xml; charset=UTF-8";
                     web.UserAgent = this.factory.UserAgent;
 
-                    // and we want to set a cookie container
-#if WindowsCE
-#else
-                    web.CookieContainer = this.factory.Cookies;
-#endif
-
                     // add all custom headers
                     if (this.factory.hasCustomHeaders == true)
                     {
@@ -311,6 +324,11 @@ namespace Google.GData.Client
                         {
                             this.Request.Headers.Add(s); 
                         }
+                    }
+
+                    if (this.factory.Cookie != null)
+                    {
+                        this.Request.Headers.Add(GDataRequestFactory.CookieHeader + ": " + this.factory.Cookie); 
                     }
                 }
                 
@@ -371,18 +389,23 @@ namespace Google.GData.Client
                 Tracing.TraceMsg("Returned contenttype is: " + (response.ContentType == null ? "None" : response.ContentType) + " from URI : " + request.RequestUri.ToString()); ; 
                 Tracing.TraceMsg("Returned statuscode is: " + response.StatusCode + code); 
 
+                // check for a returned set-cookie header and store it
+                if (response != null && 
+                    response.Headers != null)
+                {
+                    String cookie = response.Headers[GDataRequestFactory.SetCookieHeader];
+                    if (cookie != null)
+                    {
+                        this.factory.Cookie = cookie; 
+                    }
+                }
+
                 if (response.StatusCode == HttpStatusCode.Forbidden)
                 {
                     // that could imply that we need to reauthenticate
                     Tracing.TraceMsg("need to reauthenticate");
-                    throw new GDataRequestException("Execution of request returned unexpected result: " + this.targetUri.ToString() + response.StatusCode.ToString(), this.webResponse); 
-                }
-  
-                if (code > 299)
-                {
-                    // treat everything 300 and up as errors
-                    Tracing.TraceMsg("throwing for redirect");
-                    throw new GDataRequestException("Execution of request returned unexpected result: " + this.targetUri.ToString() + response.StatusCode.ToString(), this.webResponse); 
+                    throw new GDataForbiddenException("Execution of request returned HttpStatusCode.Forbidden: " + 
+                                                    this.targetUri.ToString() + response.StatusCode.ToString(), this.webResponse); 
                 }
 
                 if (request.Method == HttpMethods.Delete && response.StatusCode != HttpStatusCode.OK)
@@ -390,6 +413,23 @@ namespace Google.GData.Client
                     Tracing.TraceCall("GDataRequest::Deletion returned unxepected result: " + response.StatusCode.ToString()); 
                     throw new GDataRequestException("Execution of DELETE returned unexpected result: " + this.targetUri.ToString(), this.webResponse); 
                 }
+
+
+                if (response.StatusCode == HttpStatusCode.Redirect ||
+                    response.StatusCode == HttpStatusCode.Found ||
+                    response.StatusCode == HttpStatusCode.RedirectKeepVerb)
+                {
+                    Tracing.TraceMsg("throwing for redirect");
+                    throw new GDataRedirectException("Execution resulted in a redirect from " + this.targetUri.ToString(), this.webResponse);
+                }
+  
+                if (code > 299)
+                {
+                    // treat everything else over 300 as errors
+                    throw new GDataRequestException("Execution of request returned unexpected result: " + this.targetUri.ToString() + 
+                                                    response.StatusCode.ToString(), this.webResponse); 
+                }
+
                 response = null;
                 request = null; 
             }

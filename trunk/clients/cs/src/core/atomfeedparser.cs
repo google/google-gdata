@@ -711,7 +711,7 @@ namespace Google.GData.Client
                     }
                     else if (localname.Equals(this.nameTable.Content))
                     {
-                        entry.Content = ParseContent(reader);
+                        entry.Content = ParseContent(reader, out fSkip);
                     }
                     else if (localname.Equals(this.nameTable.Source))
                     {
@@ -817,7 +817,7 @@ namespace Google.GData.Client
                         if (localname.Equals(this.nameTable.BatchOperationType))
                         {
                             type = (GDataBatchOperationType)Enum.Parse(
-                                        typeof(GDataBatchOperationType), reader.Value, true); 
+                                                                      typeof(GDataBatchOperationType), reader.Value, true); 
                         }
                     }
                 }
@@ -849,7 +849,7 @@ namespace Google.GData.Client
                 if (elementName.Equals(this.nameTable.BatchOperation))
                 {
                     batch.Type = (GDataBatchOperationType)Enum.Parse(typeof(GDataBatchOperationType), 
-                                 reader.GetAttribute(BaseNameTable.XmlAttributeBatchOperationType), true);
+                                                                     reader.GetAttribute(BaseNameTable.XmlAttributeBatchOperationType), true);
                 }
                 else
                 {
@@ -1064,7 +1064,7 @@ namespace Google.GData.Client
                         if (attributeName.Equals(this.nameTable.Type))
                         {
                             construct.Type = (AtomTextConstructType)Enum.Parse(
-                                        typeof(AtomTextConstructType), reader.Value, true);
+                                                                              typeof(AtomTextConstructType), reader.Value, true);
                         }
                         else
                         {
@@ -1079,7 +1079,7 @@ namespace Google.GData.Client
                     case AtomTextConstructType.text:
                         construct.Text = reader.ReadString();
                         break;
-                    
+
                     case AtomTextConstructType.xhtml:
                     default:
                         construct.Text = reader.ReadInnerXml();
@@ -1152,15 +1152,19 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         /// <summary>creates an AtomContent object by parsing an xml stream</summary> 
         /// <param name="reader">a XMLReader positioned correctly </param>
+        /// <param name="skipNode">a boolen indicating if the node needs to be skipped, or not</param>
         /// <returns> null or an AtomContent object</returns>
         //////////////////////////////////////////////////////////////////////
-        protected AtomContent ParseContent(XmlReader reader)
+        protected AtomContent ParseContent(XmlReader reader, out bool skipNode)
         {
             Tracing.Assert(reader != null, "reader should not be null");
             if (reader == null)
             {
                 throw new ArgumentNullException("reader"); 
             }
+
+            // by default, skip to the next node after this routine
+            skipNode = true; 
 
             AtomContent content = null;
             object localname = reader.LocalName;
@@ -1194,14 +1198,16 @@ namespace Google.GData.Client
                     // using readInnerXml has disadvantages, even for HTML/XHTML. in .NET 1.1
                     // decoding will happen and text like "this & that" will come back
                     // as "this &amp; that" 
-					if (content.Type.Equals("text")) 
-					{
-						content.Content = reader.ReadString();
-					}
-					else 
-					{
-						content.Content = reader.ReadInnerXml(); 
-					}
+                    if (content.Type.Equals("text"))
+                    {
+                        content.Content = reader.ReadString();
+                    }
+                    else
+                    {
+                        content.Content = reader.ReadInnerXml(); 
+                        // ReadInnerXml moves to the next node
+                        skipNode = false; 
+                    }
                 }
             }
             return content;

@@ -8,6 +8,14 @@
   The new member on AtomEntry is called IsDraft.
 - Changed the way atom:content is parsed. Text & HTML types use xmlreader.ReadString() to get the inner content. XHTML and
   all other types use readInnerXml() to get the content.
+- changed Exception handling. The code now throws more detailed exceptions based on what was happening:
+  -> GDataRequestException: generic exception 
+  -> GDataForbiddenException: exception thrown when the server return a Forbidden on authentication
+  -> GDataRedirectException: exception thrown when the server returned a redirect
+- changed redirect handling on Post. The library will follow redirects on Post automatically by default, to accomodate Blogger (which
+  currently may return 302s on posts). This can be turned off by setting the .StrictRedirect property to true on the 
+  GDataAuthRequestFactory. If it is turned off, the code will throw if a redirect is happening on an HTTP verb other than GET.
+- removed cookie handling. The code will handle cookies now without using the CookieContainer (one hurdle on the way to the CompactFramework Port).
 
 == 1.0.7 ==
 - Added support for published-min/published-max as standard query parameters
