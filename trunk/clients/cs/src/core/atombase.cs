@@ -447,8 +447,10 @@ namespace Google.GData.Client
             }
             Tracing.Assert(elementName.Length > 0 , "elementName should be longer than null"); 
 
-            if (elementName.Length > 0)
+            // only save out if valid
+            if (elementName.Length > 0 && Utilities.IsPersistable(dateTime))
             {
+
                 string strOutput = Utilities.LocalDateTimeInUTC(dateTime);
 
                 WriteElementStart(writer, elementName);

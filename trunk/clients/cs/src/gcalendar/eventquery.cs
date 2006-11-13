@@ -197,8 +197,8 @@ namespace Google.GData.Calendar {
         protected override void Reset()
         {
             base.Reset();
-            startTime = endTime = FeedQuery.EmptyDate;
-            recurrenceStart = recurrenceEnd = FeedQuery.EmptyDate;
+            startTime = endTime = Utilities.EmptyDate;
+            recurrenceStart = recurrenceEnd = Utilities.EmptyDate;
         }
 
         //////////////////////////////////////////////////////////////////////
@@ -221,25 +221,25 @@ namespace Google.GData.Calendar {
             {
                 paramInsertion = '&';
             }
-            if (this.StartTime != FeedQuery.EmptyDate)
+            if (Utilities.IsPersistable(this.StartTime))
             {
                 newPath.Append(paramInsertion);
                 newPath.AppendFormat("start-min={0}", Utilities.UriEncodeReserved(Utilities.LocalDateTimeInUTC(this.StartTime)));
                 paramInsertion = '&';
             }
-            if (this.EndTime != FeedQuery.EmptyDate)
+            if (Utilities.IsPersistable(this.EndTime))
             {
                 newPath.Append(paramInsertion);
                 newPath.AppendFormat("start-max={0}", Utilities.UriEncodeReserved(Utilities.LocalDateTimeInUTC(this.EndTime)));
                 paramInsertion = '&';
             }
-            if (this.RecurrenceStart != FeedQuery.EmptyDate)
+            if (Utilities.IsPersistable(this.RecurrenceStart))
             {
                 newPath.Append(paramInsertion);
                 newPath.AppendFormat("recurrence-expansion-start={0}", Utilities.UriEncodeReserved(Utilities.LocalDateTimeInUTC(this.RecurrenceStart))); 
                 paramInsertion = '&';
             }
-            if (this.RecurrenceEnd != FeedQuery.EmptyDate)
+            if (Utilities.IsPersistable(this.RecurrenceEnd))
             {
                 newPath.Append(paramInsertion);
                 newPath.AppendFormat("recurrence-expansion-end={0}", Utilities.UriEncodeReserved(Utilities.LocalDateTimeInUTC(this.RecurrenceEnd))); 

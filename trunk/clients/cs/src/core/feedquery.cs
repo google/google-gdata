@@ -193,19 +193,7 @@ namespace Google.GData.Client
 
 
 
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>public static DateTime EmptyDate</summary> 
-        //////////////////////////////////////////////////////////////////////
-        public static DateTime EmptyDate
-        {
-            get {
-                // that's the blank value you get when setting a DateTime to an empty string inthe property browswer
-                return new DateTime(1,1,1);
-            }
-
-        }
-        /////////////////////////////////////////////////////////////////////////////
-
+     
         //////////////////////////////////////////////////////////////////////
         /// <summary>We do not hold on to the precalculated Uri.
         /// It's safer and cheaper to calculate this on the fly.
@@ -576,7 +564,8 @@ namespace Google.GData.Client
         {
             this.query = this.author = String.Empty; 
             this.categories = null; 
-            this.datetimeMax = this.datetimeMin = FeedQuery.EmptyDate; 
+            this.datetimeMax = this.datetimeMin = Utilities.EmptyDate; 
+            this.MinPublication = this.MaxPublication = Utilities.EmptyDate; 
             this.startIndex = this.numToRetrieve = 0; 
             this.altFormat = AlternativeFormat.Atom;
         }
@@ -662,26 +651,26 @@ namespace Google.GData.Client
                 newPath.AppendFormat(CultureInfo.InvariantCulture, "author={0}", Utilities.UriEncodeReserved(this.Author)); 
                 paramInsertion = '&'; 
             }
-            if (this.StartDate != FeedQuery.EmptyDate)
+            if (Utilities.IsPersistable(this.StartDate))
             {
                 newPath.Append(paramInsertion);
                 newPath.AppendFormat(CultureInfo.InvariantCulture, "updated-min={0}", Utilities.UriEncodeReserved(Utilities.LocalDateTimeInUTC(this.StartDate)));
                 paramInsertion = '&'; 
             }
-            if (this.EndDate != FeedQuery.EmptyDate)
+            if (Utilities.IsPersistable(this.EndDate))
             {
                 newPath.Append(paramInsertion);
                 newPath.AppendFormat(CultureInfo.InvariantCulture, "updated-max={0:G}", Utilities.UriEncodeReserved(Utilities.LocalDateTimeInUTC(this.EndDate)));
                 paramInsertion = '&'; 
             }
 
-            if (this.MinPublication != FeedQuery.EmptyDate)
+            if (Utilities.IsPersistable(this.MinPublication))
             {
                 newPath.Append(paramInsertion);
                 newPath.AppendFormat(CultureInfo.InvariantCulture, "published-min={0:G}", Utilities.UriEncodeReserved(Utilities.LocalDateTimeInUTC(this.MinPublication)));
                 paramInsertion = '&'; 
             }
-            if (this.MaxPublication != FeedQuery.EmptyDate)
+            if (Utilities.IsPersistable(this.MaxPublication))
             {
                 newPath.Append(paramInsertion);
                 newPath.AppendFormat(CultureInfo.InvariantCulture, "published-max={0:G}", Utilities.UriEncodeReserved(Utilities.LocalDateTimeInUTC(this.MaxPublication)));
