@@ -196,8 +196,8 @@ namespace Google.GData.Extensions
         {
 
             if (Utilities.IsPersistable(this.valueString) ||
-                this.startTime != new DateTime(1,1,1) || 
-                this.endTime != new DateTime(1,1,1))
+                Utilities.IsPersistable(this.startTime) ||
+                Utilities.IsPersistable(this.endTime))
 
             {
                 writer.WriteStartElement(BaseNameTable.gDataPrefix, XmlName, BaseNameTable.gNamespace);

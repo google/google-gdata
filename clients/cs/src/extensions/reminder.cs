@@ -194,7 +194,8 @@ namespace Google.GData.Extensions {
             if (this.Days > 0 ||
                 this.Hours > 0 ||
                 this.Minutes > 0 ||
-                this.AbsoluteTime != new DateTime(1,1,1))
+                Utilities.IsPersistable(this.AbsoluteTime))
+                
             {
                 writer.WriteStartElement(BaseNameTable.gDataPrefix, XmlName, BaseNameTable.gNamespace);
 

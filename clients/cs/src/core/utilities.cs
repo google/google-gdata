@@ -96,6 +96,14 @@ namespace Google.GData.Client
             return iNum == 0 ? false : true;
         }
 
+        /// <summary>Little helper that checks if a datevalue is XML persistable</summary> 
+        public static bool IsPersistable(DateTime testDate)
+        {
+            return testDate == Utilities.EmptyDate ? false : true;
+        }
+
+
+
         //////////////////////////////////////////////////////////////////////
         /// <summary>helper to read in a string and Encode it</summary> 
         /// <param name="content">the xmlreader string</param>
@@ -383,6 +391,20 @@ namespace Google.GData.Client
             return returnValue; 
         }
         /////////////////////////////////////////////////////////////////////////////
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>returns a blank emptyDate. That's the default for an empty string date</summary> 
+        //////////////////////////////////////////////////////////////////////
+        public static DateTime EmptyDate
+        {
+            get {
+                // that's the blank value you get when setting a DateTime to an empty string inthe property browswer
+                return new DateTime(1,1,1);
+            }
+
+        }
+        /////////////////////////////////////////////////////////////////////////////
+        
     }
     /////////////////////////////////////////////////////////////////////////////
 

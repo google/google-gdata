@@ -164,8 +164,10 @@ namespace Google.GData.Client.UnitTests
                     // blogger does not like labels yet.
                     entry.Categories.Clear(); 
                     entry.Title.Text = strTitle;
-					entry.Categories.Clear();
+                    entry.Categories.Clear();
                     entry.IsDraft = true; 
+                    entry.Updated = Utilities.EmptyDate;
+                    entry.Published = Utilities.EmptyDate; 
                     AtomEntry newEntry = blogFeed.Insert(entry); 
                     iCount++; 
                     Tracing.TraceMsg("Created blogger entry");
@@ -235,70 +237,67 @@ namespace Google.GData.Client.UnitTests
         }
         /////////////////////////////////////////////////////////////////////////////
 
-		//////////////////////////////////////////////////////////////////////
-		/// <summary>checks for xhtml persistence</summary> 
-		//////////////////////////////////////////////////////////////////////
-		[Ignore ("Currently broken on the server")]
-		[Test] public void BloggerXHTMLTest()
-		{
-			Tracing.TraceMsg("Entering BloggerXHTMLTest");
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>checks for xhtml persistence</summary> 
+        //////////////////////////////////////////////////////////////////////
+        [Ignore ("Currently broken on the server")]
+        [Test] public void BloggerXHTMLTest()
+        {
+            Tracing.TraceMsg("Entering BloggerXHTMLTest");
 
-			FeedQuery query = new FeedQuery();
-			Service service = new Service(this.ServiceName, this.ApplicationName);
+            FeedQuery query = new FeedQuery();
+            Service service = new Service(this.ServiceName, this.ApplicationName);
 
-			if (this.bloggerURI != null)
-			{
-				if (this.userName != null)
-				{
-					NetworkCredential nc = new NetworkCredential(this.userName, this.passWord); 
-					service.Credentials = nc;
-				}
+            if (this.bloggerURI != null)
+            {
+                if (this.userName != null)
+                {
+                    NetworkCredential nc = new NetworkCredential(this.userName, this.passWord); 
+                    service.Credentials = nc;
+                }
 
-				GDataLoggingRequestFactory factory = (GDataLoggingRequestFactory) this.factory;
-				factory.MethodOverride = true;
-				service.RequestFactory = this.factory; 
+                GDataLoggingRequestFactory factory = (GDataLoggingRequestFactory) this.factory;
+                factory.MethodOverride = true;
+                service.RequestFactory = this.factory; 
 
-				query.Uri = new Uri(this.bloggerURI);
-				AtomFeed calFeed = service.Query(query);
+                query.Uri = new Uri(this.bloggerURI);
+                AtomFeed calFeed = service.Query(query);
 
-				String strTitle = "Dinner time" + Guid.NewGuid().ToString(); 
+                String strTitle = "Dinner time" + Guid.NewGuid().ToString(); 
 
-				if (calFeed != null)
-				{
-					// get the first entry
-					Tracing.TraceMsg("Created calendar entry");
-					String xhtmlContent = "<div><b>this is an xhtml test text</b></div>"; 
-					AtomEntry entry = ObjectModelHelper.CreateAtomEntry(1); 
-					entry.Categories.Clear();
-					Tracing.TraceMsg("Created calendar entry");
-					entry.Title.Text = strTitle;
-					entry.Content.Type = "xhtml";
-					Tracing.TraceMsg("Created calendar entry");
-					entry.Content.Content = xhtmlContent;
+                if (calFeed != null)
+                {
+                    // get the first entry
+                    String xhtmlContent = "<div><b>this is an xhtml test text</b></div>"; 
+                    AtomEntry entry = ObjectModelHelper.CreateAtomEntry(1); 
+                    entry.Categories.Clear();
+                    entry.Title.Text = strTitle;
+                    entry.Content.Type = "xhtml";
+                    entry.Content.Content = xhtmlContent;
 
-					AtomEntry newEntry = calFeed.Insert(entry); 
-					Tracing.TraceMsg("Created calendar entry");
+                    AtomEntry newEntry = calFeed.Insert(entry); 
+                    Tracing.TraceMsg("Created blogger entry");
 
-					// try to get just that guy.....
-					FeedQuery singleQuery = new FeedQuery();
-					singleQuery.Uri = new Uri(newEntry.SelfUri.ToString()); 
-					AtomFeed newFeed = service.Query(singleQuery);
-					AtomEntry sameGuy = newFeed.Entries[0]; 
+                    // try to get just that guy.....
+                    FeedQuery singleQuery = new FeedQuery();
+                    singleQuery.Uri = new Uri(newEntry.SelfUri.ToString()); 
+                    AtomFeed newFeed = service.Query(singleQuery);
+                    AtomEntry sameGuy = newFeed.Entries[0]; 
 
-					Assert.IsTrue(sameGuy.Title.Text.Equals(newEntry.Title.Text), "both titles should be identical"); 
-					Assert.IsTrue(sameGuy.Content.Type.Equals("xhtml"));
-					Assert.IsTrue(sameGuy.Content.Content.Equals(xhtmlContent)); 
+                    Assert.IsTrue(sameGuy.Title.Text.Equals(newEntry.Title.Text), "both titles should be identical"); 
+                    Assert.IsTrue(sameGuy.Content.Type.Equals("xhtml"));
+                    Assert.IsTrue(sameGuy.Content.Content.Equals(xhtmlContent)); 
 
-				}
+                }
 
-				service.Credentials = null; 
+                service.Credentials = null; 
 
-				factory.MethodOverride = false;
+                factory.MethodOverride = false;
 
-			}
+            }
 
-		}
-		/////////////////////////////////////////////////////////////////////////////
+        }
+        /////////////////////////////////////////////////////////////////////////////
 
 
         //////////////////////////////////////////////////////////////////////
@@ -332,7 +331,7 @@ namespace Google.GData.Client.UnitTests
                     for (int i=0; i< 100; i++)
                     {
                         AtomEntry entry = ObjectModelHelper.CreateAtomEntry(i); 
-						entry.Categories.Clear();
+                        entry.Categories.Clear();
                         entry.Title.Text = "Title " + i; 
                         entry.Content.Content = "Some text...";
                         entry.Content.Type = "html"; 
