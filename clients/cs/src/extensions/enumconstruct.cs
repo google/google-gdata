@@ -123,6 +123,21 @@ namespace Google.GData.Extensions {
             get { return Type; }
         }
 
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Returns the constant representing this XML element.</summary> 
+        //////////////////////////////////////////////////////////////////////
+        public virtual string XmlNamespace
+        {
+            get { return BaseNameTable.gNamespace; }
+        }
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Returns the constant representing this XML element.</summary> 
+        //////////////////////////////////////////////////////////////////////
+        public virtual string XmlNamespacePrefix
+        {
+            get { return BaseNameTable.gDataPrefix; }
+        }
+
 
         /// <summary>
         /// Persistence method for the EnumConstruct object
@@ -133,7 +148,7 @@ namespace Google.GData.Extensions {
             if (Utilities.IsPersistable(this.value))
             {
                 
-                writer.WriteStartElement(BaseNameTable.gDataPrefix, XmlName, BaseNameTable.gNamespace); 
+                writer.WriteStartElement(XmlNamespacePrefix, XmlName, XmlNamespace); 
                 writer.WriteAttributeString("value", this.value);
                 writer.WriteEndElement();
             }

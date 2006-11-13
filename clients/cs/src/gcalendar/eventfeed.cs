@@ -321,20 +321,29 @@ namespace Google.GData.Calendar {
                 Tracing.TraceMsg("\t entering the handler for calendar specific extensions for: " + e.Base.XmlName);
                 e.DiscardEntry = true;
 
-                if (e.ExtensionElement.LocalName == GDataParserNameTable.XmlTimeZoneElement)
-                {
-                    EventFeed eventFeed = e.Base as EventFeed;
-                    if (eventFeed != null)
-                    {
-                        eventFeed.TimeZone = TimeZone.ParseTimeZone(e.ExtensionElement);
-                    }
-                }
-                else if (e.ExtensionElement.LocalName == GDataParserNameTable.XmlWebContentElement)
-                {
-                    WebContent content = WebContent.ParseWebContent(e.ExtensionElement); 
-                    e.Base.ExtensionElements.Add(content); 
-                }
-
+				if (e.ExtensionElement.LocalName == GDataParserNameTable.XmlTimeZoneElement)
+				{
+					EventFeed eventFeed = e.Base as EventFeed;
+					if (eventFeed != null)
+					{
+						eventFeed.TimeZone = TimeZone.ParseTimeZone(e.ExtensionElement);
+					}
+				}
+				else if (e.ExtensionElement.LocalName == GDataParserNameTable.XmlWebContentElement)
+				{
+					WebContent content = WebContent.ParseWebContent(e.ExtensionElement); 
+					e.Base.ExtensionElements.Add(content); 
+				}
+				else if (e.Base.XmlName == AtomParserNameTable.XmlAtomEntryElement)
+				{
+					EventEntry eventEntry = e.Base as EventEntry;
+					AtomFeedParser parser = sender as AtomFeedParser; 
+                    
+					if (eventEntry != null)
+					{
+						eventEntry.parseEvent(e.ExtensionElement, parser);
+					}
+				}
             }
         }
     }

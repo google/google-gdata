@@ -966,6 +966,63 @@ namespace Google.GData.Client.UnitTests
             }
         }
         /////////////////////////////////////////////////////////////////////////////
+
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>tests the sendNotification property against the calendar</summary> 
+        //////////////////////////////////////////////////////////////////////
+        [Test] public void CalendarNotificationTest()
+        {
+            Tracing.TraceMsg("Entering CalendarNotificationTest");
+
+            FeedQuery query = new FeedQuery();
+
+            CalendarService service = new CalendarService(this.ApplicationName);
+
+            if (this.defaultCalendarUri != null)
+            {
+                if (this.userName != null)
+                {
+                    NetworkCredential nc = new NetworkCredential(this.userName, this.passWord); 
+                    service.Credentials = nc;
+                }
+
+                GDataLoggingRequestFactory factory = (GDataLoggingRequestFactory) this.factory;
+                factory.MethodOverride = true;
+                service.RequestFactory = this.factory; 
+
+                query.Uri = new Uri(this.defaultCalendarUri);
+
+                EventFeed calFeed = service.Query(query);
+
+                string guid = Guid.NewGuid().ToString(); 
+
+                if (calFeed != null)
+                {
+                    EventEntry entry = ObjectModelHelper.CreateEventEntry(1); 
+                    entry.Title.Text = guid; 
+
+                    entry.Notifications = true; 
+                    calFeed.Insert(entry); 
+                }
+
+                calFeed = service.Query(query);
+
+                if (calFeed != null && calFeed.Entries.Count > 0)
+                {
+                    EventEntry entry = calFeed.Entries[0] as EventEntry;
+
+                    Assert.AreEqual(entry.Title.Text, guid, "Expected the same entry");
+                    Assert.IsTrue(entry.Notifications, "Expected the sendNotify to be true" + entry.Notifications.ToString()); 
+                }
+
+                service.Credentials = null; 
+
+                factory.MethodOverride = false;
+            }
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
         
         //////////////////////////////////////////////////////////////////////
         /// <summary>tests the extended property against the calendar</summary> 
