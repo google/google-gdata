@@ -288,7 +288,7 @@ namespace Google.GData.Client.UnitTests
             // BloggerTestSuite  test = new BloggerTestSuite();
 
             test.InitTest(); 
-            test.CalendarStressTest();
+            test.CalendarNotificationTest();
             test.EndTest(); 
 
 

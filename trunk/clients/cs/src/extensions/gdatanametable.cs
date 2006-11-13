@@ -126,6 +126,9 @@ namespace Google.GData.Extensions
         public const string XmlAttributeWidth= "width";
         /// <summary>static string for the height attribute</summary>    
         public const string XmlAttributeHeight= "height";
+        ///  <summary>static string for the sendEventNotifications element</summary>    
+        public const string XmlSendNotificationsElement = "sendEventNotifications"; 
+
 #endregion
 
 

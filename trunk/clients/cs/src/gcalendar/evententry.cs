@@ -219,6 +219,69 @@ namespace Google.GData.Calendar {
             }
         }
 
+        /// <summary>
+        ///  indicates if an eventupdate should reissue notifications
+        /// false by default
+        /// </summary>
+        public class SendNotifications : EnumConstruct
+        {
+            /// <summary>
+            ///  default constructor
+            /// </summary>
+            public SendNotifications()
+            : base(GDataParserNameTable.XmlSendNotificationsElement)
+            {
+            }
+
+            /// <summary>
+            ///  constructor with a default string value
+            /// </summary>
+            /// <param name="value">transparency value</param>
+            public SendNotifications(string value)
+            : base(GDataParserNameTable.XmlSendNotificationsElement, value)
+            {
+            }
+
+            //////////////////////////////////////////////////////////////////////
+            /// <summary>Returns the constant representing this XML element.</summary> 
+            //////////////////////////////////////////////////////////////////////
+            public override string XmlNamespace
+            {
+                get { return GDataParserNameTable.NSGCal; }
+            }
+            //////////////////////////////////////////////////////////////////////
+            /// <summary>Returns the constant representing this XML element.</summary> 
+            //////////////////////////////////////////////////////////////////////
+            public override string XmlNamespacePrefix
+            {
+                get { return GDataParserNameTable.gCalPrefix; }
+            }
+
+
+
+            /// <summary>
+            ///  parse method is called from the atom parser to populate an Transparency node
+            /// </summary>
+            /// <param name="node">the xmlnode to parser</param>
+            /// <returns>Notifications object</returns>
+            public static SendNotifications parse(XmlNode node)
+            {
+                SendNotifications notify = null;
+                Tracing.TraceMsg("Parsing a gCal:SendNotifications");
+                if (String.Compare(node.NamespaceURI, GDataParserNameTable.NSGCal, true) == 0)
+                {
+                    notify = new SendNotifications();
+                    if (node.Attributes != null)
+                    {
+                        notify.Value = node.Attributes["value"].Value;
+                        Tracing.TraceMsg("Notification parsed, value = " + notify.Value);
+                    }
+                }
+                return notify;
+            }
+        }
+
+
 #region EventEntry Attributes
 
         private WhenCollection times;
@@ -232,6 +295,7 @@ namespace Google.GData.Calendar {
         private Reminder reminder;
         private Comments comments;
         private RecurrenceException exception; 
+        private SendNotifications sendNotifications;
 
 #endregion
 
@@ -280,9 +344,48 @@ namespace Google.GData.Calendar {
         /// <summary>
         ///  property accessor for the Event Visibility 
         /// </summary>
+        public bool Notifications
+        {
+            get { 
+                    if (this.sendNotifications == null)
+                    {
+                        return false;
+                    }
+                    return this.sendNotifications.Value == "true"; 
+                }
+
+            set 
+            {
+                if (value == true)
+                {
+
+                    if (this.sendNotifications == null)
+                    {
+                        this.sendNotifications = new SendNotifications(); 
+                        ExtensionElements.Add(this.sendNotifications);
+                    }
+                    this.sendNotifications.Value = "true"; 
+                }
+                else 
+                {
+                    if (this.sendNotifications != null)
+                    {
+                        ExtensionElements.Remove(this.sendNotifications);
+                        this.sendNotifications = null; 
+                    }
+
+                }
+            }
+
+        }
+
+
+        /// <summary>
+        ///  property accessor for the Event Visibility 
+        /// </summary>
         public Visibility EventVisibility
         {
-            get { return visibility;}
+            get { return visibility; }
             set 
             {
                 if (visibility != null)
@@ -477,6 +580,8 @@ namespace Google.GData.Calendar {
             return false; 
         }
 
+
+
 #region Event Parser
 
         //////////////////////////////////////////////////////////////////////
@@ -541,6 +646,15 @@ namespace Google.GData.Calendar {
                 else if (eventNode.LocalName == GDataParserNameTable.XmlCommentsElement)
                 {
                     this.Comments = Comments.ParseComments(eventNode);
+                }
+            }
+            else if (String.Compare(eventNode.NamespaceURI, GDataParserNameTable.NSGCal, true) == 0)
+            {
+                // parse the eventnotification element
+                Tracing.TraceMsg("Parsing in the gCal Namespace");
+                if (eventNode.LocalName == GDataParserNameTable.XmlSendNotificationsElement)
+                {
+                    this.sendNotifications = SendNotifications.parse(eventNode);
                 }
             }
         }

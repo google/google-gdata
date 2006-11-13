@@ -91,6 +91,7 @@
                 <File
                     RelPath = "AssemblyInfo.cs"
                     Link = "..\..\gcodesearch\AssemblyInfo.cs"
+                    SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File

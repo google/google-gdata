@@ -270,8 +270,13 @@ namespace SampleApp
                     }
                 }
                 // just query the same query again.
-                query.Uri = new Uri(calFeed.NextChunk); 
-                calFeed = service.Query(query);
+				if (calFeed.NextChunk != null) 
+				{
+					query.Uri = new Uri(calFeed.NextChunk); 
+					calFeed = service.Query(query);
+				}
+				else
+					calFeed = null;
             }
 
             DateTime[] aDates = new DateTime[dates.Count]; 
