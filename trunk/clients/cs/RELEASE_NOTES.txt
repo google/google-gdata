@@ -17,6 +17,9 @@
   GDataAuthRequestFactory. If it is turned off, the code will throw if a redirect is happening on an HTTP verb other than GET.
 - removed cookie handling. The code will handle cookies now without using the CookieContainer (one hurdle on the way to the CompactFramework Port).
 - Fixed persistence of "initialized" date values for udpated/published on the atom.entry. This resolves an issue with the Blogger. 
+- Added EventEntry.Notifications. This property (boolean) indicates if an update on an entry should send notifications to the attendees of the 
+  Event. 
+- Fixed the gbase project (the NumberFormat.cs file was missing in the project file). 
 
 == 1.0.7 ==
 - Added support for published-min/published-max as standard query parameters
