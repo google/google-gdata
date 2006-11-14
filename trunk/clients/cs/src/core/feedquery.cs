@@ -179,7 +179,6 @@ namespace Google.GData.Client
         private AlternativeFormat altFormat;
         /// <summary>the base URI</summary> 
         private string baseUri;
-       
         #endregion
         //////////////////////////////////////////////////////////////////////
         /// <summary>Default constructor.</summary> 
@@ -191,6 +190,17 @@ namespace Google.GData.Client
         }
         /////////////////////////////////////////////////////////////////////////////
 
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>constructor taking a base URI constructor.</summary> 
+        //////////////////////////////////////////////////////////////////////
+        public FeedQuery(string baseUri)
+        {
+            // set some defaults...
+            this.FeedFormat = AlternativeFormat.Atom;
+            this.baseUri = baseUri; 
+        }
+        /////////////////////////////////////////////////////////////////////////////
 
 
      
@@ -205,6 +215,7 @@ namespace Google.GData.Client
             get {
                 return new Uri(this.baseUri + CalculateQuery());
                 }
+            
 #if WindowsCE
 #else
             set 
@@ -370,7 +381,6 @@ namespace Google.GData.Client
         }
         /////////////////////////////////////////////////////////////////////////////
 
-
 #if WindowsCE
 #else
         //////////////////////////////////////////////////////////////////////
@@ -504,8 +514,7 @@ namespace Google.GData.Client
             
         }
         /////////////////////////////////////////////////////////////////////////////
-#endif
-
+#endif 
         //////////////////////////////////////////////////////////////////////
         /// <summary>Takes an incoming URI segment and removes leading/trailing slashes.</summary> 
         /// <param name="part">the URI segment to clean</param>
