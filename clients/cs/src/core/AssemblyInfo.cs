@@ -71,12 +71,13 @@ using System;
 //       documentation for more information on this.
 //
 [assembly: AssemblyDelaySign(false)]
-[assembly: AssemblyKeyFile("clientkey.sn")]
 [assembly: AssemblyKeyName("")]
 
 #if WindowsCE
 #else 
     [assembly: SecurityPermission(SecurityAction.RequestMinimum, Execution=true)]
+    [assembly: AssemblyKeyFile("clientkey.sn")]
+
 #endif
 
 [assembly: ComVisible(false)]
