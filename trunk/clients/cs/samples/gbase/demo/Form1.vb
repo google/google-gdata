@@ -267,7 +267,7 @@ Public Class MainForm
     End Sub
 
 
-    Private Function CreateDataTable()
+    Private Function CreateDataTable() As DataTable
         ' Create a new DataTable.
         Dim myDataTable As DataTable = New DataTable("GBaseTable")
         ' Declare variables for DataColumn and DataRow objects.
