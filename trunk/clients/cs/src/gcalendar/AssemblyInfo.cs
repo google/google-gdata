@@ -26,6 +26,10 @@ using System.Runtime.CompilerServices;
 
 [assembly: AssemblyVersion("1.0.7.*")]
 
+
 [assembly: AssemblyDelaySign(false)]
+#if WindowsCE
+#else
 [assembly: AssemblyKeyFile("calendarkey.sn")]
+#endif
 [assembly: AssemblyKeyName("")]
