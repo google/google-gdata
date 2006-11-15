@@ -56,6 +56,14 @@ namespace Google.GData.Calendar {
             this.futureEvents = false;
         }
 
+        public EventQuery(string queryUri)
+            : base(queryUri)
+        {
+            this.sortOrder = CalendarSortOrder.serverDefault;
+            this.singleEvents = false;
+            this.futureEvents = false;
+        }
+
         private DateTime startTime;
         private DateTime endTime;
         private DateTime recurrenceStart;
@@ -141,6 +149,9 @@ namespace Google.GData.Calendar {
             set { recurrenceEnd = value;}
         }
 
+
+#if WindowsCE
+#else
         //////////////////////////////////////////////////////////////////////
         /// <summary>protected void ParseUri</summary> 
         /// <param name="targetUri">takes an incoming Uri string and parses all the properties out of it</param>
@@ -189,6 +200,7 @@ namespace Google.GData.Calendar {
             }
             return this.Uri;
         }
+#endif
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>Resets object state to default, as if newly created.
@@ -224,43 +236,43 @@ namespace Google.GData.Calendar {
             if (Utilities.IsPersistable(this.StartTime))
             {
                 newPath.Append(paramInsertion);
-                newPath.AppendFormat("start-min={0}", Utilities.UriEncodeReserved(Utilities.LocalDateTimeInUTC(this.StartTime)));
+                newPath.AppendFormat(CultureInfo.InvariantCulture, "start-min={0}", Utilities.UriEncodeReserved(Utilities.LocalDateTimeInUTC(this.StartTime)));
                 paramInsertion = '&';
             }
             if (Utilities.IsPersistable(this.EndTime))
             {
                 newPath.Append(paramInsertion);
-                newPath.AppendFormat("start-max={0}", Utilities.UriEncodeReserved(Utilities.LocalDateTimeInUTC(this.EndTime)));
+                newPath.AppendFormat(CultureInfo.InvariantCulture, "start-max={0}", Utilities.UriEncodeReserved(Utilities.LocalDateTimeInUTC(this.EndTime)));
                 paramInsertion = '&';
             }
             if (Utilities.IsPersistable(this.RecurrenceStart))
             {
                 newPath.Append(paramInsertion);
-                newPath.AppendFormat("recurrence-expansion-start={0}", Utilities.UriEncodeReserved(Utilities.LocalDateTimeInUTC(this.RecurrenceStart))); 
+                newPath.AppendFormat(CultureInfo.InvariantCulture, "recurrence-expansion-start={0}", Utilities.UriEncodeReserved(Utilities.LocalDateTimeInUTC(this.RecurrenceStart))); 
                 paramInsertion = '&';
             }
             if (Utilities.IsPersistable(this.RecurrenceEnd))
             {
                 newPath.Append(paramInsertion);
-                newPath.AppendFormat("recurrence-expansion-end={0}", Utilities.UriEncodeReserved(Utilities.LocalDateTimeInUTC(this.RecurrenceEnd))); 
+                newPath.AppendFormat(CultureInfo.InvariantCulture, "recurrence-expansion-end={0}", Utilities.UriEncodeReserved(Utilities.LocalDateTimeInUTC(this.RecurrenceEnd))); 
                 paramInsertion = '&';
             }
             if (this.sortOrder != CalendarSortOrder.serverDefault)
             {
                 newPath.Append(paramInsertion);
-                newPath.AppendFormat("sortorder={0}", this.sortOrder.ToString()); 
+                newPath.AppendFormat(CultureInfo.InvariantCulture, "sortorder={0}", this.sortOrder.ToString()); 
                 paramInsertion = '&';
             }
             if (this.futureEvents == true)
             {
                 newPath.Append(paramInsertion);
-                newPath.AppendFormat("futureevents=true"); 
+                newPath.AppendFormat(CultureInfo.InvariantCulture, "futureevents=true"); 
                 paramInsertion = '&';
             }
             if (this.singleEvents == true)
             {
                 newPath.Append(paramInsertion);
-                newPath.AppendFormat("singleevents=true"); 
+                newPath.AppendFormat(CultureInfo.InvariantCulture, "singleevents=true"); 
                 paramInsertion = '&';
             }
 

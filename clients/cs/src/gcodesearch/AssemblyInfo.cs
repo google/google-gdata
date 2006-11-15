@@ -27,5 +27,8 @@ using System.Runtime.CompilerServices;
 [assembly: AssemblyVersion("1.0.7.*")]
 
 [assembly: AssemblyDelaySign(false)]
+#if WindowsCE
+#else
 [assembly: AssemblyKeyFile("codesearch.sn")]
+#endif
 [assembly: AssemblyKeyName("")]

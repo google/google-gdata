@@ -98,7 +98,7 @@ namespace Google.GData.Extensions
 
                     if (value != null)
                     {
-                        webContent.Width = uint.Parse(value, CultureInfo.InvariantCulture);
+                        webContent.Width = uint.Parse(value, System.Globalization.NumberStyles.Integer, CultureInfo.InvariantCulture);
                     }
 
                     value = node.Attributes[GDataParserNameTable.XmlAttributeHeight] != null ? 
@@ -106,7 +106,7 @@ namespace Google.GData.Extensions
 
                     if (value != null)
                     {
-                        webContent.Height = uint.Parse(value, CultureInfo.InvariantCulture);
+                        webContent.Height = uint.Parse(value, System.Globalization.NumberStyles.Integer, CultureInfo.InvariantCulture);
                     }
 
                 }

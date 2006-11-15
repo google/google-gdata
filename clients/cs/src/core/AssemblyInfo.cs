@@ -77,7 +77,6 @@ using System;
 #else 
     [assembly: SecurityPermission(SecurityAction.RequestMinimum, Execution=true)]
     [assembly: AssemblyKeyFile("clientkey.sn")]
-
 #endif
 
 [assembly: ComVisible(false)]

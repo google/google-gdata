@@ -54,5 +54,8 @@ using System.Runtime.CompilerServices;
 //       documentation for more information on this.
 //
 [assembly: AssemblyDelaySign(false)]
+#if WindowsCE
+#else
 [assembly: AssemblyKeyFile("gbase.sn")]
+#endif
 [assembly: AssemblyKeyName("")]

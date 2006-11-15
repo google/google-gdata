@@ -85,20 +85,20 @@ namespace Google.GData.GoogleBase
         /// <param name="uri">feed uri, usually created by
         /// <see cref="GBaseUriFactory"/></param>
         ///////////////////////////////////////////////////////////////////////
-        public GBaseQuery(Uri uri)
+        public GBaseQuery(Uri uri) : base(uri.AbsoluteUri)
         {
-            this.Uri = uri;
         }
 
         ///////////////////////////////////////////////////////////////////////
         /// <summary>Creates a query for the given feed Uri string.</summary>
         /// <param name="uri">feed uri string</param>
         ///////////////////////////////////////////////////////////////////////
-        public GBaseQuery(string uri)
+        public GBaseQuery(string uri) : base(uri)
         {
-            this.Uri = new Uri(uri);
         }
 
+#if WindowsCE
+#else
         ///////////////////////////////////////////////////////////////////////
         /// <summary>Parses the Google-Base specific parameters
         /// in the Uri.</summary>
@@ -131,7 +131,7 @@ namespace Google.GData.GoogleBase
             }
             return this.Uri;
         }
-
+#endif
         ///////////////////////////////////////////////////////////////////////
         /// <summary>Resets the bq and max-values field state</summary>
         ///////////////////////////////////////////////////////////////////////
