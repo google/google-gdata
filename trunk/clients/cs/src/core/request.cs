@@ -43,12 +43,14 @@ namespace Google.GData.Client
         private string userAgent;
         private StringCollection customHeaders;     // holds any custom headers to set
         private String shardingCookie;              // holds the sharding cookie if returned
+        private WebProxy webProxy;                     // holds a webproxy to use
                                                     
 
         /// <summary>Cookie setting header, returned from server</summary>
         public const string SetCookieHeader = "Set-Cookie"; 
         /// <summary>Cookie client header</summary>
         public const string CookieHeader = "Cookie"; 
+
 
 
 
@@ -96,6 +98,17 @@ namespace Google.GData.Client
         {
             get {return this.userAgent;}
             set {this.userAgent = value;}
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>accessor method to the webproxy object to use</summary> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        public WebProxy Proxy
+        {
+            get {return this.webProxy;}
+            set {this.webProxy = value;}
         }
         /////////////////////////////////////////////////////////////////////////////
 
@@ -329,6 +342,10 @@ namespace Google.GData.Client
                     if (this.factory.Cookie != null)
                     {
                         this.Request.Headers.Add(GDataRequestFactory.CookieHeader + ": " + this.factory.Cookie); 
+                    }
+                    if (this.factory.Proxy != null)
+                    {
+                        this.Request.Proxy = this.factory.Proxy; 
                     }
                 }
                 
