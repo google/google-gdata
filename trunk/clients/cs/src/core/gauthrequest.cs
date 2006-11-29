@@ -363,6 +363,10 @@ namespace Google.GData.Client
             }
 
             WebRequest authRequest = WebRequest.Create(authHandler); 
+            if (this.factory.Proxy != null)
+            {
+                authRequest.Proxy = this.factory.Proxy; 
+            }
             WebResponse authResponse = null; 
 
             string authToken = null; 
