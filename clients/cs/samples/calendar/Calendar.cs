@@ -9,11 +9,11 @@ using Google.GData.Calendar;
 
 namespace SampleApp
 {
-	/// <summary>
-	/// Summary description for Calendar.
-	/// </summary>
-	public class Calendar : System.Windows.Forms.Form
-	{
+    /// <summary>
+    /// Summary description for Calendar.
+    /// </summary>
+    public class Calendar : System.Windows.Forms.Form
+    {
         private System.Windows.Forms.TextBox CalendarURI;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
@@ -22,10 +22,10 @@ namespace SampleApp
         private System.Windows.Forms.TextBox Password;
         private System.Windows.Forms.Button Go;
         private System.Windows.Forms.MonthCalendar calendarControl;
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
-		private System.ComponentModel.Container components = null;
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.Container components = null;
         private System.Windows.Forms.ListView DayEvents;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
@@ -35,18 +35,18 @@ namespace SampleApp
 
         private ArrayList entryList; 
 
-		public Calendar()
-		{
-			//
-			// Required for Windows Form Designer support
-			//
-			InitializeComponent();
+        public Calendar()
+        {
+            //
+            // Required for Windows Form Designer support
+            //
+            InitializeComponent();
 
-			//
-			// TODO: Add any constructor code after InitializeComponent call
-			//
+            //
+            // TODO: Add any constructor code after InitializeComponent call
+            //
             this.entryList = new ArrayList();
-		}
+        }
 
         /// <summary>
         /// The main entry point for the application.
@@ -57,28 +57,28 @@ namespace SampleApp
             Application.Run(new Calendar());
         }
 
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
-		protected override void Dispose( bool disposing )
-		{
-			if( disposing )
-			{
-				if(components != null)
-				{
-					components.Dispose();
-				}
-			}
-			base.Dispose( disposing );
-		}
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        protected override void Dispose( bool disposing )
+        {
+            if (disposing)
+            {
+                if (components != null)
+                {
+                    components.Dispose();
+                }
+            }
+            base.Dispose( disposing );
+        }
 
-		#region Windows Form Designer generated code
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+#region Windows Form Designer generated code
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
             this.calendarControl = new System.Windows.Forms.MonthCalendar();
             this.CalendarURI = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -163,11 +163,11 @@ namespace SampleApp
             // 
             // DayEvents
             // 
-            this.DayEvents.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-                                                                                        this.columnHeader1,
-                                                                                        this.columnHeader2,
-                                                                                        this.columnHeader3,
-                                                                                        this.columnHeader4});
+            this.DayEvents.Columns.AddRange(new System.Windows.Forms.ColumnHeader[]{
+                                            this.columnHeader1,
+                                            this.columnHeader2,
+                                            this.columnHeader3,
+                                            this.columnHeader4});
             this.DayEvents.FullRowSelect = true;
             this.DayEvents.GridLines = true;
             this.DayEvents.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
@@ -215,11 +215,11 @@ namespace SampleApp
             this.ResumeLayout(false);
 
         }
-		#endregion
+#endregion
 
         private void textBox1_TextChanged(object sender, System.EventArgs e)
         {
-        
+
         }
 
         private void Go_Click(object sender, System.EventArgs e)
@@ -261,7 +261,7 @@ namespace SampleApp
                 foreach (EventEntry entry in calFeed.Entries)
                 {
                     this.entryList.Add(entry); 
-                    if (entry.Times.Count > 0) 
+                    if (entry.Times.Count > 0)
                     {
                         foreach (When w in entry.Times) 
                         {
@@ -270,13 +270,13 @@ namespace SampleApp
                     }
                 }
                 // just query the same query again.
-				if (calFeed.NextChunk != null) 
-				{
-					query.Uri = new Uri(calFeed.NextChunk); 
-					calFeed = service.Query(query);
-				}
-				else
-					calFeed = null;
+                if (calFeed.NextChunk != null)
+                {
+                    query.Uri = new Uri(calFeed.NextChunk); 
+                    calFeed = service.Query(query);
+                }
+                else
+                    calFeed = null;
             }
 
             DateTime[] aDates = new DateTime[dates.Count]; 
@@ -287,7 +287,7 @@ namespace SampleApp
                 aDates[i++] = d; 
             }
 
-            
+
             this.calendarControl.BoldedDates = aDates;
         }
 
@@ -320,7 +320,7 @@ namespace SampleApp
             {
                 ListViewItem item = new ListViewItem(entry.Title.Text); 
                 item.SubItems.Add(entry.Authors[0].Name); 
-                if (entry.Times.Count > 0) 
+                if (entry.Times.Count > 0)
                 {
                     item.SubItems.Add(entry.Times[0].StartTime.TimeOfDay.ToString()); 
                     item.SubItems.Add(entry.Times[0].EndTime.TimeOfDay.ToString()); 
@@ -330,6 +330,6 @@ namespace SampleApp
             }
         }
 
-                
+
     }
 }

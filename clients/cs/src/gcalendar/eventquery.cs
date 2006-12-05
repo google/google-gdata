@@ -48,6 +48,9 @@ namespace Google.GData.Calendar {
     public class EventQuery : FeedQuery
     {
 
+        /// <summary>
+        /// base constructor
+        /// </summary>
         public EventQuery()
         : base()
         {
@@ -56,8 +59,12 @@ namespace Google.GData.Calendar {
             this.futureEvents = false;
         }
 
+        /// <summary>
+        /// base constructor, with initial queryUri
+        /// </summary>
+        /// <param name="queryUri">the query to use</param>
         public EventQuery(string queryUri)
-            : base(queryUri)
+        : base(queryUri)
         {
             this.sortOrder = CalendarSortOrder.serverDefault;
             this.singleEvents = false;
