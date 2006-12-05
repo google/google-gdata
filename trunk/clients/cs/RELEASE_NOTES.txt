@@ -15,12 +15,14 @@
 - changed redirect handling on Post. The library will follow redirects on Post automatically by default, to accomodate Blogger (which
   currently may return 302s on posts). This can be turned off by setting the .StrictRedirect property to true on the 
   GDataAuthRequestFactory. If it is turned off, the code will throw if a redirect is happening on an HTTP verb other than GET.
+- changed redirect handling for DELETE/PUT the same as for POST
 - removed cookie handling. The code will handle cookies now without using the CookieContainer (one hurdle on the way to the CompactFramework Port).
 - Fixed persistence of "initialized" date values for udpated/published on the atom.entry. This resolves an issue with the Blogger. 
 - Added EventEntry.Notifications. This property (boolean) indicates if an update on an entry should send notifications to the attendees of the 
   Event. 
 - Fixed the gbase project (the NumberFormat.cs file was missing in the project file). 
 - Added a proxy property for the GDataRequestFactory. 
+- Setting content-length correctly to fix WindowsMobile issues. This fix is a user submitted, and created by Steeve Morin
 
 == 1.0.7 ==
 - Added support for published-min/published-max as standard query parameters

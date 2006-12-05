@@ -524,8 +524,13 @@ namespace Google.GData.Client
         {
             if (this.requestCopy != null)
             {
+                // Since we don't use write buffering on the WebRequest object,
+                // we need to ensure the Content-Length field is correctly set
+                // to the length we want to set.
+                base.EnsureWebRequest();
+                base.Request.ContentLength = this.requestCopy.Length;
                 // stream it into the real request stream
-                Stream   req = base.GetRequestStream(); 
+                Stream req = base.GetRequestStream();
 
                 const int size = 4096;
                 byte[] bytes = new byte[4096];
