@@ -54,7 +54,7 @@ namespace Google.GData.Client
         /// <summary>Google client authentication Token</summary>
         public const string AuthToken = "Auth"; 
         /// <summary>Google authSub authentication Token</summary>
-        public const string AuthSubToken = "token"; 
+        public const string AuthSubToken = "Token"; 
         /// <summary>Google client header</summary>
         public const string Header = "Authorization: GoogleLogin auth="; 
         /// <summary>Google method override header</summary>

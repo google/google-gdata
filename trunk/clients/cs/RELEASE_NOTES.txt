@@ -23,6 +23,7 @@
 - Fixed the gbase project (the NumberFormat.cs file was missing in the project file). 
 - Added a proxy property for the GDataRequestFactory. 
 - Setting content-length correctly to fix WindowsMobile issues. This fix is a user submitted, and created by Steeve Morin
+- Fixes to the authsub code, provided by Ryan Boyd
 
 == 1.0.7 ==
 - Added support for published-min/published-max as standard query parameters
