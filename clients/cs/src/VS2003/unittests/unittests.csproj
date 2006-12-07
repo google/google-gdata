@@ -1,7 +1,7 @@
 <VisualStudioProject>
     <CSHARP
         ProjectType = "Local"
-        ProductVersion = "7.10.3077"
+        ProductVersion = "7.10.6030"
         SchemaVersion = "2.0"
         ProjectGuid = "{22D56E6B-DF29-4675-A655-B33252B7FA4B}"
     >
@@ -105,6 +105,12 @@
                     Project = "{C9B83904-8002-455C-AA48-C47CDF74F365}"
                     Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
                 />
+                <Reference
+                    Name = "nunit.core"
+                    AssemblyName = "nunit.core"
+                    HintPath = "C:\Program Files\NUnit 2.2.8\bin\nunit.core.dll"
+                    AssemblyFolderKey = "hklm\dn\nunit.framework"
+                />
             </References>
         </Build>
         <Files>
@@ -206,14 +212,14 @@
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "shippingtest.cs"
-                    Link = "..\..\unittests\gbase\shippingtest.cs"
+                    RelPath = "objectmodelhelper.cs"
+                    Link = "..\..\unittests\objectmodelhelper.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "objectmodelhelper.cs"
-                    Link = "..\..\unittests\objectmodelhelper.cs"
+                    RelPath = "shippingtest.cs"
+                    Link = "..\..\unittests\gbase\shippingtest.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />

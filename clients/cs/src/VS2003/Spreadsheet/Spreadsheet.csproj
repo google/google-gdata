@@ -3,22 +3,22 @@
         ProjectType = "Local"
         ProductVersion = "7.10.6030"
         SchemaVersion = "2.0"
-        ProjectGuid = "{0AD0FA26-A071-4CAC-851C-05B6C26B9888}"
+        ProjectGuid = "{87784AB1-DCAB-4C86-BC03-C4D8D1A28606}"
     >
         <Build>
             <Settings
-                ApplicationIcon = ""
+                ApplicationIcon = "App.ico"
                 AssemblyKeyContainerName = ""
-                AssemblyName = "Google.GData.Calendar"
+                AssemblyName = "Spreadsheet"
                 AssemblyOriginatorKeyFile = ""
                 DefaultClientScript = "JScript"
                 DefaultHTMLPageLayout = "Grid"
                 DefaultTargetSchema = "IE50"
                 DelaySign = "false"
-                OutputType = "Library"
-                PreBuildEvent = 'copy "$(ProjectDir)..\..\signing\*.*"  "$(ProjectDir)\obj\$(ConfigurationName)\*.*"'
+                OutputType = "WinExe"
+                PreBuildEvent = ""
                 PostBuildEvent = ""
-                RootNamespace = "Google.GData.GoogleBase"
+                RootNamespace = "Spreadsheet"
                 RunPostBuildEvent = "OnBuildSuccess"
                 StartupObject = ""
             >
@@ -75,13 +75,23 @@
                     HintPath = "C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Data.dll"
                 />
                 <Reference
+                    Name = "System.Drawing"
+                    AssemblyName = "System.Drawing"
+                    HintPath = "C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Drawing.dll"
+                />
+                <Reference
+                    Name = "System.Windows.Forms"
+                    AssemblyName = "System.Windows.Forms"
+                    HintPath = "C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Windows.Forms.dll"
+                />
+                <Reference
                     Name = "System.XML"
-                    AssemblyName = "System.Xml"
+                    AssemblyName = "System.XML"
                     HintPath = "C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.XML.dll"
                 />
                 <Reference
-                    Name = "gdata"
-                    Project = "{B6F6D938-0D45-42BA-8A67-55D92EF03995}"
+                    Name = "gspreadsheets"
+                    Project = "{3FF0C48A-48CC-49CE-8B65-0C780770A75D}"
                     Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
                 />
                 <Reference
@@ -89,45 +99,36 @@
                     Project = "{21BCB644-F9C3-4ADC-8BE1-4E55C6565011}"
                     Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
                 />
+                <Reference
+                    Name = "gdata"
+                    Project = "{B6F6D938-0D45-42BA-8A67-55D92EF03995}"
+                    Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
+                />
             </References>
         </Build>
         <Files>
             <Include>
                 <File
+                    RelPath = "App.ico"
+                    BuildAction = "Content"
+                />
+                <File
                     RelPath = "AssemblyInfo.cs"
-                    Link = "..\..\gcalendar\AssemblyInfo.cs"
+                    Link = "..\..\..\samples\spreadsheets\AssemblyInfo.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "calendarservice.cs"
-                    Link = "..\..\gcalendar\calendarservice.cs"
-                    SubType = "Code"
+                    RelPath = "spreadsheetssampleapp.cs"
+                    Link = "..\..\..\samples\spreadsheets\spreadsheetssampleapp.cs"
+                    SubType = "Form"
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "evententry.cs"
-                    Link = "..\..\gcalendar\evententry.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "eventfeed.cs"
-                    Link = "..\..\gcalendar\eventfeed.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "eventquery.cs"
-                    Link = "..\..\gcalendar\eventquery.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "webcontent.cs"
-                    Link = "..\..\gcalendar\webcontent.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
+                    RelPath = "spreadsheetssampleapp.resx"
+                    Link = "..\..\..\samples\spreadsheets\spreadsheetssampleapp.resx"
+                    DependentUpon = "spreadsheetssampleapp.cs"
+                    BuildAction = "EmbeddedResource"
                 />
             </Include>
         </Files>

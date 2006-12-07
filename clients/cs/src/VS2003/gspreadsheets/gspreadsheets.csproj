@@ -3,13 +3,13 @@
         ProjectType = "Local"
         ProductVersion = "7.10.6030"
         SchemaVersion = "2.0"
-        ProjectGuid = "{0AD0FA26-A071-4CAC-851C-05B6C26B9888}"
+        ProjectGuid = "{3FF0C48A-48CC-49CE-8B65-0C780770A75D}"
     >
         <Build>
             <Settings
                 ApplicationIcon = ""
                 AssemblyKeyContainerName = ""
-                AssemblyName = "Google.GData.Calendar"
+                AssemblyName = "Google.GData.Spreadsheets"
                 AssemblyOriginatorKeyFile = ""
                 DefaultClientScript = "JScript"
                 DefaultHTMLPageLayout = "Grid"
@@ -18,7 +18,7 @@
                 OutputType = "Library"
                 PreBuildEvent = 'copy "$(ProjectDir)..\..\signing\*.*"  "$(ProjectDir)\obj\$(ConfigurationName)\*.*"'
                 PostBuildEvent = ""
-                RootNamespace = "Google.GData.GoogleBase"
+                RootNamespace = "Google.GData.Spreadsheets"
                 RunPostBuildEvent = "OnBuildSuccess"
                 StartupObject = ""
             >
@@ -76,7 +76,7 @@
                 />
                 <Reference
                     Name = "System.XML"
-                    AssemblyName = "System.Xml"
+                    AssemblyName = "System.XML"
                     HintPath = "C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.XML.dll"
                 />
                 <Reference
@@ -95,37 +95,103 @@
             <Include>
                 <File
                     RelPath = "AssemblyInfo.cs"
-                    Link = "..\..\gcalendar\AssemblyInfo.cs"
+                    Link = "..\..\gspreadsheet\AssemblyInfo.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "calendarservice.cs"
-                    Link = "..\..\gcalendar\calendarservice.cs"
+                    RelPath = "cellentry.cs"
+                    Link = "..\..\gspreadsheet\cellentry.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "evententry.cs"
-                    Link = "..\..\gcalendar\evententry.cs"
+                    RelPath = "cellfeed.cs"
+                    Link = "..\..\gspreadsheet\cellfeed.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "eventfeed.cs"
-                    Link = "..\..\gcalendar\eventfeed.cs"
+                    RelPath = "cellquery.cs"
+                    Link = "..\..\gspreadsheet\cellquery.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "eventquery.cs"
-                    Link = "..\..\gcalendar\eventquery.cs"
+                    RelPath = "colcount.cs"
+                    Link = "..\..\gspreadsheet\colcount.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "webcontent.cs"
-                    Link = "..\..\gcalendar\webcontent.cs"
+                    RelPath = "gdataspreadsheetsnametable.cs"
+                    Link = "..\..\gspreadsheet\gdataspreadsheetsnametable.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "listentry.cs"
+                    Link = "..\..\gspreadsheet\listentry.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "listfeed.cs"
+                    Link = "..\..\gspreadsheet\listfeed.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "listquery.cs"
+                    Link = "..\..\gspreadsheet\listquery.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "rowcount.cs"
+                    Link = "..\..\gspreadsheet\rowcount.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "spreadsheetentry.cs"
+                    Link = "..\..\gspreadsheet\spreadsheetentry.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "spreadsheetfeed.cs"
+                    Link = "..\..\gspreadsheet\spreadsheetfeed.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "spreadsheetquery.cs"
+                    Link = "..\..\gspreadsheet\spreadsheetquery.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "spreadsheetservice.cs"
+                    Link = "..\..\gspreadsheet\spreadsheetservice.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "worksheetentry.cs"
+                    Link = "..\..\gspreadsheet\worksheetentry.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "worksheetfeed.cs"
+                    Link = "..\..\gspreadsheet\worksheetfeed.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "worksheetquery.cs"
+                    Link = "..\..\gspreadsheet\worksheetquery.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
