@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GBaseMobile", "GBaseMobile\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GCodeSearchMobile", "GCodeSearchMobile\GCodeSearchMobile.csproj", "{939F0882-B43E-4963-AE09-A3B2A0FE736E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GSpreadSheetsMobile", "GSpreadSheetsMobile\GSpreadSheetsMobile.csproj", "{15CA401F-2D92-498B-A9DE-DD24B34ACE25}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +39,10 @@ Global
 		{939F0882-B43E-4963-AE09-A3B2A0FE736E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{939F0882-B43E-4963-AE09-A3B2A0FE736E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{939F0882-B43E-4963-AE09-A3B2A0FE736E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15CA401F-2D92-498B-A9DE-DD24B34ACE25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15CA401F-2D92-498B-A9DE-DD24B34ACE25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15CA401F-2D92-498B-A9DE-DD24B34ACE25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15CA401F-2D92-498B-A9DE-DD24B34ACE25}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

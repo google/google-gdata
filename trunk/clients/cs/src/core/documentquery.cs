@@ -73,6 +73,9 @@ namespace Google.GData.Client
             }
         }
 
+#if WindowsCE
+#else
+
         /// <summary>
         /// Parses an incoming URI string and sets the instance variables
         /// of this object.
@@ -109,7 +112,7 @@ namespace Google.GData.Client
             }
             return this.Uri;
         }
-
+#endif 
         /// <summary>
         /// Resets object state to default, as if newly created.
         /// </summary>
@@ -146,11 +149,11 @@ namespace Google.GData.Client
 
                 if (Exact)
                 {
-                    newPath.AppendFormat("title-exact={0}", Utilities.UriEncodeReserved(Title));
+                    newPath.AppendFormat(CultureInfo.InvariantCulture, "title-exact={0}", Utilities.UriEncodeReserved(Title));
                 }
                 else
                 {
-                    newPath.AppendFormat("title={0}", Utilities.UriEncodeReserved(Title));
+                    newPath.AppendFormat(CultureInfo.InvariantCulture, "title={0}", Utilities.UriEncodeReserved(Title));
                 }
             }
 

@@ -114,6 +114,9 @@
     <Compile Include="..\..\core\collections.cs">
       <Link>collections.cs</Link>
     </Compile>
+    <Compile Include="..\..\core\documentquery.cs">
+      <Link>documentquery.cs</Link>
+    </Compile>
     <Compile Include="..\..\core\exceptions.cs">
       <Link>exceptions.cs</Link>
     </Compile>
