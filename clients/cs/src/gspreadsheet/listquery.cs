@@ -149,6 +149,8 @@ namespace Google.GData.Spreadsheets
                 }
             }
         }
+#if WindowsCE
+#else
 
         /// <summary>
         /// Parses an incoming URI string and sets the instance variables
@@ -198,7 +200,7 @@ namespace Google.GData.Spreadsheets
             }
             return this.Uri;
         }
-
+#endif
         /// <summary>
         /// Resets object state to default, as if newly created.
         /// </summary>
@@ -240,21 +242,21 @@ namespace Google.GData.Spreadsheets
             else if (OrderByColumn != null && OrderByColumn.Length > 0)
             {
                 newPath.Append(paramInsertion);
-                newPath.AppendFormat("orderby=column:{0}", Utilities.UriEncodeReserved(OrderByColumn));
+                newPath.AppendFormat(CultureInfo.InvariantCulture, "orderby=column:{0}", Utilities.UriEncodeReserved(OrderByColumn));
                 paramInsertion = '&';
             }
 
             if (Reverse)
             {
                 newPath.Append(paramInsertion);
-                newPath.AppendFormat("reverse={0}", Utilities.UriEncodeReserved(true.ToString()));
+                newPath.AppendFormat(CultureInfo.InvariantCulture, "reverse={0}", Utilities.UriEncodeReserved(true.ToString()));
                 paramInsertion = '&';
             }
 
             if (SpreadsheetQuery != null && SpreadsheetQuery.Length > 0)
             {
                 newPath.Append(paramInsertion);
-                newPath.AppendFormat("sq={0}", Utilities.UriEncodeReserved(SpreadsheetQuery));
+                newPath.AppendFormat(CultureInfo.InvariantCulture, "sq={0}", Utilities.UriEncodeReserved(SpreadsheetQuery));
                 paramInsertion = '&';
             }
 

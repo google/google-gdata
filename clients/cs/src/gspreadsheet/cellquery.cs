@@ -155,6 +155,9 @@ namespace Google.GData.Spreadsheets
             }
         }
 
+#if WindowsCE
+#else
+ 
         /// <summary>
         /// Parses an incoming URI string and sets the instance variables
         /// of this object.
@@ -198,7 +201,7 @@ namespace Google.GData.Spreadsheets
             }
             return this.Uri;
         }
-
+#endif 
         /// <summary>
         /// Resets object state to default, as if newly created.
         /// </summary>
@@ -234,35 +237,35 @@ namespace Google.GData.Spreadsheets
             if (MinimumRow > 0)
             {
                 newPath.Append(paramInsertion);
-                newPath.AppendFormat("min-row={0}", Utilities.UriEncodeReserved(MinimumRow.ToString()));
+                newPath.AppendFormat(CultureInfo.InvariantCulture, "min-row={0}", Utilities.UriEncodeReserved(MinimumRow.ToString()));
                 paramInsertion = '&';
             }
 
             if (MaximumRow > 0)
             {
                 newPath.Append(paramInsertion);
-                newPath.AppendFormat("max-row={0}", Utilities.UriEncodeReserved(MaximumRow.ToString()));
+                newPath.AppendFormat(CultureInfo.InvariantCulture, "max-row={0}", Utilities.UriEncodeReserved(MaximumRow.ToString()));
                 paramInsertion = '&';
             }
 
             if (MinimumColumn > 0)
             {
                 newPath.Append(paramInsertion);
-                newPath.AppendFormat("min-col={0}", Utilities.UriEncodeReserved(MinimumColumn.ToString()));
+                newPath.AppendFormat(CultureInfo.InvariantCulture, "min-col={0}", Utilities.UriEncodeReserved(MinimumColumn.ToString()));
                 paramInsertion = '&';
             }
 
             if (MaximumColumn > 0)
             {
                 newPath.Append(paramInsertion);
-                newPath.AppendFormat("max-col={0}", Utilities.UriEncodeReserved(MaximumColumn.ToString()));
+                newPath.AppendFormat(CultureInfo.InvariantCulture, "max-col={0}", Utilities.UriEncodeReserved(MaximumColumn.ToString()));
                 paramInsertion = '&';
             }
 
             if (Range.Length > 0)
             {
                 newPath.Append(paramInsertion);
-                newPath.AppendFormat("range={0}", Utilities.UriEncodeReserved(Range));
+                newPath.AppendFormat(CultureInfo.InvariantCulture, "range={0}", Utilities.UriEncodeReserved(Range));
             }
 
             return newPath.ToString();
