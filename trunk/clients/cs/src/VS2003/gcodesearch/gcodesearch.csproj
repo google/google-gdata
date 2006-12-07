@@ -9,7 +9,7 @@
             <Settings
                 ApplicationIcon = ""
                 AssemblyKeyContainerName = ""
-                AssemblyName = "gcodesearch"
+                AssemblyName = "Google.GData.CodeSearch"
                 AssemblyOriginatorKeyFile = ""
                 DefaultClientScript = "JScript"
                 DefaultHTMLPageLayout = "Grid"
@@ -18,7 +18,7 @@
                 OutputType = "Library"
                 PreBuildEvent = 'copy "$(ProjectDir)..\..\signing\*.*"  "$(ProjectDir)\obj\$(ConfigurationName)\*.*"'
                 PostBuildEvent = ""
-                RootNamespace = "gcodesearch"
+                RootNamespace = "Google.GData.CodeSearch"
                 RunPostBuildEvent = "OnBuildSuccess"
                 StartupObject = ""
             >

@@ -1,7 +1,7 @@
 <VisualStudioProject>
     <CSHARP
         ProjectType = "Local"
-        ProductVersion = "7.10.3077"
+        ProductVersion = "7.10.6030"
         SchemaVersion = "2.0"
         ProjectGuid = "{21BCB644-F9C3-4ADC-8BE1-4E55C6565011}"
     >
@@ -9,7 +9,7 @@
             <Settings
                 ApplicationIcon = ""
                 AssemblyKeyContainerName = ""
-                AssemblyName = "gextension"
+                AssemblyName = "Google.GData.Extensions"
                 AssemblyOriginatorKeyFile = ""
                 DefaultClientScript = "JScript"
                 DefaultHTMLPageLayout = "Grid"
@@ -18,7 +18,7 @@
                 OutputType = "Library"
                 PreBuildEvent = 'copy "$(ProjectDir)..\..\signing\*.*"  "$(ProjectDir)\obj\$(ConfigurationName)\*.*"'
                 PostBuildEvent = ""
-                RootNamespace = "gextension"
+                RootNamespace = "Google.GData.Extensions"
                 RunPostBuildEvent = "OnBuildSuccess"
                 StartupObject = ""
             >

@@ -43,6 +43,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeSearch", "CodeSearch\Co
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gspreadsheets", "gspreadsheets\gspreadsheets.csproj", "{3FF0C48A-48CC-49CE-8B65-0C780770A75D}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spreadsheet", "Spreadsheet\Spreadsheet.csproj", "{87784AB1-DCAB-4C86-BC03-C4D8D1A28606}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfiguration) = preSolution
 		Debug = Debug
@@ -95,6 +103,14 @@ Global
 		{3ADFC495-3BCB-4A8E-970C-653B079799B4}.Debug.Build.0 = Debug|.NET
 		{3ADFC495-3BCB-4A8E-970C-653B079799B4}.Release.ActiveCfg = Release|.NET
 		{3ADFC495-3BCB-4A8E-970C-653B079799B4}.Release.Build.0 = Release|.NET
+		{3FF0C48A-48CC-49CE-8B65-0C780770A75D}.Debug.ActiveCfg = Debug|.NET
+		{3FF0C48A-48CC-49CE-8B65-0C780770A75D}.Debug.Build.0 = Debug|.NET
+		{3FF0C48A-48CC-49CE-8B65-0C780770A75D}.Release.ActiveCfg = Release|.NET
+		{3FF0C48A-48CC-49CE-8B65-0C780770A75D}.Release.Build.0 = Release|.NET
+		{87784AB1-DCAB-4C86-BC03-C4D8D1A28606}.Debug.ActiveCfg = Debug|.NET
+		{87784AB1-DCAB-4C86-BC03-C4D8D1A28606}.Debug.Build.0 = Debug|.NET
+		{87784AB1-DCAB-4C86-BC03-C4D8D1A28606}.Release.ActiveCfg = Release|.NET
+		{87784AB1-DCAB-4C86-BC03-C4D8D1A28606}.Release.Build.0 = Release|.NET
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 	EndGlobalSection

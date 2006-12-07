@@ -9,7 +9,7 @@
             <Settings
                 ApplicationIcon = ""
                 AssemblyKeyContainerName = ""
-                AssemblyName = "gbase"
+                AssemblyName = "Google.GData.GoogleBase"
                 AssemblyOriginatorKeyFile = ""
                 DefaultClientScript = "JScript"
                 DefaultHTMLPageLayout = "Grid"
@@ -18,7 +18,7 @@
                 OutputType = "Library"
                 PreBuildEvent = 'copy "$(ProjectDir)..\..\signing\*.*"  "$(ProjectDir)\obj\$(ConfigurationName)\*.*"'
                 PostBuildEvent = ""
-                RootNamespace = "gbase"
+                RootNamespace = "Google.GData.GoogleBase"
                 RunPostBuildEvent = "OnBuildSuccess"
                 StartupObject = ""
             >
