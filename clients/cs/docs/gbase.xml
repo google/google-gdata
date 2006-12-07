@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <doc>
     <assembly>
-        <name>/Users/frank/googlegdata/clients/cs/lib/gbase</name>
+        <name>/Users/frank/googlegdata/clients/cs/lib/Google.GData.GoogleBase</name>
     </assembly>
     <members>
         <member name="T:Google.GData.GoogleBase.GBaseAttributeContainer">
@@ -1383,6 +1383,22 @@
             date, dateTime or dateTimeRange with this name.</summary>
             <param name="name">attribute name</param>
             <returns>all the values found, never nul</returns>
+        </member>
+        <member name="T:Google.GData.GoogleBase.NumberFormat">
+            <summary>Handles number parsing/generation in a culture-independent
+            manner.</summary>
+        </member>
+        <member name="M:Google.GData.GoogleBase.NumberFormat.ToFloat(System.String)">
+            <summary>Parses a string as a float.</summary>
+        </member>
+        <member name="M:Google.GData.GoogleBase.NumberFormat.ToString(System.Single)">
+            <summary>Formats a float as a string.</summary>
+        </member>
+        <member name="M:Google.GData.GoogleBase.NumberFormat.ToInt(System.String)">
+            <summary>Parses a string as an integer.</summary>
+        </member>
+        <member name="M:Google.GData.GoogleBase.NumberFormat.ToString(System.Int32)">
+            <summary>Formats an integer as a string.</summary>
         </member>
         <member name="T:Google.GData.GoogleBase.GBaseQuery">
             <summary>Creates a Google Base query Uri.

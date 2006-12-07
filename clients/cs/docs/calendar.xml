@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <doc>
     <assembly>
-        <name>/Users/frank/googlegdata/clients/cs/lib/gcalendar</name>
+        <name>/Users/frank/googlegdata/clients/cs/lib/Google.GData.Calendar</name>
     </assembly>
     <members>
         <member name="T:Google.GData.Calendar.EventEntry">
@@ -138,6 +138,36 @@
             <param name="node">the xmlnode to parser</param>
             <returns>Transparency object</returns>
         </member>
+        <member name="T:Google.GData.Calendar.EventEntry.SendNotifications">
+            <summary>
+            indicates if an eventupdate should reissue notifications
+            false by default
+            </summary>
+        </member>
+        <member name="M:Google.GData.Calendar.EventEntry.SendNotifications.#ctor">
+            <summary>
+            default constructor
+            </summary>
+        </member>
+        <member name="M:Google.GData.Calendar.EventEntry.SendNotifications.#ctor(System.String)">
+            <summary>
+            constructor with a default string value
+            </summary>
+            <param name="value">transparency value</param>
+        </member>
+        <member name="P:Google.GData.Calendar.EventEntry.SendNotifications.XmlNamespace">
+            <summary>Returns the constant representing this XML element.</summary>
+        </member>
+        <member name="P:Google.GData.Calendar.EventEntry.SendNotifications.XmlNamespacePrefix">
+            <summary>Returns the constant representing this XML element.</summary>
+        </member>
+        <member name="M:Google.GData.Calendar.EventEntry.SendNotifications.parse(System.Xml.XmlNode)">
+            <summary>
+            parse method is called from the atom parser to populate an Transparency node
+            </summary>
+            <param name="node">the xmlnode to parser</param>
+            <returns>Notifications object</returns>
+        </member>
         <member name="F:Google.GData.Calendar.EventEntry.EVENT_CATEGORY">
             <summary>
             Category used to label entries that contain Event extension data.
@@ -161,6 +191,11 @@
         <member name="P:Google.GData.Calendar.EventEntry.Status">
             <summary>
             property accessor for the EventStatus
+            </summary>
+        </member>
+        <member name="P:Google.GData.Calendar.EventEntry.Notifications">
+            <summary>
+            property accessor for the Event Visibility
             </summary>
         </member>
         <member name="P:Google.GData.Calendar.EventEntry.EventVisibility">
@@ -260,6 +295,17 @@
             Provides public properties that describe the different
             aspects of the URI, as well as a composite URI.
             </summary>
+        </member>
+        <member name="M:Google.GData.Calendar.EventQuery.#ctor">
+            <summary>
+            base constructor
+            </summary>
+        </member>
+        <member name="M:Google.GData.Calendar.EventQuery.#ctor(System.String)">
+            <summary>
+            base constructor, with initial queryUri
+            </summary>
+            <param name="queryUri">the query to use</param>
         </member>
         <member name="P:Google.GData.Calendar.EventQuery.SortOrder">
             <summary>indicates the sortorder of the returned feed</summary>
