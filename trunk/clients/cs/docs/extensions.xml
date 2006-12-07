@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <doc>
     <assembly>
-        <name>/Users/frank/googlegdata/clients/cs/lib/gextensions</name>
+        <name>/Users/frank/googlegdata/clients/cs/lib/Google.GData.Extensions</name>
     </assembly>
     <members>
         <member name="T:Google.GData.Extensions.Where">
@@ -757,6 +757,9 @@
         <member name="F:Google.GData.Extensions.GDataParserNameTable.XmlAttributeHeight">
             <summary>static string for the height attribute</summary>
         </member>
+        <member name="F:Google.GData.Extensions.GDataParserNameTable.XmlSendNotificationsElement">
+            <summary>static string for the sendEventNotifications element</summary>
+        </member>
         <member name="F:Google.GData.Extensions.GDataParserNameTable.Event">
             <summary>the event prefix </summary>
         </member>
@@ -855,6 +858,12 @@
             </summary>
         </member>
         <member name="P:Google.GData.Extensions.EnumConstruct.XmlName">
+            <summary>Returns the constant representing this XML element.</summary>
+        </member>
+        <member name="P:Google.GData.Extensions.EnumConstruct.XmlNamespace">
+            <summary>Returns the constant representing this XML element.</summary>
+        </member>
+        <member name="P:Google.GData.Extensions.EnumConstruct.XmlNamespacePrefix">
             <summary>Returns the constant representing this XML element.</summary>
         </member>
         <member name="M:Google.GData.Extensions.EnumConstruct.equals(System.Object)">

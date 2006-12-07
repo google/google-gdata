@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <doc>
     <assembly>
-        <name>/Users/frank/googlegdata/clients/cs/lib/gcodesearch</name>
+        <name>/Users/frank/googlegdata/clients/cs/lib/Google.GData.CodeSearch</name>
     </assembly>
     <members>
         <member name="T:Google.GData.CodeSearch.CodeSearchEntry">

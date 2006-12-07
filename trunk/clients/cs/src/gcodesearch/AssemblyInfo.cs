@@ -24,7 +24,7 @@ using System.Runtime.CompilerServices;
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
-[assembly: AssemblyVersion("1.0.7.*")]
+[assembly: AssemblyVersion("1.0.8.*")]
 
 [assembly: AssemblyDelaySign(false)]
 #if WindowsCE
