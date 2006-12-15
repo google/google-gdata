@@ -406,7 +406,7 @@ namespace Google.GData.Client
                     throw new GDataRequestException("Execution of authentication request returned unexpected result: " +code,  this.Response); 
                 }
                 // check the content type, it must be text
-                if (!response.ContentType.Equals(HttpFormPost.ContentType))
+                if (!response.ContentType.StartsWith(HttpFormPost.ContentType))
                 {
                     throw new GDataRequestException("Execution of authentication request returned unexpected content type: " + response.ContentType,  this.Response); 
                 }
