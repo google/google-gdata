@@ -82,7 +82,4 @@ If also means that the following code:
    
 }}}
    
-will create the required xml during the update/insert process to indicate
- this to be a draft element. 
- 
- Hope that was helpful.
+will create the required xml during the update/insert process to indicate this to be a draft element. 
