@@ -1,5 +1,5 @@
 #summary How to parse and create content outside the scope of the object model
-#labels Phase-Implementation
+#labels Phase-Implementation,NetClient
 
 = Introduction =
 
@@ -14,12 +14,14 @@ properties.
 One example for this is the draft element in the beta.blogger.com feeds. The 
 draft element is a subelement of an atom:entry, and looks pretty much like this:
 
+{{{
 <entry xmlns:app='http://purl.org/atom/app#'>
   ...
   <app:control>
     <app:draft>yes</app:draft>
   </app:control>
 </entry>
+}}}
 
 What this does, for blogger, is, it marks this entry as a draft, as not yet 
 finished. 
@@ -58,14 +60,16 @@ into the xml stream when it's owner is persisted.
 
 Hence to figure out if a certain attribute is set you can do something like this:
 
+{{{
     foreach (Object obj in entry.ExtensionElements) 
       if obj is XmlNode
          ... check whatever it is you are looking for
       
-      
+}}}   
         
 If also means that the following code:
 
+{{{
      XmlNode node = new XmlNode(
               "<app:control xmlns:app='http://purl.org/atom/app#>
                 <app:draft>yes</app:draft>
@@ -75,8 +79,10 @@ If also means that the following code:
       entry.ExtensionElements.Add(node);
       
       entry.Update();
-      
- will create the required xml during the update/insert process to indicate
+   
+}}}
+   
+will create the required xml during the update/insert process to indicate
  this to be a draft element. 
  
  Hope that was helpful.
