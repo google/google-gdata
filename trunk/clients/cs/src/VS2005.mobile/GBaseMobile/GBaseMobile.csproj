@@ -108,6 +108,9 @@
     <Compile Include="..\..\gbase\itemtypedefinition.cs">
       <Link>itemtypedefinition.cs</Link>
     </Compile>
+    <Compile Include="..\..\gbase\location.cs">
+      <Link>location.cs</Link>
+    </Compile>
     <Compile Include="..\..\gbase\numberformat.cs">
       <Link>numberformat.cs</Link>
     </Compile>
