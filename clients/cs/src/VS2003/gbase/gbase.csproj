@@ -185,7 +185,14 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "location.cs"
+                    Link = "..\..\gbase\location.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "numberformat.cs"
+                    Link = "..\..\gbase\numberformat.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
