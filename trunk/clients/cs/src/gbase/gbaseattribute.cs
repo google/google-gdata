@@ -368,6 +368,7 @@ namespace Google.GData.GoogleBase {
     ///////////////////////////////////////////////////////////////////////
     public class GBaseAttribute : IExtensionElement
     {
+        private static readonly char[] kXmlWhitespaces = { ' ', '\t', '\n', '\r' };
         private string name;
         private GBaseAttributeType type;
         private bool isPrivate;
@@ -461,10 +462,6 @@ namespace Google.GData.GoogleBase {
             }
             set
             {
-                if (HasSubElements && value != null)
-                {
-                    throw new InvalidOperationException("Content cannot be set be set on attribute with sub-elements.");
-                }
                 content = value;
             }
         }
@@ -496,8 +493,6 @@ namespace Google.GData.GoogleBase {
         ///
         /// An attribute cannot contain both sub-elements and text (content)
         /// </summary>
-        /// <exception cref="InvalidOperationException">Thrown when the
-        /// attribute Content has already been set.</exception>
         //////////////////////////////////////////////////////////////////////
         public string this[string subElementName]
         {
@@ -511,11 +506,6 @@ namespace Google.GData.GoogleBase {
             }
             set
             {
-                if (content != null)
-                {
-                    throw new InvalidOperationException("Sub-elements cannot be set be set on attribute with a non-null content.");
-                }
-
                 if (subElements == null)
                 {
                     subElements = new Hashtable();
@@ -596,9 +586,32 @@ namespace Google.GData.GoogleBase {
                     hasSubElements = true;
                 }
             }
-            attribute.Content = hasSubElements ? null : node.InnerXml;
 
+            // If there are sub-elements, set the Content to null unless
+            // there is clearly something in there.
+            string content = ExtractDirectTextChildren(node);
+            if (!hasSubElements || !"".Equals(content.Trim(kXmlWhitespaces)))
+            {
+                attribute.Content = content;
+            }
             return attribute;
+        }
+
+        ///////////////////////////////////////////////////////////////////////
+        /// <summary>Extracts all text nodes inside an element, ignoring
+        /// text nodes inside children (contrary to XmlNode.InnerText).
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////
+        private static string ExtractDirectTextChildren(XmlNode parent)
+        {
+            StringBuilder retval = new StringBuilder();
+            for (XmlNode child = parent.FirstChild; child != null; child = child.NextSibling)
+            {
+                if (child.NodeType == XmlNodeType.Text || child.NodeType == XmlNodeType.CDATA) {
+                    retval.Append(child.Value);
+                }
+            }
+            return retval.ToString();
         }
 
         ///////////////////////////////////////////////////////////////////////

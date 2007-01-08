@@ -233,41 +233,30 @@ namespace Google.GData.GoogleBase.UnitTests
         }
 
         [Test]
-        public void NoContentIfSubElementsTest()
+        public void ContentAndSubElementsTest()
         {
             GBaseAttribute attribute = new GBaseAttribute("x");
             attribute["a"] = "b";
-            try
-            {
-                attribute.Content = "b";
-                Assert.Fail("expected exception");
-            }
-            catch(InvalidOperationException e)
-            {
-                // As expected
-            }
-        }
-
-        [Test]
-        public void NoSubElementIfContentTest()
-        {
-            GBaseAttribute attribute = new GBaseAttribute("x");
-            attribute.Content = "x";
-            try
-            {
-                attribute["a"] = "b";
-                Assert.Fail("expected exception");
-            }
-            catch(InvalidOperationException e)
-            {
-                // As expected
-            }
+            attribute.Content = "c";
+            Assert.AreEqual("c", attribute.Content);
+            Assert.AreEqual("b", attribute["a"]);
         }
 
         [Test]
         public void GenerateSubElementsTest()
         {
             GBaseAttribute attribute = new GBaseAttribute("x");
+            attribute["a"] = "b";
+            attribute["c"] = "d";
+            Assert.IsNull(attribute.Content);
+            AssertRereadIsSame(attribute);
+        }
+
+        [Test]
+        public void GenerateSubElementsAndContentTest()
+        {
+            GBaseAttribute attribute = new GBaseAttribute("x");
+            attribute.Content = "x";
             attribute["a"] = "b";
             attribute["c"] = "d";
             AssertRereadIsSame(attribute);
