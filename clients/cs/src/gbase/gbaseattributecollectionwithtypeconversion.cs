@@ -167,7 +167,7 @@ namespace Google.GData.GoogleBase {
         }
 
         ///////////////////////////////////////////////////////////////////////
-        /// <summary>Returns the value of the first attribute of type
+        /// <summary>Returns the address of the first attribute of type
         /// location with this name.</summary>
         /// <param name="name">attribute name</param>
         /// <returns>the value of the first attribute, or null</returns>
@@ -178,7 +178,7 @@ namespace Google.GData.GoogleBase {
         }
 
         ///////////////////////////////////////////////////////////////////////
-        /// <summary>Returns the values of all the attribute of type
+        /// <summary>Returns the address of all the attribute of type
         /// location with this name.</summary>
         /// <param name="name">attribute name</param>
         /// <returns>all the values found, never nul</returns>
@@ -187,6 +187,36 @@ namespace Google.GData.GoogleBase {
         {
             return GetAttributesAsString(name, GBaseAttributeType.Location);
         }
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Returns the object representation of an attribute
+        /// of type location with this name.</summary>
+        //////////////////////////////////////////////////////////////////////
+        public Location GetLocationAttributeAsObject(string name)
+        {
+            GBaseAttribute attribute = GetAttribute(name, GBaseAttributeType.Location);
+            if (attribute == null)
+            {
+                return null;
+            }
+            return new Location(attribute);
+        }
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Returns all the object representations for attributes
+        /// of type location with this name.</summary>
+        //////////////////////////////////////////////////////////////////////
+        public Location[] GetLocationAttributesAsObjects(string name)
+        {
+            GBaseAttribute[] attributes = GetAttributes(name, GBaseAttributeType.Location);
+            Location[] retval = new Location[attributes.Length];
+            for (int i = 0; i < retval.Length; i++)
+            {
+                retval[i] = new Location(attributes[i]);
+            }
+            return retval;
+        }
+
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>Returns the object representation for an attribute
@@ -222,6 +252,17 @@ namespace Google.GData.GoogleBase {
         public GBaseAttribute AddLocationAttribute(string name, string value)
         {
             return Add(new GBaseAttribute(name, GBaseAttributeType.Location, value));
+        }
+
+        ///////////////////////////////////////////////////////////////////////
+        /// <summary>Adds a new attribute of type location.</summary>
+        /// <param name="name">attribute name</param>
+        /// <param name="value">value</param>
+        /// <returns>the newly-created GBaseAttribute object</returns>
+        ///////////////////////////////////////////////////////////////////////
+        public GBaseAttribute AddLocationAttribute(string name, Location value)
+        {
+            return Add(value.CreateGBaseAttribute(name));
         }
 
         ///////////////////////////////////////////////////////////////////////

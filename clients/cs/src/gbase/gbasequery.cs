@@ -71,6 +71,13 @@ namespace Google.GData.GoogleBase
         }
 
 
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Default constructor.</summary>
+        //////////////////////////////////////////////////////////////////////
+        public GBaseQuery() : base()
+        {
+        }
+
         ///////////////////////////////////////////////////////////////////////
         /// <summary>Creates a query for the given feed.</summary>
         /// <param name="feed">a feed that must have its Feed link set</param>

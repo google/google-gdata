@@ -34,8 +34,8 @@ namespace Google.GData.GoogleBase.UnitTests
         [Test]
         public void ParseBqTest()
         {
-            GBaseQuery query =
-                new GBaseQuery("http://www.example.com/base/feeds/snippets?bq=hello%20world&max-results=12");
+            GBaseQuery query = new GBaseQuery();
+            query.Uri = new Uri("http://www.example.com/base/feeds/snippets?bq=hello%20world&max-results=12");
             Assert.AreEqual("hello world", query.GoogleBaseQuery);
             Assert.AreEqual(12, query.NumberToRetrieve);
         }
@@ -43,8 +43,8 @@ namespace Google.GData.GoogleBase.UnitTests
         [Test]
         public void ParseMaxValuesTest()
         {
-            GBaseQuery query =
-                new GBaseQuery("http://www.example.com/base/feeds/attributes?q=hello&max-values=3");
+            GBaseQuery query = new GBaseQuery();
+            query.Uri = new Uri("http://www.example.com/base/feeds/attributes?q=hello&max-values=3");
             Assert.AreEqual(3, query.MaxValues);
         }
 

@@ -317,8 +317,6 @@
             &lt;/g:shipping&gt;
             An attribute cannot contain both sub-elements and text (content)
             </summary>
-            <exception cref="T:System.InvalidOperationException">Thrown when the
-            attribute Content has already been set.</exception>
         </member>
         <member name="P:Google.GData.GoogleBase.GBaseAttribute.Name">
             <summary>Attribute name</summary>
@@ -346,6 +344,11 @@
         <member name="M:Google.GData.GoogleBase.GBaseAttribute.ParseGBaseAttribute(System.Xml.XmlNode)">
             <summary>Parses an XML node and create the corresponding
             GBaseAttribute.</summary>
+        </member>
+        <member name="M:Google.GData.GoogleBase.GBaseAttribute.ExtractDirectTextChildren(System.Xml.XmlNode)">
+            <summary>Extracts all text nodes inside an element, ignoring
+            text nodes inside children (contrary to XmlNode.InnerText).
+            </summary>
         </member>
         <member name="M:Google.GData.GoogleBase.GBaseAttribute.Save(System.Xml.XmlWriter)">
             <summary>Converts the current GBaseAttribute to XML.</summary>
@@ -745,6 +748,44 @@
             by <see cref="T:Google.GData.GoogleBase.GBaseUriFactory" /></param>
             <returns>the entry</returns>
         </member>
+        <member name="T:Google.GData.GoogleBase.Location">
+            <summary>Object representation of a location; an address and
+            optionally latitude and longitude.</summary>
+        </member>
+        <member name="M:Google.GData.GoogleBase.Location.#ctor(System.String)">
+            <summary>Creates an address location.</summary>
+        </member>
+        <member name="M:Google.GData.GoogleBase.Location.#ctor(System.String,System.Single,System.Single)">
+            <summary>Creates a location with latitude, longitude and address.
+            </summary>
+        </member>
+        <member name="M:Google.GData.GoogleBase.Location.#ctor(Google.GData.GoogleBase.GBaseAttribute)">
+            <summary>Extracts location information from an attribute.
+            </summary>
+            <exception cref="T:System.FormatException">If the attribute contains
+            invalid sub-elements or lacks required sub-elements</exception>
+        </member>
+        <member name="P:Google.GData.GoogleBase.Location.HasCoordinates">
+            <summary>Checks whether coordinates have been defined.</summary>
+            <returns>true if coordinates have been defined.</returns>
+        </member>
+        <member name="P:Google.GData.GoogleBase.Location.Address">
+            <summary>Address</summary>
+        </member>
+        <member name="P:Google.GData.GoogleBase.Location.Latitude">
+            <summary>Latitude</summary>
+        </member>
+        <member name="P:Google.GData.GoogleBase.Location.Longitude">
+            <summary>Longitude</summary>
+        </member>
+        <member name="M:Google.GData.GoogleBase.Location.CreateGBaseAttribute(System.String)">
+            <summary>Creates a GBaseAttribute of type location corresponding
+            to the current object.</summary>
+            <param name="name">attribute name</param>
+        </member>
+        <member name="M:Google.GData.GoogleBase.Location.clearCoordinates">
+            <summary>Unset latitude and longitude.</summary>
+        </member>
         <member name="T:Google.GData.GoogleBase.GBaseAttributes">
             <summary>Queries, adds and removes google base attributes (Level 3)
             This class adds convenience methods to access common Google Base
@@ -1001,6 +1042,22 @@
         <member name="M:Google.GData.GoogleBase.DateTimeRange.op_Inequality(Google.GData.GoogleBase.DateTimeRange,Google.GData.GoogleBase.DateTimeRange)">
             <summary>Comparison based on Equals()</summary>
         </member>
+        <member name="T:Google.GData.GoogleBase.NumberFormat">
+            <summary>Handles number parsing/generation in a culture-independent
+            manner.</summary>
+        </member>
+        <member name="M:Google.GData.GoogleBase.NumberFormat.ToFloat(System.String)">
+            <summary>Parses a string as a float.</summary>
+        </member>
+        <member name="M:Google.GData.GoogleBase.NumberFormat.ToString(System.Single)">
+            <summary>Formats a float as a string.</summary>
+        </member>
+        <member name="M:Google.GData.GoogleBase.NumberFormat.ToInt(System.String)">
+            <summary>Parses a string as an integer.</summary>
+        </member>
+        <member name="M:Google.GData.GoogleBase.NumberFormat.ToString(System.Int32)">
+            <summary>Formats an integer as a string.</summary>
+        </member>
         <member name="T:Google.GData.GoogleBase.GBaseAttributeCollectionWithTypeConversion">
             <summary>Typesafe convenience methods for getting and setting
             google base attributes (Level 2)
@@ -1085,16 +1142,24 @@
             <returns>the newly-created GBaseAttribute object</returns>
         </member>
         <member name="M:Google.GData.GoogleBase.GBaseAttributeCollectionWithTypeConversion.GetLocationAttribute(System.String)">
-            <summary>Returns the value of the first attribute of type
+            <summary>Returns the address of the first attribute of type
             location with this name.</summary>
             <param name="name">attribute name</param>
             <returns>the value of the first attribute, or null</returns>
         </member>
         <member name="M:Google.GData.GoogleBase.GBaseAttributeCollectionWithTypeConversion.GetLocationAttributes(System.String)">
-            <summary>Returns the values of all the attribute of type
+            <summary>Returns the address of all the attribute of type
             location with this name.</summary>
             <param name="name">attribute name</param>
             <returns>all the values found, never nul</returns>
+        </member>
+        <member name="M:Google.GData.GoogleBase.GBaseAttributeCollectionWithTypeConversion.GetLocationAttributeAsObject(System.String)">
+            <summary>Returns the object representation of an attribute
+            of type location with this name.</summary>
+        </member>
+        <member name="M:Google.GData.GoogleBase.GBaseAttributeCollectionWithTypeConversion.GetLocationAttributesAsObjects(System.String)">
+            <summary>Returns all the object representations for attributes
+            of type location with this name.</summary>
         </member>
         <member name="M:Google.GData.GoogleBase.GBaseAttributeCollectionWithTypeConversion.GetShippingAttribute(System.String)">
             <summary>Returns the object representation for an attribute
@@ -1107,6 +1172,12 @@
             <returns>the newly-created GBaseAttribute object</returns>
         </member>
         <member name="M:Google.GData.GoogleBase.GBaseAttributeCollectionWithTypeConversion.AddLocationAttribute(System.String,System.String)">
+            <summary>Adds a new attribute of type location.</summary>
+            <param name="name">attribute name</param>
+            <param name="value">value</param>
+            <returns>the newly-created GBaseAttribute object</returns>
+        </member>
+        <member name="M:Google.GData.GoogleBase.GBaseAttributeCollectionWithTypeConversion.AddLocationAttribute(System.String,Google.GData.GoogleBase.Location)">
             <summary>Adds a new attribute of type location.</summary>
             <param name="name">attribute name</param>
             <param name="value">value</param>
@@ -1384,27 +1455,14 @@
             <param name="name">attribute name</param>
             <returns>all the values found, never nul</returns>
         </member>
-        <member name="T:Google.GData.GoogleBase.NumberFormat">
-            <summary>Handles number parsing/generation in a culture-independent
-            manner.</summary>
-        </member>
-        <member name="M:Google.GData.GoogleBase.NumberFormat.ToFloat(System.String)">
-            <summary>Parses a string as a float.</summary>
-        </member>
-        <member name="M:Google.GData.GoogleBase.NumberFormat.ToString(System.Single)">
-            <summary>Formats a float as a string.</summary>
-        </member>
-        <member name="M:Google.GData.GoogleBase.NumberFormat.ToInt(System.String)">
-            <summary>Parses a string as an integer.</summary>
-        </member>
-        <member name="M:Google.GData.GoogleBase.NumberFormat.ToString(System.Int32)">
-            <summary>Formats an integer as a string.</summary>
-        </member>
         <member name="T:Google.GData.GoogleBase.GBaseQuery">
             <summary>Creates a Google Base query Uri.
             To create a query, first get the Uri of the feed you want
             from <see cref="T:Google.GData.GoogleBase.GBaseUriFactory" /> and then pass it to the
             constructor.</summary>
+        </member>
+        <member name="M:Google.GData.GoogleBase.GBaseQuery.#ctor">
+            <summary>Default constructor.</summary>
         </member>
         <member name="M:Google.GData.GoogleBase.GBaseQuery.#ctor(Google.GData.GoogleBase.GBaseFeed)">
             <summary>Creates a query for the given feed.</summary>
