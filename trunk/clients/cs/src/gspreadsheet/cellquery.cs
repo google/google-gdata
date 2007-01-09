@@ -155,7 +155,7 @@ namespace Google.GData.Spreadsheets
             }
         }
 
-#if WindowsCE
+#if WindowsCE || PocketPC
 #else
  
         /// <summary>

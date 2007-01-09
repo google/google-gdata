@@ -73,7 +73,7 @@ using System;
 [assembly: AssemblyDelaySign(false)]
 [assembly: AssemblyKeyName("")]
 
-#if WindowsCE
+#if WindowsCE || PocketPC
 #else 
     [assembly: SecurityPermission(SecurityAction.RequestMinimum, Execution=true)]
     [assembly: AssemblyKeyFile("clientkey.sn")]

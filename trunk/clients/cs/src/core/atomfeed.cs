@@ -73,7 +73,7 @@ namespace Google.GData.Client
     /// 
     /// </summary> 
     //////////////////////////////////////////////////////////////////////
-#if WindowsCE
+#if WindowsCE || PocketPC
 #else 
     [TypeConverterAttribute(typeof(AtomSourceConverter)), DescriptionAttribute("Expand to see the options for the feed")]
 #endif

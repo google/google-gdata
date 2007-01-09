@@ -21,7 +21,7 @@ using System;
 using System.Xml; 
 using System.Net;
 using System.Diagnostics;
-#if WindowsCE
+#if WindowsCE || PocketPC
 #else 
 using System.Runtime.Serialization;
 #endif
@@ -44,7 +44,7 @@ namespace Google.GData.Client
     /// <summary>standard exception class to be used inside the query object
     /// </summary> 
     //////////////////////////////////////////////////////////////////////
-#if WindowsCE
+#if WindowsCE || PocketPC
 #else 
     [Serializable]
 #endif
@@ -82,7 +82,7 @@ namespace Google.GData.Client
         }
         /////////////////////////////////////////////////////////////////////////////
 
-#if WindowsCE
+#if WindowsCE || PocketPC
 #else 
         /// <summary>here to please FxCop and maybe for future use</summary> 
         protected LoggedException(SerializationInfo info,  StreamingContext context) : base(info, context)
@@ -108,7 +108,7 @@ namespace Google.GData.Client
     /// <summary>standard exception class to be used inside the query object
     /// </summary> 
     //////////////////////////////////////////////////////////////////////
-#if WindowsCE
+#if WindowsCE || PocketPC
 #else 
     [Serializable]
 #endif
@@ -138,7 +138,7 @@ namespace Google.GData.Client
         {
         }
 
-#if WindowsCE
+#if WindowsCE || PocketPC
 #else 
         /// <summary>here to please FxCop and maybe for future use</summary> 
         protected ClientQueryException(SerializationInfo info,  StreamingContext context) : base(info, context)
@@ -153,7 +153,7 @@ namespace Google.GData.Client
     /// <summary>standard exception class to be used inside the feed object
     /// </summary> 
     //////////////////////////////////////////////////////////////////////
-#if WindowsCE
+#if WindowsCE || PocketPC
 #else 
     [Serializable]
 #endif
@@ -183,7 +183,7 @@ namespace Google.GData.Client
         {
         }
         /////////////////////////////////////////////////////////////////////////////
-#if WindowsCE
+#if WindowsCE || PocketPC
 #else 
         /// <summary>here to please FxCop and maybe for future use</summary> 
         protected ClientFeedException(SerializationInfo info,  StreamingContext context) : base(info, context)
@@ -198,7 +198,7 @@ namespace Google.GData.Client
     /// <summary>standard exception class to be used inside GDataRequest
     /// </summary> 
     //////////////////////////////////////////////////////////////////////
-#if WindowsCE
+#if WindowsCE || PocketPC
 #else 
     [Serializable]
 #endif
@@ -315,7 +315,7 @@ namespace Google.GData.Client
             this.webResponse = response;
         }
         /////////////////////////////////////////////////////////////////////////////
-#if WindowsCE
+#if WindowsCE || PocketPC
 #else 
         /// <summary>here to please FxCop and maybe for future use</summary> 
         protected GDataRequestException(SerializationInfo info,  StreamingContext context) : base(info, context)

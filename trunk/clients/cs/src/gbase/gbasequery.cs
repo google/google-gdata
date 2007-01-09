@@ -104,7 +104,7 @@ namespace Google.GData.GoogleBase
         {
         }
 
-#if WindowsCE
+#if WindowsCE || PocketPC
 #else
         ///////////////////////////////////////////////////////////////////////
         /// <summary>Parses the Google-Base specific parameters

@@ -31,7 +31,7 @@ using System.Runtime.CompilerServices;
 [assembly: AssemblyDelaySign(false)]
 
 
-#if WindowsCE
+#if WindowsCE || PocketPC
 #else
 [assembly: AssemblyKeyFile("extensionkey.sn")]
 #endif

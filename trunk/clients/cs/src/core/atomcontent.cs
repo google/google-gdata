@@ -59,7 +59,7 @@ using System.Runtime.InteropServices;
 namespace Google.GData.Client
 {
 
-#if WindowsCE
+#if WindowsCE || PocketPC
 #else 
     //////////////////////////////////////////////////////////////////////
     /// <summary>TypeConverter, so that AtomContentConverter shows up in the property pages
