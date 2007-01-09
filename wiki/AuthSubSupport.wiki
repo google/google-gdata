@@ -1,5 +1,5 @@
 #summary Explains the current state of AuthSub support in .NET, including samples
-#labels NetClient
+#labels NetClient,Featured
 
 = Introduction =
 
@@ -82,6 +82,5 @@ Have a great week!
 
 Cheers,
 -Ryan
-
 
 
