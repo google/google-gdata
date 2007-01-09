@@ -73,7 +73,7 @@ namespace Google.GData.Client
             }
         }
 
-#if WindowsCE
+#if WindowsCE || PocketPC
 #else
 
         /// <summary>

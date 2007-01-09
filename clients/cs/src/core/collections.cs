@@ -29,7 +29,7 @@ using System.Collections;
 //////////////////////////////////////////////////////////////////////
 namespace Google.GData.Client
 {
-#if WindowsCE
+#if WindowsCE || PocketPC
     //////////////////////////////////////////////////////////////////////
     /// <summary>standard typed collection based on 1.1 framework for FeedEntries
     /// </summary> 

@@ -216,7 +216,7 @@ namespace Google.GData.Client
                 return new Uri(this.baseUri + CalculateQuery());
                 }
             
-#if WindowsCE
+#if WindowsCE || PocketPC
 #else
             set 
                 {
@@ -227,7 +227,7 @@ namespace Google.GData.Client
         /////////////////////////////////////////////////////////////////////////////
 
 
-#if WindowsCE
+#if WindowsCE || PocketPC
 #else
         //////////////////////////////////////////////////////////////////////
         /// <summary>Passing in a complete URI, we strip all the
@@ -381,7 +381,7 @@ namespace Google.GData.Client
         }
         /////////////////////////////////////////////////////////////////////////////
 
-#if WindowsCE
+#if WindowsCE || PocketPC
 #else
         //////////////////////////////////////////////////////////////////////
         /// <summary>protected void ParseUri</summary> 

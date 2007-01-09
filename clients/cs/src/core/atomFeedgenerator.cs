@@ -30,7 +30,7 @@ using System.Runtime.InteropServices;
 //////////////////////////////////////////////////////////////////////
 namespace Google.GData.Client
 {
-#if WindowsCE
+#if WindowsCE || PocketPC
 #else 
     //////////////////////////////////////////////////////////////////////
     /// <summary>TypeConverter, so that AtomGenerator shows up in the property pages

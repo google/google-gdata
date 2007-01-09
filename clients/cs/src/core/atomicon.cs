@@ -38,7 +38,7 @@ namespace Google.GData.Client
     ///     for presentation at a small size.
     /// </summary> 
     //////////////////////////////////////////////////////////////////////
-#if WindowsCE
+#if WindowsCE || PocketPC
 #else 
     [TypeConverterAttribute(typeof(AtomBaseLinkConverter)), DescriptionAttribute("Expand to see the link attributes for the Icon.")]
 #endif

@@ -27,7 +27,7 @@ using System.Runtime.CompilerServices;
 [assembly: AssemblyVersion("1.0.8.*")]
 
 [assembly: AssemblyDelaySign(false)]
-#if WindowsCE
+#if WindowsCE || PocketPC
 #else
 [assembly: AssemblyKeyFile("codesearch.sn")]
 #endif

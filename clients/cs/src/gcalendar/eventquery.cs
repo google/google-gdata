@@ -157,7 +157,7 @@ namespace Google.GData.Calendar {
         }
 
 
-#if WindowsCE
+#if WindowsCE || PocketPC
 #else
         //////////////////////////////////////////////////////////////////////
         /// <summary>protected void ParseUri</summary> 

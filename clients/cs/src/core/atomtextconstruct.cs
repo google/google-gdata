@@ -68,7 +68,7 @@ namespace Google.GData.Client
         xhtml
     }
 
-#if WindowsCE
+#if WindowsCE || PocketPC
 #else 
     //////////////////////////////////////////////////////////////////////
     /// <summary>TypeConverter, so that AtomTextConstruct shows up in the property pages

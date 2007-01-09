@@ -31,7 +31,7 @@ using System.Runtime.InteropServices;
 //////////////////////////////////////////////////////////////////////
 namespace Google.GData.Client
 {
-#if WindowsCE
+#if WindowsCE || PocketPC
 #else
     //////////////////////////////////////////////////////////////////////
     /// <summary>TypeConverter, so that AtomHead shows up in the property pages
@@ -94,7 +94,7 @@ atomSource =
     }
 */
     //////////////////////////////////////////////////////////////////////
-#if WindowsCE
+#if WindowsCE || PocketPC
 #else
     [TypeConverterAttribute(typeof(AtomSourceConverter)), DescriptionAttribute("Expand to see the options for the feed")]
 #endif
