@@ -78,6 +78,9 @@
     <Compile Include="..\..\gcalendar\webcontent.cs">
       <Link>webcontent.cs</Link>
     </Compile>
+    <Compile Include="..\..\version\AssemblyVersion.cs">
+      <Link>AssemblyVersion.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

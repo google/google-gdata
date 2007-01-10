@@ -74,6 +74,9 @@
     <Compile Include="..\..\gcodesearch\package.cs">
       <Link>package.cs</Link>
     </Compile>
+    <Compile Include="..\..\version\AssemblyVersion.cs">
+      <Link>AssemblyVersion.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GDataMobile\GDataMobile.csproj">

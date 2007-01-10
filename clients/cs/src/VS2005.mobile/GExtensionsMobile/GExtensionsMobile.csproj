@@ -95,6 +95,9 @@
     <Compile Include="..\..\extensions\who.cs">
       <Link>who.cs</Link>
     </Compile>
+    <Compile Include="..\..\version\AssemblyVersion.cs">
+      <Link>AssemblyVersion.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GDataMobile\GDataMobile.csproj">

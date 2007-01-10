@@ -156,6 +156,9 @@
     <Compile Include="..\..\core\utilities.cs">
       <Link>utilities.cs</Link>
     </Compile>
+    <Compile Include="..\..\version\AssemblyVersion.cs">
+      <Link>AssemblyVersion.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
