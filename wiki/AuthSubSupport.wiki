@@ -71,10 +71,7 @@ EventFeed calFeed = service.Query(query)
 
 }}}
 
-Please remember -- at this time GAuthSubRequestFactory and AuthSubUtil
-are not compiled into the binary library distribution -- you'll need to
-check the source out of SVN and compile it yourself if you're
-interested in using them.
+*Note, that with version 1.0.9.0 and higher, the support for this is now part of the released binaries.*
 
 Hope this helps!  Let me know if you have any questions.
 
@@ -82,5 +79,4 @@ Have a great week!
 
 Cheers,
 -Ryan
-
 
