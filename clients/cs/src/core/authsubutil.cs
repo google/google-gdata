@@ -299,11 +299,12 @@ namespace Google.GData.Client
             else
             {
                 // Form signature for secure mode
-                long timestamp = DateTime.Now.Ticks / 10000;
+                TimeSpan t = (DateTime.UtcNow - new DateTime(1970, 1, 1));
+                int timestamp = (int)t.TotalSeconds;
 
                 string nounce = generateULONGRnd(); 
 
-                string dataToSign = String.Format("{0} (1} {2} {3}", 
+                string dataToSign = String.Format("{0} {1} {2} {3}", 
                                                   requestMethod, 
                                                   requestUri.AbsoluteUri,
                                                   timestamp.ToString(), 
@@ -361,7 +362,7 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         private static byte[]  sign(string dataToSign, AsymmetricAlgorithm key) 
         {
-            byte[] data = new UnicodeEncoding().GetBytes(dataToSign);
+            byte[] data = new ASCIIEncoding().GetBytes(dataToSign);
 
             try
             {
