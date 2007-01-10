@@ -1,0 +1,139 @@
+#summary The current release notes
+#labels Featured,NetClient
+
+= Introduction =
+
+The release notes show bugfixes and feature additions over the course of the project. 
+
+= Details =
+
+== 1.0.9 ==
+- Fixed an issue where the login services changed the response contenttype. The check for text/plain is now more relaxed.
+- Added the missing location calls for Geolocation for GoogleBase
+- Fixed a build issue for Windows Mobile in release. The code now compiles for PocketPC and WindowsMobile symbols defined.
+- Changed the versioning system to have consistent versioning across the builds
+- Added batch files to produce the final binaries and the documentation
+- Fixed Web application authentication support. This should work fine now in secure and unsecure mode.
+
+
+== 1.0.8 == 
+- Fixed issue 13 from the public issue list. If a content element contained xhtml, and not just text, 
+  the content was not read correctly. 
+- Fixed issue 17 from the public issue list. XHTML content was not persisted correctly.
+- Added support for hosted domain feeds. This is done automatically, no codechanges needed for the application developer.
+  The authentication code was changed to ask for Hosted domains first, then google accounts. 
+- Added support for the app:control/app:draft element, but only in the way to expose a boolean on the AtomEntry. 
+  The new member on AtomEntry is called IsDraft.
+- Changed the way atom:content is parsed. Text & HTML types use xmlreader.ReadString() to get the inner content. XHTML and
+  all other types use readInnerXml() to get the content.
+- changed Exception handling. The code now throws more detailed exceptions based on what was happening:
+  -> GDataRequestException: generic exception 
+  -> GDataForbiddenException: exception thrown when the server return a Forbidden on authentication
+  -> GDataRedirectException: exception thrown when the server returned a redirect
+- changed redirect handling on Post. The library will follow redirects on Post automatically by default, to accomodate Blogger (which
+  currently may return 302s on posts). This can be turned off by setting the .StrictRedirect property to true on the 
+  GDataAuthRequestFactory. If it is turned off, the code will throw if a redirect is happening on an HTTP verb other than GET.
+- changed redirect handling for DELETE/PUT the same as for POST
+- removed cookie handling. The code will handle cookies now without using the CookieContainer (one hurdle on the way to the CompactFramework Port).
+- Fixed persistence of "initialized" date values for udpated/published on the atom.entry. This resolves an issue with the Blogger. 
+- Added EventEntry.Notifications. This property (boolean) indicates if an update on an entry should send notifications to the attendees of the 
+  Event. 
+- Fixed the gbase project (the NumberFormat.cs file was missing in the project file). 
+- Added a proxy property for the GDataRequestFactory. 
+- Setting content-length correctly to fix WindowsMobile issues. This fix is a user submitted, and created by Steeve Morin
+- Fixes to the authsub code, provided by Ryan Boyd
+- The DLLs were renamed, to follow the Windows .NET standard. 
+	gdata.dll 	-> 	Google.GData.Client.dll
+	gbase.dll 	-> 	Google.GData.GoogleBase.dll
+	gcalendar.dll 	-> 	Google.GData.Calendar.dll
+	gcodesearch.dll	-> 	Google.GData.CodeSearch.dll
+	gextensions.dll	->	Google.GData.Extensions.dll
+	and the new one -> 	Google.GData.Spreadsheets.dll
+
+
+
+
+
+
+== 1.0.7 ==
+- Added support for published-min/published-max as standard query parameters
+- Added support for codesearch. A new DLL gcodesearch.dll and a new sample for this is available.
+- Added support for the WebContent calendar extension
+- Added signing to the gbase.dll
+
+== 1.0.6 == 
+- Added support for sortoder, futurevents, singleevents on the calendarquery
+- Added a ResponseString property on the GDataRequestException to make debugging server side errors easier
+- Fixed an issue with the GoogleBaseService, if you did set the RequestFactory property twice, you would 
+  create too many header entries, and hence end up with request denied responses
+- Added the shipping attribute for GoogleBase
+- Changed the payment attribute to payment_accepted for GoogleBase
+
+== 1.0.5 ==
+- Added batch support for GoogleFeeds, the first property to support this is the GoogleBase product
+- Added a unittest for GoogleBase. This code shows update/insert/delete against base for single entries and batch entries
+  refer to clients/cs/src/unittests/gbase.cs for sample code. 
+- Added IComparable to atomuri.cs (based on a feature request on our issue list)
+- GDataAuthRequestFactory is now a subclass of GDataRequestFactory
+- Moved GCookies from GDataAuthRequestFactory to GDataRequestFactory and renamed it to Cookies
+- removed the debug binaries from the lib directory
+- added a GoogleBase sample application in VB ! 
+- added the build executables to the lib directory
+- added GoogleBase classes (similiar to the java classes) to access Google base specific feeds
+
+Known issues:
+- recurrenceException is not fully tested
+- authsubutil and gauthsubrequest are not fully tested
+
+
+== 1.0.4 == 
+- Fixed a .NET 2.0 issue in calendarservice.cs, that dropped connections during repeated calls. 
+- Made the execution path more robust. 
+- Added a property, numberOfRetries on the GAuthRequestFactory to indicate how often an Execution should be retried if the server returns an error. 
+- Fixed a bug in the daterange query creation (the +sign for the timezone was not escaped properly)
+- Fixed an issue with updating, where if you used the same AtomEntry/EventEntry several times to update, it could happen that extension 
+  elements were doubled, and the update failed.
+- Fixed a bug in the parsing of all elements. This could cause an endless loop when the content was empty.
+- Fixed several content creation issues (issues 5-9 on the issue list)
+- added support for the gd:extendedProperty
+- Added a calendar example application
+- added a sample application to access Blogger feeds, and post to blogger feeds. 
+
+Known issues:
+- recurrenceException is not fully tested
+- authsubutil and gauthsubrequest are not fully tested
+Solved issues:
+ - .NET 2.0 seems to loose resources in some circumstances. Hard to reproduce.
+
+
+
+== 1.0.3 ==
+- Fixed the namespace creation for extensions, the wireformat should no longer create the namespace declaration when it's not required
+- Fixed the reminder persistence code
+- added a TimeZone property on the EventFeed to retrieve the timezone value 
+- added a FindEvent method on the EventFeed. This one takes an OriginalEvent object, and returns the 
+  Event that this is based on. This will go to the server if required. 
+- Fixed recurrance issues in the extensions 
+- Moved EventFeed and EventEntry from the Google.GData.Extensions namespace to the Google.GData.Calendar namespace
+- Fixed a bug in the parsing of Atom:Content elements. This could cause an endless loop when the content was empty.
+
+== 1.0.2 ==
+- Fixed a problem persisting feedlink elements
+- added an AllDay flag to the When class to allow parsing and persting of all day events
+- cleaned up the persistence code in the extension classes
+- fixed a problem that resulted in persisting multiple extensionn objects instead of one
+- added a timestamp method to the Tracing class to help measuring performance in simple cases
+
+== 1.0.1 ==
+- Correctly uses 'rel.previous' instead of 'rel.prev' as required by Atom
+  Publishing Protocol.
+- Corrected the time-shift portion of the DateTime output for time zones with a
+  negative shift from UTC.
+- Corrected the time-shift to permit fractional hour shifts from UTC.
+- Correctly output "startTime" and "endTime" as attributes of the "when"
+  extension rather than child elements.
+- Refactored class hierarchy, now based on IExtensionElement. 
+
+== 1.0.0 ==
+- Initial Release
+
