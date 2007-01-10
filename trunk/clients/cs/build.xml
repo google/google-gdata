@@ -46,6 +46,7 @@
         warnLevel="4" unsafe="false" targetType="library" incremental="false" 
         destFile="${output}/Google.GData.Client.dll" references ="System; System.Xml; System.Web">
         <src dir="./src/core"  includes="*.cs"/>
+        <src dir="./src/version"  includes="*.cs"/>
     </csc>    
   </target>
 
@@ -54,6 +55,7 @@
         warnLevel="4"  unsafe="false" targetType="library" incremental="false" 
         destFile="${output}/Google.GData.Extensions.dll" references ="${output}/Google.GData.Client.dll; System; System.Xml; System.Web">
         <src dir="./src/extensions"  includes="*.cs"/>
+        <src dir="./src/version"  includes="*.cs"/>
     </csc>    
   </target>
 
@@ -62,6 +64,7 @@
         warnLevel="4" unsafe="false" targetType="library" incremental="false" 
         destFile="${output}/Google.GData.Calendar.dll" references ="${output}/Google.GData.Extensions.dll;${output}/Google.GData.Client.dll; System; System.Xml; System.Web">
         <src dir="./src/gcalendar"  includes="*.cs"/>
+        <src dir="./src/version"  includes="*.cs"/>
     </csc>    
   </target>
 
@@ -70,6 +73,7 @@
         warnLevel="4" unsafe="false" targetType="library" incremental="false" 
         destFile="${output}/Google.GData.GoogleBase.dll" references ="${output}/Google.GData.Client.dll; System; System.Xml; System.Web">
         <src dir="./src/gbase"  includes="*.cs"/>
+        <src dir="./src/version"  includes="*.cs"/>
     </csc>    
   </target>
 
@@ -78,6 +82,7 @@
         warnLevel="4" unsafe="false" targetType="library" incremental="false" 
         destFile="${output}/Google.GData.CodeSearch.dll" references ="${output}/Google.GData.Extensions.dll;${output}/Google.GData.Client.dll; System; System.Xml; System.Web">
         <src dir="./src/gcodesearch"  includes="*.cs"/>
+        <src dir="./src/version"  includes="*.cs"/>
     </csc>    
   </target>
 
@@ -86,6 +91,7 @@
         warnLevel="4" unsafe="false" targetType="library" incremental="false" 
         destFile="${output}/Google.GData.Spreadsheets.dll" references ="${output}/Google.GData.Extensions.dll;${output}/Google.GData.Client.dll; System; System.Xml; System.Web">
         <src dir="./src/gspreadsheet"  includes="*.cs"/>
+        <src dir="./src/version"  includes="*.cs"/>
     </csc>    
   </target>
 
@@ -96,8 +102,8 @@
     references ="${output}/Google.GData.Client.dll;${output}/Google.GData.Extensions.dll;${output}/Google.GData.Calendar.dll;${output}/Google.GData.GoogleBase.dll;${output}/Google.GData.Spreadsheets.dll; System; System.Xml; nunit.framework">
         <src dir="./src/unittests"  includes="**/*.cs"/>
         <src dir="./src/unittests/gbase"  includes="*.cs"/>
-
-     </csc>    
+        <src dir="./src/version"  includes="*.cs"/>
+      </csc>    
   </target>
 
   <target name="build_samples" depends="build_calendar,build_gbase,build_gcodesearch">
@@ -112,7 +118,8 @@
 		targetType="exe" incremental="false" destFile="${output}/readsample.exe" 
 		references ="${output}/Google.GData.Client.dll;${output}/Google.GData.Extensions.dll;${output}/Google.GData.Calendar.dll; System; System.Xml">
 		<src dir="./samples/read"  includes="*.cs"/>
-	 </csc>    
+        <src dir="./src/version"  includes="*.cs"/>
+     </csc>    
 	</target>
 
 	<target name="build_updatesample" depends="build_calendar">
@@ -120,7 +127,8 @@
 		targetType="exe" incremental="false" destFile="${output}/updatesample.exe" 
 		references ="${output}/Google.GData.Client.dll;${output}/Google.GData.Extensions.dll;${output}/Google.GData.Calendar.dll; System; System.Xml">
 		<src dir="./samples/update"  includes="*.cs"/>
-	 </csc>    
+        <src dir="./src/version"  includes="*.cs"/>
+     </csc>    
 	</target>
 
 	<target name="build_insertsample" depends="build_calendar">
@@ -128,7 +136,8 @@
 		targetType="exe" incremental="false" destFile="${output}/insertsample.exe" 
 		references ="${output}/Google.GData.Client.dll;${output}/Google.GData.Extensions.dll;${output}/Google.GData.Calendar.dll; System; System.Xml">
 		<src dir="./samples/insert"  includes="*.cs"/>
-	 </csc>    
+        <src dir="./src/version"  includes="*.cs"/>
+     </csc>    
 	</target>
 
 	<target name="build_gbase_customertool" depends="build_gbase">
@@ -139,7 +148,8 @@
 		  <include name="example.cs"/>
 		  <include name="customertool.cs"/>
 		  <include name="commands.cs"/>
-		</src>
+        </src>
+        <src dir="./src/version"  includes="*.cs"/>
 	 </csc>    
 	</target>
 
@@ -150,7 +160,8 @@
 		<src dir="./samples/gbase">
 		  <include name="example.cs"/>
 		  <include name="queryexample.cs"/>
-		</src>
+        </src>
+        <src dir="./src/version"  includes="*.cs"/>
 	 </csc>    
 	</target>
 </project>
