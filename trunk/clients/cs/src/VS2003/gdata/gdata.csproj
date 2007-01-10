@@ -192,6 +192,12 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "authsubutil.cs"
+                    Link = "..\..\core\authsubutil.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "basefeedparser.cs"
                     Link = "..\..\core\basefeedparser.cs"
                     SubType = "Code"
@@ -236,6 +242,12 @@
                 <File
                     RelPath = "gauthrequest.cs"
                     Link = "..\..\core\gauthrequest.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "gauthsubrequest.cs"
+                    Link = "..\..\core\gauthsubrequest.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
