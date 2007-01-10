@@ -95,6 +95,11 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "AssemblyVersion.cs"
+                    Link = "..\..\version\AssemblyVersion.cs"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "attributehistogram.cs"
                     Link = "..\..\gbase\attributehistogram.cs"
                     SubType = "Code"

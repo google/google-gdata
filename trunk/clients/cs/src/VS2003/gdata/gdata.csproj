@@ -90,6 +90,11 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "AssemblyVersion.cs"
+                    Link = "..\..\version\AssemblyVersion.cs"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "atombase.cs"
                     Link = "..\..\core\atombase.cs"
                     SubType = "Code"

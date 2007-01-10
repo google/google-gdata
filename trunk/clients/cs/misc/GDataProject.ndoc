@@ -1,0 +1,45 @@
+<project SchemaVersion="1.3">
+    <assemblies>
+        <assembly location="D:\googlegdata\clients\cs\lib\Release\Google.GData.Calendar.dll" documentation="D:\googlegdata\clients\cs\docs\calendar.xml" />
+        <assembly location="D:\googlegdata\clients\cs\lib\Release\Google.GData.Client.dll" documentation="D:\googlegdata\clients\cs\docs\documentation.xml" />
+        <assembly location="D:\googlegdata\clients\cs\lib\Release\Google.GData.CodeSearch.dll" documentation="D:\googlegdata\clients\cs\docs\gcodesearch.xml" />
+        <assembly location="D:\googlegdata\clients\cs\lib\Release\Google.GData.Extensions.dll" documentation="D:\googlegdata\clients\cs\docs\extensions.xml" />
+        <assembly location="D:\googlegdata\clients\cs\lib\Release\Google.GData.GoogleBase.dll" documentation="D:\googlegdata\clients\cs\docs\gbase.xml" />
+        <assembly location="D:\googlegdata\clients\cs\lib\Release\Google.GData.Spreadsheets.dll" documentation="D:\googlegdata\clients\cs\docs\gspreadsheet.xml" />
+    </assemblies>
+    <documenters>
+        <documenter name="JavaDoc">
+            <property name="OutputDirectory" value="C:\Documents and Settings\Frank\Desktop\NDoc\" />
+        </documenter>
+        <documenter name="LaTeX">
+            <property name="OutputDirectory" value=".\doc\" />
+            <property name="TextFileFullName" value="Documentation.tex" />
+            <property name="TexFileBaseName" value="Documentation" />
+            <property name="LatexCompiler" value="latex" />
+            <property name="TexFileFullPath" value=".\doc\Documentation.tex" />
+        </documenter>
+        <documenter name="LinearHtml">
+            <property name="OutputDirectory" value=".\doc\" />
+            <property name="Title" value="An NDoc Documented Class Library" />
+        </documenter>
+        <documenter name="MSDN">
+            <property name="OutputDirectory" value=".\doc\" />
+            <property name="HtmlHelpName" value="Documentation" />
+            <property name="Title" value="GData Documentation" />
+            <property name="AssemblyVersionInfo" value="AssemblyVersion" />
+        </documenter>
+        <documenter name="MSDN 2003">
+            <property name="OutputDirectory" value=".\doc\" />
+            <property name="HtmlHelpName" value="tst" />
+            <property name="Title" value="An NDoc Documented Class Library" />
+        </documenter>
+        <documenter name="VS.NET 2003">
+            <property name="OutputDirectory" value=".\doc\" />
+            <property name="HtmlHelpName" value="Documentation" />
+            <property name="Title" value="An NDoc documented library" />
+        </documenter>
+        <documenter name="XML">
+            <property name="OutputFile" value=".\doc\doc.xml" />
+        </documenter>
+    </documenters>
+</project>
