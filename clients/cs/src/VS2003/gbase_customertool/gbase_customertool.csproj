@@ -1,7 +1,7 @@
 <VisualStudioProject>
     <CSHARP
         ProjectType = "Local"
-        ProductVersion = "7.10.3077"
+        ProductVersion = "7.10.6030"
         SchemaVersion = "2.0"
         ProjectGuid = "{A9AB8EB3-8327-4F57-9984-652DB7A8B11F}"
     >
@@ -93,6 +93,11 @@
         </Build>
         <Files>
             <Include>
+                <File
+                    RelPath = "AssemblyVersion.cs"
+                    Link = "..\..\version\AssemblyVersion.cs"
+                    BuildAction = "Compile"
+                />
                 <File
                     RelPath = "commands.cs"
                     Link = "..\..\..\samples\gbase\commands.cs"

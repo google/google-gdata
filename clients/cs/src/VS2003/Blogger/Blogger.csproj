@@ -1,7 +1,7 @@
 <VisualStudioProject>
     <CSHARP
         ProjectType = "Local"
-        ProductVersion = "7.10.3077"
+        ProductVersion = "7.10.6030"
         SchemaVersion = "2.0"
         ProjectGuid = "{D5C537EA-AF47-4BFF-9765-921BF180701F}"
     >
@@ -114,6 +114,11 @@
                     RelPath = "AssemblyInfo.cs"
                     Link = "..\..\..\samples\blogger\AssemblyInfo.cs"
                     SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "AssemblyVersion.cs"
+                    Link = "..\..\version\AssemblyVersion.cs"
                     BuildAction = "Compile"
                 />
                 <File

@@ -100,6 +100,11 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "AssemblyVersion.cs"
+                    Link = "..\..\version\AssemblyVersion.cs"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "calendarservice.cs"
                     Link = "..\..\gcalendar\calendarservice.cs"
                     SubType = "Code"
