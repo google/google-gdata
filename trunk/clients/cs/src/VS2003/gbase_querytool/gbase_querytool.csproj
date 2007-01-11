@@ -96,6 +96,7 @@
                 <File
                     RelPath = "AssemblyVersion.cs"
                     Link = "..\..\version\AssemblyVersion.cs"
+                    SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File

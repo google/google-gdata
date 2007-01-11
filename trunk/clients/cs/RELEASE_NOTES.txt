@@ -1,3 +1,8 @@
+== 1.0.9.1 == 
+- Added a KeepAlive property to the factory object. This is set to true by default. .NET 2.0 clients, are due to behaviour changes
+  in that runtime encouraged to set this to false.
+
+
 == 1.0.9 ==
 - Fixed an issue where the login services changed the response contenttype. The check for text/plain is now more relaxed.
 - Added the missing location calls for Geolocation for GoogleBase
