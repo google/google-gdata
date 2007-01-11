@@ -10,10 +10,10 @@ xcopy /y ..\src\VS2003\Calendar\bin\Release\*.exe ..\lib\Release\*.*
 xcopy /y ..\src\VS2003\CodeSearch\bin\Release\*.exe ..\lib\Release\*.*
 xcopy /y ..\src\VS2003\Spreadsheet\bin\Release\*.exe ..\lib\Release\*.*
 xcopy /y ..\src\VS2003\gbase_customertool\bin\Release\*.exe ..\lib\Release\*.*
-xcopy /y ..\src\VS2003\gbase_demo\bin\Release\*.exe ..\lib\Release\*.*
+xcopy /y ..\src\VS2003\gbase_demo\bin\*.exe ..\lib\Release\*.*
 xcopy /y ..\src\VS2003\gbase_querytool\bin\Release\*.exe ..\lib\Release\*.*
 
-#copy the DLLS
+# copy the DLLS
 xcopy /y ..\src\VS2003\gdata\bin\Release\*.dll ..\lib\Release\*.*
 xcopy /y ..\src\VS2003\gbase\bin\Release\*.dll ..\lib\Release\*.*
 xcopy /y ..\src\VS2003\gextension\bin\Release\*.dll ..\lib\Release\*.*
@@ -21,8 +21,8 @@ xcopy /y ..\src\VS2003\gspreadsheets\bin\Release\*.dll ..\lib\Release\*.*
 xcopy /y ..\src\VS2003\gcalendar\bin\Release\*.dll ..\lib\Release\*.*
 xcopy /y ..\src\VS2003\gcodesearch\bin\Release\*.dll ..\lib\Release\*.*
 
-#now build the documentation
-"%ProgramFiles%\NDoc 1.3\bin\net\1.1\NDocConsole.exe" -project=GDataProject.ndoc
+# now build the documentation
+"%ProgramFiles%\NDoc 1.3\bin\net\1.1\NDocConsole.exe" -project=GDataProject.ndoc 
 # the tree.cs generated is buggy, use this one
 copy tree.cs doc\tree.js
 copy doc\Documentation.chm ..\docs\Documentation.chm

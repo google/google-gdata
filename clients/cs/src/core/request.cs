@@ -43,15 +43,13 @@ namespace Google.GData.Client
         private string userAgent;
         private StringCollection customHeaders;     // holds any custom headers to set
         private String shardingCookie;              // holds the sharding cookie if returned
-        private WebProxy webProxy;                     // holds a webproxy to use
-                                                    
+        private WebProxy webProxy;                  // holds a webproxy to use
+		private bool keepAlive;						// indicates wether or not to keep the connection alive	
 
         /// <summary>Cookie setting header, returned from server</summary>
         public const string SetCookieHeader = "Set-Cookie"; 
         /// <summary>Cookie client header</summary>
         public const string CookieHeader = "Cookie"; 
-
-
 
 
 
@@ -62,10 +60,11 @@ namespace Google.GData.Client
         public GDataRequestFactory(string userAgent)
         {
             if (userAgent != null) {
-	        this.userAgent = userAgent + " " + GDataAgent;
+				this.userAgent = userAgent + " " + GDataAgent;
             } else {
-	        this.userAgent = GDataAgent;
-	    }
+				this.userAgent = GDataAgent;
+			}
+			this.keepAlive = true;
         }
         /////////////////////////////////////////////////////////////////////////////
 
@@ -112,6 +111,17 @@ namespace Google.GData.Client
         }
         /////////////////////////////////////////////////////////////////////////////
 
+		//////////////////////////////////////////////////////////////////////
+		/// <summary>indicates if the connection should be kept alive, default
+		/// is true</summary> 
+		/// <returns> </returns>
+		//////////////////////////////////////////////////////////////////////
+		public bool KeepAlive
+		{
+			get {return this.keepAlive;}
+			set {this.keepAlive = value;}
+		}
+		/////////////////////////////////////////////////////////////////////////////
          
         internal bool hasCustomHeaders
         {
@@ -329,6 +339,7 @@ namespace Google.GData.Client
                     }
                     web.ContentType = "application/atom+xml; charset=UTF-8";
                     web.UserAgent = this.factory.UserAgent;
+					web.KeepAlive = this.factory.KeepAlive; 
 
                     // add all custom headers
                     if (this.factory.hasCustomHeaders == true)
