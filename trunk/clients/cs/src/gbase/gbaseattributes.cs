@@ -140,8 +140,8 @@ namespace Google.GData.GoogleBase {
             }
             set
             {
-                RemoveAll(ExpirationDateAttributeName, GBaseAttributeType.Date);
-                AddDateAttribute(ExpirationDateAttributeName, value);
+                RemoveAll(ExpirationDateAttributeName, GBaseAttributeType.DateTime);
+                AddDateTimeAttribute(ExpirationDateAttributeName, value);
             }
         }
 
