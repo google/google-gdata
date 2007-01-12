@@ -1,13 +1,16 @@
 == 1.0.9.1 == 
 - Added a KeepAlive property to the factory object. This is set to true by default. .NET 2.0 clients, are due to behaviour changes
   in that runtime encouraged to set this to false.
-
+- Removed the MethodOverride default for the CalendarService. If you need that (due to firewalls not allowing PUT/DELETE requests, 
+  you can reenable this with setting the MethodOverride flag on the factory:
+   ((GDataGAuthRequestFactory)calsvc.RequestFactory).MethodOverride = false;  
+- Changed the X-Method-Override behaviour for DELETE, to fix an issue with .NET mobile (the mobile client would crash when 
+  the contentLength was set to 0 and no stream was requested).
 
 == 1.0.9 ==
 - Fixed an issue where the login services changed the response contenttype. The check for text/plain is now more relaxed.
 - Added the missing location calls for Geolocation for GoogleBase
 - Fixed a build issue for Windows Mobile in release. The code now compiles for PocketPC and WindowsMobile symbols defined.
-
 
 == 1.0.8 == 
 - Fixed issue 13 from the public issue list. If a content element contained xhtml, and not just text, 
@@ -42,10 +45,6 @@
 	gcodesearch.dll	-> 	Google.GData.CodeSearch.dll
 	gextensions.dll	->	Google.GData.Extensions.dll
 	and the new one -> 	Google.GData.Spreadsheets.dll
-
-
-
-
 
 
 == 1.0.7 ==
