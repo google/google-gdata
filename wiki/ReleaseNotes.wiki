@@ -11,26 +11,22 @@ The wiki page shows the release notes for the current binary download, the subve
 == 1.0.9.3 ==
 - Google Base changes:
   New features:
-    - GBaseQuery supports the following optional parameters; orderby, sortorder, refine and content
-    - Support for gm:stats tags
-    - GBaseUriFactory can now generate the feed uri of other customers
-     
-    Fixes:
-     - Fixed the GBaseAttributeType hierarchy for date/dateTime/dateTimeRange
-     - Fixed the type of the hardcoded ExpirationDate property in GBaseAttributes
+    * GBaseQuery supports the following optional parameters; orderby, sortorder, refine and content
+    * Support for gm:stats tags
+    * GBaseUriFactory can now generate the feed uri of other customers
+    
+  Fixes:
+    * Fixed the GBaseAttributeType hierarchy for date/dateTime/dateTimeRange
+    * Fixed the type of the hardcoded ExpirationDate property in GBaseAttributes
 - Added a Makefile for Mono builds. This one replaces the Ant file. 	
 
-== 1.0.9.2 == 
-- Removed the MethodOverride default for the CalendarService. If you need that (due to firewalls not allowing PUT/DELETE requests, 
-  you can reenable this with setting the MethodOverride flag on the factory:
+- Removed the MethodOverride default for the CalendarService. If you need that (due to firewalls not allowing PUT/DELETE requests, you can reenable this with setting the MethodOverride flag on the factory:
+{{{
    ((GDataGAuthRequestFactory)calsvc.RequestFactory).MethodOverride = false;  
-- Changed the X-Method-Override behaviour for DELETE, to fix an issue with .NET mobile (the mobile client would crash when 
-  the contentLength was set to 0 and no stream was requested).
+}}}
+- Changed the X-Method-Override behaviour for DELETE, to fix an issue with .NET mobile (the mobile client would crash when the contentLength was set to 0 and no stream was requested).
 
-== 1.0.9.1 == 
-- Added a KeepAlive property to the factory object. This is set to true by default. .NET 2.0 clients, are due to behaviour changes
-  in that runtime encouraged to set this to false.
-
+- Added a KeepAlive property to the factory object. This is set to true by default. .NET 2.0 clients, are due to behaviour changes in that runtime encouraged to set this to false.
 
 == 1.0.9 ==
 - Fixed an issue where the login services changed the response contenttype. The check for text/plain is now more relaxed.
@@ -161,3 +157,6 @@ Solved issues:
 
 == 1.0.0 ==
 - Initial Release
+
+
+
