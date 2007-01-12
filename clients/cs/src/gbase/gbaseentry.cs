@@ -94,6 +94,27 @@ namespace Google.GData.GoogleBase
             }
         }
 
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Access the gm:stats tag in this entry.
+        /// Note that the gm:stats appears only on the customer item feed
+        /// and only if the parameter content is set to meta or attribute,meta.
+        /// </summary>
+        //////////////////////////////////////////////////////////////////////
+        public Stats Stats
+        {
+            get
+            {
+                return GBaseUtilities.GetExtension(ExtensionElements,
+                                                   typeof(Stats))
+                       as Stats;
+            }
+            set
+            {
+                GBaseUtilities.SetExtension(ExtensionElements,
+                                            typeof(Stats), value);
+            }
+        }
+
         ///////////////////////////////////////////////////////////////////////
         /// <summary>Adds element from the gm: namespace</summary>
         ///////////////////////////////////////////////////////////////////////
@@ -114,6 +135,10 @@ namespace Google.GData.GoogleBase
 
                 case "attribute":
                     ExtensionElements.Add(AttributeHistogram.Parse(node));
+                    break;
+
+                case "stats":
+                    ExtensionElements.Add(Stats.Parse(node));
                     break;
 
                 default:

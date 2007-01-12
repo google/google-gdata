@@ -101,6 +101,12 @@
             <summary>Access the gm:attributs tags in this entry, useful if
             the current entry is part of the item types feed.</summary>
         </member>
+        <member name="P:Google.GData.GoogleBase.GBaseEntry.Stats">
+            <summary>Access the gm:stats tag in this entry.
+            Note that the gm:stats appears only on the customer item feed
+            and only if the parameter content is set to meta or attribute,meta.
+            </summary>
+        </member>
         <member name="M:Google.GData.GoogleBase.GBaseEntry.AddFromMetaNamespace(System.Xml.XmlNode)">
             <summary>Adds element from the gm: namespace</summary>
         </member>
@@ -131,6 +137,12 @@
             <returns>An Uri, usually passed to GoogleBaseQuery() for setting
             the parameters.</returns>
         </member>
+        <member name="P:Google.GData.GoogleBase.GBaseUriFactory.SnippetsFeedBatchUri">
+            <summary>Uri of the snippets feed for getting several entries
+            in one request.</summary>
+            <returns>An Uri, usually passed to GoogleBaseQuery() for setting
+            the parameters.</returns>
+        </member>
         <member name="P:Google.GData.GoogleBase.GBaseUriFactory.ItemsFeedUri">
             <summary>Uri of the items feed for inserting and querying.</summary>
             <returns>An Uri, usually passed to GoogleBaseQuery() for setting
@@ -158,6 +170,21 @@
             <c>en_US</c>, <c>en_GB</c> or <c>de_DE</c></param>
             <returns>An Uri, usually passed to GoogleBaseQuery() for setting
             the parameters.</returns>
+        </member>
+        <member name="M:Google.GData.GoogleBase.GBaseUriFactory.GetCustomerItemFeedUri(System.String)">
+            <summary>Returns the URI of the item feed of another customers
+            (for aggregators)</summary>
+            <param name="customerId">customer identifier</param>
+        </member>
+        <member name="M:Google.GData.GoogleBase.GBaseUriFactory.GetCustomerItemEntryUri(System.String,System.String)">
+            <summary>Returns the URI of a specific item in the items feed of
+            a different customer (for aggregators).</summary>
+            <param name="customerId">identifier of the customer who owns
+            the item</param>
+            <param name="id">identifier for the uri, a numerical value
+            </param>
+            <returns>an uri to the entry itself, usually passed to
+            the Update or Delete service method.</returns>
         </member>
         <member name="M:Google.GData.GoogleBase.GBaseUriFactory.GetItemEntryUri(System.String)">
             <summary>Returns the URI of a specific item in the items feed.
@@ -225,11 +252,11 @@
             "2006-01-01T12:00:00Z 2006-01-02T14:00:00Z"
             Empty time ranges are considered equivalent to DateTime.</summary>
         </member>
-        <member name="F:Google.GData.GoogleBase.GBaseAttributeType.DateTime">
-            <summary>A date and a time, a subtype of DateTimeRange.</summary>
-        </member>
         <member name="F:Google.GData.GoogleBase.GBaseAttributeType.Date">
             <summary>A date, a subtype of DateTime and DateTimeRange.</summary>
+        </member>
+        <member name="F:Google.GData.GoogleBase.GBaseAttributeType.DateTime">
+            <summary>A date and a time, a subtype of DateTimeRange.</summary>
         </member>
         <member name="F:Google.GData.GoogleBase.GBaseAttributeType.Shipping">
             <summary>A Shipping object.</summary>
@@ -1455,6 +1482,54 @@
             <param name="name">attribute name</param>
             <returns>all the values found, never nul</returns>
         </member>
+        <member name="T:Google.GData.GoogleBase.Statistic">
+            <summary>Individual statistic in Stats (impressions, clicks,
+            page views).
+            Most of the time, the total is all there is to individual
+            statistics, but there might be sometimes more specific
+            per-source count information.
+            Such objects are typically accessed through a property
+            of a <c>Stats</c> object.
+            </summary>
+        </member>
+        <member name="F:Google.GData.GoogleBase.Statistic.sourceCount">
+            <summary>source name(string) x count(int)</summary>
+        </member>
+        <member name="P:Google.GData.GoogleBase.Statistic.Item(System.String)">
+            <summary>Per-source count (subtotal), -1 for unknown count.
+            </summary>
+        </member>
+        <member name="P:Google.GData.GoogleBase.Statistic.Total">
+            <summary>Total count for this statistics.</summary>
+        </member>
+        <member name="M:Google.GData.GoogleBase.Statistic.Reset">
+            <summary>Puts the object back into its original state.</summary>
+        </member>
+        <member name="M:Google.GData.GoogleBase.Statistic.Parse(System.Xml.XmlNode)">
+            <summary>Parses an XML representation and updates the object</summary>
+        </member>
+        <member name="M:Google.GData.GoogleBase.Statistic.Save(System.String,System.Xml.XmlWriter)">
+            <summary>Generates an XML representation for this object.</summary>
+        </member>
+        <member name="T:Google.GData.GoogleBase.Stats">
+            <summary>Object representation for the gm:stats tags in
+            the customer item feed.</summary>
+        </member>
+        <member name="P:Google.GData.GoogleBase.Stats.Impressions">
+            <summary>Impressions statistics</summary>
+        </member>
+        <member name="P:Google.GData.GoogleBase.Stats.Clicks">
+            <summary>Clicks statistics</summary>
+        </member>
+        <member name="P:Google.GData.GoogleBase.Stats.PageViews">
+            <summary>Page views statistics</summary>
+        </member>
+        <member name="M:Google.GData.GoogleBase.Stats.Parse(System.Xml.XmlNode)">
+            <summary>Parses an XML representation and creates an object</summary>
+        </member>
+        <member name="M:Google.GData.GoogleBase.Stats.Save(System.Xml.XmlWriter)">
+            <summary>Generates an XML representation for this object.</summary>
+        </member>
         <member name="T:Google.GData.GoogleBase.GBaseQuery">
             <summary>Creates a Google Base query Uri.
             To create a query, first get the Uri of the feed you want
@@ -1483,6 +1558,19 @@
         </member>
         <member name="P:Google.GData.GoogleBase.GBaseQuery.GoogleBaseQuery">
             <summary>The <c>gb</c> query string.</summary>
+        </member>
+        <member name="P:Google.GData.GoogleBase.GBaseQuery.OrderBy">
+            <summary>The <c>orderby</c> query string.</summary>
+        </member>
+        <member name="P:Google.GData.GoogleBase.GBaseQuery.AscendingOrder">
+            <summary>Sets <c>sortorder</c> to 'ascending' (the default being
+            descending)</summary>
+        </member>
+        <member name="P:Google.GData.GoogleBase.GBaseQuery.Refine">
+            <summary>Enables parameter <c>refine</c></summary>
+        </member>
+        <member name="P:Google.GData.GoogleBase.GBaseQuery.Content">
+            <summary>Sets parameter <c>content</c></summary>
         </member>
         <member name="M:Google.GData.GoogleBase.GBaseQuery.ParseUri(System.Uri)">
             <summary>Parses the Google-Base specific parameters

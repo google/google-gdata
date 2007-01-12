@@ -39,6 +39,7 @@ namespace Google.GData.GoogleBase.UnitTests
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<feed xmlns=\"http://www.w3.org/2005/Atom\"" +
             "  xmlns:g=\"http://base.google.com/ns/1.0\"" +
+            "  xmlns:gm=\"http://base.google.com/ns-metadata/1.0\"" +
             ">" +
             "  <entry>" +
             "    <author>" +
@@ -63,6 +64,7 @@ namespace Google.GData.GoogleBase.UnitTests
             "    <g:main_ingredient type='text'>chili peppers</g:main_ingredient>" +
             "    <g:main_ingredient type='text'>peanuts</g:main_ingredient>" +
             "    <g:serving_count type='number'>5</g:serving_count>" +
+            "    <gm:stats><gm:impressions total='100'/></gm:stats>" +
             "  </entry>" +
             "</feed>";
 
@@ -87,6 +89,8 @@ namespace Google.GData.GoogleBase.UnitTests
             Assert.AreEqual("asian", labels[3], "label");
             Assert.AreEqual("sichuan", labels[4], "label");
             Assert.AreEqual(5f, attrs.GetNumberAttribute("serving count", 0f));
+            Assert.IsNotNull(entry.Stats, "gm:stats");
+            Assert.AreEqual(100, entry.Stats.Impressions.Total, "gm:impressions");
         }
 
         [Test]

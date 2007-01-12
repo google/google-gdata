@@ -102,12 +102,14 @@ namespace Google.GData.GoogleBase
                 {
                     GBaseAttributeContainer container = e.Base as GBaseAttributeContainer;
                     container.GBaseAttributes.AddFromXml(e.ExtensionElement);
+                    return;
                 }
             }
 
             if (e.Base is GBaseEntry)
             {
                 GBaseEntry entry = e.Base as GBaseEntry;
+
                 if (entry.AddFromMetaNamespace(e.ExtensionElement))
                 {
                     e.DiscardEntry = true;

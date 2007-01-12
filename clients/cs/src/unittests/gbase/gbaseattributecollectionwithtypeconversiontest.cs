@@ -231,9 +231,14 @@ namespace Google.GData.GoogleBase.UnitTests
         {
             DateTime value;
             Assert.IsTrue(attrs.ExtractDateAttribute("a", out value));
-            Assert.AreEqual(ADate, value);
+            Assert.AreEqual(ADateTime, value);
 
+            attrs.Remove(dateTimeAttr);
+
+            Assert.IsTrue(attrs.ExtractDateAttribute("a", out value));
+            Assert.AreEqual(ADate, value);
             attrs.Remove(dateAttr);
+
             Assert.IsFalse(attrs.ExtractDateAttribute("a", out value));
         }
 
@@ -245,10 +250,6 @@ namespace Google.GData.GoogleBase.UnitTests
             Assert.IsTrue(attrs.ExtractDateTimeAttribute("a", out value));
             Assert.AreEqual(ADateTime, value);
             attrs.Remove(dateTimeAttr);
-
-            Assert.IsTrue(attrs.ExtractDateTimeAttribute("a", out value));
-            Assert.AreEqual(ADate, value);
-            attrs.Remove(dateAttr);
 
             Assert.IsFalse(attrs.ExtractDateTimeAttribute("a", out value));
         }
@@ -313,7 +314,7 @@ namespace Google.GData.GoogleBase.UnitTests
             }
             catch(ArgumentException e)
             {
-                Tracing.TraceInfo(e.ToString()); 
+                Tracing.TraceInfo(e.ToString());
             }
         }
     }

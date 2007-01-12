@@ -2638,6 +2638,12 @@
             <returns>
             </returns>
         </member>
+        <member name="P:Google.GData.Client.GDataRequestFactory.KeepAlive">
+            <summary>indicates if the connection should be kept alive, default
+            is true</summary>
+            <returns>
+            </returns>
+        </member>
         <member name="P:Google.GData.Client.GDataRequestFactory.CustomHeaders">
             <summary>accessor method public StringArray CustomHeaders</summary>
             <returns>

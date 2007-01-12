@@ -86,6 +86,21 @@ namespace Google.GData.GoogleBase
         }
 
         ///////////////////////////////////////////////////////////////////////
+        /// <summary>Uri of the snippets feed for getting several entries
+        /// in one request.</summary>
+        /// <returns>An Uri, usually passed to GoogleBaseQuery() for setting
+        /// the parameters.</returns>
+        ///////////////////////////////////////////////////////////////////////
+        public Uri SnippetsFeedBatchUri
+        {
+            get
+            {
+                return new Uri(baseUri, "feeds/snippets/batch");
+            }
+        }
+
+
+        ///////////////////////////////////////////////////////////////////////
         /// <summary>Uri of the items feed for inserting and querying.</summary>
         /// <returns>An Uri, usually passed to GoogleBaseQuery() for setting
         /// the parameters.</returns>
@@ -148,6 +163,31 @@ namespace Google.GData.GoogleBase
         public Uri GetItemTypesFeedUri(string locale)
         {
             return new Uri(baseUri, "feeds/itemtypes/" + locale);
+        }
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Returns the URI of the item feed of another customers
+        /// (for aggregators)</summary>
+        /// <param name="customerId">customer identifier</param>
+        //////////////////////////////////////////////////////////////////////
+        public Uri GetCustomerItemFeedUri(string customerId)
+        {
+            return new Uri(baseUri, "feeds/" + customerId + "/items");
+        }
+
+        ///////////////////////////////////////////////////////////////////////
+        /// <summary>Returns the URI of a specific item in the items feed of
+        /// a different customer (for aggregators).</summary>
+        /// <param name="customerId">identifier of the customer who owns
+        /// the item</param>
+        /// <param name="id">identifier for the uri, a numerical value
+        /// </param>
+        /// <returns>an uri to the entry itself, usually passed to
+        /// the Update or Delete service method.</returns>
+        ///////////////////////////////////////////////////////////////////////
+        public Uri GetCustomerItemEntryUri(string customerId, string id)
+        {
+            return new Uri(baseUri, "feeds/" + customerId + "/items/" + id);
         }
 
         ///////////////////////////////////////////////////////////////////////

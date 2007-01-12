@@ -152,16 +152,17 @@ namespace Google.GData.GoogleBase {
             new GBaseAttributeType(StandardGBaseAttributeTypeIds.dateTimeRangeType,
                                    "dateTimeRange");
 
-        /// <summary>A date and a time, a subtype of DateTimeRange.</summary>
-        public static readonly GBaseAttributeType DateTime =
-            new GBaseAttributeType(DateTimeRange,
-                                   StandardGBaseAttributeTypeIds.dateTimeType,
-                                   "dateTime");
         /// <summary>A date, a subtype of DateTime and DateTimeRange.</summary>
         public static readonly GBaseAttributeType Date =
-            new GBaseAttributeType(DateTime,
+            new GBaseAttributeType(DateTimeRange,
                                    StandardGBaseAttributeTypeIds.dateType,
                                    "date");
+
+        /// <summary>A date and a time, a subtype of DateTimeRange.</summary>
+        public static readonly GBaseAttributeType DateTime =
+            new GBaseAttributeType(Date,
+                                   StandardGBaseAttributeTypeIds.dateTimeType,
+                                   "dateTime");
 
         /// <summary>A Shipping object.</summary>
         public static readonly GBaseAttributeType Shipping =

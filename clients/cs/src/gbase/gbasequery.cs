@@ -35,9 +35,17 @@ namespace Google.GData.GoogleBase
     {
         private const string BqParameter = "bq";
         private const string MaxValuesParameter = "max-values";
+        private const string OrderByParameter = "orderby";
+        private const string SortOrderParameter = "sortorder";
+        private const string RefineParameter = "refine";
+        private const string ContentParameter = "content";
 
         private string bq;
+        private string orderby;
         private int maxValues = -1;
+        private bool ascending;
+        private bool refine;
+        private string content;
 
         ///////////////////////////////////////////////////////////////////////
         /// <summary>max-values parameter, which sets the maximum number
@@ -70,6 +78,66 @@ namespace Google.GData.GoogleBase
             }
         }
 
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>The <c>orderby</c> query string.</summary>
+        //////////////////////////////////////////////////////////////////////
+        public string OrderBy
+        {
+            get
+            {
+                return orderby;
+            }
+            set
+            {
+                orderby = value;
+            }
+        }
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Sets <c>sortorder</c> to 'ascending' (the default being
+        /// descending)</summary>
+        //////////////////////////////////////////////////////////////////////
+        public bool AscendingOrder
+        {
+            get
+            {
+                return ascending;
+            }
+            set
+            {
+                ascending = value;
+            }
+        }
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Enables parameter <c>refine</c></summary>
+        //////////////////////////////////////////////////////////////////////
+        public bool Refine
+        {
+            get
+            {
+                return refine;
+            }
+            set
+            {
+                refine = value;
+            }
+        }
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Sets parameter <c>content</c></summary>
+        //////////////////////////////////////////////////////////////////////
+        public string Content
+        {
+            get
+            {
+                return content;
+            }
+            set
+            {
+                content = value;
+            }
+        }
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>Default constructor.</summary>
@@ -129,8 +197,25 @@ namespace Google.GData.GoogleBase
                         case BqParameter:
                             this.bq = System.Web.HttpUtility.UrlDecode(parameters[1]);
                             break;
+
                         case MaxValuesParameter:
                             this.maxValues = NumberFormat.ToInt(parameters[1]);
+                            break;
+
+                        case OrderByParameter:
+                            this.orderby = System.Web.HttpUtility.UrlDecode(parameters[1]);
+                            break;
+
+                        case SortOrderParameter:
+                            this.ascending = "ascending".Equals(parameters[1]);
+                            break;
+
+                        case RefineParameter:
+                            this.refine = "true".Equals(parameters[1]);
+                            break;
+
+                        case ContentParameter:
+                            this.content = System.Web.HttpUtility.UrlDecode(parameters[1]);
                             break;
                         }
                     }
@@ -155,11 +240,6 @@ namespace Google.GData.GoogleBase
         protected override string CalculateQuery()
         {
             string path = base.CalculateQuery();
-            if (bq == null && maxValues < 0)
-            {
-                return path;
-            }
-
             StringBuilder newPath = new StringBuilder(path, 2048);
 
             char paramInsertion = (path.IndexOf('?') == -1) ? '?' : '&';
@@ -178,6 +258,37 @@ namespace Google.GData.GoogleBase
                 newPath.Append(MaxValuesParameter);
                 newPath.Append('=');
                 newPath.Append(NumberFormat.ToString(maxValues));
+                paramInsertion = '&';
+            }
+            if (this.orderby != null)
+            {
+                newPath.Append(paramInsertion);
+                newPath.Append(OrderByParameter);
+                newPath.Append('=');
+                newPath.Append(Utilities.UriEncodeReserved(orderby));
+                paramInsertion = '&';
+            }
+            if (this.ascending)
+            {
+                newPath.Append(paramInsertion);
+                newPath.Append(SortOrderParameter);
+                newPath.Append("=ascending");
+                paramInsertion = '&';
+            }
+            if (this.refine)
+            {
+                newPath.Append(paramInsertion);
+                newPath.Append(RefineParameter);
+                newPath.Append("=true");
+                paramInsertion = '&';
+            }
+            if (this.content != null)
+            {
+                newPath.Append(paramInsertion);
+                newPath.Append(ContentParameter);
+                newPath.Append('=');
+                newPath.Append(Utilities.UriEncodeReserved(content));
+                paramInsertion = '&';
             }
             return newPath.ToString();
         }
