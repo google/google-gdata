@@ -1,3 +1,10 @@
+== 1.0.9.2 == 
+- Removed the MethodOverride default for the CalendarService. If you need that (due to firewalls not allowing PUT/DELETE requests, 
+  you can reenable this with setting the MethodOverride flag on the factory:
+   ((GDataGAuthRequestFactory)calsvc.RequestFactory).MethodOverride = false;  
+- Changed the X-Method-Override behaviour for DELETE, to fix an issue with .NET mobile (the mobile client would crash when 
+  the contentLength was set to 0 and no stream was requested).
+
 == 1.0.9.1 == 
 - Added a KeepAlive property to the factory object. This is set to true by default. .NET 2.0 clients, are due to behaviour changes
   in that runtime encouraged to set this to false.
