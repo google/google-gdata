@@ -45,11 +45,6 @@ namespace Google.GData.Calendar {
         {
             this.NewAtomEntry += new FeedParserEventHandler(this.OnParsedNewEventEntry);
             this.NewExtensionElement += new ExtensionElementEventHandler(this.OnNewEventExtensionElement);
-
-            // You can set factory.methodOverride = true if you are behind a 
-            // proxy that filters out HTTP methods such as PUT and DELETE.
-            GDataGAuthRequestFactory factory = (GDataGAuthRequestFactory)this.RequestFactory;
-            factory.MethodOverride = true;
         }
 
         /// <summary>

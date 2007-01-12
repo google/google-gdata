@@ -330,6 +330,10 @@ namespace Google.GData.Client
                     if (http.Method == HttpMethods.Delete)
                     {
                         http.ContentLength = 0;
+                        // to make this NOT crash under .NET CF, get the request stream
+                        // and close it again
+                        Stream req = http.GetRequestStream(); 
+                        req.Close(); 
                     }
                     http.Headers.Add(GoogleAuthentication.Override, http.Method);
                     http.Method = HttpMethods.Post; 
