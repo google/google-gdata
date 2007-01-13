@@ -1,3 +1,6 @@
+== 1.0.9.4 == 
+- Added the gm:stats tags to the Windows Mobile build, accidently forgot to change that project file
+
 == 1.0.9.3 ==
 - Google Base changes:
   New features:

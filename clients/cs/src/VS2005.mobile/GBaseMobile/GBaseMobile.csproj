@@ -120,6 +120,9 @@
     <Compile Include="..\..\gbase\shipping.cs">
       <Link>shipping.cs</Link>
     </Compile>
+    <Compile Include="..\..\gbase\stats.cs">
+      <Link>stats.cs</Link>
+    </Compile>
     <Compile Include="..\..\version\AssemblyVersion.cs">
       <Link>AssemblyVersion.cs</Link>
     </Compile>
