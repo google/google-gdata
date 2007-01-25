@@ -43,15 +43,16 @@ namespace Google.GData.Client.Samples
             //
             // TODO: Add code to start application here
             //
-            if (args.Length < 3)
+            if (args.Length != 1 && args.Length != 3)
             {
                 Console.WriteLine("Not enough parameters. Usage is Sample <uri> <username> <password>");
                 return;
             }
 
             string calendarURI = args[0];
-            string userName = args[1];
-            string passWord = args[2];
+
+            string userName = args.Length == 3 ? args[1] : null;
+            string passWord = args.Length == 3 ? args[2] : null;
 
             EventQuery query = new EventQuery();
             CalendarService service = new CalendarService(ApplicationName);

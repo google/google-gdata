@@ -169,53 +169,64 @@ namespace Google.GData.Client.UnitTests
        //////////////////////////////////////////////////////////////////////
        public static bool IsEntryIdentical(AtomEntry theOne, AtomEntry theOther)
        {
+           Tracing.TraceMsg("Entering IsEntryIdentical"); 
 
            if (theOne == null || theOther == null)
            {
                return theOne == theOther; 
            }
 
+           Tracing.TraceMsg("Comparing AuthorCollection"); 
            if (ObjectModelHelper.IsPersonCollectionIdentical(theOne.Authors, theOther.Authors)==false)
            {
                return false;
            }
+           Tracing.TraceMsg("Comparing ContributorCollection"); 
            if (ObjectModelHelper.IsPersonCollectionIdentical(theOne.Contributors, theOther.Contributors)==false)
            {
                return false;
            }
+           Tracing.TraceMsg("Comparing CategoryCollection"); 
            if (ObjectModelHelper.IsCategoryCollectionIdentical(theOne.Categories, theOther.Categories)==false)
            {
                return false;
            }
+           Tracing.TraceMsg("Comparing LinkCollection"); 
            if (ObjectModelHelper.IsLinkCollectionIdentical(theOne.Links, theOther.Links)==false)
            {
                return false;
            }
 
+           Tracing.TraceMsg("Comparing Content"); 
            if (ObjectModelHelper.IsContentIdentical(theOne.Content, theOther.Content)==false)
            {
                return false;
            }
 
+           Tracing.TraceMsg("Comparing Source"); 
            if (ObjectModelHelper.IsSourceIdentical(theOne.Source, theOther.Source)==false)
            {
                return false;
            }
 
+           Tracing.TraceMsg("Comparing Summary"); 
            if (ObjectModelHelper.IsTextConstructIdentical(theOne.Summary, theOther.Summary)==false)
            {
                return false;
            }
 
+           Tracing.TraceMsg("Comparing Title"); 
            if (ObjectModelHelper.IsTextConstructIdentical(theOne.Title, theOther.Title)==false)
            {
                return false;
            }
+           Tracing.TraceMsg("Comparing Rights"); 
            if (ObjectModelHelper.IsTextConstructIdentical(theOne.Rights, theOther.Rights)==false)
            {
                return false;
            }
 
+           Tracing.TraceMsg("Comparing BaseLink"); 
            if (ObjectModelHelper.IsBaseLinkIdentical(theOne.Id, theOther.Id)==false)
            {
                return false;
@@ -230,6 +241,9 @@ namespace Google.GData.Client.UnitTests
                return false;
            }
            */
+
+           Tracing.TraceMsg("Exiting IsEntryIdentical"); 
+
 
            return true;
        }
@@ -453,12 +467,10 @@ namespace Google.GData.Client.UnitTests
            {
                return false;
            }
-
            if (AtomUri.Compare(theOther.Src, theOther.Src)!= 0)
            {
                return false;
            }
-           
            if (String.Compare(theOne.Content, theOther.Content)!= 0)
            {
                return false;

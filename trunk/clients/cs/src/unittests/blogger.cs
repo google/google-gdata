@@ -21,6 +21,7 @@ using System.Xml;
 using System.Collections;
 using System.Configuration;
 using System.Net; 
+using System.Web;
 using NUnit.Framework;
 using Google.GData.Client;
 using Google.GData.Extensions;
@@ -236,6 +237,7 @@ namespace Google.GData.Client.UnitTests
 
         }
         /////////////////////////////////////////////////////////////////////////////
+        
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>checks for xhtml persistence</summary> 
@@ -301,6 +303,70 @@ namespace Google.GData.Client.UnitTests
 
 
         //////////////////////////////////////////////////////////////////////
+        /// <summary>checks for xhtml persistence</summary> 
+        //////////////////////////////////////////////////////////////////////
+        [Test] public void BloggerHTMLTest()
+        {
+            Tracing.TraceMsg("Entering BloggerHTMLTest");
+
+            FeedQuery query = new FeedQuery();
+            Service service = new Service(this.ServiceName, this.ApplicationName);
+
+            if (this.bloggerURI != null)
+            {
+                if (this.userName != null)
+                {
+                    NetworkCredential nc = new NetworkCredential(this.userName, this.passWord); 
+                    service.Credentials = nc;
+                }
+
+                GDataLoggingRequestFactory factory = (GDataLoggingRequestFactory) this.factory;
+                factory.MethodOverride = true;
+                service.RequestFactory = this.factory; 
+
+                query.Uri = new Uri(this.bloggerURI);
+                AtomFeed calFeed = service.Query(query);
+
+                String strTitle = "Dinner time" + Guid.NewGuid().ToString(); 
+
+                if (calFeed != null)
+                {
+                    // get the first entry
+                    String htmlContent = "<div>&lt;b&gt;this is an html test text&lt;/b&gt;</div>"; 
+                    AtomEntry entry = ObjectModelHelper.CreateAtomEntry(1); 
+                    entry.Categories.Clear();
+                    entry.Title.Text = strTitle;
+                    entry.Content.Type = "html";
+                    entry.Content.Content = htmlContent;
+
+                    AtomEntry newEntry = calFeed.Insert(entry); 
+                    Tracing.TraceMsg("Created blogger entry");
+
+                    // try to get just that guy.....
+                    FeedQuery singleQuery = new FeedQuery();
+                    singleQuery.Uri = new Uri(newEntry.SelfUri.ToString()); 
+                    AtomFeed newFeed = service.Query(singleQuery);
+                    AtomEntry sameGuy = newFeed.Entries[0]; 
+
+                    Assert.IsTrue(sameGuy.Title.Text.Equals(newEntry.Title.Text), "both titles should be identical"); 
+                    Assert.IsTrue(sameGuy.Content.Type.Equals("html"));
+                    String input = HttpUtility.HtmlDecode(htmlContent); 
+                    String output = HttpUtility.HtmlDecode(sameGuy.Content.Content); 
+                    Assert.IsTrue(input.Equals(output), "The input string should be equal the output string"); 
+
+                }
+
+                service.Credentials = null; 
+
+                factory.MethodOverride = false;
+
+            }
+
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+
+        //////////////////////////////////////////////////////////////////////
         /// <summary>runs an authentication test</summary> 
         //////////////////////////////////////////////////////////////////////
         [Ignore ("Currently used only for fill up")]
@@ -343,6 +409,7 @@ namespace Google.GData.Client.UnitTests
 
         }
         /////////////////////////////////////////////////////////////////////////////
+
 
     } /////////////////////////////////////////////////////////////////////////////
 }
