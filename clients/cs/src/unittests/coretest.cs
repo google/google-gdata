@@ -21,6 +21,7 @@ using System.Xml;
 using System.Collections;
 using System.Configuration;
 using System.Net;
+using System.Web;
 using NUnit.Framework;
 using Google.GData.Client;
 using Google.GData.Extensions;
@@ -166,6 +167,100 @@ namespace Google.GData.Client.UnitTests
 
         }
         /////////////////////////////////////////////////////////////////////////////
+
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>[Test] creates a new entry, saves and loads it back
+        ///   uses HTML content to test the persistence/encoding code
+        /// </summary> 
+        //////////////////////////////////////////////////////////////////////
+        [Test] public void CreateHTMLEntrySaveAndLoad()
+        {
+
+            Tracing.TraceMsg("Entering CreateHTMLEntrySaveAndLoad");
+
+            AtomEntry entry = ObjectModelHelper.CreateAtomEntry(1);
+            entry.Content.Type = "html"; 
+            entry.Content.Content = HttpUtility.HtmlDecode("<b>this is a &lt;test&gt;</b>"); 
+
+            Tracing.TraceMsg("Content: " + entry.Content.Content);
+
+            ObjectModelHelper.DumpAtomObject(entry, CreateDumpFileName("CreateHTMLEntrySaveAndLoad"));
+
+
+            // let's try loading this... 
+            Service service = new Service();
+            service.RequestFactory = this.factory; 
+
+            FeedQuery query = new FeedQuery();
+            query.Uri = new Uri(CreateUriFileName("CreateHTMLEntrySaveAndLoad"));
+            AtomFeed feed = service.Query(query);
+            Assert.IsTrue(feed.Entries != null, "Feed.Entries should not be null");
+            Assert.AreEqual(1, feed.Entries.Count, "Feed.Entries should have ONE element");
+            // that feed should have ONE entry
+            if (feed.Entries != null)
+            {
+                AtomEntry theOtherEntry = feed.Entries[0];
+                Tracing.TraceMsg("Loaded Content: " + theOtherEntry.Content.Content);
+                Assert.IsTrue(ObjectModelHelper.IsEntryIdentical(entry, theOtherEntry));
+            }
+
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>[Test] creates a new entry, saves and loads it back
+        ///   uses XHTML content to test the persistence/encoding code
+        /// </summary> 
+        //////////////////////////////////////////////////////////////////////
+        [Test] public void CreateXHTMLEntrySaveAndLoad()
+        {
+
+            Tracing.TraceMsg("Entering CreateXHTMLEntrySaveAndLoad");
+
+            AtomEntry entry = ObjectModelHelper.CreateAtomEntry(1);
+            entry.Content.Type = "xhtml"; 
+            entry.Content.Content = HttpUtility.HtmlDecode("<div xmlns=\"http://www.w3.org/2005/Atom\"><b>this is a test</b></div>"); 
+
+            Tracing.TraceMsg("Content: " + entry.Content.Content);
+
+            ObjectModelHelper.DumpAtomObject(entry, CreateDumpFileName("CreateXHTMLEntrySaveAndLoad"));
+
+            Tracing.TraceMsg("saved in... CreateXHTMLEntrySaveAndLoad");
+
+
+            // let's try loading this... 
+            Service service = new Service();
+            service.RequestFactory = this.factory; 
+
+            FeedQuery query = new FeedQuery();
+            query.Uri = new Uri(CreateUriFileName("CreateXHTMLEntrySaveAndLoad"));
+            AtomFeed feed = service.Query(query);
+
+            Tracing.TraceMsg("loaded in... CreateXHTMLEntrySaveAndLoad");
+
+            Assert.IsTrue(feed.Entries != null, "Feed.Entries should not be null");
+            Assert.AreEqual(1, feed.Entries.Count, "Feed.Entries should have ONE element");
+
+
+            // that feed should have ONE entry
+            if (feed.Entries != null)
+            {
+                Tracing.TraceMsg("checking entries... CreateXHTMLEntrySaveAndLoad");
+                AtomEntry theOtherEntry = feed.Entries[0];
+
+                Assert.IsTrue(theOtherEntry.Content != null, "the entry should have a content element");
+                Assert.IsTrue(theOtherEntry.Content.Type.Equals("xhtml"), "the entry should have a content element of type xhtml");
+                Assert.IsTrue(theOtherEntry.Content.Content != null, "the entry should have a content element that is not empty");
+
+                Tracing.TraceMsg("Loaded Content: " + theOtherEntry.Content.Content);
+                Assert.IsTrue(ObjectModelHelper.IsEntryIdentical(entry, theOtherEntry));
+                Tracing.TraceMsg("done comparing entries... CreateXHTMLEntrySaveAndLoad");
+            }
+
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
 
         ////////////////////////////////////////////////////////////////////
         /// <summary>[Test] creates a new feed, saves and loads it back</summary> 

@@ -107,7 +107,7 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         /// <summary>helper to read in a string and Encode it</summary> 
         /// <param name="content">the xmlreader string</param>
-        /// <returns>htmldecoded string</returns>
+        /// <returns>UTF8 encoded string</returns>
         //////////////////////////////////////////////////////////////////////
         public static string EncodeString(string content)
         {
@@ -128,6 +128,22 @@ namespace Google.GData.Client
         
         }
 
+
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>helper to read in a string and Encode it</summary> 
+        /// <param name="content">the xmlreader string</param>
+        /// <returns>html encoded string</returns>
+        //////////////////////////////////////////////////////////////////////
+        public static string EncodeHtmlString(string content)
+        {
+            // get the encoding
+            return content; 
+
+        }
+
+
+
         //////////////////////////////////////////////////////////////////////
         /// <summary>helper to read in a string and replace the reserved URI 
         /// characters with hex encoding</summary> 
@@ -136,7 +152,6 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         public static string UriEncodeReserved(string content) 
         {
-            // get the encoding
             StringBuilder returnString = new StringBuilder(256);
 
             foreach (char ch in content) 

@@ -223,7 +223,7 @@ namespace Google.GData.GoogleBase {
         {
             get
             {
-                return GetFloatUnitAttribute(PriceUnitsAttributeName);
+                return GetFloatUnitAttribute(PriceAttributeName);
             }
             set
             {

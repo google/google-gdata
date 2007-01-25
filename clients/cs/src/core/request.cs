@@ -315,9 +315,6 @@ namespace Google.GData.Client
                     throw new OutOfMemoryException("Could not create a new Webrequest"); 
                 }
                 HttpWebRequest web = this.webRequest as HttpWebRequest;
-
-                Tracing.Assert(web != null, "Ensure WebRequest got a NON HttpWebRequest, unclear codepath"); 
-
                 if (web != null)
                 {
                     switch (this.type) 

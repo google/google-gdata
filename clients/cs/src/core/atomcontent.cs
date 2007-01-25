@@ -18,6 +18,7 @@
 
 using System;
 using System.Xml;
+using System.Web;
 using System.IO; 
 using System.Globalization;
 using System.ComponentModel;
@@ -112,6 +113,16 @@ namespace Google.GData.Client
 
 
 
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>default constructor. Set's the content type to text.</summary> 
+        //////////////////////////////////////////////////////////////////////
+        public AtomContent()
+        {
+            this.type = "text"; 
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+
         #region overloaded for persistence
 
         //////////////////////////////////////////////////////////////////////
@@ -162,19 +173,23 @@ namespace Google.GData.Client
             base.SaveInnerXml(writer);
             if (Utilities.IsPersistable(this.content))
             {
-                if (this.type == "xhtml")
+                if (this.type == "html" || this.type == "text/html")
+                {
+                    // per spec, text/html should be encoded. 
+                    // but what do we do if we get it encoded? we would now double encode
+                    // the string
+                    // hence we decode once first, and then encode again
+                    String buffer = HttpUtility.HtmlDecode(this.content);
+                    WriteEncodedString(writer, buffer);
+     
+                }
+                else 
                 {
                     // in this case we are not going to encode the inner content. 
                     // Developer has to take care of this
                     writer.WriteRaw(this.content); 
                 }
-                else 
-                {
-                    // per spec, text/html should be encoded. 
-                    WriteEncodedString(writer, this.content);
-                }
             }
-
         }
         /////////////////////////////////////////////////////////////////////////////
 
@@ -224,9 +239,10 @@ namespace Google.GData.Client
         public string Content
         {
             get {return this.content;}
-            set {this.Dirty = true;  this.content = value;}
+            set {this.Dirty = true; this.content = value;}
         }
         /////////////////////////////////////////////////////////////////////////////
+
     }
     /////////////////////////////////////////////////////////////////////////////
 } 
