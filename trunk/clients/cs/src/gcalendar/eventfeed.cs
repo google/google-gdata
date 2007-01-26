@@ -48,7 +48,7 @@ namespace Google.GData.Calendar {
             this.value = value; 
         }
 
-        #region timezone Parser
+#region timezone Parser
         //////////////////////////////////////////////////////////////////////
         /// <summary>Parses an XML node to create a feed level timezone</summary> 
         /// <param name="node">timezone node</param>
@@ -77,7 +77,7 @@ namespace Google.GData.Calendar {
                     }
                 }
             }
-            
+
             return timezone;
         }
 
@@ -93,7 +93,7 @@ namespace Google.GData.Calendar {
             return; 
         }
 
-        #endregion
+#endregion
 
 
 
@@ -128,7 +128,7 @@ namespace Google.GData.Calendar {
         //////////////////////////////////////////////////////////////////////
         public Where Location
         {
-            get { return location; }
+            get { return location;}
             set
             {
                 if (location != null)
@@ -203,7 +203,7 @@ namespace Google.GData.Calendar {
                     if (this.Location == null)
                     {
                         this.Location = Where.ParseWhere(eventNode, parser);
-                    } 
+                    }
                     else
                     {
                         throw new ArgumentException("Only one g:where element is valid in the Event Feeds");
@@ -223,7 +223,7 @@ namespace Google.GData.Calendar {
             Utilities.EnsureGDataNamespace(writer); 
         }
         /////////////////////////////////////////////////////////////////////////////
-         
+
         //////////////////////////////////////////////////////////////////////
         /// <summary>checks if this is a namespace 
         /// decl that we already added</summary> 
@@ -288,7 +288,6 @@ namespace Google.GData.Calendar {
             {
                 // found GD namespace
                 Tracing.TraceMsg("\t top level event = new Event extension");
-                e.DiscardEntry = true;
                 AtomFeedParser parser = sender as AtomFeedParser; 
 
                 if (e.Base.XmlName == AtomParserNameTable.XmlFeedElement)
@@ -297,20 +296,23 @@ namespace Google.GData.Calendar {
                     if (eventFeed != null)
                     {
                         eventFeed.parseEvent(e.ExtensionElement, parser);
+                        e.DiscardEntry = true;
                     }
                 }
                 else if (e.ExtensionElement.LocalName == GDataParserNameTable.XmlExtendedPropertyElement)
                 {
                     ExtendedProperty prop = ExtendedProperty.Parse(e.ExtensionElement); 
                     e.Base.ExtensionElements.Add(prop); 
+                    e.DiscardEntry = true;
                 }
                 else if (e.Base.XmlName == AtomParserNameTable.XmlAtomEntryElement)
                 {
                     EventEntry eventEntry = e.Base as EventEntry;
-                    
+
                     if (eventEntry != null)
                     {
                         eventEntry.parseEvent(e.ExtensionElement, parser);
+                        e.DiscardEntry = true;
                     }
                 }
             }
@@ -318,31 +320,32 @@ namespace Google.GData.Calendar {
             {
                 // found calendar  namespace
                 Tracing.TraceMsg("\t entering the handler for calendar specific extensions for: " + e.Base.XmlName);
-                e.DiscardEntry = true;
+                if (e.ExtensionElement.LocalName == GDataParserNameTable.XmlTimeZoneElement)
+                {
+                    EventFeed eventFeed = e.Base as EventFeed;
+                    if (eventFeed != null)
+                    {
+                        eventFeed.TimeZone = TimeZone.ParseTimeZone(e.ExtensionElement);
+                        e.DiscardEntry = true;
+                    }
+                }
+                else if (e.ExtensionElement.LocalName == GDataParserNameTable.XmlWebContentElement)
+                {
+                    WebContent content = WebContent.ParseWebContent(e.ExtensionElement); 
+                    e.Base.ExtensionElements.Add(content); 
+                    e.DiscardEntry = true;
+                }
+                else if (e.Base.XmlName == AtomParserNameTable.XmlAtomEntryElement)
+                {
+                    EventEntry eventEntry = e.Base as EventEntry;
+                    AtomFeedParser parser = sender as AtomFeedParser; 
 
-				if (e.ExtensionElement.LocalName == GDataParserNameTable.XmlTimeZoneElement)
-				{
-					EventFeed eventFeed = e.Base as EventFeed;
-					if (eventFeed != null)
-					{
-						eventFeed.TimeZone = TimeZone.ParseTimeZone(e.ExtensionElement);
-					}
-				}
-				else if (e.ExtensionElement.LocalName == GDataParserNameTable.XmlWebContentElement)
-				{
-					WebContent content = WebContent.ParseWebContent(e.ExtensionElement); 
-					e.Base.ExtensionElements.Add(content); 
-				}
-				else if (e.Base.XmlName == AtomParserNameTable.XmlAtomEntryElement)
-				{
-					EventEntry eventEntry = e.Base as EventEntry;
-					AtomFeedParser parser = sender as AtomFeedParser; 
-                    
-					if (eventEntry != null)
-					{
-						eventEntry.parseEvent(e.ExtensionElement, parser);
-					}
-				}
+                    if (eventEntry != null)
+                    {
+                        eventEntry.parseEvent(e.ExtensionElement, parser);
+                        e.DiscardEntry = true;
+                    }
+                }
             }
         }
     }
