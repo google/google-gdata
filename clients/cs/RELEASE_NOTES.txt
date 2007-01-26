@@ -6,6 +6,8 @@
 - Fix for Content.Type = "html" and "text/html" persistence. What the code does now is: first HTMLDecode the value held, than
   run the standard XMLWriter.WriteString over it (which does HTML encoding). This seems to work fine. 
 - Added the gm:stats tags to the Windows Mobile build, accidently forgot to change that project file
+- the calendarfeed discarded entries unknown to it in the calendar namespace. This is fixed now. Unknown entries to the parser 
+  are now correctly added to the extension elements.
 
 == 1.0.9.3 ==
 - Google Base changes:
