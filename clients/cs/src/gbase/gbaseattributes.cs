@@ -96,7 +96,7 @@ namespace Google.GData.GoogleBase {
             }
             set
             {
-                RemoveAll(LabelAttributeName, GBaseAttributeType.Text);
+                RemoveAll(LabelAttributeName);
                 foreach (string label in value)
                 {
                     AddLabel(label);
@@ -123,7 +123,7 @@ namespace Google.GData.GoogleBase {
             }
             set
             {
-                RemoveAll(ItemTypeAttributeName, GBaseAttributeType.Text);
+                RemoveAll(ItemTypeAttributeName);
                 AddTextAttribute(ItemTypeAttributeName, value);
             }
         }
@@ -140,7 +140,7 @@ namespace Google.GData.GoogleBase {
             }
             set
             {
-                RemoveAll(ExpirationDateAttributeName, GBaseAttributeType.DateTime);
+                RemoveAll(ExpirationDateAttributeName);
                 AddDateTimeAttribute(ExpirationDateAttributeName, value);
             }
         }
@@ -157,7 +157,7 @@ namespace Google.GData.GoogleBase {
             }
             set
             {
-                RemoveAll(ImageLinkAttributeName, GBaseAttributeType.Url);
+                RemoveAll(ImageLinkAttributeName);
                 foreach (string imageLink in value)
                 {
                     AddImageLink(imageLink);
@@ -184,7 +184,7 @@ namespace Google.GData.GoogleBase {
             }
             set
             {
-                RemoveAll(PaymentMethodAttributeName, GBaseAttributeType.Text);
+                RemoveAll(PaymentMethodAttributeName);
                 foreach (string method in value)
                 {
                     AddPaymentMethod(method);
@@ -203,7 +203,7 @@ namespace Google.GData.GoogleBase {
             }
             set
             {
-                RemoveAll(ShippingAttributeName, GBaseAttributeType.Shipping);
+                RemoveAll(ShippingAttributeName);
                 AddShippingAttribute(ShippingAttributeName, value);
             }
         }
@@ -227,7 +227,7 @@ namespace Google.GData.GoogleBase {
             }
             set
             {
-                RemoveAll(PriceAttributeName, GBaseAttributeType.FloatUnit);
+                RemoveAll(PriceAttributeName);
                 AddFloatUnitAttribute(PriceAttributeName, value);
             }
         }
@@ -243,7 +243,7 @@ namespace Google.GData.GoogleBase {
             }
             set
             {
-                RemoveAll(LocationAttributeName, GBaseAttributeType.Location);
+                RemoveAll(LocationAttributeName);
                 AddLocationAttribute(LocationAttributeName, value);
             }
         }
@@ -259,7 +259,7 @@ namespace Google.GData.GoogleBase {
             }
             set
             {
-                RemoveAll(PriceTypeAttributeName, GBaseAttributeType.Text);
+                RemoveAll(PriceTypeAttributeName);
                 AddTextAttribute(PriceTypeAttributeName, value);
             }
         }
@@ -275,7 +275,7 @@ namespace Google.GData.GoogleBase {
             }
             set
             {
-                RemoveAll(QuantityAttributeName, GBaseAttributeType.Int);
+                RemoveAll(QuantityAttributeName);
                 AddIntAttribute(QuantityAttributeName, value);
             }
         }
@@ -300,7 +300,7 @@ namespace Google.GData.GoogleBase {
             }
             set
             {
-                RemoveAll(PriceUnitsAttributeName, GBaseAttributeType.Text);
+                RemoveAll(PriceUnitsAttributeName);
                 AddTextAttribute(PriceUnitsAttributeName, value);
             }
         }
@@ -316,7 +316,7 @@ namespace Google.GData.GoogleBase {
             }
             set
             {
-                RemoveAll(TaxPercentAttributeName, GBaseAttributeType.Float);
+                RemoveAll(TaxPercentAttributeName);
                 AddFloatAttribute(TaxPercentAttributeName, value);
             }
         }
@@ -332,7 +332,7 @@ namespace Google.GData.GoogleBase {
             }
             set
             {
-                RemoveAll(TaxRegionAttributeName, GBaseAttributeType.Text);
+                RemoveAll(TaxRegionAttributeName);
                 AddTextAttribute(TaxRegionAttributeName, value);
             }
         }
@@ -348,7 +348,7 @@ namespace Google.GData.GoogleBase {
             }
             set
             {
-                RemoveAll(DeliveryRadiusAttributeName, GBaseAttributeType.FloatUnit);
+                RemoveAll(DeliveryRadiusAttributeName);
                 AddFloatUnitAttribute(DeliveryRadiusAttributeName, value);
             }
         }
@@ -364,7 +364,7 @@ namespace Google.GData.GoogleBase {
             }
             set
             {
-                RemoveAll(PickupAttributeName, GBaseAttributeType.Boolean);
+                RemoveAll(PickupAttributeName);
                 AddBooleanAttribute(PickupAttributeName, value);
             }
         }
@@ -380,7 +380,7 @@ namespace Google.GData.GoogleBase {
             }
             set
             {
-                RemoveAll(DeliveryNotesAttributeName, GBaseAttributeType.Text);
+                RemoveAll(DeliveryNotesAttributeName);
                 AddTextAttribute(DeliveryNotesAttributeName, value);
             }
         }
@@ -396,7 +396,7 @@ namespace Google.GData.GoogleBase {
             }
             set
             {
-                RemoveAll(PaymentNotesAttributeName, GBaseAttributeType.Text);
+                RemoveAll(PaymentNotesAttributeName);
                 AddTextAttribute(PaymentNotesAttributeName, value);
             }
         }
@@ -416,7 +416,7 @@ namespace Google.GData.GoogleBase {
             }
             set
             {
-                RemoveAll(ApplicationAttributeName, GBaseAttributeType.Text);
+                RemoveAll(ApplicationAttributeName);
                 AddTextAttribute(ApplicationAttributeName, value);
             }
         }
@@ -428,9 +428,7 @@ namespace Google.GData.GoogleBase {
     ///////////////////////////////////////////////////////////////////////
     interface GBaseAttributeContainer
     {
-        GBaseAttributes GBaseAttributes { get
-                                              ;
-                                            }
-        }
+        GBaseAttributes GBaseAttributes { get; }
+    }
 
 }
