@@ -8,6 +8,17 @@ The wiki page shows the release notes for the current binary download, the subve
 
 = Details =
 
+== 1.0.9.4 ==
+  * Google Base: fix for incorrect Price attribute behaviour
+  * Google Base: fix for incorrectly persisting duplicate attributes
+  * Fix for Content.Type having no default value (issue 41)
+  * Fix for Content.Type="text/html" parsing incorrectly. The strict check for type="text" is now relaxed to be type.startsWidth("text"), so all text subtypes will be treated the same
+  * Fix for Content.Type = "html" and "text/html" persistence. What the code does now is: first HTMLDecode the value held, than run the standard XMLWriter.WriteString over it (which does HTML encoding). This seems to work fine. 
+  * Added the gm:stats tags to the Windows Mobile build, accidently forgot to change that project file
+  * the calendarfeed discarded entries unknown to it in the calendar namespace. This is fixed now. Unknown entries to the parser are now correctly added to the extension elements.
+  * added the return-empty parameter to the cellquery class
+  * added URL encoding to the authentication parameters (username/passwords etc that had unallowed FORM post chars caused failed login attempts)
+
 == 1.0.9.3 ==
 - Google Base changes:
   New features:
@@ -157,6 +168,10 @@ Solved issues:
 
 == 1.0.0 ==
 - Initial Release
+
+
+
+
 
 
 
