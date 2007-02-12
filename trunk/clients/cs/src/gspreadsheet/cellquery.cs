@@ -22,6 +22,22 @@ using Google.GData.Client;
 
 namespace Google.GData.Spreadsheets
 {
+
+    //////////////////////////////////////////////////////////////////////
+    /// <summary>Enum to describe the different return empty parameters
+    /// </summary> 
+    //////////////////////////////////////////////////////////////////////
+    public enum ReturnEmtpyCells
+    {
+        /// <summary> do not create the parameter, do whatever the server does</summary>
+        serverDefault,
+        /// <summary>return empty cells</summary>
+        yes,                       
+        /// <summary>do not return empty cells</summary>
+        no
+    }
+    /////////////////////////////////////////////////////////////////////////////
+
     /// <summary>
     /// A subclass of FeedQuery, to create a Spreadsheets cell query URI.
     /// Provides public properties that describe the different
@@ -36,6 +52,8 @@ namespace Google.GData.Spreadsheets
         private uint maximumColumn;
 
         private string range;
+
+        private ReturnEmtpyCells returnEmpty;
 
         /// <summary>
         /// Constructor 
@@ -155,8 +173,24 @@ namespace Google.GData.Spreadsheets
             }
         }
 
-#if WindowsCE || PocketPC
-#else
+        /// <summary>
+        /// If true, then empty cells will be included in the feed.
+        /// </summary>
+        public ReturnEmtpyCells ReturnEmpty
+        {
+            get
+            {
+                return returnEmpty;
+            }
+
+            set
+            {
+                returnEmpty = value;
+            }
+        }
+
+  #if WindowsCE || PocketPC
+  #else
  
         /// <summary>
         /// Parses an incoming URI string and sets the instance variables
@@ -194,6 +228,9 @@ namespace Google.GData.Spreadsheets
                                 break;
                             case "range":
                                 this.Range = parameters[1];
+                                break;
+                            case "return-empty":
+                                this.ReturnEmpty = (ReturnEmtpyCells) Enum.Parse(typeof(ReturnEmtpyCells), parameters[1]);
                                 break;
                         }
                     }
@@ -237,6 +274,7 @@ namespace Google.GData.Spreadsheets
             if (MinimumRow > 0)
             {
                 newPath.Append(paramInsertion);
+
                 newPath.AppendFormat(CultureInfo.InvariantCulture, "min-row={0}", Utilities.UriEncodeReserved(MinimumRow.ToString()));
                 paramInsertion = '&';
             }
@@ -244,6 +282,7 @@ namespace Google.GData.Spreadsheets
             if (MaximumRow > 0)
             {
                 newPath.Append(paramInsertion);
+
                 newPath.AppendFormat(CultureInfo.InvariantCulture, "max-row={0}", Utilities.UriEncodeReserved(MaximumRow.ToString()));
                 paramInsertion = '&';
             }
@@ -251,6 +290,7 @@ namespace Google.GData.Spreadsheets
             if (MinimumColumn > 0)
             {
                 newPath.Append(paramInsertion);
+
                 newPath.AppendFormat(CultureInfo.InvariantCulture, "min-col={0}", Utilities.UriEncodeReserved(MinimumColumn.ToString()));
                 paramInsertion = '&';
             }
@@ -258,6 +298,7 @@ namespace Google.GData.Spreadsheets
             if (MaximumColumn > 0)
             {
                 newPath.Append(paramInsertion);
+
                 newPath.AppendFormat(CultureInfo.InvariantCulture, "max-col={0}", Utilities.UriEncodeReserved(MaximumColumn.ToString()));
                 paramInsertion = '&';
             }
@@ -265,7 +306,18 @@ namespace Google.GData.Spreadsheets
             if (Range.Length > 0)
             {
                 newPath.Append(paramInsertion);
+
                 newPath.AppendFormat(CultureInfo.InvariantCulture, "range={0}", Utilities.UriEncodeReserved(Range));
+            }
+
+            if (ReturnEmpty == ReturnEmtpyCells.yes)
+            {
+                newPath.Append(paramInsertion);
+                newPath.Append("return-empty=true");
+            } else if (ReturnEmpty == ReturnEmtpyCells.no)
+            { 
+                newPath.Append(paramInsertion);
+                newPath.Append("return-empty=false");
             }
 
             return newPath.ToString();

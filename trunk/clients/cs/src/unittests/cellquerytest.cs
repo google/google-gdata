@@ -200,5 +200,24 @@ namespace Google.GData.Spreadsheets.UnitTests
             Assert.AreEqual(query.MinimumRow, 1);
         }
 
+        [Test]
+        public void SetReturnEmptyTrueTest()
+        {
+            query.ReturnEmpty = ReturnEmtpyCells.yes;
+            Assert.IsTrue(query.ReturnEmpty == ReturnEmtpyCells.yes);
+        }
+
+        [Test]
+        public void SetReturnEmptyFalseTest()
+        {
+            query.ReturnEmpty = ReturnEmtpyCells.no;
+            Assert.IsTrue(query.ReturnEmpty == ReturnEmtpyCells.no);
+        }
+        [Test]
+        public void SetReturnEmptyDefaultTest()
+        {
+            query.ReturnEmpty = ReturnEmtpyCells.serverDefault;
+            Assert.IsTrue(query.ReturnEmpty == ReturnEmtpyCells.serverDefault);
+        }
     }
 }

@@ -34,6 +34,9 @@ namespace Google.GData.Extensions {
         protected bool readOnly;
         /// <summary>holds the feed property</summary>
         protected AtomFeed feed;
+          /// <summary>holds the rel attribute of the EntyrLink element</summary> 
+        protected string rel;
+
 
         private bool readOnlySet; 
         private int countHint;
@@ -84,6 +87,18 @@ namespace Google.GData.Extensions {
             set { feed = value;}
         }
 
+         //////////////////////////////////////////////////////////////////////
+        /// <summary>accessor method public string Rel</summary> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        public string Rel
+        {
+            get {return this.rel;}
+            set {this.rel = value;}
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+
 #region FeedLink Parser
         //////////////////////////////////////////////////////////////////////
         /// <summary>Parses an xml node to create an FeedLink object.</summary> 
@@ -115,7 +130,10 @@ namespace Google.GData.Extensions {
                     {
                         link.ReadOnly = node.Attributes[GDataParserNameTable.XmlAttributeReadOnly].Value.Equals("true");
                     }
-
+                    if (node.Attributes[GDataParserNameTable.XmlAttributeRel] != null)
+                    {
+                        link.Rel = node.Attributes[GDataParserNameTable.XmlAttributeRel].Value;
+                    }
                     if (node.Attributes[GDataParserNameTable.XmlAttributeCountHint] != null)
                     {
                         try
@@ -190,6 +208,11 @@ namespace Google.GData.Extensions {
                 {
                     writer.WriteAttributeString(GDataParserNameTable.XmlAttributeReadOnly, this.ReadOnly.ToString());
                 }
+                if (Utilities.IsPersistable(this.Rel))
+                {
+                    writer.WriteAttributeString(GDataParserNameTable.XmlAttributeRel, this.Rel);
+                }
+
                 if (countHint > -1)
                 {
                     writer.WriteAttributeString(GDataParserNameTable.XmlAttributeCountHint, this.ReadOnly.ToString());

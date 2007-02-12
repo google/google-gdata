@@ -386,10 +386,10 @@ namespace Google.GData.Client
                 ASCIIEncoding encoder = new ASCIIEncoding();
 
                 // now enter the data in the stream
-                string postData = GoogleAuthentication.Email + "=" + nc.UserName + "&"; 
-                postData += GoogleAuthentication.Password + "=" + nc.Password + "&";  
-                postData += GoogleAuthentication.Source + "=" + this.factory.ApplicationName + "&"; 
-                postData += GoogleAuthentication.Service + "=" + this.factory.Service + "&"; 
+                string postData = GoogleAuthentication.Email + "=" + Utilities.UriEncodeReserved(nc.UserName) + "&"; 
+                postData += GoogleAuthentication.Password + "=" + Utilities.UriEncodeReserved(nc.Password) + "&";  
+                postData += GoogleAuthentication.Source + "=" + Utilities.UriEncodeReserved(this.factory.ApplicationName) + "&"; 
+                postData += GoogleAuthentication.Service + "=" + Utilities.UriEncodeReserved(this.factory.Service) + "&"; 
                 postData += GoogleAuthentication.AccountType; 
 
                 byte[] encodedData = encoder.GetBytes(postData);
