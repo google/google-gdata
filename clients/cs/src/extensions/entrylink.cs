@@ -35,6 +35,8 @@ namespace Google.GData.Extensions {
         protected bool readOnly;
         /// <summary>holds the AtomEntry  property of the EntryLink element</summary>
         protected AtomEntry entry;
+        /// <summary>holds the rel attribute of the EntyrLink element</summary> 
+        protected string rel;
 
         private bool readOnlySet; 
 
@@ -64,6 +66,18 @@ namespace Google.GData.Extensions {
             get { return entry; }
             set { entry = value; }
         }
+
+         //////////////////////////////////////////////////////////////////////
+        /// <summary>accessor method public string Rel</summary> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        public string Rel
+        {
+            get {return this.rel;}
+            set {this.rel = value;}
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
 
         #region EntryLink Parser
         //////////////////////////////////////////////////////////////////////
@@ -98,6 +112,12 @@ namespace Google.GData.Extensions {
                     {
                         link.ReadOnly = node.Attributes[GDataParserNameTable.XmlAttributeReadOnly].Value.Equals("true");
                     }
+
+                    if (node.Attributes[GDataParserNameTable.XmlAttributeRel] != null)
+                    {
+                        link.Rel = node.Attributes[GDataParserNameTable.XmlAttributeRel].Value;
+                    }
+
                 }
 
                 if (node.HasChildNodes)
@@ -188,6 +208,10 @@ namespace Google.GData.Extensions {
                 if (Utilities.IsPersistable(this.Href))
                 {
                     writer.WriteAttributeString(GDataParserNameTable.XmlAttributeHref, this.Href);
+                }
+                if (Utilities.IsPersistable(this.Rel))
+                {
+                    writer.WriteAttributeString(GDataParserNameTable.XmlAttributeRel, this.Rel);
                 }
                 if (this.readOnlySet)
                 {
