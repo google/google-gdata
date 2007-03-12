@@ -62,9 +62,9 @@ namespace Google.GData.Client
         /// <summary>Google webkey identifier</summary>
         public const string WebKey = "X-Google-Key: key=";
         /// <summary>Google webkey identifier</summary>
-        public const string AccountType = "accountType=HOSTED_OR_GOOGLE";
-
-
+        public const string AccountType = "accountType=";
+        /// <summary>default value for the account type</summary>
+        public const string AccountTypeDefault = "HOSTED_OR_GOOGLE";
     }
     /////////////////////////////////////////////////////////////////////////////
 
@@ -83,6 +83,7 @@ namespace Google.GData.Client
         private bool fMethodOverride;    // to override using post, or to use PUT/DELETE
         private int numberOfRetries;        // holds the number of retries the request will undertake
         private bool fStrictRedirect;       // indicates if redirects should be handled strictly
+        private string accountType;         // indicates the accountType to use
 
         
                                          
@@ -189,6 +190,19 @@ namespace Google.GData.Client
             get { return this.numberOfRetries; }
             set { this.numberOfRetries = value; }
         }
+
+        /// <summary>
+        /// property accessor to set the account type that is used during
+        /// authentication. Defaults, if not set, to GOOGLE_OR_HOSTED
+        /// </summary>
+        public string AccountType
+        {
+            get { return this.accountType; }
+            set { this.accountType = value; }
+        }
+
+
+
 
 
 
@@ -367,6 +381,15 @@ namespace Google.GData.Client
             }
 
             WebRequest authRequest = WebRequest.Create(authHandler); 
+            string accountType = GoogleAuthentication.AccountType;
+            if (this.factory.AccountType != null)
+            {
+                accountType += this.factory.AccountType;
+            } 
+            else 
+            {
+                accountType += GoogleAuthentication.AccountTypeDefault;
+            }
             if (this.factory.Proxy != null)
             {
                 authRequest.Proxy = this.factory.Proxy; 
@@ -390,7 +413,7 @@ namespace Google.GData.Client
                 postData += GoogleAuthentication.Password + "=" + Utilities.UriEncodeReserved(nc.Password) + "&";  
                 postData += GoogleAuthentication.Source + "=" + Utilities.UriEncodeReserved(this.factory.ApplicationName) + "&"; 
                 postData += GoogleAuthentication.Service + "=" + Utilities.UriEncodeReserved(this.factory.Service) + "&"; 
-                postData += GoogleAuthentication.AccountType; 
+                postData += accountType; 
 
                 byte[] encodedData = encoder.GetBytes(postData);
                 authRequest.ContentLength = encodedData.Length; 
