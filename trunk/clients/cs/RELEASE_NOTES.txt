@@ -1,3 +1,12 @@
+== 1.0.9.5 ==
+- fix for incorrect encoding of usernames/passwords during authentication (you could run
+  into problems if you had an email like "foo&joe@test.com"
+- exposure of the accountType as a property on the factory. If you happen to have an identical
+  user name for a Google account and a hosted account, you need to set this property depending on 
+  which account you want to access. Default is GOOGLE_OR_HOSTED, other values are GOOGLE or HOSTED
+  as strings.
+
+
 == 1.0.9.4 ==
 - Google Base: fix for incorrect Price attribute behaviour
 - Google Base: fix for incorrectly persisting duplicate attributes
@@ -12,6 +21,7 @@
 - added the return-empty parameter to the cellquery class
 - added URL encoding to the authentication parameters (username/passwords etc that had unallowed FORM post chars caused failed login
   attempts)
+
 
 
 
