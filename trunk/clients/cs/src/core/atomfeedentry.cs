@@ -335,8 +335,7 @@ namespace Google.GData.Client
                 AtomLink link = this.Links.FindService(BaseNameTable.ServiceEdit, AtomLink.ATOM_TYPE);
                 if (link == null)
                 {
-                    link = new AtomLink();
-                    link.Rel = BaseNameTable.ServiceEdit; 
+                    link = new AtomLink(AtomLink.ATOM_TYPE, BaseNameTable.ServiceEdit);
                     this.Links.Add(link);
                 }
                 link.HRef = value;
@@ -361,8 +360,7 @@ namespace Google.GData.Client
                 AtomLink link = this.Links.FindService(BaseNameTable.ServiceSelf, AtomLink.ATOM_TYPE);
                 if (link == null)
                 {
-                    link = new AtomLink();
-                    link.Rel = BaseNameTable.ServiceSelf; 
+                    link = new AtomLink(AtomLink.ATOM_TYPE, BaseNameTable.ServiceSelf);
                     this.Links.Add(link);
                 }
                 link.HRef = value;

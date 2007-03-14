@@ -5,7 +5,7 @@
   user name for a Google account and a hosted account, you need to set this property depending on 
   which account you want to access. Default is GOOGLE_OR_HOSTED, other values are GOOGLE or HOSTED
   as strings.
-
+- fixed an issue with the edit/self uris on the entry. They were not correctly setable.
 
 == 1.0.9.4 ==
 - Google Base: fix for incorrect Price attribute behaviour
