@@ -6,6 +6,8 @@
   which account you want to access. Default is GOOGLE_OR_HOSTED, other values are GOOGLE or HOSTED
   as strings.
 - fixed an issue with the edit/self uris on the entry. They were not correctly setable.
+- fixed an issue that one you used an authenticated service, but did not supply credentials, we would send
+  an empty authentication header.
 
 == 1.0.9.4 ==
 - Google Base: fix for incorrect Price attribute behaviour
