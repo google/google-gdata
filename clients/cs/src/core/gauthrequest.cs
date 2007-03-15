@@ -313,11 +313,13 @@ namespace Google.GData.Client
                     this.factory.GAuthToken = QueryAuthToken(nc); 
                 }
             }
-            // now add the auth token to the header
-            // Tracing.Assert(this.factory.GAuthToken != null, "We should have a token now"); 
-            Tracing.TraceMsg("Using auth token: " + this.factory.GAuthToken); 
-            string strHeader = GoogleAuthentication.Header + this.factory.GAuthToken; 
-            this.Request.Headers.Add(strHeader); 
+            if (this.factory.GAuthToken != null && this.factory.GAuthToken.Length > 0)
+            {
+                // Tracing.Assert(this.factory.GAuthToken != null, "We should have a token now"); 
+                Tracing.TraceMsg("Using auth token: " + this.factory.GAuthToken);
+                string strHeader = GoogleAuthentication.Header + this.factory.GAuthToken;
+                this.Request.Headers.Add(strHeader);
+            }
         }
         /////////////////////////////////////////////////////////////////////////////
 
