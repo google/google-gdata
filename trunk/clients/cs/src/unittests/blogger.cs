@@ -68,6 +68,7 @@ namespace Google.GData.Client.UnitTests
             {
                 authFactory.Handler = this.strAuthHandler; 
             }
+            FeedCleanup(this.bloggerURI, this.userName, this.passWord);
         }
         /////////////////////////////////////////////////////////////////////////////
 
@@ -77,10 +78,11 @@ namespace Google.GData.Client.UnitTests
         [TearDown] public override void EndTest()
         {
             Tracing.ExitTracing();
-        }
+            FeedCleanup(this.bloggerURI, this.userName, this.passWord);
+     }
         /////////////////////////////////////////////////////////////////////////////
 
-
+      
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>private void ReadConfigFile()</summary> 
@@ -365,12 +367,42 @@ namespace Google.GData.Client.UnitTests
         }
         /////////////////////////////////////////////////////////////////////////////
 
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>tests if we can access a public feed</summary> 
+        //////////////////////////////////////////////////////////////////////
+        [Test] public void BloggerPublicFeedTest()
+        {
+            Tracing.TraceMsg("Entering BloggerPublicFeedTest");
+
+            FeedQuery query = new FeedQuery();
+            Service service = new Service(this.ServiceName, this.ApplicationName);
+
+            String publicURI = (String) this.externalHosts[0];
+
+            if (publicURI != null)
+            {
+                service.RequestFactory = this.factory; 
+
+                query.Uri = new Uri(publicURI);
+                AtomFeed feed = service.Query(query);
+
+                 if (feed != null)
+                 {
+                       // look for the one with dinner time...
+                    foreach (AtomEntry entry in feed.Entries)
+                    {
+                        Assert.IsTrue(entry.ReadOnly, "The entry should be readonly");
+                    }
+                 }
+            }
+
+        }
+        /////////////////////////////////////////////////////////////////////////////
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>runs an authentication test</summary> 
         //////////////////////////////////////////////////////////////////////
-        [Ignore ("Currently used only for fill up")]
-        [Test] public void GoogleStressTest()
+        [Test] public void BloggerStressTest()
         {
             Tracing.TraceMsg("Entering Blogger GoogleStressTest");
 

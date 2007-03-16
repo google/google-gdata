@@ -72,7 +72,8 @@ namespace Google.GData.Client.UnitTests
                 authFactory.Handler = this.strAuthHandler; 
             }
 
-            CalendarCleanup(); 
+            FeedCleanup(this.defaultCalendarUri, this.userName, this.passWord);
+
         }
         /////////////////////////////////////////////////////////////////////////////
 
@@ -81,7 +82,7 @@ namespace Google.GData.Client.UnitTests
         //////////////////////////////////////////////////////////////////////
         [TearDown] public override void EndTest()
         {
-            CalendarCleanup(); 
+            FeedCleanup(this.defaultCalendarUri, this.userName, this.passWord);
             Tracing.ExitTracing();
         }
         /////////////////////////////////////////////////////////////////////////////
@@ -244,7 +245,7 @@ namespace Google.GData.Client.UnitTests
         //////////////////////////////////////////////////////////////////////
         /// <summary>runs an authentication test</summary> 
         //////////////////////////////////////////////////////////////////////
-		[Ignore ("Currently broken on the server")]
+        [Ignore ("Currently broken on the server")]
         [Test] public void CalendarXHTMLTest()
         {
             Tracing.TraceMsg("Entering CalendarXHTMLTest");
@@ -1101,60 +1102,7 @@ namespace Google.GData.Client.UnitTests
             }
         }
         /////////////////////////////////////////////////////////////////////////////
-        
-
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>empty the calendar</summary> 
-        //////////////////////////////////////////////////////////////////////
-        public void CalendarCleanup()
-        {
-            Tracing.TraceMsg("Entering CalendarCleanup");
-
-            FeedQuery query = new FeedQuery();
-            Service service = new Service();
-
-
-            if (this.defaultCalendarUri != null)
-            {
-                if (this.userName != null)
-                {
-                    NetworkCredential nc = new NetworkCredential(this.userName, this.passWord); 
-                    service.Credentials = nc;
-                }
-
-                GDataLoggingRequestFactory factory = (GDataLoggingRequestFactory) this.factory;
-                factory.MethodOverride = true;
-                service.RequestFactory = this.factory; 
-
-                query.Uri = new Uri(this.defaultCalendarUri);
-                AtomFeed calFeed = service.Query(query);
-
-                int iCount=0; 
-
-                while (calFeed != null && calFeed.Entries.Count > 0)
-                {
-                    // look for the one with dinner time...
-					foreach (AtomEntry entry in calFeed.Entries)
-					{
-						entry.Delete(); 
-                        iCount++; 
-                        Tracing.TraceMsg("CalendarCleanup = deleting entry" + iCount);
-					}
-                    // just query the same query again.
-                    calFeed = service.Query(query);
-                }
-
-                Tracing.Assert(calFeed.Entries.Count ==0, "Feed should be empty" ); 
-
-                query.Uri = new Uri(this.defaultCalendarUri);
-                calFeed = service.Query(query);
-
-                Assert.AreEqual(0, calFeed.Entries.Count, "Feed should have no more entries, it has: " + calFeed.Entries.Count); 
-                service.Credentials = null; 
-                factory.MethodOverride = false;
-            }
-        }
-        /////////////////////////////////////////////////////////////////////////////
+       
 
     } /////////////////////////////////////////////////////////////////////////////
 }

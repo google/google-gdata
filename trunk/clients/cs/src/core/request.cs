@@ -44,7 +44,7 @@ namespace Google.GData.Client
         private StringCollection customHeaders;     // holds any custom headers to set
         private String shardingCookie;              // holds the sharding cookie if returned
         private WebProxy webProxy;                  // holds a webproxy to use
-		private bool keepAlive;						// indicates wether or not to keep the connection alive	
+        private bool keepAlive;                     // indicates wether or not to keep the connection alive	
 
         /// <summary>Cookie setting header, returned from server</summary>
         public const string SetCookieHeader = "Set-Cookie"; 
@@ -59,12 +59,15 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         public GDataRequestFactory(string userAgent)
         {
-            if (userAgent != null) {
-				this.userAgent = userAgent + " " + GDataAgent;
-            } else {
-				this.userAgent = GDataAgent;
-			}
-			this.keepAlive = true;
+            if (userAgent != null) 
+            {
+              this.userAgent = userAgent + " " + GDataAgent;
+            } 
+            else 
+            {
+              this.userAgent = GDataAgent;
+            }
+            this.keepAlive = true;
         }
         /////////////////////////////////////////////////////////////////////////////
 
@@ -110,18 +113,18 @@ namespace Google.GData.Client
             set {this.webProxy = value;}
         }
         /////////////////////////////////////////////////////////////////////////////
-
-		//////////////////////////////////////////////////////////////////////
-		/// <summary>indicates if the connection should be kept alive, default
-		/// is true</summary> 
-		/// <returns> </returns>
-		//////////////////////////////////////////////////////////////////////
-		public bool KeepAlive
-		{
-			get {return this.keepAlive;}
-			set {this.keepAlive = value;}
-		}
-		/////////////////////////////////////////////////////////////////////////////
+    
+        /////////////////////////////////////////////////////////////////////
+        /// <summary>indicates if the connection should be kept alive, default
+        /// is true</summary> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        public bool KeepAlive
+        {
+          get {return this.keepAlive;}
+          set {this.keepAlive = value;}
+        }
+        /////////////////////////////////////////////////////////////////////////////
          
         internal bool hasCustomHeaders
         {
@@ -336,7 +339,7 @@ namespace Google.GData.Client
                     }
                     web.ContentType = "application/atom+xml; charset=UTF-8";
                     web.UserAgent = this.factory.UserAgent;
-					web.KeepAlive = this.factory.KeepAlive; 
+                    web.KeepAlive = this.factory.KeepAlive; 
 
                     // add all custom headers
                     if (this.factory.hasCustomHeaders == true)
@@ -399,7 +402,9 @@ namespace Google.GData.Client
             catch (WebException e)
             {
                 Tracing.TraceCall("GDataRequest::Execute failed: " + this.targetUri.ToString()); 
-                throw new GDataRequestException("Execution of request failed: " + this.targetUri.ToString(), e);
+                GDataRequestException gde = new GDataRequestException("Execution of request failed: " + this.targetUri.ToString(), e);
+                Tracing.TraceMsg("Exception text: " + gde.ResponseString);
+                throw gde;
             }
             if (this.webResponse is HttpWebResponse)
             {
