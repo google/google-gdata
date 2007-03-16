@@ -30,7 +30,7 @@ namespace Google.GData.Client.UnitTests
     /// </summary>
     public class ObjectModelHelper
     {
-        public static int DEFAULT_REMINDER_TIME = 27; 
+        public static int DEFAULT_REMINDER_TIME = 30; 
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>creates a new, in memory atom entry</summary> 

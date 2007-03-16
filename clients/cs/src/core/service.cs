@@ -70,7 +70,7 @@ namespace Google.GData.Client
  
 
         //////////////////////////////////////////////////////////////////////
-        /// <summary>default constructor, sets the default GDataRequest</summary> 
+        /// <summary>this will trigger the creation of an authenticating service</summary> 
         //////////////////////////////////////////////////////////////////////
         public Service(string service, string applicationName)
         {
@@ -80,7 +80,7 @@ namespace Google.GData.Client
  
 
         //////////////////////////////////////////////////////////////////////
-        /// <summary>default constructor, sets the default GDataRequest</summary> 
+        /// <summary>this will trigger the creation of an authenticating servicea</summary> 
         //////////////////////////////////////////////////////////////////////
         public Service(string service, string applicationName, string library)
         {

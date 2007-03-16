@@ -268,7 +268,6 @@ namespace Google.GData.Client
                   return link;
                 }
             }
-            Tracing.TraceMsg("Found NULL service, probably mistake");
             return null;
         }
         /////////////////////////////////////////////////////////////////////////////
