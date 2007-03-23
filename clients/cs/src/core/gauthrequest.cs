@@ -37,6 +37,13 @@ namespace Google.GData.Client
     //////////////////////////////////////////////////////////////////////
     public class GoogleAuthentication
     {
+        ///  <summary>account prefix path </summary>
+        public const string AccountPrefix = "/accounts";
+
+        ///  <summary>protocol  </summary>
+        public const string DefaultProtocol = "https";
+        public const string DefaultDomain = "www.google.com";
+
         /// <summary>Google client authentication handler</summary>
         public const string UriHandler = "https://www.google.com/accounts/ClientLogin"; 
         /// <summary>Google client authentication email</summary>
@@ -65,6 +72,10 @@ namespace Google.GData.Client
         public const string AccountType = "accountType=";
         /// <summary>default value for the account type</summary>
         public const string AccountTypeDefault = "HOSTED_OR_GOOGLE";
+        /// <summary>captcha url token</summary>
+        public const string CaptchaAnswer = "logincaptcha=";
+        /// <summary>default value for the account type</summary>
+        public const string CaptchaToken = "logintoken=";
     }
     /////////////////////////////////////////////////////////////////////////////
 
@@ -84,6 +95,8 @@ namespace Google.GData.Client
         private int numberOfRetries;        // holds the number of retries the request will undertake
         private bool fStrictRedirect;       // indicates if redirects should be handled strictly
         private string accountType;         // indicates the accountType to use
+        private string captchaAnswer;       // indicates the captcha Answer in a challenge
+        private string captchaToken;        // indicates the captchaToken in a challenge
 
         
                                          
@@ -202,8 +215,27 @@ namespace Google.GData.Client
         }
 
 
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>property to hold the Answer for a challenge</summary> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        public string CaptchaAnswer
+        {
+            get {return this.captchaAnswer;}
+            set {this.captchaAnswer = value;}
+        }
+        // end of accessor public string CaptchaUrl
 
-
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>property to hold the token for a challenge</summary> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        public string CaptchaToken
+        {
+            get {return this.captchaToken;}
+            set {this.captchaToken = value;}
+        }
+        // end of accessor public string CaptchaToken
 
 
         //////////////////////////////////////////////////////////////////////
@@ -415,6 +447,14 @@ namespace Google.GData.Client
                 postData += GoogleAuthentication.Password + "=" + Utilities.UriEncodeReserved(nc.Password) + "&";  
                 postData += GoogleAuthentication.Source + "=" + Utilities.UriEncodeReserved(this.factory.ApplicationName) + "&"; 
                 postData += GoogleAuthentication.Service + "=" + Utilities.UriEncodeReserved(this.factory.Service) + "&"; 
+                if (this.factory.CaptchaAnswer != null)
+                {
+                    postData += GoogleAuthentication.CaptchaAnswer + "=" + Utilities.UriEncodeReserved(this.factory.CaptchaAnswer) + "&"; 
+                }
+                if (this.factory.CaptchaToken != null)
+                {
+                    postData += GoogleAuthentication.CaptchaToken + "=" + Utilities.UriEncodeReserved(this.factory.CaptchaToken) + "&"; 
+                }
                 postData += accountType; 
 
                 byte[] encodedData = encoder.GetBytes(postData);
@@ -428,18 +468,13 @@ namespace Google.GData.Client
             } 
             catch (WebException e)
             {
-                Tracing.TraceMsg("QueryAuthtoken failed " + e.Status); 
-                throw new GDataRequestException("Execution of authentication request failed", e);
+                Tracing.TraceMsg("QueryAuthtoken failed " + e.Status + " " + e.Message); 
+                authResponse = e.Response;
             }
             HttpWebResponse response = authResponse as HttpWebResponse;
             if (response != null)
             {
-                int code= (int)response.StatusCode;
-                if (code != 200)
-                {
-                    throw new GDataRequestException("Execution of authentication request returned unexpected result: " +code,  this.Response); 
-                }
-                // check the content type, it must be text
+                 // check the content type, it must be text
                 if (!response.ContentType.StartsWith(HttpFormPost.ContentType))
                 {
                     throw new GDataRequestException("Execution of authentication request returned unexpected content type: " + response.ContentType,  this.Response); 
@@ -449,8 +484,20 @@ namespace Google.GData.Client
                 {
                     throw new GDataRequestException("Execution of authentication request returned unexpected large content length: " + response.ContentLength,  this.Response); 
                 }
+                TokenCollection tokens = Utilities.ParseStreamInTokenCollection(response.GetResponseStream());
+                authToken = Utilities.FindToken(tokens, GoogleAuthentication.AuthToken); 
+                
+                if (authToken == null)
+                {
+                    throw getAuthException(tokens);
+                }
+                // failsafe. if getAuthException did not catch an error...
+                int code= (int)response.StatusCode;
+                if (code != 200)
+                {
+                    throw new GDataRequestException("Execution of authentication request returned unexpected result: " +code,  this.Response); 
+                }
 
-                authToken = Utilities.ParseValueFormStream(response.GetResponseStream(), GoogleAuthentication.AuthToken); 
             }
             Tracing.Assert(authToken != null, "did not find an auth token in QueryAuthToken");
             if (authResponse != null)
@@ -460,7 +507,62 @@ namespace Google.GData.Client
             return authToken;
         }
         /////////////////////////////////////////////////////////////////////////////
+    
+        /// <summary>
+        ///  Returns the respective GDataAuthenticationException given the return
+        /// values from the login URI handler.
+        /// </summary>
+        /// <param name="tokens">The tokencollection of the parsed return form</param>
+        /// <returns>AuthenticationException</returns>
+        private AuthenticationException getAuthException(TokenCollection tokens) 
+        {
+        
+            String errorName = Utilities.FindToken(tokens, "Error");
 
+            if ("BadAuthentication".Equals(errorName))
+            {
+                return new InvalidCredentialsException("Invalid credentials");
+            }
+            else if ("AccountDeleted".Equals(errorName))
+            {
+                return new AccountDeletedException("Account deleted");
+            }
+            else if ("AccountDisabled".Equals(errorName))
+            {
+                return new AccountDisabledException("Account disabled");
+            }
+            else if ("NotVerified".Equals(errorName))
+            {
+                return new NotVerifiedException("Not verified");
+            }
+            else if ("TermsNotAgreed".Equals(errorName))
+            {
+                return new TermsNotAgreedException("Terms not agreed");
+            }
+            else if ("ServiceUnavailable".Equals(errorName))
+            {
+                return new ServiceUnavailableException("Service unavailable");
+            }
+            else if ("CaptchaRequired".Equals(errorName))
+            {
+                String captchaPath = Utilities.FindToken(tokens, "CaptchaUrl");
+                String captchaToken = Utilities.FindToken(tokens, "CaptchaToken");
+
+                StringBuilder captchaUrl = new StringBuilder();
+                captchaUrl.Append(GoogleAuthentication.DefaultProtocol).Append("://");
+                captchaUrl.Append(GoogleAuthentication.DefaultDomain);
+                captchaUrl.Append(GoogleAuthentication.AccountPrefix);
+                captchaUrl.Append('/').Append(captchaPath);
+                return new CaptchaRequiredException("Captcha required",
+                                                    captchaUrl.ToString(),
+                                                    captchaToken);
+
+            }
+            else
+            {
+                return new AuthenticationException("Error authenticating (check service name)");
+            }
+        }
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>Executes the request and prepares the response stream. Also 

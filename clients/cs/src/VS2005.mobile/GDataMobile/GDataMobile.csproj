@@ -126,7 +126,10 @@
     <Compile Include="..\..\core\feedquery.cs">
       <Link>feedquery.cs</Link>
     </Compile>
-    <Compile Include="..\..\core\gauthrequest.cs">
+    <Compile Include="..\..\core\gauthexceptions.cs">
+      <Link>gauthexceptions.cs</Link>
+    </Compile>
+     <Compile Include="..\..\core\gauthrequest.cs">
       <Link>gauthrequest.cs</Link>
     </Compile>
     <Compile Include="..\..\core\gdatabatch.cs">

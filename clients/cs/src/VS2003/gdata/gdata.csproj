@@ -197,6 +197,12 @@
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
+                 <File
+                    RelPath = "authexceptions.cs"
+                    Link = "..\..\core\authexceptions.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
                 <File
                     RelPath = "authsubutil.cs"
                     Link = "..\..\core\authsubutil.cs"
