@@ -126,8 +126,8 @@
     <Compile Include="..\..\core\feedquery.cs">
       <Link>feedquery.cs</Link>
     </Compile>
-    <Compile Include="..\..\core\gauthexceptions.cs">
-      <Link>gauthexceptions.cs</Link>
+    <Compile Include="..\..\core\authexceptions.cs">
+      <Link>authexceptions.cs</Link>
     </Compile>
      <Compile Include="..\..\core\gauthrequest.cs">
       <Link>gauthrequest.cs</Link>
