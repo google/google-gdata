@@ -8,6 +8,9 @@
 - fixed an issue with the edit/self uris on the entry. They were not correctly setable.
 - fixed an issue that one you used an authenticated service, but did not supply credentials, we would send
   an empty authentication header.
+- added Captcha Handling and more detailed exceptions when the authentication 
+  request fails. See authexceptions.cs for the list of potential exceptions thrown
+- added some preliminary unittests for the new exceptions
 
 == 1.0.9.4 ==
 - Google Base: fix for incorrect Price attribute behaviour

@@ -32,6 +32,7 @@ using Google.GData.Calendar;
 namespace Google.GData.Client.UnitTests
 {
     [TestFixture] 
+    [Category("GoogleCalendar")]
     public class CalendarTestSuite : BaseTestClass
     {
 

@@ -371,22 +371,17 @@ namespace Google.GData.Client
         /////////////////////////////////////////////////////////////////////////////
 
         //////////////////////////////////////////////////////////////////////
-        /// <summary>parses a form response stream in token form for a specific value
+        /// <summary>searches tokenCollection for a specific NEXT value. 
+        ///  The collection is assume to be a key/value pair list, so if <A,B,C,D> is the list
+        ///   A and C are keys, B and  D are values
         /// </summary> 
-        /// <param name="inputStream">the stream to read and parse</param>
+        /// <param name="tokens">the TokenCollection to search</param>
         /// <param name="key">the key to search for</param>
-        /// <returns> the string in the tokenized stream </returns>
+        /// <returns> the value string</returns>
         //////////////////////////////////////////////////////////////////////
-        static public string ParseValueFormStream(Stream inputStream,  string key)
+        static public string FindToken(TokenCollection tokens,  string key)
         {
             string returnValue = null; 
-             // get the body and parse it
-            ASCIIEncoding encoder = new ASCIIEncoding();
-            StreamReader readStream = new StreamReader(inputStream, encoder);
-            String body = readStream.ReadToEnd(); 
-            readStream.Close(); 
-            // all we are interested is the token, so we break the string in parts
-            TokenCollection tokens = new TokenCollection(body, new char[2] {'=', '\n'}); 
             bool fNextOne=false; 
 
             foreach (string token in tokens )
@@ -406,6 +401,45 @@ namespace Google.GData.Client
             return returnValue; 
         }
         /////////////////////////////////////////////////////////////////////////////
+
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>converts a form response stream to a TokenCollection,
+        ///  by parsing the contents of the stream for newlines and equal signs
+        ///  the input stream is assumed to be an ascii encoded form resonse
+        /// </summary> 
+        /// <param name="inputStream">the stream to read and parse</param>
+        /// <returns> the resulting TokenCollection </returns>
+        //////////////////////////////////////////////////////////////////////
+        static public TokenCollection ParseStreamInTokenCollection(Stream inputStream)
+        {
+             // get the body and parse it
+            ASCIIEncoding encoder = new ASCIIEncoding();
+            StreamReader readStream = new StreamReader(inputStream, encoder);
+            String body = readStream.ReadToEnd(); 
+            readStream.Close(); 
+            Tracing.TraceMsg("got the following body back: " + body);
+            // all we are interested is the token, so we break the string in parts
+            TokenCollection tokens = new TokenCollection(body, new char[2] {'=', '\n'}); 
+            return tokens;
+         }
+        /////////////////////////////////////////////////////////////////////////////
+
+          //////////////////////////////////////////////////////////////////////
+        /// <summary>parses a form response stream in token form for a specific value
+        /// </summary> 
+        /// <param name="inputStream">the stream to read and parse</param>
+        /// <param name="key">the key to search for</param>
+        /// <returns> the string in the tokenized stream </returns>
+        //////////////////////////////////////////////////////////////////////
+        static public string ParseValueFormStream(Stream inputStream,  string key)
+        {
+            TokenCollection tokens = ParseStreamInTokenCollection(inputStream);
+            return FindToken(tokens, key);
+         }
+        /////////////////////////////////////////////////////////////////////////////
+
+
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>returns a blank emptyDate. That's the default for an empty string date</summary> 
