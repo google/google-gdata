@@ -12,9 +12,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 */
-#define TRACE
-#define USE_TRACING
-
 
 using System;
 using System.IO;
@@ -83,7 +80,7 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         /// <summary>default initializer, does nothing right now</summary> 
         //////////////////////////////////////////////////////////////////////
-        [Conditional("USE_TRACING")] static public void InitTracing()
+        [Conditional("TRACE")] static public void InitTracing()
         {
             return;
         }
@@ -93,7 +90,7 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         /// <summary>Default deinitializer, closes the listener streams</summary> 
         //////////////////////////////////////////////////////////////////////
-        [Conditional("USE_TRACING")] static public void ExitTracing()
+        [Conditional("TRACE")] static public void ExitTracing()
         {
             return;
         }
@@ -104,7 +101,7 @@ namespace Google.GData.Client
         /// <summary>Method to trace the current call with an additional message</summary> 
         /// <param name="msg"> msg string to display</param>
         //////////////////////////////////////////////////////////////////////
-        [Conditional("USE_TRACING")] static public void TraceCall(string msg)
+        [Conditional("TRACE")] static public void TraceCall(string msg)
         {
             // puts out the callstack and the msg
             try
@@ -131,7 +128,7 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         /// <summary>Method to trace the current call with an additional message</summary> 
         //////////////////////////////////////////////////////////////////////
-        [Conditional("USE_TRACING")] static public void TraceCall()
+        [Conditional("TRACE")] static public void TraceCall()
         {
             Tracing.TraceCall("");
         }
@@ -140,7 +137,7 @@ namespace Google.GData.Client
         /// <summary>Method to trace the current call with an additional message</summary> 
         /// <param name="msg"> msg string to display</param>
         //////////////////////////////////////////////////////////////////////
-        [Conditional("USE_TRACING")] static public void TraceInfo(string msg)
+        [Conditional("TRACE")] static public void TraceInfo(string msg)
         {
             Tracing.TraceMsg(msg);
         }
@@ -149,7 +146,7 @@ namespace Google.GData.Client
         /// <summary>Method to trace the a message with timestamping</summary> 
         /// <param name="msg"> msg string to display</param>
         //////////////////////////////////////////////////////////////////////
-        [Conditional("USE_TRACING")] static public void Timestamp(string msg)
+        [Conditional("TRACE")] static public void Timestamp(string msg)
         {
             DateTime now = DateTime.Now;
             msg = now.ToString("HH:mm:ss:ffff") + " - " + msg; 
@@ -161,7 +158,7 @@ namespace Google.GData.Client
         /// <summary>Method to trace a message</summary> 
         /// <param name="msg"> msg string to display</param>
         //////////////////////////////////////////////////////////////////////
-        [Conditional("USE_TRACING")] static public void TraceMsg(string msg)
+        [Conditional("TRACE")] static public void TraceMsg(string msg)
         {
             try
             {
@@ -177,7 +174,7 @@ namespace Google.GData.Client
         /// <param name="condition"> if false, raises assert</param>
         /// <param name="msg"> msg string to display</param>
         //////////////////////////////////////////////////////////////////////
-        [Conditional("USE_TRACING")] static public void Assert(bool condition, string msg)
+        [Conditional("TRACE")] static public void Assert(bool condition, string msg)
         {
             if (condition == false)
             {

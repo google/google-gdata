@@ -51,6 +51,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spreadsheet", "Spreadsheet\
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "unittests", "unittests\unittests.csproj", "{22D56E6B-DF29-4675-A655-B33252B7FA4B}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfiguration) = preSolution
 		Debug = Debug
@@ -111,6 +115,10 @@ Global
 		{87784AB1-DCAB-4C86-BC03-C4D8D1A28606}.Debug.Build.0 = Debug|.NET
 		{87784AB1-DCAB-4C86-BC03-C4D8D1A28606}.Release.ActiveCfg = Release|.NET
 		{87784AB1-DCAB-4C86-BC03-C4D8D1A28606}.Release.Build.0 = Release|.NET
+		{22D56E6B-DF29-4675-A655-B33252B7FA4B}.Debug.ActiveCfg = Debug|.NET
+		{22D56E6B-DF29-4675-A655-B33252B7FA4B}.Debug.Build.0 = Debug|.NET
+		{22D56E6B-DF29-4675-A655-B33252B7FA4B}.Release.ActiveCfg = Release|.NET
+		{22D56E6B-DF29-4675-A655-B33252B7FA4B}.Release.Build.0 = Release|.NET
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 	EndGlobalSection
