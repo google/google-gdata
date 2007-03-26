@@ -11,6 +11,8 @@
 - added Captcha Handling and more detailed exceptions when the authentication 
   request fails. See authexceptions.cs for the list of potential exceptions thrown
 - added some preliminary unittests for the new exceptions
+- added a new constructor for the TokenCollection, so that captcha parsing is handled correctly
+- made the debug output depending on the TRACE define, and removed that define for the release build
 
 == 1.0.9.4 ==
 - Google Base: fix for incorrect Price attribute behaviour

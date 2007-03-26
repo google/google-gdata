@@ -446,6 +446,50 @@ namespace Google.GData.Client.UnitTests
         }
         /////////////////////////////////////////////////////////////////////////////
 
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>tests the tokenizer collection</summary> 
+        //////////////////////////////////////////////////////////////////////
+        [Test] public void TestTokenCollection() 
+        {
+            Tracing.TraceMsg("Entering TestTokenCollection");
+            String toTest = "Test=Test?other=whatever\nTest2=Line2?other=whatishere";
+
+            TokenCollection tokens = new TokenCollection(toTest, new char[] {'\n', '='});
+            TokenCollection tokenSmart = new TokenCollection(toTest, new char[] {'='}, true, 2);
+
+            int iTokens = 0;
+            foreach (string token in tokens)
+            {
+                // tokens should have 5 tokens, as the = signs split into 5
+                iTokens++;
+                if (iTokens == 1)
+                {
+                    Assert.IsTrue(token.Equals("Test"), "The first token should be Test, but it is: " + token);
+                }
+                if (iTokens == 4)
+                {
+                    Assert.IsTrue(token.Equals("Test2"), "The fourth token should be Test2 but it is: " + token);
+                }
+            }
+
+            iTokens = 0;
+            foreach (string token in tokenSmart)
+            {
+                // tokens should have 5 tokens, as the = signs split into 5
+                iTokens++;
+                if (iTokens == 1)
+                {
+                    Assert.IsTrue(token.Equals("Test"), "The first smart token should be Test, but it is: " + token);
+                }
+                if (iTokens == 4)
+                {
+                    Assert.IsTrue(token.Equals("Line2?other=whatishere"), "The fourth smart token should be whatishere, but it is: " + token);
+                }
+            }
+
+
+
+        }
   
     } /// end of CoreTestSuite
 }

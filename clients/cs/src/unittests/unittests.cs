@@ -338,10 +338,11 @@ namespace Google.GData.Client.UnitTests
             Tracing.TraceMsg("Entering TestIt");
 
            // CalendarTestSuite  test = new CalendarTestSuite();
-            BloggerTestSuite  test = new BloggerTestSuite();
+           // BloggerTestSuite  test = new BloggerTestSuite();
+            CoreTestSuite test = new CoreTestSuite();
 
             test.InitTest(); 
-            test.BloggerHTMLTest();
+            test.TestTokenCollection();
             test.EndTest(); 
 
 

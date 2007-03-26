@@ -159,8 +159,6 @@ namespace Google.GData.Client.AuthUnitTests
             FeedQuery query = new FeedQuery();
             Service service = new Service();
 
-            int iCount; 
-
             if (this.defaultUri != null)
             {
                 if (this.userName != null)
@@ -198,8 +196,6 @@ namespace Google.GData.Client.AuthUnitTests
             FeedQuery query = new FeedQuery();
             Service service = new Service();
 
-            int iCount; 
-
             if (this.defaultUri != null)
             {
                 if (this.userName != null)
@@ -221,11 +217,52 @@ namespace Google.GData.Client.AuthUnitTests
                 {
                     Tracing.TraceMsg("Got the correct Exception");
                 }
-                 service.Credentials = null;
+                catch (CaptchaRequiredException e)
+                {
+                    Console.WriteLine("Token: {0}", e.Token);
+                    Console.WriteLine("URL: {0}", e.Url);
+                    Tracing.TraceMsg("Got the correct Exception");
+                }
+                service.Credentials = null;
                 factory.MethodOverride = false;
             }
         }
         ////////////////////////////////////////////////////////////////////////////
+
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>catpcha test
+        /// </summary> 
+        //////////////////////////////////////////////////////////////////////
+        [Test]
+        [Ignore("don't want to block the account all the time")]
+        public void CaptchaTest()
+        {
+        
+            Uri uri = new Uri("http://www.google.com/calendar/feeds/default/private/full");
+
+            CalendarService service = new CalendarService("foo");
+            service.setUserCredentials(this.userName, "foobar");
+
+            for (int i = 0; i < 50; i++)
+            {
+                try
+                {
+                    service.Query(uri);
+                }
+                catch (InvalidCredentialsException)
+                {
+                    // keep going
+                }
+                catch (CaptchaRequiredException e)
+                {
+                    Console.WriteLine("Token: {0}", e.Token);
+                    Console.WriteLine("URL: {0}", e.Url);
+
+                    break;
+                }
+            }
+        }
 
     } /////////////////////////////////////////////////////////////////////////////
 }

@@ -420,7 +420,7 @@ namespace Google.GData.Client
             readStream.Close(); 
             Tracing.TraceMsg("got the following body back: " + body);
             // all we are interested is the token, so we break the string in parts
-            TokenCollection tokens = new TokenCollection(body, new char[2] {'=', '\n'}); 
+            TokenCollection tokens = new TokenCollection(body, new char[1] {'='}, true, 2); 
             return tokens;
          }
         /////////////////////////////////////////////////////////////////////////////
@@ -465,7 +465,7 @@ namespace Google.GData.Client
     public class TokenCollection : IEnumerable
     {
        private string[] elements;
-
+  
        /// <summary>Constructor, takes a string and a delimiter set</summary> 
        public TokenCollection(string source, char[] delimiters)
        {
@@ -473,6 +473,35 @@ namespace Google.GData.Client
            if (source != null)
            {
                this.elements = source.Split(delimiters);
+           }
+       }
+
+         /// <summary>Constructor, takes a string and a delimiter set</summary> 
+       public TokenCollection(string source, char[] delimiters, 
+                              bool seperateLines, int resultsPerLine)
+       {
+           if (source != null)
+           {
+               if (seperateLines == true)
+               {
+                   // first split the source into a line array
+                   string [] lines = source.Split(new char[] {'\n'});
+                   int size = lines.Length * resultsPerLine;
+                   this.elements = new string[size]; 
+                   size = 0; 
+                   foreach (String s in lines)
+                   {
+                       string []temp = s.Split(delimiters, resultsPerLine);
+                       foreach (String r in temp )
+                       {
+                           this.elements[size++] = r;
+                       }
+                   }
+               } 
+               else 
+               {
+                   this.elements = source.Split(delimiters, resultsPerLine);
+               } 
            }
        }
 
@@ -539,6 +568,5 @@ namespace Google.GData.Client
        }
     }
     /////////////////////////////////////////////////////////////////////////////
-
 
 }   /////////////////////////////////////////////////////////////////////////////
