@@ -48,7 +48,7 @@
                     BaseAddress = "285212672"
                     CheckForOverflowUnderflow = "false"
                     ConfigurationOverrideFile = ""
-                    DefineConstants = "TRACE"
+                    DefineConstants = ""
                     DocumentationFile = ""
                     DebugSymbols = "false"
                     FileAlignment = "4096"
@@ -197,7 +197,7 @@
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
-                 <File
+                <File
                     RelPath = "authexceptions.cs"
                     Link = "..\..\core\authexceptions.cs"
                     SubType = "Code"
