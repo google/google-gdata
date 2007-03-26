@@ -408,7 +408,7 @@ namespace Google.GData.Client
         ///  by parsing the contents of the stream for newlines and equal signs
         ///  the input stream is assumed to be an ascii encoded form resonse
         /// </summary> 
-        /// <param name="inputStream">the stream to read and parse</param>
+        ///  <param name="inputStream">the stream to read and parse</param>
         /// <returns> the resulting TokenCollection </returns>
         //////////////////////////////////////////////////////////////////////
         static public TokenCollection ParseStreamInTokenCollection(Stream inputStream)
