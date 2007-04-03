@@ -73,9 +73,9 @@ namespace Google.GData.Client
         /// <summary>default value for the account type</summary>
         public const string AccountTypeDefault = "HOSTED_OR_GOOGLE";
         /// <summary>captcha url token</summary>
-        public const string CaptchaAnswer = "logincaptcha=";
+        public const string CaptchaAnswer = "logincaptcha";
         /// <summary>default value for the account type</summary>
-        public const string CaptchaToken = "logintoken=";
+        public const string CaptchaToken = "logintoken";
     }
     /////////////////////////////////////////////////////////////////////////////
 
