@@ -11,7 +11,8 @@ ALLLIBS = \
 	Google.GData.CodeSearch.dll	\
 	Google.GData.Extensions.dll	\
 	Google.GData.GoogleBase.dll	\
-	Google.GData.Spreadsheets.dll
+	Google.GData.Spreadsheets.dll   \
+	Google.GData.Apps.dll
 
 FRAMEWORK_REFS = -r:System.dll -r:System.Xml.dll -r:System.Web.dll
 
@@ -23,7 +24,8 @@ samples =	\
 	gbase_customertool.exe		\
 	insertsample.exe		\
 	updatesample.exe		\
-	readsample.exe
+	readsample.exe			\
+	gapps_appsdemo.exe
 
 all: $(ALL_LIBS) tests $(samples)
 
@@ -33,7 +35,8 @@ gbase_sources = $(wildcard src/gbase/*.cs) $(wildcard src/version/*cs.cs)
 gcodesearch_sources = $(wildcard src/gcodesearch/*.cs) $(wildcard src/version/*cs.cs)
 gspreadsheet_sources = $(wildcard src/gspreadsheet/*.cs) $(wildcard src/version/*cs.cs)
 gcalendar_sources =  $(wildcard src/gcalendar/*.cs) $(wildcard src/version/*cs.cs)
-test_sources = $(wildcard src/unittests/*.cs) $(wildcard src/unittests/gbase/*.cs) $(wildcard src/version/*cs)
+gapps_sources = $(wildcard src/gapps/*.cs) $(wildcard src/version/*cs.cs)
+test_sources = $(wildcard src/unittests/*.cs) $(wildcard src/unittests/gbase/*.cs) $(wildcard src/unittests/gapps/*.cs) $(wildcard src/version/*cs)
 
 Google.GData.Client.dll: $(core_sources) clientkey.sn
 	$(CSC) -target:library -out:$@ $(core_sources) $(FRAMEWORK_REFS)
@@ -52,6 +55,9 @@ Google.GData.GoogleBase.dll: $(CORELIBS) $(gbase_sources) gbase.sn
 
 Google.GData.Spreadsheets.dll: $(CORELIBS) $(gspreadsheet_sources) spreadsheets.sn
 	$(CSC) -target:library -out:$@ $(COREREFS) $(gspreadsheet_sources)
+
+Google.GData.Apps.dll: $(CORELIBS) $(gapps_sources) gapps.sn
+	$(CSC) -target:library -out:$@ $(COREREFS) $(gapps_sources)
 
 %.sn: 
 	cp src/signing/$@ .
@@ -90,6 +96,12 @@ gbase_customertool.exe: $(ALLLIBS) $(gbase_customertool_sources)
 gbase_queryexample_sources = samples/gbase/example.cs samples/gbase/queryexample.cs
 gbase_queryexample.exe: $(ALLLIBS) $(gbase_queryexample_sources)
 	$(CSC) -out:$@ $(ALLREFS) $(gbase_queryexample_sources)
+
+gapps_sample_sources = samples/appsforyourdomain/appsdemo.cs
+gapps_appsdemo.exe: $(ALLLIBS) $(gapps_sample_sources)
+	$(CSC) -out:$@ $(ALLREFS) $(gapps_sample_sources)
+
+
 
 test:
 	nunit-console2 unittests.dll

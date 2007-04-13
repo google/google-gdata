@@ -253,12 +253,18 @@ namespace Google.GData.Client.AuthUnitTests
                 catch (InvalidCredentialsException)
                 {
                     // keep going
+                    Console.WriteLine("Invalid");
                 }
                 catch (CaptchaRequiredException e)
                 {
                     Console.WriteLine("Token: {0}", e.Token);
                     Console.WriteLine("URL: {0}", e.Url);
+                    string response = Console.ReadLine();
 
+                    ((GDataGAuthRequestFactory)service.RequestFactory).CaptchaToken = e.Token;
+                    ((GDataGAuthRequestFactory)service.RequestFactory).CaptchaAnswer = response;
+                    service.setUserCredentials(this.userName, this.passWord);
+                    service.Query(uri);
                     break;
                 }
             }

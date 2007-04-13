@@ -773,7 +773,6 @@ namespace Google.GData.Client.UnitTests
         //////////////////////////////////////////////////////////////////////
         /// <summary>test for composite mode</summary> 
         //////////////////////////////////////////////////////////////////////
-        [Ignore ("Currently broken on the server")]
         [Test] public void CalendarCompositeTest()
         {
             Tracing.TraceMsg("Entering CalendarCompositeTest");
@@ -800,7 +799,7 @@ namespace Google.GData.Client.UnitTests
 
                 query.Uri = new Uri(this.defaultCompositeUri); 
                 EventFeed calFeed = service.Query(query);
-                Assert.IsTrue(calFeed==null, "that's wrong"); 
+                Assert.IsTrue(calFeed!=null, "that's wrong, there should be a feed object" + calFeed); 
                 service.Credentials = null; 
                 factory.MethodOverride = false;
             }
