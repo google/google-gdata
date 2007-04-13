@@ -1,3 +1,8 @@
+== 1.0.9.6
+- added Google Apps for Your Domain support, a new helper DLL Google.GData.Apps.dll, and a sample, as well
+  as unittests. Version number is increased to distinguish from Subversion, as this will be a binary download 
+  as well.
+
 == 1.0.9.5 ==
 - fix for incorrect encoding of usernames/passwords during authentication (you could run
   into problems if you had an email like "foo&joe@test.com"
