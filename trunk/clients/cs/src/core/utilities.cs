@@ -491,16 +491,29 @@ namespace Google.GData.Client
                    size = 0; 
                    foreach (String s in lines)
                    {
-                       string []temp = s.Split(delimiters, resultsPerLine);
-                       foreach (String r in temp )
+                       // do not use Split(char,int) as that one
+                       // does not exist on .NET CF
+                       string []temp = s.Split(delimiters);
+                      
+                       foreach (String r in temp)
                        {
                            this.elements[size++] = r;
+                           resultsPerLine--;
+                           if (resultsPerLine == 0)
+                               break;
                        }
                    }
                } 
                else 
                {
-                   this.elements = source.Split(delimiters, resultsPerLine);
+                   string[] temp = source.Split(delimiters);
+                   resultsPerLine = temp.Length < resultsPerLine ? temp.Length : resultsPerLine;
+                   this.elements = new string[resultsPerLine];
+
+                   for (int i = 0; i <resultsPerLine; i++) 
+                   {
+                       this.elements[i] = temp[i];
+                   }
                } 
            }
        }

@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GCodeSearchMobile", "GCodeS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GSpreadSheetsMobile", "GSpreadSheetsMobile\GSpreadSheetsMobile.csproj", "{15CA401F-2D92-498B-A9DE-DD24B34ACE25}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GAppsMobile", "GAppsMobile\GAppsMobile.csproj", "{2AC67E0B-8441-4B7C-ACCE-79A306AB6E0F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +45,10 @@ Global
 		{15CA401F-2D92-498B-A9DE-DD24B34ACE25}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{15CA401F-2D92-498B-A9DE-DD24B34ACE25}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{15CA401F-2D92-498B-A9DE-DD24B34ACE25}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2AC67E0B-8441-4B7C-ACCE-79A306AB6E0F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2AC67E0B-8441-4B7C-ACCE-79A306AB6E0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2AC67E0B-8441-4B7C-ACCE-79A306AB6E0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2AC67E0B-8441-4B7C-ACCE-79A306AB6E0F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
