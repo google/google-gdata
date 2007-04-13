@@ -12,6 +12,7 @@ xcopy /y ..\src\VS2003\Spreadsheet\bin\Release\*.exe ..\lib\Release\*.*
 xcopy /y ..\src\VS2003\gbase_customertool\bin\Release\*.exe ..\lib\Release\*.*
 xcopy /y ..\src\VS2003\gbase_demo\bin\*.exe ..\lib\Release\*.*
 xcopy /y ..\src\VS2003\gbase_querytool\bin\Release\*.exe ..\lib\Release\*.*
+xcopy /y ..\src\VS2003\gapps_sample\bin\Release\*.exe ..\lib\Release\*.*
 
 # copy the DLLS
 xcopy /y ..\src\VS2003\gdata\bin\Release\*.dll ..\lib\Release\*.*
@@ -20,6 +21,7 @@ xcopy /y ..\src\VS2003\gextension\bin\Release\*.dll ..\lib\Release\*.*
 xcopy /y ..\src\VS2003\gspreadsheets\bin\Release\*.dll ..\lib\Release\*.*
 xcopy /y ..\src\VS2003\gcalendar\bin\Release\*.dll ..\lib\Release\*.*
 xcopy /y ..\src\VS2003\gcodesearch\bin\Release\*.dll ..\lib\Release\*.*
+xcopy /y ..\src\VS2003\gapps\bin\Release\*.dll ..\lib\Release\*.*
 
 # now build the documentation
 "%ProgramFiles%\NDoc 1.3\bin\net\1.1\NDocConsole.exe" -project=GDataProject.ndoc 

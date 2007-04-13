@@ -55,6 +55,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "unittests", "unittests\unit
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gapps", "gapps\gapps.csproj", "{96CCB33A-3B32-480E-B83D-93F0309F7DD2}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gapps_sample", "gapps_sample\gapps_sample.csproj", "{25DF4CCD-68C9-400E-87FF-8FCFAF76C998}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfiguration) = preSolution
 		Debug = Debug
@@ -119,6 +127,14 @@ Global
 		{22D56E6B-DF29-4675-A655-B33252B7FA4B}.Debug.Build.0 = Debug|.NET
 		{22D56E6B-DF29-4675-A655-B33252B7FA4B}.Release.ActiveCfg = Release|.NET
 		{22D56E6B-DF29-4675-A655-B33252B7FA4B}.Release.Build.0 = Release|.NET
+		{96CCB33A-3B32-480E-B83D-93F0309F7DD2}.Debug.ActiveCfg = Debug|.NET
+		{96CCB33A-3B32-480E-B83D-93F0309F7DD2}.Debug.Build.0 = Debug|.NET
+		{96CCB33A-3B32-480E-B83D-93F0309F7DD2}.Release.ActiveCfg = Release|.NET
+		{96CCB33A-3B32-480E-B83D-93F0309F7DD2}.Release.Build.0 = Release|.NET
+		{25DF4CCD-68C9-400E-87FF-8FCFAF76C998}.Debug.ActiveCfg = Debug|.NET
+		{25DF4CCD-68C9-400E-87FF-8FCFAF76C998}.Debug.Build.0 = Debug|.NET
+		{25DF4CCD-68C9-400E-87FF-8FCFAF76C998}.Release.ActiveCfg = Release|.NET
+		{25DF4CCD-68C9-400E-87FF-8FCFAF76C998}.Release.Build.0 = Release|.NET
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 	EndGlobalSection
