@@ -131,7 +131,7 @@ namespace Google.GData.Apps
                             // now find the ErrorElement
                             while (reader.Read())
                             {
-                                if (reader.NodeType == XmlNodeType.EndElement && reader.LocalName.Equals(AppsNameTable.XmlElementError))
+                                if (reader.NodeType == XmlNodeType.Element && reader.LocalName.Equals(AppsNameTable.XmlElementError))
                                 {
                                     break;
                                 }
