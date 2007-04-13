@@ -116,10 +116,27 @@
                     AssemblyName = "System.Web"
                     HintPath = "C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Web.dll"
                 />
+                <Reference
+                    Name = "gapps"
+                    Project = "{96CCB33A-3B32-480E-B83D-93F0309F7DD2}"
+                    Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
+                />
             </References>
         </Build>
         <Files>
             <Include>
+                <File
+                    RelPath = "appsexceptiontest.cs"
+                    Link = "..\..\unittests\gapps\appsexceptiontest.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "appsservicetest.cs"
+                    Link = "..\..\unittests\gapps\appsservicetest.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
                 <File
                     RelPath = "AssemblyInfo.cs"
                     Link = "..\..\unittests\AssemblyInfo.cs"
@@ -153,6 +170,36 @@
                 <File
                     RelPath = "datetimerangetest.cs"
                     Link = "..\..\unittests\gbase\datetimerangetest.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "emaillistentrytest.cs"
+                    Link = "..\..\unittests\gapps\emaillistentrytest.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "emaillistquerytest.cs"
+                    Link = "..\..\unittests\gapps\emaillistquerytest.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "emaillistrecipiententrytest.cs"
+                    Link = "..\..\unittests\gapps\emaillistrecipiententrytest.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "emaillistrecipientquerytest.cs"
+                    Link = "..\..\unittests\gapps\emaillistrecipientquerytest.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "emaillisttest.cs"
+                    Link = "..\..\unittests\gapps\emaillisttest.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
@@ -211,6 +258,36 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "logintest.cs"
+                    Link = "..\..\unittests\gapps\logintest.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "nametest.cs"
+                    Link = "..\..\unittests\gapps\nametest.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "nicknameentrytest.cs"
+                    Link = "..\..\unittests\gapps\nicknameentrytest.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "nicknamequerytest.cs"
+                    Link = "..\..\unittests\gapps\nicknamequerytest.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "nicknametest.cs"
+                    Link = "..\..\unittests\gapps\nicknametest.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "numberunittest.cs"
                     Link = "..\..\unittests\gbase\numberunittest.cs"
                     SubType = "Code"
@@ -223,6 +300,12 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "quotatest.cs"
+                    Link = "..\..\unittests\gapps\quotatest.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "shippingtest.cs"
                     Link = "..\..\unittests\gbase\shippingtest.cs"
                     SubType = "Code"
@@ -231,6 +314,18 @@
                 <File
                     RelPath = "unittests.cs"
                     Link = "..\..\unittests\unittests.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "userentrytest.cs"
+                    Link = "..\..\unittests\gapps\userentrytest.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "userquerytest.cs"
+                    Link = "..\..\unittests\gapps\userquerytest.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
