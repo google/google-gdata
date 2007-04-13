@@ -52,9 +52,7 @@ namespace Google.GData.Client
         private string reason; 
         private string contentType; 
         private string value;
-        ///  currently unused
-        /// private GDataBatchErrorCollection errorList;
-
+        
         /// <summary>default value for the status code</summary>
         public static int CodeDefault = -1; 
 
