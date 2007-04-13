@@ -8,6 +8,27 @@ The wiki page shows the release notes for the current binary download, the subve
 
 = Details =
 
+== 1.0.9.6 ==
+  * added Google Apps for Your Domain support, a new helper DLL Google.GData.Apps.dll, and a sample, as well
+  as unittests. Version number is increased to distinguish from the previous Subversion dlls.
+
+== 1.0.9.5 ==
+  * fix for incorrect encoding of usernames/passwords during authentication (you could run
+  into problems if you had an email like "foo&joe@test.com"
+  * exposure of the accountType as a property on the factory. If you happen to have an identical
+  user name for a Google account and a hosted account, you need to set this property depending on 
+  which account you want to access. Default is GOOGLE_OR_HOSTED, other values are GOOGLE or HOSTED
+  as strings.
+  * fixed an issue with the edit/self uris on the entry. They were not correctly setable.
+  * fixed an issue that one you used an authenticated service, but did not supply credentials, we would send
+  an empty authentication header. 
+  * added Captcha Handling and more detailed exceptions when the authentication 
+  request fails. See authexceptions.cs for the list of potential exceptions thrown
+  * added some preliminary unittests for the new exceptions
+  * added a new constructor for the TokenCollection, so that captcha parsing is handled correctly
+  * made the debug output depending on the TRACE define, and removed that define for the release build
+
+
 == 1.0.9.4 ==
   * Google Base: fix for incorrect Price attribute behaviour
   * Google Base: fix for incorrectly persisting duplicate attributes
@@ -168,6 +189,9 @@ Solved issues:
 
 == 1.0.0 ==
 - Initial Release
+
+
+
 
 
 
