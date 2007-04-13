@@ -455,7 +455,7 @@ namespace Google.GData.Client.UnitTests
             String toTest = "Test=Test?other=whatever\nTest2=Line2?other=whatishere";
 
             TokenCollection tokens = new TokenCollection(toTest, new char[] {'\n', '='});
-            TokenCollection tokenSmart = new TokenCollection(toTest, new char[] {'='}, true, 2);
+            TokenCollection tokenSmart = new TokenCollection(toTest, '=', true, 2);
 
             int iTokens = 0;
             foreach (string token in tokens)

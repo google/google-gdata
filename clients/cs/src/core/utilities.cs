@@ -420,7 +420,7 @@ namespace Google.GData.Client
             readStream.Close(); 
             Tracing.TraceMsg("got the following body back: " + body);
             // all we are interested is the token, so we break the string in parts
-            TokenCollection tokens = new TokenCollection(body, new char[1] {'='}, true, 2); 
+            TokenCollection tokens = new TokenCollection(body, '=', true, 2); 
             return tokens;
          }
         /////////////////////////////////////////////////////////////////////////////
@@ -477,7 +477,7 @@ namespace Google.GData.Client
        }
 
          /// <summary>Constructor, takes a string and a delimiter set</summary> 
-       public TokenCollection(string source, char[] delimiters, 
+       public TokenCollection(string source, char delimiter, 
                               bool seperateLines, int resultsPerLine)
        {
            if (source != null)
@@ -493,20 +493,23 @@ namespace Google.GData.Client
                    {
                        // do not use Split(char,int) as that one
                        // does not exist on .NET CF
-                       string []temp = s.Split(delimiters);
-                      
-                       foreach (String r in temp)
+                       string []temp = s.Split(delimiter);
+                       int counter = temp.Length < resultsPerLine ? temp.Length : resultsPerLine;
+                    
+                       for (int i = 0; i <counter; i++) 
                        {
-                           this.elements[size++] = r;
-                           resultsPerLine--;
-                           if (resultsPerLine == 0)
-                               break;
+                           this.elements[size++] = temp[i];
                        }
+                       for (int i = resultsPerLine; i < temp.Length; i++) 
+                       {
+                           this.elements[size-1] += delimiter + temp[i];
+                       }
+             
                    }
                } 
                else 
                {
-                   string[] temp = source.Split(delimiters);
+                   string[] temp = source.Split(delimiter);
                    resultsPerLine = temp.Length < resultsPerLine ? temp.Length : resultsPerLine;
                    this.elements = new string[resultsPerLine];
 
@@ -514,6 +517,12 @@ namespace Google.GData.Client
                    {
                        this.elements[i] = temp[i];
                    }
+                   for (int i = resultsPerLine; i < temp.Length; i++) 
+                   {
+                       this.elements[resultsPerLine-1] += delimiter + temp[i];
+                   }
+             
+             
                } 
            }
        }
