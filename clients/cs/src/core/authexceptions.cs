@@ -70,6 +70,9 @@ namespace Google.GData.Client
         /// <summary>default constructor so that FxCop does not complain</summary> 
         //////////////////////////////////////////////////////////////////////
         public InvalidCredentialsException() {}
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>constructor taking a descriptive string</summary> 
+        //////////////////////////////////////////////////////////////////////
         public InvalidCredentialsException(String msg) :  base(msg) {} 
     }
 
@@ -83,6 +86,9 @@ namespace Google.GData.Client
             /// <summary>default constructor so that FxCop does not complain</summary> 
             //////////////////////////////////////////////////////////////////////
             public AccountDeletedException() {}
+            //////////////////////////////////////////////////////////////////////
+            /// <summary>constructor taking a descriptive string</summary> 
+            //////////////////////////////////////////////////////////////////////
             public AccountDeletedException(String msg) :  base(msg) {} 
      }
 
@@ -96,7 +102,10 @@ namespace Google.GData.Client
              /// <summary>default constructor so that FxCop does not complain</summary> 
              //////////////////////////////////////////////////////////////////////
              public AccountDisabledException() {}
-             public AccountDisabledException(String msg) :  base(msg) {} 
+            //////////////////////////////////////////////////////////////////////
+            /// <summary>constructor taking a descriptive string</summary> 
+            //////////////////////////////////////////////////////////////////////
+            public AccountDisabledException(String msg) :  base(msg) {} 
       }
 
       //////////////////////////////////////////////////////////////////////
@@ -105,11 +114,14 @@ namespace Google.GData.Client
       //////////////////////////////////////////////////////////////////////
        public class NotVerifiedException : AuthenticationException
        {
-              //////////////////////////////////////////////////////////////////////
-              /// <summary>default constructor so that FxCop does not complain</summary> 
-              //////////////////////////////////////////////////////////////////////
-              public NotVerifiedException() {}
-              public NotVerifiedException(String msg) :  base(msg) {} 
+            //////////////////////////////////////////////////////////////////////
+            /// <summary>default constructor so that FxCop does not complain</summary> 
+            //////////////////////////////////////////////////////////////////////
+            public NotVerifiedException() {}
+            //////////////////////////////////////////////////////////////////////
+            /// <summary>constructor taking a descriptive string</summary> 
+            //////////////////////////////////////////////////////////////////////
+            public NotVerifiedException(String msg) :  base(msg) {} 
        }
 
        //////////////////////////////////////////////////////////////////////
@@ -118,11 +130,14 @@ namespace Google.GData.Client
        //////////////////////////////////////////////////////////////////////
         public class TermsNotAgreedException : AuthenticationException
         {
-               //////////////////////////////////////////////////////////////////////
-               /// <summary>default constructor so that FxCop does not complain</summary> 
-               //////////////////////////////////////////////////////////////////////
-               public TermsNotAgreedException() {}
-               public TermsNotAgreedException(String msg) :  base(msg) {} 
+            //////////////////////////////////////////////////////////////////////
+            /// <summary>default constructor so that FxCop does not complain</summary> 
+            //////////////////////////////////////////////////////////////////////
+            public TermsNotAgreedException() {}
+            //////////////////////////////////////////////////////////////////////
+            /// <summary>constructor taking a descriptive string</summary> 
+            //////////////////////////////////////////////////////////////////////
+            public TermsNotAgreedException(String msg) :  base(msg) {} 
         }
 
         //////////////////////////////////////////////////////////////////////
@@ -131,11 +146,14 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
          public class ServiceUnavailableException : AuthenticationException
          {
-                //////////////////////////////////////////////////////////////////////
-                /// <summary>default constructor so that FxCop does not complain</summary> 
-                //////////////////////////////////////////////////////////////////////
-                public ServiceUnavailableException() {}
-                public ServiceUnavailableException(String msg) :  base(msg) {} 
+            //////////////////////////////////////////////////////////////////////
+            /// <summary>default constructor so that FxCop does not complain</summary> 
+            //////////////////////////////////////////////////////////////////////
+            public ServiceUnavailableException() {}
+            //////////////////////////////////////////////////////////////////////
+            /// <summary>constructor taking a descriptive string</summary> 
+            //////////////////////////////////////////////////////////////////////
+            public ServiceUnavailableException(String msg) :  base(msg) {} 
          }
 
          //////////////////////////////////////////////////////////////////////
@@ -144,13 +162,17 @@ namespace Google.GData.Client
          //////////////////////////////////////////////////////////////////////
           public class CaptchaRequiredException : AuthenticationException
           {
-                protected string captchaUrl;
-                protected string captchaToken;
+             private string captchaUrl;
+             private string captchaToken;
 
              //////////////////////////////////////////////////////////////////////
              /// <summary>default constructor so that FxCop does not complain</summary> 
              //////////////////////////////////////////////////////////////////////
              public CaptchaRequiredException() {}
+  
+             //////////////////////////////////////////////////////////////////////
+             /// <summary>constructor taking a descriptive string</summary> 
+             //////////////////////////////////////////////////////////////////////
              public CaptchaRequiredException(String msg, String url, String token) :  base(msg)
              {
                  this.captchaUrl = url;
@@ -177,4 +199,4 @@ namespace Google.GData.Client
               // end of accessor for captchaToken
         }
 
-} ///end of file //////////////////////////////////////////////////////////////////////////
+} //end of file //////////////////////////////////////////////////////////////////////////

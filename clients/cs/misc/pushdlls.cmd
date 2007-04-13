@@ -23,6 +23,16 @@ xcopy /y ..\src\VS2003\gcalendar\bin\Release\*.dll ..\lib\Release\*.*
 xcopy /y ..\src\VS2003\gcodesearch\bin\Release\*.dll ..\lib\Release\*.*
 xcopy /y ..\src\VS2003\gapps\bin\Release\*.dll ..\lib\Release\*.*
 
+
+# copy the xml doc files
+xcopy /y ..\src\VS2003\gdata\bin\*.xml ..\docs\*.*
+xcopy /y ..\src\VS2003\gbase\bin\*.xml ..\docs\*.*
+xcopy /y ..\src\VS2003\gextension\bin\*.xml ..\docs\*.*
+xcopy /y ..\src\VS2003\gspreadsheets\bin\*.xml ..\docs\*.*
+xcopy /y ..\src\VS2003\gcalendar\bin\*.xml ..\docs\*.*
+xcopy /y ..\src\VS2003\gcodesearch\bin\*.xml ..\docs\*.*
+xcopy /y ..\src\VS2003\gapps\bin\*.xml ..\docs\*.*
+
 # now build the documentation
 "%ProgramFiles%\NDoc 1.3\bin\net\1.1\NDocConsole.exe" -project=GDataProject.ndoc 
 # the tree.cs generated is buggy, use this one

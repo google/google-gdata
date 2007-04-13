@@ -372,7 +372,7 @@ namespace Google.GData.Client
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>searches tokenCollection for a specific NEXT value. 
-        ///  The collection is assume to be a key/value pair list, so if <A,B,C,D> is the list
+        ///  The collection is assume to be a key/value pair list, so if A,B,C,D is the list
         ///   A and C are keys, B and  D are values
         /// </summary> 
         /// <param name="tokens">the TokenCollection to search</param>

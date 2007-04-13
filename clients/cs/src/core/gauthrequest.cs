@@ -42,6 +42,9 @@ namespace Google.GData.Client
 
         ///  <summary>protocol  </summary>
         public const string DefaultProtocol = "https";
+        /// <summary>
+        /// default authentication domain
+        /// </summary>
         public const string DefaultDomain = "www.google.com";
 
         /// <summary>Google client authentication handler</summary>
