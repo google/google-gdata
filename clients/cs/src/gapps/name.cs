@@ -68,7 +68,6 @@ namespace Google.GData.Apps
         //////////////////////////////////////////////////////////////////////
         /// <summary>parses an xml node to create a NameElement object</summary> 
         /// <param name="node">name node</param>
-        /// <param name="parser">AtomFeedParser to use</param>
         /// <returns> the created NameElement object</returns>
         //////////////////////////////////////////////////////////////////////
         public static NameElement ParseName(XmlNode node)

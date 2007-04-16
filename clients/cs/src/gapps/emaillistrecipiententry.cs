@@ -22,6 +22,11 @@ using Google.GData.Extensions;
 
 namespace Google.GData.Apps
 {
+    /// <summary>
+    /// A Google Apps email list recipient entry.  This class
+    /// defines a single recipient on an email list using a Who
+    /// (gd:who) object.
+    /// </summary>
     public class EmailListRecipientEntry : AtomEntry
     {
         /// <summary>
@@ -34,12 +39,23 @@ namespace Google.GData.Apps
 
         private Who recipient;
 
+        /// <summary>
+        /// Constructs a new EmailListRecipientEntry without
+        /// setting the Recipient property.
+        /// </summary>
         public EmailListRecipientEntry()
             : base()
         {
             Categories.Add(EMAILLIST_RECIPIENT_CATEGORY);
         }
 
+        /// <summary>
+        /// Constructs a new EmailListRecipientEntry, using
+        /// the specified email address to initialize the
+        /// Recipient property.
+        /// </summary>
+        /// <param name="recipientAddress">the recipient's
+        /// email address</param>
         public EmailListRecipientEntry(String recipientAddress)
             : base()
         {

@@ -21,6 +21,10 @@ using Google.GData.Client;
 
 namespace Google.GData.Apps
 {
+    /// <summary>
+    /// A Google Apps nickname entry.  A NicknameEntry identifies a
+    /// nickname and the user to whom the nickname is assigned.
+    /// </summary>
     public class NicknameEntry : AtomEntry
     {
         /// <summary>

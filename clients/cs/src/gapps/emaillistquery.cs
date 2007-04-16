@@ -20,15 +20,15 @@ using System.IO;
 using System.Collections;
 using Google.GData.Client;
 
-/// <summary>
-/// A subclass of FeedQuery to query a Google Apps email list
-/// feed URI.
-/// 
-/// Provides public properties that describe the different
-/// aspects of the URI, as well as a composite URI.
-/// </summary>
 namespace Google.GData.Apps
 {
+    /// <summary>
+    /// A subclass of FeedQuery to query a Google Apps email list
+    /// feed URI.
+    /// 
+    /// Provides public properties that describe the different
+    /// aspects of the URI, as well as a composite URI.
+    /// </summary>
     public class EmailListQuery : FeedQuery
     {
         private const string feedUriExtension = "/emailList/2.0";

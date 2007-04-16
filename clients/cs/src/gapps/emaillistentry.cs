@@ -21,6 +21,10 @@ using Google.GData.Client;
 
 namespace Google.GData.Apps
 {
+    /// <summary>
+    /// A Google Apps email list entry.  An EmailListEntry object
+    /// contains information about a single email list.
+    /// </summary>
     public class EmailListEntry : AtomEntry
     {
         /// <summary>

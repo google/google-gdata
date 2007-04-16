@@ -26,6 +26,12 @@ namespace Google.GData.Apps
     /// </summary>
     public class NicknameFeed : AtomFeed
     {
+        /// <summary>
+        /// Constructs a new NicknameFeed.
+        /// </summary>
+        /// <param name="uriBase">the URI of the feed</param>
+        /// <param name="iService">the service with which this
+        /// feed will be associated</param>
         public NicknameFeed(Uri uriBase, IService iService)
             : base(uriBase, iService)
         {

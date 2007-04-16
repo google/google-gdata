@@ -1,12 +1,14 @@
 using System;
-// using System.Text;
- using System.Net;
-// using System.IO;
+using System.Net;
 using System.Xml;
 using Google.GData.Client;
 
 namespace Google.GData.Apps
 {
+    /// <summary>
+    /// The AppsException class defines an error resulting from
+    /// a Google Apps provisioning request.
+    /// </summary>
     public class AppsException : GDataRequestException
     {
         private string errorCode;
@@ -15,20 +17,101 @@ namespace Google.GData.Apps
 
         #region Defined Google Apps error codes
 
+        /// <summary>
+        /// Google Apps error indicating that the request failed
+        /// for an unknown reason.
+        /// </summary>
         public const string UnknownError = "1000";
+
+        /// <summary>
+        /// Google Apps error indicating that the request instructs
+        /// Google to create a new user but uses the username of an
+        /// account that was deleted in the previous five days.
+        /// </summary>
         public const string UserDeletedRecently = "1100";
+
+        /// <summary>
+        /// Google Apps error indicating that the user identified in
+        /// the request is suspended.
+        /// </summary>
         public const string UserSuspended = "1101";
+
+        /// <summary>
+        /// Google Apps error indicating that the specified domain has
+        /// already reached its quota of user accounts.
+        /// </summary>
         public const string DomainUserLimitExceeded = "1200";
+
+        /// <summary>
+        /// Google Apps error indicating that the specified domain has
+        /// already reached its quota of aliases. Aliases include
+        /// nicknames and email lists. 
+        /// </summary>
         public const string DomainAliasLimitExceeded = "1201";
+
+        /// <summary>
+        /// Google Apps error indicating that Google has suspended the
+        /// specified domain's access to Google Apps.
+        /// </summary>
         public const string DomainSuspended = "1202";
+
+        /// <summary>
+        /// Google Apps error indicating that the request instructs
+        /// Google to create an entity that already exists.
+        /// </summary>
         public const string EntityExists = "1300";
+
+        /// <summary>
+        /// Google Apps error indicating that the request asks Google
+        /// to retrieve an entity that does not exist.
+        /// </summary>
         public const string EntityDoesNotExist = "1301";
+
+        /// <summary>
+        /// Google Apps error indicating that the request instructs
+        /// Google to create an entity with a reserved name, such as
+        /// "abuse" or "postmaster".
+        /// </summary>
         public const string EntityNameIsReserved = "1302";
+
+        /// <summary>
+        /// Google Apps error indicating that the request provides an
+        /// invalid name for a requested resource.
+        /// </summary>
         public const string EntityNameNotValid = "1303";
+
+        /// <summary>
+        /// Google Apps error indicating that the value in the API request 
+        /// for the user's first name, or given name, contains unaccepted
+        /// characters.
+        /// </summary>
         public const string InvalidGivenName = "1400";
+
+        /// <summary>
+        /// Google Apps error indicating that the value in the API request
+        /// for the user's surname, or family name, contains unaccepted
+        /// characters.
+        /// </summary>
         public const string InvalidFamilyName = "1401";
+
+        /// <summary>
+        /// Google Apps error indicating that the value in the API request
+        /// for the user's password contains an invalid number of characters
+        /// or unaccepted characters.
+        /// </summary>
         public const string InvalidPassword = "1402";
+
+        /// <summary>
+        /// Google Apps error indicating that the value in the API request
+        /// for the user's username contains unaccepted characters.
+        /// </summary>
         public const string InvalidUsername = "1403";
+
+        /// <summary>
+        /// Google Apps error indicating that the request instructs Google
+        /// to add users to an email list, but that list has already reached
+        /// the maximum number of subscribers.
+        /// </summary>
         public const string TooManyRecipientsOnEmailList = "1500";
 
         #endregion

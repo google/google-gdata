@@ -26,6 +26,12 @@ namespace Google.GData.Apps
     /// </summary>
     public class EmailListRecipientFeed : AtomFeed
     {
+        /// <summary>
+        /// Constructs a new EmailListRecipientFeed.
+        /// </summary>
+        /// <param name="uriBase">the feed URI</param>
+        /// <param name="iService">the Service object with which this
+        /// feed is to be be associated</param>
         public EmailListRecipientFeed(Uri uriBase, IService iService)
             : base(uriBase, iService)
         {

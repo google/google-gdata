@@ -108,7 +108,6 @@ namespace Google.GData.Apps
         //////////////////////////////////////////////////////////////////////
         /// <summary>parses an xml node to create a LoginElement object</summary> 
         /// <param name="node">login node</param>
-        /// <param name="parser">AtomFeedParser to use</param>
         /// <returns> the created Login object</returns>
         //////////////////////////////////////////////////////////////////////
         public static LoginElement ParseLogin(XmlNode node)

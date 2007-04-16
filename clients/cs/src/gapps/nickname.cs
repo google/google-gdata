@@ -21,8 +21,8 @@ using Google.GData.Client;
 namespace Google.GData.Apps
 {
     /// <summary>
-    /// Apps name space element: <apps:nickname>.  Used to model
-    /// a nickname in Google Apps.  Has attribute "name".
+    /// Extension element used to model a nickname in
+    /// Google Apps.  Has attribute "name".
     /// </summary>
     public class NicknameElement : IExtensionElement
     {
@@ -57,7 +57,6 @@ namespace Google.GData.Apps
         //////////////////////////////////////////////////////////////////////
         /// <summary>parses an xml node to create a NicknameElement object</summary> 
         /// <param name="node">nickname node</param>
-        /// <param name="parser">AtomFeedParser to use</param>
         /// <returns> the created NicknameElement object</returns>
         //////////////////////////////////////////////////////////////////////
         public static NicknameElement ParseNickname(XmlNode node)
