@@ -20,15 +20,15 @@ using System.IO;
 using System.Collections;
 using Google.GData.Client;
 
-/// <summary>
-/// A subclass of FeedQuery to query a Google Apps user
-/// accounts feed URI.
-/// 
-/// Provides public properties that describe the different
-/// aspects of the URI, as well as a composite URI.
-/// </summary>
 namespace Google.GData.Apps
 {
+    /// <summary>
+    /// A subclass of FeedQuery to query a Google Apps user
+    /// accounts feed URI.
+    /// 
+    /// Provides public properties that describe the different
+    /// aspects of the URI, as well as a composite URI.
+    /// </summary>
     public class UserQuery : FeedQuery
     {
         private const string feedUriExtension = "/user/2.0";

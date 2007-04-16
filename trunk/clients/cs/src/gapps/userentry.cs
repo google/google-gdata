@@ -21,6 +21,10 @@ using Google.GData.Client;
 
 namespace Google.GData.Apps
 {
+    /// <summary>
+    /// A Google Apps user entry.  A UserEntry object encapsulates
+    /// the login, name and quota information for a single user.
+    /// </summary>
     public class UserEntry : AtomEntry
     {
         /// <summary>

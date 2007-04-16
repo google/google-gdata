@@ -21,8 +21,8 @@ using Google.GData.Client;
 namespace Google.GData.Apps
 {
     /// <summary>
-    /// Apps name space element: <apps:emailList>.  Used to model
-    /// an email list in Google Apps.  Has attribute "name".
+    /// Extension element sed to model a Google Apps email list.
+    /// Has attribute "name".
     /// </summary>
     public class EmailListElement : IExtensionElement
     {
@@ -57,7 +57,6 @@ namespace Google.GData.Apps
         //////////////////////////////////////////////////////////////////////
         /// <summary>parses an xml node to create an EmailList object</summary> 
         /// <param name="node">emailList node</param>
-        /// <param name="parser">AtomFeedParser to use</param>
         /// <returns> the created EmailList object</returns>
         //////////////////////////////////////////////////////////////////////
         public static EmailListElement ParseEmailList(XmlNode node)

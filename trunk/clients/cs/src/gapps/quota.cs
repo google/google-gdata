@@ -56,7 +56,6 @@ namespace Google.GData.Apps
         //////////////////////////////////////////////////////////////////////
         /// <summary>parses an xml node to create a QuotaElement object</summary> 
         /// <param name="node">quota node</param>
-        /// <param name="parser">AtomFeedParser to use</param>
         /// <returns> the created QuotaElement object</returns>
         //////////////////////////////////////////////////////////////////////
         public static QuotaElement ParseQuota(XmlNode node)
