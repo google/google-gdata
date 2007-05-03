@@ -403,7 +403,6 @@ namespace Google.GData.Client
             {
                 Tracing.TraceCall("GDataRequest::Execute failed: " + this.targetUri.ToString()); 
                 GDataRequestException gde = new GDataRequestException("Execution of request failed: " + this.targetUri.ToString(), e);
-                Tracing.TraceMsg("Exception text: " + gde.ResponseString);
                 throw gde;
             }
             if (this.webResponse is HttpWebResponse)
