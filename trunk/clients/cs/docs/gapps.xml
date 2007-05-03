@@ -4,6 +4,109 @@
         <name>Google.GData.Apps</name>
     </assembly>
     <members>
+        <member name="T:Google.GData.Apps.AppsException">
+            <summary>
+            The AppsException class defines an error resulting from
+            a Google Apps provisioning request.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Apps.AppsException.UnknownError">
+            <summary>
+            Google Apps error indicating that the request failed
+            for an unknown reason.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Apps.AppsException.UserDeletedRecently">
+            <summary>
+            Google Apps error indicating that the request instructs
+            Google to create a new user but uses the username of an
+            account that was deleted in the previous five days.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Apps.AppsException.UserSuspended">
+            <summary>
+            Google Apps error indicating that the user identified in
+            the request is suspended.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Apps.AppsException.DomainUserLimitExceeded">
+            <summary>
+            Google Apps error indicating that the specified domain has
+            already reached its quota of user accounts.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Apps.AppsException.DomainAliasLimitExceeded">
+            <summary>
+            Google Apps error indicating that the specified domain has
+            already reached its quota of aliases. Aliases include
+            nicknames and email lists. 
+            </summary>
+        </member>
+        <member name="F:Google.GData.Apps.AppsException.DomainSuspended">
+            <summary>
+            Google Apps error indicating that Google has suspended the
+            specified domain's access to Google Apps.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Apps.AppsException.EntityExists">
+            <summary>
+            Google Apps error indicating that the request instructs
+            Google to create an entity that already exists.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Apps.AppsException.EntityDoesNotExist">
+            <summary>
+            Google Apps error indicating that the request asks Google
+            to retrieve an entity that does not exist.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Apps.AppsException.EntityNameIsReserved">
+            <summary>
+            Google Apps error indicating that the request instructs
+            Google to create an entity with a reserved name, such as
+            "abuse" or "postmaster".
+            </summary>
+        </member>
+        <member name="F:Google.GData.Apps.AppsException.EntityNameNotValid">
+            <summary>
+            Google Apps error indicating that the request provides an
+            invalid name for a requested resource.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Apps.AppsException.InvalidGivenName">
+            <summary>
+            Google Apps error indicating that the value in the API request 
+            for the user's first name, or given name, contains unaccepted
+            characters.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Apps.AppsException.InvalidFamilyName">
+            <summary>
+            Google Apps error indicating that the value in the API request
+            for the user's surname, or family name, contains unaccepted
+            characters.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Apps.AppsException.InvalidPassword">
+            <summary>
+            Google Apps error indicating that the value in the API request
+            for the user's password contains an invalid number of characters
+            or unaccepted characters.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Apps.AppsException.InvalidUsername">
+            <summary>
+            Google Apps error indicating that the value in the API request
+            for the user's username contains unaccepted characters.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Apps.AppsException.TooManyRecipientsOnEmailList">
+            <summary>
+            Google Apps error indicating that the request instructs Google
+            to add users to an email list, but that list has already reached
+            the maximum number of subscribers.
+            </summary>
+        </member>
         <member name="M:Google.GData.Apps.AppsException.#ctor">
             <summary>
             Constructs a new AppsException with no properties set.
@@ -416,7 +519,12 @@
             Domain property accessor
             </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "T:Google.GData.Apps.EmailListElement" -->
+        <member name="T:Google.GData.Apps.EmailListElement">
+            <summary>
+            Extension element sed to model a Google Apps email list.
+            Has attribute "name".
+            </summary>
+        </member>
         <member name="M:Google.GData.Apps.EmailListElement.#ctor">
             <summary>
             Constructs an empty EmailListElement instance.
@@ -431,7 +539,6 @@
         <member name="M:Google.GData.Apps.EmailListElement.ParseEmailList(System.Xml.XmlNode)">
             <summary>parses an xml node to create an EmailList object</summary> 
             <param name="node">emailList node</param>
-            <param name="parser">AtomFeedParser to use</param>
             <returns> the created EmailList object</returns>
         </member>
         <member name="M:Google.GData.Apps.EmailListElement.Save(System.Xml.XmlWriter)">
@@ -447,6 +554,12 @@
         </member>
         <member name="P:Google.GData.Apps.EmailListElement.XmlName">
             <summary>Returns the constant representing this XML element.</summary> 
+        </member>
+        <member name="T:Google.GData.Apps.EmailListEntry">
+            <summary>
+            A Google Apps email list entry.  An EmailListEntry object
+            contains information about a single email list.
+            </summary>
         </member>
         <member name="F:Google.GData.Apps.EmailListEntry.EMAILLIST_CATEGORY">
             <summary>
@@ -498,6 +611,14 @@
             Feed API customization class for defining email list feed.
             </summary>
         </member>
+        <member name="M:Google.GData.Apps.EmailListFeed.#ctor(System.Uri,Google.GData.Client.IService)">
+            <summary>
+            Constructs a new EmailListFeed.
+            </summary>
+            <param name="uriBase">the feed URI</param>
+            <param name="iService">the Service object with which
+            this feed is to be associated</param>
+        </member>
         <member name="M:Google.GData.Apps.EmailListFeed.AddOtherNamespaces(System.Xml.XmlWriter)">
             <summary>empty base implementation</summary> 
             <param name="writer">the xmlwriter, where we want to add default namespaces to</param>
@@ -522,6 +643,15 @@
             <param name="sender">the object which send the event</param>
             <param name="e">FeedParserEventArguments, holds the feedEntry</param> 
             <returns> </returns>
+        </member>
+        <member name="T:Google.GData.Apps.EmailListQuery">
+            <summary>
+            A subclass of FeedQuery to query a Google Apps email list
+            feed URI.
+            
+            Provides public properties that describe the different
+            aspects of the URI, as well as a composite URI.
+            </summary>
         </member>
         <member name="M:Google.GData.Apps.EmailListQuery.#ctor(System.String)">
             <summary>
@@ -572,11 +702,33 @@
             true (default), all matches are returned.
             </summary>
         </member>
+        <member name="T:Google.GData.Apps.EmailListRecipientEntry">
+            <summary>
+            A Google Apps email list recipient entry.  This class
+            defines a single recipient on an email list using a Who
+            (gd:who) object.
+            </summary>
+        </member>
         <member name="F:Google.GData.Apps.EmailListRecipientEntry.EMAILLIST_RECIPIENT_CATEGORY">
             <summary>
             Category used to label entries that contain email list
             recipient extension data.
             </summary>
+        </member>
+        <member name="M:Google.GData.Apps.EmailListRecipientEntry.#ctor">
+            <summary>
+            Constructs a new EmailListRecipientEntry without
+            setting the Recipient property.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Apps.EmailListRecipientEntry.#ctor(System.String)">
+            <summary>
+            Constructs a new EmailListRecipientEntry, using
+            the specified email address to initialize the
+            Recipient property.
+            </summary>
+            <param name="recipientAddress">the recipient's
+            email address</param>
         </member>
         <member name="M:Google.GData.Apps.EmailListRecipientEntry.Update">
             <summary>
@@ -610,6 +762,14 @@
             Feed API customization class for defining email list recipient feed.
             </summary>
         </member>
+        <member name="M:Google.GData.Apps.EmailListRecipientFeed.#ctor(System.Uri,Google.GData.Client.IService)">
+            <summary>
+            Constructs a new EmailListRecipientFeed.
+            </summary>
+            <param name="uriBase">the feed URI</param>
+            <param name="iService">the Service object with which this
+            feed is to be be associated</param>
+        </member>
         <member name="M:Google.GData.Apps.EmailListRecipientFeed.AddOtherNamespaces(System.Xml.XmlWriter)">
             <summary>empty base implementation</summary> 
             <param name="writer">the xmlwriter, where we want to add default namespaces to</param>
@@ -634,6 +794,15 @@
             <param name="sender">the object which send the event</param>
             <param name="e">FeedParserEventArguments, holds the feedEntry</param> 
             <returns> </returns>
+        </member>
+        <member name="T:Google.GData.Apps.EmailListRecipientQuery">
+            <summary>
+            A subclass of FeedQuery to query a Google Apps email list
+            recipient feed URI.
+            
+            Provides public properties that describe the different
+            aspects of the URI, as well as a composite URI.
+            </summary>
         </member>
         <member name="M:Google.GData.Apps.EmailListRecipientQuery.#ctor(System.String,System.String)">
             <summary>
@@ -854,7 +1023,6 @@
         <member name="M:Google.GData.Apps.LoginElement.ParseLogin(System.Xml.XmlNode)">
             <summary>parses an xml node to create a LoginElement object</summary> 
             <param name="node">login node</param>
-            <param name="parser">AtomFeedParser to use</param>
             <returns> the created Login object</returns>
         </member>
         <member name="M:Google.GData.Apps.LoginElement.Save(System.Xml.XmlWriter)">
@@ -906,7 +1074,6 @@
         <member name="M:Google.GData.Apps.NameElement.ParseName(System.Xml.XmlNode)">
             <summary>parses an xml node to create a NameElement object</summary> 
             <param name="node">name node</param>
-            <param name="parser">AtomFeedParser to use</param>
             <returns> the created NameElement object</returns>
         </member>
         <member name="M:Google.GData.Apps.NameElement.Save(System.Xml.XmlWriter)">
@@ -928,7 +1095,12 @@
         <member name="P:Google.GData.Apps.NameElement.XmlName">
             <summary>Returns the constant representing this XML element.</summary> 
         </member>
-        <!-- Badly formed XML comment ignored for member "T:Google.GData.Apps.NicknameElement" -->
+        <member name="T:Google.GData.Apps.NicknameElement">
+            <summary>
+            Extension element used to model a nickname in
+            Google Apps.  Has attribute "name".
+            </summary>
+        </member>
         <member name="M:Google.GData.Apps.NicknameElement.#ctor">
             <summary>
             Constructs an empty NicknameElement instance.
@@ -943,7 +1115,6 @@
         <member name="M:Google.GData.Apps.NicknameElement.ParseNickname(System.Xml.XmlNode)">
             <summary>parses an xml node to create a NicknameElement object</summary> 
             <param name="node">nickname node</param>
-            <param name="parser">AtomFeedParser to use</param>
             <returns> the created NicknameElement object</returns>
         </member>
         <member name="M:Google.GData.Apps.NicknameElement.Save(System.Xml.XmlWriter)">
@@ -959,6 +1130,12 @@
         </member>
         <member name="P:Google.GData.Apps.NicknameElement.XmlName">
             <summary>Returns the constant representing this XML element.</summary> 
+        </member>
+        <member name="T:Google.GData.Apps.NicknameEntry">
+            <summary>
+            A Google Apps nickname entry.  A NicknameEntry identifies a
+            nickname and the user to whom the nickname is assigned.
+            </summary>
         </member>
         <member name="F:Google.GData.Apps.NicknameEntry.NICKNAME_CATEGORY">
             <summary>
@@ -1008,6 +1185,14 @@
             Feed API customization class for defining nickname feed.
             </summary>
         </member>
+        <member name="M:Google.GData.Apps.NicknameFeed.#ctor(System.Uri,Google.GData.Client.IService)">
+            <summary>
+            Constructs a new NicknameFeed.
+            </summary>
+            <param name="uriBase">the URI of the feed</param>
+            <param name="iService">the service with which this
+            feed will be associated</param>
+        </member>
         <member name="M:Google.GData.Apps.NicknameFeed.AddOtherNamespaces(System.Xml.XmlWriter)">
             <summary>empty base implementation</summary> 
             <param name="writer">the xmlwriter, where we want to add default namespaces to</param>
@@ -1032,6 +1217,15 @@
             <param name="sender">the object which send the event</param>
             <param name="e">FeedParserEventArguments, holds the feedEntry</param> 
             <returns> </returns>
+        </member>
+        <member name="T:Google.GData.Apps.NicknameQuery">
+            <summary>
+            A subclass of FeedQuery to query a Google Apps nickname
+            feed URI.
+            
+            Provides public properties that describe the different
+            aspects of the URI, as well as a composite URI.
+            </summary>
         </member>
         <member name="M:Google.GData.Apps.NicknameQuery.#ctor(System.String)">
             <summary>
@@ -1174,7 +1368,6 @@
         <member name="M:Google.GData.Apps.QuotaElement.ParseQuota(System.Xml.XmlNode)">
             <summary>parses an xml node to create a QuotaElement object</summary> 
             <param name="node">quota node</param>
-            <param name="parser">AtomFeedParser to use</param>
             <returns> the created QuotaElement object</returns>
         </member>
         <member name="M:Google.GData.Apps.QuotaElement.Save(System.Xml.XmlWriter)">
@@ -1190,6 +1383,12 @@
         </member>
         <member name="P:Google.GData.Apps.QuotaElement.XmlName">
             <summary>Returns the constant representing this XML element.</summary> 
+        </member>
+        <member name="T:Google.GData.Apps.UserEntry">
+            <summary>
+            A Google Apps user entry.  A UserEntry object encapsulates
+            the login, name and quota information for a single user.
+            </summary>
         </member>
         <member name="F:Google.GData.Apps.UserEntry.USER_ACCOUNT_CATEGORY">
             <summary>
@@ -1280,6 +1479,15 @@
             <param name="sender">the object which send the event</param>
             <param name="e">FeedParserEventArguments, holds the feedEntry</param> 
             <returns> </returns>
+        </member>
+        <member name="T:Google.GData.Apps.UserQuery">
+            <summary>
+            A subclass of FeedQuery to query a Google Apps user
+            accounts feed URI.
+            
+            Provides public properties that describe the different
+            aspects of the URI, as well as a composite URI.
+            </summary>
         </member>
         <member name="M:Google.GData.Apps.UserQuery.#ctor(System.String)">
             <summary>
