@@ -188,7 +188,7 @@ namespace Google.GData.Spreadsheets
             {
                 throw new ArgumentNullException("e");
             }
-            if (String.Compare(e.ExtensionElement.NamespaceURI, BaseNameTable.gNamespace, true) == 0)
+            if (String.Compare(e.ExtensionElement.NamespaceURI, GDataSpreadsheetsNameTable.NSGSpreadsheetsExtended, true) == 0)
             {
                 // found G namespace
                 e.DiscardEntry = true;

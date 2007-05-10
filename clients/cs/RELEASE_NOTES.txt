@@ -1,7 +1,10 @@
+== 1.0.9.8 ==
+- fixed a parsing bug in SpreadsheetService
+
 == 1.0.9.7 ==
 - fixed an incorrect trace statement in request.cs that had the result of disabling reading the error response.
 
-== 1.0.9.6
+== 1.0.9.6 ==
 - added Google Apps for Your Domain support, a new helper DLL Google.GData.Apps.dll, and a sample, as well
   as unittests. Version number is increased to distinguish from Subversion, as this will be a binary download 
   as well.
