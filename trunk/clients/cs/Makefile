@@ -25,7 +25,9 @@ samples =	\
 	insertsample.exe		\
 	updatesample.exe		\
 	readsample.exe			\
-	gapps_appsdemo.exe
+	gapps_appsdemo.exe		\
+	gblogger_demo.exe		\
+	gspreadsheet_demo.exe
 
 all: $(ALL_LIBS) tests $(samples)
 
@@ -101,7 +103,13 @@ gapps_sample_sources = samples/appsforyourdomain/appsdemo.cs
 gapps_appsdemo.exe: $(ALLLIBS) $(gapps_sample_sources)
 	$(CSC) -out:$@ $(ALLREFS) $(gapps_sample_sources)
 
+gblogger_sample_sources = samples/blogger/ConsoleSample.cs
+gblogger_demo.exe: $(ALLLIBS) $(gblogger_sample_sources)
+	$(CSC) -out:$@ $(ALLREFS) $(gblogger_sample_sources)
 
+gspreadsheet_demo_sources = samples/spreadsheets/spreadsheetdemo.cs
+gspreadsheet_demo.exe: $(ALLLIBS) $(gspreadsheet_demo_sources)
+	$(CSC) -out:$@ $(ALLREFS) $(gspreadsheet_demo_sources)
 
 test:
 	nunit-console2 unittests.dll
