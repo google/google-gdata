@@ -48,6 +48,8 @@ namespace Google.GData.Client.UnitTests
         protected int iIterations; 
         /// <summary>holds the logging factory</summary> 
         protected IGDataRequestFactory factory; 
+        /// <summary>holds the configuration of the test found in the dll.config file</summary>
+        protected IDictionary   unitTestConfiguration;
 
 
 
@@ -154,34 +156,34 @@ namespace Google.GData.Client.UnitTests
         //////////////////////////////////////////////////////////////////////
         protected virtual void ReadConfigFile()
         {
-            IDictionary unitTestDictionary = (IDictionary) ConfigurationSettings.GetConfig("unitTestSection");
+            this.unitTestConfiguration = (IDictionary) ConfigurationSettings.GetConfig("unitTestSection");
 
-            if (unitTestDictionary != null)
+            // no need to go further if the configuration file is needed.
+            if (unitTestConfiguration == null)
+                throw new FileNotFoundException("The DLL configuration file wasn't found, aborting.");
+
+            if (unitTestConfiguration.Contains("defHost") == true)
             {
-                if (unitTestDictionary["defHost"] != null)
+                this.defaultHost = (string) unitTestConfiguration["defHost"];
+                Tracing.TraceInfo("Read defaultHost value: " + this.defaultHost);
+            }
+            if (unitTestConfiguration.Contains("defRemoteHost") == true)
+            {
+                this.strRemoteHost = (string) unitTestConfiguration["defRemoteHost"];
+                Tracing.TraceInfo("Read default remote host value: " + this.strRemoteHost);
+            }
+            if (unitTestConfiguration.Contains("iteration") == true)
+            {
+                this.iIterations = int.Parse((string)unitTestConfiguration["iteration"]);
+            }
+            if (unitTestConfiguration.Contains("requestlogging") == true)
+            {
+                bool flag = bool.Parse((string) unitTestConfiguration["requestlogging"]);
+                if (flag == false)
                 {
-                    this.defaultHost = (string) unitTestDictionary["defHost"];
-                    Tracing.TraceInfo("Read defaultHost value: " + this.defaultHost); 
-                }
-                if (unitTestDictionary["defRemoteHost"] != null)
-                {
-                    this.strRemoteHost = (string) unitTestDictionary["defRemoteHost"];
-                    Tracing.TraceInfo("Read default remote host value: " + this.strRemoteHost); 
-                }
-
-                if (unitTestDictionary["iteration"] != null)
-                {
-                    this.iIterations = int.Parse((string)unitTestDictionary["iteration"]);
-                }
-                if (unitTestDictionary["requestlogging"] != null)
-                {
-                    bool flag = bool.Parse((string) unitTestDictionary["requestlogging"]); 
-                    if (flag == false)
-                    {
-                        // we are creating the logging factory by default. If 
-                        // tester set's it off, create the standard factory. 
-                        this.factory = new GDataGAuthRequestFactory(this.ServiceName, this.ApplicationName); 
-                    }
+                    // we are creating the logging factory by default. If 
+                    // tester set's it off, create the standard factory. 
+                    this.factory = new GDataGAuthRequestFactory(this.ServiceName, this.ApplicationName);
                 }
             }
 

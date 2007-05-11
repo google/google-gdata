@@ -96,37 +96,32 @@ namespace Google.GData.Client.UnitTests
         //////////////////////////////////////////////////////////////////////
         protected override void ReadConfigFile()
         {
-            base.ReadConfigFile(); 
+            base.ReadConfigFile();
 
-            IDictionary unitTestDictionary = (IDictionary) ConfigurationSettings.GetConfig("unitTestSection");
-
-            if (unitTestDictionary != null)
+            if (unitTestConfiguration.Contains("authHandler") == true)
             {
-                if (unitTestDictionary["authHandler"] != null)
-                {
-                    this.strAuthHandler = (string) unitTestDictionary["authHandler"];
-                    Tracing.TraceInfo("Read authHandler value: " + this.strAuthHandler); 
-                }
-                if (unitTestDictionary["calendarURI"] != null)
-                {
-                    this.defaultCalendarUri = (string) unitTestDictionary["calendarURI"];
-                    Tracing.TraceInfo("Read calendarURI value: " + this.defaultCalendarUri); 
-                }
-                if (unitTestDictionary["compositeURI"] != null)
-                {
-                    this.defaultCompositeUri = (string) unitTestDictionary["compositeURI"];
-                    Tracing.TraceInfo("Read compositeURI value: " + this.defaultCompositeUri); 
-                }
-                if (unitTestDictionary["userName"] != null)
-                {
-                    this.userName = (string) unitTestDictionary["userName"];
-                    Tracing.TraceInfo("Read userName value: " + this.userName); 
-                }
-                if (unitTestDictionary["passWord"] != null)
-                {
-                    this.passWord = (string) unitTestDictionary["passWord"];
-                    Tracing.TraceInfo("Read passWord value: " + this.passWord); 
-                }
+                this.strAuthHandler = (string) unitTestConfiguration["authHandler"];
+                Tracing.TraceInfo("Read authHandler value: " + this.strAuthHandler);
+            }
+            if (unitTestConfiguration.Contains("calendarURI") == true)
+            {
+                this.defaultCalendarUri = (string) unitTestConfiguration["calendarURI"];
+                Tracing.TraceInfo("Read calendarURI value: " + this.defaultCalendarUri);
+            }
+            if (unitTestConfiguration.Contains("compositeURI") == true)
+            {
+                this.defaultCompositeUri = (string) unitTestConfiguration["compositeURI"];
+                Tracing.TraceInfo("Read compositeURI value: " + this.defaultCompositeUri);
+            }
+            if (unitTestConfiguration.Contains("userName") == true)
+            {
+                this.userName = (string) unitTestConfiguration["userName"];
+                Tracing.TraceInfo("Read userName value: " + this.userName);
+            }
+            if (unitTestConfiguration.Contains("passWord") == true)
+            {
+                this.passWord = (string) unitTestConfiguration["passWord"];
+                Tracing.TraceInfo("Read passWord value: " + this.passWord);
             }
         }
         /////////////////////////////////////////////////////////////////////////////
