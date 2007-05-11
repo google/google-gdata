@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Net;
 using System.Xml;
 using Google.GData.Client;
@@ -201,41 +202,26 @@ namespace Google.GData.Apps
 
             if (e != null)
             {
-                WebException w = e.InnerException as WebException;
-                if (w != null)
+                try
                 {
-                    HttpWebResponse response = w.Response as HttpWebResponse;
-                    if (response != null && response.GetResponseStream() != null)
-                    {
-                     
-                        try
+                    XmlReader reader = new XmlTextReader(e.ResponseString, XmlNodeType.Document, null);
+                    // now find the ErrorElement
+                    while (reader.Read())
+                        if (reader.NodeType == XmlNodeType.Element && reader.LocalName == AppsNameTable.XmlElementError)
                         {
-                            XmlReader reader = new XmlTextReader(response.GetResponseStream());
-                            // now find the ErrorElement
-                            while (reader.Read())
-                            {
-                                if (reader.NodeType == XmlNodeType.Element && reader.LocalName.Equals(AppsNameTable.XmlElementError))
-                                {
-                                    break;
-                                }
-                            }
-
-                            if (reader.EOF == false)
-                            {
-                                result = new AppsException(e);
-                                result.ErrorCode =
-                                    reader.GetAttribute(AppsNameTable.XmlAttributeErrorErrorCode);
-                                result.InvalidInput =
-                                    reader.GetAttribute(AppsNameTable.XmlAttributeErrorInvalidInput);
-                                result.Reason =
-                                    reader.GetAttribute(AppsNameTable.XmlAttributeErrorReason);
-                            }
+                            result = new AppsException(e);
+                            result.ErrorCode =
+                                reader.GetAttribute(AppsNameTable.XmlAttributeErrorErrorCode);
+                            result.InvalidInput =
+                                reader.GetAttribute(AppsNameTable.XmlAttributeErrorInvalidInput);
+                            result.Reason =
+                                reader.GetAttribute(AppsNameTable.XmlAttributeErrorReason);
+                            break;
                         }
-                        catch (XmlException)
-                        {
-                            // Silently fail if we couldn't parse the XML
-                        }
-                    }
+                }
+                catch (XmlException)
+                {
+                	
                 }
             }
 

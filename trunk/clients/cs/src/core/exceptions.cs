@@ -207,6 +207,7 @@ namespace Google.GData.Client
 
         /// <summary>holds the webresponse object</summary> 
         protected WebResponse webResponse;
+        protected string      responseText;
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>default constructor so that FxCop does not complain</summary> 
@@ -227,47 +228,32 @@ namespace Google.GData.Client
 
         /// <summary>
         /// this uses the webresponse object to get at the
-        /// stream send back from the server and return the 
-        /// error message. 
+        /// stream send back from the server.
+        /// </summary>
+        /// <returns>the error message</returns>
+        protected string    ReadResponseString()
+        {
+            Stream responseStream = this.webResponse.GetResponseStream();
+            
+            if (responseStream != null)
+            {
+                StreamReader reader = new StreamReader(responseStream);
+                return (reader.ReadToEnd());
+            }
+
+            return (null);
+        }
+
+        /// <summary>
+        /// this is the error message returned by the server
         /// </summary>
         public string ResponseString
         {
-            get 
+            get
             {
-                string responseText = null; 
-        
-                if (this.webResponse != null)
-                {
-                    // Obtain a 'Stream' object associated with the response object.
-                    Stream receiver = this.webResponse.GetResponseStream();
-                    if (receiver != null)
-                    {
-                        // Pipe the stream to a higher level stream reader with the default encoding format. 
-                        // which is UTF8
-                        // 
-                        StreamReader readStream = new StreamReader(receiver); 
-                        
-                        // Read 256 charcters at a time.    
-                        char []buffer = new char[256]; 
-                        StringBuilder builder = new StringBuilder(1024); 
-                        int count = readStream.Read( buffer, 0, 256 );
-                        while (count > 0) 
-                        {
-                            // Dump the 256 characters on a string and display the string onto the console.
-                            builder.Append(buffer); 
-                            count = readStream.Read(buffer, 0, 256);
-                        }
-                        
-                        // Release the resources of stream object.
-                        readStream.Close();
-                        receiver.Close(); 
-
-                        responseText = builder.ToString(); 
-                    }
-                    
-                }
-
-                return responseText; 
+                if (this.responseText == null)
+                    this.responseText = ReadResponseString();
+                return (this.responseText);
             }
         }
 
