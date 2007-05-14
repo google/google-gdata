@@ -1,6 +1,8 @@
 == 1.0.9.9 ==
 - fixed a bug in GDataRequestException that would prevent AppsException from accessing the server's response.
 - modified AppsException to comply with new GDataRequestException
+- fixed a bug in CalculateBaseUri, that caused a crash if the passed in parameters are all NULL. This caused composite feeds
+  to not load if there was a comment feed embedded
 
 == 1.0.9.8 ==
 - fixed a parsing bug in SpreadsheetService
