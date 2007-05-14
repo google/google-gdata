@@ -293,7 +293,7 @@ namespace Google.GData.Client
                     uriComplete = uriBase;
                 }
     
-                return uriComplete.AbsoluteUri;
+                return uriComplete != null ? uriComplete.AbsoluteUri : null;
             }
             catch (System.UriFormatException)
             {
