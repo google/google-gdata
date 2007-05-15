@@ -3,7 +3,7 @@
         ProjectType = "Local"
         ProductVersion = "7.10.6030"
         SchemaVersion = "2.0"
-        ProjectGuid = "{0AD0FA26-A071-4CAC-851C-05B6C26B9888}"
+        ProjectGuid = "{279D35CE-871A-4C76-B823-A73675EDF191}"
     >
         <Build>
             <Settings
@@ -48,8 +48,8 @@
                     BaseAddress = "285212672"
                     CheckForOverflowUnderflow = "false"
                     ConfigurationOverrideFile = ""
-                    DefineConstants = "TRACE"
-                    DocumentationFile = "bin\gcal.xml"
+                    DefineConstants = ""
+                    DocumentationFile = "bin\gacl.xml"
                     DebugSymbols = "false"
                     FileAlignment = "4096"
                     IncrementalBuild = "false"
@@ -94,18 +94,6 @@
         <Files>
             <Include>
                 <File
-                    RelPath = "AssemblyInfo.cs"
-                    Link = "..\..\gacl\AssemblyInfo.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "AssemblyVersion.cs"
-                    Link = "..\..\version\AssemblyVersion.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
                     RelPath = "aclentry.cs"
                     Link = "..\..\gacl\aclentry.cs"
                     SubType = "Code"
@@ -128,10 +116,22 @@
                     Link = "..\..\gacl\aclrole.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
-                />  
+                />
                 <File
                     RelPath = "aclscope.cs"
                     Link = "..\..\gacl\aclscope.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "AssemblyInfo.cs"
+                    Link = "..\..\gacl\AssemblyInfo.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "AssemblyVersion.cs"
+                    Link = "..\..\version\AssemblyVersion.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />

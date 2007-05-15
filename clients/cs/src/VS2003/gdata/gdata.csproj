@@ -84,6 +84,18 @@
         <Files>
             <Include>
                 <File
+                    RelPath = "abstractentry.cs"
+                    Link = "..\..\core\abstractentry.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "abstractfeed.cs"
+                    Link = "..\..\core\abstractfeed.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "AssemblyInfo.cs"
                     Link = "..\..\core\AssemblyInfo.cs"
                     SubType = "Code"

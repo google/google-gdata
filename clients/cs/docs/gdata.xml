@@ -4,43 +4,31 @@
         <name>Google.GData.Client</name>
     </assembly>
     <members>
-        <member name="T:Google.GData.Client.BaseIsDirty">
-            <summary>Helper object to walk the tree for the dirty flag.</summary> 
+        <member name="T:Google.GData.Client.AbstractEntry">
+            <summary>
+            Entry API customization class for defining entries in a custom feed
+            </summary>
         </member>
-        <member name="T:Google.GData.Client.IBaseWalkerAction">
-            <summary>Thin layer to create an action on an item/response
-            </summary> 
-        </member>
-        <member name="M:Google.GData.Client.IBaseWalkerAction.Go(Google.GData.Client.AtomBase)">
-            <summary>the only relevant method here</summary> 
-        </member>
-        <member name="M:Google.GData.Client.BaseIsDirty.Go(Google.GData.Client.AtomBase)">
-            <summary>Walker action. Just gets a property.</summary> 
-            <param name="atom">object to set the property on</param>
-            <returns>the value of the dirty flag</returns>
-        </member>
-        <member name="T:Google.GData.Client.BaseMarkDirty">
-            <summary>Helper object to walk the tree for the dirty flag.</summary> 
-        </member>
-        <member name="F:Google.GData.Client.BaseMarkDirty.flag">
-            <summary>Holds if set/unset to dirty.</summary> 
-        </member>
-        <member name="M:Google.GData.Client.BaseMarkDirty.#ctor(System.Boolean)">
-            <summary>Constructor.</summary> 
-            <param name="flag">indicates the value to pass </param>
-        </member>
-        <member name="M:Google.GData.Client.BaseMarkDirty.Go(Google.GData.Client.AtomBase)">
-            <summary>Walker action. Just sets a property.</summary> 
-            <param name="atom">object to set the property on </param>
-            <returns> always false, indicating to walk the whole tree</returns>
-        </member>
-        <member name="T:Google.GData.Client.BaseIsPersistable">
-            <summary>Helper class, mainly used to walk the tree for the dirty flag.</summary> 
-        </member>
-        <member name="M:Google.GData.Client.BaseIsPersistable.Go(Google.GData.Client.AtomBase)">
-            <summary>Walker action. Just gets a property.</summary> 
-            <param name="atom">object to set the property on </param>
-            <returns>returns the value of the ShouldBePersisted() of the object</returns>
+        <member name="T:Google.GData.Client.AtomEntry">
+            <summary>AtomEntry object, representing an item in the RSS/Atom feed
+             Version 1.0 removed atom-Head
+               element atom:entry {
+                  atomCommonAttributes,
+                  (atomAuthor*
+                    atomCategory*
+                   atomContent?
+                   atomContributor*
+                   atomId
+                   atomLink*
+                   atomPublished?
+                   atomRights?
+                   atomSource?
+                   atomSummary?
+                   atomTitle
+                   atomUpdated
+                   extensionElement*)
+               }
+             </summary>
         </member>
         <member name="T:Google.GData.Client.AtomBase">
             <summary>AtomBase object representation.
@@ -191,156 +179,198 @@
             <summary>read only accessor for the ExtensionsElements Collections</summary> 
             <returns> an ArrayList of ExtensionElements</returns>
         </member>
-        <member name="T:Google.GData.Client.AtomBaseLinkConverter">
-            <summary>TypeConverter, so that AtomBaseLink shows up in the property pages
-            </summary> 
+        <member name="F:Google.GData.Client.AtomEntry.title">
+            <summary>/feed/entry/title property as string</summary> 
         </member>
-        <member name="M:Google.GData.Client.AtomBaseLinkConverter.CanConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Type)">
-            <summary>Standard type converter method</summary>
+        <member name="F:Google.GData.Client.AtomEntry.id">
+            <summary>/feed/entry/id property as string</summary> 
         </member>
-        <member name="M:Google.GData.Client.AtomBaseLinkConverter.ConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object,System.Type)">
-             <summary>standard ConvertTo typeconverter code</summary> 
-            <summary>Standard type converter method</summary>
+        <member name="F:Google.GData.Client.AtomEntry.links">
+            <summary>/feed/entry/link collection</summary> 
         </member>
-        <member name="T:Google.GData.Client.AtomBaseLink">
-            <summary>AtomBaselink is an intermediate object that adds the URI property
-            used as the parent class for a lot of other objects (like atomlink, atomicon, etc)
-            </summary> 
+        <member name="F:Google.GData.Client.AtomEntry.lastUpdateDate">
+            <summary>/feed/entry/updated property as string</summary> 
         </member>
-        <member name="F:Google.GData.Client.AtomBaseLink.uriString">
-            <summary>holds the string rep</summary> 
+        <member name="F:Google.GData.Client.AtomEntry.publicationDate">
+            <summary>/feed/entry/published property as string</summary> 
         </member>
-        <member name="M:Google.GData.Client.AtomBaseLink.SaveInnerXml(System.Xml.XmlWriter)">
+        <member name="F:Google.GData.Client.AtomEntry.authors">
+            <summary>/feed/entry/author property as Author object</summary> 
+        </member>
+        <member name="F:Google.GData.Client.AtomEntry.contributors">
+            <summary>/feed/entry/atomContributor property as Author object</summary> 
+        </member>
+        <member name="F:Google.GData.Client.AtomEntry.rights">
+            <summary>The "atom:rights" element is a Text construct that conveys a human-readable copyright statement for an entry or feed.</summary> 
+        </member>
+        <member name="F:Google.GData.Client.AtomEntry.categories">
+            <summary>/feed/entry/category/@term property as a list of AtomCategories</summary> 
+        </member>
+        <member name="F:Google.GData.Client.AtomEntry.summary">
+            <summary>The "atom:summary" element is a Text construct that conveys a short summary, abstract or excerpt of an entry.</summary> 
+        </member>
+        <member name="F:Google.GData.Client.AtomEntry.content">
+            <summary>contains the content as an object</summary> 
+        </member>
+        <member name="F:Google.GData.Client.AtomEntry.source">
+            <summary>atom:source element</summary> 
+        </member>
+        <member name="F:Google.GData.Client.AtomEntry.service">
+            <summary>GData service to use</summary> 
+        </member>
+        <member name="F:Google.GData.Client.AtomEntry.feed">
+            <summary>holds the owning feed</summary> 
+        </member>
+        <member name="M:Google.GData.Client.AtomEntry.AddOtherNamespaces(System.Xml.XmlWriter)">
+            <summary>checks to see if we are a batch feed, if so, adds the batchNS</summary> 
+            <param name="writer">the xmlwriter, where we want to add default namespaces to</param>
+        </member>
+        <member name="M:Google.GData.Client.AtomEntry.SkipNode(System.Xml.XmlNode)">
+            <summary>checks if this is a namespace 
+            decl that we already added</summary> 
+            <param name="node">XmlNode to check</param>
+            <returns>true if this node should be skipped </returns>
+        </member>
+        <member name="M:Google.GData.Client.AtomEntry.SaveInnerXml(System.Xml.XmlWriter)">
             <summary>saves the inner state of the element</summary> 
             <param name="writer">the xmlWriter to save into </param>
         </member>
-        <member name="M:Google.GData.Client.AtomBaseLink.ShouldBePersisted">
-            <summary>figures out if this object should be persisted</summary> 
-            <returns> true, if it's worth saving</returns>
+        <member name="M:Google.GData.Client.AtomEntry.setFeed(Google.GData.Client.AtomFeed)">
+            <summary>internal method to set the feed</summary> 
         </member>
-        <member name="P:Google.GData.Client.AtomBaseLink.Uri">
-            <summary>accessor method public string Uri</summary> 
-            <returns> </returns>
+        <member name="M:Google.GData.Client.AtomEntry.ImportFromFeed(Google.GData.Client.AtomEntry)">
+            <summary>helper method to create a new, decoupled entry based on a feedEntry</summary> 
+            <param name="entryToImport">the entry from a feed that you want to put somewhere else</param>
+            <returns> the new entry ready to be inserted</returns>
         </member>
-        <member name="P:Google.GData.Client.AtomBaseLink.AbsoluteUri">
-            <summary>public Uri AbsoluteUri</summary> 
+        <member name="M:Google.GData.Client.AtomEntry.FindDraftNode">
+            <summary>searches the extension list for the app:draft node</summary> 
+            <returns>null if not there</returns>
         </member>
-        <member name="T:Google.GData.Client.AtomCategory">
-            <summary>
-            Category elements contain information about a category to which an Atom feed or entry is associated.
-            atomCategory = element atom:category {
-               atomCommonAttributes,
-               attribute term { text },
-               attribute scheme { atomUri }?,
-               attribute label { text }?,
-               empty
-            }
-            </summary> 
+        <member name="M:Google.GData.Client.AtomEntry.Update">
+            <summary>commits the item to the server</summary> 
+            <returns>throws an exception if an error occured updating, returns 
+            the updated entry from the service</returns>
         </member>
-        <member name="F:Google.GData.Client.AtomCategory.term">
-            <summary>holds the term</summary> 
+        <member name="M:Google.GData.Client.AtomEntry.Delete">
+            <summary>deletes the item from the server</summary> 
+            <returns>throws an exception if an error occured updating</returns>
         </member>
-        <member name="F:Google.GData.Client.AtomCategory.scheme">
-            <summary>holds the scheme as an Uri</summary> 
+        <member name="M:Google.GData.Client.AtomEntry.CopyEntry(Google.GData.Client.AtomEntry)">
+            <summary>takes the updated entry returned and sets the properties to this object</summary> 
+            <param name="updatedEntry"> </param>
         </member>
-        <member name="F:Google.GData.Client.AtomCategory.label">
-            <summary>holds the category label</summary> 
+        <member name="M:Google.GData.Client.AtomEntry.BaseUriChanged(Google.GData.Client.AtomUri)">
+            <summary>just go down the child collections</summary> 
+            <param name="uriBase"> as currently calculated</param>
         </member>
-        <member name="M:Google.GData.Client.AtomCategory.#ctor">
-            <summary>empty Category constructor</summary> 
+        <member name="M:Google.GData.Client.AtomEntry.WalkTree(Google.GData.Client.IBaseWalkerAction)">
+            <summary>calls the action on this object and all children</summary> 
+            <param name="action">an IAtomBaseAction interface to call </param>
+            <returns>true or false, pending outcome</returns>
         </member>
-        <member name="M:Google.GData.Client.AtomCategory.#ctor(System.String)">
-            <summary>Category constructor</summary> 
-            <param name="term">the term of the category</param>
-        </member>
-        <member name="M:Google.GData.Client.AtomCategory.#ctor(System.String,Google.GData.Client.AtomUri)">
-            <summary>Category constructor</summary> 
-            <param name="term">the term of the category</param>
-            <param name="scheme">the scheme of the category</param>
-        </member>
-        <member name="M:Google.GData.Client.AtomCategory.SaveXmlAttributes(System.Xml.XmlWriter)">
-            <summary>overridden to save attributes for this(XmlWriter writer)</summary> 
-            <param name="writer">the xmlwriter to save into </param>
-        </member>
-        <member name="M:Google.GData.Client.AtomCategory.ShouldBePersisted">
-            <summary>figures out if this object should be persisted</summary> 
-            <returns> true, if it's worth saving</returns>
-        </member>
-        <member name="P:Google.GData.Client.AtomCategory.XmlName">
+        <member name="P:Google.GData.Client.AtomEntry.XmlName">
             <summary>Returns the constant representing this XML element.</summary> 
         </member>
-        <member name="P:Google.GData.Client.AtomCategory.Term">
-            <summary>accessor method public string Term</summary> 
+        <member name="P:Google.GData.Client.AtomEntry.Feed">
+            <summary>Read only accessor for feed</summary> 
+        </member>
+        <member name="P:Google.GData.Client.AtomEntry.Service">
+            <summary>accessor method for the GData Service to use</summary> 
+        </member>
+        <member name="P:Google.GData.Client.AtomEntry.BatchData">
+            <summary>accessor to the batchdata for the entry</summary> 
+            <returns> GDataBatch object </returns>
+        </member>
+        <member name="P:Google.GData.Client.AtomEntry.EditUri">
+            <summary>accessor method public Uri EditUri</summary> 
             <returns> </returns>
         </member>
-        <member name="P:Google.GData.Client.AtomCategory.Label">
-            <summary>accessor method public string Label</summary> 
+        <member name="P:Google.GData.Client.AtomEntry.SelfUri">
+            <summary>accessor for the self URI</summary> 
             <returns> </returns>
         </member>
-        <member name="P:Google.GData.Client.AtomCategory.Scheme">
-            <summary>accessor method public Uri Scheme</summary> 
+        <member name="P:Google.GData.Client.AtomEntry.Updated">
+            <summary>accessor method public DateTime UpdateDate</summary> 
             <returns> </returns>
         </member>
-        <member name="P:Google.GData.Client.AtomCategory.UriString">
-            <summary>creates a string rep of a category useful for a query URI</summary> 
-            <returns>the category as a string for a query </returns>
-        </member>
-        <member name="T:Google.GData.Client.AtomContentConverter">
-            <summary>TypeConverter, so that AtomContentConverter shows up in the property pages
-            </summary> 
-        </member>
-        <member name="M:Google.GData.Client.AtomContentConverter.CanConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Type)">
-            <summary>Standard type converter method</summary>
-        </member>
-        <member name="M:Google.GData.Client.AtomContentConverter.ConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object,System.Type)">
-            <summary>Standard type converter method</summary>
-        </member>
-        <member name="T:Google.GData.Client.AtomContent">
-            <summary>atom:content object representation
-            </summary> 
-        </member>
-        <member name="F:Google.GData.Client.AtomContent.type">
-            <summary>holds the  type attribute</summary> 
-        </member>
-        <member name="F:Google.GData.Client.AtomContent.src">
-            <summary>holds the src URI attribute</summary> 
-        </member>
-        <member name="F:Google.GData.Client.AtomContent.content">
-            <summary>holds teh content</summary> 
-        </member>
-        <member name="M:Google.GData.Client.AtomContent.#ctor">
-            <summary>default constructor. Set's the content type to text.</summary> 
-        </member>
-        <member name="M:Google.GData.Client.AtomContent.ShouldBePersisted">
-            <summary>figures out if this object should be persisted</summary> 
-            <returns> true, if it's worth saving</returns>
-        </member>
-        <member name="M:Google.GData.Client.AtomContent.SaveXmlAttributes(System.Xml.XmlWriter)">
-            <summary>overridden to save attributes for this(XmlWriter writer)</summary> 
-            <param name="writer">the xmlwriter to save into </param>
-        </member>
-        <member name="M:Google.GData.Client.AtomContent.SaveInnerXml(System.Xml.XmlWriter)">
-            <summary>saves the inner state of the element. Note that if the 
-            content type is xhtml, no encoding will be done by this object</summary> 
-            <param name="writer">the xmlWriter to save into </param>
-        </member>
-        <member name="P:Google.GData.Client.AtomContent.XmlName">
-            <summary>Returns the constant representing this XML element.</summary> 
-        </member>
-        <member name="P:Google.GData.Client.AtomContent.Type">
-            <summary>accessor method public string Type</summary> 
+        <member name="P:Google.GData.Client.AtomEntry.Published">
+            <summary>accessor method public DateTime PublicationDate</summary> 
             <returns> </returns>
         </member>
-        <member name="P:Google.GData.Client.AtomContent.Src">
-            <summary>accessor method public Uri Src</summary> 
+        <member name="P:Google.GData.Client.AtomEntry.IsDraft">
+            <summary>specifies if app:control/app:draft is yes or no. 
+            this is determined by walking the extension elements collection</summary> 
+            <returns>true if this is a draft element</returns>
+        </member>
+        <member name="P:Google.GData.Client.AtomEntry.Authors">
+            <summary>accessor method public Contributors AtomPersonCollection</summary> 
             <returns> </returns>
         </member>
-        <member name="P:Google.GData.Client.AtomContent.AbsoluteUri">
-            <summary>public Uri AbsoluteUri</summary> 
+        <member name="P:Google.GData.Client.AtomEntry.Contributors">
+            <summary>accessor method public Contributors AtomPersonCollection</summary> 
+            <returns> </returns>
         </member>
-        <member name="P:Google.GData.Client.AtomContent.Content">
+        <member name="P:Google.GData.Client.AtomEntry.Content">
             <summary>accessor method public string Content</summary> 
             <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Client.AtomEntry.Summary">
+            <summary>accessor method public string Summary</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Client.AtomEntry.Links">
+            <summary>accessor method public Links AtomLinkCollection</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Client.AtomEntry.Categories">
+            <summary>accessor method public AtomCategoryCollection Categories, holds an array of AtomCategory objects</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Client.AtomEntry.Id">
+            <summary>accessor method public AtomId Id</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Client.AtomEntry.Title">
+            <summary>accessor method public AtomTextConstruct Title</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Client.AtomEntry.Source">
+            <summary>if the entry was copied, represents the source</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Client.AtomEntry.Rights">
+            <summary>accessor method public string rights</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Client.AtomEntry.ReadOnly">
+            <summary>returns whether or not the entry is read-only </summary> 
+        </member>
+        <member name="M:Google.GData.Client.AbstractEntry.AddOtherNamespaces(System.Xml.XmlWriter)">
+            <summary>
+            base implementation, as with the abstract feed, we are adding
+            the gnamespace
+            </summary>
+            <param name="writer">The XmlWrite, where we want to add default namespaces to</param>
+        </member>
+        <member name="M:Google.GData.Client.AbstractEntry.SkipNode(System.Xml.XmlNode)">
+            <summary>
+            Checks if this is a namespace declaration that we already added
+            </summary>
+            <param name="node">XmlNode to check</param>
+            <returns>True if this node should be skipped</returns>
+        </member>
+        <member name="M:Google.GData.Client.AbstractEntry.Parse(Google.GData.Client.ExtensionElementEventArgs,Google.GData.Client.AtomFeedParser)">
+            <summary>
+            Parses the inner state of the element
+            </summary>
+            <param name="e">The extension element that should be added to this entry</param>
+            <param name="parser">The AtomFeedParser that called this</param>
+        </member>
+        <member name="T:Google.GData.Client.AbstractFeed">
+            <summary>Base class to read gData feeds in Atom, with the extension of
+            setting up extension element parsing
+            </summary> 
         </member>
         <member name="T:Google.GData.Client.AtomFeed">
             <summary>Base class to read gData feeds in Atom
@@ -648,6 +678,235 @@
         <member name="P:Google.GData.Client.AtomFeed.XmlName">
             <summary>just returns the constant representing this xml element</summary> 
         </member>
+        <member name="M:Google.GData.Client.AbstractFeed.#ctor(System.Uri,Google.GData.Client.IService)">
+            <summary>
+            Constructor, set's up extension handlers
+            </summary>
+            <param name="uriBase">The uri for this cells feed.</param>
+            <param name="iService">The Spreadsheets service.</param>
+        </member>
+        <member name="M:Google.GData.Client.AbstractFeed.AddOtherNamespaces(System.Xml.XmlWriter)">
+            <summary>extension feeds most likely add the GData namespace, so let's 
+            have a default implementation that does this</summary> 
+            <param name="writer">the xmlwriter, where we want to add default namespaces to</param>
+        </member>
+        <member name="M:Google.GData.Client.AbstractFeed.SkipNode(System.Xml.XmlNode)">
+            <summary>checks if this is a namespace 
+            decl that we already added. As the abstract feed adds
+            the GData namespace, check that one</summary> 
+            <param name="node">XmlNode to check</param>
+            <returns>true if this node should be skipped </returns>
+        </member>
+        <member name="M:Google.GData.Client.AbstractFeed.OnParsedNewAbstractEntry(System.Object,Google.GData.Client.FeedParserEventArgs)">
+            <summary>
+            Eventhandling. Called when a new entry is parsed.
+            </summary>
+            <param name="sender"> the object which send the event</param>
+            <param name="e">FeedParserEventArguments, holds the feedentry</param> 
+            <returns> </returns>
+        </member>
+        <member name="M:Google.GData.Client.AbstractFeed.CreateFeedEntry">
+            <summary>
+            this needs to get implemented by subclasses
+            </summary>
+            <returns>AtomEntry</returns>
+        </member>
+        <member name="M:Google.GData.Client.AbstractFeed.OnNewExtensionsElement(System.Object,Google.GData.Client.ExtensionElementEventArgs)">
+            <summary>eventhandler - called for event extension element
+            </summary>
+            <param name="sender">the object which send the event</param>
+            <param name="e">FeedParserEventArguments, holds the feedEntry</param> 
+            <returns> </returns>
+        </member>
+        <member name="T:Google.GData.Client.BaseIsDirty">
+            <summary>Helper object to walk the tree for the dirty flag.</summary> 
+        </member>
+        <member name="T:Google.GData.Client.IBaseWalkerAction">
+            <summary>Thin layer to create an action on an item/response
+            </summary> 
+        </member>
+        <member name="M:Google.GData.Client.IBaseWalkerAction.Go(Google.GData.Client.AtomBase)">
+            <summary>the only relevant method here</summary> 
+        </member>
+        <member name="M:Google.GData.Client.BaseIsDirty.Go(Google.GData.Client.AtomBase)">
+            <summary>Walker action. Just gets a property.</summary> 
+            <param name="atom">object to set the property on</param>
+            <returns>the value of the dirty flag</returns>
+        </member>
+        <member name="T:Google.GData.Client.BaseMarkDirty">
+            <summary>Helper object to walk the tree for the dirty flag.</summary> 
+        </member>
+        <member name="F:Google.GData.Client.BaseMarkDirty.flag">
+            <summary>Holds if set/unset to dirty.</summary> 
+        </member>
+        <member name="M:Google.GData.Client.BaseMarkDirty.#ctor(System.Boolean)">
+            <summary>Constructor.</summary> 
+            <param name="flag">indicates the value to pass </param>
+        </member>
+        <member name="M:Google.GData.Client.BaseMarkDirty.Go(Google.GData.Client.AtomBase)">
+            <summary>Walker action. Just sets a property.</summary> 
+            <param name="atom">object to set the property on </param>
+            <returns> always false, indicating to walk the whole tree</returns>
+        </member>
+        <member name="T:Google.GData.Client.BaseIsPersistable">
+            <summary>Helper class, mainly used to walk the tree for the dirty flag.</summary> 
+        </member>
+        <member name="M:Google.GData.Client.BaseIsPersistable.Go(Google.GData.Client.AtomBase)">
+            <summary>Walker action. Just gets a property.</summary> 
+            <param name="atom">object to set the property on </param>
+            <returns>returns the value of the ShouldBePersisted() of the object</returns>
+        </member>
+        <member name="T:Google.GData.Client.AtomBaseLinkConverter">
+            <summary>TypeConverter, so that AtomBaseLink shows up in the property pages
+            </summary> 
+        </member>
+        <member name="M:Google.GData.Client.AtomBaseLinkConverter.CanConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Type)">
+            <summary>Standard type converter method</summary>
+        </member>
+        <member name="M:Google.GData.Client.AtomBaseLinkConverter.ConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object,System.Type)">
+             <summary>standard ConvertTo typeconverter code</summary> 
+            <summary>Standard type converter method</summary>
+        </member>
+        <member name="T:Google.GData.Client.AtomBaseLink">
+            <summary>AtomBaselink is an intermediate object that adds the URI property
+            used as the parent class for a lot of other objects (like atomlink, atomicon, etc)
+            </summary> 
+        </member>
+        <member name="F:Google.GData.Client.AtomBaseLink.uriString">
+            <summary>holds the string rep</summary> 
+        </member>
+        <member name="M:Google.GData.Client.AtomBaseLink.SaveInnerXml(System.Xml.XmlWriter)">
+            <summary>saves the inner state of the element</summary> 
+            <param name="writer">the xmlWriter to save into </param>
+        </member>
+        <member name="M:Google.GData.Client.AtomBaseLink.ShouldBePersisted">
+            <summary>figures out if this object should be persisted</summary> 
+            <returns> true, if it's worth saving</returns>
+        </member>
+        <member name="P:Google.GData.Client.AtomBaseLink.Uri">
+            <summary>accessor method public string Uri</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Client.AtomBaseLink.AbsoluteUri">
+            <summary>public Uri AbsoluteUri</summary> 
+        </member>
+        <member name="T:Google.GData.Client.AtomCategory">
+            <summary>
+            Category elements contain information about a category to which an Atom feed or entry is associated.
+            atomCategory = element atom:category {
+               atomCommonAttributes,
+               attribute term { text },
+               attribute scheme { atomUri }?,
+               attribute label { text }?,
+               empty
+            }
+            </summary> 
+        </member>
+        <member name="F:Google.GData.Client.AtomCategory.term">
+            <summary>holds the term</summary> 
+        </member>
+        <member name="F:Google.GData.Client.AtomCategory.scheme">
+            <summary>holds the scheme as an Uri</summary> 
+        </member>
+        <member name="F:Google.GData.Client.AtomCategory.label">
+            <summary>holds the category label</summary> 
+        </member>
+        <member name="M:Google.GData.Client.AtomCategory.#ctor">
+            <summary>empty Category constructor</summary> 
+        </member>
+        <member name="M:Google.GData.Client.AtomCategory.#ctor(System.String)">
+            <summary>Category constructor</summary> 
+            <param name="term">the term of the category</param>
+        </member>
+        <member name="M:Google.GData.Client.AtomCategory.#ctor(System.String,Google.GData.Client.AtomUri)">
+            <summary>Category constructor</summary> 
+            <param name="term">the term of the category</param>
+            <param name="scheme">the scheme of the category</param>
+        </member>
+        <member name="M:Google.GData.Client.AtomCategory.SaveXmlAttributes(System.Xml.XmlWriter)">
+            <summary>overridden to save attributes for this(XmlWriter writer)</summary> 
+            <param name="writer">the xmlwriter to save into </param>
+        </member>
+        <member name="M:Google.GData.Client.AtomCategory.ShouldBePersisted">
+            <summary>figures out if this object should be persisted</summary> 
+            <returns> true, if it's worth saving</returns>
+        </member>
+        <member name="P:Google.GData.Client.AtomCategory.XmlName">
+            <summary>Returns the constant representing this XML element.</summary> 
+        </member>
+        <member name="P:Google.GData.Client.AtomCategory.Term">
+            <summary>accessor method public string Term</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Client.AtomCategory.Label">
+            <summary>accessor method public string Label</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Client.AtomCategory.Scheme">
+            <summary>accessor method public Uri Scheme</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Client.AtomCategory.UriString">
+            <summary>creates a string rep of a category useful for a query URI</summary> 
+            <returns>the category as a string for a query </returns>
+        </member>
+        <member name="T:Google.GData.Client.AtomContentConverter">
+            <summary>TypeConverter, so that AtomContentConverter shows up in the property pages
+            </summary> 
+        </member>
+        <member name="M:Google.GData.Client.AtomContentConverter.CanConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Type)">
+            <summary>Standard type converter method</summary>
+        </member>
+        <member name="M:Google.GData.Client.AtomContentConverter.ConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object,System.Type)">
+            <summary>Standard type converter method</summary>
+        </member>
+        <member name="T:Google.GData.Client.AtomContent">
+            <summary>atom:content object representation
+            </summary> 
+        </member>
+        <member name="F:Google.GData.Client.AtomContent.type">
+            <summary>holds the  type attribute</summary> 
+        </member>
+        <member name="F:Google.GData.Client.AtomContent.src">
+            <summary>holds the src URI attribute</summary> 
+        </member>
+        <member name="F:Google.GData.Client.AtomContent.content">
+            <summary>holds teh content</summary> 
+        </member>
+        <member name="M:Google.GData.Client.AtomContent.#ctor">
+            <summary>default constructor. Set's the content type to text.</summary> 
+        </member>
+        <member name="M:Google.GData.Client.AtomContent.ShouldBePersisted">
+            <summary>figures out if this object should be persisted</summary> 
+            <returns> true, if it's worth saving</returns>
+        </member>
+        <member name="M:Google.GData.Client.AtomContent.SaveXmlAttributes(System.Xml.XmlWriter)">
+            <summary>overridden to save attributes for this(XmlWriter writer)</summary> 
+            <param name="writer">the xmlwriter to save into </param>
+        </member>
+        <member name="M:Google.GData.Client.AtomContent.SaveInnerXml(System.Xml.XmlWriter)">
+            <summary>saves the inner state of the element. Note that if the 
+            content type is xhtml, no encoding will be done by this object</summary> 
+            <param name="writer">the xmlWriter to save into </param>
+        </member>
+        <member name="P:Google.GData.Client.AtomContent.XmlName">
+            <summary>Returns the constant representing this XML element.</summary> 
+        </member>
+        <member name="P:Google.GData.Client.AtomContent.Type">
+            <summary>accessor method public string Type</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Client.AtomContent.Src">
+            <summary>accessor method public Uri Src</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Client.AtomContent.AbsoluteUri">
+            <summary>public Uri AbsoluteUri</summary> 
+        </member>
+        <member name="P:Google.GData.Client.AtomContent.Content">
+            <summary>accessor method public string Content</summary> 
+            <returns> </returns>
+        </member>
         <member name="T:Google.GData.Client.AtomEntryConverter">
             <summary>TypeConverter, so that AtomEntry shows up in the property pages
             </summary> 
@@ -657,194 +916,6 @@
         </member>
         <member name="M:Google.GData.Client.AtomEntryConverter.ConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object,System.Type)">
             <summary>Standard type converter method</summary>
-        </member>
-        <member name="T:Google.GData.Client.AtomEntry">
-            <summary>AtomEntry object, representing an item in the RSS/Atom feed
-             Version 1.0 removed atom-Head
-               element atom:entry {
-                  atomCommonAttributes,
-                  (atomAuthor*
-                    atomCategory*
-                   atomContent?
-                   atomContributor*
-                   atomId
-                   atomLink*
-                   atomPublished?
-                   atomRights?
-                   atomSource?
-                   atomSummary?
-                   atomTitle
-                   atomUpdated
-                   extensionElement*)
-               }
-             </summary>
-        </member>
-        <member name="F:Google.GData.Client.AtomEntry.title">
-            <summary>/feed/entry/title property as string</summary> 
-        </member>
-        <member name="F:Google.GData.Client.AtomEntry.id">
-            <summary>/feed/entry/id property as string</summary> 
-        </member>
-        <member name="F:Google.GData.Client.AtomEntry.links">
-            <summary>/feed/entry/link collection</summary> 
-        </member>
-        <member name="F:Google.GData.Client.AtomEntry.lastUpdateDate">
-            <summary>/feed/entry/updated property as string</summary> 
-        </member>
-        <member name="F:Google.GData.Client.AtomEntry.publicationDate">
-            <summary>/feed/entry/published property as string</summary> 
-        </member>
-        <member name="F:Google.GData.Client.AtomEntry.authors">
-            <summary>/feed/entry/author property as Author object</summary> 
-        </member>
-        <member name="F:Google.GData.Client.AtomEntry.contributors">
-            <summary>/feed/entry/atomContributor property as Author object</summary> 
-        </member>
-        <member name="F:Google.GData.Client.AtomEntry.rights">
-            <summary>The "atom:rights" element is a Text construct that conveys a human-readable copyright statement for an entry or feed.</summary> 
-        </member>
-        <member name="F:Google.GData.Client.AtomEntry.categories">
-            <summary>/feed/entry/category/@term property as a list of AtomCategories</summary> 
-        </member>
-        <member name="F:Google.GData.Client.AtomEntry.summary">
-            <summary>The "atom:summary" element is a Text construct that conveys a short summary, abstract or excerpt of an entry.</summary> 
-        </member>
-        <member name="F:Google.GData.Client.AtomEntry.content">
-            <summary>contains the content as an object</summary> 
-        </member>
-        <member name="F:Google.GData.Client.AtomEntry.source">
-            <summary>atom:source element</summary> 
-        </member>
-        <member name="F:Google.GData.Client.AtomEntry.service">
-            <summary>GData service to use</summary> 
-        </member>
-        <member name="F:Google.GData.Client.AtomEntry.feed">
-            <summary>holds the owning feed</summary> 
-        </member>
-        <member name="M:Google.GData.Client.AtomEntry.AddOtherNamespaces(System.Xml.XmlWriter)">
-            <summary>checks to see if we are a batch feed, if so, adds the batchNS</summary> 
-            <param name="writer">the xmlwriter, where we want to add default namespaces to</param>
-        </member>
-        <member name="M:Google.GData.Client.AtomEntry.SkipNode(System.Xml.XmlNode)">
-            <summary>checks if this is a namespace 
-            decl that we already added</summary> 
-            <param name="node">XmlNode to check</param>
-            <returns>true if this node should be skipped </returns>
-        </member>
-        <member name="M:Google.GData.Client.AtomEntry.SaveInnerXml(System.Xml.XmlWriter)">
-            <summary>saves the inner state of the element</summary> 
-            <param name="writer">the xmlWriter to save into </param>
-        </member>
-        <member name="M:Google.GData.Client.AtomEntry.setFeed(Google.GData.Client.AtomFeed)">
-            <summary>internal method to set the feed</summary> 
-        </member>
-        <member name="M:Google.GData.Client.AtomEntry.ImportFromFeed(Google.GData.Client.AtomEntry)">
-            <summary>helper method to create a new, decoupled entry based on a feedEntry</summary> 
-            <param name="entryToImport">the entry from a feed that you want to put somewhere else</param>
-            <returns> the new entry ready to be inserted</returns>
-        </member>
-        <member name="M:Google.GData.Client.AtomEntry.FindDraftNode">
-            <summary>searches the extension list for the app:draft node</summary> 
-            <returns>null if not there</returns>
-        </member>
-        <member name="M:Google.GData.Client.AtomEntry.Update">
-            <summary>commits the item to the server</summary> 
-            <returns>throws an exception if an error occured updating, returns 
-            the updated entry from the service</returns>
-        </member>
-        <member name="M:Google.GData.Client.AtomEntry.Delete">
-            <summary>deletes the item from the server</summary> 
-            <returns>throws an exception if an error occured updating</returns>
-        </member>
-        <member name="M:Google.GData.Client.AtomEntry.CopyEntry(Google.GData.Client.AtomEntry)">
-            <summary>takes the updated entry returned and sets the properties to this object</summary> 
-            <param name="updatedEntry"> </param>
-        </member>
-        <member name="M:Google.GData.Client.AtomEntry.BaseUriChanged(Google.GData.Client.AtomUri)">
-            <summary>just go down the child collections</summary> 
-            <param name="uriBase"> as currently calculated</param>
-        </member>
-        <member name="M:Google.GData.Client.AtomEntry.WalkTree(Google.GData.Client.IBaseWalkerAction)">
-            <summary>calls the action on this object and all children</summary> 
-            <param name="action">an IAtomBaseAction interface to call </param>
-            <returns>true or false, pending outcome</returns>
-        </member>
-        <member name="P:Google.GData.Client.AtomEntry.XmlName">
-            <summary>Returns the constant representing this XML element.</summary> 
-        </member>
-        <member name="P:Google.GData.Client.AtomEntry.Feed">
-            <summary>Read only accessor for feed</summary> 
-        </member>
-        <member name="P:Google.GData.Client.AtomEntry.Service">
-            <summary>accessor method for the GData Service to use</summary> 
-        </member>
-        <member name="P:Google.GData.Client.AtomEntry.BatchData">
-            <summary>accessor to the batchdata for the entry</summary> 
-            <returns> GDataBatch object </returns>
-        </member>
-        <member name="P:Google.GData.Client.AtomEntry.EditUri">
-            <summary>accessor method public Uri EditUri</summary> 
-            <returns> </returns>
-        </member>
-        <member name="P:Google.GData.Client.AtomEntry.SelfUri">
-            <summary>accessor for the self URI</summary> 
-            <returns> </returns>
-        </member>
-        <member name="P:Google.GData.Client.AtomEntry.Updated">
-            <summary>accessor method public DateTime UpdateDate</summary> 
-            <returns> </returns>
-        </member>
-        <member name="P:Google.GData.Client.AtomEntry.Published">
-            <summary>accessor method public DateTime PublicationDate</summary> 
-            <returns> </returns>
-        </member>
-        <member name="P:Google.GData.Client.AtomEntry.IsDraft">
-            <summary>specifies if app:control/app:draft is yes or no. 
-            this is determined by walking the extension elements collection</summary> 
-            <returns>true if this is a draft element</returns>
-        </member>
-        <member name="P:Google.GData.Client.AtomEntry.Authors">
-            <summary>accessor method public Contributors AtomPersonCollection</summary> 
-            <returns> </returns>
-        </member>
-        <member name="P:Google.GData.Client.AtomEntry.Contributors">
-            <summary>accessor method public Contributors AtomPersonCollection</summary> 
-            <returns> </returns>
-        </member>
-        <member name="P:Google.GData.Client.AtomEntry.Content">
-            <summary>accessor method public string Content</summary> 
-            <returns> </returns>
-        </member>
-        <member name="P:Google.GData.Client.AtomEntry.Summary">
-            <summary>accessor method public string Summary</summary> 
-            <returns> </returns>
-        </member>
-        <member name="P:Google.GData.Client.AtomEntry.Links">
-            <summary>accessor method public Links AtomLinkCollection</summary> 
-            <returns> </returns>
-        </member>
-        <member name="P:Google.GData.Client.AtomEntry.Categories">
-            <summary>accessor method public AtomCategoryCollection Categories, holds an array of AtomCategory objects</summary> 
-            <returns> </returns>
-        </member>
-        <member name="P:Google.GData.Client.AtomEntry.Id">
-            <summary>accessor method public AtomId Id</summary> 
-            <returns> </returns>
-        </member>
-        <member name="P:Google.GData.Client.AtomEntry.Title">
-            <summary>accessor method public AtomTextConstruct Title</summary> 
-            <returns> </returns>
-        </member>
-        <member name="P:Google.GData.Client.AtomEntry.Source">
-            <summary>if the entry was copied, represents the source</summary> 
-            <returns> </returns>
-        </member>
-        <member name="P:Google.GData.Client.AtomEntry.Rights">
-            <summary>accessor method public string rights</summary> 
-            <returns> </returns>
-        </member>
-        <member name="P:Google.GData.Client.AtomEntry.ReadOnly">
-            <summary>returns whether or not the entry is read-only </summary> 
         </member>
         <member name="T:Google.GData.Client.AtomGeneratorConverter">
             <summary>TypeConverter, so that AtomGenerator shows up in the property pages
@@ -1396,9 +1467,6 @@
         <member name="F:Google.GData.Client.BaseNameTable.XmlElementBatchError">
             <summary>xmlelement for batch:status:errors:error</summary> 
         </member>
-        <member name="F:Google.GData.Client.BaseNameTable.XmlAttributeBatchOperationType">
-            <summary>xmlattribute for batch:operation@type</summary> 
-        </member>
         <member name="F:Google.GData.Client.BaseNameTable.XmlAttributeBatchSuccess">
             <summary>xmlattribute for batch:interrupted@success</summary> 
         </member>
@@ -1411,6 +1479,8 @@
         <member name="F:Google.GData.Client.BaseNameTable.XmlAttributeBatchUnprocessed">
             <summary>XmlAttribute for batch:interrupted@unprocessed</summary> 
         </member>
+        <!-- Badly formed XML comment ignored for member "F:Google.GData.Client.BaseNameTable.XmlAttributeValue" -->
+        <!-- Badly formed XML comment ignored for member "F:Google.GData.Client.BaseNameTable.XmlAttributeType" -->
         <member name="F:Google.GData.Client.BaseNameTable.atomNameTable">
             <summary>the nametable itself, based on XML core</summary> 
         </member>
@@ -1469,9 +1539,6 @@
         <member name="P:Google.GData.Client.BaseNameTable.BatchUnprocessed">
             <summary>Read only accessor for BatchUnprocessed</summary> 
         </member>
-        <member name="P:Google.GData.Client.BaseNameTable.BatchOperationType">
-            <summary>Read only accessor for BatchOperationType</summary> 
-        </member>
         <member name="P:Google.GData.Client.BaseNameTable.BatchSuccessCount">
             <summary>Read only accessor for BatchSuccessCount</summary> 
         </member>
@@ -1498,6 +1565,12 @@
         </member>
         <member name="P:Google.GData.Client.BaseNameTable.Language">
             <summary>Read only accessor for language</summary> 
+        </member>
+        <member name="P:Google.GData.Client.BaseNameTable.Value">
+            <summary>Read only accessor for value</summary> 
+        </member>
+        <member name="P:Google.GData.Client.BaseNameTable.Type">
+            <summary>Read only accessor for value</summary> 
         </member>
         <member name="F:Google.GData.Client.AtomParserNameTable.XmlCategoryElement">
             <summary>static string for parsing</summary> 
@@ -1580,9 +1653,6 @@
         <member name="F:Google.GData.Client.AtomParserNameTable.XmlAttributeRel">
             <summary>static string for parsing</summary>    
         </member>
-        <member name="F:Google.GData.Client.AtomParserNameTable.XmlAttributeType">
-            <summary>static string for parsing</summary>    
-        </member>
         <member name="F:Google.GData.Client.AtomParserNameTable.XmlAttributeHRefLang">
             <summary>static string for parsing</summary>    
         </member>
@@ -1611,9 +1681,6 @@
             <summary>link attributes: href, rel, type, hreflang, title (use the defined string), length</summary> 
         </member>
         <member name="F:Google.GData.Client.AtomParserNameTable.rel">
-            <summary>property holder exposed over get/set</summary> 
-        </member>
-        <member name="F:Google.GData.Client.AtomParserNameTable.type">
             <summary>property holder exposed over get/set</summary> 
         </member>
         <member name="F:Google.GData.Client.AtomParserNameTable.hreflang">
@@ -1715,9 +1782,6 @@
         </member>
         <member name="P:Google.GData.Client.AtomParserNameTable.Rel">
             <summary>Read only accessor for rel</summary> 
-        </member>
-        <member name="P:Google.GData.Client.AtomParserNameTable.Type">
-            <summary>Read only accessor for type</summary> 
         </member>
         <member name="P:Google.GData.Client.AtomParserNameTable.HRefLang">
             <summary>Read only accessor for hreflang</summary> 
@@ -2731,6 +2795,13 @@
         <member name="M:Google.GData.Client.GDataRequestException.#ctor">
             <summary>default constructor so that FxCop does not complain</summary> 
         </member>
+        <member name="M:Google.GData.Client.GDataRequestException.ReadResponseString">
+            <summary>
+            this uses the webresponse object to get at the
+            stream send back from the server.
+            </summary>
+            <returns>the error message</returns>
+        </member>
         <member name="M:Google.GData.Client.GDataRequestException.#ctor(System.String,System.Exception)">
             <summary>public GDataRequestException(WebException e)</summary> 
             <param name="msg"> the exception message as a string</param>
@@ -2761,9 +2832,7 @@
         </member>
         <member name="P:Google.GData.Client.GDataRequestException.ResponseString">
             <summary>
-            this uses the webresponse object to get at the
-            stream send back from the server and return the 
-            error message. 
+            this is the error message returned by the server
             </summary>
         </member>
         <member name="T:Google.GData.Client.GDataForbiddenException">
@@ -3470,6 +3539,22 @@
             <param name="streamInput">input stream to parse </param>
             <param name="feed">the feed object to construct</param>
         </member>
+        <member name="P:Google.GData.Client.ServiceEventArgs.Feed">
+            <summary>the feed to be created. If this is NULL, a service 
+            will create a DEFAULT atomfeed</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Client.ServiceEventArgs.Service">
+            <summary>the service to be used for the feed to be created. </summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Client.ServiceEventArgs.Uri">
+            <summary>the Uri to be used</summary> 
+            <returns> </returns>
+        </member>
+        <member name="T:Google.GData.Client.ServiceEventHandler">
+            <summary>Delegate declaration for the feed creation in a service</summary> 
+        </member>
         <member name="T:Google.GData.Client.Service">
             <summary>base Service implementation
             </summary> 
@@ -3581,6 +3666,8 @@
             <param name="type">the type of request to create</param> 
             <returns> the response as a stream</returns>
         </member>
+        <member name="M:Google.GData.Client.Service.StreamSend(System.Uri,System.String,Google.GData.Client.GDataRequestType)">
+            <returns>Stream</returns>        </member>
         <member name="M:Google.GData.Client.Service.createFeed(System.Uri)">
             <summary>creates a new feed instance to be returned by
             Batch() and Query()
@@ -3629,6 +3716,9 @@
         </member>
         <member name="E:Google.GData.Client.Service.NewExtensionElement">
             <summary>eventhandler, when the parser finds a new extension element-> mirrored from underlying parser</summary> 
+        </member>
+        <member name="E:Google.GData.Client.Service.NewFeed">
+            <summary>eventhandler, when the service needs to create a new feed</summary> 
         </member>
         <member name="P:Google.GData.Client.Service.RequestFactory">
             <summary>accessor method public IGDataRequest Request</summary> 

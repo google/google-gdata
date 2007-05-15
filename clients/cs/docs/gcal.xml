@@ -23,25 +23,10 @@
             </summary>
             <param name="applicationName">the applicationname</param>
         </member>
-        <member name="M:Google.GData.Calendar.CalendarService.Query(Google.GData.Client.FeedQuery)">
-            <summary>
-             overwritten Query method
-            </summary>
-            <param name="feedQuery">The FeedQuery touse</param>
-            <returns>the retrieved EventFeed</returns>
-        </member>
-        <member name="M:Google.GData.Calendar.CalendarService.OnParsedNewEventEntry(System.Object,Google.GData.Client.FeedParserEventArgs)">
-            <summary>
-            Event handler. Called when a new event entry is parsed.
-            </summary>
-            <param name="sender">the object that's sending the event</param>
-            <param name="e">FeedParserEventArguments, holds the feedentry</param>
-            <returns> </returns>
-        </member>
-        <member name="M:Google.GData.Calendar.CalendarService.OnNewEventExtensionElement(System.Object,Google.GData.Client.ExtensionElementEventArgs)">
-            <summary>Event handler. Called for an event extension element.
-            </summary>
-            <param name="sender">the object that's sending the event</param>
+        <member name="M:Google.GData.Calendar.CalendarService.OnNewFeed(System.Object,Google.GData.Client.ServiceEventArgs)">
+            <summary>eventchaining. We catch this by from the base service, which 
+            would not by default create an atomFeed</summary> 
+            <param name="sender"> the object which send the event</param>
             <param name="e">FeedParserEventArguments, holds the feedentry</param> 
             <returns> </returns>
         </member>
@@ -67,17 +52,7 @@
             </summary>
             <returns>When object for the reminder or NULL</returns>
         </member>
-        <member name="M:Google.GData.Calendar.EventEntry.AddOtherNamespaces(System.Xml.XmlWriter)">
-            <summary>empty base implementation</summary> 
-            <param name="writer">the xmlwriter, where we want to add default namespaces to</param>
-        </member>
-        <member name="M:Google.GData.Calendar.EventEntry.SkipNode(System.Xml.XmlNode)">
-            <summary>checks if this is a namespace 
-            decl that we already added</summary> 
-            <param name="node">XmlNode to check</param>
-            <returns>true if this node should be skipped </returns>
-        </member>
-        <member name="M:Google.GData.Calendar.EventEntry.parseEvent(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
+        <member name="M:Google.GData.Calendar.EventEntry.Parse(Google.GData.Client.ExtensionElementEventArgs,Google.GData.Client.AtomFeedParser)">
             <summary>parses the inner state of the element</summary>
             <param name="eventNode">a g-scheme, xml node</param>
             <param name="parser">the atomFeedParser that called this</param>
@@ -339,31 +314,18 @@
             <param name="eventNode">a g-scheme, xml node</param>
             <param name="parser">AtomFeedParser to use</param>
         </member>
-        <member name="M:Google.GData.Calendar.EventFeed.AddOtherNamespaces(System.Xml.XmlWriter)">
-            <summary>empty base implementation</summary> 
-            <param name="writer">the xmlwriter, where we want to add default namespaces to</param>
-        </member>
-        <member name="M:Google.GData.Calendar.EventFeed.SkipNode(System.Xml.XmlNode)">
-            <summary>checks if this is a namespace 
-            decl that we already added</summary> 
-            <param name="node">XmlNode to check</param>
-            <returns>true if this node should be skipped </returns>
-        </member>
-        <member name="M:Google.GData.Calendar.EventFeed.OnParsedNewEventEntry(System.Object,Google.GData.Client.FeedParserEventArgs)">
+        <member name="M:Google.GData.Calendar.EventFeed.CreateFeedEntry">
             <summary>
-            Eventhandling. Called when a new event entry is parsed.
+            this needs to get implemented by subclasses
             </summary>
-            <param name="sender"> the object which send the event</param>
-            <param name="e">FeedParserEventArguments, holds the feedentry</param> 
-            <returns> </returns>
+            <returns>AtomEntry</returns>
         </member>
-        <member name="M:Google.GData.Calendar.EventFeed.OnNewEventExtensionElement(System.Object,Google.GData.Client.ExtensionElementEventArgs)">
-            <summary>eventhandler - called for event extension element
+        <member name="M:Google.GData.Calendar.EventFeed.HandleExtensionElements(Google.GData.Client.ExtensionElementEventArgs,Google.GData.Client.AtomFeedParser)">
+            <summary>
+            get's called after we already handled the custom entry, to handle all 
+            other potential parsing tasks
             </summary>
-            <param name="sender">the object which send the event</param>
-            <param name="e">FeedParserEventArguments, holds the feedEntry</param> 
-            <returns> </returns>
-        </member>
+            <param name="e"></param>        </member>
         <member name="P:Google.GData.Calendar.EventFeed.Location">
             <summary>accessor for the Location collection</summary>
         </member>
