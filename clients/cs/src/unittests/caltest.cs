@@ -517,10 +517,10 @@ namespace Google.GData.Client.UnitTests
                 factory.MethodOverride = true;
                 service.RequestFactory = this.factory; 
 
-                service.NewFeed += new ServiceEventHandler(this.OnNewAclFeed); 
+               // service.NewFeed += new ServiceEventHandler(this.OnNewAclFeed); 
 
                 query.Uri = new Uri(this.aclFeedUri);
-                AclFeed aclFeed = (AclFeed) service.Query(query);
+                AclFeed aclFeed = service.Query(query) as AclFeed;
                 AclEntry newEntry = null;
 
                 iCount = aclFeed.Entries.Count; 
