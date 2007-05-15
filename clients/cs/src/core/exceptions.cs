@@ -233,15 +233,16 @@ namespace Google.GData.Client
         /// <returns>the error message</returns>
         protected string    ReadResponseString()
         {
+            if (this.webResponse == null)
+                return (null);
+
             Stream responseStream = this.webResponse.GetResponseStream();
             
-            if (responseStream != null)
-            {
-                StreamReader reader = new StreamReader(responseStream);
-                return (reader.ReadToEnd());
-            }
+            if (responseStream == null)
+                return (null);
 
-            return (null);
+            StreamReader reader = new StreamReader(responseStream);
+            return (reader.ReadToEnd());
         }
 
         /// <summary>
