@@ -9,7 +9,7 @@
             <Settings
                 ApplicationIcon = ""
                 AssemblyKeyContainerName = ""
-                AssemblyName = "Google.GData.Calendar"
+                AssemblyName = "Google.GData.AccessControl"
                 AssemblyOriginatorKeyFile = ""
                 DefaultClientScript = "JScript"
                 DefaultHTMLPageLayout = "Grid"
@@ -18,7 +18,7 @@
                 OutputType = "Library"
                 PreBuildEvent = 'copy "$(ProjectDir)..\..\signing\*.*"  "$(ProjectDir)\obj\$(ConfigurationName)\*.*"'
                 PostBuildEvent = ""
-                RootNamespace = "Google.GData.Calendar"
+                RootNamespace = "Google.GData.AccessControl"
                 RunPostBuildEvent = "OnBuildSuccess"
                 StartupObject = ""
             >
@@ -95,7 +95,7 @@
             <Include>
                 <File
                     RelPath = "AssemblyInfo.cs"
-                    Link = "..\..\gcalendar\AssemblyInfo.cs"
+                    Link = "..\..\gacl\AssemblyInfo.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
@@ -106,32 +106,32 @@
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "calendarservice.cs"
-                    Link = "..\..\gcalendar\calendarservice.cs"
+                    RelPath = "aclentry.cs"
+                    Link = "..\..\gacl\aclentry.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "evententry.cs"
-                    Link = "..\..\gcalendar\evententry.cs"
+                    RelPath = "aclfeed.cs"
+                    Link = "..\..\gacl\aclfeed.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "eventfeed.cs"
-                    Link = "..\..\gcalendar\eventfeed.cs"
+                    RelPath = "aclnamespace.cs"
+                    Link = "..\..\gacl\aclnamespace.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "eventquery.cs"
-                    Link = "..\..\gcalendar\eventquery.cs"
+                    RelPath = "aclrole.cs"
+                    Link = "..\..\gacl\aclrole.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
-                />
+                />  
                 <File
-                    RelPath = "webcontent.cs"
-                    Link = "..\..\gcalendar\webcontent.cs"
+                    RelPath = "aclscope.cs"
+                    Link = "..\..\gacl\aclscope.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
