@@ -48,7 +48,7 @@ namespace Google.GData.Spreadsheets.UnitTests
         [Test]
         public void GetCellTest()
         {
-            Assert.IsNull(entry.Cell);
+            Assert.IsNotNull(entry.Cell);
         }
 
         [Test]
@@ -76,7 +76,10 @@ namespace Google.GData.Spreadsheets.UnitTests
             XmlDocument document = new XmlDocument();
             document.LoadXml(sb.ToString());
 
-            entry.ParseCell(document.FirstChild, new AtomFeedParser());
+            ExtensionElementEventArgs e = new ExtensionElementEventArgs();
+            e.ExtensionElement = document.FirstChild;
+
+            entry.Parse(e, new AtomFeedParser());
 
             Assert.AreEqual(row, entry.Cell.Row);
             Assert.AreEqual(column, entry.Cell.Column);

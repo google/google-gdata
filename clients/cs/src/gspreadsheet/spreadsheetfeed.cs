@@ -25,7 +25,7 @@ namespace Google.GData.Spreadsheets
     /// <summary>
     /// Feed API customization class for defining a myspreadsheets feed.
     /// </summary>
-    public class SpreadsheetFeed : AtomFeed
+    public class SpreadsheetFeed : AbstractFeed
     {
 
         /// <summary>
@@ -36,83 +36,29 @@ namespace Google.GData.Spreadsheets
         public SpreadsheetFeed(Uri uriBase, IService iService)
         : base(uriBase, iService)
         {
-            NewAtomEntry += new FeedParserEventHandler(this.OnParsedNewSpreadsheetEntry);
-            NewExtensionElement += new ExtensionElementEventHandler(this.OnNewSpreadsheetExtensionsElement);
         }
 
-        /// <summary>empty base implementation</summary> 
-        /// <param name="writer">the xmlwriter, where we want to add default namespaces to</param>
-        protected override void AddOtherNamespaces(XmlWriter writer) 
+  
+    
+        /// <summary>
+        /// returns a new entry for this feed
+        /// </summary>
+        /// <returns>AtomEntry</returns>
+        public override AtomEntry CreateFeedEntry()
         {
-            base.AddOtherNamespaces(writer); 
-            Utilities.EnsureGDataNamespace(writer); 
+            return new SpreadsheetEntry();
         }
-
-        /// <summary>checks if this is a namespace 
-        /// decl that we already added</summary> 
-        /// <param name="node">XmlNode to check</param>
-        /// <returns>true if this node should be skipped </returns>
-        protected override bool SkipNode(XmlNode node)
-        {
-            if (base.SkipNode(node)==true)
-            {
-                return true; 
-            }
-
-            if (node.NodeType == XmlNodeType.Attribute && 
-                (node.Name.StartsWith("xmlns") == true) && 
-                (String.Compare(node.Value,BaseNameTable.gNamespace)==0))
-                return true;
-            return false; 
-        }
-
 
         /// <summary>
-        /// Eventhandling. Called when a new event entry is parsed.
+        /// get's called after we already handled the custom entry, to handle all 
+        /// other potential parsing tasks
         /// </summary>
-        /// <param name="sender"> the object which send the event</param>
-        /// <param name="e">FeedParserEventArguments, holds the feedentry</param> 
-        /// <returns> </returns>
-        protected void OnParsedNewSpreadsheetEntry(object sender, FeedParserEventArgs e)
+        /// <param name="e"></param>
+        protected override void HandleExtensionElements(ExtensionElementEventArgs e, AtomFeedParser parser)
         {
-            if (e == null)
-            {
-                throw new ArgumentNullException("e");
-            }
-            if (e.CreatingEntry == true)
-            {
-                e.Entry = new SpreadsheetEntry();
-            }
+             Tracing.TraceMsg("\t HandleExtensionElements for Spreadsheet feed called");
         }
 
-        /// <summary>eventhandler - called for event extension element
-        /// </summary>
-        /// <param name="sender">the object which send the event</param>
-        /// <param name="e">FeedParserEventArguments, holds the feedEntry</param> 
-        /// <returns> </returns>
-        protected void OnNewSpreadsheetExtensionsElement(object sender, ExtensionElementEventArgs e)
-        {
-            if (e == null)
-            {
-                throw new ArgumentNullException("e");
-            }
-
-            if (String.Compare(e.ExtensionElement.NamespaceURI, GDataSpreadsheetsNameTable.NSGSpreadsheets, true) == 0)
-            {
-                e.DiscardEntry = true;
-
-                AtomFeedParser parser = sender as AtomFeedParser;
-
-                if (e.Base.XmlName == AtomParserNameTable.XmlAtomEntryElement)
-                {
-                    SpreadsheetEntry spreadsheetEntry = e.Base as SpreadsheetEntry;
-
-                    if (spreadsheetEntry != null)
-                    {
-                        spreadsheetEntry.ParseSpreadsheet(e.ExtensionElement, parser);
-                    }
-                }
-            }
-        }
     }
 }
+

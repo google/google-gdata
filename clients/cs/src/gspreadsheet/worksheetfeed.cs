@@ -25,7 +25,7 @@ namespace Google.GData.Spreadsheets
     /// <summary>
     /// Feed API customzation class for defining Worksheets feed.
     /// </summary>
-    public class WorksheetFeed : AtomFeed
+    public class WorksheetFeed : AbstractFeed
     {
         /// <summary>
         /// Constructor
@@ -35,81 +35,26 @@ namespace Google.GData.Spreadsheets
         public WorksheetFeed(Uri uriBase, IService iService)
         : base(uriBase, iService)
         {
-            NewAtomEntry += new FeedParserEventHandler(this.OnParsedNewWorksheetEntry);
-            NewExtensionElement += new ExtensionElementEventHandler(this.OnNewWorksheetExtensionsElement);
-        }
-
-        /// <summary>empty base implementation</summary> 
-        /// <param name="writer">the xmlwriter, where we want to add default namespaces to</param>
-        protected override void AddOtherNamespaces(XmlWriter writer)
-        {
-            base.AddOtherNamespaces(writer);
-            Utilities.EnsureGDataNamespace(writer);
-        }
-
-        /// <summary>checks if this is a namespace 
-        /// decl that we already added</summary> 
-        /// <param name="node">XmlNode to check</param>
-        /// <returns>true if this node should be skipped </returns>
-        protected override bool SkipNode(XmlNode node)
-        {
-            if (base.SkipNode(node) == true)
-            {
-                return true;
-            }
-
-            return node.NodeType == XmlNodeType.Attribute
-            && (node.Name.StartsWith("xmlns") == true)
-            && (String.Compare(node.Value, BaseNameTable.gNamespace) == 0);
         }
 
 
-        /// <summary>
-        /// Eventhandling. Called when a new worksheet entry is parsed.
+         /// <summary>
+        /// returns a new entry for this feed
         /// </summary>
-        /// <param name="sender"> the object which send the event</param>
-        /// <param name="e">FeedParserEventArguments, holds the feedentry</param> 
-        /// <returns> </returns>
-        protected void OnParsedNewWorksheetEntry(object sender, FeedParserEventArgs e)
+        /// <returns>AtomEntry</returns>
+        public override AtomEntry CreateFeedEntry()
         {
-            if (e == null)
-            {
-                throw new ArgumentNullException("e");
-            }
-            if (e.CreatingEntry == true)
-            {
-                e.Entry = new WorksheetEntry();
-            }
+            return new WorksheetEntry();
         }
 
-        /// <summary>eventhandler - called for event extension element
+          /// <summary>
+        /// get's called after we already handled the custom entry, to handle all 
+        /// other potential parsing tasks
         /// </summary>
-        /// <param name="sender">the object which send the event</param>
-        /// <param name="e">FeedParserEventArguments, holds the feedEntry</param> 
-        /// <returns> </returns>
-        protected void OnNewWorksheetExtensionsElement(object sender, ExtensionElementEventArgs e)
+        /// <param name="e"></param>
+        protected override void HandleExtensionElements(ExtensionElementEventArgs e, AtomFeedParser parser)
         {
-            if (e == null)
-            {
-                throw new ArgumentNullException("e");
-            }
-
-            if (String.Compare(e.ExtensionElement.NamespaceURI, GDataSpreadsheetsNameTable.NSGSpreadsheets, true) == 0)
-            {
-                e.DiscardEntry = true;
-
-                AtomFeedParser parser = sender as AtomFeedParser;
-
-                if (e.Base.XmlName == AtomParserNameTable.XmlAtomEntryElement)
-                {
-                    WorksheetEntry worksheetEntry = e.Base as WorksheetEntry;
-
-                    if (worksheetEntry != null)
-                    {
-                        worksheetEntry.ParseWorksheet(e.ExtensionElement, parser);
-                    }
-                }
-            }
+             Tracing.TraceMsg("\t HandleExtensionElements for worksheet feed called");
         }
     }
 }

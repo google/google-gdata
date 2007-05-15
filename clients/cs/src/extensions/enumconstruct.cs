@@ -149,7 +149,7 @@ namespace Google.GData.Extensions {
             {
                 
                 writer.WriteStartElement(XmlNamespacePrefix, XmlName, XmlNamespace); 
-                writer.WriteAttributeString("value", this.value);
+                writer.WriteAttributeString(BaseNameTable.XmlAttributeValue, this.value);
                 writer.WriteEndElement();
             }
         }

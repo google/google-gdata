@@ -246,7 +246,7 @@ namespace Google.GData.Spreadsheets
         {
             base.Reset();
             MinimumRow = MinimumColumn = 0;
-            MaximumRow = MaximumColumn = 0;
+            MaximumRow = MaximumColumn = uint.MaxValue;
             Range = "";
         }
 

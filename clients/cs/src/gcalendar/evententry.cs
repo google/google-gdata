@@ -27,7 +27,7 @@ namespace Google.GData.Calendar {
     /// Entry API customization class for defining entries in an Event feed.
     /// </summary>
     //////////////////////////////////////////////////////////////////////
-    public class EventEntry : AtomEntry
+    public class EventEntry : AbstractEntry
     {
 
 
@@ -547,40 +547,7 @@ namespace Google.GData.Calendar {
 
 #endregion
 
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>empty base implementation</summary> 
-        /// <param name="writer">the xmlwriter, where we want to add default namespaces to</param>
-        //////////////////////////////////////////////////////////////////////
-        protected override void AddOtherNamespaces(XmlWriter writer) 
-        {
-            base.AddOtherNamespaces(writer); 
-            Utilities.EnsureGDataNamespace(writer); 
-        }
-        /////////////////////////////////////////////////////////////////////////////
-
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>checks if this is a namespace 
-        /// decl that we already added</summary> 
-        /// <param name="node">XmlNode to check</param>
-        /// <returns>true if this node should be skipped </returns>
-        //////////////////////////////////////////////////////////////////////
-        protected override bool SkipNode(XmlNode node)
-        {
-            if (base.SkipNode(node)==true)
-            {
-                return true; 
-            }
-
-            Tracing.TraceMsg("in skipnode for node: " + node.Name + "--" + node.Value); 
-
-            if (node.NodeType == XmlNodeType.Attribute && 
-                (node.Name.StartsWith("xmlns") == true) && 
-                (String.Compare(node.Value,BaseNameTable.gNamespace)==0))
-                return true;
-            return false; 
-        }
-
-
+     
 
 #region Event Parser
 
@@ -589,63 +556,76 @@ namespace Google.GData.Calendar {
         /// <param name="eventNode">a g-scheme, xml node</param>
         /// <param name="parser">the atomFeedParser that called this</param>
         //////////////////////////////////////////////////////////////////////
-        public void parseEvent(XmlNode eventNode, AtomFeedParser parser)
+        public override void Parse(ExtensionElementEventArgs e, AtomFeedParser parser)
         {
+            XmlNode eventNode = e.ExtensionElement;
+
             if (String.Compare(eventNode.NamespaceURI, BaseNameTable.gNamespace, true) == 0)
             {
                 // Parse a When Element
                 if (eventNode.LocalName == GDataParserNameTable.XmlWhenElement)
                 {
                     this.Times.Add(When.ParseWhen(eventNode));
+                    e.DiscardEntry = true;
                 }
                 // Parse a Where Element
                 else if (eventNode.LocalName == GDataParserNameTable.XmlWhereElement)
                 {
                     this.Locations.Add((Where.ParseWhere(eventNode, parser)));
+                    e.DiscardEntry = true;
                 }
                 // Parse a Who Element
                 else if (eventNode.LocalName == GDataParserNameTable.XmlWhoElement)
                 {
                     this.Participants.Add((Who.ParseWho(eventNode, parser)));
+                    e.DiscardEntry = true;
                 }
                 // Parse a Status Element
                 else if (eventNode.LocalName == GDataParserNameTable.XmlEventStatusElement)
                 {
                     this.Status = EventStatus.parse(eventNode);
+                    e.DiscardEntry = true;
                 }
                 // Parse a Visibility Element
                 else if (eventNode.LocalName == GDataParserNameTable.XmlVisibilityElement)
                 {
                     this.EventVisibility = Visibility.parse(eventNode);
+                    e.DiscardEntry = true;
                 }
                 // Parse a Transparency Element
                 else if (eventNode.LocalName == GDataParserNameTable.XmlTransparencyElement)
                 {
                     this.EventTransparency = Transparency.parse(eventNode);
+                    e.DiscardEntry = true;
                 }
                 // Parse a Recurrence Element
                 else if (eventNode.LocalName == GDataParserNameTable.XmlRecurrenceElement)
                 {
                     this.Recurrence = Recurrence.ParseRecurrence(eventNode);
+                    e.DiscardEntry = true;
                 }
                 else if (eventNode.LocalName == GDataParserNameTable.XmlRecurrenceExceptionElement)
                 {
                     this.RecurrenceException = RecurrenceException.ParseRecurrenceException(eventNode, parser);
+                    e.DiscardEntry = true;
                 }
                 // Parse an Original Event Element
                 else if (eventNode.LocalName == GDataParserNameTable.XmlOriginalEventElement)
                 {
                     this.OriginalEvent = OriginalEvent.ParseOriginal(eventNode);
+                    e.DiscardEntry = true;
                 }
                 // Parse a Reminder Element - recurrence event, g:reminder is in top level
                 else if (eventNode.LocalName == GDataParserNameTable.XmlReminderElement)
                 {
                     this.Reminder = Reminder.ParseReminder(eventNode);
+                    e.DiscardEntry = true;
                 }
                 // Parse a Comments Element
                 else if (eventNode.LocalName == GDataParserNameTable.XmlCommentsElement)
                 {
                     this.Comments = Comments.ParseComments(eventNode);
+                    e.DiscardEntry = true;
                 }
             }
             else if (String.Compare(eventNode.NamespaceURI, GDataParserNameTable.NSGCal, true) == 0)
@@ -655,6 +635,7 @@ namespace Google.GData.Calendar {
                 if (eventNode.LocalName == GDataParserNameTable.XmlSendNotificationsElement)
                 {
                     this.sendNotifications = SendNotifications.parse(eventNode);
+                    e.DiscardEntry = true;
                 }
             }
         }

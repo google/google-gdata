@@ -56,7 +56,10 @@ namespace Google.GData.Spreadsheets.UnitTests
             XmlDocument document = new XmlDocument();
             document.LoadXml(sb.ToString());
 
-            entry.ParseList(document.FirstChild, new AtomFeedParser());
+            ExtensionElementEventArgs e = new ExtensionElementEventArgs();
+            e.ExtensionElement = document.FirstChild;
+
+            entry.Parse(e, new AtomFeedParser());
 
             Assert.AreEqual(1, entry.Elements.Count);
             Assert.AreEqual(element.LocalName, entry.Elements[0].LocalName);
@@ -80,7 +83,10 @@ namespace Google.GData.Spreadsheets.UnitTests
                 XmlDocument document = new XmlDocument();
                 document.LoadXml(sb.ToString());
 
-                entry.ParseList(document.FirstChild, new AtomFeedParser());
+                ExtensionElementEventArgs e = new ExtensionElementEventArgs();
+                e.ExtensionElement = document.FirstChild;
+                entry.Parse(e, new AtomFeedParser());
+
 
                 Assert.AreEqual(i + 1, entry.Elements.Count);
                 Assert.AreEqual(element.LocalName, entry.Elements[i].LocalName);

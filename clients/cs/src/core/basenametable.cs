@@ -63,12 +63,14 @@ namespace Google.GData.Client
         private object batchReason;
         private object batchErrors;
         private object batchError;
-        private object batchOperationType;
         private object batchSuccessCount;
         private object batchFailureCount;
         private object batchParsedCount;
         private object batchField;
         private object batchUnprocessed; 
+
+        private object type;
+        private object value;
 
 
         /// <summary>static namespace string declaration</summary> 
@@ -149,9 +151,7 @@ namespace Google.GData.Client
         public const string XmlElementBatchErrors = "errors"; 
         /// <summary>xmlelement for batch:status:errors:error</summary> 
         public const string XmlElementBatchError = "error"; 
-        /// <summary>xmlattribute for batch:operation@type</summary> 
-        public const string XmlAttributeBatchOperationType = "type"; 
-        /// <summary>xmlattribute for batch:interrupted@success</summary> 
+       /// <summary>xmlattribute for batch:interrupted@success</summary> 
         public const string XmlAttributeBatchSuccess = "success";
         /// <summary>XmlAttribute for batch:interrupted@parsed</summary> 
         public const string XmlAttributeBatchParsed = "parsed"; 
@@ -159,7 +159,11 @@ namespace Google.GData.Client
         public const string XmlAttributeBatchField = "field"; 
         /// <summary>XmlAttribute for batch:interrupted@unprocessed</summary> 
         public const string XmlAttributeBatchUnprocessed = "unprocessed"; 
-        
+        /// <summary>XmlAttribute for value in enums/summary> 
+        public const string XmlAttributeValue = "value"; 
+        /// <summary>XmlAttribute for value in enums/summary> 
+        public const string XmlAttributeType = "type"; 
+
         //////////////////////////////////////////////////////////////////////
         /// <summary>initializes the name table for use with atom parsing. This is the
         /// only place where strings are defined for parsing</summary> 
@@ -186,12 +190,15 @@ namespace Google.GData.Client
             this.batchReason        = this.atomNameTable.Add(BaseNameTable.XmlAttributeBatchReason); 
             this.batchErrors        = this.atomNameTable.Add(BaseNameTable.XmlElementBatchErrors); 
             this.batchError         = this.atomNameTable.Add(BaseNameTable.XmlElementBatchError); 
-            this.batchOperationType    = this.atomNameTable.Add(BaseNameTable.XmlAttributeBatchOperationType); 
             this.batchSuccessCount  = this.atomNameTable.Add(BaseNameTable.XmlAttributeBatchSuccess); 
             this.batchFailureCount  = this.batchError; 
             this.batchParsedCount   = this.atomNameTable.Add(BaseNameTable.XmlAttributeBatchParsed); 
             this.batchField         = this.atomNameTable.Add(BaseNameTable.XmlAttributeBatchField); 
             this.batchUnprocessed   = this.atomNameTable.Add(BaseNameTable.XmlAttributeBatchUnprocessed); 
+
+            this.type              = this.atomNameTable.Add(BaseNameTable.XmlAttributeType); 
+            this.value             = this.atomNameTable.Add(BaseNameTable.XmlAttributeValue); 
+            
 
 
 
@@ -313,16 +320,6 @@ namespace Google.GData.Client
         /////////////////////////////////////////////////////////////////////////////
 
         //////////////////////////////////////////////////////////////////////
-        /// <summary>Read only accessor for BatchOperationType</summary> 
-        //////////////////////////////////////////////////////////////////////
-        public object BatchOperationType
-        {
-            get {return this.batchOperationType;}
-        }
-        /////////////////////////////////////////////////////////////////////////////
-
-
-        //////////////////////////////////////////////////////////////////////
         /// <summary>Read only accessor for BatchSuccessCount</summary> 
         //////////////////////////////////////////////////////////////////////
         public object BatchSuccessCount
@@ -400,6 +397,24 @@ namespace Google.GData.Client
         public object Language
         {
             get {return this.language;}
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Read only accessor for value</summary> 
+        //////////////////////////////////////////////////////////////////////
+        public object Value
+        {
+            get {return this.value;}
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Read only accessor for value</summary> 
+        //////////////////////////////////////////////////////////////////////
+        public object Type
+        {
+            get {return this.type;}
         }
         /////////////////////////////////////////////////////////////////////////////
 

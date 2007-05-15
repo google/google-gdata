@@ -25,7 +25,7 @@ namespace Google.GData.Spreadsheets
     /// <summary>
     /// Feed API customization class for defining a Cells feed.
     /// </summary>
-    public class CellFeed : AtomFeed
+    public class CellFeed : AbstractFeed
     {
 
         private RowCountElement rowCount;
@@ -38,8 +38,6 @@ namespace Google.GData.Spreadsheets
         /// <param name="iService">The Spreadsheets service.</param>
         public CellFeed(Uri uriBase, IService iService) : base(uriBase, iService)
         {
-            NewAtomEntry += new FeedParserEventHandler(this.OnParsedNewCellEntry);
-            NewExtensionElement += new ExtensionElementEventHandler(this.OnNewCellExtensionsElement);
         }
 
         /// <summary>
@@ -131,58 +129,38 @@ namespace Google.GData.Spreadsheets
             && (String.Compare(node.Value, GDataSpreadsheetsNameTable.NSGSpreadsheets) == 0);
         }
 
-
         /// <summary>
-        /// Eventhandling. Called when a new cell entry is parsed.
+        /// creates our cellfeed type entry
         /// </summary>
-        /// <param name="sender"> the object which send the event</param>
-        /// <param name="e">FeedParserEventArguments, holds the feedentry</param> 
-        /// <returns> </returns>
-        protected void OnParsedNewCellEntry(object sender, FeedParserEventArgs e)
+        /// <returns>AtomEntry</returns>
+        public override AtomEntry CreateFeedEntry()
         {
-            if (e == null)
-            {
-                throw new ArgumentNullException("e");
-            }
-            if (e.CreatingEntry == true)
-            {
-                e.Entry = new CellEntry();
-            }
+            return new CellEntry();
         }
 
-        /// <summary>eventhandler - called for event extension element
+    
+        /// <summary>
+        /// get's called after we already handled the custom entry, to handle all 
+        /// other potential parsing tasks
         /// </summary>
-        /// <param name="sender">the object which send the event</param>
-        /// <param name="e">FeedParserEventArguments, holds the feedEntry</param> 
-        /// <returns> </returns>
-        protected void OnNewCellExtensionsElement(object sender, ExtensionElementEventArgs e)
+        /// <param name="e"></param>
+        protected override void HandleExtensionElements(ExtensionElementEventArgs e, AtomFeedParser parser)
         {
             if (e == null)
             {
                 throw new ArgumentNullException("e");
             }
-
-            AtomFeedParser parser = sender as AtomFeedParser;
-
             if (String.Compare(e.ExtensionElement.NamespaceURI, GDataSpreadsheetsNameTable.NSGSpreadsheets, true) == 0)
             {
-                e.DiscardEntry = true;
                 if (e.ExtensionElement.LocalName == GDataSpreadsheetsNameTable.XmlColCountElement)
                 {
                     this.ColCount = ColCountElement.ParseColCount(e.ExtensionElement);
+                    e.DiscardEntry = true;
                 }
                 else if (e.ExtensionElement.LocalName == GDataSpreadsheetsNameTable.XmlRowCountElement)
                 {
                     this.RowCount = RowCountElement.ParseRowCount(e.ExtensionElement);
-                }
-                else if (e.Base.XmlName == AtomParserNameTable.XmlAtomEntryElement)
-                {
-                    CellEntry cellEntry = e.Base as CellEntry;
-
-                    if (cellEntry != null)
-                    {
-                        cellEntry.ParseCell(e.ExtensionElement, parser);
-                    }
+                    e.DiscardEntry = true;
                 }
             }
         }

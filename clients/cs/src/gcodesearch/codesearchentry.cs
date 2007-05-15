@@ -25,7 +25,7 @@ namespace Google.GData.CodeSearch
     /// <summary>
     /// Entry API customization class for defining entries in an CodeSearch feed.
     /// </summary>
-    public class CodeSearchEntry : AtomEntry
+    public class CodeSearchEntry : AbstractEntry
     { 
         /// <summary>
         /// Category used to label entries that contain CodeSearch
@@ -70,13 +70,15 @@ namespace Google.GData.CodeSearch
             get { return matches;}
         }
 
-        //////////////////////////////////////////////////////////////////////
+       //////////////////////////////////////////////////////////////////////
         /// <summary>parses the inner state of the element</summary>
         /// <param name="eventNode">a g-scheme, xml node</param>
         /// <param name="parser">the atomFeedParser that called this</param>
         //////////////////////////////////////////////////////////////////////
-        public void parseEvent(XmlNode eventNode, AtomFeedParser parser)
+        public override void Parse(ExtensionElementEventArgs e, AtomFeedParser parser)
         {
+            XmlNode eventNode = e.ExtensionElement;
+
             Tracing.TraceMsg(eventNode.LocalName);
             // Ensure that the namespace is correct.
             if (String.Compare(eventNode.NamespaceURI,
@@ -86,16 +88,19 @@ namespace Google.GData.CodeSearch
                 if (eventNode.LocalName == GCodeSearchParserNameTable.EVENT_FILE)
                 {
                     file = File.ParseFile(eventNode, parser);
+                    e.DiscardEntry = true;
                 }
                     // Parse a Package Element
                 else if ((eventNode.LocalName == GCodeSearchParserNameTable.EVENT_PACKAGE))
                 {
                     package = Package.ParsePackage(eventNode, parser);
+                    e.DiscardEntry = true;
                 }
                     // Parse Match Elements 
                 else if (eventNode.LocalName == GCodeSearchParserNameTable.EVENT_MATCH)
                 {
                     matches.Add(Match.ParseMatch(eventNode, parser));
+                    e.DiscardEntry = true;
                 } 
             }
         }

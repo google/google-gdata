@@ -88,7 +88,7 @@ namespace Google.GData.Client
         /// <summary>eventhandler, when the parser finds a new extension element-> mirrored from underlying parser</summary> 
         public event ExtensionElementEventHandler NewExtensionElement;
 
-        #region properties
+#region properties
         /// <summary>holds the total results</summary> 
         private int totalResults;
         /// <summary>holds the start-index parameter</summary> 
@@ -101,8 +101,8 @@ namespace Google.GData.Client
         private IService service;
 
         private GDataBatchFeedData batchData;
-        #endregion
-        
+#endregion
+
 
 
         //////////////////////////////////////////////////////////////////////
@@ -113,7 +113,7 @@ namespace Google.GData.Client
             Tracing.Assert(false, "privately Constructing AtomFeed - should not happen");
         }
         /////////////////////////////////////////////////////////////////////////////
-       
+
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>default constructor</summary> 
@@ -159,7 +159,7 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         public static bool IsFeedIdentical(AtomFeed feedOne, AtomFeed feedTwo)
         {
-            
+
             if (feedOne == feedTwo)
             {
                 Tracing.TraceMsg("TRUE : testing for identical feeds, feedpointers equal: "); 
@@ -191,7 +191,7 @@ namespace Google.GData.Client
 
 
 
-        #region Property Accessors
+#region Property Accessors
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>accessor method public string Post</summary> 
@@ -353,21 +353,22 @@ namespace Google.GData.Client
 
         public string Self {
 
-          get {
-            AtomLink link = this.Links.FindService(BaseNameTable.ServiceSelf, AtomLink.ATOM_TYPE);
-            // scan the link collection
-            return link == null ? null : Utilities.CalculateUri(this.Base, this.ImpliedBase, link.HRef.ToString());
+            get {
+                AtomLink link = this.Links.FindService(BaseNameTable.ServiceSelf, AtomLink.ATOM_TYPE);
+                // scan the link collection
+                return link == null ? null : Utilities.CalculateUri(this.Base, this.ImpliedBase, link.HRef.ToString());
 
-          }
-
-          set {
-            AtomLink link = this.Links.FindService(BaseNameTable.ServiceSelf, AtomLink.ATOM_TYPE);
-            if (link == null) {
-              link = new AtomLink(AtomLink.ATOM_TYPE, BaseNameTable.ServiceSelf);
-              this.Links.Add(link);
             }
-            link.HRef = new AtomUri(value);
-          }
+
+            set {
+                AtomLink link = this.Links.FindService(BaseNameTable.ServiceSelf, AtomLink.ATOM_TYPE);
+                if (link == null)
+                {
+                    link = new AtomLink(AtomLink.ATOM_TYPE, BaseNameTable.ServiceSelf);
+                    this.Links.Add(link);
+                }
+                link.HRef = new AtomUri(value);
+            }
         }
         /////////////////////////////////////////////////////////////////////////////
 
@@ -422,17 +423,17 @@ namespace Google.GData.Client
         public StringCollection Parameters
         {
             get { 
-                    if (this.parameters == null)
-                    {
-                        this.parameters = new StringCollection();
-                    }
-                    return this.parameters;
+                if (this.parameters == null)
+                {
+                    this.parameters = new StringCollection();
                 }
+                return this.parameters;
+            }
         }
         /////////////////////////////////////////////////////////////////////////////
 
-        
-        
+
+
 
 
         //////////////////////////////////////////////////////////////////////
@@ -453,9 +454,9 @@ namespace Google.GData.Client
         }
         /////////////////////////////////////////////////////////////////////////////
 
-        #endregion
+#endregion
 
-        #region Persistence overloads
+#region Persistence overloads
 
 
         //////////////////////////////////////////////////////////////////////
@@ -504,7 +505,7 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         public override string XmlName 
         {
-            get { return AtomParserNameTable.XmlFeedElement; }
+            get { return AtomParserNameTable.XmlFeedElement;}
         }
         /////////////////////////////////////////////////////////////////////////////
 
@@ -530,7 +531,7 @@ namespace Google.GData.Client
         }
         /////////////////////////////////////////////////////////////////////////////
 
-        #endregion
+#endregion
 
 
 
@@ -646,7 +647,7 @@ namespace Google.GData.Client
         }
         /////////////////////////////////////////////////////////////////////////////
 
-        #region overloaded for property changes, xml:base
+#region overloaded for property changes, xml:base
         //////////////////////////////////////////////////////////////////////
         /// <summary>just go down the child collections</summary> 
         /// <param name="uriBase"> as currently calculated</param>
@@ -665,11 +666,11 @@ namespace Google.GData.Client
         }
         /////////////////////////////////////////////////////////////////////////////
 
-        #endregion
+#endregion
 
 
-        #region Editing APIs
-         
+#region Editing APIs
+
         //////////////////////////////////////////////////////////////////////
         /// <summary>uses the set service to insert a new entry. </summary> 
         /// <param name="newEntry">the atomEntry to insert into the feed</param>
@@ -700,7 +701,7 @@ namespace Google.GData.Client
                 newEntry = AtomEntry.ImportFromFeed(newEntry); 
                 newEntry.setFeed(this);
             }
-        
+
             if (this.Service != null)
             {
                 echoedEntry = Service.Insert(this, newEntry); 
@@ -762,7 +763,7 @@ namespace Google.GData.Client
             }
             return false; 
         }
-        #endregion
+#endregion
 
 
 
@@ -770,4 +771,4 @@ namespace Google.GData.Client
     /////////////////////////////////////////////////////////////////////////////
 }
 /////////////////////////////////////////////////////////////////////////////
- 
+

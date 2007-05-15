@@ -85,8 +85,6 @@ namespace Google.GData.Extensions
         public const string XmlAttributeEndTime = "endTime";
         /// <summary>static string for parsing</summary>    
         public const string XmlAttributeValueString = "valueString";
-        /// <summary>static string for parsing</summary>    
-        public const string XmlAttributeValue = "value";
         /// <summary>static string for parsing the email in gd:who</summary>    
         public const string XmlAttributeEmail = "email";
         /// <summary>static string for parsing</summary>    
@@ -111,7 +109,9 @@ namespace Google.GData.Extensions
         public const string XmlAttributeAbsoluteTime = "absoluteTime";
         /// <summary>static string for parsing the specialized attribute on a RecurringException</summary>    
         public const string XmlAttributeSpecialized = "specialized";
-
+        /// <summary>static string for parsing</summary>    
+        public const string XmlAttributeMethod= "method";
+     
 
 #endregion
 
