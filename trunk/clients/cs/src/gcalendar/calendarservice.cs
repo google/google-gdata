@@ -21,6 +21,7 @@ using System.Text;
 using System.Net; 
 using Google.GData.Client;
 using Google.GData.Extensions;
+using Google.GData.AccessControl;
 
 
 namespace Google.GData.Calendar {
@@ -43,88 +44,33 @@ namespace Google.GData.Calendar {
         /// <param name="applicationName">the applicationname</param>
         public CalendarService(string applicationName) : base(GCalendarService, applicationName, GCalendarAgent)
         {
-            this.NewAtomEntry += new FeedParserEventHandler(this.OnParsedNewEventEntry);
-            this.NewExtensionElement += new ExtensionElementEventHandler(this.OnNewEventExtensionElement);
+            this.NewFeed += new ServiceEventHandler(this.OnNewFeed); 
         }
 
-        /// <summary>
-        ///  overwritten Query method
-        /// </summary>
-        /// <param name="feedQuery">The FeedQuery touse</param>
-        /// <returns>the retrieved EventFeed</returns>
-        public new EventFeed Query(FeedQuery feedQuery)
-        {
-            Stream feedStream = Query(feedQuery.Uri);
-            EventFeed feed = new EventFeed(feedQuery.Uri, this);
-            feed.Parse(feedStream, AlternativeFormat.Atom);
-            feedStream.Close(); 
-            return feed;
-        }
-
+      
         //////////////////////////////////////////////////////////////////////
-        /// <summary>
-        /// Event handler. Called when a new event entry is parsed.
-        /// </summary>
-        /// <param name="sender">the object that's sending the event</param>
-        /// <param name="e">FeedParserEventArguments, holds the feedentry</param>
-        /// <returns> </returns>
-        //////////////////////////////////////////////////////////////////////
-        protected void OnParsedNewEventEntry(object sender, FeedParserEventArgs e)
-        {
-            if (e == null)
-            {
-                throw new ArgumentNullException("e");
-            }
-            if (e.CreatingEntry == true)
-            {
-                Tracing.TraceMsg("\t top level event dispatcher - new Event Entry");
-                e.Entry = new EventEntry();
-            }
-        }
-
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>Event handler. Called for an event extension element.
-        /// </summary>
-        /// <param name="sender">the object that's sending the event</param>
+        /// <summary>eventchaining. We catch this by from the base service, which 
+        /// would not by default create an atomFeed</summary> 
+        /// <param name="sender"> the object which send the event</param>
         /// <param name="e">FeedParserEventArguments, holds the feedentry</param> 
         /// <returns> </returns>
         //////////////////////////////////////////////////////////////////////
-        protected void OnNewEventExtensionElement(object sender, ExtensionElementEventArgs e)
+        protected void OnNewFeed(object sender, ServiceEventArgs e)
         {
-
-            Tracing.TraceCall("received new event extension element notification");
-            Tracing.Assert(e != null, "e should not be null");
+            Tracing.TraceMsg("Created new Calendar Feed");
             if (e == null)
             {
-                throw new ArgumentNullException("e");
+                throw new ArgumentNullException("e"); 
             }
-            Tracing.TraceMsg("\t top level event = new extension");
-
-            if (String.Compare(e.ExtensionElement.NamespaceURI, BaseNameTable.gNamespace, true) == 0)
+            if (e.Uri.AbsoluteUri.IndexOf("/acl/") != -1)
             {
-                // found G namespace
-                Tracing.TraceMsg("\t top level event = new Event extension");
-                e.DiscardEntry = true;
-                AtomFeedParser parser = sender as AtomFeedParser; 
-
-
-                if (e.Base.XmlName == AtomParserNameTable.XmlFeedElement)
-                {
-                    EventFeed eventFeed = e.Base as EventFeed;
-                    if (eventFeed != null)
-                    {
-                        eventFeed.parseEvent(e.ExtensionElement, parser);
-                    }
-                }
-                else if (e.Base.XmlName == AtomParserNameTable.XmlAtomEntryElement)
-                {
-                    EventEntry eventEntry = e.Base as EventEntry;
-                    if (eventEntry != null)
-                    {
-                        eventEntry.Parse(e, parser);
-                    }
-                }
+                e.Feed = new AclFeed(e.Uri, e.Service);
+            } 
+            else 
+            {
+                e.Feed = new EventFeed(e.Uri, e.Service);
             }
         }
-    }
+        /////////////////////////////////////////////////////////////////////////////
+   }
 }

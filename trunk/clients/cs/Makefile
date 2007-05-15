@@ -5,7 +5,13 @@ DEFINES=/d:TRACE
 
 CORELIBS=\
 	Google.GData.Client.dll		\
-	Google.GData.Extensions.dll 
+	Google.GData.Extensions.dll 	
+
+ACLLIBS=\
+	Google.GData.Client.dll		\
+	Google.GData.Extensions.dll 	\
+	Google.GData.AccessControl.dll
+
 
 ALLLIBS = \
 	Google.GData.Calendar.dll	\
@@ -21,6 +27,8 @@ FRAMEWORK_REFS = -r:System.dll -r:System.Xml.dll -r:System.Web.dll
 
 COREREFS = $(addprefix -r:,$(CORELIBS)) $(FRAMEWORK_REFS)
 ALLREFS = $(addprefix -r:,$(ALLLIBS)) $(FRAMEWORK_REFS)
+ACLREFS = $(addprefix -r:,$(ACLLIBS)) $(FRAMEWORK_REFS)
+
 
 samples =	\
 	gbase_queryexample.exe 		\
@@ -51,8 +59,8 @@ Google.GData.Client.dll: $(core_sources) clientkey.sn
 Google.GData.Extensions.dll: Google.GData.Client.dll $(extension_sources) extensionkey.sn
 	$(CSC) -target:library -out:$@ -r:Google.GData.Client.dll $(extensions_sources) $(FRAMEWORK_REFS)
 
-Google.GData.Calendar.dll: $(CORELIBS) $(gcalendar_sources) calendarkey.sn
-	$(CSC) -target:library -out:$@ $(COREREFS) $(gcalendar_sources)
+Google.GData.Calendar.dll: $(ACLLIBS) $(gcalendar_sources) calendarkey.sn
+	$(CSC) -target:library -out:$@ $(ACLREFS) $(gcalendar_sources)
 
 Google.GData.CodeSearch.dll: $(CORELIBS) $(gcodesearch_sources) codesearch.sn
 	$(CSC) -target:library -out:$@ $(COREREFS) $(gcodesearch_sources)

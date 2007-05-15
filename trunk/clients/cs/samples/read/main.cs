@@ -63,7 +63,7 @@ namespace Google.GData.Client.Samples
             }
 
             query.Uri = new Uri(calendarURI);
-            EventFeed calFeed = service.Query(query);
+            EventFeed calFeed = service.Query(query) as EventFeed;
 
             Console.WriteLine("");
             Console.WriteLine("Query Feed Test " + query.Uri);

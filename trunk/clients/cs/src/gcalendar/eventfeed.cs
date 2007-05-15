@@ -174,7 +174,7 @@ namespace Google.GData.Calendar {
             if (calService != null)
             {
                 EventQuery query = new EventQuery(original.Href);
-                EventFeed newFeed = calService.Query(query); 
+                EventFeed newFeed =  (EventFeed) calService.Query(query); 
 
                 if (newFeed != null && newFeed.Entries != null)
                 {
