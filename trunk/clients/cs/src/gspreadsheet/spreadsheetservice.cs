@@ -50,10 +50,7 @@ namespace Google.GData.Spreadsheets
 
             this.NewAtomEntry += new FeedParserEventHandler(this.OnParsedNewListEntry);
             this.NewExtensionElement += new ExtensionElementEventHandler(this.OnNewListExtensionElement);
-
-            // You can set factory.methodOverride = true if you are behind a 
-            // proxy that filters out HTTP methods such as PUT and DELETE.
-        }
+         }
 
         /// <summary>
         ///  overwritten Query method
@@ -154,7 +151,7 @@ namespace Google.GData.Spreadsheets
                     CellEntry cellEntry = e.Base as CellEntry;
                     if (cellEntry != null)
                     {
-                        cellEntry.ParseCell(e.ExtensionElement, parser);
+                        cellEntry.Parse(e, parser);
                     }
                 }
             }
@@ -202,7 +199,7 @@ namespace Google.GData.Spreadsheets
                     ListEntry ListEntry = e.Base as ListEntry;
                     if (ListEntry != null)
                     {
-                        ListEntry.ParseList(e.ExtensionElement, parser);
+                        ListEntry.Parse(e, parser);
                     }
                 }
             }

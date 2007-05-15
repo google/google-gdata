@@ -105,7 +105,7 @@ namespace Google.GData.Calendar {
     /// Feed API customization class for defining feeds in an Event feed.
     /// </summary>
     //////////////////////////////////////////////////////////////////////
-    public class EventFeed : AtomFeed
+    public class EventFeed : AbstractFeed
     {
 
         private Where location;
@@ -118,8 +118,6 @@ namespace Google.GData.Calendar {
         /// <param name="iService">the Service to use</param>
         public EventFeed(Uri uriBase, IService iService) : base(uriBase, iService)
         {
-            this.NewAtomEntry += new FeedParserEventHandler(this.OnParsedNewEventEntry);
-            this.NewExtensionElement += new ExtensionElementEventHandler(this.OnNewEventExtensionElement);
         }
 
 
@@ -212,85 +210,30 @@ namespace Google.GData.Calendar {
             }
         }
 
-
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>empty base implementation</summary> 
-        /// <param name="writer">the xmlwriter, where we want to add default namespaces to</param>
-        //////////////////////////////////////////////////////////////////////
-        protected override void AddOtherNamespaces(XmlWriter writer) 
-        {
-            base.AddOtherNamespaces(writer); 
-            Utilities.EnsureGDataNamespace(writer); 
-        }
-        /////////////////////////////////////////////////////////////////////////////
-
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>checks if this is a namespace 
-        /// decl that we already added</summary> 
-        /// <param name="node">XmlNode to check</param>
-        /// <returns>true if this node should be skipped </returns>
-        //////////////////////////////////////////////////////////////////////
-        protected override bool SkipNode(XmlNode node)
-        {
-            if (base.SkipNode(node)==true)
-            {
-                return true; 
-            }
-
-            if (node.NodeType == XmlNodeType.Attribute && 
-                (node.Name.StartsWith("xmlns") == true) && 
-                (String.Compare(node.Value,BaseNameTable.gNamespace)==0))
-                return true;
-            return false; 
-        }
-
-
-        //////////////////////////////////////////////////////////////////////
         /// <summary>
-        /// Eventhandling. Called when a new event entry is parsed.
+        /// this needs to get implemented by subclasses
         /// </summary>
-        /// <param name="sender"> the object which send the event</param>
-        /// <param name="e">FeedParserEventArguments, holds the feedentry</param> 
-        /// <returns> </returns>
-        //////////////////////////////////////////////////////////////////////
-        protected void OnParsedNewEventEntry(object sender, FeedParserEventArgs e)
+        /// <returns>AtomEntry</returns>
+        public override AtomEntry CreateFeedEntry()
         {
-            if (e == null)
-            {
-                throw new ArgumentNullException("e");
-            }
-            if (e.CreatingEntry == true)
-            {
-                Tracing.TraceMsg("\t top level event dispatcher - new Event Entry");
-                e.Entry = new EventEntry();
-            }
+            return new EventEntry();
         }
 
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>eventhandler - called for event extension element
-        /// </summary>
-        /// <param name="sender">the object which send the event</param>
-        /// <param name="e">FeedParserEventArguments, holds the feedEntry</param> 
-        /// <returns> </returns>
-        //////////////////////////////////////////////////////////////////////
-        protected void OnNewEventExtensionElement(object sender, ExtensionElementEventArgs e)
-        {
 
-            Tracing.TraceCall("received new event extension element notification");
-            Tracing.Assert(e != null, "e should not be null");
-            if (e == null)
-            {
-                throw new ArgumentNullException("e");
-            }
-            Tracing.TraceMsg("\t top level event = new extension");
+
+        /// <summary>
+        /// get's called after we already handled the custom entry, to handle all 
+        /// other potential parsing tasks
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void HandleExtensionElements(ExtensionElementEventArgs e, AtomFeedParser parser)
+        {
+             Tracing.TraceMsg("\t HandleExtensionElements for CalendarFeed called");
 
             if (String.Compare(e.ExtensionElement.NamespaceURI, BaseNameTable.gNamespace, true) == 0)
             {
                 // found GD namespace
-                Tracing.TraceMsg("\t top level event = new Event extension");
-                AtomFeedParser parser = sender as AtomFeedParser; 
-
-                if (e.Base.XmlName == AtomParserNameTable.XmlFeedElement)
+               if (e.Base.XmlName == AtomParserNameTable.XmlFeedElement)
                 {
                     EventFeed eventFeed = e.Base as EventFeed;
                     if (eventFeed != null)
@@ -304,16 +247,6 @@ namespace Google.GData.Calendar {
                     ExtendedProperty prop = ExtendedProperty.Parse(e.ExtensionElement); 
                     e.Base.ExtensionElements.Add(prop); 
                     e.DiscardEntry = true;
-                }
-                else if (e.Base.XmlName == AtomParserNameTable.XmlAtomEntryElement)
-                {
-                    EventEntry eventEntry = e.Base as EventEntry;
-
-                    if (eventEntry != null)
-                    {
-                        eventEntry.parseEvent(e.ExtensionElement, parser);
-                        e.DiscardEntry = true;
-                    }
                 }
             }
             else if (String.Compare(e.ExtensionElement.NamespaceURI, GDataParserNameTable.NSGCal, true) == 0)
@@ -334,17 +267,6 @@ namespace Google.GData.Calendar {
                     WebContent content = WebContent.ParseWebContent(e.ExtensionElement); 
                     e.Base.ExtensionElements.Add(content); 
                     e.DiscardEntry = true;
-                }
-                else if (e.Base.XmlName == AtomParserNameTable.XmlAtomEntryElement)
-                {
-                    EventEntry eventEntry = e.Base as EventEntry;
-                    AtomFeedParser parser = sender as AtomFeedParser; 
-
-                    if (eventEntry != null)
-                    {
-                        eventEntry.parseEvent(e.ExtensionElement, parser);
-                        e.DiscardEntry = true;
-                    }
                 }
             }
         }

@@ -83,8 +83,6 @@ namespace Google.GData.Client
         /// <summary>property holder exposed over get/set</summary> 
         private object rel;
         /// <summary>property holder exposed over get/set</summary> 
-        private object type;
-        /// <summary>property holder exposed over get/set</summary> 
         private object hreflang;
         /// <summary>property holder exposed over get/set</summary> 
         private object length;
@@ -224,8 +222,6 @@ namespace Google.GData.Client
         /// <summary>static string for parsing</summary>    
         public const string XmlAttributeRel = "rel";
         /// <summary>static string for parsing</summary>    
-        public const string XmlAttributeType = "type";
-        /// <summary>static string for parsing</summary>    
         public const string XmlAttributeHRefLang = "hreflang";
         /// <summary>static string for parsing</summary>    
         public const string XmlAttributeHRef = "href";
@@ -257,7 +253,6 @@ namespace Google.GData.Client
             this.href = this.Nametable.Add(AtomParserNameTable.XmlAttributeHRef);
 
             this.rel = this.Nametable.Add(AtomParserNameTable.XmlAttributeRel);
-            this.type = this.Nametable.Add(AtomParserNameTable.XmlAttributeType);
             this.hreflang = this.Nametable.Add(AtomParserNameTable.XmlAttributeHRefLang);
             this.length = this.Nametable.Add(AtomParserNameTable.XmlAttributeLength);
             this.updated = this.Nametable.Add(AtomParserNameTable.XmlUpdatedElement);
@@ -355,14 +350,6 @@ namespace Google.GData.Client
         public object Rel
         {
             get {return this.rel;}
-        }
-        /////////////////////////////////////////////////////////////////////////////
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>Read only accessor for type</summary> 
-        //////////////////////////////////////////////////////////////////////
-        public object Type
-        {
-            get {return this.type;}
         }
         /////////////////////////////////////////////////////////////////////////////
         //////////////////////////////////////////////////////////////////////

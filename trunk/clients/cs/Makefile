@@ -1,6 +1,8 @@
 CSC1=gmcs
 CSC=mcs
 
+DEFINES=/d:TRACE
+
 CORELIBS=\
 	Google.GData.Client.dll		\
 	Google.GData.Extensions.dll 
@@ -11,8 +13,9 @@ ALLLIBS = \
 	Google.GData.CodeSearch.dll	\
 	Google.GData.Extensions.dll	\
 	Google.GData.GoogleBase.dll	\
-	Google.GData.Spreadsheets.dll   \
-	Google.GData.Apps.dll
+	Google.GData.Spreadsheets.dll	\
+	Google.GData.Apps.dll		\
+	Google.GData.AccessControl.dll 
 
 FRAMEWORK_REFS = -r:System.dll -r:System.Xml.dll -r:System.Web.dll
 
@@ -25,23 +28,25 @@ samples =	\
 	insertsample.exe		\
 	updatesample.exe		\
 	readsample.exe			\
-	gapps_appsdemo.exe		\
-	gblogger_demo.exe		\
+	execrequest.exe			\
+	gapps_appsdemo.exe \
+	gblogger_demo.exe \
 	gspreadsheet_demo.exe
 
 all: $(ALL_LIBS) tests $(samples)
 
-core_sources = $(wildcard src/core/*.cs) $(wildcard src/version/*cs.cs)
-extensions_sources = $(wildcard src/extensions/*.cs) $(wildcard src/version/*cs.cs)
-gbase_sources = $(wildcard src/gbase/*.cs) $(wildcard src/version/*cs.cs)
-gcodesearch_sources = $(wildcard src/gcodesearch/*.cs) $(wildcard src/version/*cs.cs)
-gspreadsheet_sources = $(wildcard src/gspreadsheet/*.cs) $(wildcard src/version/*cs.cs)
-gcalendar_sources =  $(wildcard src/gcalendar/*.cs) $(wildcard src/version/*cs.cs)
+core_sources = $(wildcard src/core/*.cs) $(wildcard src/version/*.cs)
+extensions_sources = $(wildcard src/extensions/*.cs) $(wildcard src/version/*.cs)
+gbase_sources = $(wildcard src/gbase/*.cs) $(wildcard src/version/*.cs)
+gcodesearch_sources = $(wildcard src/gcodesearch/*.cs) $(wildcard src/version/*.cs)
+gspreadsheet_sources = $(wildcard src/gspreadsheet/*.cs) $(wildcard src/version/*.cs)
+gcalendar_sources =  $(wildcard src/gcalendar/*.cs) $(wildcard src/version/*.cs)
+gacl_sources = $(wildcard src/gacl/*.cs) $(wildcard src/version/*.cs)
 gapps_sources = $(wildcard src/gapps/*.cs) $(wildcard src/version/*cs.cs)
 test_sources = $(wildcard src/unittests/*.cs) $(wildcard src/unittests/gbase/*.cs) $(wildcard src/unittests/gapps/*.cs) $(wildcard src/version/*cs)
 
 Google.GData.Client.dll: $(core_sources) clientkey.sn
-	$(CSC) -target:library -out:$@ $(core_sources) $(FRAMEWORK_REFS)
+	$(CSC) $(DEFINES) -target:library -out:$@ $(core_sources) $(FRAMEWORK_REFS)
 
 Google.GData.Extensions.dll: Google.GData.Client.dll $(extension_sources) extensionkey.sn
 	$(CSC) -target:library -out:$@ -r:Google.GData.Client.dll $(extensions_sources) $(FRAMEWORK_REFS)
@@ -57,6 +62,10 @@ Google.GData.GoogleBase.dll: $(CORELIBS) $(gbase_sources) gbase.sn
 
 Google.GData.Spreadsheets.dll: $(CORELIBS) $(gspreadsheet_sources) spreadsheets.sn
 	$(CSC) -target:library -out:$@ $(COREREFS) $(gspreadsheet_sources)
+
+Google.GData.AccessControl.dll: $(CORELIBS) $(gacl_sources) gacl.sn
+	$(CSC) -target:library -out:$@ $(COREREFS) $(gacl_sources)
+
 
 Google.GData.Apps.dll: $(CORELIBS) $(gapps_sources) gapps.sn
 	$(CSC) -target:library -out:$@ $(COREREFS) $(gapps_sources)
@@ -74,7 +83,7 @@ uninstall:
 	for i in $(ALL_LIBS); do gacutil -u $$i; done
 
 tests: $(ALLLIBS)
-	$(CSC) -target:library -out:unittests.dll $(ALLREFS) -r:nunit.framework.dll $(test_sources)
+	$(CSC) $(DEFINES) -target:library -out:unittests.dll $(ALLREFS) -r:nunit.framework.dll $(test_sources)
 
 readsample_sources = $(wildcard samples/read/*.cs)
 readsample.exe: $(ALLLIBS) $(readsample_sources)
@@ -102,6 +111,10 @@ gbase_queryexample.exe: $(ALLLIBS) $(gbase_queryexample_sources)
 gapps_sample_sources = samples/appsforyourdomain/appsdemo.cs
 gapps_appsdemo.exe: $(ALLLIBS) $(gapps_sample_sources)
 	$(CSC) -out:$@ $(ALLREFS) $(gapps_sample_sources)
+
+execrequest_sources = $(wildcard samples/execrequest/*.cs)
+execrequest.exe: $(ALLLIBS) $(execrequest_sources)
+	$(CSC) -out:$@ $(ALLREFS) $(execrequest_sources)
 
 gblogger_sample_sources = samples/blogger/ConsoleSample.cs
 gblogger_demo.exe: $(ALLLIBS) $(gblogger_sample_sources)

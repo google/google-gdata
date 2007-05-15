@@ -25,7 +25,7 @@ namespace Google.GData.Spreadsheets
     /// <summary>
     /// Entry API customization class for defining entries in a List feed.
     /// </summary>
-    public class ListEntry : AtomEntry
+    public class ListEntry : AbstractEntry
     {
         /// <summary>
         /// Category used to label entries that contain Cell extension data.
@@ -311,42 +311,15 @@ namespace Google.GData.Spreadsheets
 #endregion
 
         /// <summary>
-        /// Empty base implementation
+        /// Parses the inner state of the element. TODO. 
         /// </summary>
-        /// <param name="writer">The XmlWrite, where we want to add default namespaces to</param>
-        protected override void AddOtherNamespaces(XmlWriter writer)
-        {
-            base.AddOtherNamespaces(writer);
-            Utilities.EnsureGDataNamespace(writer);
-        }
-
-        /// <summary>
-        /// Checks if this is a namespace declaration that we already added
-        /// </summary>
-        /// <param name="node">XmlNode to check</param>
-        /// <returns>True if this node should be skipped</returns>
-        protected override bool SkipNode(XmlNode node)
-        {
-            if (base.SkipNode(node))
-            {
-                return true;
-            }
-
-            return(node.NodeType == XmlNodeType.Attribute
-                   && node.Name.StartsWith("xmlns")
-                   && String.Compare(node.Value, BaseNameTable.gNamespace) == 0);
-        }
-
-        /// <summary>
-        /// Parses the inner state of the element
-        /// </summary>
-        /// <param name="listNode">A g-scheme, xml node</param>
+        /// <param name="e">The extension element that should be added to this entry</param>
         /// <param name="parser">The AtomFeedParser that called this</param>
-        public void ParseList(XmlNode listNode, AtomFeedParser parser)
+        public override void Parse(ExtensionElementEventArgs e, AtomFeedParser parser)  
         {
-            if (String.Compare(listNode.NamespaceURI, GDataSpreadsheetsNameTable.NSGSpreadsheetsExtended, true) == 0)
+            if (String.Compare(e.ExtensionElement.NamespaceURI, GDataSpreadsheetsNameTable.NSGSpreadsheetsExtended, true) == 0)
             {
-                Elements.Add(Custom.ParseCustom(listNode, parser));
+                Elements.Add(Custom.ParseCustom(e.ExtensionElement, parser));
             }
         }
     }

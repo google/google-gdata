@@ -121,7 +121,7 @@ namespace Google.GData.Calendar {
                     EventEntry eventEntry = e.Base as EventEntry;
                     if (eventEntry != null)
                     {
-                        eventEntry.parseEvent(e.ExtensionElement, parser);
+                        eventEntry.Parse(e, parser);
                     }
                 }
             }

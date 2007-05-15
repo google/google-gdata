@@ -25,7 +25,7 @@ namespace Google.GData.CodeSearch
     /// <summary>
     /// Feed API customization class for defining feeds in an CodeSearch feed.
     /// </summary>
-    public class CodeSearchFeed : AtomFeed 
+    public class CodeSearchFeed : AbstractFeed 
     {
         /// <summary>
         ///  default constructor
@@ -35,71 +35,26 @@ namespace Google.GData.CodeSearch
         public CodeSearchFeed(Uri uriBase, IService iService) :
             base(uriBase, iService) 
         {
-            this.NewAtomEntry +=
-                new FeedParserEventHandler(
-                this.OnParsedNewCodeSearchEntry);
-            this.NewExtensionElement += 
-                new ExtensionElementEventHandler(
-                this.OnNewCodeSearchExtensionElement);
-        }
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>
-        /// Eventhandling. Called when a new event entry is parsed.
-        /// </summary>
-        /// <param name="sender"> the object which send the event</param>
-        /// <param name="e">FeedParserEventArguments, holds the feedentry</param> 
-        /// <returns> </returns>
-        //////////////////////////////////////////////////////////////////////
-        protected void OnParsedNewCodeSearchEntry(object sender
-                                                    , FeedParserEventArgs e)
-        {
-            if (e == null)
-            {
-                throw new ArgumentNullException("e");
-            }
-            if (e.CreatingEntry == true)
-            {
-                Tracing.TraceMsg(
-                    "\t top level event dispatcher - new Event Entry");
-                e.Entry = new CodeSearchEntry();
-            }
         }
 
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>eventhandler - called for event extension element
+        /// <summary>
+        /// creates our codesearchEntry
         /// </summary>
-        /// <param name="sender">the object which send the event</param>
-        /// <param name="e">FeedParserEventArguments, holds 
-        /// the feedEntry</param> 
-        /// <returns> </returns>
-        //////////////////////////////////////////////////////////////////////
-        protected void 
-            OnNewCodeSearchExtensionElement(object sender,
-                                            ExtensionElementEventArgs e)
+        /// <returns>AtomEntry</returns>
+        public override AtomEntry CreateFeedEntry()
         {
-            Tracing.TraceCall(
-                "received new event extension element notification");
-            Tracing.Assert(e != null, "e should not be null");
-            if (e == null)
-            {
-                throw new ArgumentNullException("e");
-            }
-            Tracing.TraceMsg("\t top level event = new extension");
-            // Ensure that the namespace is correct.
-            if (String.Compare(e.ExtensionElement.NamespaceURI,
-                GCodeSearchParserNameTable.CSNamespace, true) == 0)
-            {
-                // found namespace I
-                Tracing.TraceMsg("\t top level event = new Event extension");
-                // TODO(miguelg) shall I add a check in case
-                // what comes is a feed instead of an entry?
-                CodeSearchEntry codeSearchEntry = e.Base as CodeSearchEntry;
-                AtomFeedParser parser = sender as AtomFeedParser;
-                if (codeSearchEntry != null)
-                {
-                    codeSearchEntry.parseEvent(e.ExtensionElement, parser);
-                }
-            }
+            return new CodeSearchEntry();
         }
+
+    
+        /// <summary>
+        /// get's called after we already handled the custom entry, to handle all 
+        /// other potential parsing tasks
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void HandleExtensionElements(ExtensionElementEventArgs e, AtomFeedParser parser)
+        {
+        }
+   
     }
 }

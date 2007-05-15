@@ -325,7 +325,7 @@ namespace Google.GData.Client
             if (this.Type != GDataBatchOperationType.Default) 
             {
                 writer.WriteStartElement(BaseNameTable.gBatchPrefix, BaseNameTable.XmlElementBatchOperation, BaseNameTable.gBatchNamespace); 
-                writer.WriteAttributeString(BaseNameTable.XmlAttributeBatchOperationType, this.operationType.ToString());           
+                writer.WriteAttributeString(BaseNameTable.XmlAttributeType, this.operationType.ToString());           
                 writer.WriteEndElement(); 
             }
         }
@@ -424,7 +424,7 @@ namespace Google.GData.Client
             if (this.Type != GDataBatchOperationType.Default) 
             {
                 writer.WriteStartElement(BaseNameTable.gBatchPrefix, BaseNameTable.XmlElementBatchOperation, BaseNameTable.gBatchNamespace); 
-                writer.WriteAttributeString(BaseNameTable.XmlAttributeBatchOperationType, this.operationType.ToString());           
+                writer.WriteAttributeString(BaseNameTable.XmlAttributeType, this.operationType.ToString());           
                 writer.WriteEndElement(); 
             }            
             if (this.status != null)

@@ -31,6 +31,56 @@ using System.Net;
 namespace Google.GData.Client
 {
 
+    public class ServiceEventArgs : EventArgs
+    {
+        private AtomFeed feedObject;
+        private IService service;
+        private Uri uri;
+
+        public ServiceEventArgs(Uri uri, IService service) 
+        {
+            this.service = service;
+            this.uri = uri;
+            this.feedObject = null;
+        }
+    
+        /// <summary>the feed to be created. If this is NULL, a service 
+        /// will create a DEFAULT atomfeed</summary> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        public AtomFeed Feed
+        {
+            get {return this.feedObject;}
+            set {this.feedObject = value;}
+        }
+        ////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>the service to be used for the feed to be created. </summary> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        public IService Service
+        {
+            get {return this.service;}
+        }
+        ////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>the Uri to be used</summary> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        public Uri Uri
+        {
+            get {return this.uri;}
+        }
+        ////////////////////////////////////////////////////////////////////////
+   }
+
+
+
+    /// <summary>Delegate declaration for the feed creation in a service</summary> 
+    public delegate void ServiceEventHandler(object sender, ServiceEventArgs e);
+
+
+   
     //////////////////////////////////////////////////////////////////////
     /// <summary>base Service implementation
     /// </summary> 
@@ -47,6 +97,8 @@ namespace Google.GData.Client
         public event FeedParserEventHandler NewAtomEntry;
         /// <summary>eventhandler, when the parser finds a new extension element-> mirrored from underlying parser</summary> 
         public event ExtensionElementEventHandler NewExtensionElement;
+        /// <summary>eventhandler, when the service needs to create a new feed</summary> 
+        public event ServiceEventHandler NewFeed;
 
 
         //////////////////////////////////////////////////////////////////////
@@ -156,6 +208,7 @@ namespace Google.GData.Client
 
 
 
+   
         //////////////////////////////////////////////////////////////////////
         /// <summary>executes the query and returns an AtomFeed object tree</summary> 
         /// <param name="feedQuery">the query parameters as a FeedQuery object </param>
@@ -170,8 +223,7 @@ namespace Google.GData.Client
             {
                 throw new System.ArgumentNullException("feedQuery", "The query argument MUST not be null");
             }
-
-            // Create a new request to the Uri in the query object...    
+             // Create a new request to the Uri in the query object...    
             Uri targetUri  = null; 
 
             try 
@@ -192,13 +244,10 @@ namespace Google.GData.Client
             if (responseStream != null)
             {
                 Tracing.TraceCall("Using Atom always.... ");
-
                 feed = createFeed(feedQuery.Uri);
 
                 feed.NewAtomEntry += new FeedParserEventHandler(this.OnParsedNewEntry); 
                 feed.NewExtensionElement += new ExtensionElementEventHandler(this.OnNewExtensionElement);
-
-                // TODO: for now, to be more relaxed, just always parse the thing...
                 feed.Parse(responseStream, AlternativeFormat.Atom); 
                 responseStream.Close();
             }
@@ -260,7 +309,7 @@ namespace Google.GData.Client
             request.Execute();
             outputStream.Close();
 
-            AtomFeed returnFeed = new AtomFeed(target, this);
+            AtomFeed returnFeed = createFeed(target);
 
             returnFeed.NewAtomEntry += new FeedParserEventHandler(this.OnParsedNewEntry); 
             returnFeed.NewExtensionElement += new ExtensionElementEventHandler(this.OnNewExtensionElement);
@@ -335,7 +384,7 @@ namespace Google.GData.Client
             
             Stream returnStream = StreamInsert(feedUri, newEntry);
 
-            AtomFeed returnFeed = new AtomFeed(feedUri, this);
+            AtomFeed returnFeed = createFeed(feedUri);
 
             returnFeed.NewAtomEntry += new FeedParserEventHandler(this.OnParsedNewEntry); 
             returnFeed.NewExtensionElement += new ExtensionElementEventHandler(this.OnNewExtensionElement);
@@ -398,13 +447,51 @@ namespace Google.GData.Client
             Stream outputStream = request.GetRequestStream();
 
             baseEntry.SaveToXml(outputStream);
-
             request.Execute();
 
             outputStream.Close();
             return request.GetResponseStream();
-
         }
+
+
+        /// <summary>
+        /// this is a helper function for external utilities. It is not worth
+        /// running the other insert/saves through here, as this would involve
+        /// double buffering/copying of the bytes
+        /// </summary>
+        /// <param name="targetUri"></param>
+        /// <param name="payload"></param>
+        /// <param name="type"></param>
+        /// <returns>Stream</returns>
+        public Stream StreamSend(Uri targetUri, String payload, GDataRequestType type)
+        {
+            Tracing.Assert(targetUri != null, "targetUri should not be null");
+            if (targetUri == null)
+            {
+                throw new ArgumentNullException("targetUri"); 
+            }
+            Tracing.Assert(payload != null, "payload should not be null");
+            if (payload == null)
+            {
+                throw new ArgumentNullException("payload"); 
+            }
+
+            IGDataRequest request = this.RequestFactory.CreateRequest(type,targetUri);
+            request.Credentials = this.Credentials;
+
+            Stream outputStream = request.GetRequestStream();
+
+            StreamWriter w = new StreamWriter(outputStream);
+            w.Write(payload);
+            w.Flush();
+       
+            request.Execute();
+
+            w.Close();
+            return request.GetResponseStream();
+        }
+
+
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>creates a new feed instance to be returned by
@@ -416,9 +503,28 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         protected virtual AtomFeed createFeed(Uri uriToUse)
         {
-          return new AtomFeed(uriToUse, this);
+            ServiceEventArgs args = null;
+            AtomFeed feed = null;
+
+            if (this.NewFeed != null)
+            {
+                args = new ServiceEventArgs(uriToUse, this);
+                this.NewFeed(this, args);
+            }
+
+            if (args != null)
+            {
+                feed = args.Feed;
+            }
+
+            if (feed == null)
+            {
+                feed = new AtomFeed(uriToUse, this);
+            }
+
+            return feed;
         }
-        //////////////////////////////////////////////////////////////////////
+
 
         /// <summary>
         /// takes a given feed, and does a batch post of that feed
@@ -509,26 +615,26 @@ namespace Google.GData.Client
         }
         /////////////////////////////////////////////////////////////////////////////
 
-	//////////////////////////////////////////////////////////////////////
-	///<summary>Deletes an Atom entry when given a Uri</summary>
-	///<param name="uri"></param>
-	/////////////////////////////////////////////////////////////////////
-	public void Delete(Uri uri)
-	{
-	    Tracing.Assert(uri != null, "uri should not be null");
-	    if (uri == null)
-	    {
-	    	throw new ArgumentNullException("uri");
-	    }
+        //////////////////////////////////////////////////////////////////////
+        ///<summary>Deletes an Atom entry when given a Uri</summary>
+        ///<param name="uri"></param>
+        /////////////////////////////////////////////////////////////////////
+        public void Delete(Uri uri)
+        {
+            Tracing.Assert(uri != null, "uri should not be null");
+            if (uri == null)
+            {
+                throw new ArgumentNullException("uri");
+            }
 
-	    Tracing.TraceMsg("Deleting entry: " + uri.ToString());
-	    IGDataRequest request = RequestFactory.CreateRequest(GDataRequestType.Delete, uri);
-	    request.Credentials = Credentials;
-	    request.Execute();
-	    IDisposable disp = request as IDisposable;
-	    disp.Dispose();
-	}	
-	//////////////////////////////////////////////////////////////////////
+            Tracing.TraceMsg("Deleting entry: " + uri.ToString());
+            IGDataRequest request = RequestFactory.CreateRequest(GDataRequestType.Delete, uri);
+            request.Credentials = Credentials;
+            request.Execute();
+            IDisposable disp = request as IDisposable;
+            disp.Dispose();
+        }   
+        //////////////////////////////////////////////////////////////////////
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>eventchaining. We catch this by the baseFeedParsers, which 

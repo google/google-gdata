@@ -22,10 +22,68 @@ using Google.GData.Client;
 namespace Google.GData.Extensions {
 
     /// <summary>
-    /// GData schema extension describing a reminder.
+     /// GData schema extension describing a reminder on an event.  You can
+     /// represent a set of reminders where each has a (1) reminder period
+     /// and (2) notification method.  The method can be either "sms",
+     /// "email", "alert", "none", "all".
+     ///
+     /// The meaning of this set of reminders differs based on whether you
+     /// are reading or writing feeds.  When reading, the set of reminders
+     /// returned on an event takes into account both defaults on a
+     /// parent recurring event (when applicable) as well as the user's
+     /// defaults on calendar.  If there are no gd:reminders returned that
+     /// means the event has absolutely no reminders.  "none" or "all" will
+     /// not apply in this case.
+     ///
+     /// Writing is different because we have to be backwards-compatible
+     /// (see *) with the old way of setting reminders.  For easier analysis
+     /// we describe all the behaviors defined in the table below.  (Notice
+     /// we only include cases for minutes, as the other cases specified in
+     /// terms of days/hours/absoluteTime can be converted to this case.)
+     ///
+     /// Notice method is case-sensitive: must be in lowercase!
+     ///
+     ///                   no method      method         method=
+     ///                   or method=all  =none          email|sms|alert
+     ///  ____________________________________________________________________________
+     ///  no gd:rem        *no reminder    N/A            N/A
+     ///
+     ///  1 gd:rem         *use user's    no reminder    InvalidEntryException
+     ///                   def. settings
+     ///
+     ///  1 gd:rem min=0   *use user's    no reminder    InvalidEntryException
+     ///                   def. settings
+     ///
+     ///  1 gd:rem min=-1  *no reminder   no reminder    InvalidEntryException
+     ///
+     ///  1 gd:rem min=+n  *override with no reminder    set exactly one reminder
+     ///                   +n for user's                 on event at +n with given
+     ///                   selected                      method
+     ///                   methods
+     ///
+     ///  multiple gd:rem  InvalidEntry-  InvalidEntry-  copy this set exactly
+     ///                   Exception      Exception
+     ///
+     /// Hence, to override an event with a set of reminder <time, method>
+     /// pairs, just specify them exactly.  To clear an event of all
+     /// overrides (and go back to inheriting the user's defaults), one can
+     /// simply specify a single gd:reminder with no extra attributes.  To
+     /// have NO event reminders on an event, either set a single
+     /// gd:reminder with negative reminder time, or simply update the event
+     /// with a single <gd:reminder method=none/>.
+     ///
     /// </summary>
     public class Reminder : IExtensionElement
     {
+ 
+         public enum ReminderMethod {
+                alert,
+                all,
+                email,
+                none,
+                sms,
+                unspecified
+         };
 
         /// <summary>
         /// Number of days before the event.
@@ -46,6 +104,22 @@ namespace Google.GData.Extensions {
         /// Absolute time of the reminder.
         /// </summary>
         protected DateTime absoluteTime;
+
+        /// <summary>
+        /// holds the method type
+        /// </summary>
+        protected ReminderMethod method;
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>accessor method public Method Method</summary> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        public ReminderMethod Method
+        {
+            get {return this.method;}
+            set {this.method = value;}
+        }
+        // end of accessor public Method Method
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>accessor method public Days</summary> 
@@ -159,6 +233,20 @@ namespace Google.GData.Extensions {
                             throw new ArgumentException("Invalid g:reminder/@minutes.", fe);
                         }
                     }
+
+                    if (node.Attributes[GDataParserNameTable.XmlAttributeMethod] != null)
+                    {
+                        try
+                        {
+                            reminder.Method = (ReminderMethod)Enum.Parse(typeof(ReminderMethod), 
+                                                                         node.Attributes[GDataParserNameTable.XmlAttributeMethod].Value,
+                                                                         true);
+                        }
+                        catch (Exception e)
+                        {
+                            throw new ArgumentException("Invalid g:reminder/@method.", e);
+                        }
+                    }
                 }
             }
 
@@ -220,6 +308,10 @@ namespace Google.GData.Extensions {
                     writer.WriteAttributeString(GDataParserNameTable.XmlAttributeAbsoluteTime, date);
                 }
 
+                if (this.Method != ReminderMethod.unspecified)
+                {
+                    writer.WriteAttributeString(GDataParserNameTable.XmlAttributeMethod, this.Method.ToString());
+                }
                 writer.WriteEndElement();
             }
         }

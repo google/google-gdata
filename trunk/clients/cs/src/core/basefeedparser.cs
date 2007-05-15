@@ -172,13 +172,13 @@ namespace Google.GData.Client
 
 
 
-
     /// <summary>Delegate declaration for the parsing eventhandler</summary> 
     public delegate void FeedParserEventHandler(object sender, FeedParserEventArgs e);
 
     /// <summary>Delegate declaration for the extension eventhandler</summary> 
     public delegate void ExtensionElementEventHandler(object sender, ExtensionElementEventArgs e);
 
+  
 
     //////////////////////////////////////////////////////////////////////
     /// <summary>AtomEntry object, representing an item in the RSS feed

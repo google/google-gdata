@@ -25,7 +25,7 @@ namespace Google.GData.Spreadsheets
     /// <summary>
     /// Feed API customization class for defining a List feed.
     /// </summary>
-    public class ListFeed : AtomFeed
+    public class ListFeed : AbstractFeed
     {
 
         /// <summary>
@@ -36,79 +36,25 @@ namespace Google.GData.Spreadsheets
         public ListFeed(Uri uriBase, IService iService)
         : base(uriBase, iService)
         {
-            NewAtomEntry += new FeedParserEventHandler(this.OnParsedNewListEntry);
-            NewExtensionElement += new ExtensionElementEventHandler(this.OnNewListExtensionsElement);
-        }
-
-        /// <summary>Empty base implementation</summary> 
-        /// <param name="writer">The xmlwriter, where we want to add default namespaces to</param>
-        protected override void AddOtherNamespaces(XmlWriter writer)
-        {
-            base.AddOtherNamespaces(writer);
-            Utilities.EnsureGDataNamespace(writer);
         }
 
         /// <summary>
-        /// Checks if this namespace declaration has already been added.
+        /// returns a new entry for this feed
         /// </summary>
-        /// <param name="node">XmlNode to check</param>
-        /// <returns>True if this node should be skipped</returns>
-        protected override bool SkipNode(XmlNode node)
+        /// <returns>AtomEntry</returns>
+        public override AtomEntry CreateFeedEntry()
         {
-            if (base.SkipNode(node))
-            {
-                return true;
-            }
-
-            return(node.NodeType == XmlNodeType.Attribute
-                   && node.Name.StartsWith("xmlns")
-                   && String.Compare(node.Value, BaseNameTable.gNamespace) == 0
-                   && String.Compare(node.Value, GDataSpreadsheetsNameTable.NSGSpreadsheets) == 0
-                   && String.Compare(node.Value, GDataSpreadsheetsNameTable.NSGSpreadsheetsExtended) == 0);
+            return new ListEntry();
         }
 
         /// <summary>
-        /// Event handler called when a new list entry is parsed.
+        /// get's called after we already handled the custom entry, to handle all 
+        /// other potential parsing tasks
         /// </summary>
-        /// <param name="sender">The object which sends the event.</param>
-        /// <param name="e">FeedParserEventArguments holds the feed entry</param>
-        protected void OnParsedNewListEntry(object sender, FeedParserEventArgs e)
+        /// <param name="e"></param>
+        protected override void HandleExtensionElements(ExtensionElementEventArgs e, AtomFeedParser parser)
         {
-            if (e == null)
-            {
-                throw new ArgumentNullException("e");
-            }
-
-            if (e.CreatingEntry == true)
-            {
-                e.Entry = new ListEntry();
-            }
-        }
-
-        /// <summary>
-        /// Event handler called for list extension element
-        /// </summary>
-        /// <param name="sender">The object which sends the event</param>
-        /// <param name="e">FeedParserEventArgument holds the feedEntry</param>
-        protected void OnNewListExtensionsElement(object sender, ExtensionElementEventArgs e)
-        {
-
-            AtomFeedParser parser = sender as AtomFeedParser;
-
-            if (String.Compare(e.ExtensionElement.NamespaceURI, GDataSpreadsheetsNameTable.NSGSpreadsheetsExtended, true) == 0)
-            {
-                e.DiscardEntry = true;
-
-                if (e.Base.XmlName == AtomParserNameTable.XmlAtomEntryElement)
-                {
-                    ListEntry listEntry = e.Base as ListEntry;
-
-                    if (listEntry != null)
-                    {
-                        listEntry.ParseList(e.ExtensionElement, parser);
-                    }
-                }
-            }
+             Tracing.TraceMsg("\t HandleExtensionElements for ListFeedcalled");
         }
     }
 }

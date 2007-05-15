@@ -814,7 +814,7 @@ namespace Google.GData.Client
                     while (reader.MoveToNextAttribute())
                     {
                         localname = reader.LocalName;
-                        if (localname.Equals(this.nameTable.BatchOperationType))
+                        if (localname.Equals(this.nameTable.Type))
                         {
                             type = (GDataBatchOperationType)Enum.Parse(
                                                                       typeof(GDataBatchOperationType), reader.Value, true); 
@@ -849,7 +849,7 @@ namespace Google.GData.Client
                 if (elementName.Equals(this.nameTable.BatchOperation))
                 {
                     batch.Type = (GDataBatchOperationType)Enum.Parse(typeof(GDataBatchOperationType), 
-                                                                     reader.GetAttribute(BaseNameTable.XmlAttributeBatchOperationType), true);
+                                                                     reader.GetAttribute(BaseNameTable.XmlAttributeType), true);
                 }
                 else
                 {
@@ -971,7 +971,7 @@ namespace Google.GData.Client
                         {
                             error.Reason = reader.Value;
                         }
-                        else if (localname.Equals(this.nameTable.BatchOperationType))
+                        else if (localname.Equals(this.nameTable.Type))
                         {
                             error.Type = reader.Value; 
                         }

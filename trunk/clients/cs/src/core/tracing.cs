@@ -117,8 +117,6 @@ namespace Google.GData.Client
                     Trace.WriteLine("Method Unknown: " + msg);
                 }
                 Trace.Flush();
-
-
             } catch 
             {
                 Tracing.TraceMsg(msg);

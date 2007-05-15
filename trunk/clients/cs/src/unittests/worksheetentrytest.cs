@@ -89,7 +89,9 @@ namespace Google.GData.Spreadsheets.UnitTests
             XmlDocument document = new XmlDocument();
             document.LoadXml(sb.ToString());
 
-            entry.ParseWorksheet(document.FirstChild, new AtomFeedParser());
+            ExtensionElementEventArgs e = new ExtensionElementEventArgs();
+            e.ExtensionElement = document.FirstChild;
+            entry.Parse(e, new AtomFeedParser());
 
             Assert.IsNotNull(entry.ColCount);
             Assert.AreEqual(entry.ColCount.Count, count.Count);
@@ -109,7 +111,9 @@ namespace Google.GData.Spreadsheets.UnitTests
             XmlDocument document = new XmlDocument();
             document.LoadXml(sb.ToString());
 
-            entry.ParseWorksheet(document.FirstChild, new AtomFeedParser());
+            ExtensionElementEventArgs e = new ExtensionElementEventArgs();
+            e.ExtensionElement = document.FirstChild;
+            entry.Parse(e, new AtomFeedParser());
 
             Assert.IsNotNull(entry.RowCount);
             Assert.AreEqual(entry.RowCount.Count, count.Count);

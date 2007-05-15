@@ -25,6 +25,7 @@ using NUnit.Framework;
 using Google.GData.Client;
 using Google.GData.Extensions;
 using Google.GData.Calendar;
+using Google.GData.AccessControl;
 
 
 
@@ -48,6 +49,12 @@ namespace Google.GData.Client.UnitTests
         ///  test Uri for google calendarURI
         /// </summary>
         protected string defaultCalendarUri; 
+
+        /// <summary>
+        ///  test Uri for google acl feed
+        /// </summary>
+        protected string aclFeedUri; 
+
 
         /// <summary>
         ///  test Uri for google composite calendarURI
@@ -107,6 +114,11 @@ namespace Google.GData.Client.UnitTests
             {
                 this.defaultCalendarUri = (string) unitTestConfiguration["calendarURI"];
                 Tracing.TraceInfo("Read calendarURI value: " + this.defaultCalendarUri);
+            }
+            if (unitTestConfiguration.Contains("aclFeedURI") == true)
+            {
+                this.aclFeedUri = (string) unitTestConfiguration["aclFeedURI"];
+                Tracing.TraceInfo("Read aclFeed value: " + this.aclFeedUri);
             }
             if (unitTestConfiguration.Contains("compositeURI") == true)
             {
@@ -220,14 +232,9 @@ namespace Google.GData.Client.UnitTests
                         }
                     }
                 }
-
-
                 calFeed = service.Query(query);
 
                 Assert.AreEqual(iCount, calFeed.Entries.Count, "Feed should have the same count again, it has: " + calFeed.Entries.Count); 
-
-
-
                 service.Credentials = null; 
 
                 factory.MethodOverride = false;
@@ -335,14 +342,19 @@ namespace Google.GData.Client.UnitTests
                     Tracing.TraceMsg(calFeed.TimeZone.Value); 
                 }
 
-                ObjectModelHelper.DumpAtomObject(calFeed,CreateDumpFileName("AuthenticationTest")); 
                 iCount = calFeed.Entries.Count; 
+
+                Tracing.TraceMsg("here");
+
 
                 String strTitle = "Dinner & time" + Guid.NewGuid().ToString(); 
 
                 if (calFeed != null)
                 {
                     // get the first entry
+                    
+                    Tracing.TraceMsg("here");
+
                     EventEntry entry  = ObjectModelHelper.CreateEventEntry(1); 
                     entry.Title.Text = strTitle;
 
@@ -362,6 +374,8 @@ namespace Google.GData.Client.UnitTests
 
                     EventFeed newFeed = service.Query(singleQuery);
 
+                    Tracing.TraceMsg("here");
+
                     EventEntry sameGuy = newFeed.Entries[0] as EventEntry; 
 
                     sameGuy.Content.Content = "Updated again..."; 
@@ -371,6 +385,8 @@ namespace Google.GData.Client.UnitTests
                     sameGuy.Times.Add(x); 
                     sameGuy.Update();
 
+
+                    Tracing.TraceMsg("here");
                     
                     Assert.IsTrue(sameGuy.Title.Text.Equals(newEntry.Title.Text), "both titles should be identical"); 
 
@@ -427,6 +443,111 @@ namespace Google.GData.Client.UnitTests
         }
         /////////////////////////////////////////////////////////////////////////////
 
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Tests the ACL extensions</summary> 
+        //////////////////////////////////////////////////////////////////////
+        [Test] public void CalendarACLTest()
+        {
+            Tracing.TraceMsg("Entering CalendarACLTest");
+
+            EventQuery query = new EventQuery();
+            Service service = new Service("cl", this.ApplicationName);
+
+            int iCount; 
+
+            if (this.defaultCalendarUri != null)
+            {
+                if (this.userName != null)
+                {
+                    NetworkCredential nc = new NetworkCredential(this.userName, this.passWord); 
+                    service.Credentials = nc;
+                }
+
+                GDataLoggingRequestFactory factory = (GDataLoggingRequestFactory) this.factory;
+                factory.MethodOverride = true;
+                service.RequestFactory = this.factory; 
+
+                service.NewFeed += new ServiceEventHandler(this.OnNewAclFeed); 
+
+                query.Uri = new Uri(this.aclFeedUri);
+                AclFeed aclFeed = (AclFeed) service.Query(query);
+                AclEntry newEntry = null;
+
+                iCount = aclFeed.Entries.Count; 
+
+                if (aclFeed != null)
+                {
+                    // create an entry
+                    AclEntry entry = new AclEntry();
+                    entry.Role = AclRole.ACL_CALENDAR_FREEBUSY;
+                    AclScope scope = new AclScope();
+                    scope.Value = "meohmy@test.com"; 
+                    scope.Type = AclScope.SCOPE_DEFAULT;
+                    entry.Scope = scope;
+
+                    newEntry = (AclEntry) aclFeed.Insert(entry);
+
+                    Assert.AreEqual(newEntry.Role.Value, entry.Role.Value);
+                    Assert.AreEqual(newEntry.Scope.Type, entry.Scope.Type);
+                    Assert.AreEqual(newEntry.Scope.Value, entry.Scope.Value);
+                }
+
+                Tracing.TraceMsg("CalendarACLTest: done insering Acl:entry");
+
+
+                iCount++;
+                aclFeed = (AclFeed) service.Query(query);
+
+                Tracing.TraceMsg("CalendarACLTest: done query after: Acl:entry");
+
+                // update that entry
+
+                if (newEntry != null)
+                {
+                    newEntry.Role = AclRole.ACL_CALENDAR_READ;
+                    newEntry = (AclEntry) newEntry.Update();
+                    Assert.AreEqual(AclRole.ACL_CALENDAR_READ.Value, newEntry.Role.Value);
+                }
+
+                Tracing.TraceMsg("CalendarACLTest: done updating Acl:entry");
+
+                newEntry.Delete();
+                iCount--;
+
+                Tracing.TraceMsg("CalendarACLTest: done deleting Acl:entry");
+
+
+                aclFeed = (AclFeed) service.Query(query);
+                Assert.AreEqual(iCount, aclFeed.Entries.Count, "Feed should have one more entry, it has: " + aclFeed.Entries.Count); 
+
+
+                service.Credentials = null; 
+                factory.MethodOverride = false;
+
+            }
+
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>eventchaining. We catch this by the baseFeedParsers, which 
+        /// would not do anything with the gathered data. We pass the event up
+        /// to the user</summary> 
+        /// <param name="sender"> the object which send the event</param>
+        /// <param name="e">FeedParserEventArguments, holds the feedentry</param> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        protected void OnNewAclFeed(object sender, ServiceEventArgs e)
+        {
+            Tracing.TraceMsg("Created new Acl Feed");
+            if (e == null)
+            {
+                throw new ArgumentNullException("e"); 
+            }
+            e.Feed = new AclFeed(e.Uri, e.Service);
+        }
+        /////////////////////////////////////////////////////////////////////////////
 
 
         //////////////////////////////////////////////////////////////////////
@@ -537,7 +658,7 @@ namespace Google.GData.Client.UnitTests
                 if (calFeed != null && calFeed.Entries.Count > 0)
                 {
                     // look for the one with dinner time...
-                    foreach (AtomEntry entry in calFeed.Entries)
+                    foreach (EventEntry entry in calFeed.Entries)
                     {
                         Tracing.TraceMsg("Entrie title: " + entry.Title.Text); 
                         if (String.Compare(entry.Title.Text, strTitle)==0)
@@ -706,7 +827,6 @@ namespace Google.GData.Client.UnitTests
                 query.Uri = new Uri(this.defaultCalendarUri);
                 EventFeed calFeed = service.Query(query);
 
-                ObjectModelHelper.DumpAtomObject(calFeed,CreateDumpFileName("AuthenticationTest")); 
                 iCount = calFeed.Entries.Count; 
 
                 String strTitle = "Dinner time" + Guid.NewGuid().ToString(); 
@@ -918,9 +1038,6 @@ namespace Google.GData.Client.UnitTests
 
                 query.Uri = new Uri(this.defaultCalendarUri);
                 AtomFeed calFeed = service.Query(query);
-
-                ObjectModelHelper.DumpAtomObject(calFeed,CreateDumpFileName("AuthenticationTest")); 
-
                 if (calFeed != null)
                 {
 

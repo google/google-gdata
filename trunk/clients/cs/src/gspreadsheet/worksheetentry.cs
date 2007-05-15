@@ -25,7 +25,7 @@ namespace Google.GData.Spreadsheets
     /// <summary>
     /// Entry API customization class for defining entries in a Worksheets feed.
     /// </summary>
-    public class WorksheetEntry : AtomEntry
+    public class WorksheetEntry : AbstractEntry
     {
         /// <summary>
         /// Category used to label entries that contain Cell extension data.
@@ -81,39 +81,14 @@ namespace Google.GData.Spreadsheets
         }
 
         /// <summary>
-        /// Empty base implementation
-        /// </summary>
-        /// <param name="writer">The XmlWrite, where we want to add default namespaces to</param>
-        protected override void AddOtherNamespaces(XmlWriter writer)
-        {
-            base.AddOtherNamespaces(writer);
-            Utilities.EnsureGDataNamespace(writer);
-        }
-
-        /// <summary>
-        /// Checks if this is a namespace declaration that we already added
-        /// </summary>
-        /// <param name="node">XmlNode to check</param>
-        /// <returns>True if this node should be skipped</returns>
-        protected override bool SkipNode(XmlNode node)
-        {
-            if (base.SkipNode(node))
-            {
-                return true;
-            }
-
-            return(node.NodeType == XmlNodeType.Attribute
-                   && node.Name.StartsWith("xmlns")
-                   && String.Compare(node.Value, BaseNameTable.gNamespace) == 0);
-        }
-
-        /// <summary>
         /// Parses the inner state of the element
         /// </summary>
         /// <param name="worksheetNode">A g-scheme, xml node</param>
         /// <param name="parser">The AtomFeedParser that called this</param>
-        public void ParseWorksheet(XmlNode worksheetNode, AtomFeedParser parser)
+        public override void Parse(ExtensionElementEventArgs e, AtomFeedParser parser)
         {
+            XmlNode worksheetNode = e.ExtensionElement;
+
             if (String.Compare(worksheetNode.NamespaceURI, GDataSpreadsheetsNameTable.NSGSpreadsheets, true) == 0)
             {
                 if (worksheetNode.LocalName == GDataSpreadsheetsNameTable.XmlColCountElement)

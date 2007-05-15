@@ -25,7 +25,7 @@ namespace Google.GData.Spreadsheets
     /// <summary>
     /// Entry API customization class for defining entries in a Cells feed.
     /// </summary>
-    public class CellEntry : AtomEntry
+    public class CellEntry : AbstractEntry
     {
         /// <summary>
         /// Category used to label entries that contain Cell extension data.
@@ -277,13 +277,21 @@ namespace Google.GData.Spreadsheets
         }
 
         /// <summary>
-        /// Empty base implementation
+        /// add the spreadsheet NS
         /// </summary>
         /// <param name="writer">The XmlWrite, where we want to add default namespaces to</param>
         protected override void AddOtherNamespaces(XmlWriter writer)
         {
             base.AddOtherNamespaces(writer);
-            Utilities.EnsureGDataNamespace(writer);
+            if (writer == null)
+            {
+                throw new ArgumentNullException("writer"); 
+            }
+            string strPrefix = writer.LookupPrefix(GDataSpreadsheetsNameTable.NSGSpreadsheets);
+            if (strPrefix == null)
+            {
+                writer.WriteAttributeString("xmlns", GDataSpreadsheetsNameTable.NSGSpreadsheetsPrefix, null, GDataSpreadsheetsNameTable.NSGSpreadsheets);
+            }
         }
 
         /// <summary>
@@ -300,7 +308,6 @@ namespace Google.GData.Spreadsheets
 
             return(node.NodeType == XmlNodeType.Attribute
                    && node.Name.StartsWith("xmlns")
-                   && String.Compare(node.Value, BaseNameTable.gNamespace) == 0
                    && String.Compare(node.Value, GDataSpreadsheetsNameTable.NSGSpreadsheets) == 0);
         }
 
@@ -309,13 +316,16 @@ namespace Google.GData.Spreadsheets
         /// </summary>
         /// <param name="cellNode">A g-scheme, xml node</param>
         /// <param name="parser">The AtomFeedParser that called this</param>
-        public void ParseCell(XmlNode cellNode, AtomFeedParser parser)
+        public override void Parse(ExtensionElementEventArgs e, AtomFeedParser parser)
         {
+            XmlNode cellNode = e.ExtensionElement;
+
             if (String.Compare(cellNode.NamespaceURI, GDataSpreadsheetsNameTable.NSGSpreadsheets, true) == 0)
             {
                 if (cellNode.LocalName == GDataSpreadsheetsNameTable.XmlCellElement)
                 {
                     Cell = CellElement.ParseCell(cellNode, parser);
+                    e.DiscardEntry = true;
                 }
             }
         }
