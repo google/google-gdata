@@ -344,17 +344,11 @@ namespace Google.GData.Client.UnitTests
 
                 iCount = calFeed.Entries.Count; 
 
-                Tracing.TraceMsg("here");
-
-
-                String strTitle = "Dinner & time" + Guid.NewGuid().ToString(); 
+               String strTitle = "Dinner & time" + Guid.NewGuid().ToString(); 
 
                 if (calFeed != null)
                 {
                     // get the first entry
-                    
-                    Tracing.TraceMsg("here");
-
                     EventEntry entry  = ObjectModelHelper.CreateEventEntry(1); 
                     entry.Title.Text = strTitle;
 
@@ -373,9 +367,6 @@ namespace Google.GData.Client.UnitTests
                     singleQuery.Uri = new Uri(newEntry.SelfUri.ToString()); 
 
                     EventFeed newFeed = service.Query(singleQuery);
-
-                    Tracing.TraceMsg("here");
-
                     EventEntry sameGuy = newFeed.Entries[0] as EventEntry; 
 
                     sameGuy.Content.Content = "Updated again..."; 
@@ -385,9 +376,6 @@ namespace Google.GData.Client.UnitTests
                     sameGuy.Times.Add(x); 
                     sameGuy.Update();
 
-
-                    Tracing.TraceMsg("here");
-                    
                     Assert.IsTrue(sameGuy.Title.Text.Equals(newEntry.Title.Text), "both titles should be identical"); 
 
                 }
@@ -433,6 +421,68 @@ namespace Google.GData.Client.UnitTests
 
                 calFeed = service.Query(query);
                 Assert.AreEqual(iCount, calFeed.Entries.Count, "Feed should have the same count again, it has: " + calFeed.Entries.Count); 
+
+                service.Credentials = null; 
+
+                factory.MethodOverride = false;
+
+            }
+
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+       //////////////////////////////////////////////////////////////////////
+        /// <summary>Tests the reminder method property</summary> 
+        //////////////////////////////////////////////////////////////////////
+        [Test] public void CalendarReminderMethodTest()
+        {
+            Tracing.TraceMsg("Entering CalendarReminderMethodTest");
+
+            EventQuery query = new EventQuery();
+            CalendarService service = new CalendarService(this.ApplicationName);
+
+            int iCount; 
+
+            if (this.defaultCalendarUri != null)
+            {
+                if (this.userName != null)
+                {
+                    NetworkCredential nc = new NetworkCredential(this.userName, this.passWord); 
+                    service.Credentials = nc;
+                }
+
+                GDataLoggingRequestFactory factory = (GDataLoggingRequestFactory) this.factory;
+                factory.MethodOverride = true;
+                service.RequestFactory = this.factory; 
+
+                query.Uri = new Uri(this.defaultCalendarUri);
+                EventFeed calFeed = service.Query(query);
+                iCount = calFeed.Entries.Count; 
+
+                String strTitle = "Dinner & time" + Guid.NewGuid().ToString(); 
+
+                if (calFeed != null)
+                {
+                    // get the first entry
+                    EventEntry entry  = ObjectModelHelper.CreateEventEntry(1); 
+                    entry.Title.Text = strTitle;
+                    entry.Reminder.Method = Reminder.ReminderMethod.email;
+                    EventEntry newEntry = (EventEntry) calFeed.Insert(entry); 
+
+                    Assert.AreEqual(entry.Reminder.Minutes, newEntry.Reminder.Minutes, "Reminder time should be identical"); 
+                    Assert.AreEqual(entry.Reminder.Method, Reminder.ReminderMethod.email, "Reminder method should be identical"); 
+                    iCount++; 
+                    Tracing.TraceMsg("Created calendar entry");
+
+                    // try to get just that guy.....
+                    FeedQuery singleQuery = new FeedQuery();
+                    singleQuery.Uri = new Uri(newEntry.SelfUri.ToString()); 
+                    EventFeed newFeed = service.Query(singleQuery);
+                    EventEntry sameGuy = newFeed.Entries[0] as EventEntry; 
+
+                    Assert.AreEqual(sameGuy.Reminder.Minutes, newEntry.Reminder.Minutes, "Reminder time should be identical"); 
+                    Assert.AreEqual(sameGuy.Reminder.Method, Reminder.ReminderMethod.email, "Reminder method should be identical"); 
+                }
 
                 service.Credentials = null; 
 
