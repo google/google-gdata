@@ -200,29 +200,32 @@ namespace Google.GData.Apps
         {
             AppsException result = null;
 
-            if (e != null)
+            if (e == null)
+                return (null);
+
+            if (e.ResponseString == null)
+                return (null);
+
+            try
             {
-                try
-                {
-                    XmlReader reader = new XmlTextReader(e.ResponseString, XmlNodeType.Document, null);
-                    // now find the ErrorElement
-                    while (reader.Read())
-                        if (reader.NodeType == XmlNodeType.Element && reader.LocalName == AppsNameTable.XmlElementError)
-                        {
-                            result = new AppsException(e);
-                            result.ErrorCode =
-                                reader.GetAttribute(AppsNameTable.XmlAttributeErrorErrorCode);
-                            result.InvalidInput =
-                                reader.GetAttribute(AppsNameTable.XmlAttributeErrorInvalidInput);
-                            result.Reason =
-                                reader.GetAttribute(AppsNameTable.XmlAttributeErrorReason);
-                            break;
-                        }
-                }
-                catch (XmlException)
-                {
+                XmlReader reader = new XmlTextReader(e.ResponseString, XmlNodeType.Document, null);
+                // now find the ErrorElement
+                while (reader.Read())
+                    if (reader.NodeType == XmlNodeType.Element && reader.LocalName == AppsNameTable.XmlElementError)
+                    {
+                        result = new AppsException(e);
+                        result.ErrorCode =
+                            reader.GetAttribute(AppsNameTable.XmlAttributeErrorErrorCode);
+                        result.InvalidInput =
+                            reader.GetAttribute(AppsNameTable.XmlAttributeErrorInvalidInput);
+                        result.Reason =
+                            reader.GetAttribute(AppsNameTable.XmlAttributeErrorReason);
+                        break;
+                    }
+            }
+            catch (XmlException)
+            {
                 	
-                }
             }
 
             return result;
