@@ -22,7 +22,7 @@
         </member>
         <member name="M:Google.GData.Spreadsheets.CellEntry.AddOtherNamespaces(System.Xml.XmlWriter)">
             <summary>
-            Empty base implementation
+            add the spreadsheet NS
             </summary>
             <param name="writer">The XmlWrite, where we want to add default namespaces to</param>
         </member>
@@ -33,7 +33,7 @@
             <param name="node">XmlNode to check</param>
             <returns>True if this node should be skipped</returns>
         </member>
-        <member name="M:Google.GData.Spreadsheets.CellEntry.ParseCell(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
+        <member name="M:Google.GData.Spreadsheets.CellEntry.Parse(Google.GData.Client.ExtensionElementEventArgs,Google.GData.Client.AtomFeedParser)">
             <summary>
             Parses the inner state of the element
             </summary>
@@ -126,20 +126,18 @@
             <param name="node">XmlNode to check</param>
             <returns>true if this node should be skipped </returns>
         </member>
-        <member name="M:Google.GData.Spreadsheets.CellFeed.OnParsedNewCellEntry(System.Object,Google.GData.Client.FeedParserEventArgs)">
+        <member name="M:Google.GData.Spreadsheets.CellFeed.CreateFeedEntry">
             <summary>
-            Eventhandling. Called when a new cell entry is parsed.
+            creates our cellfeed type entry
             </summary>
-            <param name="sender"> the object which send the event</param>
-            <param name="e">FeedParserEventArguments, holds the feedentry</param> 
-            <returns> </returns>
+            <returns>AtomEntry</returns>
         </member>
-        <member name="M:Google.GData.Spreadsheets.CellFeed.OnNewCellExtensionsElement(System.Object,Google.GData.Client.ExtensionElementEventArgs)">
-            <summary>eventhandler - called for event extension element
+        <member name="M:Google.GData.Spreadsheets.CellFeed.HandleExtensionElements(Google.GData.Client.ExtensionElementEventArgs,Google.GData.Client.AtomFeedParser)">
+            <summary>
+            get's called after we already handled the custom entry, to handle all 
+            other potential parsing tasks
             </summary>
-            <param name="sender">the object which send the event</param>
-            <param name="e">FeedParserEventArguments, holds the feedEntry</param> 
-            <returns> </returns>
+            <param name="e"></param>
         </member>
         <member name="P:Google.GData.Spreadsheets.CellFeed.RowCount">
             <summary>
@@ -361,24 +359,11 @@
             to indicate that it is a list entry.
             </summary>
         </member>
-        <member name="M:Google.GData.Spreadsheets.ListEntry.AddOtherNamespaces(System.Xml.XmlWriter)">
+        <member name="M:Google.GData.Spreadsheets.ListEntry.Parse(Google.GData.Client.ExtensionElementEventArgs,Google.GData.Client.AtomFeedParser)">
             <summary>
-            Empty base implementation
+            Parses the inner state of the element. TODO. 
             </summary>
-            <param name="writer">The XmlWrite, where we want to add default namespaces to</param>
-        </member>
-        <member name="M:Google.GData.Spreadsheets.ListEntry.SkipNode(System.Xml.XmlNode)">
-            <summary>
-            Checks if this is a namespace declaration that we already added
-            </summary>
-            <param name="node">XmlNode to check</param>
-            <returns>True if this node should be skipped</returns>
-        </member>
-        <member name="M:Google.GData.Spreadsheets.ListEntry.ParseList(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
-            <summary>
-            Parses the inner state of the element
-            </summary>
-            <param name="listNode">A g-scheme, xml node</param>
+            <param name="e">The extension element that should be added to this entry</param>
             <param name="parser">The AtomFeedParser that called this</param>
         </member>
         <member name="P:Google.GData.Spreadsheets.ListEntry.Elements">
@@ -483,30 +468,18 @@
             <param name="uriBase">The uri for this list feed.</param>
             <param name="iService">The Spreadsheets service.</param>
         </member>
-        <member name="M:Google.GData.Spreadsheets.ListFeed.AddOtherNamespaces(System.Xml.XmlWriter)">
-            <summary>Empty base implementation</summary> 
-            <param name="writer">The xmlwriter, where we want to add default namespaces to</param>
-        </member>
-        <member name="M:Google.GData.Spreadsheets.ListFeed.SkipNode(System.Xml.XmlNode)">
+        <member name="M:Google.GData.Spreadsheets.ListFeed.CreateFeedEntry">
             <summary>
-            Checks if this namespace declaration has already been added.
+            returns a new entry for this feed
             </summary>
-            <param name="node">XmlNode to check</param>
-            <returns>True if this node should be skipped</returns>
+            <returns>AtomEntry</returns>
         </member>
-        <member name="M:Google.GData.Spreadsheets.ListFeed.OnParsedNewListEntry(System.Object,Google.GData.Client.FeedParserEventArgs)">
+        <member name="M:Google.GData.Spreadsheets.ListFeed.HandleExtensionElements(Google.GData.Client.ExtensionElementEventArgs,Google.GData.Client.AtomFeedParser)">
             <summary>
-            Event handler called when a new list entry is parsed.
+            get's called after we already handled the custom entry, to handle all 
+            other potential parsing tasks
             </summary>
-            <param name="sender">The object which sends the event.</param>
-            <param name="e">FeedParserEventArguments holds the feed entry</param>
-        </member>
-        <member name="M:Google.GData.Spreadsheets.ListFeed.OnNewListExtensionsElement(System.Object,Google.GData.Client.ExtensionElementEventArgs)">
-            <summary>
-            Event handler called for list extension element
-            </summary>
-            <param name="sender">The object which sends the event</param>
-            <param name="e">FeedParserEventArgument holds the feedEntry</param>
+            <param name="e"></param>
         </member>
         <member name="T:Google.GData.Spreadsheets.ListQuery">
             <summary>
@@ -631,24 +604,11 @@
             to indicate that it is a worksheet.
             </summary>
         </member>
-        <member name="M:Google.GData.Spreadsheets.SpreadsheetEntry.AddOtherNamespaces(System.Xml.XmlWriter)">
+        <member name="M:Google.GData.Spreadsheets.SpreadsheetEntry.Parse(Google.GData.Client.ExtensionElementEventArgs,Google.GData.Client.AtomFeedParser)">
             <summary>
-            Empty base implementation
+            Parses the inner state of the element. TODO. 
             </summary>
-            <param name="writer">The XmlWrite, where we want to add default namespaces to</param>
-        </member>
-        <member name="M:Google.GData.Spreadsheets.SpreadsheetEntry.SkipNode(System.Xml.XmlNode)">
-            <summary>
-            Checks if this is a namespace declaration that we already added
-            </summary>
-            <param name="node">XmlNode to check</param>
-            <returns>True if this node should be skipped</returns>
-        </member>
-        <member name="M:Google.GData.Spreadsheets.SpreadsheetEntry.ParseSpreadsheet(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
-            <summary>
-            Parses the inner state of the element
-            </summary>
-            <param name="spreadsheetNode">A g-scheme, xml node</param>
+            <param name="e">The extension element that should be added to this entry</param>
             <param name="parser">The AtomFeedParser that called this</param>
         </member>
         <member name="P:Google.GData.Spreadsheets.SpreadsheetEntry.Link">
@@ -669,30 +629,18 @@
             <param name="uriBase">The uri for this myspreadsheets feed.</param>
             <param name="iService">The Spreadsheets service.</param>
         </member>
-        <member name="M:Google.GData.Spreadsheets.SpreadsheetFeed.AddOtherNamespaces(System.Xml.XmlWriter)">
-            <summary>empty base implementation</summary> 
-            <param name="writer">the xmlwriter, where we want to add default namespaces to</param>
-        </member>
-        <member name="M:Google.GData.Spreadsheets.SpreadsheetFeed.SkipNode(System.Xml.XmlNode)">
-            <summary>checks if this is a namespace 
-            decl that we already added</summary> 
-            <param name="node">XmlNode to check</param>
-            <returns>true if this node should be skipped </returns>
-        </member>
-        <member name="M:Google.GData.Spreadsheets.SpreadsheetFeed.OnParsedNewSpreadsheetEntry(System.Object,Google.GData.Client.FeedParserEventArgs)">
+        <member name="M:Google.GData.Spreadsheets.SpreadsheetFeed.CreateFeedEntry">
             <summary>
-            Eventhandling. Called when a new event entry is parsed.
+            returns a new entry for this feed
             </summary>
-            <param name="sender"> the object which send the event</param>
-            <param name="e">FeedParserEventArguments, holds the feedentry</param> 
-            <returns> </returns>
+            <returns>AtomEntry</returns>
         </member>
-        <member name="M:Google.GData.Spreadsheets.SpreadsheetFeed.OnNewSpreadsheetExtensionsElement(System.Object,Google.GData.Client.ExtensionElementEventArgs)">
-            <summary>eventhandler - called for event extension element
+        <member name="M:Google.GData.Spreadsheets.SpreadsheetFeed.HandleExtensionElements(Google.GData.Client.ExtensionElementEventArgs,Google.GData.Client.AtomFeedParser)">
+            <summary>
+            get's called after we already handled the custom entry, to handle all 
+            other potential parsing tasks
             </summary>
-            <param name="sender">the object which send the event</param>
-            <param name="e">FeedParserEventArguments, holds the feedEntry</param> 
-            <returns> </returns>
+            <param name="e"></param>
         </member>
         <member name="T:Google.GData.Spreadsheets.SpreadsheetQuery">
             <summary>
@@ -803,20 +751,7 @@
             to indicate that it is a worksheet.
             </summary>
         </member>
-        <member name="M:Google.GData.Spreadsheets.WorksheetEntry.AddOtherNamespaces(System.Xml.XmlWriter)">
-            <summary>
-            Empty base implementation
-            </summary>
-            <param name="writer">The XmlWrite, where we want to add default namespaces to</param>
-        </member>
-        <member name="M:Google.GData.Spreadsheets.WorksheetEntry.SkipNode(System.Xml.XmlNode)">
-            <summary>
-            Checks if this is a namespace declaration that we already added
-            </summary>
-            <param name="node">XmlNode to check</param>
-            <returns>True if this node should be skipped</returns>
-        </member>
-        <member name="M:Google.GData.Spreadsheets.WorksheetEntry.ParseWorksheet(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
+        <member name="M:Google.GData.Spreadsheets.WorksheetEntry.Parse(Google.GData.Client.ExtensionElementEventArgs,Google.GData.Client.AtomFeedParser)">
             <summary>
             Parses the inner state of the element
             </summary>
@@ -845,30 +780,18 @@
             <param name="uriBase">The uri for the worksheets feed.</param>
             <param name="iService">The Spreadsheets service.</param>
         </member>
-        <member name="M:Google.GData.Spreadsheets.WorksheetFeed.AddOtherNamespaces(System.Xml.XmlWriter)">
-            <summary>empty base implementation</summary> 
-            <param name="writer">the xmlwriter, where we want to add default namespaces to</param>
-        </member>
-        <member name="M:Google.GData.Spreadsheets.WorksheetFeed.SkipNode(System.Xml.XmlNode)">
-            <summary>checks if this is a namespace 
-            decl that we already added</summary> 
-            <param name="node">XmlNode to check</param>
-            <returns>true if this node should be skipped </returns>
-        </member>
-        <member name="M:Google.GData.Spreadsheets.WorksheetFeed.OnParsedNewWorksheetEntry(System.Object,Google.GData.Client.FeedParserEventArgs)">
+        <member name="M:Google.GData.Spreadsheets.WorksheetFeed.CreateFeedEntry">
             <summary>
-            Eventhandling. Called when a new worksheet entry is parsed.
+            returns a new entry for this feed
             </summary>
-            <param name="sender"> the object which send the event</param>
-            <param name="e">FeedParserEventArguments, holds the feedentry</param> 
-            <returns> </returns>
+            <returns>AtomEntry</returns>
         </member>
-        <member name="M:Google.GData.Spreadsheets.WorksheetFeed.OnNewWorksheetExtensionsElement(System.Object,Google.GData.Client.ExtensionElementEventArgs)">
-            <summary>eventhandler - called for event extension element
+        <member name="M:Google.GData.Spreadsheets.WorksheetFeed.HandleExtensionElements(Google.GData.Client.ExtensionElementEventArgs,Google.GData.Client.AtomFeedParser)">
+            <summary>
+            get's called after we already handled the custom entry, to handle all 
+            other potential parsing tasks
             </summary>
-            <param name="sender">the object which send the event</param>
-            <param name="e">FeedParserEventArguments, holds the feedEntry</param> 
-            <returns> </returns>
+            <param name="e"></param>
         </member>
         <member name="T:Google.GData.Spreadsheets.WorksheetQuery">
             <summary>

@@ -424,9 +424,6 @@
         <member name="F:Google.GData.Extensions.GDataParserNameTable.XmlAttributeValueString">
             <summary>static string for parsing</summary>    
         </member>
-        <member name="F:Google.GData.Extensions.GDataParserNameTable.XmlAttributeValue">
-            <summary>static string for parsing</summary>    
-        </member>
         <member name="F:Google.GData.Extensions.GDataParserNameTable.XmlAttributeEmail">
             <summary>static string for parsing the email in gd:who</summary>    
         </member>
@@ -462,6 +459,9 @@
         </member>
         <member name="F:Google.GData.Extensions.GDataParserNameTable.XmlAttributeSpecialized">
             <summary>static string for parsing the specialized attribute on a RecurringException</summary>    
+        </member>
+        <member name="F:Google.GData.Extensions.GDataParserNameTable.XmlAttributeMethod">
+            <summary>static string for parsing</summary>    
         </member>
         <member name="F:Google.GData.Extensions.GDataParserNameTable.XmlWebContentElement">
             <summary>static string for parsing a webcontent element</summary>
@@ -597,11 +597,7 @@
         <member name="P:Google.GData.Extensions.Recurrence.XmlName">
             <summary>Returns the constant representing this XML element.</summary> 
         </member>
-        <member name="T:Google.GData.Extensions.Reminder">
-            <summary>
-            GData schema extension describing a reminder.
-            </summary>
-        </member>
+        <!-- Badly formed XML comment ignored for member "T:Google.GData.Extensions.Reminder" -->
         <member name="F:Google.GData.Extensions.Reminder.days">
             <summary>
             Number of days before the event.
@@ -622,6 +618,11 @@
             Absolute time of the reminder.
             </summary>
         </member>
+        <member name="F:Google.GData.Extensions.Reminder.method">
+            <summary>
+            holds the method type
+            </summary>
+        </member>
         <member name="M:Google.GData.Extensions.Reminder.ParseReminder(System.Xml.XmlNode)">
             <summary>Parses an XML node to create an Reminder object.</summary> 
             <param name="node">reminder node</param>
@@ -632,6 +633,10 @@
             Persistence method for the Reminder  object
             </summary>
             <param name="writer">the xmlwriter to write into</param>
+        </member>
+        <member name="P:Google.GData.Extensions.Reminder.Method">
+            <summary>accessor method public Method Method</summary> 
+            <returns> </returns>
         </member>
         <member name="P:Google.GData.Extensions.Reminder.Days">
             <summary>accessor method public Days</summary> 

@@ -21,7 +21,7 @@
              the appropriate category.
             </summary>
         </member>
-        <member name="M:Google.GData.CodeSearch.CodeSearchEntry.parseEvent(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
+        <member name="M:Google.GData.CodeSearch.CodeSearchEntry.Parse(Google.GData.Client.ExtensionElementEventArgs,Google.GData.Client.AtomFeedParser)">
             <summary>parses the inner state of the element</summary>
             <param name="eventNode">a g-scheme, xml node</param>
             <param name="parser">the atomFeedParser that called this</param>
@@ -53,21 +53,18 @@
             <param name="uriBase">the base URI of the feedEntry</param>
             <param name="iService">the Service to use</param>
         </member>
-        <member name="M:Google.GData.CodeSearch.CodeSearchFeed.OnParsedNewCodeSearchEntry(System.Object,Google.GData.Client.FeedParserEventArgs)">
+        <member name="M:Google.GData.CodeSearch.CodeSearchFeed.CreateFeedEntry">
             <summary>
-            Eventhandling. Called when a new event entry is parsed.
+            creates our codesearchEntry
             </summary>
-            <param name="sender"> the object which send the event</param>
-            <param name="e">FeedParserEventArguments, holds the feedentry</param> 
-            <returns> </returns>
+            <returns>AtomEntry</returns>
         </member>
-        <member name="M:Google.GData.CodeSearch.CodeSearchFeed.OnNewCodeSearchExtensionElement(System.Object,Google.GData.Client.ExtensionElementEventArgs)">
-            <summary>eventhandler - called for event extension element
+        <member name="M:Google.GData.CodeSearch.CodeSearchFeed.HandleExtensionElements(Google.GData.Client.ExtensionElementEventArgs,Google.GData.Client.AtomFeedParser)">
+            <summary>
+            get's called after we already handled the custom entry, to handle all 
+            other potential parsing tasks
             </summary>
-            <param name="sender">the object which send the event</param>
-            <param name="e">FeedParserEventArguments, holds 
-            the feedEntry</param> 
-            <returns> </returns>
+            <param name="e"></param>
         </member>
         <member name="T:Google.GData.CodeSearch.GCodeSearchParserNameTable">
             <summary>

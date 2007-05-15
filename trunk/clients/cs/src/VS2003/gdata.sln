@@ -63,6 +63,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gapps_sample", "gapps_sampl
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gacl", "gacl\gacl.csproj", "{279d35ce-871a-4c76-b823-a73675edf191}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfiguration) = preSolution
 		Debug = Debug
@@ -135,6 +139,10 @@ Global
 		{25DF4CCD-68C9-400E-87FF-8FCFAF76C998}.Debug.Build.0 = Debug|.NET
 		{25DF4CCD-68C9-400E-87FF-8FCFAF76C998}.Release.ActiveCfg = Release|.NET
 		{25DF4CCD-68C9-400E-87FF-8FCFAF76C998}.Release.Build.0 = Release|.NET
+		{0AD0FA26-A071-4CAC-851C-05B6C26B9888}.Debug.ActiveCfg = Debug|.NET
+		{0AD0FA26-A071-4CAC-851C-05B6C26B9888}.Debug.Build.0 = Debug|.NET
+		{0AD0FA26-A071-4CAC-851C-05B6C26B9888}.Release.ActiveCfg = Release|.NET
+		{0AD0FA26-A071-4CAC-851C-05B6C26B9888}.Release.Build.0 = Release|.NET
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 	EndGlobalSection

@@ -252,7 +252,7 @@ namespace SampleApp
             query.EndTime = DateTime.Now.AddMonths(6);
 
 
-            EventFeed calFeed = service.Query(query);
+            EventFeed calFeed = service.Query(query) as EventFeed;
 
             // now populate the calendar
             while (calFeed != null && calFeed.Entries.Count > 0)
@@ -273,7 +273,7 @@ namespace SampleApp
                 if (calFeed.NextChunk != null)
                 {
                     query.Uri = new Uri(calFeed.NextChunk); 
-                    calFeed = service.Query(query);
+                    calFeed = service.Query(query) as EventFeed;
                 }
                 else
                     calFeed = null;
