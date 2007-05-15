@@ -335,7 +335,7 @@ namespace Google.GData.Client.UnitTests
                 service.RequestFactory = this.factory; 
 
                 query.Uri = new Uri(this.defaultCalendarUri);
-                EventFeed calFeed = service.Query(query);
+                EventFeed calFeed = service.Query(query) as EventFeed;
 
                 if (calFeed.TimeZone != null)
                 {
@@ -366,7 +366,7 @@ namespace Google.GData.Client.UnitTests
                     FeedQuery singleQuery = new FeedQuery();
                     singleQuery.Uri = new Uri(newEntry.SelfUri.ToString()); 
 
-                    EventFeed newFeed = service.Query(singleQuery);
+                    EventFeed newFeed = service.Query(query) as EventFeed;
                     EventEntry sameGuy = newFeed.Entries[0] as EventEntry; 
 
                     sameGuy.Content.Content = "Updated again..."; 
@@ -380,7 +380,7 @@ namespace Google.GData.Client.UnitTests
 
                 }
 
-                calFeed = service.Query(query);
+                calFeed = service.Query(query) as EventFeed;
 
                 Assert.AreEqual(iCount, calFeed.Entries.Count, "Feed should have one more entry, it has: " + calFeed.Entries.Count); 
 
@@ -400,7 +400,7 @@ namespace Google.GData.Client.UnitTests
                     }
                 }
 
-                calFeed = service.Query(query);
+                calFeed = service.Query(query) as EventFeed;
 
                 Assert.AreEqual(iCount, calFeed.Entries.Count, "Feed should have one more entry, it has: " + calFeed.Entries.Count); 
 
@@ -419,7 +419,7 @@ namespace Google.GData.Client.UnitTests
                     }
                 }
 
-                calFeed = service.Query(query);
+                calFeed = service.Query(query) as EventFeed;
                 Assert.AreEqual(iCount, calFeed.Entries.Count, "Feed should have the same count again, it has: " + calFeed.Entries.Count); 
 
                 service.Credentials = null; 
@@ -456,7 +456,7 @@ namespace Google.GData.Client.UnitTests
                 service.RequestFactory = this.factory; 
 
                 query.Uri = new Uri(this.defaultCalendarUri);
-                EventFeed calFeed = service.Query(query);
+                EventFeed calFeed = service.Query(query) as EventFeed;
                 iCount = calFeed.Entries.Count; 
 
                 String strTitle = "Dinner & time" + Guid.NewGuid().ToString(); 
@@ -477,7 +477,7 @@ namespace Google.GData.Client.UnitTests
                     // try to get just that guy.....
                     FeedQuery singleQuery = new FeedQuery();
                     singleQuery.Uri = new Uri(newEntry.SelfUri.ToString()); 
-                    EventFeed newFeed = service.Query(singleQuery);
+                    EventFeed newFeed  = service.Query(query) as EventFeed;
                     EventEntry sameGuy = newFeed.Entries[0] as EventEntry; 
 
                     Assert.AreEqual(sameGuy.Reminder.Minutes, newEntry.Reminder.Minutes, "Reminder time should be identical"); 
@@ -623,7 +623,7 @@ namespace Google.GData.Client.UnitTests
                 service.RequestFactory = this.factory; 
 
                 query.Uri = new Uri(this.defaultCalendarUri);
-                EventFeed calFeed = service.Query(query);
+                EventFeed calFeed = service.Query(query) as EventFeed;
 
                 if (calFeed.TimeZone != null)
                 {
@@ -667,7 +667,7 @@ namespace Google.GData.Client.UnitTests
                     FeedQuery singleQuery = new FeedQuery();
                     singleQuery.Uri = new Uri(newEntry.SelfUri.ToString()); 
 
-                    EventFeed newFeed = service.Query(singleQuery);
+                    EventFeed newFeed = service.Query(query) as EventFeed;
 
                     EventEntry sameGuy = newFeed.Entries[0] as EventEntry; 
 
@@ -683,7 +683,7 @@ namespace Google.GData.Client.UnitTests
 
                 }
 
-                calFeed = service.Query(query);
+                calFeed = service.Query(query) as EventFeed;
 
 
                 if (calFeed != null && calFeed.Entries.Count > 0)
@@ -703,7 +703,7 @@ namespace Google.GData.Client.UnitTests
                     }
                 }
 
-                calFeed = service.Query(query);
+                calFeed = service.Query(query) as EventFeed;
 
                 if (calFeed != null && calFeed.Entries.Count > 0)
                 {
@@ -753,7 +753,7 @@ namespace Google.GData.Client.UnitTests
                 service.RequestFactory = this.factory; 
 
                 query.Uri = new Uri(this.defaultCalendarUri);
-                EventFeed calFeed = service.Query(query);
+                EventFeed calFeed = service.Query(query) as EventFeed;
 
                 string recur = 
                     "DTSTART;TZID=America/Los_Angeles:20070416T093000\n" +
@@ -819,7 +819,7 @@ namespace Google.GData.Client.UnitTests
                 }
 
                 // requery
-                calFeed = service.Query(query);
+                calFeed = service.Query(query) as EventFeed;
 
 
                 ObjectModelHelper.DumpAtomObject(calFeed,CreateDumpFileName("CalendarRecurrance")); 
@@ -875,7 +875,7 @@ namespace Google.GData.Client.UnitTests
                 service.RequestFactory = this.factory; 
 
                 query.Uri = new Uri(this.defaultCalendarUri);
-                EventFeed calFeed = service.Query(query);
+                EventFeed calFeed = service.Query(query) as EventFeed;
 
                 iCount = calFeed.Entries.Count; 
 
@@ -898,7 +898,7 @@ namespace Google.GData.Client.UnitTests
                     FeedQuery singleQuery = new FeedQuery();
                     singleQuery.Uri = new Uri(newEntry.SelfUri.ToString()); 
 
-                    EventFeed newFeed = service.Query(singleQuery);
+                    EventFeed newFeed = service.Query(singleQuery) as EventFeed;
 
                     EventEntry sameGuy = newFeed.Entries[0] as EventEntry; 
 
@@ -911,7 +911,7 @@ namespace Google.GData.Client.UnitTests
 
                 }
 
-                calFeed = service.Query(query);
+                calFeed = service.Query(query) as EventFeed;
 
                 Assert.AreEqual(iCount, calFeed.Entries.Count, "Feed should have one more entry, it has: " + calFeed.Entries.Count); 
 
@@ -963,7 +963,7 @@ namespace Google.GData.Client.UnitTests
                 service.RequestFactory = this.factory; 
 
                 query.Uri = new Uri(this.defaultCompositeUri); 
-                EventFeed calFeed = service.Query(query);
+                EventFeed calFeed = service.Query(query) as EventFeed;
                 Assert.IsTrue(calFeed!=null, "that's wrong, there should be a feed object" + calFeed); 
                 service.Credentials = null; 
                 factory.MethodOverride = false;
@@ -1001,7 +1001,7 @@ namespace Google.GData.Client.UnitTests
                 service.RequestFactory = this.factory; 
 
                 query.Uri = new Uri(this.defaultCalendarUri);
-                EventFeed calFeed = service.Query(query);
+                EventFeed calFeed = service.Query(query) as EventFeed;
 
                 iCount = calFeed.Entries.Count; 
 
@@ -1020,7 +1020,7 @@ namespace Google.GData.Client.UnitTests
                     Tracing.TraceMsg("Created calendar entry");
                 }
 
-                calFeed = service.Query(query);
+                calFeed = service.Query(query) as EventFeed;
 
                 Assert.AreEqual(iCount, calFeed.Entries.Count, "Feed should have one more entry, it has: " + calFeed.Entries.Count); 
 
@@ -1156,7 +1156,7 @@ namespace Google.GData.Client.UnitTests
 
                 query.Uri = new Uri(this.defaultCalendarUri);
 
-                EventFeed calFeed = service.Query(query);
+                EventFeed calFeed = service.Query(query) as EventFeed;
 
                 string guid = Guid.NewGuid().ToString(); 
 
@@ -1169,7 +1169,7 @@ namespace Google.GData.Client.UnitTests
                     calFeed.Insert(entry); 
                 }
 
-                calFeed = service.Query(query);
+                calFeed = service.Query(query) as EventFeed;
 
                 if (calFeed != null && calFeed.Entries.Count > 0)
                 {
@@ -1212,7 +1212,7 @@ namespace Google.GData.Client.UnitTests
 
                 query.Uri = new Uri(this.defaultCalendarUri);
 
-                EventFeed calFeed = service.Query(query);
+                EventFeed calFeed = service.Query(query) as EventFeed;
 
                 string guid = Guid.NewGuid().ToString(); 
 
@@ -1233,7 +1233,7 @@ namespace Google.GData.Client.UnitTests
                     calFeed.Insert(entry); 
                 }
 
-                calFeed = service.Query(query);
+                calFeed = service.Query(query) as EventFeed;
 
                 prop = null;
 

@@ -1,11 +1,15 @@
-== 1.0.9.9 ==
+== 1.0.9.8 ==
+- fixed a parsing bug in SpreadsheetService
 - fixed a bug in GDataRequestException that would prevent AppsException from accessing the server's response.
 - modified AppsException to comply with new GDataRequestException
 - fixed a bug in CalculateBaseUri, that caused a crash if the passed in parameters are all NULL. This caused composite feeds
   to not load if there was a comment feed embedded
+- fixed a bug in the CalendarEventEntry, it was not parsing extendedProperties. They are now parsed
+  and added correctly to the ExtensionElements
+- added ACL support. This resulted in changes in the CalendarService.Query method - as a CalendarService
+  can now return an EventFeed or an AccessControlFeed is returns now an AtomFeed that you can cast to what
+  you are expecting.
 
-== 1.0.9.8 ==
-- fixed a parsing bug in SpreadsheetService
 
 == 1.0.9.7 ==
 - fixed an incorrect trace statement in request.cs that had the result of disabling reading the error response.

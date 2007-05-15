@@ -626,6 +626,14 @@ namespace Google.GData.Calendar {
                 {
                     this.Comments = Comments.ParseComments(eventNode);
                     e.DiscardEntry = true;
+                } else if (eventNode.LocalName == GDataParserNameTable.XmlExtendedPropertyElement)
+                {
+                    ExtendedProperty p = ExtendedProperty.Parse(eventNode); 
+                    if (p != null)
+                    {
+                        e.DiscardEntry = true;
+                        this.ExtensionElements.Add(p);
+                    }
                 }
             }
             else if (String.Compare(eventNode.NamespaceURI, GDataParserNameTable.NSGCal, true) == 0)

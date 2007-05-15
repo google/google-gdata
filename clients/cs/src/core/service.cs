@@ -378,10 +378,7 @@ namespace Google.GData.Client
             {
                 throw new ArgumentNullException("newEntry"); 
             }
-          
-            
-            
-            
+
             Stream returnStream = StreamInsert(feedUri, newEntry);
 
             AtomFeed returnFeed = createFeed(feedUri);

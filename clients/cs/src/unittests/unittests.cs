@@ -344,7 +344,7 @@ namespace Google.GData.Client.UnitTests
             // CoreTestSuite test = new CoreTestSuite();
 
             test.InitTest(); 
-            test.CalendarACLTest();
+            test.CalendarReminderMethodTest();
             test.EndTest(); 
 
 
