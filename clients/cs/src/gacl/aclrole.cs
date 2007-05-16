@@ -32,15 +32,15 @@ namespace Google.GData.AccessControl
         /// <summary>string constant for the none role</summary>
         public const string ROLE_NONE =  "none";
         /// <summary>string constant for the read only role</summary>
-        public const string CALENDAR_ROLE_READ = AccessControlNameTable.gAclCalPrefix+ "read";
+        public const string CALENDAR_ROLE_READ = AclNameTable.gAclCalPrefix+ "read";
         /// <summary>string constant for the free/busy role</summary>
-        public const string CALENDAR_ROLE_FREEBUSY = AccessControlNameTable.gAclCalPrefix+ "freebusy";
+        public const string CALENDAR_ROLE_FREEBUSY = AclNameTable.gAclCalPrefix+ "freebusy";
         /// <summary>string constant for the editor role</summary>
-        public const string CALENDAR_ROLE_EDITOR = AccessControlNameTable.gAclCalPrefix+ "editor";
+        public const string CALENDAR_ROLE_EDITOR = AclNameTable.gAclCalPrefix+ "editor";
         /// <summary>string constant for the owner role</summary>
-        public const string CALENDAR_ROLE_OWNER = AccessControlNameTable.gAclCalPrefix+ "owner";
+        public const string CALENDAR_ROLE_OWNER = AclNameTable.gAclCalPrefix+ "owner";
         /// <summary>string constant for the root role</summary>
-        public const string CALENDAR_ROLE_ROOT = AccessControlNameTable.gAclCalPrefix+ "root";
+        public const string CALENDAR_ROLE_ROOT = AclNameTable.gAclCalPrefix+ "root";
 
         /// <summary>object constant for the none role</summary>
         public static AclRole ACL_NONE = new AclRole(ROLE_NONE);
@@ -59,7 +59,7 @@ namespace Google.GData.AccessControl
         ///  default constructor
         /// </summary>
         public AclRole()
-        : base(AccessControlNameTable.XmlAclRoleElement)
+        : base(AclNameTable.XmlAclRoleElement)
         {
         }
 
@@ -68,7 +68,7 @@ namespace Google.GData.AccessControl
         /// </summary>
         /// <param name="value">transparency value</param>
         public AclRole(string value)
-        : base(AccessControlNameTable.XmlAclRoleElement, value)
+        : base(AclNameTable.XmlAclRoleElement, value)
         {
         }
 
@@ -77,14 +77,14 @@ namespace Google.GData.AccessControl
         //////////////////////////////////////////////////////////////////////
         public override string XmlNamespace
         {
-            get { return AccessControlNameTable.gAclNamespace; }
+            get { return AclNameTable.gAclNamespace; }
         }
         //////////////////////////////////////////////////////////////////////
         /// <summary>Returns the constant representing this XML element.</summary> 
         //////////////////////////////////////////////////////////////////////
         public override string XmlNamespacePrefix
         {
-            get { return AccessControlNameTable.gAclAlias; }
+            get { return AclNameTable.gAclAlias; }
         }
 
         /// <summary>
@@ -96,8 +96,8 @@ namespace Google.GData.AccessControl
         {
             AclRole role = null;
             Tracing.TraceMsg("Parsing a gAcl:AclRole");
-            if (String.Compare(node.NamespaceURI, AccessControlNameTable.gAclNamespace, true) == 0
-                && String.Compare(node.LocalName, AccessControlNameTable.XmlAclRoleElement) == 0)
+            if (String.Compare(node.NamespaceURI, AclNameTable.gAclNamespace, true) == 0
+                && String.Compare(node.LocalName, AclNameTable.XmlAclRoleElement) == 0)
             {
                 role = new AclRole();
                 if (node.Attributes != null)

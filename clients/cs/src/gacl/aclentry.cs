@@ -40,7 +40,7 @@ namespace Google.GData.AccessControl
         /// Category used to label entries that contain AccessControl extension data.
         /// </summary>
         public static AtomCategory ACL_CATEGORY =
-        new AtomCategory(AccessControlNameTable.ACL_KIND, new AtomUri(BaseNameTable.gKind));
+        new AtomCategory(AclNameTable.ACL_KIND, new AtomUri(BaseNameTable.gKind));
 
         /// <summary>
         /// Constructs a new AccessControlEntry instance with the appropriate category
@@ -109,16 +109,16 @@ namespace Google.GData.AccessControl
             Tracing.TraceCall("AclEntry:Parse is called:" + e);
             XmlNode node = e.ExtensionElement;
  
-            if (String.Compare(node.NamespaceURI, AccessControlNameTable.gAclNamespace, true) == 0)
+            if (String.Compare(node.NamespaceURI, AclNameTable.gAclNamespace, true) == 0)
             {
                 // Parse a Role Element
-                if (node.LocalName == AccessControlNameTable.XmlAclRoleElement)
+                if (node.LocalName == AclNameTable.XmlAclRoleElement)
                 {
                     this.Role = AclRole.parse(node);
                     e.DiscardEntry = true;
                 }
                 // Parse a Where Element
-                else if (node.LocalName == AccessControlNameTable.XmlAclScopeElement)
+                else if (node.LocalName == AclNameTable.XmlAclScopeElement)
                 {
                     this.Scope = AclScope.parse(node);
                     e.DiscardEntry = true;

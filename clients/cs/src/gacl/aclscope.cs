@@ -45,7 +45,7 @@ namespace Google.GData.AccessControl
         //////////////////////////////////////////////////////////////////////
         public string XmlName
         {
-            get { return AccessControlNameTable.XmlAclScopeElement; }
+            get { return AclNameTable.XmlAclScopeElement; }
         }
 
 
@@ -97,19 +97,19 @@ namespace Google.GData.AccessControl
         {
             AclScope scope = null;
             Tracing.TraceMsg("Parsing a gAcl:AclScope" + node);
-            if (String.Compare(node.NamespaceURI, AccessControlNameTable.gAclNamespace, true) == 0
-                && String.Compare(node.LocalName, AccessControlNameTable.XmlAclScopeElement) == 0)
+            if (String.Compare(node.NamespaceURI, AclNameTable.gAclNamespace, true) == 0
+                && String.Compare(node.LocalName, AclNameTable.XmlAclScopeElement) == 0)
             {
                 scope = new AclScope();
                 if (node.Attributes != null)
                 {
-                    if (node.Attributes[AccessControlNameTable.XmlAttributeValue] != null)
+                    if (node.Attributes[AclNameTable.XmlAttributeValue] != null)
                     {
-                        scope.Value = node.Attributes[AccessControlNameTable.XmlAttributeValue].Value;
+                        scope.Value = node.Attributes[AclNameTable.XmlAttributeValue].Value;
                     }
-                    if (node.Attributes[AccessControlNameTable.XmlAttributeType] != null)
+                    if (node.Attributes[AclNameTable.XmlAttributeType] != null)
                     {
-                        scope.Type = node.Attributes[AccessControlNameTable.XmlAttributeType].Value;
+                        scope.Type = node.Attributes[AclNameTable.XmlAttributeType].Value;
                     }
                     Tracing.TraceMsg("AclScope parsed, value = " + scope.Value + ", type= " + scope.Type);
                 }
@@ -127,14 +127,14 @@ namespace Google.GData.AccessControl
             if (Utilities.IsPersistable(this.type) ||
                 Utilities.IsPersistable(this.value))
             {
-                writer.WriteStartElement(AccessControlNameTable.gAclAlias, XmlName, AccessControlNameTable.gAclNamespace);
+                writer.WriteStartElement(AclNameTable.gAclAlias, XmlName, AclNameTable.gAclNamespace);
                 if (Utilities.IsPersistable(this.type))
                 {
-                    writer.WriteAttributeString(AccessControlNameTable.XmlAttributeType, this.type);
+                    writer.WriteAttributeString(AclNameTable.XmlAttributeType, this.type);
                 }
                 if (Utilities.IsPersistable(this.value))
                 {
-                    writer.WriteAttributeString(AccessControlNameTable.XmlAttributeValue, this.type);
+                    writer.WriteAttributeString(AclNameTable.XmlAttributeValue, this.value);
                 }
                 writer.WriteEndElement();
             }
