@@ -63,33 +63,33 @@
             </summary>
             <param name="e"></param>
         </member>
-        <member name="T:Google.GData.AccessControl.AccessControlNameTable">
+        <member name="T:Google.GData.AccessControl.AclNameTable">
             <summary>Google Access Control List namespace</summary>
         </member>
-        <member name="F:Google.GData.AccessControl.AccessControlNameTable.gAclNamespace">
+        <member name="F:Google.GData.AccessControl.AclNameTable.gAclNamespace">
             <summary>default access control namespace</summary> 
         </member>
-        <member name="F:Google.GData.AccessControl.AccessControlNameTable.gAclPrefix">
+        <member name="F:Google.GData.AccessControl.AclNameTable.gAclPrefix">
             <summary>default access control prefix</summary> 
         </member>
-        <member name="F:Google.GData.AccessControl.AccessControlNameTable.gAclAlias">
+        <member name="F:Google.GData.AccessControl.AclNameTable.gAclAlias">
             <summary>default access control alias</summary> 
         </member>
-        <member name="F:Google.GData.AccessControl.AccessControlNameTable.LINK_REL_ACCESS_CONTROL_LIST">
+        <member name="F:Google.GData.AccessControl.AclNameTable.LINK_REL_ACCESS_CONTROL_LIST">
             <summary>Link that provides the URI for the access control list feed 
             </summary> 
         </member>
-        <member name="F:Google.GData.AccessControl.AccessControlNameTable.LINK_REL_CONTROLLED_OBJECT">
+        <member name="F:Google.GData.AccessControl.AclNameTable.LINK_REL_CONTROLLED_OBJECT">
             <summary>UIR for the entry that is controlled by the ACL feed
             </summary> 
         </member>
-        <member name="F:Google.GData.AccessControl.AccessControlNameTable.ACL_KIND">
+        <member name="F:Google.GData.AccessControl.AclNameTable.ACL_KIND">
             <summary>access kind</summary> 
         </member>
-        <member name="F:Google.GData.AccessControl.AccessControlNameTable.XmlAclScopeElement">
+        <member name="F:Google.GData.AccessControl.AclNameTable.XmlAclScopeElement">
             <summary>the scope element</summary> 
         </member>
-        <member name="F:Google.GData.AccessControl.AccessControlNameTable.XmlAclRoleElement">
+        <member name="F:Google.GData.AccessControl.AclNameTable.XmlAclRoleElement">
             <summary>the role element</summary> 
         </member>
         <member name="T:Google.GData.AccessControl.AclRole">
