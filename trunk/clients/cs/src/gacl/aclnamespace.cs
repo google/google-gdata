@@ -23,7 +23,7 @@ namespace Google.GData.AccessControl
     ///////////////////////////////////////////////////////////////////////
     /// <summary>Google Access Control List namespace</summary>
     ///////////////////////////////////////////////////////////////////////
-    public class AccessControlNameTable : BaseNameTable
+    public class AclNameTable : BaseNameTable
     {
         /// <summary>default access control namespace</summary> 
         public const string gAclNamespace = "http://schemas.google.com/acl/2007";
