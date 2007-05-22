@@ -47,7 +47,25 @@ namespace Google.GData.Calendar {
             this.NewFeed += new ServiceEventHandler(this.OnNewFeed); 
         }
 
-      
+        /// <summary>
+        /// overloaded to create typed version of Query
+        /// </summary>
+        /// <param name="feedQuery"></param>
+        /// <returns>EventFeed</returns>
+        public EventFeed Query(EventQuery feedQuery) 
+        {
+            return base.Query(feedQuery) as EventFeed;
+        }
+
+         /// <summary>
+        /// overloaded to create typed version of Query
+        /// </summary>
+        /// <param name="feedQuery"></param>
+        /// <returns>EventFeed</returns>
+        public AclFeed Query(AclQuery feedQuery) 
+        {
+            return base.Query(feedQuery) as AclFeed;
+        }
         //////////////////////////////////////////////////////////////////////
         /// <summary>eventchaining. We catch this by from the base service, which 
         /// would not by default create an atomFeed</summary> 

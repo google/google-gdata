@@ -22,6 +22,18 @@ using Google.GData.Client;
 
 namespace Google.GData.AccessControl 
 {
+
+     //////////////////////////////////////////////////////////////////////
+    /// <summary>
+    /// A subclass of FeedQuery, to create an ACL query URI.
+    /// currently only exists to allow a Service.Query overload that 
+    /// creates an ACL feed
+    /// </summary> 
+    //////////////////////////////////////////////////////////////////////
+    public class AclQuery : FeedQuery
+    {
+    }
+
     //////////////////////////////////////////////////////////////////////
     /// <summary>
     /// AccessControlFeed customization class
