@@ -31,6 +31,9 @@ namespace Google.GData.AccessControl
         /// <summary>default access control prefix</summary> 
         public const string gAclPrefix = gAclNamespace + "#";
 
+        /// <summary>
+        /// hash prefixed start for AclNamespace strings
+        /// </summary>
         public const string gAclCalPrefix = GDataParserNameTable.NSGCal + "#";
 
         /// <summary>default access control alias</summary> 

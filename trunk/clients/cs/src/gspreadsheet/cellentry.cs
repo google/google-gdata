@@ -314,7 +314,7 @@ namespace Google.GData.Spreadsheets
         /// <summary>
         /// Parses the inner state of the element
         /// </summary>
-        /// <param name="cellNode">A g-scheme, xml node</param>
+        /// <param name="e">the event arguments</param>
         /// <param name="parser">The AtomFeedParser that called this</param>
         public override void Parse(ExtensionElementEventArgs e, AtomFeedParser parser)
         {

@@ -52,6 +52,7 @@ namespace Google.GData.CodeSearch
         /// other potential parsing tasks
         /// </summary>
         /// <param name="e"></param>
+        /// <param name="parser">the atom feed parser used</param>
         protected override void HandleExtensionElements(ExtensionElementEventArgs e, AtomFeedParser parser)
         {
         }

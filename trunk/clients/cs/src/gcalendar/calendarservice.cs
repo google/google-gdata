@@ -50,8 +50,8 @@ namespace Google.GData.Calendar {
         /// <summary>
         /// overloaded to create typed version of Query
         /// </summary>
-        /// <param name="feedQuery"></param>
-        /// <returns>EventFeed</returns>
+        /// <param name="feedQuery"></param>
+        /// <returns>EventFeed</returns>
         public EventFeed Query(EventQuery feedQuery) 
         {
             return base.Query(feedQuery) as EventFeed;
@@ -60,9 +60,8 @@ namespace Google.GData.Calendar {
          /// <summary>
         /// overloaded to create typed version of Query
         /// </summary>
-        /// <param name="feedQuery"></param>
-        /// <returns>EventFeed</returns>
-        public AclFeed Query(AclQuery feedQuery) 
+        /// <param name="feedQuery"></param>
+        /// <returns>EventFeed</returns>        public AclFeed Query(AclQuery feedQuery) 
         {
             return base.Query(feedQuery) as AclFeed;
         }

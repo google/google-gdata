@@ -37,7 +37,7 @@
             <summary>
             Parses the inner state of the element
             </summary>
-            <param name="cellNode">A g-scheme, xml node</param>
+            <param name="e">the event arguments</param>
             <param name="parser">The AtomFeedParser that called this</param>
         </member>
         <member name="P:Google.GData.Spreadsheets.CellEntry.Cell">
@@ -137,7 +137,8 @@
             get's called after we already handled the custom entry, to handle all 
             other potential parsing tasks
             </summary>
-            <param name="e"></param>
+            <param name="e">the event arguments</param>
+            <param name="parser">the atom feed parser calling</param>
         </member>
         <member name="P:Google.GData.Spreadsheets.CellFeed.RowCount">
             <summary>
@@ -491,7 +492,8 @@
             get's called after we already handled the custom entry, to handle all 
             other potential parsing tasks
             </summary>
-            <param name="e"></param>
+            <param name="e">the event arguments</param>
+            <param name="parser">the atom feed parser calling</param>
         </member>
         <member name="T:Google.GData.Spreadsheets.ListQuery">
             <summary>
@@ -652,7 +654,8 @@
             get's called after we already handled the custom entry, to handle all 
             other potential parsing tasks
             </summary>
-            <param name="e"></param>
+            <param name="e">the event arguments</param>
+            <param name="parser">the atom feed parser calling</param>
         </member>
         <member name="T:Google.GData.Spreadsheets.SpreadsheetQuery">
             <summary>
@@ -746,8 +749,8 @@
             <summary>
             Parses the inner state of the element
             </summary>
-            <param name="worksheetNode">A g-scheme, xml node</param>
-            <param name="parser">The AtomFeedParser that called this</param>
+            <param name="e">the event arguments</param>
+            <param name="parser">the atom feed parser calling</param>
         </member>
         <member name="P:Google.GData.Spreadsheets.WorksheetEntry.ColCount">
             <summary>
@@ -782,7 +785,8 @@
             get's called after we already handled the custom entry, to handle all 
             other potential parsing tasks
             </summary>
-            <param name="e"></param>
+            <param name="e">the event arguments</param>
+            <param name="parser">the atom feed parser calling</param>
         </member>
         <member name="T:Google.GData.Spreadsheets.WorksheetQuery">
             <summary>

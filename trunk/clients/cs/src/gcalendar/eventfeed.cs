@@ -225,7 +225,7 @@ namespace Google.GData.Calendar {
         /// get's called after we already handled the custom entry, to handle all 
         /// other potential parsing tasks
         /// </summary>
-        /// <param name="e"></param>
+        /// <param name="e"></param>        /// <param name="parser">the atom feed parser used</param>
         protected override void HandleExtensionElements(ExtensionElementEventArgs e, AtomFeedParser parser)
         {
              Tracing.TraceMsg("\t HandleExtensionElements for CalendarFeed called");

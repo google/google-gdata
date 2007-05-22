@@ -51,7 +51,8 @@ namespace Google.GData.Spreadsheets
         /// get's called after we already handled the custom entry, to handle all 
         /// other potential parsing tasks
         /// </summary>
-        /// <param name="e"></param>
+        /// <param name="e">the event arguments</param>
+        /// <param name="parser">the atom feed parser calling</param>
         protected override void HandleExtensionElements(ExtensionElementEventArgs e, AtomFeedParser parser)
         {
              Tracing.TraceMsg("\t HandleExtensionElements for ListFeedcalled");

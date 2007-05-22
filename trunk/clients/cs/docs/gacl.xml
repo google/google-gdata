@@ -68,7 +68,8 @@
             get's called after we already handled the custom entry, to handle all 
             other potential parsing tasks
             </summary>
-            <param name="e"></param>
+            <param name="e">the Event arguments</param>
+            <param name="parser">the atom feed parser used</param>
         </member>
         <member name="T:Google.GData.AccessControl.AclNameTable">
             <summary>Google Access Control List namespace</summary>
@@ -78,6 +79,11 @@
         </member>
         <member name="F:Google.GData.AccessControl.AclNameTable.gAclPrefix">
             <summary>default access control prefix</summary> 
+        </member>
+        <member name="F:Google.GData.AccessControl.AclNameTable.gAclCalPrefix">
+            <summary>
+            hash prefixed start for AclNamespace strings
+            </summary>
         </member>
         <member name="F:Google.GData.AccessControl.AclNameTable.gAclAlias">
             <summary>default access control alias</summary> 
