@@ -295,21 +295,6 @@ namespace Google.GData.Spreadsheets
         }
 
 #region override persistence
-        /*public new void SaveToXml(Stream stream)
-        {
-            this.ExtensionElements.Clear();
-            this.ExtensionElements.Add(Elements);
-            base.SaveToXml(stream);
-        }
-        
-        public new void SaveToXml(XmlWriter writer)
-        {
-            this.ExtensionElements.Clear();
-            this.ExtensionElements.Add(Elements);
-            base.SaveToXml(writer);
-        }*/
-#endregion
-
         /// <summary>
         /// Parses the inner state of the element. TODO. 
         /// </summary>
@@ -323,4 +308,6 @@ namespace Google.GData.Spreadsheets
             }
         }
     }
+#endregion
+
 }

@@ -106,7 +106,7 @@ namespace Google.GData.Extensions
         }
 
         /// <summary>
-        /// Persistence method for the When object
+        /// Persistence method for the Extended property object
         /// </summary>
         /// <param name="writer">the xmlwriter to write into</param>
         public void Save(XmlWriter writer)
