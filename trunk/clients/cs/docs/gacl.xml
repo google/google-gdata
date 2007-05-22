@@ -35,6 +35,13 @@
              property accessor for the AclScope
             </summary>
         </member>
+        <member name="T:Google.GData.AccessControl.AclQuery">
+            <summary>
+            A subclass of FeedQuery, to create an ACL query URI.
+            currently only exists to allow a Service.Query overload that 
+            creates an ACL feed
+            </summary> 
+        </member>
         <member name="T:Google.GData.AccessControl.AclFeed">
             <summary>
             AccessControlFeed customization class
