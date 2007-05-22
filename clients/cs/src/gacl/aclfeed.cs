@@ -65,11 +65,12 @@ namespace Google.GData.AccessControl
             return new AclEntry();
         }
 
-          /// <summary>
+        /// <summary>
         /// get's called after we already handled the custom entry, to handle all 
         /// other potential parsing tasks
         /// </summary>
-        /// <param name="e"></param>
+        /// <param name="e">the Event arguments</param>
+        /// <param name="parser">the atom feed parser used</param>
         protected override void HandleExtensionElements(ExtensionElementEventArgs e, AtomFeedParser parser)
         {
              Tracing.TraceMsg("\t HandleExtensionElements for Access Control feed called");

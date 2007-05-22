@@ -24,8 +24,17 @@
             <param name="applicationName">the applicationname</param>
         </member>
         <member name="M:Google.GData.Calendar.CalendarService.Query(Google.GData.Calendar.EventQuery)">
-            <returns>EventFeed</returns>        </member>
+            <summary>
+            overloaded to create typed version of Query
+            </summary>
+            <param name="feedQuery"></param>
+            <returns>EventFeed</returns>
+        </member>
         <member name="M:Google.GData.Calendar.CalendarService.Query(Google.GData.AccessControl.AclQuery)">
+            <summary>
+            overloaded to create typed version of Query
+            </summary>
+            <param name="feedQuery"></param>
             <returns>EventFeed</returns>        </member>
         <member name="M:Google.GData.Calendar.CalendarService.OnNewFeed(System.Object,Google.GData.Client.ServiceEventArgs)">
             <summary>eventchaining. We catch this by from the base service, which 
@@ -58,7 +67,7 @@
         </member>
         <member name="M:Google.GData.Calendar.EventEntry.Parse(Google.GData.Client.ExtensionElementEventArgs,Google.GData.Client.AtomFeedParser)">
             <summary>parses the inner state of the element</summary>
-            <param name="eventNode">a g-scheme, xml node</param>
+            <param name="e">evennt arguments</param>
             <param name="parser">the atomFeedParser that called this</param>
         </member>
         <member name="P:Google.GData.Calendar.EventEntry.Times">
@@ -329,7 +338,8 @@
             get's called after we already handled the custom entry, to handle all 
             other potential parsing tasks
             </summary>
-            <param name="e"></param>        </member>
+            <param name="e"></param>            <param name="parser">the atom feed parser used</param>
+        </member>
         <member name="P:Google.GData.Calendar.EventFeed.Location">
             <summary>accessor for the Location collection</summary>
         </member>

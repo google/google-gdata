@@ -31,12 +31,20 @@ using System.Net;
 namespace Google.GData.Client
 {
 
+    /// <summary>
+    /// EventArgument class for service level events during parsing
+    /// </summary>
     public class ServiceEventArgs : EventArgs
     {
         private AtomFeed feedObject;
         private IService service;
         private Uri uri;
 
+        /// <summary>
+        /// constructor. Takes the URI and the service this event applies to
+        /// </summary>
+        /// <param name="uri">URI currently executed</param>
+        /// <param name="service">service object doing the execution</param>
         public ServiceEventArgs(Uri uri, IService service) 
         {
             this.service = service;
@@ -456,11 +464,9 @@ namespace Google.GData.Client
         /// running the other insert/saves through here, as this would involve
         /// double buffering/copying of the bytes
         /// </summary>
-        /// <param name="targetUri"></param>
-        /// <param name="payload"></param>
-        /// <param name="type"></param>
-        /// <returns>Stream</returns>
-        public Stream StreamSend(Uri targetUri, String payload, GDataRequestType type)
+        /// <param name="targetUri"></param>
+        /// <param name="payload"></param>        /// <param name="type"></param>
+        /// <returns>Stream</returns>        public Stream StreamSend(Uri targetUri, String payload, GDataRequestType type)
         {
             Tracing.Assert(targetUri != null, "targetUri should not be null");
             if (targetUri == null)

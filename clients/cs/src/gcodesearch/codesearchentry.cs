@@ -72,7 +72,7 @@ namespace Google.GData.CodeSearch
 
        //////////////////////////////////////////////////////////////////////
         /// <summary>parses the inner state of the element</summary>
-        /// <param name="eventNode">a g-scheme, xml node</param>
+        /// <param name="e">the Event arguments</param>
         /// <param name="parser">the atomFeedParser that called this</param>
         //////////////////////////////////////////////////////////////////////
         public override void Parse(ExtensionElementEventArgs e, AtomFeedParser parser)

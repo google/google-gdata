@@ -718,6 +718,13 @@
             <param name="e">FeedParserEventArguments, holds the feedEntry</param> 
             <returns> </returns>
         </member>
+        <member name="M:Google.GData.Client.AbstractFeed.HandleExtensionElements(Google.GData.Client.ExtensionElementEventArgs,Google.GData.Client.AtomFeedParser)">
+            <summary>
+            event on the Feed to handle extension elements during parsing
+            </summary>
+            <param name="e">the event arguments</param>
+            <param name="parser">the parser that caused this</param>
+        </member>
         <member name="T:Google.GData.Client.BaseIsDirty">
             <summary>Helper object to walk the tree for the dirty flag.</summary> 
         </member>
@@ -1479,8 +1486,12 @@
         <member name="F:Google.GData.Client.BaseNameTable.XmlAttributeBatchUnprocessed">
             <summary>XmlAttribute for batch:interrupted@unprocessed</summary> 
         </member>
-        <!-- Badly formed XML comment ignored for member "F:Google.GData.Client.BaseNameTable.XmlAttributeValue" -->
-        <!-- Badly formed XML comment ignored for member "F:Google.GData.Client.BaseNameTable.XmlAttributeType" -->
+        <member name="F:Google.GData.Client.BaseNameTable.XmlAttributeValue">
+            <summary>XmlAttribute for value in enums</summary> 
+        </member>
+        <member name="F:Google.GData.Client.BaseNameTable.XmlAttributeType">
+            <summary>XmlAttribute for value in enums</summary> 
+        </member>
         <member name="F:Google.GData.Client.BaseNameTable.atomNameTable">
             <summary>the nametable itself, based on XML core</summary> 
         </member>
@@ -2792,6 +2803,9 @@
         <member name="F:Google.GData.Client.GDataRequestException.webResponse">
             <summary>holds the webresponse object</summary> 
         </member>
+        <member name="F:Google.GData.Client.GDataRequestException.responseText">
+            <summary>cache to hold the responseText in an error scenario</summary>
+        </member>
         <member name="M:Google.GData.Client.GDataRequestException.#ctor">
             <summary>default constructor so that FxCop does not complain</summary> 
         </member>
@@ -3539,6 +3553,18 @@
             <param name="streamInput">input stream to parse </param>
             <param name="feed">the feed object to construct</param>
         </member>
+        <member name="T:Google.GData.Client.ServiceEventArgs">
+            <summary>
+            EventArgument class for service level events during parsing
+            </summary>
+        </member>
+        <member name="M:Google.GData.Client.ServiceEventArgs.#ctor(System.Uri,Google.GData.Client.IService)">
+            <summary>
+            constructor. Takes the URI and the service this event applies to
+            </summary>
+            <param name="uri">URI currently executed</param>
+            <param name="service">service object doing the execution</param>
+        </member>
         <member name="P:Google.GData.Client.ServiceEventArgs.Feed">
             <summary>the feed to be created. If this is NULL, a service 
             will create a DEFAULT atomfeed</summary> 
@@ -3667,6 +3693,13 @@
             <returns> the response as a stream</returns>
         </member>
         <member name="M:Google.GData.Client.Service.StreamSend(System.Uri,System.String,Google.GData.Client.GDataRequestType)">
+            <summary>
+            this is a helper function for external utilities. It is not worth
+            running the other insert/saves through here, as this would involve
+            double buffering/copying of the bytes
+            </summary>
+            <param name="targetUri"></param>
+            <param name="payload"></param>            <param name="type"></param>
             <returns>Stream</returns>        </member>
         <member name="M:Google.GData.Client.Service.createFeed(System.Uri)">
             <summary>creates a new feed instance to be returned by

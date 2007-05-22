@@ -159,9 +159,9 @@ namespace Google.GData.Client
         public const string XmlAttributeBatchField = "field"; 
         /// <summary>XmlAttribute for batch:interrupted@unprocessed</summary> 
         public const string XmlAttributeBatchUnprocessed = "unprocessed"; 
-        /// <summary>XmlAttribute for value in enums/summary> 
+        /// <summary>XmlAttribute for value in enums</summary> 
         public const string XmlAttributeValue = "value"; 
-        /// <summary>XmlAttribute for value in enums/summary> 
+        /// <summary>XmlAttribute for value in enums</summary> 
         public const string XmlAttributeType = "type"; 
 
         //////////////////////////////////////////////////////////////////////

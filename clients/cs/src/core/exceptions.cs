@@ -207,6 +207,7 @@ namespace Google.GData.Client
 
         /// <summary>holds the webresponse object</summary> 
         protected WebResponse webResponse;
+        /// <summary>cache to hold the responseText in an error scenario</summary>
         protected string      responseText;
 
         //////////////////////////////////////////////////////////////////////

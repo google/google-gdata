@@ -83,8 +83,8 @@ namespace Google.GData.Spreadsheets
         /// <summary>
         /// Parses the inner state of the element
         /// </summary>
-        /// <param name="worksheetNode">A g-scheme, xml node</param>
-        /// <param name="parser">The AtomFeedParser that called this</param>
+        /// <param name="e">the event arguments</param>
+        /// <param name="parser">the atom feed parser calling</param>
         public override void Parse(ExtensionElementEventArgs e, AtomFeedParser parser)
         {
             XmlNode worksheetNode = e.ExtensionElement;

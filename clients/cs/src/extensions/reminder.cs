@@ -64,24 +64,44 @@ namespace Google.GData.Extensions {
      ///  multiple gd:rem  InvalidEntry-  InvalidEntry-  copy this set exactly
      ///                   Exception      Exception
      ///
-     /// Hence, to override an event with a set of reminder <time, method>
+     /// Hence, to override an event with a set of reminder time, method
      /// pairs, just specify them exactly.  To clear an event of all
      /// overrides (and go back to inheriting the user's defaults), one can
      /// simply specify a single gd:reminder with no extra attributes.  To
      /// have NO event reminders on an event, either set a single
      /// gd:reminder with negative reminder time, or simply update the event
-     /// with a single <gd:reminder method=none/>.
+     /// with a single gd:reminder method=none.
      ///
     /// </summary>
     public class Reminder : IExtensionElement
     {
- 
-         public enum ReminderMethod {
+        /// <summary>
+        /// the different reminder methods available
+        /// </summary>
+        public enum ReminderMethod {
+            /// <summary>
+            /// visible alert
+            /// </summary>
                 alert,
+            /// <summary>
+            /// all alerts
+            /// </summary>
                 all,
+            /// <summary>
+            /// alert per email
+            /// </summary>
                 email,
+            /// <summary>
+            /// no aert
+            /// </summary>
                 none,
+            /// <summary>
+            /// alert per SMS
+            /// </summary>
                 sms,
+            /// <summary>
+            /// no alert specified (invalid)
+            /// </summary>
                 unspecified
          };
 
