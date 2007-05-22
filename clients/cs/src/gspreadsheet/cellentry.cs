@@ -290,7 +290,7 @@ namespace Google.GData.Spreadsheets
             string strPrefix = writer.LookupPrefix(GDataSpreadsheetsNameTable.NSGSpreadsheets);
             if (strPrefix == null)
             {
-                writer.WriteAttributeString("xmlns", GDataSpreadsheetsNameTable.NSGSpreadsheetsPrefix, null, GDataSpreadsheetsNameTable.NSGSpreadsheets);
+                writer.WriteAttributeString("xmlns", GDataSpreadsheetsNameTable.Prefix, null, GDataSpreadsheetsNameTable.NSGSpreadsheets);
             }
         }
 
