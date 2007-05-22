@@ -23,6 +23,10 @@
             </summary>
             <param name="applicationName">the applicationname</param>
         </member>
+        <member name="M:Google.GData.Calendar.CalendarService.Query(Google.GData.Calendar.EventQuery)">
+            <returns>EventFeed</returns>        </member>
+        <member name="M:Google.GData.Calendar.CalendarService.Query(Google.GData.AccessControl.AclQuery)">
+            <returns>EventFeed</returns>        </member>
         <member name="M:Google.GData.Calendar.CalendarService.OnNewFeed(System.Object,Google.GData.Client.ServiceEventArgs)">
             <summary>eventchaining. We catch this by from the base service, which 
             would not by default create an atomFeed</summary> 
