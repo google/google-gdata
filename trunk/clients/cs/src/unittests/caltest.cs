@@ -500,8 +500,8 @@ namespace Google.GData.Client.UnitTests
         {
             Tracing.TraceMsg("Entering CalendarACLTest");
 
-            EventQuery query = new EventQuery();
-            Service service = new Service("cl", this.ApplicationName);
+            AclQuery query = new AclQuery();
+            CalendarService service = new CalendarService(this.ApplicationName);
 
             int iCount; 
 
@@ -520,7 +520,7 @@ namespace Google.GData.Client.UnitTests
                // service.NewFeed += new ServiceEventHandler(this.OnNewAclFeed); 
 
                 query.Uri = new Uri(this.aclFeedUri);
-                AclFeed aclFeed = service.Query(query) as AclFeed;
+                AclFeed aclFeed = service.Query(query);
                 AclEntry newEntry = null;
 
                 iCount = aclFeed.Entries.Count; 
