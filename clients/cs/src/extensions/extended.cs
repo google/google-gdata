@@ -116,7 +116,7 @@ namespace Google.GData.Extensions
             {
                 writer.WriteStartElement(BaseNameTable.gDataPrefix, XmlName, BaseNameTable.gNamespace);
                 writer.WriteAttributeString(AtomParserNameTable.XmlNameElement, this.Name); 
-                if (Utilities.IsPersistable(this.Value))
+                if (this.Value != null)
                 {
                     writer.WriteAttributeString(GDataParserNameTable.XmlAttributeValue, this.Value); 
                 }
