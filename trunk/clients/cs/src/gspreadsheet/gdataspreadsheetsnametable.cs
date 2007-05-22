@@ -28,6 +28,15 @@ namespace Google.GData.Spreadsheets
     /// </summary>
     public class GDataSpreadsheetsNameTable : GDataParserNameTable
     {
+        /// <summary>indicates a spreadsheet feed in the URI</summary>
+        public const string FeedSpreadsheet = "spreadsheets";
+       /// <summary>indicates a worksheet feed in the URI</summary>
+        public const string FeedWorksheet = "worksheets";
+       /// <summary>indicates a list feed in the URI</summary>
+        public const string FeedList = "list";
+       /// <summary>indicates a cell feed in the URI</summary>
+        public const string FeedCell = "cells";
+
         /// <summary>Spreadsheets namespace</summary>
         public const string NSGSpreadsheets = "http://schemas.google.com/spreadsheets/2006";
 
@@ -53,17 +62,15 @@ namespace Google.GData.Spreadsheets
         public const string WorksheetRel = NSGSpreadsheetsPrefix + "worksheetsfeed";
 
         /// <summary>The spreadsheet prefix </summary>
-        public const string Spreadsheet = NSGSpreadsheetsPrefix + "spreadsheet";
+        public const string Spreadsheet = NSGSpreadsheetsPrefix + FeedSpreadsheet;
 
         /// <summary>The cell prefix </summary>
-        public const string Cell = NSGSpreadsheetsPrefix + "cell";
-
+        public const string Cell = NSGSpreadsheetsPrefix + FeedCell;
         /// <summary>The list prefix </summary>
-        public const string List = NSGSpreadsheetsPrefix + "list";
+        public const string List = NSGSpreadsheetsPrefix + FeedList;
 
         /// <summary>The worksheet prefix </summary>
-        public const string Worksheet = NSGSpreadsheetsPrefix + "worksheet";
-
+        public const string Worksheet = NSGSpreadsheetsPrefix + FeedWorksheet;
         /// <summary>The sources prefix </summary>
         public const string Source = NSGSpreadsheetsPrefix + "source"; 
 

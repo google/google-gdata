@@ -37,6 +37,8 @@ namespace Google.GData.Spreadsheets
         /// <summary>The Spreadsheets service's name</summary>
         public const string GSpreadsheetsService = "wise";
 
+
+
         /// <summary>
         /// Constructor
         /// </summary>
@@ -45,12 +47,8 @@ namespace Google.GData.Spreadsheets
         public SpreadsheetsService(string applicationName)
         : base(GSpreadsheetsService, applicationName, GSpreadsheetsAgent)
         {
-            this.NewAtomEntry += new FeedParserEventHandler(this.OnParsedNewCellEntry);
-            this.NewExtensionElement += new ExtensionElementEventHandler(this.OnNewCellExtensionElement);
-
-            this.NewAtomEntry += new FeedParserEventHandler(this.OnParsedNewListEntry);
-            this.NewExtensionElement += new ExtensionElementEventHandler(this.OnNewListExtensionElement);
-         }
+            this.NewFeed += new ServiceEventHandler(this.OnNewFeed); 
+        }
 
         /// <summary>
         ///  overwritten Query method
@@ -59,11 +57,7 @@ namespace Google.GData.Spreadsheets
         /// <returns>the retrieved CellFeed</returns>
         public CellFeed Query(CellQuery feedQuery)
         {
-            Stream feedStream = Query(feedQuery.Uri);
-            CellFeed feed = new CellFeed(feedQuery.Uri, this);
-            feed.Parse(feedStream, AlternativeFormat.Atom);
-            feedStream.Close(); 
-            return feed;
+            return base.Query(feedQuery) as CellFeed;
         }
 
         /// <summary>
@@ -73,11 +67,7 @@ namespace Google.GData.Spreadsheets
         /// <returns>the retrieved ListFeed</returns>
         public ListFeed Query(ListQuery feedQuery)
         {
-            Stream feedStream = Query(feedQuery.Uri);
-            ListFeed feed = new ListFeed(feedQuery.Uri, this);
-            feed.Parse(feedStream, AlternativeFormat.Atom);
-            feedStream.Close(); 
-            return feed;
+            return base.Query(feedQuery) as ListFeed;
         }
 
         /// <summary>
@@ -87,11 +77,7 @@ namespace Google.GData.Spreadsheets
         /// <returns>the retrieved SpreadsheetFeed</returns>
         public SpreadsheetFeed Query(SpreadsheetQuery feedQuery)
         {
-            Stream feedStream = Query(feedQuery.Uri);
-            SpreadsheetFeed feed = new SpreadsheetFeed(feedQuery.Uri, this);
-            feed.Parse(feedStream, AlternativeFormat.Atom);
-            feedStream.Close(); 
-            return feed;
+            return base.Query(feedQuery) as SpreadsheetFeed;
         }
 
         /// <summary>
@@ -101,108 +87,44 @@ namespace Google.GData.Spreadsheets
         /// <returns>the retrieved WorksheetFeed</returns>
         public WorksheetFeed Query(WorksheetQuery feedQuery)
         {
-            Stream feedStream = Query(feedQuery.Uri);
-            WorksheetFeed feed = new WorksheetFeed(feedQuery.Uri, this);
-            feed.Parse(feedStream, AlternativeFormat.Atom);
-            feedStream.Close(); 
-            return feed;
+            return base.Query(feedQuery) as WorksheetFeed;
         }
 
-        /// <summary>
-        /// Event handler. Called when a new cell entry is parsed.
-        /// </summary>
-        /// <param name="sender">the object that's sending the evet</param>
-        /// <param name="e">FeedParserEventArguments, holds the feedentry</param>
-        protected void OnParsedNewCellEntry(object sender, FeedParserEventArgs e)
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>eventchaining. We catch this by from the base service, which 
+        /// would not by default create an atomFeed</summary> 
+        /// <param name="sender"> the object which send the event</param>
+        /// <param name="e">FeedParserEventArguments, holds the feedentry</param> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        protected void OnNewFeed(object sender, ServiceEventArgs e)
         {
+            Tracing.TraceMsg("Created new Spreadsheet Feed");
             if (e == null)
             {
-                throw new ArgumentNullException("e");
+                throw new ArgumentNullException("e"); 
             }
-            if (e.CreatingEntry == true)
+            if (e.Uri.AbsoluteUri.IndexOf("/" + 
+                  GDataSpreadsheetsNameTable.FeedCell + "/") != -1)
             {
-                e.Entry = new CellEntry();
+                e.Feed = new CellFeed(e.Uri, e.Service);
+            } 
+            else if (e.Uri.AbsoluteUri.IndexOf("/" + 
+                  GDataSpreadsheetsNameTable.FeedList + "/") != -1)
+            {
+                e.Feed = new ListFeed(e.Uri, e.Service);
+            }
+            else if(e.Uri.AbsoluteUri.IndexOf("/" + 
+                  GDataSpreadsheetsNameTable.FeedSpreadsheet + "/") != -1)
+            {
+                e.Feed = new SpreadsheetFeed(e.Uri, e.Service);
+            }
+            else if(e.Uri.AbsoluteUri.IndexOf("/" + 
+                  GDataSpreadsheetsNameTable.FeedWorksheet + "/") != -1)
+            {
+                e.Feed = new WorksheetFeed(e.Uri, e.Service);
             }
         }
-
-        /// <summary>
-        /// Event handler.  Called for a cell extension element.
-        /// </summary>
-        /// <param name="sender">the object that's sending the event</param>
-        /// <param name="e">FeedParserEventArguments, holds the feedentry</param>
-        protected void OnNewCellExtensionElement(object sender, ExtensionElementEventArgs e)
-        {
-            AtomFeedParser parser = sender as AtomFeedParser;
-
-            if (e == null)
-            {
-                throw new ArgumentNullException("e");
-            }
-            if (String.Compare(e.ExtensionElement.NamespaceURI, BaseNameTable.gNamespace, true) == 0)
-            {
-                // found G namespace
-                e.DiscardEntry = true;
-
-                if (e.Base.XmlName == AtomParserNameTable.XmlFeedElement)
-                {
-                }
-                else if (e.Base.XmlName == AtomParserNameTable.XmlAtomEntryElement)
-                {
-                    CellEntry cellEntry = e.Base as CellEntry;
-                    if (cellEntry != null)
-                    {
-                        cellEntry.Parse(e, parser);
-                    }
-                }
-            }
-        }
-
-        /// <summary>
-        /// Event handler. Called when a new list entry is parsed.
-        /// </summary>
-        /// <param name="sender">the object that's sending the evet</param>
-        /// <param name="e">FeedParserEventArguments, holds the feedentry</param>
-        protected void OnParsedNewListEntry(object sender, FeedParserEventArgs e)
-        {
-            if (e == null)
-            {
-                throw new ArgumentNullException("e");
-            }
-            if (e.CreatingEntry == true)
-            {
-                e.Entry = new ListEntry();
-            }
-        }
-
-        /// <summary>
-        /// Event handler.  Called for a list extension element.
-        /// </summary>
-        /// <param name="sender">the object that's sending the event</param>
-        /// <param name="e">FeedParserEventArguments, holds the feedentry</param>
-        protected void OnNewListExtensionElement(object sender, ExtensionElementEventArgs e)
-        {
-            if (e == null)
-            {
-                throw new ArgumentNullException("e");
-            }
-            if (String.Compare(e.ExtensionElement.NamespaceURI, GDataSpreadsheetsNameTable.NSGSpreadsheetsExtended, true) == 0)
-            {
-                // found G namespace
-                e.DiscardEntry = true;
-                AtomFeedParser parser = sender as AtomFeedParser;
-
-                if (e.Base.XmlName == AtomParserNameTable.XmlFeedElement)
-                {
-                }
-                else if (e.Base.XmlName == AtomParserNameTable.XmlAtomEntryElement)
-                {
-                    ListEntry ListEntry = e.Base as ListEntry;
-                    if (ListEntry != null)
-                    {
-                        ListEntry.Parse(e, parser);
-                    }
-                }
-            }
-        }
+        /////////////////////////////////////////////////////////////////////////////
     }
 }
