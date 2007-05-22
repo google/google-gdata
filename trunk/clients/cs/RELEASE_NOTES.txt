@@ -14,6 +14,7 @@
 - added a cmd line tool to query/insert/update to a service based on streams
 - modified the Spreadsheet service to use the new scheme of service subclassing. This should fix a bundle of issues
   with regard to entry castings.
+- changed persistence of gd:extendedProperty to save the value attribute, even if there is no data to persist
 
 == 1.0.9.7 ==
 - fixed an incorrect trace statement in request.cs that had the result of disabling reading the error response.
