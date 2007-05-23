@@ -32,7 +32,7 @@ using Google.GData.Calendar;
 
 namespace Google.GData.Client.UnitTests
 {
-    [TestFixture] 
+    [TestFixture]
     public class CoreTestSuite : BaseTestClass
     {
         //////////////////////////////////////////////////////////////////////
