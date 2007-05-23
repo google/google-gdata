@@ -32,7 +32,8 @@ using Google.GData.Calendar;
 
 namespace Google.GData.Client.UnitTests
 {
-    [TestFixture] 
+    [TestFixture]
+    [Category("LiveTest")]
     public class BloggerTestSuite : BaseTestClass
     {
 

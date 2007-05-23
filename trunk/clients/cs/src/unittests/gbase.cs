@@ -32,6 +32,7 @@ using Google.GData.GoogleBase;
 namespace Google.GData.Client.UnitTests
 {
     [TestFixture] 
+    [Category("LiveTest")]
     public class GBatchTestSuite : BaseTestClass
     {
 

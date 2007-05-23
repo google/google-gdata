@@ -34,6 +34,7 @@ namespace Google.GData.Client.UnitTests
 {
     [TestFixture] 
     [Category("GoogleCalendar")]
+    [Category("LiveTest")]
     public class CalendarTestSuite : BaseTestClass
     {
 

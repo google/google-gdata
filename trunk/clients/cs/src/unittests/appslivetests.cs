@@ -14,7 +14,7 @@ namespace Google.GData.Client.LiveTests
 	/// Summary description for apps.
 	/// </summary>
 	[TestFixture]
-    [Explicit]
+    [Category("LiveTest")]
     public class GoogleAFYDTestSuite : BaseLiveTestClass
 	{
         private string              domainName;
