@@ -48,7 +48,7 @@
                     BaseAddress = "285212672"
                     CheckForOverflowUnderflow = "false"
                     ConfigurationOverrideFile = ""
-                    DefineConstants = "TRACE"
+                    DefineConstants = ""
                     DocumentationFile = "bin\gextension.xml"
                     DebugSymbols = "false"
                     FileAlignment = "4096"
