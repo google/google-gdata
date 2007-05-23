@@ -42,6 +42,12 @@
             creates an ACL feed
             </summary> 
         </member>
+        <member name="M:Google.GData.AccessControl.AclQuery.#ctor">
+            <summary>default with no params</summary> 
+        </member>
+        <member name="M:Google.GData.AccessControl.AclQuery.#ctor(System.String)">
+            <summary>constructor taking a base URI constructor.</summary> 
+        </member>
         <member name="T:Google.GData.AccessControl.AclFeed">
             <summary>
             AccessControlFeed customization class
