@@ -279,7 +279,7 @@ namespace Google.GData.Spreadsheets
                 paramInsertion = '&';
             }
 
-            if (MaximumRow > 0)
+            if (MaximumRow > 0 && MaximumRow < uint.MaxValue)
             {
                 newPath.Append(paramInsertion);
 
@@ -295,7 +295,7 @@ namespace Google.GData.Spreadsheets
                 paramInsertion = '&';
             }
 
-            if (MaximumColumn > 0)
+            if (MaximumColumn > 0 && MaximumRow < uint.MaxValue)
             {
                 newPath.Append(paramInsertion);
 
