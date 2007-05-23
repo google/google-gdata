@@ -1,7 +1,7 @@
 <VisualStudioProject>
     <CSHARP
         ProjectType = "Local"
-        ProductVersion = "7.10.6030"
+        ProductVersion = "7.10.3077"
         SchemaVersion = "2.0"
         ProjectGuid = "{22D56E6B-DF29-4675-A655-B33252B7FA4B}"
     >
@@ -137,6 +137,12 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "appslivetests.cs"
+                    Link = "..\..\unittests\appslivetests.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "appsservicetest.cs"
                     Link = "..\..\unittests\gapps\appsservicetest.cs"
                     SubType = "Code"
@@ -151,6 +157,12 @@
                 <File
                     RelPath = "attributehistogramtest.cs"
                     Link = "..\..\unittests\gbase\attributehistogramtest.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "baselivetestclass.cs"
+                    Link = "..\..\unittests\baselivetestclass.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
