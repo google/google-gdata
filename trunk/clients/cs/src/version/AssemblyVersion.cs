@@ -12,8 +12,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 */
-using System.Reflection;
 using System;
+using System.Security;
+using System.Reflection;
 
 //
 // General Information about an assembly is controlled through the following 
@@ -27,12 +28,18 @@ using System;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 //
-[assembly: AssemblyTitle("")]
-[assembly: AssemblyDescription("")]
-[assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCopyright("")]
+[assembly: AssemblyTitle("Google Data")]
+[assembly: AssemblyCopyright("Copyright (c) 2006 Google Inc.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
+
+
+#if PARTIALLY_TRUSTED
+[assembly:AllowPartiallyTrustedCallers]
+[assembly: AssemblyDescription("Release Build: This assembly is marked as partially trustable. Use on your webserver at your own risk")]
+#endif 
+
+
 
 
 //
