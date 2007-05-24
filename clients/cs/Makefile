@@ -39,6 +39,7 @@ samples =	\
 	execrequest.exe			\
 	gapps_appsdemo.exe \
 	gblogger_demo.exe \
+  gcal_demo.exe \
 	gspreadsheet_demo.exe
 
 all: $(ALL_LIBS) tests $(samples)
@@ -127,6 +128,10 @@ execrequest.exe: $(ALLLIBS) $(execrequest_sources)
 gblogger_sample_sources = samples/blogger/ConsoleSample.cs
 gblogger_demo.exe: $(ALLLIBS) $(gblogger_sample_sources)
 	$(CSC) -out:$@ $(ALLREFS) $(gblogger_sample_sources)
+
+gcal_demo_sources = samples/calendar/console/CalendarDemo.cs
+gcal_demo.exe: $(ALLLIBS) $(gcal_demo_sources)
+	$(CSC) -out:$@ $(ALLREFS) $(gcal_demo_sources)
 
 gspreadsheet_demo_sources = samples/spreadsheets/spreadsheetdemo.cs
 gspreadsheet_demo.exe: $(ALLLIBS) $(gspreadsheet_demo_sources)
