@@ -94,10 +94,12 @@ namespace Google.GData.Spreadsheets
                 if (worksheetNode.LocalName == GDataSpreadsheetsNameTable.XmlColCountElement)
                 {
                     ColCount = ColCountElement.ParseColCount(worksheetNode);
+                    e.DiscardEntry = true;
                 }
                 else if (worksheetNode.LocalName == GDataSpreadsheetsNameTable.XmlRowCountElement)
                 {
                     RowCount = RowCountElement.ParseRowCount(worksheetNode);
+                    e.DiscardEntry = true;
                 }
             }
         }
