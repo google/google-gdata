@@ -1,6 +1,7 @@
 using System;
 using System.Text;
 
+using Google.GData.AccessControl;
 using Google.GData.Calendar;
 using Google.GData.Client;
 using Google.GData.Extensions;
@@ -9,9 +10,7 @@ namespace CalendarDemoConsoleApplication
 {
     class CalendarDemo
     {
-        private static String userName = "REPLACE WITH YOUR USER NAME";
-        private static String userPassword = "REPLCE WITH YOUR PASSWORD";
-        private static String feedUri = "REPLACE WITH YOUR FULL PRIVATE FEED";
+        private static String userName, userPassword, feedUri;
 
         /// <summary>
         /// Prints a list of the user's calendars.
@@ -38,11 +37,10 @@ namespace CalendarDemoConsoleApplication
         /// Prints the titles of all events on the specified calendar.
         /// </summary>
         /// <param name="service">The authenticated CalendarService object.</param>
-        /// <param name="feedUri">The feed URI of the calendar to access.</param>
-        static void PrintAllEvents(CalendarService service, String feedUri)
+        static void PrintAllEvents(CalendarService service)
         {
             EventQuery myQuery = new EventQuery(feedUri);
-            EventFeed myResultsFeed = service.Query(myQuery);
+            EventFeed myResultsFeed = service.Query(myQuery) as EventFeed;
 
             Console.WriteLine("All events on your calendar:");
             Console.WriteLine();
@@ -57,14 +55,13 @@ namespace CalendarDemoConsoleApplication
         /// Prints the titles of all events matching a full-text query.
         /// </summary>
         /// <param name="service">The authenticated CalendarService object.</param>
-        /// <param name="feedUri">The feed URI of the calendar to access.</param>
         /// <param name="queryString">The text for which to query.</param>
-        static void FullTextQuery(CalendarService service, String feedUri, String queryString)
+        static void FullTextQuery(CalendarService service, String queryString)
         {
             EventQuery myQuery = new EventQuery(feedUri);
             myQuery.Query = queryString;
 
-            EventFeed myResultsFeed = service.Query(myQuery);
+            EventFeed myResultsFeed = service.Query(myQuery) as EventFeed;
 
             Console.WriteLine("Events matching \"{0}\":", queryString);
             Console.WriteLine();
@@ -79,17 +76,15 @@ namespace CalendarDemoConsoleApplication
         /// Prints the titles of all events in a specified date/time range.
         /// </summary>
         /// <param name="service">The authenticated CalendarService object.</param>
-        /// <param name="feedUri">The feed URI of the calendar to access.</param>
         /// <param name="startTime">Start time (inclusive) of events to print.</param>
         /// <param name="endTime">End time (exclusive) of events to print.</param>
-        static void DateRangeQuery(CalendarService service, String feedUri,
-                                   DateTime startTime, DateTime endTime)
+        static void DateRangeQuery(CalendarService service, DateTime startTime, DateTime endTime)
         {
             EventQuery myQuery = new EventQuery(feedUri);
             myQuery.StartTime = startTime;
             myQuery.EndTime = endTime;
 
-            EventFeed myResultsFeed = service.Query(myQuery);
+            EventFeed myResultsFeed = service.Query(myQuery) as EventFeed;
 
             Console.WriteLine("Matching events from {0} to {1}:", 
                               startTime.ToShortDateString(),
@@ -226,7 +221,104 @@ namespace CalendarDemoConsoleApplication
             return (EventEntry)entry.Update();
         }
 
-        static void Main(string[] args)
+        /// <summary>
+        /// Retrieves and prints the access control lists of all
+        /// of the authenticated user's calendars.
+        /// </summary>
+        /// <param name="service">The authenticated CalendarService object.</param>
+        static void RetrieveAcls(CalendarService service)
+        {
+            FeedQuery query = new FeedQuery();
+            query.Uri = new Uri("http://www.google.com/calendar/feeds/default");
+            AtomFeed calFeed = service.Query(query);
+
+            Console.WriteLine();
+            Console.WriteLine("Sharing permissions for your calendars:");
+
+            // Retrieve the meta-feed of all calendars.
+            foreach (AtomEntry calendarEntry in calFeed.Entries)
+            {
+                Console.WriteLine("Calendar: {0}", calendarEntry.Title.Text);
+                AtomLink link = calendarEntry.Links.FindService(
+                    AclNameTable.LINK_REL_ACCESS_CONTROL_LIST, null);
+
+                // For each calendar, retrieve its ACL feed.
+                if (link != null)
+                {
+                    AclFeed feed = service.Query(new AclQuery(link.HRef.ToString()));
+                    foreach (AclEntry aclEntry in feed.Entries)
+                    {
+                        Console.WriteLine("\tScope: Type={0} ({1})", aclEntry.Scope.Type,
+                            aclEntry.Scope.Value);
+                        Console.WriteLine("\tRole: {0}", aclEntry.Role.Value);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Shares a calendar with the specified user.  Note that this method
+        /// will not run by default.
+        /// </summary>
+        /// <param name="service">The authenticated CalendarService object.</param>
+        /// <param name="aclFeedUri">the ACL feed URI of the calendar being shared.</param>
+        /// <param name="userEmail">The email address of the user with whom to share.</param>
+        /// <param name="role">The role of the user with whom to share.</param>
+        /// <returns>The AclEntry returned by the server.</returns>
+        static AclEntry AddAccessControl(CalendarService service, string aclFeedUri,
+            string userEmail, AclRole role)
+        {
+            AclEntry entry = new AclEntry();
+
+            entry.Scope = new AclScope();
+            entry.Scope.Type = AclScope.SCOPE_USER;
+            entry.Scope.Value = userEmail;
+
+            entry.Role = role;
+
+            Uri aclUri =
+                new Uri("http://www.google.com/calendar/feeds/gdata.ops.test@gmail.com/acl/full");
+
+            AclEntry insertedEntry = service.Insert(aclUri, entry) as AclEntry;
+            Console.WriteLine("Added user {0}", insertedEntry.Scope.Value);
+
+            return insertedEntry;
+        }
+
+        /// <summary>
+        /// Updates a user to have new access permissions over a calendar.
+        /// Note that this method will not run by default.
+        /// </summary>
+        /// <param name="entry">An existing AclEntry representing sharing permissions.</param>
+        /// <param name="newRole">The new role (access permissions) for the user.</param>
+        /// <returns>The updated AclEntry.</returns>
+        static AclEntry UpdateEntry(AclEntry entry, AclRole newRole)
+        {
+            entry.Role = newRole;
+            AclEntry updatedEntry = entry.Update() as AclEntry;
+
+            Console.WriteLine("Updated {0} to have role {1}", updatedEntry.Scope.Value,
+                entry.Role.Value);
+            return updatedEntry;
+        }
+
+        /// <summary>
+        /// Deletes a user from a calendar's access control list, preventing
+        /// that user from accessing the calendar.  Note that this method will
+        /// not run by default.
+        /// </summary>
+        /// <param name="entry">An existing AclEntry representing sharing permissions.</param>
+        static void DeleteEntry(AclEntry entry)
+        {
+            entry.Delete();
+        }
+
+        /// <summary>
+        /// Runs the methods above to demonstrate usage of the .NET
+        /// client library.  The methods that add, update, or remove
+        /// users on access control lists will not run by default.
+        /// </summary>
+        static void RunSample()
         {
             CalendarService service = new CalendarService("exampleCo-exampleApp-1");
             service.setUserCredentials(userName, userPassword);
@@ -235,9 +327,9 @@ namespace CalendarDemoConsoleApplication
             PrintUserCalendars(service);
 
             // Demonstrate various feed queries.
-            PrintAllEvents(service, feedUri);
-            FullTextQuery(service, feedUri, "Tennis");
-            DateRangeQuery(service, feedUri, new DateTime(2007, 1, 5), new DateTime(2007, 1, 7));
+            PrintAllEvents(service);
+            FullTextQuery(service, "Tennis");
+            DateRangeQuery(service, new DateTime(2007, 1, 5), new DateTime(2007, 1, 7));
 
             // Demonstrate creating a single-occurrence event.
             EventEntry singleEvent = CreateSingleEvent(service, "Tennis with Mike");
@@ -261,6 +353,25 @@ namespace CalendarDemoConsoleApplication
 
             // Demonstrate deleting the item.
             singleEvent.Delete();
+
+            // Demonstrate retrieving access control lists for all calendars.
+            RetrieveAcls(service);
+        }
+
+        static void Main(string[] args)
+        {
+            if (args.Length != 3)
+            {
+                Console.WriteLine("Usage: gcal_demo <username> <password> <feedUri>");
+            }
+            else
+            {
+                userName = args[0];
+                userPassword = args[1];
+                feedUri = args[2];
+
+                RunSample();
+            }
         }
     }
 }
