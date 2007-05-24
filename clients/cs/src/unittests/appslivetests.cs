@@ -87,7 +87,7 @@ namespace Google.GData.Client.LiveTests
                 feed = this.service.RetrieveAllEmailLists();
             }
 
-            Assert.IsEmpty(feed.Entries, "Failed to clean email lists.");
+            Assert.AreEqual(feed.Entries.Count, 0, "Failed to clean email lists.");
         }
 
         public void     EmailList_CreateEmailList()

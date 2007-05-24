@@ -305,6 +305,7 @@ namespace Google.GData.Spreadsheets
             if (String.Compare(e.ExtensionElement.NamespaceURI, GDataSpreadsheetsNameTable.NSGSpreadsheetsExtended, true) == 0)
             {
                 Elements.Add(Custom.ParseCustom(e.ExtensionElement, parser));
+                e.DiscardEntry = true;
             }
         }
     }
