@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GSpreadSheetsMobile", "GSpr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GAppsMobile", "GAppsMobile\GAppsMobile.csproj", "{2AC67E0B-8441-4B7C-ACCE-79A306AB6E0F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GAclMobile", "GAclMobile\GAclMobile.csproj", "{ECE4BF85-3341-4EC8-B09C-2FCA27B6E1F8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +51,10 @@ Global
 		{2AC67E0B-8441-4B7C-ACCE-79A306AB6E0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2AC67E0B-8441-4B7C-ACCE-79A306AB6E0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2AC67E0B-8441-4B7C-ACCE-79A306AB6E0F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ECE4BF85-3341-4EC8-B09C-2FCA27B6E1F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ECE4BF85-3341-4EC8-B09C-2FCA27B6E1F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ECE4BF85-3341-4EC8-B09C-2FCA27B6E1F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ECE4BF85-3341-4EC8-B09C-2FCA27B6E1F8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
