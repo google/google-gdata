@@ -51,6 +51,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\core\abstractentry.cs">
+      <Link>abstractentry.cs</Link>
+    </Compile>
+    <Compile Include="..\..\core\abstractfeed.cs">
+      <Link>abstractfeed.cs</Link>
+    </Compile>
     <Compile Include="..\..\core\AssemblyInfo.cs">
       <Link>AssemblyInfo.cs</Link>
     </Compile>
@@ -129,7 +135,7 @@
     <Compile Include="..\..\core\authexceptions.cs">
       <Link>authexceptions.cs</Link>
     </Compile>
-     <Compile Include="..\..\core\gauthrequest.cs">
+    <Compile Include="..\..\core\gauthrequest.cs">
       <Link>gauthrequest.cs</Link>
     </Compile>
     <Compile Include="..\..\core\gdatabatch.cs">
