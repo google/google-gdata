@@ -8,6 +8,18 @@ The wiki page shows the release notes for the current binary download, the subve
 
 = Details =
 
+== 1.0.9.8 ==
+  * fixed a parsing bug in SpreadsheetService
+  * fixed a bug in GDataRequestException that would prevent AppsException from accessing the server's response.
+  * modified AppsException to comply with new GDataRequestException
+  * fixed a bug in CalculateBaseUri, that caused a crash if the passed in parameters are all NULL. This caused composite feeds to not load if there was a comment feed embedded
+  * fixed a bug in the CalendarEventEntry, it was not parsing extendedProperties. They are now parsed and added correctly to the ExtensionElements
+  * added ACL support. This resulted in changes in the CalendarService.Query method - as a CalendarService can now return an EventFeed or an AccessControlFeed. Added Query overloads to accept EventQuery or AclQuery and return the appropriate Feeds
+  * added a cmd line tool to query/insert/update to a service based on streams
+  * modified the Spreadsheet service to use the new scheme of service subclassing. This should fix a bundle of issues with regard to entry castings.
+  * changed persistence of gd:extendedProperty to save the value attribute, even if there is no data to persist
+  * Added an ASP.NET release (lib/ASP.NET) where the DLLs are build with the AllowPartiallyTrustedCallers attribute enabled. Please use with caution and refer to the readme.txt in that subdirectory for more information.
+
 == 1.0.9.6 ==
   * added Google Apps for Your Domain support, a new helper DLL Google.GData.Apps.dll, and a sample, as well
   as unittests. Version number is increased to distinguish from the previous Subversion dlls.
@@ -189,6 +201,9 @@ Solved issues:
 
 == 1.0.0 ==
 - Initial Release
+
+
+
 
 
 
