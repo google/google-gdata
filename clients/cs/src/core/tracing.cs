@@ -16,6 +16,7 @@
 using System;
 using System.IO;
 using System.Diagnostics;
+using System.Reflection;
 
 
 //////////////////////////////////////////////////////////////////////
@@ -101,23 +102,33 @@ namespace Google.GData.Client
         /// <summary>Method to trace the current call with an additional message</summary> 
         /// <param name="msg"> msg string to display</param>
         //////////////////////////////////////////////////////////////////////
-        [Conditional("TRACE")] static public void TraceCall(string msg)
+        [Conditional("TRACE")] static private void TraceCall(string msg, StackFrame startFrame, int indent)
         {
             // puts out the callstack and the msg
             try
             {
-                StackTrace trace = new StackTrace();
-                if (trace != null && trace.GetFrame(0) != null)
+                if (startFrame != null)
                 {
-                    System.Reflection.MethodBase method = trace.GetFrame(0).GetMethod(); 
-                    Trace.WriteLine(method.Name + ": " + msg); 
+                    string      outMsg = "";
+                    MethodBase  method = startFrame.GetMethod();
+
+                    while (indent-- > 0)
+                        outMsg += "    ";
+
+                    outMsg += "--> " + method.DeclaringType.Name + "." + method.Name + "()";
+
+                    if (msg != "")
+                        outMsg += ": " + msg;
+
+                    Trace.WriteLine(outMsg);
                 }
                 else
                 {
                     Trace.WriteLine("Method Unknown: " + msg);
                 }
                 Trace.Flush();
-            } catch 
+            }
+            catch 
             {
                 Tracing.TraceMsg(msg);
             }
@@ -125,10 +136,35 @@ namespace Google.GData.Client
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>Method to trace the current call with an additional message</summary> 
+        /// <param name="msg"> msg string to display</param>
+        //////////////////////////////////////////////////////////////////////
+        [Conditional("TRACE")] static public void TraceCall(string msg)
+        {
+            // puts out the callstack and the msg
+            StackTrace trace = new StackTrace();
+            if (trace != null && trace.FrameCount > 1)
+            {
+                StackFrame  frame = trace.GetFrame(1);
+                Tracing.TraceCall(msg, frame, trace.FrameCount);
+            }
+            else
+                Tracing.TraceCall(msg, null, 0);
+        }
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Method to trace the current call with an additional message</summary> 
         //////////////////////////////////////////////////////////////////////
         [Conditional("TRACE")] static public void TraceCall()
         {
-            Tracing.TraceCall("");
+            // puts out the callstack and the msg
+            StackTrace trace = new StackTrace();
+            if (trace != null && trace.FrameCount > 1)
+            {
+                StackFrame  frame = trace.GetFrame(1);
+                Tracing.TraceCall("", frame, trace.FrameCount);
+            }
+            else
+                Tracing.TraceCall("", null, 0);
         }
 
         //////////////////////////////////////////////////////////////////////
