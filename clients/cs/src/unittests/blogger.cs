@@ -24,27 +24,17 @@ using System.Net;
 using System.Web;
 using NUnit.Framework;
 using Google.GData.Client;
+using Google.GData.Client.UnitTests;
 using Google.GData.Extensions;
 using Google.GData.Calendar;
 
 
-
-
-namespace Google.GData.Client.UnitTests
+namespace Google.GData.Client.LiveTests
 {
     [TestFixture]
     [Category("LiveTest")]
-    public class BloggerTestSuite : BaseTestClass
+    public class BloggerTestSuite : BaseLiveTestClass
     {
-
-        /// <summary>holds the username to use</summary>
-        protected string userName;
-        /// <summary>holds the password to use</summary>
-        protected string passWord;
-
-        /// <summary>holds the default authhandler</summary> 
-        protected string strAuthHandler; 
-
         /// <summary>
         ///  test Uri for google calendarURI
         /// </summary>
@@ -93,25 +83,10 @@ namespace Google.GData.Client.UnitTests
         {
             base.ReadConfigFile();
 
-            if (unitTestConfiguration.Contains("authHandler") == true)
-            {
-                this.strAuthHandler = (string) unitTestConfiguration["authHandler"];
-                Tracing.TraceInfo("Read authHandler value: " + this.strAuthHandler);
-            }
             if (unitTestConfiguration.Contains("bloggerURI") == true)
             {
                 this.bloggerURI = (string) unitTestConfiguration["bloggerURI"];
                 Tracing.TraceInfo("Read bloggerURI value: " + this.bloggerURI);
-            }
-            if (unitTestConfiguration.Contains("userName") == true)
-            {
-                this.userName = (string) unitTestConfiguration["userName"];
-                Tracing.TraceInfo("Read userName value: " + this.userName);
-            }
-            if (unitTestConfiguration.Contains("passWord") == true)
-            {
-                this.passWord = (string) unitTestConfiguration["passWord"];
-                Tracing.TraceInfo("Read passWord value: " + this.passWord);
             }
         }
         /////////////////////////////////////////////////////////////////////////////
