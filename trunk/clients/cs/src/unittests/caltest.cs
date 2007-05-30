@@ -23,6 +23,7 @@ using System.Configuration;
 using System.Net; 
 using NUnit.Framework;
 using Google.GData.Client;
+using Google.GData.Client.UnitTests;
 using Google.GData.Extensions;
 using Google.GData.Calendar;
 using Google.GData.AccessControl;
@@ -30,22 +31,12 @@ using Google.GData.AccessControl;
 
 
 
-namespace Google.GData.Client.UnitTests
+namespace Google.GData.Client.LiveTests
 {
     [TestFixture] 
-    [Category("GoogleCalendar")]
     [Category("LiveTest")]
-    public class CalendarTestSuite : BaseTestClass
+    public class CalendarTestSuite : BaseLiveTestClass
     {
-
-        /// <summary>holds the username to use</summary>
-        protected string userName;
-        /// <summary>holds the password to use</summary>
-        protected string passWord;
-
-        /// <summary>holds the default authhandler</summary> 
-        protected string strAuthHandler; 
-
         /// <summary>
         ///  test Uri for google calendarURI
         /// </summary>
@@ -74,6 +65,7 @@ namespace Google.GData.Client.UnitTests
         //////////////////////////////////////////////////////////////////////
         [SetUp] public override void InitTest()
         {
+            Tracing.TraceCall();
             base.InitTest(); 
             GDataGAuthRequestFactory authFactory = this.factory as GDataGAuthRequestFactory; 
             if (authFactory != null)
@@ -91,6 +83,7 @@ namespace Google.GData.Client.UnitTests
         //////////////////////////////////////////////////////////////////////
         [TearDown] public override void EndTest()
         {
+            Tracing.TraceCall();
             FeedCleanup(this.defaultCalendarUri, this.userName, this.passWord);
             Tracing.ExitTracing();
         }
@@ -106,11 +99,6 @@ namespace Google.GData.Client.UnitTests
         {
             base.ReadConfigFile();
 
-            if (unitTestConfiguration.Contains("authHandler") == true)
-            {
-                this.strAuthHandler = (string) unitTestConfiguration["authHandler"];
-                Tracing.TraceInfo("Read authHandler value: " + this.strAuthHandler);
-            }
             if (unitTestConfiguration.Contains("calendarURI") == true)
             {
                 this.defaultCalendarUri = (string) unitTestConfiguration["calendarURI"];
@@ -125,16 +113,6 @@ namespace Google.GData.Client.UnitTests
             {
                 this.defaultCompositeUri = (string) unitTestConfiguration["compositeURI"];
                 Tracing.TraceInfo("Read compositeURI value: " + this.defaultCompositeUri);
-            }
-            if (unitTestConfiguration.Contains("userName") == true)
-            {
-                this.userName = (string) unitTestConfiguration["userName"];
-                Tracing.TraceInfo("Read userName value: " + this.userName);
-            }
-            if (unitTestConfiguration.Contains("passWord") == true)
-            {
-                this.passWord = (string) unitTestConfiguration["passWord"];
-                Tracing.TraceInfo("Read passWord value: " + this.passWord);
             }
         }
         /////////////////////////////////////////////////////////////////////////////

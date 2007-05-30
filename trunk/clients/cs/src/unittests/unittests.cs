@@ -96,60 +96,6 @@ namespace Google.GData.Client.UnitTests
         }
         /////////////////////////////////////////////////////////////////////////////
 
-
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>empty a feed</summary> 
-        //////////////////////////////////////////////////////////////////////
-        protected void FeedCleanup(String uriToClean, String userName, String pwd)
-        {
-            Tracing.TraceMsg("Entering BloggerCleanup");
-
-            FeedQuery query = new FeedQuery();
-            Service service = new Service();
-
-
-            if (uriToClean != null)
-            {
-                if (userName != null)
-                {
-                    NetworkCredential nc = new NetworkCredential(userName, pwd);
-                    service.Credentials = nc;
-                }
-
-                GDataLoggingRequestFactory factory = (GDataLoggingRequestFactory) this.factory;
-                factory.MethodOverride = true;
-                service.RequestFactory = this.factory; 
-
-                query.Uri = new Uri(uriToClean);
-                AtomFeed feed = service.Query(query);
-
-                int iCount=0; 
-
-                while (feed != null && feed.Entries.Count > 0)
-                {
-                    // look for the one with dinner time...
-					foreach (AtomEntry entry in feed.Entries)
-					{
-						entry.Delete(); 
-                        iCount++; 
-                        Tracing.TraceMsg("Blogger Cleanup = deleting entry" + iCount);
-					}
-                    // just query the same query again.
-                    feed = service.Query(query);
-                }
-
-                Tracing.Assert(feed.Entries.Count ==0, "Feed should be empty" ); 
-
-                query.Uri = new Uri(uriToClean);
-                feed = service.Query(query);
-
-                Assert.AreEqual(0, feed.Entries.Count, "Feed should have no more entries, it has: " + feed.Entries.Count); 
-                service.Credentials = null; 
-                factory.MethodOverride = false;
-            }
-        }
-        /////////////////////////////////////////////////////////////////////////////
-
         //////////////////////////////////////////////////////////////////////
         /// <summary>private void ReadConfigFile()</summary> 
         /// <returns> </returns>
@@ -339,13 +285,13 @@ namespace Google.GData.Client.UnitTests
         {
             Tracing.TraceMsg("Entering TestIt");
 
-            CalendarTestSuite  test = new CalendarTestSuite();
+            //CalendarTestSuite  test = new CalendarTestSuite();
            // BloggerTestSuite  test = new BloggerTestSuite();
             // CoreTestSuite test = new CoreTestSuite();
 
-            test.InitTest(); 
-            test.CalendarACLTest();
-            test.EndTest(); 
+//            test.InitTest(); 
+//            test.CalendarACLTest();
+//            test.EndTest(); 
 
 
 /*
