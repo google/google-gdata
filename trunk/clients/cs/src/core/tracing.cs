@@ -120,11 +120,11 @@ namespace Google.GData.Client
                     if (msg != "")
                         outMsg += ": " + msg;
 
-                    Trace.WriteLine(outMsg);
+                    Tracing.TraceMsg(outMsg);
                 }
                 else
                 {
-                    Trace.WriteLine("Method Unknown: " + msg);
+                    Tracing.TraceMsg("Method Unknown: " + msg);
                 }
                 Trace.Flush();
             }
@@ -177,18 +177,6 @@ namespace Google.GData.Client
         }
 
         //////////////////////////////////////////////////////////////////////
-        /// <summary>Method to trace the a message with timestamping</summary> 
-        /// <param name="msg"> msg string to display</param>
-        //////////////////////////////////////////////////////////////////////
-        [Conditional("TRACE")] static public void Timestamp(string msg)
-        {
-            DateTime now = DateTime.Now;
-            msg = now.ToString("HH:mm:ss:ffff") + " - " + msg; 
-            Tracing.TraceMsg(msg);
-        }
-
-
-        //////////////////////////////////////////////////////////////////////
         /// <summary>Method to trace a message</summary> 
         /// <param name="msg"> msg string to display</param>
         //////////////////////////////////////////////////////////////////////
@@ -196,9 +184,10 @@ namespace Google.GData.Client
         {
             try
             {
-                Trace.WriteLine(msg); 
+                Trace.WriteLine("[" + DateTime.Now.ToString("HH:mm:ss:ffff") + "] - " + msg);
                 Trace.Flush();
-            } catch 
+            } 
+            catch
             {
             }
         }

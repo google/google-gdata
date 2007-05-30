@@ -377,17 +377,22 @@ namespace Google.GData.Client
                     http.Method != HttpMethods.Get &&
                     http.Method != HttpMethods.Post)
                 {
+                    // cache the method, because Mono will complain if we try
+                    // to open the request stream with a DELETE method.
+                    string currentMethod = http.Method;
+
+                    http.Headers.Add(GoogleAuthentication.Override, currentMethod);
+                    http.Method = HttpMethods.Post;
+
                     // not put and delete, all is post
-                    if (http.Method == HttpMethods.Delete)
+                    if (currentMethod == HttpMethods.Delete)
                     {
                         http.ContentLength = 0;
-                        // to make this NOT crash under .NET CF, get the request stream
-                        // and close it again
+                        // .NET CF won't send the ContentLength parameter if no stream
+                        // was opened. So open a dummy one, and close it right after.
                         Stream req = http.GetRequestStream(); 
                         req.Close(); 
                     }
-                    http.Headers.Add(GoogleAuthentication.Override, http.Method);
-                    http.Method = HttpMethods.Post; 
                 }
             }
         }
@@ -641,7 +646,7 @@ namespace Google.GData.Client
             }
             catch (Exception e)
             {
-                Tracing.TraceMsg("we caught an unknown exception");
+                Tracing.TraceCall("*** EXCEPTION " + e.GetType().Name + " CAUGTH ***");
                 throw e; 
             }
             finally
