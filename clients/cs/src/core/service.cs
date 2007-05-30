@@ -186,7 +186,7 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         public Stream Query(Uri queryUri)
         {
-            Tracing.Timestamp("Service.Query - Stream - Enter"); 
+            Tracing.TraceCall("Enter");
             if (queryUri == null)
             {
                 throw new System.ArgumentNullException("queryUri");
@@ -196,7 +196,7 @@ namespace Google.GData.Client
 
             request.Execute();
             // return the response
-            Tracing.Timestamp("Service.Query - Stream - Exit"); 
+            Tracing.TraceCall("Exit");
             return request.GetResponseStream();
         }
         /////////////////////////////////////////////////////////////////////////////
@@ -225,7 +225,7 @@ namespace Google.GData.Client
         public AtomFeed Query(FeedQuery feedQuery)
         {
             AtomFeed feed = null;
-            Tracing.Timestamp("Service.Query - Feed - Enter"); 
+            Tracing.TraceCall("Enter");
 
             if (feedQuery == null)
             {
@@ -259,7 +259,7 @@ namespace Google.GData.Client
                 feed.Parse(responseStream, AlternativeFormat.Atom); 
                 responseStream.Close();
             }
-            Tracing.Timestamp("Service.Query - Feed - Exit"); 
+            Tracing.TraceCall("Exit");
             return feed;
         }
         /////////////////////////////////////////////////////////////////////////////
