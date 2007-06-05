@@ -112,12 +112,6 @@ namespace CalendarDemoConsoleApplication
         {
             EventEntry entry = new EventEntry();
 
-            // Set the author of this entry.
-            AtomPerson author = new AtomPerson(AtomPersonType.Author);
-            author.Name = "Jo March";
-            author.Email = "jo@gmail.com";
-            entry.Authors.Add(author);
-
             // Set the title and content of the entry.
             entry.Title.Text = entryTitle;
             entry.Content.Content = "Meet for a quick lesson.";
