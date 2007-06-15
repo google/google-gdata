@@ -44,8 +44,8 @@ namespace Google.GData.Client
     {
         /// <summary>form encoding</summary> 
         public const string Encoding = "application/x-www-form-urlencoded";
-        /// <summary>form contenttype</summary> 
-        public const string ContentType = "text/plain";
+        /// <summary>expected return form contenttype</summary> 
+        public const string ReturnContentType = "text";
     }
 
     //////////////////////////////////////////////////////////////////////
