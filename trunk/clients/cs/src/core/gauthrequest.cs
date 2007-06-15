@@ -483,7 +483,7 @@ namespace Google.GData.Client
             if (response != null)
             {
                  // check the content type, it must be text
-                if (!response.ContentType.StartsWith(HttpFormPost.ContentType))
+                if (!response.ContentType.StartsWith(HttpFormPost.ReturnContentType))
                 {
                     throw new GDataRequestException("Execution of authentication request returned unexpected content type: " + response.ContentType,  this.Response); 
                 }
