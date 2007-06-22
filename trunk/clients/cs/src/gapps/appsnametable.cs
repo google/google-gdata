@@ -98,6 +98,26 @@ namespace Google.GData.Apps
         public const string XmlAttributeLoginIpWhitelisted = "ipWhitelisted";
 
         /// <summary>
+        /// XML attribute for the hashFunctionName flag of a login element.
+        /// </summary>
+        public const string XmlAttributeLoginHashFunctionName = "hashFunctionName";
+
+        /// <summary>
+        /// XML attribute for the admin flag of a login element.
+        /// </summary>
+        public const string XmlAttributeLoginAdmin = "admin";
+
+        /// <summary>
+        /// XML attribute for the agreedToTerms flag of a login element.
+        /// </summary>
+        public const string XmlAttributeLoginAgreedToTerms = "agreedToTerms";
+
+        /// <summary>
+        /// XML attribute for the changePasswordAtNextLogin flag of a login element.
+        /// </summary>
+        public const string XmlAttributeLoginChangePasswordAtNextLogin = "changePasswordAtNextLogin";
+
+        /// <summary>
         /// XML element name for email list data.
         /// </summary>
         public const string XmlElementEmailList = "emailList";
