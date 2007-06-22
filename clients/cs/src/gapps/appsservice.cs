@@ -129,6 +129,59 @@ namespace Google.GData.Apps
         }
 
         /// <summary>
+        /// Creates a new user account.
+        /// </summary>
+        /// <param name="username">the account's username</param>
+        /// <param name="givenName">the user's first (given) name</param>
+        /// <param name="familyName">the user's last (family) name</param>
+        /// <param name="password">the account's password</param>
+        /// <param name="passwordHashFunction">the name of the hash function to hash the password</param>
+        /// <returns>the newly created UserEntry</returns>
+        public UserEntry CreateUser(string username,
+                                           string givenName,
+                                           string familyName,
+                                           string password,
+                                           string passwordHashFunction)
+        {
+            UserEntry entry = new UserEntry();
+
+            entry.Name = new NameElement(familyName, givenName);
+            entry.Login = new LoginElement(username, password, false, false, passwordHashFunction);
+
+            UserQuery query = new UserQuery(Domain);
+
+            return userAccountService.Insert(query.Uri, entry);
+        }
+
+        /// <summary>
+        /// Creates a new user account.
+        /// </summary>
+        /// <param name="username">the account's username</param>
+        /// <param name="givenName">the user's first (given) name</param>
+        /// <param name="familyName">the user's last (family) name</param>
+        /// <param name="password">the account's password</param>
+        /// <param name="passwordHashFunction">the name of the hash function to hash the password</param>
+        /// <param name="quotaLimitInMb">the account's quota, in MB</param>
+        /// <returns>the newly created UserEntry</returns>
+        public UserEntry CreateUser(string username,
+                                           string givenName,
+                                           string familyName,
+                                           string password,
+                                           string passwordHashFunction,
+                                           int quotaLimitInMb)
+        {
+            UserEntry entry = new UserEntry();
+
+            entry.Name = new NameElement(familyName, givenName);
+            entry.Login = new LoginElement(username, password, false, false, passwordHashFunction);
+            entry.Quota = new QuotaElement(quotaLimitInMb);
+
+            UserQuery query = new UserQuery(Domain);
+
+            return userAccountService.Insert(query.Uri, entry);
+        }
+
+        /// <summary>
         /// Retrieves all user account entries on this domain.
         /// </summary>
         /// <returns>the feed containing all user account entries</returns>
@@ -205,6 +258,46 @@ namespace Google.GData.Apps
         {
             UserEntry entry = RetrieveUser(username);
             entry.Login.Suspended = false;
+            return UpdateUser(entry);
+        }
+
+        /// <summary>
+        /// Adds admin privileges for a user.  Note that executing this method
+        /// on a user who is already an admin has no effect.
+        /// </summary>
+        /// <param name="username">the user to make an administrator</param>
+        /// <returns>the updated UserEntry</returns>
+        public UserEntry AddAdminPrivilege(string username)
+        {
+            UserEntry entry = RetrieveUser(username);
+            entry.Login.Admin = true;
+            return UpdateUser(entry);
+        }
+
+        /// <summary>
+        /// Removes admin privileges for a user.  Note that executing this method
+        /// on a user who is not an admin has no effect.
+        /// </summary>
+        /// <param name="username">the user from which to revoke admin privileges</param>
+        /// <returns>the updated UserEntry</returns>
+        public UserEntry RemoveAdminPrivilege(string username)
+        {
+            UserEntry entry = RetrieveUser(username);
+            entry.Login.Admin = false;
+            return UpdateUser(entry);
+        }
+
+        /// <summary>
+        /// Forces the specified user to change his or her password at the next
+        /// login.
+        /// </summary>
+        /// <param name="username">the user who must change his/her password upon
+        /// logging in next</param>
+        /// <returns>the updated UserEntry</returns>
+        public UserEntry ForceUserToChangePassword(string username)
+        {
+            UserEntry entry = RetrieveUser(username);
+            entry.Login.ChangePasswordAtNextLogin = true;
             return UpdateUser(entry);
         }
 

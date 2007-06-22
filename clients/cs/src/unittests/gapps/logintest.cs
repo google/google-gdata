@@ -80,6 +80,85 @@ namespace Google.GData.Apps.UnitTests
         }
 
         [Test]
+        public void GetHashFunctionNameTest()
+        {
+            Assert.IsNull(login.HashFunctionName, "Hash function name should initially be null");
+        }
+
+        [Test]
+        public void SetHashFunctionNameTest()
+        {
+            login.HashFunctionName = "SHA-1";
+            Assert.AreEqual("SHA-1", login.HashFunctionName, "Hash function name should be SHA-1 after setting");
+        }
+
+        [Test]
+        public void GetAdminTest()
+        {
+            Assert.IsFalse(login.Admin, "Admin property should initially be false");
+        }
+
+        [Test]
+        public void SetAdminTest()
+        {
+            login.Admin = true;
+            Assert.IsTrue(login.Admin, "Admin property should be true after setting");
+        }
+
+        [Test]
+        public void GetAgreedToTermsTest()
+        {
+            Assert.IsFalse(login.AgreedToTerms, "Agreed to terms property should initially be false");
+        }
+
+        [Test]
+        public void SetAgreedToTermsTest()
+        {
+            login.AgreedToTerms = true;
+            Assert.IsTrue(login.AgreedToTerms, "Agreed to terms property should be true after setting");
+        }
+
+        [Test]
+        public void GetChangePasswordAtNextLoginTest()
+        {
+            Assert.IsFalse(login.ChangePasswordAtNextLogin,
+                "Change password at next login property should initially be false");
+        }
+
+        [Test]
+        public void SetChangePasswordAtNextLoginTest()
+        {
+            login.ChangePasswordAtNextLogin = true;
+            Assert.IsTrue(login.ChangePasswordAtNextLogin,
+                "Change password at next login property should be true after setting");
+        }
+
+        [Test]
+        public void ParseXmlTest()
+        {
+            String inputXml = "<apps:login userName=\"jdoe\" password=\"mypasswd\" suspended=\"" +
+                "true\" ipWhitelisted=\"true\" hashFunctionName=\"SHA-1\" admin=\"true\" " +
+                "agreedToTerms=\"true\" changePasswordAtNextLogin=\"true\" " +
+                "xmlns:apps=\"http://schemas.google.com/apps/2006\" />";
+
+            XmlDocument document = new XmlDocument();
+            document.LoadXml(inputXml);
+
+            LoginElement login = LoginElement.ParseLogin(document.DocumentElement);
+
+            Assert.IsNotNull(login, "Parsed login element should not be null");
+            Assert.AreEqual("jdoe", login.UserName, "Parsed login should have username=\"jdoe\"");
+            Assert.AreEqual("mypasswd", login.Password, "Parsed login should have password=\"mypasswd\"");
+            Assert.IsTrue(login.Suspended, "Parsed login should have suspended=true");
+            Assert.IsTrue(login.IpWhitelisted, "Parsed login should have ipWhitedlisted=true");
+           
+            Assert.AreEqual("SHA-1", login.HashFunctionName, "Parsed login should have hashFunctionName=\"SHA-1\"");
+            Assert.IsTrue(login.Admin, "Parsed login should have admin=true");
+            Assert.IsTrue(login.AgreedToTerms, "Parsed login should have agreedToTerms=true");
+            Assert.IsTrue(login.ChangePasswordAtNextLogin, "Parsed login should have changePasswordAtNextLogin=true");
+        }
+
+        [Test]
         public void SaveXmlTest()
         {
             StringWriter outString = new StringWriter();
@@ -88,13 +167,40 @@ namespace Google.GData.Apps.UnitTests
             login.Save(writer);
             writer.Close();
 
+            // Make sure that the "admin" and "changePasswordAtNextLogin" attributes
+            // are NOT present here
             String expectedXml = "<apps:login userName=\"" +
                 login.UserName + "\" password=\"" + login.Password + "\" suspended=\"" +
                 login.Suspended.ToString().ToLower() + "\" ipWhitelisted=\"" + 
                 login.IpWhitelisted.ToString().ToLower() +
                 "\" xmlns:apps=\"http://schemas.google.com/apps/2006\" />";
 
-            Assert.IsTrue(outString.ToString().EndsWith(expectedXml),
+            Assert.AreEqual(outString.ToString(), expectedXml,
+                "Serialized XML does not match expected result: " + expectedXml);
+        }
+
+        [Test]
+        public void SaveXmlWithOptionalAttributesTest()
+        {
+            StringWriter outString = new StringWriter();
+            XmlWriter writer = new XmlTextWriter(outString);
+
+            login.Admin = true;
+            login.ChangePasswordAtNextLogin = true;
+
+            login.Save(writer);
+            writer.Close();
+
+            // Make sure that the "admin" and "changePasswordAtNextLogin" attributes
+            // are NOT present here
+            String expectedXml = "<apps:login userName=\"" +
+                login.UserName + "\" password=\"" + login.Password + "\" suspended=\"" +
+                login.Suspended.ToString().ToLower() + "\" ipWhitelisted=\"" +
+                login.IpWhitelisted.ToString().ToLower() +
+                "\" admin=\"true\" changePasswordAtNextLogin=\"true\" " +
+                "xmlns:apps=\"http://schemas.google.com/apps/2006\" />";
+
+            Assert.AreEqual(outString.ToString(), expectedXml,
                 "Serialized XML does not match expected result: " + expectedXml);
         }
     }

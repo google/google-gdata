@@ -57,6 +57,12 @@ namespace Google.GData.Apps
         public const string DomainSuspended = "1202";
 
         /// <summary>
+        /// Google Apps error indicating that a particular feature
+        /// is not available for the domain.
+        /// </summary>
+        public const string DomainFeatureUnavailable = "1203";
+
+        /// <summary>
         /// Google Apps error indicating that the request instructs
         /// Google to create an entity that already exists.
         /// </summary>
@@ -107,6 +113,30 @@ namespace Google.GData.Apps
         /// for the user's username contains unaccepted characters.
         /// </summary>
         public const string InvalidUsername = "1403";
+
+        /// <summary>
+        /// Google Apps error indicating that the specified password
+        /// hash function name is not supported.
+        /// </summary>
+        public const string InvalidHashFunctionName = "1404";
+
+        /// <summary>
+        /// Google Apps error indicating that the password specified
+        /// does not comply with the hash function specified.
+        /// </summary>
+        public const string InvalidHashDigestLength = "1405";
+
+        /// <summary>
+        /// Google Apps error indicating that the email address 
+        /// specified is not valid.
+        /// </summary>
+        public const string InvalidEmailAddress = "1406";
+
+        /// <summary>
+        /// Google Apps error indicating that the query parameter value
+        /// specified is not valid.
+        /// </summary>
+        public const string InvalidQueryParameterValue = "1407";
 
         /// <summary>
         /// Google Apps error indicating that the request instructs Google
@@ -225,7 +255,7 @@ namespace Google.GData.Apps
             }
             catch (XmlException)
             {
-                	
+                    
             }
 
             return result;

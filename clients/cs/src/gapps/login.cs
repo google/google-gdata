@@ -63,10 +63,43 @@ namespace Google.GData.Apps
             this.ipWhitelisted = ipWhitelisted;
         }
 
+        /// <summary>
+        /// Constructs a new LoginElement instance with the specified values.
+        /// </summary>
+        /// <param name="userName">The account's username.</param>
+        /// <param name="password">The account's password.</param>
+        /// <param name="suspended">True if the account has been suspended,
+        /// false otherwise.</param>
+        /// <param name="ipWhitelisted">True if the account has been IP whitelisted,
+        /// false otherwise.</param>
+        /// <param name="hashFunctionName">Hash function used to encode the password
+        /// parameter.  Currently, only "SHA-1" is supported.</param>
+        public LoginElement(String userName,
+                            String password,
+                            Boolean suspended,
+                            Boolean ipWhitelisted,
+                            String hashFunctionName)
+        {
+            this.userName = userName;
+            this.password = password;
+            this.suspended = suspended;
+            this.ipWhitelisted = ipWhitelisted;
+            this.hashFunctionName = hashFunctionName;
+        }
+
         private string userName;
         private string password;
         private bool suspended;
         private bool ipWhitelisted;
+
+        private string hashFunctionName;
+        private bool agreedToTerms;
+
+        private bool admin;
+        private bool adminPropertySet;
+
+        private bool changePasswordAtNextLogin;
+        private bool changePasswordAtNextLoginPropertySet;
 
         /// <summary>
         /// UserName property accessor
@@ -102,6 +135,53 @@ namespace Google.GData.Apps
         {
             get { return ipWhitelisted; }
             set { ipWhitelisted = value; }
+        }
+
+        /// <summary>
+        /// HashFunctionName property accessor
+        /// </summary>
+        public string HashFunctionName
+        {
+            get { return hashFunctionName; }
+            set { hashFunctionName = value; }
+        }
+
+        /// <summary>
+        /// Admin property accessor.  The admin attribute is set to true if the user
+        /// is an administrator and false if the user is not an administrator.
+        /// </summary>
+        public bool Admin
+        {
+            get { return admin; }
+            set
+            {
+                admin = value;
+                adminPropertySet = true;
+            }
+        }
+
+        /// <summary>
+        /// AgreedToTerms property accessor.  Read-only; true if the user has agreed
+        /// to the terms of service.
+        /// </summary>
+        public bool AgreedToTerms
+        {
+            get { return agreedToTerms; }
+            set { agreedToTerms = value; }
+        }
+
+        /// <summary>
+        /// ChangePasswordAtNextLogin property accessor.  Optional; true if
+        /// the user needs to change his or her password at next login.
+        /// </summary>
+        public bool ChangePasswordAtNextLogin
+        {
+            get { return changePasswordAtNextLogin; }
+            set
+            {
+                changePasswordAtNextLogin = value;
+                changePasswordAtNextLoginPropertySet = true;
+            }
         }
 
         #region LoginElement Parser
@@ -141,14 +221,39 @@ namespace Google.GData.Apps
                     {
                         login.Suspended =
                             (node.Attributes[AppsNameTable.XmlAttributeLoginSuspended].Value ==
-                            Boolean.TrueString.ToLower());
+                             Boolean.TrueString.ToLower());
                     }
 
                     if (node.Attributes[AppsNameTable.XmlAttributeLoginIpWhitelisted] != null)
                     {
                         login.IpWhitelisted =
                             (node.Attributes[AppsNameTable.XmlAttributeLoginIpWhitelisted].Value ==
+                             Boolean.TrueString.ToLower());
+                    }
+
+                    if (node.Attributes[AppsNameTable.XmlAttributeLoginHashFunctionName] != null)
+                    {
+                        login.HashFunctionName =
+                            node.Attributes[AppsNameTable.XmlAttributeLoginHashFunctionName].Value;
+                    }
+
+                    if (node.Attributes[AppsNameTable.XmlAttributeLoginAdmin] != null)
+                    {
+                        login.Admin = (node.Attributes[AppsNameTable.XmlAttributeLoginAdmin].Value ==
                             Boolean.TrueString.ToLower());
+                    }
+
+                    if (node.Attributes[AppsNameTable.XmlAttributeLoginAgreedToTerms] != null)
+                    {
+                        login.AgreedToTerms = (node.Attributes[AppsNameTable.XmlAttributeLoginAgreedToTerms].Value ==
+                            Boolean.TrueString.ToLower());
+                    }
+
+                    if (node.Attributes[AppsNameTable.XmlAttributeLoginChangePasswordAtNextLogin] != null)
+                    {
+                        login.ChangePasswordAtNextLogin =
+                            (node.Attributes[AppsNameTable.XmlAttributeLoginChangePasswordAtNextLogin].Value ==
+                             Boolean.TrueString.ToLower());
                     }
                 }
             }
@@ -193,6 +298,24 @@ namespace Google.GData.Apps
                     this.Suspended.ToString().ToLower());
                 writer.WriteAttributeString(AppsNameTable.XmlAttributeLoginIpWhitelisted,
                     this.IpWhitelisted.ToString().ToLower());
+
+                if (Utilities.IsPersistable(this.HashFunctionName))
+                {
+                    writer.WriteAttributeString(AppsNameTable.XmlAttributeLoginHashFunctionName,
+                        this.HashFunctionName);
+                }
+
+                if (adminPropertySet)
+                {
+                    writer.WriteAttributeString(AppsNameTable.XmlAttributeLoginAdmin,
+                        this.Admin.ToString().ToLower());
+                }
+
+                if (changePasswordAtNextLoginPropertySet)
+                {
+                    writer.WriteAttributeString(AppsNameTable.XmlAttributeLoginChangePasswordAtNextLogin,
+                        this.ChangePasswordAtNextLogin.ToString().ToLower());
+                }
 
                 writer.WriteEndElement();
             }
