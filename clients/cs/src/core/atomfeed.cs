@@ -632,7 +632,7 @@ namespace Google.GData.Client
             if (this.NewExtensionElement != null)
             {
                 Tracing.TraceMsg("\t calling event dispatcher"); 
-                this.NewExtensionElement(this, e);
+                this.NewExtensionElement(sender, e);
             }
             // now check the return
             if (e.DiscardEntry != true)
