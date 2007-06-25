@@ -2896,8 +2896,8 @@
         <member name="F:Google.GData.Client.HttpFormPost.Encoding">
             <summary>form encoding</summary> 
         </member>
-        <member name="F:Google.GData.Client.HttpFormPost.ContentType">
-            <summary>form contenttype</summary> 
+        <member name="F:Google.GData.Client.HttpFormPost.ReturnContentType">
+            <summary>expected return form contenttype</summary> 
         </member>
         <member name="T:Google.GData.Client.AlternativeFormat">
             <summary>enum to describe the different formats that query might return
@@ -3793,6 +3793,10 @@
         <member name="M:Google.GData.Client.Tracing.ExitTracing">
             <summary>Default deinitializer, closes the listener streams</summary> 
         </member>
+        <member name="M:Google.GData.Client.Tracing.TraceCall(System.String,System.Diagnostics.StackFrame,System.Int32)">
+            <summary>Method to trace the current call with an additional message</summary> 
+            <param name="msg"> msg string to display</param>
+        </member>
         <member name="M:Google.GData.Client.Tracing.TraceCall(System.String)">
             <summary>Method to trace the current call with an additional message</summary> 
             <param name="msg"> msg string to display</param>
@@ -3802,10 +3806,6 @@
         </member>
         <member name="M:Google.GData.Client.Tracing.TraceInfo(System.String)">
             <summary>Method to trace the current call with an additional message</summary> 
-            <param name="msg"> msg string to display</param>
-        </member>
-        <member name="M:Google.GData.Client.Tracing.Timestamp(System.String)">
-            <summary>Method to trace the a message with timestamping</summary> 
             <param name="msg"> msg string to display</param>
         </member>
         <member name="M:Google.GData.Client.Tracing.TraceMsg(System.String)">
