@@ -1,3 +1,7 @@
+== 1.0.9.9 ==
+- added GBase support for m:adjusted_name and gm:adjusted_value inside attributes
+  (returned only when adjustments are enabled)
+
 
 == 1.0.9.8 ==
 - fixed a parsing bug in SpreadsheetService
