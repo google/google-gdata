@@ -1,7 +1,15 @@
 == 1.0.9.9 ==
 - added GBase support for m:adjusted_name and gm:adjusted_value inside attributes
   (returned only when adjustments are enabled)
-
+- Google Apps changes:
+   - Added new AppsService.createUser methods with hashed password support
+   - Updated AppsException with new Google Apps error codes
+   - Added the following properties to Login.cs:
+       string hashFunctionName - to hash user account password,
+       bool agreedToTerms - to see if the user has accepted the Google Apps Terms Of Service,
+       bool admin - to see if the user is a domain admin,
+       bool changePasswordAtNextLogin - to force the user to change password at next login
+   - Updated unittests to test new properties
 
 == 1.0.9.8 ==
 - fixed a parsing bug in SpreadsheetService
