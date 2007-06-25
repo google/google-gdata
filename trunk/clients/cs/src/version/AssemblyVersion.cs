@@ -15,6 +15,7 @@
 using System;
 using System.Security;
 using System.Reflection;
+using System.Security.Permissions;
 
 //
 // General Information about an assembly is controlled through the following 
@@ -32,6 +33,8 @@ using System.Reflection;
 [assembly: AssemblyCopyright("Copyright (c) 2006 Google Inc.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
+
+
 
 
 #if PARTIALLY_TRUSTED
@@ -53,7 +56,7 @@ using System.Reflection;
 // You can specify all the values or you can default the Revision and Build Numbers 
 // by using the '*' as shown below:
 
-[assembly: AssemblyVersion("1.0.9.8")]
+[assembly: AssemblyVersion("1.0.9.9")]
 
 
 
