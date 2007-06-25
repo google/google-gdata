@@ -363,6 +363,14 @@
         <member name="P:Google.GData.GoogleBase.GBaseAttribute.IsPrivate">
             <summary>Private access (XML attribute access="private")</summary>
         </member>
+        <member name="P:Google.GData.GoogleBase.GBaseAttribute.AdjustedName">
+            <summary>A better name for this attribute, recommended by 
+            Google (when adjustments are turned on)</summary>
+        </member>
+        <member name="P:Google.GData.GoogleBase.GBaseAttribute.AdjustedValue">
+            <summary>A better value for this string attribute, recommended by 
+            Google (when adjustments are turned on)</summary>
+        </member>
         <member name="P:Google.GData.GoogleBase.GBaseAttribute.Item(System.String)">
             <summary>Accesses sub-elements.
                         Sub-elements are XML elements put inside the attribute

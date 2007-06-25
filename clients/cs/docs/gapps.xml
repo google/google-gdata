@@ -48,6 +48,12 @@
             specified domain's access to Google Apps.
             </summary>
         </member>
+        <member name="F:Google.GData.Apps.AppsException.DomainFeatureUnavailable">
+            <summary>
+            Google Apps error indicating that a particular feature
+            is not available for the domain.
+            </summary>
+        </member>
         <member name="F:Google.GData.Apps.AppsException.EntityExists">
             <summary>
             Google Apps error indicating that the request instructs
@@ -98,6 +104,30 @@
             <summary>
             Google Apps error indicating that the value in the API request
             for the user's username contains unaccepted characters.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Apps.AppsException.InvalidHashFunctionName">
+            <summary>
+            Google Apps error indicating that the specified password
+            hash function name is not supported.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Apps.AppsException.InvalidHashDigestLength">
+            <summary>
+            Google Apps error indicating that the password specified
+            does not comply with the hash function specified.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Apps.AppsException.InvalidEmailAddress">
+            <summary>
+            Google Apps error indicating that the email address 
+            specified is not valid.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Apps.AppsException.InvalidQueryParameterValue">
+            <summary>
+            Google Apps error indicating that the query parameter value
+            specified is not valid.
             </summary>
         </member>
         <member name="F:Google.GData.Apps.AppsException.TooManyRecipientsOnEmailList">
@@ -233,6 +263,26 @@
             XML attribute for the ipWhitelisted flag of a login element.
             </summary>
         </member>
+        <member name="F:Google.GData.Apps.AppsNameTable.XmlAttributeLoginHashFunctionName">
+            <summary>
+            XML attribute for the hashFunctionName flag of a login element.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Apps.AppsNameTable.XmlAttributeLoginAdmin">
+            <summary>
+            XML attribute for the admin flag of a login element.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Apps.AppsNameTable.XmlAttributeLoginAgreedToTerms">
+            <summary>
+            XML attribute for the agreedToTerms flag of a login element.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Apps.AppsNameTable.XmlAttributeLoginChangePasswordAtNextLogin">
+            <summary>
+            XML attribute for the changePasswordAtNextLogin flag of a login element.
+            </summary>
+        </member>
         <member name="F:Google.GData.Apps.AppsNameTable.XmlElementEmailList">
             <summary>
             XML element name for email list data.
@@ -335,6 +385,29 @@
             <param name="quotaLimitInMb">the account's quota, in MB</param>
             <returns>the newly created UserEntry</returns>
         </member>
+        <member name="M:Google.GData.Apps.AppsService.CreateUser(System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Creates a new user account.
+            </summary>
+            <param name="username">the account's username</param>
+            <param name="givenName">the user's first (given) name</param>
+            <param name="familyName">the user's last (family) name</param>
+            <param name="password">the account's password</param>
+            <param name="passwordHashFunction">the name of the hash function to hash the password</param>
+            <returns>the newly created UserEntry</returns>
+        </member>
+        <member name="M:Google.GData.Apps.AppsService.CreateUser(System.String,System.String,System.String,System.String,System.String,System.Int32)">
+            <summary>
+            Creates a new user account.
+            </summary>
+            <param name="username">the account's username</param>
+            <param name="givenName">the user's first (given) name</param>
+            <param name="familyName">the user's last (family) name</param>
+            <param name="password">the account's password</param>
+            <param name="passwordHashFunction">the name of the hash function to hash the password</param>
+            <param name="quotaLimitInMb">the account's quota, in MB</param>
+            <returns>the newly created UserEntry</returns>
+        </member>
         <member name="M:Google.GData.Apps.AppsService.RetrieveAllUsers">
             <summary>
             Retrieves all user account entries on this domain.
@@ -379,6 +452,31 @@
             Restores a user account.
             </summary>
             <param name="username">the username whose account you wish to restore</param>
+            <returns>the updated UserEntry</returns>
+        </member>
+        <member name="M:Google.GData.Apps.AppsService.AddAdminPrivilege(System.String)">
+            <summary>
+            Adds admin privileges for a user.  Note that executing this method
+            on a user who is already an admin has no effect.
+            </summary>
+            <param name="username">the user to make an administrator</param>
+            <returns>the updated UserEntry</returns>
+        </member>
+        <member name="M:Google.GData.Apps.AppsService.RemoveAdminPrivilege(System.String)">
+            <summary>
+            Removes admin privileges for a user.  Note that executing this method
+            on a user who is not an admin has no effect.
+            </summary>
+            <param name="username">the user from which to revoke admin privileges</param>
+            <returns>the updated UserEntry</returns>
+        </member>
+        <member name="M:Google.GData.Apps.AppsService.ForceUserToChangePassword(System.String)">
+            <summary>
+            Forces the specified user to change his or her password at the next
+            login.
+            </summary>
+            <param name="username">the user who must change his/her password upon
+            logging in next</param>
             <returns>the updated UserEntry</returns>
         </member>
         <member name="M:Google.GData.Apps.AppsService.DeleteUser(System.String)">
@@ -1020,6 +1118,19 @@
             <param name="ipWhitelisted">True if the account has been IP whitelisted,
             false otherwise.</param>
         </member>
+        <member name="M:Google.GData.Apps.LoginElement.#ctor(System.String,System.String,System.Boolean,System.Boolean,System.String)">
+            <summary>
+            Constructs a new LoginElement instance with the specified values.
+            </summary>
+            <param name="userName">The account's username.</param>
+            <param name="password">The account's password.</param>
+            <param name="suspended">True if the account has been suspended,
+            false otherwise.</param>
+            <param name="ipWhitelisted">True if the account has been IP whitelisted,
+            false otherwise.</param>
+            <param name="hashFunctionName">Hash function used to encode the password
+            parameter.  Currently, only "SHA-1" is supported.</param>
+        </member>
         <member name="M:Google.GData.Apps.LoginElement.ParseLogin(System.Xml.XmlNode)">
             <summary>parses an xml node to create a LoginElement object</summary> 
             <param name="node">login node</param>
@@ -1049,6 +1160,29 @@
         <member name="P:Google.GData.Apps.LoginElement.IpWhitelisted">
             <summary>
             IpWhitelisted property accessor
+            </summary>
+        </member>
+        <member name="P:Google.GData.Apps.LoginElement.HashFunctionName">
+            <summary>
+            HashFunctionName property accessor
+            </summary>
+        </member>
+        <member name="P:Google.GData.Apps.LoginElement.Admin">
+            <summary>
+            Admin property accessor.  The admin attribute is set to true if the user
+            is an administrator and false if the user is not an administrator.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Apps.LoginElement.AgreedToTerms">
+            <summary>
+            AgreedToTerms property accessor.  Read-only; true if the user has agreed
+            to the terms of service.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Apps.LoginElement.ChangePasswordAtNextLogin">
+            <summary>
+            ChangePasswordAtNextLogin property accessor.  Optional; true if
+            the user needs to change his or her password at next login.
             </summary>
         </member>
         <member name="P:Google.GData.Apps.LoginElement.XmlName">
