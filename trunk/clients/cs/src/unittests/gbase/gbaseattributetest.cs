@@ -262,6 +262,29 @@ namespace Google.GData.GoogleBase.UnitTests
             AssertRereadIsSame(attribute);
         }
 
+        [Test]
+        public void ParseAdjustedNameAndValueTest()
+        {
+            GBaseAttribute attribute = 
+                    Parse("<?xml version='1.0'?>" +
+                          "<g:hello xmlns:g='" + GBaseNameTable.NSGBase + "' xmlns:gm='" + GBaseNameTable.NSGBaseMeta + "'>" +
+                          "<gm:adjusted_name>hello2</gm:adjusted_name><gm:adjusted_value>x</gm:adjusted_value>" + 
+                          "a" +
+                          "</g:hello>");
+            Assert.AreEqual("hello2", attribute.AdjustedName);
+            Assert.AreEqual("x", attribute.AdjustedValue);
+            Assert.AreEqual("a", attribute.Content);
+        }
+
+        [Test]
+        public void ReReadAdjustedNameAndValueTest()
+        {
+            GBaseAttribute attribute = new GBaseAttribute("x");
+            attribute.AdjustedName = "hello";
+            attribute.AdjustedValue = "world";
+            AssertRereadIsSame(attribute);
+        }
+
         private void AssertRereadIsSame(GBaseAttribute attribute)
         {
             StringWriter sw = new StringWriter();

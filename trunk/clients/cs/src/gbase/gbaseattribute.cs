@@ -375,6 +375,8 @@ namespace Google.GData.GoogleBase {
         private bool isPrivate;
         /// <summary>Content, null if subElements != null.</summary>
         private string content;
+        private string adjustedValue;
+        private string adjustedName;
 
         /// <summary>Dictionary of: subElementName x subElementValue.
         /// Null if content != null</summary>
@@ -482,6 +484,40 @@ namespace Google.GData.GoogleBase {
             }
         }
 
+
+        ///////////////////////////////////////////////////////////////////////
+        /// <summary>A better name for this attribute, recommended by 
+        /// Google (when adjustments are turned on)</summary>
+        ///////////////////////////////////////////////////////////////////////
+        public string AdjustedName
+        {
+            get
+            {
+                return adjustedName;
+            }
+            set
+            {
+                adjustedName = value;
+            }
+        }
+
+
+        ///////////////////////////////////////////////////////////////////////
+        /// <summary>A better value for this string attribute, recommended by 
+        /// Google (when adjustments are turned on)</summary>
+        ///////////////////////////////////////////////////////////////////////
+        public string AdjustedValue
+        {
+            get
+            {
+                return adjustedValue;
+            }
+            set
+            {
+                adjustedValue = value;
+            }
+        }
+
         //////////////////////////////////////////////////////////////////////
         /// <summary>Accesses sub-elements.
         ///
@@ -578,20 +614,37 @@ namespace Google.GData.GoogleBase {
             }
             attribute.IsPrivate = node.Attributes["access"] != null &&
                                   "private".Equals(node.Attributes["access"].Value);
-            bool hasSubElements = false;
             foreach (XmlNode child in node.ChildNodes)
             {
                 if (child.NodeType == XmlNodeType.Element)
                 {
-                    attribute[child.LocalName] = child.InnerXml;
-                    hasSubElements = true;
+                    bool parsed = false;
+                    if (child.NamespaceURI == GBaseNameTable.NSGBaseMeta)
+                    {
+                        object localName = child.LocalName;
+                        if (localName.Equals("adjusted_name"))
+                        {
+                            attribute.AdjustedName = child.InnerText;
+                            parsed = true;
+                        }
+                        else if (localName.Equals("adjusted_value"))
+                        {
+                            attribute.AdjustedValue = child.InnerText;
+                            parsed = true;
+                        }
+                    }
+                    // Keep everything else as XML
+                    if (!parsed)
+                    {
+                        attribute[child.LocalName] = child.InnerXml;
+                    }
                 }
             }
 
             // If there are sub-elements, set the Content to null unless
             // there is clearly something in there.
             string content = ExtractDirectTextChildren(node);
-            if (!hasSubElements || !"".Equals(content.Trim(kXmlWhitespaces)))
+            if (!"".Equals(content.Trim(kXmlWhitespaces)))
             {
                 attribute.Content = content;
             }
@@ -631,6 +684,25 @@ namespace Google.GData.GoogleBase {
             {
                 writer.WriteAttributeString("access", "private");
             }
+
+            if (adjustedValue != null)
+            {
+                writer.WriteStartElement(GBaseNameTable.GBaseMetaPrefix,
+                                         "adjusted_value",
+                                         GBaseNameTable.NSGBaseMeta);
+                writer.WriteString(adjustedValue);
+                writer.WriteEndElement();
+            }
+
+            if (adjustedName != null)
+            {
+                writer.WriteStartElement(GBaseNameTable.GBaseMetaPrefix,
+                                         "adjusted_name",
+                                         GBaseNameTable.NSGBaseMeta);
+                writer.WriteString(adjustedName);
+                writer.WriteEndElement();
+            }
+
             if (content != null)
             {
                 writer.WriteString(content);
@@ -711,6 +783,7 @@ namespace Google.GData.GoogleBase {
             GBaseAttribute other = o as GBaseAttribute;
             return name == other.name && type == other.type &&
                    content == other.content && isPrivate == other.isPrivate &&
+                   adjustedName == other.adjustedName && adjustedValue == other.adjustedValue &&
                    HashTablesEquals(subElements, other.subElements);
         }
 
