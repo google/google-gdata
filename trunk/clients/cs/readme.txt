@@ -24,10 +24,7 @@ Using Mono.
 - install Mono from www.mono-project.com. Choose a runtime at least as new 
    as the one this code was developed with. Mono does include NUnit, which 
    is used as a test framework for some of the sample code
-- install ant from ant.apache.org, if you do not have it installed already
-- follow installation instructions of both products, and make sure that you can 
-  access mono and ant in your shell.
-- go to the clients/cs directory and just type ant, it should build
+- go to the clients/cs directory and just type make, it should build
 
 
 Using Visual Studio, .NET 1.1
@@ -127,13 +124,13 @@ To finally do the batch, you just call the new service method for this purpose:
 
 To verify that the operations were successfull, you need to iterate over the returned entries:
 
-	foreach (AtomEntry resultEntry in resultFeed.Entries )
-	{
-	    GDataBatchEntryData data = resultEntry.BatchData;
-	    switch (data.Stutus.Code) {
-	       case 200:....
-	    }
-	}
+        foreach (AtomEntry resultEntry in resultFeed.Entries )
+        {
+            GDataBatchEntryData data = resultEntry.BatchData;
+            switch (data.Stutus.Code) {
+               case 200:....
+            }
+        }
 
 For more details check the online documentation for batch and look into the unittests/gbase.cs file. 
 
