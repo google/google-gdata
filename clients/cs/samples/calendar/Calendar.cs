@@ -163,11 +163,11 @@ namespace SampleApp
             // 
             // DayEvents
             // 
-            this.DayEvents.Columns.AddRange(new System.Windows.Forms.ColumnHeader[]{
-                                            this.columnHeader1,
-                                            this.columnHeader2,
-                                            this.columnHeader3,
-                                            this.columnHeader4});
+            this.DayEvents.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+                                                                                        this.columnHeader1,
+                                                                                        this.columnHeader2,
+                                                                                        this.columnHeader3,
+                                                                                        this.columnHeader4});
             this.DayEvents.FullRowSelect = true;
             this.DayEvents.GridLines = true;
             this.DayEvents.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
@@ -211,7 +211,7 @@ namespace SampleApp
             this.Controls.Add(this.calendarControl);
             this.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.Name = "Calendar";
-            this.Text = "Calendar";
+            this.Text = "Google Calendar Demo Application";
             this.ResumeLayout(false);
 
         }

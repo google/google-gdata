@@ -82,7 +82,6 @@ namespace CodeSearch
             this.CodeSearchURI.Size = new System.Drawing.Size(296, 20);
             this.CodeSearchURI.TabIndex = 1;
             this.CodeSearchURI.Text = "http://www.google.com/codesearch/feeds/search";
-            
             // 
             // label1
             // 
@@ -138,7 +137,7 @@ namespace CodeSearch
             this.Controls.Add(this.label1);
             this.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.Name = "CodeSearch";
-            this.Text = "Search Code";
+            this.Text = "Google Code Search Demo";
             this.ResumeLayout(false);
 
         }
