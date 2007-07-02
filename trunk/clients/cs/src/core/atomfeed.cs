@@ -36,8 +36,11 @@ namespace Google.GData.Client
 {
 
     //////////////////////////////////////////////////////////////////////
-    /// <summary>Base class to read gData feeds in Atom
+    /// <summary>Base class to read gData feeds in Atom</summary>
+    /// <remarks>
+    /// <para>
     /// Version 1.0 changed to:
+    /// <code>
     /// AtomFeed =
     ///    element atom:feed {
     ///       atomCommonAttributes,
@@ -56,22 +59,57 @@ namespace Google.GData.Client
     ///        extensionElement*),
     ///       atomEntry*
     ///    }
-    ///     in addition it holds:
-    ///     * opensearch:totalResults - the total number of search results available (not necessarily all present in the feed).
-    ///     * opensearch:startIndex - the 1-based index of the first result.
-    ///     * opensearch:itemsPerPage - the maximum number of items that appear on one page. This allows clients to generate direct links to any set of subsequent pages.
-    ///
+    /// </code>
+    /// In addition it holds:
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term><c>opensearch:totalResults</c></term>
+    ///         <description>Total number of search results available (not necessarily all present in the feed).</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><c>opensearch:startIndex</c></term>
+    ///         <description>The 1-based index of the first result.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><c>opensearch:itemsPerPage</c></term>
+    ///         <description>The maximum number of items that appear on one page. This allows clients to generate direct links to any set of subsequent pages.</description>
+    ///     </item>
+    /// </list>
+    /// </para>
+    /// <para>
     /// In addition to these OpenSearch tags, the response also includes the following Atom and gData tags:
-    ///
-    ///     * atom:link rel="service.feed" type="application/atom+xml" href="..."/> - specifies the URI where the complete Atom feed can be retrieved.
-    ///     * atom:link rel="service.feed" type="application/rss+xml" href="..."/> - specifies the URI where the complete RSS feed can be retrieved.
-    ///     * atom:link rel="service.post" type="application/atom+xml" href="..."/> - specifies the Atom feed PostURI (where new entries can be posted).
-    ///     * atom:link rel="self" type="..." href="..."/> - contains the URI of this search request. The type attribute depends on the requested format. If no data changes, issuing a GET to this URI returns the same response.
-    ///     * atom:link rel="previous" type="application/atom+xml" href="..."/> - specifies the URI of the previous chunk of this query resultset, if it is chunked.
-    ///     * atom:link rel="next" type="application/atom+xml" href="..."/> - specifies the URI of the next chunk of this query resultset, if it is chunked.
-    ///     * gdata:processed parameter="..."/> - one of these tags is inserted for each parameter understood and processed by the service, e.g. gdata:processed parameter="author"
-    /// 
-    /// </summary> 
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term><c>atom:link rel="service.feed" type="application/atom+xml" href="..."/></c></term>
+    ///         <description>Specifies the URI where the complete Atom feed can be retrieved.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><c>atom:link rel="service.feed" type="application/rss+xml" href="..."/></c></term>
+    ///         <description>Specifies the URI where the complete RSS feed can be retrieved.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><c>atom:link rel="service.post" type="application/atom+xml" href="..."/></c></term>
+    ///         <description>Specifies the Atom feed PostURI (where new entries can be posted).</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><c>atom:link rel="self" type="..." href="..."/></c></term>
+    ///         <description>Contains the URI of this search request. The type attribute depends on the requested format. If no data changes, issuing a <c>GET</c> to this URI returns the same response.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><c>atom:link rel="previous" type="application/atom+xml" href="..."/></c></term>
+    ///         <description>Specifies the URI of the previous chunk of this query resultset, if it is chunked.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><c>atom:link rel="next" type="application/atom+xml" href="..."/></c></term>
+    ///         <description>Specifies the URI of the next chunk of this query resultset, if it is chunked.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><c>gdata:processed parameter="..."/></c></term>
+    ///         <description>One of these tags is inserted for each parameter understood and processed by the service, e.g. <c>gdata:processed parameter="author"</c>.</description>
+    ///     </item>
+    /// </list>
+    /// </para>
+    /// </remarks> 
     //////////////////////////////////////////////////////////////////////
 #if WindowsCE || PocketPC
 #else 
