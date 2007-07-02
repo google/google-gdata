@@ -1,4 +1,8 @@
 Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blogger", "Blogger\Blogger.csproj", "{D5C537EA-AF47-4BFF-9765-921BF180701F}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gdata", "gdata\gdata.csproj", "{B6F6D938-0D45-42BA-8A67-55D92EF03995}"
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
@@ -12,10 +16,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gcalendar", "gcalendar\gcal
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calendar", "Calendar\Calendar.csproj", "{66A10433-B78E-4144-9FD9-882E21D60F1E}"
-	ProjectSection(ProjectDependencies) = postProject
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blogger", "Blogger\Blogger.csproj", "{D5C537EA-AF47-4BFF-9765-921BF180701F}"
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
@@ -65,9 +65,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gacl", "gacl\gacl.csproj", 
 EndProject
 Global
 	GlobalSection(SolutionConfiguration) = preSolution
-		ASP = ASP
 		Debug = Debug
 		Release = Release
+		ASP = ASP
 	EndGlobalSection
 	GlobalSection(ProjectDependencies) = postSolution
 	EndGlobalSection
