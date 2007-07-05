@@ -33,6 +33,7 @@ namespace Google.GData.Client.UnitTests
 {
     [TestFixture] 
     [Category("LiveTest")]
+    [Ignore("Needs fixing, hangs NUnit")]
     public class GBatchTestSuite : BaseTestClass
     {
 
