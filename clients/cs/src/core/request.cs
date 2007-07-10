@@ -44,7 +44,8 @@ namespace Google.GData.Client
         private StringCollection customHeaders;     // holds any custom headers to set
         private String shardingCookie;              // holds the sharding cookie if returned
         private WebProxy webProxy;                  // holds a webproxy to use
-        private bool keepAlive;                     // indicates wether or not to keep the connection alive	
+        private bool keepAlive;                     // indicates wether or not to keep the connection alive
+	    private bool useGZip;
 
         /// <summary>Cookie setting header, returned from server</summary>
         public const string SetCookieHeader = "Set-Cookie"; 
@@ -80,6 +81,17 @@ namespace Google.GData.Client
         }
         /////////////////////////////////////////////////////////////////////////////
 
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>set wether or not new request should use GZip</summary>
+        //////////////////////////////////////////////////////////////////////
+        public bool UseGZip
+        {
+            get { return (this.useGZip); }
+            set { this.useGZip = value; }
+        }
+        //////////////////////////////////////////////////////////////////////
+
         //////////////////////////////////////////////////////////////////////
         /// <summary>set's and get's the sharding cookie</summary> 
         /// <returns> </returns>
@@ -98,7 +110,12 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         public string UserAgent
         {
-            get {return this.userAgent;}
+            get
+            {
+                if (this.useGZip == true)
+                    return this.userAgent + " (gzip)";
+                return this.userAgent;
+            }
             set {this.userAgent = value;}
         }
         /////////////////////////////////////////////////////////////////////////////
@@ -175,8 +192,10 @@ namespace Google.GData.Client
         private GDataRequestFactory factory; // holds the factory to use
         /// <summary>holds if we are disposed</summary> 
         protected bool disposed; 
+        /// <summary>set wheter or not this request should use GZip</summary>
+        private bool useGZip;
 
-
+        private GZipStream  gzippedStream;
 
    
         //////////////////////////////////////////////////////////////////////
@@ -187,6 +206,7 @@ namespace Google.GData.Client
             this.type = type;
             this.targetUri = uriTarget;
             this.factory = factory; 
+            this.useGZip = this.factory.UseGZip; // use gzip setting from factory
         }
         /////////////////////////////////////////////////////////////////////////////
 
@@ -218,8 +238,15 @@ namespace Google.GData.Client
         }
         //////////////////////////////////////////////////////////////////////
 
-
-
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>set wether or not this request should use GZip</summary>
+        //////////////////////////////////////////////////////////////////////
+        public bool UseGZip
+        {
+            get { return (this.useGZip); }
+            set { this.useGZip = value; }
+        }
+        //////////////////////////////////////////////////////////////////////
         
         //////////////////////////////////////////////////////////////////////
         /// <summary>does the real disposition</summary> 
@@ -296,9 +323,8 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         public virtual Stream GetRequestStream()
         {
-
             EnsureWebRequest();
-            this.requestStream = this.webRequest.GetRequestStream() ;
+            this.requestStream = this.webRequest.GetRequestStream();
             return this.requestStream; 
         }
         /////////////////////////////////////////////////////////////////////////////
@@ -336,6 +362,13 @@ namespace Google.GData.Client
                             web.Method = HttpMethods.Get;
                             break;
     
+                    }
+                    if (this.useGZip == true)
+                    {
+                        // Hack to get around the GFE bug
+                        web.Accept = "text/xml";
+                        /////////////////////////////////
+                        web.Headers.Add("Accept-Encoding", "gzip");
                     }
                     web.ContentType = "application/atom+xml; charset=UTF-8";
                     web.UserAgent = this.factory.UserAgent;
@@ -398,6 +431,8 @@ namespace Google.GData.Client
                 }
                 Tracing.TraceCall("calling the real execution over the webresponse");
                 this.webResponse = this.webRequest.GetResponse(); 
+                if (this.webResponse != null)
+                    this.useGZip = (string.Compare(((HttpWebResponse)this.webResponse).ContentEncoding, "gzip", true) == 0);
             }
             catch (WebException e)
             {
@@ -475,7 +510,17 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         public virtual Stream GetResponseStream()
         {
-            return this.webResponse != null ? this.webResponse.GetResponseStream() : null;
+            if (this.webResponse == null)
+                return (null);
+
+            if (this.useGZip == true)
+            {
+                if (this.gzippedStream == null)
+                    this.gzippedStream = new GZipStream(this.webResponse.GetResponseStream(), CompressionMode.Decompress);
+                return (this.gzippedStream);
+            }
+            else
+                return this.webResponse.GetResponseStream();
         }
         /////////////////////////////////////////////////////////////////////////////
 

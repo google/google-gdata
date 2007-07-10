@@ -1,7 +1,7 @@
 <VisualStudioProject>
     <CSHARP
         ProjectType = "Local"
-        ProductVersion = "7.10.6030"
+        ProductVersion = "7.10.3077"
         SchemaVersion = "2.0"
         ProjectGuid = "{B6F6D938-0D45-42BA-8A67-55D92EF03995}"
     >
@@ -298,6 +298,12 @@
                 <File
                     RelPath = "gdatabatch.cs"
                     Link = "..\..\core\gdatabatch.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "gzipstream.cs"
+                    Link = "..\..\core\gzipstream.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
