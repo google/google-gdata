@@ -194,8 +194,8 @@ namespace Google.GData.Client
         protected bool disposed; 
         /// <summary>set wheter or not this request should use GZip</summary>
         private bool useGZip;
-
-        private GZipStream  gzippedStream;
+        /// <summary>stream from the response</summary>
+        private Stream  responseStream;
 
    
         //////////////////////////////////////////////////////////////////////
@@ -431,8 +431,6 @@ namespace Google.GData.Client
                 }
                 Tracing.TraceCall("calling the real execution over the webresponse");
                 this.webResponse = this.webRequest.GetResponse(); 
-                if (this.webResponse != null)
-                    this.useGZip = (string.Compare(((HttpWebResponse)this.webResponse).ContentEncoding, "gzip", true) == 0);
             }
             catch (WebException e)
             {
@@ -440,10 +438,16 @@ namespace Google.GData.Client
                 GDataRequestException gde = new GDataRequestException("Execution of request failed: " + this.targetUri.ToString(), e);
                 throw gde;
             }
+            if (this.webResponse != null)
+                this.responseStream = this.webResponse.GetResponseStream();
             if (this.webResponse is HttpWebResponse)
             {
                 HttpWebResponse response = this.webResponse as HttpWebResponse;
                 HttpWebRequest request = this.webRequest as HttpWebRequest;
+
+                this.useGZip = (string.Compare(response.ContentEncoding, "gzip", true) == 0);
+                if (this.useGZip == true)
+                    this.responseStream = new GZipStream(this.responseStream, CompressionMode.Decompress);
 
                 Tracing.Assert(response != null, "The response should not be NULL"); 
                 Tracing.Assert(request != null, "The request should not be NULL"); 
@@ -510,17 +514,7 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         public virtual Stream GetResponseStream()
         {
-            if (this.webResponse == null)
-                return (null);
-
-            if (this.useGZip == true)
-            {
-                if (this.gzippedStream == null)
-                    this.gzippedStream = new GZipStream(this.webResponse.GetResponseStream(), CompressionMode.Decompress);
-                return (this.gzippedStream);
-            }
-            else
-                return this.webResponse.GetResponseStream();
+            return (this.responseStream);
         }
         /////////////////////////////////////////////////////////////////////////////
 
