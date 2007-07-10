@@ -73,6 +73,12 @@ namespace Google.GData.Client
     {
         /// <summary>creation method for GDatarequests</summary> 
         IGDataRequest CreateRequest(GDataRequestType type, Uri uriTarget); 
+        /// <summary>set wether or not to use gzip for new requests</summary>
+        bool    UseGZip
+        {
+            get;
+            set;
+        }
     }
     //////////////////////////////////////////////////////////////////////
 
@@ -105,6 +111,12 @@ namespace Google.GData.Client
     {
         /// <summary>get/set for credentials to the service calls. Get's passed through to GDatarequest</summary> 
         ICredentials Credentials 
+        {
+            get;
+            set;
+        }
+        /// <summary>set wether or not to use gzip for this request</summary>
+        bool UseGZip
         {
             get;
             set;

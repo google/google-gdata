@@ -141,6 +141,9 @@
     <Compile Include="..\..\core\gdatabatch.cs">
       <Link>gdatabatch.cs</Link>
     </Compile>
+    <Compile Include="..\..\core\gzipstream.cs">
+      <Link>gzipstream.cs</Link>
+    </Compile>
     <Compile Include="..\..\core\HttpUtility.cs">
       <Link>HttpUtility.cs</Link>
     </Compile>
