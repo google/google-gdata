@@ -25,16 +25,13 @@ using NUnit.Framework;
 using Google.GData.Client;
 using Google.GData.Extensions;
 using Google.GData.GoogleBase;
+using Google.GData.Client.UnitTests;
 
-
-
-
-namespace Google.GData.Client.UnitTests
+namespace Google.GData.Client.LiveTests
 {
     [TestFixture] 
     [Category("LiveTest")]
-    [Ignore("Needs fixing, hangs NUnit")]
-    public class GBatchTestSuite : BaseTestClass
+    public class GBatchTestSuite : BaseLiveTestClass
     {
 
         /// <summary>holds the username to use</summary>
@@ -120,7 +117,8 @@ namespace Google.GData.Client.UnitTests
 
         public override string ServiceName
         {
-            get {
+            get 
+            {
                 return "gbase"; 
             }
         }
@@ -313,6 +311,9 @@ namespace Google.GData.Client.UnitTests
 
                 query.Uri = new Uri(this.gBaseURI);
                 AtomFeed baseFeed = service.Query(query);
+
+                Tracing.TraceMsg("Queried");
+
                 // this should have a batch URI
                 Assert.IsTrue(baseFeed.Batch != null, "This is a base Feed, it should have batch URI"); 
 
@@ -322,6 +323,8 @@ namespace Google.GData.Client.UnitTests
                 // set the default operation. 
                 batchFeed.BatchData = new GDataBatchFeedData();
                 batchFeed.BatchData.Type = GDataBatchOperationType.delete; 
+
+                Tracing.TraceMsg("Pouet ?");
 
                 int i = 1; 
                 foreach (AtomEntry entry in baseFeed.Entries)
