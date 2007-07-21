@@ -898,9 +898,10 @@ namespace Google.GData.Client
                     }
                 }
 
-                reader.MoveToElement();
-
-                status.Value = reader.ReadString();
+                // FIX: THIS CODE SEEMS TO MAKE AN INFINITE LOOP WITH NextChildElement()
+                //reader.MoveToElement();
+                //status.Value = reader.ReadString();
+                ////////////////////////////////////////////////////////////////////////
 
                 // status can have one child element, errors
                 // for now disabled, as this is currently not supported on the server
