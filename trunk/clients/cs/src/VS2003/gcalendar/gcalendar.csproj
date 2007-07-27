@@ -16,7 +16,7 @@
                 DefaultTargetSchema = "IE50"
                 DelaySign = "false"
                 OutputType = "Library"
-                PreBuildEvent = 'copy "$(ProjectDir)..\..\signing\*.*"  "$(ProjectDir)\obj\$(ConfigurationName)\*.*"'
+                PreBuildEvent = 'mkdir "$(ProjectDir)\obj\$(ConfigurationName)"&#xd;&#xa;copy "$(ProjectDir)..\..\signing\*.*"  "$(ProjectDir)\obj\$(ConfigurationName)\*.*"'
                 PostBuildEvent = ""
                 RootNamespace = "Google.GData.Calendar"
                 RunPostBuildEvent = "OnBuildSuccess"

@@ -150,12 +150,6 @@
                     SubType = "Form"
                     BuildAction = "Compile"
                 />
-                <File
-                    RelPath = "spreadsheetssampleapp.resx"
-                    Link = "..\..\..\samples\spreadsheets\spreadsheetssampleapp.resx"
-                    DependentUpon = "spreadsheetssampleapp.cs"
-                    BuildAction = "EmbeddedResource"
-                />
             </Include>
         </Files>
     </CSHARP>
