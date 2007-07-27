@@ -95,7 +95,7 @@ namespace Blogger
             this.BloggerURI.Name = "BloggerURI";
             this.BloggerURI.Size = new System.Drawing.Size(296, 20);
             this.BloggerURI.TabIndex = 1;
-            this.BloggerURI.Text = "http://www..blogger.com/feeds/default/blogs";
+            this.BloggerURI.Text = "http://www.blogger.com/feeds/default/blogs";
             // 
             // label1
             // 

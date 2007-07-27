@@ -393,9 +393,7 @@ namespace Google.GData.Client
 
             returnFeed.NewAtomEntry += new FeedParserEventHandler(this.OnParsedNewEntry); 
             returnFeed.NewExtensionElement += new ExtensionElementEventHandler(this.OnNewExtensionElement);
-
             returnFeed.Parse(returnStream, AlternativeFormat.Atom);
-
             returnStream.Close(); 
 
             // there should be ONE entry echoed back. 
@@ -412,6 +410,45 @@ namespace Google.GData.Client
         /////////////////////////////////////////////////////////////////////////////
 
 
+        /// <summary>
+        /// simple update for media resources
+        /// </summary>
+        /// <param name="uriTarget"></param>
+        /// <param name="input"></param>
+        /// <param name="contentType"></param>
+        /// <returns>AtomEntry</returns>
+        public AtomEntry Update(Uri uriTarget, Stream input, string contentType)
+        {
+            Stream returnStream = StreamSend(uriTarget, input, GDataRequestType.Update, contentType);
+            AtomFeed returnFeed = createFeed(uriTarget);
+
+            returnFeed.Parse(returnStream, AlternativeFormat.Atom);
+            // there should be ONE entry echoed back. 
+            returnStream.Close(); 
+
+            return returnFeed.Entries[0]; 
+        }   
+
+        /// <summary>
+        /// Simple insert for media resources
+        /// </summary>
+        /// <param name="uriTarget"></param>
+        /// <param name="input"></param>
+        /// <param name="contentType"></param>
+        /// <returns>AtomEntry</returns>
+        public AtomEntry Insert(Uri uriTarget, Stream input, string contentType)
+        {
+            Stream returnStream = StreamSend(uriTarget, input, GDataRequestType.Insert, contentType);
+            AtomFeed returnFeed = createFeed(uriTarget);
+
+            returnFeed.Parse(returnStream, AlternativeFormat.Atom);
+            // there should be ONE entry echoed back. 
+            returnStream.Close(); 
+
+            return returnFeed.Entries[0]; 
+
+        }
+   
 
 
         //////////////////////////////////////////////////////////////////////
@@ -466,7 +503,8 @@ namespace Google.GData.Client
         /// </summary>
         /// <param name="targetUri"></param>
         /// <param name="payload"></param>        /// <param name="type"></param>
-        /// <returns>Stream</returns>        public Stream StreamSend(Uri targetUri, String payload, GDataRequestType type)
+        /// <returns>Stream</returns>        
+        public Stream StreamSend(Uri targetUri, String payload, GDataRequestType type)
         {
             Tracing.Assert(targetUri != null, "targetUri should not be null");
             if (targetUri == null)
@@ -496,9 +534,75 @@ namespace Google.GData.Client
 
 
 
+        /// <summary>
+        /// this is a helper function for to send binary data to a resource
+        /// it is not worth running the other insert/saves through here, as this would involve
+        /// double buffering/copying of the bytes
+        /// </summary>
+        /// <param name="targetUri"></param>
+        /// <param name="inputStream"></param>
+        /// <param name="type"></param>
+        /// <returns>Stream</returns>        
+        public Stream StreamSend(Uri targetUri, 
+                                 Stream inputStream, 
+                                 GDataRequestType type, 
+                                 string contentType)
+        {
+            Tracing.Assert(targetUri != null, "targetUri should not be null");
+            if (targetUri == null)
+            {
+                throw new ArgumentNullException("targetUri"); 
+            }
+            if (inputStream == null)
+            {
+                Tracing.Assert(inputStream != null, "payload should not be null");
+                throw new ArgumentNullException("payload"); 
+            }
+            if (type != GDataRequestType.Insert && type != GDataRequestType.Update)
+            {
+                Tracing.Assert(type != GDataRequestType.Insert && type != GDataRequestType.Update,"type needs to be insert or update");
+                throw new ArgumentNullException("type"); 
+            }
+
+            
+            IGDataRequest request = this.RequestFactory.CreateRequest(type,targetUri);
+            request.Credentials = this.Credentials;
+
+            // set the contenttype of the request
+            if (contentType != null)
+            {
+                GDataRequest r = request as GDataRequest;
+                if (r != null)
+                {
+                    r.ContentType = contentType;
+                }
+            }
+
+            Stream outputStream = request.GetRequestStream();
+
+            BinaryWriter w = new BinaryWriter(outputStream);
+            const int size = 4096;
+            byte[] bytes = new byte[4096];
+            int numBytes;
+
+            while((numBytes = inputStream.Read(bytes, 0, size)) > 0)
+            {
+                w.Write(bytes, 0, numBytes);
+            }
+            w.Flush();
+            request.Execute();
+            w.Close();
+            return request.GetResponseStream();
+        }
+
+
+
+
+
+
         //////////////////////////////////////////////////////////////////////
         /// <summary>creates a new feed instance to be returned by
-        /// Batch() and Query()
+        /// Batch(), Query() and other operations
         ///
         /// Subclasses can supply their own feed implementation by
         /// overriding this method.

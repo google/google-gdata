@@ -46,15 +46,12 @@ namespace Google.GData.Client
         private WebProxy webProxy;                  // holds a webproxy to use
         private bool keepAlive;                     // indicates wether or not to keep the connection alive
 	    private bool useGZip;
-
+        private string contentType = "application/atom+xml; charset=UTF-8";
         /// <summary>Cookie setting header, returned from server</summary>
         public const string SetCookieHeader = "Set-Cookie"; 
         /// <summary>Cookie client header</summary>
         public const string CookieHeader = "Cookie"; 
 
-
-
-   
         //////////////////////////////////////////////////////////////////////
         /// <summary>default constructor</summary> 
         //////////////////////////////////////////////////////////////////////
@@ -100,6 +97,17 @@ namespace Google.GData.Client
         {
             get {return this.shardingCookie;}
             set {this.shardingCookie = value;}
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>set's and get's the content Type, used for binary transfers</summary> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        public string ContentType
+        {
+            get {return this.contentType;}
+            set {this.contentType = value;}
         }
         /////////////////////////////////////////////////////////////////////////////
 
@@ -196,6 +204,8 @@ namespace Google.GData.Client
         private bool useGZip;
         /// <summary>stream from the response</summary>
         private Stream  responseStream;
+        /// <summary>holds the contenttype to use if overridden</summary>
+        private string contentType;
 
    
         //////////////////////////////////////////////////////////////////////
@@ -278,6 +288,20 @@ namespace Google.GData.Client
             set {this.credentials = value;}
         }
         /////////////////////////////////////////////////////////////////////////////
+
+       //////////////////////////////////////////////////////////////////////
+        /// <summary>set's and get's the content Type, used for binary transfers</summary> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        public string ContentType
+        {
+            get {return this.contentType == null ? this.factory.ContentType : this.contentType;}
+            set {this.contentType = value;}
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+
+
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>accessor method protected WebRequest Request</summary> 
@@ -370,7 +394,7 @@ namespace Google.GData.Client
                         /////////////////////////////////
                         web.Headers.Add("Accept-Encoding", "gzip");
                     }
-                    web.ContentType = "application/atom+xml; charset=UTF-8";
+                    web.ContentType = this.ContentType;
                     web.UserAgent = this.factory.UserAgent;
                     web.KeepAlive = this.factory.KeepAlive; 
 

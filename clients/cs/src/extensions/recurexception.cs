@@ -96,12 +96,14 @@ namespace Google.GData.Extensions {
 
                 if (node.HasChildNodes)
                 {
-                    foreach (XmlNode childNode in node.ChildNodes)
+                    XmlNode childNode = node.FirstChild;
+                    while (childNode != null && childNode is XmlElement)
                     {
                         if (childNode.LocalName == GDataParserNameTable.XmlEntryLinkElement)
                         {
                             exception.EntryLink = EntryLink.ParseEntryLink(childNode, parser); 
                         }
+                        childNode = childNode.NextSibling;
                     }
                 }
             }

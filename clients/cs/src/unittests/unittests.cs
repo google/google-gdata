@@ -23,6 +23,7 @@ using System.Configuration;
 using System.Net; 
 using NUnit.Framework;
 using Google.GData.Client;
+using Google.GData.Client.LiveTests;
 using Google.GData.Extensions;
 using Google.GData.Calendar;
 
@@ -294,13 +295,11 @@ namespace Google.GData.Client.UnitTests
 //            test.EndTest(); 
 
 
-/*
-            CoreTestSuite test = new CoreTestSuite();
+            PhotosTestSuite test = new PhotosTestSuite();
 
             test.InitTest();
-            test.CreateEmptyEntrySaveAndLoad();
+            test.QueryPhotosTest();
             test.EndTest();
-*/
 
         }
         /////////////////////////////////////////////////////////////////////////////

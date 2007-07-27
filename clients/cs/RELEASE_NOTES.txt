@@ -1,5 +1,9 @@
-== 1.0.9.9 ==
+== 1.1.0 ==
 - added GZip support for .NET 1.1, 2.0 and .NET Compact Framework 2.0 (see readme).
+- fixed a Google Base issue (The server doesn't accept scientific notations for floats)
+- fixed typo in the blogger sample (www..blogger), which made the sample hard to use
+
+== 1.0.9.9 ==
 - added GBase support for m:adjusted_name and gm:adjusted_value inside attributes
   (returned only when adjustments are enabled)
 - Google Apps changes:
@@ -83,7 +87,7 @@
     Fixes:
      - Fixed the GBaseAttributeType hierarchy for date/dateTime/dateTimeRange
      - Fixed the type of the hardcoded ExpirationDate property in GBaseAttributes
-- Added a Makefile for Mono builds. This one replaces the Ant file. 	
+- Added a Makefile for Mono builds. This one replaces the Ant file.     
 
 == 1.0.9.2 == 
 - Removed the MethodOverride default for the CalendarService. If you need that (due to firewalls not allowing PUT/DELETE requests, 
@@ -128,12 +132,12 @@
 - Setting content-length correctly to fix WindowsMobile issues. This fix is a user submitted, and created by Steeve Morin
 - Fixes to the authsub code, provided by Ryan Boyd
 - The DLLs were renamed, to follow the Windows .NET standard. 
-	gdata.dll 	-> 	Google.GData.Client.dll
-	gbase.dll 	-> 	Google.GData.GoogleBase.dll
-	gcalendar.dll 	-> 	Google.GData.Calendar.dll
-	gcodesearch.dll	-> 	Google.GData.CodeSearch.dll
-	gextensions.dll	->	Google.GData.Extensions.dll
-	and the new one -> 	Google.GData.Spreadsheets.dll
+        gdata.dll       ->      Google.GData.Client.dll
+        gbase.dll       ->      Google.GData.GoogleBase.dll
+        gcalendar.dll   ->      Google.GData.Calendar.dll
+        gcodesearch.dll ->      Google.GData.CodeSearch.dll
+        gextensions.dll ->      Google.GData.Extensions.dll
+        and the new one ->      Google.GData.Spreadsheets.dll
 
 
 == 1.0.7 ==

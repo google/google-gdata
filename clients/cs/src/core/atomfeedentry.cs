@@ -368,6 +368,32 @@ namespace Google.GData.Client
         }
         /////////////////////////////////////////////////////////////////////////////
 
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>accessor to find the edit-media link</summary> 
+        /// <returns>the Uri as AtomUri to the media upload Service</returns>
+        //////////////////////////////////////////////////////////////////////
+        public AtomUri Media
+        {
+            get 
+            {
+                // scan the link collection
+                AtomLink link = this.Links.FindService(BaseNameTable.ServiceMedia, AtomLink.ATOM_TYPE);
+                return link == null ? null : link.HRef;
+            }
+            set
+            {
+                AtomLink link = this.Links.FindService(BaseNameTable.ServiceMedia, AtomLink.ATOM_TYPE);
+                if (link == null)
+                {
+                    link = new AtomLink(AtomLink.ATOM_TYPE, BaseNameTable.ServiceMedia);
+                    this.Links.Add(link);
+                }
+                link.HRef = value;
+            }
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>accessor method public DateTime UpdateDate</summary> 
@@ -443,13 +469,15 @@ namespace Google.GData.Client
                     if (node.NamespaceURI == BaseNameTable.NSAppPublishing
                          && node.LocalName == BaseNameTable.XmlElementPubControl) 
                     {
-                        foreach (XmlNode child in node.ChildNodes)
+                        XmlNode child = node.FirstChild;
+                        while (child != null && child is XmlElement)
                         {
                             if (child.NamespaceURI == BaseNameTable.NSAppPublishing 
                                 && child.LocalName == BaseNameTable.XmlElementPubDraft)
                             {
                                 return child;
                             }
+                            child = child.NextSibling;
                         }
                     }
                 }
@@ -723,10 +751,10 @@ namespace Google.GData.Client
 
             this.ExtensionElements.Clear();
 
-	        foreach (Object extension in updatedEntry.ExtensionElements)
-	        {
-	            this.ExtensionElements.Add(extension);
-	        }
+            foreach (Object extension in updatedEntry.ExtensionElements)
+            {
+                this.ExtensionElements.Add(extension);
+            }
         }
         /////////////////////////////////////////////////////////////////////////////
 

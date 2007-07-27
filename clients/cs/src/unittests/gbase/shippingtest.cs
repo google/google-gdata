@@ -66,7 +66,7 @@ namespace Google.GData.GoogleBase.UnitTests
         {
             Shipping shipping = new Shipping("FR", "YPS", 10.0f, null);
             GBaseAttribute created = shipping.CreateGBaseAttribute("shipping");
-            completeAttr["price"] = "10";
+            completeAttr["price"] = "10.00";
             Assert.AreEqual(completeAttr, created);
         }
     }

@@ -45,6 +45,7 @@ namespace Google.GData.GoogleBase.UnitTests
     {
         private GBaseAttribute aInt;
         private GBaseAttribute aFloat;
+        private GBaseAttribute largeFloat;
         private GBaseAttribute aNumber;
 
         [SetUp]
@@ -53,11 +54,13 @@ namespace Google.GData.GoogleBase.UnitTests
             base.SetUp();
             aInt = new GBaseAttribute("a", GBaseAttributeType.Int, "12");
             aFloat = new GBaseAttribute("a", GBaseAttributeType.Float, "3.14");
+            largeFloat = new GBaseAttribute("large", GBaseAttributeType.Float, "10000000");
             aNumber = new GBaseAttribute("a", GBaseAttributeType.Number, "2.7");
 
             attrs.Add(aInt);
             attrs.Add(aFloat);
             attrs.Add(aNumber);
+            attrs.Add(largeFloat);
         }
 
         [Test]
@@ -74,6 +77,21 @@ namespace Google.GData.GoogleBase.UnitTests
             float fvalue;
             Assert.IsTrue(attrs.ExtractFloatAttribute("a", out fvalue));
             Assert.AreEqual(3.14, fvalue);
+        }
+
+        [Test]
+        public void AddLargeFloatAttribute()
+        {
+            attrs.AddFloatAttribute("largeB", 1e9f);
+            Assert.AreEqual("1000000000.00", attrs.GetAttribute("largeB", GBaseAttributeType.Float).Content);
+        }
+
+        [Test]
+        public void ExtractLargeFloatAttribute()
+        {
+            float fvalue;
+            Assert.IsTrue(attrs.ExtractFloatAttribute("large", out fvalue));
+            Assert.AreEqual(1e7f, fvalue);
         }
 
         [Test]
@@ -160,6 +178,13 @@ namespace Google.GData.GoogleBase.UnitTests
         public void GetFloatUnitAttribute()
         {
             Assert.AreEqual(aFloatUnitValue, attrs.GetFloatUnitAttribute("a"));
+        }
+
+        [Test]
+        public void AddLargeFloatUnitAttribute()
+        {
+            GBaseAttribute attribute = attrs.AddFloatUnitAttribute("large", 1e7f, "usd");
+            Assert.AreEqual("10000000.00 usd", attribute.Content);
         }
 
         [Test]

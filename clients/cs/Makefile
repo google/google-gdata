@@ -21,11 +21,12 @@ ALLLIBS = \
 	Google.GData.GoogleBase.dll	\
 	Google.GData.Spreadsheets.dll	\
 	Google.GData.Apps.dll		\
+	Google.GData.Photos.dll		\
 	Google.GData.AccessControl.dll 
 
 FRAMEWORK_REFS = -r:System.dll -r:System.Xml.dll -r:System.Web.dll
 
-COREREFS = $(addprefix -r:,$(CORELIBS)) $(FRAMEWORK_REFS)
+COREREFS = $(addprefix -r:,$(CORELIBS)) $(FRAMEWORK_REFS) 
 ALLREFS = $(addprefix -r:,$(ALLLIBS)) $(FRAMEWORK_REFS)
 ACLREFS = $(addprefix -r:,$(ACLLIBS)) $(FRAMEWORK_REFS)
 
@@ -39,7 +40,7 @@ samples =	\
 	execrequest.exe			\
 	gapps_appsdemo.exe \
 	gblogger_demo.exe \
-  gcal_demo.exe \
+	gcal_demo.exe \
 	gspreadsheet_demo.exe
 
 all: $(ALL_LIBS) tests $(samples)
@@ -52,13 +53,14 @@ gspreadsheet_sources = $(wildcard src/gspreadsheet/*.cs) $(wildcard src/version/
 gcalendar_sources =  $(wildcard src/gcalendar/*.cs) $(wildcard src/version/*.cs)
 gacl_sources = $(wildcard src/gacl/*.cs) $(wildcard src/version/*.cs)
 gapps_sources = $(wildcard src/gapps/*.cs) $(wildcard src/version/*cs.cs)
+gphotos_sources = $(wildcard src/gphotos/*.cs) $(wildcard src/version/*cs.cs)
 test_sources = $(wildcard src/unittests/*.cs) $(wildcard src/unittests/gbase/*.cs) $(wildcard src/unittests/gapps/*.cs) $(wildcard src/version/*cs)
 
 Google.GData.Client.dll: $(core_sources) clientkey.sn
 	$(CSC) $(DEFINES) -target:library -out:$@ $(core_sources) $(FRAMEWORK_REFS)
 
 Google.GData.Extensions.dll: Google.GData.Client.dll $(extension_sources) extensionkey.sn
-	$(CSC) -target:library -out:$@ -r:Google.GData.Client.dll $(extensions_sources) $(FRAMEWORK_REFS)
+	$(CSC) $(DEFINES) -target:library -out:$@ -r:Google.GData.Client.dll $(extensions_sources) $(FRAMEWORK_REFS)
 
 Google.GData.Calendar.dll: $(ACLLIBS) $(gcalendar_sources) calendarkey.sn
 	$(CSC) -target:library -out:$@ $(ACLREFS) $(gcalendar_sources)
@@ -75,9 +77,11 @@ Google.GData.Spreadsheets.dll: $(CORELIBS) $(gspreadsheet_sources) spreadsheets.
 Google.GData.AccessControl.dll: $(CORELIBS) $(gacl_sources) gacl.sn
 	$(CSC) -target:library -out:$@ $(COREREFS) $(gacl_sources)
 
-
 Google.GData.Apps.dll: $(CORELIBS) $(gapps_sources) gapps.sn
 	$(CSC) -target:library -out:$@ $(COREREFS) $(gapps_sources)
+
+Google.GData.Photos.dll: $(CORELIBS) $(gphotos_sources) picasa.sn
+	$(CSC) $(DEFINES) -target:library -out:$@ $(COREREFS) $(gphotos_sources)
 
 %.sn: 
 	cp src/signing/$@ .

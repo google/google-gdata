@@ -105,6 +105,8 @@ namespace Google.GData.Client
         public const string ServiceSelf = "self";
         /// <summary>the alternate URI in the link collection</summary> 
         public const string ServiceAlternate = "alternate";
+        /// <summary>the alternate URI in the link collection</summary> 
+        public const string ServiceMedia = "edit-media";
 
         /// <summary>prefix for atom if writing</summary> 
         public const string AtomPrefix = "atom"; 
