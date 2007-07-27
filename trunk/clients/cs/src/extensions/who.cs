@@ -271,8 +271,10 @@ namespace Google.GData.Extensions {
 
                 if (node.HasChildNodes)
                 {
-                    foreach (XmlNode childNode in node.ChildNodes)
+                    XmlNode childNode = node.FirstChild;
+                    while (childNode != null && childNode is XmlElement)
                     {
+            
                         if (childNode.LocalName == GDataParserNameTable.XmlAttendeeTypeElement)
                         {
                             who.Attendee_Type = AttendeeType.parse(childNode);
@@ -285,6 +287,7 @@ namespace Google.GData.Extensions {
                         {
                             who.EntryLink = EntryLink.ParseEntryLink(childNode, parser);
                         }
+                        childNode = childNode.NextSibling;
                     }
                 }
             }
@@ -307,7 +310,7 @@ namespace Google.GData.Extensions {
         /// Persistence method for the Who object
         /// </summary>
         /// <param name="writer">the xmlwriter to write into</param>
-           public void Save(XmlWriter writer)
+        public void Save(XmlWriter writer)
         {
             if (Utilities.IsPersistable(this.Rel) ||
                 Utilities.IsPersistable(this.valueString) ||

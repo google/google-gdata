@@ -940,6 +940,7 @@ namespace Google.GData.Client
                 int lvl = -1;
                 while (NextChildElement(reader, ref lvl))
                 {
+                    localname = reader.LocalName;
                     if (localname.Equals(this.nameTable.BatchError))
                     {
                         collection.Add(ParseBatchError(reader));

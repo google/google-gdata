@@ -19,6 +19,8 @@
 using System;
 using System.Xml;
 using System.Net;
+using System.Collections;
+
 
 #endregion
 
@@ -33,6 +35,7 @@ namespace Google.GData.Client
     /// </summary>
     public abstract class AbstractEntry : AtomEntry
     {
+
         /// <summary>
         /// base implementation, as with the abstract feed, we are adding
         /// the gnamespace
@@ -68,7 +71,29 @@ namespace Google.GData.Client
         /// </summary>
         /// <param name="e">The extension element that should be added to this entry</param>
         /// <param name="parser">The AtomFeedParser that called this</param>
-        public abstract void Parse(ExtensionElementEventArgs e, AtomFeedParser parser);
+        public virtual void Parse(ExtensionElementEventArgs e, AtomFeedParser parser)
+        {
+            Tracing.TraceMsg("Entering Parse on AbstractEntry");
+            XmlNode node = e.ExtensionElement;
+            if (this.ExtensionFactories != null && this.ExtensionFactories.Count > 0)
+            {
+                Tracing.TraceMsg("Entring default Parsing for AbstractEntry");
+                foreach (IExtensionElementFactory f in this.ExtensionFactories)
+                {
+                    Tracing.TraceMsg("Found extension Factories");
+                    if (String.Compare(node.NamespaceURI, f.XmlNameSpace, true) == 0)
+                    {
+                        if (String.Compare(node.LocalName, f.XmlName) == 0)
+                        {
+                            this.ExtensionElements.Add(f.CreateInstance(node, parser));
+                            e.DiscardEntry = true;
+                            break;
+                        }
+                    }
+                }
+            }
+            return;
+        }
     }
 }
 /////////////////////////////////////////////////////////////////////////////

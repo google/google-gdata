@@ -119,7 +119,9 @@ namespace Google.GData.Client
         private string atomLanguageTag;
         /// <summary>extension element collection</summary>
         private ArrayList extensionsList; 
-        /// <summary>a boolean indicating that recalc is allowed to happen implicitly now</summary> 
+        /// <summary> extension element factories </summary>
+        private ArrayList extensionFactories; 
+       /// <summary>a boolean indicating that recalc is allowed to happen implicitly now</summary> 
         private bool fAllowRecalc;
         /// <summary>holds a flag indicating if the thing should be send to the server</summary> 
         private bool fIsDirty; 
@@ -247,6 +249,38 @@ namespace Google.GData.Client
         /////////////////////////////////////////////////////////////////////////////
 
 
+        /// <summary>
+        /// adding an extension factory for extension elements
+        /// </summary>
+        /// <param name="factory">The factory</param>
+        public void AddExtension(IExtensionElementFactory factory) 
+        {
+            Tracing.Assert(factory != null, "factory should not be null");
+            if (factory == null)
+            {
+                throw new ArgumentNullException("factory"); 
+            }
+         
+            if (this.extensionFactories == null)
+            {
+                this.extensionFactories = new ArrayList();
+            }
+            this.extensionFactories.Add(factory);
+        }
+        //////////////////////////////////////////////////////////////////////
+
+
+        /// <summary>
+        /// read only accessor for the Extension Factories
+        /// </summary>
+        public ArrayList ExtensionFactories 
+        {
+            get 
+            { 
+                return this.extensionFactories;
+            }
+        }
+        
 
 
         //////////////////////////////////////////////////////////////////////

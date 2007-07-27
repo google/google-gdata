@@ -107,7 +107,8 @@ namespace Google.GData.Extensions {
 
                 if (node.HasChildNodes)
                 {
-                    foreach (XmlNode childNode in node.ChildNodes)
+                    XmlNode childNode = node.FirstChild;
+                    while (childNode != null && childNode is XmlElement)
                     {
                         if (childNode.LocalName == GDataParserNameTable.XmlWhenElement)
                         {
@@ -120,6 +121,7 @@ namespace Google.GData.Extensions {
                                 throw new ArgumentException("Only one g:when is allowed inside the g:orginalEvent");
                             }
                         }
+                        childNode = childNode.NextSibling;
                     }
                 }
             }

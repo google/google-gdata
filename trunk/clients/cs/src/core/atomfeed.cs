@@ -111,8 +111,8 @@ namespace Google.GData.Client
     /// </para>
     /// </remarks> 
     //////////////////////////////////////////////////////////////////////
-#if WindowsCE || PocketPC
-#else 
+#if WindowsCE || PocketPC
+#else 
     [TypeConverterAttribute(typeof(AtomSourceConverter)), DescriptionAttribute("Expand to see the options for the feed")]
 #endif
     public class AtomFeed : AtomSource
@@ -256,7 +256,7 @@ namespace Google.GData.Client
         }
         /////////////////////////////////////////////////////////////////////////////
 
-
+  
         //////////////////////////////////////////////////////////////////////
         /// <summary>accessor to the batchdata for the entry</summary> 
         /// <returns> GDataBatch object </returns>
@@ -756,7 +756,6 @@ namespace Google.GData.Client
         {
             if (this.Service != null)
             {
-
                 for (int i=0; i<this.Entries.Count;i++)
                 {
                     AtomEntry entry = this.Entries[i];

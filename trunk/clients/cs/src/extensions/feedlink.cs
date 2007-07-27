@@ -149,8 +149,8 @@ namespace Google.GData.Extensions {
 
                 if (node.HasChildNodes)
                 {
-
-                    foreach (XmlNode feedChild in node.ChildNodes)
+                    XmlNode feedChild = node.FirstChild;
+                    while (feedChild != null && feedChild is XmlElement)
                     {
                         if (feedChild.LocalName == AtomParserNameTable.XmlFeedElement &&
                             feedChild.NamespaceURI == BaseNameTable.NSAtom)
@@ -170,6 +170,7 @@ namespace Google.GData.Extensions {
                             }
                         }
                     }
+                    feedChild = feedChild.NextSibling;
                 }
 
             }

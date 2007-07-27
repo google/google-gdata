@@ -20,6 +20,7 @@ using System;
 using System.Net;
 using System.IO;
 using System.Xml;
+using Google.GData.Client;
 
 #endregion
 
@@ -53,15 +54,18 @@ namespace Google.GData.Client
 
         /// <summary>the minimal query implementation</summary> 
         AtomFeed Query(FeedQuery feedQuery);
-        /// <summary>the more sophisticated one</summary> 
+        /// <summary>simple update for atom resources</summary> 
         AtomEntry Update(AtomEntry entry);
-        /// <summary>the more sophisticated one</summary> 
+        /// <summary>simple insert for atom entries, based on a feed</summary> 
         AtomEntry Insert(AtomFeed feed, AtomEntry entry);
-        /// <summary>the more sophisticated one</summary> 
+        /// <summary>delete an entry</summary> 
         void Delete(AtomEntry entry);
         /// <summary>batch operation, posting of a set of entries</summary>
         AtomFeed Batch(AtomFeed feed, Uri batchUri); 
-
+        /// <summary>simple update for media resources</summary> 
+        AtomEntry Update(Uri uriTarget, Stream input, string contentType);
+        /// <summary>simple insert for media resources</summary> 
+//        AtomEntry Insert(Uri uriTarget, Stream input, string contentType);
     }
 
 
@@ -150,6 +154,21 @@ namespace Google.GData.Client
         /// <summary>the only relevant method here</summary> 
         void Save(XmlWriter writer);
     }
+
+    //////////////////////////////////////////////////////////////////////
+    /// <summary>if an extension element want's to use the new parsing method
+    /// it needs to implement this interface
+    /// </summary> 
+    //////////////////////////////////////////////////////////////////////
+    public interface IExtensionElementFactory
+    {
+        /// <summary>the only relevant method here</summary> 
+        string XmlName { get;}
+        string XmlNameSpace { get;}
+        string XmlPrefix { get;}
+        IExtensionElement CreateInstance(XmlNode node, AtomFeedParser parser); 
+    }
+
 
 
 

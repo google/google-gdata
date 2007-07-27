@@ -153,12 +153,14 @@ namespace Google.GData.Extensions
                 // single event, g:reminder is inside g:when
                 if (node.HasChildNodes)
                 {
-                    foreach (XmlNode whenChildNode in node.ChildNodes)
+                    XmlNode whenChildNode = node.FirstChild;
+                    while (whenChildNode != null && whenChildNode is XmlElement)
                     {
                         if (whenChildNode.LocalName == GDataParserNameTable.XmlReminderElement)
                         {
                             when.Reminder = Reminder.ParseReminder(whenChildNode);
                         }
+                        whenChildNode = whenChildNode.NextSibling;
                     }
                 }
             }

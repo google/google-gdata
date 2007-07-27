@@ -178,7 +178,7 @@ namespace Google.GData.Client
         /// <summary>alternative format as AlternativeFormat</summary> 
         private AlternativeFormat altFormat;
         /// <summary>the base URI</summary> 
-        private string baseUri;
+        protected string baseUri;
         #endregion
         //////////////////////////////////////////////////////////////////////
         /// <summary>Default constructor.</summary> 

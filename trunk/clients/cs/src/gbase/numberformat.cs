@@ -30,7 +30,7 @@ namespace Google.GData.GoogleBase {
 
        /// <summary>Formats a float as a string.</summary>
        public static string ToString(float value) {
-           return value.ToString(CultureInfo.InvariantCulture);
+           return value.ToString("f", CultureInfo.InvariantCulture);
         }
 
         /// <summary>Parses a string as an integer.</summary>

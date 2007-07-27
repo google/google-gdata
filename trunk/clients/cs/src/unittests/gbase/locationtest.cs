@@ -50,8 +50,8 @@ namespace Google.GData.GoogleBase.UnitTests
         {
             GBaseAttribute created = new Location("Nowhere", 3.0f, 0.0f).CreateGBaseAttribute("location");
             Assert.AreEqual("Nowhere", created.Content);
-            Assert.AreEqual("3", created["latitude"], "latitude");
-            Assert.AreEqual("0", created["longitude"], "longitude");
+            Assert.AreEqual("3.00", created["latitude"], "latitude");
+            Assert.AreEqual("0.00", created["longitude"], "longitude");
         }
 
 

@@ -122,8 +122,9 @@ namespace Google.GData.Extensions {
 
                 if (node.HasChildNodes)
                 {
+                    XmlNode entryChild = node.FirstChild;
 
-                    foreach (XmlNode entryChild in node.ChildNodes)
+                    while (entryChild != null && entryChild is XmlElement)
                     {
                         if (entryChild.LocalName == AtomParserNameTable.XmlAtomEntryElement &&
                             entryChild.NamespaceURI == BaseNameTable.NSAtom)
@@ -142,6 +143,7 @@ namespace Google.GData.Extensions {
                                 throw new ArgumentException("Only one entry is allowed inside the g:entryLink");
                             }
                         }
+                        entryChild = entryChild.NextSibling;
                     }
                 }
 

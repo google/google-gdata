@@ -133,12 +133,37 @@ namespace Google.GData.Client
                 HandleExtensionElements(e, parser);
             }
         }
+
+
         /// <summary>
         /// event on the Feed to handle extension elements during parsing
         /// </summary>
-        /// <param name="e">the event arguments</param>
+        /// <param name="e">the event arguments</param>
         /// <param name="parser">the parser that caused this</param>
-        protected abstract void HandleExtensionElements(ExtensionElementEventArgs e, AtomFeedParser parser);
+        protected virtual void HandleExtensionElements(ExtensionElementEventArgs e, AtomFeedParser parser) 
+        {
+            Tracing.TraceMsg("Entering HandleExtensionElements on AbstractFeed");
+            XmlNode node = e.ExtensionElement;
+            if (this.ExtensionFactories != null && this.ExtensionFactories.Count > 0)
+            {
+                Tracing.TraceMsg("Entring default Parsing for AbstractFeed");
+                foreach (IExtensionElementFactory f in this.ExtensionFactories)
+                {
+                    Tracing.TraceMsg("Found extension Factories");
+                    if (String.Compare(node.NamespaceURI, f.XmlNameSpace, true) == 0)
+                    {
+                        if (String.Compare(node.LocalName, f.XmlName) == 0)
+                        {
+                            this.ExtensionElements.Add(f.CreateInstance(node, parser));
+                            e.DiscardEntry = true;
+                            break;
+                        }
+                    }
+                }
+            }
+            return;
+
+        }
     }
     /////////////////////////////////////////////////////////////////////////////
 }

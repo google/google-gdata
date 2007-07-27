@@ -63,7 +63,8 @@ namespace Google.GData.Extensions {
                 comments = new Comments();
                 if (node.HasChildNodes)
                 {
-                    foreach (XmlNode commentsChild in node.ChildNodes)
+                    XmlNode commentsChild = node.FirstChild;
+                    while (commentsChild != null && commentsChild is XmlElement)
                     {
                         if (commentsChild.LocalName == GDataParserNameTable.XmlFeedLinkElement &&
                             commentsChild.NamespaceURI == BaseNameTable.gNamespace)
@@ -78,6 +79,7 @@ namespace Google.GData.Extensions {
                             }
                         }
                     }
+                    commentsChild = commentsChild.NextSibling;
                 }
             }
 
