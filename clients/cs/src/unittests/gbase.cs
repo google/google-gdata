@@ -33,15 +33,6 @@ namespace Google.GData.Client.LiveTests
     [Category("LiveTest")]
     public class GBatchTestSuite : BaseLiveTestClass
     {
-
-        /// <summary>holds the username to use</summary>
-        protected string userName;
-        /// <summary>holds the password to use</summary>
-        protected string passWord;
-
-        /// <summary>holds the default authhandler</summary> 
-        protected string strAuthHandler; 
-
         private string gBaseURI; // holds the base uri
 
         private string gBaseKey; // holds the key 
@@ -87,25 +78,10 @@ namespace Google.GData.Client.LiveTests
         {
             base.ReadConfigFile();
 
-            if (unitTestConfiguration.Contains("authHandler") == true)
-            {
-                this.strAuthHandler = (string) unitTestConfiguration["authHandler"];
-                Tracing.TraceInfo("Read authHandler value: " + this.strAuthHandler);
-            }
             if (unitTestConfiguration.Contains("gBaseURI") == true)
             {
                 this.gBaseURI = (string) unitTestConfiguration["gBaseURI"];
                 Tracing.TraceInfo("Read gBase URI value: " + this.gBaseURI);
-            }
-            if (unitTestConfiguration.Contains("userName") == true)
-            {
-                this.userName = (string) unitTestConfiguration["userName"];
-                Tracing.TraceInfo("Read userName value: " + this.userName);
-            }
-            if (unitTestConfiguration.Contains("passWord") == true)
-            {
-                this.passWord = (string) unitTestConfiguration["passWord"];
-                Tracing.TraceInfo("Read passWord value: " + this.passWord);
             }
             if (unitTestConfiguration.Contains("gBaseKey") == true)
             {
