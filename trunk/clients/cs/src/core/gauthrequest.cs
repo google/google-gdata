@@ -154,6 +154,20 @@ namespace Google.GData.Client
         }
         /////////////////////////////////////////////////////////////////////////////
 
+
+        ////////////////////////////////////////////////////////////////////////////////
+        /// <summary>accessor method public string UserAgent, with GFE support</summary> 
+        /// <remarks>GFE will enable gzip support ONLY for browser that have the string
+        /// "gzip" in their user agent (IE or Mozilla), since lot of browsers have a
+        /// broken gzip support.</remarks>
+        ////////////////////////////////////////////////////////////////////////////////
+        public override string UserAgent
+        {
+            get { return (base.UserAgent + (this.UseGZip == true ? " (gzip)" : "")); }
+            set { base.UserAgent = value; }
+        }
+
+
         //////////////////////////////////////////////////////////////////////
         /// <summary>Get/Set accessor for the application name</summary> 
         //////////////////////////////////////////////////////////////////////
@@ -394,6 +408,10 @@ namespace Google.GData.Client
                         req.Close(); 
                     }
                 }
+
+                // Hack to get around the GFE bug
+                if (this.UseGZip == true)
+                    http.Accept = "text/xml";
             }
         }
         /////////////////////////////////////////////////////////////////////////////

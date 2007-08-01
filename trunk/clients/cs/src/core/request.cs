@@ -45,7 +45,7 @@ namespace Google.GData.Client
         private String shardingCookie;              // holds the sharding cookie if returned
         private WebProxy webProxy;                  // holds a webproxy to use
         private bool keepAlive;                     // indicates wether or not to keep the connection alive
-	    private bool useGZip;
+        private bool useGZip;
         private string contentType = "application/atom+xml; charset=UTF-8";
         /// <summary>Cookie setting header, returned from server</summary>
         public const string SetCookieHeader = "Set-Cookie"; 
@@ -116,14 +116,9 @@ namespace Google.GData.Client
         /// <summary>accessor method public string UserAgent</summary> 
         /// <returns> </returns>
         //////////////////////////////////////////////////////////////////////
-        public string UserAgent
+        public virtual string UserAgent
         {
-            get
-            {
-                if (this.useGZip == true)
-                    return this.userAgent + " (gzip)";
-                return this.userAgent;
-            }
+            get { return this.userAgent; }
             set {this.userAgent = value;}
         }
         /////////////////////////////////////////////////////////////////////////////
@@ -388,12 +383,7 @@ namespace Google.GData.Client
     
                     }
                     if (this.useGZip == true)
-                    {
-                        // Hack to get around the GFE bug
-                        web.Accept = "text/xml";
-                        /////////////////////////////////
                         web.Headers.Add("Accept-Encoding", "gzip");
-                    }
                     web.ContentType = this.ContentType;
                     web.UserAgent = this.factory.UserAgent;
                     web.KeepAlive = this.factory.KeepAlive; 
