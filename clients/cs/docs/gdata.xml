@@ -46,6 +46,9 @@
         <member name="F:Google.GData.Client.AtomBase.extensionsList">
             <summary>extension element collection</summary>
         </member>
+        <member name="F:Google.GData.Client.AtomBase.extensionFactories">
+            <summary> extension element factories </summary>
+        </member>
         <member name="F:Google.GData.Client.AtomBase.fAllowRecalc">
             <summary>a boolean indicating that recalc is allowed to happen implicitly now</summary> 
         </member>
@@ -71,6 +74,12 @@
             <summary>This starts the calculation, to push down the base
             URI changes.</summary> 
             <param name="uriValue">the baseuri calculated so far</param>
+        </member>
+        <member name="M:Google.GData.Client.AtomBase.AddExtension(Google.GData.Client.IExtensionElementFactory)">
+            <summary>
+            adding an extension factory for extension elements
+            </summary>
+            <param name="factory">The factory</param>
         </member>
         <member name="M:Google.GData.Client.AtomBase.WalkTree(Google.GData.Client.IBaseWalkerAction)">
             <summary>Calls the action on this object and all children.</summary> 
@@ -174,6 +183,11 @@
         <member name="P:Google.GData.Client.AtomBase.Language">
             <summary>accessor method public string Language</summary> 
             <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Client.AtomBase.ExtensionFactories">
+            <summary>
+            read only accessor for the Extension Factories
+            </summary>
         </member>
         <member name="P:Google.GData.Client.AtomBase.ExtensionElements">
             <summary>read only accessor for the ExtensionsElements Collections</summary> 
@@ -290,6 +304,10 @@
             <summary>accessor for the self URI</summary> 
             <returns> </returns>
         </member>
+        <member name="P:Google.GData.Client.AtomEntry.Media">
+            <summary>accessor to find the edit-media link</summary> 
+            <returns>the Uri as AtomUri to the media upload Service</returns>
+        </member>
         <member name="P:Google.GData.Client.AtomEntry.Updated">
             <summary>accessor method public DateTime UpdateDate</summary> 
             <returns> </returns>
@@ -373,8 +391,11 @@
             </summary> 
         </member>
         <member name="T:Google.GData.Client.AtomFeed">
-            <summary>Base class to read gData feeds in Atom
+            <summary>Base class to read gData feeds in Atom</summary>
+            <remarks>
+            <para>
             Version 1.0 changed to:
+            <code>
             AtomFeed =
                element atom:feed {
                   atomCommonAttributes,
@@ -393,20 +414,57 @@
                    extensionElement*),
                   atomEntry*
                }
-                in addition it holds:
-                * opensearch:totalResults - the total number of search results available (not necessarily all present in the feed).
-                * opensearch:startIndex - the 1-based index of the first result.
-                * opensearch:itemsPerPage - the maximum number of items that appear on one page. This allows clients to generate direct links to any set of subsequent pages.
-                        In addition to these OpenSearch tags, the response also includes the following Atom and gData tags:
-                            * atom:link rel="service.feed" type="application/atom+xml" href="..."/> - specifies the URI where the complete Atom feed can be retrieved.
-                * atom:link rel="service.feed" type="application/rss+xml" href="..."/> - specifies the URI where the complete RSS feed can be retrieved.
-                * atom:link rel="service.post" type="application/atom+xml" href="..."/> - specifies the Atom feed PostURI (where new entries can be posted).
-                * atom:link rel="self" type="..." href="..."/> - contains the URI of this search request. The type attribute depends on the requested format. If no data changes, issuing a GET to this URI returns the same response.
-                * atom:link rel="previous" type="application/atom+xml" href="..."/> - specifies the URI of the previous chunk of this query resultset, if it is chunked.
-                * atom:link rel="next" type="application/atom+xml" href="..."/> - specifies the URI of the next chunk of this query resultset, if it is chunked.
-                * gdata:processed parameter="..."/> - one of these tags is inserted for each parameter understood and processed by the service, e.g. gdata:processed parameter="author"
-            
-            </summary> 
+            </code>
+            In addition it holds:
+            <list type="bullet">
+                <item>
+                    <term><c>opensearch:totalResults</c></term>
+                    <description>Total number of search results available (not necessarily all present in the feed).</description>
+                </item>
+                <item>
+                    <term><c>opensearch:startIndex</c></term>
+                    <description>The 1-based index of the first result.</description>
+                </item>
+                <item>
+                    <term><c>opensearch:itemsPerPage</c></term>
+                    <description>The maximum number of items that appear on one page. This allows clients to generate direct links to any set of subsequent pages.</description>
+                </item>
+            </list>
+            </para>
+            <para>
+            In addition to these OpenSearch tags, the response also includes the following Atom and gData tags:
+            <list type="bullet">
+                <item>
+                    <term><c>atom:link rel="service.feed" type="application/atom+xml" href="..."/></c></term>
+                    <description>Specifies the URI where the complete Atom feed can be retrieved.</description>
+                </item>
+                <item>
+                    <term><c>atom:link rel="service.feed" type="application/rss+xml" href="..."/></c></term>
+                    <description>Specifies the URI where the complete RSS feed can be retrieved.</description>
+                </item>
+                <item>
+                    <term><c>atom:link rel="service.post" type="application/atom+xml" href="..."/></c></term>
+                    <description>Specifies the Atom feed PostURI (where new entries can be posted).</description>
+                </item>
+                <item>
+                    <term><c>atom:link rel="self" type="..." href="..."/></c></term>
+                    <description>Contains the URI of this search request. The type attribute depends on the requested format. If no data changes, issuing a <c>GET</c> to this URI returns the same response.</description>
+                </item>
+                <item>
+                    <term><c>atom:link rel="previous" type="application/atom+xml" href="..."/></c></term>
+                    <description>Specifies the URI of the previous chunk of this query resultset, if it is chunked.</description>
+                </item>
+                <item>
+                    <term><c>atom:link rel="next" type="application/atom+xml" href="..."/></c></term>
+                    <description>Specifies the URI of the next chunk of this query resultset, if it is chunked.</description>
+                </item>
+                <item>
+                    <term><c>gdata:processed parameter="..."/></c></term>
+                    <description>One of these tags is inserted for each parameter understood and processed by the service, e.g. <c>gdata:processed parameter="author"</c>.</description>
+                </item>
+            </list>
+            </para>
+            </remarks> 
         </member>
         <member name="T:Google.GData.Client.AtomSource">
             <summary>Represents the AtomSource object. If an atom:entry is copied from one feed 
@@ -719,10 +777,6 @@
             <returns> </returns>
         </member>
         <member name="M:Google.GData.Client.AbstractFeed.HandleExtensionElements(Google.GData.Client.ExtensionElementEventArgs,Google.GData.Client.AtomFeedParser)">
-            <summary>
-            event on the Feed to handle extension elements during parsing
-            </summary>
-            <param name="e">the event arguments</param>
             <param name="parser">the parser that caused this</param>
         </member>
         <member name="T:Google.GData.Client.BaseIsDirty">
@@ -1427,6 +1481,9 @@
             <summary>the self URI in the link collection</summary> 
         </member>
         <member name="F:Google.GData.Client.BaseNameTable.ServiceAlternate">
+            <summary>the alternate URI in the link collection</summary> 
+        </member>
+        <member name="F:Google.GData.Client.BaseNameTable.ServiceMedia">
             <summary>the alternate URI in the link collection</summary> 
         </member>
         <member name="F:Google.GData.Client.BaseNameTable.AtomPrefix">
@@ -3034,6 +3091,9 @@
         <member name="M:Google.GData.Client.IGDataRequestFactory.CreateRequest(Google.GData.Client.GDataRequestType,System.Uri)">
             <summary>creation method for GDatarequests</summary> 
         </member>
+        <member name="P:Google.GData.Client.IGDataRequestFactory.UseGZip">
+            <summary>set wether or not to use gzip for new requests</summary>
+        </member>
         <member name="F:Google.GData.Client.GDataRequestFactory.GDataAgent">
             <summary>this factory's agent</summary> 
         </member>
@@ -3052,8 +3112,15 @@
         <member name="M:Google.GData.Client.GDataRequestFactory.CreateRequest(Google.GData.Client.GDataRequestType,System.Uri)">
             <summary>default constructor</summary> 
         </member>
+        <member name="P:Google.GData.Client.GDataRequestFactory.UseGZip">
+            <summary>set wether or not new request should use GZip</summary>
+        </member>
         <member name="P:Google.GData.Client.GDataRequestFactory.Cookie">
             <summary>set's and get's the sharding cookie</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Client.GDataRequestFactory.ContentType">
+            <summary>set's and get's the content Type, used for binary transfers</summary> 
             <returns> </returns>
         </member>
         <member name="P:Google.GData.Client.GDataRequestFactory.UserAgent">
@@ -3147,6 +3214,9 @@
         <member name="P:Google.GData.Client.IGDataRequest.Credentials">
             <summary>get/set for credentials to the service calls. Get's passed through to GDatarequest</summary> 
         </member>
+        <member name="P:Google.GData.Client.IGDataRequest.UseGZip">
+            <summary>set wether or not to use gzip for this request</summary>
+        </member>
         <member name="F:Google.GData.Client.GDataRequest.webRequest">
             <summary>holds the webRequest object</summary> 
         </member>
@@ -3167,6 +3237,15 @@
         </member>
         <member name="F:Google.GData.Client.GDataRequest.disposed">
             <summary>holds if we are disposed</summary> 
+        </member>
+        <member name="F:Google.GData.Client.GDataRequest.useGZip">
+            <summary>set wheter or not this request should use GZip</summary>
+        </member>
+        <member name="F:Google.GData.Client.GDataRequest.responseStream">
+            <summary>stream from the response</summary>
+        </member>
+        <member name="F:Google.GData.Client.GDataRequest.contentType">
+            <summary>holds the contenttype to use if overridden</summary>
         </member>
         <member name="M:Google.GData.Client.GDataRequest.#ctor(Google.GData.Client.GDataRequestType,System.Uri,Google.GData.Client.GDataRequestFactory)">
             <summary>default constructor</summary> 
@@ -3206,8 +3285,15 @@
             the value for redirect handling
             </summary>
         </member>
+        <member name="P:Google.GData.Client.GDataRequest.UseGZip">
+            <summary>set wether or not this request should use GZip</summary>
+        </member>
         <member name="P:Google.GData.Client.GDataRequest.Credentials">
             <summary>accessor method public ICredentials Credentials</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Client.GDataRequest.ContentType">
+            <summary>set's and get's the content Type, used for binary transfers</summary> 
             <returns> </returns>
         </member>
         <member name="P:Google.GData.Client.GDataRequest.Request">
@@ -3596,16 +3682,19 @@
             <summary>the minimal query implementation</summary> 
         </member>
         <member name="M:Google.GData.Client.IService.Update(Google.GData.Client.AtomEntry)">
-            <summary>the more sophisticated one</summary> 
+            <summary>simple update for atom resources</summary> 
         </member>
         <member name="M:Google.GData.Client.IService.Insert(Google.GData.Client.AtomFeed,Google.GData.Client.AtomEntry)">
-            <summary>the more sophisticated one</summary> 
+            <summary>simple insert for atom entries, based on a feed</summary> 
         </member>
         <member name="M:Google.GData.Client.IService.Delete(Google.GData.Client.AtomEntry)">
-            <summary>the more sophisticated one</summary> 
+            <summary>delete an entry</summary> 
         </member>
         <member name="M:Google.GData.Client.IService.Batch(Google.GData.Client.AtomFeed,System.Uri)">
             <summary>batch operation, posting of a set of entries</summary>
+        </member>
+        <member name="M:Google.GData.Client.IService.Update(System.Uri,System.IO.Stream,System.String)">
+            <summary>simple update for media resources</summary> 
         </member>
         <member name="P:Google.GData.Client.IService.Credentials">
             <summary>get/set for credentials to the service calls. Gets passed through to GDatarequest</summary> 
@@ -3679,6 +3768,24 @@
             <param name="newEntry">the entry to be inserted</param> 
             <returns> the inserted entry</returns>
         </member>
+        <member name="M:Google.GData.Client.Service.Update(System.Uri,System.IO.Stream,System.String)">
+            <summary>
+            simple update for media resources
+            </summary>
+            <param name="uriTarget"></param>
+            <param name="input"></param>
+            <param name="contentType"></param>
+            <returns>AtomEntry</returns>
+        </member>
+        <member name="M:Google.GData.Client.Service.Insert(System.Uri,System.IO.Stream,System.String)">
+            <summary>
+            Simple insert for media resources
+            </summary>
+            <param name="uriTarget"></param>
+            <param name="input"></param>
+            <param name="contentType"></param>
+            <returns>AtomEntry</returns>
+        </member>
         <member name="M:Google.GData.Client.Service.StreamInsert(System.Uri,Google.GData.Client.AtomEntry)">
             <summary>public WebResponse Insert(Uri insertUri, Stream entryStream, ICredentials credentials)</summary> 
             <param name="feedUri">the uri for the feed this entry should be inserted into</param> 
@@ -3701,9 +3808,19 @@
             <param name="targetUri"></param>
             <param name="payload"></param>            <param name="type"></param>
             <returns>Stream</returns>        </member>
+        <member name="M:Google.GData.Client.Service.StreamSend(System.Uri,System.IO.Stream,Google.GData.Client.GDataRequestType,System.String)">
+            <summary>
+            this is a helper function for to send binary data to a resource
+            it is not worth running the other insert/saves through here, as this would involve
+            double buffering/copying of the bytes
+            </summary>
+            <param name="targetUri"></param>
+            <param name="inputStream"></param>
+            <param name="type"></param>
+            <returns>Stream</returns>        </member>
         <member name="M:Google.GData.Client.Service.createFeed(System.Uri)">
             <summary>creates a new feed instance to be returned by
-            Batch() and Query()
+            Batch(), Query() and other operations
             
             Subclasses can supply their own feed implementation by
             overriding this method.
@@ -3779,6 +3896,14 @@
         </member>
         <member name="F:Google.GData.Client.GDataRequestType.Batch">
             <summary>This request is used for a batch operation</summary>
+        </member>
+        <member name="T:Google.GData.Client.IExtensionElementFactory">
+            <summary>if an extension element want's to use the new parsing method
+            it needs to implement this interface
+            </summary> 
+        </member>
+        <member name="P:Google.GData.Client.IExtensionElementFactory.XmlName">
+            <summary>the only relevant method here</summary> 
         </member>
         <member name="T:Google.GData.Client.Tracing">
             <summary>Tracing helper class. Uses conditional compilation to 
