@@ -1,10 +1,8 @@
 # build the whole release project, note this should RUN inside the VS dev prompt
 
 echo "Run this inside the Visual Studio Development Prompt"
-devenv /rebuild Release ..\src\VS2003\gdata.sln
-
-
-devenv /rebuild ASP ..\src\VS2003\gdata.sln
+devenv /rebuild Release "..\src\VS2003\Google Data API SDK.sln"
+devenv /rebuild ASP "..\src\VS2003\Google Data API SDK.sln"
 		
 
 # copy all exe files
