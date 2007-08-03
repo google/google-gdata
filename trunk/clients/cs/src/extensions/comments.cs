@@ -78,8 +78,8 @@ namespace Google.GData.Extensions {
                                 throw new ArgumentException("Only one feedLink is allowed inside the gd:comments");
                             }
                         }
+                        commentsChild = commentsChild.NextSibling;
                     }
-                    commentsChild = commentsChild.NextSibling;
                 }
             }
 
