@@ -408,10 +408,6 @@ namespace Google.GData.Client
                         req.Close(); 
                     }
                 }
-
-                // Hack to get around the GFE bug
-                if (this.UseGZip == true)
-                    http.Accept = "text/xml";
             }
         }
         /////////////////////////////////////////////////////////////////////////////
