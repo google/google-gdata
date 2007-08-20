@@ -37,27 +37,27 @@ namespace Google.GData.Apps
         /// for accessing provisioning feeds on the specified domain.
         /// </summary>
         /// <param name="domain">the domain to access</param>
-        /// <param name="adminUserName">the administrator's username</param>
+        /// <param name="adminEmailAddress">the administrator's email address</param>
         /// <param name="adminPassword">the administrator's password</param>
-        public AppsService(string domain, string adminUserName, string adminPassword)
+        public AppsService(string domain, string adminEmailAddress, string adminPassword)
         {
             this.domain = domain;
             this.applicationName = "apps-" + domain;
 
             emailListRecipientService = new EmailListRecipientService(applicationName);
-            emailListRecipientService.setUserCredentials(adminUserName, adminPassword);
+            emailListRecipientService.setUserCredentials(adminEmailAddress, adminPassword);
             ((GDataRequestFactory)emailListRecipientService.RequestFactory).KeepAlive = false;
 
             emailListService = new EmailListService(applicationName);
-            emailListService.setUserCredentials(adminUserName, adminPassword);
+            emailListService.setUserCredentials(adminEmailAddress, adminPassword);
             ((GDataRequestFactory)emailListService.RequestFactory).KeepAlive = false;
 
             nicknameService = new NicknameService(applicationName);
-            nicknameService.setUserCredentials(adminUserName, adminPassword);
+            nicknameService.setUserCredentials(adminEmailAddress, adminPassword);
             ((GDataRequestFactory)nicknameService.RequestFactory).KeepAlive = false;
 
             userAccountService = new UserService(applicationName);
-            userAccountService.setUserCredentials(adminUserName, adminPassword);
+            userAccountService.setUserCredentials(adminEmailAddress, adminPassword);
             ((GDataRequestFactory)userAccountService.RequestFactory).KeepAlive = false;
         }
 
