@@ -2,11 +2,11 @@
 
 - Changed "adminUserName" to "adminEmailAddress" in AppsService so that it's
   more clear what information is actually required for this parameter.
-
-== 1.1.0 ==
 - added GZip support for .NET 1.1, 2.0 and .NET Compact Framework 2.0 (see readme).
 - fixed a Google Base issue (The server doesn't accept scientific notations for floats)
 - fixed typo in the blogger sample (www..blogger), which made the sample hard to use
+- added the ability to use authsubtokens to the ExecRequest utility (including exchange of a onetime
+  token to a session token). Just run ExecRequest for the command line parameters
 
 == 1.0.9.9 ==
 - added GBase support for m:adjusted_name and gm:adjusted_value inside attributes

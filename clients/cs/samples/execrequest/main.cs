@@ -43,6 +43,10 @@ namespace Google.GData.Client.Samples
             if (args.Length < 5)
             {
                 Console.WriteLine("Not enough parameters. Usage is ExecRequest <service> <cmd> <uri> <username> <password>, where cmd is QUERY, UPDATE, INSERT, DELETE");
+                Console.WriteLine("or");
+                Console.WriteLine("ExecRequest <service> <cmd> <uri> /a <authsubtoken> - to use a session token");
+                Console.WriteLine("or");
+                Console.WriteLine("ExecRequest <service> <cmd> <uri> /e <authsubtoken> - to exchance a one time token for a session token");
                 return; 
             }
 
@@ -56,7 +60,29 @@ namespace Google.GData.Client.Samples
             
 
             Service service = new Service(s, ApplicationName);
-            service.setUserCredentials(userName, passWord);
+            
+            if (userName.Equals("/a"))
+            {
+                Console.WriteLine("Using AuthSubToken: " + passWord);
+                // password should contain the authsubtoken
+                GAuthSubRequestFactory factory = new GAuthSubRequestFactory(s, ApplicationName);
+                factory.Token = passWord;
+                service.RequestFactory = factory;
+            }
+            else if (userName.Equals("/e"))
+            {
+                Console.WriteLine("Using Onetime token: " + passWord);
+                passWord = AuthSubUtil.exchangeForSessionToken(passWord, null);
+                Console.WriteLine("Exchanged for Session Token: " + passWord);
+                // password should contain the authsubtoken
+                GAuthSubRequestFactory factory = new GAuthSubRequestFactory(s, ApplicationName);
+                factory.Token = passWord;
+                service.RequestFactory = factory;
+            }
+            else 
+            {
+                service.setUserCredentials(userName, passWord);
+            }
 
             try
             {
@@ -74,13 +100,15 @@ namespace Google.GData.Client.Samples
                 {
                     String input = Console.In.ReadToEnd();
                     Console.Write(input);
-                    service.StreamSend(new Uri(targetUri), input, GDataRequestType.Insert);
+                    Stream result = service.StreamSend(new Uri(targetUri), input, GDataRequestType.Insert);
+                    DumpStream(result);
                 }
                 if (cmd.Equals("UPDATE"))
                 {
                     String input = Console.In.ReadToEnd();
                     Console.Write(input);
-                    service.StreamSend(new Uri(targetUri), input, GDataRequestType.Update);
+                    Stream result = service.StreamSend(new Uri(targetUri), input, GDataRequestType.Update);
+                    DumpStream(result);
                 }
             } catch (GDataRequestException e)
             {
