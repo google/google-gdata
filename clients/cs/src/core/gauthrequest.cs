@@ -144,7 +144,7 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         /// <summary>Get/Set accessor for gAuthToken</summary> 
         //////////////////////////////////////////////////////////////////////
-        internal string GAuthToken
+        public string GAuthToken
         {
             get {return this.gAuthToken;}
             set {

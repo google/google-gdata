@@ -7,6 +7,8 @@
 - fixed typo in the blogger sample (www..blogger), which made the sample hard to use
 - added the ability to use authsubtokens to the ExecRequest utility (including exchange of a onetime
   token to a session token). Just run ExecRequest for the command line parameters
+- make the GAuthToken property of the GAuthRequestFactory public. It was mistakenly marked internal, so that
+  the token could not be retrieved by a client application for caching.  
 
 == 1.0.9.9 ==
 - added GBase support for m:adjusted_name and gm:adjusted_value inside attributes
