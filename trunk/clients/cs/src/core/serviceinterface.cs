@@ -64,8 +64,6 @@ namespace Google.GData.Client
         AtomFeed Batch(AtomFeed feed, Uri batchUri); 
         /// <summary>simple update for media resources</summary> 
         AtomEntry Update(Uri uriTarget, Stream input, string contentType);
-        /// <summary>simple insert for media resources</summary> 
-//        AtomEntry Insert(Uri uriTarget, Stream input, string contentType);
     }
 
 
@@ -162,10 +160,24 @@ namespace Google.GData.Client
     //////////////////////////////////////////////////////////////////////
     public interface IExtensionElementFactory
     {
-        /// <summary>the only relevant method here</summary> 
+        /// <summary>
+        /// returns the XML local name that is used
+        /// </summary>
         string XmlName { get;}
+        /// <summary>
+        /// returns the XML namespace that is processed
+        /// </summary>
         string XmlNameSpace { get;}
+        /// <summary>
+        /// returns the xml prefix used 
+        /// </summary>
         string XmlPrefix { get;}
+        /// <summary>
+        /// instantiates the correct extensiohn element
+        /// </summary>
+        /// <param name="node">the xmlnode to parse</param>
+        /// <param name="parser">the feedparser used</param>
+        /// <returns></returns>
         IExtensionElement CreateInstance(XmlNode node, AtomFeedParser parser); 
     }
 

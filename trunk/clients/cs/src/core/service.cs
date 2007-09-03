@@ -542,6 +542,7 @@ namespace Google.GData.Client
         /// <param name="targetUri"></param>
         /// <param name="inputStream"></param>
         /// <param name="type"></param>
+        /// <param name="contentType">the contenttype to use in the request</param>
         /// <returns>Stream</returns>        
         public Stream StreamSend(Uri targetUri, 
                                  Stream inputStream, 
