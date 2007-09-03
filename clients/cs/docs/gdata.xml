@@ -86,6 +86,18 @@
             <param name="action">an IBaseWalkerAction interface to call </param>
             <returns>true or false, pending outcome of the passed in action</returns>
         </member>
+        <member name="M:Google.GData.Client.AtomBase.FindExtension(System.String,System.String)">
+            <summary>
+            Finds a specific ExtensionElement based on it's local name
+            and it's namespace. If namespace is NULL, the first one where
+            the localname matches is found. If there are extensionelements that do 
+            not implment ExtensionElementFactory, they will not be taken into account
+            Primary use of this is to find XML nodes
+            </summary>
+            <param name="localName">the xml local name of the element to find</param>
+            <param name="ns">the namespace of the elementToPersist</param>
+            <returns>Object</returns>
+        </member>
         <member name="M:Google.GData.Client.AtomBase.SaveToXml(System.IO.Stream)">
             <summary>Saves the object as XML.</summary> 
             <param name="stream">stream to save to</param>
@@ -777,7 +789,10 @@
             <returns> </returns>
         </member>
         <member name="M:Google.GData.Client.AbstractFeed.HandleExtensionElements(Google.GData.Client.ExtensionElementEventArgs,Google.GData.Client.AtomFeedParser)">
-            <param name="parser">the parser that caused this</param>
+            <summary>
+            event on the Feed to handle extension elements during parsing
+            </summary>
+            <param name="e">the event arguments</param>            <param name="parser">the parser that caused this</param>
         </member>
         <member name="T:Google.GData.Client.BaseIsDirty">
             <summary>Helper object to walk the tree for the dirty flag.</summary> 
@@ -3155,6 +3170,12 @@
         <member name="P:Google.GData.Client.GDataGAuthRequestFactory.GAuthToken">
             <summary>Get/Set accessor for gAuthToken</summary> 
         </member>
+        <member name="P:Google.GData.Client.GDataGAuthRequestFactory.UserAgent">
+            <summary>accessor method public string UserAgent, with GFE support</summary> 
+            <remarks>GFE will enable gzip support ONLY for browser that have the string
+            "gzip" in their user agent (IE or Mozilla), since lot of browsers have a
+            broken gzip support.</remarks>
+        </member>
         <member name="P:Google.GData.Client.GDataGAuthRequestFactory.ApplicationName">
             <summary>Get/Set accessor for the application name</summary> 
         </member>
@@ -3289,7 +3310,7 @@
             <summary>set wether or not this request should use GZip</summary>
         </member>
         <member name="P:Google.GData.Client.GDataRequest.Credentials">
-            <summary>accessor method public ICredentials Credentials</summary> 
+            <summary>accessor method for the GDataCredentials used</summary> 
             <returns> </returns>
         </member>
         <member name="P:Google.GData.Client.GDataRequest.ContentType">
@@ -3329,7 +3350,7 @@
             <summary>sets the redirect to false after everything else
             is done </summary> 
         </member>
-        <member name="M:Google.GData.Client.GDataGAuthRequest.QueryAuthToken(System.Net.NetworkCredential)">
+        <member name="M:Google.GData.Client.GDataGAuthRequest.QueryAuthToken(Google.GData.Client.GDataCredentials)">
             <summary>goes to the Google auth service, and gets a new auth token</summary> 
             <returns>the auth token, or NULL if none received</returns>
         </member>
@@ -3559,6 +3580,73 @@
             <summary>accessor method public GDataBatchStatus Status</summary> 
             <returns> </returns>
         </member>
+        <member name="T:Google.GData.Client.CompressionMode">
+            <summary>Type of compression to use for the GZipStream. Currently only Decompress is supported.</summary>
+        </member>
+        <member name="F:Google.GData.Client.CompressionMode.Compress">
+            <summary>Compresses the underlying stream.</summary>
+        </member>
+        <member name="F:Google.GData.Client.CompressionMode.Decompress">
+            <summary>Decompresses the underlying stream.</summary>
+        </member>
+        <member name="T:Google.GData.Client.GZipStream">
+            <summary>Provides methods and properties used to compress and decompress streams.</summary>
+        </member>
+        <member name="M:Google.GData.Client.GZipStream.#ctor(System.IO.Stream,Google.GData.Client.CompressionMode)">
+            <summary>Initializes a new instance of the GZipStream class using the specified stream and CompressionMode value.</summary>
+            <param name="stream">The stream to compress or decompress.</param>
+            <param name="mode">One of the CompressionMode values that indicates the action to take.</param>
+        </member>
+        <member name="M:Google.GData.Client.GZipStream.Finalize">
+            <summary>GZipStream destructor. Cleans all allocated resources.</summary>
+        </member>
+        <member name="M:Google.GData.Client.GZipStream.Read(System.Byte[],System.Int32,System.Int32)">
+            <summary>Reads a number of decompressed bytes into the specified byte array.</summary>
+            <param name="array">The array used to store decompressed bytes.</param>
+            <param name="offset">The location in the array to begin reading.</param>
+            <param name="count">The number of bytes decompressed.</param>
+            <returns>The number of bytes that were decompressed into the byte array. If the end of the stream has been reached, zero or the number of bytes read is returned.</returns>
+        </member>
+        <member name="M:Google.GData.Client.GZipStream.Close">
+            <summary>Closes the current stream and releases any resources (such as sockets and file handles) associated with the current stream.</summary>
+        </member>
+        <member name="M:Google.GData.Client.GZipStream.Flush">
+            <summary>Flushes the contents of the internal buffer of the current GZipStream object to the underlying stream.</summary>
+        </member>
+        <member name="M:Google.GData.Client.GZipStream.Seek(System.Int64,System.IO.SeekOrigin)">
+            <summary>This property is not supported and always throws a NotSupportedException.</summary>
+            <param name="offset">The location in the stream.</param>
+            <param name="origin">One of the SeekOrigin values.</param>
+            <returns>A long value.</returns>
+        </member>
+        <member name="M:Google.GData.Client.GZipStream.SetLength(System.Int64)">
+            <summary>This property is not supported and always throws a NotSupportedException.</summary>
+            <param name="value">The length of the stream.</param>
+        </member>
+        <member name="M:Google.GData.Client.GZipStream.Write(System.Byte[],System.Int32,System.Int32)">
+            <summary>This property is not supported and always throws a NotSupportedException.</summary>
+            <param name="array">The array used to store compressed bytes.</param>
+            <param name="offset">The location in the array to begin reading.</param>
+            <param name="count">The number of bytes compressed.</param>
+        </member>
+        <member name="P:Google.GData.Client.GZipStream.CanRead">
+            <summary>Gets a value indicating whether the stream supports reading while decompressing a file.</summary>
+        </member>
+        <member name="P:Google.GData.Client.GZipStream.CanWrite">
+            <summary>Gets a value indicating whether the stream supports writing.</summary>
+        </member>
+        <member name="P:Google.GData.Client.GZipStream.CanSeek">
+            <summary>Gets a value indicating whether the stream supports seeking.</summary>
+        </member>
+        <member name="P:Google.GData.Client.GZipStream.BaseStream">
+            <summary>Gets a reference to the underlying stream.</summary>
+        </member>
+        <member name="P:Google.GData.Client.GZipStream.Length">
+            <summary>This property is not supported and always throws a NotSupportedException.</summary>
+        </member>
+        <member name="P:Google.GData.Client.GZipStream.Position">
+            <summary>This property is not supported and always throws a NotSupportedException.</summary>
+        </member>
         <member name="T:Google.GData.Client.GDataLoggingRequestFactory">
             <summary>base GDataRequestFactory implmentation</summary> 
         </member>
@@ -3626,6 +3714,31 @@
         <member name="M:Google.GData.Client.GDataLoggingRequest.GetResponseStream">
             <summary>gets the readable response stream</summary> 
             <returns> the response stream</returns>
+        </member>
+        <member name="T:Google.GData.Client.GDataCredentials">
+            <summary>
+            the class holds username and password to replace networkcredentials
+            </summary>
+        </member>
+        <member name="M:Google.GData.Client.GDataCredentials.#ctor(System.String,System.String)">
+            <summary>
+            default constructor
+            </summary>
+            <param name="username">the username to use</param>
+            <param name="password">the password to use</param>
+        </member>
+        <member name="P:Google.GData.Client.GDataCredentials.Username">
+            <summary>accessor method public string Username</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Client.GDataCredentials.Password">
+            <summary>accessor method Password</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Client.GDataCredentials.NetworkCredential">
+            <summary>
+            returns a windows conforming NetworkCredential 
+            </summary>
         </member>
         <member name="T:Google.GData.Client.RssFeedParser">
             <summary>RssFeedParser
@@ -3817,6 +3930,7 @@
             <param name="targetUri"></param>
             <param name="inputStream"></param>
             <param name="type"></param>
+            <param name="contentType">the contenttype to use in the request</param>
             <returns>Stream</returns>        </member>
         <member name="M:Google.GData.Client.Service.createFeed(System.Uri)">
             <summary>creates a new feed instance to be returned by
@@ -3902,8 +4016,28 @@
             it needs to implement this interface
             </summary> 
         </member>
+        <member name="M:Google.GData.Client.IExtensionElementFactory.CreateInstance(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
+            <summary>
+            instantiates the correct extensiohn element
+            </summary>
+            <param name="node">the xmlnode to parse</param>
+            <param name="parser">the feedparser used</param>
+            <returns></returns>
+        </member>
         <member name="P:Google.GData.Client.IExtensionElementFactory.XmlName">
-            <summary>the only relevant method here</summary> 
+            <summary>
+            returns the XML local name that is used
+            </summary>
+        </member>
+        <member name="P:Google.GData.Client.IExtensionElementFactory.XmlNameSpace">
+            <summary>
+            returns the XML namespace that is processed
+            </summary>
+        </member>
+        <member name="P:Google.GData.Client.IExtensionElementFactory.XmlPrefix">
+            <summary>
+            returns the xml prefix used 
+            </summary>
         </member>
         <member name="T:Google.GData.Client.Tracing">
             <summary>Tracing helper class. Uses conditional compilation to 
@@ -3921,6 +4055,8 @@
         <member name="M:Google.GData.Client.Tracing.TraceCall(System.String,System.Diagnostics.StackFrame,System.Int32)">
             <summary>Method to trace the current call with an additional message</summary> 
             <param name="msg"> msg string to display</param>
+            <param name="startFrame">the startFrame to uses</param>
+            <param name="indent"> intendation</param>
         </member>
         <member name="M:Google.GData.Client.Tracing.TraceCall(System.String)">
             <summary>Method to trace the current call with an additional message</summary> 
@@ -3941,19 +4077,6 @@
             <summary>Method to assert + trace a message</summary> 
             <param name="condition"> if false, raises assert</param>
             <param name="msg"> msg string to display</param>
-        </member>
-        <member name="T:Google.GData.Client.DecodingTextReader">
-            <summary>a little helper that decodes encoded string entities
-            </summary> 
-        </member>
-        <member name="M:Google.GData.Client.DecodingTextReader.#ctor(System.IO.Stream,System.Xml.NameTable)">
-            <summary>constructor, calls base</summary> 
-        </member>
-        <member name="M:Google.GData.Client.DecodingTextReader.ReadString">
-            <summary>uses the HTML decoder helper</summary> 
-        </member>
-        <member name="P:Google.GData.Client.DecodingTextReader.Value">
-            <summary>value uses the HtmlDecode helper</summary> 
         </member>
         <member name="T:Google.GData.Client.Utilities">
             <summary>String utilities
@@ -3983,6 +4106,12 @@
             <summary>helper to read in a string and Encode it</summary> 
             <param name="content">the xmlreader string</param>
             <returns>html encoded string</returns>
+        </member>
+        <member name="M:Google.GData.Client.Utilities.DecodedValue(System.String)">
+            <summary>
+            used as a cover method to hide the actual decoding implementation
+            </summary>
+            <param name="value">the string to decode</param>
         </member>
         <member name="M:Google.GData.Client.Utilities.UriEncodeReserved(System.String)">
             <summary>helper to read in a string and replace the reserved URI 

@@ -54,7 +54,7 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         public string Username
         {
-            internal get {return this.userName;}
+            get {return this.userName;}
             set {this.userName = value;}
         }
         // end of accessor public string Username
@@ -65,8 +65,13 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         public string Password
         {
-            internal get {return this.passWord;}
             set {this.passWord = value;}
+        }
+
+
+        internal string getPassword()
+        {
+            return this.passWord;
         }
         // end of accessor Password
 

@@ -214,8 +214,7 @@ namespace Blogger
 
             if (userName != null && userName.Length > 0)
             {
-                NetworkCredential nc = new NetworkCredential(userName, passWord);
-                service.Credentials = nc; 
+                service.Credentials = new GDataCredentials(userName, passWord);
             }
 
             // only get event's for today - 1 month until today + 1 year
@@ -287,8 +286,7 @@ namespace Blogger
 
                 if (userName != null && userName.Length > 0)
                 {
-                    NetworkCredential nc = new NetworkCredential(userName, passWord);
-                    service.Credentials = nc; 
+                    service.Credentials = new GDataCredentials(userName, passWord);
                 }
 
                 // only get event's for today - 1 month until today + 1 year
@@ -371,8 +369,7 @@ namespace Blogger
 
                 if (userName != null && userName.Length > 0)
                 {
-                    NetworkCredential nc = new NetworkCredential(userName, passWord);
-                    service.Credentials = nc; 
+                    service.Credentials = new GDataCredentials(userName, passWord);
                 }
 
                 service.Insert(new Uri(this.feedUri), entry); 
