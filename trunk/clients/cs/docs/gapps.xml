@@ -361,7 +361,7 @@
             for accessing provisioning feeds on the specified domain.
             </summary>
             <param name="domain">the domain to access</param>
-            <param name="adminUserName">the administrator's username</param>
+            <param name="adminEmailAddress">the administrator's email address</param>
             <param name="adminPassword">the administrator's password</param>
         </member>
         <member name="M:Google.GData.Apps.AppsService.CreateUser(System.String,System.String,System.String,System.String)">

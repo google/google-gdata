@@ -493,9 +493,15 @@
         <member name="F:Google.GData.Extensions.GDataParserNameTable.geoKmlPrefix">
             <summary>static string to specify the KML prefix used</summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "F:Google.GData.Extensions.GDataParserNameTable.GeoRssWhereElement" -->
-        <!-- Badly formed XML comment ignored for member "F:Google.GData.Extensions.GDataParserNameTable.GeoKmlPointElement" -->
-        <!-- Badly formed XML comment ignored for member "F:Google.GData.Extensions.GDataParserNameTable.GeoKmlPosElement" -->
+        <member name="F:Google.GData.Extensions.GDataParserNameTable.GeoRssWhereElement">
+            <summary>static string to specify the the where element</summary>
+        </member>
+        <member name="F:Google.GData.Extensions.GDataParserNameTable.GeoKmlPointElement">
+            <summary>static string to specify the the point element</summary>
+        </member>
+        <member name="F:Google.GData.Extensions.GDataParserNameTable.GeoKmlPosElement">
+            <summary>static string to specify the the pos element</summary>
+        </member>
         <member name="F:Google.GData.Extensions.GDataParserNameTable.Event">
             <summary>the event prefix </summary>
         </member>

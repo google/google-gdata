@@ -466,7 +466,7 @@ namespace Google.GData.Client
 
                 // now enter the data in the stream
                 string postData = GoogleAuthentication.Email + "=" + Utilities.UriEncodeReserved(gc.Username) + "&"; 
-                postData += GoogleAuthentication.Password + "=" + Utilities.UriEncodeReserved(gc.Password) + "&";  
+                postData += GoogleAuthentication.Password + "=" + Utilities.UriEncodeReserved(gc.getPassword()) + "&";  
                 postData += GoogleAuthentication.Source + "=" + Utilities.UriEncodeReserved(this.factory.ApplicationName) + "&"; 
                 postData += GoogleAuthentication.Service + "=" + Utilities.UriEncodeReserved(this.factory.Service) + "&"; 
                 if (this.factory.CaptchaAnswer != null)
