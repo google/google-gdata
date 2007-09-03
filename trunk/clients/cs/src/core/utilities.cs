@@ -28,39 +28,6 @@ using System.Xml;
 
 namespace Google.GData.Client
 {
-
-
-    //////////////////////////////////////////////////////////////////////
-    /// <summary>a little helper that decodes encoded string entities
-    /// </summary> 
-    //////////////////////////////////////////////////////////////////////
-    internal class DecodingTextReader : XmlTextReader
-    {
-
-        /// <summary>constructor, calls base</summary> 
-        internal DecodingTextReader(Stream streamInput, NameTable nametable) : base(streamInput, nametable)
-        {
-        }
-
-        /// <summary>value uses the HtmlDecode helper</summary> 
-        public override string Value
-        {
-            get 
-            {
-                string content = base.Value;
-                return System.Web.HttpUtility.HtmlDecode(content);
-            }
-        }
-
-
-        /// <summary>uses the HTML decoder helper</summary> 
-        public override string ReadString()
-        {
-            string content = base.ReadString();
-            return System.Web.HttpUtility.HtmlDecode(content);
-        }
-    }
-    
     //////////////////////////////////////////////////////////////////////
     /// <summary>String utilities
     /// </summary> 
@@ -140,6 +107,16 @@ namespace Google.GData.Client
             // get the encoding
             return content; 
 
+        }
+
+        /// <summary>
+        /// used as a cover method to hide the actual decoding implementation
+        /// 
+        /// </summary>
+        /// <param name="Value"></param>
+        public static string DecodedValue(string value) 
+        {
+            return System.Web.HttpUtility.HtmlDecode(value);
         }
 
 

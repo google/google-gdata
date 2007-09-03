@@ -297,8 +297,7 @@ namespace BloggerDevSample
                 password = args[1];
             }
 
-            NetworkCredential creds = new NetworkCredential(username, password);
-            service.Credentials = creds;
+            service.Credentials = new GDataCredentials(username, password);
 
             ListUserBlogs(service);
             Uri blogPostUri = SelectUserBlog(service);

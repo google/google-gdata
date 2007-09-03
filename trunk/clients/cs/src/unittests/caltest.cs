@@ -135,8 +135,7 @@ namespace Google.GData.Client.LiveTests
             {
                 if (this.userName != null)
                 {
-                    NetworkCredential nc = new NetworkCredential(this.userName, this.passWord); 
-                    service.Credentials = nc;
+                    service.Credentials = new GDataCredentials(this.userName, this.passWord);
                 }
 
                 GDataLoggingRequestFactory factory = (GDataLoggingRequestFactory) this.factory;
@@ -239,8 +238,7 @@ namespace Google.GData.Client.LiveTests
             {
                 if (this.userName != null)
                 {
-                    NetworkCredential nc = new NetworkCredential(this.userName, this.passWord); 
-                    service.Credentials = nc;
+                    service.Credentials = new GDataCredentials(this.userName, this.passWord);
                 }
 
                 GDataLoggingRequestFactory factory = (GDataLoggingRequestFactory) this.factory;
@@ -305,8 +303,7 @@ namespace Google.GData.Client.LiveTests
             {
                 if (this.userName != null)
                 {
-                    NetworkCredential nc = new NetworkCredential(this.userName, this.passWord); 
-                    service.Credentials = nc;
+                    service.Credentials = new GDataCredentials(this.userName, this.passWord);
                 }
 
                 GDataLoggingRequestFactory factory = (GDataLoggingRequestFactory) this.factory;
@@ -426,8 +423,7 @@ namespace Google.GData.Client.LiveTests
             {
                 if (this.userName != null)
                 {
-                    NetworkCredential nc = new NetworkCredential(this.userName, this.passWord); 
-                    service.Credentials = nc;
+                    service.Credentials = new GDataCredentials(this.userName, this.passWord);
                 }
 
                 GDataLoggingRequestFactory factory = (GDataLoggingRequestFactory) this.factory;
@@ -488,8 +484,7 @@ namespace Google.GData.Client.LiveTests
             {
                 if (this.userName != null)
                 {
-                    NetworkCredential nc = new NetworkCredential(this.userName, this.passWord); 
-                    service.Credentials = nc;
+                    service.Credentials = new GDataCredentials(this.userName, this.passWord);
                 }
 
                 GDataLoggingRequestFactory factory = (GDataLoggingRequestFactory) this.factory;
@@ -593,8 +588,7 @@ namespace Google.GData.Client.LiveTests
             {
                 if (this.userName != null)
                 {
-                    NetworkCredential nc = new NetworkCredential(this.userName, this.passWord); 
-                    service.Credentials = nc;
+                    service.Credentials = new GDataCredentials(this.userName, this.passWord);
                 }
 
                 GDataLoggingRequestFactory factory = (GDataLoggingRequestFactory) this.factory;
@@ -723,8 +717,7 @@ namespace Google.GData.Client.LiveTests
             {
                 if (this.userName != null)
                 {
-                    NetworkCredential nc = new NetworkCredential(this.userName, this.passWord); 
-                    service.Credentials = nc;
+                    service.Credentials = new GDataCredentials(this.userName, this.passWord);
                 }
 
                 GDataLoggingRequestFactory factory = (GDataLoggingRequestFactory) this.factory;
@@ -845,8 +838,7 @@ namespace Google.GData.Client.LiveTests
             {
                 if (this.userName != null)
                 {
-                    NetworkCredential nc = new NetworkCredential(this.userName, this.passWord); 
-                    service.Credentials = nc;
+                    service.Credentials = new GDataCredentials(this.userName, this.passWord);
                 }
 
                 GDataLoggingRequestFactory factory = (GDataLoggingRequestFactory) this.factory;
@@ -933,8 +925,7 @@ namespace Google.GData.Client.LiveTests
             {
                 if (this.userName != null)
                 {
-                    NetworkCredential nc = new NetworkCredential(this.userName, this.passWord); 
-                    service.Credentials = nc;
+                    service.Credentials = new GDataCredentials(this.userName, this.passWord);
                 }
 
                 GDataLoggingRequestFactory factory = (GDataLoggingRequestFactory) this.factory;
@@ -967,12 +958,9 @@ namespace Google.GData.Client.LiveTests
 
             if (this.defaultCalendarUri != null)
             {
-                NetworkCredential nc = null; 
-
                 if (this.userName != null)
                 {
-                    nc = new NetworkCredential(this.userName, this.passWord); 
-                    service.Credentials = nc;
+                    service.Credentials = new GDataCredentials(this.userName, this.passWord);
                 }
 
                 GDataLoggingRequestFactory factory = (GDataLoggingRequestFactory) this.factory;
@@ -1016,8 +1004,7 @@ namespace Google.GData.Client.LiveTests
 
                             // now we use an AtomFeed to post there
                             Service feedService = new Service("cl", "UnitTests"); 
-                            feedService.Credentials = nc;
-
+                            feedService.Credentials = new GDataCredentials(this.userName, this.passWord);
                             query.Uri = commentFeedUri; 
 
                             AtomFeed commentFeed = feedService.Query(query); 
@@ -1057,8 +1044,7 @@ namespace Google.GData.Client.LiveTests
             {
                 if (this.userName != null)
                 {
-                    NetworkCredential nc = new NetworkCredential(this.userName, this.passWord); 
-                    service.Credentials = nc;
+                    service.Credentials = new GDataCredentials(this.userName, this.passWord);
                 }
 
                 GDataLoggingRequestFactory factory = (GDataLoggingRequestFactory) this.factory;
@@ -1125,8 +1111,7 @@ namespace Google.GData.Client.LiveTests
             {
                 if (this.userName != null)
                 {
-                    NetworkCredential nc = new NetworkCredential(this.userName, this.passWord); 
-                    service.Credentials = nc;
+                    service.Credentials = new GDataCredentials(this.userName, this.passWord);
                 }
 
                 GDataLoggingRequestFactory factory = (GDataLoggingRequestFactory) this.factory;
@@ -1181,8 +1166,7 @@ namespace Google.GData.Client.LiveTests
             {
                 if (this.userName != null)
                 {
-                    NetworkCredential nc = new NetworkCredential(this.userName, this.passWord); 
-                    service.Credentials = nc;
+                    service.Credentials = new GDataCredentials(this.userName, this.passWord);
                 }
 
                 GDataLoggingRequestFactory factory = (GDataLoggingRequestFactory) this.factory;

@@ -1,5 +1,6 @@
 == 1.1.0.0 ==
-
+- To enable ASP.NET hosting in medium trust, we removed the usage of the NetworkCredentials class. From now on, 
+  credentials are either passed as username/password, or using the GDataCredentials. (issue 57)
 - Changed "adminUserName" to "adminEmailAddress" in AppsService so that it's
   more clear what information is actually required for this parameter.
 - added GZip support for .NET 1.1, 2.0 and .NET Compact Framework 2.0 (see readme).
@@ -9,6 +10,11 @@
   token to a session token). Just run ExecRequest for the command line parameters
 - make the GAuthToken property of the GAuthRequestFactory public. It was mistakenly marked internal, so that
   the token could not be retrieved by a client application for caching.  
+- fixed a parsing issue that resulted in Batch Upload hanging if an unknown element was encountered
+- added a helper method on AtomBase (entry and feed) to find exensionelements by specifying a localname and 
+  an optional namespace (issue 81)
+- the extension mechanism was reworked by creating an ExtensionElementFactory interface that takes care of 
+  parsing elements. ElementFactories are registered on the AtomBase (entry and feed) level.
 
 == 1.0.9.9 ==
 - added GBase support for m:adjusted_name and gm:adjusted_value inside attributes

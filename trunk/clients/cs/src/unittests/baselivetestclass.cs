@@ -70,8 +70,7 @@ namespace Google.GData.Client.LiveTests
             {
                 if (userName != null)
                 {
-                    NetworkCredential nc = new NetworkCredential(userName, pwd);
-                    service.Credentials = nc;
+                    service.Credentials = new GDataCredentials(userName, pwd);
                 }
 
                 GDataLoggingRequestFactory factory = (GDataLoggingRequestFactory)this.factory;

@@ -75,7 +75,7 @@ namespace Google.GData.Client
             Tracing.TraceCall("feedparser starts parsing");
             try
             {
-                XmlReader reader = new DecodingTextReader(streamInput, this.nameTable.Nametable);
+                XmlReader reader = new XmlTextReader(streamInput, this.nameTable.Nametable);
 
                 MoveToStartElement(reader);
                 ParseFeed(reader, feed);
@@ -197,7 +197,7 @@ namespace Google.GData.Client
                     }
                     else if (localname.Equals(this.nameTable.Updated))
                     {
-                        source.Updated = DateTime.Parse(reader.ReadString(), CultureInfo.InvariantCulture);
+                        source.Updated = DateTime.Parse(Utilities.DecodedValue(reader.ReadString()), CultureInfo.InvariantCulture);
                     }
                     else if (localname.Equals(this.nameTable.Link))
                     {
@@ -264,15 +264,15 @@ namespace Google.GData.Client
                 {
                     if (localname.Equals(this.nameTable.TotalResults))
                     {
-                        feed.TotalResults = int.Parse(reader.ReadString(), CultureInfo.InvariantCulture);
+                        feed.TotalResults = int.Parse(Utilities.DecodedValue(reader.ReadString()), CultureInfo.InvariantCulture);
                     }
                     else if (localname.Equals(this.nameTable.StartIndex))
                     {
-                        feed.StartIndex = int.Parse(reader.ReadString(), CultureInfo.InvariantCulture);
+                        feed.StartIndex = int.Parse(Utilities.DecodedValue(reader.ReadString()), CultureInfo.InvariantCulture);
                     }
                     else if (localname.Equals(this.nameTable.ItemsPerPage))
                     {
-                        feed.ItemsPerPage = int.Parse(reader.ReadString(), CultureInfo.InvariantCulture);
+                        feed.ItemsPerPage = int.Parse(Utilities.DecodedValue(reader.ReadString()), CultureInfo.InvariantCulture);
                     }
                 }
                 else
@@ -341,12 +341,12 @@ namespace Google.GData.Client
             {
                 if (localName.Equals(this.nameTable.Base))
                 {
-                    baseObject.Base = new AtomUri(reader.Value);
+                    baseObject.Base = new AtomUri(Utilities.DecodedValue(reader.Value));
                     fRet = false;
                 }
                 else if (localName.Equals(this.nameTable.Language))
                 {
-                    baseObject.Language = reader.Value;
+                    baseObject.Language = Utilities.DecodedValue(reader.Value);
                     fRet = false;
                 }
             }
@@ -448,7 +448,7 @@ namespace Google.GData.Client
             if (reader.NodeType == XmlNodeType.Element)
             {
                 // read the element content
-                baseLink.Uri = new AtomUri(reader.ReadString()); 
+                baseLink.Uri = new AtomUri(Utilities.DecodedValue(reader.ReadString())); 
             }
         }
         /////////////////////////////////////////////////////////////////////////////
@@ -493,18 +493,18 @@ namespace Google.GData.Client
 
                 if (localname.Equals(this.nameTable.Name))
                 {
-                    // author.Name = Utilities.DecodeString(reader.ReadString());
-                    author.Name = reader.ReadString();
+                    // author.Name = Utilities.DecodeString(Utilities.DecodedValue(reader.ReadString()));
+                    author.Name = Utilities.DecodedValue(reader.ReadString());
                     reader.Read();
                 }
                 else if (localname.Equals(this.nameTable.Uri))
                 {
-                    author.Uri = new AtomUri(reader.ReadString());
+                    author.Uri = new AtomUri(Utilities.DecodedValue(reader.ReadString()));
                     reader.Read();
                 }
                 else if (localname.Equals(this.nameTable.Email))
                 {
-                    author.Email = reader.ReadString();
+                    author.Email = Utilities.DecodedValue(reader.ReadString());
                     reader.Read();
                 }
                 else
@@ -548,15 +548,15 @@ namespace Google.GData.Client
                         localname = reader.LocalName;
                         if (localname.Equals(this.nameTable.Term))
                         {
-                            category.Term = reader.Value;
+                            category.Term = Utilities.DecodedValue(reader.Value);
                         }
                         else if (localname.Equals(this.nameTable.Scheme))
                         {
-                            category.Scheme = new AtomUri(reader.Value);
+                            category.Scheme = new AtomUri(Utilities.DecodedValue(reader.Value));
                         }
                         else if (localname.Equals(this.nameTable.Label))
                         {
-                            category.Label = reader.Value;
+                            category.Label = Utilities.DecodedValue(reader.Value);
                         }
                         else
                         {
@@ -597,27 +597,27 @@ namespace Google.GData.Client
                     localname = reader.LocalName;
                     if (localname.Equals(this.nameTable.HRef))
                     {
-                        link.HRef = new AtomUri(reader.Value);
+                        link.HRef = new AtomUri(Utilities.DecodedValue(reader.Value));
                     }
                     else if (localname.Equals(this.nameTable.Rel))
                     {
-                        link.Rel = reader.Value;
+                        link.Rel = Utilities.DecodedValue(reader.Value);
                     }
                     else if (localname.Equals(this.nameTable.Type))
                     {
-                        link.Type = reader.Value;
+                        link.Type = Utilities.DecodedValue(reader.Value);
                     }
                     else if (localname.Equals(this.nameTable.HRefLang))
                     {
-                        link.HRefLang = reader.Value;
+                        link.HRefLang = Utilities.DecodedValue(reader.Value);
                     }
                     else if (localname.Equals(this.nameTable.Title))
                     {
-                        link.Title = reader.Value;
+                        link.Title = Utilities.DecodedValue(reader.Value);
                     }
                     else if (localname.Equals(this.nameTable.Length))
                     {
-                        link.Length = int.Parse(reader.Value, CultureInfo.InvariantCulture);
+                        link.Length = int.Parse(Utilities.DecodedValue(reader.Value), CultureInfo.InvariantCulture);
                     }
                     else
                     {
@@ -682,11 +682,11 @@ namespace Google.GData.Client
                     }
                     else if (localname.Equals(this.nameTable.Updated))
                     {
-                        entry.Updated = DateTime.Parse(reader.ReadString(), CultureInfo.InvariantCulture);
+                        entry.Updated = DateTime.Parse(Utilities.DecodedValue(reader.ReadString()), CultureInfo.InvariantCulture);
                     }
                     else if (localname.Equals(this.nameTable.Published))
                     {
-                        entry.Published = DateTime.Parse(reader.ReadString(), CultureInfo.InvariantCulture);
+                        entry.Published = DateTime.Parse(Utilities.DecodedValue(reader.ReadString()), CultureInfo.InvariantCulture);
                     }
                     else if (localname.Equals(this.nameTable.Author))
                     {
@@ -769,7 +769,7 @@ namespace Google.GData.Client
 
                 if (elementName.Equals(this.nameTable.BatchId))
                 {
-                    batch.Id = reader.ReadString(); 
+                    batch.Id = Utilities.DecodedValue(reader.ReadString()); 
                 }
                 else if (elementName.Equals(this.nameTable.BatchOperation))
                 {
@@ -817,7 +817,7 @@ namespace Google.GData.Client
                         if (localname.Equals(this.nameTable.Type))
                         {
                             type = (GDataBatchOperationType)Enum.Parse(
-                                                                      typeof(GDataBatchOperationType), reader.Value, true); 
+                                                                      typeof(GDataBatchOperationType), Utilities.DecodedValue(reader.Value), true); 
                         }
                     }
                 }
@@ -885,22 +885,22 @@ namespace Google.GData.Client
                         localname = reader.LocalName;
                         if (localname.Equals(this.nameTable.BatchReason))
                         {
-                            status.Reason = reader.Value;
+                            status.Reason = Utilities.DecodedValue(reader.Value);
                         }
                         else if (localname.Equals(this.nameTable.BatchContentType))
                         {
-                            status.ContentType = reader.Value; 
+                            status.ContentType = Utilities.DecodedValue(reader.Value); 
                         }
                         else if (localname.Equals(this.nameTable.BatchStatusCode))
                         {
-                            status.Code = int.Parse(reader.Value, CultureInfo.InvariantCulture);
+                            status.Code = int.Parse(Utilities.DecodedValue(reader.Value), CultureInfo.InvariantCulture);
                         }
                     }
                 }
 
                 // FIX: THIS CODE SEEMS TO MAKE AN INFINITE LOOP WITH NextChildElement()
                 //reader.MoveToElement();
-                //status.Value = reader.ReadString();
+                //status.Value = Utilities.DecodedValue(reader.ReadString());
                 ////////////////////////////////////////////////////////////////////////
 
                 // status can have one child element, errors
@@ -914,7 +914,7 @@ namespace Google.GData.Client
 
                     if (localname.Equals(this.nameTable.BatchErrors))
                     {
-                        // author.Name = Utilities.DecodeString(reader.ReadString());
+                        // author.Name = Utilities.DecodeString(Utilities.DecodedValue(reader.ReadString()));
                         status.Errors = ParseBatchErrors(reader); 
                     }
                 }
@@ -971,15 +971,15 @@ namespace Google.GData.Client
                         localname = reader.LocalName;
                         if (localname.Equals(this.nameTable.BatchReason))
                         {
-                            error.Reason = reader.Value;
+                            error.Reason = Utilities.DecodedValue(reader.Value);
                         }
                         else if (localname.Equals(this.nameTable.Type))
                         {
-                            error.Type = reader.Value; 
+                            error.Type = Utilities.DecodedValue(reader.Value); 
                         }
                         else if (localname.Equals(this.nameTable.BatchField))
                         {
-                            error.Field = reader.Value; 
+                            error.Field = Utilities.DecodedValue(reader.Value); 
                         }
                     }
                 }
@@ -1007,23 +1007,23 @@ namespace Google.GData.Client
                         localname = reader.LocalName;
                         if (localname.Equals(this.nameTable.BatchReason))
                         {
-                            interrupt.Reason = reader.Value;
+                            interrupt.Reason = Utilities.DecodedValue(reader.Value);
                         }
                         else if (localname.Equals(this.nameTable.BatchSuccessCount))
                         {
-                            interrupt.Successes = int.Parse(reader.Value); 
+                            interrupt.Successes = int.Parse(Utilities.DecodedValue(reader.Value)); 
                         }
                         else if (localname.Equals(this.nameTable.BatchFailureCount))
                         {
-                            interrupt.Failures = int.Parse(reader.Value); 
+                            interrupt.Failures = int.Parse(Utilities.DecodedValue(reader.Value)); 
                         }
                         else if (localname.Equals(this.nameTable.BatchParsedCount))
                         {
-                            interrupt.Parsed = int.Parse(reader.Value); 
+                            interrupt.Parsed = int.Parse(Utilities.DecodedValue(reader.Value)); 
                         }
                         else if (localname.Equals(this.nameTable.BatchUnprocessed))
                         {
-                            interrupt.Unprocessed= int.Parse(reader.Value); 
+                            interrupt.Unprocessed= int.Parse(Utilities.DecodedValue(reader.Value)); 
                         }
 
                     }
@@ -1066,7 +1066,7 @@ namespace Google.GData.Client
                         if (attributeName.Equals(this.nameTable.Type))
                         {
                             construct.Type = (AtomTextConstructType)Enum.Parse(
-                                                                              typeof(AtomTextConstructType), reader.Value, true);
+                                                                              typeof(AtomTextConstructType), Utilities.DecodedValue(reader.Value), true);
                         }
                         else
                         {
@@ -1079,7 +1079,7 @@ namespace Google.GData.Client
                 {
                     case AtomTextConstructType.html:
                     case AtomTextConstructType.text:
-                        construct.Text = reader.ReadString();
+                        construct.Text = Utilities.DecodedValue(reader.ReadString());
                         break;
 
                     case AtomTextConstructType.xhtml:
@@ -1122,7 +1122,7 @@ namespace Google.GData.Client
             {
                 generator = new AtomGenerator();
 
-                generator.Text = reader.ReadString();
+                generator.Text = Utilities.DecodedValue(reader.ReadString());
                 if (reader.HasAttributes)
                 {
                     while (reader.MoveToNextAttribute())
@@ -1131,11 +1131,11 @@ namespace Google.GData.Client
 
                         if (attributeName.Equals(this.nameTable.Uri))
                         {
-                            generator.Uri = new AtomUri(reader.Value);
+                            generator.Uri = new AtomUri(Utilities.DecodedValue(reader.Value));
                         }
                         else if (attributeName.Equals(this.nameTable.Version))
                         {
-                            generator.Version = reader.Value;
+                            generator.Version = Utilities.DecodedValue(reader.Value);
                         }
                         else
                         {
@@ -1182,11 +1182,11 @@ namespace Google.GData.Client
                         localname = reader.LocalName;
                         if (localname.Equals(this.nameTable.Type))
                         {
-                            content.Type = reader.Value;
+                            content.Type = Utilities.DecodedValue(reader.Value);
                         }
                         else if (localname.Equals(this.nameTable.Src))
                         {
-                            content.Src = new AtomUri(reader.Value);
+                            content.Src = new AtomUri(Utilities.DecodedValue(reader.Value));
                         }
                         else
                         {
@@ -1210,7 +1210,7 @@ namespace Google.GData.Client
                     {
                         // anything NOT xhtml get's just the string treatment. No 
                         // subelements are allowed here
-                        content.Content = reader.ReadString();
+                        content.Content = Utilities.DecodedValue(reader.ReadString());
                     }
                 }
             }

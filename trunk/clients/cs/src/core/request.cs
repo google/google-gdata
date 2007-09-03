@@ -31,6 +31,48 @@ namespace Google.GData.Client
 {
 
 
+    public class GDataCredentials 
+    {
+        private string passWord;
+        private string userName;
+        private string progLoginToken;
+
+        public GDataCredentials(string username, string password)
+        {
+            this.userName = username;
+            this.passWord = password;
+        }
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>accessor method public string Username</summary> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        public string Username
+        {
+            internal get {return this.userName;}
+            set {this.userName = value;}
+        }
+        // end of accessor public string Username
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>accessor method Password</summary> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        public string Password
+        {
+            internal get {return this.passWord;}
+            set {this.passWord = value;}
+        }
+        // end of accessor Password
+
+        public ICredentials NetworkCredential 
+        {
+            get 
+            {
+                return new NetworkCredential(this.userName, this.passWord);
+            }
+        }
+     }
+
     
     //////////////////////////////////////////////////////////////////////
     /// <summary>base GDataRequestFactory implementation</summary> 
@@ -189,7 +231,7 @@ namespace Google.GData.Client
         /// <summary>holds request type</summary> 
         private GDataRequestType type;
         /// <summary>holds the credential information</summary> 
-        private ICredentials credentials; 
+        private GDataCredentials credentials; 
         /// <summary>holds the request if a stream is open</summary> 
         private Stream requestStream;
         private GDataRequestFactory factory; // holds the factory to use
@@ -274,10 +316,10 @@ namespace Google.GData.Client
 
 
         //////////////////////////////////////////////////////////////////////
-        /// <summary>accessor method public ICredentials Credentials</summary> 
+        /// <summary>accessor method for the GDataCredentials used</summary> 
         /// <returns> </returns>
         //////////////////////////////////////////////////////////////////////
-        public ICredentials Credentials
+        public GDataCredentials Credentials
         {
             get {return this.credentials;}
             set {this.credentials = value;}
@@ -422,7 +464,7 @@ namespace Google.GData.Client
         {
             if (this.Credentials != null)
             {
-                this.webRequest.Credentials = this.Credentials; 
+                this.webRequest.Credentials = this.Credentials.NetworkCredential; 
             }
         }
         /////////////////////////////////////////////////////////////////////////////

@@ -116,8 +116,7 @@ namespace Google.GData.Client.LiveTests
             {
                 if (this.userName != null)
                 {
-                    NetworkCredential nc = new NetworkCredential(this.userName, this.passWord); 
-                    service.Credentials = nc;
+                    service.Credentials = new GDataCredentials(this.userName, this.passWord);
                 }
 
                 service.RequestFactory = this.factory; 
@@ -218,8 +217,7 @@ namespace Google.GData.Client.LiveTests
             {
                 if (this.userName != null)
                 {
-                    NetworkCredential nc = new NetworkCredential(this.userName, this.passWord); 
-                    service.Credentials = nc;
+                    service.Credentials = new GDataCredentials(this.userName, this.passWord);
                 }
 
                 service.RequestFactory = this.factory; 
@@ -279,8 +277,7 @@ namespace Google.GData.Client.LiveTests
             {
                 if (this.userName != null)
                 {
-                    NetworkCredential nc = new NetworkCredential(this.userName, this.passWord); 
-                    service.Credentials = nc;
+                    service.Credentials = new GDataCredentials(this.userName, this.passWord);
                 }
 
                 service.RequestFactory = this.factory; 
@@ -341,8 +338,7 @@ namespace Google.GData.Client.LiveTests
             {
                 if (this.userName != null)
                 {
-                    NetworkCredential nc = new NetworkCredential(this.userName, this.passWord); 
-                    service.Credentials = nc;
+                    service.Credentials = new GDataCredentials(this.userName, this.passWord);
                 }
 
                 service.RequestFactory = this.factory; 
@@ -404,8 +400,7 @@ namespace Google.GData.Client.LiveTests
             {
                 if (this.userName != null)
                 {
-                    NetworkCredential nc = new NetworkCredential(this.userName, this.passWord); 
-                    service.Credentials = nc;
+                    service.Credentials = new GDataCredentials(this.userName, this.passWord);
                 }
 
                 service.RequestFactory = this.factory; 
@@ -457,8 +452,7 @@ namespace Google.GData.Client.LiveTests
             {
                 if (this.userName != null)
                 {
-                    NetworkCredential nc = new NetworkCredential(this.userName, this.passWord); 
-                    service.Credentials = nc;
+                    service.Credentials = new GDataCredentials(this.userName, this.passWord);
                 }
 
                 service.RequestFactory = this.factory; 

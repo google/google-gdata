@@ -48,7 +48,7 @@ namespace Google.GData.Client.LiveTests
             IGDataRequest request = this.calendarService.RequestFactory.CreateRequest(GDataRequestType.Query, new Uri(calendarUri));
             Assert.IsTrue(request.UseGZip, "IGDataRequest.UseGZip property should be true.");
 
-            request.Credentials = new NetworkCredential(this.userName, this.passWord);
+            request.Credentials = new GDataCredentials(this.userName, this.passWord);
             request.Execute();
             Assert.IsTrue(request.UseGZip, "IGDataRequest.UseGZip is not true, the response was NOT in GZip format.");
 
