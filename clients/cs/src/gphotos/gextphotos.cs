@@ -418,6 +418,4 @@ namespace Google.GData.Photos {
         : base("weight", GPhotoNameTable.gPhotoPrefix, GPhotoNameTable.NSGPhotos, initValue)
         {}
     }
-
-
 }

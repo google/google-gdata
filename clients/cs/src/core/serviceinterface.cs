@@ -38,7 +38,7 @@ namespace Google.GData.Client
     public interface IService 
     {
         /// <summary>get/set for credentials to the service calls. Gets passed through to GDatarequest</summary> 
-        ICredentials Credentials 
+        GDataCredentials Credentials 
         {
             get;
             set;
@@ -114,7 +114,7 @@ namespace Google.GData.Client
     public interface IGDataRequest 
     {
         /// <summary>get/set for credentials to the service calls. Get's passed through to GDatarequest</summary> 
-        ICredentials Credentials 
+        GDataCredentials Credentials 
         {
             get;
             set;

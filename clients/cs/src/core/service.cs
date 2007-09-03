@@ -98,7 +98,7 @@ namespace Google.GData.Client
         /// <summary>this service's user-agent</summary> 
         public const string GServiceAgent = "GService-CS/1.0.0";
         /// <summary>holds the credential information</summary> 
-        private ICredentials credentials; 
+        private GDataCredentials credentials; 
         /// <summary>the GDatarequest to use</summary> 
         private IGDataRequestFactory GDataRequestFactory;
         /// <summary>holds the hooks for the eventing in the feedparser</summary> 
@@ -171,7 +171,7 @@ namespace Google.GData.Client
         /// <summary>accessor method public ICredentials Credentials</summary> 
         /// <returns> </returns>
         //////////////////////////////////////////////////////////////////////
-        public ICredentials Credentials
+        public GDataCredentials Credentials
         {
             get {return this.credentials;}
             set {this.credentials = value;}
@@ -210,7 +210,7 @@ namespace Google.GData.Client
         /// <param name="password"></param>
         public void setUserCredentials(String username, String password)
         {
-            this.Credentials = new NetworkCredential(username, password);
+            this.Credentials = new GDataCredentials(username, password);
         }
 
 

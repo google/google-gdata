@@ -354,12 +354,12 @@ namespace Google.GData.Client
             if (this.factory.GAuthToken == null)
             {
                 // we will take the standard credentials for that
-                NetworkCredential nc = this.Credentials as NetworkCredential;
-                Tracing.TraceMsg(nc == null ? "No Network credentials set" : "Network credentials found"); 
-                if (nc != null)
+                GDataCredentials gc = this.Credentials;
+                Tracing.TraceMsg(gc == null ? "No Network credentials set" : "Network credentials found"); 
+                if (gc != null)
                 {
                     // only now we have something to do... 
-                    this.factory.GAuthToken = QueryAuthToken(nc); 
+                    this.factory.GAuthToken = QueryAuthToken(gc); 
                 }
             }
             if (this.factory.GAuthToken != null && this.factory.GAuthToken.Length > 0)
@@ -418,10 +418,10 @@ namespace Google.GData.Client
         /// <summary>goes to the Google auth service, and gets a new auth token</summary> 
         /// <returns>the auth token, or NULL if none received</returns>
         //////////////////////////////////////////////////////////////////////
-        protected string QueryAuthToken(NetworkCredential nc)
+        protected string QueryAuthToken(GDataCredentials gc)
         {
-            Tracing.Assert(nc != null, "Do not call QueryAuthToken with no network credentials"); 
-            if (nc == null)
+            Tracing.Assert(gc != null, "Do not call QueryAuthToken with no network credentials"); 
+            if (gc == null)
             {
                 throw new System.ArgumentNullException("nc", "No credentials supplied");
             }
@@ -465,8 +465,8 @@ namespace Google.GData.Client
                 ASCIIEncoding encoder = new ASCIIEncoding();
 
                 // now enter the data in the stream
-                string postData = GoogleAuthentication.Email + "=" + Utilities.UriEncodeReserved(nc.UserName) + "&"; 
-                postData += GoogleAuthentication.Password + "=" + Utilities.UriEncodeReserved(nc.Password) + "&";  
+                string postData = GoogleAuthentication.Email + "=" + Utilities.UriEncodeReserved(gc.Username) + "&"; 
+                postData += GoogleAuthentication.Password + "=" + Utilities.UriEncodeReserved(gc.Password) + "&";  
                 postData += GoogleAuthentication.Source + "=" + Utilities.UriEncodeReserved(this.factory.ApplicationName) + "&"; 
                 postData += GoogleAuthentication.Service + "=" + Utilities.UriEncodeReserved(this.factory.Service) + "&"; 
                 if (this.factory.CaptchaAnswer != null)
@@ -526,7 +526,8 @@ namespace Google.GData.Client
             {
                 authResponse.Close();
             }
-            return authToken;
+
+           return authToken;
         }
         /////////////////////////////////////////////////////////////////////////////
     

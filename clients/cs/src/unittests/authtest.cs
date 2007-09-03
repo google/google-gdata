@@ -133,8 +133,7 @@ namespace Google.GData.Client.AuthUnitTests
             {
                 if (this.userName != null)
                 {
-                    NetworkCredential nc = new NetworkCredential(this.userName, this.passWord); 
-                    service.Credentials = nc;
+                    service.Credentials = new GDataCredentials(this.userName, this.passWord);
                 }
 
                 GDataLoggingRequestFactory factory = (GDataLoggingRequestFactory) this.factory;
@@ -163,8 +162,7 @@ namespace Google.GData.Client.AuthUnitTests
             {
                 if (this.userName != null)
                 {
-                    NetworkCredential nc = new NetworkCredential(this.userName, "wrong"); 
-                    service.Credentials = nc;
+                    service.Credentials = new GDataCredentials(this.userName, this.passWord);
                 }
 
                 GDataLoggingRequestFactory factory = (GDataLoggingRequestFactory) this.factory;
@@ -200,8 +198,7 @@ namespace Google.GData.Client.AuthUnitTests
             {
                 if (this.userName != null)
                 {
-                    NetworkCredential nc = new NetworkCredential(this.userName+"xyz",  "wrong"); 
-                    service.Credentials = nc;
+                    service.Credentials = new GDataCredentials(this.userName + "xyz", "wrong");
                 }
 
                 GDataLoggingRequestFactory factory = (GDataLoggingRequestFactory) this.factory;

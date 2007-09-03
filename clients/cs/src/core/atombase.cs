@@ -317,7 +317,62 @@ namespace Google.GData.Client
         }
         /////////////////////////////////////////////////////////////////////////////
 
+        /// <summary>
+        /// Finds a specific ExtensionElement based on it's local name
+        /// and it's namespace. If namespace is NULL, the first one where
+        /// the localname matches is found. If there are extensionelements that do 
+        /// not implment ExtensionElementFactory, they will not be taken into account
+        /// Primary use of this is to find XML nodes
+        /// </summary
+        /// <param name="localName">the localname of the element</param>
+        /// <param name="ns">the namespace of the elementToPersist</param>
+        /// <returns>Object</returns>
+        public Object FindExtension(string localName, string ns) 
+        {
+            foreach (object ob in this.ExtensionElements)
+            {
+                XmlNode node = ob as XmlNode;
+                if (node != null)
+                {
+                    if (compareXmlNess(node.LocalName, localName, node.NamespaceURI, ns))
+                    {
+                        return ob;
+                    }
+                }
+                else
+                {
+                    // only if the elements do implement the ExtensionElementFactory
+                    // do we know if it's xml name/namespace
+                    IExtensionElementFactory ele = ob as IExtensionElementFactory;
+                    if (ele != null)
+                    {
+                        if (compareXmlNess(ele.XmlName, localName, ele.XmlNameSpace, ns))
+                        {
+                            return ob;
+                        }
+                    }
+                }
+            }
+            return null;
+        }
 
+        private bool compareXmlNess(string l1, string l2, string ns1, string ns2) 
+        {
+            if (String.Compare(l1,l2)==0)
+            {
+                if (ns1 == null)
+                {
+                    return true;
+                } 
+                else if (String.Compare(ns1, ns2)==0)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+ 
         //////////////////////////////////////////////////////////////////////
         /// <summary>Saves the object as XML.</summary> 
         /// <param name="stream">stream to save to</param>
@@ -361,6 +416,7 @@ namespace Google.GData.Client
             }
             this.MarkElementDirty(false);
         }
+
         /////////////////////////////////////////////////////////////////////////////
 
 
