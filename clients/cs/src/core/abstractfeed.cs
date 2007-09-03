@@ -138,8 +138,7 @@ namespace Google.GData.Client
         /// <summary>
         /// event on the Feed to handle extension elements during parsing
         /// </summary>
-        /// <param name="e">the event arguments</param>
-        /// <param name="parser">the parser that caused this</param>
+        /// <param name="e">the event arguments</param>        /// <param name="parser">the parser that caused this</param>
         protected virtual void HandleExtensionElements(ExtensionElementEventArgs e, AtomFeedParser parser) 
         {
             Tracing.TraceMsg("Entering HandleExtensionElements on AbstractFeed");

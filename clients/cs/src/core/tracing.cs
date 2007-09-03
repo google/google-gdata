@@ -101,6 +101,8 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         /// <summary>Method to trace the current call with an additional message</summary> 
         /// <param name="msg"> msg string to display</param>
+        /// <param name="startFrame">the startFrame to uses</param>
+        /// <param name="indent"> intendation</param>
         //////////////////////////////////////////////////////////////////////
         [Conditional("TRACE")] static private void TraceCall(string msg, StackFrame startFrame, int indent)
         {

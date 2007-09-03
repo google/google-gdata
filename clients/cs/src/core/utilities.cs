@@ -111,9 +111,8 @@ namespace Google.GData.Client
 
         /// <summary>
         /// used as a cover method to hide the actual decoding implementation
-        /// 
         /// </summary>
-        /// <param name="Value"></param>
+        /// <param name="value">the string to decode</param>
         public static string DecodedValue(string value) 
         {
             return System.Web.HttpUtility.HtmlDecode(value);

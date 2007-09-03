@@ -141,11 +141,11 @@ namespace Google.GData.Extensions
         /// <summary>static string to specify the KML prefix used</summary>
         public const string geoKmlPrefix = "georss"; 
 
-        /// <summary>static string to specify the the where element/summary>
+        /// <summary>static string to specify the the where element</summary>
         public const string GeoRssWhereElement  = "where";
-        /// <summary>static string to specify the the point element/summary>
+        /// <summary>static string to specify the the point element</summary>
         public const string GeoKmlPointElement  = "point";
-        /// <summary>static string to specify the the pos element/summary>
+        /// <summary>static string to specify the the pos element</summary>
         public const string GeoKmlPosElement    = "pos";
 
 #endregion

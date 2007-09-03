@@ -323,8 +323,8 @@ namespace Google.GData.Client
         /// the localname matches is found. If there are extensionelements that do 
         /// not implment ExtensionElementFactory, they will not be taken into account
         /// Primary use of this is to find XML nodes
-        /// </summary
-        /// <param name="localName">the localname of the element</param>
+        /// </summary>
+        /// <param name="localName">the xml local name of the element to find</param>
         /// <param name="ns">the namespace of the elementToPersist</param>
         /// <returns>Object</returns>
         public Object FindExtension(string localName, string ns) 

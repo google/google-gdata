@@ -30,13 +30,19 @@ using System.Collections.Specialized;
 namespace Google.GData.Client
 {
 
-
+    /// <summary>
+    /// the class holds username and password to replace networkcredentials
+    /// </summary>
     public class GDataCredentials 
     {
         private string passWord;
         private string userName;
-        private string progLoginToken;
-
+  
+        /// <summary>
+        /// default constructor
+        /// </summary>
+        /// <param name="username">the username to use</param>
+        /// <param name="password">the password to use</param>
         public GDataCredentials(string username, string password)
         {
             this.userName = username;
@@ -64,6 +70,9 @@ namespace Google.GData.Client
         }
         // end of accessor Password
 
+        /// <summary>
+        /// returns a windows conforming NetworkCredential 
+        /// </summary>
         public ICredentials NetworkCredential 
         {
             get 
