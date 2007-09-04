@@ -20,6 +20,8 @@
   works on the first Reminder in the list. Setting the old property will delete all addtional reminders.The Reminders
   property is of type ArrayList (this is an artifact of being .NET 1.1 compatible, once we move to .NET 2.0 or later, if
   that ever happens, this could/should be typed).
+- Support for Google Calendar WebContent Gadgets is included. A WebContent element has a SortedList property to set and retrieve
+  those preferences. See caltest.cs for an example.
 
 == 1.0.9.9 ==
 - added GBase support for m:adjusted_name and gm:adjusted_value inside attributes

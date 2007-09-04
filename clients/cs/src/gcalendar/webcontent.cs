@@ -26,11 +26,12 @@ namespace Google.GData.Extensions
     /// <summary>
     /// GData schema extension describing a webcontent for the calendar
     /// </summary>
-    public class WebContent : IExtensionElement
+    public class WebContent : IExtensionElement, IExtensionElementFactory
     {
         private string url;
         private uint width; 
         private uint height;
+        private SortedList gadgetPrefs;
 
 
         //////////////////////////////////////////////////////////////////////
@@ -63,25 +64,46 @@ namespace Google.GData.Extensions
             set { this.height = value; }
         }
 
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>accessor method public SortedList GadgetPreferences</summary> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        public SortedList GadgetPreferences
+        {
+            get 
+            {
+                if (this.gadgetPrefs == null) 
+                {
+                    this.gadgetPrefs = new SortedList();
+                }
+                return this.gadgetPrefs;
+            }
+            set {this.gadgetPrefs = value;}
+        }
+        // end of accessor public SortedList GadgetPreferences
+
 
         #region WebContent Parser
+
         //////////////////////////////////////////////////////////////////////
-        /// <summary>Parses an xml node to create an WebContent object.</summary> 
-        /// <param name="node">WebContent node</param>
-        /// <returns>the created WebContent object</returns>
+        /// <summary>Parses an xml node to create a Who object.</summary> 
+        /// <param name="node">georsswhere node</param>
+        /// <param name="parser">AtomFeedParser to use</param>
+        /// <returns>the created SimpleElement object</returns>
         //////////////////////////////////////////////////////////////////////
-        public static WebContent ParseWebContent(XmlNode node)
+        public IExtensionElement CreateInstance(XmlNode node, AtomFeedParser parser) 
         {
             Tracing.TraceCall();
-            WebContent webContent = null;
             Tracing.Assert(node != null, "node should not be null");
             if (node == null)
             {
                 throw new ArgumentNullException("node");
             }
 
+            WebContent webContent = null;
+          
             object localname = node.LocalName;
-            if (localname.Equals(GDataParserNameTable.XmlWebContentElement))
+            if (localname.Equals(XmlName))
             {
                 webContent = new WebContent();
                 if (node.Attributes != null)
@@ -108,7 +130,35 @@ namespace Google.GData.Extensions
                     {
                         webContent.Height = uint.Parse(value, System.Globalization.NumberStyles.Integer, CultureInfo.InvariantCulture);
                     }
+                }
+                  // single event, g:reminder is inside g:when
+                if (node.HasChildNodes)
+                {
+                    XmlNode gadgetPrefs = node.FirstChild;
+                    IExtensionElementFactory f = new Reminder() as IExtensionElementFactory;
+                    while (gadgetPrefs != null && gadgetPrefs is XmlElement)
+                    {
+                        if (String.Compare(gadgetPrefs.NamespaceURI, XmlNameSpace, true) == 0)
+                        {
+                            if (String.Compare(gadgetPrefs.LocalName, GDataParserNameTable.XmlWebContentGadgetElement) == 0)
+                            {
+                                if (gadgetPrefs.Attributes != null)
+                                {
+                                    string value = gadgetPrefs.Attributes[BaseNameTable.XmlAttributeValue] != null ? 
+                                                   gadgetPrefs.Attributes[BaseNameTable.XmlAttributeValue].Value : null;
 
+                                    string name  = gadgetPrefs.Attributes[BaseNameTable.XmlAttributeName] != null ?
+                                                   gadgetPrefs.Attributes[BaseNameTable.XmlAttributeName].Value : null;
+
+                                    if (name != null)
+                                    {
+                                        webContent.GadgetPreferences.Add(name, value);
+                                    }
+                                }
+                            }
+                        }
+                        gadgetPrefs = gadgetPrefs.NextSibling;
+                    }
                 }
             }
 
@@ -127,6 +177,21 @@ namespace Google.GData.Extensions
             get { return GDataParserNameTable.XmlWebContentElement; }
         }
 
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Returns the constant representing this XML element.</summary> 
+        //////////////////////////////////////////////////////////////////////
+        public string XmlNameSpace
+        {
+            get { return GDataParserNameTable.NSGCal; }
+        }
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Returns the constant representing this XML element.</summary> 
+        //////////////////////////////////////////////////////////////////////
+        public string XmlPrefix
+        {
+            get { return GDataParserNameTable.gCalPrefix; }
+        }
+
         /// <summary>
         /// Persistence method for the When object
         /// </summary>
@@ -135,10 +200,30 @@ namespace Google.GData.Extensions
         {
             if (Utilities.IsPersistable(this.Url))
             {
-                writer.WriteStartElement(GDataParserNameTable.gCalPrefix, XmlName, GDataParserNameTable.NSGCal);
+                writer.WriteStartElement(XmlPrefix, XmlName, XmlNameSpace);
                 writer.WriteAttributeString(GDataParserNameTable.XmlAttributeUrl, this.Url);
                 writer.WriteAttributeString(GDataParserNameTable.XmlAttributeHeight, this.Height.ToString());
                 writer.WriteAttributeString(GDataParserNameTable.XmlAttributeWidth, this.Width.ToString());
+                if (this.gadgetPrefs != null && this.gadgetPrefs.Count > 0)
+                {
+                    for (int i=0; i < this.gadgetPrefs.Count; i++)
+                    {
+                        string name = this.gadgetPrefs.GetKey(i) as string;
+                        string value = this.gadgetPrefs.GetByIndex(i) as string;
+                        if (name != null)
+                        {
+                            writer.WriteStartElement(XmlPrefix, 
+                                                     GDataParserNameTable.XmlWebContentGadgetElement,
+                                                     XmlNameSpace);
+                            writer.WriteAttributeString(BaseNameTable.XmlAttributeName, name);
+                            if (value != null)
+                            {
+                                writer.WriteAttributeString(BaseNameTable.XmlAttributeValue, value);
+                            }
+                            writer.WriteEndElement();
+                        }
+                    }
+                }
                 writer.WriteEndElement();
             }
         }

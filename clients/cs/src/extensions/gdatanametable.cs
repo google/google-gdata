@@ -118,6 +118,8 @@ namespace Google.GData.Extensions
 #region Calendar specific (consider moving to seperate table)
         /// <summary>static string for parsing a webcontent element</summary>
         public const string XmlWebContentElement = "webContent"; 
+        /// <summary>static string for parsing a webcontent element</summary>
+        public const string XmlWebContentGadgetElement = "webContentGadgetPref"; 
         /// <summary>static string for parsing the extendedProperty element</summary>    
         public const string XmlExtendedPropertyElement = "extendedProperty";
         /// <summary>static string for the url attribute</summary>    

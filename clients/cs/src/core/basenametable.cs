@@ -71,6 +71,7 @@ namespace Google.GData.Client
 
         private object type;
         private object value;
+        private object name;
 
 
         /// <summary>static namespace string declaration</summary> 
@@ -163,6 +164,8 @@ namespace Google.GData.Client
         public const string XmlAttributeBatchUnprocessed = "unprocessed"; 
         /// <summary>XmlAttribute for value in enums</summary> 
         public const string XmlAttributeValue = "value"; 
+        /// <summary>XmlAttribute for name in enums</summary> 
+        public const string XmlAttributeName = "name"; 
         /// <summary>XmlAttribute for value in enums</summary> 
         public const string XmlAttributeType = "type"; 
 
@@ -200,7 +203,8 @@ namespace Google.GData.Client
 
             this.type              = this.atomNameTable.Add(BaseNameTable.XmlAttributeType); 
             this.value             = this.atomNameTable.Add(BaseNameTable.XmlAttributeValue); 
-            
+            this.name             = this.atomNameTable.Add(BaseNameTable.XmlAttributeValue); 
+
 
 
 
@@ -417,6 +421,15 @@ namespace Google.GData.Client
         public object Type
         {
             get {return this.type;}
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Read only accessor for name</summary> 
+        //////////////////////////////////////////////////////////////////////
+        public object Name
+        {
+            get {return this.name;}
         }
         /////////////////////////////////////////////////////////////////////////////
 
