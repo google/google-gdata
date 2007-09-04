@@ -15,6 +15,11 @@
   an optional namespace (issue 81)
 - the extension mechanism was reworked by creating an ExtensionElementFactory interface that takes care of 
   parsing elements. ElementFactories are registered on the AtomBase (entry and feed) level.
+- Fixed Issue 60, mulitple Reminders per Event. Note, that this introduces slight changes when dealing with this. 
+  A new property, EventEntry.Reminders, was created. The old property, EventEntry.Reminder, still exists, and only
+  works on the first Reminder in the list. Setting the old property will delete all addtional reminders.The Reminders
+  property is of type ArrayList (this is an artifact of being .NET 1.1 compatible, once we move to .NET 2.0 or later, if
+  that ever happens, this could/should be typed).
 
 == 1.0.9.9 ==
 - added GBase support for m:adjusted_name and gm:adjusted_value inside attributes

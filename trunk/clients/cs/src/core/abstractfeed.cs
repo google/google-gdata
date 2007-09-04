@@ -153,7 +153,7 @@ namespace Google.GData.Client
                     {
                         if (String.Compare(node.LocalName, f.XmlName) == 0)
                         {
-                            this.ExtensionElements.Add(f.CreateInstance(node, parser));
+                            e.Base.ExtensionElements.Add(f.CreateInstance(node, parser));
                             e.DiscardEntry = true;
                             break;
                         }

@@ -51,7 +51,7 @@ namespace Google.GData.Extensions
         /// <summary>
         /// reminder object to set reminder durations
         /// </summary>
-        protected Reminder reminder; 
+        protected ArrayList reminders;
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>accessor method public DateTime StartTime</summary> 
@@ -76,10 +76,17 @@ namespace Google.GData.Extensions
         //////////////////////////////////////////////////////////////////////
         /// <summary>reminder accessor</summary> 
         //////////////////////////////////////////////////////////////////////
-        public Reminder Reminder
+        public ArrayList Reminders
         {
-            get { return this.reminder; }
-            set { this.reminder = value; }
+            get 
+            {
+                if (this.reminders == null)
+                {
+                    this.reminders = new ArrayList();
+                }
+                return this.reminders; 
+            }
+            set { this.reminders = value; }
         }
         //////////////////////////////////////////////////////////////////////
         /// <summary>accessor method public string ValueString</summary> 
@@ -154,11 +161,16 @@ namespace Google.GData.Extensions
                 if (node.HasChildNodes)
                 {
                     XmlNode whenChildNode = node.FirstChild;
+                    IExtensionElementFactory f = new Reminder() as IExtensionElementFactory;
                     while (whenChildNode != null && whenChildNode is XmlElement)
                     {
-                        if (whenChildNode.LocalName == GDataParserNameTable.XmlReminderElement)
+                        if (String.Compare(whenChildNode.NamespaceURI, f.XmlNameSpace, true) == 0)
                         {
-                            when.Reminder = Reminder.ParseReminder(whenChildNode);
+                            if (String.Compare(whenChildNode.LocalName, f.XmlName) == 0)
+                            {
+                                Reminder r = f.CreateInstance(whenChildNode, null) as Reminder;
+                                when.Reminders.Add(r);
+                            }
                         }
                         whenChildNode = whenChildNode.NextSibling;
                     }
@@ -226,12 +238,14 @@ namespace Google.GData.Extensions
                 {
                     writer.WriteAttributeString(GDataParserNameTable.XmlAttributeValueString, this.valueString);
                 }
-                if (this.Reminder != null)
+                if (this.reminders != null)
                 {
-                    this.Reminder.Save(writer);
+                    foreach (Object o in this.Reminders)
+                    {
+                        Reminder r = o as Reminder;
+                        r.Save(writer);
+                    }
                 }
-                
-    
                 writer.WriteEndElement();
             }
         }

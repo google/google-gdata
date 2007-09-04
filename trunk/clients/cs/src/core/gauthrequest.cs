@@ -583,7 +583,7 @@ namespace Google.GData.Client
             }
             else
             {
-                return new AuthenticationException("Error authenticating (check service name)");
+                return new AuthenticationException("Error authenticating (check service name): " + errorName);
             }
         }
 
