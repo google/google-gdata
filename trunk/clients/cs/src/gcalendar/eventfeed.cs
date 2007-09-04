@@ -118,6 +118,7 @@ namespace Google.GData.Calendar {
         /// <param name="iService">the Service to use</param>
         public EventFeed(Uri uriBase, IService iService) : base(uriBase, iService)
         {
+            AddExtension(new WebContent());
         }
 
 
@@ -228,7 +229,9 @@ namespace Google.GData.Calendar {
         /// <param name="e"></param>        /// <param name="parser">the atom feed parser used</param>
         protected override void HandleExtensionElements(ExtensionElementEventArgs e, AtomFeedParser parser)
         {
-             Tracing.TraceMsg("\t HandleExtensionElements for CalendarFeed called");
+            Tracing.TraceMsg("\t HandleExtensionElements for CalendarFeed called");
+            // the base implementation handles all things registered with AddExtension
+            base.HandleExtensionElements(e, parser);
 
             if (String.Compare(e.ExtensionElement.NamespaceURI, BaseNameTable.gNamespace, true) == 0)
             {
@@ -261,12 +264,6 @@ namespace Google.GData.Calendar {
                         eventFeed.TimeZone = TimeZone.ParseTimeZone(e.ExtensionElement);
                         e.DiscardEntry = true;
                     }
-                }
-                else if (e.ExtensionElement.LocalName == GDataParserNameTable.XmlWebContentElement)
-                {
-                    WebContent content = WebContent.ParseWebContent(e.ExtensionElement); 
-                    e.Base.ExtensionElements.Add(content); 
-                    e.DiscardEntry = true;
                 }
             }
         }

@@ -657,6 +657,9 @@ namespace Google.GData.Client.LiveTests
                     content.Url = "http://www.google.com/logos/july4th06.gif";
                     content.Width = 270;
                     content.Height = 130; 
+                    content.GadgetPreferences.Add("color", "blue");
+                    content.GadgetPreferences.Add("taste", "sweet");
+                    content.GadgetPreferences.Add("smell", "fresh");
 
                     link.ExtensionElements.Add(content);
                     entry.Links.Add(link); 
@@ -667,6 +670,19 @@ namespace Google.GData.Client.LiveTests
                     link = newEntry.Links.FindService("http://schemas.google.com/gCal/2005/webContent", "image/gif"); 
                     Assert.IsTrue(link != null, "the link did not come back for the webContent"); 
                     Tracing.TraceMsg("Created calendar entry");
+
+                    WebContent returnedContent = link.FindExtension(GDataParserNameTable.XmlWebContentElement, 
+                                                                    GDataParserNameTable.NSGCal) as WebContent;
+
+                    Assert.IsTrue(returnedContent != null, "The returned WebContent element was not found");
+
+                    Assert.AreEqual(3, returnedContent.GadgetPreferences.Count, "The gadget preferences should be there");
+                    Assert.AreEqual("blue", returnedContent.GadgetPreferences["color"], "Color should be blue");
+                    Assert.AreEqual("sweet", returnedContent.GadgetPreferences["taste"], "Taste should be sweet");
+                    Assert.AreEqual("fresh", returnedContent.GadgetPreferences["smell"], "smell should be fresh");
+
+
+
 
                     newEntry.Content.Content = "Updated..";
                     newEntry.Update();
