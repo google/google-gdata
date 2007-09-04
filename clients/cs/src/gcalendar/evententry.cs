@@ -292,7 +292,6 @@ namespace Google.GData.Calendar {
         private Transparency transparency;
         private Recurrence recurrence;
         private OriginalEvent originalEvent;
-        private Reminder reminder;
         private Comments comments;
         private RecurrenceException exception; 
         private SendNotifications sendNotifications;
@@ -475,25 +474,55 @@ namespace Google.GData.Calendar {
             return this.Times != null && this.Times.Count > 0 ? this.Times[0] : null; 
         }
 
+
+        /// <summary>
+        /// returns the FIRST reminder for backwards compatibility
+        /// if set, will REMOVE all reminders, but this one (array of one)
+        /// </summary>
+        public Reminder Reminder 
+        {
+            get 
+            {
+                ArrayList arr = this.Reminders;
+                if (arr != null && arr.Count > 0)
+                {
+                    return arr[0] as Reminder;
+                }
+                return null;
+            }
+            set 
+            {
+                ArrayList arr = null;
+                if (value != null)
+                {
+                    arr = new ArrayList();
+                    arr.Add(value);
+                }
+                this.Reminders = arr;
+            }
+        }
+
         /// <summary>
         /// property accessor for the Reminder
         /// </summary>
-        public Reminder Reminder
+        public ArrayList Reminders
         {
             get 
             { 
                 // if we are a recurrent event, reminder is on the entry/toplevel
                 if (this.Recurrence != null)
                 {
-                    return this.reminder; 
-                }
+                    return FindExtensions(GDataParserNameTable.XmlReminderElement,
+                                      BaseNameTable.gNamespace);
+                 
+                } 
                 else
                 {
                     // in the non recurrent case, it's on the first when element
                     When w = GetFirstReminder(); 
                     if (w != null)
                     {
-                        return w.Reminder; 
+                        return w.Reminders; 
                     }
                 }
                 return null; 
@@ -503,12 +532,16 @@ namespace Google.GData.Calendar {
             {
                 if (this.Recurrence != null)
                 {
-                    if (this.reminder != null)
+                    DeleteExtensions(GDataParserNameTable.XmlReminderElement,
+                                      BaseNameTable.gNamespace); 
+                    if (value != null)
                     {
-                        ExtensionElements.Remove(this.reminder);
+                        // now add the new ones
+                        foreach (Object ob in value)
+                        {
+                            this.ExtensionElements.Add(ob);
+                        }
                     }
-                    this.reminder = value; 
-                    ExtensionElements.Add(reminder);
                 }
                 else
                 {
@@ -517,7 +550,7 @@ namespace Google.GData.Calendar {
                     When w = GetFirstReminder(); 
                     if (w != null)
                     {
-                        w.Reminder = value; 
+                        w.Reminders = value; 
                     }
                     else
                     {
@@ -559,6 +592,10 @@ namespace Google.GData.Calendar {
         public override void Parse(ExtensionElementEventArgs e, AtomFeedParser parser)
         {
             XmlNode eventNode = e.ExtensionElement;
+
+            // Parse a Reminder Element - recurrence event, g:reminder is in top level
+            // reminders are already changed to IExtensionElementFactory, so call base
+            base.Parse(e, parser);
 
             if (String.Compare(eventNode.NamespaceURI, BaseNameTable.gNamespace, true) == 0)
             {
@@ -613,12 +650,6 @@ namespace Google.GData.Calendar {
                 else if (eventNode.LocalName == GDataParserNameTable.XmlOriginalEventElement)
                 {
                     this.OriginalEvent = OriginalEvent.ParseOriginal(eventNode);
-                    e.DiscardEntry = true;
-                }
-                // Parse a Reminder Element - recurrence event, g:reminder is in top level
-                else if (eventNode.LocalName == GDataParserNameTable.XmlReminderElement)
-                {
-                    this.Reminder = Reminder.ParseReminder(eventNode);
                     e.DiscardEntry = true;
                 }
                 // Parse a Comments Element

@@ -356,6 +356,133 @@ namespace Google.GData.Client
             return null;
         }
 
+        /// <summary>
+        /// Finds all ExtensionElement based on it's local name
+        /// and it's namespace. If namespace is NULL, allwhere
+        /// the localname matches is found. If there are extensionelements that do 
+        /// not implment ExtensionElementFactory, they will not be taken into account
+        /// Primary use of this is to find XML nodes
+        /// </summary>
+        /// <param name="localName">the xml local name of the element to find</param>
+        /// <param name="ns">the namespace of the elementToPersist</param>
+        /// <returns>Object</returns>
+        public ArrayList FindExtensions(string localName, string ns) 
+        {
+            return FindExtensions(localName, ns, new ArrayList());
+        }
+
+        /// <summary>
+        /// Finds all ExtensionElement based on it's local name
+        /// and it's namespace. If namespace is NULL, allwhere
+        /// the localname matches is found. If there are extensionelements that do 
+        /// not implment ExtensionElementFactory, they will not be taken into account
+        /// Primary use of this is to find XML nodes
+        /// </summary>
+        /// <param name="localName">the xml local name of the element to find</param>
+        /// <param name="ns">the namespace of the elementToPersist</param>
+        /// <param name="arr">the array to fill</param>
+        /// <returns>none</returns>
+        public ArrayList FindExtensions(string localName, string ns, ArrayList arr) 
+        {
+            foreach (object ob in this.ExtensionElements)
+            {
+                XmlNode node = ob as XmlNode;
+                if (node != null)
+                {
+                    if (compareXmlNess(node.LocalName, localName, node.NamespaceURI, ns))
+                    {
+                        arr.Add(ob);
+                    }
+                }
+                else
+                {
+                    // only if the elements do implement the ExtensionElementFactory
+                    // do we know if it's xml name/namespace
+                    IExtensionElementFactory ele = ob as IExtensionElementFactory;
+                    if (ele != null)
+                    {
+                        if (compareXmlNess(ele.XmlName, localName, ele.XmlNameSpace, ns))
+                        {
+                            arr.Add(ob);
+                        }
+                    }
+                }
+            }
+            return arr;
+        }
+
+        /// <summary>
+        /// Delete's all Extensions from the Extension list that match
+        /// a localName and a Namespace. 
+        /// </summary>
+        /// <param name="localName">the local name to find</param>
+        /// <param name="ns">the namespace to match, if null, ns is ignored</param>
+        /// <returns>int - the number of deleted extensions</returns>
+        public int DeleteExtensions(string localName, string ns) 
+        {
+            // Find them first
+            ArrayList arr = FindExtensions(localName, ns);
+            foreach (object ob in arr)
+            {
+                this.ExtensionElements.Remove(ob);
+            }
+            return arr.Count;
+        }
+
+        /// <summary>
+        /// all extension elements that match a namespace/localname
+        /// given will be removed and replaced with the new ones.
+        /// the input array can contain several different
+        /// namespace/localname combinations
+        /// </summary>
+        /// <param name="newList">a list of xmlnodes or IExtensionElementFactory objects</param>
+        /// <returns>int - the number of deleted extensions</returns>
+
+        public int ReplaceExtensions(ArrayList newList) 
+        {
+            Tracing.Assert(newList != null, "newList should not be null");
+            if (newList == null)
+            {
+                throw new ArgumentNullException("newList"); 
+            }
+            int count = 0;
+            // get rid of all of the old ones matching the specs
+            foreach (Object ob in newList)
+            {
+                string localName = null;
+                string ns = null;
+                XmlNode node = ob as XmlNode;
+                if (node != null)
+                {
+                    localName = node.LocalName;
+                    ns = node.NamespaceURI;
+                } 
+                else 
+                {
+                    IExtensionElementFactory ele = ob as IExtensionElementFactory;
+                    if (ele != null)
+                    {
+                        localName = ele.XmlName;
+                        ns = ele.XmlNameSpace;
+                    }
+                }
+
+                if (localName != null)
+                {
+                    count += DeleteExtensions(localName, ns);
+                }
+            }
+            // now add the new ones
+            foreach (Object ob in newList)
+            {
+                this.ExtensionElements.Add(ob);
+            }
+
+            return count;
+        }
+
+
+
         private bool compareXmlNess(string l1, string l2, string ns1, string ns2) 
         {
             if (String.Compare(l1,l2)==0)
