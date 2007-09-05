@@ -27,7 +27,16 @@ using Google.GData.Calendar;
 namespace Google.GData.Client.Samples
 {
     /// <summary>
-    /// simple pull app for a calendar
+    /// simple pull app for a GData Feed
+    ///   Usage is 
+    ///         ExecRequest <service> <cmd> <uri> <username> <password>, where cmd is QUERY, UPDATE, INSERT, DELETE 
+    ///   or 
+    ///         ExecRequest <service> <cmd> <uri> /a <authsubtoken> - to use a session token
+    ///   or
+    ///         ExecRequest <service> <cmd> <uri> /e <authsubtoken> - to exchance a one time token for a session token
+    /// 
+    ///     To upload data you can use a syntax like this:
+    ///         ExecRequest myService POST http://whereever Joe@Smith secret < uploadfile.xml
     /// </summary>
     class ExecRequest
     {
