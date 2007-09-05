@@ -47,7 +47,32 @@ namespace Google.GData.Spreadsheets
         }
 
         /// <summary>
-        /// The colCount element in this cell entry
+        /// Constructs a new WorksheetEntry instance with the given number of
+        /// rows and columns.
+        /// </summary>
+        /// <param name="rows">The number of rows.</param>
+        /// <param name="cols">The number of columns.</param>
+        public WorksheetEntry(uint rows, uint cols) : this()
+        {
+            this.ColCount = new ColCountElement(cols);
+
+            this.RowCount = new RowCountElement(rows);
+        }
+
+        /// <summary>
+        /// Constructs a new WorksheetEntry instance with a given number of
+        /// rows and columns and with a set title.
+        /// </summary>
+        /// <param name="rows">The number of rows.</param>
+        /// <param name="cols">The number of columns.</param>
+        /// <param name="title">The title of the worksheet.</param>
+        public WorksheetEntry(uint rows, uint cols, string title) : this(rows,cols)
+        {
+            this.Title = new AtomTextConstruct(AtomTextConstructElementType.Title,title);
+        }
+
+        /// <summary>
+        /// The colCount element in this worksheet entry
         /// </summary>
         public ColCountElement ColCount
         {
@@ -64,6 +89,16 @@ namespace Google.GData.Spreadsheets
         }
 
         /// <summary>
+        /// Sets the number of columns for this worksheet entry
+        /// </summary>
+        public uint Cols
+        {
+            get { return this.ColCount.Count; }
+            set { this.ColCount.Count = value; }
+        }
+
+
+        /// <summary>
         /// The rowCount element in this cell entry
         /// </summary>
         public RowCountElement RowCount
@@ -78,6 +113,15 @@ namespace Google.GData.Spreadsheets
                 rowCount = value; 
                 ExtensionElements.Add(rowCount);
             }
+        }
+
+        /// <summary>
+        /// Sets the number of rows for this worksheet entry
+        /// </summary>
+        public uint Rows
+        {
+            get { return this.RowCount.Count; }
+            set { this.RowCount.Count = value; }
         }
 
         /// <summary>

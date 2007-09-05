@@ -35,6 +35,14 @@ namespace Google.GData.Spreadsheets
         }
 
         /// <summary>
+        /// Constructs a row count element of a given count size.
+        /// </summary>
+        public RowCountElement(uint count)
+        {
+            Count = count;
+        }
+
+        /// <summary>
         /// Gets or sets the count of rows.
         /// </summary>
         public uint Count
