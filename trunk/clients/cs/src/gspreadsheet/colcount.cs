@@ -35,6 +35,14 @@ namespace Google.GData.Spreadsheets
         }
 
         /// <summary>
+        /// Constructs a column count element with a given count size.
+        /// </summary>
+        public ColCountElement(uint count)
+        {
+            Count = count;
+        }
+
+        /// <summary>
         /// Gets or sets the count of columns.
         /// </summary>
         public uint Count
