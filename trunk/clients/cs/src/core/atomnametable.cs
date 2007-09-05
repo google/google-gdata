@@ -153,9 +153,7 @@ namespace Google.GData.Client
         private object uri;
         /// <summary>property holder exposed over get/set</summary> 
         private object email;
-        /// <summary>property holder exposed over get/set</summary> 
-        private object name;
-
+    
         /// <summary>holds the icon </summary> 
         private object icon;
         /// <summary>holds the logo</summary> 
@@ -197,8 +195,6 @@ namespace Google.GData.Client
         /// <summary>static string for parsing</summary>    
         public const string XmlUpdatedElement = "updated";
         
-        /// <summary>static string for parsing</summary>    
-        public const string XmlNameElement = "name";
         /// <summary>static string for parsing</summary>    
         public const string XmlEmailElement = "email";
         /// <summary>static string for parsing - same for attribute</summary>    
@@ -270,7 +266,6 @@ namespace Google.GData.Client
 
             this.uri = this.Nametable.Add(AtomParserNameTable.XmlUriElement);
             this.generator = this.Nametable.Add(AtomParserNameTable.XmlGeneratorElement);
-            this.name = this.Nametable.Add(AtomParserNameTable.XmlNameElement); 
             this.email = this.Nametable.Add(AtomParserNameTable.XmlEmailElement);
             this.icon = this.Nametable.Add(AtomParserNameTable.XmlIconElement);
             this.logo = this.Nametable.Add(AtomParserNameTable.XmlLogoElement);
@@ -494,16 +489,7 @@ namespace Google.GData.Client
         /////////////////////////////////////////////////////////////////////////////
 
 
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>Read only accessor for name</summary> 
-        //////////////////////////////////////////////////////////////////////
-        public object Name
-        {
-            get {return this.name;}
-        }
-        /////////////////////////////////////////////////////////////////////////////
-
-        //////////////////////////////////////////////////////////////////////
+          //////////////////////////////////////////////////////////////////////
         /// <summary>Read only accessor for email</summary> 
         //////////////////////////////////////////////////////////////////////
         public object Email

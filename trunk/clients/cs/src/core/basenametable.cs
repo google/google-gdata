@@ -162,11 +162,11 @@ namespace Google.GData.Client
         public const string XmlAttributeBatchField = "field"; 
         /// <summary>XmlAttribute for batch:interrupted@unprocessed</summary> 
         public const string XmlAttributeBatchUnprocessed = "unprocessed"; 
-        /// <summary>XmlAttribute for value in enums</summary> 
-        public const string XmlAttributeValue = "value"; 
-        /// <summary>XmlAttribute for name in enums</summary> 
-        public const string XmlAttributeName = "name"; 
-        /// <summary>XmlAttribute for value in enums</summary> 
+        /// <summary>XmlConstant for value in enums</summary> 
+        public const string XmlValue = "value"; 
+        /// <summary>XmlConstant for name in enums</summary> 
+        public const string XmlName = "name"; 
+        /// <summary>XmlAttribute for type in enums</summary> 
         public const string XmlAttributeType = "type"; 
 
         //////////////////////////////////////////////////////////////////////
@@ -202,12 +202,8 @@ namespace Google.GData.Client
             this.batchUnprocessed   = this.atomNameTable.Add(BaseNameTable.XmlAttributeBatchUnprocessed); 
 
             this.type              = this.atomNameTable.Add(BaseNameTable.XmlAttributeType); 
-            this.value             = this.atomNameTable.Add(BaseNameTable.XmlAttributeValue); 
-            this.name             = this.atomNameTable.Add(BaseNameTable.XmlAttributeValue); 
-
-
-
-
+            this.value             = this.atomNameTable.Add(BaseNameTable.XmlValue); 
+            this.name              = this.atomNameTable.Add(BaseNameTable.XmlName); 
         }
         /////////////////////////////////////////////////////////////////////////////
 

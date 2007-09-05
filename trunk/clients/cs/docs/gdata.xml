@@ -98,6 +98,50 @@
             <param name="ns">the namespace of the elementToPersist</param>
             <returns>Object</returns>
         </member>
+        <member name="M:Google.GData.Client.AtomBase.FindExtensions(System.String,System.String)">
+            <summary>
+            Finds all ExtensionElement based on it's local name
+            and it's namespace. If namespace is NULL, allwhere
+            the localname matches is found. If there are extensionelements that do 
+            not implment ExtensionElementFactory, they will not be taken into account
+            Primary use of this is to find XML nodes
+            </summary>
+            <param name="localName">the xml local name of the element to find</param>
+            <param name="ns">the namespace of the elementToPersist</param>
+            <returns>Object</returns>
+        </member>
+        <member name="M:Google.GData.Client.AtomBase.FindExtensions(System.String,System.String,System.Collections.ArrayList)">
+            <summary>
+            Finds all ExtensionElement based on it's local name
+            and it's namespace. If namespace is NULL, allwhere
+            the localname matches is found. If there are extensionelements that do 
+            not implment ExtensionElementFactory, they will not be taken into account
+            Primary use of this is to find XML nodes
+            </summary>
+            <param name="localName">the xml local name of the element to find</param>
+            <param name="ns">the namespace of the elementToPersist</param>
+            <param name="arr">the array to fill</param>
+            <returns>none</returns>
+        </member>
+        <member name="M:Google.GData.Client.AtomBase.DeleteExtensions(System.String,System.String)">
+            <summary>
+            Delete's all Extensions from the Extension list that match
+            a localName and a Namespace. 
+            </summary>
+            <param name="localName">the local name to find</param>
+            <param name="ns">the namespace to match, if null, ns is ignored</param>
+            <returns>int - the number of deleted extensions</returns>
+        </member>
+        <member name="M:Google.GData.Client.AtomBase.ReplaceExtensions(System.Collections.ArrayList)">
+            <summary>
+            all extension elements that match a namespace/localname
+            given will be removed and replaced with the new ones.
+            the input array can contain several different
+            namespace/localname combinations
+            </summary>
+            <param name="newList">a list of xmlnodes or IExtensionElementFactory objects</param>
+            <returns>int - the number of deleted extensions</returns>
+        </member>
         <member name="M:Google.GData.Client.AtomBase.SaveToXml(System.IO.Stream)">
             <summary>Saves the object as XML.</summary> 
             <param name="stream">stream to save to</param>
@@ -1558,11 +1602,14 @@
         <member name="F:Google.GData.Client.BaseNameTable.XmlAttributeBatchUnprocessed">
             <summary>XmlAttribute for batch:interrupted@unprocessed</summary> 
         </member>
-        <member name="F:Google.GData.Client.BaseNameTable.XmlAttributeValue">
-            <summary>XmlAttribute for value in enums</summary> 
+        <member name="F:Google.GData.Client.BaseNameTable.XmlValue">
+            <summary>XmlConstant for value in enums</summary> 
+        </member>
+        <member name="F:Google.GData.Client.BaseNameTable.XmlName">
+            <summary>XmlConstant for name in enums</summary> 
         </member>
         <member name="F:Google.GData.Client.BaseNameTable.XmlAttributeType">
-            <summary>XmlAttribute for value in enums</summary> 
+            <summary>XmlAttribute for type in enums</summary> 
         </member>
         <member name="F:Google.GData.Client.BaseNameTable.atomNameTable">
             <summary>the nametable itself, based on XML core</summary> 
@@ -1655,6 +1702,9 @@
         <member name="P:Google.GData.Client.BaseNameTable.Type">
             <summary>Read only accessor for value</summary> 
         </member>
+        <member name="P:Google.GData.Client.BaseNameTable.Name">
+            <summary>Read only accessor for name</summary> 
+        </member>
         <member name="F:Google.GData.Client.AtomParserNameTable.XmlCategoryElement">
             <summary>static string for parsing</summary> 
         </member>
@@ -1704,9 +1754,6 @@
             <summary>static string for parsing</summary>    
         </member>
         <member name="F:Google.GData.Client.AtomParserNameTable.XmlUpdatedElement">
-            <summary>static string for parsing</summary>    
-        </member>
-        <member name="F:Google.GData.Client.AtomParserNameTable.XmlNameElement">
             <summary>static string for parsing</summary>    
         </member>
         <member name="F:Google.GData.Client.AtomParserNameTable.XmlEmailElement">
@@ -1826,9 +1873,6 @@
         <member name="F:Google.GData.Client.AtomParserNameTable.email">
             <summary>property holder exposed over get/set</summary> 
         </member>
-        <member name="F:Google.GData.Client.AtomParserNameTable.name">
-            <summary>property holder exposed over get/set</summary> 
-        </member>
         <member name="F:Google.GData.Client.AtomParserNameTable.icon">
             <summary>holds the icon </summary> 
         </member>
@@ -1916,9 +1960,6 @@
         </member>
         <member name="P:Google.GData.Client.AtomParserNameTable.Generator">
             <summary>Read only accessor for generator</summary> 
-        </member>
-        <member name="P:Google.GData.Client.AtomParserNameTable.Name">
-            <summary>Read only accessor for name</summary> 
         </member>
         <member name="P:Google.GData.Client.AtomParserNameTable.Email">
             <summary>Read only accessor for email</summary> 

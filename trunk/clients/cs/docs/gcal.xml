@@ -122,6 +122,12 @@
         </member>
         <member name="P:Google.GData.Calendar.EventEntry.Reminder">
             <summary>
+            returns the FIRST reminder for backwards compatibility
+            if set, will REMOVE all reminders, but this one (array of one)
+            </summary>
+        </member>
+        <member name="P:Google.GData.Calendar.EventEntry.Reminders">
+            <summary>
             property accessor for the Reminder
             </summary>
         </member>
@@ -429,10 +435,11 @@
             GData schema extension describing a webcontent for the calendar
             </summary>
         </member>
-        <member name="M:Google.GData.Extensions.WebContent.ParseWebContent(System.Xml.XmlNode)">
-            <summary>Parses an xml node to create an WebContent object.</summary> 
-            <param name="node">WebContent node</param>
-            <returns>the created WebContent object</returns>
+        <member name="M:Google.GData.Extensions.WebContent.CreateInstance(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
+            <summary>Parses an xml node to create a Who object.</summary> 
+            <param name="node">georsswhere node</param>
+            <param name="parser">AtomFeedParser to use</param>
+            <returns>the created SimpleElement object</returns>
         </member>
         <member name="M:Google.GData.Extensions.WebContent.Save(System.Xml.XmlWriter)">
             <summary>
@@ -452,9 +459,19 @@
             <summary>Height of the iframe/gif</summary> 
             <returns> </returns>
         </member>
+        <member name="P:Google.GData.Extensions.WebContent.GadgetPreferences">
+            <summary>accessor method public SortedList GadgetPreferences</summary> 
+            <returns> </returns>
+        </member>
         <member name="P:Google.GData.Extensions.WebContent.XmlName">
             <summary>Returns the constant representing this XML element.
             </summary> 
+        </member>
+        <member name="P:Google.GData.Extensions.WebContent.XmlNameSpace">
+            <summary>Returns the constant representing this XML element.</summary> 
+        </member>
+        <member name="P:Google.GData.Extensions.WebContent.XmlPrefix">
+            <summary>Returns the constant representing this XML element.</summary> 
         </member>
     </members>
 </doc>

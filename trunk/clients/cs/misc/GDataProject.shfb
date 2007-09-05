@@ -7,6 +7,7 @@
         <assembly assemblyPath="..\lib\Release\Google.GData.CodeSearch.dll" xmlCommentsPath="..\docs\gcodesearch.xml" commentsOnly="False" />
         <assembly assemblyPath="..\lib\Release\Google.GData.Extensions.dll" xmlCommentsPath="..\docs\gextension.xml" commentsOnly="False" />
         <assembly assemblyPath="..\lib\Release\Google.GData.GoogleBase.dll" xmlCommentsPath="..\docs\gbase.xml" commentsOnly="False" />
+        <assembly assemblyPath="..\lib\Release\Google.GData.Photos.dll" xmlCommentsPath="..\docs\gphotos.xml" commentsOnly="False" />
         <assembly assemblyPath="..\lib\Release\Google.GData.Spreadsheets.dll" xmlCommentsPath="..\docs\gspreadsheet.xml" commentsOnly="False" />
     </assemblies>
     <namespaceSummaries>
@@ -19,6 +20,7 @@ This version of the Provisioning API follows the principles of the Google Data (
 Note: The Provisioning API is only available to Google Apps Premier Edition and Google Apps Education Edition partners. To enable the API, log in to your admin account, and click the User accounts tab. Then click the Settings subtab to enable the API, select the checkbox to enable the Provisioning API and save your changes. (You will need to complete the steps for setting up Google Apps before you can log in to your admin account.)</namespaceSummaryItem>
         <namespaceSummaryItem name="Google.GData.Calendar" isDocumented="True">Google Calendar allows client applications to view and update calendar events in the form of Google data API ("GData") feeds. Your client application can use the Google Calendar data API to create new events, edit or delete existing events, and query for events that match particular criteria.</namespaceSummaryItem>
         <namespaceSummaryItem name="Google.GData.Client" isDocumented="True">This is the core namespace that contains most base classes to deal with feed authentication and general Atom based parsing. You can use classes from this namespace to deal with all kind of Google properties, you just won't get special data access objects to handle custom attributes.</namespaceSummaryItem>
+        <namespaceSummaryItem name="Google.GData.Client.Samples" isDocumented="True">This is documentation for the provided Sample applications</namespaceSummaryItem>
         <namespaceSummaryItem name="Google.GData.CodeSearch" isDocumented="True">The Google Code Search data API allows client and web applications to search public source code for function definitions and sample code.
 
 Here are some of the things you can do with the Code Search data API:
@@ -26,9 +28,17 @@ Here are some of the things you can do with the Code Search data API:
     * Create a plugin for your favorite IDE that searches over the Code Search index for relevant sample code.
     * Create client applications that use Google Code Search to find function definitions and sample code.</namespaceSummaryItem>
         <namespaceSummaryItem name="Google.GData.Extensions" isDocumented="True">This namespace contains common extension elements that are used accross several Google Data API enabled properties</namespaceSummaryItem>
+        <namespaceSummaryItem name="Google.GData.Extensions.Location" isDocumented="True" />
         <namespaceSummaryItem name="Google.GData.GoogleBase" isDocumented="True">The Google Base data API is designed to enable developers to do two things:   
       Query Google Base data to create applications and mashups.
       Input and manage Google Base items programmatically.</namespaceSummaryItem>
+        <namespaceSummaryItem name="Google.GData.Photos" isDocumented="True">The Picasa Web Albums data API allows client applications to view and update Picasa Web Albums content in the form of Google data API ("GData") feeds. Your client application can request a list of a user's albums, photos, comments, or tags, edit or delete content in an existing entry, and query the content in an existing entry.
+
+Here are some of the things you can do with the Picasa Web Albums data API:
+
+    * Include your public photos in your own web page, and allow users to comment on them (and have the comments stored in Picasa Web Albums).
+    * Write a plugin to manage your albums and photos from a desktop or mobile phone client.
+    * Create a custom screensaver to display your Picasa Web Albums photos on your computer.</namespaceSummaryItem>
         <namespaceSummaryItem name="Google.GData.Spreadsheets" isDocumented="True">The Google Spreadsheets data API allows client applications to view and update Spreadsheets content in the form of Google data API ("GData") feeds. Your client application can request a list of a user's spreadsheets, edit or delete content in an existing Spreadsheets worksheet, and query the content in an existing Spreadsheets worksheet.
 
 Here are some of the things you can do with the Spreadsheets data API:
@@ -37,6 +47,9 @@ Here are some of the things you can do with the Spreadsheets data API:
     * Use an external graphing library with the Spreadsheets data API to add nice looking graphs to your site.
     * Implement auto-filtering and other spreadsheet functionality in an application you build for your users.</namespaceSummaryItem>
     </namespaceSummaries>
+    <additionalContent>
+        <contentItem sourcePath="..\docs\AdditionalContent\*.html" destPath="AdditionalContent\" excludeItems="False" />
+    </additionalContent>
     <ProjectSummary />
     <MissingTags>AutoDocumentCtors, Namespace</MissingTags>
     <VisibleItems>InheritedMembers, InheritedFrameworkMembers, Protected, SealedProtected</VisibleItems>

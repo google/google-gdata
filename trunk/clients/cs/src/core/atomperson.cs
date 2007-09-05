@@ -192,7 +192,7 @@ namespace Google.GData.Client
         {
             base.SaveInnerXml(writer);
             // now save our state...
-            WriteEncodedElementString(writer, AtomParserNameTable.XmlNameElement, this.Name); 
+            WriteEncodedElementString(writer, BaseNameTable.XmlName, this.Name); 
             WriteEncodedElementString(writer, AtomParserNameTable.XmlEmailElement, this.Email); 
             WriteEncodedElementString(writer, AtomParserNameTable.XmlUriElement, this.Uri); 
         }

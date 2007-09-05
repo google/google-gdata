@@ -7,7 +7,7 @@ set doc_dir=..\docs
 rem build documentation
 "%shfb_home%\SandcastleBuilderConsole.exe" GDataProject.shfb
 move "%doc_dir%\HTMLDocumentation\Google.GData.Documentation.chm" "%doc_dir%"
-del "%doc_dir%\HTMLDocumentation\*.log"
+move "%doc_dir%\HTMLDocumentation\*.log" .
 
 rem Create doc archive
-7z a -tzip -mx9 "%doc_dir%\HTMLDocumentation.zip" "%doc_dir%\HTMLDocumentation"
+wzzip "%doc_dir%\HTMLDocumentation.zip" "%doc_dir%\HTMLDocumentation"

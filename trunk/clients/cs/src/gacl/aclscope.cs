@@ -103,9 +103,9 @@ namespace Google.GData.AccessControl
                 scope = new AclScope();
                 if (node.Attributes != null)
                 {
-                    if (node.Attributes[AclNameTable.XmlAttributeValue] != null)
+                    if (node.Attributes[AclNameTable.XmlValue] != null)
                     {
-                        scope.Value = node.Attributes[AclNameTable.XmlAttributeValue].Value;
+                        scope.Value = node.Attributes[AclNameTable.XmlValue].Value;
                     }
                     if (node.Attributes[AclNameTable.XmlAttributeType] != null)
                     {
@@ -134,7 +134,7 @@ namespace Google.GData.AccessControl
                 }
                 if (Utilities.IsPersistable(this.value))
                 {
-                    writer.WriteAttributeString(AclNameTable.XmlAttributeValue, this.value);
+                    writer.WriteAttributeString(AclNameTable.XmlValue, this.value);
                 }
                 writer.WriteEndElement();
             }
