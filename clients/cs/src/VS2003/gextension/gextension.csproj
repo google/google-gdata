@@ -163,6 +163,24 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "geokmlpoint.cs"
+                    Link = "..\..\extensions\geokmlpoint.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "geokmlpos.cs"
+                    Link = "..\..\extensions\geokmlpos.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "georsswhere.cs"
+                    Link = "..\..\extensions\georsswhere.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "originalevent.cs"
                     Link = "..\..\extensions\originalevent.cs"
                     SubType = "Code"
@@ -183,6 +201,12 @@
                 <File
                     RelPath = "reminder.cs"
                     Link = "..\..\extensions\reminder.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "simpleelement.cs"
+                    Link = "..\..\extensions\simpleelement.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />

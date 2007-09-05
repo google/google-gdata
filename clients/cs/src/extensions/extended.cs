@@ -84,10 +84,10 @@ namespace Google.GData.Extensions
 
                 if (node.Attributes != null)
                 {
-                    prop.Value = node.Attributes[GDataParserNameTable.XmlAttributeValue] != null ? 
-                         node.Attributes[GDataParserNameTable.XmlAttributeValue].Value : null; 
-                    prop.Name = node.Attributes[AtomParserNameTable.XmlNameElement]!= null ? 
-                        node.Attributes[AtomParserNameTable.XmlNameElement].Value : null; 
+                    prop.Value = node.Attributes[GDataParserNameTable.XmlValue] != null ? 
+                         node.Attributes[GDataParserNameTable.XmlValue].Value : null; 
+                    prop.Name = node.Attributes[AtomParserNameTable.XmlName]!= null ? 
+                        node.Attributes[AtomParserNameTable.XmlName].Value : null; 
                 }
             }
             return prop;
@@ -115,10 +115,10 @@ namespace Google.GData.Extensions
             if (Utilities.IsPersistable(this.Name))
             {
                 writer.WriteStartElement(BaseNameTable.gDataPrefix, XmlName, BaseNameTable.gNamespace);
-                writer.WriteAttributeString(AtomParserNameTable.XmlNameElement, this.Name); 
+                writer.WriteAttributeString(AtomParserNameTable.XmlName, this.Name); 
                 if (this.Value != null)
                 {
-                    writer.WriteAttributeString(GDataParserNameTable.XmlAttributeValue, this.Value); 
+                    writer.WriteAttributeString(GDataParserNameTable.XmlValue, this.Value); 
                 }
                 writer.WriteEndElement();
             }

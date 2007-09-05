@@ -63,15 +63,28 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gacl", "gacl\gacl.csproj", 
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExecRequest", "ExecRequest\ExecRequest.csproj", "{E430FA52-77E9-415E-9C40-48C8E1AD1479}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gphotos", "gphotos\gphotos.csproj", "{6781DF3C-A44F-418B-989B-771D17937F91}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfiguration) = preSolution
+		ASP = ASP
 		Debug = Debug
 		Release = Release
-		ASP = ASP
 	EndGlobalSection
 	GlobalSection(ProjectDependencies) = postSolution
 	EndGlobalSection
 	GlobalSection(ProjectConfiguration) = postSolution
+		{D5C537EA-AF47-4BFF-9765-921BF180701F}.ASP.ActiveCfg = ASP|.NET
+		{D5C537EA-AF47-4BFF-9765-921BF180701F}.Debug.ActiveCfg = Debug|.NET
+		{D5C537EA-AF47-4BFF-9765-921BF180701F}.Debug.Build.0 = Debug|.NET
+		{D5C537EA-AF47-4BFF-9765-921BF180701F}.Release.ActiveCfg = Release|.NET
+		{D5C537EA-AF47-4BFF-9765-921BF180701F}.Release.Build.0 = Release|.NET
 		{B6F6D938-0D45-42BA-8A67-55D92EF03995}.ASP.ActiveCfg = ASP|.NET
 		{B6F6D938-0D45-42BA-8A67-55D92EF03995}.ASP.Build.0 = ASP|.NET
 		{B6F6D938-0D45-42BA-8A67-55D92EF03995}.Debug.ActiveCfg = Debug|.NET
@@ -95,11 +108,6 @@ Global
 		{66A10433-B78E-4144-9FD9-882E21D60F1E}.Debug.Build.0 = Debug|.NET
 		{66A10433-B78E-4144-9FD9-882E21D60F1E}.Release.ActiveCfg = Release|.NET
 		{66A10433-B78E-4144-9FD9-882E21D60F1E}.Release.Build.0 = Release|.NET
-		{D5C537EA-AF47-4BFF-9765-921BF180701F}.ASP.ActiveCfg = ASP|.NET
-		{D5C537EA-AF47-4BFF-9765-921BF180701F}.Debug.ActiveCfg = Debug|.NET
-		{D5C537EA-AF47-4BFF-9765-921BF180701F}.Debug.Build.0 = Debug|.NET
-		{D5C537EA-AF47-4BFF-9765-921BF180701F}.Release.ActiveCfg = Release|.NET
-		{D5C537EA-AF47-4BFF-9765-921BF180701F}.Release.Build.0 = Release|.NET
 		{C9B83904-8002-455C-AA48-C47CDF74F365}.ASP.ActiveCfg = ASP|.NET
 		{C9B83904-8002-455C-AA48-C47CDF74F365}.ASP.Build.0 = ASP|.NET
 		{C9B83904-8002-455C-AA48-C47CDF74F365}.Debug.ActiveCfg = Debug|.NET
@@ -161,6 +169,18 @@ Global
 		{279D35CE-871A-4C76-B823-A73675EDF191}.Debug.Build.0 = Debug|.NET
 		{279D35CE-871A-4C76-B823-A73675EDF191}.Release.ActiveCfg = Release|.NET
 		{279D35CE-871A-4C76-B823-A73675EDF191}.Release.Build.0 = Release|.NET
+		{E430FA52-77E9-415E-9C40-48C8E1AD1479}.ASP.ActiveCfg = Release|.NET
+		{E430FA52-77E9-415E-9C40-48C8E1AD1479}.ASP.Build.0 = Release|.NET
+		{E430FA52-77E9-415E-9C40-48C8E1AD1479}.Debug.ActiveCfg = Debug|.NET
+		{E430FA52-77E9-415E-9C40-48C8E1AD1479}.Debug.Build.0 = Debug|.NET
+		{E430FA52-77E9-415E-9C40-48C8E1AD1479}.Release.ActiveCfg = Release|.NET
+		{E430FA52-77E9-415E-9C40-48C8E1AD1479}.Release.Build.0 = Release|.NET
+		{6781DF3C-A44F-418B-989B-771D17937F91}.ASP.ActiveCfg = Release|.NET
+		{6781DF3C-A44F-418B-989B-771D17937F91}.ASP.Build.0 = Release|.NET
+		{6781DF3C-A44F-418B-989B-771D17937F91}.Debug.ActiveCfg = Debug|.NET
+		{6781DF3C-A44F-418B-989B-771D17937F91}.Debug.Build.0 = Debug|.NET
+		{6781DF3C-A44F-418B-989B-771D17937F91}.Release.ActiveCfg = Release|.NET
+		{6781DF3C-A44F-418B-989B-771D17937F91}.Release.Build.0 = Release|.NET
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 	EndGlobalSection

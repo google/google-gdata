@@ -466,6 +466,9 @@
         <member name="F:Google.GData.Extensions.GDataParserNameTable.XmlWebContentElement">
             <summary>static string for parsing a webcontent element</summary>
         </member>
+        <member name="F:Google.GData.Extensions.GDataParserNameTable.XmlWebContentGadgetElement">
+            <summary>static string for parsing a webcontent element</summary>
+        </member>
         <member name="F:Google.GData.Extensions.GDataParserNameTable.XmlExtendedPropertyElement">
             <summary>static string for parsing the extendedProperty element</summary>    
         </member>
@@ -504,6 +507,72 @@
         </member>
         <member name="F:Google.GData.Extensions.GDataParserNameTable.Event">
             <summary>the event prefix </summary>
+        </member>
+        <member name="T:Google.GData.Extensions.Location.GeoKmlPoint">
+            <summary>
+            GEORSS schema extension describing a location.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.Location.GeoKmlPoint.Parse(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
+            <summary>Parses an xml node to create a GeoKmlPoint object.</summary> 
+            <param name="node">Point node</param>
+            <param name="parser">AtomFeedParser to use</param>
+            <returns>the created Point object</returns>
+        </member>
+        <member name="M:Google.GData.Extensions.Location.GeoKmlPoint.Save(System.Xml.XmlWriter)">
+            <summary>
+            Persistence method for the Who object
+            </summary>
+            <param name="writer">the xmlwriter to write into</param>
+        </member>
+        <member name="P:Google.GData.Extensions.Location.GeoKmlPoint.XmlName">
+            <summary>Returns the constant representing this XML element.</summary> 
+        </member>
+        <member name="T:Google.GData.Extensions.Location.GeoKmlPosition">
+            <summary>
+            GEORSS schema extension describing a location.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.Location.GeoKmlPosition.Parse(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
+            <summary>Parses an xml node to create a GeoKmlPosition object.</summary> 
+            <param name="node">pos node</param>
+            <param name="parser">AtomFeedParser to use</param>
+            <returns>the created Position object</returns>
+        </member>
+        <member name="M:Google.GData.Extensions.Location.GeoKmlPosition.Save(System.Xml.XmlWriter)">
+            <summary>
+            Persistence method for the Who object
+            </summary>
+            <param name="writer">the xmlwriter to write into</param>
+        </member>
+        <member name="P:Google.GData.Extensions.Location.GeoKmlPosition.XmlName">
+            <summary>Returns the constant representing this XML element.</summary> 
+        </member>
+        <member name="T:Google.GData.Extensions.Location.GeoRssWhere">
+            <summary>
+            GEORSS schema extension describing a location.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.Location.GeoRssWhere.CreateInstance(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
+            <summary>Parses an xml node to create a Who object.</summary> 
+            <param name="node">georsswhere node</param>
+            <param name="parser">AtomFeedParser to use</param>
+            <returns>the created GeoRSSWhere object</returns>
+        </member>
+        <member name="M:Google.GData.Extensions.Location.GeoRssWhere.Save(System.Xml.XmlWriter)">
+            <summary>
+            Persistence method for the Who object
+            </summary>
+            <param name="writer">the xmlwriter to write into</param>
+        </member>
+        <member name="P:Google.GData.Extensions.Location.GeoRssWhere.XmlName">
+            <summary>Returns the constant representing this XML element.</summary> 
+        </member>
+        <member name="P:Google.GData.Extensions.Location.GeoRssWhere.XmlNameSpace">
+            <summary>Returns the constant representing this XML element.</summary> 
+        </member>
+        <member name="P:Google.GData.Extensions.Location.GeoRssWhere.XmlPrefix">
+            <summary>Returns the constant representing this XML element.</summary> 
         </member>
         <member name="T:Google.GData.Extensions.OriginalEvent">
             <summary>
@@ -626,20 +695,24 @@
             <para>You can represent a set of reminders where each has a (1) reminder
             period and (2) notification method.  The method can be either "sms",
             "email", "alert", "none", "all".</para>
-                        <para>The meaning of this set of reminders differs based on whether you
+            
+            <para>The meaning of this set of reminders differs based on whether you
             are reading or writing feeds.  When reading, the set of reminders
             returned on an event takes into account both defaults on a
             parent recurring event (when applicable) as well as the user's
             defaults on calendar.  If there are no gd:reminders returned that
             means the event has absolutely no reminders.  "none" or "all" will
             not apply in this case.</para>
-                        <para>Writing is different because we have to be backwards-compatible
+            
+            <para>Writing is different because we have to be backwards-compatible
             (see *) with the old way of setting reminders.  For easier analysis
             we describe all the behaviors defined in the table below.  (Notice
             we only include cases for minutes, as the other cases specified in
             terms of days/hours/absoluteTime can be converted to this case.)</para>
-                        <para>Notice method is case-sensitive: must be in lowercase!</para>
-                        <list type="table">
+            
+            <para>Notice method is case-sensitive: must be in lowercase!</para>
+            
+            <list type="table">
                 <listheader>
                     <term></term>
                     <term>No method or method=all</term>
@@ -655,33 +728,16 @@
                 <item>
                     <term>1 gd:rem</term>
                     <term>*Use user's default settings</term>
-                    <term>No reminder</term>
-                    <term>InvalidEntryException</term>
+                    <term>No reminder</term>                    <term>InvalidEntryException</term>
                 </item>
                 <item>
-                    <term>1 gd:rem min=0</term>
-                    <term>*Use user's default settings</term>
-                    <term>No reminder</term>
-                    <term>InvalidEntryException</term>
-                </item>
+                    <term>1 gd:rem min=0</term>                    <term>*Use user's default settings</term>                    <term>No reminder</term>                    <term>InvalidEntryException</term>                </item>
                 <item>
-                    <term>1 gd:rem min=-1</term>
-                    <term>*No reminder</term>
-                    <term>No reminder</term>
-                    <term>InvalidEntryException</term>
-                </item>
+                    <term>1 gd:rem min=-1</term>                    <term>*No reminder</term>                    <term>No reminder</term>                    <term>InvalidEntryException</term>                </item>
                 <item>
-                    <term>1 gd:rem min=+n</term>
-                    <term>*Override with no +n for user's selected methods</term>
-                    <term>No reminder</term>
-                    <term>Set exactly one reminder on event at +n with given method</term>
-                </item>
+                    <term>1 gd:rem min=+n</term>                    <term>*Override with no +n for user's selected methods</term>                    <term>No reminder</term>                    <term>Set exactly one reminder on event at +n with given method</term>                </item>
                 <item>
-                    <term>Multiple gd:rem</term>
-                    <term>InvalidEntryException</term>
-                    <term>InvalidEntryException</term>
-                    <term>Copy this set exactly</term>
-                </item>
+                    <term>Multiple gd:rem</term>                    <term>InvalidEntryException</term>                    <term>InvalidEntryException</term>                    <term>Copy this set exactly</term>                </item>
             </list>
             
             <para>Hence, to override an event with a set of reminder time, method
@@ -718,10 +774,11 @@
             holds the method type
             </summary>
         </member>
-        <member name="M:Google.GData.Extensions.Reminder.ParseReminder(System.Xml.XmlNode)">
-            <summary>Parses an XML node to create an Reminder object.</summary> 
-            <param name="node">reminder node</param>
-            <returns> the created Reminder object</returns>
+        <member name="M:Google.GData.Extensions.Reminder.CreateInstance(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
+            <summary>Parses an xml node to create a Who object.</summary> 
+            <param name="node">georsswhere node</param>
+            <param name="parser">AtomFeedParser to use</param>
+            <returns>the created GeoRSSWhere object</returns>
         </member>
         <member name="M:Google.GData.Extensions.Reminder.Save(System.Xml.XmlWriter)">
             <summary>
@@ -750,6 +807,12 @@
             <returns> </returns>
         </member>
         <member name="P:Google.GData.Extensions.Reminder.XmlName">
+            <summary>Returns the constant representing this XML element.</summary> 
+        </member>
+        <member name="P:Google.GData.Extensions.Reminder.XmlNameSpace">
+            <summary>Returns the constant representing this XML element.</summary> 
+        </member>
+        <member name="P:Google.GData.Extensions.Reminder.XmlPrefix">
             <summary>Returns the constant representing this XML element.</summary> 
         </member>
         <member name="T:Google.GData.Extensions.Reminder.ReminderMethod">
@@ -787,6 +850,64 @@
             no alert specified (invalid)
             </summary>
         </member>
+        <member name="T:Google.GData.Extensions.SimpleElement">
+            <summary>
+            Extensible enum type used in many places.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.SimpleElement.#ctor(System.String,System.String,System.String)">
+            <summary>
+            constructor
+            </summary>
+            <param name="name">the xml name</param>
+            <param name="prefix">the xml prefix</param>
+            <param name="ns">the xml namespace</param>
+        </member>
+        <member name="M:Google.GData.Extensions.SimpleElement.#ctor(System.String,System.String,System.String,System.String)">
+            <summary>
+            constructor
+            </summary>
+            <param name="name">the xml name</param>
+            <param name="prefix">the xml prefix</param>
+            <param name="ns">the xml namespace</param>
+            <param name="value">the intial value</param>
+        </member>
+        <member name="M:Google.GData.Extensions.SimpleElement.CreateInstance(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
+            <summary>Parses an xml node to create a Who object.</summary> 
+            <param name="node">georsswhere node</param>
+            <param name="parser">AtomFeedParser to use</param>
+            <returns>the created SimpleElement object</returns>
+        </member>
+        <member name="M:Google.GData.Extensions.SimpleElement.Save(System.Xml.XmlWriter)">
+            <summary>
+            Persistence method for the EnumConstruct object
+            </summary>
+            <param name="writer">the xmlwriter to write into</param>
+        </member>
+        <member name="P:Google.GData.Extensions.SimpleElement.Value">
+            <summary>
+             Accessor Method for the value
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.SimpleElement.IntegerValue">
+            <summary>
+             Accessor Method for the value as integer
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.SimpleElement.FloatValue">
+            <summary>
+             Accessor Method for the value as float
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.SimpleElement.XmlName">
+            <summary>Returns the constant representing this XML element.</summary> 
+        </member>
+        <member name="P:Google.GData.Extensions.SimpleElement.XmlNameSpace">
+            <summary>Returns the constant representing this XML element.</summary> 
+        </member>
+        <member name="P:Google.GData.Extensions.SimpleElement.XmlPrefix">
+            <summary>Returns the constant representing this XML element.</summary> 
+        </member>
         <member name="T:Google.GData.Extensions.When">
             <summary>
             GData schema extension describing a period of time.
@@ -812,7 +933,7 @@
             flag, indicating if an all day status
             </summary>
         </member>
-        <member name="F:Google.GData.Extensions.When.reminder">
+        <member name="F:Google.GData.Extensions.When.reminders">
             <summary>
             reminder object to set reminder durations
             </summary>
@@ -836,7 +957,7 @@
             <summary>accessor method public DateTime EndTime</summary> 
             <returns> </returns>
         </member>
-        <member name="P:Google.GData.Extensions.When.Reminder">
+        <member name="P:Google.GData.Extensions.When.Reminders">
             <summary>reminder accessor</summary> 
         </member>
         <member name="P:Google.GData.Extensions.When.ValueString">

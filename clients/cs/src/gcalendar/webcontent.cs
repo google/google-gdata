@@ -144,11 +144,11 @@ namespace Google.GData.Extensions
                             {
                                 if (gadgetPrefs.Attributes != null)
                                 {
-                                    string value = gadgetPrefs.Attributes[BaseNameTable.XmlAttributeValue] != null ? 
-                                                   gadgetPrefs.Attributes[BaseNameTable.XmlAttributeValue].Value : null;
+                                    string value = gadgetPrefs.Attributes[BaseNameTable.XmlValue] != null ? 
+                                                   gadgetPrefs.Attributes[BaseNameTable.XmlValue].Value : null;
 
-                                    string name  = gadgetPrefs.Attributes[BaseNameTable.XmlAttributeName] != null ?
-                                                   gadgetPrefs.Attributes[BaseNameTable.XmlAttributeName].Value : null;
+                                    string name  = gadgetPrefs.Attributes[BaseNameTable.XmlName] != null ?
+                                                   gadgetPrefs.Attributes[BaseNameTable.XmlName].Value : null;
 
                                     if (name != null)
                                     {
@@ -215,10 +215,10 @@ namespace Google.GData.Extensions
                             writer.WriteStartElement(XmlPrefix, 
                                                      GDataParserNameTable.XmlWebContentGadgetElement,
                                                      XmlNameSpace);
-                            writer.WriteAttributeString(BaseNameTable.XmlAttributeName, name);
+                            writer.WriteAttributeString(BaseNameTable.XmlName, name);
                             if (value != null)
                             {
-                                writer.WriteAttributeString(BaseNameTable.XmlAttributeValue, value);
+                                writer.WriteAttributeString(BaseNameTable.XmlValue, value);
                             }
                             writer.WriteEndElement();
                         }

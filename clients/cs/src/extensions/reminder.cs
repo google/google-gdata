@@ -53,41 +53,24 @@ namespace Google.GData.Extensions {
     ///         <term>method=email|sms|alert</term>
     ///     </listheader>
     ///     <item>
-    ///         <term>No gd:rem</term>
-    ///         <term>*No reminder</term>
-    ///         <term>N/A</term>
-    ///         <term>N/A</term>
+    ///         <term>No gd:rem</term>
+    ///         <term>*No reminder</term>
+    ///         <term>N/A</term>
+    ///         <term>N/A</term>
     ///     </item>
     ///     <item>
-    ///         <term>1 gd:rem</term>
-    ///         <term>*Use user's default settings</term>
-    ///         <term>No reminder</term>
-    ///         <term>InvalidEntryException</term>
+    ///         <term>1 gd:rem</term>
+    ///         <term>*Use user's default settings</term>
+    ///         <term>No reminder</term>    ///         <term>InvalidEntryException</term>
     ///     </item>
     ///     <item>
-    ///         <term>1 gd:rem min=0</term>
-    ///         <term>*Use user's default settings</term>
-    ///         <term>No reminder</term>
-    ///         <term>InvalidEntryException</term>
-    ///     </item>
+    ///         <term>1 gd:rem min=0</term>    ///         <term>*Use user's default settings</term>    ///         <term>No reminder</term>    ///         <term>InvalidEntryException</term>    ///     </item>
     ///     <item>
-    ///         <term>1 gd:rem min=-1</term>
-    ///         <term>*No reminder</term>
-    ///         <term>No reminder</term>
-    ///         <term>InvalidEntryException</term>
-    ///     </item>
+    ///         <term>1 gd:rem min=-1</term>    ///         <term>*No reminder</term>    ///         <term>No reminder</term>    ///         <term>InvalidEntryException</term>    ///     </item>
     ///     <item>
-    ///         <term>1 gd:rem min=+n</term>
-    ///         <term>*Override with no +n for user's selected methods</term>
-    ///         <term>No reminder</term>
-    ///         <term>Set exactly one reminder on event at +n with given method</term>
-    ///     </item>
+    ///         <term>1 gd:rem min=+n</term>    ///         <term>*Override with no +n for user's selected methods</term>    ///         <term>No reminder</term>    ///         <term>Set exactly one reminder on event at +n with given method</term>    ///     </item>
     ///     <item>
-    ///         <term>Multiple gd:rem</term>
-    ///         <term>InvalidEntryException</term>
-    ///         <term>InvalidEntryException</term>
-    ///         <term>Copy this set exactly</term>
-    ///     </item>
+    ///         <term>Multiple gd:rem</term>    ///         <term>InvalidEntryException</term>    ///         <term>InvalidEntryException</term>    ///         <term>Copy this set exactly</term>    ///     </item>
     /// </list>
     /// 
     /// <para>Hence, to override an event with a set of reminder time, method
@@ -100,32 +83,32 @@ namespace Google.GData.Extensions {
     /// </remarks>
     public class Reminder : IExtensionElement, IExtensionElementFactory
     {
-        /// <summary>
-        /// the different reminder methods available
+        /// <summary>
+        /// the different reminder methods available
         /// </summary>
         public enum ReminderMethod {
-            /// <summary>
-            /// visible alert
+            /// <summary>
+            /// visible alert
             /// </summary>
                 alert,
-            /// <summary>
-            /// all alerts
+            /// <summary>
+            /// all alerts
             /// </summary>
                 all,
-            /// <summary>
-            /// alert per email
+            /// <summary>
+            /// alert per email
             /// </summary>
                 email,
-            /// <summary>
-            /// no aert
+            /// <summary>
+            /// no aert
             /// </summary>
                 none,
-            /// <summary>
-            /// alert per SMS
+            /// <summary>
+            /// alert per SMS
             /// </summary>
                 sms,
-            /// <summary>
-            /// no alert specified (invalid)
+            /// <summary>
+            /// no alert specified (invalid)
             /// </summary>
                 unspecified
          };

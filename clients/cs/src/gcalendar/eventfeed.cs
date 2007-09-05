@@ -71,9 +71,9 @@ namespace Google.GData.Calendar {
                 timezone = new TimeZone();
                 if (node.Attributes != null)
                 {
-                    if (node.Attributes[GDataParserNameTable.XmlAttributeValue] != null)
+                    if (node.Attributes[GDataParserNameTable.XmlValue] != null)
                     {
-                        timezone.setTimeZone(node.Attributes[GDataParserNameTable.XmlAttributeValue].Value); 
+                        timezone.setTimeZone(node.Attributes[GDataParserNameTable.XmlValue].Value); 
                     }
                 }
             }
