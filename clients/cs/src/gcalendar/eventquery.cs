@@ -78,7 +78,20 @@ namespace Google.GData.Calendar {
         private CalendarSortOrder sortOrder;
         private bool singleEvents;
         private bool futureEvents;
+        private string timeZone;
 
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>this indicates the ctz parameter in the query. It
+        /// allows you specify the timezone that is used to calculate the 
+        /// start/end times for events</summary> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        public string TimeZone
+        {
+            get {return this.timeZone;}
+            set {this.timeZone = value;}
+        }
+        // end of accessor public string TimeZone
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>indicates the sortorder of the returned feed</summary> 
@@ -201,6 +214,9 @@ namespace Google.GData.Calendar {
                             case "sortorder":
                                 this.sortOrder = (CalendarSortOrder) Enum.Parse(typeof(CalendarSortOrder), parameters[1]); 
                                 break;
+                            case "ctz":
+                                this.timeZone = parameters[1];
+                                break;
                         }
                     }
                 }
@@ -256,6 +272,12 @@ namespace Google.GData.Calendar {
             {
                 newPath.Append(paramInsertion);
                 newPath.AppendFormat(CultureInfo.InvariantCulture, "recurrence-expansion-start={0}", Utilities.UriEncodeReserved(Utilities.LocalDateTimeInUTC(this.RecurrenceStart))); 
+                paramInsertion = '&';
+            }
+            if (Utilities.IsPersistable(this.TimeZone))
+            {
+                newPath.Append(paramInsertion);
+                newPath.AppendFormat(CultureInfo.InvariantCulture, "ctz={0}", Utilities.UriEncodeReserved(this.TimeZone)); 
                 paramInsertion = '&';
             }
             if (Utilities.IsPersistable(this.RecurrenceEnd))
