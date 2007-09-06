@@ -45,18 +45,6 @@ namespace Google.GData.Spreadsheets
         }
 
         /// <summary>
-        /// Convenience method for getting the Link for the spreadsheet that could be used
-        /// for viewing the spreadsheet in the web browser.
-        /// </summary>
-        public AtomLink Link
-        {
-            get
-            {
-                return base.Links.FindService(BaseNameTable.ServiceAlternate, null);
-            }
-        }
-
-        /// <summary>
         /// Parses the inner state of the element. TODO. 
         /// </summary>
         /// <param name="e">The extension element that should be added to this entry</param>
