@@ -393,9 +393,37 @@ namespace Google.GData.Client
         }
         /////////////////////////////////////////////////////////////////////////////
 
-
-
         //////////////////////////////////////////////////////////////////////
+        /// <summary>accessor to find the alternate link, in HTML only
+        /// The method scans the link collection for a link that is of type rel=alternate
+        /// and has a media type of HTML, otherwise it return NULL. The same is true for setting this. 
+        /// If you need to use a rel/alternate with a different media type, you need
+        /// to use the links collection directly</summary> 
+        /// <returns>the Uri as AtomUri to HTML representation</returns>
+        //////////////////////////////////////////////////////////////////////
+        public AtomUri Alternate
+        {
+            get 
+            {
+                // scan the link collection
+                AtomLink link = this.Links.FindService(BaseNameTable.ServiceAlternate, AtomLink.HTML_TYPE);
+                return link == null ? null : link.HRef;
+            }
+            set
+            {
+                AtomLink link = this.Links.FindService(BaseNameTable.ServiceAlternate, AtomLink.HTML_TYPE);
+                if (link == null)
+                {
+                    link = new AtomLink(AtomLink.ATOM_TYPE, BaseNameTable.ServiceMedia);
+                    this.Links.Add(link);
+                }
+                link.HRef = value;
+            }
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+
+       //////////////////////////////////////////////////////////////////////
         /// <summary>accessor method public DateTime UpdateDate</summary> 
         /// <returns> </returns>
         //////////////////////////////////////////////////////////////////////
