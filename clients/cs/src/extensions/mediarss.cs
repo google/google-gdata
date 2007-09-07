@@ -27,6 +27,10 @@ namespace Google.GData.Extensions.MediaRss {
     /// </summary>
     public class MediaRssExtensions
     {
+        /// <summary>
+        /// helper to add all MediaRss extensions to a base object
+        /// </summary>
+        /// <param name="baseObject"></param>
         public static void AddExtension(AtomBase baseObject) 
         {
             baseObject.AddExtension(new MediaGroup());
@@ -34,6 +38,9 @@ namespace Google.GData.Extensions.MediaRss {
     }
 
 
+    /// <summary>
+    /// short table for constants related to mediaRss declarations
+    /// </summary>
     public class MediaRssNameTable 
     {
           /// <summary>static string to specify the mediarss namespace
@@ -64,6 +71,9 @@ namespace Google.GData.Extensions.MediaRss {
     /// </summary>
     public class MediaGroup : SimpleContainer
     {
+        /// <summary>
+        /// default constructor for media:group
+        /// </summary>
         public MediaGroup() :
             base(MediaRssNameTable.MediaRssGroup,
                  MediaRssNameTable.mediaRssPrefix,
@@ -84,12 +94,19 @@ namespace Google.GData.Extensions.MediaRss {
     /// </summary>
     public class MediaCredit : SimpleElement
     {
+        /// <summary>
+        /// default constructor for media:credit
+        /// </summary>
         public MediaCredit()
         : base(MediaRssNameTable.MediaRssCredit, 
                MediaRssNameTable.mediaRssPrefix,
                MediaRssNameTable.NSMediaRss)
         {}
 
+        /// <summary>
+        /// default constructor for media:credit with an initial value
+        /// </summary>
+        /// <param name="initValue"/>
         public MediaCredit(string initValue)
         : base(MediaRssNameTable.MediaRssCredit, 
                MediaRssNameTable.mediaRssPrefix,
@@ -103,6 +120,9 @@ namespace Google.GData.Extensions.MediaRss {
     /// </summary>
     public class MediaDescription : SimpleElement
     {
+        /// <summary>
+        /// default constructor for media:description 
+        /// </summary>
         public MediaDescription()
         : base(MediaRssNameTable.MediaRssDescription, 
                MediaRssNameTable.mediaRssPrefix,
@@ -111,6 +131,10 @@ namespace Google.GData.Extensions.MediaRss {
             this.Attributes.Add("type", null);
         }
 
+        /// <summary>
+        /// default constructor for media:description with an initial value
+        /// </summary>
+        /// <param name="initValue"/>
         public MediaDescription(string initValue)
         : base(MediaRssNameTable.MediaRssDescription, 
                MediaRssNameTable.mediaRssPrefix,
@@ -127,6 +151,9 @@ namespace Google.GData.Extensions.MediaRss {
     /// </summary>
     public class MediaContent : SimpleElement
     {
+        /// <summary>
+        /// default constructor for media:content
+        /// </summary>
         public MediaContent()
         : base(MediaRssNameTable.MediaRssContent, 
                MediaRssNameTable.mediaRssPrefix,
@@ -148,12 +175,19 @@ namespace Google.GData.Extensions.MediaRss {
     /// </summary>
     public class MediaKeywords : SimpleElement
     {
+        /// <summary>
+        /// default constructor for media:keywords
+        /// </summary>
         public MediaKeywords()
         : base(MediaRssNameTable.MediaRssKeywords, 
                MediaRssNameTable.mediaRssPrefix,
                MediaRssNameTable.NSMediaRss)
         {}
 
+        /// <summary>
+        /// default constructor for media:keywords with an initial value
+        /// </summary>
+        /// <param name="initValue"/>
         public MediaKeywords(string initValue)
         : base(MediaRssNameTable.MediaRssKeywords,
                MediaRssNameTable.mediaRssPrefix,
@@ -168,6 +202,9 @@ namespace Google.GData.Extensions.MediaRss {
     /// </summary>
     public class MediaThumbnail : SimpleElement
     {
+        /// <summary>
+        /// default constructor for media:thumbnail
+        /// </summary>
         public MediaThumbnail()
         : base(MediaRssNameTable.MediaRssThumbnail, 
                MediaRssNameTable.mediaRssPrefix,
@@ -183,6 +220,9 @@ namespace Google.GData.Extensions.MediaRss {
     /// </summary>
     public class MediaTitle : SimpleElement
     {
+        /// <summary>
+        /// default constructor for media:title
+        /// </summary>
         public MediaTitle()
         : base(MediaRssNameTable.MediaRssTitle, 
                MediaRssNameTable.mediaRssPrefix,
@@ -191,6 +231,10 @@ namespace Google.GData.Extensions.MediaRss {
             this.Attributes.Add("type", null);
         }
 
+        /// <summary>
+        /// default constructor for media:title with an initial value
+        /// </summary>
+        /// <param name="initValue"/>
         public MediaTitle(string initValue)
         : base(MediaRssNameTable.MediaRssTitle, 
                MediaRssNameTable.mediaRssPrefix,

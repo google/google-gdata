@@ -416,6 +416,7 @@ namespace Google.GData.Client
         /// <param name="uriTarget"></param>
         /// <param name="input"></param>
         /// <param name="contentType"></param>
+        /// <param name="slugHeader">the value for the slug header, indicating filenaming</param>
         /// <returns>AtomEntry</returns>
         public AtomEntry Update(Uri uriTarget, Stream input, string contentType, string slugHeader)
         {
@@ -433,6 +434,7 @@ namespace Google.GData.Client
         /// <param name="uriTarget"></param>
         /// <param name="input"></param>
         /// <param name="contentType"></param>
+        /// <param name="slugHeader">the value for the slug header, indicating filenaming</param>
         /// <returns>AtomEntry</returns>
         public AtomEntry Insert(Uri uriTarget, Stream input, string contentType, string slugHeader)
         {

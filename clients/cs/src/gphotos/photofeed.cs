@@ -25,7 +25,26 @@ namespace Google.GData.Photos {
  
     //////////////////////////////////////////////////////////////////////
     /// <summary>
-    /// Feed API customization class for defining feeds in an Event feed.
+    /// Picasa Web Albums provides a variety of representations of photo- 
+    /// and album-related data. There are three independent axes for 
+    /// specifying what you want when you request data: visibility, projection, and path/kind.
+    /// Visibility values let you request data at various levels of sharing. 
+    /// For example, a visibility value of public requests publicly visible data. 
+    /// For a list of values, see Visibility values, below. The default visibility 
+    /// depends on whether the request is authenticated or not.
+    /// Projection values let you indicate what elements and extensions 
+    /// should appear in the feed you're requesting. For example, a projection 
+    /// value of base indicates that the representation is a basic Atom feed 
+    /// without any extension elements, suitable for display in an Atom reader. 
+    /// You must specify a projection value. Path and kind values let you indicate what 
+    /// type of items you want information about. For example, a path of user/liz 
+    /// and a kind value of tag requests a feed of tags associated with the 
+    /// user whose username is liz. Path and kind values are separate parts of the 
+    /// URI, but they're used together to indicate the item type(s) desired. 
+    /// You must specify a path, but kind is optional; the default kind depends on the path.
+    /// To request a particular representation, you specify a visibility value, 
+    /// a projection value, and a path and kind in the URI that you send 
+    /// to Picasa Web Albums.
     /// </summary>
     //////////////////////////////////////////////////////////////////////
     public class PhotoFeed : AbstractFeed

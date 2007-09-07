@@ -139,6 +139,12 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "exif.cs"
+                    Link = "..\..\extensions\exif.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "extcollections.cs"
                     Link = "..\..\extensions\extcollections.cs"
                     SubType = "Code"
@@ -181,6 +187,12 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "mediarss.cs"
+                    Link = "..\..\extensions\mediarss.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "originalevent.cs"
                     Link = "..\..\extensions\originalevent.cs"
                     SubType = "Code"
@@ -201,6 +213,12 @@
                 <File
                     RelPath = "reminder.cs"
                     Link = "..\..\extensions\reminder.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "simplecontainer.cs"
+                    Link = "..\..\extensions\simplecontainer.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
