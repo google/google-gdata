@@ -26,6 +26,10 @@ using Google.GData.Client;
 using Google.GData.Client.UnitTests;
 using Google.GData.Extensions;
 using Google.GData.Photos;
+using Google.GData.Extensions.Exif;
+using Google.GData.Extensions.Location;
+using Google.GData.Extensions.MediaRss;
+
 
 
 
@@ -84,8 +88,6 @@ namespace Google.GData.Client.LiveTests
             PicasaService service = new PicasaService("unittests");
             query.KindParameter = new PicasaQuery.Kinds[2] {PicasaQuery.Kinds.album, PicasaQuery.Kinds.tag};
            
-            int iCount; 
-
             if (this.defaultPhotosUri != null)
             {
                 if (this.userName != null)
@@ -124,8 +126,6 @@ namespace Google.GData.Client.LiveTests
             PhotoQuery query = new PhotoQuery();
             PicasaService service = new PicasaService("unittests");
            
-            int iCount; 
-
             if (this.defaultPhotosUri != null)
             {
                 if (this.userName != null)
@@ -138,7 +138,7 @@ namespace Google.GData.Client.LiveTests
                 service.RequestFactory = this.factory; 
 
                 query.Uri = new Uri(this.defaultPhotosUri);
-                AtomFeed feed = service.Query(query);
+                PhotoFeed feed = service.Query(query);
 
                 ObjectModelHelper.DumpAtomObject(feed,CreateDumpFileName("PhotoAuthTest")); 
                 iCount = feed.Entries.Count; 
@@ -148,10 +148,29 @@ namespace Google.GData.Client.LiveTests
                     Tracing.TraceMsg("Found a Feed " + feed.ToString());
                     DisplayExtensions(feed);
 
-                    foreach (AtomEntry entry in feed.Entries)
+                    foreach (PhotoEntry entry in feed.Entries)
                     {
                         Tracing.TraceMsg("Found an entry " + entry.ToString());
                         DisplayExtensions(entry);
+
+                        GeoRssWhere w = entry.Location;
+                        if (w != null)
+                        {
+                            Tracing.TraceMsg("Found an location " + w.Lattitude + w.Longitude);
+                        }
+
+                        ExifTags tags = entry.Exif;
+                        if (tags != null)
+                        {
+                            Tracing.TraceMsg("Found an exif block ");
+                        }
+
+                        MediaGroup group = entry.Media;
+                        if (group != null)
+                        {
+                            Tracing.TraceMsg("Found a media Group");
+                        }
+
                     }
                 }
 
@@ -171,8 +190,6 @@ namespace Google.GData.Client.LiveTests
             AlbumQuery query = new AlbumQuery();
             PicasaService service = new PicasaService("unittests");
            
-            int iCount; 
-
             if (this.defaultPhotosUri != null)
             {
                 if (this.userName != null)

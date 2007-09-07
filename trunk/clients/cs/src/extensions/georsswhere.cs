@@ -15,99 +15,231 @@
 
 using System;
 using System.Xml;
-//using System.Collections;
-//using System.Text;
+using System.Globalization;
 using Google.GData.Client;
 
 namespace Google.GData.Extensions.Location {
-  /// <summary>
-    /// GEORSS schema extension describing a location.
+
+    /// <summary>
+    /// helper to instantiate all factories defined in here and attach 
+    /// them to a base object
     /// </summary>
-    public class GeoRssWhere : IExtensionElement, IExtensionElementFactory
+    public class GeoRssExtensions
     {
-        GeoKmlPoint point;
-
-        #region GeoRSS where Parser
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>Parses an xml node to create a GeoRSS object.</summary> 
-        /// <param name="node">georsswhere node</param>
-        /// <param name="parser">AtomFeedParser to use</param>
-        /// <returns>the created GeoRSSWhere object</returns>
-        //////////////////////////////////////////////////////////////////////
-        public IExtensionElement CreateInstance(XmlNode node, AtomFeedParser parser)
+        /// <summary>
+        /// helper to add all MediaRss extensions to a base object
+        /// </summary>
+        /// <param name="baseObject"></param>
+        public static void AddExtension(AtomBase baseObject) 
         {
-            Tracing.TraceCall();
-            GeoRssWhere geoWhere = null;
-            Tracing.Assert(node != null, "node should not be null");
-            if (node == null)
-            {
-                throw new ArgumentNullException("node");
-            }
+            baseObject.AddExtension(new GeoRssWhere());
+        }
+    }
 
-            object localname = node.LocalName;
-            if (localname.Equals(GDataParserNameTable.GeoRssWhereElement))
+
+    /// <summary>
+    /// short table for constants related to mediaRss declarations
+    /// </summary>
+    public class GeoNametable 
+    {
+        /// <summary>static string to specify the georss namespace
+        /// </summary>
+        /// <summary>static string to specify the GeoRSS namespace supported</summary>
+        public const string NSGeoRss = "http://www.georss.org/georss/"; 
+        /// <summary>static string to specify the GeoRSS prefix used</summary>
+        public const string geoRssPrefix = "georss"; 
+        /// <summary>static string to specify the KML namespapce supported</summary>    
+        public const string NSGeoKml = "http://www.opengis.net/gml";
+        /// <summary>static string to specify the KML prefix used</summary>
+        public const string geoKmlPrefix = "gml"; 
+        /// <summary>static string to specify the the where element</summary>
+        public const string GeoRssWhereElement  = "where";
+        /// <summary>static string to specify the the point element</summary>
+        public const string GeoKmlPointElement  = "point";
+        /// <summary>static string to specify the the pos element</summary>
+        public const string GeoKmlPositionElement    = "pos";
+    }
+
+    /// <summary>
+    /// GEORSS schema extension describing a location. You are only supposed to deal with that one,
+    /// not it's subelements.
+    /// </summary>
+    public class GeoRssWhere : SimpleContainer
+    {
+        /// <summary>
+        /// default constructor for a GeoRSS where element
+        /// </summary>
+        public GeoRssWhere() :
+            base(GeoNametable.GeoRssWhereElement,
+                 GeoNametable.geoRssPrefix,
+                 GeoNametable.NSGeoRss)
+        {
+            this.ExtensionFactories.Add(new GeoKmlPoint());
+        }
+
+        /// <summary>
+        ///  accessor for the Lattitude part 
+        /// </summary>
+        public double Lattitude
+        {
+            get 
             {
-                geoWhere = new GeoRssWhere();
-                if (node.HasChildNodes)
+                GeoKmlPosition position = GetPosition(false);
+                if (position == null)
                 {
-                    XmlNode childNode = node.FirstChild;
-                    while (childNode != null && childNode is XmlElement)
-                    {
-                        if (childNode.LocalName == GDataParserNameTable.GeoKmlPointElement)
-                        {
-                            geoWhere.point = GeoKmlPoint.Parse(childNode, parser);
-                        }
-                        // additional KML elements should go here
-                        childNode = childNode.NextSibling;
-                    }
+                    return -1;
                 }
+                return position.Lattitude;
+                
+            }
+            set
+            {
+                GeoKmlPosition position = GetPosition(true);
+                position.Lattitude = value;
+                
+            }
+        }
+
+        /// <summary>
+        /// accessor for the Longitude part
+        /// </summary>
+        public double Longitude
+        {
+            get
+            {
+                GeoKmlPosition position = GetPosition(false);
+                if (position == null)
+                {
+                    return -1;
+                }
+                return position.Longitude;
+            }
+            set
+            {
+                GeoKmlPosition position = GetPosition(true);
+                position.Longitude = value;
             }
 
-            return geoWhere;
-        }
-        #endregion
-
-        #region overloaded from IExtensionElementFactory
-
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>Returns the constant representing this XML element.</summary> 
-        //////////////////////////////////////////////////////////////////////
-        public string XmlName
-        {
-            get { return GDataParserNameTable.GeoRssWhereElement; }
-        }
-
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>Returns the constant representing this XML element.</summary> 
-        //////////////////////////////////////////////////////////////////////
-        public string XmlNameSpace
-        {
-            get { return GDataParserNameTable.NSGeoRss; }
-        }
-
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>Returns the constant representing this XML element.</summary> 
-        //////////////////////////////////////////////////////////////////////
-        public string XmlPrefix
-        {
-            get { return GDataParserNameTable.geoRssPrefix; }
         }
 
     
-        /// <summary>
-        /// Persistence method for the Who object
-        /// </summary>
-        /// <param name="writer">the xmlwriter to write into</param>
-        public void Save(XmlWriter writer)
-        {
 
-            if (this.point != null)
+        /// <summary>
+        /// finds our position element, if we don't have one
+        /// creates a new one depending on the fCreate parameter
+        /// </summary>
+        /// </// <param name="fCreate">creates the subelements on true</param> 
+        /// <returns>GeoKmlPosition</returns>
+        protected GeoKmlPosition GetPosition(bool fCreate) 
+        {
+            GeoKmlPoint point = FindExtension(GeoNametable.GeoKmlPointElement, 
+                                              GeoNametable.NSGeoKml) as GeoKmlPoint;
+
+            GeoKmlPosition position = null;
+
+            if (point == null && fCreate == true)
             {
-                writer.WriteStartElement(XmlPrefix, XmlName, XmlNameSpace);
-                this.point.Save(writer);
-                writer.WriteEndElement();
+                point = new GeoKmlPoint();
+                this.ExtensionElements.Add(point);
+            }
+            if (point != null)
+            {
+                position = point.FindExtension(GeoNametable.GeoKmlPositionElement,
+                                               GeoNametable.NSGeoKml) as GeoKmlPosition;
+
+
+                if (position == null && fCreate == true)
+                {
+                    position = new GeoKmlPosition("0 0");
+                    point.ExtensionElements.Add(position);
+                }
+            }
+            return position;
+        }
+    }
+
+    /// <summary>
+    /// KmlPoint. Specifies a particular location, by means of a gml position
+    /// element, appears as a child of a georss where element
+    /// </summary>
+    public class GeoKmlPoint : SimpleContainer
+    {
+        public GeoKmlPoint() :
+            base(GeoNametable.GeoKmlPointElement,
+                 GeoNametable.geoKmlPrefix,
+                 GeoNametable.NSGeoKml)
+        {
+            this.ExtensionFactories.Add(new GeoKmlPosition());
+        }
+    }
+
+    /// <summary>
+    /// KmlPos Specifies a latitude/longitude, seperated by a space
+    /// appears as a child of a geokmlpoint element
+    /// </summary>
+    public class GeoKmlPosition : SimpleElement
+    {
+        /// <summary>
+        /// default constructor, creates a position element
+        /// </summary>
+        public GeoKmlPosition() :
+            base(GeoNametable.GeoKmlPositionElement,
+                 GeoNametable.geoKmlPrefix,
+                 GeoNametable.NSGeoKml)
+        {
+        }
+
+        /// <summary>
+        /// default constructor, takes an initial value
+        /// </summary>
+        /// <param name="initValue"></param>
+        public GeoKmlPosition(string initValue) :
+            base(GeoNametable.GeoKmlPositionElement,
+                 GeoNametable.geoKmlPrefix,
+                 GeoNametable.NSGeoKml, initValue)
+        {
+        }
+
+        /// <summary>
+        /// accessor for Lattitude. Works by dynamically parsing
+        /// the string that is stored in Value. Will THROW if
+        /// that string is incorrectly formated
+        /// </summary>
+        public double Lattitude
+        {
+            get 
+            {
+                string []values = this.Value.Split(new char[] {' '});
+                return Convert.ToDouble(values[0], CultureInfo.InvariantCulture);
+            }
+            set 
+            {
+                string []values = this.Value.Split(new char[] {' '});
+                this.Value = value.ToString(CultureInfo.InvariantCulture) + " " + values[1];
             }
         }
-        #endregion
+
+        /// <summary>
+        /// accessor for Longitude. Works by dynamically parsing
+        /// the string that is stored in Value. Will THROW if
+        /// that string is incorrectly formated
+        /// </summary>
+        public double Longitude
+        {
+            get 
+            {
+                string []values = this.Value.Split(new char[] {' '});
+                return Convert.ToDouble(values[1], CultureInfo.InvariantCulture);
+            }
+            set 
+            {
+                string []values = this.Value.Split(new char[] {' '});
+                this.Value = values[0] + " " + value.ToString(CultureInfo.InvariantCulture);
+            }
+        }
     }
+
+
+
+
 }

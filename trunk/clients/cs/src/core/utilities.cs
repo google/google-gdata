@@ -430,6 +430,110 @@ namespace Google.GData.Client
         }
         /////////////////////////////////////////////////////////////////////////////
         
+        /// <summary>
+        /// Finds a specific ExtensionElement based on it's local name
+        /// and it's namespace. If namespace is NULL, the first one where
+        /// the localname matches is found. If there are extensionelements that do 
+        /// not implment ExtensionElementFactory, they will not be taken into account
+        /// Primary use of this is to find XML nodes
+        /// </summary>
+        /// <param name="arrList">the array to search through</param>
+        /// <param name="localName">the xml local name of the element to find</param>
+        /// <param name="ns">the namespace of the elementToPersist</param>
+        /// <returns>Object</returns>
+        public static Object FindExtension(ArrayList arrList, string localName, string ns) 
+        {
+            if (arrList == null)
+            {
+                return null;
+            }
+            foreach (object ob in arrList)
+            {
+                XmlNode node = ob as XmlNode;
+                if (node != null)
+                {
+                    if (compareXmlNess(node.LocalName, localName, node.NamespaceURI, ns))
+                    {
+                        return ob;
+                    }
+                }
+                else
+                {
+                    // only if the elements do implement the ExtensionElementFactory
+                    // do we know if it's xml name/namespace
+                    IExtensionElementFactory ele = ob as IExtensionElementFactory;
+                    if (ele != null)
+                    {
+                        if (compareXmlNess(ele.XmlName, localName, ele.XmlNameSpace, ns))
+                        {
+                            return ob;
+                        }
+                    }
+                }
+            }
+            return null;
+        }
+        /// <summary>
+        /// Finds all ExtensionElement based on it's local name
+        /// and it's namespace. If namespace is NULL, allwhere
+        /// the localname matches is found. If there are extensionelements that do 
+        /// not implment ExtensionElementFactory, they will not be taken into account
+        /// Primary use of this is to find XML nodes
+        /// </summary>
+        /// <param name="arrList">the array to search through</param>
+        /// <param name="localName">the xml local name of the element to find</param>
+        /// <param name="ns">the namespace of the elementToPersist</param>
+        /// <param name="arr">the array to fill</param>
+        /// <returns>none</returns>
+        public static ArrayList FindExtensions(ArrayList arrList, string localName, string ns, ArrayList arr) 
+        {
+           foreach (object ob in arrList)
+           {
+               XmlNode node = ob as XmlNode;
+               if (node != null)
+               {
+                   if (compareXmlNess(node.LocalName, localName, node.NamespaceURI, ns))
+                   {
+                       arr.Add(ob);
+                   }
+               }
+               else
+               {
+                   // only if the elements do implement the ExtensionElementFactory
+                   // do we know if it's xml name/namespace
+                   IExtensionElementFactory ele = ob as IExtensionElementFactory;
+                   if (ele != null)
+                   {
+                       if (compareXmlNess(ele.XmlName, localName, ele.XmlNameSpace, ns))
+                       {
+                           arr.Add(ob);
+                       }
+                   }
+               }
+           }
+           return arr;
+        }
+
+        private static bool compareXmlNess(string l1, string l2, string ns1, string ns2) 
+        {
+            if (String.Compare(l1,l2)==0)
+            {
+                if (ns1 == null)
+                {
+                    return true;
+                } 
+                else if (String.Compare(ns1, ns2)==0)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+
+ 
+        
+        
     }
     /////////////////////////////////////////////////////////////////////////////
 
