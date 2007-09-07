@@ -169,18 +169,6 @@
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "geokmlpoint.cs"
-                    Link = "..\..\extensions\geokmlpoint.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "geokmlpos.cs"
-                    Link = "..\..\extensions\geokmlpos.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
                     RelPath = "georsswhere.cs"
                     Link = "..\..\extensions\georsswhere.cs"
                     SubType = "Code"
