@@ -40,6 +40,10 @@ namespace Google.GData.Extensions {
         {
         }
 
+        /// <summary>
+        /// copy constructor, used in parsing
+        /// </summary>
+        /// <param name="original"></param>
         protected SimpleContainer(SimpleContainer original) : base(original.XmlName, original.XmlPrefix, original.XmlNameSpace)
         {
     

@@ -136,6 +136,10 @@ namespace Google.GData.Extensions {
             get { return this.xmlPrefix; }
         }
 
+        /// <summary>
+        /// debugging helper
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             return base.ToString() + " for: " + XmlNameSpace + "- " + XmlName;
@@ -245,7 +249,7 @@ namespace Google.GData.Extensions {
                 for (int i=0; i < this.Attributes.Count; i++)
                 {
                     string name = this.Attributes.GetKey(i) as string;
-                    string value = getAttribute(node, name);
+                    string value = this.Attributes.GetByIndex(i) as string;
                     writer.WriteAttributeString(name, value);
                 }
             }

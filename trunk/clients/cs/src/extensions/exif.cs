@@ -27,12 +27,19 @@ namespace Google.GData.Extensions.Exif {
     /// </summary>
     public class ExifExtensions
     {
+        /// <summary>
+        /// adds all ExifExtensions to the passed in baseObject
+        /// </summary>
+        /// <param name="baseObject"></param>
         public static void AddExtension(AtomBase baseObject) 
         {
             baseObject.AddExtension(new ExifTags());
         }
     }
   
+    /// <summary>
+    /// short table for constants related to exif xml declarations
+    /// </summary>
     public class ExifNameTable 
     {
           /// <summary>static string to specify the exif namespace
@@ -49,6 +56,9 @@ namespace Google.GData.Extensions.Exif {
     /// </summary>
     public class ExifTags : SimpleContainer
     {
+        /// <summary>
+        /// base constructor, creates an exif:tags representation
+        /// </summary>
         public ExifTags() :
             base("tags",
                  ExifNameTable.ExifPrefix,
@@ -72,9 +82,17 @@ namespace Google.GData.Extensions.Exif {
     /// </summary>
     public class ExifDistance : SimpleElement
     {
+        /// <summary>
+        /// basse constructor for exif:distance
+        /// </summary>
         public ExifDistance()
         : base("distance", ExifNameTable.ExifPrefix, ExifNameTable.NSExif)
          {}
+    
+        /// <summary>
+        /// base constructor taking an initial value
+        /// </summary>
+        /// <param name="initValue"></param>
         public ExifDistance(string initValue)
         : base("distance", ExifNameTable.ExifPrefix, ExifNameTable.NSExif, initValue)
         {}
@@ -85,9 +103,17 @@ namespace Google.GData.Extensions.Exif {
     /// </summary>
     public class ExifExposure : SimpleElement
     {
+        /// <summary>
+        /// basse constructor for exif:exposure
+        /// </summary>
         public ExifExposure()
         : base("exposure", ExifNameTable.ExifPrefix, ExifNameTable.NSExif)
          {}
+
+        /// <summary>
+        /// base constructor taking an initial value
+        /// </summary>
+        /// <param name="initValue"></param>
         public ExifExposure(string initValue)
         : base("exposure", ExifNameTable.ExifPrefix, ExifNameTable.NSExif, initValue)
         {}
@@ -98,9 +124,17 @@ namespace Google.GData.Extensions.Exif {
     /// </summary>
     public class ExifFlash : SimpleElement
     {
+        /// <summary>
+        /// basse constructor for exif:flash
+        /// </summary>
         public ExifFlash()
         : base("flash", ExifNameTable.ExifPrefix, ExifNameTable.NSExif)
          {}
+        
+        /// <summary>
+        /// base constructor taking an initial value
+        /// </summary>
+        /// <param name="initValue"></param>
         public ExifFlash(string initValue)
         : base("flash", ExifNameTable.ExifPrefix, ExifNameTable.NSExif, initValue)
         {}
@@ -111,9 +145,17 @@ namespace Google.GData.Extensions.Exif {
     /// </summary>
     public class ExifFocalLength : SimpleElement
     {
+        /// <summary>
+        /// basse constructor for exif:focallength
+        /// </summary>
         public ExifFocalLength()
         : base("focallength", ExifNameTable.ExifPrefix, ExifNameTable.NSExif)
          {}
+        
+        /// <summary>
+        /// base constructor taking an initial value
+        /// </summary>
+        /// <param name="initValue"></param>
         public ExifFocalLength(string initValue)
         : base("focallength", ExifNameTable.ExifPrefix, ExifNameTable.NSExif, initValue)
         {}
@@ -124,9 +166,16 @@ namespace Google.GData.Extensions.Exif {
     /// </summary>
     public class ExifFStop : SimpleElement
     {
+        /// <summary>
+        /// basse constructor for exif:fstop
+        /// </summary>
         public ExifFStop()
         : base("fstop", ExifNameTable.ExifPrefix, ExifNameTable.NSExif)
          {}
+        /// <summary>
+        /// base constructor taking an initial value
+        /// </summary>
+        /// <param name="initValue"></param>
         public ExifFStop(string initValue)
         : base("fstop", ExifNameTable.ExifPrefix, ExifNameTable.NSExif, initValue)
         {}
@@ -137,9 +186,16 @@ namespace Google.GData.Extensions.Exif {
     /// </summary>
     public class ExifImageUniqueID : SimpleElement
     {
+        /// <summary>
+        /// basse constructor for exif:imageUniqueID
+        /// </summary>
         public ExifImageUniqueID()
         : base("imageUniqueID", ExifNameTable.ExifPrefix, ExifNameTable.NSExif)
          {}
+        /// <summary>
+        /// base constructor taking an initial value
+        /// </summary>
+        /// <param name="initValue"></param>
         public ExifImageUniqueID(string initValue)
         : base("imageUniqueID", ExifNameTable.ExifPrefix, ExifNameTable.NSExif, initValue)
         {}
@@ -150,9 +206,16 @@ namespace Google.GData.Extensions.Exif {
     /// </summary>
     public class ExifISO : SimpleElement
     {
+        /// <summary>
+        /// basse constructor for exif:iso
+        /// </summary>
         public ExifISO()
         : base("iso", ExifNameTable.ExifPrefix, ExifNameTable.NSExif)
          {}
+        /// <summary>
+        /// base constructor taking an initial value
+        /// </summary>
+        /// <param name="initValue"></param>
         public ExifISO(string initValue)
         : base("iso", ExifNameTable.ExifPrefix, ExifNameTable.NSExif, initValue)
         {}
@@ -163,9 +226,16 @@ namespace Google.GData.Extensions.Exif {
     /// </summary>
     public class ExifMake : SimpleElement
     {
+        /// <summary>
+        /// basse constructor for exif:make
+        /// </summary>
         public ExifMake()
         : base("make", ExifNameTable.ExifPrefix, ExifNameTable.NSExif)
          {}
+        /// <summary>
+        /// base constructor taking an initial value
+        /// </summary>
+        /// <param name="initValue"></param>
         public ExifMake(string initValue)
         : base("make", ExifNameTable.ExifPrefix, ExifNameTable.NSExif, initValue)
         {}
@@ -176,9 +246,16 @@ namespace Google.GData.Extensions.Exif {
     /// </summary>
     public class ExifModel : SimpleElement
     {
+        /// <summary>
+        /// basse constructor for exif:model
+        /// </summary>
         public ExifModel()
         : base("model", ExifNameTable.ExifPrefix, ExifNameTable.NSExif)
          {}
+        /// <summary>
+        /// base constructor taking an initial value
+        /// </summary>
+        /// <param name="initValue"></param>
         public ExifModel(string initValue)
         : base("model", ExifNameTable.ExifPrefix, ExifNameTable.NSExif, initValue)
         {}
@@ -189,9 +266,16 @@ namespace Google.GData.Extensions.Exif {
     /// </summary>
     public class ExifTime : SimpleElement
     {
+        /// <summary>
+        /// basse constructor for exif:time
+        /// </summary>
         public ExifTime()
         : base("time", ExifNameTable.ExifPrefix, ExifNameTable.NSExif)
          {}
+        /// <summary>
+        /// base constructor taking an initial value
+        /// </summary>
+        /// <param name="initValue"></param>
         public ExifTime(string initValue)
         : base("time", ExifNameTable.ExifPrefix, ExifNameTable.NSExif, initValue)
         {}

@@ -39,23 +39,75 @@ namespace Google.GData.Photos {
     public class PicasaQuery : FeedQuery
     {
 
+        /// <summary>
+        /// The kind parameter lets you request information about a particular kind 
+        /// of item. The parameter value should be a comma-separated list of requested kinds.
+        /// If you omit the kind parameter, Picasa Web Albums chooses a default kind 
+        /// depending on the level of feed you're requesting. For a user-based feed, 
+        /// the default kind is album; for an album-based feed, the default kind is 
+        /// photo; for a photo-based feed, the default kind is comment; for a community 
+        /// search feed, the default kind is photo. 
+        /// </summary>
         public enum Kinds 
         {
+            /// <summary>
+            /// Feed includes some or all of the albums the specified 
+            /// user has in their gallery. Which albums are returned 
+            /// depends on the visibility value specified.
+            /// </summary>
             album,
+
+            /// <summary>
+            /// Feed includes the photos in an album (album-based), 
+            /// recent photos uploaded by a user (user-based) or 
+            /// photos uploaded by all users (community search).
+            /// </summary>
             photo, 
+            /// <summary>
+            /// Feed includes the comments that have been made on a photo.
+            /// </summary>
             comment,
+            /// <summary>
+            /// Includes all tags associated with the specified user, album, 
+            /// or photo. For user-based and album-based feeds, the tags 
+            /// include a weight value indicating how often they occurred.
+            /// </summary>
             tag,
+            /// <summary>
+            /// using none implies the server default
+            /// </summary>
             none
         }
 
+        /// <summary>
+        /// describing the visibility level of picasa feeds
+        /// </summary>
         public enum AccessLevel
         {
+            /// <summary>
+            /// no parameter. Setting the accessLevel to undefined
+            /// implies the server default
+            /// </summary>
             AccessUndefined,
+            /// <summary>
+            /// Shows both public and private data.  	
+            /// Requires authentication. Default for authenticated users.
+            /// </summary>
             AccessAll,
+            /// <summary>
+            /// Shows only private data. Requires authentication.
+            /// </summary>
             AccessPrivate,
+            /// <summary>
+            /// Shows only public data.  	
+            /// Does not require authentication. Default for unauthenticated users.
+            /// </summary>
             AccessPublic,
         }
 
+        /// <summary>
+        /// holds the 2 potential kind parameters a query can have
+        /// </summary>
         protected Kinds[] kinds = new Kinds[2];
         private AccessLevel access;
         private string thumbsize;
@@ -88,7 +140,7 @@ namespace Google.GData.Photos {
  
 
         //////////////////////////////////////////////////////////////////////
-        /// <summary>indicates the kinds to retrieve
+        /// <summary>indicates the kinds to retrieve</summary>
         /// <returns> </returns>
         //////////////////////////////////////////////////////////////////////
         public virtual Kinds[] KindParameter
@@ -98,9 +150,8 @@ namespace Google.GData.Photos {
         }
         // end of accessor public WebAlbumKinds
 
-            //////////////////////////////////////////////////////////////////////
-        /// <summary>indicates the access 
-        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>indicates the access</summary> 
         //////////////////////////////////////////////////////////////////////
         public AccessLevel Access
         {
@@ -111,7 +162,7 @@ namespace Google.GData.Photos {
 
      
         //////////////////////////////////////////////////////////////////////
-        /// <summary>indicates the thumbsize required
+        /// <summary>indicates the thumbsize required</summary>
         /// <returns> </returns>
         //////////////////////////////////////////////////////////////////////
         public string Thumbsize

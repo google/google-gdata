@@ -22,8 +22,16 @@ using Google.GData.Extensions;
 
 namespace Google.GData.Photos {
 
+    /// <summary>
+    /// helper to instantiate all factories defined in here and attach 
+    /// them to a base object
+    /// </summary> 
     public class GPhotoExtensions 
     {
+        /// <summary>
+        /// helper to add all picasa photo extensions to the base object
+        /// </summary>
+        /// <param name="baseObject"></param>
         public static void AddExtension(AtomBase baseObject) 
         {
             baseObject.AddExtension(new GPhotoAlbumId());
