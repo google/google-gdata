@@ -103,10 +103,15 @@ namespace Google.GData.Client
         private bool keepAlive;                     // indicates wether or not to keep the connection alive
         private bool useGZip;
         private string contentType = "application/atom+xml; charset=UTF-8";
+        private string slugHeader;
+
         /// <summary>Cookie setting header, returned from server</summary>
         public const string SetCookieHeader = "Set-Cookie"; 
         /// <summary>Cookie client header</summary>
         public const string CookieHeader = "Cookie"; 
+        /// <summary>Slug client header</summary>
+        public const string SlugHeader = "Slug";
+
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>default constructor</summary> 
@@ -164,6 +169,18 @@ namespace Google.GData.Client
         {
             get {return this.contentType;}
             set {this.contentType = value;}
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>set's and get's the slug header, used for binary transfers
+        /// note that the data will be URLencoded before send</summary> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        public string Slug
+        {
+            get {return this.slugHeader;}
+            set {this.slugHeader = value;}
         }
         /////////////////////////////////////////////////////////////////////////////
 
@@ -257,6 +274,8 @@ namespace Google.GData.Client
         private Stream  responseStream;
         /// <summary>holds the contenttype to use if overridden</summary>
         private string contentType;
+        /// <summary>holds the slugheader to use if overridden</summary>
+        private string slugHeader;
 
    
         //////////////////////////////////////////////////////////////////////
@@ -351,6 +370,17 @@ namespace Google.GData.Client
         }
         /////////////////////////////////////////////////////////////////////////////
 
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>set's and get's the slugHeader, used for binary transfers</summary> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        public string Slug
+        {
+            get {return this.slugHeader == null ? this.factory.Slug : this.slugHeader;}
+            set {this.slugHeader = value;}
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
 
 
 
@@ -440,10 +470,11 @@ namespace Google.GData.Client
                     }
                     if (this.useGZip == true)
                         web.Headers.Add("Accept-Encoding", "gzip");
+
                     web.ContentType = this.ContentType;
                     web.UserAgent = this.factory.UserAgent;
                     web.KeepAlive = this.factory.KeepAlive; 
-
+             
                     // add all custom headers
                     if (this.factory.hasCustomHeaders == true)
                     {
@@ -452,7 +483,10 @@ namespace Google.GData.Client
                             this.Request.Headers.Add(s); 
                         }
                     }
-
+                    if (this.Slug != null)
+                    {
+                        this.Request.Headers.Add(GDataRequestFactory.SlugHeader + ": " + Utilities.UriEncodeReserved(this.Slug));
+                    }
                     if (this.factory.Cookie != null)
                     {
                         this.Request.Headers.Add(GDataRequestFactory.CookieHeader + ": " + this.factory.Cookie); 

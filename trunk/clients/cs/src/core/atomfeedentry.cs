@@ -372,7 +372,7 @@ namespace Google.GData.Client
         /// <summary>accessor to find the edit-media link</summary> 
         /// <returns>the Uri as AtomUri to the media upload Service</returns>
         //////////////////////////////////////////////////////////////////////
-        public AtomUri Media
+        public AtomUri MediaUri
         {
             get 
             {
@@ -401,7 +401,7 @@ namespace Google.GData.Client
         /// to use the links collection directly</summary> 
         /// <returns>the Uri as AtomUri to HTML representation</returns>
         //////////////////////////////////////////////////////////////////////
-        public AtomUri Alternate
+        public AtomUri AlternateUri
         {
             get 
             {
@@ -422,6 +422,30 @@ namespace Google.GData.Client
         }
         /////////////////////////////////////////////////////////////////////////////
 
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>accessor method public string Feed</summary> 
+        /// <returns>returns the Uri as string for the feed service </returns>
+        //////////////////////////////////////////////////////////////////////
+        public string FeedUri
+        {
+            get 
+            {
+                AtomLink link = this.Links.FindService(BaseNameTable.ServiceFeed, AtomLink.ATOM_TYPE);
+                // scan the link collection
+                return link == null ? null : Utilities.CalculateUri(this.Base, this.ImpliedBase, link.HRef.ToString());
+            }
+            set
+            {
+                AtomLink link = this.Links.FindService(BaseNameTable.ServiceFeed, AtomLink.ATOM_TYPE);
+                if (link == null)
+                {
+                    link = new AtomLink(AtomLink.ATOM_TYPE, BaseNameTable.ServiceFeed);
+                    this.Links.Add(link);
+                }
+                link.HRef = new AtomUri(value);
+            }
+        }
+        
 
        //////////////////////////////////////////////////////////////////////
         /// <summary>accessor method public DateTime UpdateDate</summary> 
@@ -912,9 +936,6 @@ namespace Google.GData.Client
             return false; 
         }
         /////////////////////////////////////////////////////////////////////////////
-
-
-
         #endregion
 
     }

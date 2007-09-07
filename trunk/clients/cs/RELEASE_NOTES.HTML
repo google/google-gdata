@@ -1,10 +1,9 @@
 <title>Releasse Notes</title>
+    
+<h1>This document lists the changes in the different releases</h1>
 
-<p>
-This document lists the changes in the different releases
-</p>
 
-<h1>1.1.0.0</h1>
+<h2>1.1.0.0</h2>
 
 <ul>
     <li>
@@ -18,7 +17,7 @@ This document lists the changes in the different releases
     </li>
 
     <li>
-        added GZip support for .NET 1.1, 2.0 and .NET Compact Framework 2.0 (see readme).
+        added GZip support for .NET 1.1, 2.0 and .NET Compact Framework 2.0.
     </li>
     <li>
         fixed a Google Base issue (The server doesn't accept scientific notations for 
@@ -76,15 +75,34 @@ This document lists the changes in the different releases
         events
     </li>
     <li>
-        Added an Alternate Property on the AtomEntry class. This property 
+        Added an AlternateUri Property on the AtomEntry class. This property 
         returns the AtomUri of a rel=alternate type=html LINK entry. As this is 
         similiar to the ill named LINK helper on the spreadsheet entry, that 
         helper was removed, as they do serve the same purpose, and the link 
         helper was read only.
     </li>
+    <li>
+        Added an FeedUri Property on the AtomEntry class. This property 
+        returns the AtomUri of a rel=#feed type=atom+xml LINK entry.
+    </li>
+     <li>
+        Added an MediaUri Property on the AtomEntry class. This property 
+        returns the AtomUri of a rel=#edit-media type=atom+xml LINK entry.
+    </li>
+    <li>
+        Preliminary Picasa support:
+        <ul>
+            <li>Added all media extensions (media:rss, exif and photo></li>
+            <li>Added a PhotoEntry and PhotoFeed class that contain all of 
+                those extensions</li>
+            <li>Added unittests to query an album and insert a new photo</li>
+        </ul>
+    </li>
+
+
 </ul>
 
-<h1>1.0.9.9</h1>
+<h2>1.0.9.9</h2>
 <ul>
     <li>
         added GBase support for m:adjusted_name and gm:adjusted_value inside attributes 
@@ -111,7 +129,7 @@ This document lists the changes in the different releases
         </ul>
 </ul>
 
-<h1>1.0.9.8</h1>
+<h2>1.0.9.8</h2>
 <ul>
     <li>
         fixed a parsing bug in SpreadsheetService
@@ -147,14 +165,14 @@ This document lists the changes in the different releases
         refer to the readme.txt in that subdirectory for more information.
 </ul>
 
-<h1>1.0.9.7</h1>
+<h2>1.0.9.7</h2>
 <ul>
     <li>
         fixed an incorrect trace statement in request.cs that had the result of 
         disabling reading the error response.
 </ul>
 
-<h1>1.0.9.6</h1>
+<h2>1.0.9.6</h2>
 <ul>
     <li>
         added Google Apps for Your Domain support, a new helper DLL Google.GData.Apps.dll, 
@@ -162,7 +180,7 @@ This document lists the changes in the different releases
         from Subversion, as this will be a binary download as well.
 </ul>
 
-<h1>1.0.9.5</h1>
+<h2>1.0.9.5</h2>
 <ul>
     <li>
         fix for incorrect encoding of usernames/passwords during authentication (you 
@@ -191,7 +209,7 @@ This document lists the changes in the different releases
         the release build
 </ul>
 
-<h1>1.0.9.4</h1>
+<h2>1.0.9.4</h2>
 <ul>
     <li>
         Google Base: fix for incorrect Price attribute behaviour
@@ -223,7 +241,7 @@ This document lists the changes in the different releases
 
 
 
-<h1>1.0.9.3</h1>
+<h2>1.0.9.3</h2>
 <ul>
     <li>
         Google Base changes: New features:
@@ -245,7 +263,7 @@ This document lists the changes in the different releases
         Added a Makefile for Mono builds. This one replaces the Ant file.
 </ul>
 
-<h1>1.0.9.2</h1>
+<h2>1.0.9.2</h2>
 <ul>
     <li>
         Removed the MethodOverride default for the CalendarService. If you need that (due 
@@ -258,13 +276,13 @@ This document lists the changes in the different releases
         stream was requested).
 </ul>
 
-<h1>1.0.9.1</h1>
+<h2>1.0.9.1</h2>
 <li>
     Added a KeepAlive property to the factory object. This is set to true by default. 
     .NET 2.0 clients, are due to behaviour changes in that runtime encouraged to set 
     this to false.
 
-    <h1>1.0.9</h1>
+    <h2>1.0.9</h2>
 <li>
     Fixed an issue where the login services changed the response contenttype. The 
     check for text/plain is now more relaxed.
@@ -273,7 +291,7 @@ This document lists the changes in the different releases
 <li>
     Fixed a build issue for Windows Mobile in release. The code now compiles for 
     PocketPC and WindowsMobile symbols defined.
-    <h1>1.0.8</h1>
+    <h2>1.0.8</h2>
 <li>
     Fixed issue 13 from the public issue list. If a content element contained xhtml, 
     and not just text, the content was not read correctly.
@@ -332,7 +350,7 @@ This document lists the changes in the different releases
     Google.GData.Spreadsheets.dll
 
 
-    <h1>1.0.7</h1>
+    <h2>1.0.7</h2>
 <li>
     Added support for published-min/published-max as standard query parameters
 <li>
@@ -342,7 +360,7 @@ This document lists the changes in the different releases
     Added support for the WebContent calendar extension
 <li>
     Added signing to the gbase.dll
-    <h1>1.0.6</h1>
+    <h2>1.0.6</h2>
 <li>
     Added support for sortoder, futurevents, singleevents on the calendarquery
 <li>
@@ -356,7 +374,7 @@ This document lists the changes in the different releases
     Added the shipping attribute for GoogleBase
 <li>
     Changed the payment attribute to payment_accepted for GoogleBase
-    <h1>1.0.5</h1>
+    <h2>1.0.5</h2>
 <li>
     Added batch support for GoogleFeeds, the first property to support this is the 
     GoogleBase product
@@ -386,7 +404,7 @@ This document lists the changes in the different releases
 <li>
     authsubutil and gauthsubrequest are not fully tested
 
-    <h1>1.0.4</h1>
+    <h2>1.0.4</h2>
 <li>
     Fixed a .NET 2.0 issue in calendarservice.cs, that dropped connections during 
     repeated calls.
@@ -422,7 +440,7 @@ This document lists the changes in the different releases
     .NET 2.0 seems to loose resources in some circumstances. Hard to reproduce.
 
 
-    <h1>1.0.3</h1>
+    <h2>1.0.3</h2>
 <li>
     Fixed the namespace creation for extensions, the wireformat should no longer 
     create the namespace declaration when it's not required
@@ -442,7 +460,7 @@ This document lists the changes in the different releases
 <li>
     Fixed a bug in the parsing of Atom:Content elements. This could cause an endless 
     loop when the content was empty.
-    <h1>1.0.2</h1>
+    <h2>1.0.2</h2>
 <li>
     Fixed a problem persisting feedlink elements
 <li>
@@ -456,7 +474,7 @@ This document lists the changes in the different releases
 <li>
     added a timestamp method to the Tracing class to help measuring performance in 
     simple cases
-    <h1>1.0.1</h1>
+    <h2>1.0.1</h2>
 <li>
     Correctly uses 'rel.previous' instead of 'rel.prev' as required by Atom 
     Publishing Protocol.
@@ -470,6 +488,6 @@ This document lists the changes in the different releases
     rather than child elements.
 <li>
     Refactored class hierarchy, now based on IExtensionElement.
-    <h1>1.0.0</h1>
+    <h2>1.0.0</h2>
 <li>
     Initial Release

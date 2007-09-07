@@ -150,6 +150,7 @@ namespace Google.GData.Extensions
         /// <summary>static string to specify the the pos element</summary>
         public const string GeoKmlPosElement    = "pos";
 
+     
 #endregion
     }
     /////////////////////////////////////////////////////////////////////////////

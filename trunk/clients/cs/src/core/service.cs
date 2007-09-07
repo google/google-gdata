@@ -417,15 +417,13 @@ namespace Google.GData.Client
         /// <param name="input"></param>
         /// <param name="contentType"></param>
         /// <returns>AtomEntry</returns>
-        public AtomEntry Update(Uri uriTarget, Stream input, string contentType)
+        public AtomEntry Update(Uri uriTarget, Stream input, string contentType, string slugHeader)
         {
-            Stream returnStream = StreamSend(uriTarget, input, GDataRequestType.Update, contentType);
+            Stream returnStream = StreamSend(uriTarget, input, GDataRequestType.Update, contentType, slugHeader);
             AtomFeed returnFeed = createFeed(uriTarget);
-
             returnFeed.Parse(returnStream, AlternativeFormat.Atom);
             // there should be ONE entry echoed back. 
             returnStream.Close(); 
-
             return returnFeed.Entries[0]; 
         }   
 
@@ -436,17 +434,14 @@ namespace Google.GData.Client
         /// <param name="input"></param>
         /// <param name="contentType"></param>
         /// <returns>AtomEntry</returns>
-        public AtomEntry Insert(Uri uriTarget, Stream input, string contentType)
+        public AtomEntry Insert(Uri uriTarget, Stream input, string contentType, string slugHeader)
         {
-            Stream returnStream = StreamSend(uriTarget, input, GDataRequestType.Insert, contentType);
+            Stream returnStream = StreamSend(uriTarget, input, GDataRequestType.Insert, contentType, slugHeader);
             AtomFeed returnFeed = createFeed(uriTarget);
-
             returnFeed.Parse(returnStream, AlternativeFormat.Atom);
             // there should be ONE entry echoed back. 
             returnStream.Close(); 
-
             return returnFeed.Entries[0]; 
-
         }
    
 
@@ -504,7 +499,7 @@ namespace Google.GData.Client
         /// <param name="targetUri"></param>
         /// <param name="payload"></param>        /// <param name="type"></param>
         /// <returns>Stream</returns>        
-        public Stream StreamSend(Uri targetUri, String payload, GDataRequestType type)
+        public Stream StringSend(Uri targetUri, String payload, GDataRequestType type)
         {
             Tracing.Assert(targetUri != null, "targetUri should not be null");
             if (targetUri == null)
@@ -542,12 +537,14 @@ namespace Google.GData.Client
         /// <param name="targetUri"></param>
         /// <param name="inputStream"></param>
         /// <param name="type"></param>
-        /// <param name="contentType">the contenttype to use in the request</param>
+        /// <param name="contentType">the contenttype to use in the request, if NULL is passed, factory default is used</param>
+        /// <param name="slugHeader">the slugHeader to use in the request, if NULL is passed, factory default is used</param>
         /// <returns>Stream</returns>        
         public Stream StreamSend(Uri targetUri, 
                                  Stream inputStream, 
                                  GDataRequestType type, 
-                                 string contentType)
+                                 string contentType,
+                                 string slugHeader)
         {
             Tracing.Assert(targetUri != null, "targetUri should not be null");
             if (targetUri == null)
@@ -579,6 +576,15 @@ namespace Google.GData.Client
                 }
             }
 
+            if (slugHeader != null)
+            {
+                GDataRequest r = request as GDataRequest;
+                if (r != null)
+                {
+                    r.Slug = slugHeader;
+                }
+            }
+       
             Stream outputStream = request.GetRequestStream();
 
             BinaryWriter w = new BinaryWriter(outputStream);

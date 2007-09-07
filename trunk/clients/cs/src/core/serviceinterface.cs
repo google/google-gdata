@@ -63,7 +63,9 @@ namespace Google.GData.Client
         /// <summary>batch operation, posting of a set of entries</summary>
         AtomFeed Batch(AtomFeed feed, Uri batchUri); 
         /// <summary>simple update for media resources</summary> 
-        AtomEntry Update(Uri uriTarget, Stream input, string contentType);
+        AtomEntry Update(Uri uriTarget, Stream input, string contentType, string slugHeader);
+        /// <summary>simple insert for media resources</summary> 
+        AtomEntry Insert(Uri uriTarget, Stream input, string contentType, string slugHeader);
     }
 
 

@@ -107,14 +107,14 @@ namespace Google.GData.Client.Samples
                 {
                     String input = Console.In.ReadToEnd();
                     Console.Write(input);
-                    Stream result = service.StreamSend(new Uri(targetUri), input, GDataRequestType.Insert);
+                    Stream result = service.StringSend(new Uri(targetUri), input, GDataRequestType.Insert);
                     DumpStream(result);
                 }
                 if (cmd.Equals("UPDATE"))
                 {
                     String input = Console.In.ReadToEnd();
                     Console.Write(input);
-                    Stream result = service.StreamSend(new Uri(targetUri), input, GDataRequestType.Update);
+                    Stream result = service.StringSend(new Uri(targetUri), input, GDataRequestType.Update);
                     DumpStream(result);
                 }
             } catch (GDataRequestException e)
