@@ -253,7 +253,7 @@ namespace Google.GData.Client
         /// adding an extension factory for extension elements
         /// </summary>
         /// <param name="factory">The factory</param>
-        public void AddExtension(IExtensionElementFactory factory) 
+        public void AddExtension(Object factory) 
         {
             Tracing.Assert(factory != null, "factory should not be null");
             if (factory == null)
