@@ -58,7 +58,7 @@ namespace Google.GData.Photos {
         /// </summary>
         /// <param name="feedQuery"></param>
         /// <returns>EventFeed</returns>
-        public PhotoFeed Query(PhotoQuery feedQuery) 
+        public PhotoFeed Query(KindQuery feedQuery) 
         {
             return base.Query(feedQuery) as PhotoFeed;
         }

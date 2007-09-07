@@ -93,10 +93,6 @@ namespace Google.GData.Client.LiveTests
                     service.Credentials = new GDataCredentials(this.userName, this.passWord);
                 }
 
-                GDataLoggingRequestFactory factory = (GDataLoggingRequestFactory) this.factory;
-                factory.MethodOverride = true;
-                service.RequestFactory = this.factory; 
-
                 query.Uri = new Uri(this.defaultPhotosUri);
                 AtomFeed feed = service.Query(query);
 
@@ -114,14 +110,12 @@ namespace Google.GData.Client.LiveTests
                         DisplayExtensions(entry);
                     }
                 }
-
-                factory.MethodOverride = false;
             }
         }
         /////////////////////////////////////////////////////////////////////////////
 
         //////////////////////////////////////////////////////////////////////
-        /// <summary>runs an authentication test</summary> 
+        /// <summary>runs an authentication test, iterates all entries</summary> 
         //////////////////////////////////////////////////////////////////////
         [Test] public void QueryPhotosTest()
         {
@@ -166,6 +160,45 @@ namespace Google.GData.Client.LiveTests
         }
         /////////////////////////////////////////////////////////////////////////////
 
+        
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>runs an authentication test, inserts a new photo</summary> 
+        //////////////////////////////////////////////////////////////////////
+        [Test] public void InsertPhotoTest()
+        {
+            Tracing.TraceMsg("Entering InsertPhotoTest");
+
+            AlbumQuery query = new AlbumQuery();
+            PicasaService service = new PicasaService("unittests");
+           
+            int iCount; 
+
+            if (this.defaultPhotosUri != null)
+            {
+                if (this.userName != null)
+                {
+                    service.Credentials = new GDataCredentials(this.userName, this.passWord);
+                }
+
+                query.Uri = new Uri(this.defaultPhotosUri);
+
+                PhotoFeed feed = service.Query(query);
+                if (feed != null)
+                {
+                    Assert.IsTrue(feed.Entries != null, "the albumfeed needs entries");
+                    Assert.IsTrue(feed.Entries[0] != null, "the albumfeed needs at least ONE entry");
+                    PhotoEntry album = feed.Entries[0] as PhotoEntry;
+                    Assert.IsTrue(album != null, "should be an album there");
+                    Assert.IsTrue(album.FeedUri != null, "the albumfeed needs a feed URI, no photo post on that one");
+                    Uri postUri = new Uri(album.FeedUri.ToString());
+                    FileStream fs = File.OpenRead("testnet.jpg");
+                    service.Insert(postUri, fs, "image/jpeg", "testnet.jpg");
+                }
+            }
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+        
 
         protected void DisplayExtensions(AtomBase obj) 
         {
@@ -177,8 +210,18 @@ namespace Google.GData.Client.LiveTests
                 XmlElement x = o as XmlElement;
                 if (s != null)
                 {
-                    Tracing.TraceMsg("Found a simple Element " + s.ToString() + " " + s.Value);
-                } 
+                    DumpSimpleElement(s);
+
+                    SimpleContainer sc = s as SimpleContainer;
+
+                    if (sc != null)
+                    {
+                        foreach (SimpleElement se in sc.ExtensionElements)
+                        {
+                            DumpSimpleElement(se);
+                        }
+                    }
+                }  
                 else if (e != null)
                 {
                     Tracing.TraceMsg("Found an extension Element " + e.ToString());
@@ -192,6 +235,21 @@ namespace Google.GData.Client.LiveTests
                     Tracing.TraceMsg("Found an object " + o.ToString());
                 }
             }
+        }
+
+        protected void DumpSimpleElement(SimpleElement s)
+        {
+            Tracing.TraceMsg("Found a simple Element " + s.ToString() + " " + s.Value);
+            if (s.Attributes.Count > 0)
+            {
+                for (int i=0; i < s.Attributes.Count; i++)
+                {
+                    string name = s.Attributes.GetKey(i) as string;
+                    string value = s.Attributes.GetByIndex(i) as string;
+                    Tracing.TraceMsg("--- Attributes on element: " + name + ":" + value);
+                }
+            }
+
         }
 
     } /////////////////////////////////////////////////////////////////////////////

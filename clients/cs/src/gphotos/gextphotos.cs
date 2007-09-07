@@ -53,10 +53,12 @@ namespace Google.GData.Photos {
             baseObject.AddExtension(new GPhotoPhotoId());
             baseObject.AddExtension(new GPhotoWeight());
             baseObject.AddExtension(new GPhotoName());
-
         }
     }
 
+    /// <summary>
+    /// short table to hold the namespace and the prefix
+    /// </summary>
     public class GPhotoNameTable 
     {
         /// <summary>static string to specify the GeoRSS namespace supported</summary>

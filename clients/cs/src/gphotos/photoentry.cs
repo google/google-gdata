@@ -20,6 +20,8 @@ using System.IO;
 using System.Collections;
 using Google.GData.Client;
 using Google.GData.Extensions;
+using Google.GData.Extensions.MediaRss;
+using Google.GData.Extensions.Exif;
 using Google.GData.Extensions.Location;
 
 
@@ -48,6 +50,8 @@ namespace Google.GData.Photos {
             Tracing.TraceMsg("Created PhotoEntry");
             Categories.Add(PHOTO_CATEGORY);
             GPhotoExtensions.AddExtension(this);
+            MediaRssExtensions.AddExtension(this);
+            ExifExtensions.AddExtension(this);
             AddExtension(new GeoRssWhere());
         }
     }

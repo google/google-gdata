@@ -52,8 +52,6 @@ namespace Google.GData.Client.UnitTests
         /// <summary>holds the configuration of the test found in the dll.config file</summary>
         protected IDictionary   unitTestConfiguration;
 
-
-
         //////////////////////////////////////////////////////////////////////
         /// <summary>default empty constructor</summary> 
         //////////////////////////////////////////////////////////////////////
@@ -89,10 +87,11 @@ namespace Google.GData.Client.UnitTests
             this.externalHosts = null; 
             this.iIterations = 10; 
 
-            GDataLoggingRequestFactory factory = new GDataLoggingRequestFactory(this.ServiceName, this.ApplicationName); 
-            factory.MethodOverride = true; 
-
-            this.factory = (IGDataRequestFactory) factory; 
+            if (this.factory == null)
+            {
+                GDataLoggingRequestFactory factory = new GDataLoggingRequestFactory(this.ServiceName, this.ApplicationName); 
+                this.factory = (IGDataRequestFactory) factory; 
+            }
             ReadConfigFile(); 
         }
         /////////////////////////////////////////////////////////////////////////////

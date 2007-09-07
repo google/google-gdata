@@ -50,9 +50,10 @@ namespace Google.GData.Photos {
 
         public enum AccessLevel
         {
+            AccessUndefined,
             AccessAll,
             AccessPrivate,
-            AccessPublic
+            AccessPublic,
         }
 
         protected Kinds[] kinds = new Kinds[2];
@@ -69,7 +70,6 @@ namespace Google.GData.Photos {
         {
             this.kinds[0] = Kinds.tag;
             this.kinds[1] = Kinds.none;
-            this.access = AccessLevel.AccessPublic;
         }
 
 
@@ -242,23 +242,26 @@ namespace Google.GData.Photos {
                 paramInsertion = '&';
             }
 
-            newPath.Append(paramInsertion);
-
-            String acc;
-
-            if (this.Access == AccessLevel.AccessAll)
+    
+            if (this.Access != AccessLevel.AccessUndefined)
             {
-                acc = "all";
-            } 
-            else if (this.Access == AccessLevel.AccessPrivate)
-            {
-                acc = "private";
+                String acc;
+    
+                if (this.Access == AccessLevel.AccessAll)
+                {
+                    acc = "all";
+                } 
+                else if (this.Access == AccessLevel.AccessPrivate)
+                {
+                    acc = "private";
+                }
+                else 
+                {
+                    acc = "public";
+                }
+                newPath.Append(paramInsertion);
+                newPath.AppendFormat(CultureInfo.InvariantCulture, "access={0}", acc);
             }
-            else 
-            {
-                acc = "public";
-            }
-            newPath.AppendFormat(CultureInfo.InvariantCulture, "access={0}", acc);
             return newPath.ToString();
         }
     }
