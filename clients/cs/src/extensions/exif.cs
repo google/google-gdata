@@ -47,12 +47,16 @@ namespace Google.GData.Extensions.Exif {
         public const string NSExif  = "http://schemas.google.com/photos/exif/2007";
         /// <summary>static string to specify the used exif prefix</summary>
         public const string ExifPrefix = "exif";
+        /// <summary>
+        /// represents the tags container element
+        /// </summary>
+        public const string ExifTags = "tags";
      }
 
     
 
     /// <summary>
-    /// MediaGroup container element for the MediaRss namespace
+    /// Tags container element for the Exif namespace
     /// </summary>
     public class ExifTags : SimpleContainer
     {
@@ -60,7 +64,7 @@ namespace Google.GData.Extensions.Exif {
         /// base constructor, creates an exif:tags representation
         /// </summary>
         public ExifTags() :
-            base("tags",
+            base(ExifNameTable.ExifTags,
                  ExifNameTable.ExifPrefix,
                  ExifNameTable.NSExif)
         {

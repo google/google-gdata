@@ -72,6 +72,20 @@ namespace Google.GData.Extensions {
             set {this.extensions = value;}
         }
 
+        /// <summary>
+        /// Finds a specific ExtensionElement based on it's local name
+        /// and it's namespace. If namespace is NULL, the first one where
+        /// the localname matches is found. If there are extensionelements that do 
+        /// not implment ExtensionElementFactory, they will not be taken into account
+        /// </summary>
+        /// <param name="localName">the xml local name of the element to find</param>
+        /// <param name="ns">the namespace of the elementToPersist</param>
+        /// <returns>Object</returns>
+        public Object FindExtension(string localName, string ns) 
+        {
+            return Utilities.FindExtension(this.extensions, localName, ns);
+        }
+
         //////////////////////////////////////////////////////////////////////
         /// <summary>the list of extensions for this container
         /// the elements in that list MUST implement IExtensionElementFactory 

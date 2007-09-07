@@ -329,31 +329,7 @@ namespace Google.GData.Client
         /// <returns>Object</returns>
         public Object FindExtension(string localName, string ns) 
         {
-            foreach (object ob in this.ExtensionElements)
-            {
-                XmlNode node = ob as XmlNode;
-                if (node != null)
-                {
-                    if (compareXmlNess(node.LocalName, localName, node.NamespaceURI, ns))
-                    {
-                        return ob;
-                    }
-                }
-                else
-                {
-                    // only if the elements do implement the ExtensionElementFactory
-                    // do we know if it's xml name/namespace
-                    IExtensionElementFactory ele = ob as IExtensionElementFactory;
-                    if (ele != null)
-                    {
-                        if (compareXmlNess(ele.XmlName, localName, ele.XmlNameSpace, ns))
-                        {
-                            return ob;
-                        }
-                    }
-                }
-            }
-            return null;
+            return Utilities.FindExtension(this.ExtensionElements, localName, ns);
         }
 
         /// <summary>
@@ -384,31 +360,9 @@ namespace Google.GData.Client
         /// <returns>none</returns>
         public ArrayList FindExtensions(string localName, string ns, ArrayList arr) 
         {
-            foreach (object ob in this.ExtensionElements)
-            {
-                XmlNode node = ob as XmlNode;
-                if (node != null)
-                {
-                    if (compareXmlNess(node.LocalName, localName, node.NamespaceURI, ns))
-                    {
-                        arr.Add(ob);
-                    }
-                }
-                else
-                {
-                    // only if the elements do implement the ExtensionElementFactory
-                    // do we know if it's xml name/namespace
-                    IExtensionElementFactory ele = ob as IExtensionElementFactory;
-                    if (ele != null)
-                    {
-                        if (compareXmlNess(ele.XmlName, localName, ele.XmlNameSpace, ns))
-                        {
-                            arr.Add(ob);
-                        }
-                    }
-                }
-            }
-            return arr;
+            return Utilities.FindExtensions(this.ExtensionElements, 
+                                            localName, ns, arr);
+
         }
 
         /// <summary>
@@ -429,47 +383,47 @@ namespace Google.GData.Client
             return arr.Count;
         }
 
+    
         /// <summary>
         /// all extension elements that match a namespace/localname
         /// given will be removed and replaced with the new ones.
         /// the input array can contain several different
         /// namespace/localname combinations
+        /// if the passed list is NULL or empty, this will just result
+        /// in additions
         /// </summary>
         /// <param name="newList">a list of xmlnodes or IExtensionElementFactory objects</param>
         /// <returns>int - the number of deleted extensions</returns>
-
         public int ReplaceExtensions(ArrayList newList) 
         {
-            Tracing.Assert(newList != null, "newList should not be null");
-            if (newList == null)
-            {
-                throw new ArgumentNullException("newList"); 
-            }
-            int count = 0;
+             int count = 0;
             // get rid of all of the old ones matching the specs
-            foreach (Object ob in newList)
+            if (newList != null)
             {
-                string localName = null;
-                string ns = null;
-                XmlNode node = ob as XmlNode;
-                if (node != null)
+                foreach (Object ob in newList)
                 {
-                    localName = node.LocalName;
-                    ns = node.NamespaceURI;
-                } 
-                else 
-                {
-                    IExtensionElementFactory ele = ob as IExtensionElementFactory;
-                    if (ele != null)
+                    string localName = null;
+                    string ns = null;
+                    XmlNode node = ob as XmlNode;
+                    if (node != null)
                     {
-                        localName = ele.XmlName;
-                        ns = ele.XmlNameSpace;
+                        localName = node.LocalName;
+                        ns = node.NamespaceURI;
+                    } 
+                    else 
+                    {
+                        IExtensionElementFactory ele = ob as IExtensionElementFactory;
+                        if (ele != null)
+                        {
+                            localName = ele.XmlName;
+                            ns = ele.XmlNameSpace;
+                        }
                     }
-                }
-
-                if (localName != null)
-                {
-                    count += DeleteExtensions(localName, ns);
+                
+                    if (localName != null)
+                    {
+                        count += DeleteExtensions(localName, ns);
+                    }
                 }
             }
             // now add the new ones
@@ -477,29 +431,25 @@ namespace Google.GData.Client
             {
                 this.ExtensionElements.Add(ob);
             }
-
             return count;
         }
 
-
-
-        private bool compareXmlNess(string l1, string l2, string ns1, string ns2) 
+        /// <summary>
+        /// all extension elements that match a namespace/localname
+        /// given will be removed and the new one will be inserted
+        /// </summary> 
+        /// <param name="localName">the local name to find</param>
+        /// <param name="ns">the namespace to match, if null, ns is ignored</param>
+        /// <param name="element">the new element to put in</param>
+        public void ReplaceExtension(string localName, string ns, Object obj)
         {
-            if (String.Compare(l1,l2)==0)
-            {
-                if (ns1 == null)
-                {
-                    return true;
-                } 
-                else if (String.Compare(ns1, ns2)==0)
-                {
-                    return true;
-                }
-            }
-            return false;
+            DeleteExtensions(localName, ns);
+            this.ExtensionElements.Add(obj);
         }
 
- 
+
+
+    
         //////////////////////////////////////////////////////////////////////
         /// <summary>Saves the object as XML.</summary> 
         /// <param name="stream">stream to save to</param>

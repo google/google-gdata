@@ -52,8 +52,67 @@ namespace Google.GData.Photos {
             GPhotoExtensions.AddExtension(this);
             MediaRssExtensions.AddExtension(this);
             ExifExtensions.AddExtension(this);
-            AddExtension(new GeoRssWhere());
+            GeoRssExtensions.AddExtension(this);
         }
+
+        /// <summary>
+        /// getter/setter for the GeoRssWhere extension element
+        /// </summary>
+        public GeoRssWhere Location 
+        {
+            get
+            {
+                return FindExtension(GeoNametable.GeoRssWhereElement,
+                                     GeoNametable.NSGeoRss) as GeoRssWhere;
+            }
+            set
+            {
+                ReplaceExtension(GeoNametable.GeoRssWhereElement,
+                                GeoNametable.NSGeoRss,
+                                value);
+            }
+        }
+
+        /// <summary>
+        /// getter/setter for the ExifTags extension element
+        /// </summary>
+        public ExifTags Exif 
+        {
+            get
+            {
+                return FindExtension(ExifNameTable.ExifTags,
+                                     ExifNameTable.NSExif) as ExifTags;
+            }
+            set
+            {
+                ReplaceExtension(ExifNameTable.ExifTags,
+                                ExifNameTable.NSExif,
+                                value);
+            }
+        }
+
+        /// <summary>
+        /// returns the media:rss group container element
+        /// </summary>
+        public MediaGroup Media
+        {
+            get
+            {
+                return FindExtension(MediaRssNameTable.MediaRssGroup,
+                                     MediaRssNameTable.NSMediaRss) as MediaGroup;
+            }
+            set
+            {
+                ReplaceExtension(MediaRssNameTable.MediaRssGroup,
+                                MediaRssNameTable.NSMediaRss,
+                                value);
+            }
+        }
+
+
+
+
+
     }
 }
 

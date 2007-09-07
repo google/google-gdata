@@ -64,6 +64,7 @@ namespace Google.GData.Extensions {
             this.value = value;
         }
 
+       
         //////////////////////////////////////////////////////////////////////
         /// <summary>accesses the Attribute list. The keys are the attribute names
         /// the values the attribute values</summary> 
