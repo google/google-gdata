@@ -40,16 +40,7 @@ namespace Google.GData.Extensions {
         {
         }
 
-        /// <summary>
-        /// copy constructor, used in parsing
-        /// </summary>
-        /// <param name="original"></param>
-        protected SimpleContainer(SimpleContainer original) : base(original.XmlName, original.XmlPrefix, original.XmlNameSpace)
-        {
-    
-            this.ExtensionFactories = original.ExtensionFactories;
-        }
-
+       
        
         #region overloaded for persistence
 
@@ -126,7 +117,7 @@ namespace Google.GData.Extensions {
             if (localname.Equals(this.XmlName))
             {
                 // create a new container
-                sc = new SimpleContainer(this);
+                sc = this.MemberwiseClone() as SimpleContainer;
             }
 
             if (node.HasChildNodes)
@@ -153,7 +144,7 @@ namespace Google.GData.Extensions {
             return sc;
         }
 
-        
+         
         /// <summary>
         /// Persistence method for the EnumConstruct object
         /// </summary>
