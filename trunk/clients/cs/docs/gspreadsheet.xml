@@ -20,6 +20,12 @@
             to indicate that it is a cell.
             </summary>
         </member>
+        <member name="M:Google.GData.Spreadsheets.CellEntry.#ctor(System.String)">
+            <summary>
+            Constructs a new CellEntry instance with the provided content.
+            </summary>
+            <param name="inputValue">The uncalculated content of the cell.</param>
+        </member>
         <member name="M:Google.GData.Spreadsheets.CellEntry.AddOtherNamespaces(System.Xml.XmlWriter)">
             <summary>
             add the spreadsheet NS
@@ -253,6 +259,11 @@
         <member name="M:Google.GData.Spreadsheets.ColCountElement.#ctor">
             <summary>
             Constructs an empty column count element.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Spreadsheets.ColCountElement.#ctor(System.UInt32)">
+            <summary>
+            Constructs a column count element with a given count size.
             </summary>
         </member>
         <member name="M:Google.GData.Spreadsheets.ColCountElement.ParseColCount(System.Xml.XmlNode)">
@@ -579,6 +590,11 @@
             Constructs an empty row count element.
             </summary>
         </member>
+        <member name="M:Google.GData.Spreadsheets.RowCountElement.#ctor(System.UInt32)">
+            <summary>
+            Constructs a row count element of a given count size.
+            </summary>
+        </member>
         <member name="M:Google.GData.Spreadsheets.RowCountElement.ParseRowCount(System.Xml.XmlNode)">
             <summary>
             Parses an XML node to create a RowCount object
@@ -624,12 +640,6 @@
             </summary>
             <param name="e">The extension element that should be added to this entry</param>
             <param name="parser">The AtomFeedParser that called this</param>
-        </member>
-        <member name="P:Google.GData.Spreadsheets.SpreadsheetEntry.Link">
-            <summary>
-            Convenience method for getting the Link for the spreadsheet that could be used
-            for viewing the spreadsheet in the web browser.
-            </summary>
         </member>
         <member name="T:Google.GData.Spreadsheets.SpreadsheetFeed">
             <summary>
@@ -745,6 +755,35 @@
             to indicate that it is a worksheet.
             </summary>
         </member>
+        <member name="M:Google.GData.Spreadsheets.WorksheetEntry.#ctor(System.UInt32,System.UInt32)">
+            <summary>
+            Constructs a new WorksheetEntry instance with the given number of
+            rows and columns.
+            </summary>
+            <param name="rows">The number of rows.</param>
+            <param name="cols">The number of columns.</param>
+        </member>
+        <member name="M:Google.GData.Spreadsheets.WorksheetEntry.#ctor(System.UInt32,System.UInt32,System.String)">
+            <summary>
+            Constructs a new WorksheetEntry instance with a given number of
+            rows and columns and with a set title.
+            </summary>
+            <param name="rows">The number of rows.</param>
+            <param name="cols">The number of columns.</param>
+            <param name="title">The title of the worksheet.</param>
+        </member>
+        <member name="M:Google.GData.Spreadsheets.WorksheetEntry.GetCellFeed">
+            <summary>
+            Retrieves the cell-based metafeed of the cells within the worksheet.
+            </summary>
+            <returns>The CellsFeed of the cells in this worksheet.</returns>
+        </member>
+        <member name="M:Google.GData.Spreadsheets.WorksheetEntry.GetCellFeedLink">
+            <summary>
+            Retrieves the URI for the cells feed of the worksheet.
+            </summary>
+            <returns>The URI of the cells feed for this worksheet.</returns>
+        </member>
         <member name="M:Google.GData.Spreadsheets.WorksheetEntry.Parse(Google.GData.Client.ExtensionElementEventArgs,Google.GData.Client.AtomFeedParser)">
             <summary>
             Parses the inner state of the element
@@ -754,12 +793,22 @@
         </member>
         <member name="P:Google.GData.Spreadsheets.WorksheetEntry.ColCount">
             <summary>
-            The colCount element in this cell entry
+            The colCount element in this worksheet entry
+            </summary>
+        </member>
+        <member name="P:Google.GData.Spreadsheets.WorksheetEntry.Cols">
+            <summary>
+            Sets the number of columns for this worksheet entry
             </summary>
         </member>
         <member name="P:Google.GData.Spreadsheets.WorksheetEntry.RowCount">
             <summary>
             The rowCount element in this cell entry
+            </summary>
+        </member>
+        <member name="P:Google.GData.Spreadsheets.WorksheetEntry.Rows">
+            <summary>
+            Sets the number of rows for this worksheet entry
             </summary>
         </member>
         <member name="T:Google.GData.Spreadsheets.WorksheetFeed">

@@ -398,6 +398,12 @@
              set properties.</summary> 
             <returns> string => the query part of the URI </returns>
         </member>
+        <member name="P:Google.GData.Calendar.EventQuery.TimeZone">
+            <summary>this indicates the ctz parameter in the query. It
+            allows you specify the timezone that is used to calculate the 
+            start/end times for events</summary> 
+            <returns> </returns>
+        </member>
         <member name="P:Google.GData.Calendar.EventQuery.SortOrder">
             <summary>indicates the sortorder of the returned feed</summary> 
             <returns> </returns>

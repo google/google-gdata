@@ -258,6 +258,15 @@ namespace Google.GData.Spreadsheets
         }
 
         /// <summary>
+        /// Constructs a new CellEntry instance with the provided content.
+        /// </summary>
+        /// <param name="inputValue">The uncalculated content of the cell.</param>
+        public CellEntry(string inputValue): this()
+        {
+            this.Cell.InputValue = inputValue;
+        }
+
+        /// <summary>
         /// The cell element in this cell entry
         /// </summary>
 
