@@ -111,8 +111,10 @@ namespace Google.GData.Client
     /// </para>
     /// </remarks> 
     //////////////////////////////////////////////////////////////////////
-#if WindowsCE || PocketPC
-#else 
+#if WindowsCE || PocketPC
+
+#else 
+
     [TypeConverterAttribute(typeof(AtomSourceConverter)), DescriptionAttribute("Expand to see the options for the feed")]
 #endif
     public class AtomFeed : AtomSource
@@ -270,8 +272,8 @@ namespace Google.GData.Client
 
 
         //////////////////////////////////////////////////////////////////////
-        /// <summary>accessor method public string Batch</summary> 
-        /// <returns>the Uri as string to the Batch Service</returns>
+        /// <summary>Retrieves the batch link for the current feed.</summary> 
+        /// <returns>The URI of the batch support for the feed. </returns>
         //////////////////////////////////////////////////////////////////////
         public string Batch
         {
@@ -808,4 +810,5 @@ namespace Google.GData.Client
     /////////////////////////////////////////////////////////////////////////////
 }
 /////////////////////////////////////////////////////////////////////////////
+
 

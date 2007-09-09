@@ -440,7 +440,7 @@ namespace Google.GData.Client
         /// </summary> 
         /// <param name="localName">the local name to find</param>
         /// <param name="ns">the namespace to match, if null, ns is ignored</param>
-        /// <param name="element">the new element to put in</param>
+        /// <param name="obj">the new element to put in</param>
         public void ReplaceExtension(string localName, string ns, Object obj)
         {
             DeleteExtensions(localName, ns);

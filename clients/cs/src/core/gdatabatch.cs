@@ -39,7 +39,9 @@ namespace Google.GData.Client
         update,
         /// <summary>this is a delete operation</summary> 
         delete,
-        /// <summary>the default</summary>
+        /// <summary>this is a query operation</summary>
+        query,
+        /// <summary>the default (a no-op)</summary>
         Default
     }
 
@@ -348,11 +350,31 @@ namespace Google.GData.Client
         private GDataBatchInterrupt interrupt; 
 
         /// <summary>
-        /// constructor, set's the default for the operation type
+        /// constructor, sets the default for the operation type
         /// </summary>
         public GDataBatchEntryData()
         {
             this.operationType = GDataBatchOperationType.Default;
+        }
+
+        /// <summary>
+        /// Constructor for the batch data
+        /// </summary>
+        /// <param name="type">The batch operation to be performed</param>
+        public GDataBatchEntryData(GDataBatchOperationType type)
+        {
+            this.Type = type;
+        }
+
+
+        /// <summary>
+        /// Constructor for batch data
+        /// </summary>
+        /// <param name="ID">The batch ID of this entry</param>
+        /// <param name="type">The batch operation to be performed</param>
+        public GDataBatchEntryData(string ID, GDataBatchOperationType type) : this(type)
+        {
+            this.Id = ID;
         }
 
     

@@ -128,7 +128,7 @@ namespace Google.GData.Extensions.Location {
         /// finds our position element, if we don't have one
         /// creates a new one depending on the fCreate parameter
         /// </summary>
-        /// </// <param name="fCreate">creates the subelements on true</param> 
+        /// <param name="fCreate">creates the subelements on true</param> 
         /// <returns>GeoKmlPosition</returns>
         protected GeoKmlPosition GetPosition(bool fCreate) 
         {
@@ -164,6 +164,9 @@ namespace Google.GData.Extensions.Location {
     /// </summary>
     public class GeoKmlPoint : SimpleContainer
     {
+        /// <summary>
+        /// default constructor ofr a Kml:point element
+        /// </summary>
         public GeoKmlPoint() :
             base(GeoNametable.GeoKmlPointElement,
                  GeoNametable.geoKmlPrefix,

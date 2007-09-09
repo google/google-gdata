@@ -75,7 +75,7 @@
             URI changes.</summary> 
             <param name="uriValue">the baseuri calculated so far</param>
         </member>
-        <member name="M:Google.GData.Client.AtomBase.AddExtension(Google.GData.Client.IExtensionElementFactory)">
+        <member name="M:Google.GData.Client.AtomBase.AddExtension(System.Object)">
             <summary>
             adding an extension factory for extension elements
             </summary>
@@ -138,9 +138,20 @@
             given will be removed and replaced with the new ones.
             the input array can contain several different
             namespace/localname combinations
+            if the passed list is NULL or empty, this will just result
+            in additions
             </summary>
             <param name="newList">a list of xmlnodes or IExtensionElementFactory objects</param>
             <returns>int - the number of deleted extensions</returns>
+        </member>
+        <member name="M:Google.GData.Client.AtomBase.ReplaceExtension(System.String,System.String,System.Object)">
+            <summary>
+            all extension elements that match a namespace/localname
+            given will be removed and the new one will be inserted
+            </summary> 
+            <param name="localName">the local name to find</param>
+            <param name="ns">the namespace to match, if null, ns is ignored</param>
+            <param name="obj">the new element to put in</param>
         </member>
         <member name="M:Google.GData.Client.AtomBase.SaveToXml(System.IO.Stream)">
             <summary>Saves the object as XML.</summary> 
@@ -360,9 +371,21 @@
             <summary>accessor for the self URI</summary> 
             <returns> </returns>
         </member>
-        <member name="P:Google.GData.Client.AtomEntry.Media">
+        <member name="P:Google.GData.Client.AtomEntry.MediaUri">
             <summary>accessor to find the edit-media link</summary> 
             <returns>the Uri as AtomUri to the media upload Service</returns>
+        </member>
+        <member name="P:Google.GData.Client.AtomEntry.AlternateUri">
+            <summary>accessor to find the alternate link, in HTML only
+            The method scans the link collection for a link that is of type rel=alternate
+            and has a media type of HTML, otherwise it return NULL. The same is true for setting this. 
+            If you need to use a rel/alternate with a different media type, you need
+            to use the links collection directly</summary> 
+            <returns>the Uri as AtomUri to HTML representation</returns>
+        </member>
+        <member name="P:Google.GData.Client.AtomEntry.FeedUri">
+            <summary>accessor method public string Feed</summary> 
+            <returns>returns the Uri as string for the feed service </returns>
         </member>
         <member name="P:Google.GData.Client.AtomEntry.Updated">
             <summary>accessor method public DateTime UpdateDate</summary> 
@@ -744,8 +767,8 @@
             <returns> GDataBatch object </returns>
         </member>
         <member name="P:Google.GData.Client.AtomFeed.Batch">
-            <summary>accessor method public string Batch</summary> 
-            <returns>the Uri as string to the Batch Service</returns>
+            <summary>Retrieves the batch link for the current feed.</summary> 
+            <returns>The URI of the batch support for the feed. </returns>
         </member>
         <member name="P:Google.GData.Client.AtomFeed.ReadOnly">
             <summary>returns whether or not the entry is read-only </summary> 
@@ -3159,6 +3182,9 @@
         <member name="F:Google.GData.Client.GDataRequestFactory.CookieHeader">
             <summary>Cookie client header</summary>
         </member>
+        <member name="F:Google.GData.Client.GDataRequestFactory.SlugHeader">
+            <summary>Slug client header</summary>
+        </member>
         <member name="F:Google.GData.Client.GDataRequestFactory.userAgent">
             <summary>holds the user-agent</summary> 
         </member>
@@ -3177,6 +3203,11 @@
         </member>
         <member name="P:Google.GData.Client.GDataRequestFactory.ContentType">
             <summary>set's and get's the content Type, used for binary transfers</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Client.GDataRequestFactory.Slug">
+            <summary>set's and get's the slug header, used for binary transfers
+            note that the data will be URLencoded before send</summary> 
             <returns> </returns>
         </member>
         <member name="P:Google.GData.Client.GDataRequestFactory.UserAgent">
@@ -3309,6 +3340,9 @@
         <member name="F:Google.GData.Client.GDataRequest.contentType">
             <summary>holds the contenttype to use if overridden</summary>
         </member>
+        <member name="F:Google.GData.Client.GDataRequest.slugHeader">
+            <summary>holds the slugheader to use if overridden</summary>
+        </member>
         <member name="M:Google.GData.Client.GDataRequest.#ctor(Google.GData.Client.GDataRequestType,System.Uri,Google.GData.Client.GDataRequestFactory)">
             <summary>default constructor</summary> 
         </member>
@@ -3356,6 +3390,10 @@
         </member>
         <member name="P:Google.GData.Client.GDataRequest.ContentType">
             <summary>set's and get's the content Type, used for binary transfers</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Client.GDataRequest.Slug">
+            <summary>set's and get's the slugHeader, used for binary transfers</summary> 
             <returns> </returns>
         </member>
         <member name="P:Google.GData.Client.GDataRequest.Request">
@@ -3469,8 +3507,11 @@
         <member name="F:Google.GData.Client.GDataBatchOperationType.delete">
             <summary>this is a delete operation</summary> 
         </member>
+        <member name="F:Google.GData.Client.GDataBatchOperationType.query">
+            <summary>this is a query operation</summary>
+        </member>
         <member name="F:Google.GData.Client.GDataBatchOperationType.Default">
-            <summary>the default</summary>
+            <summary>the default (a no-op)</summary>
         </member>
         <member name="T:Google.GData.Client.GDataBatchStatus">
             <summary>
@@ -3596,8 +3637,21 @@
         </member>
         <member name="M:Google.GData.Client.GDataBatchEntryData.#ctor">
             <summary>
-            constructor, set's the default for the operation type
+            constructor, sets the default for the operation type
             </summary>
+        </member>
+        <member name="M:Google.GData.Client.GDataBatchEntryData.#ctor(Google.GData.Client.GDataBatchOperationType)">
+            <summary>
+            Constructor for the batch data
+            </summary>
+            <param name="type">The batch operation to be performed</param>
+        </member>
+        <member name="M:Google.GData.Client.GDataBatchEntryData.#ctor(System.String,Google.GData.Client.GDataBatchOperationType)">
+            <summary>
+            Constructor for batch data
+            </summary>
+            <param name="ID">The batch ID of this entry</param>
+            <param name="type">The batch operation to be performed</param>
         </member>
         <member name="M:Google.GData.Client.GDataBatchEntryData.Save(System.Xml.XmlWriter)">
             <summary>
@@ -3847,8 +3901,11 @@
         <member name="M:Google.GData.Client.IService.Batch(Google.GData.Client.AtomFeed,System.Uri)">
             <summary>batch operation, posting of a set of entries</summary>
         </member>
-        <member name="M:Google.GData.Client.IService.Update(System.Uri,System.IO.Stream,System.String)">
+        <member name="M:Google.GData.Client.IService.Update(System.Uri,System.IO.Stream,System.String,System.String)">
             <summary>simple update for media resources</summary> 
+        </member>
+        <member name="M:Google.GData.Client.IService.Insert(System.Uri,System.IO.Stream,System.String,System.String)">
+            <summary>simple insert for media resources</summary> 
         </member>
         <member name="P:Google.GData.Client.IService.Credentials">
             <summary>get/set for credentials to the service calls. Gets passed through to GDatarequest</summary> 
@@ -3922,22 +3979,24 @@
             <param name="newEntry">the entry to be inserted</param> 
             <returns> the inserted entry</returns>
         </member>
-        <member name="M:Google.GData.Client.Service.Update(System.Uri,System.IO.Stream,System.String)">
+        <member name="M:Google.GData.Client.Service.Update(System.Uri,System.IO.Stream,System.String,System.String)">
             <summary>
             simple update for media resources
             </summary>
             <param name="uriTarget"></param>
             <param name="input"></param>
             <param name="contentType"></param>
+            <param name="slugHeader">the value for the slug header, indicating filenaming</param>
             <returns>AtomEntry</returns>
         </member>
-        <member name="M:Google.GData.Client.Service.Insert(System.Uri,System.IO.Stream,System.String)">
+        <member name="M:Google.GData.Client.Service.Insert(System.Uri,System.IO.Stream,System.String,System.String)">
             <summary>
             Simple insert for media resources
             </summary>
             <param name="uriTarget"></param>
             <param name="input"></param>
             <param name="contentType"></param>
+            <param name="slugHeader">the value for the slug header, indicating filenaming</param>
             <returns>AtomEntry</returns>
         </member>
         <member name="M:Google.GData.Client.Service.StreamInsert(System.Uri,Google.GData.Client.AtomEntry)">
@@ -3953,7 +4012,7 @@
             <param name="type">the type of request to create</param> 
             <returns> the response as a stream</returns>
         </member>
-        <member name="M:Google.GData.Client.Service.StreamSend(System.Uri,System.String,Google.GData.Client.GDataRequestType)">
+        <member name="M:Google.GData.Client.Service.StringSend(System.Uri,System.String,Google.GData.Client.GDataRequestType)">
             <summary>
             this is a helper function for external utilities. It is not worth
             running the other insert/saves through here, as this would involve
@@ -3962,7 +4021,7 @@
             <param name="targetUri"></param>
             <param name="payload"></param>            <param name="type"></param>
             <returns>Stream</returns>        </member>
-        <member name="M:Google.GData.Client.Service.StreamSend(System.Uri,System.IO.Stream,Google.GData.Client.GDataRequestType,System.String)">
+        <member name="M:Google.GData.Client.Service.StreamSend(System.Uri,System.IO.Stream,Google.GData.Client.GDataRequestType,System.String,System.String)">
             <summary>
             this is a helper function for to send binary data to a resource
             it is not worth running the other insert/saves through here, as this would involve
@@ -3971,7 +4030,8 @@
             <param name="targetUri"></param>
             <param name="inputStream"></param>
             <param name="type"></param>
-            <param name="contentType">the contenttype to use in the request</param>
+            <param name="contentType">the contenttype to use in the request, if NULL is passed, factory default is used</param>
+            <param name="slugHeader">the slugHeader to use in the request, if NULL is passed, factory default is used</param>
             <returns>Stream</returns>        </member>
         <member name="M:Google.GData.Client.Service.createFeed(System.Uri)">
             <summary>creates a new feed instance to be returned by
@@ -4228,6 +4288,33 @@
             <param name="inputStream">the stream to read and parse</param>
             <param name="key">the key to search for</param>
             <returns> the string in the tokenized stream </returns>
+        </member>
+        <member name="M:Google.GData.Client.Utilities.FindExtension(System.Collections.ArrayList,System.String,System.String)">
+            <summary>
+            Finds a specific ExtensionElement based on it's local name
+            and it's namespace. If namespace is NULL, the first one where
+            the localname matches is found. If there are extensionelements that do 
+            not implment ExtensionElementFactory, they will not be taken into account
+            Primary use of this is to find XML nodes
+            </summary>
+            <param name="arrList">the array to search through</param>
+            <param name="localName">the xml local name of the element to find</param>
+            <param name="ns">the namespace of the elementToPersist</param>
+            <returns>Object</returns>
+        </member>
+        <member name="M:Google.GData.Client.Utilities.FindExtensions(System.Collections.ArrayList,System.String,System.String,System.Collections.ArrayList)">
+            <summary>
+            Finds all ExtensionElement based on it's local name
+            and it's namespace. If namespace is NULL, allwhere
+            the localname matches is found. If there are extensionelements that do 
+            not implment ExtensionElementFactory, they will not be taken into account
+            Primary use of this is to find XML nodes
+            </summary>
+            <param name="arrList">the array to search through</param>
+            <param name="localName">the xml local name of the element to find</param>
+            <param name="ns">the namespace of the elementToPersist</param>
+            <param name="arr">the array to fill</param>
+            <returns>none</returns>
         </member>
         <member name="P:Google.GData.Client.Utilities.EmptyDate">
             <summary>returns a blank emptyDate. That's the default for an empty string date</summary> 

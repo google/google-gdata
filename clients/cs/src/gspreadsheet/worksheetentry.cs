@@ -125,6 +125,27 @@ namespace Google.GData.Spreadsheets
         }
 
         /// <summary>
+        /// Retrieves the cell-based metafeed of the cells within the worksheet.
+        /// </summary>
+        /// <returns>The CellsFeed of the cells in this worksheet.</returns>
+        public CellFeed GetCellFeed() 
+        {
+            CellQuery query = new CellQuery(this.GetCellFeedLink());
+
+            return (CellFeed) this.Service.Query(query); 
+        }
+
+        /// <summary>
+        /// Retrieves the URI for the cells feed of the worksheet.
+        /// </summary>
+        /// <returns>The URI of the cells feed for this worksheet.</returns>
+        public string GetCellFeedLink()
+        {
+            AtomLink cellFeedLink = this.Links.FindService(GDataSpreadsheetsNameTable.CellRel, null);
+            return cellFeedLink.HRef.ToString();
+        }
+
+        /// <summary>
         /// Parses the inner state of the element
         /// </summary>
         /// <param name="e">the event arguments</param>
