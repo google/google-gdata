@@ -86,6 +86,111 @@ namespace Google.GData.Extensions.MediaRss {
             this.ExtensionFactories.Add(new MediaThumbnail());
             this.ExtensionFactories.Add(new MediaTitle());
         }
+
+        /// <summary>
+        /// returns the media:credit element
+        /// </summary>
+        public MediaCredit Credit
+        {
+            get
+            {
+                return FindExtension(MediaRssNameTable.MediaRssCredit,
+                                     MediaRssNameTable.NSMediaRss) as MediaCredit;
+            }
+            set
+            {
+                ReplaceExtension(MediaRssNameTable.MediaRssCredit,
+                                MediaRssNameTable.NSMediaRss,
+                                value);
+            }
+        }
+
+             /// <summary>
+        /// returns the media:credit element
+        /// </summary>
+        public MediaDescription Description
+        {
+            get
+            {
+                return FindExtension(MediaRssNameTable.MediaRssDescription,
+                                     MediaRssNameTable.NSMediaRss) as MediaDescription;
+            }
+            set
+            {
+                ReplaceExtension(MediaRssNameTable.MediaRssDescription,
+                                MediaRssNameTable.NSMediaRss,
+                                value);
+            }
+        }
+        /// <summary>
+        /// returns the media:content element
+        /// </summary>
+        public MediaKeywords Keywords
+        {
+            get
+            {
+                return FindExtension(MediaRssNameTable.MediaRssKeywords,
+                                     MediaRssNameTable.NSMediaRss) as MediaKeywords;
+            }
+            set
+            {
+                ReplaceExtension(MediaRssNameTable.MediaRssKeywords,
+                                MediaRssNameTable.NSMediaRss,
+                                value);
+            }
+        }
+        /// <summary>
+        /// returns the media:credit element
+        /// </summary>
+        public MediaTitle Title
+        {
+            get
+            {
+                return FindExtension(MediaRssNameTable.MediaRssTitle,
+                                     MediaRssNameTable.NSMediaRss) as MediaTitle;
+            }
+            set
+            {
+                ReplaceExtension(MediaRssNameTable.MediaRssTitle,
+                                MediaRssNameTable.NSMediaRss,
+                                value);
+            }
+        }
+        /// <summary>
+        /// returns the media:thumbnail element
+        /// </summary>
+        public MediaThumbnail Thumbnail
+        {
+            get
+            {
+                return FindExtension(MediaRssNameTable.MediaRssThumbnail,
+                                     MediaRssNameTable.NSMediaRss) as MediaThumbnail;
+            }
+            set
+            {
+                ReplaceExtension(MediaRssNameTable.MediaRssThumbnail,
+                                MediaRssNameTable.NSMediaRss,
+                                value);
+            }
+        }
+        /// <summary>
+        /// returns the media:content element
+        /// </summary>
+        public MediaContent Content
+        {
+            get
+            {
+                return FindExtension(MediaRssNameTable.MediaRssContent,
+                                     MediaRssNameTable.NSMediaRss) as MediaContent;
+            }
+            set
+            {
+                ReplaceExtension(MediaRssNameTable.MediaRssContent,
+                                MediaRssNameTable.NSMediaRss,
+                                value);
+            }
+        }
+
    }
 
     /// <summary>

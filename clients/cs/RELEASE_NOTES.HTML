@@ -30,7 +30,7 @@
     <li>
         added the ability to use authsubtokens to the ExecRequest utility (including 
         exchange of a onetime token to a session token). Just run ExecRequest for the 
-        command line parameters
+        command line parameters, or read the help file page about it.
     </li>
 
     <li>
@@ -102,6 +102,10 @@
         has a QuickAdd boolean property. Setting it to true causes an insert to
         be treated like a quickAdd operation. 
     </li> 
+    <li>Added new methods on the AtomCategoyr collection. Find searches for 
+        a category of a given term, or a term/scheme combination. Also changed
+        the implementation of the Contains method to compare not just object
+        fidelity, but also term/value pairs</li>
 </ul>
 
 <h2>1.0.9.9</h2>

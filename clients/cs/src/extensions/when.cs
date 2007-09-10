@@ -168,7 +168,7 @@ namespace Google.GData.Extensions
                         {
                             if (String.Compare(whenChildNode.LocalName, f.XmlName) == 0)
                             {
-                                Reminder r = f.CreateInstance(whenChildNode, null) as Reminder;
+                                Reminder r = f.CreateInstance(whenChildNode) as Reminder;
                                 when.Reminders.Add(r);
                             }
                         }

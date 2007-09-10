@@ -91,77 +91,76 @@ namespace Google.GData.Extensions
         /// <param name="parser">AtomFeedParser to use</param>
         /// <returns>the created SimpleElement object</returns>
         //////////////////////////////////////////////////////////////////////
-        public IExtensionElement CreateInstance(XmlNode node, AtomFeedParser parser) 
+        public IExtensionElement CreateInstance(XmlNode node) 
         {
             Tracing.TraceCall();
-            Tracing.Assert(node != null, "node should not be null");
-            if (node == null)
-            {
-                throw new ArgumentNullException("node");
-            }
 
+            if (node != null)
+            {
+                object localname = node.LocalName;
+                if (localname.Equals(this.XmlName) == false ||
+                    node.NamespaceURI.Equals(this.XmlNameSpace) == false)
+                {
+                    return null;
+                }
+            }
+            
             WebContent webContent = null;
           
-            object localname = node.LocalName;
-            if (localname.Equals(XmlName))
+            webContent = new WebContent();
+            if (node.Attributes != null)
             {
-                webContent = new WebContent();
-                if (node.Attributes != null)
+                String value = node.Attributes[GDataParserNameTable.XmlAttributeUrl] != null ? 
+                    node.Attributes[GDataParserNameTable.XmlAttributeUrl].Value : null; 
+                if (value != null)
                 {
-                    String value = node.Attributes[GDataParserNameTable.XmlAttributeUrl] != null ? 
-                        node.Attributes[GDataParserNameTable.XmlAttributeUrl].Value : null; 
-                    if (value != null)
-                    {
-                        webContent.Url = value;
-                    }
-
-                    value = node.Attributes[GDataParserNameTable.XmlAttributeWidth] != null ? 
-                        node.Attributes[GDataParserNameTable.XmlAttributeWidth].Value : null; 
-
-                    if (value != null)
-                    {
-                        webContent.Width = uint.Parse(value, System.Globalization.NumberStyles.Integer, CultureInfo.InvariantCulture);
-                    }
-
-                    value = node.Attributes[GDataParserNameTable.XmlAttributeHeight] != null ? 
-                        node.Attributes[GDataParserNameTable.XmlAttributeHeight].Value : null; 
-
-                    if (value != null)
-                    {
-                        webContent.Height = uint.Parse(value, System.Globalization.NumberStyles.Integer, CultureInfo.InvariantCulture);
-                    }
+                    webContent.Url = value;
                 }
-                  // single event, g:reminder is inside g:when
-                if (node.HasChildNodes)
+
+                value = node.Attributes[GDataParserNameTable.XmlAttributeWidth] != null ? 
+                    node.Attributes[GDataParserNameTable.XmlAttributeWidth].Value : null; 
+
+                if (value != null)
                 {
-                    XmlNode gadgetPrefs = node.FirstChild;
-                    IExtensionElementFactory f = new Reminder() as IExtensionElementFactory;
-                    while (gadgetPrefs != null && gadgetPrefs is XmlElement)
+                    webContent.Width = uint.Parse(value, System.Globalization.NumberStyles.Integer, CultureInfo.InvariantCulture);
+                }
+
+                value = node.Attributes[GDataParserNameTable.XmlAttributeHeight] != null ? 
+                    node.Attributes[GDataParserNameTable.XmlAttributeHeight].Value : null; 
+
+                if (value != null)
+                {
+                    webContent.Height = uint.Parse(value, System.Globalization.NumberStyles.Integer, CultureInfo.InvariantCulture);
+                }
+            }
+              // single event, g:reminder is inside g:when
+            if (node.HasChildNodes)
+            {
+                XmlNode gadgetPrefs = node.FirstChild;
+                while (gadgetPrefs != null && gadgetPrefs is XmlElement)
+                {
+                    if (String.Compare(gadgetPrefs.NamespaceURI, XmlNameSpace, true) == 0)
                     {
-                        if (String.Compare(gadgetPrefs.NamespaceURI, XmlNameSpace, true) == 0)
+                        if (String.Compare(gadgetPrefs.LocalName, GDataParserNameTable.XmlWebContentGadgetElement) == 0)
                         {
-                            if (String.Compare(gadgetPrefs.LocalName, GDataParserNameTable.XmlWebContentGadgetElement) == 0)
+                            if (gadgetPrefs.Attributes != null)
                             {
-                                if (gadgetPrefs.Attributes != null)
+                                string value = gadgetPrefs.Attributes[BaseNameTable.XmlValue] != null ? 
+                                               gadgetPrefs.Attributes[BaseNameTable.XmlValue].Value : null;
+
+                                string name  = gadgetPrefs.Attributes[BaseNameTable.XmlName] != null ?
+                                               gadgetPrefs.Attributes[BaseNameTable.XmlName].Value : null;
+
+                                if (name != null)
                                 {
-                                    string value = gadgetPrefs.Attributes[BaseNameTable.XmlValue] != null ? 
-                                                   gadgetPrefs.Attributes[BaseNameTable.XmlValue].Value : null;
-
-                                    string name  = gadgetPrefs.Attributes[BaseNameTable.XmlName] != null ?
-                                                   gadgetPrefs.Attributes[BaseNameTable.XmlName].Value : null;
-
-                                    if (name != null)
-                                    {
-                                        webContent.GadgetPreferences.Add(name, value);
-                                    }
+                                    webContent.GadgetPreferences.Add(name, value);
                                 }
                             }
                         }
-                        gadgetPrefs = gadgetPrefs.NextSibling;
                     }
+                    gadgetPrefs = gadgetPrefs.NextSibling;
                 }
             }
-
             return webContent;
         }
         #endregion

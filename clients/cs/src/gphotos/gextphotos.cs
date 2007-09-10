@@ -73,6 +73,28 @@ namespace Google.GData.Photos {
         public const string NSGPhotos = "http://schemas.google.com/photos/2007"; 
         /// <summary>static string to specify the Google Picasa prefix used</summary>
         public const string gPhotoPrefix = "gphoto"; 
+
+        /// <summary>
+        /// Comment Kind definition
+        /// this is the term value for a category
+        /// </summary>
+        public const string CommentKind = NSGPhotos + "#comment";
+        /// <summary>
+        /// Photo Kind definition
+        /// this is the term value for a category
+        /// </summary>
+        public const string PhotoKind = NSGPhotos + "#photo";
+        /// <summary>
+        /// Album Kind definition
+        /// this is the term value for a category
+        /// </summary>
+        public const string AlbumKind = NSGPhotos + "#album";
+        /// <summary>
+        /// Tag Kind definition
+        /// this is the term value for a category
+        /// </summary>
+        public const string TagKind = NSGPhotos + "#tag";
+
     }
 
 

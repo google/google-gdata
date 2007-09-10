@@ -333,6 +333,50 @@ namespace Google.GData.Client
         }
 
         /// <summary>
+        /// Creates an extension for a given name and namespace by walking the
+        /// extension factories list and calling CreateInstance for the right one
+        /// </summary>
+        /// <param name="localName">the xml local name of the element to find</param>
+        /// <param name="ns">the namespace of the elementToPersist</param>
+        /// <returns>Object</returns>
+        public IExtensionElement CreateExtension(string localName, string ns) 
+        {
+            IExtensionElement ele = null;
+            IExtensionElementFactory f = FindExtensionFactory(localName, ns);
+            if (f != null)
+            {
+                ele = f.CreateInstance(null);
+            }
+            return ele;
+        }
+
+
+
+        /// <summary>
+        /// Finds the extension factory for a given name/namespace
+        /// </summary>
+        /// <param name="localName">the xml local name of the element to find</param>
+        /// <param name="ns">the namespace of the elementToPersist</param>
+        /// <returns>Object</returns>
+        public IExtensionElementFactory FindExtensionFactory(string localName, string ns) 
+        {
+            foreach (IExtensionElementFactory f in this.ExtensionFactories)
+            {
+                if (String.Compare(ns, f.XmlNameSpace, true) == 0)
+                {
+                    if (String.Compare(localName, f.XmlName) == 0)
+                    {
+                        return f;
+                    }
+                }
+            }
+            return null;
+        }
+
+
+
+
+        /// <summary>
         /// Finds all ExtensionElement based on it's local name
         /// and it's namespace. If namespace is NULL, allwhere
         /// the localname matches is found. If there are extensionelements that do 

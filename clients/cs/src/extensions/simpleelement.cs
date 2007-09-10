@@ -149,32 +149,33 @@ namespace Google.GData.Extensions {
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>Parses an xml node to create a Who object.</summary> 
-        /// <param name="node">georsswhere node</param>
-        /// <param name="parser">AtomFeedParser to use</param>
+        /// <param name="node">the xml parses node, can be NULL</param>
         /// <returns>the created SimpleElement object</returns>
         //////////////////////////////////////////////////////////////////////
-        public virtual IExtensionElement CreateInstance(XmlNode node, AtomFeedParser parser) 
+        public virtual IExtensionElement CreateInstance(XmlNode node) 
         {
             Tracing.TraceCall();
-            Tracing.Assert(node != null, "node should not be null");
-            if (node == null)
-            {
-                throw new ArgumentNullException("node");
-            }
+
             SimpleElement e = null;
-            
-            object localname = node.LocalName;
-            if (localname.Equals(this.XmlName))
+
+            if (node != null)
             {
-                // memberwise close is fine here, as everything is identical beside the value
-                e = this.MemberwiseClone() as SimpleElement;
-                e.InitInstance(this);
-                e.Value = node.InnerText;
-          
-                if (node.Attributes != null)
+                object localname = node.LocalName;
+                if (localname.Equals(this.XmlName) == false ||
+                    node.NamespaceURI.Equals(this.XmlNameSpace) == false)
                 {
-                    e.ProcessAttributes(node);
+                    return null;
                 }
+            }
+            
+            // memberwise close is fine here, as everything is identical beside the value
+            e = this.MemberwiseClone() as SimpleElement;
+            e.InitInstance(this);
+            e.Value = node.InnerText;
+      
+            if (node.Attributes != null)
+            {
+                e.ProcessAttributes(node);
             }
             return e;
         }

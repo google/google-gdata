@@ -78,18 +78,14 @@ namespace Google.GData.Client
             if (this.ExtensionFactories != null && this.ExtensionFactories.Count > 0)
             {
                 Tracing.TraceMsg("Entring default Parsing for AbstractEntry");
-                foreach (IExtensionElementFactory f in this.ExtensionFactories)
+
+                IExtensionElement ele = null;
+                IExtensionElementFactory f = FindExtensionFactory(node.LocalName, 
+                                                                  node.NamespaceURI);
+                if (f != null)
                 {
-                    Tracing.TraceMsg("Found extension Factories");
-                    if (String.Compare(node.NamespaceURI, f.XmlNameSpace, true) == 0)
-                    {
-                        if (String.Compare(node.LocalName, f.XmlName) == 0)
-                        {
-                            this.ExtensionElements.Add(f.CreateInstance(node, parser));
-                            e.DiscardEntry = true;
-                            break;
-                        }
-                    }
+                    this.ExtensionElements.Add(f.CreateInstance(node));
+                    e.DiscardEntry = true;
                 }
             }
             return;
