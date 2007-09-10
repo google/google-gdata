@@ -27,6 +27,7 @@ using Google.GData.Extensions.Location;
 
 namespace Google.GData.Photos {
 
+
     //////////////////////////////////////////////////////////////////////
     /// <summary>
     /// Entry API customization class for defining entries in an Event feed.
@@ -35,10 +36,28 @@ namespace Google.GData.Photos {
     public class PhotoEntry : AbstractEntry
     {
         /// <summary>
-        /// Category used to label entries that contain Event extension data.
+        /// Category used to label entries that contain photo extension data.
         /// </summary>
         public static AtomCategory PHOTO_CATEGORY =
-        new AtomCategory(GDataParserNameTable.Event, new AtomUri(BaseNameTable.gKind));
+        new AtomCategory(GPhotoNameTable.PhotoKind, new AtomUri(BaseNameTable.gKind));
+
+        /// <summary>
+        /// Category used to label entries that contain photo extension data.
+        /// </summary>
+        public static AtomCategory ALBUM_CATEGORY =
+        new AtomCategory(GPhotoNameTable.AlbumKind, new AtomUri(BaseNameTable.gKind));
+
+        /// <summary>
+        /// Category used to label entries that contain comment extension data.
+        /// </summary>
+        public static AtomCategory COMMENT_CATEGORY =
+        new AtomCategory(GPhotoNameTable.CommentKind, new AtomUri(BaseNameTable.gKind));
+
+        /// <summary>
+        /// Category used to label entries that contain photo extension data.
+        /// </summary>
+        public static AtomCategory TAG_CATEGORY =
+        new AtomCategory(GPhotoNameTable.TagKind, new AtomUri(BaseNameTable.gKind));
 
         /// <summary>
         /// Constructs a new EventEntry instance with the appropriate category
@@ -110,9 +129,133 @@ namespace Google.GData.Photos {
         }
 
 
+        /// <summary>
+        /// instead of having 20 extension elements
+        /// we have one string based getter
+        /// usage is: entry.getPhotoExtension("albumid") to get the element
+        /// </summary>
+        /// <param name="extension">the name of the extension to look for</param>
+        /// <returns>SimpleElement, or NULL if the extension was not found</returns>
+        public SimpleElement getPhotoExtension(string extension) 
+        {
+            return FindExtension(extension, GPhotoNameTable.NSGPhotos) as SimpleElement;
+        }
+
+        /// <summary>
+        /// instead of having 20 extension elements
+        /// we have one string based setter
+        /// usage is: entry.setPhotoExtension("albumid") to set the element
+        /// this will create the extension if it's not there
+        /// note, you can ofcourse, just get an existing one and work with that 
+        /// object: 
+        ///     SimpleElement e = entry.getPhotoExtension("albumid");
+        ///     e.Value = "new value";  
+        /// 
+        /// or 
+        ///    entry.setPhotoExtension("albumid", "new Value");
+        /// </summary>
+        /// <param name="extension">the name of the extension to look for</param>
+        /// <returns>SimpleElement, either a brand new one, or the one
+        /// returned by the service</returns>
+        public SimpleElement setPhotoExtension(string extension, string newValue) 
+        {
+            if (extension == null)
+            {
+                throw new System.ArgumentNullException("extension");
+            }
+            
+            SimpleElement ele = getPhotoExtension(extension);
+            if (ele == null)
+            {
+                ele = CreateExtension(extension, GPhotoNameTable.NSGPhotos) as SimpleElement;
+                this.ExtensionElements.Add(ele);
+            }
+            ele.Value = newValue;
+
+            return ele;
+        }
+
+        /// <summary>
+        /// returns true if the entry is a photo entry
+        /// </summary>
+        public bool IsPhoto
+        {
+            get 
+            {
+                return (this.Categories.Contains(PHOTO_CATEGORY));
+            }
+            set 
+            {
+                ToggleCategory(PHOTO_CATEGORY, value);
+            }
+        } 
+
+        /// <summary>
+        /// returns true if the entry is a comment entry
+        /// </summary>
+        public bool IsComment
+        {
+            get 
+            {
+                return (this.Categories.Contains(COMMENT_CATEGORY));
+            }
+            set 
+            {
+                ToggleCategory(COMMENT_CATEGORY, value);
+            }
+        } 
+
+        /// <summary>
+        /// returns true if the entry is an album entry
+        /// </summary>
+        public bool IsAlbum
+        {
+            get 
+            {
+                return (this.Categories.Contains(ALBUM_CATEGORY));
+            }
+            set 
+            {
+                ToggleCategory(ALBUM_CATEGORY, value);
+            }
+        } 
+
+        /// <summary>
+        /// returns true if the entry is a tag entry
+        /// </summary>
+        public bool IsTag
+        {
+            get 
+            {
+                return (this.Categories.Contains(TAG_CATEGORY));
+            }
+            set 
+            {
+                ToggleCategory(TAG_CATEGORY, value);
+            }
+        } 
 
 
 
+        /// <summary>
+        /// helper to toggle categories
+        /// </summary>
+        /// <param name="cat"></param>
+        /// <param name="value"></param>
+        private void ToggleCategory(AtomCategory cat, bool value)
+        {
+            if (value == true)
+            {
+                if (this.Categories.Contains(cat) == false)
+                {
+                    this.Categories.Add(cat);
+                }
+            } 
+            else 
+            { 
+                this.Categories.Remove(cat);
+            }
+        }
     }
 }
 

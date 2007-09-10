@@ -51,6 +51,47 @@ namespace Google.GData.Extensions.Exif {
         /// represents the tags container element
         /// </summary>
         public const string ExifTags = "tags";
+        /// <summary>
+        /// represents the distance element
+        /// </summary>
+        public const string ExifDistance = "distance";
+        /// <summary>
+        /// represents the exposure element
+        /// </summary>
+        public const string ExifExposure = "exposure";
+        /// <summary>
+        /// represents the flash element
+        /// </summary>
+        public const string ExifFlash = "flash";
+        /// <summary>
+        /// represents the focallength element
+        /// </summary>
+        public const string ExifFocalLength = "focallength";
+        /// <summary>
+        /// represents the fstop element
+        /// </summary>
+        public const string ExifFStop = "fstop";
+        /// <summary>
+        /// represents the unique ID element
+        /// </summary>
+        public const string ExifImageUniqueID = "imageUniqueID";
+        /// <summary>
+        /// represents the ISO element
+        /// </summary>
+        public const string ExifISO = "iso";
+        /// <summary>
+        /// represents the Make element
+        /// </summary>
+        public const string ExifMake = "make";
+        /// <summary>
+        /// represents the Model element
+        /// </summary>
+        public const string ExifModel = "model";
+        /// <summary>
+        /// represents the Time element
+        /// </summary>
+        public const string ExifTime = "time";
+
      }
 
     
@@ -79,7 +120,188 @@ namespace Google.GData.Extensions.Exif {
             this.ExtensionFactories.Add(new ExifModel());
             this.ExtensionFactories.Add(new ExifTime());
         }
-   }
+        /// <summary>
+        /// returns the media:credit element
+        /// </summary>
+        public ExifDistance Distance
+        {
+            get
+            {
+                return FindExtension(ExifNameTable.ExifDistance,
+                                     ExifNameTable.NSExif) as ExifDistance;
+            }
+            set
+            {
+                ReplaceExtension(ExifNameTable.ExifDistance,
+                                ExifNameTable.NSExif,
+                                value);
+            }
+        }
+    
+        /// <summary>
+        /// returns the ExifExposure element
+        /// </summary>
+        public ExifExposure Exposure
+        {
+            get
+            {
+                return FindExtension(ExifNameTable.ExifExposure,
+                                     ExifNameTable.NSExif) as ExifExposure;
+            }
+            set
+            {
+               ReplaceExtension(ExifNameTable.ExifExposure,
+                                ExifNameTable.NSExif,
+                                value);
+            }
+        }
+    
+        /// <summary>
+        /// returns the ExifFlash element
+        /// </summary>
+        public ExifFlash Flash
+        {
+            get
+            {
+                return FindExtension(ExifNameTable.ExifFlash,
+                                     ExifNameTable.NSExif) as ExifFlash;
+            }
+            set
+            {
+               ReplaceExtension(ExifNameTable.ExifFlash,
+                                ExifNameTable.NSExif,
+                                value);
+            }
+        }
+    
+        /// <summary>
+        /// returns the ExifFocalLength element
+        /// </summary>
+        public ExifFocalLength FocalLength
+        {
+            get
+            {
+                return FindExtension(ExifNameTable.ExifFocalLength,
+                                     ExifNameTable.NSExif) as ExifFocalLength;
+            }
+            set
+            {
+               ReplaceExtension(ExifNameTable.ExifFocalLength,
+                                ExifNameTable.NSExif,
+                                value);
+            }
+        }
+    
+        /// <summary>
+        /// returns the ExifFStop element
+        /// </summary>
+        public ExifFStop FStop
+        {
+            get
+            {
+                return FindExtension(ExifNameTable.ExifFStop,
+                                     ExifNameTable.NSExif) as ExifFStop;
+            }
+            set
+            {
+               ReplaceExtension(ExifNameTable.ExifFStop,
+                                ExifNameTable.NSExif,
+                                value);
+            }
+        }
+    
+        /// <summary>
+        /// returns the ExifImageUniqueID element
+        /// </summary>
+        public ExifImageUniqueID ImageUniqueID
+        {
+            get
+            {
+                return FindExtension(ExifNameTable.ExifImageUniqueID,
+                                     ExifNameTable.NSExif) as ExifImageUniqueID;
+            }
+            set
+            {
+               ReplaceExtension(ExifNameTable.ExifImageUniqueID,
+                                ExifNameTable.NSExif,
+                                value);
+            }
+        }
+
+
+        /// <summary>
+        /// returns the ExifISO element
+        /// </summary>
+        public ExifISO ISO
+        {
+            get
+            {
+                return FindExtension(ExifNameTable.ExifISO,
+                                     ExifNameTable.NSExif) as ExifISO;
+            }
+            set
+            {
+               ReplaceExtension(ExifNameTable.ExifISO,
+                                ExifNameTable.NSExif,
+                                value);
+            }
+        }
+
+        /// <summary>
+        /// returns the ExifMake element
+        /// </summary>
+        public ExifMake Make
+        {
+            get
+            {
+                return FindExtension(ExifNameTable.ExifMake,
+                                     ExifNameTable.NSExif) as ExifMake;
+            }
+            set
+            {
+               ReplaceExtension(ExifNameTable.ExifMake,
+                                ExifNameTable.NSExif,
+                                value);
+            }
+        }
+
+        /// <summary>
+        /// returns the ExifModel element
+        /// </summary>
+        public ExifModel Model
+        {
+            get
+            {
+                return FindExtension(ExifNameTable.ExifModel,
+                                     ExifNameTable.NSExif) as ExifModel;
+            }
+            set
+            {
+               ReplaceExtension(ExifNameTable.ExifModel,
+                                ExifNameTable.NSExif,
+                                value);
+            }
+        }
+
+        /// <summary>
+        /// returns the ExifTime element
+        /// </summary>
+        public ExifTime Time
+        {
+            get
+            {
+                return FindExtension(ExifNameTable.ExifTime,
+                                     ExifNameTable.NSExif) as ExifTime;
+            }
+            set
+            {
+               ReplaceExtension(ExifNameTable.ExifTime,
+                                ExifNameTable.NSExif,
+                                value);
+            }
+        }
+    }
+    // end of ExifTags
 
     /// <summary>
     /// ExifDistance schema extension describing an distance
@@ -90,7 +312,7 @@ namespace Google.GData.Extensions.Exif {
         /// basse constructor for exif:distance
         /// </summary>
         public ExifDistance()
-        : base("distance", ExifNameTable.ExifPrefix, ExifNameTable.NSExif)
+        : base(ExifNameTable.ExifDistance, ExifNameTable.ExifPrefix, ExifNameTable.NSExif)
          {}
     
         /// <summary>
@@ -98,9 +320,12 @@ namespace Google.GData.Extensions.Exif {
         /// </summary>
         /// <param name="initValue"></param>
         public ExifDistance(string initValue)
-        : base("distance", ExifNameTable.ExifPrefix, ExifNameTable.NSExif, initValue)
+        : base(ExifNameTable.ExifDistance, ExifNameTable.ExifPrefix, ExifNameTable.NSExif, initValue)
         {}
     }
+
+
+
 
     /// <summary>
     /// ExifExposure schema extension describing an exposure
@@ -111,7 +336,7 @@ namespace Google.GData.Extensions.Exif {
         /// basse constructor for exif:exposure
         /// </summary>
         public ExifExposure()
-        : base("exposure", ExifNameTable.ExifPrefix, ExifNameTable.NSExif)
+        : base(ExifNameTable.ExifExposure, ExifNameTable.ExifPrefix, ExifNameTable.NSExif)
          {}
 
         /// <summary>
@@ -119,7 +344,7 @@ namespace Google.GData.Extensions.Exif {
         /// </summary>
         /// <param name="initValue"></param>
         public ExifExposure(string initValue)
-        : base("exposure", ExifNameTable.ExifPrefix, ExifNameTable.NSExif, initValue)
+        : base(ExifNameTable.ExifExposure, ExifNameTable.ExifPrefix, ExifNameTable.NSExif, initValue)
         {}
     }
 
@@ -132,7 +357,7 @@ namespace Google.GData.Extensions.Exif {
         /// basse constructor for exif:flash
         /// </summary>
         public ExifFlash()
-        : base("flash", ExifNameTable.ExifPrefix, ExifNameTable.NSExif)
+        : base(ExifNameTable.ExifFlash, ExifNameTable.ExifPrefix, ExifNameTable.NSExif)
          {}
         
         /// <summary>
@@ -140,7 +365,7 @@ namespace Google.GData.Extensions.Exif {
         /// </summary>
         /// <param name="initValue"></param>
         public ExifFlash(string initValue)
-        : base("flash", ExifNameTable.ExifPrefix, ExifNameTable.NSExif, initValue)
+        : base(ExifNameTable.ExifFlash, ExifNameTable.ExifPrefix, ExifNameTable.NSExif, initValue)
         {}
     }
 
@@ -153,7 +378,7 @@ namespace Google.GData.Extensions.Exif {
         /// basse constructor for exif:focallength
         /// </summary>
         public ExifFocalLength()
-        : base("focallength", ExifNameTable.ExifPrefix, ExifNameTable.NSExif)
+        : base(ExifNameTable.ExifFocalLength, ExifNameTable.ExifPrefix, ExifNameTable.NSExif)
          {}
         
         /// <summary>
@@ -161,7 +386,7 @@ namespace Google.GData.Extensions.Exif {
         /// </summary>
         /// <param name="initValue"></param>
         public ExifFocalLength(string initValue)
-        : base("focallength", ExifNameTable.ExifPrefix, ExifNameTable.NSExif, initValue)
+        : base(ExifNameTable.ExifFocalLength, ExifNameTable.ExifPrefix, ExifNameTable.NSExif, initValue)
         {}
     }
 
@@ -174,14 +399,14 @@ namespace Google.GData.Extensions.Exif {
         /// basse constructor for exif:fstop
         /// </summary>
         public ExifFStop()
-        : base("fstop", ExifNameTable.ExifPrefix, ExifNameTable.NSExif)
+        : base(ExifNameTable.ExifFStop, ExifNameTable.ExifPrefix, ExifNameTable.NSExif)
          {}
         /// <summary>
         /// base constructor taking an initial value
         /// </summary>
         /// <param name="initValue"></param>
         public ExifFStop(string initValue)
-        : base("fstop", ExifNameTable.ExifPrefix, ExifNameTable.NSExif, initValue)
+        : base(ExifNameTable.ExifFStop, ExifNameTable.ExifPrefix, ExifNameTable.NSExif, initValue)
         {}
     }
 
@@ -194,14 +419,14 @@ namespace Google.GData.Extensions.Exif {
         /// basse constructor for exif:imageUniqueID
         /// </summary>
         public ExifImageUniqueID()
-        : base("imageUniqueID", ExifNameTable.ExifPrefix, ExifNameTable.NSExif)
+        : base(ExifNameTable.ExifImageUniqueID, ExifNameTable.ExifPrefix, ExifNameTable.NSExif)
          {}
         /// <summary>
         /// base constructor taking an initial value
         /// </summary>
         /// <param name="initValue"></param>
         public ExifImageUniqueID(string initValue)
-        : base("imageUniqueID", ExifNameTable.ExifPrefix, ExifNameTable.NSExif, initValue)
+        : base(ExifNameTable.ExifImageUniqueID, ExifNameTable.ExifPrefix, ExifNameTable.NSExif, initValue)
         {}
     }
 
@@ -214,14 +439,14 @@ namespace Google.GData.Extensions.Exif {
         /// basse constructor for exif:iso
         /// </summary>
         public ExifISO()
-        : base("iso", ExifNameTable.ExifPrefix, ExifNameTable.NSExif)
+        : base(ExifNameTable.ExifISO, ExifNameTable.ExifPrefix, ExifNameTable.NSExif)
          {}
         /// <summary>
         /// base constructor taking an initial value
         /// </summary>
         /// <param name="initValue"></param>
         public ExifISO(string initValue)
-        : base("iso", ExifNameTable.ExifPrefix, ExifNameTable.NSExif, initValue)
+        : base(ExifNameTable.ExifISO, ExifNameTable.ExifPrefix, ExifNameTable.NSExif, initValue)
         {}
     }
 
@@ -234,14 +459,14 @@ namespace Google.GData.Extensions.Exif {
         /// basse constructor for exif:make
         /// </summary>
         public ExifMake()
-        : base("make", ExifNameTable.ExifPrefix, ExifNameTable.NSExif)
+        : base(ExifNameTable.ExifMake, ExifNameTable.ExifPrefix, ExifNameTable.NSExif)
          {}
         /// <summary>
         /// base constructor taking an initial value
         /// </summary>
         /// <param name="initValue"></param>
         public ExifMake(string initValue)
-        : base("make", ExifNameTable.ExifPrefix, ExifNameTable.NSExif, initValue)
+        : base(ExifNameTable.ExifMake, ExifNameTable.ExifPrefix, ExifNameTable.NSExif, initValue)
         {}
     }
 
@@ -254,14 +479,14 @@ namespace Google.GData.Extensions.Exif {
         /// basse constructor for exif:model
         /// </summary>
         public ExifModel()
-        : base("model", ExifNameTable.ExifPrefix, ExifNameTable.NSExif)
+        : base(ExifNameTable.ExifModel, ExifNameTable.ExifPrefix, ExifNameTable.NSExif)
          {}
         /// <summary>
         /// base constructor taking an initial value
         /// </summary>
         /// <param name="initValue"></param>
         public ExifModel(string initValue)
-        : base("model", ExifNameTable.ExifPrefix, ExifNameTable.NSExif, initValue)
+        : base(ExifNameTable.ExifModel, ExifNameTable.ExifPrefix, ExifNameTable.NSExif, initValue)
         {}
     }
 
@@ -274,14 +499,14 @@ namespace Google.GData.Extensions.Exif {
         /// basse constructor for exif:time
         /// </summary>
         public ExifTime()
-        : base("time", ExifNameTable.ExifPrefix, ExifNameTable.NSExif)
+        : base(ExifNameTable.ExifTime, ExifNameTable.ExifPrefix, ExifNameTable.NSExif)
          {}
         /// <summary>
         /// base constructor taking an initial value
         /// </summary>
         /// <param name="initValue"></param>
         public ExifTime(string initValue)
-        : base("time", ExifNameTable.ExifPrefix, ExifNameTable.NSExif, initValue)
+        : base(ExifNameTable.ExifTime, ExifNameTable.ExifPrefix, ExifNameTable.NSExif, initValue)
         {}
     }
 }

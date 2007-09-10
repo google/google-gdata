@@ -303,12 +303,12 @@ namespace Google.GData.Client
         /// <summary>standard typed accessor method </summary> 
         public int Add( AtomCategory value )  
         {
-	    // Remove category with the same term to avoid duplication.
-	    AtomCategory oldCategory = FindCategory(value.Term);
-	    if (oldCategory != null)
-	    {
-	        List.Remove(oldCategory);
-	    }
+    	    // Remove category with the same term to avoid duplication.
+    	    AtomCategory oldCategory = Find(value.Term, value.Scheme);
+    	    if (oldCategory != null)
+    	    {
+    	        List.Remove(oldCategory);
+    	    }
             return( List.Add( value ) );
         }
         /// <summary>standard typed accessor method </summary> 
@@ -326,29 +326,59 @@ namespace Google.GData.Client
         {
             List.Remove( value );
         }
+
+        /// <summary>
+        /// finds the first category with this term
+        /// ignoring schemes
+        /// </summary>
+        /// <param name="term">the category term to search for</param>
+        /// <returns>AtomCategory</returns>
+        public AtomCategory Find(string term)
+        {
+            return Find(term, null);
+        }
+
+        /// <summary>
+        /// finds a category with a given term and scheme
+        /// </summary>
+        /// <param name="term"></param>
+        /// <param name="scheme"></param>
+        /// <returns>AtomCategory or NULL</returns>
+        public AtomCategory Find(string term, AtomUri scheme)
+        {
+            foreach (AtomCategory category in List)
+            {
+                if (scheme == null || scheme == category.Scheme)
+                {
+                    if (term == category.Term)
+                    {
+                        return category;
+                    }
+                }
+            }
+            return null;
+        }
+
         /// <summary>standard typed accessor method </summary> 
         public bool Contains( AtomCategory value )  
         {
+            if (value == null)
+            {
+                 return( List.Contains( value ) );
+            }
             // If value is not of type AtomCategory, this will return false.
-            return( List.Contains( value ) );
+            if (Find(value.Term, value.Scheme) != null)
+            {
+                return true;
+            }
+            return false;
+
         }
         /// <summary>standard typed accessor method </summary> 
         protected override void OnValidate( Object value )  
         {
             if ( value.GetType() != Type.GetType("Google.GData.Client.AtomCategory") )
                 throw new ArgumentException( "value must be of type Google.GData.Client.AtomCategory.", "value" );
-        }
-    	/// <summary>retrieves the first category with the matching value</summary>
-    	protected virtual AtomCategory FindCategory(string term)
-    	{
-    	    foreach (AtomCategory category in List)
-    	    {
-    	        if (term == category.Term)
-                {
-                    return category;
-                }
-    	    }
-            return null;
         }
     }
     /////////////////////////////////////////////////////////////////////////////

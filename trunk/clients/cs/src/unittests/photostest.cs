@@ -167,6 +167,22 @@ namespace Google.GData.Client.LiveTests
                         if (group != null)
                         {
                             Tracing.TraceMsg("Found a media Group");
+                            if (group.Title != null)
+                            {
+                                Tracing.TraceMsg(group.Title.Value);
+                            }
+                            if (group.Keywords != null)
+                            {
+                                Tracing.TraceMsg(group.Keywords.Value);
+                            }
+                            if (group.Credit != null)
+                            {
+                                Tracing.TraceMsg(group.Credit.Value);
+                            }
+                            if (group.Description != null)
+                            {
+                                Tracing.TraceMsg(group.Description.Value);
+                            }
                         }
 
                     }
@@ -207,7 +223,9 @@ namespace Google.GData.Client.LiveTests
                     Assert.IsTrue(album.FeedUri != null, "the albumfeed needs a feed URI, no photo post on that one");
                     Uri postUri = new Uri(album.FeedUri.ToString());
                     FileStream fs = File.OpenRead("testnet.jpg");
-                    service.Insert(postUri, fs, "image/jpeg", "testnet.jpg");
+                    PhotoEntry entry = service.Insert(postUri, fs, "image/jpeg", "testnet.jpg") as PhotoEntry;
+
+                    Assert.IsTrue(entry.IsPhoto, "the new entry should be a photo entry");
                 }
             }
         }

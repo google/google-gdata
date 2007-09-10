@@ -193,93 +193,92 @@ namespace Google.GData.Extensions {
         #region overloaded from IExtensionElementFactory
         //////////////////////////////////////////////////////////////////////
         /// <summary>Parses an xml node to create a Who object.</summary> 
-        /// <param name="node">georsswhere node</param>
-        /// <param name="parser">AtomFeedParser to use</param>
+        /// <param name="node">the node to parse node</param>
         /// <returns>the created GeoRSSWhere object</returns>
         //////////////////////////////////////////////////////////////////////
-        public IExtensionElement CreateInstance(XmlNode node, AtomFeedParser parser)
+        public IExtensionElement CreateInstance(XmlNode node)
         {
             Tracing.TraceCall();
             Reminder reminder = null;
-            Tracing.Assert(node != null, "node should not be null");
-            if (node == null)
+          
+            if (node != null)
             {
-                throw new ArgumentNullException("node");
-            }
-
-            bool absoluteFlag = false;
-            object localname = node.LocalName;
-            if (localname.Equals(XmlName))
-            {
-                reminder = new Reminder();
-                if (node.Attributes != null)
+                object localname = node.LocalName;
+                if (localname.Equals(this.XmlName) == false ||
+                    node.NamespaceURI.Equals(this.XmlNameSpace) == false)
                 {
-                    if (node.Attributes[GDataParserNameTable.XmlAttributeAbsoluteTime] != null)
-                    {
-                        try
-                        {
-                            absoluteFlag = true;
-                            reminder.AbsoluteTime =
-                            DateTime.Parse(node.Attributes[GDataParserNameTable.XmlAttributeAbsoluteTime].Value);
-                        }
-                        catch (FormatException fe)
-                        {
-                            throw new ArgumentException("Invalid g:reminder/@absoluteTime.", fe);
-                        }
-                    }
-
-                    if (node.Attributes[GDataParserNameTable.XmlAttributeDays] != null)
-                    {
-                        try
-                        {
-                            reminder.Days = Int32.Parse(node.Attributes[GDataParserNameTable.XmlAttributeDays].Value);
-                        }
-                        catch (FormatException fe)
-                        {
-                            throw new ArgumentException("Invalid g:reminder/@days.", fe);
-                        }
-                    }
-
-                    if (node.Attributes[GDataParserNameTable.XmlAttributeHours] != null)
-                    {
-                        try
-                        {
-                            reminder.Hours = Int32.Parse(node.Attributes[GDataParserNameTable.XmlAttributeHours].Value);
-                        }
-                        catch (FormatException fe)
-                        {
-                            throw new ArgumentException("Invalid g:reminder/@hours.", fe);
-                        }
-                    }
-
-                    if (node.Attributes[GDataParserNameTable.XmlAttributeMinutes] != null)
-                    {
-                        try
-                        {
-                            reminder.Minutes = Int32.Parse(node.Attributes[GDataParserNameTable.XmlAttributeMinutes].Value);
-                        }
-                        catch (FormatException fe)
-                        {
-                            throw new ArgumentException("Invalid g:reminder/@minutes.", fe);
-                        }
-                    }
-
-                    if (node.Attributes[GDataParserNameTable.XmlAttributeMethod] != null)
-                    {
-                        try
-                        {
-                            reminder.Method = (ReminderMethod)Enum.Parse(typeof(ReminderMethod), 
-                                                                         node.Attributes[GDataParserNameTable.XmlAttributeMethod].Value,
-                                                                         true);
-                        }
-                        catch (Exception e)
-                        {
-                            throw new ArgumentException("Invalid g:reminder/@method.", e);
-                        }
-                    }
+                    return null;
                 }
             }
 
+            bool absoluteFlag = false;
+            reminder = new Reminder();
+            if (node.Attributes != null)
+            {
+                if (node.Attributes[GDataParserNameTable.XmlAttributeAbsoluteTime] != null)
+                {
+                    try
+                    {
+                        absoluteFlag = true;
+                        reminder.AbsoluteTime =
+                        DateTime.Parse(node.Attributes[GDataParserNameTable.XmlAttributeAbsoluteTime].Value);
+                    }
+                    catch (FormatException fe)
+                    {
+                        throw new ArgumentException("Invalid g:reminder/@absoluteTime.", fe);
+                    }
+                }
+
+                if (node.Attributes[GDataParserNameTable.XmlAttributeDays] != null)
+                {
+                    try
+                    {
+                        reminder.Days = Int32.Parse(node.Attributes[GDataParserNameTable.XmlAttributeDays].Value);
+                    }
+                    catch (FormatException fe)
+                    {
+                        throw new ArgumentException("Invalid g:reminder/@days.", fe);
+                    }
+                }
+
+                if (node.Attributes[GDataParserNameTable.XmlAttributeHours] != null)
+                {
+                    try
+                    {
+                        reminder.Hours = Int32.Parse(node.Attributes[GDataParserNameTable.XmlAttributeHours].Value);
+                    }
+                    catch (FormatException fe)
+                    {
+                        throw new ArgumentException("Invalid g:reminder/@hours.", fe);
+                    }
+                }
+
+                if (node.Attributes[GDataParserNameTable.XmlAttributeMinutes] != null)
+                {
+                    try
+                    {
+                        reminder.Minutes = Int32.Parse(node.Attributes[GDataParserNameTable.XmlAttributeMinutes].Value);
+                    }
+                    catch (FormatException fe)
+                    {
+                        throw new ArgumentException("Invalid g:reminder/@minutes.", fe);
+                    }
+                }
+
+                if (node.Attributes[GDataParserNameTable.XmlAttributeMethod] != null)
+                {
+                    try
+                    {
+                        reminder.Method = (ReminderMethod)Enum.Parse(typeof(ReminderMethod), 
+                                                                     node.Attributes[GDataParserNameTable.XmlAttributeMethod].Value,
+                                                                     true);
+                    }
+                    catch (Exception e)
+                    {
+                        throw new ArgumentException("Invalid g:reminder/@method.", e);
+                    }
+                }
+            }
             if ((reminder.Days == 0 ? 0 : 1) +
                 (reminder.Hours == 0 ? 0 : 1) +
                 (reminder.Minutes == 0 ? 0 : 1) +
