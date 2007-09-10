@@ -99,7 +99,6 @@ namespace Google.GData.Client.LiveTests
                 AtomFeed feed = service.Query(query);
 
                 ObjectModelHelper.DumpAtomObject(feed,CreateDumpFileName("PhotoAuthTest")); 
-                iCount = feed.Entries.Count; 
 
                 if (feed != null && feed.Entries.Count > 0)
                 {
@@ -141,8 +140,7 @@ namespace Google.GData.Client.LiveTests
                 PhotoFeed feed = service.Query(query);
 
                 ObjectModelHelper.DumpAtomObject(feed,CreateDumpFileName("PhotoAuthTest")); 
-                iCount = feed.Entries.Count; 
-
+     
                 if (feed != null && feed.Entries.Count > 0)
                 {
                     Tracing.TraceMsg("Found a Feed " + feed.ToString());

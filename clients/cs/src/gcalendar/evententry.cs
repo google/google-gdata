@@ -281,6 +281,46 @@ namespace Google.GData.Calendar {
             }
         }
 
+         /// <summary>
+        ///  indicates if this new entry should be a quickadd
+        /// false by default
+        /// </summary>
+        public class QuickAddElement : EnumConstruct
+        {
+            /// <summary>
+            ///  default constructor
+            /// </summary>
+            public QuickAddElement()
+            : base(GDataParserNameTable.XmlQuickAddElement)
+            {
+            }
+
+            /// <summary>
+            ///  constructor with a default string value
+            /// </summary>
+            /// <param name="value">transparency value</param>
+            public QuickAddElement(string value)
+            : base(GDataParserNameTable.XmlQuickAddElement, value)
+            {
+            }
+
+            //////////////////////////////////////////////////////////////////////
+            /// <summary>Returns the constant representing this XML element.</summary> 
+            //////////////////////////////////////////////////////////////////////
+            public override string XmlNamespace
+            {
+                get { return GDataParserNameTable.NSGCal; }
+            }
+            //////////////////////////////////////////////////////////////////////
+            /// <summary>Returns the constant representing this XML element.</summary> 
+            //////////////////////////////////////////////////////////////////////
+            public override string XmlNamespacePrefix
+            {
+                get { return GDataParserNameTable.gCalPrefix; }
+            }
+        }
+
+
 
 #region EventEntry Attributes
 
@@ -295,6 +335,7 @@ namespace Google.GData.Calendar {
         private Comments comments;
         private RecurrenceException exception; 
         private SendNotifications sendNotifications;
+        private QuickAddElement quickAdd;
 
 #endregion
 
@@ -341,7 +382,8 @@ namespace Google.GData.Calendar {
         }
 
         /// <summary>
-        ///  property accessor for the Event Visibility 
+        ///  property accessor for the Eventnotifications
+        ///  set this to True for notfications to be send 
         /// </summary>
         public bool Notifications
         {
@@ -375,8 +417,49 @@ namespace Google.GData.Calendar {
 
                 }
             }
-
         }
+
+
+        /// <summary>
+        ///  property accessor QuickAdd
+        /// To create an event using Google Calendar's quick add feature, set the event 
+        /// entry's content to the quick add string you'd like to use. Then add a 
+        /// <gCal:quickadd> element with a value attribute set to true
+        /// </summary>
+        public bool QuickAdd
+        {
+            get { 
+                    if (this.quickAdd == null)
+                    {
+                        return false;
+                    }
+                    return this.quickAdd.Value == "true"; 
+                }
+
+            set 
+            {
+                if (value == true)
+                {
+
+                    if (this.quickAdd == null)
+                    {
+                        this.quickAdd = new QuickAddElement(); 
+                        ExtensionElements.Add(this.quickAdd);
+                    }
+                    this.quickAdd.Value = "true"; 
+                }
+                else 
+                {
+                    if (this.quickAdd != null)
+                    {
+                        ExtensionElements.Remove(this.quickAdd);
+                        this.quickAdd = null; 
+                    }
+                }
+            }
+        }
+
+
 
 
         /// <summary>
