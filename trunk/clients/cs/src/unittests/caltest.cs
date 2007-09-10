@@ -423,6 +423,59 @@ namespace Google.GData.Client.LiveTests
         }
         /////////////////////////////////////////////////////////////////////////////
 
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>runs an authentication test</summary> 
+        //////////////////////////////////////////////////////////////////////
+        [Test] public void CalendarQuickAddTest()
+        {
+            Tracing.TraceMsg("Entering CalendarQuickAddTest");
+
+            EventQuery query = new EventQuery();
+            CalendarService service = new CalendarService(this.ApplicationName);
+
+            int iCount; 
+
+            if (this.defaultCalendarUri != null)
+            {
+                if (this.userName != null)
+                {
+                    service.Credentials = new GDataCredentials(this.userName, this.passWord);
+                }
+
+                GDataLoggingRequestFactory factory = (GDataLoggingRequestFactory) this.factory;
+                factory.MethodOverride = true;
+                service.RequestFactory = this.factory; 
+
+                query.Uri = new Uri(this.defaultCalendarUri);
+                EventFeed calFeed = service.Query(query) as EventFeed;
+
+                iCount = calFeed.Entries.Count; 
+
+                String strTitle = "Dinner & time" + Guid.NewGuid().ToString(); 
+
+                if (calFeed != null)
+                {
+                    // get the first entry
+                    EventEntry entry  = new EventEntry();
+                    entry.Title.Text = "Dinner with Sabine, Oct 1st, 10pm";
+                    entry.Title.Type = AtomTextConstructType.html;
+                    entry.QuickAdd = true;
+
+
+                    EventEntry newEntry = (EventEntry) calFeed.Insert(entry); 
+
+                    Assert.IsTrue(newEntry.Title.Text.Equals(entry.Title.Text), "both titles should be identical"); 
+
+                }
+                service.Credentials = null; 
+                factory.MethodOverride = false;
+            }
+
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+       
        //////////////////////////////////////////////////////////////////////
         /// <summary>Tests the reminder method property</summary> 
         //////////////////////////////////////////////////////////////////////
