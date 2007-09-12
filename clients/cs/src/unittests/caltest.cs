@@ -458,8 +458,8 @@ namespace Google.GData.Client.LiveTests
                 {
                     // get the first entry
                     EventEntry entry  = new EventEntry();
-                    entry.Title.Text = "Dinner with Sabine, Oct 1st, 10pm";
-                    entry.Title.Type = AtomTextConstructType.html;
+                    entry.Content.Content = "Dinner with Sabine, Oct 1st, 10pm";
+                    entry.Content.Type = "html";
                     entry.QuickAdd = true;
 
 

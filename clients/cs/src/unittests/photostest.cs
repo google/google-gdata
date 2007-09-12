@@ -245,7 +245,7 @@ namespace Google.GData.Client.LiveTests
                 {
                     DumpSimpleElement(s);
 
-                    SimpleContainer sc = s as SimpleContainer;
+                    SimpleContainer sc = o as SimpleContainer;
 
                     if (sc != null)
                     {

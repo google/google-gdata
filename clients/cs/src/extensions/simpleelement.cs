@@ -24,17 +24,13 @@ namespace Google.GData.Extensions {
 
     /// <summary>
     /// Extensible enum type used in many places.
+    /// compared to the base class, this one
+    /// adds a default values
     /// </summary>
-    public abstract class SimpleElement : IExtensionElement, IExtensionElementFactory
+    public abstract class SimpleElement : ExtensionBase
     {
 
-        private string xmlName;
-        private string xmlPrefix;
-        private string xmlNamespace;
         private string value;
-        private SortedList attributes;
-
-
 
         /// <summary>
         /// constructor
@@ -43,11 +39,11 @@ namespace Google.GData.Extensions {
         /// <param name="prefix">the xml prefix</param>
         /// <param name="ns">the xml namespace</param>
         protected SimpleElement(string name, string prefix, string ns)
+                    :base(name, prefix,ns)
         {
-            this.xmlName = name;
-            this.xmlPrefix = prefix;
-            this.xmlNamespace = ns;
         }
+
+
 
         /// <summary>
         /// constructor
@@ -57,10 +53,8 @@ namespace Google.GData.Extensions {
         /// <param name="ns">the xml namespace</param>
         /// <param name="value">the intial value</param>
         protected SimpleElement(string name, string prefix, string ns, string value)
+                    :base(name, prefix, ns)
         {
-            this.xmlName = name;
-            this.xmlPrefix = prefix;
-            this.xmlNamespace = ns;
             this.value = value;
         }
 
@@ -74,11 +68,7 @@ namespace Google.GData.Extensions {
         {
             get 
             {
-                if (this.attributes == null)
-                {
-                    this.attributes = new SortedList();
-                }
-                return this.attributes;
+                return getAttributes();
             }
             set {this.attributes = value;}
         }
@@ -114,29 +104,6 @@ namespace Google.GData.Extensions {
    
         #region overloaded for persistence
 
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>Returns the constant representing this XML element.</summary> 
-        //////////////////////////////////////////////////////////////////////
-        public string XmlName
-        {
-            get { return this.xmlName; }
-        }
-
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>Returns the constant representing this XML element.</summary> 
-        //////////////////////////////////////////////////////////////////////
-        public string XmlNameSpace
-        {
-            get { return this.xmlNamespace; }
-        }
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>Returns the constant representing this XML element.</summary> 
-        //////////////////////////////////////////////////////////////////////
-        public string XmlPrefix
-        {
-            get { return this.xmlPrefix; }
-        }
-
         /// <summary>
         /// debugging helper
         /// </summary>
@@ -152,7 +119,7 @@ namespace Google.GData.Extensions {
         /// <param name="node">the xml parses node, can be NULL</param>
         /// <returns>the created SimpleElement object</returns>
         //////////////////////////////////////////////////////////////////////
-        public virtual IExtensionElement CreateInstance(XmlNode node) 
+        public override IExtensionElement CreateInstance(XmlNode node) 
         {
             Tracing.TraceCall();
 
@@ -180,87 +147,17 @@ namespace Google.GData.Extensions {
             return e;
         }
 
+        
         /// <summary>
-        /// used to copy the attribute lists over
+        /// saves out the value, get's called from Save
         /// </summary>
-        /// <param name="factory"></param>
-        internal void InitInstance(SimpleElement factory)
+        /// <param name="writer"></param>
+        public override void SaveInnerXml(XmlWriter writer)
         {
-            this.attributes = null;
-            for (int i=0; i < factory.Attributes.Count; i++)
-            {
-                string name = factory.Attributes.GetKey(i) as string;
-                string value = factory.Attributes.GetByIndex(i) as string;
-                this.Attributes.Add(name, value);
-            }
-        }
-
-        /// <summary>
-        /// default method override to handle attribute processing
-        /// the base implementation does process the attributes list
-        /// and reads all that are in there.
-        /// </summary>
-        /// <param name="node">XmlNode with attributes</param>
-        public virtual void ProcessAttributes(XmlNode node)
-        {
-            if (this.attributes != null)
-            {
-                for (int i=0; i < this.Attributes.Count; i++)
-                {
-                    string name = this.Attributes.GetKey(i) as string;
-                    string value = getAttribute(node, name);
-                    if (value != null)
-                    {
-                        this.Attributes[name] = value;
-                    }
-                }
-                return;
-            }
-        }
-
-        /// <summary>
-        /// helper method to extract an attribute as string from
-        /// an xmlnode using the passed in node and the attributename
-        /// </summary>
-        /// <param name="node">node to extract attribute from</param>
-        /// <param name="attributeName">the name of the attribute</param>
-        /// <returns>string - null if attribute is not present</returns>
-        protected string getAttribute(XmlNode node, string attributeName)
-        { 
-            string retValue = null;
-
-            if (node.Attributes != null)
-            {
-                if (node.Attributes[attributeName] != null)
-                {
-                    retValue = node.Attributes[attributeName].Value;
-                }
-            }
-            return retValue;
-        }
-      
-        /// <summary>
-        /// Persistence method for the EnumConstruct object
-        /// </summary>
-        /// <param name="writer">the xmlwriter to write into</param>
-        public virtual void Save(XmlWriter writer)
-        {
-            writer.WriteStartElement(XmlPrefix, XmlName, XmlNameSpace);
-            if (this.attributes != null)
-            {
-                for (int i=0; i < this.Attributes.Count; i++)
-                {
-                    string name = this.Attributes.GetKey(i) as string;
-                    string value = this.Attributes.GetByIndex(i) as string;
-                    writer.WriteAttributeString(name, value);
-                }
-            }
-
             if (this.value != null)
             {
                 writer.WriteString(this.value);
             }
-            writer.WriteEndElement();
         }
         #endregion
     }
