@@ -88,6 +88,7 @@ namespace Google.GData.Client.Samples
             }
             else 
             {
+                Console.WriteLine("Setting user credentials for: " + userName);
                 service.setUserCredentials(userName, passWord);
             }
 
@@ -95,6 +96,7 @@ namespace Google.GData.Client.Samples
             {
                 if (cmd.Equals("QUERY"))
                 {
+                    Console.WriteLine("Querying: " + targetUri);
                     Stream result = service.Query(new Uri(targetUri));
                     DumpStream(result);
                 }
