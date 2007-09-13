@@ -50,6 +50,41 @@ namespace Google.GData.Calendar {
             participants = new WhoCollection(this);
         }
 
+        /// <summary>
+        /// Constructs a new EventEntry instance with provided data.
+        /// </summary>
+        /// <param name="title">The descriptive title of the event ("What" in the UI)</param>
+        public EventEntry(string title) : this()
+        {
+            this.Title.Text = title;
+        }
+
+        /// <summary>
+        /// Constructs a new EventEntry instance with provided data.
+        /// </summary>
+        /// <param name="title">The descriptive title of the event ("What" in the UI)</param>
+        /// <param name="description">A longer description of the event 
+        /// ("Description" in the UI)</param>
+        public EventEntry(string title, string description) : this(title)
+        {
+            this.Content.Content = description;
+        }
+
+        /// <summary>
+        /// Constructs a new EventEntry instance with provided data.
+        /// </summary>
+        /// <param name="title">The descriptive title of the event ("What" in the UI)</param>
+        /// <param name="description">A longer description of the event 
+        /// ("Description" in the UI)</param>
+        /// <param name="location">The location of the event ("Where" in the UI)</param>
+        public EventEntry(string title, string description, string location)
+            : this(title, description)
+        {
+            Where eventLocation = new Where();
+            eventLocation.ValueString = location;
+            this.Locations.Add(eventLocation);
+        }
+
 
         /// <summary>
         /// Constructs a new EventStatus  instance
@@ -766,4 +801,5 @@ namespace Google.GData.Calendar {
 
     }
 }
+
 

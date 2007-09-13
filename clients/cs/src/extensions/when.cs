@@ -53,6 +53,35 @@ namespace Google.GData.Extensions
         /// </summary>
         protected ArrayList reminders;
 
+        /// <summary>
+        /// Constructs a new instance of a When object.
+        /// </summary>
+        public When() : base()
+        {
+        }
+
+        /// <summary>
+        /// Constructs a new instance of a When object with provided data.
+        /// </summary>
+        /// <param name="start">The beginning of the event.</param>
+        /// <param name="end">The end of the event.</param>
+        public When(DateTime start, DateTime end) : this()
+        {
+            this.StartTime = start;
+            this.EndTime = end;
+        }
+
+        /// <summary>
+        /// Constructs a new instance of a When object with provided data.
+        /// </summary>
+        /// <param name="start">The beginning of the event.</param>
+        /// <param name="end">The end of the event.</param>
+        /// <param name="allDay">A flag to indicate an all day event.</param>
+        public When(DateTime start, DateTime end, bool allDay) : this(start, end)
+        {
+            this.AllDay = allDay;
+        }
+
         //////////////////////////////////////////////////////////////////////
         /// <summary>accessor method public DateTime StartTime</summary> 
         /// <returns> </returns>
