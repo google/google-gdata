@@ -465,7 +465,7 @@ namespace Google.GData.Client.LiveTests
 
                     EventEntry newEntry = (EventEntry) calFeed.Insert(entry); 
 
-                    Assert.IsTrue(newEntry.Title.Text.Equals(entry.Title.Text), "both titles should be identical"); 
+                    Assert.IsTrue(newEntry.Title.Text.StartsWith("Dinner with Sabine"), "both titles should be identical" + newEntry.Title.Text); 
 
                 }
                 service.Credentials = null; 

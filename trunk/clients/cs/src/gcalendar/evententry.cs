@@ -427,7 +427,7 @@ namespace Google.GData.Calendar {
                     {
                         return false;
                     }
-                    return this.sendNotifications.Value == "true"; 
+                    return this.sendNotifications.Value == Utilities.XSDTrue;
                 }
 
             set 
@@ -440,7 +440,7 @@ namespace Google.GData.Calendar {
                         this.sendNotifications = new SendNotifications(); 
                         ExtensionElements.Add(this.sendNotifications);
                     }
-                    this.sendNotifications.Value = "true"; 
+                    this.sendNotifications.Value = Utilities.XSDTrue;
                 }
                 else 
                 {
@@ -481,7 +481,7 @@ namespace Google.GData.Calendar {
                         this.quickAdd = new QuickAddElement(); 
                         ExtensionElements.Add(this.quickAdd);
                     }
-                    this.quickAdd.Value = "true"; 
+                    this.quickAdd.Value = Utilities.XSDTrue;
                 }
                 else 
                 {

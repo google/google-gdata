@@ -105,7 +105,12 @@
     <li>Added new methods on the AtomCategoyr collection. Find searches for 
         a category of a given term, or a term/scheme combination. Also changed
         the implementation of the Contains method to compare not just object
-        fidelity, but also term/value pairs</li>
+        fidelity, but also term/value pairs
+        </li>
+    <li>Added a ConvertToXSDSTring() helper in the Utilites class. As booleans 
+        are represented as "True"/"False" in .NET, and xsd requires 
+        "true"/"false" this helper takes care of that conversion.
+        </li>
 </ul>
 
 <h2>1.0.9.9</h2>
