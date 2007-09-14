@@ -211,7 +211,7 @@ namespace Google.GData.GoogleBase
                             break;
 
                         case RefineParameter:
-                            this.refine = "true".Equals(parameters[1]);
+                            this.refine = Utilities.XSDTrue.Equals(parameters[1]);
                             break;
 
                         case ContentParameter:

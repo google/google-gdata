@@ -275,7 +275,7 @@ namespace Google.GData.GoogleBase {
         {
             return Add(new GBaseAttribute(name,
                                           GBaseAttributeType.Boolean,
-                                          value ? "true":"false"));
+                                          value ? Utilities.XSDTrue : Utilities.XSDFalse));
         }
 
         ///////////////////////////////////////////////////////////////////////

@@ -128,7 +128,7 @@ namespace Google.GData.Extensions {
 
                     if (node.Attributes[GDataParserNameTable.XmlAttributeReadOnly] != null)
                     {
-                        link.ReadOnly = node.Attributes[GDataParserNameTable.XmlAttributeReadOnly].Value.Equals("true");
+                        link.ReadOnly = node.Attributes[GDataParserNameTable.XmlAttributeReadOnly].Value.Equals(Utilities.XSDTrue);
                     }
                     if (node.Attributes[GDataParserNameTable.XmlAttributeRel] != null)
                     {
@@ -207,16 +207,17 @@ namespace Google.GData.Extensions {
                 // do not save the default
                 if (this.readOnlySet)
                 {
-                    writer.WriteAttributeString(GDataParserNameTable.XmlAttributeReadOnly, this.ReadOnly.ToString());
+                    writer.WriteAttributeString(GDataParserNameTable.XmlAttributeReadOnly, 
+                                                Utilities.ConvertBooleanToXSDString(this.ReadOnly));
                 }
                 if (Utilities.IsPersistable(this.Rel))
                 {
                     writer.WriteAttributeString(GDataParserNameTable.XmlAttributeRel, this.Rel);
                 }
 
-                if (countHint > -1)
+                if (this.countHint > -1)
                 {
-                    writer.WriteAttributeString(GDataParserNameTable.XmlAttributeCountHint, this.ReadOnly.ToString());
+                    writer.WriteAttributeString(GDataParserNameTable.XmlAttributeCountHint, this.countHint.ToString());
                 }
     
                 if (Feed != null)

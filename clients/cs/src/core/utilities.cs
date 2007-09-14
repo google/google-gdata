@@ -34,6 +34,16 @@ namespace Google.GData.Client
     //////////////////////////////////////////////////////////////////////
     public sealed class Utilities
     {
+
+        /// <summary>
+        /// xsd version of bool:true
+        /// </summary>
+        public const string XSDTrue = "true";
+        /// <summary>
+        /// xsd version of bool:false
+        /// </summary>
+        public const string XSDFalse = "false";
+
         //////////////////////////////////////////////////////////////////////
         /// <summary>private constructor to prevent the compiler from generating a default one</summary> 
         //////////////////////////////////////////////////////////////////////
@@ -69,6 +79,39 @@ namespace Google.GData.Client
             return testDate == Utilities.EmptyDate ? false : true;
         }
 
+        /// <summary>
+        /// .NET treats bool as True/False as the default
+        /// string representation. XSD requires true/false
+        /// this method encapsulates this
+        /// </summary>
+        /// <param name="flag">the boolean to convert</param>
+        /// <returns>"true" or "false"</returns>
+        public static string ConvertBooleanToXSDString(bool flag)
+        {
+            return flag ? Utilities.XSDTrue : Utilities.XSDFalse;
+        }
+
+
+        /// <summary>
+        /// .NET treats bool as True/False as the default
+        /// string representation. XSD requires true/false
+        /// this method encapsulates this
+        /// </summary>
+        /// <param name="flag">the object to convert</param>
+        /// <returns>the string representation</returns>
+        public static string ConvertToXSDString(Object obj)
+        {
+            if (obj is bool)
+            {
+                return ConvertBooleanToXSDString((bool) obj);
+            }
+            return Convert.ToString(obj);
+        }
+
+
+
+
+
 
 
         //////////////////////////////////////////////////////////////////////
@@ -92,7 +135,6 @@ namespace Google.GData.Client
             String utf8String = new String(utf8Chars); 
 
             return utf8String; 
-        
         }
 
 

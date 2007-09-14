@@ -101,24 +101,48 @@ namespace Google.GData.Extensions {
         }
 
 
-        //////////////////////////////////////////////////////////////////////
+         //////////////////////////////////////////////////////////////////////
         /// <summary>Parses an xml node to create a Who object.</summary> 
         /// <param name="node">the xml parses node, can be NULL</param>
-        /// <returns>the created SimpleElement object</returns>
+        /// <returns>the created IExtensionElement object</returns>
         //////////////////////////////////////////////////////////////////////
-        public abstract IExtensionElement CreateInstance(XmlNode node);
+        public virtual IExtensionElement CreateInstance(XmlNode node) 
+        {
+            Tracing.TraceCall();
+
+            ExtensionBase e = null;
+
+            if (node != null)
+            {
+                object localname = node.LocalName;
+                if (localname.Equals(this.XmlName) == false ||
+                    node.NamespaceURI.Equals(this.XmlNameSpace) == false)
+                {
+                    return null;
+                }
+            }
+            
+            // memberwise close is fine here, as everything is identical beside the value
+            e = this.MemberwiseClone() as ExtensionBase;
+            e.InitInstance(this);
+            if (node.Attributes != null)
+            {
+                e.ProcessAttributes(node);
+            }
+            return e;
+        }
   
         /// <summary>
         /// used to copy the attribute lists over
         /// </summary>
         /// <param name="factory"></param>
-        internal void InitInstance(SimpleElement factory)
+        internal void InitInstance(ExtensionBase factory)
         {
             this.attributes = null;
-            for (int i=0; i < factory.Attributes.Count; i++)
+            for (int i=0; i < factory.getAttributes().Count; i++)
             {
-                string name = factory.Attributes.GetKey(i) as string;
-                string value = factory.Attributes.GetByIndex(i) as string;
+                string name = factory.getAttributes().GetKey(i) as string;
+                string value = factory.getAttributes().GetByIndex(i) as string;
                 this.getAttributes().Add(name, value);
             }
         }
@@ -179,7 +203,7 @@ namespace Google.GData.Extensions {
                 for (int i=0; i < this.getAttributes().Count; i++)
                 {
                     string name = this.getAttributes().GetKey(i) as string;
-                    string value = this.getAttributes().GetByIndex(i) as string;
+                    string value = Utilities.ConvertToXSDString(this.getAttributes().GetByIndex(i));
                     writer.WriteAttributeString(name, value);
                 }
             }

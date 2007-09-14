@@ -172,8 +172,7 @@ namespace Google.GData.Extensions {
                 }
             }
 
-            SimpleContainer sc = null;
-            
+            SimpleContainer sc = null;            
             // create a new container
             sc = this.MemberwiseClone() as SimpleContainer;
       

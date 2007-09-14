@@ -110,7 +110,7 @@ namespace Google.GData.Extensions {
 
                     if (node.Attributes[GDataParserNameTable.XmlAttributeReadOnly] != null)
                     {
-                        link.ReadOnly = node.Attributes[GDataParserNameTable.XmlAttributeReadOnly].Value.Equals("true");
+                        link.ReadOnly = node.Attributes[GDataParserNameTable.XmlAttributeReadOnly].Value.Equals(Utilities.XSDTrue);
                     }
 
                     if (node.Attributes[GDataParserNameTable.XmlAttributeRel] != null)
@@ -219,7 +219,8 @@ namespace Google.GData.Extensions {
                 }
                 if (this.readOnlySet)
                 {
-                    writer.WriteAttributeString(GDataParserNameTable.XmlAttributeReadOnly, this.ReadOnly.ToString());
+                    writer.WriteAttributeString(GDataParserNameTable.XmlAttributeReadOnly, 
+                                                Utilities.ConvertBooleanToXSDString(this.ReadOnly));
                 }
     
                 if (entry != null)
