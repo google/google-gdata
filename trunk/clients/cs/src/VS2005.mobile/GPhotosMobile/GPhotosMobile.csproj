@@ -78,8 +78,11 @@
     <Compile Include="..\..\gphotos\photoentry.cs">
       <Link>photoentry.cs</Link>
     </Compile>
-    <Compile Include="..\..\gphotos\photofeed.cs">
-      <Link>photofeed.cs</Link>
+    <Compile Include="..\..\gphotos\picasaentry.cs">
+      <Link>picasaentry.cs</Link>
+    </Compile>
+    <Compile Include="..\..\gphotos\picasafeed.cs">
+      <Link>picasafeed.cs</Link>
     </Compile>
     <Compile Include="..\..\gphotos\picasaquery.cs">
       <Link>picasaquery.cs</Link>

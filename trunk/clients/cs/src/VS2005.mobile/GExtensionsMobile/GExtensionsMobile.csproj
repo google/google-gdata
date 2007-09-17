@@ -71,17 +71,14 @@
     <Compile Include="..\..\extensions\extended.cs">
       <Link>extended.cs</Link>
     </Compile>
+    <Compile Include="..\..\extensions\extensionbase.cs">
+      <Link>extensionbase.cs</Link>
+    </Compile>
     <Compile Include="..\..\extensions\feedlink.cs">
       <Link>feedlink.cs</Link>
     </Compile>
     <Compile Include="..\..\extensions\gdatanametable.cs">
       <Link>gdatanametable.cs</Link>
-    </Compile>
-    <Compile Include="..\..\extensions\geokmlpoint.cs">
-      <Link>geokmlpoint.cs</Link>
-    </Compile>
-    <Compile Include="..\..\extensions\geokmlpos.cs">
-      <Link>geokmlpos.cs</Link>
     </Compile>
     <Compile Include="..\..\extensions\georsswhere.cs">
       <Link>georsswhere.cs</Link>
