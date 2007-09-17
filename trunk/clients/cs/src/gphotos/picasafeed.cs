@@ -47,7 +47,7 @@ namespace Google.GData.Photos {
     /// to Picasa Web Albums.
     /// </summary>
     //////////////////////////////////////////////////////////////////////
-    public class PhotoFeed : AbstractFeed
+    public class PicasaFeed : AbstractFeed
     {
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace Google.GData.Photos {
         /// </summary>
         /// <param name="uriBase">the base URI of the feedEntry</param>
         /// <param name="iService">the Service to use</param>
-        public PhotoFeed(Uri uriBase, IService iService) : base(uriBase, iService)
+        public PicasaFeed(Uri uriBase, IService iService) : base(uriBase, iService)
         {
             GPhotoExtensions.AddExtension(this);
         }
@@ -66,7 +66,7 @@ namespace Google.GData.Photos {
         /// <returns>AtomEntry</returns>
         public override AtomEntry CreateFeedEntry()
         {
-            return new PhotoEntry();
+            return new PicasaEntry();
         }
 
         /// <summary>
