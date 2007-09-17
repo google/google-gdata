@@ -65,7 +65,6 @@ namespace Google.GData.Extensions {
             return this.attributes;
         }
         
-        
         #region overloaded for persistence
 
         //////////////////////////////////////////////////////////////////////

@@ -27,15 +27,9 @@ namespace Google.GData.Photos {
     /// Entry API customization class for defining entries in an Event feed.
     /// </summary>
     //////////////////////////////////////////////////////////////////////
-    public class TagEntry : AbstractEntry
+    public class TagEntry : PicasaEntry
     {
-        /// <summary>
-        /// Category used to label entries that contain Event extension data.
-        /// </summary>
-        public static AtomCategory TAG_CATEGORY =
-        new AtomCategory(GDataParserNameTable.Event, new AtomUri(BaseNameTable.gKind));
-
-        /// <summary>
+           /// <summary>
         /// Constructs a new EventEntry instance with the appropriate category
         /// to indicate that it is an event.
         /// </summary>
@@ -45,110 +39,45 @@ namespace Google.GData.Photos {
             Categories.Add(TAG_CATEGORY);
         }
 
+    }
 
-   
-#region Event Parser
+    /// <summary>
+    ///  accessor for a tag Entry
+    /// </summary>
+    public class TagAccessor 
+    {
 
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>parses the inner state of the element</summary>
-        /// <param name="e">evennt arguments</param>
-        /// <param name="parser">the atomFeedParser that called this</param>
-        //////////////////////////////////////////////////////////////////////
-        public override void Parse(ExtensionElementEventArgs e, AtomFeedParser parser)
+        private PicasaEntry entry;
+
+        /// <summary>
+        /// constructs a tag accessor for the passed in entry
+        /// </summary>
+        /// <param name="entry"></param>
+        public TagAccessor(PicasaEntry entry)
         {
-            XmlNode eventNode = e.ExtensionElement;
-            /*
-            if (String.Compare(eventNode.NamespaceURI, BaseNameTable.gNamespace, true) == 0)
+            this.entry = entry;
+            if (entry.IsTag == false)
             {
-                // Parse a When Element
-                if (eventNode.LocalName == GDataParserNameTable.XmlWhenElement)
-                {
-                    this.Times.Add(When.ParseWhen(eventNode));
-                    e.DiscardEntry = true;
-                }
-                // Parse a Where Element
-                else if (eventNode.LocalName == GDataParserNameTable.XmlWhereElement)
-                {
-                    this.Locations.Add((Where.ParseWhere(eventNode, parser)));
-                    e.DiscardEntry = true;
-                }
-                // Parse a Who Element
-                else if (eventNode.LocalName == GDataParserNameTable.XmlWhoElement)
-                {
-                    this.Participants.Add((Who.ParseWho(eventNode, parser)));
-                    e.DiscardEntry = true;
-                }
-                // Parse a Status Element
-                else if (eventNode.LocalName == GDataParserNameTable.XmlEventStatusElement)
-                {
-                    this.Status = EventStatus.parse(eventNode);
-                    e.DiscardEntry = true;
-                }
-                // Parse a Visibility Element
-                else if (eventNode.LocalName == GDataParserNameTable.XmlVisibilityElement)
-                {
-                    this.EventVisibility = Visibility.parse(eventNode);
-                    e.DiscardEntry = true;
-                }
-                // Parse a Transparency Element
-                else if (eventNode.LocalName == GDataParserNameTable.XmlTransparencyElement)
-                {
-                    this.EventTransparency = Transparency.parse(eventNode);
-                    e.DiscardEntry = true;
-                }
-                // Parse a Recurrence Element
-                else if (eventNode.LocalName == GDataParserNameTable.XmlRecurrenceElement)
-                {
-                    this.Recurrence = Recurrence.ParseRecurrence(eventNode);
-                    e.DiscardEntry = true;
-                }
-                else if (eventNode.LocalName == GDataParserNameTable.XmlRecurrenceExceptionElement)
-                {
-                    this.RecurrenceException = RecurrenceException.ParseRecurrenceException(eventNode, parser);
-                    e.DiscardEntry = true;
-                }
-                // Parse an Original Event Element
-                else if (eventNode.LocalName == GDataParserNameTable.XmlOriginalEventElement)
-                {
-                    this.OriginalEvent = OriginalEvent.ParseOriginal(eventNode);
-                    e.DiscardEntry = true;
-                }
-                // Parse a Reminder Element - recurrence event, g:reminder is in top level
-                else if (eventNode.LocalName == GDataParserNameTable.XmlReminderElement)
-                {
-                    this.Reminder = Reminder.ParseReminder(eventNode);
-                    e.DiscardEntry = true;
-                }
-                // Parse a Comments Element
-                else if (eventNode.LocalName == GDataParserNameTable.XmlCommentsElement)
-                {
-                    this.Comments = Comments.ParseComments(eventNode);
-                    e.DiscardEntry = true;
-                } else if (eventNode.LocalName == GDataParserNameTable.XmlExtendedPropertyElement)
-                {
-                    ExtendedProperty p = ExtendedProperty.Parse(eventNode); 
-                    if (p != null)
-                    {
-                        e.DiscardEntry = true;
-                        this.ExtensionElements.Add(p);
-                    }
-                }
+                throw new ArgumentException("Entry is not a tag", "entry");
             }
-            else if (String.Compare(eventNode.NamespaceURI, GDataParserNameTable.NSGCal, true) == 0)
-            {
-                // parse the eventnotification element
-                Tracing.TraceMsg("Parsing in the gCal Namespace");
-                if (eventNode.LocalName == GDataParserNameTable.XmlSendNotificationsElement)
-                {
-                    this.sendNotifications = SendNotifications.parse(eventNode);
-                    e.DiscardEntry = true;
-                }
-            }
-            */
         }
 
-#endregion
-
+  
+        /// <summary>
+        /// The weight of the tag. The weight is the number of times the tag appears 
+        /// in photos under the current element. The default weight is 1.
+        /// </summary>
+        public uint Weight 
+        {
+            get 
+             {
+                return Convert.ToUInt32(this.entry.getPhotoExtensionValue(GPhotoNameTable.Weight));
+            }
+            set 
+            {
+                this.entry.setPhotoExtension(GPhotoNameTable.Weight, Convert.ToString(value));
+            }
+        }
     }
 }
 
