@@ -59,6 +59,29 @@
             to indicate that it is an event.
             </summary>
         </member>
+        <member name="M:Google.GData.Calendar.EventEntry.#ctor(System.String)">
+            <summary>
+            Constructs a new EventEntry instance with provided data.
+            </summary>
+            <param name="title">The descriptive title of the event ("What" in the UI)</param>
+        </member>
+        <member name="M:Google.GData.Calendar.EventEntry.#ctor(System.String,System.String)">
+            <summary>
+            Constructs a new EventEntry instance with provided data.
+            </summary>
+            <param name="title">The descriptive title of the event ("What" in the UI)</param>
+            <param name="description">A longer description of the event 
+            ("Description" in the UI)</param>
+        </member>
+        <member name="M:Google.GData.Calendar.EventEntry.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Constructs a new EventEntry instance with provided data.
+            </summary>
+            <param name="title">The descriptive title of the event ("What" in the UI)</param>
+            <param name="description">A longer description of the event 
+            ("Description" in the UI)</param>
+            <param name="location">The location of the event ("Where" in the UI)</param>
+        </member>
         <member name="M:Google.GData.Calendar.EventEntry.GetFirstReminder">
             <summary>
             returns the first reminder of the Times collection
@@ -92,7 +115,16 @@
         </member>
         <member name="P:Google.GData.Calendar.EventEntry.Notifications">
             <summary>
-             property accessor for the Event Visibility 
+             property accessor for the Eventnotifications
+             set this to True for notfications to be send 
+            </summary>
+        </member>
+        <member name="P:Google.GData.Calendar.EventEntry.QuickAdd">
+            <summary>
+             property accessor QuickAdd
+            To create an event using Google Calendar's quick add feature, set the event 
+            entry's content to the quick add string you'd like to use. Then add a 
+            gCal:quickadd element with a value attribute set to true
             </summary>
         </member>
         <member name="P:Google.GData.Calendar.EventEntry.EventVisibility">
@@ -289,6 +321,29 @@
         <member name="P:Google.GData.Calendar.EventEntry.SendNotifications.XmlNamespacePrefix">
             <summary>Returns the constant representing this XML element.</summary> 
         </member>
+        <member name="T:Google.GData.Calendar.EventEntry.QuickAddElement">
+            <summary>
+             indicates if this new entry should be a quickadd
+            false by default
+            </summary>
+        </member>
+        <member name="M:Google.GData.Calendar.EventEntry.QuickAddElement.#ctor">
+            <summary>
+             default constructor
+            </summary>
+        </member>
+        <member name="M:Google.GData.Calendar.EventEntry.QuickAddElement.#ctor(System.String)">
+            <summary>
+             constructor with a default string value
+            </summary>
+            <param name="value">transparency value</param>
+        </member>
+        <member name="P:Google.GData.Calendar.EventEntry.QuickAddElement.XmlNamespace">
+            <summary>Returns the constant representing this XML element.</summary> 
+        </member>
+        <member name="P:Google.GData.Calendar.EventEntry.QuickAddElement.XmlNamespacePrefix">
+            <summary>Returns the constant representing this XML element.</summary> 
+        </member>
         <member name="T:Google.GData.Calendar.TimeZone">
             <summary>holds the timezone element on the feed level
             </summary> 
@@ -441,10 +496,9 @@
             GData schema extension describing a webcontent for the calendar
             </summary>
         </member>
-        <member name="M:Google.GData.Extensions.WebContent.CreateInstance(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
-            <summary>Parses an xml node to create a Who object.</summary> 
-            <param name="node">georsswhere node</param>
-            <param name="parser">AtomFeedParser to use</param>
+        <member name="M:Google.GData.Extensions.WebContent.CreateInstance(System.Xml.XmlNode)">
+            <summary>Parses an xml node to create a webcontent object.</summary> 
+            <param name="node">xml node</param>
             <returns>the created SimpleElement object</returns>
         </member>
         <member name="M:Google.GData.Extensions.WebContent.Save(System.Xml.XmlWriter)">

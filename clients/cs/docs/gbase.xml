@@ -498,7 +498,8 @@
         <member name="T:Google.GData.GoogleBase.GBaseAttributeCollectionWithTypeConversion">
             <summary>Typesafe convenience methods for getting and setting
             google base attributes (Level 2)
-                        This class adds convenience methods for accessing attributes
+            
+            This class adds convenience methods for accessing attributes
             according to their type.
             </summary>
             <seealso cref="T:Google.GData.GoogleBase.GBaseAttributes"/>
@@ -1066,7 +1067,8 @@
         </member>
         <member name="T:Google.GData.GoogleBase.GBaseQuery">
             <summary>Creates a Google Base query Uri.
-                        To create a query, first get the Uri of the feed you want
+            
+            To create a query, first get the Uri of the feed you want
             from <see cref="T:Google.GData.GoogleBase.GBaseUriFactory"/> and then pass it to the
             constructor.</summary>
         </member>

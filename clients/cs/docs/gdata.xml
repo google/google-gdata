@@ -98,6 +98,23 @@
             <param name="ns">the namespace of the elementToPersist</param>
             <returns>Object</returns>
         </member>
+        <member name="M:Google.GData.Client.AtomBase.CreateExtension(System.String,System.String)">
+            <summary>
+            Creates an extension for a given name and namespace by walking the
+            extension factories list and calling CreateInstance for the right one
+            </summary>
+            <param name="localName">the xml local name of the element to find</param>
+            <param name="ns">the namespace of the elementToPersist</param>
+            <returns>Object</returns>
+        </member>
+        <member name="M:Google.GData.Client.AtomBase.FindExtensionFactory(System.String,System.String)">
+            <summary>
+            Finds the extension factory for a given name/namespace
+            </summary>
+            <param name="localName">the xml local name of the element to find</param>
+            <param name="ns">the namespace of the elementToPersist</param>
+            <returns>Object</returns>
+        </member>
         <member name="M:Google.GData.Client.AtomBase.FindExtensions(System.String,System.String)">
             <summary>
             Finds all ExtensionElement based on it's local name
@@ -2628,14 +2645,27 @@
         <member name="M:Google.GData.Client.AtomCategoryCollection.Remove(Google.GData.Client.AtomCategory)">
             <summary>standard typed accessor method </summary> 
         </member>
+        <member name="M:Google.GData.Client.AtomCategoryCollection.Find(System.String)">
+            <summary>
+            finds the first category with this term
+            ignoring schemes
+            </summary>
+            <param name="term">the category term to search for</param>
+            <returns>AtomCategory</returns>
+        </member>
+        <member name="M:Google.GData.Client.AtomCategoryCollection.Find(System.String,Google.GData.Client.AtomUri)">
+            <summary>
+            finds a category with a given term and scheme
+            </summary>
+            <param name="term"></param>
+            <param name="scheme"></param>
+            <returns>AtomCategory or NULL</returns>
+        </member>
         <member name="M:Google.GData.Client.AtomCategoryCollection.Contains(Google.GData.Client.AtomCategory)">
             <summary>standard typed accessor method </summary> 
         </member>
         <member name="M:Google.GData.Client.AtomCategoryCollection.OnValidate(System.Object)">
             <summary>standard typed accessor method </summary> 
-        </member>
-        <member name="M:Google.GData.Client.AtomCategoryCollection.FindCategory(System.String)">
-            <summary>retrieves the first category with the matching value</summary>
         </member>
         <member name="P:Google.GData.Client.AtomCategoryCollection.Item(System.Int32)">
             <summary>standard typed accessor method </summary> 
@@ -4117,12 +4147,11 @@
             it needs to implement this interface
             </summary> 
         </member>
-        <member name="M:Google.GData.Client.IExtensionElementFactory.CreateInstance(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
+        <member name="M:Google.GData.Client.IExtensionElementFactory.CreateInstance(System.Xml.XmlNode)">
             <summary>
             instantiates the correct extensiohn element
             </summary>
             <param name="node">the xmlnode to parse</param>
-            <param name="parser">the feedparser used</param>
             <returns></returns>
         </member>
         <member name="P:Google.GData.Client.IExtensionElementFactory.XmlName">
@@ -4183,6 +4212,16 @@
             <summary>String utilities
             </summary> 
         </member>
+        <member name="F:Google.GData.Client.Utilities.XSDTrue">
+            <summary>
+            xsd version of bool:true
+            </summary>
+        </member>
+        <member name="F:Google.GData.Client.Utilities.XSDFalse">
+            <summary>
+            xsd version of bool:false
+            </summary>
+        </member>
         <member name="M:Google.GData.Client.Utilities.#ctor">
             <summary>private constructor to prevent the compiler from generating a default one</summary> 
         </member>
@@ -4197,6 +4236,24 @@
         </member>
         <member name="M:Google.GData.Client.Utilities.IsPersistable(System.DateTime)">
             <summary>Little helper that checks if a datevalue is XML persistable</summary> 
+        </member>
+        <member name="M:Google.GData.Client.Utilities.ConvertBooleanToXSDString(System.Boolean)">
+            <summary>
+            .NET treats bool as True/False as the default
+            string representation. XSD requires true/false
+            this method encapsulates this
+            </summary>
+            <param name="flag">the boolean to convert</param>
+            <returns>"true" or "false"</returns>
+        </member>
+        <member name="M:Google.GData.Client.Utilities.ConvertToXSDString(System.Object)">
+            <summary>
+            .NET treats bool as True/False as the default
+            string representation. XSD requires true/false
+            this method encapsulates this
+            </summary>
+            <param name="obj">the object to convert</param>
+            <returns>the string representation</returns>
         </member>
         <member name="M:Google.GData.Client.Utilities.EncodeString(System.String)">
             <summary>helper to read in a string and Encode it</summary> 

@@ -188,6 +188,56 @@
             represents the tags container element
             </summary>
         </member>
+        <member name="F:Google.GData.Extensions.Exif.ExifNameTable.ExifDistance">
+            <summary>
+            represents the distance element
+            </summary>
+        </member>
+        <member name="F:Google.GData.Extensions.Exif.ExifNameTable.ExifExposure">
+            <summary>
+            represents the exposure element
+            </summary>
+        </member>
+        <member name="F:Google.GData.Extensions.Exif.ExifNameTable.ExifFlash">
+            <summary>
+            represents the flash element
+            </summary>
+        </member>
+        <member name="F:Google.GData.Extensions.Exif.ExifNameTable.ExifFocalLength">
+            <summary>
+            represents the focallength element
+            </summary>
+        </member>
+        <member name="F:Google.GData.Extensions.Exif.ExifNameTable.ExifFStop">
+            <summary>
+            represents the fstop element
+            </summary>
+        </member>
+        <member name="F:Google.GData.Extensions.Exif.ExifNameTable.ExifImageUniqueID">
+            <summary>
+            represents the unique ID element
+            </summary>
+        </member>
+        <member name="F:Google.GData.Extensions.Exif.ExifNameTable.ExifISO">
+            <summary>
+            represents the ISO element
+            </summary>
+        </member>
+        <member name="F:Google.GData.Extensions.Exif.ExifNameTable.ExifMake">
+            <summary>
+            represents the Make element
+            </summary>
+        </member>
+        <member name="F:Google.GData.Extensions.Exif.ExifNameTable.ExifModel">
+            <summary>
+            represents the Model element
+            </summary>
+        </member>
+        <member name="F:Google.GData.Extensions.Exif.ExifNameTable.ExifTime">
+            <summary>
+            represents the Time element
+            </summary>
+        </member>
         <member name="T:Google.GData.Extensions.Exif.ExifTags">
             <summary>
             Tags container element for the Exif namespace
@@ -196,14 +246,21 @@
         <member name="T:Google.GData.Extensions.SimpleContainer">
             <summary>
             base class to implement extensions holding extensions
+            TODO: at one point think about using this as the base for atom:base
+            as there is some utility overlap between the 2 of them
             </summary>
         </member>
-        <member name="T:Google.GData.Extensions.SimpleElement">
+        <member name="T:Google.GData.Extensions.ExtensionBase">
             <summary>
-            Extensible enum type used in many places.
+            Extensible type used in many places.
             </summary>
         </member>
-        <member name="M:Google.GData.Extensions.SimpleElement.#ctor(System.String,System.String,System.String)">
+        <member name="F:Google.GData.Extensions.ExtensionBase.attributes">
+            <summary>
+            this holds the attribute list for an extension element
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.ExtensionBase.#ctor(System.String,System.String,System.String)">
             <summary>
             constructor
             </summary>
@@ -211,34 +268,30 @@
             <param name="prefix">the xml prefix</param>
             <param name="ns">the xml namespace</param>
         </member>
-        <member name="M:Google.GData.Extensions.SimpleElement.#ctor(System.String,System.String,System.String,System.String)">
+        <member name="M:Google.GData.Extensions.ExtensionBase.getAttributes">
             <summary>
-            constructor
+            returns the attributes list
             </summary>
-            <param name="name">the xml name</param>
-            <param name="prefix">the xml prefix</param>
-            <param name="ns">the xml namespace</param>
-            <param name="value">the intial value</param>
+            <returns>SortedList</returns>
         </member>
-        <member name="M:Google.GData.Extensions.SimpleElement.ToString">
+        <member name="M:Google.GData.Extensions.ExtensionBase.ToString">
             <summary>
             debugging helper
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Google.GData.Extensions.SimpleElement.CreateInstance(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
+        <member name="M:Google.GData.Extensions.ExtensionBase.CreateInstance(System.Xml.XmlNode)">
             <summary>Parses an xml node to create a Who object.</summary> 
-            <param name="node">georsswhere node</param>
-            <param name="parser">AtomFeedParser to use</param>
-            <returns>the created SimpleElement object</returns>
+            <param name="node">the xml parses node, can be NULL</param>
+            <returns>the created IExtensionElement object</returns>
         </member>
-        <member name="M:Google.GData.Extensions.SimpleElement.InitInstance(Google.GData.Extensions.SimpleElement)">
+        <member name="M:Google.GData.Extensions.ExtensionBase.InitInstance(Google.GData.Extensions.ExtensionBase)">
             <summary>
             used to copy the attribute lists over
             </summary>
             <param name="factory"></param>
         </member>
-        <member name="M:Google.GData.Extensions.SimpleElement.ProcessAttributes(System.Xml.XmlNode)">
+        <member name="M:Google.GData.Extensions.ExtensionBase.ProcessAttributes(System.Xml.XmlNode)">
             <summary>
             default method override to handle attribute processing
             the base implementation does process the attributes list
@@ -246,7 +299,7 @@
             </summary>
             <param name="node">XmlNode with attributes</param>
         </member>
-        <member name="M:Google.GData.Extensions.SimpleElement.getAttribute(System.Xml.XmlNode,System.String)">
+        <member name="M:Google.GData.Extensions.ExtensionBase.getAttribute(System.Xml.XmlNode,System.String)">
             <summary>
             helper method to extract an attribute as string from
             an xmlnode using the passed in node and the attributename
@@ -255,39 +308,26 @@
             <param name="attributeName">the name of the attribute</param>
             <returns>string - null if attribute is not present</returns>
         </member>
-        <member name="M:Google.GData.Extensions.SimpleElement.Save(System.Xml.XmlWriter)">
+        <member name="M:Google.GData.Extensions.ExtensionBase.Save(System.Xml.XmlWriter)">
             <summary>
             Persistence method for the EnumConstruct object
             </summary>
             <param name="writer">the xmlwriter to write into</param>
         </member>
-        <member name="P:Google.GData.Extensions.SimpleElement.Attributes">
-            <summary>accesses the Attribute list. The keys are the attribute names
-            the values the attribute values</summary> 
-            <returns> </returns>
-        </member>
-        <member name="P:Google.GData.Extensions.SimpleElement.Value">
+        <member name="M:Google.GData.Extensions.ExtensionBase.SaveInnerXml(System.Xml.XmlWriter)">
             <summary>
-             Accessor Method for the value
+            a subclass that want's to save addtional XML would need to overload this
+            the default implementation does nothing
             </summary>
+            <param name="writer"></param>
         </member>
-        <member name="P:Google.GData.Extensions.SimpleElement.IntegerValue">
-            <summary>
-             Accessor Method for the value as integer
-            </summary>
-        </member>
-        <member name="P:Google.GData.Extensions.SimpleElement.FloatValue">
-            <summary>
-             Accessor Method for the value as float
-            </summary>
-        </member>
-        <member name="P:Google.GData.Extensions.SimpleElement.XmlName">
+        <member name="P:Google.GData.Extensions.ExtensionBase.XmlName">
             <summary>Returns the constant representing this XML element.</summary> 
         </member>
-        <member name="P:Google.GData.Extensions.SimpleElement.XmlNameSpace">
+        <member name="P:Google.GData.Extensions.ExtensionBase.XmlNameSpace">
             <summary>Returns the constant representing this XML element.</summary> 
         </member>
-        <member name="P:Google.GData.Extensions.SimpleElement.XmlPrefix">
+        <member name="P:Google.GData.Extensions.ExtensionBase.XmlPrefix">
             <summary>Returns the constant representing this XML element.</summary> 
         </member>
         <member name="M:Google.GData.Extensions.SimpleContainer.#ctor(System.String,System.String,System.String)">
@@ -309,10 +349,39 @@
             <param name="ns">the namespace of the elementToPersist</param>
             <returns>Object</returns>
         </member>
-        <member name="M:Google.GData.Extensions.SimpleContainer.CreateInstance(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
+        <member name="M:Google.GData.Extensions.SimpleContainer.ReplaceExtension(System.String,System.String,System.Object)">
+            <summary>
+            all extension elements that match a namespace/localname
+            given will be removed and the new one will be inserted
+            </summary> 
+            <param name="localName">the local name to find</param>
+            <param name="ns">the namespace to match, if null, ns is ignored</param>
+            <param name="obj">the new element to put in</param>
+        </member>
+        <member name="M:Google.GData.Extensions.SimpleContainer.FindExtensions(System.String,System.String)">
+            <summary>
+            Finds all ExtensionElement based on it's local name
+            and it's namespace. If namespace is NULL, allwhere
+            the localname matches is found. If there are extensionelements that do 
+            not implment ExtensionElementFactory, they will not be taken into account
+            Primary use of this is to find XML nodes
+            </summary>
+            <param name="localName">the xml local name of the element to find</param>
+            <param name="ns">the namespace of the elementToPersist</param>
+            <returns>none</returns>
+        </member>
+        <member name="M:Google.GData.Extensions.SimpleContainer.DeleteExtensions(System.String,System.String)">
+            <summary>
+            Delete's all Extensions from the Extension list that match
+            a localName and a Namespace. 
+            </summary>
+            <param name="localName">the local name to find</param>
+            <param name="ns">the namespace to match, if null, ns is ignored</param>
+            <returns>int - the number of deleted extensions</returns>
+        </member>
+        <member name="M:Google.GData.Extensions.SimpleContainer.CreateInstance(System.Xml.XmlNode)">
             <summary>Parses an xml node to create a Who object.</summary> 
-            <param name="node">georsswhere node</param>
-            <param name="parser">AtomFeedParser to use</param>
+            <param name="node">the node to work on, can be NULL</param>
             <returns>the created SimpleElement object</returns>
         </member>
         <member name="M:Google.GData.Extensions.SimpleContainer.Save(System.Xml.XmlWriter)">
@@ -338,9 +407,120 @@
             base constructor, creates an exif:tags representation
             </summary>
         </member>
+        <member name="P:Google.GData.Extensions.Exif.ExifTags.Distance">
+            <summary>
+            returns the media:credit element
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.Exif.ExifTags.Exposure">
+            <summary>
+            returns the ExifExposure element
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.Exif.ExifTags.Flash">
+            <summary>
+            returns the ExifFlash element
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.Exif.ExifTags.FocalLength">
+            <summary>
+            returns the ExifFocalLength element
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.Exif.ExifTags.FStop">
+            <summary>
+            returns the ExifFStop element
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.Exif.ExifTags.ImageUniqueID">
+            <summary>
+            returns the ExifImageUniqueID element
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.Exif.ExifTags.ISO">
+            <summary>
+            returns the ExifISO element
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.Exif.ExifTags.Make">
+            <summary>
+            returns the ExifMake element
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.Exif.ExifTags.Model">
+            <summary>
+            returns the ExifModel element
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.Exif.ExifTags.Time">
+            <summary>
+            returns the ExifTime element
+            </summary>
+        </member>
         <member name="T:Google.GData.Extensions.Exif.ExifDistance">
             <summary>
             ExifDistance schema extension describing an distance
+            </summary>
+        </member>
+        <member name="T:Google.GData.Extensions.SimpleElement">
+            <summary>
+            Extensible enum type used in many places.
+            compared to the base class, this one
+            adds a default values
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.SimpleElement.#ctor(System.String,System.String,System.String)">
+            <summary>
+            constructor
+            </summary>
+            <param name="name">the xml name</param>
+            <param name="prefix">the xml prefix</param>
+            <param name="ns">the xml namespace</param>
+        </member>
+        <member name="M:Google.GData.Extensions.SimpleElement.#ctor(System.String,System.String,System.String,System.String)">
+            <summary>
+            constructor
+            </summary>
+            <param name="name">the xml name</param>
+            <param name="prefix">the xml prefix</param>
+            <param name="ns">the xml namespace</param>
+            <param name="value">the intial value</param>
+        </member>
+        <member name="M:Google.GData.Extensions.SimpleElement.ToString">
+            <summary>
+            debugging helper
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Google.GData.Extensions.SimpleElement.CreateInstance(System.Xml.XmlNode)">
+            <summary>Parses an xml node to create a Who object.</summary> 
+            <param name="node">the xml parses node, can be NULL</param>
+            <returns>the created SimpleElement object</returns>
+        </member>
+        <member name="M:Google.GData.Extensions.SimpleElement.SaveInnerXml(System.Xml.XmlWriter)">
+            <summary>
+            saves out the value, get's called from Save
+            </summary>
+            <param name="writer"></param>
+        </member>
+        <member name="P:Google.GData.Extensions.SimpleElement.Attributes">
+            <summary>accesses the Attribute list. The keys are the attribute names
+            the values the attribute values</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Extensions.SimpleElement.Value">
+            <summary>
+             Accessor Method for the value
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.SimpleElement.IntegerValue">
+            <summary>
+             Accessor Method for the value as integer
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.SimpleElement.FloatValue">
+            <summary>
+             Accessor Method for the value as float
             </summary>
         </member>
         <member name="M:Google.GData.Extensions.Exif.ExifDistance.#ctor">
@@ -823,6 +1003,9 @@
         <member name="F:Google.GData.Extensions.GDataParserNameTable.XmlSendNotificationsElement">
              <summary>static string for the sendEventNotifications element</summary>    
         </member>
+        <member name="F:Google.GData.Extensions.GDataParserNameTable.XmlQuickAddElement">
+             <summary>static string for the quickAdd element</summary>    
+        </member>
         <member name="F:Google.GData.Extensions.GDataParserNameTable.Event">
             <summary>the event prefix </summary>
         </member>
@@ -991,6 +1174,36 @@
         <member name="M:Google.GData.Extensions.MediaRss.MediaGroup.#ctor">
             <summary>
             default constructor for media:group
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.MediaRss.MediaGroup.Credit">
+            <summary>
+            returns the media:credit element
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.MediaRss.MediaGroup.Description">
+            <summary>
+            returns the media:credit element
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.MediaRss.MediaGroup.Keywords">
+            <summary>
+            returns the media:content element
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.MediaRss.MediaGroup.Title">
+            <summary>
+            returns the media:credit element
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.MediaRss.MediaGroup.Thumbnail">
+            <summary>
+            returns the media:thumbnail element
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.MediaRss.MediaGroup.Content">
+            <summary>
+            returns the media:content element
             </summary>
         </member>
         <member name="T:Google.GData.Extensions.MediaRss.MediaCredit">
@@ -1285,10 +1498,9 @@
             holds the method type
             </summary>
         </member>
-        <member name="M:Google.GData.Extensions.Reminder.CreateInstance(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
+        <member name="M:Google.GData.Extensions.Reminder.CreateInstance(System.Xml.XmlNode)">
             <summary>Parses an xml node to create a Who object.</summary> 
-            <param name="node">georsswhere node</param>
-            <param name="parser">AtomFeedParser to use</param>
+            <param name="node">the node to parse node</param>
             <returns>the created GeoRSSWhere object</returns>
         </member>
         <member name="M:Google.GData.Extensions.Reminder.Save(System.Xml.XmlWriter)">
@@ -1390,6 +1602,26 @@
             <summary>
             reminder object to set reminder durations
             </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.When.#ctor">
+            <summary>
+            Constructs a new instance of a When object.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.When.#ctor(System.DateTime,System.DateTime)">
+            <summary>
+            Constructs a new instance of a When object with provided data.
+            </summary>
+            <param name="start">The beginning of the event.</param>
+            <param name="end">The end of the event.</param>
+        </member>
+        <member name="M:Google.GData.Extensions.When.#ctor(System.DateTime,System.DateTime,System.Boolean)">
+            <summary>
+            Constructs a new instance of a When object with provided data.
+            </summary>
+            <param name="start">The beginning of the event.</param>
+            <param name="end">The end of the event.</param>
+            <param name="allDay">A flag to indicate an all day event.</param>
         </member>
         <member name="M:Google.GData.Extensions.When.ParseWhen(System.Xml.XmlNode)">
             <summary>Parses an xml node to create an When object.</summary> 

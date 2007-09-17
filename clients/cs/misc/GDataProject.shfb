@@ -11,7 +11,7 @@
         <assembly assemblyPath="..\lib\Release\Google.GData.Spreadsheets.dll" xmlCommentsPath="..\docs\gspreadsheet.xml" commentsOnly="False" />
     </assemblies>
     <namespaceSummaries>
-        <namespaceSummaryItem name="" isDocumented="False" />
+        <namespaceSummaryItem name="" isDocumented="True" />
         <namespaceSummaryItem name="Google.GData.AccessControl" isDocumented="True">This namespace contains elements and methods to deal with AccessControl lists. AccessControl lists are used, for example, in the Google Calendar to enable authorization and security on a per calendar level</namespaceSummaryItem>
         <namespaceSummaryItem name="Google.GData.Apps" isDocumented="True">Google Apps allows website administrators to offer their users cobranded versions of a variety of personalized Google applications, such as Gmail. This document describes the Google Apps Provisioning API, which enables Google partners to programmatically enable access to these applications. Specifically, the API provides functions for creating, retrieving, updating and deleting user accounts, nicknames and email lists.
 
@@ -92,7 +92,21 @@ Here are some of the things you can do with the Spreadsheets data API:
         <contentItem sourcePath="..\docs\AdditionalContent\*.html" destPath="AdditionalContent\" excludeItems="False" />
         <contentItem sourcePath="..\RELEASE_NOTES.HTML" destPath="" excludeItems="False" />
     </additionalContent>
-    <ProjectSummary />
+    <ProjectSummary>GData is a new protocol based on the Atom 1.0 and RSS 2.0 syndication formats, plus the Atom Publishing Protocol.
+
+GData extends those standards in various ways, using the extension mechanisms built into the standards. A GData feed conforms to either the Atom or RSS syndication formats. The GData publishing model conforms to the Atom Publishing Protocol.
+
+To acquire information from a service that supports GData, you send an HTTP GET request; the service returns results as an Atom or RSS feed.
+
+You can update data (where supported by a particular GData service) by sending an HTTP PUT request.
+
+All sorts of services can provide GData feeds, from public services like blog feeds or news syndication feeds to personalized data like email or calendar events or task-list items. The RSS and Atom models are extensible, so each feed provider can define its own extensions and semantics as desired while still conforming to the standards. A feed provider can provide read-only feeds (such as a search-results feed) or read/write feeds (such as a calendar application).
+
+For example, a blogging application might provide a feed for each blog, and a comment feed for each blog entry. A calendar application might allow you to send full-text search queries using the GData protocol, and return results in the GData syndication format.
+
+Because GData is built on basic technologies—HTTP and standard syndication models—you can send GData requests and process the resulting feeds in a variety of ways: traditional syndication aggregators/feed readers, JavaScript/AJAX-based clients in a web browser, standalone applications, or any other approach you like. The GData protocol is programming-language-neutral; you can write a client in any programming language that lets you issue HTTP requests and parse XML-based responses.
+
+Creating and deleting a feed is left up to the service; the GData protocol does not provide ways to create or delete a feed.</ProjectSummary>
     <MissingTags>AutoDocumentCtors, Namespace</MissingTags>
     <VisibleItems>InheritedMembers, InheritedFrameworkMembers, Protected, SealedProtected</VisibleItems>
     <HtmlHelp1xCompilerPath path="" />
