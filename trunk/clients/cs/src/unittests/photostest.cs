@@ -137,7 +137,7 @@ namespace Google.GData.Client.LiveTests
                 service.RequestFactory = this.factory; 
 
                 query.Uri = new Uri(this.defaultPhotosUri);
-                PhotoFeed feed = service.Query(query);
+                PicasaFeed feed = service.Query(query);
 
                 ObjectModelHelper.DumpAtomObject(feed,CreateDumpFileName("PhotoAuthTest")); 
      
@@ -146,7 +146,7 @@ namespace Google.GData.Client.LiveTests
                     Tracing.TraceMsg("Found a Feed " + feed.ToString());
                     DisplayExtensions(feed);
 
-                    foreach (PhotoEntry entry in feed.Entries)
+                    foreach (PicasaEntry entry in feed.Entries)
                     {
                         Tracing.TraceMsg("Found an entry " + entry.ToString());
                         DisplayExtensions(entry);
@@ -185,6 +185,15 @@ namespace Google.GData.Client.LiveTests
                             }
                         }
 
+
+                        PhotoAccessor photo = new PhotoAccessor(entry);
+
+                        Assert.IsTrue(entry.IsPhoto, "this is a photo entry, it should have the kind set");
+                        Assert.IsTrue(photo != null, "this is a photo entry, it should convert to PhotoEntry");
+
+                        Assert.IsTrue(photo.AlbumId != null);
+                        Assert.IsTrue(photo.Height > 0);
+                        Assert.IsTrue(photo.Width > 0);
                     }
                 }
 
@@ -213,17 +222,17 @@ namespace Google.GData.Client.LiveTests
 
                 query.Uri = new Uri(this.defaultPhotosUri);
 
-                PhotoFeed feed = service.Query(query);
+                PicasaFeed feed = service.Query(query);
                 if (feed != null)
                 {
                     Assert.IsTrue(feed.Entries != null, "the albumfeed needs entries");
                     Assert.IsTrue(feed.Entries[0] != null, "the albumfeed needs at least ONE entry");
-                    PhotoEntry album = feed.Entries[0] as PhotoEntry;
+                    PicasaEntry album = feed.Entries[0] as PicasaEntry;
                     Assert.IsTrue(album != null, "should be an album there");
                     Assert.IsTrue(album.FeedUri != null, "the albumfeed needs a feed URI, no photo post on that one");
                     Uri postUri = new Uri(album.FeedUri.ToString());
                     FileStream fs = File.OpenRead("testnet.jpg");
-                    PhotoEntry entry = service.Insert(postUri, fs, "image/jpeg", "testnet.jpg") as PhotoEntry;
+                    PicasaEntry entry = service.Insert(postUri, fs, "image/jpeg", "testnet.jpg") as PicasaEntry;
 
                     Assert.IsTrue(entry.IsPhoto, "the new entry should be a photo entry");
                 }

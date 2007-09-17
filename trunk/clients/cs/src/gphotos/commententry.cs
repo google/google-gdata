@@ -27,14 +27,8 @@ namespace Google.GData.Photos {
     /// Entry API customization class for defining entries in an Event feed.
     /// </summary>
     //////////////////////////////////////////////////////////////////////
-    public class CommentEntry : AbstractEntry
+    public class CommentEntry : PicasaEntry
     {
-        /// <summary>
-        /// Category used to label entries that contain Event extension data.
-        /// </summary>
-        public static AtomCategory COMMENT_CATEGORY =
-        new AtomCategory(GDataParserNameTable.Event, new AtomUri(BaseNameTable.gKind));
-
         /// <summary>
         /// Constructs a new EventEntry instance with the appropriate category
         /// to indicate that it is an event.
@@ -46,109 +40,74 @@ namespace Google.GData.Photos {
         }
 
 
-   
-#region Event Parser
+    }
 
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>parses the inner state of the element</summary>
-        /// <param name="e">evennt arguments</param>
-        /// <param name="parser">the atomFeedParser that called this</param>
-        //////////////////////////////////////////////////////////////////////
-        public override void Parse(ExtensionElementEventArgs e, AtomFeedParser parser)
+    /// <summary>
+    ///  accessor for a Comment Entry
+    /// </summary>
+    public class CommentAccessor 
+    {
+
+        private PicasaEntry entry;
+
+        /// <summary>
+        /// constructs a photo accessor for the passed in entry
+        /// </summary>
+        /// <param name="entry"></param>
+        public CommentAccessor(PicasaEntry entry)
         {
-            XmlNode eventNode = e.ExtensionElement;
-            /*
-            if (String.Compare(eventNode.NamespaceURI, BaseNameTable.gNamespace, true) == 0)
+            this.entry = entry;
+            if (entry.IsComment == false)
             {
-                // Parse a When Element
-                if (eventNode.LocalName == GDataParserNameTable.XmlWhenElement)
-                {
-                    this.Times.Add(When.ParseWhen(eventNode));
-                    e.DiscardEntry = true;
-                }
-                // Parse a Where Element
-                else if (eventNode.LocalName == GDataParserNameTable.XmlWhereElement)
-                {
-                    this.Locations.Add((Where.ParseWhere(eventNode, parser)));
-                    e.DiscardEntry = true;
-                }
-                // Parse a Who Element
-                else if (eventNode.LocalName == GDataParserNameTable.XmlWhoElement)
-                {
-                    this.Participants.Add((Who.ParseWho(eventNode, parser)));
-                    e.DiscardEntry = true;
-                }
-                // Parse a Status Element
-                else if (eventNode.LocalName == GDataParserNameTable.XmlEventStatusElement)
-                {
-                    this.Status = EventStatus.parse(eventNode);
-                    e.DiscardEntry = true;
-                }
-                // Parse a Visibility Element
-                else if (eventNode.LocalName == GDataParserNameTable.XmlVisibilityElement)
-                {
-                    this.EventVisibility = Visibility.parse(eventNode);
-                    e.DiscardEntry = true;
-                }
-                // Parse a Transparency Element
-                else if (eventNode.LocalName == GDataParserNameTable.XmlTransparencyElement)
-                {
-                    this.EventTransparency = Transparency.parse(eventNode);
-                    e.DiscardEntry = true;
-                }
-                // Parse a Recurrence Element
-                else if (eventNode.LocalName == GDataParserNameTable.XmlRecurrenceElement)
-                {
-                    this.Recurrence = Recurrence.ParseRecurrence(eventNode);
-                    e.DiscardEntry = true;
-                }
-                else if (eventNode.LocalName == GDataParserNameTable.XmlRecurrenceExceptionElement)
-                {
-                    this.RecurrenceException = RecurrenceException.ParseRecurrenceException(eventNode, parser);
-                    e.DiscardEntry = true;
-                }
-                // Parse an Original Event Element
-                else if (eventNode.LocalName == GDataParserNameTable.XmlOriginalEventElement)
-                {
-                    this.OriginalEvent = OriginalEvent.ParseOriginal(eventNode);
-                    e.DiscardEntry = true;
-                }
-                // Parse a Reminder Element - recurrence event, g:reminder is in top level
-                else if (eventNode.LocalName == GDataParserNameTable.XmlReminderElement)
-                {
-                    this.Reminder = Reminder.ParseReminder(eventNode);
-                    e.DiscardEntry = true;
-                }
-                // Parse a Comments Element
-                else if (eventNode.LocalName == GDataParserNameTable.XmlCommentsElement)
-                {
-                    this.Comments = Comments.ParseComments(eventNode);
-                    e.DiscardEntry = true;
-                } else if (eventNode.LocalName == GDataParserNameTable.XmlExtendedPropertyElement)
-                {
-                    ExtendedProperty p = ExtendedProperty.Parse(eventNode); 
-                    if (p != null)
-                    {
-                        e.DiscardEntry = true;
-                        this.ExtensionElements.Add(p);
-                    }
-                }
+                throw new ArgumentException("Entry is not a comment", "entry");
             }
-            else if (String.Compare(eventNode.NamespaceURI, GDataParserNameTable.NSGCal, true) == 0)
-            {
-                // parse the eventnotification element
-                Tracing.TraceMsg("Parsing in the gCal Namespace");
-                if (eventNode.LocalName == GDataParserNameTable.XmlSendNotificationsElement)
-                {
-                    this.sendNotifications = SendNotifications.parse(eventNode);
-                    e.DiscardEntry = true;
-                }
-            }
-            */
         }
 
-#endregion
+        /// <summary>
+        /// The ID of the photo associated with the current comment.
+        /// </summary>
+        public string PhotoId 
+        {
+            get 
+            {
+                return this.entry.getPhotoExtensionValue(GPhotoNameTable.Photoid);
+            }
+            set 
+            {
+                this.entry.setPhotoExtension(GPhotoNameTable.Photoid, value);
+            }
+        }
 
+        /// <summary>
+        /// The albums ID
+        /// </summary>
+        public string AlbumId 
+        {
+            get 
+            {
+                return this.entry.getPhotoExtensionValue(GPhotoNameTable.AlbumId);
+            }
+            set 
+            {
+                this.entry.setPhotoExtension(GPhotoNameTable.AlbumId, value);
+            }
+        }
+
+        /// <summary>
+        /// the id of the comment
+        /// </summary>
+        public string Id 
+        {
+            get 
+            {
+                return this.entry.getPhotoExtensionValue(GPhotoNameTable.Id);
+            }
+            set 
+            {
+                this.entry.setPhotoExtension(GPhotoNameTable.Id, value);
+            }
+        }
+      
     }
 }
 
