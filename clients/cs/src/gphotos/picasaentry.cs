@@ -129,57 +129,6 @@ namespace Google.GData.Photos {
 
       
         /// <summary>
-        /// casts an intance of a photoentry to access
-        /// </summary>
-        public PhotoEntry Photo
-        {
-            get
-            {
-                if (this.IsPhoto == true)
-                {
-                    return (PhotoEntry) this.MemberwiseClone();
-                }
-                return null;
-            }
-        }
-
-        public AlbumEntry Album
-        {
-            get
-            {
-                if (this.IsAlbum == true)
-                {
-                    return this.MemberwiseClone() as AlbumEntry;
-                }
-                return null;
-            }
-        }
-        public CommentEntry Comment
-        {
-            get
-            {
-                if (this.IsComment == true)
-                {
-                    return this.MemberwiseClone() as CommentEntry;
-                }
-                return null;
-            }
-        }
-
-        public TagEntry Tag
-        {
-            get
-            {
-                if (this.IsTag == true)
-                {
-                    return this.MemberwiseClone() as TagEntry;
-                }
-                return null;
-            }
-        }
-
-
-        /// <summary>
         /// instead of having 20 extension elements
         /// we have one string based getter
         /// usage is: entry.getPhotoExtension("albumid") to get the element
@@ -225,6 +174,7 @@ namespace Google.GData.Photos {
         ///    entry.setPhotoExtension("albumid", "new Value");
         /// </summary>
         /// <param name="extension">the name of the extension to look for</param>
+        /// <param name="newValue">the new value for this extension element</param>
         /// <returns>SimpleElement, either a brand new one, or the one
         /// returned by the service</returns>
         public SimpleElement setPhotoExtension(string extension, string newValue) 

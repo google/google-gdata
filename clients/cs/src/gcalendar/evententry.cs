@@ -459,7 +459,7 @@ namespace Google.GData.Calendar {
         ///  property accessor QuickAdd
         /// To create an event using Google Calendar's quick add feature, set the event 
         /// entry's content to the quick add string you'd like to use. Then add a 
-        /// <gCal:quickadd> element with a value attribute set to true
+        /// gCal:quickadd element with a value attribute set to true
         /// </summary>
         public bool QuickAdd
         {

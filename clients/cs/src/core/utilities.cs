@@ -97,7 +97,7 @@ namespace Google.GData.Client
         /// string representation. XSD requires true/false
         /// this method encapsulates this
         /// </summary>
-        /// <param name="flag">the object to convert</param>
+        /// <param name="obj">the object to convert</param>
         /// <returns>the string representation</returns>
         public static string ConvertToXSDString(Object obj)
         {

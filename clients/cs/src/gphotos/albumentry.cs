@@ -125,7 +125,7 @@ namespace Google.GData.Photos {
         /// <summary>
         /// The number of remaining photo uploads allowed in this album. 
         /// This is equivalent to the user's maximum number of photos per 
-        /// album (<gphoto:maxPhotosPerAlbum>) minus the number of photos 
+        /// album (gphoto:maxPhotosPerAlbum) minus the number of photos 
         /// currently in the album (<gphoto:numphotos>).
         /// </summary>
         public uint NumPhotosRemaining

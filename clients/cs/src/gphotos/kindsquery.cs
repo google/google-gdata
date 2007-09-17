@@ -47,6 +47,7 @@ namespace Google.GData.Photos {
         /// base constructor, with initial queryUri
         /// </summary>
         /// <param name="queryUri">the query to use</param>
+        /// <param name="kind">the kind of query</param>
         public KindQuery(string queryUri, Kinds kind)
         : base(queryUri)
         {
@@ -54,8 +55,8 @@ namespace Google.GData.Photos {
         }
 
         //////////////////////////////////////////////////////////////////////
-        /// <summary>read only: the kinds to retrieve
-        /// <returns> </returns>
+        /// <summary>read only: the kinds to retrieve</summary>
+        /// <returns>an array of Kinds </returns>
         //////////////////////////////////////////////////////////////////////
         public override Kinds[] KindParameter
         {

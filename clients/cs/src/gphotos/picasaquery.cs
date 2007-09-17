@@ -112,6 +112,9 @@ namespace Google.GData.Photos {
         private AccessLevel access;
         private string thumbsize;
 
+        /// <summary>
+        /// picasa base URI 
+        /// </summary>
         public static string picasaBaseUri = "http://picasaweb.google.com/data/feed/";
 
         /// <summary>
