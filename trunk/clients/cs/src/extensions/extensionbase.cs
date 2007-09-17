@@ -31,7 +31,6 @@ namespace Google.GData.Extensions {
         private string xmlName;
         private string xmlPrefix;
         private string xmlNamespace;
-        private string value;
         /// <summary>
         /// this holds the attribute list for an extension element
         /// </summary>

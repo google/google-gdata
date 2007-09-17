@@ -79,7 +79,6 @@ namespace Google.GData.Client
             {
                 Tracing.TraceMsg("Entring default Parsing for AbstractEntry");
 
-                IExtensionElement ele = null;
                 IExtensionElementFactory f = FindExtensionFactory(node.LocalName, 
                                                                   node.NamespaceURI);
                 if (f != null)

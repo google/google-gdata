@@ -103,7 +103,6 @@ namespace Google.GData.Extensions {
         /// </summary>
         /// <param name="localName">the xml local name of the element to find</param>
         /// <param name="ns">the namespace of the elementToPersist</param>
-        /// <param name="arr">the array to fill</param>
         /// <returns>none</returns>
         public ArrayList FindExtensions(string localName, string ns) 
         {

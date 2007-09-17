@@ -47,12 +47,6 @@ namespace Google.GData.Photos {
             Tracing.TraceMsg("Created PhotoEntry");
             Categories.Add(PHOTO_CATEGORY);
         }
-
-
-        public PhotoEntry(PicasaEntry entry) : base()
-        {
-        }
-
     }
 
     /// <summary>

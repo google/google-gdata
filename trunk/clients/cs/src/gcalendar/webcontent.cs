@@ -86,9 +86,8 @@ namespace Google.GData.Extensions
         #region WebContent Parser
 
         //////////////////////////////////////////////////////////////////////
-        /// <summary>Parses an xml node to create a Who object.</summary> 
-        /// <param name="node">georsswhere node</param>
-        /// <param name="parser">AtomFeedParser to use</param>
+        /// <summary>Parses an xml node to create a webcontent object.</summary> 
+        /// <param name="node">xml node</param>
         /// <returns>the created SimpleElement object</returns>
         //////////////////////////////////////////////////////////////////////
         public IExtensionElement CreateInstance(XmlNode node) 
