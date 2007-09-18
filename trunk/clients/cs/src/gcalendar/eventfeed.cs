@@ -167,30 +167,5 @@ namespace Google.GData.Calendar {
         {
             return new EventEntry();
         }
-
-
-
-        /// <summary>
-        /// get's called after we already handled the custom entry, to handle all 
-        /// other potential parsing tasks
-        /// </summary>
-        /// <param name="e">the element throwing the event</param>
-        /// <param name="parser">the atom feed parser used</param>
-        protected override void HandleExtensionElements(ExtensionElementEventArgs e, AtomFeedParser parser)
-        {
-            Tracing.TraceMsg("\t HandleExtensionElements for CalendarFeed called");
-            // the base implementation handles all things registered with AddExtension
-            base.HandleExtensionElements(e, parser);
-
-            if (String.Compare(e.ExtensionElement.NamespaceURI, BaseNameTable.gNamespace, true) == 0)
-            {
-                if (e.ExtensionElement.LocalName == GDataParserNameTable.XmlExtendedPropertyElement)
-                {
-                    ExtendedProperty prop = ExtendedProperty.Parse(e.ExtensionElement); 
-                    e.Base.ExtensionElements.Add(prop); 
-                    e.DiscardEntry = true;
-                }
-            }
-        }
     }
 }
