@@ -74,6 +74,10 @@ namespace Google.GData.Extensions
         public const string XmlReminderElement = "reminder";
         /// <summary>static string for parsing</summary>
         public const string XmlCommentsElement = "comments";
+        public const string XmlColorElement = "color";
+        public const string XmlSelectedElement = "selected";
+        public const string XmlAccessLevelElement = "accesslevel";
+        public const string XmlHiddenElement = "hidden";
         
 #endregion
 
@@ -139,4 +143,5 @@ namespace Google.GData.Extensions
 
 }
 /////////////////////////////////////////////////////////////////////////////
+
 
