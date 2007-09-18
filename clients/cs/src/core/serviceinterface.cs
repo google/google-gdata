@@ -179,7 +179,7 @@ namespace Google.GData.Client
         /// </summary>
         /// <param name="node">the xmlnode to parse</param>
         /// <returns></returns>
-        IExtensionElement CreateInstance(XmlNode node); 
+        IExtensionElement CreateInstance(XmlNode node, AtomFeedParser parser); 
     }
 
 

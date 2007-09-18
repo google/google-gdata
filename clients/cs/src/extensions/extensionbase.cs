@@ -104,7 +104,7 @@ namespace Google.GData.Extensions {
         /// <param name="node">the xml parses node, can be NULL</param>
         /// <returns>the created IExtensionElement object</returns>
         //////////////////////////////////////////////////////////////////////
-        public virtual IExtensionElement CreateInstance(XmlNode node) 
+        public virtual IExtensionElement CreateInstance(XmlNode node, AtomFeedParser parser) 
         {
             Tracing.TraceCall();
 

@@ -23,9 +23,26 @@ namespace Google.GData.Extensions
 {
 
     /// <summary>
-    /// GData Schema describing a place or location
+    /// A place (such as an event location) associated with the containing entity. The type of 
+    /// the association is determined by the rel attribute; the details of the location are 
+    /// contained in an embedded or linked-to Contact entry.
+    /// A gd:where element is more general than a gd:geoPt element. The former identifies a place
+    ///  using a text description and/or a Contact entry, while the latter identifies a place 
+    /// using a specific geographic location.
+    ///     Properties
+    ////    Property 	    Type 	    Description
+    ///     @label? 	    xs:string 	Specifies a user-readable label to distinguish this location from other locations.
+    ///     @rel? 	        xs:string 	Specifies the relationship between the containing entity and the contained location. Possible values (see below) are defined by other elements. For example, <gd:when> defines http://schemas.google.com/g/2005#event.
+    ///     @valueString? 	xs:string 	A simple string value that can be used as a representation of this location.
+    ////    gd:entryLink? 	entryLink 	Entry representing location details. This entry should implement the Contact kind.
+    ///     rel values
+    ///     Value 	                                                    Description
+    ////    http://schemas.google.com/g/2005#event or not specified 	 Place where the enclosing event takes place.
+    ////    http://schemas.google.com/g/2005#event.alternate 	          A secondary location. For example, a remote 
+    ///                                                                  site with a videoconference link to the main site.
+    ////    http://schemas.google.com/g/2005#event.parking 	              A nearby parking lot.
     /// </summary>
-    public class Where : IExtensionElement
+    public class Where : IExtensionElement, IExtensionElementFactory
     {
 
         /// <summary>
@@ -110,45 +127,48 @@ namespace Google.GData.Extensions
             set { entryLink = value; }
         }
 
-        #region Where Parser
+        #region overloaded from IExtensionElementFactory
         //////////////////////////////////////////////////////////////////////
-        /// <summary>parses an xml node to create a Where object</summary> 
-        /// <param name="node">where node</param>
-        /// <param name="parser">AtomFeedParser to use</param>
-        /// <returns> the created Where object</returns>
+        /// <summary>Parses an xml node to create a Where  object.</summary> 
+        /// <param name="node">the node to parse node</param>
+        /// <returns>the created Where  object</returns>
         //////////////////////////////////////////////////////////////////////
-        public static Where ParseWhere(XmlNode node, AtomFeedParser parser)
+        public IExtensionElement CreateInstance(XmlNode node, AtomFeedParser parser)
         {
             Tracing.TraceCall();
             Where where = null;
-            Tracing.Assert(node != null, "node should not be null");
-            if (node == null)
+
+            if (node != null)
             {
-                throw new ArgumentNullException("node");
+                object localname = node.LocalName;
+                if (localname.Equals(this.XmlName) == false ||
+                  node.NamespaceURI.Equals(this.XmlNameSpace) == false)
+                {
+                    return null;
+                }
             }
 
-            object localname = node.LocalName;
-            if (localname.Equals(GDataParserNameTable.XmlWhereElement))
-            {
-                where = new Where();
+            where = new Where();
+            if (node != null) {
+
                 if (node.Attributes != null)
                 {
                     if (node.Attributes[GDataParserNameTable.XmlAttributeRel] != null)
                     {
                         where.Rel = node.Attributes[GDataParserNameTable.XmlAttributeRel].Value;
                     }
-
+    
                     if (node.Attributes[GDataParserNameTable.XmlAttributeLabel] != null)
                     {
                         where.Label = node.Attributes[GDataParserNameTable.XmlAttributeLabel].Value;
                     }
-
+    
                     if (node.Attributes[GDataParserNameTable.XmlAttributeValueString] != null)
                     {
                         where.ValueString = node.Attributes[GDataParserNameTable.XmlAttributeValueString].Value;
                     }
                 }
-
+    
                 if (node.HasChildNodes)
                 {
                     foreach (XmlNode childNode in node.ChildNodes)
@@ -167,12 +187,8 @@ namespace Google.GData.Extensions
                     }
                 }
             }
-
             return where;
         }
-        #endregion
-
-        #region overloaded for persistence
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>Returns the constant representing this XML element.</summary> 
@@ -182,7 +198,27 @@ namespace Google.GData.Extensions
             get { return GDataParserNameTable.XmlWhereElement; }
         }
 
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Returns the constant representing this XML element.</summary> 
+        //////////////////////////////////////////////////////////////////////
+        public string XmlNameSpace
+        {
+            get { return BaseNameTable.gNamespace; }
+        }
 
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Returns the constant representing this XML element.</summary> 
+        //////////////////////////////////////////////////////////////////////
+        public string XmlPrefix
+        {
+            get { return BaseNameTable.gDataPrefix; }
+        }
+
+        #endregion
+
+        #region overloaded for persistence
+
+      
         /// <summary>
         /// Persistence method for the Where object
         /// </summary>

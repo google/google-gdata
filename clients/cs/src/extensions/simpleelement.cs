@@ -77,7 +77,7 @@ namespace Google.GData.Extensions {
         /// <summary>
         ///  Accessor Method for the value
         /// </summary>
-        public string Value
+        public virtual string Value
         {
             get { return value; }
             set { this.value = value;}
@@ -119,7 +119,7 @@ namespace Google.GData.Extensions {
         /// <param name="node">the xml parses node, can be NULL</param>
         /// <returns>the created SimpleElement object</returns>
         //////////////////////////////////////////////////////////////////////
-        public override IExtensionElement CreateInstance(XmlNode node) 
+        public override IExtensionElement CreateInstance(XmlNode node, AtomFeedParser parser) 
         {
             Tracing.TraceCall();
 
@@ -161,4 +161,52 @@ namespace Google.GData.Extensions {
         }
         #endregion
     }
+
+
+
+
+    /// <summary>
+    /// a simple element with one attribute,called value that exposes 
+    /// that value as the value property
+    /// </summary>
+    public class SimpleAttribute : SimpleElement
+    {
+        /// <summary>
+        /// constructor
+        /// </summary>
+        /// <param name="name">the xml name</param>
+        /// <param name="prefix">the xml prefix</param>
+        /// <param name="ns">the xml namespace</param>
+        protected SimpleAttribute(string name, string prefix, string ns)
+                    :base(name, prefix,ns)
+        {
+            this.Attributes.Add(BaseNameTable.XmlValue, null);
+        }
+
+
+
+        /// <summary>
+        /// constructor
+        /// </summary>
+        /// <param name="name">the xml name</param>
+        /// <param name="prefix">the xml prefix</param>
+        /// <param name="ns">the xml namespace</param>
+        /// <param name="value">the intial value</param>
+        protected SimpleAttribute(string name, string prefix, string ns, string value)
+                    :base(name, prefix, ns)
+        {
+            this.Attributes.Add(BaseNameTable.XmlValue, value);
+        }
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>read only accessor</summary> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        public override string Value
+        {
+            get {return this.Attributes[BaseNameTable.XmlValue] as string;}
+        }
+        // end of accessor public string Value
+    }
+
 }  
