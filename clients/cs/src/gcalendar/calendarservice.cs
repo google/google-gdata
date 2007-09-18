@@ -57,11 +57,22 @@ namespace Google.GData.Calendar {
             return base.Query(feedQuery) as EventFeed;
         }
 
+        /// <summary>
+        /// overloaded to create typed version of Query for Calendar feeds
+        /// </summary>
+        /// <param name="calQuery">The query object for searching a calendar feed.</param>
+        /// <returns>CalendarFeed of the returned calendar entries.</returns>
+        public CalendarFeed Query(CalendarQuery calQuery)
+        {
+            return base.Query(calQuery) as CalendarFeed;
+        }
+
          /// <summary>
         /// overloaded to create typed version of Query
         /// </summary>
         /// <param name="feedQuery"></param>
-        /// <returns>EventFeed</returns>        public AclFeed Query(AclQuery feedQuery) 
+        /// <returns>EventFeed</returns>
+        public AclFeed Query(AclQuery feedQuery) 
         {
             return base.Query(feedQuery) as AclFeed;
         }
@@ -82,8 +93,13 @@ namespace Google.GData.Calendar {
             if (e.Uri.AbsoluteUri.IndexOf("/acl/") != -1)
             {
                 e.Feed = new AclFeed(e.Uri, e.Service);
-            } 
-            else 
+            }
+            else if ((e.Uri.AbsoluteUri.IndexOf("/allcalendars/") != -1) ||
+                     (e.Uri.AbsoluteUri.IndexOf("/owncalendars/") != -1))
+            {
+                e.Feed = new CalendarFeed(e.Uri, e.Service);
+            }
+            else
             {
                 e.Feed = new EventFeed(e.Uri, e.Service);
             }

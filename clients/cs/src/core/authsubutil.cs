@@ -38,7 +38,8 @@ namespace Google.GData.Client
     public class AuthSubUtil
     {
         private static string DEFAULT_PROTOCOL = "https"; 
-        private static string DEFAULT_DOMAIN = "www.google.com"; 
+        private static string DEFAULT_DOMAIN = "www.google.com";
+        private static string DEFAULT_HANDLER = "/accounts/AuthSubRequest";
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>Creates the request URL to be used to retrieve an AuthSub 
@@ -92,17 +93,50 @@ namespace Google.GData.Client
                                            bool secure,
                                            bool session)
         {
+            return getRequestUrl(protocol, domain, DEFAULT_HANDLER, continueUrl, 
+                scope, secure, session);
+        }
 
-            StringBuilder url = new StringBuilder(protocol); 
-            url.Append("://"); 
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Creates the request URL to be used to retrieve an AuthSub 
+        /// token. On success, the user will be redirected to the continue URL 
+        /// with the AuthSub token appended to the URL.
+        /// Use getTokenFromReply(String) to retrieve the token from the reply.
+        /// </summary> 
+        /// <param name="protocol">the protocol to use to communicate with the 
+        /// server</param>
+        /// <param name="domain">the domain at which the authentication server 
+        /// exists</param>
+        /// <param name="handler">the location of the authentication handler
+        ///  (defaults to "/accounts/AuthSubRequest".</param>
+        /// <param name="continueUrl">the URL to redirect to on successful 
+        /// token retrieval</param>
+        /// <param name="scope">the scope of the requested AuthSub token</param>
+        /// <param name="secure">if the token will be used securely</param>
+        /// <param name="session"> if the token will be exchanged for a
+        ///  session cookie</param>
+        /// <returns>the URL to be used to retrieve the AuthSub token</returns>
+        //////////////////////////////////////////////////////////////////////
+        public static string getRequestUrl(string protocol,
+                                           string domain,
+                                           string handler,
+                                           string continueUrl,
+                                           string scope,
+                                           bool secure,
+                                           bool session)
+        {
+
+            StringBuilder url = new StringBuilder(protocol);
+            url.Append("://");
             url.Append(domain);
-            url.Append("/accounts/AuthSubRequest?");
+            url.Append(handler);
+            url.Append("?");
             addParameter(url, "next", continueUrl);
-            url.Append("&"); 
+            url.Append("&");
             addParameter(url, "scope", scope);
-            url.Append("&"); 
+            url.Append("&");
             addParameter(url, "secure", secure ? "1" : "0");
-            url.Append("&"); 
+            url.Append("&");
             addParameter(url, "session", session ? "1" : "0");
             return url.ToString();
         }
