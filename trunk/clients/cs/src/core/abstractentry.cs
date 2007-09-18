@@ -83,7 +83,7 @@ namespace Google.GData.Client
                                                                   node.NamespaceURI);
                 if (f != null)
                 {
-                    this.ExtensionElements.Add(f.CreateInstance(node));
+                    this.ExtensionElements.Add(f.CreateInstance(node, parser));
                     e.DiscardEntry = true;
                 }
             }

@@ -192,11 +192,11 @@ namespace Google.GData.Extensions {
 
         #region overloaded from IExtensionElementFactory
         //////////////////////////////////////////////////////////////////////
-        /// <summary>Parses an xml node to create a Who object.</summary> 
+        /// <summary>Parses an xml node to create a Reminder object.</summary> 
         /// <param name="node">the node to parse node</param>
-        /// <returns>the created GeoRSSWhere object</returns>
+        /// <returns>the created Reminder object</returns>
         //////////////////////////////////////////////////////////////////////
-        public IExtensionElement CreateInstance(XmlNode node)
+        public IExtensionElement CreateInstance(XmlNode node, AtomFeedParser parser)
         {
             Tracing.TraceCall();
             Reminder reminder = null;
@@ -213,7 +213,7 @@ namespace Google.GData.Extensions {
 
             bool absoluteFlag = false;
             reminder = new Reminder();
-            if (node.Attributes != null)
+            if (node != null && node.Attributes != null)
             {
                 if (node.Attributes[GDataParserNameTable.XmlAttributeAbsoluteTime] != null)
                 {

@@ -22,84 +22,42 @@ using Google.GData.Extensions;
 
 namespace Google.GData.Calendar {
 
-    //////////////////////////////////////////////////////////////////////
-    /// <summary>holds the timezone element on the feed level
-    /// </summary> 
-    //////////////////////////////////////////////////////////////////////
-    public class TimeZone  : IExtensionElement
+
+    /// <summary>
+    /// holds the timezone element on the feed level
+    /// </summary>
+    public class TimeZone : SimpleAttribute
     {
-        private string value; 
-
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>read only accessor</summary> 
-        /// <returns> </returns>
-        //////////////////////////////////////////////////////////////////////
-        public string Value
+        /// <summary>
+        ///  default constructor
+        /// </summary>
+        public TimeZone()
+            : base(GDataParserNameTable.XmlTimeZoneElement, GDataParserNameTable.gCalPrefix, GDataParserNameTable.NSGCal)
         {
-            get {return this.value;}
-        }
-        // end of accessor public string Value
-
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>internal setter for parsing</summary> 
-        //////////////////////////////////////////////////////////////////////
-        internal void setTimeZone(string value) 
-        {
-            this.value = value; 
         }
 
-#region timezone Parser
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>Parses an XML node to create a feed level timezone</summary> 
-        /// <param name="node">timezone node</param>
-        /// <returns> the created timezone object</returns>
-        //////////////////////////////////////////////////////////////////////
-        public static TimeZone ParseTimeZone(XmlNode node)
+        /// <summary>
+        ///  defaull constructor with an initial value for the attribute
+        /// </summary>
+        /// <param name="initValue"></param>
+        public TimeZone(string initValue)
+            : base(GDataParserNameTable.XmlTimeZoneElement, GDataParserNameTable.gCalPrefix, GDataParserNameTable.NSGCal, initValue)
         {
-            Tracing.TraceMsg("Entering ParseTimeZone");
-            TimeZone timezone = null;
-            Tracing.Assert(node != null, "node should not be null");
-
-            if (node == null)
-            {
-                throw new ArgumentNullException("node");
-            }
-
-            object localname = node.LocalName;
-            if (localname.Equals(GDataParserNameTable.XmlTimeZoneElement))
-            {
-                timezone = new TimeZone();
-                if (node.Attributes != null)
-                {
-                    if (node.Attributes[GDataParserNameTable.XmlValue] != null)
-                    {
-                        timezone.setTimeZone(node.Attributes[GDataParserNameTable.XmlValue].Value); 
-                    }
-                }
-            }
-
-            return timezone;
         }
-
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>saves the current object into the stream. TimeZone,
         /// though does not get saved</summary> 
         /// <param name="writer">xmlWriter to write into</param>
         //////////////////////////////////////////////////////////////////////
-        public void Save(XmlWriter writer)
+        public override void Save(XmlWriter writer)
         {
             Tracing.TraceMsg("Save called on TimeZone... skipping it"); 
             return; 
         }
-
-#endregion
-
-
-
     }
-    //end of public class TimeZone
 
+    
     //////////////////////////////////////////////////////////////////////
     /// <summary>
     /// Feed API customization class for defining feeds in an Event feed.
@@ -108,7 +66,6 @@ namespace Google.GData.Calendar {
     public class EventFeed : AbstractFeed
     {
 
-        private Where location;
         private TimeZone timezone; 
 
         /// <summary>
@@ -119,6 +76,8 @@ namespace Google.GData.Calendar {
         public EventFeed(Uri uriBase, IService iService) : base(uriBase, iService)
         {
             AddExtension(new WebContent());
+            AddExtension(new Where());
+            AddExtension(new TimeZone());
         }
 
 
@@ -127,15 +86,17 @@ namespace Google.GData.Calendar {
         //////////////////////////////////////////////////////////////////////
         public Where Location
         {
-            get { return location;}
+            get 
+            { 
+
+                return FindExtension(GDataParserNameTable.XmlWhereElement, 
+                                     BaseNameTable.gNamespace) as Where;
+            }
             set
             {
-                if (location != null)
-                {
-                    ExtensionElements.Remove(location);
-                }
-                location = value;
-                ExtensionElements.Add(location);
+                ReplaceExtension(GDataParserNameTable.XmlWhereElement, 
+                                 BaseNameTable.gNamespace,
+                                 value);
             }
         }
 
@@ -145,8 +106,18 @@ namespace Google.GData.Calendar {
         //////////////////////////////////////////////////////////////////////
         public TimeZone TimeZone
         {
-            get {return this.timezone;}
-            set {this.timezone = value;}
+            get 
+            { 
+
+                return FindExtension(GDataParserNameTable.XmlTimeZoneElement, 
+                                     GDataParserNameTable.NSGCal) as TimeZone;
+            }
+            set
+            {
+                ReplaceExtension(GDataParserNameTable.XmlTimeZoneElement, 
+                                 GDataParserNameTable.NSGCal,
+                                 value);
+            }
         }
         // end of accessor public TimeZone TimeZone
 
@@ -187,30 +158,7 @@ namespace Google.GData.Calendar {
         }
 
 
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>Parses the inner state of the element.</summary>
-        /// <param name="eventNode">a g-scheme, xml node</param>
-        /// <param name="parser">AtomFeedParser to use</param>
-        //////////////////////////////////////////////////////////////////////
-        public void parseEvent(XmlNode eventNode, AtomFeedParser parser)
-        {
-            if (String.Compare(eventNode.NamespaceURI, BaseNameTable.gNamespace, true) == 0)
-            {
-                // Parse a Where Element
-                if (eventNode.LocalName == GDataParserNameTable.XmlWhereElement)
-                {
-                    if (this.Location == null)
-                    {
-                        this.Location = Where.ParseWhere(eventNode, parser);
-                    }
-                    else
-                    {
-                        throw new ArgumentException("Only one g:where element is valid in the Event Feeds");
-                    }
-                }
-            }
-        }
-
+      
         /// <summary>
         /// this needs to get implemented by subclasses
         /// </summary>
@@ -226,7 +174,8 @@ namespace Google.GData.Calendar {
         /// get's called after we already handled the custom entry, to handle all 
         /// other potential parsing tasks
         /// </summary>
-        /// <param name="e"></param>        /// <param name="parser">the atom feed parser used</param>
+        /// <param name="e">the element throwing the event</param>
+        /// <param name="parser">the atom feed parser used</param>
         protected override void HandleExtensionElements(ExtensionElementEventArgs e, AtomFeedParser parser)
         {
             Tracing.TraceMsg("\t HandleExtensionElements for CalendarFeed called");
@@ -235,35 +184,11 @@ namespace Google.GData.Calendar {
 
             if (String.Compare(e.ExtensionElement.NamespaceURI, BaseNameTable.gNamespace, true) == 0)
             {
-                // found GD namespace
-               if (e.Base.XmlName == AtomParserNameTable.XmlFeedElement)
-                {
-                    EventFeed eventFeed = e.Base as EventFeed;
-                    if (eventFeed != null)
-                    {
-                        eventFeed.parseEvent(e.ExtensionElement, parser);
-                        e.DiscardEntry = true;
-                    }
-                }
-                else if (e.ExtensionElement.LocalName == GDataParserNameTable.XmlExtendedPropertyElement)
+                if (e.ExtensionElement.LocalName == GDataParserNameTable.XmlExtendedPropertyElement)
                 {
                     ExtendedProperty prop = ExtendedProperty.Parse(e.ExtensionElement); 
                     e.Base.ExtensionElements.Add(prop); 
                     e.DiscardEntry = true;
-                }
-            }
-            else if (String.Compare(e.ExtensionElement.NamespaceURI, GDataParserNameTable.NSGCal, true) == 0)
-            {
-                // found calendar  namespace
-                Tracing.TraceMsg("\t entering the handler for calendar specific extensions for: " + e.Base.XmlName);
-                if (e.ExtensionElement.LocalName == GDataParserNameTable.XmlTimeZoneElement)
-                {
-                    EventFeed eventFeed = e.Base as EventFeed;
-                    if (eventFeed != null)
-                    {
-                        eventFeed.TimeZone = TimeZone.ParseTimeZone(e.ExtensionElement);
-                        e.DiscardEntry = true;
-                    }
                 }
             }
         }

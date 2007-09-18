@@ -41,8 +41,8 @@ namespace Google.GData.Calendar
             this.AddExtension(new GCalColor());
             this.AddExtension(new GCalSelected());
             this.AddExtension(new GCalAccessLevel());
-            //this.AddExtension(new Where());
-            //this.AddExtension(new TimeZone());
+            this.AddExtension(new Where());
+            this.AddExtension(new TimeZone());
         }
 
         /// <summary>

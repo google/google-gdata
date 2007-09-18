@@ -345,7 +345,7 @@ namespace Google.GData.Client
             IExtensionElementFactory f = FindExtensionFactory(localName, ns);
             if (f != null)
             {
-                ele = f.CreateInstance(null);
+                ele = f.CreateInstance(null, null);
             }
             return ele;
         }

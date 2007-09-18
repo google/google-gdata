@@ -90,7 +90,7 @@ namespace Google.GData.Extensions
         /// <param name="node">xml node</param>
         /// <returns>the created SimpleElement object</returns>
         //////////////////////////////////////////////////////////////////////
-        public IExtensionElement CreateInstance(XmlNode node) 
+        public IExtensionElement CreateInstance(XmlNode node, AtomFeedParser parser) 
         {
             Tracing.TraceCall();
 

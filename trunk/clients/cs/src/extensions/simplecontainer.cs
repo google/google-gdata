@@ -157,7 +157,7 @@ namespace Google.GData.Extensions {
         /// <param name="node">the node to work on, can be NULL</param>
         /// <returns>the created SimpleElement object</returns>
         //////////////////////////////////////////////////////////////////////
-        public override IExtensionElement CreateInstance(XmlNode node) 
+        public override IExtensionElement CreateInstance(XmlNode node, AtomFeedParser parser) 
         {
             Tracing.TraceCall("for: " + XmlName);
 
@@ -187,7 +187,7 @@ namespace Google.GData.Extensions {
                             if (String.Compare(childNode.LocalName, f.XmlName) == 0)
                             {
                                 Tracing.TraceMsg("Added extension to SimpleContainer for: " + f.XmlName);
-                                sc.ExtensionElements.Add(f.CreateInstance(childNode));
+                                sc.ExtensionElements.Add(f.CreateInstance(childNode, parser));
                                 break;
                             }
                         }

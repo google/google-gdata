@@ -45,6 +45,7 @@ namespace Google.GData.Calendar {
         : base()
         {
             Categories.Add(EVENT_CATEGORY);
+            addEventEntryExtensions();
             times = new WhenCollection(this);
             locations = new WhereCollection(this);
             participants = new WhoCollection(this);
@@ -83,8 +84,17 @@ namespace Google.GData.Calendar {
             Where eventLocation = new Where();
             eventLocation.ValueString = location;
             this.Locations.Add(eventLocation);
+            
         }
 
+        /// <summary>
+        ///  helper method to add extensions to the evententry
+        /// </summary>
+        private void addEventEntryExtensions()
+        {
+            this.AddExtension(new Reminder());
+            this.AddExtension(new Where());
+        }
 
         /// <summary>
         /// Constructs a new EventStatus  instance
@@ -723,13 +733,7 @@ namespace Google.GData.Calendar {
                     this.Times.Add(When.ParseWhen(eventNode));
                     e.DiscardEntry = true;
                 }
-                // Parse a Where Element
-                else if (eventNode.LocalName == GDataParserNameTable.XmlWhereElement)
-                {
-                    this.Locations.Add((Where.ParseWhere(eventNode, parser)));
-                    e.DiscardEntry = true;
-                }
-                // Parse a Who Element
+                 // Parse a Who Element
                 else if (eventNode.LocalName == GDataParserNameTable.XmlWhoElement)
                 {
                     this.Participants.Add((Who.ParseWho(eventNode, parser)));
