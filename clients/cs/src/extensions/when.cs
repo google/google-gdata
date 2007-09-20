@@ -25,7 +25,7 @@ namespace Google.GData.Extensions
     /// <summary>
     /// GData schema extension describing a period of time.
     /// </summary>
-    public class When : IExtensionElement
+    public class When : IExtensionElement, IExtensionElementFactory
     {
 
         /// <summary>
@@ -138,28 +138,32 @@ namespace Google.GData.Extensions
             set { this.fAllDay = value; }
         }
 
-
-        #region When Parser
+                #region overloaded from IExtensionElementFactory
         //////////////////////////////////////////////////////////////////////
-        /// <summary>Parses an xml node to create an When object.</summary> 
-        /// <param name="node">when node</param>
-        /// <returns>the created When object</returns>
+        /// <summary>Parses an xml node to create a Where  object.</summary> 
+        /// <param name="node">the node to parse node</param>
+        /// <returns>the created Where  object</returns>
         //////////////////////////////////////////////////////////////////////
-        public static When ParseWhen(XmlNode node)
+        public IExtensionElement CreateInstance(XmlNode node, AtomFeedParser parser)
         {
             Tracing.TraceCall();
             When when = null;
-            Tracing.Assert(node != null, "node should not be null");
-            if (node == null)
+
+            if (node != null)
             {
-                throw new ArgumentNullException("node");
+                object localname = node.LocalName;
+                if (localname.Equals(this.XmlName) == false ||
+                  node.NamespaceURI.Equals(this.XmlNameSpace) == false)
+                {
+                    return null;
+                }
             }
 
             bool startTimeFlag = false, endTimeFlag = false;
-            object localname = node.LocalName;
-            if (localname.Equals(GDataParserNameTable.XmlWhenElement))
+
+            when = new When();
+            if (node != null)
             {
-                when = new When();
                 if (node.Attributes != null)
                 {
                     String value = node.Attributes[GDataParserNameTable.XmlAttributeStartTime] != null ? 
@@ -170,17 +174,17 @@ namespace Google.GData.Extensions
                         when.startTime = DateTime.Parse(value);
                         when.AllDay = (value.IndexOf('T') == -1); 
                     }
-
+                
                     value = node.Attributes[GDataParserNameTable.XmlAttributeEndTime] != null ? 
                         node.Attributes[GDataParserNameTable.XmlAttributeEndTime].Value : null; 
-
+                
                     if (value != null)
                     {
                         endTimeFlag = true;
                         when.endTime = DateTime.Parse(value); 
                         when.AllDay = when.AllDay && (value.IndexOf('T') == -1); 
                     }
-
+                
                     if (node.Attributes[GDataParserNameTable.XmlAttributeValueString] != null)
                     {
                         when.valueString = node.Attributes[GDataParserNameTable.XmlAttributeValueString].Value;
@@ -205,7 +209,7 @@ namespace Google.GData.Extensions
                     }
                 }
             }
-
+            
             if (!startTimeFlag)
             {
                 throw new ArgumentNullException("g:when/@startTime is required.");
@@ -218,9 +222,6 @@ namespace Google.GData.Extensions
 
             return when;
         }
-        #endregion
-
-        #region overloaded for persistence
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>Returns the constant representing this XML element.
@@ -230,6 +231,32 @@ namespace Google.GData.Extensions
         {
             get { return GDataParserNameTable.XmlWhenElement; }
         }
+
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Returns the constant representing this XML element.</summary> 
+        //////////////////////////////////////////////////////////////////////
+        public string XmlNameSpace
+        {
+            get { return BaseNameTable.gNamespace; }
+        }
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Returns the constant representing this XML element.</summary> 
+        //////////////////////////////////////////////////////////////////////
+        public string XmlPrefix
+        {
+            get { return BaseNameTable.gDataPrefix; }
+        }
+
+        #endregion
+
+
+
+
+        
+
+        #region overloaded for persistence
 
         /// <summary>
         /// Persistence method for the When object

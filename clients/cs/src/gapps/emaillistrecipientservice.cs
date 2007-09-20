@@ -38,13 +38,6 @@ namespace Google.GData.Apps
         public EmailListRecipientService(string applicationName)
             : base(AppsNameTable.GAppsService, applicationName, AppsNameTable.GAppsAgent)
         {
-            this.NewAtomEntry += new FeedParserEventHandler(
-                this.OnParsedNewEmailListRecipientEntry);
-            this.NewExtensionElement += new ExtensionElementEventHandler(
-                this.OnNewEmailListRecipientExtensionElement);
-
-            // You can set factory.methodOverride = true if you are behind a 
-            // proxy that filters out HTTP methods such as PUT and DELETE.
         }
 
         /// <summary>
@@ -82,6 +75,26 @@ namespace Google.GData.Apps
                 throw (a == null ? e : a);
             }
         }
+
+         //////////////////////////////////////////////////////////////////////
+        /// <summary>eventchaining. We catch this by from the base service, which 
+        /// would not by default create an atomFeed</summary> 
+        /// <param name="sender"> the object which send the event</param>
+        /// <param name="e">FeedParserEventArguments, holds the feedentry</param> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        protected void OnNewFeed(object sender, ServiceEventArgs e)
+        {
+            Tracing.TraceMsg("Created new Picasa Feed");
+            if (e == null)
+            {
+                throw new ArgumentNullException("e"); 
+            }
+
+         
+            e.Feed = new EmailListRecipientFeed(e.Uri, e.Service);
+        }
+        /////////////////////////////////////////////////////////////////////////////
 
         /// <summary>
         /// Inserts a new email list recipient entry into the specified feed.
@@ -164,54 +177,6 @@ namespace Google.GData.Apps
             {
                 AppsException a = AppsException.ParseAppsException(e);
                 throw (a == null ? e : a);
-            }
-        }
-
-        /// <summary>
-        /// Event handler. Called when a new list entry is parsed.
-        /// </summary>
-        /// <param name="sender">the object that's sending the evet</param>
-        /// <param name="e">FeedParserEventArguments, holds the feedentry</param>
-        protected void OnParsedNewEmailListRecipientEntry(object sender, FeedParserEventArgs e)
-        {
-            if (e == null)
-            {
-                throw new ArgumentNullException("e");
-            }
-            if (e.CreatingEntry == true)
-            {
-                e.Entry = new EmailListRecipientEntry();
-            }
-        }
-
-        /// <summary>
-        /// Event handler.  Called for an email list extension element.
-        /// </summary>
-        /// <param name="sender">the object that's sending the event</param>
-        /// <param name="e">FeedParserEventArguments, holds the feedentry</param>
-        protected void OnNewEmailListRecipientExtensionElement(object sender, ExtensionElementEventArgs e)
-        {
-            if (e == null)
-            {
-                throw new ArgumentNullException("e");
-            }
-            if (String.Compare(e.ExtensionElement.NamespaceURI, BaseNameTable.gNamespace, true) == 0)
-            {
-                // found G namespace
-                e.DiscardEntry = true;
-                AtomFeedParser parser = sender as AtomFeedParser;
-
-                if (e.Base.XmlName == AtomParserNameTable.XmlFeedElement)
-                {
-                }
-                else if (e.Base.XmlName == AtomParserNameTable.XmlAtomEntryElement)
-                {
-                    EmailListRecipientEntry entry = e.Base as EmailListRecipientEntry;
-                    if (entry != null)
-                    {
-                        entry.ParseEmailListRecipientEntry(e.ExtensionElement, parser);
-                    }
-                }
             }
         }
     }

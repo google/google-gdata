@@ -231,7 +231,7 @@ namespace Google.GData.Extensions {
 
         #endregion
 
-         #region overloaded from IExtensionElementFactory
+        #region overloaded from IExtensionElementFactory
         //////////////////////////////////////////////////////////////////////
         /// <summary>Parses an xml node to create a Where  object.</summary> 
         /// <param name="node">the node to parse node</param>
@@ -302,7 +302,7 @@ namespace Google.GData.Extensions {
         //////////////////////////////////////////////////////////////////////
         public string XmlName
         {
-            get { return GDataParserNameTable.XmlWhereElement; }
+            get { return GDataParserNameTable.XmlWhoElement; }
         }
 
         //////////////////////////////////////////////////////////////////////

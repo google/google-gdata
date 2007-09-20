@@ -24,23 +24,21 @@ namespace Google.GData.Extensions {
     /// <summary>
     /// GData schema extension describing the original recurring event.
     /// </summary>
-    public class OriginalEvent : IExtensionElement
+    public class OriginalEvent : SimpleContainer
     {
-
         /// <summary>
-        /// Href to the original recurring event entry.
+        /// default constructor for media:group
         /// </summary>
-        protected string href;
+        public OriginalEvent() :
+            base(GDataParserNameTable.XmlOriginalEventElement,
+                 BaseNameTable.gNamespacePrefix,
+                 BaseNameTable.gNamespace)
+        {
+            this.ExtensionFactories.Add(new When());
+            this.getAttributes().Add(GDataParserNameTable.XmlAttributeId, null);
+            this.getAttributes().Add(GDataParserNameTable.XmlAttributeHref, null);
 
-        /// <summary>
-        /// ID to the orignal recurring event entry.
-        /// </summary>
-        protected string idOriginal;
-
-        /// <summary>
-        ///  holds the original starttime of the event
-        /// </summary>
-        protected When originalStartTime;
+        }
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>accessor method public Href</summary> 
@@ -48,8 +46,8 @@ namespace Google.GData.Extensions {
         //////////////////////////////////////////////////////////////////////
         public string Href
         {
-            get { return href; }
-            set { href = value; }
+            get { return this.getAttributes()[GDataParserNameTable.XmlAttributeHref] as string; }
+            set { this.getAttributes()[GDataParserNameTable.XmlAttributeHref] = value; }
         }
 
         //////////////////////////////////////////////////////////////////////
@@ -58,8 +56,8 @@ namespace Google.GData.Extensions {
         //////////////////////////////////////////////////////////////////////
         public string IdOriginal
         {
-            get { return idOriginal; }
-            set { idOriginal = value; }
+            get { return this.getAttributes()[GDataParserNameTable.XmlAttributeId] as string; }
+            set { this.getAttributes()[GDataParserNameTable.XmlAttributeId] = value; }
         }
 
         //////////////////////////////////////////////////////////////////////
@@ -68,125 +66,42 @@ namespace Google.GData.Extensions {
         //////////////////////////////////////////////////////////////////////
         public When OriginalStartTime
         {
-            get { return originalStartTime; }
-            set { originalStartTime = value; }
+            get 
+            { 
+                return FindExtension(GDataParserNameTable.XmlReminderElement,
+                                      BaseNameTable.gNamespace) as When;
+            }
+            set 
+            { 
+                ReplaceExtension(GDataParserNameTable.XmlReminderElement,
+                                      BaseNameTable.gNamespace, value);
+            }
         }
 
-        #region Original Event Parser
         //////////////////////////////////////////////////////////////////////
-        /// <summary>Parses an xml node to create an OriginalEvent object.</summary> 
-        /// <param name="node">originalEvent node</param>
-        /// <returns> the created OriginalEvent object</returns>
+        /// <summary>Parses an xml node to create a Who object.</summary> 
+        /// <param name="node">the xml parses node, can be NULL</param>
+        /// <returns>the created IExtensionElement object</returns>
         //////////////////////////////////////////////////////////////////////
-        public static OriginalEvent ParseOriginal(XmlNode node)
+        public override IExtensionElement CreateInstance(XmlNode node, AtomFeedParser parser) 
         {
-            Tracing.TraceCall();
-            OriginalEvent originalEvent = null;
-            Tracing.Assert(node != null, "node should not be null");
-            if (node == null)
+            IExtensionElement ele = base.CreateInstance(node, parser);
+
+            OriginalEvent ev = ele as OriginalEvent;
+            if (ev != null)
             {
-                throw new ArgumentNullException("node");
-            }
-
-            object localname = node.LocalName;
-            if (localname.Equals(GDataParserNameTable.XmlOriginalEventElement))
-            {
-                originalEvent = new OriginalEvent();
-                if (node.Attributes != null)
-                {
-                    if (node.Attributes[GDataParserNameTable.XmlAttributeId] != null)
-                    {
-                        originalEvent.IdOriginal = node.Attributes[GDataParserNameTable.XmlAttributeId].Value;
-                    }
-
-                    if (node.Attributes[GDataParserNameTable.XmlAttributeHref] != null)
-                    {
-                        originalEvent.Href = node.Attributes[GDataParserNameTable.XmlAttributeHref].Value;
-                    }
-                }
-
-                if (node.HasChildNodes)
-                {
-                    XmlNode childNode = node.FirstChild;
-                    while (childNode != null && childNode is XmlElement)
-                    {
-                        if (childNode.LocalName == GDataParserNameTable.XmlWhenElement)
-                        {
-                            if (originalEvent.OriginalStartTime == null)
-                            {
-                                originalEvent.OriginalStartTime = When.ParseWhen(childNode);
-                            }
-                            else
-                            {
-                                throw new ArgumentException("Only one g:when is allowed inside the g:orginalEvent");
-                            }
-                        }
-                        childNode = childNode.NextSibling;
-                    }
-                }
-            }
-
-            if (originalEvent.IdOriginal == null)
-            {
-                throw new ArgumentException("g:originalEvent/@id is required.");
-            }
-
-            if (originalEvent.OriginalStartTime == null)
-            {
-                throw new ArgumentException("g:when inside g:originalEvent is required.");
-            }
-
-            return originalEvent;
-        }
-        #endregion
-
-        #region overloaded for persistence
-
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>Returns the constant representing this XML element.</summary> 
-        //////////////////////////////////////////////////////////////////////
-        public string XmlName
-        {
-            get { return GDataParserNameTable.XmlOriginalEventElement; }
-        }
-
-        /// <summary>
-        /// Persistence method for the OriginalEvent object
-        /// </summary>
-        /// <param name="writer">the xmlwriter to write into</param>
-        public void Save(XmlWriter writer)
-        {
-            if (Utilities.IsPersistable(this.Href) ||
-                Utilities.IsPersistable(this.IdOriginal) ||
-                this.OriginalStartTime != null)
-            {
-                writer.WriteStartElement(BaseNameTable.gDataPrefix, XmlName, BaseNameTable.gNamespace);
-    
-                if (Utilities.IsPersistable(this.Href))
-                {
-                    writer.WriteAttributeString(GDataParserNameTable.XmlAttributeHref, this.Href);
-                }
-    
-                if (Utilities.IsPersistable(this.IdOriginal))
-                {
-                    writer.WriteAttributeString(GDataParserNameTable.XmlAttributeId, this.IdOriginal);
-                } 
-                else
+                if (ev.IdOriginal == null)
                 {
                     throw new ArgumentException("g:originalEvent/@id is required.");
                 }
     
-                if (this.OriginalStartTime != null)
-                {
-                    OriginalStartTime.Save(writer);
-                } 
-                else
+                if (ev.OriginalStartTime == null)
                 {
                     throw new ArgumentException("g:when inside g:originalEvent is required.");
                 }
-                writer.WriteEndElement();
             }
+
+            return ev;
         }
-        #endregion
     }
 }

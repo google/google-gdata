@@ -198,22 +198,20 @@ namespace Google.GData.Extensions {
             return sc;
         }
 
-         
         /// <summary>
-        /// Persistence method for the EnumConstruct object
+        /// saves out the inner xml, so all of our subelements
+        /// get's called from Save, whcih takes care of saving attributes
         /// </summary>
-        /// <param name="writer">the xmlwriter to write into</param>
-        public override void Save(XmlWriter writer)
+        /// <param name="writer"></param>
+        public override void SaveInnerXml(XmlWriter writer)
         {
-            writer.WriteStartElement(XmlPrefix, XmlName, XmlNameSpace);
-            if (this.extensions != null)
+           if (this.extensions != null)
             {
                 foreach (IExtensionElement e in this.ExtensionElements)
                 {
                     e.Save(writer);
                 }
             }
-            writer.WriteEndElement();
         }
         #endregion
     }

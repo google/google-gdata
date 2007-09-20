@@ -22,12 +22,12 @@ using Google.GData.Extensions;
 
 namespace Google.GData.Apps
 {
-    /// <summary>
-    /// A Google Apps email list recipient entry.  This class
-    /// defines a single recipient on an email list using a Who
-    /// (gd:who) object.
+    /// <summary>
+    /// A Google Apps email list recipient entry.  This class
+    /// defines a single recipient on an email list using a Who
+    /// (gd:who) object.
     /// </summary>
-    public class EmailListRecipientEntry : AtomEntry
+    public class EmailListRecipientEntry : AbstractEntry
     {
         /// <summary>
         /// Category used to label entries that contain email list
@@ -39,31 +39,34 @@ namespace Google.GData.Apps
 
         private Who recipient;
 
-        /// <summary>
-        /// Constructs a new EmailListRecipientEntry without
-        /// setting the Recipient property.
+        /// <summary>
+        /// Constructs a new EmailListRecipientEntry without
+        /// setting the Recipient property.
         /// </summary>
         public EmailListRecipientEntry()
             : base()
         {
             Categories.Add(EMAILLIST_RECIPIENT_CATEGORY);
+            this.AddExtension(new Who());
         }
 
-        /// <summary>
-        /// Constructs a new EmailListRecipientEntry, using
-        /// the specified email address to initialize the
-        /// Recipient property.
-        /// </summary>
+        /// <summary>
+        /// Constructs a new EmailListRecipientEntry, using
+        /// the specified email address to initialize the
+        /// Recipient property.
+        /// </summary>
         /// <param name="recipientAddress">the recipient's
         /// email address</param>
         public EmailListRecipientEntry(String recipientAddress)
             : base()
         {
             Categories.Add(EMAILLIST_RECIPIENT_CATEGORY);
-            
-            Recipient = new Who();
-            Recipient.Rel = Who.RelType.MESSAGE_TO;
-            Recipient.Email = recipientAddress;
+            Who who = new Who();
+
+            who.Rel = Who.RelType.MESSAGE_TO;
+            who.Email = recipientAddress;
+            this.Recipient = who;
+
         }
 
         /// <summary>
@@ -71,15 +74,13 @@ namespace Google.GData.Apps
         /// </summary>
         public Who Recipient
         {
-            get { return recipient; }
-            set
+            get 
             {
-                if (recipient != null)
-                {
-                    ExtensionElements.Remove(recipient);
-                }
-                recipient = value;
-                ExtensionElements.Add(recipient);
+                return FindExtension(GDataParserNameTable.XmlWhoElement, BaseNameTable.gNamespace) as Who;
+            }
+            set 
+            {
+                ReplaceExtension(GDataParserNameTable.XmlWhoElement, BaseNameTable.gNamespace, value);
             }
         }
 
@@ -92,39 +93,6 @@ namespace Google.GData.Apps
         public new void Update()
         {
             throw new ClientFeedException("Email list recipient entries cannot be updated.");
-        }
-
-        /// <summary>
-        /// Checks if this is a namespace declaration that we already added
-        /// </summary>
-        /// <param name="node">XmlNode to check</param>
-        /// <returns>True if this node should be skipped</returns>
-        protected override bool SkipNode(XmlNode node)
-        {
-            if (base.SkipNode(node))
-            {
-                return true;
-            }
-
-            return (node.NodeType == XmlNodeType.Attribute
-                   && node.Name.StartsWith("xmlns")
-                   && String.Compare(node.Value, BaseNameTable.gNamespace) == 0);
-        }
-
-        /// <summary>
-        /// Parses the inner state of the element
-        /// </summary>
-        /// <param name="emailListRecipientEntryNode">A g-scheme, xml node</param>
-        /// <param name="parser">The AtomFeedParser that called this</param>
-        public void ParseEmailListRecipientEntry(XmlNode emailListRecipientEntryNode, AtomFeedParser parser)
-        {
-            if (String.Compare(emailListRecipientEntryNode.NamespaceURI, BaseNameTable.gNamespace, true) == 0)
-            {
-                if (emailListRecipientEntryNode.LocalName == GDataParserNameTable.XmlWhoElement)
-                {
-                    Recipient = Who.ParseWho(emailListRecipientEntryNode, parser);
-                }
-            }
         }
     }
 }
