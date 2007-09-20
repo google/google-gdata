@@ -58,9 +58,14 @@ namespace Google.GData.Apps.UnitTests
             document.LoadXml(sb.ToString());
 
             EmailListRecipientEntry newEntry = new EmailListRecipientEntry();
+
             foreach (XmlNode node in document.FirstChild.ChildNodes)
             {
-                newEntry.ParseEmailListRecipientEntry(node, new AtomFeedParser());
+
+                ExtensionElementEventArgs args = new ExtensionElementEventArgs();
+                args.ExtensionElement = node; 
+                args.Base = newEntry;
+                newEntry.Parse(args, new AtomFeedParser());
             }
 
             Assert.AreEqual(recipient.Email, newEntry.Recipient.Email,

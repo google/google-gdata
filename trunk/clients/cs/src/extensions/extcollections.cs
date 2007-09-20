@@ -47,6 +47,11 @@ namespace Google.GData.Extensions
         public WhenCollection(AtomBase atomElement) : base()
         {
              this.atomElement = atomElement;
+             ArrayList arr = atomElement.FindExtensions(GDataParserNameTable.XmlWhenElement, BaseNameTable.gNamespace); 
+             foreach (object o in arr )
+             {
+                 List.Add(o);
+             }
         }
 
         /// <summary>standard typed accessor method </summary> 

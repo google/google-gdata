@@ -46,9 +46,6 @@ namespace Google.GData.Calendar {
         {
             Categories.Add(EVENT_CATEGORY);
             addEventEntryExtensions();
-            times = new WhenCollection(this);
-            locations = new WhereCollection(this);
-            participants = new WhoCollection(this);
         }
 
         /// <summary>
@@ -94,6 +91,9 @@ namespace Google.GData.Calendar {
         {
             this.AddExtension(new Reminder());
             this.AddExtension(new Where());
+            this.AddExtension(new Who());
+            this.AddExtension(new When());
+            this.AddExtension(new OriginalEvent());
         }
 
         /// <summary>
@@ -376,7 +376,6 @@ namespace Google.GData.Calendar {
         private Visibility visibility;
         private Transparency transparency;
         private Recurrence recurrence;
-        private OriginalEvent originalEvent;
         private Comments comments;
         private RecurrenceException exception; 
         private SendNotifications sendNotifications;
@@ -390,7 +389,14 @@ namespace Google.GData.Calendar {
         /// </summary>
         public WhenCollection Times
         {
-            get { return times;}
+            get 
+            {
+                if (this.times == null)
+                {
+                    this.times =  new WhenCollection(this);
+                }
+                return this.times;
+            }
         }
 
         /// <summary>
@@ -398,15 +404,29 @@ namespace Google.GData.Calendar {
         /// </summary>
         public WhereCollection Locations
         {
-            get { return locations;}
+            get 
+            {
+                if (this.locations == null)
+                {
+                    this.locations =  new WhereCollection(this);
+                }
+                return this.locations;
+            }
         }
 
         /// <summary>
-        ///  property accessor for the WhoCollection
+        ///  property accessor for the whos in the event
         /// </summary>
         public WhoCollection Participants
         {
-            get { return participants;}
+            get 
+            {
+                if (this.participants == null)
+                {
+                    this.participants =  new WhoCollection(this); 
+                }
+                return this.participants;
+            }
         }
 
         /// <summary>
@@ -580,15 +600,15 @@ namespace Google.GData.Calendar {
         /// </summary>
         public OriginalEvent OriginalEvent
         {
-            get { return originalEvent;}
+            get 
+            { 
+                return FindExtension(GDataParserNameTable.XmlOriginalEventElement,
+                                     BaseNameTable.gNamespace) as OriginalEvent;
+            }
             set
             {
-                if (originalEvent != null)
-                {
-                    ExtensionElements.Remove(originalEvent);
-                }
-                originalEvent = value; 
-                ExtensionElements.Add(originalEvent);
+                ReplaceExtension(GDataParserNameTable.XmlOriginalEventElement,
+                                     BaseNameTable.gNamespace, value);
             }
         }
 
@@ -723,24 +743,13 @@ namespace Google.GData.Calendar {
 
             // Parse a Reminder Element - recurrence event, g:reminder is in top level
             // reminders are already changed to IExtensionElementFactory, so call base
+            // see addEventEntryExtensions()
             base.Parse(e, parser);
 
             if (String.Compare(eventNode.NamespaceURI, BaseNameTable.gNamespace, true) == 0)
             {
-                // Parse a When Element
-                if (eventNode.LocalName == GDataParserNameTable.XmlWhenElement)
-                {
-                    this.Times.Add(When.ParseWhen(eventNode));
-                    e.DiscardEntry = true;
-                }
-                 // Parse a Who Element
-                else if (eventNode.LocalName == GDataParserNameTable.XmlWhoElement)
-                {
-                    this.Participants.Add((Who.ParseWho(eventNode, parser)));
-                    e.DiscardEntry = true;
-                }
                 // Parse a Status Element
-                else if (eventNode.LocalName == GDataParserNameTable.XmlEventStatusElement)
+                if (eventNode.LocalName == GDataParserNameTable.XmlEventStatusElement)
                 {
                     this.Status = EventStatus.parse(eventNode);
                     e.DiscardEntry = true;
@@ -766,12 +775,6 @@ namespace Google.GData.Calendar {
                 else if (eventNode.LocalName == GDataParserNameTable.XmlRecurrenceExceptionElement)
                 {
                     this.RecurrenceException = RecurrenceException.ParseRecurrenceException(eventNode, parser);
-                    e.DiscardEntry = true;
-                }
-                // Parse an Original Event Element
-                else if (eventNode.LocalName == GDataParserNameTable.XmlOriginalEventElement)
-                {
-                    this.OriginalEvent = OriginalEvent.ParseOriginal(eventNode);
                     e.DiscardEntry = true;
                 }
                 // Parse a Comments Element
