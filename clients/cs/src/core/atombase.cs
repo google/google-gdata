@@ -485,13 +485,28 @@ namespace Google.GData.Client
         /// <param name="localName">the local name to find</param>
         /// <param name="ns">the namespace to match, if null, ns is ignored</param>
         /// <param name="obj">the new element to put in</param>
-        public void ReplaceExtension(string localName, string ns, Object obj)
+        public void ReplaceExtension
+            (string localName, string ns, Object obj)
         {
             DeleteExtensions(localName, ns);
             this.ExtensionElements.Add(obj);
         }
 
 
+        /// <summary>
+        /// this is the subclassing method for AtomBase derived 
+        /// classes to overload what childelements should be created
+        /// needed to create CustomLink type objects, like WebContentLink etc
+        /// </summary>
+        /// <param name="reader">The XmlReader that tells us what we are working with</param>
+        /// <param name="parser">the parser is primarily used for nametable comparisons</param>
+        /// <returns>AtomBase</returns>
+        public virtual AtomBase CreateAtomSubElement(XmlReader reader, AtomFeedParser parser)
+
+        {
+            throw new NotImplementedException("AtomBase CreateChild should NEVER be called" + reader.LocalName);
+            return null;
+        }
 
     
         //////////////////////////////////////////////////////////////////////
