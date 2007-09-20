@@ -37,23 +37,12 @@ namespace Google.GData.Calendar {
         }
 
         /// <summary>
-        ///  defaull constructor with an initial value for the attribute
+        ///  default constructor with an initial value for the attribute
         /// </summary>
         /// <param name="initValue"></param>
         public TimeZone(string initValue)
             : base(GDataParserNameTable.XmlTimeZoneElement, GDataParserNameTable.gCalPrefix, GDataParserNameTable.NSGCal, initValue)
         {
-        }
-
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>saves the current object into the stream. TimeZone,
-        /// though does not get saved</summary> 
-        /// <param name="writer">xmlWriter to write into</param>
-        //////////////////////////////////////////////////////////////////////
-        public override void Save(XmlWriter writer)
-        {
-            Tracing.TraceMsg("Save called on TimeZone... skipping it"); 
-            return; 
         }
     }
 
@@ -65,8 +54,6 @@ namespace Google.GData.Calendar {
     //////////////////////////////////////////////////////////////////////
     public class EventFeed : AbstractFeed
     {
-
-        private TimeZone timezone; 
 
         /// <summary>
         ///  default constructor

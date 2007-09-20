@@ -138,12 +138,17 @@ namespace Google.GData.Extensions {
             // memberwise close is fine here, as everything is identical beside the value
             e = this.MemberwiseClone() as SimpleElement;
             e.InitInstance(this);
-            e.Value = node.InnerText;
-      
-            if (node.Attributes != null)
+
+            if (node != null)
             {
-                e.ProcessAttributes(node);
+                e.Value = node.InnerText;
+
+                if (node.Attributes != null)
+                {
+                    e.ProcessAttributes(node);
+                }
             }
+
             return e;
         }
 
@@ -178,7 +183,7 @@ namespace Google.GData.Extensions {
         /// <param name="prefix">the xml prefix</param>
         /// <param name="ns">the xml namespace</param>
         protected SimpleAttribute(string name, string prefix, string ns)
-                    :base(name, prefix,ns)
+                    :base(name, prefix, ns)
         {
             this.Attributes.Add(BaseNameTable.XmlValue, null);
         }
@@ -199,12 +204,18 @@ namespace Google.GData.Extensions {
         }
 
         //////////////////////////////////////////////////////////////////////
-        /// <summary>read only accessor</summary> 
+        /// <summary>Accessor for "value" attribute.</summary> 
         /// <returns> </returns>
         //////////////////////////////////////////////////////////////////////
         public override string Value
         {
-            get {return this.Attributes[BaseNameTable.XmlValue] as string;}
+            get {
+                return this.Attributes[BaseNameTable.XmlValue] as string;
+            }
+            set
+            {
+                this.Attributes[BaseNameTable.XmlValue] = value;
+            }
         }
         // end of accessor public string Value
     }
