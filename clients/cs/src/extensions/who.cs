@@ -27,7 +27,7 @@ namespace Google.GData.Extensions {
     /// GData schema extension describing a person.
     /// It contains a gd:entryLink element containing the described person.
     /// </summary>
-    public class Who : IExtensionElement
+    public class Who : IExtensionElement, IExtensionElementFactory
     {
 
         /// <summary>
@@ -231,34 +231,37 @@ namespace Google.GData.Extensions {
 
         #endregion
 
-        #region Who Parser
+         #region overloaded from IExtensionElementFactory
         //////////////////////////////////////////////////////////////////////
-        /// <summary>Parses an xml node to create a Who object.</summary> 
-        /// <param name="node">Who node</param>
-        /// <param name="parser">AtomFeedParser to use</param>
-        /// <returns>the created Who object</returns>
+        /// <summary>Parses an xml node to create a Where  object.</summary> 
+        /// <param name="node">the node to parse node</param>
+        /// <returns>the created Where  object</returns>
         //////////////////////////////////////////////////////////////////////
-        public static Who ParseWho(XmlNode node, AtomFeedParser parser)
+        public IExtensionElement CreateInstance(XmlNode node, AtomFeedParser parser)
         {
             Tracing.TraceCall();
             Who who = null;
-            Tracing.Assert(node != null, "node should not be null");
-            if (node == null)
+
+            if (node != null)
             {
-                throw new ArgumentNullException("node");
+                object localname = node.LocalName;
+                if (localname.Equals(this.XmlName) == false ||
+                  node.NamespaceURI.Equals(this.XmlNameSpace) == false)
+                {
+                    return null;
+                }
             }
 
-            object localname = node.LocalName;
-            if (localname.Equals(GDataParserNameTable.XmlWhoElement))
+            who = new Who();
+            if (node != null)
             {
-                who = new Who();
                 if (node.Attributes != null)
                 {
                     if (node.Attributes[GDataParserNameTable.XmlAttributeRel] != null)
                     {
                         who.Rel = node.Attributes[GDataParserNameTable.XmlAttributeRel].Value;
                     }
-
+    
                     if (node.Attributes[GDataParserNameTable.XmlAttributeValueString] != null)
                     {
                         who.valueString = node.Attributes[GDataParserNameTable.XmlAttributeValueString].Value;
@@ -268,13 +271,13 @@ namespace Google.GData.Extensions {
                         who.email = node.Attributes[GDataParserNameTable.XmlAttributeEmail].Value;
                     }
                 }
-
+    
                 if (node.HasChildNodes)
                 {
                     XmlNode childNode = node.FirstChild;
                     while (childNode != null && childNode is XmlElement)
                     {
-            
+    
                         if (childNode.LocalName == GDataParserNameTable.XmlAttendeeTypeElement)
                         {
                             who.Attendee_Type = AttendeeType.parse(childNode);
@@ -291,20 +294,37 @@ namespace Google.GData.Extensions {
                     }
                 }
             }
-
             return who;
         }
-        #endregion
-
-        #region overloaded for persistence
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>Returns the constant representing this XML element.</summary> 
         //////////////////////////////////////////////////////////////////////
         public string XmlName
         {
-            get { return GDataParserNameTable.XmlWhoElement; }
+            get { return GDataParserNameTable.XmlWhereElement; }
         }
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Returns the constant representing this XML element.</summary> 
+        //////////////////////////////////////////////////////////////////////
+        public string XmlNameSpace
+        {
+            get { return BaseNameTable.gNamespace; }
+        }
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Returns the constant representing this XML element.</summary> 
+        //////////////////////////////////////////////////////////////////////
+        public string XmlPrefix
+        {
+            get { return BaseNameTable.gDataPrefix; }
+        }
+
+        #endregion
+
+
+        #region overloaded for persistence
 
         /// <summary>
         /// Persistence method for the Who object
