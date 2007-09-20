@@ -213,7 +213,17 @@ namespace Google.GData.Client
             this.Credentials = new GDataCredentials(username, password);
         }
 
-
+        /// <summary>
+        /// Returns a single Atom entry based upon its unique URI.
+        /// </summary>
+        /// <param name="entryUri">The URI of the Atom entry.</param>
+        /// <returns>AtomEntry representing the entry.</returns>
+        public AtomEntry Get(string entryUri)
+        {
+            FeedQuery query = new FeedQuery(entryUri);
+            AtomFeed resultFeed = Query(query);
+            return resultFeed.Entries[0];
+        }
 
 
    
@@ -499,8 +509,10 @@ namespace Google.GData.Client
         /// double buffering/copying of the bytes
         /// </summary>
         /// <param name="targetUri"></param>
-        /// <param name="payload"></param>        /// <param name="type"></param>
-        /// <returns>Stream</returns>        
+        /// <param name="payload"></param>
+        /// <param name="type"></param>
+        /// <returns>Stream</returns>
+        
         public Stream StringSend(Uri targetUri, String payload, GDataRequestType type)
         {
             Tracing.Assert(targetUri != null, "targetUri should not be null");
@@ -541,7 +553,8 @@ namespace Google.GData.Client
         /// <param name="type"></param>
         /// <param name="contentType">the contenttype to use in the request, if NULL is passed, factory default is used</param>
         /// <param name="slugHeader">the slugHeader to use in the request, if NULL is passed, factory default is used</param>
-        /// <returns>Stream</returns>        
+        /// <returns>Stream</returns>
+        
         public Stream StreamSend(Uri targetUri, 
                                  Stream inputStream, 
                                  GDataRequestType type, 

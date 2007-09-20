@@ -49,10 +49,10 @@ namespace Google.GData.Calendar
         /// Basic method for retrieving Calendar extension elements.
         /// </summary>
         /// <param name="extension">The name of the extension element to look for</param>
-        /// <returns>SimpleElement, or NULL if the extension was not found</returns>
-        public SimpleElement getCalendarExtension(string extension)
+        /// <returns>SimpleAttribute, or NULL if the extension was not found</returns>
+        public SimpleAttribute getCalendarExtension(string extension)
         {
-            return FindExtension(extension, GDataParserNameTable.NSGCal) as SimpleElement;
+            return FindExtension(extension, GDataParserNameTable.NSGCal) as SimpleAttribute;
         }
 
         /// <summary>
@@ -62,10 +62,10 @@ namespace Google.GData.Calendar
         /// <returns>value as string, or NULL if the extension was not found</returns>
         public string getCalendarExtensionValue(string extension)
         {
-            SimpleElement e = getCalendarExtension(extension);
+            SimpleAttribute e = getCalendarExtension(extension);
             if (e != null)
             {
-                return (string) e.Attributes["value"];
+                return (string) e.Value;
             }
             return null;
         }
@@ -76,7 +76,7 @@ namespace Google.GData.Calendar
         /// </summary>
         /// <param name="extension">the name of the extension to look for</param>
         /// <param name="newValue">the new value for this extension element</param>
-        /// <returns>SimpleElement, either a brand new one, or the one
+        /// <returns>SimpleAttribute, either a brand new one, or the one
         /// returned by the service</returns>
         public SimpleElement setCalendarExtension(string extension, string newValue)
         {
@@ -85,20 +85,14 @@ namespace Google.GData.Calendar
                 throw new System.ArgumentNullException("extension");
             }
 
-            SimpleElement ele = getCalendarExtension(extension);
+            SimpleAttribute ele = getCalendarExtension(extension);
             if (ele == null)
             {
-                ele = CreateExtension(extension, GDataParserNameTable.NSGCal) as SimpleElement;
+                ele = CreateExtension(extension, GDataParserNameTable.NSGCal) as SimpleAttribute;
                 this.ExtensionElements.Add(ele);
             }
-            if (ele.Attributes.ContainsKey("value"))
-            {
-                ele.Attributes["value"] = newValue;
-            }
-            else
-            {
-                ele.Attributes.Add("value", newValue);
-            }
+
+            ele.Value = newValue;
 
             return ele;
         }
@@ -159,78 +153,110 @@ namespace Google.GData.Calendar
                 return getCalendarExtensionValue(GDataParserNameTable.XmlAccessLevelElement);
             }
         }
+
+        /// <summary>
+        /// This field controls the time zone of the calendar.
+        /// </summary>
+        public string TimeZone
+        {
+            get
+            {
+                return getCalendarExtensionValue(GDataParserNameTable.XmlTimeZoneElement);
+            }
+            set
+            {
+                setCalendarExtension(GDataParserNameTable.XmlTimeZoneElement, value);
+            }
+        }
+
+        /// <summary>
+        /// This field controls the location of the calendar.
+        /// </summary>
+        public Where Location
+        {
+            get
+            {
+                return FindExtension(GDataParserNameTable.XmlWhereElement,
+                                   GDataParserNameTable.NSGCal) as Where;
+            }
+            set
+            {
+                ReplaceExtension(GDataParserNameTable.XmlWhereElement,
+                                 GDataParserNameTable.NSGCal, value);
+            }
+        }
  
     }
 
     /// <summary>
     /// Color schema describing a gCal:color
     /// </summary>
-    public class GCalColor : SimpleElement
+    public class GCalColor : SimpleAttribute
     {
         public GCalColor()
-            : base("color", GDataParserNameTable.gCalPrefix, GDataParserNameTable.NSGCal)
+            : base(GDataParserNameTable.XmlColorElement, GDataParserNameTable.gCalPrefix, 
+              GDataParserNameTable.NSGCal)
         {
-            this.Attributes.Add("value", null);
         }
 
         public GCalColor(string initValue)
-            : base("color", GDataParserNameTable.gCalPrefix, GDataParserNameTable.NSGCal)
+            : base(GDataParserNameTable.XmlColorElement, GDataParserNameTable.gCalPrefix, 
+              GDataParserNameTable.NSGCal, initValue)
         {
-            this.Attributes.Add("value", initValue);
         }
     }
 
     /// <summary>
     /// Color schema describing a gCal:hidden
     /// </summary>
-    public class GCalHidden : SimpleElement
+    public class GCalHidden : SimpleAttribute
     {
         public GCalHidden()
-            : base("hidden", GDataParserNameTable.gCalPrefix, GDataParserNameTable.NSGCal)
+            : base(GDataParserNameTable.XmlHiddenElement, GDataParserNameTable.gCalPrefix, 
+              GDataParserNameTable.NSGCal)
         {
-            this.Attributes.Add("value", null);
         }
 
         public GCalHidden(string initValue)
-            : base("hidden", GDataParserNameTable.gCalPrefix, GDataParserNameTable.NSGCal)
+            : base(GDataParserNameTable.XmlHiddenElement, GDataParserNameTable.gCalPrefix, 
+              GDataParserNameTable.NSGCal, initValue)
         {
-            this.Attributes.Add("value", initValue);
         }
     }
 
     /// <summary>
     /// Color schema describing a gCal:selected
     /// </summary>
-    public class GCalSelected : SimpleElement
+    public class GCalSelected : SimpleAttribute
     {
         public GCalSelected()
-            : base("selected", GDataParserNameTable.gCalPrefix, GDataParserNameTable.NSGCal)
+            : base(GDataParserNameTable.XmlSelectedElement, GDataParserNameTable.gCalPrefix, 
+              GDataParserNameTable.NSGCal)
         {
-            this.Attributes.Add("value", null);
         }
 
         public GCalSelected(string initValue)
-            : base("selected", GDataParserNameTable.gCalPrefix, GDataParserNameTable.NSGCal)
+            : base(GDataParserNameTable.XmlSelectedElement, GDataParserNameTable.gCalPrefix, 
+              GDataParserNameTable.NSGCal, initValue)
         {
-            this.Attributes.Add("value", initValue);
         }
     }
 
     /// <summary>
     /// Color schema describing a gCal:accesslevel
     /// </summary>
-    public class GCalAccessLevel : SimpleElement
+    public class GCalAccessLevel : SimpleAttribute
     {
         public GCalAccessLevel()
-            : base("accesslevel", GDataParserNameTable.gCalPrefix, GDataParserNameTable.NSGCal)
+            : base(GDataParserNameTable.XmlAccessLevelElement, GDataParserNameTable.gCalPrefix, 
+              GDataParserNameTable.NSGCal)
         {
-            this.Attributes.Add("value", null);
         }
 
         public GCalAccessLevel(string initValue)
-            : base("accesslevel", GDataParserNameTable.gCalPrefix, GDataParserNameTable.NSGCal)
+            : base(GDataParserNameTable.XmlAccessLevelElement, GDataParserNameTable.gCalPrefix, 
+            GDataParserNameTable.NSGCal, initValue)
         {
-            this.Attributes.Add("value", initValue);
         }
     }
 }
