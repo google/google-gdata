@@ -813,6 +813,31 @@ namespace Google.GData.Client
 
         #endregion
 
+
+        /// <summary>
+        /// this is the subclassing method for AtomBase derived 
+        /// classes to overload what childelements should be created
+        /// needed to create CustomLink type objects, like WebContentLink etc
+        /// </summary>
+        /// <param name="reader">The XmlReader that tells us what we are working with</param>
+        /// <param name="parser">the parser is primarily used for nametable comparisons</param>
+        /// <returns>AtomBase</returns>
+        public override AtomBase CreateAtomSubElement(XmlReader reader, AtomFeedParser parser)
+        {
+            Object localname = reader.LocalName;
+
+            if ((localname.Equals(parser.Nametable.Link)))
+            {
+                return new AtomLink();
+            } else if (localname.Equals(parser.Nametable.Source))
+            {
+                return new AtomSource();
+            }
+            return base.CreateAtomSubElement(reader, parser);
+            
+        }
+
+
         #region overloaded for property changes, xml:base
         //////////////////////////////////////////////////////////////////////
         /// <summary>just go down the child collections</summary> 

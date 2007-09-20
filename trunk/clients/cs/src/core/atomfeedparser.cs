@@ -64,6 +64,10 @@ namespace Google.GData.Client
         }
         /////////////////////////////////////////////////////////////////////////////
 
+        public AtomParserNameTable Nametable
+        {
+            get { return this.nameTable; }
+        }
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>starts the parsing process</summary> 
@@ -203,7 +207,7 @@ namespace Google.GData.Client
                     {
                         // create the link
                         fSkip = false; 
-                        source.Links.Add(ParseLink(reader)); 
+                        source.Links.Add(ParseLink(reader, source)); 
                     }
                     else if (localname.Equals(this.nameTable.Id))
                     {
@@ -576,7 +580,7 @@ namespace Google.GData.Client
         /// <param name="reader">correctly positioned xmlreader</param>
         /// <returns> the created AtomLink object</returns>
         //////////////////////////////////////////////////////////////////////
-        protected AtomLink ParseLink(XmlReader reader)
+        protected AtomLink ParseLink(XmlReader reader, AtomBase parent)
         {
             Tracing.Assert(reader != null, "reader should not be null");
             if (reader == null)
@@ -584,12 +588,11 @@ namespace Google.GData.Client
                 throw new ArgumentNullException("reader"); 
             }
 
-
             Tracing.TraceCall();
-            AtomLink link = null;
+
+            AtomLink link = parent.CreateAtomSubElement(reader, this) as AtomLink;
             object localname = null;
 
-            link = new AtomLink();
             if (reader.HasAttributes)
             {
                 while (reader.MoveToNextAttribute())
@@ -678,7 +681,7 @@ namespace Google.GData.Client
                     else if (localname.Equals(this.nameTable.Link))
                     {
                         fSkip = false; 
-                        entry.Links.Add(ParseLink(reader)); 
+                        entry.Links.Add(ParseLink(reader, entry)); 
                     }
                     else if (localname.Equals(this.nameTable.Updated))
                     {
@@ -715,7 +718,7 @@ namespace Google.GData.Client
                     }
                     else if (localname.Equals(this.nameTable.Source))
                     {
-                        entry.Source = new AtomSource();
+                        entry.Source = entry.CreateAtomSubElement(reader, this) as AtomSource;
                         ParseSource(reader, entry.Source);
                     }
                     else if (localname.Equals(this.nameTable.Title))

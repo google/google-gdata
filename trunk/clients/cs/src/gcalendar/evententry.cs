@@ -728,6 +728,27 @@ namespace Google.GData.Calendar {
 
 #endregion
 
+        /// <summary>
+        /// this is the subclassing method for AtomBase derived 
+        /// classes to overload what childelements should be created
+        /// needed to create CustomLink type objects, like WebContentLink etc
+        /// </summary>
+        /// <param name="reader">The XmlReader that tells us what we are working with</param>
+        /// <param name="parser">the parser is primarily used for nametable comparisons</param>
+        /// <returns>AtomBase</returns>
+        public override AtomBase CreateAtomSubElement(XmlReader reader, AtomFeedParser parser)
+        {
+            Object localname = reader.LocalName;
+
+            if ((localname.Equals(parser.Nametable.Link)))
+            {
+                // here you could check if you want to create a webcontent and return 
+                // an atomLink subclass.
+                return new AtomLink();
+            }
+            return base.CreateAtomSubElement(reader, parser);
+            
+        }
      
 
 #region Event Parser
