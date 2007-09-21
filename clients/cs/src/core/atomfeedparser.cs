@@ -197,7 +197,7 @@ namespace Google.GData.Client
                     bool fSkip = true; 
                     if (localname.Equals(this.nameTable.Title))
                     {
-                        source.Title = ParseTextConstruct(reader, AtomTextConstructElementType.Title);
+                        source.Title = ParseTextConstruct(reader, source);
                     }
                     else if (localname.Equals(this.nameTable.Updated))
                     {
@@ -211,44 +211,43 @@ namespace Google.GData.Client
                     }
                     else if (localname.Equals(this.nameTable.Id))
                     {
-                        source.Id = new AtomId();
+                        source.Id = source.CreateAtomSubElement(reader, this) as AtomId;
                         ParseBaseLink(reader, source.Id);
                     }
                     else if (localname.Equals(this.nameTable.Icon))
                     {
-                        source.Icon = new AtomIcon();
+                        source.Icon = source.CreateAtomSubElement(reader, this) as AtomIcon;
                         ParseBaseLink(reader, source.Icon);
                     }
                     else if (localname.Equals(this.nameTable.Logo))
                     {
-                        source.Logo = new AtomLogo();
+                        source.Logo = source.CreateAtomSubElement(reader, this) as AtomLogo;
                         ParseBaseLink(reader, source.Logo);
                     }
-
                     else if (localname.Equals(this.nameTable.Author))
                     {
-                        source.Authors.Add(ParsePerson(reader, this.nameTable.Author));
+                        source.Authors.Add(ParsePerson(reader, source));
                     }
                     else if (localname.Equals(this.nameTable.Contributor))
                     {
-                        source.Contributors.Add(ParsePerson(reader, this.nameTable.Contributor));
+                        source.Contributors.Add(ParsePerson(reader, source));
                     }
                     else if (localname.Equals(this.nameTable.Subtitle))
                     {
-                        source.Subtitle = ParseTextConstruct(reader, AtomTextConstructElementType.Subtitle);
+                        source.Subtitle = ParseTextConstruct(reader, source);
                     }
                     else if (localname.Equals(this.nameTable.Rights))
                     {
-                        source.Rights = ParseTextConstruct(reader, AtomTextConstructElementType.Rights);
+                        source.Rights = ParseTextConstruct(reader, source);
                     }
                     else if (localname.Equals(this.nameTable.Generator))
                     {
-                        source.Generator = ParseGenerator(reader); 
+                        source.Generator = ParseGenerator(reader, source); 
                     }
                     else if (localname.Equals(this.nameTable.Category))
                     {
                         // need to make this another colleciton
-                        source.Categories.Add(ParseCategory(reader)); 
+                        source.Categories.Add(ParseCategory(reader, source)); 
                     }
                     else if (feed != null && localname.Equals(this.nameTable.Entry))
                     {
@@ -460,33 +459,25 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         /// <summary>parses an author/person object</summary> 
         /// <param name="reader"> an XmlReader positioned at the start of the author</param>
-        /// <param name="whoIsIt">indicates the localname to check for</param>
+        /// <param name="owner">the object containing the person</param>
         /// <returns> the created author object</returns>
         //////////////////////////////////////////////////////////////////////
-        protected AtomPerson ParsePerson(XmlReader reader, object whoIsIt)
+        protected AtomPerson ParsePerson(XmlReader reader, AtomBase owner) 
         {
             Tracing.Assert(reader != null, "reader should not be null");
             if (reader == null)
             {
                 throw new ArgumentNullException("reader"); 
             }
-            Tracing.Assert(whoIsIt != null, "whoIsIt should not be null");
-            if (whoIsIt == null)
+            Tracing.Assert(owner != null, "owner should not be null");
+            if (owner == null)
             {
-                throw new ArgumentNullException("whoIsIt"); 
+                throw new ArgumentNullException("owner"); 
             }
-            Tracing.TraceCall();
-            AtomPerson author = null;
-            object localname = null; 
 
-            if (whoIsIt.Equals(this.nameTable.Author))
-            {
-                author = new AtomPerson(AtomPersonType.Author);
-            }
-            else
-            {
-                author = new AtomPerson(AtomPersonType.Contributor);
-            }
+            Tracing.TraceCall();
+            object localname = null; 
+            AtomPerson author = owner.CreateAtomSubElement(reader, this) as AtomPerson;
 
             ParseBasicAttributes(reader, author);
 
@@ -529,27 +520,28 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         /// <summary>parses an xml stream to create an AtomCategory object</summary> 
         /// <param name="reader">correctly positioned xmlreader</param>
+        /// <param name="owner">the object containing the person</param>
         /// <returns> the created AtomCategory object</returns>
         //////////////////////////////////////////////////////////////////////
-        protected AtomCategory ParseCategory(XmlReader reader)
+        protected AtomCategory ParseCategory(XmlReader reader, AtomBase owner)
         {
             Tracing.TraceCall();
-            AtomCategory category = null;
             Tracing.Assert(reader != null, "reader should not be null");
             if (reader == null)
             {
                 throw new ArgumentNullException("reader"); 
             }
 
-            object localname = reader.LocalName;
-            if (localname.Equals(this.nameTable.Category))
+            AtomCategory category = owner.CreateAtomSubElement(reader, this) as AtomCategory;
+
+            if (category != null) 
             {
                 category = new AtomCategory();
                 if (reader.HasAttributes)
                 {
                     while (reader.MoveToNextAttribute())
                     {
-                        localname = reader.LocalName;
+                        object localname = reader.LocalName;
                         if (localname.Equals(this.nameTable.Term))
                         {
                             category.Term = Utilities.DecodedValue(reader.Value);
@@ -578,9 +570,10 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         /// <summary>creates an atomlink object</summary> 
         /// <param name="reader">correctly positioned xmlreader</param>
-        /// <returns> the created AtomLink object</returns>
+        /// <param name="owner">the object containing the person</param>
+       /// <returns> the created AtomLink object</returns>
         //////////////////////////////////////////////////////////////////////
-        protected AtomLink ParseLink(XmlReader reader, AtomBase parent)
+        protected AtomLink ParseLink(XmlReader reader, AtomBase owner)
         {
             Tracing.Assert(reader != null, "reader should not be null");
             if (reader == null)
@@ -590,7 +583,7 @@ namespace Google.GData.Client
 
             Tracing.TraceCall();
 
-            AtomLink link = parent.CreateAtomSubElement(reader, this) as AtomLink;
+            AtomLink link = owner.CreateAtomSubElement(reader, this) as AtomLink;
             object localname = null;
 
             if (reader.HasAttributes)
@@ -675,7 +668,7 @@ namespace Google.GData.Client
                     bool fSkip = true; 
                     if (localname.Equals(this.nameTable.Id))
                     {
-                        entry.Id = new AtomId();
+                        entry.Id = entry.CreateAtomSubElement(reader, this) as AtomId;
                         ParseBaseLink(reader, entry.Id);
                     }
                     else if (localname.Equals(this.nameTable.Link))
@@ -693,28 +686,28 @@ namespace Google.GData.Client
                     }
                     else if (localname.Equals(this.nameTable.Author))
                     {
-                        entry.Authors.Add(ParsePerson(reader, localname));
+                        entry.Authors.Add(ParsePerson(reader, entry));
                     }
                     else if (localname.Equals(this.nameTable.Contributor))
                     {
-                        entry.Contributors.Add(ParsePerson(reader, localname));
+                        entry.Contributors.Add(ParsePerson(reader, entry));
                     }
                     else if (localname.Equals(this.nameTable.Rights))
                     {
-                        entry.Rights = ParseTextConstruct(reader, AtomTextConstructElementType.Rights);
+                        entry.Rights = ParseTextConstruct(reader, entry);
                     }
                     else if (localname.Equals(this.nameTable.Category))
                     {
-                        AtomCategory category = ParseCategory(reader);
+                        AtomCategory category = ParseCategory(reader, entry);
                         entry.Categories.Add(category);
                     }
                     else if (localname.Equals(this.nameTable.Summary))
                     {
-                        entry.Summary = ParseTextConstruct(reader, AtomTextConstructElementType.Summary);
+                        entry.Summary = ParseTextConstruct(reader, entry);
                     }
                     else if (localname.Equals(this.nameTable.Content))
                     {
-                        entry.Content = ParseContent(reader, out fSkip);
+                        entry.Content = ParseContent(reader, entry, out fSkip);
                     }
                     else if (localname.Equals(this.nameTable.Source))
                     {
@@ -723,7 +716,7 @@ namespace Google.GData.Client
                     }
                     else if (localname.Equals(this.nameTable.Title))
                     {
-                        entry.Title = ParseTextConstruct(reader, AtomTextConstructElementType.Title);
+                        entry.Title = ParseTextConstruct(reader, entry);
                     }
                     // this will either move the reader to the end of an element, or, 
                     // if at the end, to the start of a new one. 
@@ -1040,10 +1033,10 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         /// <summary>parses an AtomTextConstruct</summary> 
         /// <param name="reader">the xmlreader correctly positioned at the construct </param>
-        /// <param name="elementType">the type of element to create</param>
+        /// <param name="owner">the container element</param>
         /// <returns>the new text construct </returns>
         //////////////////////////////////////////////////////////////////////
-        protected AtomTextConstruct ParseTextConstruct(XmlReader reader, AtomTextConstructElementType elementType)
+        protected AtomTextConstruct ParseTextConstruct(XmlReader reader, AtomBase owner)
         {
             Tracing.Assert(reader != null, "reader should not be null");
             if (reader == null)
@@ -1051,12 +1044,8 @@ namespace Google.GData.Client
                 throw new ArgumentNullException("reader"); 
             }
 
-
-            AtomTextConstruct construct = null;
-
             Tracing.TraceCall("Parsing atomTextConstruct");
-
-            construct = new AtomTextConstruct(elementType);
+            AtomTextConstruct construct = owner.CreateAtomSubElement(reader, this) as AtomTextConstruct;
 
             if (reader.NodeType == XmlNodeType.Element)
             {
@@ -1069,7 +1058,7 @@ namespace Google.GData.Client
                         if (attributeName.Equals(this.nameTable.Type))
                         {
                             construct.Type = (AtomTextConstructType)Enum.Parse(
-                                                                              typeof(AtomTextConstructType), Utilities.DecodedValue(reader.Value), true);
+                               typeof(AtomTextConstructType), Utilities.DecodedValue(reader.Value), true);
                         }
                         else
                         {
@@ -1099,9 +1088,10 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         /// <summary>parses an AtomGenerator</summary> 
         /// <param name="reader">the xmlreader correctly positioned at the generator </param>
+        /// <param name="owner">the container element</param>
         /// <returns> </returns>
         //////////////////////////////////////////////////////////////////////
-        protected AtomGenerator ParseGenerator(XmlReader reader)
+        protected AtomGenerator ParseGenerator(XmlReader reader, AtomBase owner)
         {
 
             //    atomGenerator = element atom:generator {
@@ -1118,13 +1108,9 @@ namespace Google.GData.Client
             }
 
             Tracing.TraceCall();
-            AtomGenerator generator = null; 
-            object localname = reader.LocalName;
-
-            if (localname.Equals(this.nameTable.Generator))
+            AtomGenerator generator = owner.CreateAtomSubElement(reader, this) as AtomGenerator;
+            if (generator != null)
             {
-                generator = new AtomGenerator();
-
                 generator.Text = Utilities.DecodedValue(reader.ReadString());
                 if (reader.HasAttributes)
                 {
@@ -1157,10 +1143,11 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         /// <summary>creates an AtomContent object by parsing an xml stream</summary> 
         /// <param name="reader">a XMLReader positioned correctly </param>
-        /// <param name="skipNode">a boolen indicating if the node needs to be skipped, or not</param>
+        /// <param name="owner">the container element</param>
+       /// <param name="skipNode">a boolen indicating if the node needs to be skipped, or not</param>
         /// <returns> null or an AtomContent object</returns>
         //////////////////////////////////////////////////////////////////////
-        protected AtomContent ParseContent(XmlReader reader, out bool skipNode)
+        protected AtomContent ParseContent(XmlReader reader, AtomBase owner, out bool skipNode)
         {
             Tracing.Assert(reader != null, "reader should not be null");
             if (reader == null)
@@ -1171,18 +1158,15 @@ namespace Google.GData.Client
             // by default, skip to the next node after this routine
             skipNode = true; 
 
-            AtomContent content = null;
-            object localname = reader.LocalName;
-
+            AtomContent content = owner.CreateAtomSubElement(reader, this) as AtomContent;
             Tracing.TraceCall();
-            if (localname.Equals(this.nameTable.Content))
+            if (content != null)
             {
-                content = new AtomContent();
                 if (reader.HasAttributes)
                 {
                     while (reader.MoveToNextAttribute())
                     {
-                        localname = reader.LocalName;
+                        object localname = reader.LocalName;
                         if (localname.Equals(this.nameTable.Type))
                         {
                             content.Type = Utilities.DecodedValue(reader.Value);

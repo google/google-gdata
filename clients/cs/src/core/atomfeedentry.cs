@@ -826,12 +826,12 @@ namespace Google.GData.Client
         {
             Object localname = reader.LocalName;
 
-            if ((localname.Equals(parser.Nametable.Link)))
-            {
-                return new AtomLink();
-            } else if (localname.Equals(parser.Nametable.Source))
+            if (localname.Equals(parser.Nametable.Source))
             {
                 return new AtomSource();
+            } else if (localname.Equals(parser.Nametable.Content))
+            {
+                return new AtomContent();
             }
             return base.CreateAtomSubElement(reader, parser);
             

@@ -141,7 +141,7 @@ namespace Google.GData.Client.UnitTests
             entry.Reminder.Minutes = DEFAULT_REMINDER_TIME; 
 
             Who someone = new Who();
-            someone.ValueString = "fmantek@google.com";
+            someone.ValueString = "test.fmantek@gmail.com";
             Who.AttendeeStatus status = new Who.AttendeeStatus();
             status.Value = "event.accepted"; 
             someone.Attendee_Status = status;
@@ -153,9 +153,10 @@ namespace Google.GData.Client.UnitTests
             Where newPlace = new Where();
             newPlace.ValueString = "A really nice place";
             entry.Locations.Add(newPlace);
-
-
-    
+            newPlace = new Where();
+            newPlace.ValueString = "Another really nice place";
+            newPlace.Rel = Where.RelType.EVENT_ALTERNATE;
+            entry.Locations.Add(newPlace);
             return entry;
         }
         /////////////////////////////////////////////////////////////////////////////
@@ -726,9 +727,5 @@ namespace Google.GData.Client.UnitTests
            }
        }
        /////////////////////////////////////////////////////////////////////////////
-
-
-   
     }
-
 }
