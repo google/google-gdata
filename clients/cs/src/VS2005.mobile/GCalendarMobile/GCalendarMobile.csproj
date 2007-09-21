@@ -82,6 +82,9 @@
     <Compile Include="..\..\gcalendar\webcontent.cs">
       <Link>webcontent.cs</Link>
     </Compile>
+    <Compile Include="..\..\gcalendar\webcontentlink.cs">
+      <Link>webcontentlink.cs</Link>
+    </Compile>
     <Compile Include="..\..\version\AssemblyVersion.cs">
       <Link>AssemblyVersion.cs</Link>
     </Compile>

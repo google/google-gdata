@@ -160,6 +160,12 @@
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
+                <File
+                    RelPath = "webcontentlink.cs"
+                    Link = "..\..\gcalendar\webcontentlink.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
             </Include>
         </Files>
     </CSHARP>

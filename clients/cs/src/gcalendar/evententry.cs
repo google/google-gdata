@@ -726,6 +726,22 @@ namespace Google.GData.Calendar {
             }
         }
 
+        /// <summary>
+        /// Property to retrieve/set an associated WebContentLink
+        /// </summary>
+        public WebContentLink WebContentLink
+        {
+            get
+            {
+                return this.Links.FindService(WebContentLink.WEB_CONTENT_REL, 
+                    null) as WebContentLink;
+            }
+            set
+            {
+                this.Links.Add(value);
+            }
+        }
+
 #endregion
 
         /// <summary>
@@ -742,9 +758,11 @@ namespace Google.GData.Calendar {
 
             if ((localname.Equals(parser.Nametable.Link)))
             {
-                // here you could check if you want to create a webcontent and return 
-                // an atomLink subclass.
-                return new AtomLink();
+                if (reader.GetAttribute(GDataParserNameTable.XmlAttributeRel) == 
+                    WebContentLink.WEB_CONTENT_REL)
+                {
+                    return new WebContentLink(false);
+                }
             }
             return base.CreateAtomSubElement(reader, parser);
             
@@ -829,5 +847,6 @@ namespace Google.GData.Calendar {
 
     }
 }
+
 
 

@@ -276,7 +276,7 @@ namespace Google.GData.Client
         /// <summary>standard typed accessor method </summary> 
         protected override void OnValidate( Object value )  
         {
-            if ( value.GetType() != Type.GetType("Google.GData.Client.AtomLink") )
+            if ( ! typeof(AtomLink).IsInstanceOfType(value) )
                 throw new ArgumentException( "value must be of type Google.GData.Client.AtomLink.", "value" );
         }
     }
