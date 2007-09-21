@@ -170,11 +170,8 @@ namespace Google.GData.Client.LiveTests
                     AtomEntry sameGuy = newFeed.Entries[0]; 
 
                     Assert.IsTrue(sameGuy.Title.Text.Equals(newEntry.Title.Text), "both titles should be identical"); 
-
                 }
-
                 calFeed = service.Query(query);
-
                 Assert.AreEqual(iCount, calFeed.Entries.Count, "Feed should have one more entry, it has: " + calFeed.Entries.Count); 
 
                 if (calFeed != null && calFeed.Entries.Count > 0)
@@ -329,10 +326,12 @@ namespace Google.GData.Client.LiveTests
                     entry.Title.Text = strTitle;
 
                     EventEntry newEntry = (EventEntry) calFeed.Insert(entry); 
+
+                    iCount++; 
+                    Tracing.TraceMsg("Created calendar entry");
+
                     Reminder rNew = null;
                     Reminder rOld = null;
-
-
                     if (newEntry.Reminders.Count > 0)
                     {
                         rNew = newEntry.Reminders[0] as Reminder;
@@ -344,15 +343,37 @@ namespace Google.GData.Client.LiveTests
 
                     Assert.IsTrue(rNew != null, "Reminder should not be NULL);");
                     Assert.IsTrue(rOld != null, "Original Reminder should not be NULL);");
-
-                                                
                     Assert.AreEqual(rNew.Minutes, rOld.Minutes, "Reminder time should be identical"); 
-                    iCount++; 
-                    Tracing.TraceMsg("Created calendar entry");
+
+                    Where wOldOne, wOldTwo;
+                    Where wNewOne, wNewTwo;
+
+                    Assert.IsTrue(entry.Locations.Count == 2, "entry should have 2 locations");
+                    Assert.IsTrue(newEntry.Locations.Count == 2, "new entry should have 2 locations");
+
+
+                    if (entry.Locations.Count > 1)
+                    {
+                        wOldOne = entry.Locations[0];
+                        wOldTwo = entry.Locations[1];
+                    
+                        if (newEntry.Locations.Count > 1)
+                        {
+                            wNewOne = newEntry.Locations[0];
+                            wNewTwo = newEntry.Locations[1];
+                            Assert.IsTrue(wOldOne != null, "Where oldOne should not be NULL);");
+                            Assert.IsTrue(wOldTwo != null, "Where oldTwo should not be NULL);");
+                            Assert.IsTrue(wNewOne != null, "Where newOne should not be NULL);");
+                            Assert.IsTrue(wNewTwo != null, "Where newTwoOne should not be NULL);");
+                            Assert.IsTrue(wOldOne.ValueString == wNewOne.ValueString, "location one should be identical");
+                            Assert.IsTrue(wOldTwo.ValueString == wNewTwo.ValueString, "location one should be identical");
+                        }
+                    }
+
+
 
                     newEntry.Content.Content = "Updated..";
                     newEntry.Update();
-
 
                     // try to get just that guy.....
                     FeedQuery singleQuery = new FeedQuery();

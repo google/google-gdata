@@ -502,10 +502,52 @@ namespace Google.GData.Client
         /// <param name="parser">the parser is primarily used for nametable comparisons</param>
         /// <returns>AtomBase</returns>
         public virtual AtomBase CreateAtomSubElement(XmlReader reader, AtomFeedParser parser)
-
         {
-            throw new NotImplementedException("AtomBase CreateChild should NEVER be called" + reader.LocalName);
-            return null;
+            Object localname = reader.LocalName;
+            if (localname.Equals(parser.Nametable.Id))
+            {
+                return new AtomId();
+            }
+            else if (localname.Equals(parser.Nametable.Link))
+            {
+                return new AtomLink();
+            } 
+            else if (localname.Equals(parser.Nametable.Icon))
+            {
+                return new AtomIcon();
+            } 
+            else if (localname.Equals(parser.Nametable.Logo))
+            {
+                return new AtomLogo();
+            } else if (localname.Equals(parser.Nametable.Author)) 
+            {
+                return new AtomPerson(AtomPersonType.Author);
+            }
+            else if (localname.Equals(parser.Nametable.Contributor)) 
+            {
+                return new AtomPerson(AtomPersonType.Contributor);
+            } else if (localname.Equals(parser.Nametable.Title))
+            {
+                return new AtomTextConstruct(AtomTextConstructElementType.Title);
+            } else if (localname.Equals(parser.Nametable.Subtitle))
+            {
+                return new AtomTextConstruct(AtomTextConstructElementType.Subtitle);
+            } else if (localname.Equals(parser.Nametable.Rights))
+            {
+                return new AtomTextConstruct(AtomTextConstructElementType.Rights);
+            } else if (localname.Equals(parser.Nametable.Summary))
+            {
+                return new AtomTextConstruct(AtomTextConstructElementType.Summary);
+             
+            } else if (localname.Equals(parser.Nametable.Generator))
+            {
+                return new AtomGenerator();
+            } else if (localname.Equals(parser.Nametable.Category))
+            {
+                return new AtomCategory();
+            }
+
+            throw new NotImplementedException("AtomBase CreateChild should NEVER be called for: " + reader.LocalName);
         }
 
     

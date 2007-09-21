@@ -31,27 +31,97 @@ using Google.GData.Client;
 namespace Google.GData.Extensions
 {
 
-    //////////////////////////////////////////////////////////////////////
-    /// <summary>Typed collection for When Extensions.</summary> 
-    //////////////////////////////////////////////////////////////////////
-    public class WhenCollection : CollectionBase  
+    /// <summary>
+    /// base class to take an object pointer with extension information
+    /// and expose a localname/namespace subset as a collection
+    /// that still works on the original
+    /// </summary>
+    public class ExtensionCollection : CollectionBase 
     {
-         /// <summary>holds the owning feed</summary>
+             /// <summary>holds the owning feed</summary>
          private AtomBase atomElement;
 
-         private WhenCollection()
+         protected ExtensionCollection()
          {
          }
 
-        /// <summary>constructor</summary> 
-        public WhenCollection(AtomBase atomElement) : base()
+        /// <summary>
+        /// takes the base object, and the localname/ns combo to look for
+        /// will copy objects to an internal array for caching. Note that when the external 
+        /// ExtensionList is modified, this will have no effect on this copy
+        /// </summary>
+        /// <param name="atomElement">the base element holding the extension list</param>
+        /// <param name="localName">the local name of the extension</param>
+        /// <param name="ns">the namespace</param>
+        public ExtensionCollection(AtomBase atomElement, string localName, string ns) : base()
         {
              this.atomElement = atomElement;
-             ArrayList arr = atomElement.FindExtensions(GDataParserNameTable.XmlWhenElement, BaseNameTable.gNamespace); 
+             ArrayList arr = atomElement.FindExtensions(localName, ns); 
              foreach (object o in arr )
              {
                  List.Add(o);
              }
+        }
+
+        protected void setItem(int index, object item)
+        {
+            if (List[index] != null)
+            {
+                this.atomElement.ExtensionElements.Remove(List[index]);
+            }
+            List[index] = item;
+            if (item != null)
+            {
+                this.atomElement.ExtensionElements.Add(item);
+            }
+        }
+
+      
+        public int Add(object value)
+        {
+            this.atomElement.ExtensionElements.Add(value); 
+            return( List.Add( value ) );
+        }
+
+        public void Insert( int index, object value )  
+        {
+            if (this.atomElement.ExtensionElements.Contains(value))
+            {
+                this.atomElement.ExtensionElements.Remove(value);
+            }
+            this.atomElement.ExtensionElements.Add(value);
+            List.Insert( index, value );
+        }
+
+        public void Remove( object value )  
+        {
+            this.atomElement.ExtensionElements.Remove(value);
+            List.Remove( value );
+        }
+
+        /// <summary>standard override OnClear, to remove the objects from the extension list</summary> 
+        protected override void OnClear()  
+        {
+            for (int i=0; i< this.Count;i++)
+            {
+                this.atomElement.ExtensionElements.Remove((When)List[i]);
+            }
+        }
+    }
+
+    //////////////////////////////////////////////////////////////////////
+    /// <summary>Typed collection for When Extensions.</summary> 
+    //////////////////////////////////////////////////////////////////////
+    public class WhenCollection : ExtensionCollection  
+    {
+        private WhenCollection() : base()
+        {
+        }
+
+        /// <summary>constructor</summary> 
+        public WhenCollection(AtomBase atomElement) 
+            : base(atomElement, GDataParserNameTable.XmlWhenElement, BaseNameTable.gNamespace)
+        {
         }
 
         /// <summary>standard typed accessor method </summary> 
@@ -63,18 +133,15 @@ namespace Google.GData.Extensions
             }
             set  
             {
-                this.atomElement.ExtensionElements.Remove((When)List[index]);
-                List[index] = value;
-                this.atomElement.ExtensionElements.Add(value);
+                setItem(index, value);
             }
         }
 
         /// <summary>standard typed add method </summary> 
         public int Add( When value )  
         {
-            this.atomElement.ExtensionElements.Add(value); 
-            return( List.Add( value ) );
-        }
+            return base.Add(value);
+       }
 
         /// <summary>standard typed indexOf method </summary> 
         public int IndexOf( When value )  
@@ -85,19 +152,13 @@ namespace Google.GData.Extensions
         /// <summary>standard typed insert method </summary> 
         public void Insert( int index, When value )  
         {
-            if (this.atomElement.ExtensionElements.Contains(value))
-            {
-                this.atomElement.ExtensionElements.Remove(value);
-            }
-            this.atomElement.ExtensionElements.Add(value);
-            List.Insert( index, value );
+            base.Insert(index, value);
         }
 
         /// <summary>standard typed remove method </summary> 
         public void Remove( When value )  
         {
-            this.atomElement.ExtensionElements.Remove(value);
-            List.Remove( value );
+            base.Remove(value);
         }
 
         /// <summary>standard typed Contains method </summary> 
@@ -114,34 +175,24 @@ namespace Google.GData.Extensions
                 throw new ArgumentException( "value must be of type Google.GData.Extensions.When.", "value" );
         }
 
-        /// <summary>standard override OnClear, to remove the objects from the extension list</summary> 
-        protected override void OnClear()  
-        {
-            for (int i=0; i< this.Count;i++)
-            {
-                this.atomElement.ExtensionElements.Remove((When)List[i]);
-            }
-        }
     }
 
     //////////////////////////////////////////////////////////////////////
     /// <summary>Typed collection for Where Extensions.</summary> 
     //////////////////////////////////////////////////////////////////////
-    public class WhereCollection : CollectionBase
+    public class WhereCollection : ExtensionCollection
     {
-        /// <summary>holds the owning feed</summary> 
-        private AtomBase atomElement;
 
-        private WhereCollection()
+        private WhereCollection() : base()
         {
         }
 
         /// <summary>constructor</summary> 
-        public WhereCollection(AtomBase atomElement)
-            : base()
+        public WhereCollection(AtomBase atomElement) 
+            : base(atomElement, GDataParserNameTable.XmlWhereElement, BaseNameTable.gNamespace)
         {
-            this.atomElement = atomElement;
         }
+
 
         /// <summary>standard typed accessor method </summary>
         public Where this[int index]
@@ -152,17 +203,14 @@ namespace Google.GData.Extensions
             }
             set
             {
-                this.atomElement.ExtensionElements.Remove((Where)List[index]);
-                List[index] = value;
-                this.atomElement.ExtensionElements.Add(value);
+                setItem(index, value);
             }
         }
 
         /// <summary>standard typed add method </summary>
         public int Add(Where value)
         {
-            this.atomElement.ExtensionElements.Add(value);
-            return (List.Add(value));
+            return base.Add(value);
         }
 
         /// <summary>standard typed indexOf method </summary>
@@ -174,18 +222,14 @@ namespace Google.GData.Extensions
         /// <summary>standard typed insert method </summary>
         public void Insert(int index, Where value)
         {
-            if (this.atomElement.ExtensionElements.Contains(value)){
-                this.atomElement.ExtensionElements.Remove(value);
-            }
-            this.atomElement.ExtensionElements.Add(value);
-            List.Insert(index, value);
+            base.Insert(index, value);
+            
         }
 
         /// <summary>standard typed remove method </summary>
         public void Remove(Where value)
         {
-            this.atomElement.ExtensionElements.Remove(value);
-            List.Remove(value);
+            base.Remove(value);
         }
 
         /// <summary>standard typed Contains method </summary>
@@ -201,35 +245,24 @@ namespace Google.GData.Extensions
             if (value as Where == null)
                 throw new ArgumentException("value must be of type Google.GData.Extensions.Where.", "value");
         }
-
-        /// <summary>standard override OnClear, to remove the objects from the extension list</summary> 
-        protected override void OnClear()  
-        {
-            for (int i=0; i< this.Count;i++)
-            {
-                this.atomElement.ExtensionElements.Remove((Where)List[i]);
-            }
-        }
-
     }
 
     //////////////////////////////////////////////////////////////////////
     /// <summary>Typed collection for Who Extensions.</summary>
     //////////////////////////////////////////////////////////////////////
-    public class WhoCollection : CollectionBase
+    public class WhoCollection : ExtensionCollection
     {
         /// <summary>holds the owning feed</summary> 
         private AtomBase atomElement;
 
-        private WhoCollection()
+        private WhoCollection() : base()
         {
         }
 
-        /// <summary>constructor</summary>
-        public WhoCollection(AtomBase atomElement)
-            : base()
+        /// <summary>constructor</summary> 
+        public WhoCollection(AtomBase atomElement) 
+            : base(atomElement, GDataParserNameTable.XmlWhoElement, BaseNameTable.gNamespace)
         {
-            this.atomElement = atomElement;
         }
 
         /// <summary>standard typed accessor method </summary>
@@ -241,17 +274,14 @@ namespace Google.GData.Extensions
             }
             set
             {
-                this.atomElement.ExtensionElements.Remove((Who)List[index]);
-                List[index] = value;
-                this.atomElement.ExtensionElements.Add(value);
+                setItem(index,value);
             }
         }
 
         /// <summary>standard typed add method </summary>
         public int Add(Who value)
         {
-            this.atomElement.ExtensionElements.Add(value);
-            return (List.Add(value));
+            return base.Add(value);
         }
 
         /// <summary>standard typed indexOf method </summary>
@@ -263,19 +293,13 @@ namespace Google.GData.Extensions
         /// <summary>standard typed insert method </summary>
         public void Insert(int index, Who value)
         {
-            if (this.atomElement.ExtensionElements.Contains(value))
-            {
-                this.atomElement.ExtensionElements.Remove(value);
-            }
-            this.atomElement.ExtensionElements.Add(value);
-            List.Insert(index, value);
+            base.Insert(index, value);
         }
 
         /// <summary>standard typed remove method </summary> 
         public void Remove(Who value)
         {
-            this.atomElement.ExtensionElements.Remove(value);
-            List.Remove(value);
+            base.Remove(value);
         }
 
         /// <summary>standard typed Contains method </summary> 
@@ -291,16 +315,6 @@ namespace Google.GData.Extensions
             if (value as Who == null)
                 throw new ArgumentException("value must be of type Google.GData.Extensions.Who.", "value");
         }
-
-        /// <summary>standard override OnClear, to remove the objects from the extension list</summary> 
-        protected override void OnClear()  
-        {
-            for (int i=0; i< this.Count;i++)
-            {
-                this.atomElement.ExtensionElements.Remove((Who)List[i]);
-            }
-        }
-
     }
     /////////////////////////////////////////////////////////////////////////////
 
