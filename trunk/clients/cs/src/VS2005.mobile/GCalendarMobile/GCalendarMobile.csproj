@@ -67,6 +67,15 @@
     <Compile Include="..\..\gcalendar\AssemblyInfo.cs">
       <Link>AssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="..\..\gcalendar\calendarentry.cs">
+      <Link>calendarentry.cs</Link>
+    </Compile>
+    <Compile Include="..\..\gcalendar\calendarfeed.cs">
+      <Link>calendarfeed.cs</Link>
+    </Compile>
+    <Compile Include="..\..\gcalendar\calendarquery.cs">
+      <Link>calendarquery.cs</Link>
+    </Compile>
     <Compile Include="..\..\gcalendar\calendarservice.cs">
       <Link>calendarservice.cs</Link>
     </Compile>
