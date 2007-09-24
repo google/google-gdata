@@ -153,19 +153,14 @@ namespace Google.GData.Extensions {
         /// <param name="node">XmlNode with attributes</param>
         public virtual void ProcessAttributes(XmlNode node)
         {
-            if (this.attributes != null)
+            if (node != null)
             {
-                for (int i=0; i < this.getAttributes().Count; i++)
+                for (int i = 0; i < node.Attributes.Count; i++)
                 {
-                    string name = this.getAttributes().GetKey(i) as string;
-                    string value = getAttribute(node, name);
-                    if (value != null)
-                    {
-                        this.getAttributes()[name] = value;
-                    }
+                    this.getAttributes()[node.Attributes[i].LocalName] = node.Attributes[i].Value; 
                 }
-                return;
             }
+            return;
         }
 
         /// <summary>
