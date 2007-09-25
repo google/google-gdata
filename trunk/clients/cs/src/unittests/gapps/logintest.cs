@@ -3,7 +3,7 @@ using System.Text;
 using System.Xml;
 using System.IO;
 using NUnit.Framework;
-using Google.GData.Apps;
+using Google.GData.Extensions.Apps;
 
 namespace Google.GData.Apps.UnitTests
 {
@@ -82,7 +82,7 @@ namespace Google.GData.Apps.UnitTests
         [Test]
         public void GetHashFunctionNameTest()
         {
-            Assert.IsNull(login.HashFunctionName, "Hash function name should initially be null");
+            Assert.IsEmpty(login.HashFunctionName, "Hash function name should initially be null");
         }
 
         [Test]
@@ -144,7 +144,7 @@ namespace Google.GData.Apps.UnitTests
             XmlDocument document = new XmlDocument();
             document.LoadXml(inputXml);
 
-            LoginElement login = LoginElement.ParseLogin(document.DocumentElement);
+            login.ProcessAttributes(document.DocumentElement);
 
             Assert.IsNotNull(login, "Parsed login element should not be null");
             Assert.AreEqual("jdoe", login.UserName, "Parsed login should have username=\"jdoe\"");
@@ -167,16 +167,29 @@ namespace Google.GData.Apps.UnitTests
             login.Save(writer);
             writer.Close();
 
+
+            // Validate expected XML contents
+            string serializedXml = outString.ToString();
+            
+            Assert.IsNotNull(serializedXml, "Serialized XML should not be null.");
+            Assert.IsTrue(serializedXml.StartsWith("<apps:login"), "Serialized XML does not start " +
+                " with correct element name.");
+            Assert.IsTrue(serializedXml.Contains("userName=\"" + login.UserName + "\""),
+                "Serialized XML does not contain correct userName attribute.");
+            Assert.IsTrue(serializedXml.Contains("password=\"" + login.Password + "\""),
+                "Serialized XML does not contain correct password attribute.");
+            Assert.IsTrue(serializedXml.Contains("suspended=\"" + login.Suspended.ToString().ToLower() + "\""),
+                "Serialized XML does not contain correct suspended attribute.");
+            Assert.IsTrue(serializedXml.Contains("ipWhitelisted=\"" +
+                login.IpWhitelisted.ToString().ToLower() + "\""),
+                "Serialized XML does not contain correct ipWhitelisted attribute.");
+
             // Make sure that the "admin" and "changePasswordAtNextLogin" attributes
             // are NOT present here
-            String expectedXml = "<apps:login userName=\"" +
-                login.UserName + "\" password=\"" + login.Password + "\" suspended=\"" +
-                login.Suspended.ToString().ToLower() + "\" ipWhitelisted=\"" + 
-                login.IpWhitelisted.ToString().ToLower() +
-                "\" xmlns:apps=\"http://schemas.google.com/apps/2006\" />";
-
-            Assert.AreEqual(outString.ToString(), expectedXml,
-                "Serialized XML does not match expected result: " + expectedXml);
+            Assert.IsFalse(serializedXml.Contains("admin="),
+                "Serialized XML should not contain an \"admin\" attribute.");
+            Assert.IsFalse(serializedXml.Contains("changePasswordAtNextLogin="),
+                "Serialized XML should not contain a \"changePasswordAtNextLogin\" attribute.");
         }
 
         [Test]
@@ -191,17 +204,29 @@ namespace Google.GData.Apps.UnitTests
             login.Save(writer);
             writer.Close();
 
-            // Make sure that the "admin" and "changePasswordAtNextLogin" attributes
-            // are NOT present here
-            String expectedXml = "<apps:login userName=\"" +
-                login.UserName + "\" password=\"" + login.Password + "\" suspended=\"" +
-                login.Suspended.ToString().ToLower() + "\" ipWhitelisted=\"" +
-                login.IpWhitelisted.ToString().ToLower() +
-                "\" admin=\"true\" changePasswordAtNextLogin=\"true\" " +
-                "xmlns:apps=\"http://schemas.google.com/apps/2006\" />";
+            // Validate expected XML contents
+            string serializedXml = outString.ToString();
 
-            Assert.AreEqual(outString.ToString(), expectedXml,
-                "Serialized XML does not match expected result: " + expectedXml);
+            Assert.IsNotNull(serializedXml, "Serialized XML should not be null.");
+            Assert.IsTrue(serializedXml.StartsWith("<apps:login"), "Serialized XML does not start " +
+                " with correct element name.");
+            Assert.IsTrue(serializedXml.Contains("userName=\"" + login.UserName + "\""),
+                "Serialized XML does not contain correct userName attribute.");
+            Assert.IsTrue(serializedXml.Contains("password=\"" + login.Password + "\""),
+                "Serialized XML does not contain correct password attribute.");
+            Assert.IsTrue(serializedXml.Contains("suspended=\"" + login.Suspended.ToString().ToLower() + "\""),
+                "Serialized XML does not contain correct suspended attribute.");
+            Assert.IsTrue(serializedXml.Contains("ipWhitelisted=\"" +
+                login.IpWhitelisted.ToString().ToLower() + "\""),
+                "Serialized XML does not contain correct ipWhitelisted attribute.");
+
+            // Make sure that the "admin" and "changePasswordAtNextLogin" attributes
+            // ARE present here
+            Assert.IsTrue(serializedXml.Contains("admin=\"" + login.Admin.ToString().ToLower() + "\""),
+                "Serialized XML does not contain an \"admin\" attribute.");
+            Assert.IsTrue(serializedXml.Contains("changePasswordAtNextLogin=\"" +
+                login.ChangePasswordAtNextLogin.ToString().ToLower() + "\""),
+                "Serialized XML does not contain a \"changePasswordAtNextLogin\" attribute.");
         }
     }
 }

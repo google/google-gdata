@@ -21,16 +21,10 @@ using Google.GData.Extensions;
 
 namespace Google.GData.Apps
 {
-    /// <summary>
-    /// Feed API customization class for defining email list recipient feed.
-    /// </summary>
+    /// <summary>    /// Feed API customization class for defining email list recipient feed.    /// </summary>
     public class EmailListRecipientFeed : AbstractFeed
     {
-        /// <summary>
-        /// Constructs a new EmailListRecipientFeed.
-        /// </summary>
-        /// <param name="uriBase">the feed URI</param>
-        /// <param name="iService">the Service object with which this
+        /// <summary>        /// Constructs a new EmailListRecipientFeed.        /// </summary>        /// <param name="uriBase">the feed URI</param>        /// <param name="iService">the Service object with which this
         /// feed is to be be associated</param>
         public EmailListRecipientFeed(Uri uriBase, IService iService)
             : base(uriBase, iService)
@@ -38,9 +32,9 @@ namespace Google.GData.Apps
         }
 
         /// <summary>
-        /// this needs to get implemented by subclasses
+        /// Overridden.  Returns a new <code>EmailListRecipientEntry</code>.
         /// </summary>
-        /// <returns>AtomEntry</returns>
+        /// <returns>the new <code>EmailListRecipientEntry</code></returns>
         public override AtomEntry CreateFeedEntry()
         {
             return new EmailListRecipientEntry();

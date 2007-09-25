@@ -20,6 +20,7 @@ using System.Collections;
 using System.Net;
 using System.IO;
 using Google.GData.Client;
+using Google.GData.Extensions.Apps;
 
 namespace Google.GData.Apps
 {
@@ -39,7 +40,7 @@ namespace Google.GData.Apps
             : base(AppsNameTable.GAppsService, applicationName, AppsNameTable.GAppsAgent)
         {
             this.NewAtomEntry += new FeedParserEventHandler(this.OnParsedNewNicknameEntry);
-            this.NewExtensionElement += new ExtensionElementEventHandler(this.OnNewNicknameExtensionElement);
+            this.NewFeed += new ServiceEventHandler(this.OnParsedNewFeed);
 
             // You can set factory.methodOverride = true if you are behind a 
             // proxy that filters out HTTP methods such as PUT and DELETE.
@@ -183,34 +184,18 @@ namespace Google.GData.Apps
         }
 
         /// <summary>
-        /// Event handler.  Called for a nickname extension element.
+        /// Feed handler.  Instantiates a new <code>NicknameFeed</code>.
         /// </summary>
-        /// <param name="sender">the object that's sending the event</param>
-        /// <param name="e">FeedParserEventArguments, holds the feedentry</param>
-        protected void OnNewNicknameExtensionElement(object sender, ExtensionElementEventArgs e)
+        /// <param name="sender">the object that's sending the evet</param>
+        /// <param name="e"><code>ServiceEventArgs</code>, holds the feed</param>
+        protected void OnParsedNewFeed(object sender, ServiceEventArgs e)
         {
+            Tracing.TraceMsg("Created new nickname feed");
             if (e == null)
             {
                 throw new ArgumentNullException("e");
             }
-            if (String.Compare(e.ExtensionElement.NamespaceURI, AppsNameTable.appsNamespace, true) == 0)
-            {
-                // found G namespace
-                e.DiscardEntry = true;
-                AtomFeedParser parser = sender as AtomFeedParser;
-
-                if (e.Base.XmlName == AtomParserNameTable.XmlFeedElement)
-                {
-                }
-                else if (e.Base.XmlName == AtomParserNameTable.XmlAtomEntryElement)
-                {
-                    NicknameEntry entry = e.Base as NicknameEntry;
-                    if (entry != null)
-                    {
-                        entry.ParseNicknameEntry(e.ExtensionElement, parser);
-                    }
-                }
-            }
+            e.Feed = new NicknameFeed(e.Uri, e.Service);
         }
     }
 }

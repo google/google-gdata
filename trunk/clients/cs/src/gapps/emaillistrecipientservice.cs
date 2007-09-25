@@ -20,6 +20,7 @@ using System.Collections;
 using System.Net;
 using System.IO;
 using Google.GData.Client;
+using Google.GData.Extensions.Apps;
 
 namespace Google.GData.Apps
 {
@@ -38,6 +39,7 @@ namespace Google.GData.Apps
         public EmailListRecipientService(string applicationName)
             : base(AppsNameTable.GAppsService, applicationName, AppsNameTable.GAppsAgent)
         {
+            this.NewFeed += new ServiceEventHandler(this.OnParsedNewFeed);
         }
 
         /// <summary>
@@ -178,6 +180,21 @@ namespace Google.GData.Apps
                 AppsException a = AppsException.ParseAppsException(e);
                 throw (a == null ? e : a);
             }
+        }
+
+        /// <summary>
+        /// Feed handler.  Instantiates a new <code>EmailListRecipientFeed</code>.
+        /// </summary>
+        /// <param name="sender">the object that's sending the evet</param>
+        /// <param name="e"><code>ServiceEventArgs</code>, holds the feed</param>
+        protected void OnParsedNewFeed(object sender, ServiceEventArgs e)
+        {
+            Tracing.TraceMsg("Created new email list recipient feed");
+            if (e == null)
+            {
+                throw new ArgumentNullException("e");
+            }
+            e.Feed = new EmailListRecipientFeed(e.Uri, e.Service);
         }
     }
 }

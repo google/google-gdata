@@ -61,7 +61,6 @@ namespace Google.GData.Apps.UnitTests
 
             foreach (XmlNode node in document.FirstChild.ChildNodes)
             {
-
                 ExtensionElementEventArgs args = new ExtensionElementEventArgs();
                 args.ExtensionElement = node; 
                 args.Base = newEntry;

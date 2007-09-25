@@ -18,6 +18,7 @@ using System.Xml;
 using System.IO;
 using System.Collections;
 using Google.GData.Client;
+using Google.GData.Extensions.Apps;
 
 namespace Google.GData.Apps
 {
@@ -25,17 +26,15 @@ namespace Google.GData.Apps
     /// A Google Apps email list entry.  An EmailListEntry object
     /// contains information about a single email list.
     /// </summary>
-    public class EmailListEntry : AtomEntry
+    public class EmailListEntry : AbstractEntry
     {
         /// <summary>
         /// Category used to label entries that contain email list
         /// extension data.
         /// </summary>
-        public static AtomCategory EMAILLIST_CATEGORY =
+        public static readonly AtomCategory EMAILLIST_CATEGORY =
             new AtomCategory(AppsNameTable.EmailList,
                              new AtomUri(BaseNameTable.gKind));
-
-        private EmailListElement emailList;
 
         /// <summary>
         /// Constructs a new EmailListEntry instance with the appropriate category
@@ -45,6 +44,8 @@ namespace Google.GData.Apps
             : base()
         {
             Categories.Add(EMAILLIST_CATEGORY);
+
+            GAppsExtensions.AddExtension(this);
         }
 
         /// <summary>
@@ -55,6 +56,9 @@ namespace Google.GData.Apps
             : base()
         {
             Categories.Add(EMAILLIST_CATEGORY);
+
+            GAppsExtensions.AddExtension(this);
+
             EmailList = new EmailListElement(emailListName);
         }
 
@@ -63,15 +67,16 @@ namespace Google.GData.Apps
         /// </summary>
         public EmailListElement EmailList
         {
-            get { return emailList; }
+            get
+            {
+                return FindExtension(AppsNameTable.XmlElementEmailList,
+                                     AppsNameTable.appsNamespace) as EmailListElement;
+            }
             set
             {
-                if (emailList != null)
-                {
-                    ExtensionElements.Remove(emailList);
-                }
-                emailList = value;
-                ExtensionElements.Add(emailList);
+                ReplaceExtension(AppsNameTable.XmlElementEmailList,
+                                 AppsNameTable.appsNamespace,
+                                 value);
             }
         }
 
@@ -84,39 +89,6 @@ namespace Google.GData.Apps
         public new void Update()
         {
             throw new ClientFeedException("Email list entries cannot be updated.");
-        }
-
-        /// <summary>
-        /// Checks if this is a namespace declaration that we already added
-        /// </summary>
-        /// <param name="node">XmlNode to check</param>
-        /// <returns>True if this node should be skipped</returns>
-        protected override bool SkipNode(XmlNode node)
-        {
-            if (base.SkipNode(node))
-            {
-                return true;
-            }
-
-            return (node.NodeType == XmlNodeType.Attribute
-                   && node.Name.StartsWith("xmlns")
-                   && String.Compare(node.Value, BaseNameTable.gNamespace) == 0);
-        }
-
-        /// <summary>
-        /// Parses the inner state of the element
-        /// </summary>
-        /// <param name="emailListEntryNode">A g-scheme, xml node</param>
-        /// <param name="parser">The AtomFeedParser that called this</param>
-        public void ParseEmailListEntry(XmlNode emailListEntryNode, AtomFeedParser parser)
-        {
-            if (String.Compare(emailListEntryNode.NamespaceURI, AppsNameTable.appsNamespace, true) == 0)
-            {
-                if (emailListEntryNode.LocalName == AppsNameTable.XmlElementEmailList)
-                {
-                    EmailList = EmailListElement.ParseEmailList(emailListEntryNode);
-                }
-            }
         }
     }
 }

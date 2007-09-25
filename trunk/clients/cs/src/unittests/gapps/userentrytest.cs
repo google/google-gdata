@@ -5,6 +5,7 @@ using System.Xml;
 using NUnit.Framework;
 using Google.GData.Client;
 using Google.GData.Apps;
+using Google.GData.Extensions.Apps;
 
 namespace Google.GData.Apps.UnitTests
 {
@@ -93,7 +94,10 @@ namespace Google.GData.Apps.UnitTests
             UserEntry newEntry = new UserEntry();
             foreach (XmlNode node in document.FirstChild.ChildNodes)
             {
-                newEntry.ParseUserEntry(node, new AtomFeedParser());
+                ExtensionElementEventArgs args = new ExtensionElementEventArgs();
+                args.ExtensionElement = node;
+                args.Base = newEntry;
+                newEntry.Parse(args, new AtomFeedParser());
             }
 
             Assert.AreEqual(login.UserName, newEntry.Login.UserName,

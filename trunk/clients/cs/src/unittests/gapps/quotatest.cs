@@ -4,6 +4,7 @@ using System.Xml;
 using System.IO;
 using NUnit.Framework;
 using Google.GData.Apps;
+using Google.GData.Extensions.Apps;
 
 namespace Google.GData.Apps.UnitTests
 {

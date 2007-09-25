@@ -19,48 +19,38 @@ using System.IO;
 using System.Collections;
 using Google.GData.Client;
 using Google.GData.Extensions;
+using Google.GData.Extensions.Apps;
 
 namespace Google.GData.Apps
 {
-    /// <summary>
-    /// A Google Apps email list recipient entry.  This class
-    /// defines a single recipient on an email list using a Who
-    /// (gd:who) object.
-    /// </summary>
+    /// <summary>    /// A Google Apps email list recipient entry.  This class    /// defines a single recipient on an email list using a Who    /// (gd:who) object.    /// </summary>
     public class EmailListRecipientEntry : AbstractEntry
     {
         /// <summary>
         /// Category used to label entries that contain email list
         /// recipient extension data.
         /// </summary>
-        public static AtomCategory EMAILLIST_RECIPIENT_CATEGORY =
+        public static readonly AtomCategory EMAILLIST_RECIPIENT_CATEGORY =
             new AtomCategory(AppsNameTable.EmailListRecipient,
                              new AtomUri(BaseNameTable.gKind));
 
-        private Who recipient;
-
-        /// <summary>
-        /// Constructs a new EmailListRecipientEntry without
-        /// setting the Recipient property.
-        /// </summary>
+        /// <summary>        /// Constructs a new EmailListRecipientEntry without        /// setting the Recipient property.        /// </summary>
         public EmailListRecipientEntry()
             : base()
         {
             Categories.Add(EMAILLIST_RECIPIENT_CATEGORY);
+
             this.AddExtension(new Who());
         }
 
-        /// <summary>
-        /// Constructs a new EmailListRecipientEntry, using
-        /// the specified email address to initialize the
-        /// Recipient property.
-        /// </summary>
-        /// <param name="recipientAddress">the recipient's
+        /// <summary>        /// Constructs a new EmailListRecipientEntry, using        /// the specified email address to initialize the        /// Recipient property.        /// </summary>        /// <param name="recipientAddress">the recipient's
         /// email address</param>
         public EmailListRecipientEntry(String recipientAddress)
             : base()
         {
             Categories.Add(EMAILLIST_RECIPIENT_CATEGORY);
+            this.AddExtension(new Who());
+
             Who who = new Who();
 
             who.Rel = Who.RelType.MESSAGE_TO;
