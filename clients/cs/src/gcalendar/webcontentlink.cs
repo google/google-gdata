@@ -29,6 +29,9 @@ namespace Google.GData.Extensions
     /// </summary>
     public class WebContentLink : AtomLink
     {
+        /// <summary>
+        /// defines the webcontent rel value for the atom:link
+        /// </summary>
         public const string WEB_CONTENT_REL = GDataParserNameTable.NSGCal + 
             "/" + GDataParserNameTable.XmlWebContentElement;
 

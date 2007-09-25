@@ -27,6 +27,9 @@ namespace Google.GData.Calendar
     //////////////////////////////////////////////////////////////////////
     public class CalendarQuery : FeedQuery
     {
+        /// <summary>
+        /// default constructor, does nothing 
+        /// </summary>
         public CalendarQuery() : base()
         {
         }

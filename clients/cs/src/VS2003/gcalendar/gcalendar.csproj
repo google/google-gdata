@@ -131,6 +131,24 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "calendarentry.cs"
+                    Link = "..\..\gcalendar\calendarentry.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "calendarfeed.cs"
+                    Link = "..\..\gcalendar\calendarfeed.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "calendarquery.cs"
+                    Link = "..\..\gcalendar\calendarquery.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "calendarservice.cs"
                     Link = "..\..\gcalendar\calendarservice.cs"
                     SubType = "Code"

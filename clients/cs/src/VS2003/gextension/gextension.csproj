@@ -109,6 +109,12 @@
         <Files>
             <Include>
                 <File
+                    RelPath = "apps.cs"
+                    Link = "..\..\extensions\apps.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "AssemblyInfo.cs"
                     Link = "..\..\extensions\AssemblyInfo.cs"
                     SubType = "Code"

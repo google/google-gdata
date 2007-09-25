@@ -30,17 +30,18 @@ namespace Google.GData.Extensions
     ///  using a text description and/or a Contact entry, while the latter identifies a place 
     /// using a specific geographic location.
     ///     Properties
-    ////    Property 	    Type 	    Description
+    ///    Property 	    Type 	    Description
     ///     @label? 	    xs:string 	Specifies a user-readable label to distinguish this location from other locations.
-    ///     @rel? 	        xs:string 	Specifies the relationship between the containing entity and the contained location. Possible values (see below) are defined by other elements. For example, <gd:when> defines http://schemas.google.com/g/2005#event.
+    ///     @rel? 	        xs:string 	Specifies the relationship between the containing entity and the contained location. Possible values
+    ///     (see below) are defined by other elements. For example, gd:when defines http://schemas.google.com/g/2005#event.
     ///     @valueString? 	xs:string 	A simple string value that can be used as a representation of this location.
-    ////    gd:entryLink? 	entryLink 	Entry representing location details. This entry should implement the Contact kind.
+    ///     gd:entryLink? 	entryLink 	Entry representing location details. This entry should implement the Contact kind.
     ///     rel values
     ///     Value 	                                                    Description
-    ////    http://schemas.google.com/g/2005#event or not specified 	 Place where the enclosing event takes place.
-    ////    http://schemas.google.com/g/2005#event.alternate 	          A secondary location. For example, a remote 
+    ///    http://schemas.google.com/g/2005#event or not specified 	 Place where the enclosing event takes place.
+    ///    http://schemas.google.com/g/2005#event.alternate 	          A secondary location. For example, a remote 
     ///                                                                  site with a videoconference link to the main site.
-    ////    http://schemas.google.com/g/2005#event.parking 	              A nearby parking lot.
+    ///    http://schemas.google.com/g/2005#event.parking 	              A nearby parking lot.
     /// </summary>
     public class Where : IExtensionElement, IExtensionElementFactory
     {
@@ -131,6 +132,7 @@ namespace Google.GData.Extensions
         //////////////////////////////////////////////////////////////////////
         /// <summary>Parses an xml node to create a Where  object.</summary> 
         /// <param name="node">the node to parse node</param>
+        /// <param name="parser">the xml parser to use if we need to dive deeper</param>
         /// <returns>the created Where  object</returns>
         //////////////////////////////////////////////////////////////////////
         public IExtensionElement CreateInstance(XmlNode node, AtomFeedParser parser)

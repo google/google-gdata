@@ -41,6 +41,9 @@ namespace Google.GData.Extensions
              /// <summary>holds the owning feed</summary>
          private AtomBase atomElement;
 
+         /// <summary>
+         /// protected default constructor, not usable by outside
+         /// </summary>
          protected ExtensionCollection()
          {
          }
@@ -63,6 +66,11 @@ namespace Google.GData.Extensions
              }
         }
 
+        /// <summary>
+        /// useful for subclasses that want to overload the set method
+        /// </summary>
+        /// <param name="index">the index in the array</param>
+        /// <param name="item">the item to set </param>
         protected void setItem(int index, object item)
         {
             if (List[index] != null)
@@ -77,12 +85,23 @@ namespace Google.GData.Extensions
         }
 
       
+        /// <summary>
+        /// default untyped add implementation. Adds the object as well to the parent
+        /// object ExtensionList
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public int Add(object value)
         {
             this.atomElement.ExtensionElements.Add(value); 
             return( List.Add( value ) );
         }
 
+        /// <summary>
+        /// inserts an element into the collection by index
+        /// </summary>
+        /// <param name="index"></param>
+        /// <param name="value"></param>
         public void Insert( int index, object value )  
         {
             if (this.atomElement.ExtensionElements.Contains(value))
@@ -93,6 +112,10 @@ namespace Google.GData.Extensions
             List.Insert( index, value );
         }
 
+        /// <summary>
+        /// removes an element at a given index
+        /// </summary>
+        /// <param name="value"></param>
         public void Remove( object value )  
         {
             this.atomElement.ExtensionElements.Remove(value);
@@ -252,9 +275,6 @@ namespace Google.GData.Extensions
     //////////////////////////////////////////////////////////////////////
     public class WhoCollection : ExtensionCollection
     {
-        /// <summary>holds the owning feed</summary> 
-        private AtomBase atomElement;
-
         private WhoCollection() : base()
         {
         }

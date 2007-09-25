@@ -238,10 +238,16 @@ namespace Google.GData.Photos {
     /// </summary>
     public class GPhotoId : SimpleElement
     {
+        /// <summary>
+        /// default constructor 
+        /// </summary>
         public GPhotoId()
         : base(GPhotoNameTable.Id, GPhotoNameTable.gPhotoPrefix, GPhotoNameTable.NSGPhotos)
         {}
 
+        /// <summary>
+        /// default constructor with an initial value as a string 
+        /// </summary>
         public GPhotoId(string initValue)
         : base(GPhotoNameTable.Id, GPhotoNameTable.gPhotoPrefix, GPhotoNameTable.NSGPhotos, initValue)
         {}
@@ -252,9 +258,15 @@ namespace Google.GData.Photos {
     /// </summary>
     public class GPhotoAlbumId : SimpleElement
     {
+        /// <summary>
+        /// default constructor 
+        /// </summary>
         public GPhotoAlbumId()
         : base(GPhotoNameTable.AlbumId, GPhotoNameTable.gPhotoPrefix, GPhotoNameTable.NSGPhotos)
          {}
+        /// <summary>
+        /// default constructor with an initial value as a string 
+        /// </summary>
         public GPhotoAlbumId(string initValue)
         : base(GPhotoNameTable.AlbumId, GPhotoNameTable.gPhotoPrefix, GPhotoNameTable.NSGPhotos, initValue)
         {}
@@ -265,9 +277,15 @@ namespace Google.GData.Photos {
     /// </summary>
     public class GPhotoCommentCount : SimpleElement
     {
+        /// <summary>
+        /// default constructor 
+        /// </summary>
         public GPhotoCommentCount()
         : base(GPhotoNameTable.CommentCount, GPhotoNameTable.gPhotoPrefix, GPhotoNameTable.NSGPhotos)
          {}
+        /// <summary>
+        /// default constructor with an initial value as a string 
+        /// </summary>
         public GPhotoCommentCount(string initValue)
         : base(GPhotoNameTable.CommentCount, GPhotoNameTable.gPhotoPrefix, GPhotoNameTable.NSGPhotos, initValue)
         {}
@@ -278,9 +296,15 @@ namespace Google.GData.Photos {
     /// </summary>
     public class GPhotoCommentingEnabled : SimpleElement
     {
+        /// <summary>
+        /// default constructor 
+        /// </summary>
         public GPhotoCommentingEnabled()
         : base(GPhotoNameTable.CommentingEnabled, GPhotoNameTable.gPhotoPrefix, GPhotoNameTable.NSGPhotos)
          {}
+        /// <summary>
+        /// default constructor with an initial value as a string 
+        /// </summary>
         public GPhotoCommentingEnabled(string initValue)
         : base(GPhotoNameTable.CommentingEnabled, GPhotoNameTable.gPhotoPrefix, GPhotoNameTable.NSGPhotos, initValue)
         {}
@@ -291,9 +315,15 @@ namespace Google.GData.Photos {
     /// </summary>
     public class GPhotoMaxPhotosPerAlbum : SimpleElement
     {
+        /// <summary>
+        /// default constructor 
+        /// </summary>
         public GPhotoMaxPhotosPerAlbum()
         : base(GPhotoNameTable.MaxPhotosPerAlbum, GPhotoNameTable.gPhotoPrefix, GPhotoNameTable.NSGPhotos)
          {}
+        /// <summary>
+        /// default constructor with an initial value as a string 
+        /// </summary>
         public GPhotoMaxPhotosPerAlbum(string initValue)
         : base(GPhotoNameTable.MaxPhotosPerAlbum, GPhotoNameTable.gPhotoPrefix, GPhotoNameTable.NSGPhotos, initValue)
         {}
@@ -304,9 +334,15 @@ namespace Google.GData.Photos {
     /// </summary>
     public class GPhotoNickName : SimpleElement
     {
+        /// <summary>
+        /// default constructor 
+        /// </summary>
         public GPhotoNickName()
         : base(GPhotoNameTable.Nickname, GPhotoNameTable.gPhotoPrefix, GPhotoNameTable.NSGPhotos)
          {}
+        /// <summary>
+        /// default constructor with an initial value as a string 
+        /// </summary>
         public GPhotoNickName(string initValue)
         : base(GPhotoNameTable.Nickname, GPhotoNameTable.gPhotoPrefix, GPhotoNameTable.NSGPhotos, initValue)
         {}
@@ -317,9 +353,15 @@ namespace Google.GData.Photos {
     /// </summary>
     public class GPhotoQuotaCurrent : SimpleElement
     {
+        /// <summary>
+        /// default constructor 
+        /// </summary>
         public GPhotoQuotaCurrent()
         : base(GPhotoNameTable.QuotaCurrent, GPhotoNameTable.gPhotoPrefix, GPhotoNameTable.NSGPhotos)
          {}
+        /// <summary>
+        /// default constructor with an initial value as a string 
+        /// </summary>
         public GPhotoQuotaCurrent(string initValue)
         : base(GPhotoNameTable.QuotaCurrent, GPhotoNameTable.gPhotoPrefix, GPhotoNameTable.NSGPhotos, initValue)
         {}
@@ -330,9 +372,15 @@ namespace Google.GData.Photos {
     /// </summary>
     public class GPhotoQuotaLimit : SimpleElement
     {
+        /// <summary>
+        /// default constructor 
+        /// </summary>
         public GPhotoQuotaLimit()
         : base(GPhotoNameTable.QuotaLimit, GPhotoNameTable.gPhotoPrefix, GPhotoNameTable.NSGPhotos)
          {}
+        /// <summary>
+        /// default constructor with an initial value as a string 
+        /// </summary>
         public GPhotoQuotaLimit(string initValue)
         : base(GPhotoNameTable.QuotaLimit, GPhotoNameTable.gPhotoPrefix, GPhotoNameTable.NSGPhotos, initValue)
         {}
@@ -343,9 +391,15 @@ namespace Google.GData.Photos {
     /// </summary>
     public class GPhotoThumbnail : SimpleElement
     {
+        /// <summary>
+        /// default constructor 
+        /// </summary>
         public GPhotoThumbnail()
         : base(GPhotoNameTable.Thumbnail, GPhotoNameTable.gPhotoPrefix, GPhotoNameTable.NSGPhotos)
          {}
+        /// <summary>
+        /// default constructor with an initial value as a string 
+        /// </summary>
         public GPhotoThumbnail(string initValue)
         : base(GPhotoNameTable.Thumbnail, GPhotoNameTable.gPhotoPrefix, GPhotoNameTable.NSGPhotos, initValue)
         {}
@@ -356,9 +410,15 @@ namespace Google.GData.Photos {
     /// </summary>
     public class GPhotoUser : SimpleElement
     {
+        /// <summary>
+        /// default constructor 
+        /// </summary>
         public GPhotoUser()
         : base(GPhotoNameTable.User, GPhotoNameTable.gPhotoPrefix, GPhotoNameTable.NSGPhotos)
          {}
+        /// <summary>
+        /// default constructor with an initial value as a string 
+        /// </summary>
         public GPhotoUser(string initValue)
         : base(GPhotoNameTable.User, GPhotoNameTable.gPhotoPrefix, GPhotoNameTable.NSGPhotos, initValue)
         {}
@@ -369,9 +429,15 @@ namespace Google.GData.Photos {
     /// </summary>
     public class GPhotoAccess : SimpleElement
     {
+        /// <summary>
+        /// default constructor 
+        /// </summary>
         public GPhotoAccess()
         : base(GPhotoNameTable.Access, GPhotoNameTable.gPhotoPrefix, GPhotoNameTable.NSGPhotos)
          {}
+        /// <summary>
+        /// default constructor with an initial value as a string 
+        /// </summary>
         public GPhotoAccess(string initValue)
         : base(GPhotoNameTable.Access, GPhotoNameTable.gPhotoPrefix, GPhotoNameTable.NSGPhotos, initValue)
         {}
@@ -382,9 +448,15 @@ namespace Google.GData.Photos {
     /// </summary>
     public class GPhotoBytesUsed : SimpleElement
     {
+        /// <summary>
+        /// default constructor 
+        /// </summary>
         public GPhotoBytesUsed()
         : base(GPhotoNameTable.BytesUsed, GPhotoNameTable.gPhotoPrefix, GPhotoNameTable.NSGPhotos)
          {}
+        /// <summary>
+        /// default constructor with an initial value as a string 
+        /// </summary>
         public GPhotoBytesUsed(string initValue)
         : base(GPhotoNameTable.BytesUsed, GPhotoNameTable.gPhotoPrefix, GPhotoNameTable.NSGPhotos, initValue)
         {}
@@ -395,9 +467,15 @@ namespace Google.GData.Photos {
     /// </summary>
     public class GPhotoLocation : SimpleElement
     {
+        /// <summary>
+        /// default constructor 
+        /// </summary>
         public GPhotoLocation()
         : base(GPhotoNameTable.Location, GPhotoNameTable.gPhotoPrefix, GPhotoNameTable.NSGPhotos)
          {}
+        /// <summary>
+        /// default constructor with an initial value as a string 
+        /// </summary>
         public GPhotoLocation(string initValue)
         : base(GPhotoNameTable.Location, GPhotoNameTable.gPhotoPrefix, GPhotoNameTable.NSGPhotos, initValue)
         {}
@@ -408,9 +486,15 @@ namespace Google.GData.Photos {
     /// </summary>
     public class GPhotoName : SimpleElement
     {
+        /// <summary>
+        /// default constructor 
+        /// </summary>
         public GPhotoName()
         : base(GPhotoNameTable.Name, GPhotoNameTable.gPhotoPrefix, GPhotoNameTable.NSGPhotos)
          {}
+        /// <summary>
+        /// default constructor with an initial value as a string 
+        /// </summary>
         public GPhotoName(string initValue)
         : base(GPhotoNameTable.Name, GPhotoNameTable.gPhotoPrefix, GPhotoNameTable.NSGPhotos, initValue)
         {}
@@ -421,9 +505,15 @@ namespace Google.GData.Photos {
     /// </summary>
     public class GPhotoNumPhotos : SimpleElement
     {
+        /// <summary>
+        /// default constructor 
+        /// </summary>
         public GPhotoNumPhotos()
         : base(GPhotoNameTable.NumPhotos, GPhotoNameTable.gPhotoPrefix, GPhotoNameTable.NSGPhotos)
          {}
+        /// <summary>
+        /// default constructor with an initial value as a string 
+        /// </summary>
         public GPhotoNumPhotos(string initValue)
         : base(GPhotoNameTable.NumPhotos, GPhotoNameTable.gPhotoPrefix, GPhotoNameTable.NSGPhotos, initValue)
         {}
@@ -434,9 +524,15 @@ namespace Google.GData.Photos {
     /// </summary>
     public class GPhotoNumPhotosRemaining : SimpleElement
     {
+        /// <summary>
+        /// default constructor 
+        /// </summary>
         public GPhotoNumPhotosRemaining()
         : base(GPhotoNameTable.NumPhotosRemaining, GPhotoNameTable.gPhotoPrefix, GPhotoNameTable.NSGPhotos)
          {}
+        /// <summary>
+        /// default constructor with an initial value as a string 
+        /// </summary>
         public GPhotoNumPhotosRemaining(string initValue)
         : base(GPhotoNameTable.NumPhotosRemaining, GPhotoNameTable.gPhotoPrefix, GPhotoNameTable.NSGPhotos, initValue)
         {}
@@ -447,9 +543,15 @@ namespace Google.GData.Photos {
     /// </summary>
     public class GPhotoChecksum : SimpleElement
     {
+        /// <summary>
+        /// default constructor 
+        /// </summary>
         public GPhotoChecksum()
         : base(GPhotoNameTable.Checksum, GPhotoNameTable.gPhotoPrefix, GPhotoNameTable.NSGPhotos)
          {}
+        /// <summary>
+        /// default constructor with an initial value as a string 
+        /// </summary>
         public GPhotoChecksum(string initValue)
         : base(GPhotoNameTable.Checksum, GPhotoNameTable.gPhotoPrefix, GPhotoNameTable.NSGPhotos, initValue)
         {}
@@ -460,9 +562,15 @@ namespace Google.GData.Photos {
     /// </summary>
     public class GPhotoClient : SimpleElement
     {
+        /// <summary>
+        /// default constructor 
+        /// </summary>
         public GPhotoClient()
         : base(GPhotoNameTable.Client, GPhotoNameTable.gPhotoPrefix, GPhotoNameTable.NSGPhotos)
          {}
+        /// <summary>
+        /// default constructor with an initial value as a string 
+        /// </summary>
         public GPhotoClient(string initValue)
         : base(GPhotoNameTable.Client, GPhotoNameTable.gPhotoPrefix, GPhotoNameTable.NSGPhotos, initValue)
         {}
@@ -473,9 +581,15 @@ namespace Google.GData.Photos {
     /// </summary>
     public class GPhotoHeight : SimpleElement
     {
+        /// <summary>
+        /// default constructor 
+        /// </summary>
         public GPhotoHeight()
         : base(GPhotoNameTable.Height, GPhotoNameTable.gPhotoPrefix, GPhotoNameTable.NSGPhotos)
          {}
+        /// <summary>
+        /// default constructor with an initial value as a string 
+        /// </summary>
         public GPhotoHeight(string initValue)
         : base(GPhotoNameTable.Height, GPhotoNameTable.gPhotoPrefix, GPhotoNameTable.NSGPhotos, initValue)
         {}
@@ -486,9 +600,15 @@ namespace Google.GData.Photos {
     /// </summary>
     public class GPhotoPosition : SimpleElement
     {
+        /// <summary>
+        /// default constructor 
+        /// </summary>
         public GPhotoPosition()
         : base(GPhotoNameTable.Position, GPhotoNameTable.gPhotoPrefix, GPhotoNameTable.NSGPhotos)
          {}
+        /// <summary>
+        /// default constructor with an initial value as a string 
+        /// </summary>
         public GPhotoPosition(string initValue)
         : base(GPhotoNameTable.Position, GPhotoNameTable.gPhotoPrefix, GPhotoNameTable.NSGPhotos, initValue)
         {}
@@ -499,9 +619,15 @@ namespace Google.GData.Photos {
     /// </summary>
     public class GPhotoRotation : SimpleElement
     {
+        /// <summary>
+        /// default constructor 
+        /// </summary>
         public GPhotoRotation()
         : base(GPhotoNameTable.Rotation, GPhotoNameTable.gPhotoPrefix, GPhotoNameTable.NSGPhotos)
          {}
+        /// <summary>
+        /// default constructor with an initial value as a string 
+        /// </summary>
         public GPhotoRotation(string initValue)
         : base(GPhotoNameTable.Rotation, GPhotoNameTable.gPhotoPrefix, GPhotoNameTable.NSGPhotos, initValue)
         {}
@@ -512,9 +638,15 @@ namespace Google.GData.Photos {
     /// </summary>
     public class GPhotoSize : SimpleElement
     {
+        /// <summary>
+        /// default constructor 
+        /// </summary>
         public GPhotoSize()
         : base(GPhotoNameTable.Size, GPhotoNameTable.gPhotoPrefix, GPhotoNameTable.NSGPhotos)
          {}
+        /// <summary>
+        /// default constructor with an initial value as a string 
+        /// </summary>
         public GPhotoSize(string initValue)
         : base(GPhotoNameTable.Size, GPhotoNameTable.gPhotoPrefix, GPhotoNameTable.NSGPhotos, initValue)
         {}
@@ -525,9 +657,15 @@ namespace Google.GData.Photos {
     /// </summary>
     public class GPhotoTimestamp : SimpleElement
     {
+        /// <summary>
+        /// default constructor 
+        /// </summary>
         public GPhotoTimestamp()
         : base(GPhotoNameTable.Timestamp, GPhotoNameTable.gPhotoPrefix, GPhotoNameTable.NSGPhotos)
          {}
+        /// <summary>
+        /// default constructor with an initial value as a string 
+        /// </summary>
         public GPhotoTimestamp(string initValue)
         : base(GPhotoNameTable.Timestamp, GPhotoNameTable.gPhotoPrefix, GPhotoNameTable.NSGPhotos, initValue)
         {}
@@ -539,9 +677,15 @@ namespace Google.GData.Photos {
     /// </summary>
     public class GPhotoVersion : SimpleElement
     {
+        /// <summary>
+        /// default constructor 
+        /// </summary>
         public GPhotoVersion()
         : base(GPhotoNameTable.Version, GPhotoNameTable.gPhotoPrefix, GPhotoNameTable.NSGPhotos)
          {}
+        /// <summary>
+        /// default constructor with an initial value as a string 
+        /// </summary>
         public GPhotoVersion(string initValue)
         : base(GPhotoNameTable.Version, GPhotoNameTable.gPhotoPrefix, GPhotoNameTable.NSGPhotos, initValue)
         {}
@@ -552,9 +696,15 @@ namespace Google.GData.Photos {
     /// </summary>
     public class GPhotoPhotoId : SimpleElement
     {
+        /// <summary>
+        /// default constructor 
+        /// </summary>
         public GPhotoPhotoId()
         : base(GPhotoNameTable.Photoid, GPhotoNameTable.gPhotoPrefix, GPhotoNameTable.NSGPhotos)
          {}
+        /// <summary>
+        /// default constructor with an initial value as a string 
+        /// </summary>
         public GPhotoPhotoId(string initValue)
         : base(GPhotoNameTable.Photoid, GPhotoNameTable.gPhotoPrefix, GPhotoNameTable.NSGPhotos, initValue)
         {}
@@ -565,9 +715,15 @@ namespace Google.GData.Photos {
     /// </summary>
     public class GPhotoWidth : SimpleElement
     {
+        /// <summary>
+        /// default constructor 
+        /// </summary>
         public GPhotoWidth()
         : base(GPhotoNameTable.Width, GPhotoNameTable.gPhotoPrefix, GPhotoNameTable.NSGPhotos)
          {}
+        /// <summary>
+        /// default constructor with an initial value as a string 
+        /// </summary>
         public GPhotoWidth(string initValue)
         : base(GPhotoNameTable.Width, GPhotoNameTable.gPhotoPrefix, GPhotoNameTable.NSGPhotos, initValue)
         {}
@@ -578,9 +734,15 @@ namespace Google.GData.Photos {
     /// </summary>
     public class GPhotoWeight : SimpleElement
     {
+        /// <summary>
+        /// default constructor 
+        /// </summary>
         public GPhotoWeight()
         : base(GPhotoNameTable.Weight, GPhotoNameTable.gPhotoPrefix, GPhotoNameTable.NSGPhotos)
          {}
+        /// <summary>
+        /// default constructor with an initial value as a string 
+        /// </summary>
         public GPhotoWeight(string initValue)
         : base(GPhotoNameTable.Weight, GPhotoNameTable.gPhotoPrefix, GPhotoNameTable.NSGPhotos, initValue)
         {}
