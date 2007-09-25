@@ -120,12 +120,6 @@
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "appsnametable.cs"
-                    Link = "..\..\gapps\appsnametable.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
                     RelPath = "appsservice.cs"
                     Link = "..\..\gapps\appsservice.cs"
                     SubType = "Code"
@@ -140,12 +134,6 @@
                 <File
                     RelPath = "AssemblyVersion.cs"
                     Link = "..\..\version\AssemblyVersion.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "email_list.cs"
-                    Link = "..\..\gapps\email_list.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
@@ -198,24 +186,6 @@
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "login.cs"
-                    Link = "..\..\gapps\login.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "name.cs"
-                    Link = "..\..\gapps\name.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "nickname.cs"
-                    Link = "..\..\gapps\nickname.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
                     RelPath = "nicknameentry.cs"
                     Link = "..\..\gapps\nicknameentry.cs"
                     SubType = "Code"
@@ -236,12 +206,6 @@
                 <File
                     RelPath = "nicknameservice.cs"
                     Link = "..\..\gapps\nicknameservice.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "quota.cs"
-                    Link = "..\..\gapps\quota.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />

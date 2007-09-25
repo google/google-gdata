@@ -74,9 +74,13 @@ namespace Google.GData.Extensions
         public const string XmlReminderElement = "reminder";
         /// <summary>static string for parsing</summary>
         public const string XmlCommentsElement = "comments";
+        /// <summary>static string for parsing the color element in a calendar</summary>
         public const string XmlColorElement = "color";
+        /// <summary>static string for parsing the selected element in a calendar</summary>
         public const string XmlSelectedElement = "selected";
+        /// <summary>static string for parsing the ACL element in a calendar</summary>
         public const string XmlAccessLevelElement = "accesslevel";
+        /// <summary>static string for parsing the hidden element in a calendar</summary>
         public const string XmlHiddenElement = "hidden";
         
 #endregion

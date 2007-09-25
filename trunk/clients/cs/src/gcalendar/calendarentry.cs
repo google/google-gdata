@@ -193,12 +193,19 @@ namespace Google.GData.Calendar
     /// </summary>
     public class GCalColor : SimpleAttribute
     {
+        /// <summary>
+        /// default calendar color constructor
+        /// </summary>
         public GCalColor()
             : base(GDataParserNameTable.XmlColorElement, GDataParserNameTable.gCalPrefix, 
               GDataParserNameTable.NSGCal)
         {
         }
 
+        /// <summary>
+        /// default calendar color constructor with an initial value
+        /// </summary>
+        /// <param name="initValue"></param>
         public GCalColor(string initValue)
             : base(GDataParserNameTable.XmlColorElement, GDataParserNameTable.gCalPrefix, 
               GDataParserNameTable.NSGCal, initValue)
@@ -211,12 +218,20 @@ namespace Google.GData.Calendar
     /// </summary>
     public class GCalHidden : SimpleAttribute
     {
+
+        /// <summary>
+        /// default calendar hidden constructor
+        /// </summary>
         public GCalHidden()
             : base(GDataParserNameTable.XmlHiddenElement, GDataParserNameTable.gCalPrefix, 
               GDataParserNameTable.NSGCal)
         {
         }
 
+        /// <summary>
+        /// default calendar hidden constructor with an initial value
+        /// </summary>
+        /// <param name="initValue"></param>
         public GCalHidden(string initValue)
             : base(GDataParserNameTable.XmlHiddenElement, GDataParserNameTable.gCalPrefix, 
               GDataParserNameTable.NSGCal, initValue)
@@ -229,12 +244,19 @@ namespace Google.GData.Calendar
     /// </summary>
     public class GCalSelected : SimpleAttribute
     {
+        /// <summary>
+        /// default calendar selected constructor
+        /// </summary>
         public GCalSelected()
             : base(GDataParserNameTable.XmlSelectedElement, GDataParserNameTable.gCalPrefix, 
               GDataParserNameTable.NSGCal)
         {
         }
 
+        /// <summary>
+        /// default calendar selected constructor with an initial value
+        /// </summary>
+        /// <param name="initValue"></param>
         public GCalSelected(string initValue)
             : base(GDataParserNameTable.XmlSelectedElement, GDataParserNameTable.gCalPrefix, 
               GDataParserNameTable.NSGCal, initValue)
@@ -247,12 +269,20 @@ namespace Google.GData.Calendar
     /// </summary>
     public class GCalAccessLevel : SimpleAttribute
     {
+        /// <summary>
+        /// default calendar access level constructor
+        /// </summary>        
         public GCalAccessLevel()
             : base(GDataParserNameTable.XmlAccessLevelElement, GDataParserNameTable.gCalPrefix, 
               GDataParserNameTable.NSGCal)
         {
         }
 
+        /// <summary>
+        /// default calendar acccess level
+        ///  constructor with an initial value
+        /// </summary>
+        /// <param name="initValue"></param>
         public GCalAccessLevel(string initValue)
             : base(GDataParserNameTable.XmlAccessLevelElement, GDataParserNameTable.gCalPrefix, 
             GDataParserNameTable.NSGCal, initValue)

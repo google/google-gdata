@@ -102,6 +102,7 @@ namespace Google.GData.Extensions {
          //////////////////////////////////////////////////////////////////////
         /// <summary>Parses an xml node to create a Who object.</summary> 
         /// <param name="node">the xml parses node, can be NULL</param>
+        /// <param name="parser">the xml parser to use if we need to dive deeper</param>
         /// <returns>the created IExtensionElement object</returns>
         //////////////////////////////////////////////////////////////////////
         public virtual IExtensionElement CreateInstance(XmlNode node, AtomFeedParser parser) 

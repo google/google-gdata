@@ -88,6 +88,7 @@ namespace Google.GData.Extensions
         //////////////////////////////////////////////////////////////////////
         /// <summary>Parses an xml node to create a webcontent object.</summary> 
         /// <param name="node">xml node</param>
+        /// <param name="parser">the atomfeedparser to use for deep dive parsing</param>
         /// <returns>the created SimpleElement object</returns>
         //////////////////////////////////////////////////////////////////////
         public IExtensionElement CreateInstance(XmlNode node, AtomFeedParser parser) 

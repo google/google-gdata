@@ -178,6 +178,7 @@ namespace Google.GData.Client
         /// instantiates the correct extensiohn element
         /// </summary>
         /// <param name="node">the xmlnode to parse</param>
+        /// <param name="parser">the atomfeedparser to use if deep parsing of subelements is required</param>
         /// <returns></returns>
         IExtensionElement CreateInstance(XmlNode node, AtomFeedParser parser); 
     }

@@ -64,6 +64,9 @@ namespace Google.GData.Client
         }
         /////////////////////////////////////////////////////////////////////////////
 
+        /// <summary>
+        /// nametable for the xmlparser that the atomfeedparser uses
+        /// </summary>
         public AtomParserNameTable Nametable
         {
             get { return this.nameTable; }

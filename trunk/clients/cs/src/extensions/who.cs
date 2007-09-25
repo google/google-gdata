@@ -235,6 +235,7 @@ namespace Google.GData.Extensions {
         //////////////////////////////////////////////////////////////////////
         /// <summary>Parses an xml node to create a Where  object.</summary> 
         /// <param name="node">the node to parse node</param>
+        /// <param name="parser">the xml parser to use if we need to dive deeper</param>
         /// <returns>the created Where  object</returns>
         //////////////////////////////////////////////////////////////////////
         public IExtensionElement CreateInstance(XmlNode node, AtomFeedParser parser)
