@@ -53,9 +53,6 @@
     <Compile Include="..\..\gapps\appsexception.cs">
       <Link>appsexception.cs</Link>
     </Compile>
-    <Compile Include="..\..\gapps\appsnametable.cs">
-      <Link>appsnametable.cs</Link>
-    </Compile>
     <Compile Include="..\..\gapps\appsservice.cs">
       <Link>appsservice.cs</Link>
     </Compile>
@@ -86,18 +83,6 @@
     <Compile Include="..\..\gapps\emaillistservice.cs">
       <Link>emaillistservice.cs</Link>
     </Compile>
-    <Compile Include="..\..\gapps\email_list.cs">
-      <Link>email_list.cs</Link>
-    </Compile>
-    <Compile Include="..\..\gapps\login.cs">
-      <Link>login.cs</Link>
-    </Compile>
-    <Compile Include="..\..\gapps\name.cs">
-      <Link>name.cs</Link>
-    </Compile>
-    <Compile Include="..\..\gapps\nickname.cs">
-      <Link>nickname.cs</Link>
-    </Compile>
     <Compile Include="..\..\gapps\nicknameentry.cs">
       <Link>nicknameentry.cs</Link>
     </Compile>
@@ -109,9 +94,6 @@
     </Compile>
     <Compile Include="..\..\gapps\nicknameservice.cs">
       <Link>nicknameservice.cs</Link>
-    </Compile>
-    <Compile Include="..\..\gapps\quota.cs">
-      <Link>quota.cs</Link>
     </Compile>
     <Compile Include="..\..\gapps\userentry.cs">
       <Link>userentry.cs</Link>
