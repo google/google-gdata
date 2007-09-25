@@ -14,6 +14,7 @@
 */
 
 using Google.GData.Client;
+using Google.GData.Extensions.Apps;
 
 namespace Google.GData.Apps
 {

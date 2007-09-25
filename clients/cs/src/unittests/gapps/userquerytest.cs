@@ -2,6 +2,7 @@ using System;
 using NUnit.Framework;
 using Google.GData.Client;
 using Google.GData.Apps;
+using Google.GData.Extensions.Apps;
 
 namespace Google.GData.Apps.UnitTests
 {

@@ -3,6 +3,7 @@ using System.IO;
 using System.Net;
 using System.Xml;
 using Google.GData.Client;
+using Google.GData.Extensions.Apps;
 
 namespace Google.GData.Apps
 {

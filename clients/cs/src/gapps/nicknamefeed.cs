@@ -18,13 +18,14 @@ using System.Text;
 using System.Xml;
 using Google.GData.Client;
 using Google.GData.Extensions;
+using Google.GData.Extensions.Apps;
 
 namespace Google.GData.Apps
 {
     /// <summary>
     /// Feed API customization class for defining nickname feed.
     /// </summary>
-    public class NicknameFeed : AtomFeed
+    public class NicknameFeed : AbstractFeed
     {
         /// <summary>
         /// Constructs a new NicknameFeed.
@@ -35,80 +36,16 @@ namespace Google.GData.Apps
         public NicknameFeed(Uri uriBase, IService iService)
             : base(uriBase, iService)
         {
-            NewAtomEntry += new FeedParserEventHandler(this.OnParsedNewNicknameEntry);
-            NewExtensionElement += new ExtensionElementEventHandler(this.OnNewNicknameExtensionsElement);
-        }
-
-        /// <summary>empty base implementation</summary> 
-        /// <param name="writer">the xmlwriter, where we want to add default namespaces to</param>
-        protected override void AddOtherNamespaces(XmlWriter writer)
-        {
-            base.AddOtherNamespaces(writer);
-            Utilities.EnsureGDataNamespace(writer);
-        }
-
-        /// <summary>checks if this is a namespace 
-        /// decl that we already added</summary> 
-        /// <param name="node">XmlNode to check</param>
-        /// <returns>true if this node should be skipped </returns>
-        protected override bool SkipNode(XmlNode node)
-        {
-            if (base.SkipNode(node) == true)
-            {
-                return true;
-            }
-
-            return node.NodeType == XmlNodeType.Attribute
-                    && (node.Name.StartsWith("xmlns") == true)
-                    && (String.Compare(node.Value, BaseNameTable.gNamespace) == 0);
+            GAppsExtensions.AddExtension(this);
         }
 
         /// <summary>
-        /// Event handling. Called when a new nickname entry is parsed.
+        /// Overridden.  Returns a new <code>NicknameEntry</code>.
         /// </summary>
-        /// <param name="sender"> the object which send the event</param>
-        /// <param name="e">FeedParserEventArguments, holds the feedentry</param> 
-        /// <returns> </returns>
-        protected void OnParsedNewNicknameEntry(object sender, FeedParserEventArgs e)
+        /// <returns>the new <code>NicknameEntry</code></returns>
+        public override AtomEntry CreateFeedEntry()
         {
-            if (e == null)
-            {
-                throw new ArgumentNullException("e");
-            }
-            if (e.CreatingEntry == true)
-            {
-                e.Entry = new NicknameEntry();
-            }
-        }
-
-        /// <summary>eventhandler - called for event extension element
-        /// </summary>
-        /// <param name="sender">the object which send the event</param>
-        /// <param name="e">FeedParserEventArguments, holds the feedEntry</param> 
-        /// <returns> </returns>
-        protected void OnNewNicknameExtensionsElement(object sender, ExtensionElementEventArgs e)
-        {
-            if (e == null)
-            {
-                throw new ArgumentNullException("e");
-            }
-
-            if (String.Compare(e.ExtensionElement.NamespaceURI, AppsNameTable.appsNamespace, true) == 0)
-            {
-                e.DiscardEntry = true;
-
-                AtomFeedParser parser = sender as AtomFeedParser;
-
-                if (e.Base.XmlName == AtomParserNameTable.XmlAtomEntryElement)
-                {
-                    NicknameEntry nicknameEntry = e.Base as NicknameEntry;
-
-                    if (nicknameEntry != null)
-                    {
-                        nicknameEntry.ParseNicknameEntry(e.ExtensionElement, parser);
-                    }
-                }
-            }
+            return new NicknameEntry();
         }
     }
 }

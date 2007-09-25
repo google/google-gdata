@@ -19,6 +19,7 @@ using System.Xml;
 using System.IO;
 using System.Collections;
 using Google.GData.Client;
+using Google.GData.Extensions.Apps;
 
 namespace Google.GData.Apps
 {
