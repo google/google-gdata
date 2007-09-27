@@ -82,7 +82,7 @@ namespace Google.GData.Apps.UnitTests
         [Test]
         public void GetHashFunctionNameTest()
         {
-            Assert.IsTrue(login.HashFunctionName == null, "Hash function name should initially be null");
+            Assert.AreEqual("", login.HashFunctionName, "Hash function name should initially be empty");
         }
 
         [Test]
