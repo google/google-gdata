@@ -82,7 +82,7 @@ namespace Google.GData.Apps.UnitTests
         [Test]
         public void GetHashFunctionNameTest()
         {
-            Assert.IsEmpty(login.HashFunctionName, "Hash function name should initially be null");
+            Assert.IsTrue(login.HashFunctionName == null, "Hash function name should initially be null");
         }
 
         [Test]
@@ -174,21 +174,21 @@ namespace Google.GData.Apps.UnitTests
             Assert.IsNotNull(serializedXml, "Serialized XML should not be null.");
             Assert.IsTrue(serializedXml.StartsWith("<apps:login"), "Serialized XML does not start " +
                 " with correct element name.");
-            Assert.IsTrue(serializedXml.Contains("userName=\"" + login.UserName + "\""),
+            Assert.IsTrue(serializedXml.IndexOf("userName=\"" + login.UserName + "\"") >= 0,
                 "Serialized XML does not contain correct userName attribute.");
-            Assert.IsTrue(serializedXml.Contains("password=\"" + login.Password + "\""),
+            Assert.IsTrue(serializedXml.IndexOf("password=\"" + login.Password + "\"") >= 0,
                 "Serialized XML does not contain correct password attribute.");
-            Assert.IsTrue(serializedXml.Contains("suspended=\"" + login.Suspended.ToString().ToLower() + "\""),
+            Assert.IsTrue(serializedXml.IndexOf("suspended=\"" + login.Suspended.ToString().ToLower() + "\"") >= 0,
                 "Serialized XML does not contain correct suspended attribute.");
-            Assert.IsTrue(serializedXml.Contains("ipWhitelisted=\"" +
-                login.IpWhitelisted.ToString().ToLower() + "\""),
+            Assert.IsTrue(serializedXml.IndexOf("ipWhitelisted=\"" +
+                login.IpWhitelisted.ToString().ToLower() + "\"") >= 0,
                 "Serialized XML does not contain correct ipWhitelisted attribute.");
 
             // Make sure that the "admin" and "changePasswordAtNextLogin" attributes
             // are NOT present here
-            Assert.IsFalse(serializedXml.Contains("admin="),
+            Assert.IsFalse(serializedXml.IndexOf("admin=") >= 0,
                 "Serialized XML should not contain an \"admin\" attribute.");
-            Assert.IsFalse(serializedXml.Contains("changePasswordAtNextLogin="),
+            Assert.IsFalse(serializedXml.IndexOf("changePasswordAtNextLogin=") >= 0,
                 "Serialized XML should not contain a \"changePasswordAtNextLogin\" attribute.");
         }
 
@@ -210,22 +210,22 @@ namespace Google.GData.Apps.UnitTests
             Assert.IsNotNull(serializedXml, "Serialized XML should not be null.");
             Assert.IsTrue(serializedXml.StartsWith("<apps:login"), "Serialized XML does not start " +
                 " with correct element name.");
-            Assert.IsTrue(serializedXml.Contains("userName=\"" + login.UserName + "\""),
+            Assert.IsTrue(serializedXml.IndexOf("userName=\"" + login.UserName + "\"") >= 0,
                 "Serialized XML does not contain correct userName attribute.");
-            Assert.IsTrue(serializedXml.Contains("password=\"" + login.Password + "\""),
+            Assert.IsTrue(serializedXml.IndexOf("password=\"" + login.Password + "\"") >= 0,
                 "Serialized XML does not contain correct password attribute.");
-            Assert.IsTrue(serializedXml.Contains("suspended=\"" + login.Suspended.ToString().ToLower() + "\""),
+            Assert.IsTrue(serializedXml.IndexOf("suspended=\"" + login.Suspended.ToString().ToLower() + "\"") >= 0,
                 "Serialized XML does not contain correct suspended attribute.");
-            Assert.IsTrue(serializedXml.Contains("ipWhitelisted=\"" +
-                login.IpWhitelisted.ToString().ToLower() + "\""),
+            Assert.IsTrue(serializedXml.IndexOf("ipWhitelisted=\"" +
+                login.IpWhitelisted.ToString().ToLower() + "\"") >= 0,
                 "Serialized XML does not contain correct ipWhitelisted attribute.");
 
             // Make sure that the "admin" and "changePasswordAtNextLogin" attributes
             // ARE present here
-            Assert.IsTrue(serializedXml.Contains("admin=\"" + login.Admin.ToString().ToLower() + "\""),
+            Assert.IsTrue(serializedXml.IndexOf("admin=\"" + login.Admin.ToString().ToLower() + "\"") >= 0,
                 "Serialized XML does not contain an \"admin\" attribute.");
-            Assert.IsTrue(serializedXml.Contains("changePasswordAtNextLogin=\"" +
-                login.ChangePasswordAtNextLogin.ToString().ToLower() + "\""),
+            Assert.IsTrue(serializedXml.IndexOf("changePasswordAtNextLogin=\"" +
+                login.ChangePasswordAtNextLogin.ToString().ToLower() + "\"") >= 0,
                 "Serialized XML does not contain a \"changePasswordAtNextLogin\" attribute.");
         }
     }
