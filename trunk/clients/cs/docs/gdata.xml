@@ -170,6 +170,16 @@
             <param name="ns">the namespace to match, if null, ns is ignored</param>
             <param name="obj">the new element to put in</param>
         </member>
+        <member name="M:Google.GData.Client.AtomBase.CreateAtomSubElement(System.Xml.XmlReader,Google.GData.Client.AtomFeedParser)">
+            <summary>
+            this is the subclassing method for AtomBase derived 
+            classes to overload what childelements should be created
+            needed to create CustomLink type objects, like WebContentLink etc
+            </summary>
+            <param name="reader">The XmlReader that tells us what we are working with</param>
+            <param name="parser">the parser is primarily used for nametable comparisons</param>
+            <returns>AtomBase</returns>
+        </member>
         <member name="M:Google.GData.Client.AtomBase.SaveToXml(System.IO.Stream)">
             <summary>Saves the object as XML.</summary> 
             <param name="stream">stream to save to</param>
@@ -357,6 +367,16 @@
         <member name="M:Google.GData.Client.AtomEntry.CopyEntry(Google.GData.Client.AtomEntry)">
             <summary>takes the updated entry returned and sets the properties to this object</summary> 
             <param name="updatedEntry"> </param>
+        </member>
+        <member name="M:Google.GData.Client.AtomEntry.CreateAtomSubElement(System.Xml.XmlReader,Google.GData.Client.AtomFeedParser)">
+            <summary>
+            this is the subclassing method for AtomBase derived 
+            classes to overload what childelements should be created
+            needed to create CustomLink type objects, like WebContentLink etc
+            </summary>
+            <param name="reader">The XmlReader that tells us what we are working with</param>
+            <param name="parser">the parser is primarily used for nametable comparisons</param>
+            <returns>AtomBase</returns>
         </member>
         <member name="M:Google.GData.Client.AtomEntry.BaseUriChanged(Google.GData.Client.AtomUri)">
             <summary>just go down the child collections</summary> 
@@ -1267,20 +1287,22 @@
             <param name="baseLink">the base object to set the property on</param> 
             <returns> </returns>
         </member>
-        <member name="M:Google.GData.Client.AtomFeedParser.ParsePerson(System.Xml.XmlReader,System.Object)">
+        <member name="M:Google.GData.Client.AtomFeedParser.ParsePerson(System.Xml.XmlReader,Google.GData.Client.AtomBase)">
             <summary>parses an author/person object</summary> 
             <param name="reader"> an XmlReader positioned at the start of the author</param>
-            <param name="whoIsIt">indicates the localname to check for</param>
+            <param name="owner">the object containing the person</param>
             <returns> the created author object</returns>
         </member>
-        <member name="M:Google.GData.Client.AtomFeedParser.ParseCategory(System.Xml.XmlReader)">
+        <member name="M:Google.GData.Client.AtomFeedParser.ParseCategory(System.Xml.XmlReader,Google.GData.Client.AtomBase)">
             <summary>parses an xml stream to create an AtomCategory object</summary> 
             <param name="reader">correctly positioned xmlreader</param>
+            <param name="owner">the object containing the person</param>
             <returns> the created AtomCategory object</returns>
         </member>
-        <member name="M:Google.GData.Client.AtomFeedParser.ParseLink(System.Xml.XmlReader)">
+        <member name="M:Google.GData.Client.AtomFeedParser.ParseLink(System.Xml.XmlReader,Google.GData.Client.AtomBase)">
             <summary>creates an atomlink object</summary> 
             <param name="reader">correctly positioned xmlreader</param>
+            <param name="owner">the object containing the person</param>
             <returns> the created AtomLink object</returns>
         </member>
         <member name="M:Google.GData.Client.AtomFeedParser.ParseEntry(System.Xml.XmlReader)">
@@ -1339,26 +1361,33 @@
             <param name="reader">XmlReader at the start of the element</param>
             <returns>GDataBatchInterrupt</returns>
         </member>
-        <member name="M:Google.GData.Client.AtomFeedParser.ParseTextConstruct(System.Xml.XmlReader,Google.GData.Client.AtomTextConstructElementType)">
+        <member name="M:Google.GData.Client.AtomFeedParser.ParseTextConstruct(System.Xml.XmlReader,Google.GData.Client.AtomBase)">
             <summary>parses an AtomTextConstruct</summary> 
             <param name="reader">the xmlreader correctly positioned at the construct </param>
-            <param name="elementType">the type of element to create</param>
+            <param name="owner">the container element</param>
             <returns>the new text construct </returns>
         </member>
-        <member name="M:Google.GData.Client.AtomFeedParser.ParseGenerator(System.Xml.XmlReader)">
+        <member name="M:Google.GData.Client.AtomFeedParser.ParseGenerator(System.Xml.XmlReader,Google.GData.Client.AtomBase)">
             <summary>parses an AtomGenerator</summary> 
             <param name="reader">the xmlreader correctly positioned at the generator </param>
+            <param name="owner">the container element</param>
             <returns> </returns>
         </member>
-        <member name="M:Google.GData.Client.AtomFeedParser.ParseContent(System.Xml.XmlReader,System.Boolean@)">
+        <member name="M:Google.GData.Client.AtomFeedParser.ParseContent(System.Xml.XmlReader,Google.GData.Client.AtomBase,System.Boolean@)">
             <summary>creates an AtomContent object by parsing an xml stream</summary> 
             <param name="reader">a XMLReader positioned correctly </param>
+            <param name="owner">the container element</param>
             <param name="skipNode">a boolen indicating if the node needs to be skipped, or not</param>
             <returns> null or an AtomContent object</returns>
         </member>
         <member name="P:Google.GData.Client.AtomFeedParser.Version">
             <summary>accessor method public string Version</summary> 
             <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Client.AtomFeedParser.Nametable">
+            <summary>
+            nametable for the xmlparser that the atomfeedparser uses
+            </summary>
         </member>
         <member name="T:Google.GData.Client.AtomIcon">
             <summary>atomIcon object representation. 
@@ -2424,6 +2453,26 @@
             server</param>
             <param name="domain">the domain at which the authentication server 
             exists</param>
+            <param name="continueUrl">the URL to redirect to on successful 
+            token retrieval</param>
+            <param name="scope">the scope of the requested AuthSub token</param>
+            <param name="secure">if the token will be used securely</param>
+            <param name="session"> if the token will be exchanged for a
+             session cookie</param>
+            <returns>the URL to be used to retrieve the AuthSub token</returns>
+        </member>
+        <member name="M:Google.GData.Client.AuthSubUtil.getRequestUrl(System.String,System.String,System.String,System.String,System.String,System.Boolean,System.Boolean)">
+            <summary>Creates the request URL to be used to retrieve an AuthSub 
+            token. On success, the user will be redirected to the continue URL 
+            with the AuthSub token appended to the URL.
+            Use getTokenFromReply(String) to retrieve the token from the reply.
+            </summary> 
+            <param name="protocol">the protocol to use to communicate with the 
+            server</param>
+            <param name="domain">the domain at which the authentication server 
+            exists</param>
+            <param name="handler">the location of the authentication handler
+             (defaults to "/accounts/AuthSubRequest".</param>
             <param name="continueUrl">the URL to redirect to on successful 
             token retrieval</param>
             <param name="scope">the scope of the requested AuthSub token</param>
@@ -3982,6 +4031,13 @@
             <param name="username"></param>
             <param name="password"></param>
         </member>
+        <member name="M:Google.GData.Client.Service.Get(System.String)">
+            <summary>
+            Returns a single Atom entry based upon its unique URI.
+            </summary>
+            <param name="entryUri">The URI of the Atom entry.</param>
+            <returns>AtomEntry representing the entry.</returns>
+        </member>
         <member name="M:Google.GData.Client.Service.Query(Google.GData.Client.FeedQuery)">
             <summary>executes the query and returns an AtomFeed object tree</summary> 
             <param name="feedQuery">the query parameters as a FeedQuery object </param>
@@ -4049,8 +4105,10 @@
             double buffering/copying of the bytes
             </summary>
             <param name="targetUri"></param>
-            <param name="payload"></param>            <param name="type"></param>
-            <returns>Stream</returns>        </member>
+            <param name="payload"></param>
+            <param name="type"></param>
+            <returns>Stream</returns>
+        </member>
         <member name="M:Google.GData.Client.Service.StreamSend(System.Uri,System.IO.Stream,Google.GData.Client.GDataRequestType,System.String,System.String)">
             <summary>
             this is a helper function for to send binary data to a resource
@@ -4062,7 +4120,8 @@
             <param name="type"></param>
             <param name="contentType">the contenttype to use in the request, if NULL is passed, factory default is used</param>
             <param name="slugHeader">the slugHeader to use in the request, if NULL is passed, factory default is used</param>
-            <returns>Stream</returns>        </member>
+            <returns>Stream</returns>
+        </member>
         <member name="M:Google.GData.Client.Service.createFeed(System.Uri)">
             <summary>creates a new feed instance to be returned by
             Batch(), Query() and other operations
@@ -4147,11 +4206,12 @@
             it needs to implement this interface
             </summary> 
         </member>
-        <member name="M:Google.GData.Client.IExtensionElementFactory.CreateInstance(System.Xml.XmlNode)">
+        <member name="M:Google.GData.Client.IExtensionElementFactory.CreateInstance(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
             <summary>
             instantiates the correct extensiohn element
             </summary>
             <param name="node">the xmlnode to parse</param>
+            <param name="parser">the atomfeedparser to use if deep parsing of subelements is required</param>
             <returns></returns>
         </member>
         <member name="P:Google.GData.Client.IExtensionElementFactory.XmlName">

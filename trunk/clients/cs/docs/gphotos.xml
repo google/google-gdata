@@ -157,7 +157,14 @@
             The number of photos in the album.
             </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "P:Google.GData.Photos.AlbumAccessor.NumPhotosRemaining" -->
+        <member name="P:Google.GData.Photos.AlbumAccessor.NumPhotosRemaining">
+            <summary>
+            The number of remaining photo uploads allowed in this album. 
+            This is equivalent to the user's maximum number of photos per 
+            album (gphoto:maxPhotosPerAlbum) minus the number of photos 
+            currently in the album (gphoto:numphotos).
+            </summary>
+        </member>
         <member name="P:Google.GData.Photos.AlbumAccessor.Name">
             <summary>
             The name of the album, which is the URL-usable name 
@@ -404,9 +411,29 @@
             id schema extension describing an ID.
             </summary>
         </member>
+        <member name="M:Google.GData.Photos.GPhotoId.#ctor">
+            <summary>
+            default constructor 
+            </summary>
+        </member>
+        <member name="M:Google.GData.Photos.GPhotoId.#ctor(System.String)">
+            <summary>
+            default constructor with an initial value as a string 
+            </summary>
+        </member>
         <member name="T:Google.GData.Photos.GPhotoAlbumId">
             <summary>
             GPhotoAlbumId schema extension describing an albumid
+            </summary>
+        </member>
+        <member name="M:Google.GData.Photos.GPhotoAlbumId.#ctor">
+            <summary>
+            default constructor 
+            </summary>
+        </member>
+        <member name="M:Google.GData.Photos.GPhotoAlbumId.#ctor(System.String)">
+            <summary>
+            default constructor with an initial value as a string 
             </summary>
         </member>
         <member name="T:Google.GData.Photos.GPhotoCommentCount">
@@ -414,9 +441,29 @@
             GPhotoCommentCount schema extension describing an commentCount
             </summary>
         </member>
+        <member name="M:Google.GData.Photos.GPhotoCommentCount.#ctor">
+            <summary>
+            default constructor 
+            </summary>
+        </member>
+        <member name="M:Google.GData.Photos.GPhotoCommentCount.#ctor(System.String)">
+            <summary>
+            default constructor with an initial value as a string 
+            </summary>
+        </member>
         <member name="T:Google.GData.Photos.GPhotoCommentingEnabled">
             <summary>
             GPhotoCommentingEnabled schema extension describing an commentingEnabled
+            </summary>
+        </member>
+        <member name="M:Google.GData.Photos.GPhotoCommentingEnabled.#ctor">
+            <summary>
+            default constructor 
+            </summary>
+        </member>
+        <member name="M:Google.GData.Photos.GPhotoCommentingEnabled.#ctor(System.String)">
+            <summary>
+            default constructor with an initial value as a string 
             </summary>
         </member>
         <member name="T:Google.GData.Photos.GPhotoMaxPhotosPerAlbum">
@@ -424,9 +471,29 @@
             GPhotoMaxPhotosPerAlbum schema extension describing an maxPhotosPerAlbum
             </summary>
         </member>
+        <member name="M:Google.GData.Photos.GPhotoMaxPhotosPerAlbum.#ctor">
+            <summary>
+            default constructor 
+            </summary>
+        </member>
+        <member name="M:Google.GData.Photos.GPhotoMaxPhotosPerAlbum.#ctor(System.String)">
+            <summary>
+            default constructor with an initial value as a string 
+            </summary>
+        </member>
         <member name="T:Google.GData.Photos.GPhotoNickName">
             <summary>
             GPhotoNickName schema extension describing an nickname
+            </summary>
+        </member>
+        <member name="M:Google.GData.Photos.GPhotoNickName.#ctor">
+            <summary>
+            default constructor 
+            </summary>
+        </member>
+        <member name="M:Google.GData.Photos.GPhotoNickName.#ctor(System.String)">
+            <summary>
+            default constructor with an initial value as a string 
             </summary>
         </member>
         <member name="T:Google.GData.Photos.GPhotoQuotaCurrent">
@@ -434,9 +501,29 @@
             GPhotoQuotaCurrent schema extension describing an quotacurrent
             </summary>
         </member>
+        <member name="M:Google.GData.Photos.GPhotoQuotaCurrent.#ctor">
+            <summary>
+            default constructor 
+            </summary>
+        </member>
+        <member name="M:Google.GData.Photos.GPhotoQuotaCurrent.#ctor(System.String)">
+            <summary>
+            default constructor with an initial value as a string 
+            </summary>
+        </member>
         <member name="T:Google.GData.Photos.GPhotoQuotaLimit">
             <summary>
             GPhotoQuotaLimit schema extension describing an quotalimit
+            </summary>
+        </member>
+        <member name="M:Google.GData.Photos.GPhotoQuotaLimit.#ctor">
+            <summary>
+            default constructor 
+            </summary>
+        </member>
+        <member name="M:Google.GData.Photos.GPhotoQuotaLimit.#ctor(System.String)">
+            <summary>
+            default constructor with an initial value as a string 
             </summary>
         </member>
         <member name="T:Google.GData.Photos.GPhotoThumbnail">
@@ -444,9 +531,29 @@
             GPhotoThumbnail schema extension describing an thumbnail
             </summary>
         </member>
+        <member name="M:Google.GData.Photos.GPhotoThumbnail.#ctor">
+            <summary>
+            default constructor 
+            </summary>
+        </member>
+        <member name="M:Google.GData.Photos.GPhotoThumbnail.#ctor(System.String)">
+            <summary>
+            default constructor with an initial value as a string 
+            </summary>
+        </member>
         <member name="T:Google.GData.Photos.GPhotoUser">
             <summary>
             GPhotoUser schema extension describing an user
+            </summary>
+        </member>
+        <member name="M:Google.GData.Photos.GPhotoUser.#ctor">
+            <summary>
+            default constructor 
+            </summary>
+        </member>
+        <member name="M:Google.GData.Photos.GPhotoUser.#ctor(System.String)">
+            <summary>
+            default constructor with an initial value as a string 
             </summary>
         </member>
         <member name="T:Google.GData.Photos.GPhotoAccess">
@@ -454,9 +561,29 @@
             GPhotoAccess schema extension describing an access
             </summary>
         </member>
+        <member name="M:Google.GData.Photos.GPhotoAccess.#ctor">
+            <summary>
+            default constructor 
+            </summary>
+        </member>
+        <member name="M:Google.GData.Photos.GPhotoAccess.#ctor(System.String)">
+            <summary>
+            default constructor with an initial value as a string 
+            </summary>
+        </member>
         <member name="T:Google.GData.Photos.GPhotoBytesUsed">
             <summary>
             GPhotoBytesUsed schema extension describing an bytesUsed
+            </summary>
+        </member>
+        <member name="M:Google.GData.Photos.GPhotoBytesUsed.#ctor">
+            <summary>
+            default constructor 
+            </summary>
+        </member>
+        <member name="M:Google.GData.Photos.GPhotoBytesUsed.#ctor(System.String)">
+            <summary>
+            default constructor with an initial value as a string 
             </summary>
         </member>
         <member name="T:Google.GData.Photos.GPhotoLocation">
@@ -464,9 +591,29 @@
             GPhotoLocation schema extension describing an location
             </summary>
         </member>
+        <member name="M:Google.GData.Photos.GPhotoLocation.#ctor">
+            <summary>
+            default constructor 
+            </summary>
+        </member>
+        <member name="M:Google.GData.Photos.GPhotoLocation.#ctor(System.String)">
+            <summary>
+            default constructor with an initial value as a string 
+            </summary>
+        </member>
         <member name="T:Google.GData.Photos.GPhotoName">
             <summary>
             GPhotoName schema extension describing an name
+            </summary>
+        </member>
+        <member name="M:Google.GData.Photos.GPhotoName.#ctor">
+            <summary>
+            default constructor 
+            </summary>
+        </member>
+        <member name="M:Google.GData.Photos.GPhotoName.#ctor(System.String)">
+            <summary>
+            default constructor with an initial value as a string 
             </summary>
         </member>
         <member name="T:Google.GData.Photos.GPhotoNumPhotos">
@@ -474,9 +621,29 @@
             GPhotoNumPhotos schema extension describing an numphotos
             </summary>
         </member>
+        <member name="M:Google.GData.Photos.GPhotoNumPhotos.#ctor">
+            <summary>
+            default constructor 
+            </summary>
+        </member>
+        <member name="M:Google.GData.Photos.GPhotoNumPhotos.#ctor(System.String)">
+            <summary>
+            default constructor with an initial value as a string 
+            </summary>
+        </member>
         <member name="T:Google.GData.Photos.GPhotoNumPhotosRemaining">
             <summary>
             GPhotoNumPhotosRemaining schema extension describing an numphotosremaining
+            </summary>
+        </member>
+        <member name="M:Google.GData.Photos.GPhotoNumPhotosRemaining.#ctor">
+            <summary>
+            default constructor 
+            </summary>
+        </member>
+        <member name="M:Google.GData.Photos.GPhotoNumPhotosRemaining.#ctor(System.String)">
+            <summary>
+            default constructor with an initial value as a string 
             </summary>
         </member>
         <member name="T:Google.GData.Photos.GPhotoChecksum">
@@ -484,9 +651,29 @@
             GPhotoChecksum schema extension describing an checksum
             </summary>
         </member>
+        <member name="M:Google.GData.Photos.GPhotoChecksum.#ctor">
+            <summary>
+            default constructor 
+            </summary>
+        </member>
+        <member name="M:Google.GData.Photos.GPhotoChecksum.#ctor(System.String)">
+            <summary>
+            default constructor with an initial value as a string 
+            </summary>
+        </member>
         <member name="T:Google.GData.Photos.GPhotoClient">
             <summary>
             GPhotoClient schema extension describing an client
+            </summary>
+        </member>
+        <member name="M:Google.GData.Photos.GPhotoClient.#ctor">
+            <summary>
+            default constructor 
+            </summary>
+        </member>
+        <member name="M:Google.GData.Photos.GPhotoClient.#ctor(System.String)">
+            <summary>
+            default constructor with an initial value as a string 
             </summary>
         </member>
         <member name="T:Google.GData.Photos.GPhotoHeight">
@@ -494,9 +681,29 @@
             GPhotoHeight schema extension describing an height
             </summary>
         </member>
+        <member name="M:Google.GData.Photos.GPhotoHeight.#ctor">
+            <summary>
+            default constructor 
+            </summary>
+        </member>
+        <member name="M:Google.GData.Photos.GPhotoHeight.#ctor(System.String)">
+            <summary>
+            default constructor with an initial value as a string 
+            </summary>
+        </member>
         <member name="T:Google.GData.Photos.GPhotoPosition">
             <summary>
             GPhotoPosition schema extension describing an position
+            </summary>
+        </member>
+        <member name="M:Google.GData.Photos.GPhotoPosition.#ctor">
+            <summary>
+            default constructor 
+            </summary>
+        </member>
+        <member name="M:Google.GData.Photos.GPhotoPosition.#ctor(System.String)">
+            <summary>
+            default constructor with an initial value as a string 
             </summary>
         </member>
         <member name="T:Google.GData.Photos.GPhotoRotation">
@@ -504,9 +711,29 @@
             GPhotoRotation schema extension describing an rotation
             </summary>
         </member>
+        <member name="M:Google.GData.Photos.GPhotoRotation.#ctor">
+            <summary>
+            default constructor 
+            </summary>
+        </member>
+        <member name="M:Google.GData.Photos.GPhotoRotation.#ctor(System.String)">
+            <summary>
+            default constructor with an initial value as a string 
+            </summary>
+        </member>
         <member name="T:Google.GData.Photos.GPhotoSize">
             <summary>
             GPhotoSize schema extension describing an size
+            </summary>
+        </member>
+        <member name="M:Google.GData.Photos.GPhotoSize.#ctor">
+            <summary>
+            default constructor 
+            </summary>
+        </member>
+        <member name="M:Google.GData.Photos.GPhotoSize.#ctor(System.String)">
+            <summary>
+            default constructor with an initial value as a string 
             </summary>
         </member>
         <member name="T:Google.GData.Photos.GPhotoTimestamp">
@@ -514,9 +741,29 @@
             GPhotoTimestamp schema extension describing an timestamp
             </summary>
         </member>
+        <member name="M:Google.GData.Photos.GPhotoTimestamp.#ctor">
+            <summary>
+            default constructor 
+            </summary>
+        </member>
+        <member name="M:Google.GData.Photos.GPhotoTimestamp.#ctor(System.String)">
+            <summary>
+            default constructor with an initial value as a string 
+            </summary>
+        </member>
         <member name="T:Google.GData.Photos.GPhotoVersion">
             <summary>
             GPhotoVersion schema extension describing an version
+            </summary>
+        </member>
+        <member name="M:Google.GData.Photos.GPhotoVersion.#ctor">
+            <summary>
+            default constructor 
+            </summary>
+        </member>
+        <member name="M:Google.GData.Photos.GPhotoVersion.#ctor(System.String)">
+            <summary>
+            default constructor with an initial value as a string 
             </summary>
         </member>
         <member name="T:Google.GData.Photos.GPhotoPhotoId">
@@ -524,14 +771,44 @@
             GPhotoPhotoId schema extension describing an photoid
             </summary>
         </member>
+        <member name="M:Google.GData.Photos.GPhotoPhotoId.#ctor">
+            <summary>
+            default constructor 
+            </summary>
+        </member>
+        <member name="M:Google.GData.Photos.GPhotoPhotoId.#ctor(System.String)">
+            <summary>
+            default constructor with an initial value as a string 
+            </summary>
+        </member>
         <member name="T:Google.GData.Photos.GPhotoWidth">
             <summary>
             GPhotoWidth schema extension describing an width
             </summary>
         </member>
+        <member name="M:Google.GData.Photos.GPhotoWidth.#ctor">
+            <summary>
+            default constructor 
+            </summary>
+        </member>
+        <member name="M:Google.GData.Photos.GPhotoWidth.#ctor(System.String)">
+            <summary>
+            default constructor with an initial value as a string 
+            </summary>
+        </member>
         <member name="T:Google.GData.Photos.GPhotoWeight">
             <summary>
             GPhotoWeight schema extension describing an weight
+            </summary>
+        </member>
+        <member name="M:Google.GData.Photos.GPhotoWeight.#ctor">
+            <summary>
+            default constructor 
+            </summary>
+        </member>
+        <member name="M:Google.GData.Photos.GPhotoWeight.#ctor(System.String)">
+            <summary>
+            default constructor with an initial value as a string 
             </summary>
         </member>
         <member name="T:Google.GData.Photos.KindQuery">

@@ -4,6 +4,173 @@
         <name>Google.GData.Calendar</name>
     </assembly>
     <members>
+        <member name="T:Google.GData.Calendar.CalendarEntry">
+            <summary>
+            CalendarEntry API customization class for defining entries in a calendar feed.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Calendar.CalendarEntry.#ctor">
+            <summary>
+            Constructs a new CalenderEntry instance
+            </summary>
+        </member>
+        <member name="M:Google.GData.Calendar.CalendarEntry.getCalendarExtension(System.String)">
+            <summary>
+            Basic method for retrieving Calendar extension elements.
+            </summary>
+            <param name="extension">The name of the extension element to look for</param>
+            <returns>SimpleAttribute, or NULL if the extension was not found</returns>
+        </member>
+        <member name="M:Google.GData.Calendar.CalendarEntry.getCalendarExtensionValue(System.String)">
+            <summary>
+            Base method for retrieving Calendar extension element values.
+            </summary>
+            <param name="extension">The name of the Calendar extension element to look for</param>
+            <returns>value as string, or NULL if the extension was not found</returns>
+        </member>
+        <member name="M:Google.GData.Calendar.CalendarEntry.setCalendarExtension(System.String,System.String)">
+            <summary>
+            Base method for setting Calendar extension element values.
+            </summary>
+            <param name="extension">the name of the extension to look for</param>
+            <param name="newValue">the new value for this extension element</param>
+            <returns>SimpleAttribute, either a brand new one, or the one
+            returned by the service</returns>
+        </member>
+        <member name="P:Google.GData.Calendar.CalendarEntry.Hidden">
+            <summary>
+            This field tells if the calendar is currently hidden in the UI list
+            </summary>
+        </member>
+        <member name="P:Google.GData.Calendar.CalendarEntry.Selected">
+            <summary>
+            This field tells if the calendar is currently selected in the UI
+            </summary>
+        </member>
+        <member name="P:Google.GData.Calendar.CalendarEntry.Color">
+            <summary>
+            This field manages the color of the calendar.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Calendar.CalendarEntry.AccessLevel">
+            <summary>
+            This field deals with the access level of the current user on the calendar.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Calendar.CalendarEntry.TimeZone">
+            <summary>
+            This field controls the time zone of the calendar.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Calendar.CalendarEntry.Location">
+            <summary>
+            This field controls the location of the calendar.
+            </summary>
+        </member>
+        <member name="T:Google.GData.Calendar.GCalColor">
+            <summary>
+            Color schema describing a gCal:color
+            </summary>
+        </member>
+        <member name="M:Google.GData.Calendar.GCalColor.#ctor">
+            <summary>
+            default calendar color constructor
+            </summary>
+        </member>
+        <member name="M:Google.GData.Calendar.GCalColor.#ctor(System.String)">
+            <summary>
+            default calendar color constructor with an initial value
+            </summary>
+            <param name="initValue"></param>
+        </member>
+        <member name="T:Google.GData.Calendar.GCalHidden">
+            <summary>
+            Color schema describing a gCal:hidden
+            </summary>
+        </member>
+        <member name="M:Google.GData.Calendar.GCalHidden.#ctor">
+            <summary>
+            default calendar hidden constructor
+            </summary>
+        </member>
+        <member name="M:Google.GData.Calendar.GCalHidden.#ctor(System.String)">
+            <summary>
+            default calendar hidden constructor with an initial value
+            </summary>
+            <param name="initValue"></param>
+        </member>
+        <member name="T:Google.GData.Calendar.GCalSelected">
+            <summary>
+            Color schema describing a gCal:selected
+            </summary>
+        </member>
+        <member name="M:Google.GData.Calendar.GCalSelected.#ctor">
+            <summary>
+            default calendar selected constructor
+            </summary>
+        </member>
+        <member name="M:Google.GData.Calendar.GCalSelected.#ctor(System.String)">
+            <summary>
+            default calendar selected constructor with an initial value
+            </summary>
+            <param name="initValue"></param>
+        </member>
+        <member name="T:Google.GData.Calendar.GCalAccessLevel">
+            <summary>
+            Color schema describing a gCal:accesslevel
+            </summary>
+        </member>
+        <member name="M:Google.GData.Calendar.GCalAccessLevel.#ctor">
+            <summary>
+            default calendar access level constructor
+            </summary>        
+        </member>
+        <member name="M:Google.GData.Calendar.GCalAccessLevel.#ctor(System.String)">
+            <summary>
+            default calendar acccess level
+             constructor with an initial value
+            </summary>
+            <param name="initValue"></param>
+        </member>
+        <member name="T:Google.GData.Calendar.CalendarFeed">
+            <summary>
+            This is the Google Calendar feed that lets you access and manage
+            the calendars you own and also lets you subscribe or 
+            unsubscribe from calendars owned by others.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Calendar.CalendarFeed.#ctor(System.Uri,Google.GData.Client.IService)">
+            <summary>
+             default constructor
+            </summary>
+            <param name="uriBase">the base URI of the feedEntry</param>
+            <param name="iService">the Service to use</param>
+        </member>
+        <member name="M:Google.GData.Calendar.CalendarFeed.CreateFeedEntry">
+            <summary>
+            This needs to get implemented by subclasses
+            </summary>
+            <returns>AtomEntry</returns>
+        </member>
+        <member name="M:Google.GData.Calendar.CalendarFeed.HandleExtensionElements(Google.GData.Client.ExtensionElementEventArgs,Google.GData.Client.AtomFeedParser)">
+            <summary>
+            Is called after we already handled the custom entry, to handle all 
+            other potential parsing tasks
+            </summary>
+            <param name="e"></param>
+            <param name="parser">the atom feed parser used</param>
+        </member>
+        <member name="T:Google.GData.Calendar.CalendarQuery">
+            <summary>
+            A subclass of FeedQuery, to create a Calendar query URI.
+            Currently, there are no extra parameters specific to the calendar feeds.
+            </summary> 
+        </member>
+        <member name="M:Google.GData.Calendar.CalendarQuery.#ctor">
+            <summary>
+            default constructor, does nothing 
+            </summary>
+        </member>
         <member name="T:Google.GData.Calendar.CalendarService">
             <summary>
             The CalendarService class extends the basic Service abstraction
@@ -30,12 +197,20 @@
             <param name="feedQuery"></param>
             <returns>EventFeed</returns>
         </member>
+        <member name="M:Google.GData.Calendar.CalendarService.Query(Google.GData.Calendar.CalendarQuery)">
+            <summary>
+            overloaded to create typed version of Query for Calendar feeds
+            </summary>
+            <param name="calQuery">The query object for searching a calendar feed.</param>
+            <returns>CalendarFeed of the returned calendar entries.</returns>
+        </member>
         <member name="M:Google.GData.Calendar.CalendarService.Query(Google.GData.AccessControl.AclQuery)">
             <summary>
             overloaded to create typed version of Query
             </summary>
             <param name="feedQuery"></param>
-            <returns>EventFeed</returns>        </member>
+            <returns>EventFeed</returns>
+        </member>
         <member name="M:Google.GData.Calendar.CalendarService.OnNewFeed(System.Object,Google.GData.Client.ServiceEventArgs)">
             <summary>eventchaining. We catch this by from the base service, which 
             would not by default create an atomFeed</summary> 
@@ -82,11 +257,26 @@
             ("Description" in the UI)</param>
             <param name="location">The location of the event ("Where" in the UI)</param>
         </member>
+        <member name="M:Google.GData.Calendar.EventEntry.addEventEntryExtensions">
+            <summary>
+             helper method to add extensions to the evententry
+            </summary>
+        </member>
         <member name="M:Google.GData.Calendar.EventEntry.GetFirstReminder">
             <summary>
             returns the first reminder of the Times collection
             </summary>
             <returns>When object for the reminder or NULL</returns>
+        </member>
+        <member name="M:Google.GData.Calendar.EventEntry.CreateAtomSubElement(System.Xml.XmlReader,Google.GData.Client.AtomFeedParser)">
+            <summary>
+            this is the subclassing method for AtomBase derived 
+            classes to overload what childelements should be created
+            needed to create CustomLink type objects, like WebContentLink etc
+            </summary>
+            <param name="reader">The XmlReader that tells us what we are working with</param>
+            <param name="parser">the parser is primarily used for nametable comparisons</param>
+            <returns>AtomBase</returns>
         </member>
         <member name="M:Google.GData.Calendar.EventEntry.Parse(Google.GData.Client.ExtensionElementEventArgs,Google.GData.Client.AtomFeedParser)">
             <summary>parses the inner state of the element</summary>
@@ -105,7 +295,7 @@
         </member>
         <member name="P:Google.GData.Calendar.EventEntry.Participants">
             <summary>
-             property accessor for the WhoCollection
+             property accessor for the whos in the event
             </summary>
         </member>
         <member name="P:Google.GData.Calendar.EventEntry.Status">
@@ -166,6 +356,11 @@
         <member name="P:Google.GData.Calendar.EventEntry.Comments">
             <summary>
              property accessor for the Comments
+            </summary>
+        </member>
+        <member name="P:Google.GData.Calendar.EventEntry.WebContentLink">
+            <summary>
+            Property to retrieve/set an associated WebContentLink
             </summary>
         </member>
         <member name="T:Google.GData.Calendar.EventEntry.EventStatus">
@@ -345,25 +540,20 @@
             <summary>Returns the constant representing this XML element.</summary> 
         </member>
         <member name="T:Google.GData.Calendar.TimeZone">
-            <summary>holds the timezone element on the feed level
-            </summary> 
+            <summary>
+            holds the timezone element on the feed level
+            </summary>
         </member>
-        <member name="M:Google.GData.Calendar.TimeZone.setTimeZone(System.String)">
-            <summary>internal setter for parsing</summary> 
+        <member name="M:Google.GData.Calendar.TimeZone.#ctor">
+            <summary>
+             default constructor
+            </summary>
         </member>
-        <member name="M:Google.GData.Calendar.TimeZone.ParseTimeZone(System.Xml.XmlNode)">
-            <summary>Parses an XML node to create a feed level timezone</summary> 
-            <param name="node">timezone node</param>
-            <returns> the created timezone object</returns>
-        </member>
-        <member name="M:Google.GData.Calendar.TimeZone.Save(System.Xml.XmlWriter)">
-            <summary>saves the current object into the stream. TimeZone,
-            though does not get saved</summary> 
-            <param name="writer">xmlWriter to write into</param>
-        </member>
-        <member name="P:Google.GData.Calendar.TimeZone.Value">
-            <summary>read only accessor</summary> 
-            <returns> </returns>
+        <member name="M:Google.GData.Calendar.TimeZone.#ctor(System.String)">
+            <summary>
+             default constructor with an initial value for the attribute
+            </summary>
+            <param name="initValue"></param>
         </member>
         <member name="T:Google.GData.Calendar.EventFeed">
             <summary>
@@ -383,23 +573,11 @@
             <param name="original">The original event to find</param>
             <returns> </returns>
         </member>
-        <member name="M:Google.GData.Calendar.EventFeed.parseEvent(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
-            <summary>Parses the inner state of the element.</summary>
-            <param name="eventNode">a g-scheme, xml node</param>
-            <param name="parser">AtomFeedParser to use</param>
-        </member>
         <member name="M:Google.GData.Calendar.EventFeed.CreateFeedEntry">
             <summary>
             this needs to get implemented by subclasses
             </summary>
             <returns>AtomEntry</returns>
-        </member>
-        <member name="M:Google.GData.Calendar.EventFeed.HandleExtensionElements(Google.GData.Client.ExtensionElementEventArgs,Google.GData.Client.AtomFeedParser)">
-            <summary>
-            get's called after we already handled the custom entry, to handle all 
-            other potential parsing tasks
-            </summary>
-            <param name="e"></param>            <param name="parser">the atom feed parser used</param>
         </member>
         <member name="P:Google.GData.Calendar.EventFeed.Location">
             <summary>accessor for the Location collection</summary>
@@ -496,9 +674,10 @@
             GData schema extension describing a webcontent for the calendar
             </summary>
         </member>
-        <member name="M:Google.GData.Extensions.WebContent.CreateInstance(System.Xml.XmlNode)">
+        <member name="M:Google.GData.Extensions.WebContent.CreateInstance(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
             <summary>Parses an xml node to create a webcontent object.</summary> 
             <param name="node">xml node</param>
+            <param name="parser">the atomfeedparser to use for deep dive parsing</param>
             <returns>the created SimpleElement object</returns>
         </member>
         <member name="M:Google.GData.Extensions.WebContent.Save(System.Xml.XmlWriter)">
@@ -532,6 +711,66 @@
         </member>
         <member name="P:Google.GData.Extensions.WebContent.XmlPrefix">
             <summary>Returns the constant representing this XML element.</summary> 
+        </member>
+        <member name="T:Google.GData.Extensions.WebContentLink">
+            <summary>
+            Models a special kind of Atom link that contains a WebContent element.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Extensions.WebContentLink.WEB_CONTENT_REL">
+            <summary>
+            defines the webcontent rel value for the atom:link
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.WebContentLink.#ctor">
+            <summary>
+            Constructs a new Atom link containing a WebContent extension
+            and with the appropriate rel attribute.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.WebContentLink.#ctor(System.Boolean)">
+            <summary>
+            Constructs a new Atom link containing a WebContent extension
+            and with the appropriate rel attribute.
+            This constructor lets you specify if you want the extension
+            element to be created for you. The parser sets this to false
+            as it refuses to override pre-existing elements (even empty ones.)
+            </summary>
+            <param name="createWebContent">Optionally create the web content extension.</param>
+        </member>
+        <member name="P:Google.GData.Extensions.WebContentLink.Icon">
+            <summary>
+            The icon URL for the WebContent entry is really just the HRef
+            of the link itself.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.WebContentLink.Height">
+            <summary>
+            Alias for the Height property of the nested WebContent element.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.WebContentLink.Width">
+            <summary>
+            Alias for the Width property of the nested WebContent element.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.WebContentLink.GadgetPreferences">
+            <summary>
+            Alias for the GadgetPreferences property of the nested
+            WebContent element.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.WebContentLink.Url">
+            <summary>
+            The Url property just references the Url of the nested 
+            WebContent element
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.WebContentLink.WebContent">
+            <summary>
+            Property that lets one modify the associated WebContent
+            entry directly.
+            </summary>
         </member>
     </members>
 </doc>
