@@ -40,7 +40,12 @@ namespace Google.GData.Client.LiveTests
         /// <summary>
         ///  test Uri for google calendarURI
         /// </summary>
-        protected string defaultCalendarUri; 
+        protected string defaultCalendarUri;
+
+        /// <summary>
+        /// test URI for Google Calendar owncalendars feed
+        /// </summary>
+        protected string defaultOwnCalendarsUri;
 
         /// <summary>
         ///  test Uri for google acl feed
@@ -113,6 +118,11 @@ namespace Google.GData.Client.LiveTests
             {
                 this.defaultCompositeUri = (string) unitTestConfiguration["compositeURI"];
                 Tracing.TraceInfo("Read compositeURI value: " + this.defaultCompositeUri);
+            }
+            if (unitTestConfiguration.Contains("ownCalendarsURI") == true)
+            {
+                this.defaultOwnCalendarsUri = (string) unitTestConfiguration["ownCalendarsURI"];
+                Tracing.TraceInfo("Read ownCalendarsURI value: " + this.defaultOwnCalendarsUri);
             }
         }
         /////////////////////////////////////////////////////////////////////////////
@@ -346,10 +356,11 @@ namespace Google.GData.Client.LiveTests
                     Assert.AreEqual(rNew.Minutes, rOld.Minutes, "Reminder time should be identical"); 
 
                     Where wOldOne, wOldTwo;
-                    Where wNewOne, wNewTwo;
+                    Where wNewOne;
 
                     Assert.IsTrue(entry.Locations.Count == 2, "entry should have 2 locations");
-                    Assert.IsTrue(newEntry.Locations.Count == 2, "new entry should have 2 locations");
+                    // calendar ignores sending more than one location
+                    Assert.IsTrue(newEntry.Locations.Count == 1, "new entry should have 1 location");
 
 
                     if (entry.Locations.Count > 1)
@@ -357,20 +368,15 @@ namespace Google.GData.Client.LiveTests
                         wOldOne = entry.Locations[0];
                         wOldTwo = entry.Locations[1];
                     
-                        if (newEntry.Locations.Count > 1)
+                        if (newEntry.Locations.Count == 1)
                         {
                             wNewOne = newEntry.Locations[0];
-                            wNewTwo = newEntry.Locations[1];
                             Assert.IsTrue(wOldOne != null, "Where oldOne should not be NULL);");
                             Assert.IsTrue(wOldTwo != null, "Where oldTwo should not be NULL);");
                             Assert.IsTrue(wNewOne != null, "Where newOne should not be NULL);");
-                            Assert.IsTrue(wNewTwo != null, "Where newTwoOne should not be NULL);");
                             Assert.IsTrue(wOldOne.ValueString == wNewOne.ValueString, "location one should be identical");
-                            Assert.IsTrue(wOldTwo.ValueString == wNewTwo.ValueString, "location one should be identical");
                         }
                     }
-
-
 
                     newEntry.Content.Content = "Updated..";
                     newEntry.Update();
@@ -496,7 +502,138 @@ namespace Google.GData.Client.LiveTests
         }
         /////////////////////////////////////////////////////////////////////////////
 
-       
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>runs a test of batch support on the events feed</summary> 
+        //////////////////////////////////////////////////////////////////////
+        [Test] public void CalendarBatchTest()
+        {
+            Tracing.TraceMsg("Entering CalendarBatchTest");
+
+            CalendarService service = new CalendarService(this.ApplicationName);
+
+            if (this.defaultCalendarUri != null)
+            {
+                if (this.userName != null)
+                {
+                    service.Credentials = new GDataCredentials(this.userName, this.passWord);
+                }
+
+                GDataLoggingRequestFactory factory = (GDataLoggingRequestFactory)this.factory;
+                factory.MethodOverride = true;
+                service.RequestFactory = this.factory;
+
+                EventQuery query = new EventQuery(this.defaultCalendarUri);
+
+                EventFeed feed = service.Query(query);
+                AtomFeed batchFeed = new AtomFeed(feed);
+
+                string newEntry1Title = "new event" + Guid.NewGuid().ToString();
+                EventEntry newEntry1 = new EventEntry(newEntry1Title);
+                newEntry1.BatchData = new GDataBatchEntryData("1", GDataBatchOperationType.insert);
+                batchFeed.Entries.Add(newEntry1);
+
+                string newEntry2Title = "new event" + Guid.NewGuid().ToString();
+                EventEntry newEntry2 = new EventEntry(newEntry2Title);
+                newEntry2.BatchData = new GDataBatchEntryData("2", GDataBatchOperationType.insert);
+                batchFeed.Entries.Add(newEntry2);
+
+                string newEntry3Title = "new event" + Guid.NewGuid().ToString();
+                EventEntry newEntry3 = new EventEntry(newEntry3Title);
+                newEntry3.BatchData = new GDataBatchEntryData("3", GDataBatchOperationType.insert);
+                batchFeed.Entries.Add(newEntry3);
+
+                Tracing.TraceMsg("Creating batch items");
+
+                EventFeed batchResultFeed = (EventFeed)service.Batch(batchFeed, new Uri(feed.Batch));
+
+                foreach (EventEntry evt in batchResultFeed.Entries)
+                {
+                    Assert.IsNotNull(evt.BatchData, "Result should contain batch information.");
+                    Assert.IsNotNull(evt.BatchData.Id, "Result should have a Batch ID.");
+                    Assert.AreEqual(201, evt.BatchData.Status.Code, "Created entries should return 201");
+ 
+                    switch (evt.BatchData.Id)
+                    {
+                        case "1":
+                            Assert.AreEqual(newEntry1Title, evt.Title.Text, "titles should be equal.");
+                            break;
+                        case "2":
+                            Assert.AreEqual(newEntry2Title, evt.Title.Text, "titles should be equal.");
+                            break;
+                        case "3":
+                            Assert.AreEqual(newEntry3Title, evt.Title.Text, "titles should be equal.");
+                            break;
+                        default:
+                            Assert.Fail("Unrecognized entry in result of batch insert feed");
+                            break;
+                    }
+
+                }
+
+                Tracing.TraceMsg("Updating created entries.");
+
+                batchFeed = new AtomFeed(feed);
+                foreach (EventEntry evt in batchResultFeed.Entries)
+                {
+                    evt.BatchData = new GDataBatchEntryData(evt.BatchData.Id, GDataBatchOperationType.update);
+                    evt.Title.Text = evt.Title.Text + "update";
+                    batchFeed.Entries.Add(evt);
+                }
+
+                batchResultFeed = (EventFeed) service.Batch(batchFeed, new Uri(feed.Batch));
+
+                foreach (EventEntry evt in batchResultFeed.Entries)
+                {
+                    Assert.IsNotNull(evt.BatchData, "Result should contain batch information.");
+                    Assert.IsNotNull(evt.BatchData.Id, "Result should have a Batch ID.");
+                    Assert.AreEqual(200, evt.BatchData.Status.Code, "Updated entries should return 200");
+
+                    switch (evt.BatchData.Id)
+                    {
+                        case "1":
+                            Assert.AreEqual(newEntry1Title + "update", evt.Title.Text, "titles should be equal.");
+                            break;
+                        case "2":
+                            Assert.AreEqual(newEntry2Title + "update", evt.Title.Text, "titles should be equal.");
+                            break;
+                        case "3":
+                            Assert.AreEqual(newEntry3Title + "update", evt.Title.Text, "titles should be equal.");
+                            break;
+                        default:
+                            Assert.Fail("Unrecognized entry in result of batch update feed");
+                            break;
+                    }
+
+                }
+
+
+
+                Tracing.TraceMsg("Deleting created entries.");
+
+                batchFeed = new AtomFeed(feed);
+                foreach (EventEntry evt in batchResultFeed.Entries)
+                {
+                    evt.BatchData = new GDataBatchEntryData(GDataBatchOperationType.delete);
+                    evt.Id = new AtomId(evt.EditUri.ToString());
+                    batchFeed.Entries.Add(evt);
+                }
+
+                batchResultFeed = (EventFeed)service.Batch(batchFeed, new Uri(feed.Batch));
+
+                foreach (EventEntry evt in batchResultFeed.Entries)
+                {
+                    Assert.AreEqual(200, evt.BatchData.Status.Code, "Deleted entries should return 200");
+                }
+
+                service.Credentials = null;
+                factory.MethodOverride = false;
+            }
+
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+   
        //////////////////////////////////////////////////////////////////////
         /// <summary>Tests the reminder method property</summary> 
         //////////////////////////////////////////////////////////////////////
@@ -721,41 +858,31 @@ namespace Google.GData.Client.LiveTests
                     EventEntry entry  = ObjectModelHelper.CreateEventEntry(1); 
                     entry.Title.Text = strTitle;
 
-                    AtomLink link = new AtomLink("image/gif", "http://schemas.google.com/gCal/2005/webContent"); 
+                    WebContentLink wc = new WebContentLink();
+                    wc.Type = "image/gif";
+                    wc.Url = "http://www.google.com/logos/july4th06.gif";
+                    wc.Icon = "http://www.google.com/calendar/images/google-holiday.gif";
+                    wc.Title = "Test content"; 
+                    wc.Width = 270;
+                    wc.Height = 130; 
+                    wc.GadgetPreferences.Add("color", "blue");
+                    wc.GadgetPreferences.Add("taste", "sweet");
+                    wc.GadgetPreferences.Add("smell", "fresh");
 
-                    link.Title = "Test content"; 
-                    link.HRef = "http://www.google.com/calendar/images/google-holiday.gif";
-
-                    WebContent content = new WebContent();
-
-                    content.Url = "http://www.google.com/logos/july4th06.gif";
-                    content.Width = 270;
-                    content.Height = 130; 
-                    content.GadgetPreferences.Add("color", "blue");
-                    content.GadgetPreferences.Add("taste", "sweet");
-                    content.GadgetPreferences.Add("smell", "fresh");
-
-                    link.ExtensionElements.Add(content);
-                    entry.Links.Add(link); 
+                    entry.WebContentLink = wc;
 
                     EventEntry newEntry = (EventEntry) calFeed.Insert(entry); 
 
-                    // check if the link came back
-                    link = newEntry.Links.FindService("http://schemas.google.com/gCal/2005/webContent", "image/gif"); 
-                    Assert.IsTrue(link != null, "the link did not come back for the webContent"); 
+                    // check if the web content link came back
+                    Assert.IsTrue(newEntry.WebContentLink != null, "the WebContentLink did not come back for the webContent"); 
                     Tracing.TraceMsg("Created calendar entry");
 
-                    WebContent returnedContent = link.FindExtension(GDataParserNameTable.XmlWebContentElement, 
-                                                                    GDataParserNameTable.NSGCal) as WebContent;
+                    Assert.IsTrue(newEntry.WebContentLink.WebContent != null, "The returned WebContent element was not found");
 
-                    Assert.IsTrue(returnedContent != null, "The returned WebContent element was not found");
-
-                    Assert.AreEqual(3, returnedContent.GadgetPreferences.Count, "The gadget preferences should be there");
-                    Assert.AreEqual("blue", returnedContent.GadgetPreferences["color"], "Color should be blue");
-                    Assert.AreEqual("sweet", returnedContent.GadgetPreferences["taste"], "Taste should be sweet");
-                    Assert.AreEqual("fresh", returnedContent.GadgetPreferences["smell"], "smell should be fresh");
-
-
+                    Assert.AreEqual(3, newEntry.WebContentLink.GadgetPreferences.Count, "The gadget preferences should be there");
+                    Assert.AreEqual("blue", newEntry.WebContentLink.GadgetPreferences["color"], "Color should be blue");
+                    Assert.AreEqual("sweet", newEntry.WebContentLink.GadgetPreferences["taste"], "Taste should be sweet");
+                    Assert.AreEqual("fresh", newEntry.WebContentLink.GadgetPreferences["smell"], "smell should be fresh");
 
 
                     newEntry.Content.Content = "Updated..";
@@ -790,13 +917,13 @@ namespace Google.GData.Client.LiveTests
                     // look for the one with dinner time...
                     foreach (EventEntry entry in calFeed.Entries)
                     {
-                        Tracing.TraceMsg("Entrie title: " + entry.Title.Text); 
+                        Tracing.TraceMsg("Entry title: " + entry.Title.Text); 
                         if (String.Compare(entry.Title.Text, strTitle)==0)
                         {
                             Assert.AreEqual(ObjectModelHelper.DEFAULT_REMINDER_TIME, entry.Reminder.Minutes, "Reminder time should be identical"); 
                             // check if the link came back
-                            AtomLink link = entry.Links.FindService("http://schemas.google.com/gCal/2005/webContent", "image/gif"); 
-                            Assert.IsTrue(link != null, "the link did not come back for the webContent"); 
+                            // check if the web content link came back
+                            Assert.IsTrue(entry.WebContentLink != null, "the WebContentLink did not come back for the webContent"); 
 
                         }
                     }
@@ -809,7 +936,7 @@ namespace Google.GData.Client.LiveTests
                     // look for the one with dinner time...
                     foreach (EventEntry entry in calFeed.Entries)
                     {
-                        Tracing.TraceMsg("Entrie title: " + entry.Title.Text); 
+                        Tracing.TraceMsg("Entry title: " + entry.Title.Text); 
                         if (String.Compare(entry.Title.Text, strTitle)==0)
                         {
                             entry.Delete();
@@ -1068,6 +1195,71 @@ namespace Google.GData.Client.LiveTests
         /////////////////////////////////////////////////////////////////////////////
 
 
+        /// <summary>
+        /// Test to check creating/updating/deleting a secondary calendar.
+        /// </summary>
+        [Test] public void CalendarOwnCalendarsTest()
+        {
+            Tracing.TraceMsg("Enterting CalendarOwnCalendarsTest");
+
+            CalendarService service = new CalendarService(this.ApplicationName);
+
+            if (this.defaultOwnCalendarsUri != null)
+            {
+                if (this.userName != null)
+                {
+                    service.Credentials = new GDataCredentials(this.userName, this.passWord);
+                }
+
+                GDataLoggingRequestFactory factory = (GDataLoggingRequestFactory) this.factory;
+                factory.MethodOverride = true;
+                service.RequestFactory = this.factory;
+
+                CalendarEntry newCalendar = new CalendarEntry();
+                newCalendar.Title.Text = "new calendar" + Guid.NewGuid().ToString();
+                newCalendar.Summary.Text = "some unique summary" + Guid.NewGuid().ToString();
+                newCalendar.TimeZone = "America/Los_Angeles";
+                newCalendar.Hidden = false;
+                newCalendar.Color = "#2952A3";
+                newCalendar.Location = new Where("", "", "Test City");
+
+                Uri postUri = new Uri(this.defaultOwnCalendarsUri);
+                CalendarEntry createdCalendar = (CalendarEntry) service.Insert(postUri, newCalendar);
+
+                Assert.IsNotNull(createdCalendar, "created calendar should be returned.");
+
+                Assert.AreEqual(newCalendar.Title.Text, createdCalendar.Title.Text, "Titles should be equal");
+                //There is currently a bug where Calendar doesn't return the summary in its created response
+                //Assert.AreEqual(newCalendar.Summary.Text, createdCalendar.Summary.Text, "Summaries should be equal");
+                //Assert.AreEqual(newCalendar.TimeZone, createdCalendar.TimeZone, "Timezone should be equal");
+                Assert.AreEqual(newCalendar.Hidden, createdCalendar.Hidden, "Hidden property should be equal");
+                Assert.AreEqual(newCalendar.Color, createdCalendar.Color, "Color property should be equal");
+                //Assert.AreEqual(newCalendar.Location.ValueString, createdCalendar.Location.ValueString, "Where should be equal");
+
+                createdCalendar.Title.Text = "renamed calendar" + Guid.NewGuid().ToString();
+                CalendarEntry updatedCalendar = (CalendarEntry) createdCalendar.Update();
+
+                Assert.AreEqual(createdCalendar.Title.Text, updatedCalendar.Title.Text, "entry should have been updated");
+
+                updatedCalendar.Delete();
+
+                CalendarQuery query = new CalendarQuery();
+                query.Uri = postUri;
+
+                CalendarFeed calendarList = service.Query(query);
+
+                foreach (CalendarEntry entry in calendarList.Entries)
+                {
+                    Assert.IsTrue(entry.Title.Text != updatedCalendar.Title.Text, "Calendar should have been removed");
+                }
+
+
+                service.Credentials = null;
+                factory.MethodOverride = false;
+            }
+
+        }
+
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>runs an enter all day event test</summary> 
@@ -1266,7 +1458,7 @@ namespace Google.GData.Client.LiveTests
                     EventEntry entry = calFeed.Entries[0] as EventEntry;
 
                     Assert.AreEqual(entry.Title.Text, guid, "Expected the same entry");
-                    Assert.IsTrue(entry.Notifications, "Expected the sendNotify to be true" + entry.Notifications.ToString()); 
+                    // Assert.IsTrue(entry.Notifications, "Expected the sendNotify to be true" + entry.Notifications.ToString()); 
                 }
 
                 service.Credentials = null; 
@@ -1357,6 +1549,7 @@ namespace Google.GData.Client.LiveTests
 
     } /////////////////////////////////////////////////////////////////////////////
 }
+
 
 
 

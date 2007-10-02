@@ -6,6 +6,45 @@
 <h2>1.1.0.0</h2>
 
 <ul>
+	<li>Features
+	<ul>
+	<li>
+        added GZip support for .NET 1.1, 2.0 and .NET Compact Framework 2.0.
+    </li>
+    <li>
+        added the ability to use authsubtokens to the ExecRequest utility (including 
+        exchange of a onetime token to a session token). Just run ExecRequest for the 
+        command line parameters, or read the help file page about it.
+    </li>
+ 	<li>
+        Support for Google Calendar WebContent Gadgets is included. A WebContent element 
+        has a SortedList property to set and retrieve those preferences. See caltest.cs 
+        for an example.
+    </li>
+   <li>
+        Picasa support:
+        <ul>
+            <li>Added all media extensions (media:rss, exif and photo></li>
+            <li>Added a PhotoEntry and PhotoFeed class that contain all of 
+                those extensions</li>
+            <li>Added unittests to query an album and insert a new photo</li>
+        </ul>
+    </li>
+       <li> Added the QuickAdd feature for the Google Calendar. An EventEntry 
+        has a QuickAdd boolean property. Setting it to true causes an insert to
+        be treated like a quickAdd operation. 
+    </li> 
+ 
+	<li>Added the webcontentlink class to the Google Calendar Support to enable
+		easier creation of Gadgets in calendars.</li>
+		
+	<li>Batch support for Google Calendar</li>
+	<li>ASP .NET support for medium trust</li>
+	
+ 	</ul></li>
+ 	
+	<li>Changes and Bugfixes
+    <ul>
     <li>
         Complete refactoring of Apps extension to use the new extension system
         (IExtensionElementFactory, AbstractEntry and AbstractFeed).
@@ -22,9 +61,6 @@
     </li>
 
     <li>
-        added GZip support for .NET 1.1, 2.0 and .NET Compact Framework 2.0.
-    </li>
-    <li>
         fixed a Google Base issue (The server doesn't accept scientific notations for 
         floats)
     </li>
@@ -32,12 +68,7 @@
         fixed typo in the blogger sample (www..blogger), which made the sample hard to 
         use
     </li>
-    <li>
-        added the ability to use authsubtokens to the ExecRequest utility (including 
-        exchange of a onetime token to a session token). Just run ExecRequest for the 
-        command line parameters, or read the help file page about it.
-    </li>
-
+    
     <li>
         make the GAuthToken property of the GAuthRequestFactory public. It was 
         mistakenly marked internal, so that the token could not be retrieved by a client 
@@ -66,11 +97,6 @@
         that ever happens, this could/should be typed).
     </li>
     <li>
-        Support for Google Calendar WebContent Gadgets is included. A WebContent element 
-        has a SortedList property to set and retrieve those preferences. See caltest.cs 
-        for an example.
-    </li>
-    <li>
         Modified data model for Spreadsheets worksheets to make it easier to change and 
         construct associated meta-data
     </li>
@@ -94,19 +120,6 @@
         Added an MediaUri Property on the AtomEntry class. This property 
         returns the AtomUri of a rel=#edit-media type=atom+xml LINK entry.
     </li>
-    <li>
-        Preliminary Picasa support:
-        <ul>
-            <li>Added all media extensions (media:rss, exif and photo></li>
-            <li>Added a PhotoEntry and PhotoFeed class that contain all of 
-                those extensions</li>
-            <li>Added unittests to query an album and insert a new photo</li>
-        </ul>
-    </li>
-    <li> Added the QuickAdd feature for the Google Calendar. An EventEntry 
-        has a QuickAdd boolean property. Setting it to true causes an insert to
-        be treated like a quickAdd operation. 
-    </li> 
     <li>Added new methods on the AtomCategory collection. Find searches for a
         category of a given term, or a term/scheme combination. Also changed the
         implementation of the Contains method to compare not just object
@@ -120,9 +133,7 @@
         custom feeds/entries. Look at CreateAtomSubElement() in AtomBase. This
         is used to create custom clases like WebContentLink in the derived 
         services</li>
-   <li>Added the webcontentlink class to the Google Calendar Support to enable
-	easier creation of Gadgets in calendars.</li>
-
+   </ul></li>
 
 </ul>
 

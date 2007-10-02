@@ -23,6 +23,8 @@ namespace Google.GData.Client.LiveTests
         protected string passWord;
         /// <summary>holds the default authhandler</summary> 
         protected string strAuthHandler;
+        /// <summary>decides if we should empty out the feed when done.</summary>
+        protected bool wipeFeeds = true;
 
         public BaseLiveTestClass()
         {
@@ -53,6 +55,11 @@ namespace Google.GData.Client.LiveTests
                 this.passWord = (string) unitTestConfiguration["passWord"];
                 Tracing.TraceInfo("Read passWord value: " + this.passWord);
             }
+            if (unitTestConfiguration.Contains("wipeFeeds") == true)
+            {
+                this.wipeFeeds = bool.Parse((string)unitTestConfiguration["wipeFeeds"]);
+                Tracing.TraceInfo("Wiping feeds option: " + this.wipeFeeds.ToString());
+            }
         }
 
         //////////////////////////////////////////////////////////////////////
@@ -62,6 +69,12 @@ namespace Google.GData.Client.LiveTests
         {
             Tracing.TraceCall();
             Tracing.TraceCall("Cleaning URI: " + uriToClean);
+
+            if (!this.wipeFeeds)
+            {
+                Tracing.TraceInfo("Skipped cleaning URI due to configuration.");
+                return;
+            }
 
             FeedQuery query = new FeedQuery();
             Service service = new Service();
