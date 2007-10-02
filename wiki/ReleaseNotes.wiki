@@ -8,7 +8,40 @@ The wiki page shows the release notes for the current binary download, the subve
 
 = Details =
 
-== 1.0.9.9 ==
+== 1.1.0.0 ==
+  * added GZip support for .NET 1.1, 2.0 and .NET Compact Framework 2.0.
+  * added the ability to use authsubtokens to the ExecRequest utility (including exchange of a onetime token to a session token). Just run ExecRequest for the         command line parameters, or read the help file page about it.
+  * Support for Google Calendar WebContent Gadgets is included. A WebContent element has a SortedList property to set and retrieve those preferences. See caltest.cs for an example.
+  * Picasa support:
+    * Added all media extensions (media:rss, exif and photo>
+    * Added a PhotoEntry and PhotoFeed class that contain all of those extensions
+    * Added unittests to query an album and insert a new photo
+  *  Added the QuickAdd feature for the Google Calendar. An EventEntry has a QuickAdd boolean property. Setting it to true causes an insert to be treated like a quickAdd operation. 
+  * Added the webcontentlink class to the Google Calendar Support to enable easier creation of Gadgets in calendars.
+  * Batch support for Google Calendar
+  * ASP .NET support for medium trust
+  * Complete refactoring of Apps extension to use the new extension system (IExtensionElementFactory, AbstractEntry and AbstractFeed).
+  * To enable ASP.NET hosting in medium trust, we removed the usage of the NetworkCredentials class. From now on, credentials are either passed as username/password, or using the GDataCredentials. (issue 57)
+  * Changed "adminUserName" to "adminEmailAddress" in AppsService so that it's more clear what information is actually required for this parameter.
+  * fixed a Google Base issue (The server doesn't accept scientific notations for floats)
+  * fixed typo in the blogger sample (www..blogger), which made the sample hard to use
+  * make the GAuthToken property of the GAuthRequestFactory public. It was mistakenly marked internal, so that the token could not be retrieved by a client         application for caching.  
+  * fixed a parsing issue that resulted in Batch Upload hanging if an unknown element was encountered
+  * added a helper method on AtomBase (entry and feed) to find exensionelements by specifying a localname and an optional namespace (issue 81)
+  * the extension mechanism was reworked by creating an ExtensionElementFactory interface that takes care of parsing elements. ElementFactories are registered     on the AtomBase (entry and feed) level.
+  * Fixed Issue 60, mulitple Reminders per Event. Note, that this introduces slight changes when dealing with this. A new property, EventEntry.Reminders, was   created. The old property, EventEntry.Reminder, still exists, and only works on the first Reminder in the list. Setting the old property will delete all       addtional reminders.The Reminders property is of type ArrayList (this is an  artifact of being .NET 1.1 compatible, once we move to .NET 2.0 or later, if        that ever happens, this could/should be typed).
+  * Modified data model for Spreadsheets worksheets to make it easier to change and construct associated meta-data
+  * Added the ctz parameter to the EventQuery class. This parameter allows to specify the timezone that is used to calculate start/end times for the returned         events
+  * Added an AlternateUri Property on the AtomEntry class. This property returns the AtomUri of a rel=alternate type=html LINK entry. As this is        similiar to the ill named LINK helper on the spreadsheet entry, that helper was removed, as they do serve the same purpose, and the link helper was read only.
+  * Added an FeedUri Property on the AtomEntry class. This property returns the AtomUri of a rel=#feed type=atom+xml LINK entry.
+  * Added an MediaUri Property on the AtomEntry class. This property returns the AtomUri of a rel=#edit-media type=atom+xml LINK entry.
+  * Added new methods on the AtomCategory collection. Find searches for a category of a given term, or a term/scheme combination. Also changed the        implementation of the Contains method to compare not just object fidelity, but also term/value pairs
+  * Added a ConvertToXSDSTring() helper in the Utilites class. As booleans are represented as "True"/"False" in .NET, and xsd requires "true"/"false" this helper takes care of that conversion.
+  * Added the ability to create custom AtomBase subclassed objects to custom feeds/entries. Look at CreateAtomSubElement() in AtomBase. This is used to create custom clases like WebContentLink in the derived services
+
+
+
+ == 1.0.9.9 ==
 
   * added GBase support for m:adjusted_name and gm:adjusted_value inside attributes (returned only when adjustments are enabled)
 
@@ -217,8 +250,6 @@ Solved issues:
 
 == 1.0.0 ==
 - Initial Release
-
-
 
 
 
