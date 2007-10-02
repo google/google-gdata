@@ -9,5 +9,4 @@ rem build documentation
 move "%doc_dir%\HTMLDocumentation\Google.GData.Documentation.chm" "%doc_dir%"
 move "%doc_dir%\HTMLDocumentation\*.log" .
 
-rem Create doc archive
-wzzip "%doc_dir%\HTMLDocumentation.zip" "%doc_dir%\HTMLDocumentation"
+call createzip.cmd
