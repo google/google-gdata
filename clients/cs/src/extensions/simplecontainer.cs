@@ -195,6 +195,10 @@ namespace Google.GData.Extensions {
                     }
                     childNode = childNode.NextSibling;
                 }
+                if (node.Attributes != null)
+                {
+                    sc.ProcessAttributes(node);
+                }
             }
             return sc;
         }
