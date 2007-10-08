@@ -190,7 +190,13 @@ namespace Google.GData.Client
 
 
         //////////////////////////////////////////////////////////////////////
-        /// <summary>accessor method public bool MethodOverride</summary> 
+        /// <summary>assuming you are behind a corporate firewall that does not 
+        /// allow all HTTP verbs (as you know, the atom protocol uses GET, 
+        /// POST, PUT and DELETE). If you set MethodOverride to true,
+        /// PUT and DELETE will be simulated using HTTP Post. It will
+        ///  add an X-Method-Override header to the request that 
+        /// indicates the "real" method we wanted to send. 
+        /// </summary> 
         /// <returns> </returns>
         //////////////////////////////////////////////////////////////////////
         public bool MethodOverride

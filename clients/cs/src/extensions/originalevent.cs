@@ -68,12 +68,12 @@ namespace Google.GData.Extensions {
         {
             get 
             { 
-                return FindExtension(GDataParserNameTable.XmlReminderElement,
+                return FindExtension(GDataParserNameTable.XmlWhenElement,
                                       BaseNameTable.gNamespace) as When;
             }
             set 
             { 
-                ReplaceExtension(GDataParserNameTable.XmlReminderElement,
+                ReplaceExtension(GDataParserNameTable.XmlWhenElement,
                                       BaseNameTable.gNamespace, value);
             }
         }
