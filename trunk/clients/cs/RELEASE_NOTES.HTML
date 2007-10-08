@@ -2,6 +2,25 @@
     
 <h1>This document lists the changes in the different releases</h1>
 
+<h2>1.1.0.2</h2>
+
+<ul>
+    <li>Features</li>
+    <ul>
+
+        
+    </ul>
+    <li>Bugfixes/Changes</li>
+    <ul>
+        <li>Fixed the parsing of the OriginalEvent@id attribute. The 
+            SimpleContainer parent class was broken in the sense that it did not
+            call the generic parsing method at all. So all SimpleContainers 
+            would not have read in attributes, luckily OriginalEvent was the
+            only instance of this.</li>
+        <li>Fixed the OriginalStartTime get/set method which was using the 
+            wrong constant of the OriginalEvent object.</li>
+    </ul>
+</ul>
 
 <h2>1.1.0.0</h2>
 
