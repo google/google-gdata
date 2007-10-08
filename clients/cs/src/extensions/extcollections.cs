@@ -127,7 +127,7 @@ namespace Google.GData.Extensions
         {
             for (int i=0; i< this.Count;i++)
             {
-                this.atomElement.ExtensionElements.Remove((When)List[i]);
+                this.atomElement.ExtensionElements.Remove(List[i]);
             }
         }
     }

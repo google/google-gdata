@@ -19,6 +19,9 @@
             only instance of this.</li>
         <li>Fixed the OriginalStartTime get/set method which was using the 
             wrong constant of the OriginalEvent object.</li>
+        <li>Fixed the onclear() handler of the new extensionCollection base 
+            class. It was incorrectly casting to When obects, which could cause
+            a runtime error when called.</li>
     </ul>
 </ul>
 
