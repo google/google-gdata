@@ -1618,7 +1618,7 @@
             <summary>prefix for atom if writing</summary> 
         </member>
         <member name="F:Google.GData.Client.BaseNameTable.gDataPrefix">
-            <summary>prefix for gdata if writing</summary> 
+            <summary>prefix for gNamespace if writing</summary> 
         </member>
         <member name="F:Google.GData.Client.BaseNameTable.gBatchPrefix">
             <summary>prefix for gdata:batch if writing</summary> 
