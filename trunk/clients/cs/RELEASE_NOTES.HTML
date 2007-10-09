@@ -22,6 +22,10 @@
         <li>Fixed the onclear() handler of the new extensionCollection base 
             class. It was incorrectly casting to When obects, which could cause
             a runtime error when called.</li>
+        <li>Fixed a bug in the simplecontainer class that could lead to an 
+            exception if the extension list was empty</li>
+        <li>Fixed a bug in Originalevent where the wrong prefix was 
+            persisted, making saving an originalevent impossible</li>
     </ul>
 </ul>
 

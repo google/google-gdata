@@ -77,7 +77,7 @@ namespace Google.GData.Extensions {
         /// <returns>Object</returns>
         public Object FindExtension(string localName, string ns) 
         {
-            return Utilities.FindExtension(this.extensions, localName, ns);
+            return Utilities.FindExtension(this.ExtensionElements, localName, ns);
         }
 
         /// <summary>
@@ -106,7 +106,7 @@ namespace Google.GData.Extensions {
         /// <returns>none</returns>
         public ArrayList FindExtensions(string localName, string ns) 
         {
-            return Utilities.FindExtensions(this.extensions, 
+            return Utilities.FindExtensions(this.ExtensionElements, 
                                             localName, ns, new ArrayList());
 
         }
