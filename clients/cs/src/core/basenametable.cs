@@ -112,7 +112,7 @@ namespace Google.GData.Client
         /// <summary>prefix for atom if writing</summary> 
         public const string AtomPrefix = "atom"; 
 
-        /// <summary>prefix for gdata if writing</summary> 
+        /// <summary>prefix for gNamespace if writing</summary> 
         public const string gDataPrefix = "gd"; 
 
         /// <summary>prefix for gdata:batch if writing</summary> 

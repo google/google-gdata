@@ -31,7 +31,7 @@ namespace Google.GData.Extensions {
         /// </summary>
         public OriginalEvent() :
             base(GDataParserNameTable.XmlOriginalEventElement,
-                 BaseNameTable.gNamespacePrefix,
+                 BaseNameTable.gDataPrefix,
                  BaseNameTable.gNamespace)
         {
             this.ExtensionFactories.Add(new When());
