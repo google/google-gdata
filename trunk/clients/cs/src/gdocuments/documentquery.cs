@@ -57,33 +57,91 @@ namespace Google.GData.Documents {
     ///             Label: folder-name	
     ///             All documents inside the given folder for the requesting user
     //////////////////////////////////////////////////////////////////////
-    public class DocumentsQuery : FeedQuery
+    public class DocumentsListQuery : FeedQuery
     {
 
   
         /// <summary>
-        /// picasa base URI 
+        /// document feed base URI 
         /// </summary>
         public static string documentsBaseUri = "http://docs.google.com/feeds/documents/private/full";
+
+        public static AtomCategory ATOMCATEGORY_DOCUMENTS = new AtomCategory("document");
+        public static QueryCategory DOCUMENTS = new QueryCategory(ATOMCATEGORY_DOCUMENTS);
+
+        public static AtomCategory ATOMCATEGORY_SPREADSHEETS = new AtomCategory("spreadsheet");
+        public static QueryCategory SPREADSHEETS = new QueryCategory(ATOMCATEGORY_SPREADSHEETS);
+
+        public static AtomCategory ATOMCATEGORY_PRESENTATIONS = new AtomCategory("presentations");
+        public static QueryCategory PRESENTATIONS = new QueryCategory(ATOMCATEGORY_PRESENTATIONS);
 
         /// <summary>
         /// base constructor
         /// </summary>
-        public DocumentsQuery()
-        : base()
+        public DocumentsListQuery()
+        : base(documentsBaseUri)
         {
         }
-
-
 
         /// <summary>
         /// base constructor, with initial queryUri
         /// </summary>
         /// <param name="queryUri">the query to use</param>
-        public DocumentsQuery(string queryUri)
+        public DocumentsListQuery(string queryUri)
         : base(queryUri)
         {
         }
     }
+
+
+
+    /// <summary>
+    /// a subclass setup to just retrieve all documents
+    /// </summary>
+    public class DocumentQuery : DocumentsListQuery
+    {
+
+        /// <summary>
+        /// base constructor
+        /// </summary>
+        public DocumentQuery()
+        : base()
+        {
+            this.Categories.Add(DocumentsListQuery.DOCUMENTS);
+        }
+   }
+
+
+    /// <summary>
+    /// a subclass setup to just retrieve all spreadsheets
+    /// </summary>
+    public class SpreadsheetQuery : DocumentsListQuery
+    {
+
+        /// <summary>
+        /// base constructor
+        /// </summary>
+        public SpreadsheetQuery()
+        : base()
+        {
+            this.Categories.Add(DocumentsListQuery.SPREADSHEETS);
+        }
+   }
+
+     /// <summary>
+    /// a subclass setup to just retrieve all presentations
+    /// </summary>
+    public class PresentationsQuery : DocumentsListQuery
+    {
+
+        /// <summary>
+        /// base constructor
+        /// </summary>
+        public PresentationsQuery()
+        : base()
+        {
+            this.Categories.Add(DocumentsListQuery.PRESENTATIONS);
+        }
+   }
 
 }

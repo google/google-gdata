@@ -980,31 +980,7 @@ namespace Google.GData.Client.LiveTests
                 query.Uri = new Uri(this.defaultCalendarUri);
                 EventFeed calFeed = service.Query(query) as EventFeed;
 
-                string recur = 
-                    "DTSTART;TZID=America/Los_Angeles:20070416T093000\n" +
-                    "DURATION:PT3600S\n" +
-                    "RRULE:FREQ=DAILY;UNTIL=20070828T163000Z\n" +
-                    "BEGIN:VTIMEZONE\n" +
-                    "TZID:America/Los_Angeles\n" +
-                    "X-LIC-LOCATION:America/Los_Angeles\n" +
-                    "BEGIN:STANDARD\n" +
-                    "TZOFFSETFROM:-0700\n" +
-                    "TZOFFSETTO:-0800\n" +
-                    "TZNAME:PST\n" +
-                    "DTSTART:19701025T020000\n" +
-                    "RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU\n" +
-                    "END:STANDARD\n" +
-                    "BEGIN:DAYLIGHT\n" +
-                    "TZOFFSETFROM:-0800\n" +
-                    "TZOFFSETTO:-0700\n" +
-                    "TZNAME:PDT\n" +
-                    "DTSTART:19700405T020000\n" +
-                    "RRULE:FREQ=YEARLY;BYMONTH=4;BYDAY=1SU\n" +
-                    "END:DAYLIGHT\n" +
-                    "END:VTIMEZONE\n";
-
-
-                recur  = 
+                string recur  = 
                     "DTSTART;TZID=America/Los_Angeles:20060314T060000\n" +
                     "DURATION:PT3600S\n" + 
                     "RRULE:FREQ=DAILY;UNTIL=20060321T220000Z\n" +
@@ -1064,12 +1040,8 @@ namespace Google.GData.Client.LiveTests
                         }
                     }
                 }
-
-
                 service.Credentials = null; 
-
                 factory.MethodOverride = false;
-
             }
 
         }
@@ -1446,7 +1418,6 @@ namespace Google.GData.Client.LiveTests
                 {
                     EventEntry entry = ObjectModelHelper.CreateEventEntry(1); 
                     entry.Title.Text = guid; 
-
                     entry.Notifications = true; 
                     calFeed.Insert(entry); 
                 }
@@ -1545,7 +1516,88 @@ namespace Google.GData.Client.LiveTests
             }
         }
         /////////////////////////////////////////////////////////////////////////////
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>tests the extended property against the calendar</summary> 
+        //////////////////////////////////////////////////////////////////////
+        [Test] public void CalendarOriginalEventTest()
+        {
+            Tracing.TraceMsg("Entering CalendarOriginalEventTest");
+
+            FeedQuery query = new FeedQuery();
+
+            CalendarService service = new CalendarService(this.ApplicationName);
+
+            if (this.defaultCalendarUri != null)
+            {
+                if (this.userName != null)
+                {
+                    service.Credentials = new GDataCredentials(this.userName, this.passWord);
+                }
+
+                GDataLoggingRequestFactory factory = (GDataLoggingRequestFactory) this.factory;
+                factory.MethodOverride = true;
+                service.RequestFactory = this.factory; 
+
+                query.Uri = new Uri(this.defaultCalendarUri);
+
+                EventFeed calFeed = service.Query(query) as EventFeed;
+
+                string recur  = 
+                    "DTSTART;TZID=America/Los_Angeles:20060314T060000\n" +
+                    "DURATION:PT3600S\n" + 
+                    "RRULE:FREQ=DAILY;UNTIL=20060321T220000Z\n" +
+                    "BEGIN:VTIMEZONE\n" + 
+                    "TZID:America/Los_Angeles\n" +
+                    "X-LIC-LOCATION:America/Los_Angeles\n" +
+                    "BEGIN:STANDARD\n" +
+                    "TZOFFSETFROM:-0700\n" +
+                    "TZOFFSETTO:-0800\n" +
+                    "TZNAME:PST\n" +
+                    "DTSTART:19671029T020000\n" +
+                    "RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU\n" +
+                    "END:STANDARD\n" +
+                    "BEGIN:DAYLIGHT\n" +
+                    "TZOFFSETFROM:-0800\n" +
+                    "TZOFFSETTO:-0700\n" +
+                    "TZNAME:PDT\n" +
+                    "DTSTART:19870405T020000\n" +
+                    "RRULE:FREQ=YEARLY;BYMONTH=4;BYDAY=1SU\n" +
+                    "END:DAYLIGHT\n" +
+                    "END:VTIMEZONE\n"; 
+
+                EventEntry entry  =  ObjectModelHelper.CreateEventEntry(1); 
+                entry.Title.Text = "New recurring event" + Guid.NewGuid().ToString();  
+
+                // get rid of the when entry
+                entry.Times.Clear(); 
+
+                entry.Recurrence = new Recurrence();
+                entry.Recurrence.Value = recur; 
+
+                EventEntry recEntry = calFeed.Insert(entry) as EventEntry;
+
+                entry = ObjectModelHelper.CreateEventEntry(1); 
+                entry.Title.Text = "whateverfancy"; 
+
+                OriginalEvent originalEvent = new OriginalEvent();
+                When start = new When();
+                start.StartTime = new DateTime(2006, 03, 14, 15, 0,0); 
+                originalEvent.OriginalStartTime = start;
+                originalEvent.Href = recEntry.SelfUri.ToString();
+                originalEvent.IdOriginal = recEntry.EventId;
+                entry.OriginalEvent = originalEvent;
+                entry.Times.Add(new When(new DateTime(2006, 03, 14, 9,0,0),
+                                         new DateTime(2006, 03, 14, 10,0,0)));
+                calFeed.Insert(entry);
+
+                service.Credentials = null; 
+                factory.MethodOverride = false;
+            }
+        }
+        /////////////////////////////////////////////////////////////////////////////
        
+
 
     } /////////////////////////////////////////////////////////////////////////////
 }
