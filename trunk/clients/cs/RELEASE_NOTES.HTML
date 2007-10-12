@@ -29,6 +29,9 @@
             exception if the extension list was empty</li>
         <li>Fixed a bug in Originalevent where the wrong prefix was 
             persisted, making saving an originalevent impossible</li>
+        <li>Fixed NULL response object being used for authentication exceptions. 
+            Now the correct object used for the authentication request is passed 
+            to the exception.</li>
     </ul>
 </ul>
 

@@ -505,12 +505,12 @@ namespace Google.GData.Client
                  // check the content type, it must be text
                 if (!response.ContentType.StartsWith(HttpFormPost.ReturnContentType))
                 {
-                    throw new GDataRequestException("Execution of authentication request returned unexpected content type: " + response.ContentType,  this.Response); 
+                    throw new GDataRequestException("Execution of authentication request returned unexpected content type: " + response.ContentType,  response); 
                 }
                 // verify the content length. This should not be big, hence a big result might indicate a phoney
                 if (response.ContentLength > 1024)
                 {
-                    throw new GDataRequestException("Execution of authentication request returned unexpected large content length: " + response.ContentLength,  this.Response); 
+                    throw new GDataRequestException("Execution of authentication request returned unexpected large content length: " + response.ContentLength, response);
                 }
                 TokenCollection tokens = Utilities.ParseStreamInTokenCollection(response.GetResponseStream());
                 authToken = Utilities.FindToken(tokens, GoogleAuthentication.AuthToken); 
@@ -523,7 +523,7 @@ namespace Google.GData.Client
                 int code= (int)response.StatusCode;
                 if (code != 200)
                 {
-                    throw new GDataRequestException("Execution of authentication request returned unexpected result: " +code,  this.Response); 
+                    throw new GDataRequestException("Execution of authentication request returned unexpected result: " +code,  response); 
                 }
 
             }
