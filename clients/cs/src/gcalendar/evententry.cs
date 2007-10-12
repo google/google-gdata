@@ -708,6 +708,22 @@ namespace Google.GData.Calendar {
             }
         }
 
+        /// <summary>
+        /// as eventId is a commonly used part in the calendar world, we expose it
+        /// here. In general the EventId is the last part of the AtomId
+        /// </summary>
+        public string EventId 
+        {
+            get 
+            {
+                string[] elements = this.Id.AbsoluteUri.Split(new char[] {'/'});
+                if (elements != null && elements.Length > 0)
+                {
+                    return elements[elements.Length - 1];
+                }
+                return null;
+            }
+        }
 
         /// <summary>
         ///  property accessor for the Comments

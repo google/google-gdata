@@ -61,7 +61,7 @@ namespace Google.GData.Documents {
         /// </summary>
         /// <param name="feedQuery"></param>
         /// <returns>EventFeed</returns>
-        public DocumentsFeed Query(DocumentsQuery feedQuery) 
+        public DocumentsFeed Query(DocumentsListQuery feedQuery) 
         {
             return base.Query(feedQuery) as DocumentsFeed;
         }
