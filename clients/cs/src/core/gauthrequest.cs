@@ -512,12 +512,13 @@ namespace Google.GData.Client
                 {
                     throw new GDataRequestException("Execution of authentication request returned unexpected large content length: " + response.ContentLength, response);
                 }
+
                 TokenCollection tokens = Utilities.ParseStreamInTokenCollection(response.GetResponseStream());
                 authToken = Utilities.FindToken(tokens, GoogleAuthentication.AuthToken); 
-                
+
                 if (authToken == null)
                 {
-                    throw getAuthException(tokens);
+                    throw getAuthException(tokens, response);
                 }
                 // failsafe. if getAuthException did not catch an error...
                 int code= (int)response.StatusCode;
@@ -542,12 +543,17 @@ namespace Google.GData.Client
         /// values from the login URI handler.
         /// </summary>
         /// <param name="tokens">The tokencollection of the parsed return form</param>
+        /// </// <param name="response">the  webresponse</param> 
         /// <returns>AuthenticationException</returns>
-        private AuthenticationException getAuthException(TokenCollection tokens) 
+        private LoggedException getAuthException(TokenCollection tokens,  HttpWebResponse response) 
         {
-        
             String errorName = Utilities.FindToken(tokens, "Error");
-
+            int code= (int)response.StatusCode;
+            if (errorName == null || errorName.Length == 0)
+            {
+               // no error given by Gaia, return a standard GDataRequestException
+                throw new GDataRequestException("Execution of authentication request returned unexpected result: " +code,  response); 
+            }
             if ("BadAuthentication".Equals(errorName))
             {
                 return new InvalidCredentialsException("Invalid credentials");
