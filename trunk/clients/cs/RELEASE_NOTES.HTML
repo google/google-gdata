@@ -32,6 +32,11 @@
         <li>Fixed NULL response object being used for authentication exceptions. 
             Now the correct object used for the authentication request is passed 
             to the exception.</li>
+        <li>Changed the AuthException code to provide the status code 
+            detail as well</li>
+
+        <li>CalendarEntry did use the wrong namespace to find the location 
+            object, hence retrieval of a calendar location was broken.</li>
     </ul>
 </ul>
 
