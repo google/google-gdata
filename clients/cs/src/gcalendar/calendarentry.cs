@@ -177,12 +177,12 @@ namespace Google.GData.Calendar
             get
             {
                 return FindExtension(GDataParserNameTable.XmlWhereElement,
-                                   GDataParserNameTable.NSGCal) as Where;
+                                   BaseNameTable.gNamespace) as Where;
             }
             set
             {
                 ReplaceExtension(GDataParserNameTable.XmlWhereElement,
-                                 GDataParserNameTable.NSGCal, value);
+                                 BaseNameTable.gNamespace, value);
             }
         }
  
