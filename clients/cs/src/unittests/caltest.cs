@@ -1201,12 +1201,11 @@ namespace Google.GData.Client.LiveTests
                 Assert.IsNotNull(createdCalendar, "created calendar should be returned.");
 
                 Assert.AreEqual(newCalendar.Title.Text, createdCalendar.Title.Text, "Titles should be equal");
-                //There is currently a bug where Calendar doesn't return the summary in its created response
-                //Assert.AreEqual(newCalendar.Summary.Text, createdCalendar.Summary.Text, "Summaries should be equal");
-                //Assert.AreEqual(newCalendar.TimeZone, createdCalendar.TimeZone, "Timezone should be equal");
+                Assert.AreEqual(newCalendar.Summary.Text, createdCalendar.Summary.Text, "Summaries should be equal");
+                Assert.AreEqual(newCalendar.TimeZone, createdCalendar.TimeZone, "Timezone should be equal");
                 Assert.AreEqual(newCalendar.Hidden, createdCalendar.Hidden, "Hidden property should be equal");
                 Assert.AreEqual(newCalendar.Color, createdCalendar.Color, "Color property should be equal");
-                //Assert.AreEqual(newCalendar.Location.ValueString, createdCalendar.Location.ValueString, "Where should be equal");
+                Assert.AreEqual(newCalendar.Location.ValueString, createdCalendar.Location.ValueString, "Where should be equal");
 
                 createdCalendar.Title.Text = "renamed calendar" + Guid.NewGuid().ToString();
                 CalendarEntry updatedCalendar = (CalendarEntry) createdCalendar.Update();

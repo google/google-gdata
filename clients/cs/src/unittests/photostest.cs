@@ -233,8 +233,11 @@ namespace Google.GData.Client.LiveTests
                     Uri postUri = new Uri(album.FeedUri.ToString());
                     FileStream fs = File.OpenRead("testnet.jpg");
                     PicasaEntry entry = service.Insert(postUri, fs, "image/jpeg", "testnet.jpg") as PicasaEntry;
-
                     Assert.IsTrue(entry.IsPhoto, "the new entry should be a photo entry");
+
+                    entry.Title.Text = "This is a new Title";
+                    entry.Summary.Text = "A lovely shot in the shade";
+                    PicasaEntry updatedEntry = entry.Update() as PicasaEntry;
                 }
             }
         }

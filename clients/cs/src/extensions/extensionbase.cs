@@ -196,9 +196,12 @@ namespace Google.GData.Extensions {
             {
                 for (int i=0; i < this.getAttributes().Count; i++)
                 {
-                    string name = this.getAttributes().GetKey(i) as string;
-                    string value = Utilities.ConvertToXSDString(this.getAttributes().GetByIndex(i));
-                    writer.WriteAttributeString(name, value);
+                    if (this.getAttributes().GetByIndex(i) != null)
+                    {
+                        string name = this.getAttributes().GetKey(i) as string;
+                        string value = Utilities.ConvertToXSDString(this.getAttributes().GetByIndex(i));
+                        writer.WriteAttributeString(name, value);
+                    }
                 }
             }
             SaveInnerXml(writer);

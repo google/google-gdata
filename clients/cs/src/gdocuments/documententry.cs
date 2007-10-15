@@ -36,6 +36,7 @@ namespace Google.GData.Documents {
     public class DocumentEntry : AbstractEntry
     {
 
+        static string PRESENTATION_KIND = "http://schemas.google.com/docs/2007#presentation";
 
         /// <summary>
         /// Constructs a new EventEntry instance with the appropriate category
