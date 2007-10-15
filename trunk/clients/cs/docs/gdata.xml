@@ -3334,11 +3334,11 @@
             <summary>returns the service string</summary> 
         </member>
         <member name="P:Google.GData.Client.GDataGAuthRequestFactory.MethodOverride">
-            <summary>assuming you are behind a corporate firewall that does not 
+            <summary>Let's assume you are behind a corporate firewall that does not 
             allow all HTTP verbs (as you know, the atom protocol uses GET, 
             POST, PUT and DELETE). If you set MethodOverride to true,
             PUT and DELETE will be simulated using HTTP Post. It will
-             add an X-Method-Override header to the request that 
+            add an X-Method-Override header to the request that 
             indicates the "real" method we wanted to send. 
             </summary> 
             <returns> </returns>
@@ -3518,14 +3518,7 @@
             <summary>goes to the Google auth service, and gets a new auth token</summary> 
             <returns>the auth token, or NULL if none received</returns>
         </member>
-        <member name="M:Google.GData.Client.GDataGAuthRequest.getAuthException(Google.GData.Client.TokenCollection)">
-            <summary>
-             Returns the respective GDataAuthenticationException given the return
-            values from the login URI handler.
-            </summary>
-            <param name="tokens">The tokencollection of the parsed return form</param>
-            <returns>AuthenticationException</returns>
-        </member>
+        <!-- Badly formed XML comment ignored for member "M:Google.GData.Client.GDataGAuthRequest.getAuthException(Google.GData.Client.TokenCollection,System.Net.HttpWebResponse)" -->
         <member name="M:Google.GData.Client.GDataGAuthRequest.Execute">
             <summary>Executes the request and prepares the response stream. Also 
             does error checking</summary> 
