@@ -238,6 +238,11 @@ namespace Google.GData.Client.LiveTests
                     entry.Title.Text = "This is a new Title";
                     entry.Summary.Text = "A lovely shot in the shade";
                     PicasaEntry updatedEntry = entry.Update() as PicasaEntry;
+                    Assert.IsTrue(updatedEntry.IsPhoto, "the new entry should be a photo entry");
+                    Assert.IsTrue(updatedEntry.Title.Text == "This is a new Title", "The titles should be identical");
+                    Assert.IsTrue(updatedEntry.Summary.Text == "A lovely shot in the shade", "The summariesa should be identical");
+
+
                 }
             }
         }
