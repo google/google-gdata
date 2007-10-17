@@ -196,7 +196,20 @@ namespace Google.GData.Client
                 }
             }
             return null;
+        }
 
+        /// <summary>
+        /// if the service is using a Google Request Factory it will set the passed 
+        /// in token to the factory
+        /// </summary>
+        /// <returns>string</returns>
+        public void SetAuthenticationToken(string token) 
+        {
+            GDataGAuthRequestFactory factory = this.GDataRequestFactory as GDataGAuthRequestFactory;
+            if (factory != null)
+            {
+                factory.GAuthToken = token;
+            }
         }
 
    
