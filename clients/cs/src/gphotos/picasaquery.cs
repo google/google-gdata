@@ -115,7 +115,8 @@ namespace Google.GData.Photos {
         /// <summary>
         /// picasa base URI 
         /// </summary>
-        public static string picasaBaseUri = "http://picasaweb.google.com/data/feed/";
+        public static string picasaBaseUri = "http://picasaweb.google.com/data/feed/api/user/";
+       
 
         /// <summary>
         /// base constructor
@@ -138,6 +139,16 @@ namespace Google.GData.Photos {
         {
             this.kinds[0] = Kinds.tag;
             this.kinds[1] = Kinds.none;
+        }
+
+        /// <summary>
+        /// convienience method to create an URI based on a userID for a picasafeed
+        /// </summary>
+        /// <param name="userID"></param>
+        /// <returns>string</returns>
+        public static string CreatePicasaUri(string userID) 
+        {
+            return PicasaQuery.picasaBaseUri + userID;
         }
 
  
