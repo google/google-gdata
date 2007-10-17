@@ -10,8 +10,10 @@
         <li>Added an EventId property to the EventEntry object. This one 
             parses the atomId URI to just provided the EventId, which is used
             elsewhere (e.g., for recurring events).</li>
+        <li>Added QueryAuthToken() on the service. If the Service is a 
+            Google authenticated service, you can use this to obtain an 
+            authentication token for ClientLogin</li>
 
-        
     </ul>
     <li>Bugfixes/Changes</li>
     <ul>
@@ -38,6 +40,11 @@
             object, hence retrieval of a calendar location was broken.</li>
         <li>Fixed ExtensionBase to not save NULL attributes as empty 
             strings. This could cause Picasa updates to fail.</li>
+        <li>Fixed MediaGroup to allow the retrieval of multiple Thumbnails. 
+            Introduced the ThumbnailCollection for this. To enable this, 
+            SimpleContainer and AtomBase now implement IExtensionContainer, a
+            common interface that encapsulates owning Extension elements.
+            </li>
     </ul>
 </ul>
 

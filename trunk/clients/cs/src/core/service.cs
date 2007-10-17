@@ -178,6 +178,27 @@ namespace Google.GData.Client
         }
         /////////////////////////////////////////////////////////////////////////////
 
+
+        /// <summary>
+        /// if the service is using a Google Request Factory it will use that 
+        /// assuming credentials are set to retrieve the authentication token
+        /// for those credentials
+        /// </summary>
+        /// <returns>string</returns>
+        public string QueryAuthenticationToken() 
+        {
+            if (this.Credentials != null)
+            {
+                GDataGAuthRequestFactory factory = this.GDataRequestFactory as GDataGAuthRequestFactory;
+                if (factory != null)
+                {
+                    return factory.QueryAuthToken(this.Credentials);
+                }
+            }
+            return null;
+
+        }
+
    
         //////////////////////////////////////////////////////////////////////
         /// <summary>the basic interface. Take a URI and just get it</summary> 

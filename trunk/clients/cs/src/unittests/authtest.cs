@@ -148,6 +148,27 @@ namespace Google.GData.Client.AuthUnitTests
         }
         ////////////////////////////////////////////////////////////////////////////
 
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>runs an authentication test</summary> 
+        //////////////////////////////////////////////////////////////////////
+        [Test] public void TestFactoryCredentialRetrieval()
+        {
+            Tracing.TraceMsg("Entering TestFactoryCredentialRetrieval");
+
+            Service service = new Service("lh2", "test");
+
+            if (this.defaultUri != null)
+            {
+                if (this.userName != null)
+                {
+                    service.Credentials = new GDataCredentials(this.userName, this.passWord);
+                }
+                string token = service.QueryAuthenticationToken(); 
+            }
+        }
+        ////////////////////////////////////////////////////////////////////////////
+
+     
          //////////////////////////////////////////////////////////////////////
         /// <summary>correct account, invalid password</summary> 
         //////////////////////////////////////////////////////////////////////
