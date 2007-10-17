@@ -315,9 +315,11 @@ namespace Google.GData.Extensions.MediaRss {
         : base(MediaRssNameTable.MediaRssThumbnail, 
                MediaRssNameTable.mediaRssPrefix,
                MediaRssNameTable.NSMediaRss)
-        {}
-
-       
+        {
+            this.Attributes.Add("url", null);
+            this.Attributes.Add("height", null);
+            this.Attributes.Add("width", null);
+        }
     }
 
     /// <summary>
