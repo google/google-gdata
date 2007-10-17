@@ -27,7 +27,7 @@ namespace Google.GData.Extensions {
     /// TODO: at one point think about using this as the base for atom:base
     /// as there is some utility overlap between the 2 of them
     /// </summary>
-    public class SimpleContainer : ExtensionBase
+    public class SimpleContainer : ExtensionBase, IExtensionContainer
     {
         private ArrayList extensions;
         private ArrayList extensionFactories;

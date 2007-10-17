@@ -19,6 +19,7 @@
 using System;
 using System.Collections;
 using Google.GData.Client;
+using Google.GData.Extensions.MediaRss;
 
 #endregion
 
@@ -39,7 +40,7 @@ namespace Google.GData.Extensions
     public class ExtensionCollection : CollectionBase 
     {
              /// <summary>holds the owning feed</summary>
-         private AtomBase atomElement;
+         private IExtensionContainer container;
 
          /// <summary>
          /// protected default constructor, not usable by outside
@@ -56,10 +57,10 @@ namespace Google.GData.Extensions
         /// <param name="atomElement">the base element holding the extension list</param>
         /// <param name="localName">the local name of the extension</param>
         /// <param name="ns">the namespace</param>
-        public ExtensionCollection(AtomBase atomElement, string localName, string ns) : base()
+        public ExtensionCollection(IExtensionContainer containerElement, string localName, string ns) : base()
         {
-             this.atomElement = atomElement;
-             ArrayList arr = atomElement.FindExtensions(localName, ns); 
+             this.container = containerElement;
+             ArrayList arr = this.container.FindExtensions(localName, ns); 
              foreach (object o in arr )
              {
                  List.Add(o);
@@ -75,12 +76,12 @@ namespace Google.GData.Extensions
         {
             if (List[index] != null)
             {
-                this.atomElement.ExtensionElements.Remove(List[index]);
+                this.container.ExtensionElements.Remove(List[index]);
             }
             List[index] = item;
             if (item != null)
             {
-                this.atomElement.ExtensionElements.Add(item);
+                this.container.ExtensionElements.Add(item);
             }
         }
 
@@ -93,7 +94,7 @@ namespace Google.GData.Extensions
         /// <returns></returns>
         public int Add(object value)
         {
-            this.atomElement.ExtensionElements.Add(value); 
+            this.container.ExtensionElements.Add(value); 
             return( List.Add( value ) );
         }
 
@@ -104,11 +105,11 @@ namespace Google.GData.Extensions
         /// <param name="value"></param>
         public void Insert( int index, object value )  
         {
-            if (this.atomElement.ExtensionElements.Contains(value))
+            if (this.container.ExtensionElements.Contains(value))
             {
-                this.atomElement.ExtensionElements.Remove(value);
+                this.container.ExtensionElements.Remove(value);
             }
-            this.atomElement.ExtensionElements.Add(value);
+            this.container.ExtensionElements.Add(value);
             List.Insert( index, value );
         }
 
@@ -118,7 +119,7 @@ namespace Google.GData.Extensions
         /// <param name="value"></param>
         public void Remove( object value )  
         {
-            this.atomElement.ExtensionElements.Remove(value);
+            this.container.ExtensionElements.Remove(value);
             List.Remove( value );
         }
 
@@ -127,7 +128,7 @@ namespace Google.GData.Extensions
         {
             for (int i=0; i< this.Count;i++)
             {
-                this.atomElement.ExtensionElements.Remove(List[i]);
+                this.container.ExtensionElements.Remove(List[i]);
             }
         }
     }
@@ -142,7 +143,7 @@ namespace Google.GData.Extensions
         }
 
         /// <summary>constructor</summary> 
-        public WhenCollection(AtomBase atomElement) 
+        public WhenCollection(IExtensionContainer atomElement) 
             : base(atomElement, GDataParserNameTable.XmlWhenElement, BaseNameTable.gNamespace)
         {
         }
@@ -211,7 +212,7 @@ namespace Google.GData.Extensions
         }
 
         /// <summary>constructor</summary> 
-        public WhereCollection(AtomBase atomElement) 
+        public WhereCollection(IExtensionContainer atomElement) 
             : base(atomElement, GDataParserNameTable.XmlWhereElement, BaseNameTable.gNamespace)
         {
         }
@@ -280,7 +281,7 @@ namespace Google.GData.Extensions
         }
 
         /// <summary>constructor</summary> 
-        public WhoCollection(AtomBase atomElement) 
+        public WhoCollection(IExtensionContainer atomElement) 
             : base(atomElement, GDataParserNameTable.XmlWhoElement, BaseNameTable.gNamespace)
         {
         }
@@ -337,5 +338,74 @@ namespace Google.GData.Extensions
         }
     }
     /////////////////////////////////////////////////////////////////////////////
+
+    //////////////////////////////////////////////////////////////////////
+    /// <summary>Typed collection for Thumbnails Extensions.</summary>
+    //////////////////////////////////////////////////////////////////////
+    public class ThumbnailCollection : ExtensionCollection
+    {
+        private ThumbnailCollection() : base()
+        {
+        }
+
+        /// <summary>constructor</summary> 
+        public ThumbnailCollection(IExtensionContainer atomElement) 
+            : base(atomElement, MediaRssNameTable.MediaRssThumbnail, MediaRssNameTable.NSMediaRss)
+        {
+        }
+
+        /// <summary>standard typed accessor method </summary>
+        public MediaThumbnail this[int index]
+        {
+            get
+            {
+                return ((MediaThumbnail)List[index]);
+            }
+            set
+            {
+                setItem(index,value);
+            }
+        }
+
+        /// <summary>standard typed add method </summary>
+        public int Add(MediaThumbnail value)
+        {
+            return base.Add(value);
+        }
+
+        /// <summary>standard typed indexOf method </summary>
+        public int IndexOf(MediaThumbnail value)
+        {
+            return (List.IndexOf(value));
+        }
+
+        /// <summary>standard typed insert method </summary>
+        public void Insert(int index, MediaThumbnail value)
+        {
+            base.Insert(index, value);
+        }
+
+        /// <summary>standard typed remove method </summary> 
+        public void Remove(MediaThumbnail value)
+        {
+            base.Remove(value);
+        }
+
+        /// <summary>standard typed Contains method </summary> 
+        public bool Contains(MediaThumbnail value)
+        {
+            // If value is not of type AtomEntry, this will return false.
+            return (List.Contains(value));
+        }
+
+        /// <summary>standard typed OnValidate Override </summary> 
+        protected override void OnValidate(Object value)
+        {
+            if (value as MediaThumbnail == null)
+                throw new ArgumentException("value must be of type Google.GData.Extensions.MediaRss.MediaThumbnail.", "value");
+        }
+    }
+    /////////////////////////////////////////////////////////////////////////////
+
 
 } 

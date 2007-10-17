@@ -154,6 +154,16 @@ namespace Google.GData.Client
         }
         /////////////////////////////////////////////////////////////////////////////
 
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Get's an authentication token for the current credentials</summary> 
+        //////////////////////////////////////////////////////////////////////
+        public string QueryAuthToken(GDataCredentials gc)
+        {
+            GDataGAuthRequest request = new GDataGAuthRequest(GDataRequestType.Query, null, this);
+            return request.QueryAuthToken(gc);
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
 
         ////////////////////////////////////////////////////////////////////////////////
         /// <summary>accessor method public string UserAgent, with GFE support</summary> 
@@ -424,7 +434,7 @@ namespace Google.GData.Client
         /// <summary>goes to the Google auth service, and gets a new auth token</summary> 
         /// <returns>the auth token, or NULL if none received</returns>
         //////////////////////////////////////////////////////////////////////
-        protected string QueryAuthToken(GDataCredentials gc)
+        internal string QueryAuthToken(GDataCredentials gc)
         {
             Tracing.Assert(gc != null, "Do not call QueryAuthToken with no network credentials"); 
             if (gc == null)

@@ -109,7 +109,7 @@ namespace Google.GData.Client
     /// <summary>AtomBase object representation.
     /// </summary> 
     //////////////////////////////////////////////////////////////////////
-    public abstract class AtomBase
+    public abstract class AtomBase : IExtensionContainer
     {
         /// <summary>holds the base Uri</summary> 
         private AtomUri uriBase;

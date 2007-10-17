@@ -71,6 +71,7 @@ namespace Google.GData.Extensions.MediaRss {
     /// </summary>
     public class MediaGroup : SimpleContainer
     {
+        private ThumbnailCollection thumbnails;
         /// <summary>
         /// default constructor for media:group
         /// </summary>
@@ -156,23 +157,23 @@ namespace Google.GData.Extensions.MediaRss {
                                 value);
             }
         }
+
+
         /// <summary>
-        /// returns the media:thumbnail element
+        ///  property accessor for the Thumbnails 
         /// </summary>
-        public MediaThumbnail Thumbnail
+        public ThumbnailCollection Thumbnails
         {
-            get
+            get 
             {
-                return FindExtension(MediaRssNameTable.MediaRssThumbnail,
-                                     MediaRssNameTable.NSMediaRss) as MediaThumbnail;
-            }
-            set
-            {
-                ReplaceExtension(MediaRssNameTable.MediaRssThumbnail,
-                                MediaRssNameTable.NSMediaRss,
-                                value);
+                if (this.thumbnails == null)
+                {
+                    this.thumbnails =  new ThumbnailCollection(this); 
+                }
+                return this.thumbnails;
             }
         }
+
         /// <summary>
         /// returns the media:content element
         /// </summary>
