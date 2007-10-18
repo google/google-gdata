@@ -54,7 +54,7 @@ namespace Google.GData.Extensions
         /// will copy objects to an internal array for caching. Note that when the external 
         /// ExtensionList is modified, this will have no effect on this copy
         /// </summary>
-        /// <param name="atomElement">the base element holding the extension list</param>
+        /// <param name="containerElement">the base element holding the extension list</param>
         /// <param name="localName">the local name of the extension</param>
         /// <param name="ns">the namespace</param>
         public ExtensionCollection(IExtensionContainer containerElement, string localName, string ns) : base()
@@ -339,73 +339,5 @@ namespace Google.GData.Extensions
     }
     /////////////////////////////////////////////////////////////////////////////
 
-    //////////////////////////////////////////////////////////////////////
-    /// <summary>Typed collection for Thumbnails Extensions.</summary>
-    //////////////////////////////////////////////////////////////////////
-    public class ThumbnailCollection : ExtensionCollection
-    {
-        private ThumbnailCollection() : base()
-        {
-        }
-
-        /// <summary>constructor</summary> 
-        public ThumbnailCollection(IExtensionContainer atomElement) 
-            : base(atomElement, MediaRssNameTable.MediaRssThumbnail, MediaRssNameTable.NSMediaRss)
-        {
-        }
-
-        /// <summary>standard typed accessor method </summary>
-        public MediaThumbnail this[int index]
-        {
-            get
-            {
-                return ((MediaThumbnail)List[index]);
-            }
-            set
-            {
-                setItem(index,value);
-            }
-        }
-
-        /// <summary>standard typed add method </summary>
-        public int Add(MediaThumbnail value)
-        {
-            return base.Add(value);
-        }
-
-        /// <summary>standard typed indexOf method </summary>
-        public int IndexOf(MediaThumbnail value)
-        {
-            return (List.IndexOf(value));
-        }
-
-        /// <summary>standard typed insert method </summary>
-        public void Insert(int index, MediaThumbnail value)
-        {
-            base.Insert(index, value);
-        }
-
-        /// <summary>standard typed remove method </summary> 
-        public void Remove(MediaThumbnail value)
-        {
-            base.Remove(value);
-        }
-
-        /// <summary>standard typed Contains method </summary> 
-        public bool Contains(MediaThumbnail value)
-        {
-            // If value is not of type AtomEntry, this will return false.
-            return (List.Contains(value));
-        }
-
-        /// <summary>standard typed OnValidate Override </summary> 
-        protected override void OnValidate(Object value)
-        {
-            if (value as MediaThumbnail == null)
-                throw new ArgumentException("value must be of type Google.GData.Extensions.MediaRss.MediaThumbnail.", "value");
-        }
-    }
-    /////////////////////////////////////////////////////////////////////////////
-
-
+   
 } 

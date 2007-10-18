@@ -151,7 +151,17 @@ namespace Google.GData.Photos {
             return PicasaQuery.picasaBaseUri + userID;
         }
 
- 
+        /// <summary>
+        /// convienience method to create an URI based on a userID
+        /// and an album name for a picasafeed
+        /// </summary>
+        /// <param name="userID"></param>
+        /// <param name="albumName"></param>
+        /// <returns>string</returns>
+        public static string CreatePicasaUri(string userID, string albumName) 
+        {
+            return PicasaQuery.picasaBaseUri + userID +"/album/"+albumName  ;
+        }
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>indicates the kinds to retrieve</summary>

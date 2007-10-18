@@ -23,9 +23,13 @@ using Google.GData.Extensions;
 using Google.GData.Extensions.MediaRss;
 using Google.GData.Extensions.Exif;
 using Google.GData.Extensions.Location;
+#if WindowsCE || PocketPC
+#else
+using System.ComponentModel;
+#endif
 
-
-namespace Google.GData.Photos {
+namespace Google.GData.Photos 
+{
 
 
     //////////////////////////////////////////////////////////////////////
@@ -71,6 +75,53 @@ namespace Google.GData.Photos {
             }
         }
 
+
+
+#if WindowsCE || PocketPC
+#else
+        [Category("Base Photo Data"),
+        Description("Specifies the name of the photo.")]
+#endif
+        /// <summary>
+        /// The title of the photo
+        /// </summary>
+        public string PhotoTitle
+        {
+            get 
+            {
+                return this.entry.Title.Text;
+            }
+            set 
+            {
+                this.entry.Title.Text = value;
+            }
+        }
+#if WindowsCE || PocketPC
+#else
+        [Category("Base Photo Data"),
+        Description("Specifies the summary of the Photo.")]
+#endif
+        /// <summary>
+        /// The  summary of the Photo
+        /// </summary>
+        public string PhotoSummary
+        {
+            get 
+            {
+                return this.entry.Summary.Text;
+            }
+            set 
+            {
+                this.entry.Summary.Text = value;
+            }
+        }
+
+
+#if WindowsCE || PocketPC
+#else
+        [Category("Meta Photo Data"),
+        Description("The checksum on the photo.")]
+#endif
         /// <summary>
         /// The checksum on the photo. This optional field can be used by 
         /// uploaders to associate a checksum with a photo to ease duplicate detection
@@ -87,6 +138,11 @@ namespace Google.GData.Photos {
             }
         }
 
+#if WindowsCE || PocketPC
+#else
+        [Category("Meta Photo Data"),
+        Description("The client application that created the photo.")]
+#endif
         /// <summary>
         /// The client application that created the photo. (Optional element.)
         /// </summary>
@@ -102,6 +158,11 @@ namespace Google.GData.Photos {
             }
         }
 
+#if WindowsCE || PocketPC
+#else
+        [Category("Basic Photo Data"),
+        Description("The height of the photo in pixels.")]
+#endif
         /// <summary>
         /// The height of the photo in pixels
         /// </summary>
@@ -117,6 +178,11 @@ namespace Google.GData.Photos {
             }
         }
 
+#if WindowsCE || PocketPC
+#else
+        [Category("Basic Photo Data"),
+        Description("The width of the photo in pixels.")]
+#endif
         /// <summary>
         /// The width of the photo in pixels
         /// </summary>
@@ -133,6 +199,11 @@ namespace Google.GData.Photos {
         }
 
 
+#if WindowsCE || PocketPC
+#else
+        [Category("Basic Photo Data"),
+        Description("The ordinal position of the photo in the parent album.")]
+#endif
         /// <summary>
         /// The ordinal position of the photo in the parent album
         /// </summary>
@@ -148,8 +219,14 @@ namespace Google.GData.Photos {
             }
         }
 
+#if WindowsCE || PocketPC
+#else
+        [Category("Basic Photo Data"),
+        Description("The rotation of the photo in degrees.")]
+#endif
         /// <summary>
-        /// The ordinal position of the photo in the parent album
+        /// The rotation of the photo in degrees, used to change the rotation of the photo. Will only be shown if 
+        /// the rotation has not already been applied to the requested images.
         /// </summary>
         public int Rotation 
         {
@@ -163,6 +240,11 @@ namespace Google.GData.Photos {
             }
         }
 
+#if WindowsCE || PocketPC
+#else
+        [Category("Basic Photo Data"),
+        Description("The size of the photo in bytes.")]
+#endif
         /// <summary>
         /// The size of the photo in bytes
         /// </summary>
@@ -178,16 +260,22 @@ namespace Google.GData.Photos {
             }
         }
 
+
+#if WindowsCE || PocketPC
+#else
+        [Category("Meta Photo Data"),
+        Description("The photo's timestamp")]
+#endif
         /// <summary>
         /// The photo's timestamp, represented as the number of milliseconds since 
         /// January 1st, 1970. Contains the date of the photo either set externally
         /// or retrieved from the Exif data.
         /// </summary>
-        public long Timestamp 
+        public ulong Timestamp 
         {
             get 
             {
-                return Convert.ToInt32(this.entry.getPhotoExtensionValue(GPhotoNameTable.Timestamp));
+                return Convert.ToUInt64(this.entry.getPhotoExtensionValue(GPhotoNameTable.Timestamp));
             }
             set 
             {
@@ -195,6 +283,12 @@ namespace Google.GData.Photos {
             }
         }
 
+
+#if WindowsCE || PocketPC
+#else
+        [Category("Meta Photo Data"),
+        Description("The version number of the photo.")]
+#endif
         /// <summary>
         /// The version number of the photo. Version numbers are based on modification time, 
         /// so they don't increment linearly. Note that if you try to update a photo using a 
@@ -213,6 +307,11 @@ namespace Google.GData.Photos {
             }
         }
 
+#if WindowsCE || PocketPC
+#else
+        [Category("Meta Photo Data"),
+        Description("The albums ID.")]
+#endif
         /// <summary>
         /// The albums ID
         /// </summary>
@@ -228,6 +327,11 @@ namespace Google.GData.Photos {
             }
         }
 
+#if WindowsCE || PocketPC
+#else
+        [Category("Commenting"),
+        Description("the number of comments on a photo.")]
+#endif
         /// <summary>
         /// the number of comments on a photo
         /// </summary>
@@ -243,6 +347,11 @@ namespace Google.GData.Photos {
             }
         }
 
+#if WindowsCE || PocketPC
+#else
+        [Category("Commenting"),
+        Description("is commenting enabled on a photo.")]
+#endif
         /// <summary>
         /// is commenting enabled on a photo
         /// </summary>
@@ -258,6 +367,12 @@ namespace Google.GData.Photos {
             }
         }
 
+    
+#if WindowsCE || PocketPC
+#else
+        [Category("Meta Photo Data"),
+        Description("the id of the photo.")]
+#endif
         /// <summary>
         /// the id of the photo
         /// </summary>

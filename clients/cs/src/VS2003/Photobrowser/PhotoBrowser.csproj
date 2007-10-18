@@ -109,14 +109,9 @@
         <Files>
             <Include>
                 <File
-                    RelPath = "AlbumMeta.cs"
-                    Link = "..\..\..\samples\PhotoBrowser\AlbumMeta.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
                     RelPath = "AssemblyInfo.cs"
                     Link = "..\..\..\samples\PhotoBrowser\AssemblyInfo.cs"
+                    SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
@@ -136,6 +131,26 @@
                     Link = "..\..\..\samples\PhotoBrowser\GoogleClientLogin.cs"
                     SubType = "Form"
                     BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "NewAlbumDialog.cs"
+                    SubType = "Form"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "NewAlbumDialog.resx"
+                    DependentUpon = "NewAlbumDialog.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "PhotoBrowser.cs"
+                    SubType = "Form"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "PhotoBrowser.resx"
+                    DependentUpon = "PhotoBrowser.cs"
+                    BuildAction = "EmbeddedResource"
                 />
             </Include>
         </Files>
