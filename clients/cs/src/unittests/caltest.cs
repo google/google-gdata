@@ -1322,6 +1322,7 @@ namespace Google.GData.Client.LiveTests
         //////////////////////////////////////////////////////////////////////
         /// <summary>runs a stress test against the calendar</summary> 
         //////////////////////////////////////////////////////////////////////
+        [Ignore ("Normally not required to run, and takes pretty long")]
         [Test] public void CalendarStressTest()
         {
             Tracing.TraceMsg("Entering CalendarStressTest");
@@ -1517,7 +1518,51 @@ namespace Google.GData.Client.LiveTests
         /////////////////////////////////////////////////////////////////////////////
 
         //////////////////////////////////////////////////////////////////////
-        /// <summary>tests the extended property against the calendar</summary> 
+        /// <summary>tests that a default reminder get's created if none is set</summary> 
+        //////////////////////////////////////////////////////////////////////
+        [Test] public void CalendarDefaultReminderTest()
+        {
+            Tracing.TraceMsg("Entering CalendarDefaultReminderTest");
+
+            FeedQuery query = new FeedQuery();
+
+            CalendarService service = new CalendarService(this.ApplicationName);
+
+            if (this.defaultCalendarUri != null)
+            {
+                if (this.userName != null)
+                {
+                    service.Credentials = new GDataCredentials(this.userName, this.passWord);
+                }
+
+                GDataLoggingRequestFactory factory = (GDataLoggingRequestFactory) this.factory;
+                factory.MethodOverride = true;
+                service.RequestFactory = this.factory; 
+
+                query.Uri = new Uri(this.defaultCalendarUri);
+
+                EventFeed calFeed = service.Query(query) as EventFeed;
+
+                EventEntry entry  =  ObjectModelHelper.CreateEventEntry(1); 
+                entry.Title.Text = "New event with default reminder" + Guid.NewGuid().ToString();  
+
+                entry.Reminder = new Reminder();
+                entry.Reminder.Method = Reminder.ReminderMethod.unspecified;
+
+                EventEntry newEntry = calFeed.Insert(entry) as EventEntry;
+                Reminder reminder = newEntry.Reminder;
+                Assert.IsTrue(reminder != null, "reminder should not be null - this only works if the calendar HAS default remidners set"); 
+                Assert.IsTrue(reminder.Method != Reminder.ReminderMethod.unspecified, "reminder should not be unspecified - this only works if the calendar HAS default remidners set"); 
+
+                service.Credentials = null; 
+                factory.MethodOverride = false;
+            }
+        }
+        /////////////////////////////////////////////////////////////////////////////
+       
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>tests the original event </summary> 
         //////////////////////////////////////////////////////////////////////
         [Test] public void CalendarOriginalEventTest()
         {
@@ -1595,8 +1640,7 @@ namespace Google.GData.Client.LiveTests
             }
         }
         /////////////////////////////////////////////////////////////////////////////
-       
-
+   
 
     } /////////////////////////////////////////////////////////////////////////////
 }

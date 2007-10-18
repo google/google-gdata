@@ -61,16 +61,33 @@ namespace Google.GData.Extensions {
     ///     <item>
     ///         <term>1 gd:rem</term>
     ///         <term>*Use user's default settings</term>
-    ///         <term>No reminder</term>    ///         <term>InvalidEntryException</term>
+    ///         <term>No reminder</term>
+    ///         <term>InvalidEntryException</term>
     ///     </item>
     ///     <item>
-    ///         <term>1 gd:rem min=0</term>    ///         <term>*Use user's default settings</term>    ///         <term>No reminder</term>    ///         <term>InvalidEntryException</term>    ///     </item>
+    ///         <term>1 gd:rem min=0</term>    
+    ///         <term>*Use user's default settings</term>   
+    ///         <term>No reminder</term>    
+    ///         <term>InvalidEntryException</term>    
+    ///     </item>
     ///     <item>
-    ///         <term>1 gd:rem min=-1</term>    ///         <term>*No reminder</term>    ///         <term>No reminder</term>    ///         <term>InvalidEntryException</term>    ///     </item>
+    ///         <term>1 gd:rem min=-1</term>
+    ///         <term>*No reminder</term>
+    ///         <term>No reminder</term>
+    ///         <term>InvalidEntryException</term>
+    ///     </item>
     ///     <item>
-    ///         <term>1 gd:rem min=+n</term>    ///         <term>*Override with no +n for user's selected methods</term>    ///         <term>No reminder</term>    ///         <term>Set exactly one reminder on event at +n with given method</term>    ///     </item>
+    ///         <term>1 gd:rem min=+n</term>
+    ///         <term>*Override with no +n for user's selected methods</term>
+    ///         <term>No reminder</term>
+    ///         <term>Set exactly one reminder on event at +n with given method</term>
+    ///     </item>
     ///     <item>
-    ///         <term>Multiple gd:rem</term>    ///         <term>InvalidEntryException</term>    ///         <term>InvalidEntryException</term>    ///         <term>Copy this set exactly</term>    ///     </item>
+    ///         <term>Multiple gd:rem</term>
+    ///         <term>InvalidEntryException</term>
+    ///         <term>InvalidEntryException</term>
+    ///         <term>Copy this set exactly</term>
+    ///     </item>
     /// </list>
     /// 
     /// <para>Hence, to override an event with a set of reminder time, method
@@ -323,41 +340,34 @@ namespace Google.GData.Extensions {
         /// <param name="writer">the xmlwriter to write into</param>
         public void Save(XmlWriter writer)
         {
-            if (this.Days > 0 ||
-                this.Hours > 0 ||
-                this.Minutes > 0 ||
-                Utilities.IsPersistable(this.AbsoluteTime))
-                
+            writer.WriteStartElement(XmlPrefix, XmlName, XmlNameSpace);
+
+            if (Days > 0)
             {
-                writer.WriteStartElement(XmlPrefix, XmlName, XmlNameSpace);
-
-                if (Days > 0)
-                {
-                    writer.WriteAttributeString(GDataParserNameTable.XmlAttributeDays, this.Days.ToString());
-                }
-
-                if (Hours > 0)
-                {
-                    writer.WriteAttributeString(GDataParserNameTable.XmlAttributeHours, this.Hours.ToString());
-                }
-
-                if (Minutes > 0)
-                {
-                    writer.WriteAttributeString(GDataParserNameTable.XmlAttributeMinutes, this.Minutes.ToString());
-                }
-
-                if (AbsoluteTime != new DateTime(1, 1, 1))
-                {
-                    string date = Utilities.LocalDateTimeInUTC(AbsoluteTime);
-                    writer.WriteAttributeString(GDataParserNameTable.XmlAttributeAbsoluteTime, date);
-                }
-
-                if (this.Method != ReminderMethod.unspecified)
-                {
-                    writer.WriteAttributeString(GDataParserNameTable.XmlAttributeMethod, this.Method.ToString());
-                }
-                writer.WriteEndElement();
+                writer.WriteAttributeString(GDataParserNameTable.XmlAttributeDays, this.Days.ToString());
             }
+
+            if (Hours > 0)
+            {
+                writer.WriteAttributeString(GDataParserNameTable.XmlAttributeHours, this.Hours.ToString());
+            }
+
+            if (Minutes > 0)
+            {
+                writer.WriteAttributeString(GDataParserNameTable.XmlAttributeMinutes, this.Minutes.ToString());
+            }
+
+            if (AbsoluteTime != new DateTime(1, 1, 1))
+            {
+                string date = Utilities.LocalDateTimeInUTC(AbsoluteTime);
+                writer.WriteAttributeString(GDataParserNameTable.XmlAttributeAbsoluteTime, date);
+            }
+
+            if (this.Method != ReminderMethod.unspecified)
+            {
+                writer.WriteAttributeString(GDataParserNameTable.XmlAttributeMethod, this.Method.ToString());
+            }
+            writer.WriteEndElement();
         }
     }  
 }
