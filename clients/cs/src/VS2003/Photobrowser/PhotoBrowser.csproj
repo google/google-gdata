@@ -126,6 +126,12 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "Browser.resx"
+                    Link = "..\..\..\samples\PhotoBrowser\Browser.resx"
+                    DependentUpon = "Browser.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "GoogleClientLogin.cs"
                     Link = "..\..\..\samples\PhotoBrowser\GoogleClientLogin.cs"
                     SubType = "Form"

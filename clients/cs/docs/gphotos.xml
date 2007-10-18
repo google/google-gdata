@@ -854,6 +854,13 @@
             </summary>
             <param name="queryUri">the query to use</param>
         </member>
+        <member name="M:Google.GData.Photos.PicasaQuery.CreatePicasaUri(System.String)">
+            <summary>
+            convienience method to create an URI based on a userID for a picasafeed
+            </summary>
+            <param name="userID"></param>
+            <returns>string</returns>
+        </member>
         <member name="M:Google.GData.Photos.PicasaQuery.ParseUri(System.Uri)">
             <summary>protected void ParseUri</summary> 
             <param name="targetUri">takes an incoming Uri string and parses all the properties out of it</param>
