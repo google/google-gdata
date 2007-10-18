@@ -171,6 +171,12 @@
             default constructor, does nothing 
             </summary>
         </member>
+        <member name="M:Google.GData.Calendar.CalendarQuery.#ctor(System.String)">
+            <summary>
+            base constructor, with initial queryUri
+            </summary>
+            <param name="queryUri">the query to use</param>
+        </member>
         <member name="T:Google.GData.Calendar.CalendarService">
             <summary>
             The CalendarService class extends the basic Service abstraction

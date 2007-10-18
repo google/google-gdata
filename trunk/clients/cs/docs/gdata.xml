@@ -34,6 +34,64 @@
             <summary>AtomBase object representation.
             </summary> 
         </member>
+        <member name="T:Google.GData.Client.IExtensionContainer">
+            <summary>interface for commone extension container functionallity
+            used for AtomBase and SimpleContainer
+            </summary> 
+        </member>
+        <member name="M:Google.GData.Client.IExtensionContainer.FindExtension(System.String,System.String)">
+            <summary>
+            Finds a specific ExtensionElement based on it's local name
+            and it's namespace. If namespace is NULL, the first one where
+            the localname matches is found. If there are extensionelements that do 
+            not implment ExtensionElementFactory, they will not be taken into account
+            </summary>
+            <param name="localName">the xml local name of the element to find</param>
+            <param name="ns">the namespace of the elementToPersist</param>
+            <returns>Object</returns>
+        </member>
+        <member name="M:Google.GData.Client.IExtensionContainer.ReplaceExtension(System.String,System.String,System.Object)">
+            <summary>
+            all extension elements that match a namespace/localname
+            given will be removed and the new one will be inserted
+            </summary> 
+            <param name="localName">the local name to find</param>
+            <param name="ns">the namespace to match, if null, ns is ignored</param>
+            <param name="obj">the new element to put in</param>
+        </member>
+        <member name="M:Google.GData.Client.IExtensionContainer.FindExtensions(System.String,System.String)">
+            <summary>
+            Finds all ExtensionElement based on it's local name
+            and it's namespace. If namespace is NULL, allwhere
+            the localname matches is found. If there are extensionelements that do 
+            not implment ExtensionElementFactory, they will not be taken into account
+            Primary use of this is to find XML nodes
+            </summary>
+            <param name="localName">the xml local name of the element to find</param>
+            <param name="ns">the namespace of the elementToPersist</param>
+            <returns>none</returns>
+        </member>
+        <member name="M:Google.GData.Client.IExtensionContainer.DeleteExtensions(System.String,System.String)">
+            <summary>
+            Delete's all Extensions from the Extension list that match
+            a localName and a Namespace. 
+            </summary>
+            <param name="localName">the local name to find</param>
+            <param name="ns">the namespace to match, if null, ns is ignored</param>
+            <returns>int - the number of deleted extensions</returns>
+        </member>
+        <member name="P:Google.GData.Client.IExtensionContainer.ExtensionElements">
+            <summary>the list of extensions for this container
+            the elements in that list MUST implement IExtensionElementFactory 
+            and IExtensionElement</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Client.IExtensionContainer.ExtensionFactories">
+            <summary>the list of extensions for this container
+            the elements in that list MUST implement IExtensionElementFactory 
+            and IExtensionElement</summary> 
+            <returns> </returns>
+        </member>
         <member name="F:Google.GData.Client.AtomBase.uriBase">
             <summary>holds the base Uri</summary> 
         </member>
@@ -3318,6 +3376,9 @@
         <member name="M:Google.GData.Client.GDataGAuthRequestFactory.CreateRequest(Google.GData.Client.GDataRequestType,System.Uri)">
             <summary>default constructor</summary> 
         </member>
+        <member name="M:Google.GData.Client.GDataGAuthRequestFactory.QueryAuthToken(Google.GData.Client.GDataCredentials)">
+            <summary>Get's an authentication token for the current credentials</summary> 
+        </member>
         <member name="P:Google.GData.Client.GDataGAuthRequestFactory.GAuthToken">
             <summary>Get/Set accessor for gAuthToken</summary> 
         </member>
@@ -4016,6 +4077,21 @@
             <summary>
             notifier if someone changes the requestfactory of the service
             </summary>
+        </member>
+        <member name="M:Google.GData.Client.Service.QueryAuthenticationToken">
+            <summary>
+            if the service is using a Google Request Factory it will use that 
+            assuming credentials are set to retrieve the authentication token
+            for those credentials
+            </summary>
+            <returns>string</returns>
+        </member>
+        <member name="M:Google.GData.Client.Service.SetAuthenticationToken(System.String)">
+            <summary>
+            if the service is using a Google Request Factory it will set the passed 
+            in token to the factory
+            </summary>
+            <returns>string</returns>
         </member>
         <member name="M:Google.GData.Client.Service.Query(System.Uri)">
             <summary>the basic interface. Take a URI and just get it</summary> 

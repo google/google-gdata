@@ -112,5 +112,57 @@ namespace PhotoBrowser
             }
         }
 
-	}
+        [Category("Meta Album Data"),
+        Description("Number of pictures in the album")]
+        public string AlbumPictureCount
+        {
+            get 
+            {
+                return this.myEntry.getPhotoExtensionValue(GPhotoNameTable.NumPhotos);
+            }
+       }
+        [Category("Meta Album Data"),
+        Description("Number of pictures remaining")]
+        public string AlbumPictureCountRemaining
+        {
+            get 
+            {
+                return this.myEntry.getPhotoExtensionValue(GPhotoNameTable.NumPhotosRemaining);
+            }
+        }
+
+        [Category("Meta Album Data"),
+        Description("Bytes used")]
+        public string AlbumBytesUsed
+        {
+            get 
+            {
+                return this.myEntry.getPhotoExtensionValue(GPhotoNameTable.BytesUsed);
+            }
+        }
+
+        [Category("Commenting"),
+        Description("Comments enabled?")]
+        public bool AlbumCommentsEnabled
+        {
+            get 
+            {
+                return bool.Parse(this.myEntry.getPhotoExtensionValue(GPhotoNameTable.CommentingEnabled));
+            }
+            set 
+            {
+                this.myEntry.setPhotoExtension(GPhotoNameTable.CommentingEnabled, value.ToString().ToLower());
+            }
+        }
+        
+        [Category("Commenting"),
+        Description("Number of comments")]
+        public string AlbumCommentCount
+        {
+            get 
+            {
+                return this.myEntry.getPhotoExtensionValue(GPhotoNameTable.CommentCount);
+            }
+        }
+  	}
 }
