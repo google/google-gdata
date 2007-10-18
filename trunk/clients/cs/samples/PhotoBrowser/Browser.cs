@@ -24,8 +24,12 @@ namespace PhotoBrowser
         private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.PropertyGrid AlbumInspector;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button AddAlbum;
+        private System.Windows.Forms.Button SaveAlbum;
+        private System.Windows.Forms.Button DeleteAlbum;
         private PicasaService picasaService = new PicasaService("PhotoBrowser");
+        private System.Windows.Forms.Button SaveAlbumData;
+        private PicasaFeed picasaFeed = null;
 
 
 		public PhotoBrowser()
@@ -69,7 +73,10 @@ namespace PhotoBrowser
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.label2 = new System.Windows.Forms.Label();
             this.AlbumInspector = new System.Windows.Forms.PropertyGrid();
-            this.button1 = new System.Windows.Forms.Button();
+            this.SaveAlbumData = new System.Windows.Forms.Button();
+            this.AddAlbum = new System.Windows.Forms.Button();
+            this.SaveAlbum = new System.Windows.Forms.Button();
+            this.DeleteAlbum = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // AlbumList
@@ -84,6 +91,7 @@ namespace PhotoBrowser
             this.AlbumList.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.AlbumList.TabIndex = 0;
             this.AlbumList.View = System.Windows.Forms.View.List;
+            this.AlbumList.DoubleClick += new System.EventHandler(this.OnBrowseAlbum);
             this.AlbumList.SelectedIndexChanged += new System.EventHandler(this.AlbumList_SelectedIndexChanged);
             // 
             // AlbumPicture
@@ -129,20 +137,49 @@ namespace PhotoBrowser
             this.AlbumInspector.ViewBackColor = System.Drawing.SystemColors.Window;
             this.AlbumInspector.ViewForeColor = System.Drawing.SystemColors.WindowText;
             // 
-            // button1
+            // SaveAlbumData
             // 
-            this.button1.Location = new System.Drawing.Point(16, 480);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(120, 40);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "&Save Album Data";
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.SaveAlbumData.Location = new System.Drawing.Point(16, 480);
+            this.SaveAlbumData.Name = "SaveAlbumData";
+            this.SaveAlbumData.Size = new System.Drawing.Size(88, 40);
+            this.SaveAlbumData.TabIndex = 5;
+            this.SaveAlbumData.Text = "&Save Album Data";
+            this.SaveAlbumData.Click += new System.EventHandler(this.SaveAlbumData_Click);
+            // 
+            // AddAlbum
+            // 
+            this.AddAlbum.Location = new System.Drawing.Point(130, 480);
+            this.AddAlbum.Name = "AddAlbum";
+            this.AddAlbum.Size = new System.Drawing.Size(88, 40);
+            this.AddAlbum.TabIndex = 6;
+            this.AddAlbum.Text = "&Add a new Album";
+            this.AddAlbum.Click += new System.EventHandler(this.AddAlbum_Click);
+            // 
+            // SaveAlbum
+            // 
+            this.SaveAlbum.Location = new System.Drawing.Point(240, 480);
+            this.SaveAlbum.Name = "SaveAlbum";
+            this.SaveAlbum.Size = new System.Drawing.Size(88, 40);
+            this.SaveAlbum.TabIndex = 7;
+            this.SaveAlbum.Text = "&Backup Album";
+            // 
+            // DeleteAlbum
+            // 
+            this.DeleteAlbum.Location = new System.Drawing.Point(400, 480);
+            this.DeleteAlbum.Name = "DeleteAlbum";
+            this.DeleteAlbum.Size = new System.Drawing.Size(88, 40);
+            this.DeleteAlbum.TabIndex = 8;
+            this.DeleteAlbum.Text = "&Delete Album";
+            this.DeleteAlbum.Click += new System.EventHandler(this.DeleteAlbum_Click);
             // 
             // PhotoBrowser
             // 
             this.AutoScaleBaseSize = new System.Drawing.Size(6, 15);
-            this.ClientSize = new System.Drawing.Size(512, 552);
-            this.Controls.Add(this.button1);
+            this.ClientSize = new System.Drawing.Size(504, 544);
+            this.Controls.Add(this.DeleteAlbum);
+            this.Controls.Add(this.SaveAlbum);
+            this.Controls.Add(this.AddAlbum);
+            this.Controls.Add(this.SaveAlbumData);
             this.Controls.Add(this.AlbumInspector);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -190,11 +227,11 @@ namespace PhotoBrowser
             
             query.Uri = new Uri(PicasaQuery.CreatePicasaUri(this.user));
 
-            PicasaFeed feed = this.picasaService.Query(query);
+            this.picasaFeed = this.picasaService.Query(query);
 
-            if (feed != null && feed.Entries.Count > 0) 
+            if (this.picasaFeed != null && this.picasaFeed.Entries.Count > 0) 
             {
-                foreach (PicasaEntry entry in feed.Entries)
+                foreach (PicasaEntry entry in this.picasaFeed.Entries)
                 {
                     ListViewItem item = new ListViewItem(entry.Title.Text + 
                                     " (" + entry.getPhotoExtensionValue(GPhotoNameTable.NumPhotos) + " )");
@@ -210,14 +247,77 @@ namespace PhotoBrowser
             foreach (ListViewItem item in this.AlbumList.SelectedItems) 
             {
                 PicasaEntry entry = item.Tag as PicasaEntry;
-                MediaThumbnail thumb = entry.Media.Thumbnails[0];
-                Stream stream  = this.picasaService.Query(new Uri(thumb.Attributes["url"] as string));
-                this.AlbumPicture.Image = new Bitmap(stream);
-                this.AlbumInspector.SelectedObject = new AlbumMeta(entry);
+                setSelection(entry);
             }
         }
 
-        private void button1_Click(object sender, System.EventArgs e)
+        private void OnBrowseAlbum(object sender, System.EventArgs e)
+        {
+            foreach (ListViewItem item in this.AlbumList.SelectedItems) 
+            {
+                PicasaEntry entry = item.Tag as PicasaEntry;
+                string photoUri = entry.FeedUri; 
+                if (photoUri != null) 
+                {
+                    PhotoQuery query = new PhotoQuery(photoUri);
+                    this.Cursor = Cursors.WaitCursor;
+                    PicasaFeed photoFeed = this.picasaService.Query(query);
+                    this.Cursor = Cursors.Default;
+                    PictureBrowser b = new PictureBrowser(this.picasaService, photoFeed, entry.Title.Text);
+                    b.Show();
+                }
+            }
+        }
+
+        private void AddAlbum_Click(object sender, System.EventArgs e)
+        {
+            NewAlbumDialog dialog = new NewAlbumDialog(this.picasaService, this.picasaFeed);
+            dialog.ShowDialog();
+            PicasaEntry entry = dialog.CreatedEntry;
+            if (entry != null) 
+            {
+                ListViewItem item = new ListViewItem(entry.Title.Text + 
+                    " (" + entry.getPhotoExtensionValue(GPhotoNameTable.NumPhotos) + " )");
+                item.Tag = entry;
+                this.AlbumList.Items.Add(item);
+            }
+        }
+
+        private void DeleteAlbum_Click(object sender, System.EventArgs e)
+        {
+
+            if (MessageBox.Show("Are you really sure? This is not undoable.", 
+                "Delete this Album", MessageBoxButtons.YesNo)  == DialogResult.Yes)
+            {
+                foreach (ListViewItem item in this.AlbumList.SelectedItems) 
+                {
+                    PicasaEntry entry = item.Tag as PicasaEntry;
+                    entry.Delete();
+                    this.AlbumList.Items.Remove(item);
+                    setSelection(null);
+                }
+            }
+        }
+
+        private void setSelection(PicasaEntry entry)
+        {
+            if (entry != null) 
+            {
+                this.Cursor = Cursors.WaitCursor;
+                MediaThumbnail thumb = entry.Media.Thumbnails[0];
+                Stream stream  = this.picasaService.Query(new Uri(thumb.Attributes["url"] as string));
+                this.AlbumPicture.Image = new Bitmap(stream);
+                this.AlbumInspector.SelectedObject = new AlbumAccessor(entry);
+                this.Cursor = Cursors.Default;
+            }
+            else 
+            {
+                this.AlbumPicture.Image = null;
+                this.AlbumInspector.SelectedObject = null; 
+            }
+        }
+
+        private void SaveAlbumData_Click(object sender, System.EventArgs e)
         {
             foreach (ListViewItem item in this.AlbumList.SelectedItems) 
             {

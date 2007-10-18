@@ -553,7 +553,7 @@ namespace Google.GData.Client
         /// values from the login URI handler.
         /// </summary>
         /// <param name="tokens">The tokencollection of the parsed return form</param>
-        /// </// <param name="response">the  webresponse</param> 
+        /// <param name="response">the  webresponse</param> 
         /// <returns>AuthenticationException</returns>
         private LoggedException getAuthException(TokenCollection tokens,  HttpWebResponse response) 
         {

@@ -65,11 +65,8 @@ namespace Google.GData.Extensions {
     ///         <term>InvalidEntryException</term>
     ///     </item>
     ///     <item>
-    ///         <term>1 gd:rem min=0</term>    
-    ///         <term>*Use user's default settings</term>   
-    ///         <term>No reminder</term>    
-    ///         <term>InvalidEntryException</term>    
-    ///     </item>
+    ///         <term>1 gd:rem min=0</term>    
+    ///         <term>*Use user's default settings</term>    ///         <term>No reminder</term>    ///         <term>InvalidEntryException</term>    ///     </item>
     ///     <item>
     ///         <term>1 gd:rem min=-1</term>
     ///         <term>*No reminder</term>
