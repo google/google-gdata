@@ -33,5 +33,14 @@ namespace Google.GData.Calendar
         public CalendarQuery() : base()
         {
         }
+
+        /// <summary>
+        /// base constructor, with initial queryUri
+        /// </summary>
+        /// <param name="queryUri">the query to use</param>
+        public CalendarQuery(string queryUri)
+        : base(queryUri)
+        {
+        }
     }
 }
