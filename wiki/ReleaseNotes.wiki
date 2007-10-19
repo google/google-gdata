@@ -8,6 +8,27 @@ The wiki page shows the release notes for the current binary download, the subve
 
 = Details =
 
+=== 1.1.1.0 ===
+
+ * Features
+    * Added an EventId property to the EventEntry object. This one parses the atomId URI to just provided the EventId, which is used elsewhere (e.g., for recurring events).
+    * Added QueryAuthToken() on the service. If the Service is a Google authenticated service, you can use this to obtain an authentication token for ClientLogin
+    * Added CreatePicasaUri helper on the PicasaQuery classes to create a Uri based on a userID
+    * Added new PhotoBrowser sample project. The resulting file PhotoTool.exe is produced using the ILMerge tool from Microsoft (free download). That way, PhotoTool.exe is a standalone application with no further assembly dependencies.
+ * Bugfixes/Changes
+    * Fixed the parsing of the OriginalEvent@id attribute. The SimpleContainer parent class was broken in the sense that it did not call the generic parsing method at all. So all SimpleContainers would not have read in attributes, luckily OriginalEvent was the only instance of this.
+    * Fixed the OriginalStartTime get/set method which was using the wrong constant of the OriginalEvent object.
+    * Fixed the onclear() handler of the new extensionCollection base class. It was incorrectly casting to When obects, which could cause a runtime error when called.
+    * Fixed a bug in the simplecontainer class that could lead to an exception if the extension list was empty
+    * Fixed a bug in Originalevent where the wrong prefix was persisted, making saving an originalevent impossible
+    * Fixed NULL response object being used for authentication exceptions. Now the correct object used for the authentication request is passed to the exception.
+    * Changed the AuthException code to provide the status code detail as well
+    * CalendarEntry did use the wrong namespace to find the location object, hence retrieval of a calendar location was broken.
+    * Fixed ExtensionBase to not save NULL attributes as empty strings. This could cause Picasa updates to fail.
+    * Fixed MediaGroup to allow the retrieval of multiple Thumbnails. Introduced the ThumbnailCollection for this. To enable this, SimpleContainer and AtomBase now implement IExtensionContainer, a common interface that encapsulates owning Extension elements.
+    * Added a default constructor to CalendarQuery so that you can use it on .NET CF with a starting URI
+    * Changed the Reminder element to send an empty one to enable creation of default Reminders in the calendar
+
 == 1.1.0.0 ==
   * added GZip support for .NET 1.1, 2.0 and .NET Compact Framework 2.0.
   * added the ability to use authsubtokens to the ExecRequest utility (including exchange of a onetime token to a session token). Just run ExecRequest for the         command line parameters, or read the help file page about it.
@@ -250,8 +271,6 @@ Solved issues:
 
 == 1.0.0 ==
 - Initial Release
-
-
 
 
 
