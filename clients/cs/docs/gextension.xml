@@ -1057,7 +1057,7 @@
             will copy objects to an internal array for caching. Note that when the external 
             ExtensionList is modified, this will have no effect on this copy
             </summary>
-            <param name="atomElement">the base element holding the extension list</param>
+            <param name="containerElement">the base element holding the extension list</param>
             <param name="localName">the local name of the extension</param>
             <param name="ns">the namespace</param>
         </member>
@@ -1171,33 +1171,6 @@
             <summary>standard typed OnValidate Override </summary> 
         </member>
         <member name="P:Google.GData.Extensions.WhoCollection.Item(System.Int32)">
-            <summary>standard typed accessor method </summary>
-        </member>
-        <member name="T:Google.GData.Extensions.ThumbnailCollection">
-            <summary>Typed collection for Thumbnails Extensions.</summary>
-        </member>
-        <member name="M:Google.GData.Extensions.ThumbnailCollection.#ctor(Google.GData.Client.IExtensionContainer)">
-            <summary>constructor</summary> 
-        </member>
-        <member name="M:Google.GData.Extensions.ThumbnailCollection.Add(Google.GData.Extensions.MediaRss.MediaThumbnail)">
-            <summary>standard typed add method </summary>
-        </member>
-        <member name="M:Google.GData.Extensions.ThumbnailCollection.IndexOf(Google.GData.Extensions.MediaRss.MediaThumbnail)">
-            <summary>standard typed indexOf method </summary>
-        </member>
-        <member name="M:Google.GData.Extensions.ThumbnailCollection.Insert(System.Int32,Google.GData.Extensions.MediaRss.MediaThumbnail)">
-            <summary>standard typed insert method </summary>
-        </member>
-        <member name="M:Google.GData.Extensions.ThumbnailCollection.Remove(Google.GData.Extensions.MediaRss.MediaThumbnail)">
-            <summary>standard typed remove method </summary> 
-        </member>
-        <member name="M:Google.GData.Extensions.ThumbnailCollection.Contains(Google.GData.Extensions.MediaRss.MediaThumbnail)">
-            <summary>standard typed Contains method </summary> 
-        </member>
-        <member name="M:Google.GData.Extensions.ThumbnailCollection.OnValidate(System.Object)">
-            <summary>standard typed OnValidate Override </summary> 
-        </member>
-        <member name="P:Google.GData.Extensions.ThumbnailCollection.Item(System.Int32)">
             <summary>standard typed accessor method </summary>
         </member>
         <member name="T:Google.GData.Extensions.ExtendedProperty">
@@ -1733,6 +1706,33 @@
             </summary>
             <param name="initValue"/>
         </member>
+        <member name="T:Google.GData.Extensions.MediaRss.ThumbnailCollection">
+            <summary>Typed collection for Thumbnails Extensions.</summary>
+        </member>
+        <member name="M:Google.GData.Extensions.MediaRss.ThumbnailCollection.#ctor(Google.GData.Client.IExtensionContainer)">
+            <summary>constructor</summary> 
+        </member>
+        <member name="M:Google.GData.Extensions.MediaRss.ThumbnailCollection.Add(Google.GData.Extensions.MediaRss.MediaThumbnail)">
+            <summary>standard typed add method </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.MediaRss.ThumbnailCollection.IndexOf(Google.GData.Extensions.MediaRss.MediaThumbnail)">
+            <summary>standard typed indexOf method </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.MediaRss.ThumbnailCollection.Insert(System.Int32,Google.GData.Extensions.MediaRss.MediaThumbnail)">
+            <summary>standard typed insert method </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.MediaRss.ThumbnailCollection.Remove(Google.GData.Extensions.MediaRss.MediaThumbnail)">
+            <summary>standard typed remove method </summary> 
+        </member>
+        <member name="M:Google.GData.Extensions.MediaRss.ThumbnailCollection.Contains(Google.GData.Extensions.MediaRss.MediaThumbnail)">
+            <summary>standard typed Contains method </summary> 
+        </member>
+        <member name="M:Google.GData.Extensions.MediaRss.ThumbnailCollection.OnValidate(System.Object)">
+            <summary>standard typed OnValidate Override </summary> 
+        </member>
+        <member name="P:Google.GData.Extensions.MediaRss.ThumbnailCollection.Item(System.Int32)">
+            <summary>standard typed accessor method </summary>
+        </member>
         <member name="T:Google.GData.Extensions.OriginalEvent">
             <summary>
             GData schema extension describing the original recurring event.
@@ -1828,7 +1828,82 @@
         <member name="P:Google.GData.Extensions.Recurrence.XmlName">
             <summary>Returns the constant representing this XML element.</summary> 
         </member>
-        <!-- Badly formed XML comment ignored for member "T:Google.GData.Extensions.Reminder" -->
+        <member name="T:Google.GData.Extensions.Reminder">
+            <summary>
+            GData schema extension describing a reminder on an event.
+            </summary>
+            <remarks>
+            <para>You can represent a set of reminders where each has a (1) reminder
+            period and (2) notification method.  The method can be either "sms",
+            "email", "alert", "none", "all".</para>
+            
+            <para>The meaning of this set of reminders differs based on whether you
+            are reading or writing feeds.  When reading, the set of reminders
+            returned on an event takes into account both defaults on a
+            parent recurring event (when applicable) as well as the user's
+            defaults on calendar.  If there are no gd:reminders returned that
+            means the event has absolutely no reminders.  "none" or "all" will
+            not apply in this case.</para>
+            
+            <para>Writing is different because we have to be backwards-compatible
+            (see *) with the old way of setting reminders.  For easier analysis
+            we describe all the behaviors defined in the table below.  (Notice
+            we only include cases for minutes, as the other cases specified in
+            terms of days/hours/absoluteTime can be converted to this case.)</para>
+            
+            <para>Notice method is case-sensitive: must be in lowercase!</para>
+            
+            <list type="table">
+                <listheader>
+                    <term></term>
+                    <term>No method or method=all</term>
+                    <term>method=none</term>
+                    <term>method=email|sms|alert</term>
+                </listheader>
+                <item>
+                    <term>No gd:rem</term>
+                    <term>*No reminder</term>
+                    <term>N/A</term>
+                    <term>N/A</term>
+                </item>
+                <item>
+                    <term>1 gd:rem</term>
+                    <term>*Use user's default settings</term>
+                    <term>No reminder</term>
+                    <term>InvalidEntryException</term>
+                </item>
+                <item>
+                    <term>1 gd:rem min=0</term>    
+                    <term>*Use user's default settings</term>                    <term>No reminder</term>                    <term>InvalidEntryException</term>                </item>
+                <item>
+                    <term>1 gd:rem min=-1</term>
+                    <term>*No reminder</term>
+                    <term>No reminder</term>
+                    <term>InvalidEntryException</term>
+                </item>
+                <item>
+                    <term>1 gd:rem min=+n</term>
+                    <term>*Override with no +n for user's selected methods</term>
+                    <term>No reminder</term>
+                    <term>Set exactly one reminder on event at +n with given method</term>
+                </item>
+                <item>
+                    <term>Multiple gd:rem</term>
+                    <term>InvalidEntryException</term>
+                    <term>InvalidEntryException</term>
+                    <term>Copy this set exactly</term>
+                </item>
+            </list>
+            
+            <para>Hence, to override an event with a set of reminder time, method
+            pairs, just specify them exactly.  To clear an event of all
+            overrides (and go back to inheriting the user's defaults), one can
+            simply specify a single gd:reminder with no extra attributes.  To
+            have NO event reminders on an event, either set a single
+            gd:reminder with negative reminder time, or simply update the event
+            with a single gd:reminder method=none.</para>
+            </remarks>
+        </member>
         <member name="F:Google.GData.Extensions.Reminder.days">
             <summary>
             Number of days before the event.

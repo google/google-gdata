@@ -3579,7 +3579,15 @@
             <summary>goes to the Google auth service, and gets a new auth token</summary> 
             <returns>the auth token, or NULL if none received</returns>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:Google.GData.Client.GDataGAuthRequest.getAuthException(Google.GData.Client.TokenCollection,System.Net.HttpWebResponse)" -->
+        <member name="M:Google.GData.Client.GDataGAuthRequest.getAuthException(Google.GData.Client.TokenCollection,System.Net.HttpWebResponse)">
+            <summary>
+             Returns the respective GDataAuthenticationException given the return
+            values from the login URI handler.
+            </summary>
+            <param name="tokens">The tokencollection of the parsed return form</param>
+            <param name="response">the  webresponse</param> 
+            <returns>AuthenticationException</returns>
+        </member>
         <member name="M:Google.GData.Client.GDataGAuthRequest.Execute">
             <summary>Executes the request and prepares the response stream. Also 
             does error checking</summary> 

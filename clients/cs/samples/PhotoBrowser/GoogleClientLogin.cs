@@ -36,8 +36,8 @@ namespace PhotoBrowser
 			//
 			// TODO: Add any constructor code after InitializeComponent call
 			//
-            this.Username.Text = "test.fmantek@gmail.com";
-            this.Password.Text = "xapitest";
+       //     this.Username.Text = "test.fmantek@gmail.com";
+       //     this.Password.Text = "xapitest";
 		}
 
         public GoogleClientLogin(string username)
@@ -86,19 +86,21 @@ namespace PhotoBrowser
             // 
             // Login
             // 
+            this.Login.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.Login.Location = new System.Drawing.Point(240, 104);
             this.Login.Name = "Login";
             this.Login.Size = new System.Drawing.Size(80, 32);
-            this.Login.TabIndex = 0;
+            this.Login.TabIndex = 4;
             this.Login.Text = "&Login";
             this.Login.Click += new System.EventHandler(this.Login_Click);
             // 
             // Cancel
             // 
+            this.Cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.Cancel.Location = new System.Drawing.Point(144, 104);
             this.Cancel.Name = "Cancel";
             this.Cancel.Size = new System.Drawing.Size(80, 32);
-            this.Cancel.TabIndex = 1;
+            this.Cancel.TabIndex = 3;
             this.Cancel.Text = "&Cancel";
             this.Cancel.Click += new System.EventHandler(this.Cancel_Click);
             // 
@@ -107,7 +109,7 @@ namespace PhotoBrowser
             this.Username.Location = new System.Drawing.Point(112, 16);
             this.Username.Name = "Username";
             this.Username.Size = new System.Drawing.Size(208, 22);
-            this.Username.TabIndex = 2;
+            this.Username.TabIndex = 1;
             this.Username.Text = "joe@gmail.com";
             // 
             // Password
@@ -116,7 +118,7 @@ namespace PhotoBrowser
             this.Password.Name = "Password";
             this.Password.PasswordChar = '*';
             this.Password.Size = new System.Drawing.Size(208, 22);
-            this.Password.TabIndex = 3;
+            this.Password.TabIndex = 2;
             this.Password.Text = "";
             // 
             // RememberToken
@@ -126,6 +128,7 @@ namespace PhotoBrowser
             this.RememberToken.Size = new System.Drawing.Size(160, 24);
             this.RememberToken.TabIndex = 4;
             this.RememberToken.Text = "Remember the Token";
+            this.RememberToken.Visible = false;
             // 
             // label1
             // 
