@@ -7,7 +7,7 @@
     >
         <Build>
             <Settings
-                ApplicationIcon = ""
+                ApplicationIcon = "PhotoBrowser.ico"
                 AssemblyKeyContainerName = ""
                 AssemblyName = "PhotoBrowser"
                 AssemblyOriginatorKeyFile = ""
@@ -90,28 +90,27 @@
                     HintPath = "C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.XML.dll"
                 />
                 <Reference
-                    Name = "Google.GData.Photos"
-                    AssemblyName = "Google.GData.Photos"
-                    HintPath = "..\..\..\src\VS2003\gphotos\bin\Debug\Google.GData.Photos.dll"
+                    Name = "gdata"
+                    Project = "{B6F6D938-0D45-42BA-8A67-55D92EF03995}"
+                    Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
                 />
                 <Reference
-                    Name = "Google.GData.Client"
-                    AssemblyName = "Google.GData.Client"
-                    HintPath = "..\..\..\src\VS2003\gphotos\bin\Debug\Google.GData.Client.dll"
+                    Name = "gextension"
+                    Project = "{21BCB644-F9C3-4ADC-8BE1-4E55C6565011}"
+                    Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
                 />
                 <Reference
-                    Name = "Google.GData.Extensions"
-                    AssemblyName = "Google.GData.Extensions"
-                    HintPath = "..\..\..\src\VS2003\gphotos\bin\Debug\Google.GData.Extensions.dll"
+                    Name = "gphotos"
+                    Project = "{6781DF3C-A44F-418B-989B-771D17937F91}"
+                    Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
                 />
             </References>
         </Build>
         <Files>
             <Include>
                 <File
-                    RelPath = "AssemblyInfo.cs"
-                    Link = "..\..\..\samples\PhotoBrowser\AssemblyInfo.cs"
-                    SubType = "Code"
+                    RelPath = "AssemblyVersion.cs"
+                    Link = "..\..\version\AssemblyVersion.cs"
                     BuildAction = "Compile"
                 />
                 <File
@@ -133,24 +132,26 @@
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "NewAlbumDialog.cs"
-                    SubType = "Form"
-                    BuildAction = "Compile"
+                    RelPath = "GoogleClientLogin.resx"
+                    Link = "..\..\..\samples\PhotoBrowser\GoogleClientLogin.resx"
+                    DependentUpon = "GoogleClientLogin.cs"
+                    BuildAction = "EmbeddedResource"
                 />
                 <File
-                    RelPath = "NewAlbumDialog.resx"
-                    DependentUpon = "NewAlbumDialog.cs"
-                    BuildAction = "EmbeddedResource"
+                    RelPath = "NewAlbumDialog.cs"
+                    Link = "..\..\..\samples\PhotoBrowser\NewAlbumDialog.cs"
+                    SubType = "Form"
+                    BuildAction = "Compile"
                 />
                 <File
                     RelPath = "PhotoBrowser.cs"
+                    Link = "..\..\..\samples\PhotoBrowser\PhotoBrowser.cs"
                     SubType = "Form"
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "PhotoBrowser.resx"
-                    DependentUpon = "PhotoBrowser.cs"
-                    BuildAction = "EmbeddedResource"
+                    RelPath = "PhotoBrowser.ico"
+                    BuildAction = "Content"
                 />
             </Include>
         </Files>

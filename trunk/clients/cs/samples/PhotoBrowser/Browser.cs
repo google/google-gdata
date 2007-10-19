@@ -29,6 +29,7 @@ namespace PhotoBrowser
         private System.Windows.Forms.Button DeleteAlbum;
         private PicasaService picasaService = new PicasaService("PhotoBrowser");
         private System.Windows.Forms.Button SaveAlbumData;
+        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog;
         private PicasaFeed picasaFeed = null;
 
 
@@ -77,6 +78,7 @@ namespace PhotoBrowser
             this.AddAlbum = new System.Windows.Forms.Button();
             this.SaveAlbum = new System.Windows.Forms.Button();
             this.DeleteAlbum = new System.Windows.Forms.Button();
+            this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.SuspendLayout();
             // 
             // AlbumList
@@ -86,6 +88,7 @@ namespace PhotoBrowser
             this.AlbumList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.AlbumList.LabelEdit = true;
             this.AlbumList.Location = new System.Drawing.Point(8, 56);
+            this.AlbumList.MultiSelect = false;
             this.AlbumList.Name = "AlbumList";
             this.AlbumList.Size = new System.Drawing.Size(296, 152);
             this.AlbumList.Sorting = System.Windows.Forms.SortOrder.Ascending;
@@ -162,6 +165,7 @@ namespace PhotoBrowser
             this.SaveAlbum.Size = new System.Drawing.Size(88, 40);
             this.SaveAlbum.TabIndex = 7;
             this.SaveAlbum.Text = "&Backup Album";
+            this.SaveAlbum.Click += new System.EventHandler(this.SaveAlbum_Click);
             // 
             // DeleteAlbum
             // 
@@ -171,6 +175,10 @@ namespace PhotoBrowser
             this.DeleteAlbum.TabIndex = 8;
             this.DeleteAlbum.Text = "&Delete Album";
             this.DeleteAlbum.Click += new System.EventHandler(this.DeleteAlbum_Click);
+            // 
+            // folderBrowserDialog
+            // 
+            this.folderBrowserDialog.RootFolder = System.Environment.SpecialFolder.MyPictures;
             // 
             // PhotoBrowser
             // 
@@ -207,9 +215,13 @@ namespace PhotoBrowser
             if (this.googleAuthToken == null) 
             {
                 GoogleClientLogin loginDialog = new GoogleClientLogin(); 
-                loginDialog.ShowDialog(this);
+                loginDialog.ShowDialog();
+              
                 this.googleAuthToken = loginDialog.AuthenticationToken;
                 this.user = loginDialog.User;
+
+                if (this.googleAuthToken == null)
+                    this.Close();
 
                 picasaService.SetAuthenticationToken(loginDialog.AuthenticationToken);
                 UpdateAlbumFeed();
@@ -323,6 +335,42 @@ namespace PhotoBrowser
             {
                 PicasaEntry entry = item.Tag as PicasaEntry;
                 entry.Update();
+            }
+        }
+
+        private void SaveAlbum_Click(object sender, System.EventArgs e)
+        {
+            foreach (ListViewItem item in this.AlbumList.SelectedItems) 
+            {
+                PicasaEntry entry = item.Tag as PicasaEntry;
+                string photoUri = entry.FeedUri; 
+
+                // Show the FolderBrowserDialog.
+                DialogResult result = folderBrowserDialog.ShowDialog();
+              
+                if( result == DialogResult.OK )
+                {
+                    string folderName = folderBrowserDialog.SelectedPath;
+                    this.Cursor = Cursors.WaitCursor;
+        
+                    if (photoUri != null) 
+                    {
+                        PhotoQuery query = new PhotoQuery(photoUri);
+                        this.Cursor = Cursors.WaitCursor;
+                        PicasaFeed photoFeed = this.picasaService.Query(query);
+                 
+                        int i=1;
+
+                        foreach (PicasaEntry photo in photoFeed.Entries)
+                        {
+                            string filename = folderName + "\\image" + i.ToString() + ".jpg";
+                            i++;
+                            PictureBrowser.saveImageFile(photo, filename, this.picasaService);
+                        }
+                        
+                        this.Cursor = Cursors.Default;
+                    }
+                }
             }
         }
 	}

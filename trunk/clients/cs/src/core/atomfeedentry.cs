@@ -377,15 +377,15 @@ namespace Google.GData.Client
             get 
             {
                 // scan the link collection
-                AtomLink link = this.Links.FindService(BaseNameTable.ServiceMedia, AtomLink.ATOM_TYPE);
+                AtomLink link = this.Links.FindService(BaseNameTable.ServiceMedia, null);
                 return link == null ? null : link.HRef;
             }
             set
             {
-                AtomLink link = this.Links.FindService(BaseNameTable.ServiceMedia, AtomLink.ATOM_TYPE);
+                AtomLink link = this.Links.FindService(BaseNameTable.ServiceMedia, null);
                 if (link == null)
                 {
-                    link = new AtomLink(AtomLink.ATOM_TYPE, BaseNameTable.ServiceMedia);
+                    link = new AtomLink(null, BaseNameTable.ServiceMedia);
                     this.Links.Add(link);
                 }
                 link.HRef = value;

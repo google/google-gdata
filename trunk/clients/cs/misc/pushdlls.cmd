@@ -15,6 +15,7 @@ xcopy /y ..\src\VS2003\gbase_demo\bin\*.exe ..\lib\Release\*.*
 xcopy /y ..\src\VS2003\gbase_querytool\bin\Release\*.exe ..\lib\Release\*.*
 xcopy /y ..\src\VS2003\gapps_sample\bin\Release\*.exe ..\lib\Release\*.*
 xcopy /y  ..\src\VS2003\ExecRequest\bin\Release\*.exe ..\lib\Release\*.*
+xcopy /y  ..\src\VS2003\PhotoBrowser\bin\Release\*.exe ..\lib\Release\*.*
 
 # copy the DLLS
 xcopy /y ..\src\VS2003\gdata\bin\Release\*.dll ..\lib\Release\*.*
@@ -52,6 +53,13 @@ xcopy /y ..\src\VS2003\gapps\bin\*.xml ..\docs\*.*
 xcopy /y ..\src\VS2003\gacl\bin\*.xml ..\docs\*.*
 xcopy /y ..\src\VS2003\gphotos\bin\*.xml ..\docs\*.*
 xcopy /y ..\src\VS2003\ExecRequest\bin\*.xml ..\docs\*.*
+
+rem run ILMerge on PhotoBrowser.exe
+cd ..\lib\release\
+ilmerge Photobrowser.exe Google.GData.Client.Dll Google.GData.Extensions.Dll Google.GData.Photos.Dll /out:PhotoTool.exe
+del Photobrowser.exe
+del Phototool.pdb
+cd .\..\..\misc
 
 
 
