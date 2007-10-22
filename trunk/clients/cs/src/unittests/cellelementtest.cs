@@ -71,8 +71,7 @@ namespace Google.GData.Spreadsheets.UnitTests
         [Test]
         public void GetInputValueTest()
         {
-            Assert.IsNotNull(cell.InputValue);
-            Assert.AreEqual(cell.InputValue, "");
+            Assert.AreEqual(cell.InputValue, null);
         }
 
         [Test]
@@ -86,13 +85,13 @@ namespace Google.GData.Spreadsheets.UnitTests
         public void SetInputValueNullTest()
         {
             cell.InputValue = null;
-            Assert.IsNotNull(cell.InputValue);
+            Assert.IsNull(cell.InputValue);
         }
 
         [Test]
         public void GetNumericValueTest()
         {
-            Assert.AreEqual("", cell.NumericValue);
+            Assert.AreEqual(null, cell.NumericValue);
         } 
 
         [Test]

@@ -34,9 +34,6 @@ namespace Google.GData.Spreadsheets
         = new AtomCategory(GDataSpreadsheetsNameTable.Worksheet,
                            new AtomUri(BaseNameTable.gKind));
 
-        private ColCountElement colCount;
-        private RowCountElement rowCount;
-
         /// <summary>
         /// Constructs a new WorksheetEntry instance with the appropriate category
         /// to indicate that it is a worksheet.
@@ -44,6 +41,8 @@ namespace Google.GData.Spreadsheets
         public WorksheetEntry() : base()
         {
             Categories.Add(WORKSHEET_CATEGORY);
+            this.AddExtension(new RowCountElement());
+            this.AddExtension(new ColCountElement());
         }
 
         /// <summary>
@@ -55,7 +54,6 @@ namespace Google.GData.Spreadsheets
         public WorksheetEntry(uint rows, uint cols) : this()
         {
             this.ColCount = new ColCountElement(cols);
-
             this.RowCount = new RowCountElement(rows);
         }
 
@@ -76,15 +74,16 @@ namespace Google.GData.Spreadsheets
         /// </summary>
         public ColCountElement ColCount
         {
-            get { return colCount;}
+            get
+            {
+                return FindExtension(GDataSpreadsheetsNameTable.XmlColCountElement,
+                                     GDataSpreadsheetsNameTable.NSGSpreadsheets) as ColCountElement;
+            }
+
             set
             {
-                if (colCount != null)
-                {
-                    ExtensionElements.Remove(colCount);
-                }
-                colCount = value; 
-                ExtensionElements.Add(colCount);
+                ReplaceExtension(GDataSpreadsheetsNameTable.XmlColCountElement,
+                                     GDataSpreadsheetsNameTable.NSGSpreadsheets, value);
             }
         }
 
@@ -103,15 +102,16 @@ namespace Google.GData.Spreadsheets
         /// </summary>
         public RowCountElement RowCount
         {
-            get { return rowCount;}
+            get
+            {
+                return FindExtension(GDataSpreadsheetsNameTable.XmlRowCountElement,
+                                     GDataSpreadsheetsNameTable.NSGSpreadsheets) as RowCountElement;
+            }
+
             set
             {
-                if (rowCount != null)
-                {
-                    ExtensionElements.Remove(rowCount);
-                }
-                rowCount = value; 
-                ExtensionElements.Add(rowCount);
+                ReplaceExtension(GDataSpreadsheetsNameTable.XmlRowCountElement,
+                                     GDataSpreadsheetsNameTable.NSGSpreadsheets, value);
             }
         }
 
@@ -143,30 +143,6 @@ namespace Google.GData.Spreadsheets
         {
             AtomLink cellFeedLink = this.Links.FindService(GDataSpreadsheetsNameTable.CellRel, null);
             return cellFeedLink.HRef.ToString();
-        }
-
-        /// <summary>
-        /// Parses the inner state of the element
-        /// </summary>
-        /// <param name="e">the event arguments</param>
-        /// <param name="parser">the atom feed parser calling</param>
-        public override void Parse(ExtensionElementEventArgs e, AtomFeedParser parser)
-        {
-            XmlNode worksheetNode = e.ExtensionElement;
-
-            if (String.Compare(worksheetNode.NamespaceURI, GDataSpreadsheetsNameTable.NSGSpreadsheets, true) == 0)
-            {
-                if (worksheetNode.LocalName == GDataSpreadsheetsNameTable.XmlColCountElement)
-                {
-                    ColCount = ColCountElement.ParseColCount(worksheetNode);
-                    e.DiscardEntry = true;
-                }
-                else if (worksheetNode.LocalName == GDataSpreadsheetsNameTable.XmlRowCountElement)
-                {
-                    RowCount = RowCountElement.ParseRowCount(worksheetNode);
-                    e.DiscardEntry = true;
-                }
-            }
         }
     }
 }

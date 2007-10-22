@@ -15,8 +15,7 @@
 
 using System;
 using System.Xml;
-using System.IO;
-using System.Collections;
+using System.Globalization;
 using Google.GData.Client;
 using Google.GData.Extensions;
 
@@ -39,24 +38,20 @@ namespace Google.GData.Spreadsheets
         /// <summary>
         /// GData schema extension describing a Cell in a spreadsheet.
         /// </summary>
-        public class CellElement : IExtensionElement
+        public class CellElement : SimpleElement
         {
-            private uint row;
-            private uint column;
-            private string inputValue;
-            private string numericValue;
-            private string value;
-
             /// <summary>
-            /// Constructs an empty cell
+            /// default constructor for the Cell element
             /// </summary>
             public CellElement()
+            : base(GDataSpreadsheetsNameTable.XmlCellElement, 
+               GDataSpreadsheetsNameTable.Prefix,
+               GDataSpreadsheetsNameTable.NSGSpreadsheets)
             {
-                Row = 0;
-                Column = 0;
-                InputValue = null;
-                NumericValue = null;
-                Value = null;
+                this.Attributes.Add(GDataSpreadsheetsNameTable.XmlAttributeRow, null);
+                this.Attributes.Add(GDataSpreadsheetsNameTable.XmlAttributeColumn, null);
+                this.Attributes.Add(GDataSpreadsheetsNameTable.XmlAttributeInputValue, null);
+                this.Attributes.Add(GDataSpreadsheetsNameTable.XmlAttributeNumericValue, null);
             }
 
             /// <summary>
@@ -66,12 +61,12 @@ namespace Google.GData.Spreadsheets
             {
                 get
                 {
-                    return row;
+                    return Convert.ToUInt32(this.Attributes[GDataSpreadsheetsNameTable.XmlAttributeRow], CultureInfo.InvariantCulture); 
                 }
 
                 set
                 {
-                    row = value;
+                    this.Attributes[GDataSpreadsheetsNameTable.XmlAttributeRow] = value.ToString();
                 }
             }
 
@@ -82,12 +77,12 @@ namespace Google.GData.Spreadsheets
             {
                 get
                 {
-                    return column;
+                    return Convert.ToUInt32(this.Attributes[GDataSpreadsheetsNameTable.XmlAttributeColumn], CultureInfo.InvariantCulture); 
                 }
 
                 set
                 {
-                    column = value;
+                    this.Attributes[GDataSpreadsheetsNameTable.XmlAttributeColumn] = value.ToString();
                 }
             }
 
@@ -98,19 +93,12 @@ namespace Google.GData.Spreadsheets
             {
                 get
                 {
-                    return inputValue;
+                    return this.Attributes[GDataSpreadsheetsNameTable.XmlAttributeInputValue] as string;
                 }
 
                 set
                 {
-                    if (value == null)
-                    {
-                        inputValue = "";
-                    }
-                    else
-                    {
-                        inputValue = value;
-                    }
+                    this.Attributes[GDataSpreadsheetsNameTable.XmlAttributeInputValue] = value;
                 }
             }
 
@@ -121,126 +109,14 @@ namespace Google.GData.Spreadsheets
             {
                 get
                 {
-                    return numericValue;
+                    return this.Attributes[GDataSpreadsheetsNameTable.XmlAttributeNumericValue] as string;
                 }
 
                 set
                 {
-                    if (value == null)
-                    {
-                        numericValue = "";
-                    }
-                    else
-                    {
-                        numericValue = value;
-                    }
+                    this.Attributes[GDataSpreadsheetsNameTable.XmlAttributeNumericValue] = value;
                 }
             }
-
-            /// <summary>
-            /// The display value of the cell
-            /// </summary>
-            public string Value
-            {
-                get
-                {
-                    return value;
-                }
-
-                set
-                {
-                    this.value = value;
-                }
-            }
-
-            /// <summary>
-            /// Parses an XML node to create a Cell object
-            /// </summary>
-            /// <param name="node">Cell node</param>
-            /// <param name="parser">AtomFeedParser to use</param>
-            /// <returns>The created Cell object</returns>
-            public static CellElement ParseCell(XmlNode node, AtomFeedParser parser)
-            {
-                CellElement cell = null;
-                if (node == null)
-                {
-                    throw new ArgumentNullException("node");
-                }
-
-                object localname = node.LocalName;
-                if (localname.Equals(GDataSpreadsheetsNameTable.XmlCellElement))
-                {
-                    cell = new CellElement();
-                    if (node.Attributes != null)
-                    {
-                        if (node.Attributes[GDataSpreadsheetsNameTable.XmlAttributeRow] != null)
-                        {
-                            cell.Row = uint.Parse(node.Attributes[GDataSpreadsheetsNameTable.XmlAttributeRow].Value);
-                        }
-
-                        if (node.Attributes[GDataSpreadsheetsNameTable.XmlAttributeColumn] != null)
-                        {
-                            cell.Column = uint.Parse(node.Attributes[GDataSpreadsheetsNameTable.XmlAttributeColumn].Value);
-                        }
-
-                        if (node.Attributes[GDataSpreadsheetsNameTable.XmlAttributeInputValue] != null)
-                        {
-                            cell.InputValue = node.Attributes[GDataSpreadsheetsNameTable.XmlAttributeInputValue].Value;
-                        }
-
-                        if (node.Attributes[GDataSpreadsheetsNameTable.XmlAttributeNumericValue] != null)
-                        {
-                            cell.NumericValue = node.Attributes[GDataSpreadsheetsNameTable.XmlAttributeNumericValue].Value;
-                        }
-
-                    }
-
-                    if (node.HasChildNodes && node.FirstChild.NodeType != XmlNodeType.Text)
-                    {
-                        throw new ArgumentException("Cell entry allows for 0 children.");
-                    }
-
-                    cell.Value = node.FirstChild.Value;
-                }
-
-                return cell;
-            }
-
-#region overload for persistence
-            /// <summary>
-            /// Returns the constant representing the XML element.
-            /// </summary>
-            public string XmlName
-            {
-                get
-                {
-                    return GDataSpreadsheetsNameTable.XmlCellElement;
-                }
-            }
-
-            /// <summary>
-            /// Used to save the EntryLink instance into the passed in xmlwriter
-            /// </summary>
-            /// <param name="writer">the XmlWriter to write into</param>
-            public void Save(XmlWriter writer)
-            {
-                writer.WriteStartElement(GDataSpreadsheetsNameTable.Prefix, 
-                                         XmlName, GDataSpreadsheetsNameTable.NSGSpreadsheets);
-                writer.WriteAttributeString(GDataSpreadsheetsNameTable.XmlAttributeRow, Row.ToString());
-                writer.WriteAttributeString(GDataSpreadsheetsNameTable.XmlAttributeColumn, Column.ToString());
-                if (InputValue != null && InputValue.Length > 0)
-                {
-                    writer.WriteAttributeString(GDataSpreadsheetsNameTable.XmlAttributeInputValue, InputValue);
-                }
-
-                if (NumericValue != null && NumericValue.Length > 0)
-                {
-                    writer.WriteAttributeString(GDataSpreadsheetsNameTable.XmlAttributeNumericValue, NumericValue);
-                }
-                writer.WriteString(Value);
-                writer.WriteEndElement();
-            }
-#endregion
         } // class Cell
 
 #endregion
@@ -254,7 +130,7 @@ namespace Google.GData.Spreadsheets
         public CellEntry() : base()
         {
             Categories.Add(CELL_CATEGORY);
-            cell = new CellElement();
+            this.AddExtension(new CellElement());
         }
 
         /// <summary>
@@ -263,25 +139,30 @@ namespace Google.GData.Spreadsheets
         /// <param name="inputValue">The uncalculated content of the cell.</param>
         public CellEntry(string inputValue): this()
         {
+            this.Cell = new CellElement();
             this.Cell.InputValue = inputValue;
         }
 
         /// <summary>
         /// The cell element in this cell entry
         /// </summary>
-
-
         public CellElement Cell
         {
-            get { return cell;}
+            get
+            {
+                CellElement c = FindExtension(GDataSpreadsheetsNameTable.XmlCellElement,
+                                     GDataSpreadsheetsNameTable.NSGSpreadsheets) as CellElement;
+                if (c == null)
+                {
+                    c = new CellElement();
+                    this.Cell = c; 
+                }
+                return c; 
+            }
             set
             {
-                if (cell != null)
-                {
-                    ExtensionElements.Remove(cell);
-                }
-                cell = value; 
-                ExtensionElements.Add(cell);
+                ReplaceExtension(GDataSpreadsheetsNameTable.XmlCellElement,
+                                     GDataSpreadsheetsNameTable.NSGSpreadsheets, value); 
             }
         }
 
@@ -320,23 +201,5 @@ namespace Google.GData.Spreadsheets
                    && String.Compare(node.Value, GDataSpreadsheetsNameTable.NSGSpreadsheets) == 0);
         }
 
-        /// <summary>
-        /// Parses the inner state of the element
-        /// </summary>
-        /// <param name="e">the event arguments</param>
-        /// <param name="parser">The AtomFeedParser that called this</param>
-        public override void Parse(ExtensionElementEventArgs e, AtomFeedParser parser)
-        {
-            XmlNode cellNode = e.ExtensionElement;
-
-            if (String.Compare(cellNode.NamespaceURI, GDataSpreadsheetsNameTable.NSGSpreadsheets, true) == 0)
-            {
-                if (cellNode.LocalName == GDataSpreadsheetsNameTable.XmlCellElement)
-                {
-                    Cell = CellElement.ParseCell(cellNode, parser);
-                    e.DiscardEntry = true;
-                }
-            }
-        }
     }
 }

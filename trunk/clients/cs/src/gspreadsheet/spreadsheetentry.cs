@@ -45,12 +45,35 @@ namespace Google.GData.Spreadsheets
         }
 
         /// <summary>
-        /// Parses the inner state of the element. TODO. 
+        /// returns a query object for the Worksheets feed for this spreadsheet
         /// </summary>
-        /// <param name="e">The extension element that should be added to this entry</param>
-        /// <param name="parser">The AtomFeedParser that called this</param>
-        public override void Parse(ExtensionElementEventArgs e, AtomFeedParser parser)  
+        public WorksheetFeed Worksheets
         {
+            get 
+            {
+                AtomLink link = this.Links.FindService(GDataSpreadsheetsNameTable.WorksheetRel, null);
+                if (link != null)
+                {
+                    return this.Service.Query(new WorksheetQuery(link.HRef.ToString())) as WorksheetFeed;
+                }
+                return null;
+            }
+        }
+
+         /// <summary>
+        /// returns a string for the Worksheets feed Uri 
+        /// </summary>
+        public string WorksheetsLink
+        {
+            get 
+            {
+                AtomLink link = this.Links.FindService(GDataSpreadsheetsNameTable.WorksheetRel, null);
+                if (link != null)
+                {
+                    return link.ToString();
+                }
+                return null;
+            }
         }
     }
 }

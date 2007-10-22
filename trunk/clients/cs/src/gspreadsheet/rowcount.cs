@@ -15,32 +15,33 @@
 
 using System;
 using System.Xml;
-using Google.GData.Client;
+using Google.GData.Extensions;
 
 namespace Google.GData.Spreadsheets
 {
+
     /// <summary>
     /// GData schema extension for rowCount element.
     /// </summary>
-    public class RowCountElement : IExtensionElement
+    public class RowCountElement : SimpleElement
     {
-        private uint count;
-
         /// <summary>
-        /// Constructs an empty row count element.
+        /// default constructor 
         /// </summary>
         public RowCountElement()
-        {
-            Count = 0;
-        }
-
+        : base(GDataSpreadsheetsNameTable.XmlRowCountElement, 
+               GDataSpreadsheetsNameTable.Prefix,
+               GDataSpreadsheetsNameTable.NSGSpreadsheets)
+         {}
         /// <summary>
-        /// Constructs a row count element of a given count size.
+        /// default constructor with an initial value as a integer 
         /// </summary>
-        public RowCountElement(uint count)
-        {
-            Count = count;
-        }
+        public RowCountElement(uint initValue)
+        : base(GDataSpreadsheetsNameTable.XmlRowCountElement, 
+               GDataSpreadsheetsNameTable.Prefix,
+               GDataSpreadsheetsNameTable.NSGSpreadsheets,
+               initValue.ToString())
+        {}
 
         /// <summary>
         /// Gets or sets the count of rows.
@@ -49,71 +50,13 @@ namespace Google.GData.Spreadsheets
         {
             get
             {
-                return count;
+                return this.UnsignedIntegerValue;
             }
 
             set
             {
-                count = value;
+                this.UnsignedIntegerValue = value;
             }
         }
-
-        /// <summary>
-        /// Parses an XML node to create a RowCount object
-        /// </summary>
-        /// <param name="node">RowCount node</param>
-        /// <returns>The created RowCount object</returns>
-        public static RowCountElement ParseRowCount(XmlNode node)
-        {
-            RowCountElement count = null;
-            if (node == null)
-            {
-                throw new ArgumentNullException("node");
-            }
-
-            object localname = node.LocalName;
-            if (localname.Equals(GDataSpreadsheetsNameTable.XmlRowCountElement))
-            {
-                count = new RowCountElement();
-                if (node.Attributes.Count > 1)
-                {
-                    throw new ArgumentException("rowCount element should have 0 attributes.");
-                }
-
-                if (node.HasChildNodes && node.FirstChild.NodeType != XmlNodeType.Text)
-                {
-                    throw new ArgumentException("rowCount element should have 0 children.");
-                }
-
-                count.Count = UInt32.Parse(node.FirstChild.Value);
-            }
-
-            return count;
-        }
-
-#region overload for persistence
-        /// <summary>
-        /// Returns the constant representing the XML element.
-        /// </summary>
-        public string XmlName
-        {
-            get
-            {
-                return GDataSpreadsheetsNameTable.XmlRowCountElement;
-            }
-        }
-
-        /// <summary>
-        /// Used to save the RowCount instance into the passed in xmlwriter
-        /// </summary>
-        /// <param name="writer">the XmlWriter to write into</param>
-        public void Save(XmlWriter writer)
-        {
-            writer.WriteStartElement(GDataSpreadsheetsNameTable.Prefix,
-                                     XmlName, GDataSpreadsheetsNameTable.NSGSpreadsheets);
-            writer.WriteString(Count.ToString());
-            writer.WriteEndElement();
-        }
-#endregion
     } // class RowCount
 }

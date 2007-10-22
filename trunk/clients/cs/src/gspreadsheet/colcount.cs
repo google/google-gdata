@@ -15,105 +15,48 @@
 
 using System;
 using System.Xml;
-using Google.GData.Client;
+using Google.GData.Extensions;
 
 namespace Google.GData.Spreadsheets
 {
-    /// <summary>
-    /// GData schema extension for a colCount element.
-    /// </summary>
-    public class ColCountElement : IExtensionElement
-    {
-        private uint count;
 
+     /// <summary>
+    /// GData schema extension for rowCount element.
+    /// </summary>
+    public class ColCountElement : SimpleElement
+    {
         /// <summary>
-        /// Constructs an empty column count element.
+        /// default constructor 
         /// </summary>
         public ColCountElement()
-        {
-            Count = 0;
-        }
-
+        : base(GDataSpreadsheetsNameTable.XmlColCountElement, 
+               GDataSpreadsheetsNameTable.Prefix,
+               GDataSpreadsheetsNameTable.NSGSpreadsheets)
+         {}
         /// <summary>
-        /// Constructs a column count element with a given count size.
+        /// default constructor with an initial value as a integer 
         /// </summary>
-        public ColCountElement(uint count)
-        {
-            Count = count;
-        }
+        public ColCountElement(uint initValue)
+        : base(GDataSpreadsheetsNameTable.XmlColCountElement, 
+               GDataSpreadsheetsNameTable.Prefix,
+               GDataSpreadsheetsNameTable.NSGSpreadsheets,
+               initValue.ToString())
+        {}
 
         /// <summary>
-        /// Gets or sets the count of columns.
+        /// Gets or sets the count of rows.
         /// </summary>
         public uint Count
         {
             get
             {
-                return count;
+                return this.UnsignedIntegerValue;
             }
 
             set
             {
-                count = value;
+                this.UnsignedIntegerValue = value;
             }
         }
-
-        /// <summary>
-        /// Parses an XML node to create a ColCount object.
-        /// </summary>
-        /// <param name="node">ColCount node</param>
-        /// <returns>The created ColCount object</returns>
-        public static ColCountElement ParseColCount(XmlNode node)
-        {
-            ColCountElement count = null;
-            if (node == null)
-            {
-                throw new ArgumentNullException("node");
-            }
-
-            object localname = node.LocalName;
-            if (localname.Equals(GDataSpreadsheetsNameTable.XmlColCountElement))
-            {
-                count = new ColCountElement();
-                if (node.Attributes.Count > 1)
-                {
-                    throw new ArgumentException("colCount element should have 0 attributes.");
-                }
-
-                if (node.HasChildNodes && node.FirstChild.NodeType != XmlNodeType.Text)
-                {
-                    throw new ArgumentException("colCount element should have 0 children.");
-                }
-
-                count.Count = UInt32.Parse(node.FirstChild.Value);
-            }
-
-            return count;
-        }
-
-#region overload for persistence
-        /// <summary>
-        /// Returns the constant representing the XML element.
-        /// </summary>
-        public string XmlName
-        {
-            get
-            {
-                return GDataSpreadsheetsNameTable.XmlColCountElement;
-            }
-        }
-
-        /// <summary>
-        /// Used to save the ColCount instance into the passed in xmlwriter
-        /// </summary>
-        /// <param name="writer">the XmlWriter to write into</param>
-        public void Save(XmlWriter writer)
-        {
-            writer.WriteStartElement(GDataSpreadsheetsNameTable.Prefix,
-                                     XmlName, GDataSpreadsheetsNameTable.NSGSpreadsheets);
-            writer.WriteString(Count.ToString());
-            writer.WriteEndElement();
-        }
-#endregion
-    } // class ColCount
+    }
 }
