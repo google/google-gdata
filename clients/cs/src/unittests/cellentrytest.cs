@@ -81,11 +81,11 @@ namespace Google.GData.Spreadsheets.UnitTests
 
             entry.Parse(e, new AtomFeedParser());
 
-            Assert.AreEqual(row, entry.Cell.Row);
-            Assert.AreEqual(column, entry.Cell.Column);
-            Assert.AreEqual("input string", entry.Cell.InputValue);
-            Assert.AreEqual("numeric value", entry.Cell.NumericValue);
-            Assert.AreEqual("display value", entry.Cell.Value);
+            Assert.AreEqual(row, entry.Cell.Row, "Rows should be equal");
+            Assert.AreEqual(column, entry.Cell.Column, "Columns should be equal");
+            Assert.AreEqual("input string", entry.Cell.InputValue, "Input value should be equal");
+            Assert.AreEqual("numeric value", entry.Cell.NumericValue, "Numeric value should be equal");
+            Assert.AreEqual("display value", entry.Cell.Value, "Cell value should be equal");
         }
     }
 }

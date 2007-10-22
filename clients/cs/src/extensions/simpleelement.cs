@@ -93,6 +93,15 @@ namespace Google.GData.Extensions {
         }
 
         /// <summary>
+        ///  Accessor Method for the value as integer
+        /// </summary>
+        public uint UnsignedIntegerValue
+        {
+            get { return Convert.ToUInt32(value, CultureInfo.InvariantCulture); }
+            set { this.value = value.ToString(CultureInfo.InvariantCulture); }
+        }
+
+        /// <summary>
         ///  Accessor Method for the value as float
         /// </summary>
         public double FloatValue

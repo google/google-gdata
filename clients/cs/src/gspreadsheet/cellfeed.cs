@@ -28,9 +28,6 @@ namespace Google.GData.Spreadsheets
     public class CellFeed : AbstractFeed
     {
 
-        private RowCountElement rowCount;
-        private ColCountElement colCount;
-
         /// <summary>
         /// Constructor
         /// </summary>
@@ -38,80 +35,35 @@ namespace Google.GData.Spreadsheets
         /// <param name="iService">The Spreadsheets service.</param>
         public CellFeed(Uri uriBase, IService iService) : base(uriBase, iService)
         {
+            this.AddExtension(new ColCountElement());
+            this.AddExtension(new RowCountElement());
         }
 
         /// <summary>
-        /// The number of rows in this cell feed
+        /// The number of rows in this cell feed, as a RowCountElement
         /// </summary>
         public RowCountElement RowCount
         {
             get
             {
-                return rowCount;
-            }
-
-            set
-            {
-                rowCount = value;
+                return FindExtension(GDataSpreadsheetsNameTable.XmlRowCountElement,
+                                     GDataSpreadsheetsNameTable.NSGSpreadsheets) as RowCountElement;
             }
         }
 
         /// <summary>
-        /// The number of columns in this cell feed
+        /// The number of columns in this cell feed, as a ColCountElement
         /// </summary>
         public ColCountElement ColCount
         {
             get
             {
-                return colCount;
-            }
-
-            set
-            {
-                colCount = value;
+                return FindExtension(GDataSpreadsheetsNameTable.XmlColCountElement,
+                                     GDataSpreadsheetsNameTable.NSGSpreadsheets) as ColCountElement;
             }
         }
 
-        /// <summary>Parses the inner state of the element.</summary>
-        /// <param name="worksheetNode">a g-scheme, xml node</param>
-        /// <param name="parser">AtomFeedParser to use</param>
-        public void parseWorksheet(XmlNode worksheetNode, AtomFeedParser parser)
-        {
-            if (String.Compare(worksheetNode.NamespaceURI, BaseNameTable.gNamespace, true) == 0)
-            {
-                if (worksheetNode.LocalName == GDataSpreadsheetsNameTable.XmlColCountElement)
-                {
-                    if (this.ColCount == null)
-                    {
-                        this.ColCount = ColCountElement.ParseColCount(worksheetNode);
-                    }
-                    else
-                    {
-                        throw new ArgumentException("Only one gs:colcount element is valid in the Cell Feeds");
-                    }
-                }
-                else if (worksheetNode.LocalName == GDataSpreadsheetsNameTable.XmlRowCountElement)
-                {
-                    if (this.RowCount == null)
-                    {
-                        this.RowCount = RowCountElement.ParseRowCount(worksheetNode);
-                    }
-                    else
-                    {
-                        throw new ArgumentException("Only one gs:rowcount element is valid in the Cell Feeds");
-                    }
-                }
-            }
-        }
-
-        /// <summary>empty base implementation</summary> 
-        /// <param name="writer">the xmlwriter, where we want to add default namespaces to</param>
-        protected override void AddOtherNamespaces(XmlWriter writer)
-        {
-            base.AddOtherNamespaces(writer);
-            Utilities.EnsureGDataNamespace(writer);
-        }
-
+   
         /// <summary>checks if this is a namespace 
         /// decl that we already added</summary> 
         /// <param name="node">XmlNode to check</param>
@@ -125,7 +77,6 @@ namespace Google.GData.Spreadsheets
 
             return node.NodeType == XmlNodeType.Attribute
             && (node.Name.StartsWith("xmlns") == true)
-            && (String.Compare(node.Value, BaseNameTable.gNamespace) == 0)
             && (String.Compare(node.Value, GDataSpreadsheetsNameTable.NSGSpreadsheets) == 0);
         }
 
@@ -136,34 +87,6 @@ namespace Google.GData.Spreadsheets
         public override AtomEntry CreateFeedEntry()
         {
             return new CellEntry();
-        }
-
-    
-        /// <summary>
-        /// get's called after we already handled the custom entry, to handle all 
-        /// other potential parsing tasks
-        /// </summary>
-        /// <param name="e">the event arguments</param>
-        /// <param name="parser">the atom feed parser calling</param>
-        protected override void HandleExtensionElements(ExtensionElementEventArgs e, AtomFeedParser parser)
-        {
-            if (e == null)
-            {
-                throw new ArgumentNullException("e");
-            }
-            if (String.Compare(e.ExtensionElement.NamespaceURI, GDataSpreadsheetsNameTable.NSGSpreadsheets, true) == 0)
-            {
-                if (e.ExtensionElement.LocalName == GDataSpreadsheetsNameTable.XmlColCountElement)
-                {
-                    this.ColCount = ColCountElement.ParseColCount(e.ExtensionElement);
-                    e.DiscardEntry = true;
-                }
-                else if (e.ExtensionElement.LocalName == GDataSpreadsheetsNameTable.XmlRowCountElement)
-                {
-                    this.RowCount = RowCountElement.ParseRowCount(e.ExtensionElement);
-                    e.DiscardEntry = true;
-                }
-            }
         }
     }
 }
