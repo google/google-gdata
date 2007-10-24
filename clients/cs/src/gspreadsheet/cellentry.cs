@@ -54,6 +54,8 @@ namespace Google.GData.Spreadsheets
                 this.Attributes.Add(GDataSpreadsheetsNameTable.XmlAttributeNumericValue, null);
             }
 
+
+
             /// <summary>
             /// The row the cell lies in
             /// </summary>
@@ -144,6 +146,31 @@ namespace Google.GData.Spreadsheets
         }
 
         /// <summary>
+        /// create a CellEntry for a given row/column
+        /// </summary>
+        /// <param name="row"></param>
+        /// <param name="column"></param>
+        public CellEntry(uint row, uint column) : this()
+        {
+            this.Cell = new CellElement();
+            this.Cell.Column = column;
+            this.Cell.Row = row; 
+        }
+
+        /// <summary>
+        /// create a CellEntry for a given row/column and 
+        /// initial value
+        /// </summary>
+        /// <param name="row"></param>
+        /// <param name="column"></param>
+        /// <param name="inputValue">The uncalculated content of the cell.</param>
+        public CellEntry(uint row, uint column, string inputValue) : this(row, column)
+        {
+            this.Cell.InputValue = inputValue;
+        }
+
+
+        /// <summary>
         /// The cell element in this cell entry
         /// </summary>
         public CellElement Cell
@@ -163,8 +190,96 @@ namespace Google.GData.Spreadsheets
             {
                 ReplaceExtension(GDataSpreadsheetsNameTable.XmlCellElement,
                                      GDataSpreadsheetsNameTable.NSGSpreadsheets, value); 
+                this.Dirty = true;
             }
         }
+
+
+        /// <summary>
+        /// The row the cell lies in
+        /// </summary>
+        public uint Row
+        {
+            get
+            {
+                return this.Cell.Row; 
+            }
+        
+            set
+            {
+                this.Cell.Row = value;
+                this.Dirty = true;
+            }
+        }
+        
+        /// <summary>
+        /// The column the cell lies in
+        /// </summary>
+        public uint Column
+        {
+            get
+            {
+                return this.Cell.Column;
+            }
+        
+            set
+            {
+                this.Cell.Column = value;
+                this.Dirty = true;
+            }
+        }
+        
+        /// <summary>
+        /// The input (uncalculated) value for the cell
+        /// </summary>
+        public string InputValue
+        {
+            get
+            {
+                return this.Cell.InputValue;
+            }
+        
+            set
+            {
+                this.Cell.InputValue = value;
+                this.Dirty = true;
+            }
+        }
+        
+        /// <summary>
+        /// The numeric (calculated) value for the cell
+        /// </summary>
+        public string NumericValue
+        {
+            get
+            {
+                return this.Cell.NumericValue;
+            }
+        
+            set
+            {
+                this.Cell.NumericValue = value;
+                this.Dirty = true;
+            }
+        }
+
+        /// <summary>
+        /// The numeric (calculated) value for the cell
+        /// </summary>
+        public string Value
+        {
+            get
+            {
+                return this.Cell.Value;
+            }
+        
+            set
+            {
+                this.Cell.Value = value;
+                this.Dirty = true;
+            }
+        }
+        
 
         /// <summary>
         /// add the spreadsheet NS

@@ -12,9 +12,34 @@
         <li>The SpreadsheetEntry has a new property, WorksheetsLink. This 
             property returns a string that can be used to retrieve the 
             Worksheets feed uri for a given Spreadsheet.</li>
+        <li>Added CreateBatchFeed to the Atomfeed object. This will create 
+            a default batch feed for you, if the feed supports batching. The
+            created batch feed will contain all currently dirty entries.</li>
+        <li>Added a GDataBatchRequestException for that operation.</li>
+        <li>Added Delete(Uri uir) to the service interface.</li>
+        <li>Added more constructors to the CellEntry object, and moved 
+            accessors for the CellEntry.Cell up to the CellEntry object. So 
+            instead of writing CellEntry.Cell.Column, you can call 
+            CellEntry.Column directly (and others).</li>
+        <li>Added an index accessor to the CellFeed, you can now access 
+            Cells on the CellFeed like this: CellEntry entry = CellFeed[1,1].
+            This will retrieve not existing cells if needed.</li>
+        <li>Added QueryCellFeed() and QueryCellFeedLink(ReturnEmptyCells 
+            parameter) to the WorksheetEntry. The method with no parameters will
+            get you the serverdefault cell feed.</li>
+        <li>Added the CellFeedLink property on the WorksheetEntry. This 
+            returns the URI to the CellFeed as string.</li>
+        <li>Added an overloaded Insert method to the WorksheetFeed so that 
+            you do not need to cast the return anymore.</li>
+        
         
     </ul>
     <li>Bugfixes/changes</li>
+    <ul>
+        <li>When an entry was copied from one feed to another, the internal 
+            service object was set correctly.</li>
+        <li>Added unittests for the new spreadsheet code.</li>
+    </ul>
 </ul>
 
 

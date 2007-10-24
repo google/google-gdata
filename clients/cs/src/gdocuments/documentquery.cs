@@ -66,13 +66,13 @@ namespace Google.GData.Documents {
         /// </summary>
         public static string documentsBaseUri = "http://docs.google.com/feeds/documents/private/full";
 
-        public static AtomCategory ATOMCATEGORY_DOCUMENTS = new AtomCategory("document");
+        private static AtomCategory ATOMCATEGORY_DOCUMENTS = new AtomCategory("document");
         public static QueryCategory DOCUMENTS = new QueryCategory(ATOMCATEGORY_DOCUMENTS);
 
-        public static AtomCategory ATOMCATEGORY_SPREADSHEETS = new AtomCategory("spreadsheet");
+        private static AtomCategory ATOMCATEGORY_SPREADSHEETS = new AtomCategory("spreadsheet");
         public static QueryCategory SPREADSHEETS = new QueryCategory(ATOMCATEGORY_SPREADSHEETS);
 
-        public static AtomCategory ATOMCATEGORY_PRESENTATIONS = new AtomCategory("presentations");
+        private static AtomCategory ATOMCATEGORY_PRESENTATIONS = new AtomCategory("presentation");
         public static QueryCategory PRESENTATIONS = new QueryCategory(ATOMCATEGORY_PRESENTATIONS);
 
         /// <summary>

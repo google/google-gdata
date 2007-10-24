@@ -60,6 +60,8 @@ namespace Google.GData.Client
         AtomEntry Insert(AtomFeed feed, AtomEntry entry);
         /// <summary>delete an entry</summary> 
         void Delete(AtomEntry entry);
+        /// <summary>delete an entry</summary> 
+        void Delete(Uri uriTarget);
         /// <summary>batch operation, posting of a set of entries</summary>
         AtomFeed Batch(AtomFeed feed, Uri batchUri); 
         /// <summary>simple update for media resources</summary> 

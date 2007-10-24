@@ -47,12 +47,24 @@ namespace Google.GData.Spreadsheets
             return new WorksheetEntry();
         }
 
+        /// <summary>
+        /// custom insert to avoid the casting in the developer's code
+        /// </summary>
+        /// <param name="newEntry"></param>
+        /// <returns>WorksheetEntry</returns>
+        public WorksheetEntry Insert(WorksheetEntry newEntry)
+        {
+            return base.Insert(newEntry) as WorksheetEntry;
+        }
+
+ 
+
           /// <summary>
         /// get's called after we already handled the custom entry, to handle all 
         /// other potential parsing tasks
         /// </summary>
-        /// <param name="e">the event arguments</param>
-        /// <param name="parser">the atom feed parser calling</param>
+        /// <param name="e">the event arguments</param>
+        /// <param name="parser">the atom feed parser calling</param>
         protected override void HandleExtensionElements(ExtensionElementEventArgs e, AtomFeedParser parser)
         {
              Tracing.TraceMsg("\t HandleExtensionElements for worksheet feed called");

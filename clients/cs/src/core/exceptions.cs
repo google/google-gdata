@@ -193,6 +193,63 @@ namespace Google.GData.Client
     }
     /////////////////////////////////////////////////////////////////////////////
 
+      //////////////////////////////////////////////////////////////////////
+    /// <summary>standard exception class to be used inside the feed object
+    /// </summary> 
+    //////////////////////////////////////////////////////////////////////
+#if WindowsCE || PocketPC
+#else 
+    [Serializable]
+#endif
+    public class GDataBatchRequestException : LoggedException
+    {
+
+        private AtomFeed batchResult;
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>standard overloaded constructor</summary> 
+        //////////////////////////////////////////////////////////////////////
+        public GDataBatchRequestException()
+        {
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>default constructor so that FxCop does not complain</summary> 
+        //////////////////////////////////////////////////////////////////////
+        public GDataBatchRequestException(AtomFeed batchResult)
+        {
+            this.batchResult = batchResult;
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+        public AtomFeed BatchResult
+        {
+            get { return this.batchResult; }
+        }
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>standard overloaded constructor</summary> 
+        /// <param name="msg">msg for the exception</param>
+        //////////////////////////////////////////////////////////////////////
+        public GDataBatchRequestException(string msg) : base(msg)
+        {
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+        /// <summary>here to please FxCop and for future use</summary> 
+        public GDataBatchRequestException(string msg, Exception innerException) : base(msg, innerException)
+        {
+        }
+        /////////////////////////////////////////////////////////////////////////////
+#if WindowsCE || PocketPC
+#else 
+        /// <summary>here to please FxCop and maybe for future use</summary> 
+        protected GDataBatchRequestException(SerializationInfo info,  StreamingContext context) : base(info, context)
+        {
+        }
+#endif
+    }
+    /////////////////////////////////////////////////////////////////////////////
 
     //////////////////////////////////////////////////////////////////////
     /// <summary>standard exception class to be used inside GDataRequest

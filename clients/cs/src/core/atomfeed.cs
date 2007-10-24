@@ -295,6 +295,41 @@ namespace Google.GData.Client
         }
         /////////////////////////////////////////////////////////////////////////////
 
+        /// <summary>
+        /// returns a new batchfeed with all the currently dirty entries in it
+        /// </summary>
+        /// <param name="defaultOperation">the default operation to execute</param>
+        /// <returns>AtomFeed</returns>
+        public AtomFeed CreateBatchFeed(GDataBatchOperationType defaultOperation)
+        {
+            AtomFeed batchFeed = null;
+            
+            if (this.Batch != null)
+            {
+
+                batchFeed = new AtomFeed(this);
+                // set the default operation. 
+                batchFeed.BatchData = new GDataBatchFeedData();
+                batchFeed.BatchData.Type = defaultOperation;
+    
+                int id = 1; 
+                foreach (AtomEntry entry in this.Entries)
+                {
+                    if (entry.Dirty == true)
+                    {
+                        int i = batchFeed.Entries.Add(entry); 
+                        AtomEntry batchEntry = batchFeed.Entries[i]; 
+                        batchEntry.BatchData = new GDataBatchEntryData();
+                        batchEntry.BatchData.Id = id.ToString(); 
+                        id++;
+                        entry.Dirty = false;
+                    }
+                }
+    
+            }
+            return batchFeed;
+        }
+
         //////////////////////////////////////////////////////////////////////
         /// <summary>returns whether or not the entry is read-only </summary> 
         //////////////////////////////////////////////////////////////////////
@@ -753,7 +788,7 @@ namespace Google.GData.Client
         /// <summary>goes over all entries, and updates the ones that are dirty</summary> 
         /// <returns> </returns>
         //////////////////////////////////////////////////////////////////////
-        public void Publish()
+        public virtual void Publish()
         {
             if (this.Service != null)
             {

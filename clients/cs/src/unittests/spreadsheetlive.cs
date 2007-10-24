@@ -96,7 +96,7 @@ namespace Google.GData.Client.LiveTests
 
             WorksheetEntry defEntry = sheets.Entries[0] as WorksheetEntry;
             Assert.IsTrue(defEntry!= null, "There should be one default entry in this account/sheet");
-            CellFeed defCells = defEntry.GetCellFeed();
+            CellFeed defCells = defEntry.QueryCellFeed();
             Assert.IsTrue(defCells != null, "There should be a cell feed for the worksheet");
 
             foreach (CellEntry cell in defCells.Entries )
@@ -108,23 +108,25 @@ namespace Google.GData.Client.LiveTests
                 }
             }
 
-            WorksheetEntry wEntry = new WorksheetEntry();
-            wEntry.ColCount = new ColCountElement();
-            wEntry.ColCount.Count = 20; 
-            wEntry.RowCount = new RowCountElement();
-            wEntry.RowCount.Count = 10;
-            wEntry.Title.Text = "new Sheet";
-
-            WorksheetEntry newEntry = sheets.Insert(wEntry) as WorksheetEntry;
-
+            WorksheetEntry newEntry = sheets.Insert(new WorksheetEntry(10, 20, "New Worksheet"));
+            
             Assert.IsTrue(newEntry.ColCount.Count == 20, "Column count should be equal 20");
             Assert.IsTrue(newEntry.RowCount.Count == 10, "Row count should be equal 10");
-            Assert.IsTrue(newEntry.Title.Text == wEntry.Title.Text, "Titles should be identical");
+            Assert.IsTrue(newEntry.Title.Text == "New Worksheet", "Titles should be identical");
 
 
-            CellFeed cells = newEntry.GetCellFeed();
+            CellFeed cells = newEntry.QueryCellFeed(ReturnEmtpyCells.yes);
             Assert.IsTrue(cells != null, "There should be a cell feed for the new worksheet");
-            Assert.IsTrue(cells.Entries.Count == 0, "There should be no cells");
+            Assert.IsTrue(cells.Entries.Count == 200, "There should be 200 cells");
+            for (uint row = 1; row <= 10; row++)
+            {
+                for (uint col=1; col <= 20; col++)
+                {
+                    // each of those GET's will got back to the server
+                    cells[row,col].InputValue = "R"+row+"C"+col;
+                }
+            }
+            cells.Publish();
 
             // cleanup the new worksheet at the end
             // newEntry.Delete();

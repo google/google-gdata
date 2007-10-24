@@ -37,6 +37,16 @@ namespace Google.GData.Documents {
     {
 
         static string PRESENTATION_KIND = "http://schemas.google.com/docs/2007#presentation";
+        static string DOCUMENT_KIND = "http://schemas.google.com/docs/2007#document";
+        static string SPREADSHEET_KIND = "http://schemas.google.com/docs/2007#spreadsheet";
+
+        public static AtomCategory DOCUMENT_CATEGORY =
+            new AtomCategory(DOCUMENT_KIND, new AtomUri(BaseNameTable.gKind));
+        public static AtomCategory SPREADSHEET_CATEGORY =
+            new AtomCategory(SPREADSHEET_KIND, new AtomUri(BaseNameTable.gKind));
+        public static AtomCategory PRESENTATION_CATEGORY =
+            new AtomCategory(PRESENTATION_KIND, new AtomUri(BaseNameTable.gKind));
+
 
         /// <summary>
         /// Constructs a new EventEntry instance with the appropriate category
@@ -46,7 +56,69 @@ namespace Google.GData.Documents {
         : base()
         {
             Tracing.TraceMsg("Created DocumentEntry");
-            // todo: add extensions as appropriate
+        }
+
+        /// <summary>
+        /// returns TRUE if this entry is a Document entry
+        /// </summary>
+        public bool IsDocument
+        {
+            get 
+            {
+                return this.Categories.Contains(DocumentEntry.DOCUMENT_CATEGORY);
+            }
+            set 
+            {
+                if (value == true)
+                {
+                    if (this.IsDocument == false)
+                    {
+                        this.Categories.Add(DocumentEntry.DOCUMENT_CATEGORY);
+                    }
+                }
+            }
+        }
+
+         /// <summary>
+        /// returns TRUE if this entry is a Document entry
+        /// </summary>
+        public bool IsSpreadsheet
+        {
+            get 
+            {
+                return this.Categories.Contains(DocumentEntry.SPREADSHEET_CATEGORY);
+            }
+            set 
+            {
+                if (value == true)
+                {
+                    if (this.IsSpreadsheet == false)
+                    {
+                        this.Categories.Add(DocumentEntry.SPREADSHEET_CATEGORY);
+                    }
+                }
+            }
+        }
+
+         /// <summary>
+        /// returns TRUE if this entry is a Document entry
+        /// </summary>
+        public bool IsPresentation
+        {
+            get 
+            {
+                return this.Categories.Contains(DocumentEntry.PRESENTATION_CATEGORY);
+            }
+            set 
+            {
+                if (value == true)
+                {
+                    if (this.IsPresentation == false)
+                    {
+                        this.Categories.Add(DocumentEntry.PRESENTATION_CATEGORY);
+                    }
+                }
+            }
         }
     }
 }
