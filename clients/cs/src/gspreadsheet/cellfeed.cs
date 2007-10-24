@@ -178,6 +178,22 @@ namespace Google.GData.Spreadsheets
                         throw new GDataBatchRequestException(resultFeed);
                     }
                 }
+
+                // if we get here, everything is fine. So update the edit URIs in the original feed,
+                // because those might have changed. 
+                foreach (AtomEntry resultEntry in resultFeed.Entries )
+                {
+                    AtomEntry originalEntry = this.Entries.FindById(resultEntry.Id);
+                    if (originalEntry == null)
+                    {
+                        throw new GDataBatchRequestException(resultFeed);
+                    }
+                    if (originalEntry != null)
+                    {
+                        originalEntry.EditUri = resultEntry.EditUri;
+                    }
+                }
+               
             }
             this.Dirty = false; 
         }

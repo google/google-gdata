@@ -94,19 +94,43 @@ namespace Google.GData.Client.LiveTests
 
             WorksheetFeed sheets = entry.Worksheets;
 
+        
+            // kill all but the default before we start
+            foreach (WorksheetEntry w in sheets.Entries )
+            {
+                if (w.Title.Text  != "DefaultSheet")
+                {
+                    w.Delete();
+                }
+            }
             WorksheetEntry defEntry = sheets.Entries[0] as WorksheetEntry;
+
             Assert.IsTrue(defEntry!= null, "There should be one default entry in this account/sheet");
+            Assert.IsTrue(defEntry.Title.Text == "DefaultSheet", "it should be the default sheet"); 
             CellFeed defCells = defEntry.QueryCellFeed();
             Assert.IsTrue(defCells != null, "There should be a cell feed for the worksheet");
+
+
+            CellEntry header=null; 
 
             foreach (CellEntry cell in defCells.Entries )
             {
                 if (cell.Title.Text == "A1")
                 {
-                    cell.Cell.InputValue = "";
+                    cell.Cell.InputValue = string.Empty;
                     cell.Update();
+                    header = cell;
                 }
             }
+
+
+            
+            if (header != null)
+            {
+                header.InputValue = "HeaderA";
+                header.Update();
+            }
+            
 
             WorksheetEntry newEntry = sheets.Insert(new WorksheetEntry(10, 20, "New Worksheet"));
             
@@ -122,8 +146,20 @@ namespace Google.GData.Client.LiveTests
             {
                 for (uint col=1; col <= 20; col++)
                 {
-                    // each of those GET's will got back to the server
                     cells[row,col].InputValue = "R"+row+"C"+col;
+                }
+            }
+            cells.Publish();
+
+            // try to update just one cell
+            cells[1,1].InputValue = string.Empty;
+            cells[1,1].Update();
+
+            for (uint row = 1; row <= 10; row++)
+            {
+                for (uint col=1; col <= 20; col++)
+                {
+                    cells[row,col].InputValue = string.Empty;
                 }
             }
             cells.Publish();
