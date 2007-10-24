@@ -115,6 +115,23 @@ namespace Google.GData.Client
             this.feed = feed; 
         }
 
+        /// <summary>Fins an atomEntry in the collection 
+        /// based on it's ID. </summary> 
+        /// <param name="value">The atomId to look for</param> 
+        /// <returns>Null if not found, otherwise the entry</returns>
+        public AtomEntry FindById( AtomId value )  
+        {
+            foreach (AtomEntry entry in List)
+            {
+                if (entry.Id.AbsoluteUri == value.AbsoluteUri)
+                {
+                    return entry;
+                }
+            }
+            return null;
+        }
+
+
         /// <summary>standard typed accessor method </summary> 
         public AtomEntry this[ int index ]  
         {
