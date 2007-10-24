@@ -17,6 +17,7 @@ using System;
 using System.Collections;
 using System.Text;
 using System.Xml;
+using System.Net;
 using Google.GData.Client;
 using Google.GData.Extensions;
 
@@ -88,5 +89,99 @@ namespace Google.GData.Spreadsheets
         {
             return new CellEntry();
         }
+
+        /// <summary>
+        /// returns an update URI for a given row/column combination
+        /// in general that URI is based on the feeds POST feed plus the
+        /// cell address in RnCn notation:
+        /// http://spreadsheets.google.com/feeds/cells/key/worksheetId/private/full/cell
+        /// </summary>
+        /// <param name="row"></param>
+        /// <param name="column"></param>
+        /// <returns>string</returns>
+        public string CellUri(uint row, uint column)
+        {
+            string target = this.Post;
+            if (!target.EndsWith("/"))
+            {
+                target += "/";
+            }
+            target += "R" + row.ToString() + "C" + column.ToString();
+            return target;
+        }
+   
+        /// <summary>
+        /// returns the given CellEntry object. Note that the getter will go to the server
+        /// to get CellEntries that are NOT yet on the client
+        /// </summary>
+        /// <returns>CellEntry</returns>
+        public CellEntry this[uint row, uint column]
+        {
+            get 
+            {
+                // let's find the cell
+                foreach (CellEntry entry in this.Entries )
+                {
+                    CellEntry.CellElement cell = entry.Cell;
+                    if (cell.Row == row && cell.Column == column)
+                    {
+                        return entry; 
+                    }
+                }
+                // if we are here, we need to get the entry from the service
+                string url = CellUri(row, column);
+                CellQuery query = new CellQuery(url);
+
+                CellFeed feed = this.Service.Query(query) as CellFeed;
+                CellEntry newEntry = feed.Entries[0] as CellEntry;
+                this.Entries.Add(newEntry);
+                // we don't want this one to show up in the batch feed on it's own
+                newEntry.Dirty = false;
+                return newEntry;
+            }
+        }
+
+
+        /// <summary>
+        /// deletes a cell by using row && column addressing
+        /// </summary>
+        /// <param name="row"></param>
+        /// <param name="column"></param>
+        public void Delete(uint row, uint column)
+        {
+            // now we need to create a new guy
+            string url = CellUri(row, column);
+            this.Service.Delete(new Uri(url));
+        }
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>uses GData batch to batchupdate the cell feed. If the returned
+        /// batch result set contained an error, it will throw a GDataRequestBatchException</summary> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        public override void Publish()
+        {
+            if (this.Batch == null)
+            {
+                throw new InvalidOperationException("This feed has no batch URI");
+            }
+
+            AtomFeed batchFeed = CreateBatchFeed(GDataBatchOperationType.update);
+            if (batchFeed != null)
+            {
+                AtomFeed resultFeed = this.Service.Batch(batchFeed, new Uri(this.Batch));
+                foreach (AtomEntry resultEntry in resultFeed.Entries )
+                {
+                    GDataBatchEntryData data = resultEntry.BatchData;
+                    if (data.Status.Code != (int) HttpStatusCode.OK)
+                    {
+                        throw new GDataBatchRequestException(resultFeed);
+                    }
+                }
+            }
+            this.Dirty = false; 
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
     }
 }

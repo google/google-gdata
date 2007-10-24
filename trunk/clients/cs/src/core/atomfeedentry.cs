@@ -260,6 +260,7 @@ namespace Google.GData.Client
             if (feed != null)
             {
                 this.Dirty = true; 
+                this.Service = feed.Service;
             }
             this.feed = feed; 
         }
@@ -630,7 +631,7 @@ namespace Google.GData.Client
 
 
         //////////////////////////////////////////////////////////////////////
-        /// <summary>accessor method public AtomCategoryCollection Categories, holds an array of AtomCategory objects</summary> 
+        /// <summary>holds an array of AtomCategory objects</summary> 
         /// <returns> </returns>
         //////////////////////////////////////////////////////////////////////
         public AtomCategoryCollection Categories

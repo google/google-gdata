@@ -763,13 +763,9 @@ namespace Google.GData.Client
 
             Tracing.Assert(entry.EditUri != null, "Entry should have a valid edit URI"); 
             if (entry.EditUri != null)
+                
             {
-                Tracing.TraceMsg("Deleting entry: " + entry.EditUri.ToString()); 
-                IGDataRequest request = this.RequestFactory.CreateRequest(GDataRequestType.Delete,new Uri(entry.EditUri.ToString()));
-                request.Credentials = this.Credentials;
-                request.Execute();
-                IDisposable disp = request as IDisposable;
-                disp.Dispose(); 
+                Delete(new Uri(entry.EditUri.ToString()));
             }
             else
             {

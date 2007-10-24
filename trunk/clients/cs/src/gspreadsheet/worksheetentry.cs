@@ -31,7 +31,7 @@ namespace Google.GData.Spreadsheets
         /// Category used to label entries that contain Cell extension data.
         /// </summary>
         public static AtomCategory WORKSHEET_CATEGORY
-        = new AtomCategory(GDataSpreadsheetsNameTable.Worksheet,
+                = new AtomCategory(GDataSpreadsheetsNameTable.Worksheet,
                            new AtomUri(BaseNameTable.gKind));
 
         /// <summary>
@@ -124,25 +124,39 @@ namespace Google.GData.Spreadsheets
             set { this.RowCount.Count = value; }
         }
 
+
         /// <summary>
         /// Retrieves the cell-based metafeed of the cells within the worksheet.
         /// </summary>
         /// <returns>The CellsFeed of the cells in this worksheet.</returns>
-        public CellFeed GetCellFeed() 
+        public CellFeed QueryCellFeed() 
         {
-            CellQuery query = new CellQuery(this.GetCellFeedLink());
+            return QueryCellFeed(ReturnEmtpyCells.serverDefault); 
+        }
 
-            return (CellFeed) this.Service.Query(query); 
+        /// <summary>
+        /// Retrieves the cell-based metafeed of the cells within the worksheet.
+        /// </summary>
+        /// <param name="returnEmpty">indicates if a full sheet should be returned</param> 
+        /// <returns>The CellsFeed of the cells in this worksheet.</returns>
+        public CellFeed QueryCellFeed(ReturnEmtpyCells returnEmpty) 
+        {
+            CellQuery query = new CellQuery(this.CellFeedLink);
+            query.ReturnEmpty = returnEmpty;
+            return this.Service.Query(query) as CellFeed; 
         }
 
         /// <summary>
         /// Retrieves the URI for the cells feed of the worksheet.
         /// </summary>
         /// <returns>The URI of the cells feed for this worksheet.</returns>
-        public string GetCellFeedLink()
+        public string CellFeedLink
         {
-            AtomLink cellFeedLink = this.Links.FindService(GDataSpreadsheetsNameTable.CellRel, null);
-            return cellFeedLink.HRef.ToString();
+            get 
+            {
+                AtomLink cellFeedLink = this.Links.FindService(GDataSpreadsheetsNameTable.CellRel, null);
+                return cellFeedLink.HRef.ToString();
+            }
         }
     }
 }
