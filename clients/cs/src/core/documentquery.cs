@@ -73,8 +73,8 @@ namespace Google.GData.Client
             }
         }
 
-#if WindowsCE || PocketPC
-#else
+#if WindowsCE || PocketPC
+#else
 
         /// <summary>
         /// Parses an incoming URI string and sets the instance variables
@@ -146,14 +146,12 @@ namespace Google.GData.Client
             if (Title != null)
             {
                 newPath.Append(paramInsertion);
+                newPath.AppendFormat(CultureInfo.InvariantCulture, "title={0}", Utilities.UriEncodeReserved(Title));
 
                 if (Exact)
                 {
-                    newPath.AppendFormat(CultureInfo.InvariantCulture, "title-exact={0}", Utilities.UriEncodeReserved(Title));
-                }
-                else
-                {
-                    newPath.AppendFormat(CultureInfo.InvariantCulture, "title={0}", Utilities.UriEncodeReserved(Title));
+                    newPath.Append(paramInsertion);
+                    newPath.AppendFormat(CultureInfo.InvariantCulture, "title-exact=true");
                 }
             }
 
