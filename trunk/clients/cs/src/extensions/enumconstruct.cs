@@ -96,7 +96,7 @@ namespace Google.GData.Extensions {
         /// <param name="o">the object to compare to</param>
         /// <returns>bool</returns>
 
-        public bool equals(Object o)
+        public override bool Equals(Object o)
         {
             //
             // Two EnumConstant instances are considered equal of they are of the
