@@ -86,6 +86,12 @@
     <Compile Include="..\..\extensions\georsswhere.cs">
       <Link>georsswhere.cs</Link>
     </Compile>
+    <Compile Include="..\..\extensions\labelcollection.cs">
+      <Link>labelcollection.cs</Link>
+    </Compile>
+    <Compile Include="..\..\extensions\mailitempropertycollection.cs">
+      <Link>mailitempropertycollection.cs</Link>
+    </Compile>
     <Compile Include="..\..\extensions\mediarss.cs">
       <Link>mediarss.cs</Link>
     </Compile>
