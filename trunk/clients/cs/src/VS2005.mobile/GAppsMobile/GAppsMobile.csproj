@@ -83,6 +83,15 @@
     <Compile Include="..\..\gapps\emaillistservice.cs">
       <Link>emaillistservice.cs</Link>
     </Compile>
+    <Compile Include="..\..\gapps\mailitementry.cs">
+      <Link>mailitementry.cs</Link>
+    </Compile>
+    <Compile Include="..\..\gapps\mailitemfeed.cs">
+      <Link>mailitemfeed.cs</Link>
+    </Compile>
+    <Compile Include="..\..\gapps\mailitemservice.cs">
+      <Link>mailitemservice.cs</Link>
+    </Compile>
     <Compile Include="..\..\gapps\nicknameentry.cs">
       <Link>nicknameentry.cs</Link>
     </Compile>

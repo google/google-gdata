@@ -659,7 +659,7 @@ namespace Google.GData.Extensions.Apps
         /// <returns>String representation of the Rfc822 message</returns>
         public override string ToString()
         {
-            return Encoding.ASCII.GetString(value);
+            return Encoding.ASCII.GetString(value, 0, value.Length);
         }
 
 
@@ -820,7 +820,8 @@ namespace Google.GData.Extensions.Apps
             get
             {
                 return (MailItemProperty) Enum.Parse(typeof(MailItemProperty),
-                    Convert.ToString(getAttributes()[BaseNameTable.XmlValue]));
+                    Convert.ToString(getAttributes()[BaseNameTable.XmlValue]),
+                    true);
             }
             set
             {
