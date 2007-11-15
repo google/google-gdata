@@ -3,9 +3,9 @@ using System.Drawing;
 using System.Collections;
 using System.ComponentModel;
 using System.Windows.Forms;
-using Google.GData.Photos;
+using Google.GData.Client;
 
-namespace PhotoBrowser
+namespace Google.GData.Tools
 {
 	/// <summary>
 	/// Summary description for GoogleClientLoging.
@@ -21,23 +21,20 @@ namespace PhotoBrowser
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox Username;
+        private Service service;
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
 		private System.ComponentModel.Container components = null;
 
-		public GoogleClientLogin()
+		public GoogleClientLogin(Service serviceToUse)
 		{
 			//
 			// Required for Windows Form Designer support
 			//
 			InitializeComponent();
 
-			//
-			// TODO: Add any constructor code after InitializeComponent call
-			//
-       //     this.Username.Text = "test.fmantek@gmail.com";
-       //     this.Password.Text = "xapitest";
+            this.service = serviceToUse;
 		}
 
         public GoogleClientLogin(string username)
@@ -197,9 +194,8 @@ namespace PhotoBrowser
 
         private void Login_Click(object sender, System.EventArgs e)
         {
-            PicasaService service = new PicasaService("PhotoBrowser");
-            service.setUserCredentials(this.Username.Text, this.Password.Text);
-            this.authToken = service.QueryAuthenticationToken();
+            this.service.setUserCredentials(this.Username.Text, this.Password.Text);
+            this.authToken = this.service.QueryAuthenticationToken();
             this.Close();
         }
 

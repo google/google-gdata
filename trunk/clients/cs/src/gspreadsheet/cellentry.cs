@@ -123,8 +123,6 @@ namespace Google.GData.Spreadsheets
 
 #endregion
 
-        private CellElement cell;
-
         /// <summary>
         /// Constructs a new CellEntry instance with the appropriate category
         /// to indicate that it is a cell.
