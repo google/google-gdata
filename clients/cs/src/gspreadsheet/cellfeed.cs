@@ -143,7 +143,7 @@ namespace Google.GData.Spreadsheets
 
 
         /// <summary>
-        /// deletes a cell by using row && column addressing
+        /// deletes a cell by using row and column addressing
         /// </summary>
         /// <param name="row"></param>
         /// <param name="column"></param>

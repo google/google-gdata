@@ -141,14 +141,14 @@ namespace Google.GData.Photos
             }
         }
 
+        /// <summary>
+        /// The title of the album
+        /// </summary>
 #if WindowsCE || PocketPC
 #else
         [Category("Base Album Data"),
         Description("Specifies the name of the album.")]
 #endif
-        /// <summary>
-        /// The title of the album
-        /// </summary>
         public string AlbumTitle
         {
             get 
@@ -161,14 +161,14 @@ namespace Google.GData.Photos
             }
         }
 
+        /// <summary>
+        /// The  summary of the album
+        /// </summary>
 #if WindowsCE || PocketPC
 #else
         [Category("Base Album Data"),
         Description("Specifies the summary of the album.")]
 #endif
-        /// <summary>
-        /// The  summary of the album
-        /// </summary>
         public string AlbumSummary
         {
             get 

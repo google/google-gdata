@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using System.Data;
 using Google.GData.Photos;
 using Google.GData.Extensions.MediaRss;
+using Google.GData.Tools;
 using System.IO;
 
 namespace PhotoBrowser
@@ -214,7 +215,7 @@ namespace PhotoBrowser
         {
             if (this.googleAuthToken == null) 
             {
-                GoogleClientLogin loginDialog = new GoogleClientLogin(); 
+                GoogleClientLogin loginDialog = new GoogleClientLogin(new PicasaService("PhotoBrowser")); 
                 loginDialog.ShowDialog();
               
                 this.googleAuthToken = loginDialog.AuthenticationToken;

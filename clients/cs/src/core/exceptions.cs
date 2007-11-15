@@ -223,6 +223,9 @@ namespace Google.GData.Client
         }
         /////////////////////////////////////////////////////////////////////////////
 
+        /// <summary>
+        /// Returns the BatchResult Feed that contains the problem
+        /// </summary>
         public AtomFeed BatchResult
         {
             get { return this.batchResult; }
