@@ -179,7 +179,7 @@ namespace Google.GData.Client
                     Stream   req = response.GetResponseStream(); 
                     SaveStream(req, this.strOutput); 
                 }
-                throw re; 
+                throw; 
             }
         }
         /////////////////////////////////////////////////////////////////////////////
