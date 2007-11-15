@@ -659,7 +659,7 @@ namespace Google.GData.Client
                         // only redirect for GET, else throw
                         if (http.Method != HttpMethods.Get) 
                         {
-                            throw re; 
+                            throw; 
                         }
                     }
                 }
@@ -673,7 +673,7 @@ namespace Google.GData.Client
                 if (iRetrying > this.factory.NumberOfRetries)
                 {
                     Tracing.TraceMsg("Got no response object");
-                    throw re;
+                    throw;
                 }
                 Tracing.TraceMsg("Let's retry this"); 
                 // only reset the base, the auth cookie is still valid
@@ -684,7 +684,7 @@ namespace Google.GData.Client
             catch (Exception e)
             {
                 Tracing.TraceCall("*** EXCEPTION " + e.GetType().Name + " CAUGTH ***");
-                throw e; 
+                throw; 
             }
             finally
             {
