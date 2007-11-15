@@ -1,5 +1,5 @@
-#summary The current release notes
 #labels Featured,NetClient
+Summary The current release notes
 
 = Introduction =
 
@@ -7,6 +7,30 @@ The release notes show bugfixes and feature additions over the course of the pro
 The wiki page shows the release notes for the current binary download, the subversion project contains a text version with the most recent changes.
 
 = Details =
+
+=== 1.1.2.0 ===
+
+  * Features
+    * The SpreadsheetEntry has a new property, Worksheets. This property returns a WorksheetFeed object that can be used to retrieve the Worksheets feed for a given spreadsheet.
+    * The SpreadsheetEntry has a new property, WorksheetsLink. This property returns a string that can be used to retrieve the Worksheets feed uri for a given Spreadsheet.
+    * Added CreateBatchFeed to the Atomfeed object. This will create a default batch feed for you, if the feed supports batching. The created batch feed will contain all currently dirty entries.
+    * Added a GDataBatchRequestException for that operation.
+    * Added Delete(Uri uri) to the service interface.
+    * Added more constructors to the CellEntry object, and moved accessors for the CellEntry.Cell up to the CellEntry object. So instead of writing CellEntry.Cell.Column, you can call CellEntry.Column directly (and others).
+    * Added an index accessor to the CellFeed, you can now access Cells on the CellFeed like this: CellEntry entry = CellFeed[1,1]. This will retrieve not existing cells if needed.
+    * Added QueryCellFeed() and QueryCellFeedLink(ReturnEmptyCells parameter) to the WorksheetEntry. The method with no parameters will get you the serverdefault cell feed.
+    * Added the CellFeedLink property on the WorksheetEntry. This returns the URI to the CellFeed as string.
+    * Added an overloaded Insert method to the WorksheetFeed so that you do not need to cast the return anymore.
+    * Added support for the Apps Migration API. The Google Apps Email Migration API alows administrators and users of Google Apps to migrate mail from legacy email systems into their domain's hosted Gmail accounts. Your client application can upload email messages into these accounts using standard Google data API feeds.
+    * Added the gapps_migration_sample: A simple application that demonstrates†how to migrate email messages to a Google Apps email account. See the readme file in the samples/appsforyourdomain/migration directory for more details
+	        
+  * Bugfixes/changes
+     * When an entry was copied from one feed to another, the internal service object was set incorrectly.
+     * Added unittests for the new spreadsheet code.
+     * Issue 90: Corrected the override for Equals and GetHashCode for an EnumConstruct
+     * Issue 93: Fixed Title Exact Queries for Spreadsheets
+     * Issue 94: Fixed some incorrect Exception handlings
+    
 
 === 1.1.1.0 ===
 
@@ -271,8 +295,6 @@ Solved issues:
 
 == 1.0.0 ==
 - Initial Release
-
-
 
 
 
