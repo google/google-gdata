@@ -152,6 +152,16 @@
             The  author's name
             </summary>
         </member>
+        <member name="P:Google.GData.Photos.AlbumAccessor.AlbumTitle">
+            <summary>
+            The title of the album
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.AlbumAccessor.AlbumSummary">
+            <summary>
+            The  summary of the album
+            </summary>
+        </member>
         <member name="P:Google.GData.Photos.AlbumAccessor.BytesUsed">
             <summary>
             The number of bytes of storage that this album uses.
@@ -1091,6 +1101,88 @@
             constructs a photo accessor for the passed in entry
             </summary>
             <param name="entry"></param>
+        </member>
+        <member name="P:Google.GData.Photos.PhotoAccessor.PhotoTitle">
+            <summary>
+            The title of the photo
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.PhotoAccessor.PhotoSummary">
+            <summary>
+            The  summary of the Photo
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.PhotoAccessor.Checksum">
+            <summary>
+            The checksum on the photo. This optional field can be used by 
+            uploaders to associate a checksum with a photo to ease duplicate detection
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.PhotoAccessor.Client">
+            <summary>
+            The client application that created the photo. (Optional element.)
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.PhotoAccessor.Height">
+            <summary>
+            The height of the photo in pixels
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.PhotoAccessor.Width">
+            <summary>
+            The width of the photo in pixels
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.PhotoAccessor.Position">
+            <summary>
+            The ordinal position of the photo in the parent album
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.PhotoAccessor.Rotation">
+            <summary>
+            The rotation of the photo in degrees, used to change the rotation of the photo. Will only be shown if 
+            the rotation has not already been applied to the requested images.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.PhotoAccessor.Size">
+            <summary>
+            The size of the photo in bytes
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.PhotoAccessor.Timestamp">
+            <summary>
+            The photo's timestamp, represented as the number of milliseconds since 
+            January 1st, 1970. Contains the date of the photo either set externally
+            or retrieved from the Exif data.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.PhotoAccessor.Version">
+            <summary>
+            The version number of the photo. Version numbers are based on modification time, 
+            so they don't increment linearly. Note that if you try to update a photo using a 
+            version number other than the latest one, you may receive an error; 
+            for more information, see Optimistic concurrency (versioning) in the GData reference document
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.PhotoAccessor.AlbumId">
+            <summary>
+            The albums ID
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.PhotoAccessor.CommentCount">
+            <summary>
+            the number of comments on a photo
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.PhotoAccessor.CommentingEnabled">
+            <summary>
+            is commenting enabled on a photo
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.PhotoAccessor.Id">
+            <summary>
+            the id of the photo
+            </summary>
         </member>
         <member name="T:Google.GData.Photos.PicasaFeed">
             <summary>

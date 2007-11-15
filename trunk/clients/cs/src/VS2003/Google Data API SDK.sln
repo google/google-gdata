@@ -75,6 +75,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhotoBrowser", "Photobrowse
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gapps_migration_sample", "gapps_migration_sample\gapps_migration_sample.csproj", "{5B456106-A6A7-4EAA-B32C-5EDB92FC2453}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfiguration) = preSolution
 		ASP = ASP
@@ -191,6 +195,12 @@ Global
 		{40CB899F-54ED-4863-BF78-58BA793A1478}.Debug.Build.0 = Debug|.NET
 		{40CB899F-54ED-4863-BF78-58BA793A1478}.Release.ActiveCfg = Release|.NET
 		{40CB899F-54ED-4863-BF78-58BA793A1478}.Release.Build.0 = Release|.NET
+		{5B456106-A6A7-4EAA-B32C-5EDB92FC2453}.ASP.ActiveCfg = Release|.NET
+		{5B456106-A6A7-4EAA-B32C-5EDB92FC2453}.ASP.Build.0 = Release|.NET
+		{5B456106-A6A7-4EAA-B32C-5EDB92FC2453}.Debug.ActiveCfg = Debug|.NET
+		{5B456106-A6A7-4EAA-B32C-5EDB92FC2453}.Debug.Build.0 = Debug|.NET
+		{5B456106-A6A7-4EAA-B32C-5EDB92FC2453}.Release.ActiveCfg = Release|.NET
+		{5B456106-A6A7-4EAA-B32C-5EDB92FC2453}.Release.Build.0 = Release|.NET
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 	EndGlobalSection

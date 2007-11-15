@@ -11,9 +11,10 @@ xcopy /y ..\src\VS2003\Calendar\bin\Release\*.exe ..\lib\Release\*.*
 xcopy /y ..\src\VS2003\CodeSearch\bin\Release\*.exe ..\lib\Release\*.*
 xcopy /y ..\src\VS2003\Spreadsheet\bin\Release\*.exe ..\lib\Release\*.*
 xcopy /y ..\src\VS2003\gbase_customertool\bin\Release\*.exe ..\lib\Release\*.*
+xcopy /y ..\src\VS2003\gapps_customertool\bin\Release\*.exe ..\lib\Release\*.*
 xcopy /y ..\src\VS2003\gbase_demo\bin\*.exe ..\lib\Release\*.*
 xcopy /y ..\src\VS2003\gbase_querytool\bin\Release\*.exe ..\lib\Release\*.*
-xcopy /y ..\src\VS2003\gapps_sample\bin\Release\*.exe ..\lib\Release\*.*
+xcopy /y ..\src\VS2003\gapps_migration_sample\bin\Release\*.exe ..\lib\Release\*.*
 xcopy /y  ..\src\VS2003\ExecRequest\bin\Release\*.exe ..\lib\Release\*.*
 xcopy /y  ..\src\VS2003\PhotoBrowser\bin\Release\*.exe ..\lib\Release\*.*
 

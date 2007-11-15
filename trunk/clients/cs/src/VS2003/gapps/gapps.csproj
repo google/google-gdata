@@ -186,6 +186,24 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "mailitementry.cs"
+                    Link = "..\..\gapps\mailitementry.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "mailitemfeed.cs"
+                    Link = "..\..\gapps\mailitemfeed.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "mailitemservice.cs"
+                    Link = "..\..\gapps\mailitemservice.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "nicknameentry.cs"
                     Link = "..\..\gapps\nicknameentry.cs"
                     SubType = "Code"

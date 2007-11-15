@@ -40,6 +40,7 @@ samples =	\
 	readsample.exe			\
 	execrequest.exe			\
 	gapps_appsdemo.exe \
+	gapps_migration_sample.exe \
 	gblogger_demo.exe \
 	gcal_demo.exe \
 	gspreadsheet_demo.exe
@@ -129,6 +130,10 @@ gbase_queryexample.exe: $(ALLLIBS) $(gbase_queryexample_sources)
 gapps_sample_sources = samples/appsforyourdomain/appsdemo.cs
 gapps_appsdemo.exe: $(ALLLIBS) $(gapps_sample_sources)
 	$(CSC) -out:$@ $(ALLREFS) $(gapps_sample_sources)
+
+gapps_migration_sample_sources = samples/appsforyourdomain/migration/migrationsample.cs
+gapps_migration_sample.exe: $(ALLLIBS) $(gapps_migration_sample_sources)
+	$(CSC) -out:$@ $(ALLREFS) $(gapps_migration_sample_sources)
 
 execrequest_sources = $(wildcard samples/execrequest/*.cs)
 execrequest.exe: $(ALLLIBS) $(execrequest_sources)

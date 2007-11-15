@@ -920,16 +920,20 @@ namespace Spreadsheets
         /// <returns>The gsx: tags as a comma separated list</returns>
         private String ToCommaSeparatedString(ListEntry entry)
         {
-            String commaSeparated = "";
-            ListEntry.CustomElementCollection elements = entry.Elements;
-            for (int i=0; i < elements.Count; i++)
+            if (entry != null) 
             {
-                commaSeparated += elements[i].LocalName + "=" + elements[i].Value + ",";
+                String commaSeparated = "";
+   
+                ListEntry.CustomElementCollection elements = entry.Elements;
+                for (int i=0; i < elements.Count; i++)
+                {
+                    commaSeparated += elements[i].LocalName + "=" + elements[i].Value + ",";
+                }
+
+                return commaSeparated.Substring(0, commaSeparated.Length - 1);
             }
-
-            return commaSeparated.Substring(0, commaSeparated.Length - 1);
+            return ""; 
         }
-
 #region Exercise Actions
         private void DoListQuery()
         {

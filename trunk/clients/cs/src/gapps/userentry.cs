@@ -45,7 +45,7 @@ namespace Google.GData.Apps
         {
             Categories.Add(USER_ACCOUNT_CATEGORY);
 
-            GAppsExtensions.AddExtension(this);
+            GAppsExtensions.AddProvisioningExtensions(this);
         }
 
         /// <summary>
@@ -55,13 +55,13 @@ namespace Google.GData.Apps
         {
             get
             {
-                return FindExtension(AppsNameTable.XmlElementLogin,
-                                     AppsNameTable.appsNamespace) as LoginElement;
+                return FindExtension(AppsNameTable.AppsLogin,
+                                     AppsNameTable.AppsNamespace) as LoginElement;
             }
             set
             {
-                ReplaceExtension(AppsNameTable.XmlElementLogin,
-                                 AppsNameTable.appsNamespace,
+                ReplaceExtension(AppsNameTable.AppsLogin,
+                                 AppsNameTable.AppsNamespace,
                                  value);
             }
         }
@@ -73,13 +73,13 @@ namespace Google.GData.Apps
         {
             get
             {
-                return FindExtension(AppsNameTable.XmlElementQuota,
-                                     AppsNameTable.appsNamespace) as QuotaElement;
+                return FindExtension(AppsNameTable.AppsQuota,
+                                     AppsNameTable.AppsNamespace) as QuotaElement;
             }
             set
             {
-                ReplaceExtension(AppsNameTable.XmlElementQuota,
-                                 AppsNameTable.appsNamespace,
+                ReplaceExtension(AppsNameTable.AppsQuota,
+                                 AppsNameTable.AppsNamespace,
                                  value);
             }
         }
@@ -91,13 +91,13 @@ namespace Google.GData.Apps
         {
             get
             {
-                return FindExtension(AppsNameTable.XmlElementName,
-                                     AppsNameTable.appsNamespace) as NameElement;
+                return FindExtension(AppsNameTable.AppsName,
+                                     AppsNameTable.AppsNamespace) as NameElement;
             }
             set
             {
-                ReplaceExtension(AppsNameTable.XmlElementName,
-                                 AppsNameTable.appsNamespace,
+                ReplaceExtension(AppsNameTable.AppsName,
+                                 AppsNameTable.AppsNamespace,
                                  value);
             }
         }

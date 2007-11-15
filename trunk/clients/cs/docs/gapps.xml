@@ -808,6 +808,122 @@
             <param name="sender">the object that's sending the evet</param>
             <param name="e"><code>ServiceEventArgs</code>, holds the feed</param>
         </member>
+        <member name="T:Google.GData.Apps.Migration.MailItemEntry">
+            <summary>
+            A Google Apps mail item entry.  Represents a single email to be
+            migrated: its message contents, starred and read status, and any
+            labels to be applied to it.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Apps.Migration.MailItemEntry.MAIL_ITEM_CATEGORY">
+            <summary>
+            Category used to label entries that contain mail item
+            extension data.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Apps.Migration.MailItemEntry.#ctor">
+            <summary>
+            Constructs a new <code>MailItemEntry</code> object.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Apps.Migration.MailItemEntry.Rfc822Msg">
+            <summary>
+            Rfc822Msg property accessor
+            </summary>
+        </member>
+        <member name="P:Google.GData.Apps.Migration.MailItemEntry.Labels">
+            <summary>
+            Labels property accessor
+            </summary>
+        </member>
+        <member name="P:Google.GData.Apps.Migration.MailItemEntry.MailItemProperties">
+            <summary>
+            MailItemProperties accessor
+            </summary>
+        </member>
+        <member name="T:Google.GData.Apps.Migration.MailItemFeed">
+            <summary>
+            Feed API customization class for defining the Google Apps
+            Domain Migration API's mail item feed.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Apps.Migration.MailItemFeed.#ctor(System.Uri,Google.GData.Client.IService)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="uriBase">The uri for the migration feed.</param>
+            <param name="iService">The migration service.</param>
+        </member>
+        <member name="M:Google.GData.Apps.Migration.MailItemFeed.CreateFeedEntry">
+            <summary>
+            Overridden.  Creates a new <code>MailItemEntry</code>.
+            </summary>
+            <returns>the new <code>MailItemEntry</code>.</returns>
+        </member>
+        <member name="M:Google.GData.Apps.Migration.MailItemFeed.HandleExtensionElements(Google.GData.Client.ExtensionElementEventArgs,Google.GData.Client.AtomFeedParser)">
+            <summary>
+            Gets called after we handled the custom entry, to handle other
+            potential parsing tasks
+            </summary>
+            <param name="e"></param>
+            <param name="parser"></param>
+        </member>
+        <member name="T:Google.GData.Apps.Migration.MailItemService">
+            <summary>
+            Base service for accessing mail item feeds from the
+            Google Apps Domain Migration API.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Apps.Migration.MailItemService.mailFeedUriSuffix">
+            <summary>
+            Feed for inserting mail messages.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Apps.Migration.MailItemService.batchFeedUriSuffix">
+            <summary>
+            Suffix to insert mail messages in a batch.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Apps.Migration.MailItemService.#ctor(System.String,System.String)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="domain">The hosted domain in which a migration is
+            being set up</param>
+            <param name="applicationName">The name of the client application 
+            using this service.</param>
+        </member>
+        <member name="M:Google.GData.Apps.Migration.MailItemService.Batch(System.String,System.String,Google.GData.Apps.Migration.MailItemEntry[])">
+            <summary>
+            Inserts one or more mail item entries in a single batched request.
+            Use this method to reduce HTTP overhead when inserting many emails
+            in a single transfer.
+            </summary>
+            <param name="domain">the domain into which to migrate mail</param>
+            <param name="entries">the mail messages to batch insert</param>
+            <returns>a <code>MailItemFeed</code> containing the results of the
+            batch insertion</returns>
+        </member>
+        <member name="M:Google.GData.Apps.Migration.MailItemService.OnParsedNewMailItemEntry(System.Object,Google.GData.Client.FeedParserEventArgs)">
+            <summary>
+            Event handler. Called when a new migration entry is parsed.
+            </summary>
+            <param name="sender">the object that's sending the evet</param>
+            <param name="e">FeedParserEventArguments, holds the feedentry</param>
+        </member>
+        <member name="M:Google.GData.Apps.Migration.MailItemService.OnNewFeed(System.Object,Google.GData.Client.ServiceEventArgs)">
+            <summary>
+            Overridden so that new feeds are returned as <code>MailItemFeed</code>s
+            instead of base <code>AtomFeed</code>s.
+            </summary>
+            <param name="sender"> the object which sent the event</param>
+            <param name="e">FeedParserEventArguments, holds the FeedEntry</param> 
+        </member>
+        <member name="P:Google.GData.Apps.Migration.MailItemService.Domain">
+            <summary>
+            Accessor for Domain property.
+            </summary>
+        </member>
         <member name="T:Google.GData.Apps.NicknameEntry">
             <summary>
             A Google Apps nickname entry.  A NicknameEntry identifies a

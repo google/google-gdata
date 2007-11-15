@@ -187,6 +187,18 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "labelcollection.cs"
+                    Link = "..\..\extensions\labelcollection.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "mailitempropertycollection.cs"
+                    Link = "..\..\extensions\mailitempropertycollection.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "mediarss.cs"
                     Link = "..\..\extensions\mediarss.cs"
                     SubType = "Code"

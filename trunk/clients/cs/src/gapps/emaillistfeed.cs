@@ -36,7 +36,7 @@ namespace Google.GData.Apps
         public EmailListFeed(Uri uriBase, IService iService)
             : base(uriBase, iService)
         {
-            GAppsExtensions.AddExtension(this);
+            GAppsExtensions.AddProvisioningExtensions(this);
         }
 
         /// <summary>
