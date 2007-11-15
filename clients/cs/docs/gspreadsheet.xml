@@ -26,6 +26,22 @@
             </summary>
             <param name="inputValue">The uncalculated content of the cell.</param>
         </member>
+        <member name="M:Google.GData.Spreadsheets.CellEntry.#ctor(System.UInt32,System.UInt32)">
+            <summary>
+            create a CellEntry for a given row/column
+            </summary>
+            <param name="row"></param>
+            <param name="column"></param>
+        </member>
+        <member name="M:Google.GData.Spreadsheets.CellEntry.#ctor(System.UInt32,System.UInt32,System.String)">
+            <summary>
+            create a CellEntry for a given row/column and 
+            initial value
+            </summary>
+            <param name="row"></param>
+            <param name="column"></param>
+            <param name="inputValue">The uncalculated content of the cell.</param>
+        </member>
         <member name="M:Google.GData.Spreadsheets.CellEntry.AddOtherNamespaces(System.Xml.XmlWriter)">
             <summary>
             add the spreadsheet NS
@@ -39,16 +55,34 @@
             <param name="node">XmlNode to check</param>
             <returns>True if this node should be skipped</returns>
         </member>
-        <member name="M:Google.GData.Spreadsheets.CellEntry.Parse(Google.GData.Client.ExtensionElementEventArgs,Google.GData.Client.AtomFeedParser)">
-            <summary>
-            Parses the inner state of the element
-            </summary>
-            <param name="e">the event arguments</param>
-            <param name="parser">The AtomFeedParser that called this</param>
-        </member>
         <member name="P:Google.GData.Spreadsheets.CellEntry.Cell">
             <summary>
             The cell element in this cell entry
+            </summary>
+        </member>
+        <member name="P:Google.GData.Spreadsheets.CellEntry.Row">
+            <summary>
+            The row the cell lies in
+            </summary>
+        </member>
+        <member name="P:Google.GData.Spreadsheets.CellEntry.Column">
+            <summary>
+            The column the cell lies in
+            </summary>
+        </member>
+        <member name="P:Google.GData.Spreadsheets.CellEntry.InputValue">
+            <summary>
+            The input (uncalculated) value for the cell
+            </summary>
+        </member>
+        <member name="P:Google.GData.Spreadsheets.CellEntry.NumericValue">
+            <summary>
+            The numeric (calculated) value for the cell
+            </summary>
+        </member>
+        <member name="P:Google.GData.Spreadsheets.CellEntry.Value">
+            <summary>
+            The numeric (calculated) value for the cell
             </summary>
         </member>
         <member name="T:Google.GData.Spreadsheets.CellEntry.CellElement">
@@ -58,22 +92,8 @@
         </member>
         <member name="M:Google.GData.Spreadsheets.CellEntry.CellElement.#ctor">
             <summary>
-            Constructs an empty cell
+            default constructor for the Cell element
             </summary>
-        </member>
-        <member name="M:Google.GData.Spreadsheets.CellEntry.CellElement.ParseCell(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
-            <summary>
-            Parses an XML node to create a Cell object
-            </summary>
-            <param name="node">Cell node</param>
-            <param name="parser">AtomFeedParser to use</param>
-            <returns>The created Cell object</returns>
-        </member>
-        <member name="M:Google.GData.Spreadsheets.CellEntry.CellElement.Save(System.Xml.XmlWriter)">
-            <summary>
-            Used to save the EntryLink instance into the passed in xmlwriter
-            </summary>
-            <param name="writer">the XmlWriter to write into</param>
         </member>
         <member name="P:Google.GData.Spreadsheets.CellEntry.CellElement.Row">
             <summary>
@@ -95,16 +115,6 @@
             The numeric (calculated) value for the cell
             </summary>
         </member>
-        <member name="P:Google.GData.Spreadsheets.CellEntry.CellElement.Value">
-            <summary>
-            The display value of the cell
-            </summary>
-        </member>
-        <member name="P:Google.GData.Spreadsheets.CellEntry.CellElement.XmlName">
-            <summary>
-            Returns the constant representing the XML element.
-            </summary>
-        </member>
         <member name="T:Google.GData.Spreadsheets.CellFeed">
             <summary>
             Feed API customization class for defining a Cells feed.
@@ -116,15 +126,6 @@
             </summary>
             <param name="uriBase">The uri for this cells feed.</param>
             <param name="iService">The Spreadsheets service.</param>
-        </member>
-        <member name="M:Google.GData.Spreadsheets.CellFeed.parseWorksheet(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
-            <summary>Parses the inner state of the element.</summary>
-            <param name="worksheetNode">a g-scheme, xml node</param>
-            <param name="parser">AtomFeedParser to use</param>
-        </member>
-        <member name="M:Google.GData.Spreadsheets.CellFeed.AddOtherNamespaces(System.Xml.XmlWriter)">
-            <summary>empty base implementation</summary> 
-            <param name="writer">the xmlwriter, where we want to add default namespaces to</param>
         </member>
         <member name="M:Google.GData.Spreadsheets.CellFeed.SkipNode(System.Xml.XmlNode)">
             <summary>checks if this is a namespace 
@@ -138,23 +139,45 @@
             </summary>
             <returns>AtomEntry</returns>
         </member>
-        <member name="M:Google.GData.Spreadsheets.CellFeed.HandleExtensionElements(Google.GData.Client.ExtensionElementEventArgs,Google.GData.Client.AtomFeedParser)">
+        <member name="M:Google.GData.Spreadsheets.CellFeed.CellUri(System.UInt32,System.UInt32)">
             <summary>
-            get's called after we already handled the custom entry, to handle all 
-            other potential parsing tasks
+            returns an update URI for a given row/column combination
+            in general that URI is based on the feeds POST feed plus the
+            cell address in RnCn notation:
+            http://spreadsheets.google.com/feeds/cells/key/worksheetId/private/full/cell
             </summary>
-            <param name="e">the event arguments</param>
-            <param name="parser">the atom feed parser calling</param>
+            <param name="row"></param>
+            <param name="column"></param>
+            <returns>string</returns>
+        </member>
+        <member name="M:Google.GData.Spreadsheets.CellFeed.Delete(System.UInt32,System.UInt32)">
+            <summary>
+            deletes a cell by using row and column addressing
+            </summary>
+            <param name="row"></param>
+            <param name="column"></param>
+        </member>
+        <member name="M:Google.GData.Spreadsheets.CellFeed.Publish">
+            <summary>uses GData batch to batchupdate the cell feed. If the returned
+            batch result set contained an error, it will throw a GDataRequestBatchException</summary> 
+            <returns> </returns>
         </member>
         <member name="P:Google.GData.Spreadsheets.CellFeed.RowCount">
             <summary>
-            The number of rows in this cell feed
+            The number of rows in this cell feed, as a RowCountElement
             </summary>
         </member>
         <member name="P:Google.GData.Spreadsheets.CellFeed.ColCount">
             <summary>
-            The number of columns in this cell feed
+            The number of columns in this cell feed, as a ColCountElement
             </summary>
+        </member>
+        <member name="P:Google.GData.Spreadsheets.CellFeed.Item(System.UInt32,System.UInt32)">
+            <summary>
+            returns the given CellEntry object. Note that the getter will go to the server
+            to get CellEntries that are NOT yet on the client
+            </summary>
+            <returns>CellEntry</returns>
         </member>
         <member name="T:Google.GData.Spreadsheets.ReturnEmtpyCells">
             <summary>Enum to describe the different return empty parameters
@@ -253,40 +276,22 @@
         </member>
         <member name="T:Google.GData.Spreadsheets.ColCountElement">
             <summary>
-            GData schema extension for a colCount element.
+            GData schema extension for rowCount element.
             </summary>
         </member>
         <member name="M:Google.GData.Spreadsheets.ColCountElement.#ctor">
             <summary>
-            Constructs an empty column count element.
+            default constructor 
             </summary>
         </member>
         <member name="M:Google.GData.Spreadsheets.ColCountElement.#ctor(System.UInt32)">
             <summary>
-            Constructs a column count element with a given count size.
+            default constructor with an initial value as a integer 
             </summary>
-        </member>
-        <member name="M:Google.GData.Spreadsheets.ColCountElement.ParseColCount(System.Xml.XmlNode)">
-            <summary>
-            Parses an XML node to create a ColCount object.
-            </summary>
-            <param name="node">ColCount node</param>
-            <returns>The created ColCount object</returns>
-        </member>
-        <member name="M:Google.GData.Spreadsheets.ColCountElement.Save(System.Xml.XmlWriter)">
-            <summary>
-            Used to save the ColCount instance into the passed in xmlwriter
-            </summary>
-            <param name="writer">the XmlWriter to write into</param>
         </member>
         <member name="P:Google.GData.Spreadsheets.ColCountElement.Count">
             <summary>
-            Gets or sets the count of columns.
-            </summary>
-        </member>
-        <member name="P:Google.GData.Spreadsheets.ColCountElement.XmlName">
-            <summary>
-            Returns the constant representing the XML element.
+            Gets or sets the count of rows.
             </summary>
         </member>
         <member name="T:Google.GData.Spreadsheets.GDataSpreadsheetsNameTable">
@@ -587,35 +592,17 @@
         </member>
         <member name="M:Google.GData.Spreadsheets.RowCountElement.#ctor">
             <summary>
-            Constructs an empty row count element.
+            default constructor 
             </summary>
         </member>
         <member name="M:Google.GData.Spreadsheets.RowCountElement.#ctor(System.UInt32)">
             <summary>
-            Constructs a row count element of a given count size.
+            default constructor with an initial value as a integer 
             </summary>
-        </member>
-        <member name="M:Google.GData.Spreadsheets.RowCountElement.ParseRowCount(System.Xml.XmlNode)">
-            <summary>
-            Parses an XML node to create a RowCount object
-            </summary>
-            <param name="node">RowCount node</param>
-            <returns>The created RowCount object</returns>
-        </member>
-        <member name="M:Google.GData.Spreadsheets.RowCountElement.Save(System.Xml.XmlWriter)">
-            <summary>
-            Used to save the RowCount instance into the passed in xmlwriter
-            </summary>
-            <param name="writer">the XmlWriter to write into</param>
         </member>
         <member name="P:Google.GData.Spreadsheets.RowCountElement.Count">
             <summary>
             Gets or sets the count of rows.
-            </summary>
-        </member>
-        <member name="P:Google.GData.Spreadsheets.RowCountElement.XmlName">
-            <summary>
-            Returns the constant representing the XML element.
             </summary>
         </member>
         <member name="T:Google.GData.Spreadsheets.SpreadsheetEntry">
@@ -634,12 +621,15 @@
             to indicate that it is a worksheet.
             </summary>
         </member>
-        <member name="M:Google.GData.Spreadsheets.SpreadsheetEntry.Parse(Google.GData.Client.ExtensionElementEventArgs,Google.GData.Client.AtomFeedParser)">
+        <member name="P:Google.GData.Spreadsheets.SpreadsheetEntry.Worksheets">
             <summary>
-            Parses the inner state of the element. TODO. 
+            returns a query object for the Worksheets feed for this spreadsheet
             </summary>
-            <param name="e">The extension element that should be added to this entry</param>
-            <param name="parser">The AtomFeedParser that called this</param>
+        </member>
+        <member name="P:Google.GData.Spreadsheets.SpreadsheetEntry.WorksheetsLink">
+            <summary>
+            returns a string for the Worksheets feed Uri 
+            </summary>
         </member>
         <member name="T:Google.GData.Spreadsheets.SpreadsheetFeed">
             <summary>
@@ -772,24 +762,18 @@
             <param name="cols">The number of columns.</param>
             <param name="title">The title of the worksheet.</param>
         </member>
-        <member name="M:Google.GData.Spreadsheets.WorksheetEntry.GetCellFeed">
+        <member name="M:Google.GData.Spreadsheets.WorksheetEntry.QueryCellFeed">
             <summary>
             Retrieves the cell-based metafeed of the cells within the worksheet.
             </summary>
             <returns>The CellsFeed of the cells in this worksheet.</returns>
         </member>
-        <member name="M:Google.GData.Spreadsheets.WorksheetEntry.GetCellFeedLink">
+        <member name="M:Google.GData.Spreadsheets.WorksheetEntry.QueryCellFeed(Google.GData.Spreadsheets.ReturnEmtpyCells)">
             <summary>
-            Retrieves the URI for the cells feed of the worksheet.
+            Retrieves the cell-based metafeed of the cells within the worksheet.
             </summary>
-            <returns>The URI of the cells feed for this worksheet.</returns>
-        </member>
-        <member name="M:Google.GData.Spreadsheets.WorksheetEntry.Parse(Google.GData.Client.ExtensionElementEventArgs,Google.GData.Client.AtomFeedParser)">
-            <summary>
-            Parses the inner state of the element
-            </summary>
-            <param name="e">the event arguments</param>
-            <param name="parser">the atom feed parser calling</param>
+            <param name="returnEmpty">indicates if a full sheet should be returned</param> 
+            <returns>The CellsFeed of the cells in this worksheet.</returns>
         </member>
         <member name="P:Google.GData.Spreadsheets.WorksheetEntry.ColCount">
             <summary>
@@ -811,6 +795,12 @@
             Sets the number of rows for this worksheet entry
             </summary>
         </member>
+        <member name="P:Google.GData.Spreadsheets.WorksheetEntry.CellFeedLink">
+            <summary>
+            Retrieves the URI for the cells feed of the worksheet.
+            </summary>
+            <returns>The URI of the cells feed for this worksheet.</returns>
+        </member>
         <member name="T:Google.GData.Spreadsheets.WorksheetFeed">
             <summary>
             Feed API customzation class for defining Worksheets feed.
@@ -829,13 +819,12 @@
             </summary>
             <returns>AtomEntry</returns>
         </member>
-        <member name="M:Google.GData.Spreadsheets.WorksheetFeed.HandleExtensionElements(Google.GData.Client.ExtensionElementEventArgs,Google.GData.Client.AtomFeedParser)">
+        <member name="M:Google.GData.Spreadsheets.WorksheetFeed.Insert(Google.GData.Spreadsheets.WorksheetEntry)">
             <summary>
-            get's called after we already handled the custom entry, to handle all 
-            other potential parsing tasks
+            custom insert to avoid the casting in the developer's code
             </summary>
-            <param name="e">the event arguments</param>
-            <param name="parser">the atom feed parser calling</param>
+            <param name="newEntry"></param>
+            <returns>WorksheetEntry</returns>
         </member>
         <member name="T:Google.GData.Spreadsheets.WorksheetQuery">
             <summary>

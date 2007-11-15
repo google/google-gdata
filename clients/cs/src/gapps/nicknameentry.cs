@@ -45,7 +45,7 @@ namespace Google.GData.Apps
         {
             Categories.Add(NICKNAME_CATEGORY);
 
-            GAppsExtensions.AddExtension(this);
+            GAppsExtensions.AddProvisioningExtensions(this);
         }
 
         /// <summary>
@@ -55,13 +55,13 @@ namespace Google.GData.Apps
         {
             get
             {
-                return FindExtension(AppsNameTable.XmlElementLogin,
-                                     AppsNameTable.appsNamespace) as LoginElement;
+                return FindExtension(AppsNameTable.AppsLogin,
+                                     AppsNameTable.AppsNamespace) as LoginElement;
             }
             set
             {
-                ReplaceExtension(AppsNameTable.XmlElementLogin,
-                                 AppsNameTable.appsNamespace,
+                ReplaceExtension(AppsNameTable.AppsLogin,
+                                 AppsNameTable.AppsNamespace,
                                  value);
             }
         }
@@ -73,13 +73,13 @@ namespace Google.GData.Apps
         {
             get
             {
-                return FindExtension(AppsNameTable.XmlElementNickname,
-                                     AppsNameTable.appsNamespace) as NicknameElement;
+                return FindExtension(AppsNameTable.AppsNickname,
+                                     AppsNameTable.AppsNamespace) as NicknameElement;
             }
             set
             {
-                ReplaceExtension(AppsNameTable.XmlElementNickname,
-                                 AppsNameTable.appsNamespace,
+                ReplaceExtension(AppsNameTable.AppsNickname,
+                                 AppsNameTable.AppsNamespace,
                                  value);
             }
         }

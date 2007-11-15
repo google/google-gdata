@@ -242,15 +242,15 @@ namespace Google.GData.Apps
                 XmlReader reader = new XmlTextReader(e.ResponseString, XmlNodeType.Document, null);
                 // now find the ErrorElement
                 while (reader.Read())
-                    if (reader.NodeType == XmlNodeType.Element && reader.LocalName == AppsNameTable.XmlElementError)
+                    if (reader.NodeType == XmlNodeType.Element && reader.LocalName == AppsNameTable.AppsError)
                     {
                         result = new AppsException(e);
                         result.ErrorCode =
-                            reader.GetAttribute(AppsNameTable.XmlAttributeErrorErrorCode);
+                            reader.GetAttribute(AppsNameTable.AppsErrorErrorCode);
                         result.InvalidInput =
-                            reader.GetAttribute(AppsNameTable.XmlAttributeErrorInvalidInput);
+                            reader.GetAttribute(AppsNameTable.AppsErrorInvalidInput);
                         result.Reason =
-                            reader.GetAttribute(AppsNameTable.XmlAttributeErrorReason);
+                            reader.GetAttribute(AppsNameTable.AppsErrorReason);
                         break;
                     }
             }

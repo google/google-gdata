@@ -35,7 +35,7 @@ namespace Google.GData.Apps
         public UserFeed(Uri uriBase, IService iService)
             : base(uriBase, iService)
         {
-            GAppsExtensions.AddExtension(this);
+            GAppsExtensions.AddProvisioningExtensions(this);
         }
 
         /// <summary>

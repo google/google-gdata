@@ -95,7 +95,6 @@ namespace Google.GData.Extensions {
         /// </summary>
         /// <param name="o">the object to compare to</param>
         /// <returns>bool</returns>
-
         public override bool Equals(Object o)
         {
             //
@@ -111,6 +110,16 @@ namespace Google.GData.Extensions {
 
             EnumConstruct ec = (EnumConstruct)o;
             return Type.Equals(ec.Type) && value.Equals(ec.value);
+        }
+        
+        /// <summary>
+        ///  GetHashCode overload
+        /// </summary>
+        /// <returns>a hash based on the string value</returns>
+        public override int GetHashCode()
+        {
+            // the hashcode for an enum will be derived by it's value          
+            return value != null ? value.GetHashCode() : 0;
         }
 
         #region overloaded for persistence

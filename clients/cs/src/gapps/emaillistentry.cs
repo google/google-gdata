@@ -45,7 +45,7 @@ namespace Google.GData.Apps
         {
             Categories.Add(EMAILLIST_CATEGORY);
 
-            GAppsExtensions.AddExtension(this);
+            GAppsExtensions.AddProvisioningExtensions(this);
         }
 
         /// <summary>
@@ -57,7 +57,7 @@ namespace Google.GData.Apps
         {
             Categories.Add(EMAILLIST_CATEGORY);
 
-            GAppsExtensions.AddExtension(this);
+            GAppsExtensions.AddProvisioningExtensions(this);
 
             EmailList = new EmailListElement(emailListName);
         }
@@ -69,13 +69,13 @@ namespace Google.GData.Apps
         {
             get
             {
-                return FindExtension(AppsNameTable.XmlElementEmailList,
-                                     AppsNameTable.appsNamespace) as EmailListElement;
+                return FindExtension(AppsNameTable.AppsEmailList,
+                                     AppsNameTable.AppsNamespace) as EmailListElement;
             }
             set
             {
-                ReplaceExtension(AppsNameTable.XmlElementEmailList,
-                                 AppsNameTable.appsNamespace,
+                ReplaceExtension(AppsNameTable.AppsEmailList,
+                                 AppsNameTable.AppsNamespace,
                                  value);
             }
         }

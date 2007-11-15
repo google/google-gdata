@@ -516,7 +516,7 @@
             <returns> </returns>
         </member>
         <member name="P:Google.GData.Client.AtomEntry.Categories">
-            <summary>accessor method public AtomCategoryCollection Categories, holds an array of AtomCategory objects</summary> 
+            <summary>holds an array of AtomCategory objects</summary> 
             <returns> </returns>
         </member>
         <member name="P:Google.GData.Client.AtomEntry.Id">
@@ -790,6 +790,13 @@
             <param name="feedOne">the first feed</param>
             <param name="feedTwo">the second feed</param>
             <returns>true if believed to be the same source</returns>
+        </member>
+        <member name="M:Google.GData.Client.AtomFeed.CreateBatchFeed(Google.GData.Client.GDataBatchOperationType)">
+            <summary>
+            returns a new batchfeed with all the currently dirty entries in it
+            </summary>
+            <param name="defaultOperation">the default operation to execute</param>
+            <returns>AtomFeed</returns>
         </member>
         <member name="M:Google.GData.Client.AtomFeed.AddOtherNamespaces(System.Xml.XmlWriter)">
             <summary>checks to see if we are a batch feed, if so, adds the batchNS</summary> 
@@ -2681,6 +2688,12 @@
         <member name="M:Google.GData.Client.AtomEntryCollection.#ctor(Google.GData.Client.AtomFeed)">
             <summary>constructor</summary> 
         </member>
+        <member name="M:Google.GData.Client.AtomEntryCollection.FindById(Google.GData.Client.AtomId)">
+            <summary>Fins an atomEntry in the collection 
+            based on it's ID. </summary> 
+            <param name="value">The atomId to look for</param> 
+            <returns>Null if not found, otherwise the entry</returns>
+        </member>
         <member name="M:Google.GData.Client.AtomEntryCollection.Add(Google.GData.Client.AtomEntry)">
             <summary>standard typed add method </summary> 
         </member>
@@ -3068,6 +3081,31 @@
         </member>
         <member name="M:Google.GData.Client.ClientFeedException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
             <summary>here to please FxCop and maybe for future use</summary> 
+        </member>
+        <member name="T:Google.GData.Client.GDataBatchRequestException">
+            <summary>standard exception class to be used inside the feed object
+            </summary> 
+        </member>
+        <member name="M:Google.GData.Client.GDataBatchRequestException.#ctor">
+            <summary>standard overloaded constructor</summary> 
+        </member>
+        <member name="M:Google.GData.Client.GDataBatchRequestException.#ctor(Google.GData.Client.AtomFeed)">
+            <summary>default constructor so that FxCop does not complain</summary> 
+        </member>
+        <member name="M:Google.GData.Client.GDataBatchRequestException.#ctor(System.String)">
+            <summary>standard overloaded constructor</summary> 
+            <param name="msg">msg for the exception</param>
+        </member>
+        <member name="M:Google.GData.Client.GDataBatchRequestException.#ctor(System.String,System.Exception)">
+            <summary>here to please FxCop and for future use</summary> 
+        </member>
+        <member name="M:Google.GData.Client.GDataBatchRequestException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>here to please FxCop and maybe for future use</summary> 
+        </member>
+        <member name="P:Google.GData.Client.GDataBatchRequestException.BatchResult">
+            <summary>
+            Returns the BatchResult Feed that contains the problem
+            </summary>
         </member>
         <member name="T:Google.GData.Client.GDataRequestException">
             <summary>standard exception class to be used inside GDataRequest
@@ -4043,6 +4081,9 @@
             <summary>simple insert for atom entries, based on a feed</summary> 
         </member>
         <member name="M:Google.GData.Client.IService.Delete(Google.GData.Client.AtomEntry)">
+            <summary>delete an entry</summary> 
+        </member>
+        <member name="M:Google.GData.Client.IService.Delete(System.Uri)">
             <summary>delete an entry</summary> 
         </member>
         <member name="M:Google.GData.Client.IService.Batch(Google.GData.Client.AtomFeed,System.Uri)">
