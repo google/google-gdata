@@ -147,14 +147,13 @@ namespace Google.GData.Client
             {
                 newPath.Append(paramInsertion);
                 newPath.AppendFormat(CultureInfo.InvariantCulture, "title={0}", Utilities.UriEncodeReserved(Title));
-
+                paramInsertion = '&';
                 if (Exact)
                 {
                     newPath.Append(paramInsertion);
                     newPath.AppendFormat(CultureInfo.InvariantCulture, "title-exact=true");
                 }
             }
-
             return newPath.ToString();
         }
     }
