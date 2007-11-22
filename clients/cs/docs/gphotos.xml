@@ -172,6 +172,16 @@
             The user-specified location associated with the album
             </summary>
         </member>
+        <member name="P:Google.GData.Photos.AlbumAccessor.Longitude">
+            <summary>
+            the Longitude  of the photo
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.AlbumAccessor.Lattitude">
+            <summary>
+            the Longitude  of the photo
+            </summary>
+        </member>
         <member name="P:Google.GData.Photos.AlbumAccessor.NumPhotos">
             <summary>
             The number of photos in the album.
@@ -1182,6 +1192,16 @@
         <member name="P:Google.GData.Photos.PhotoAccessor.Id">
             <summary>
             the id of the photo
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.PhotoAccessor.Longitude">
+            <summary>
+            the Longitude  of the photo
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.PhotoAccessor.Lattitude">
+            <summary>
+            the Longitude  of the photo
             </summary>
         </member>
         <member name="T:Google.GData.Photos.PicasaFeed">
