@@ -151,6 +151,12 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "PhotoBrowser.resx"
+                    Link = "..\..\..\samples\PhotoBrowser\PhotoBrowser.resx"
+                    DependentUpon = "PhotoBrowser.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "PhotoBrowser.ico"
                     BuildAction = "Content"
                 />

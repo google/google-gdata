@@ -45,7 +45,7 @@ namespace Google.GData.Extensions.Location {
         /// <summary>static string to specify the georss namespace
         /// </summary>
         /// <summary>static string to specify the GeoRSS namespace supported</summary>
-        public const string NSGeoRss = "http://www.georss.org/georss/"; 
+        public const string NSGeoRss = "http://www.georss.org/georss"; 
         /// <summary>static string to specify the GeoRSS prefix used</summary>
         public const string geoRssPrefix = "georss"; 
         /// <summary>static string to specify the KML namespapce supported</summary>    
@@ -55,7 +55,7 @@ namespace Google.GData.Extensions.Location {
         /// <summary>static string to specify the the where element</summary>
         public const string GeoRssWhereElement  = "where";
         /// <summary>static string to specify the the point element</summary>
-        public const string GeoKmlPointElement  = "point";
+        public const string GeoKmlPointElement  = "Point";
         /// <summary>static string to specify the the pos element</summary>
         public const string GeoKmlPositionElement    = "pos";
     }

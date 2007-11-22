@@ -19,6 +19,7 @@ using System.IO;
 using System.Collections;
 using Google.GData.Client;
 using Google.GData.Extensions;
+using Google.GData.Extensions.Location;
 #if WindowsCE || PocketPC
 #else
 using System.ComponentModel;
@@ -206,7 +207,7 @@ namespace Google.GData.Photos
         /// </summary>
 #if WindowsCE || PocketPC
 #else
-        [Category("Base Album Data"),
+        [Category("Location Data"),
         Description("Specifies the location for the album.")]
 #endif
         public string Location 
@@ -221,6 +222,68 @@ namespace Google.GData.Photos
             }
         }
 
+        /// <summary>
+        /// the Longitude  of the photo
+        /// </summary>
+#if WindowsCE || PocketPC
+#else
+        [Category("Location Data"),
+        Description("The longitude of the photo.")]
+#endif
+        public double Longitude 
+        {
+            get 
+            {
+                GeoRssWhere where = this.entry.FindExtension(GeoNametable.GeoRssWhereElement, GeoNametable.NSGeoRss) as GeoRssWhere;
+                if (where != null)
+                {
+                    return where.Longitude;
+                }
+                return -1; 
+            }
+            set 
+            {
+                GeoRssWhere where = this.entry.FindExtension(GeoNametable.GeoRssWhereElement, GeoNametable.NSGeoRss) as GeoRssWhere;
+                if (where == null)
+                {
+                    where = entry.CreateExtension(GeoNametable.GeoRssWhereElement, GeoNametable.NSGeoRss) as GeoRssWhere;
+                    this.entry.ExtensionElements.Add(where);
+                }
+                where.Longitude = value; 
+            }
+        }
+    
+        /// <summary>
+        /// the Longitude  of the photo
+        /// </summary>
+#if WindowsCE || PocketPC
+#else
+        [Category("Location Data"),
+        Description("The Lattitude of the photo.")]
+#endif
+        public double Lattitude 
+        {
+            get 
+            {
+                GeoRssWhere where = this.entry.FindExtension(GeoNametable.GeoRssWhereElement, GeoNametable.NSGeoRss) as GeoRssWhere;
+                if (where != null)
+                {
+                    return where.Lattitude;
+                }
+                return -1; 
+            }
+            set 
+            {
+                GeoRssWhere where = this.entry.FindExtension(GeoNametable.GeoRssWhereElement, GeoNametable.NSGeoRss) as GeoRssWhere;
+                if (where == null)
+                {
+                    where = entry.CreateExtension(GeoNametable.GeoRssWhereElement, GeoNametable.NSGeoRss) as GeoRssWhere;
+                    this.entry.ExtensionElements.Add(where);
+                }
+                where.Lattitude = value; 
+            }
+        }
+  
         /// <summary>
         /// The number of photos in the album.
         /// </summary>

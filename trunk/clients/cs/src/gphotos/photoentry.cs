@@ -46,7 +46,7 @@ namespace Google.GData.Photos
         /// to indicate that it is an event.
         /// </summary>
         public PhotoEntry()
-        : base()
+            : base()
         {
             Tracing.TraceMsg("Created PhotoEntry");
             Categories.Add(PHOTO_CATEGORY);
@@ -390,9 +390,67 @@ namespace Google.GData.Photos
             }
         }
 
-
+        /// <summary>
+        /// the Longitude  of the photo
+        /// </summary>
+#if WindowsCE || PocketPC
+#else
+        [Category("Location Photo Data"),
+        Description("The longitude of the photo.")]
+#endif
+        public double Longitude 
+        {
+            get 
+            {
+                GeoRssWhere where = this.entry.FindExtension(GeoNametable.GeoRssWhereElement, GeoNametable.NSGeoRss) as GeoRssWhere;
+                if (where != null)
+                {
+                    return where.Longitude;
+                }
+                return -1; 
+            }
+            set 
+            {
+                GeoRssWhere where = this.entry.FindExtension(GeoNametable.GeoRssWhereElement, GeoNametable.NSGeoRss) as GeoRssWhere;
+                if (where == null)
+                {
+                    where = entry.CreateExtension(GeoNametable.GeoRssWhereElement, GeoNametable.NSGeoRss) as GeoRssWhere;
+                    this.entry.ExtensionElements.Add(where);
+                }
+                where.Longitude = value; 
+            }
+        }
+    
+        /// <summary>
+        /// the Longitude  of the photo
+        /// </summary>
+#if WindowsCE || PocketPC
+#else
+        [Category("Location Photo Data"),
+        Description("The Lattitude of the photo.")]
+#endif
+        public double Lattitude 
+        {
+            get 
+            {
+                GeoRssWhere where = this.entry.FindExtension(GeoNametable.GeoRssWhereElement, GeoNametable.NSGeoRss) as GeoRssWhere;
+                if (where != null)
+                {
+                    return where.Lattitude;
+                }
+                return -1; 
+            }
+            set 
+            {
+                GeoRssWhere where = this.entry.FindExtension(GeoNametable.GeoRssWhereElement, GeoNametable.NSGeoRss) as GeoRssWhere;
+                if (where == null)
+                {
+                    where = entry.CreateExtension(GeoNametable.GeoRssWhereElement, GeoNametable.NSGeoRss) as GeoRssWhere;
+                    this.entry.ExtensionElements.Add(where);
+                }
+                where.Lattitude = value; 
+            }
+        }
     }
-
-   
 }
 
