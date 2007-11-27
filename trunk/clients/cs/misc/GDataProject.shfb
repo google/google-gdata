@@ -113,7 +113,7 @@ Creating and deleting a feed is left up to the service; the GData protocol does 
     <VisibleItems>InheritedMembers, InheritedFrameworkMembers, Protected, SealedProtected</VisibleItems>
     <HtmlHelp1xCompilerPath path="" />
     <HtmlHelp2xCompilerPath path="" />
-    <OutputPath>D:\googlegdata\clients\cs\docs\HTMLDocumentation\</OutputPath>
+    <OutputPath>D:\googlegdata\clients\cs\docs\TempHTML\</OutputPath>
     <SandcastlePath path="" />
     <WorkingPath path="" />
     <CleanIntermediates>True</CleanIntermediates>
