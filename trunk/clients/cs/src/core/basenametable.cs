@@ -96,6 +96,8 @@ namespace Google.GData.Client
         public const string ServiceBatch = gNamespacePrefix + "batch";
         /// <summary>GData Kind Scheme</summary> 
         public const string gKind = gNamespacePrefix + "kind";
+        /// <summary>label scheme</summary>
+        public const string gLabels = gNamespace + "/labels";
         /// <summary>the edit definition in the link collection</summary> 
         public const string ServiceEdit = "edit";
         /// <summary>the next chunk URI in the link collection</summary> 
