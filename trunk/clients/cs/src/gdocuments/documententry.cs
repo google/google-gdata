@@ -39,6 +39,7 @@ namespace Google.GData.Documents {
         static string PRESENTATION_KIND = "http://schemas.google.com/docs/2007#presentation";
         static string DOCUMENT_KIND = "http://schemas.google.com/docs/2007#document";
         static string SPREADSHEET_KIND = "http://schemas.google.com/docs/2007#spreadsheet";
+        static string STARRED_KIND = "http://schemas.google.com/g/2005/labels#starred";
 
         public static AtomCategory DOCUMENT_CATEGORY =
             new AtomCategory(DOCUMENT_KIND, new AtomUri(BaseNameTable.gKind));
@@ -46,6 +47,8 @@ namespace Google.GData.Documents {
             new AtomCategory(SPREADSHEET_KIND, new AtomUri(BaseNameTable.gKind));
         public static AtomCategory PRESENTATION_CATEGORY =
             new AtomCategory(PRESENTATION_KIND, new AtomUri(BaseNameTable.gKind));
+        public static AtomCategory STARRED_CATEGORY =
+            new AtomCategory(STARRED_KIND, new AtomUri(BaseNameTable.gLabels));
 
 
         /// <summary>
@@ -58,8 +61,17 @@ namespace Google.GData.Documents {
             Tracing.TraceMsg("Created DocumentEntry");
         }
 
+        public void toggleCategory(AtomCategory category, bool toggle) {
+            if(toggle) {
+                this.Categories.Add(category);
+            }
+            else {
+                this.Categories.Remove(category);
+            }
+        }
+
         /// <summary>
-        /// returns TRUE if this entry is a Document entry
+        /// Reflects if this entry is a word processor document
         /// </summary>
         public bool IsDocument
         {
@@ -69,18 +81,12 @@ namespace Google.GData.Documents {
             }
             set 
             {
-                if (value == true)
-                {
-                    if (this.IsDocument == false)
-                    {
-                        this.Categories.Add(DocumentEntry.DOCUMENT_CATEGORY);
-                    }
-                }
+                this.toggleCategory(DocumentEntry.DOCUMENT_CATEGORY, value);
             }
         }
 
          /// <summary>
-        /// returns TRUE if this entry is a Document entry
+        /// Reflects if this entry is a spreadsheet document
         /// </summary>
         public bool IsSpreadsheet
         {
@@ -90,18 +96,12 @@ namespace Google.GData.Documents {
             }
             set 
             {
-                if (value == true)
-                {
-                    if (this.IsSpreadsheet == false)
-                    {
-                        this.Categories.Add(DocumentEntry.SPREADSHEET_CATEGORY);
-                    }
-                }
+                this.toggleCategory(DocumentEntry.SPREADSHEET_CATEGORY, value);
             }
         }
 
-         /// <summary>
-        /// returns TRUE if this entry is a Document entry
+        /// <summary>
+        /// Reflects if this entry is a presentation document
         /// </summary>
         public bool IsPresentation
         {
@@ -111,15 +111,26 @@ namespace Google.GData.Documents {
             }
             set 
             {
-                if (value == true)
-                {
-                    if (this.IsPresentation == false)
-                    {
-                        this.Categories.Add(DocumentEntry.PRESENTATION_CATEGORY);
-                    }
-                }
+                this.toggleCategory(DocumentEntry.PRESENTATION_CATEGORY, value);
             }
         }
+
+        /// <summary>
+        /// Reflects if this entry is starred
+        /// </summary>
+        public bool IsStarred
+        {
+            get 
+            {
+                return this.Categories.Contains(DocumentEntry.STARRED_CATEGORY);
+            }
+            set 
+            {
+                this.toggleCategory(DocumentEntry.STARRED_CATEGORY, value);
+            }
+        }
+
+
     }
 }
 
