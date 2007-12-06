@@ -48,6 +48,33 @@ namespace Google.GData.Documents {
         public const string GDocumentsService = "writely";
 
         /// <summary>
+        /// A Hashtable that expresses the allowed content types.
+        /// </summary>
+        public static Hashtable GDocumentsAllowedTypes;
+
+        /// <summary>
+        /// Static constructor used to initialize GDocumentsAllowedTypes.
+        /// </summary>
+        static DocumentsService()
+        {
+            GDocumentsAllowedTypes = new Hashtable();
+            GDocumentsAllowedTypes.Add("CSV", "text/csv");
+            GDocumentsAllowedTypes.Add("TAB", "text/tab-separated-values");
+            GDocumentsAllowedTypes.Add("TSV", "text/tab-separated-values");
+            GDocumentsAllowedTypes.Add("TXT", "text/plain");
+            GDocumentsAllowedTypes.Add("HTML", "text/html");
+            GDocumentsAllowedTypes.Add("HTM", "text/html");
+            GDocumentsAllowedTypes.Add("DOC", "application/msword");
+            GDocumentsAllowedTypes.Add("ODS", "application/x-vnd.oasis.opendocument.spreadsheet");
+            GDocumentsAllowedTypes.Add("ODT", "application/vnd.oasis.opendocument.text");
+            GDocumentsAllowedTypes.Add("RTF", "application/rtf");
+            GDocumentsAllowedTypes.Add("SXW", "application/vnd.sun.xml.writer");
+            GDocumentsAllowedTypes.Add("XLS", "application/vnd.ms-excel");
+            GDocumentsAllowedTypes.Add("PPT", "application/vnd.ms-powerpoint");
+            GDocumentsAllowedTypes.Add("PPS", "application/vnd.ms-powerpoint");
+        }
+
+        /// <summary>
         ///  default constructor
         /// </summary>
         /// <param name="applicationName">the applicationname</param>
@@ -65,6 +92,35 @@ namespace Google.GData.Documents {
         {
             return base.Query(feedQuery) as DocumentsFeed;
         }
+
+
+        /// <summary>
+        /// Simple method to upload a document, presentation, or spreadsheet
+        /// based upon the file extension.
+        /// </summary>
+        /// <param name="fileName">The full path to the file.</param>
+        /// <param name="documentName">The desired name of the document on the server.</param>
+        /// <returns>A DocumentEntry describing the created document.</returns>
+        public DocumentEntry UploadDocument(string fileName, string documentName)
+        {
+            FileInfo fileInfo = new FileInfo(fileName);
+            FileStream stream = fileInfo.OpenRead();
+            Uri postUri = new Uri(DocumentsListQuery.documentsBaseUri);
+
+            //convert the extension to caps and strip the "." off the front
+            string ext = fileInfo.Extension.ToUpper().Substring(1);
+
+            String contentType = (String) GDocumentsAllowedTypes[ext];
+
+            if (contentType == null)
+            {
+                throw new ArgumentException("File extension '"+ext+"' is not recognized as valid.");
+            }
+
+            return this.Insert(postUri, stream, contentType, documentName) as DocumentEntry;
+        }
+
+
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>eventchaining. We catch this by from the base service, which 

@@ -75,6 +75,9 @@ namespace Google.GData.Documents {
         private static AtomCategory ATOMCATEGORY_PRESENTATIONS = new AtomCategory("presentation");
         public static QueryCategory PRESENTATIONS = new QueryCategory(ATOMCATEGORY_PRESENTATIONS);
 
+        public static AtomCategory ATOMCATEGORY_STARRED = new AtomCategory("starred");
+        public static QueryCategory STARRED = new QueryCategory(ATOMCATEGORY_STARRED);
+
         /// <summary>
         /// base constructor
         /// </summary>
@@ -91,12 +94,34 @@ namespace Google.GData.Documents {
         : base(queryUri)
         {
         }
+
+        /// <summary>
+        /// Restricts the results to only starred documents
+        /// </summary>
+        public bool Starred
+        {
+            get
+            {
+                return this.Categories.Contains(DocumentsListQuery.STARRED);
+            }
+            set
+            {
+                if (value)
+                {
+                    this.Categories.Add(DocumentsListQuery.STARRED);
+                }
+                else
+                {
+                    this.Categories.Remove(DocumentsListQuery.STARRED);
+                }
+            }
+        }
     }
 
 
 
     /// <summary>
-    /// a subclass setup to just retrieve all documents
+    /// a subclass setup to just retrieve all word processor documents
     /// </summary>
     public class DocumentQuery : DocumentsListQuery
     {
