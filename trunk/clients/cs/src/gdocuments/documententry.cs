@@ -41,12 +41,24 @@ namespace Google.GData.Documents {
         static string SPREADSHEET_KIND = "http://schemas.google.com/docs/2007#spreadsheet";
         static string STARRED_KIND = "http://schemas.google.com/g/2005/labels#starred";
 
+        /// <summary>
+        /// a predefined atom category for Documents
+        /// </summary>
         public static AtomCategory DOCUMENT_CATEGORY =
             new AtomCategory(DOCUMENT_KIND, new AtomUri(BaseNameTable.gKind));
+        /// <summary>
+        /// a predefined atom category for Spreadsheets
+        /// </summary>
         public static AtomCategory SPREADSHEET_CATEGORY =
             new AtomCategory(SPREADSHEET_KIND, new AtomUri(BaseNameTable.gKind));
+        /// <summary>
+        /// a predefined atom category for Presentations
+        /// </summary>
         public static AtomCategory PRESENTATION_CATEGORY =
             new AtomCategory(PRESENTATION_KIND, new AtomUri(BaseNameTable.gKind));
+        /// <summary>
+        /// a predefined atom category for starred documentss
+        /// </summary>
         public static AtomCategory STARRED_CATEGORY =
             new AtomCategory(STARRED_KIND, new AtomUri(BaseNameTable.gLabels));
 
@@ -61,7 +73,13 @@ namespace Google.GData.Documents {
             Tracing.TraceMsg("Created DocumentEntry");
         }
 
-        public void toggleCategory(AtomCategory category, bool toggle) {
+
+        /// <summary>
+        /// adds or removes a category based on the toggle flag. Helper methods
+        /// </summary>
+        /// <param name="category"></param>
+        /// <param name="toggle"></param>
+        public void ToggleCategory(AtomCategory category, bool toggle) {
             if(toggle) {
                 this.Categories.Add(category);
             }
@@ -81,7 +99,7 @@ namespace Google.GData.Documents {
             }
             set 
             {
-                this.toggleCategory(DocumentEntry.DOCUMENT_CATEGORY, value);
+                this.ToggleCategory(DocumentEntry.DOCUMENT_CATEGORY, value);
             }
         }
 
@@ -96,7 +114,7 @@ namespace Google.GData.Documents {
             }
             set 
             {
-                this.toggleCategory(DocumentEntry.SPREADSHEET_CATEGORY, value);
+                this.ToggleCategory(DocumentEntry.SPREADSHEET_CATEGORY, value);
             }
         }
 
@@ -111,7 +129,7 @@ namespace Google.GData.Documents {
             }
             set 
             {
-                this.toggleCategory(DocumentEntry.PRESENTATION_CATEGORY, value);
+                this.ToggleCategory(DocumentEntry.PRESENTATION_CATEGORY, value);
             }
         }
 
@@ -126,7 +144,7 @@ namespace Google.GData.Documents {
             }
             set 
             {
-                this.toggleCategory(DocumentEntry.STARRED_CATEGORY, value);
+                this.ToggleCategory(DocumentEntry.STARRED_CATEGORY, value);
             }
         }
 

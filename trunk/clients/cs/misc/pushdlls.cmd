@@ -28,6 +28,7 @@ xcopy /y ..\src\VS2003\gcodesearch\bin\Release\*.dll ..\lib\Release\*.*
 xcopy /y ..\src\VS2003\gapps\bin\Release\*.dll ..\lib\Release\*.*
 xcopy /y ..\src\VS2003\gacl\bin\Release\*.dll ..\lib\Release\*.*
 xcopy /y ..\src\VS2003\gphotos\bin\Release\*.dll ..\lib\Release\*.*
+xcopy /y ..\src\VS2003\gdoclist\bin\Release\*.dll ..\lib\Release\*.*
 
 # copy the ASP DLLS
 xcopy /y ..\src\VS2003\gdata\bin\asp\*.dll ..\lib\ASP.NET\*.*
@@ -40,6 +41,7 @@ xcopy /y ..\src\VS2003\gapps\bin\asp\*.dll ..\lib\ASP.NET\*.*
 xcopy /y ..\src\VS2003\gacl\bin\asp\*.dll ..\lib\ASP.NET\*.*
 xcopy /y ..\src\VS2003\gphotos\bin\asp\*.dll ..\lib\ASP.NET\*.*
 xcopy /y ..\src\VS2003\gphotos\bin\asp\*.dll ..\lib\ASP.NET\*.*
+xcopy /y ..\src\VS2003\gdoclist\bin\asp\*.dll ..\lib\ASP.NET\*.*
 
 
 
@@ -54,6 +56,7 @@ xcopy /y ..\src\VS2003\gapps\bin\*.xml ..\docs\*.*
 xcopy /y ..\src\VS2003\gacl\bin\*.xml ..\docs\*.*
 xcopy /y ..\src\VS2003\gphotos\bin\*.xml ..\docs\*.*
 xcopy /y ..\src\VS2003\ExecRequest\bin\*.xml ..\docs\*.*
+xcopy /y ..\src\VS2003\gdoclist\bin\*.xml ..\docs\*.*
 
 rem run ILMerge on PhotoBrowser.exe
 cd ..\lib\release\
