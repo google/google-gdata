@@ -1661,6 +1661,9 @@
         <member name="F:Google.GData.Client.BaseNameTable.gKind">
             <summary>GData Kind Scheme</summary> 
         </member>
+        <member name="F:Google.GData.Client.BaseNameTable.gLabels">
+            <summary>label scheme</summary>
+        </member>
         <member name="F:Google.GData.Client.BaseNameTable.ServiceEdit">
             <summary>the edit definition in the link collection</summary> 
         </member>

@@ -79,6 +79,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gapps_migration_sample", "g
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gdoclist", "gdoclist\gdoclist.csproj", "{1C00DDC8-021D-4F60-9EE9-314431586936}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfiguration) = preSolution
 		ASP = ASP
@@ -201,6 +205,12 @@ Global
 		{5B456106-A6A7-4EAA-B32C-5EDB92FC2453}.Debug.Build.0 = Debug|.NET
 		{5B456106-A6A7-4EAA-B32C-5EDB92FC2453}.Release.ActiveCfg = Release|.NET
 		{5B456106-A6A7-4EAA-B32C-5EDB92FC2453}.Release.Build.0 = Release|.NET
+		{1C00DDC8-021D-4F60-9EE9-314431586936}.ASP.ActiveCfg = ASP|.NET
+		{1C00DDC8-021D-4F60-9EE9-314431586936}.ASP.Build.0 = ASP|.NET
+		{1C00DDC8-021D-4F60-9EE9-314431586936}.Debug.ActiveCfg = Debug|.NET
+		{1C00DDC8-021D-4F60-9EE9-314431586936}.Debug.Build.0 = Debug|.NET
+		{1C00DDC8-021D-4F60-9EE9-314431586936}.Release.ActiveCfg = Release|.NET
+		{1C00DDC8-021D-4F60-9EE9-314431586936}.Release.Build.0 = Release|.NET
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 	EndGlobalSection

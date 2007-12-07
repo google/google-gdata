@@ -56,6 +56,7 @@ namespace Google.GData.Documents {
     ///             Term: folder-id	
     ///             Label: folder-name	
     ///             All documents inside the given folder for the requesting user
+    ///  </summary>
     //////////////////////////////////////////////////////////////////////
     public class DocumentsListQuery : FeedQuery
     {
@@ -67,15 +68,27 @@ namespace Google.GData.Documents {
         public static string documentsBaseUri = "http://docs.google.com/feeds/documents/private/full";
 
         private static AtomCategory ATOMCATEGORY_DOCUMENTS = new AtomCategory("document");
+        /// <summary>
+        /// predefined query category for documents
+        /// </summary>
         public static QueryCategory DOCUMENTS = new QueryCategory(ATOMCATEGORY_DOCUMENTS);
 
         private static AtomCategory ATOMCATEGORY_SPREADSHEETS = new AtomCategory("spreadsheet");
+        /// <summary>
+        /// predefined query category for spreadsheets
+        /// </summary>
         public static QueryCategory SPREADSHEETS = new QueryCategory(ATOMCATEGORY_SPREADSHEETS);
 
         private static AtomCategory ATOMCATEGORY_PRESENTATIONS = new AtomCategory("presentation");
+        /// <summary>
+        /// predefined query category for presentations
+        /// </summary>
         public static QueryCategory PRESENTATIONS = new QueryCategory(ATOMCATEGORY_PRESENTATIONS);
 
         public static AtomCategory ATOMCATEGORY_STARRED = new AtomCategory("starred");
+        /// <summary>
+        /// predefined query category for starred documents
+        /// </summary>
         public static QueryCategory STARRED = new QueryCategory(ATOMCATEGORY_STARRED);
 
         /// <summary>
