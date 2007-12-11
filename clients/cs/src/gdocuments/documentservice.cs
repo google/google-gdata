@@ -103,9 +103,15 @@ namespace Google.GData.Documents {
         /// <returns>A DocumentEntry describing the created document.</returns>
         public DocumentEntry UploadDocument(string fileName, string documentName)
         {
+
             FileInfo fileInfo = new FileInfo(fileName);
             FileStream stream = fileInfo.OpenRead();
             Uri postUri = new Uri(DocumentsListQuery.documentsBaseUri);
+
+            if (documentName == null)
+            {
+                documentName = fileInfo.Name;
+            }
 
             //convert the extension to caps and strip the "." off the front
             string ext = fileInfo.Extension.ToUpper().Substring(1);
