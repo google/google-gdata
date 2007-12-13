@@ -105,7 +105,7 @@ namespace Google.GData.Documents {
         {
 
             FileInfo fileInfo = new FileInfo(fileName);
-            FileStream stream = fileInfo.OpenRead();
+            FileStream stream = fileInfo.Open(FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
             Uri postUri = new Uri(DocumentsListQuery.documentsBaseUri);
 
             if (documentName == null)
