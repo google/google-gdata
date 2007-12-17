@@ -270,13 +270,14 @@ namespace Google.GData.Client
         protected bool disposed; 
         /// <summary>set wheter or not this request should use GZip</summary>
         private bool useGZip;
+        /// <summary>holds the timestamp for conditional GET</summary>
+        private DateTime ifModifiedSince = DateTime.MinValue;
         /// <summary>stream from the response</summary>
         private Stream  responseStream;
         /// <summary>holds the contenttype to use if overridden</summary>
         private string contentType;
         /// <summary>holds the slugheader to use if overridden</summary>
         private string slugHeader;
-
    
         //////////////////////////////////////////////////////////////////////
         /// <summary>default constructor</summary> 
@@ -327,7 +328,17 @@ namespace Google.GData.Client
             set { this.useGZip = value; }
         }
         //////////////////////////////////////////////////////////////////////
-        
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>set a timestamp for conditional GET</summary>
+        //////////////////////////////////////////////////////////////////////
+        public DateTime IfModifiedSince
+        {
+            get { return (this.ifModifiedSince); }
+            set { this.ifModifiedSince = value; }
+        }
+        //////////////////////////////////////////////////////////////////////
+
         //////////////////////////////////////////////////////////////////////
         /// <summary>does the real disposition</summary> 
         /// <param name="disposing">indicates if dispose called it or finalize</param>
@@ -471,6 +482,9 @@ namespace Google.GData.Client
                     if (this.useGZip == true)
                         web.Headers.Add("Accept-Encoding", "gzip");
 
+                    if (this.IfModifiedSince != DateTime.MinValue)
+                        web.IfModifiedSince = this.IfModifiedSince;
+
                     web.ContentType = this.ContentType;
                     web.UserAgent = this.factory.UserAgent;
                     web.KeepAlive = this.factory.KeepAlive; 
@@ -580,6 +594,11 @@ namespace Google.GData.Client
                                                     this.targetUri.ToString() + response.StatusCode.ToString(), this.webResponse); 
                 }
 
+                if (this.IfModifiedSince != DateTime.MinValue && response.StatusCode == HttpStatusCode.NotModified)
+                {
+                    // Throw an exception for conditional GET
+                    throw new GDataNotModifiedException("Content not modified: " + this.targetUri.ToString(), this.webResponse);
+                }
             
                 if (response.StatusCode == HttpStatusCode.Redirect ||
                     response.StatusCode == HttpStatusCode.Found ||

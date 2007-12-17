@@ -54,6 +54,8 @@ namespace Google.GData.Client
 
         /// <summary>the minimal query implementation</summary> 
         AtomFeed Query(FeedQuery feedQuery);
+        /// <summary>the minimal query implementation with conditional GET</summary> 
+        AtomFeed Query(FeedQuery feedQuery, DateTime ifModifiedSince);
         /// <summary>simple update for atom resources</summary> 
         AtomEntry Update(AtomEntry entry);
         /// <summary>simple insert for atom entries, based on a feed</summary> 
@@ -123,6 +125,12 @@ namespace Google.GData.Client
         }
         /// <summary>set wether or not to use gzip for this request</summary>
         bool UseGZip
+        {
+            get;
+            set;
+        }
+        /// <summary>set a timestamp for conditional GET</summary>
+        DateTime IfModifiedSince
         {
             get;
             set;
