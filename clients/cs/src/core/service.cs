@@ -220,19 +220,46 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         public Stream Query(Uri queryUri)
         {
-            Tracing.TraceCall("Enter");
-            if (queryUri == null)
-            {
-                throw new System.ArgumentNullException("queryUri");
-            }
-            IGDataRequest request = this.RequestFactory.CreateRequest(GDataRequestType.Query, queryUri);
-            request.Credentials = this.Credentials;
-
-            request.Execute();
-            // return the response
-            Tracing.TraceCall("Exit");
-            return request.GetResponseStream();
+          return Query(queryUri, DateTime.MinValue);
         }
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>the basic interface. Take a URI and just get it</summary> 
+        /// <param name="queryUri">the URI to execute</param>
+        /// <param name="ifModifiedSince">used to set a precondition date that 
+        /// indicates the feed should be returned only if it has been modified 
+        /// after the specified date. A value of DateTime.MinValue indicates no 
+        /// precondition.</param>
+        /// <returns> a webresponse object</returns>
+        //////////////////////////////////////////////////////////////////////
+        public Stream Query(Uri queryUri, DateTime ifModifiedSince)
+        {
+          Tracing.TraceCall("Enter");
+          if (queryUri == null)
+          {
+            throw new System.ArgumentNullException("queryUri");
+          }
+          IGDataRequest request = this.RequestFactory.CreateRequest(GDataRequestType.Query, queryUri);
+          request.Credentials = this.Credentials;
+          request.IfModifiedSince = ifModifiedSince;
+
+          try
+          {
+            request.Execute();
+          }
+          catch (Exception e)
+          {
+            // Prevent connection leaks
+            if (request.GetResponseStream() != null)
+              request.GetResponseStream().Close();
+
+            throw e;
+          }
+          // return the response
+          Tracing.TraceCall("Exit");
+          return request.GetResponseStream();
+        }
+
         /////////////////////////////////////////////////////////////////////////////
 
 
@@ -268,43 +295,59 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         public AtomFeed Query(FeedQuery feedQuery)
         {
-            AtomFeed feed = null;
-            Tracing.TraceCall("Enter");
+            return Query(feedQuery, DateTime.MinValue);
+        }
+        /////////////////////////////////////////////////////////////////////////////
 
-            if (feedQuery == null)
-            {
-                throw new System.ArgumentNullException("feedQuery", "The query argument MUST not be null");
-            }
-             // Create a new request to the Uri in the query object...    
-            Uri targetUri  = null; 
 
-            try 
-            {
-                targetUri = feedQuery.Uri;
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>executes the query and returns an AtomFeed object tree</summary> 
+        /// <param name="feedQuery">the query parameters as a FeedQuery object </param>
+        /// <param name="ifModifiedSince">used to set a precondition date that 
+        /// indicates the feed should be returned only if it has been modified 
+        /// after the specified date. A value of null indicates no 
+        /// precondition.</param>
+        /// <returns>AtomFeed object tree</returns>
+        //////////////////////////////////////////////////////////////////////
+        public AtomFeed Query(FeedQuery feedQuery, DateTime ifModifiedSince)
+        {
+          AtomFeed feed = null;
+          Tracing.TraceCall("Enter");
 
-            }
-            catch (System.UriFormatException)
-            {
-                throw new System.ArgumentException("The query argument MUST contain a valid Uri", "feedQuery");
-            }
+          if (feedQuery == null)
+          {
+            throw new System.ArgumentNullException("feedQuery", "The query argument MUST not be null");
+          }
+          // Create a new request to the Uri in the query object...    
+          Uri targetUri = null;
 
-            Tracing.TraceInfo("Service:Query - about to query"); 
+          try
+          {
+            targetUri = feedQuery.Uri;
 
-            Stream responseStream = Query(targetUri);
+          }
+          catch (System.UriFormatException)
+          {
+            throw new System.ArgumentException("The query argument MUST contain a valid Uri", "feedQuery");
+          }
 
-            Tracing.TraceInfo("Service:Query - query done"); 
-            if (responseStream != null)
-            {
-                Tracing.TraceCall("Using Atom always.... ");
-                feed = createFeed(feedQuery.Uri);
+          Tracing.TraceInfo("Service:Query - about to query");
 
-                feed.NewAtomEntry += new FeedParserEventHandler(this.OnParsedNewEntry); 
-                feed.NewExtensionElement += new ExtensionElementEventHandler(this.OnNewExtensionElement);
-                feed.Parse(responseStream, AlternativeFormat.Atom); 
-                responseStream.Close();
-            }
-            Tracing.TraceCall("Exit");
-            return feed;
+          Stream responseStream = Query(targetUri, ifModifiedSince);
+
+          Tracing.TraceInfo("Service:Query - query done");
+          if (responseStream != null)
+          {
+            Tracing.TraceCall("Using Atom always.... ");
+            feed = createFeed(feedQuery.Uri);
+
+            feed.NewAtomEntry += new FeedParserEventHandler(this.OnParsedNewEntry);
+            feed.NewExtensionElement += new ExtensionElementEventHandler(this.OnNewExtensionElement);
+            feed.Parse(responseStream, AlternativeFormat.Atom);
+            responseStream.Close();
+          }
+          Tracing.TraceCall("Exit");
+          return feed;
         }
         /////////////////////////////////////////////////////////////////////////////
 

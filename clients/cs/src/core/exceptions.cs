@@ -440,4 +440,23 @@ namespace Google.GData.Client
 
     }
 
+    //////////////////////////////////////////////////////////////////////
+    /// <summary>exception class thrown when we encounter a not-modified
+    /// response (HttpStatusCode.NotModified) when accessing a server
+    /// </summary> 
+    //////////////////////////////////////////////////////////////////////    
+    public class GDataNotModifiedException : GDataRequestException
+    {
+      //////////////////////////////////////////////////////////////////////
+      /// <summary>constructs a not modified exception</summary> 
+      /// <param name="msg"> the exception message as a string</param>
+      /// <param name="response"> the webresponse object that caused the exception</param>
+      //////////////////////////////////////////////////////////////////////
+      public GDataNotModifiedException(string msg, WebResponse response)
+        : base(msg)
+      {
+        this.webResponse = response;
+      }
+
+    }
 } /////////////////////////////////////////////////////////////////////////////
