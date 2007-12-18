@@ -91,6 +91,11 @@ namespace Google.GData.Documents {
         /// </summary>
         public static QueryCategory STARRED = new QueryCategory(ATOMCATEGORY_STARRED);
 
+        //Local variable to hold the contents of a title query
+        public string title;
+        //Local variable to hold if the title query we are doing should be exact.
+        public bool titleExact;
+
         /// <summary>
         /// base constructor
         /// </summary>
@@ -129,6 +134,110 @@ namespace Google.GData.Documents {
                 }
             }
         }
+
+        /// <summary>
+        /// Restricts the results to only documents with titles matching a string.
+        /// </summary>
+        public string Title
+        {
+            get
+            {
+                return this.title;
+            }
+            set
+            {
+                this.title = value;
+            }
+        }
+
+        /// <summary>
+        /// Restricts the results to only documents matching a string provided
+        /// by the Title property exactly. (No partial matches.)
+        /// </summary>
+        public bool TitleExact
+        {
+            get
+            {
+                return this.titleExact;
+            }
+            set
+            {
+                this.titleExact = value;
+            }
+        }
+
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Parses custom properties out of the incoming URI</summary> 
+        /// <param name="targetUri">A URI representing a query on a feed</param>
+        /// <returns>returns the base uri</returns>
+        //////////////////////////////////////////////////////////////////////
+        protected override Uri ParseUri(Uri targetUri)
+        {
+            base.ParseUri(targetUri);
+            if (targetUri != null)
+            {
+                char[] deli = { '?', '&' };
+
+                TokenCollection tokens = new TokenCollection(targetUri.Query, deli);
+                foreach (String token in tokens)
+                {
+                    if (token.Length > 0)
+                    {
+                        char[] otherDeli = { '=' };
+                        String[] parameters = token.Split(otherDeli, 2);
+                        switch (parameters[0])
+                        {
+                            case "title-exact":
+                                this.TitleExact = bool.Parse(parameters[1]);
+                                break;
+                            case "title":
+                                this.Title = parameters[1];
+                                break;
+                        }
+                    }
+                }
+            }
+            return this.Uri;
+        }
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Creates the partial URI query string based on all
+        ///  set properties.</summary> 
+        /// <returns> A string representing the query part of the URI.</returns>
+        //////////////////////////////////////////////////////////////////////
+        protected override string CalculateQuery()
+        {
+            string path = base.CalculateQuery();
+            StringBuilder newPath = new StringBuilder(path, 2048);
+
+            char paramInsertion;
+
+            if (path.IndexOf('?') == -1)
+            {
+                paramInsertion = '?';
+            }
+            else
+            {
+                paramInsertion = '&';
+            }
+
+            if (Utilities.IsPersistable(this.Title))
+            {
+                newPath.Append(paramInsertion);
+                newPath.AppendFormat(CultureInfo.InvariantCulture, "title={0}", Utilities.UriEncodeReserved(this.Title));
+                paramInsertion = '&';
+            }
+            if (this.TitleExact == true)
+            {
+                newPath.Append(paramInsertion);
+                newPath.AppendFormat(CultureInfo.InvariantCulture, "title-exact=true");
+                paramInsertion = '&';
+            }
+
+
+            return newPath.ToString();
+        }
     }
 
 
@@ -136,13 +245,13 @@ namespace Google.GData.Documents {
     /// <summary>
     /// a subclass setup to just retrieve all word processor documents
     /// </summary>
-    public class DocumentQuery : DocumentsListQuery
+    public class TextDocumentQuery : DocumentsListQuery
     {
 
         /// <summary>
         /// base constructor
         /// </summary>
-        public DocumentQuery()
+        public TextDocumentQuery()
         : base()
         {
             this.Categories.Add(DocumentsListQuery.DOCUMENTS);
