@@ -123,7 +123,11 @@ namespace Google.GData.Documents {
                 throw new ArgumentException("File extension '"+ext+"' is not recognized as valid.");
             }
 
-            return this.Insert(postUri, stream, contentType, documentName) as DocumentEntry;
+            DocumentEntry entry = this.Insert(postUri, stream, contentType, documentName) as DocumentEntry;
+
+            stream.Close();
+
+            return entry;
         }
 
 
