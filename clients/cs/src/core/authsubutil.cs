@@ -173,6 +173,8 @@ namespace Google.GData.Client
         }
         //end of public static string getSessionTokenUrl()
 
+
+    
         //////////////////////////////////////////////////////////////////////
         /// <summary>
         /// Returns the URL to use to exchange the one-time-use token for
@@ -191,6 +193,35 @@ namespace Google.GData.Client
         //end of public static string getSessionTokenUrl()
 
 
+       //////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// Returns the URL that handles token revocation.
+        /// </summary> 
+        /// <param name="protocol">the protocol to use to communicate with
+        /// the server</param>
+        /// <param name="domain">the domain at which the authentication server 
+        /// exists</param>
+        /// <returns>the URL to exchange for the session token</returns>
+        //////////////////////////////////////////////////////////////////////
+        public static string getRevokeTokenUrl() 
+        {
+            return getRevokeTokenUrl(DEFAULT_PROTOCOL, DEFAULT_DOMAIN);
+        }
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// Returns the URL that handles token revocation.
+        /// </summary> 
+        /// <param name="protocol">the protocol to use to communicate with
+        /// the server</param>
+        /// <param name="domain">the domain at which the authentication server 
+        /// exists</param>
+        /// <returns>the URL to exchange for the session token</returns>
+        //////////////////////////////////////////////////////////////////////
+        public static string getRevokeTokenUrl(string protocol, string domain) 
+        {
+            return protocol + "://" + domain + "/accounts/AuthSubRevokeToken";
+        }
 
 
         //////////////////////////////////////////////////////////////////////
@@ -307,6 +338,67 @@ namespace Google.GData.Client
 
         }
         //end of public static String exchangeForSessionToken(String onetimeUseToken, PrivateKey key)
+
+
+        /// <summary>
+        ///  Revokes the specified token. If the <code>key</code> is non-null, 
+        /// the token will be used securely and the request to revoke the 
+        /// token will be signed.
+        /// </summary>
+        /// <param name="token">the AuthSub token to revoke</param>
+        /// <param name="key">the private key to sign the request</param>
+        public static void revokeToken(string token,
+                                 AsymmetricAlgorithm key)
+        {        
+            revokeToken(DEFAULT_PROTOCOL, DEFAULT_DOMAIN, token, key);
+        }
+
+  
+        /// <summary>
+        ///  Revokes the specified token. If the <code>key</code> is non-null, 
+        /// the token will be used securely and the request to revoke the 
+        /// token will be signed.
+        /// </summary>
+        /// <param name="protocol"></param>
+        /// <param name="domain"></param>
+        /// <param name="token">the AuthSub token to revoke</param>
+        /// <param name="key">the private key to sign the request</param>
+        public static void revokeToken(String protocol,
+                                 String domain,
+                                 String token,
+                                 AsymmetricAlgorithm key)
+        {
+        
+            HttpWebResponse response = null;
+        
+            try
+            {
+                string revokeUrl = getRevokeTokenUrl(protocol, domain);
+                Uri uri = new Uri(revokeUrl);
+
+                HttpWebRequest request = WebRequest.Create(uri) as HttpWebRequest;
+
+
+                string header = formAuthorizationHeader(token, key, uri, "GET");
+                request.Headers.Add(header); 
+
+                response = request.GetResponse() as HttpWebResponse; 
+
+            }
+            catch (WebException e)
+            {
+                Tracing.TraceMsg("revokeToken failed " + e.Status); 
+                throw new GDataRequestException("Execution of revokeToken", e);
+            }
+            if (response != null)
+            {
+                int code= (int)response.StatusCode;
+                if (code != 200)
+                {
+                    throw new GDataRequestException("Execution of revokeToken request returned unexpected result: " +code,  response); 
+                }
+            }
+       }
 
 
         //////////////////////////////////////////////////////////////////////
