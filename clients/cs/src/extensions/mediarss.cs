@@ -72,6 +72,7 @@ namespace Google.GData.Extensions.MediaRss {
     public class MediaGroup : SimpleContainer
     {
         private ThumbnailCollection thumbnails;
+        private MediaContentCollection contents;
         /// <summary>
         /// default constructor for media:group
         /// </summary>
@@ -191,6 +192,23 @@ namespace Google.GData.Extensions.MediaRss {
                                 value);
             }
         }
+
+
+          /// <summary>
+        ///  property accessor for the Contents Collection 
+        /// </summary>
+        public MediaContentCollection Contents
+        {
+            get 
+            {
+                if (this.contents == null)
+                {
+                    this.contents =  new MediaContentCollection(this); 
+                }
+                return this.contents;
+            }
+        }
+
 
    }
 
@@ -420,6 +438,74 @@ namespace Google.GData.Extensions.MediaRss {
     }
     /////////////////////////////////////////////////////////////////////////////
 
+
+ //////////////////////////////////////////////////////////////////////
+    /// <summary>Typed collection for Thumbnails Extensions.</summary>
+    //////////////////////////////////////////////////////////////////////
+    public class MediaContentCollection : ExtensionCollection
+    {
+        private MediaContentCollection() : base()
+        {
+        }
+
+        /// <summary>constructor</summary> 
+        public MediaContentCollection(IExtensionContainer atomElement) 
+            : base(atomElement, MediaRssNameTable.MediaRssContent, MediaRssNameTable.NSMediaRss)
+        {
+        }
+
+        /// <summary>standard typed accessor method </summary>
+        public MediaContent this[int index]
+        {
+            get
+            {
+                return ((MediaContent)List[index]);
+            }
+            set
+            {
+                setItem(index,value);
+            }
+        }
+
+        /// <summary>standard typed add method </summary>
+        public int Add(MediaContent value)
+        {
+            return base.Add(value);
+        }
+
+        /// <summary>standard typed indexOf method </summary>
+        public int IndexOf(MediaContent value)
+        {
+            return (List.IndexOf(value));
+        }
+
+        /// <summary>standard typed insert method </summary>
+        public void Insert(int index, MediaContent value)
+        {
+            base.Insert(index, value);
+        }
+
+        /// <summary>standard typed remove method </summary> 
+        public void Remove(MediaContent value)
+        {
+            base.Remove(value);
+        }
+
+        /// <summary>standard typed Contains method </summary> 
+        public bool Contains(MediaContent value)
+        {
+            // If value is not of type AtomEntry, this will return false.
+            return (List.Contains(value));
+        }
+
+        /// <summary>standard typed OnValidate Override </summary> 
+        protected override void OnValidate(Object value)
+        {
+            if (value as MediaContent == null)
+                throw new ArgumentException("value must be of type Google.GData.Extensions.MediaRss.MediaThumbnail.", "value");
+        }
+    }
+    /////////////////////////////////////////////////////////////////////////////
 
 
 }

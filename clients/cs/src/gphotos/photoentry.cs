@@ -427,16 +427,16 @@ namespace Google.GData.Photos
 #if WindowsCE || PocketPC
 #else
         [Category("Location Photo Data"),
-        Description("The Lattitude of the photo.")]
+        Description("The Latitude of the photo.")]
 #endif
-        public double Lattitude 
+        public double Latitude 
         {
             get 
             {
                 GeoRssWhere where = this.entry.FindExtension(GeoNametable.GeoRssWhereElement, GeoNametable.NSGeoRss) as GeoRssWhere;
                 if (where != null)
                 {
-                    return where.Lattitude;
+                    return where.Latitude;
                 }
                 return -1; 
             }
@@ -448,7 +448,7 @@ namespace Google.GData.Photos
                     where = entry.CreateExtension(GeoNametable.GeoRssWhereElement, GeoNametable.NSGeoRss) as GeoRssWhere;
                     this.entry.ExtensionElements.Add(where);
                 }
-                where.Lattitude = value; 
+                where.Latitude = value; 
             }
         }
     }
