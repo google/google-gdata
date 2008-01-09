@@ -44,7 +44,6 @@ samples =	\
 	gblogger_demo.exe \
 	gcal_demo.exe \
 	gspreadsheet_demo.exe \
-	HealthTool.exe \
 
 all: $(ALL_LIBS) tests $(samples)
 
@@ -139,10 +138,6 @@ gapps_migration_sample.exe: $(ALLLIBS) $(gapps_migration_sample_sources)
 execrequest_sources = $(wildcard samples/execrequest/*.cs)
 execrequest.exe: $(ALLLIBS) $(execrequest_sources)
 	$(CSC) -out:$@ $(ALLREFS) $(execrequest_sources)
-
-healthtool_sources = $(wildcard samples/health/*.cs)
-HealthTool.exe: $(ALLLIBS) $(healthtool_sources)
-	$(CSC) -out:$@ $(ALLREFS) $(healthtool_sources)
 
 gblogger_sample_sources = samples/blogger/ConsoleSample.cs
 gblogger_demo.exe: $(ALLLIBS) $(gblogger_sample_sources)
