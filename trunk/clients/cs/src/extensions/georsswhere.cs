@@ -78,9 +78,9 @@ namespace Google.GData.Extensions.Location {
         }
 
         /// <summary>
-        ///  accessor for the Lattitude part 
+        ///  accessor for the Latitude part 
         /// </summary>
-        public double Lattitude
+        public double Latitude
         {
             get 
             {
@@ -89,13 +89,13 @@ namespace Google.GData.Extensions.Location {
                 {
                     return -1;
                 }
-                return position.Lattitude;
+                return position.Latitude;
                 
             }
             set
             {
                 GeoKmlPosition position = GetPosition(true);
-                position.Lattitude = value;
+                position.Latitude = value;
                 
             }
         }
@@ -204,11 +204,11 @@ namespace Google.GData.Extensions.Location {
         }
 
         /// <summary>
-        /// accessor for Lattitude. Works by dynamically parsing
+        /// accessor for Latitude. Works by dynamically parsing
         /// the string that is stored in Value. Will THROW if
         /// that string is incorrectly formated
         /// </summary>
-        public double Lattitude
+        public double Latitude
         {
             get 
             {

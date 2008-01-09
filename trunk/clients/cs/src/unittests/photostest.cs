@@ -154,7 +154,7 @@ namespace Google.GData.Client.LiveTests
                         GeoRssWhere w = entry.Location;
                         if (w != null)
                         {
-                            Tracing.TraceMsg("Found an location " + w.Lattitude + w.Longitude);
+                            Tracing.TraceMsg("Found an location " + w.Latitude + w.Longitude);
                         }
 
                         ExifTags tags = entry.Exif;
