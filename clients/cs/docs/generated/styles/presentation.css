@@ -190,12 +190,12 @@ span.linkTerm {
 /* Applies to everything below the non-scrolling header region. */
 div#mainSection
 {
-	font-size: 62.5%;
+	font-size: 80%;
 	width: 100%;
 }
 html>body #mainSection
 {
-	font-size:73%;
+	font-size:80%;
 	width: 100%;
 }
 
@@ -247,7 +247,7 @@ div#header table
 div#header table td
 {
 	color: #0000FF;
-	font-size: 70%;
+	font-size: 80%;
 	margin-top:	0;
 	margin-bottom:	0;
 	padding-right: 20;
@@ -719,7 +719,7 @@ span.copyCode
 span.copyCodeOnHover
 {
 	color: #E85F17;
-	font-size:xx-small;
+	font-size:80%;
 	font-weight: normal;
 	cursor: pointer;
 	float: left;
@@ -810,7 +810,7 @@ pre.viewCode
 	border-color: #C8CDDE;
 	background: #d4dfff;
 	padding: 4px;
-	font-size: 70%;
+	font-size: 80%;
 }
 
 #membersOptionsSpan {
@@ -821,7 +821,7 @@ pre.viewCode
 	border-color: #C8CDDE;
 	background: #d4dfff;
 	padding: 4px;
-	font-size: 70%;
+	font-size: 80%;
 }
 
 /* Line seperating footer from main body */
