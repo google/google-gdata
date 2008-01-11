@@ -22,6 +22,8 @@ using Google.GData.Client;
 
 namespace Google.GData.Photos {
 
+
+
     //////////////////////////////////////////////////////////////////////
     /// <summary>
     /// A subclass of FeedQuery, to create an PicasaQuery query URI.
@@ -105,10 +107,16 @@ namespace Google.GData.Photos {
             AccessPublic,
         }
 
+
+
         /// <summary>
-        /// holds the 2 potential kind parameters a query can have
+        /// holds the kind parameters a query can have
         /// </summary>
-        protected Kinds[] kinds = new Kinds[2];
+        protected string kinds = "";
+        /// <summary>
+        /// holds the tag parameters a query can have
+        /// </summary>
+        protected string tags = "";
         private AccessLevel access;
         private string thumbsize;
 
@@ -124,8 +132,7 @@ namespace Google.GData.Photos {
         public PicasaQuery()
         : base()
         {
-            this.kinds[0] = Kinds.tag;
-            this.kinds[1] = Kinds.none;
+            this.kinds = Kinds.tag.ToString();
         }
 
 
@@ -137,8 +144,7 @@ namespace Google.GData.Photos {
         public PicasaQuery(string queryUri)
         : base(queryUri)
         {
-            this.kinds[0] = Kinds.tag;
-            this.kinds[1] = Kinds.none;
+            this.kinds = Kinds.tag.ToString();
         }
 
         /// <summary>
@@ -163,16 +169,37 @@ namespace Google.GData.Photos {
             return PicasaQuery.picasaBaseUri + userID +"/album/"+albumName  ;
         }
 
+        /// <summary>
+        /// Convenience method to create a URI based on a user id, albumname, and photoid
+        /// </summary>
+        /// <param name="userID">The username that owns the content</param>
+        /// <param name="albumName">The name of the album that contains the content</param>
+        /// <param name="photoID">The ID of the photo that contains the content</param>
+        /// <returns>A URI to a Picasa Web Albums feed</returns>
+        public static string CreatePicasaUri(string userID, string albumName, string photoID)
+        {
+            return CreatePicasaUri(userID, albumName) + "/photoid/" + photoID;
+        }
+
         //////////////////////////////////////////////////////////////////////
-        /// <summary>indicates the kinds to retrieve</summary>
+        /// <summary>comma separated list of kinds to retrieve</summary>
         /// <returns> </returns>
         //////////////////////////////////////////////////////////////////////
-        public virtual Kinds[] KindParameter
+        public virtual string KindParameter
         {
             get {return this.kinds;}
             set {this.kinds = value;}
         }
         // end of accessor public WebAlbumKinds
+
+        /// <summary>
+        /// comma separated list of the tags to search for in the feed.
+        /// </summary>
+        public string Tags
+        {
+            get { return this.tags; }
+            set { this.tags = value; }
+        }
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>indicates the access</summary> 
@@ -209,42 +236,36 @@ namespace Google.GData.Photos {
             base.ParseUri(targetUri);
             if (targetUri != null)
             {
-                char[] deli = { '?', '&'};
+                char[] deli = { '?', '&' };
 
                 TokenCollection tokens = new TokenCollection(targetUri.Query, deli);
                 foreach (String token in tokens)
                 {
                     if (token.Length > 0)
                     {
-                        char[] otherDeli = { '='};
+                        char[] otherDeli = { '=' };
                         String[] parameters = token.Split(otherDeli, 2);
                         switch (parameters[0])
                         {
                             case "kind":
-                                String[] kinds = parameters[1].Split(new char[] {','});
-
-                                if (kinds != null && kinds.Length > 0)
-                                {
-                                    this.kinds[0] = (Kinds) Enum.Parse(typeof(Kinds), kinds[0]);
-                                    if (kinds.Length == 2)
-                                    {
-                                        this.kinds[1] = (Kinds) Enum.Parse(typeof(Kinds), kinds[1]);
-                                    }
-                                }
+                                this.kinds = parameters[1];
+                                break;
+                            case "tag":
+                                this.tags = parameters[1];
                                 break;
                             case "thumbsize":
                                 this.thumbsize = parameters[1];
                                 break;
                             case "access":
                                 if (String.Compare("all", parameters[1], false, CultureInfo.InvariantCulture) == 0)
-                                { 
+                                {
                                     this.Access = AccessLevel.AccessAll;
-                                } 
+                                }
                                 else if (String.Compare("private", parameters[1], false, CultureInfo.InvariantCulture) == 0)
                                 {
                                     this.Access = AccessLevel.AccessPrivate;
-                                } 
-                                else 
+                                }
+                                else
                                 {
                                     this.Access = AccessLevel.AccessPublic;
                                 }
@@ -252,6 +273,8 @@ namespace Google.GData.Photos {
                         }
                     }
                 }
+
+        
             }
             return this.Uri;
         }
@@ -287,50 +310,42 @@ namespace Google.GData.Photos {
                 paramInsertion = '&';
             }
 
-            newPath.Append(paramInsertion);
-            String kinds = "";
 
-            if (this.kinds[0] != Kinds.none)
+            if (this.KindParameter.Length > 0)
             {
-                kinds = this.kinds[0].ToString();
-            }
-
-            if (this.kinds[1] != Kinds.none && this.kinds[1] != this.kinds[0])
-            {
-                if (kinds != null)
-                {
-                    kinds += ",";
-                }
-                kinds += this.kinds[1].ToString();
-            }
-
-            if (kinds.Length > 0)
-            {
-                newPath.AppendFormat(CultureInfo.InvariantCulture, "kind={0}", kinds);
+                newPath.Append(paramInsertion);
+                newPath.AppendFormat(CultureInfo.InvariantCulture, "kind={0}", Utilities.UriEncodeReserved(this.KindParameter));
                 paramInsertion = '&';
             }
-           
+
+            if (this.Tags.Length > 0)
+            {
+                newPath.Append(paramInsertion);
+                newPath.AppendFormat(CultureInfo.InvariantCulture, "tag={0}", Utilities.UriEncodeReserved(this.Tags));
+                paramInsertion = '&';
+            }
+
             if (Utilities.IsPersistable(this.Thumbsize))
             {
                 newPath.Append(paramInsertion);
-                newPath.AppendFormat(CultureInfo.InvariantCulture, "thumbsize={0}", Utilities.UriEncodeReserved(this.Thumbsize)); 
+                newPath.AppendFormat(CultureInfo.InvariantCulture, "thumbsize={0}", Utilities.UriEncodeReserved(this.Thumbsize));
                 paramInsertion = '&';
             }
 
-    
+
             if (this.Access != AccessLevel.AccessUndefined)
             {
                 String acc;
-    
+
                 if (this.Access == AccessLevel.AccessAll)
                 {
                     acc = "all";
-                } 
+                }
                 else if (this.Access == AccessLevel.AccessPrivate)
                 {
                     acc = "private";
                 }
-                else 
+                else
                 {
                     acc = "public";
                 }

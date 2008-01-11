@@ -40,7 +40,7 @@ namespace Google.GData.Photos {
         public KindQuery(Kinds kind)
         : base()
         {
-            this.kinds[0] = kind;
+            this.kinds = kind.ToString();
         }
 
         /// <summary>
@@ -51,14 +51,14 @@ namespace Google.GData.Photos {
         public KindQuery(string queryUri, Kinds kind)
         : base(queryUri)
         {
-            this.kinds[0] = kind;
+            this.kinds = kind.ToString();
         }
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>read only: the kinds to retrieve</summary>
-        /// <returns>an array of Kinds </returns>
+        /// <returns>a comma separated string of Kinds </returns>
         //////////////////////////////////////////////////////////////////////
-        public override Kinds[] KindParameter
+        public override string KindParameter
         {
             get {return this.kinds;}
         }
