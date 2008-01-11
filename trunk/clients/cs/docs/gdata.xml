@@ -2572,6 +2572,26 @@
             exists</param>
             <returns>the URL to exchange for the session token</returns>
         </member>
+        <member name="M:Google.GData.Client.AuthSubUtil.getRevokeTokenUrl">
+            <summary>
+            Returns the URL that handles token revocation.
+            </summary> 
+            <param name="protocol">the protocol to use to communicate with
+            the server</param>
+            <param name="domain">the domain at which the authentication server 
+            exists</param>
+            <returns>the URL to exchange for the session token</returns>
+        </member>
+        <member name="M:Google.GData.Client.AuthSubUtil.getRevokeTokenUrl(System.String,System.String)">
+            <summary>
+            Returns the URL that handles token revocation.
+            </summary> 
+            <param name="protocol">the protocol to use to communicate with
+            the server</param>
+            <param name="domain">the domain at which the authentication server 
+            exists</param>
+            <returns>the URL to exchange for the session token</returns>
+        </member>
         <member name="M:Google.GData.Client.AuthSubUtil.getTokenFromReply(System.Uri)">
             <summary>
              Parses and returns the AuthSub token returned by Google on a successful
@@ -2604,6 +2624,26 @@
             <param name="onetimeUseToken">the token send by google in the URL</param>
             <param name="key">the private key used to sign</param>
             <returns>the session token</returns>
+        </member>
+        <member name="M:Google.GData.Client.AuthSubUtil.revokeToken(System.String,System.Security.Cryptography.AsymmetricAlgorithm)">
+            <summary>
+             Revokes the specified token. If the <code>key</code> is non-null, 
+            the token will be used securely and the request to revoke the 
+            token will be signed.
+            </summary>
+            <param name="token">the AuthSub token to revoke</param>
+            <param name="key">the private key to sign the request</param>
+        </member>
+        <member name="M:Google.GData.Client.AuthSubUtil.revokeToken(System.String,System.String,System.String,System.Security.Cryptography.AsymmetricAlgorithm)">
+            <summary>
+             Revokes the specified token. If the <code>key</code> is non-null, 
+            the token will be used securely and the request to revoke the 
+            token will be signed.
+            </summary>
+            <param name="protocol"></param>
+            <param name="domain"></param>
+            <param name="token">the AuthSub token to revoke</param>
+            <param name="key">the private key to sign the request</param>
         </member>
         <member name="M:Google.GData.Client.AuthSubUtil.formAuthorizationHeader(System.String,System.Security.Cryptography.AsymmetricAlgorithm,System.Uri,System.String)">
             <summary>Forms the AuthSub authorization header.
@@ -3189,6 +3229,16 @@
             which should be the location we should redirect to
             </summary>
         </member>
+        <member name="T:Google.GData.Client.GDataNotModifiedException">
+            <summary>exception class thrown when we encounter a not-modified
+            response (HttpStatusCode.NotModified) when accessing a server
+            </summary> 
+        </member>
+        <member name="M:Google.GData.Client.GDataNotModifiedException.#ctor(System.String,System.Net.WebResponse)">
+            <summary>constructs a not modified exception</summary> 
+            <param name="msg"> the exception message as a string</param>
+            <param name="response"> the webresponse object that caused the exception</param>
+        </member>
         <member name="T:Google.GData.Client.HttpMethods">
             <summary>a simple static collection of HTTP method strings </summary> 
         </member>
@@ -3497,6 +3547,9 @@
         <member name="P:Google.GData.Client.IGDataRequest.UseGZip">
             <summary>set wether or not to use gzip for this request</summary>
         </member>
+        <member name="P:Google.GData.Client.IGDataRequest.IfModifiedSince">
+            <summary>set a timestamp for conditional GET</summary>
+        </member>
         <member name="F:Google.GData.Client.GDataRequest.webRequest">
             <summary>holds the webRequest object</summary> 
         </member>
@@ -3520,6 +3573,9 @@
         </member>
         <member name="F:Google.GData.Client.GDataRequest.useGZip">
             <summary>set wheter or not this request should use GZip</summary>
+        </member>
+        <member name="F:Google.GData.Client.GDataRequest.ifModifiedSince">
+            <summary>holds the timestamp for conditional GET</summary>
         </member>
         <member name="F:Google.GData.Client.GDataRequest.responseStream">
             <summary>stream from the response</summary>
@@ -3570,6 +3626,9 @@
         </member>
         <member name="P:Google.GData.Client.GDataRequest.UseGZip">
             <summary>set wether or not this request should use GZip</summary>
+        </member>
+        <member name="P:Google.GData.Client.GDataRequest.IfModifiedSince">
+            <summary>set a timestamp for conditional GET</summary>
         </member>
         <member name="P:Google.GData.Client.GDataRequest.Credentials">
             <summary>accessor method for the GDataCredentials used</summary> 
@@ -4077,6 +4136,9 @@
         <member name="M:Google.GData.Client.IService.Query(Google.GData.Client.FeedQuery)">
             <summary>the minimal query implementation</summary> 
         </member>
+        <member name="M:Google.GData.Client.IService.Query(Google.GData.Client.FeedQuery,System.DateTime)">
+            <summary>the minimal query implementation with conditional GET</summary> 
+        </member>
         <member name="M:Google.GData.Client.IService.Update(Google.GData.Client.AtomEntry)">
             <summary>simple update for atom resources</summary> 
         </member>
@@ -4150,6 +4212,15 @@
             <param name="queryUri">the URI to execute</param>
             <returns> a webresponse object</returns>
         </member>
+        <member name="M:Google.GData.Client.Service.Query(System.Uri,System.DateTime)">
+            <summary>the basic interface. Take a URI and just get it</summary> 
+            <param name="queryUri">the URI to execute</param>
+            <param name="ifModifiedSince">used to set a precondition date that 
+            indicates the feed should be returned only if it has been modified 
+            after the specified date. A value of DateTime.MinValue indicates no 
+            precondition.</param>
+            <returns> a webresponse object</returns>
+        </member>
         <member name="M:Google.GData.Client.Service.setUserCredentials(System.String,System.String)">
             <summary>
             Sets the credentials of the user to authenticate requests
@@ -4168,6 +4239,15 @@
         <member name="M:Google.GData.Client.Service.Query(Google.GData.Client.FeedQuery)">
             <summary>executes the query and returns an AtomFeed object tree</summary> 
             <param name="feedQuery">the query parameters as a FeedQuery object </param>
+            <returns>AtomFeed object tree</returns>
+        </member>
+        <member name="M:Google.GData.Client.Service.Query(Google.GData.Client.FeedQuery,System.DateTime)">
+            <summary>executes the query and returns an AtomFeed object tree</summary> 
+            <param name="feedQuery">the query parameters as a FeedQuery object </param>
+            <param name="ifModifiedSince">used to set a precondition date that 
+            indicates the feed should be returned only if it has been modified 
+            after the specified date. A value of null indicates no 
+            precondition.</param>
             <returns>AtomFeed object tree</returns>
         </member>
         <member name="M:Google.GData.Client.Service.QueryOpenSearchRssDescription(System.Uri)">
