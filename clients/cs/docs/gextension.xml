@@ -1656,9 +1656,9 @@
             <param name="fCreate">creates the subelements on true</param> 
             <returns>GeoKmlPosition</returns>
         </member>
-        <member name="P:Google.GData.Extensions.Location.GeoRssWhere.Lattitude">
+        <member name="P:Google.GData.Extensions.Location.GeoRssWhere.Latitude">
             <summary>
-             accessor for the Lattitude part 
+             accessor for the Latitude part 
             </summary>
         </member>
         <member name="P:Google.GData.Extensions.Location.GeoRssWhere.Longitude">
@@ -1694,9 +1694,9 @@
             </summary>
             <param name="initValue"></param>
         </member>
-        <member name="P:Google.GData.Extensions.Location.GeoKmlPosition.Lattitude">
+        <member name="P:Google.GData.Extensions.Location.GeoKmlPosition.Latitude">
             <summary>
-            accessor for Lattitude. Works by dynamically parsing
+            accessor for Latitude. Works by dynamically parsing
             the string that is stored in Value. Will THROW if
             that string is incorrectly formated
             </summary>
@@ -1855,6 +1855,11 @@
             returns the media:content element
             </summary>
         </member>
+        <member name="P:Google.GData.Extensions.MediaRss.MediaGroup.Contents">
+            <summary>
+             property accessor for the Contents Collection 
+            </summary>
+        </member>
         <member name="T:Google.GData.Extensions.MediaRss.MediaCredit">
             <summary>
             media:credit schema extension describing an credit given to media
@@ -1972,6 +1977,33 @@
             <summary>standard typed OnValidate Override </summary> 
         </member>
         <member name="P:Google.GData.Extensions.MediaRss.ThumbnailCollection.Item(System.Int32)">
+            <summary>standard typed accessor method </summary>
+        </member>
+        <member name="T:Google.GData.Extensions.MediaRss.MediaContentCollection">
+            <summary>Typed collection for Thumbnails Extensions.</summary>
+        </member>
+        <member name="M:Google.GData.Extensions.MediaRss.MediaContentCollection.#ctor(Google.GData.Client.IExtensionContainer)">
+            <summary>constructor</summary> 
+        </member>
+        <member name="M:Google.GData.Extensions.MediaRss.MediaContentCollection.Add(Google.GData.Extensions.MediaRss.MediaContent)">
+            <summary>standard typed add method </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.MediaRss.MediaContentCollection.IndexOf(Google.GData.Extensions.MediaRss.MediaContent)">
+            <summary>standard typed indexOf method </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.MediaRss.MediaContentCollection.Insert(System.Int32,Google.GData.Extensions.MediaRss.MediaContent)">
+            <summary>standard typed insert method </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.MediaRss.MediaContentCollection.Remove(Google.GData.Extensions.MediaRss.MediaContent)">
+            <summary>standard typed remove method </summary> 
+        </member>
+        <member name="M:Google.GData.Extensions.MediaRss.MediaContentCollection.Contains(Google.GData.Extensions.MediaRss.MediaContent)">
+            <summary>standard typed Contains method </summary> 
+        </member>
+        <member name="M:Google.GData.Extensions.MediaRss.MediaContentCollection.OnValidate(System.Object)">
+            <summary>standard typed OnValidate Override </summary> 
+        </member>
+        <member name="P:Google.GData.Extensions.MediaRss.MediaContentCollection.Item(System.Int32)">
             <summary>standard typed accessor method </summary>
         </member>
         <member name="T:Google.GData.Extensions.OriginalEvent">

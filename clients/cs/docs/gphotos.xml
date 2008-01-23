@@ -177,7 +177,7 @@
             the Longitude  of the photo
             </summary>
         </member>
-        <member name="P:Google.GData.Photos.AlbumAccessor.Lattitude">
+        <member name="P:Google.GData.Photos.AlbumAccessor.Latitude">
             <summary>
             the Longitude  of the photo
             </summary>
@@ -866,7 +866,12 @@
         </member>
         <member name="F:Google.GData.Photos.PicasaQuery.kinds">
             <summary>
-            holds the 2 potential kind parameters a query can have
+            holds the kind parameters a query can have
+            </summary>
+        </member>
+        <member name="F:Google.GData.Photos.PicasaQuery.tags">
+            <summary>
+            holds the tag parameters a query can have
             </summary>
         </member>
         <member name="F:Google.GData.Photos.PicasaQuery.picasaBaseUri">
@@ -901,6 +906,15 @@
             <param name="albumName"></param>
             <returns>string</returns>
         </member>
+        <member name="M:Google.GData.Photos.PicasaQuery.CreatePicasaUri(System.String,System.String,System.String)">
+            <summary>
+            Convenience method to create a URI based on a user id, albumname, and photoid
+            </summary>
+            <param name="userID">The username that owns the content</param>
+            <param name="albumName">The name of the album that contains the content</param>
+            <param name="photoID">The ID of the photo that contains the content</param>
+            <returns>A URI to a Picasa Web Albums feed</returns>
+        </member>
         <member name="M:Google.GData.Photos.PicasaQuery.ParseUri(System.Uri)">
             <summary>protected void ParseUri</summary> 
             <param name="targetUri">takes an incoming Uri string and parses all the properties out of it</param>
@@ -916,8 +930,13 @@
             <returns> string => the query part of the URI </returns>
         </member>
         <member name="P:Google.GData.Photos.PicasaQuery.KindParameter">
-            <summary>indicates the kinds to retrieve</summary>
+            <summary>comma separated list of kinds to retrieve</summary>
             <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Photos.PicasaQuery.Tags">
+            <summary>
+            comma separated list of the tags to search for in the feed.
+            </summary>
         </member>
         <member name="P:Google.GData.Photos.PicasaQuery.Access">
             <summary>indicates the access</summary> 
@@ -1010,7 +1029,7 @@
         </member>
         <member name="P:Google.GData.Photos.KindQuery.KindParameter">
             <summary>read only: the kinds to retrieve</summary>
-            <returns>an array of Kinds </returns>
+            <returns>a comma separated string of Kinds </returns>
         </member>
         <member name="T:Google.GData.Photos.AlbumQuery">
             <summary>
@@ -1199,7 +1218,7 @@
             the Longitude  of the photo
             </summary>
         </member>
-        <member name="P:Google.GData.Photos.PhotoAccessor.Lattitude">
+        <member name="P:Google.GData.Photos.PhotoAccessor.Latitude">
             <summary>
             the Longitude  of the photo
             </summary>
