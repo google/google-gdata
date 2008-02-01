@@ -1,0 +1,657 @@
+<title>Release Notes</title>
+    
+<h1>This document lists the changes in the different releases</h1>
+
+<h2>1.1.3.0</h2>
+<ul>
+    <li>Features</li>
+    <ul>
+        <li>Added conditional Get support. The service object has an overloaded Query method now,
+        that allows you to pass a ifModifiedSince DateTime object into it.s</li>
+        <li>Added Authsub token revocation support. There is a new method 
+            revokeToken in AuthsubUtil, similiar to the java class library</li>
+	        
+    </ul>
+    <li>Bugfixes/changes</li>
+  	<li>Issue 93: ReFixed Title Exact Queries for Spreadsheets. Using 
+        Title-Exact resulted in two question marks in the query string.</li>
+  	<li>Fixed the GeoRSS where extension, which lived in a mistyped namespace.</li>
+    <li>Fixed the Latitude property, which was misspelled Lattitude</li>
+    <li>Added the Doclist assemblies to the setup program</li>s
+    <li>Added MediaGroup.Contents as a Collection:  as there
+        could be more than one. So all previous usages should be changed
+        to access the first element in a collection. The old method will remain
+        in there.</li>
+    </ul>
+</ul>
+
+
+<h2>1.1.2.0</h2>
+<ul>
+    <li>Features</li>
+    <ul>
+        <li>The SpreadsheetEntry has a new property, Worksheets. This 
+            property returns a WorksheetFeed object that can be used to 
+            retrieve the Worksheets feed for a given Spreadsheet.</li>
+        <li>The SpreadsheetEntry has a new property, WorksheetsLink. This 
+            property returns a string that can be used to retrieve the 
+            Worksheets feed uri for a given Spreadsheet.</li>
+        <li>Added CreateBatchFeed to the Atomfeed object. This will create 
+            a default batch feed for you, if the feed supports batching. The
+            created batch feed will contain all currently dirty entries.</li>
+        <li>Added a GDataBatchRequestException for that operation.</li>
+        <li>Added Delete(Uri uir) to the service interface.</li>
+        <li>Added more constructors to the CellEntry object, and moved 
+            accessors for the CellEntry.Cell up to the CellEntry object. So 
+            instead of writing CellEntry.Cell.Column, you can call 
+            CellEntry.Column directly (and others).</li>
+        <li>Added an index accessor to the CellFeed, you can now access 
+            Cells on the CellFeed like this: CellEntry entry = CellFeed[1,1].
+            This will retrieve not existing cells if needed.</li>
+        <li>Added QueryCellFeed() and QueryCellFeedLink(ReturnEmptyCells 
+            parameter) to the WorksheetEntry. The method with no parameters will
+            get you the serverdefault cell feed.</li>
+        <li>Added the CellFeedLink property on the WorksheetEntry. This 
+            returns the URI to the CellFeed as string.</li>
+        <li>Added an overloaded Insert method to the WorksheetFeed so that 
+            you do not need to cast the return anymore.</li>
+        <li>Added support for the Apps Migration API. The Google Apps Email Migration API 
+	allows administrators and users of Google Apps to migrate mail from legacy 
+	email systems into their domain's hosted Gmail accounts. 
+	Your client application can upload email messages into these 
+	accounts using standard Google data API feeds.</li>
+	<li>Added the gapps_migration_sample: A simple application that demonstrates how to migrate 
+		email messages to a Google Apps email account. See the readme file in the 
+		samples/appsforyourdomain/migration directory for more details</li>
+	        
+    </ul>
+    <li>Bugfixes/changes</li>
+    <ul>
+        <li>When an entry was copied from one feed to another, the internal 
+            service object was set incorrectly.</li>
+        <li>Added unittests for the new spreadsheet code.</li>
+	<li>Issue 90: Corrected the override for Equals and GetHashCode for an EnumConstruct</li>
+  	<li>Issue 93: Fixed Title Exact Queries for Spreadsheets</li>
+  	<li>Issue 94: Fixed some incorrect Exception handlings</li>
+    </ul>
+</ul>
+
+
+<h2>1.1.1.0</h2>
+
+<ul>
+    <li>Features</li>
+    <ul>
+        <li>Added an EventId property to the EventEntry object. This one 
+            parses the atomId URI to just provided the EventId, which is used
+            elsewhere (e.g., for recurring events).</li>
+        <li>Added QueryAuthToken() on the service. If the Service is a 
+            Google authenticated service, you can use this to obtain an 
+            authentication token for ClientLogin</li>
+        <li>Added CreatePicasaUri helper on the PicasaQuery classes to 
+            create a Uri based on a userID</li>
+	<li>Added new PhotoBrowser sample project. The resulting file PhotoTool.exe is produced
+            using the ILMerge tool from Microsoft (free download). That way, PhotoTool.exe is 
+            a standalone application with no further assembly dependencies. </li>
+
+    </ul>
+    <li>Bugfixes/Changes</li>
+    <ul>
+        <li>Fixed the parsing of the OriginalEvent@id attribute. The 
+            SimpleContainer parent class was broken in the sense that it did not
+            call the generic parsing method at all. So all SimpleContainers 
+            would not have read in attributes, luckily OriginalEvent was the
+            only instance of this.</li>
+        <li>Fixed the OriginalStartTime get/set method which was using the 
+            wrong constant of the OriginalEvent object.</li>
+        <li>Fixed the onclear() handler of the new extensionCollection base 
+            class. It was incorrectly casting to When obects, which could cause
+            a runtime error when called.</li>
+        <li>Fixed a bug in the simplecontainer class that could lead to an 
+            exception if the extension list was empty</li>
+        <li>Fixed a bug in Originalevent where the wrong prefix was 
+            persisted, making saving an originalevent impossible</li>
+        <li>Fixed NULL response object being used for authentication exceptions. 
+            Now the correct object used for the authentication request is passed 
+            to the exception.</li>
+        <li>Changed the AuthException code to provide the status code 
+            detail as well</li>
+        <li>CalendarEntry did use the wrong namespace to find the location 
+            object, hence retrieval of a calendar location was broken.</li>
+        <li>Fixed ExtensionBase to not save NULL attributes as empty 
+            strings. This could cause Picasa updates to fail.</li>
+        <li>Fixed MediaGroup to allow the retrieval of multiple Thumbnails. 
+            Introduced the ThumbnailCollection for this. To enable this, 
+            SimpleContainer and AtomBase now implement IExtensionContainer, a
+            common interface that encapsulates owning Extension elements.
+            </li>
+        <li> Added a default constructor to CalendarQuery so that you can 
+            use it on .NET CF with a starting URI</li>
+        <li>Changed the Reminder element to send an empty one to enable 
+            creation of default Reminders in the calendar</li>
+    </ul>
+</ul>
+
+<h2>1.1.0.0</h2>
+
+<ul>
+	<li>Features
+	<ul>
+	<li>
+        added GZip support for .NET 1.1, 2.0 and .NET Compact Framework 2.0.
+    </li>
+    <li>
+        added the ability to use authsubtokens to the ExecRequest utility (including 
+        exchange of a onetime token to a session token). Just run ExecRequest for the 
+        command line parameters, or read the help file page about it.
+    </li>
+ 	<li>
+        Support for Google Calendar WebContent Gadgets is included. A WebContent element 
+        has a SortedList property to set and retrieve those preferences. See caltest.cs 
+        for an example.
+    </li>
+   <li>
+        Picasa support:
+        <ul>
+            <li>Added all media extensions (media:rss, exif and photo></li>
+            <li>Added a PhotoEntry and PhotoFeed class that contain all of 
+                those extensions</li>
+            <li>Added unittests to query an album and insert a new photo</li>
+        </ul>
+    </li>
+       <li> Added the QuickAdd feature for the Google Calendar. An EventEntry 
+        has a QuickAdd boolean property. Setting it to true causes an insert to
+        be treated like a quickAdd operation. 
+    </li> 
+ 
+	<li>Added the webcontentlink class to the Google Calendar Support to enable
+		easier creation of Gadgets in calendars.</li>
+		
+	<li>Batch support for Google Calendar</li>
+	<li>ASP .NET support for medium trust</li>
+	
+ 	</ul></li>
+ 	
+	<li>Changes and Bugfixes
+    <ul>
+    <li>
+        Complete refactoring of Apps extension to use the new extension system
+        (IExtensionElementFactory, AbstractEntry and AbstractFeed).
+    </li>
+
+	<li>
+        To enable ASP.NET hosting in medium trust, we removed the usage of the 
+        NetworkCredentials class. From now on, credentials are either passed as username/password, 
+        or using the GDataCredentials. (issue 57)
+    </li>
+    <li>
+        Changed "adminUserName" to "adminEmailAddress" in AppsService so that it's more 
+        clear what information is actually required for this parameter.
+    </li>
+
+    <li>
+        fixed a Google Base issue (The server doesn't accept scientific notations for 
+        floats)
+    </li>
+    <li>
+        fixed typo in the blogger sample (www..blogger), which made the sample hard to 
+        use
+    </li>
+    
+    <li>
+        make the GAuthToken property of the GAuthRequestFactory public. It was 
+        mistakenly marked internal, so that the token could not be retrieved by a client 
+        application for caching.  
+    </li>
+    <li>
+        fixed a parsing issue that resulted in Batch Upload hanging if an unknown 
+        element was encountered
+    </li>
+    <li>
+        added a helper method on AtomBase (entry and feed) to find exensionelements by 
+        specifying a localname and an optional namespace (issue 81)
+    </li>
+    <li>
+        the extension mechanism was reworked by creating an ExtensionElementFactory 
+        interface that takes care of parsing elements. ElementFactories are registered 
+        on the AtomBase (entry and feed) level.
+    </li>
+    <li>
+        Fixed Issue 60, mulitple Reminders per Event. Note, that this introduces slight 
+        changes when dealing with this. A new property, EventEntry.Reminders, was 
+        created. The old property, EventEntry.Reminder, still exists, and only works on 
+        the first Reminder in the list. Setting the old property will delete all 
+        addtional reminders.The Reminders property is of type ArrayList (this is an 
+        artifact of being .NET 1.1 compatible, once we move to .NET 2.0 or later, if 
+        that ever happens, this could/should be typed).
+    </li>
+    <li>
+        Modified data model for Spreadsheets worksheets to make it easier to change and 
+        construct associated meta-data
+    </li>
+    <li>
+        Added the ctz parameter to the EventQuery class. This parameter allows to 
+        specify the timezone that is used to calculate start/end times for the returned 
+        events
+    </li>
+    <li>
+        Added an AlternateUri Property on the AtomEntry class. This property 
+        returns the AtomUri of a rel=alternate type=html LINK entry. As this is 
+        similiar to the ill named LINK helper on the spreadsheet entry, that 
+        helper was removed, as they do serve the same purpose, and the link 
+        helper was read only.
+    </li>
+    <li>
+        Added an FeedUri Property on the AtomEntry class. This property 
+        returns the AtomUri of a rel=#feed type=atom+xml LINK entry.
+    </li>
+     <li>
+        Added an MediaUri Property on the AtomEntry class. This property 
+        returns the AtomUri of a rel=#edit-media type=atom+xml LINK entry.
+    </li>
+    <li>Added new methods on the AtomCategory collection. Find searches for a
+        category of a given term, or a term/scheme combination. Also changed the
+        implementation of the Contains method to compare not just object
+        fidelity, but also term/value pairs
+        </li>
+    <li>Added a ConvertToXSDSTring() helper in the Utilites class. As booleans 
+        are represented as "True"/"False" in .NET, and xsd requires 
+        "true"/"false" this helper takes care of that conversion.
+        </li>
+    <li>Added the ability to create custom AtomBase subclassed objects to 
+        custom feeds/entries. Look at CreateAtomSubElement() in AtomBase. This
+        is used to create custom clases like WebContentLink in the derived 
+        services</li>
+   </ul></li>
+
+</ul>
+
+<h2>1.0.9.9</h2>
+<ul>
+    <li>
+        added GBase support for m:adjusted_name and gm:adjusted_value inside attributes 
+        (returned only when adjustments are enabled)
+    <li>
+        Google Apps changes:
+        <ul>
+            <li>
+                Added new AppsService.createUser methods with hashed password support
+            <li>
+                Updated AppsException with new Google Apps error codes
+            <li>
+                Added the following properties to Login.cs: string hashFunctionName 
+            <li>
+                to hash user account password, bool agreedToTerms 
+            <li>
+                to see if the user has accepted the Google Apps Terms Of Service, bool admin 
+            <li>
+                to see if the user is a domain admin, bool changePasswordAtNextLogin 
+            <li>
+                to force the user to change password at next login
+            <li>
+                Updated unittests to test new properties
+        </ul>
+</ul>
+
+<h2>1.0.9.8</h2>
+<ul>
+    <li>
+        fixed a parsing bug in SpreadsheetService
+    <li>
+        fixed a bug in GDataRequestException that would prevent AppsException from 
+        accessing the server's response.
+    <li>
+        modified AppsException to comply with new GDataRequestException
+    <li>
+        fixed a bug in CalculateBaseUri, that caused a crash if the passed in parameters 
+        are all NULL. This caused composite feeds to not load if there was a comment 
+        feed embedded
+    <li>
+        fixed a bug in the CalendarEventEntry, it was not parsing extendedProperties. 
+        They are now parsed and added correctly to the ExtensionElements
+    <li>
+        added ACL support. This resulted in changes in the CalendarService.Query method 
+    <li>
+        as a CalendarService can now return an EventFeed or an AccessControlFeed is 
+        returns now an AtomFeed that you can cast to what you are expecting. Added Query 
+        overloads to accept EventQuery or AclQuery and return the appropriate Feeds
+    <li>
+        added a cmd line tool to query/insert/update to a service based on streams
+    <li>
+        modified the Spreadsheet service to use the new scheme of service subclassing. 
+        This should fix a bundle of issues with regard to entry castings.
+    <li>
+        changed persistence of gd:extendedProperty to save the value attribute, even if 
+        there is no data to persist
+    <li>
+        Added an ASP.NET release (lib/ASP.NET) where the DLLs are build with the 
+        AllowPartiallyTrustedCallers attribute n enabled. Please use with caution and 
+        refer to the readme.txt in that subdirectory for more information.
+</ul>
+
+<h2>1.0.9.7</h2>
+<ul>
+    <li>
+        fixed an incorrect trace statement in request.cs that had the result of 
+        disabling reading the error response.
+</ul>
+
+<h2>1.0.9.6</h2>
+<ul>
+    <li>
+        added Google Apps for Your Domain support, a new helper DLL Google.GData.Apps.dll, 
+        and a sample, as well as unittests. Version number is increased to distinguish 
+        from Subversion, as this will be a binary download as well.
+</ul>
+
+<h2>1.0.9.5</h2>
+<ul>
+    <li>
+        fix for incorrect encoding of usernames/passwords during authentication (you 
+        could run into problems if you had an email like "foo&joe@test.com"
+    <li>
+        exposure of the accountType as a property on the factory. If you happen to have 
+        an identical user name for a Google account and a hosted account, you need to 
+        set this property depending on which account you want to access. Default is 
+        GOOGLE_OR_HOSTED, other values are GOOGLE or HOSTED as strings.
+    <li>
+        fixed an issue with the edit/self uris on the entry. They were not correctly 
+        setable.
+    <li>
+        fixed an issue that one you used an authenticated service, but did not supply 
+        credentials, we would send an empty authentication header.
+    <li>
+        added Captcha Handling and more detailed exceptions when the authentication 
+        request fails. See authexceptions.cs for the list of potential exceptions thrown
+    <li>
+        added some preliminary unittests for the new exceptions
+    <li>
+        added a new constructor for the TokenCollection, so that captcha parsing is 
+        handled correctly
+    <li>
+        made the debug output depending on the TRACE define, and removed that define for 
+        the release build
+</ul>
+
+<h2>1.0.9.4</h2>
+<ul>
+    <li>
+        Google Base: fix for incorrect Price attribute behaviour
+    <li>
+        Google Base: fix for incorrectly persisting duplicate attributes
+    <li>
+        Fix for Content.Type having no default value (issue 41)
+    <li>
+        Fix for Content.Type="text/html" parsing incorrectly. The strict check for type=
+        "text" is now relaxed to be type="text*", so all text subtypes will be treated 
+        the same
+    <li>
+        Fix for Content.Type = "html" and "text/html" persistence. What the code does 
+        now is: first HTMLDecode the value held, than run the standard XMLWriter.WriteString 
+        over it (which does HTML encoding). This seems to work fine.
+    <li>
+        Added the gm:stats tags to the Windows Mobile build, accidently forgot to change 
+        that project file
+    <li>
+        the calendarfeed discarded entries unknown to it in the calendar namespace. This 
+        is fixed now. Unknown entries to the parser are now correctly added to the 
+        extension elements.
+    <li>
+        added the return-empty parameter to the cellquery class
+    <li>
+        added URL encoding to the authentication parameters (username/passwords etc that 
+        had unallowed FORM post chars caused failed login attempts)
+</ul>
+
+
+
+<h2>1.0.9.3</h2>
+<ul>
+    <li>
+        Google Base changes: New features:
+        <ul>
+            <li>
+                GBaseQuery supports the following optional parameters; orderby, sortorder, 
+                refine and content
+            <li>
+                Support for gm:stats tags
+            <li>
+                GBaseUriFactory can now generate the feed uri of other customers
+                Fixes:
+            <li>
+                Fixed the GBaseAttributeType hierarchy for date/dateTime/dateTimeRange
+            <li>
+                Fixed the type of the hardcoded ExpirationDate property in GBaseAttributes
+        </ul>
+    <li>
+        Added a Makefile for Mono builds. This one replaces the Ant file.
+</ul>
+
+<h2>1.0.9.2</h2>
+<ul>
+    <li>
+        Removed the MethodOverride default for the CalendarService. If you need that (due 
+        to firewalls not allowing PUT/DELETE requests, you can reenable this with 
+        setting the MethodOverride flag on the factory: ((GDataGAuthRequestFactory)calsvc.RequestFactory).MethodOverride 
+        = false;
+    <li>
+        Changed the X-Method-Override behaviour for DELETE, to fix an issue with .NET 
+        mobile (the mobile client would crash when the contentLength was set to 0 and no 
+        stream was requested).
+</ul>
+
+<h2>1.0.9.1</h2>
+<li>
+    Added a KeepAlive property to the factory object. This is set to true by default. 
+    .NET 2.0 clients, are due to behaviour changes in that runtime encouraged to set 
+    this to false.
+
+    <h2>1.0.9</h2>
+<li>
+    Fixed an issue where the login services changed the response contenttype. The 
+    check for text/plain is now more relaxed.
+<li>
+    Added the missing location calls for Geolocation for GoogleBase
+<li>
+    Fixed a build issue for Windows Mobile in release. The code now compiles for 
+    PocketPC and WindowsMobile symbols defined.
+    <h2>1.0.8</h2>
+<li>
+    Fixed issue 13 from the public issue list. If a content element contained xhtml, 
+    and not just text, the content was not read correctly.
+<li>
+    Fixed issue 17 from the public issue list. XHTML content was not persisted 
+    correctly.
+<li>
+    Added support for hosted domain feeds. This is done automatically, no 
+    codechanges needed for the application developer. The authentication code was 
+    changed to ask for Hosted domains first, then google accounts.
+<li>
+    Added support for the app:control/app:draft element, but only in the way to 
+    expose a boolean on the AtomEntry. The new member on AtomEntry is called IsDraft.
+<li>
+    Changed the way atom:content is parsed. Text & HTML types use xmlreader.ReadString() 
+    to get the inner content. XHTML and all other types use readInnerXml() to get 
+    the content.
+<li>
+    changed Exception handling. The code now throws more detailed exceptions based 
+    on what was happening: -> GDataRequestException: generic exception -> 
+    GDataForbiddenException: exception thrown when the server return a Forbidden on 
+    authentication -> GDataRedirectException: exception thrown when the server 
+    returned a redirect
+<li>
+    changed redirect handling on Post. The library will follow redirects on Post 
+    automatically by default, to accomodate Blogger (which currently may return 302s 
+    on posts). This can be turned off by setting the .StrictRedirect property to 
+    true on the GDataAuthRequestFactory. If it is turned off, the code will throw if 
+    a redirect is happening on an HTTP verb other than GET.
+<li>
+    changed redirect handling for DELETE/PUT the same as for POST
+<li>
+    removed cookie handling. The code will handle cookies now without using the 
+    CookieContainer (one hurdle on the way to the CompactFramework Port).
+<li>
+    Fixed persistence of "initialized" date values for udpated/published on the atom.entry. 
+    This resolves an issue with the Blogger.
+<li>
+    Added EventEntry.Notifications. This property (boolean) indicates if an update 
+    on an entry should send notifications to the attendees of the Event.
+<li>
+    Fixed the gbase project (the NumberFormat.cs file was missing in the project 
+    file).
+<li>
+    Added a proxy property for the GDataRequestFactory.
+<li>
+    Setting content-length correctly to fix WindowsMobile issues. This fix is a user 
+    submitted, and created by Steeve Morin
+<li>
+    Fixes to the authsub code, provided by Ryan Boyd
+<li>
+    The DLLs were renamed, to follow the Windows .NET standard. gdata.dll       ->      
+    Google.GData.Client.dll gbase.dll       ->      Google.GData.GoogleBase.dll 
+    gcalendar.dll   ->      Google.GData.Calendar.dll gcodesearch.dll ->      Google.GData.CodeSearch.dll 
+    gextensions.dll ->      Google.GData.Extensions.dll and the new one ->      
+    Google.GData.Spreadsheets.dll
+
+
+    <h2>1.0.7</h2>
+<li>
+    Added support for published-min/published-max as standard query parameters
+<li>
+    Added support for codesearch. A new DLL gcodesearch.dll and a new sample for 
+    this is available.
+<li>
+    Added support for the WebContent calendar extension
+<li>
+    Added signing to the gbase.dll
+    <h2>1.0.6</h2>
+<li>
+    Added support for sortoder, futurevents, singleevents on the calendarquery
+<li>
+    Added a ResponseString property on the GDataRequestException to make debugging 
+    server side errors easier
+<li>
+    Fixed an issue with the GoogleBaseService, if you did set the RequestFactory 
+    property twice, you would create too many header entries, and hence end up with 
+    request denied responses
+<li>
+    Added the shipping attribute for GoogleBase
+<li>
+    Changed the payment attribute to payment_accepted for GoogleBase
+    <h2>1.0.5</h2>
+<li>
+    Added batch support for GoogleFeeds, the first property to support this is the 
+    GoogleBase product
+<li>
+    Added a unittest for GoogleBase. This code shows update/insert/delete against 
+    base for single entries and batch entries refer to clients/cs/src/unittests/gbase.cs 
+    for sample code.
+<li>
+    Added IComparable to atomuri.cs (based on a feature request on our issue list)
+<li>
+    GDataAuthRequestFactory is now a subclass of GDataRequestFactory
+<li>
+    Moved GCookies from GDataAuthRequestFactory to GDataRequestFactory and renamed 
+    it to Cookies
+<li>
+    removed the debug binaries from the lib directory
+<li>
+    added a GoogleBase sample application in VB !
+<li>
+    added the build executables to the lib directory
+<li>
+    added GoogleBase classes (similiar to the java classes) to access Google base 
+    specific feeds
+    Known issues:
+<li>
+    recurrenceException is not fully tested
+<li>
+    authsubutil and gauthsubrequest are not fully tested
+
+    <h2>1.0.4</h2>
+<li>
+    Fixed a .NET 2.0 issue in calendarservice.cs, that dropped connections during 
+    repeated calls.
+<li>
+    Made the execution path more robust.
+<li>
+    Added a property, numberOfRetries on the GAuthRequestFactory to indicate how 
+    often an Execution should be retried if the server returns an error.
+<li>
+    Fixed a bug in the daterange query creation (the +sign for the timezone was not 
+    escaped properly)
+<li>
+    Fixed an issue with updating, where if you used the same AtomEntry/EventEntry 
+    several times to update, it could happen that extension elements were doubled, 
+    and the update failed.
+<li>
+    Fixed a bug in the parsing of all elements. This could cause an endless loop 
+    when the content was empty.
+<li>
+    Fixed several content creation issues (issues 5-9 on the issue list)
+<li>
+    added support for the gd:extendedProperty
+<li>
+    Added a calendar example application
+<li>
+    added a sample application to access Blogger feeds, and post to blogger feeds.
+    Known issues:
+<li>
+    recurrenceException is not fully tested
+<li>
+    authsubutil and gauthsubrequest are not fully tested Solved issues:
+<li>
+    .NET 2.0 seems to loose resources in some circumstances. Hard to reproduce.
+
+
+    <h2>1.0.3</h2>
+<li>
+    Fixed the namespace creation for extensions, the wireformat should no longer 
+    create the namespace declaration when it's not required
+<li>
+    Fixed the reminder persistence code
+<li>
+    added a TimeZone property on the EventFeed to retrieve the timezone value
+<li>
+    added a FindEvent method on the EventFeed. This one takes an OriginalEvent 
+    object, and returns the Event that this is based on. This will go to the server 
+    if required.
+<li>
+    Fixed recurrance issues in the extensions
+<li>
+    Moved EventFeed and EventEntry from the Google.GData.Extensions namespace to the 
+    Google.GData.Calendar namespace
+<li>
+    Fixed a bug in the parsing of Atom:Content elements. This could cause an endless 
+    loop when the content was empty.
+    <h2>1.0.2</h2>
+<li>
+    Fixed a problem persisting feedlink elements
+<li>
+    added an AllDay flag to the When class to allow parsing and persting of all day 
+    events
+<li>
+    cleaned up the persistence code in the extension classes
+<li>
+    fixed a problem that resulted in persisting multiple extensionn objects instead 
+    of one
+<li>
+    added a timestamp method to the Tracing class to help measuring performance in 
+    simple cases
+    <h2>1.0.1</h2>
+<li>
+    Correctly uses 'rel.previous' instead of 'rel.prev' as required by Atom 
+    Publishing Protocol.
+<li>
+    Corrected the time-shift portion of the DateTime output for time zones with a 
+    negative shift from UTC.
+<li>
+    Corrected the time-shift to permit fractional hour shifts from UTC.
+<li>
+    Correctly output "startTime" and "endTime" as attributes of the "when" extension 
+    rather than child elements.
+<li>
+    Refactored class hierarchy, now based on IExtensionElement.
+    <h2>1.0.0</h2>
+<li>
+    Initial Release
