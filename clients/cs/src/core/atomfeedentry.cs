@@ -415,7 +415,7 @@ namespace Google.GData.Client
                 AtomLink link = this.Links.FindService(BaseNameTable.ServiceAlternate, AtomLink.HTML_TYPE);
                 if (link == null)
                 {
-                    link = new AtomLink(AtomLink.ATOM_TYPE, BaseNameTable.ServiceMedia);
+                    link = new AtomLink(AtomLink.HTML_TYPE, BaseNameTable.ServiceAlternate);
                     this.Links.Add(link);
                 }
                 link.HRef = value;
