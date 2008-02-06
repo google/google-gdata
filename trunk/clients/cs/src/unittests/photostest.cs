@@ -86,8 +86,8 @@ namespace Google.GData.Client.LiveTests
 
             PicasaQuery query = new PicasaQuery();
             PicasaService service = new PicasaService("unittests");
-            query.KindParameter = new PicasaQuery.Kinds[2] {PicasaQuery.Kinds.album, PicasaQuery.Kinds.tag};
-           
+            query.KindParameter = "album,tag"; 
+            
             if (this.defaultPhotosUri != null)
             {
                 if (this.userName != null)
