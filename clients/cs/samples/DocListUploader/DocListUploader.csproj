@@ -39,13 +39,17 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Google.GData.Client, Version=1.1.2.25489, Culture=neutral, PublicKeyToken=04a59ca9b0273830">
+    <Reference Include="gdocuments, Version=1.0.0.0, Culture=neutral, PublicKeyToken=099e9a853da5b089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\Release\Google.GData.Client.dll</HintPath>
+      <HintPath>..\..\src\VS2003\gdocuments\bin\Debug\gdocuments.dll</HintPath>
     </Reference>
-    <Reference Include="Google.GData.Extensions, Version=1.1.2.25493, Culture=neutral, PublicKeyToken=0b4c5df2ebf20876">
+    <Reference Include="Google.GData.Client, Version=1.1.2.32442, Culture=neutral, PublicKeyToken=04a59ca9b0273830, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\Release\Google.GData.Extensions.dll</HintPath>
+      <HintPath>..\..\src\VS2003\gdocuments\bin\Debug\Google.GData.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.GData.Extensions, Version=1.1.2.32443, Culture=neutral, PublicKeyToken=0b4c5df2ebf20876, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\src\VS2003\gdocuments\bin\Debug\Google.GData.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
