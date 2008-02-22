@@ -242,11 +242,11 @@ namespace DocListUploader
         /// </summary>
         public void Register()
         {
-            RegistryKey key = Registry.ClassesRoot.OpenSubKey("*\\shell\\"+KEY_NAME+"\\command");
+            RegistryKey key = Registry.CurrentUser.OpenSubKey("Software\\Classes\\*\\shell\\" + KEY_NAME + "\\command");
 
             if (key == null)
             {
-                key = Registry.ClassesRoot.CreateSubKey("*\\shell\\" + KEY_NAME + "\\command");
+                key = Registry.CurrentUser.CreateSubKey("Software\\Classes\\*\\shell\\" + KEY_NAME + "\\command");
             }
 
             key.SetValue("", Application.ExecutablePath + " \"%1\"");
@@ -258,11 +258,11 @@ namespace DocListUploader
         /// </summary>
         public void UnRegister()
         {
-            RegistryKey key = Registry.ClassesRoot.OpenSubKey("*\\shell\\"+KEY_NAME);
+            RegistryKey key = Registry.CurrentUser.OpenSubKey("Software\\Classes\\*\\shell\\" + KEY_NAME);
 
             if (key != null)
             {
-                Registry.ClassesRoot.DeleteSubKeyTree("*\\shell\\"+KEY_NAME);
+                Registry.CurrentUser.DeleteSubKeyTree("Software\\Classes\\*\\shell\\" + KEY_NAME);
             }
         }
 
