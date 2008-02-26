@@ -125,8 +125,9 @@ namespace Google.GData.Client
         private string strOutput; 
         /// <summary>holds the filename for the combined logger</summary> 
         private string strCombined; 
-        /// <summary>holds carriage return/linefeed </summary>
-        private static byte [] arrCRLF = { 13,10,13,10 }; 
+       
+        private MemoryStream memoryStream;
+        
 
 
         //////////////////////////////////////////////////////////////////////
@@ -137,6 +138,7 @@ namespace Google.GData.Client
             this.strInput = strInputFileName;
             this.strOutput = strOutputFileName;
             this.strCombined = strCombinedLogFileName;
+            this.memoryStream = null;
         }
         /////////////////////////////////////////////////////////////////////////////
 
@@ -147,6 +149,7 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         protected override void Dispose(bool disposing)
         {
+            this.memoryStream.Close();
             base.Dispose(disposing); 
         }
 
@@ -158,13 +161,6 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         public override void Execute()
         {
-            if (this.RequestCopy != null)
-            {
-                this.RequestCopy.Seek(0, SeekOrigin.Begin); 
-                SaveStream(this.RequestCopy, this.strInput); 
-                this.RequestCopy.Seek(0, SeekOrigin.Begin); 
-
-            }
             try
             {
                 base.Execute(); 
@@ -173,82 +169,166 @@ namespace Google.GData.Client
             {
                 Tracing.TraceMsg("Got into exception handling for base.execute"); 
                 HttpWebResponse response = re.Response as HttpWebResponse;
-            
+
+                // save the response to the log
+                StreamWriter w = new StreamWriter(this.strOutput); 
+                StreamWriter x = new StreamWriter(this.strCombined, true, System.Text.Encoding.UTF8, 512);
+
+                SaveHeaders(false, response.Headers, null, response.ResponseUri, w);
+                SaveHeaders(false, response.Headers, null, response.ResponseUri, x); 
+
                 if (response != null)
                 {
                     Stream   req = response.GetResponseStream(); 
-                    SaveStream(req, this.strOutput); 
+                    SaveStream(req, x, w); 
                 }
+                w.Close();
+                x.Close();
                 throw; 
+            }
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Log's the request object if overridden in subclass</summary>
+        /// <param name="request">the request to log</param> 
+        //////////////////////////////////////////////////////////////////////
+        protected override void LogRequest(WebRequest request) 
+        {
+
+            // save the response to the log
+            StreamWriter w = new StreamWriter(this.strInput); 
+            StreamWriter x = new StreamWriter(this.strCombined, true, System.Text.Encoding.UTF8, 512);
+
+            HttpWebRequest r = request as HttpWebRequest;
+ 
+            SaveHeaders(true, r.Headers, r.Method, r.RequestUri, w);
+            SaveHeaders(true, r.Headers, r.Method, r.RequestUri, x); 
+            if (this.RequestCopy != null)
+            {
+                this.RequestCopy.Seek(0, SeekOrigin.Begin); 
+                SaveStream(this.RequestCopy, w, x);
+                this.RequestCopy.Seek(0, SeekOrigin.Begin); 
+            }
+            w.Close();
+            x.Close();
+        }
+
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Log's the response object if overridden in subclass</summary>
+        /// <param name="response">the response to log</param> 
+        //////////////////////////////////////////////////////////////////////
+        protected override void LogResponse(WebResponse response) 
+        {
+            // save the response to the log
+            StreamWriter w = new StreamWriter(this.strOutput); 
+            StreamWriter x = new StreamWriter(this.strCombined, true, System.Text.Encoding.UTF8, 512);
+
+            HttpWebResponse r = response as HttpWebResponse;
+
+            SaveHeaders(false, r.Headers, r.Method, r.ResponseUri, w);
+            SaveHeaders(false, r.Headers, r.Method, r.ResponseUri, x); 
+
+            Stream result = this.GetResponseStream();
+
+            if (result != null)
+            {
+                result.Seek(0, SeekOrigin.Begin); 
+                SaveStream(result, w, x);
+                result.Seek(0, SeekOrigin.Begin); 
+            }
+            w.Close();
+            x.Close();
+
+        }
+
+  
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>private void SaveStream()</summary> 
+        /// <param name="stream">the stream to save </param>
+        /// <param name="targetFile">the targetFilename  to save into </param>
+        /// <param name="webRequest">the webRequest that is going to be executed</param>
+        //////////////////////////////////////////////////////////////////////
+        private void SaveStream(Stream stream, StreamWriter outOne, StreamWriter outCombined)
+        {
+            if (stream != null)
+            {
+                StreamReader reader = new StreamReader(stream);
+
+                String line;
+
+                while ((line = reader.ReadLine())!= null)
+                {
+                    outOne.WriteLine(line);
+                    outCombined.WriteLine(line);
+                }
+                outOne.Close();
+                outCombined.WriteLine();
+                outCombined.Close(); 
+
             }
         }
         /////////////////////////////////////////////////////////////////////////////
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>private void SaveStream()</summary> 
+        /// <param name="request">the HTTP webrequest to take the headers from</param>
         /// <param name="stream">the stream to save </param>
-        /// <param name="targetFile">the targetFilename  to save into </param>
         //////////////////////////////////////////////////////////////////////
-        private void SaveStream(Stream stream, String targetFile)
+        private void SaveHeaders(bool isRequest, WebHeaderCollection headers, String method, Uri target, StreamWriter outputStream)
         {
-            if (stream != null)
+            if (outputStream != null && headers != null)
             {
-                // save the response to the log
-                FileStream w = new FileStream(targetFile, FileMode.Create);
-                FileStream x = new FileStream(this.strCombined, FileMode.Append); 
-
-                const int size = 4096;
-                byte[] bytes = new byte[4096];
-                int numBytes;
-
-                x.Write(GDataLoggingRequest.arrCRLF, 0, 4); 
-
-
-                while((numBytes = stream.Read(bytes, 0, size)) > 0)
+                if (isRequest == true)
                 {
-                    w.Write(bytes, 0, numBytes);
-                    x.Write(bytes, 0, numBytes);
+                    outputStream.WriteLine("Request at: " + DateTime.Now);
+                } 
+                else 
+                {
+                    outputStream.WriteLine("Response received at: " + DateTime.Now);
                 }
-                w.Close();
-                x.Write(GDataLoggingRequest.arrCRLF, 0, 4); 
-                x.Close(); 
+
+                if (method != null)
+                {
+                    outputStream.WriteLine(method + " to: " + target.ToString());
+                }
+                foreach (String key in headers.AllKeys)
+                {
+                    outputStream.WriteLine("Header: " + key + ":" + headers[key]);
+                }
+                outputStream.Flush();
             }
         }
         /////////////////////////////////////////////////////////////////////////////
 
-
         //////////////////////////////////////////////////////////////////////
-        /// <summary>gets the readable response stream</summary> 
+        /// <summary>gets the readable response stream. In the logger, we need to
+        /// copy the response to be able to log it. So we return a memory stream</summary> 
         /// <returns> the response stream</returns>
         //////////////////////////////////////////////////////////////////////
         public override Stream GetResponseStream()
         {
-            // get the real response stream, stream it to disk and return a filestream
-
-            FileStream w = new FileStream(this.strOutput, FileMode.Create);
-            FileStream x = new FileStream(this.strCombined, FileMode.Append); 
-
-            MemoryStream mem = new MemoryStream(); 
-            Stream   req = base.GetResponseStream(); 
-
-
-            const int size = 4096;
-            byte[] bytes = new byte[4096];
-            int numBytes;
-
-            x.Write(GDataLoggingRequest.arrCRLF, 0, 4); 
-
-            while((numBytes = req.Read(bytes, 0, size)) > 0)
+            if (this.memoryStream == null) 
             {
-                w.Write(bytes, 0, numBytes);
-                x.Write(bytes, 0, numBytes);
-                mem.Write(bytes, 0, numBytes); 
+                this.memoryStream = new MemoryStream(); 
+                Stream   req = base.GetResponseStream(); 
+
+                const int size = 4096;
+                byte[] bytes = new byte[4096];
+                int numBytes;
+    
+                while((numBytes = req.Read(bytes, 0, size)) > 0)
+                {
+                    this.memoryStream.Write(bytes, 0, numBytes); 
+                }
+                this.memoryStream.Seek(0, SeekOrigin.Begin); 
             }
-            w.Close();
-            mem.Seek(0, SeekOrigin.Begin); 
-            x.Write(GDataLoggingRequest.arrCRLF, 0, 4); 
-            x.Close(); 
-            return mem; 
+            return this.memoryStream; 
         }
         /////////////////////////////////////////////////////////////////////////////
 
