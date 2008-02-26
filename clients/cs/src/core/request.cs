@@ -531,7 +531,25 @@ namespace Google.GData.Client
         }
         /////////////////////////////////////////////////////////////////////////////
 
+
+
+        
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Log's the request object if overridden in subclass</summary>
+        /// <param name="request">the request to log</param> 
+        //////////////////////////////////////////////////////////////////////
+        protected virtual void LogRequest(WebRequest request) 
+        {
+        }
+
     
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Log's the response object if overridden in subclass</summary>
+        /// <param name="response">the response to log</param> 
+        //////////////////////////////////////////////////////////////////////
+        protected virtual void LogResponse(WebResponse response) 
+        {
+        }
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>Executes the request and prepares the response stream. Also 
@@ -548,6 +566,7 @@ namespace Google.GData.Client
                     this.requestStream.Close(); 
                 }
                 Tracing.TraceCall("calling the real execution over the webresponse");
+                LogRequest(this.webRequest);
                 this.webResponse = this.webRequest.GetResponse(); 
             }
             catch (WebException e)
@@ -558,6 +577,8 @@ namespace Google.GData.Client
             }
             if (this.webResponse != null)
                 this.responseStream = this.webResponse.GetResponseStream();
+
+            LogResponse(this.webResponse);
             if (this.webResponse is HttpWebResponse)
             {
                 HttpWebResponse response = this.webResponse as HttpWebResponse;

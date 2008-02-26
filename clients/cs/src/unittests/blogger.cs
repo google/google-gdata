@@ -234,11 +234,11 @@ namespace Google.GData.Client.LiveTests
                 service.RequestFactory = this.factory; 
 
                 query.Uri = new Uri(this.bloggerURI);
-                AtomFeed calFeed = service.Query(query);
+                AtomFeed feed = service.Query(query);
 
                 String strTitle = "Dinner time" + Guid.NewGuid().ToString(); 
 
-                if (calFeed != null)
+                if (feed != null)
                 {
                     // get the first entry
                     String xhtmlContent = "<div><b>this is an xhtml test text</b></div>"; 
@@ -248,7 +248,7 @@ namespace Google.GData.Client.LiveTests
                     entry.Content.Type = "xhtml";
                     entry.Content.Content = xhtmlContent;
 
-                    AtomEntry newEntry = calFeed.Insert(entry); 
+                    AtomEntry newEntry = feed.Insert(entry); 
                     Tracing.TraceMsg("Created blogger entry");
 
                     // try to get just that guy.....
@@ -295,11 +295,11 @@ namespace Google.GData.Client.LiveTests
                 service.RequestFactory = this.factory; 
 
                 query.Uri = new Uri(this.bloggerURI);
-                AtomFeed calFeed = service.Query(query);
+                AtomFeed feed = service.Query(query);
 
                 String strTitle = "Dinner time" + Guid.NewGuid().ToString(); 
 
-                if (calFeed != null)
+                if (feed != null)
                 {
                     // get the first entry
                     String htmlContent = "<div>&lt;b&gt;this is an html test text&lt;/b&gt;</div>"; 
@@ -309,7 +309,7 @@ namespace Google.GData.Client.LiveTests
                     entry.Content.Type = "html";
                     entry.Content.Content = htmlContent;
 
-                    AtomEntry newEntry = calFeed.Insert(entry); 
+                    AtomEntry newEntry = feed.Insert(entry); 
                     Tracing.TraceMsg("Created blogger entry");
 
                     // try to get just that guy.....
@@ -327,11 +327,8 @@ namespace Google.GData.Client.LiveTests
                 }
 
                 service.Credentials = null; 
-
                 factory.MethodOverride = false;
-
             }
-
         }
         /////////////////////////////////////////////////////////////////////////////
 
