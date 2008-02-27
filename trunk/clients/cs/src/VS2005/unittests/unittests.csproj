@@ -1,0 +1,316 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{22D56E6B-DF29-4675-A655-B33252B7FA4B}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ApplicationIcon>
+    </ApplicationIcon>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
+    <AssemblyName>unittests</AssemblyName>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <RootNamespace>unittests</RootNamespace>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <StartupObject>
+    </StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>false</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>none</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ASP|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>false</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>none</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="nunit.framework, Version=2.4.6.0, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.XML" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\unittests\appslivetests.cs">
+      <Link>appslivetests.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\unittests\AssemblyInfo.cs">
+      <Link>AssemblyInfo.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\unittests\baselivetestclass.cs">
+      <Link>baselivetestclass.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\unittests\blogger.cs">
+      <Link>blogger.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\unittests\caltest.cs">
+      <Link>caltest.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\unittests\coretest.cs">
+      <Link>coretest.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\unittests\gapps\appsexceptiontest.cs">
+      <Link>appsexceptiontest.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\unittests\gapps\appsservicetest.cs">
+      <Link>appsservicetest.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\unittests\gapps\emaillistentrytest.cs">
+      <Link>emaillistentrytest.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\unittests\gapps\emaillistquerytest.cs">
+      <Link>emaillistquerytest.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\unittests\gapps\emaillistrecipiententrytest.cs">
+      <Link>emaillistrecipiententrytest.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\unittests\gapps\emaillistrecipientquerytest.cs">
+      <Link>emaillistrecipientquerytest.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\unittests\gapps\emaillisttest.cs">
+      <Link>emaillisttest.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\unittests\gapps\logintest.cs">
+      <Link>logintest.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\unittests\gapps\nametest.cs">
+      <Link>nametest.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\unittests\gapps\nicknameentrytest.cs">
+      <Link>nicknameentrytest.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\unittests\gapps\nicknamequerytest.cs">
+      <Link>nicknamequerytest.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\unittests\gapps\nicknametest.cs">
+      <Link>nicknametest.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\unittests\gapps\quotatest.cs">
+      <Link>quotatest.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\unittests\gapps\userentrytest.cs">
+      <Link>userentrytest.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\unittests\gapps\userquerytest.cs">
+      <Link>userquerytest.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\unittests\gbase.cs">
+      <Link>gbase.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\unittests\gbase\attributehistogramtest.cs">
+      <Link>attributehistogramtest.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\unittests\gbase\datetimerangetest.cs">
+      <Link>datetimerangetest.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\unittests\gbase\gbaseattributecollectiontest.cs">
+      <Link>gbaseattributecollectiontest.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\unittests\gbase\gbaseattributecollectionwithtypeconversiontest.cs">
+      <Link>gbaseattributecollectionwithtypeconversiontest.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\unittests\gbase\gbaseattributetest.cs">
+      <Link>gbaseattributetest.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\unittests\gbase\gbaseentrytest.cs">
+      <Link>gbaseentrytest.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\unittests\gbase\gbasefeedtest.cs">
+      <Link>gbasefeedtest.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\unittests\gbase\gbasequerytest.cs">
+      <Link>gbasequerytest.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\unittests\gbase\gbaseutilitiestest.cs">
+      <Link>gbaseutilitiestest.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\unittests\gbase\itemtypedefinitiontest.cs">
+      <Link>itemtypedefinitiontest.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\unittests\gbase\numberunittest.cs">
+      <Link>numberunittest.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\unittests\gbase\shippingtest.cs">
+      <Link>shippingtest.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\unittests\gziplivetest.cs">
+      <Link>gziplivetest.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\unittests\gzipstreamtest.cs">
+      <Link>gzipstreamtest.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\unittests\objectmodelhelper.cs">
+      <Link>objectmodelhelper.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\unittests\unittests.cs">
+      <Link>unittests.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\unittests\writetest.cs">
+      <Link>writetest.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\gacl\Access Control.csproj">
+      <Project>{279D35CE-871A-4C76-B823-A73675EDF191}</Project>
+      <Name>Access Control</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\gapps\Applications.csproj">
+      <Project>{96CCB33A-3B32-480E-B83D-93F0309F7DD2}</Project>
+      <Name>Applications</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\gbase\Base.csproj">
+      <Project>{C9B83904-8002-455C-AA48-C47CDF74F365}</Project>
+      <Name>Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\gcalendar\Calendar.csproj">
+      <Project>{0AD0FA26-A071-4CAC-851C-05B6C26B9888}</Project>
+      <Name>Calendar</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\gcodesearch\Codesearch.csproj">
+      <Project>{6C9717F6-4CEF-4665-82DA-31073493FFA0}</Project>
+      <Name>Codesearch</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\gdata\Core Client.csproj">
+      <Project>{B6F6D938-0D45-42BA-8A67-55D92EF03995}</Project>
+      <Name>Core Client</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\gdoclist\Documents.csproj">
+      <Project>{1C00DDC8-021D-4F60-9EE9-314431586936}</Project>
+      <Name>Documents</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\gextension\Common Data Extensions.csproj">
+      <Project>{21BCB644-F9C3-4ADC-8BE1-4E55C6565011}</Project>
+      <Name>Common Data Extensions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\gphotos\Picasa.csproj">
+      <Project>{6781DF3C-A44F-418B-989B-771D17937F91}</Project>
+      <Name>Picasa</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\gspreadsheets\Spreadsheets.csproj">
+      <Project>{3FF0C48A-48CC-49CE-8B65-0C780770A75D}</Project>
+      <Name>Spreadsheets</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

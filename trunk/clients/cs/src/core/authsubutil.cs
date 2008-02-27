@@ -195,12 +195,9 @@ namespace Google.GData.Client
 
        //////////////////////////////////////////////////////////////////////
         /// <summary>
-        /// Returns the URL that handles token revocation.
+        /// Returns the URL that handles token revocation, using the default
+        /// domain and the default protocol
         /// </summary> 
-        /// <param name="protocol">the protocol to use to communicate with
-        /// the server</param>
-        /// <param name="domain">the domain at which the authentication server 
-        /// exists</param>
         /// <returns>the URL to exchange for the session token</returns>
         //////////////////////////////////////////////////////////////////////
         public static string getRevokeTokenUrl() 

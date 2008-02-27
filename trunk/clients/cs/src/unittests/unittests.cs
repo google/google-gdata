@@ -102,7 +102,8 @@ namespace Google.GData.Client.UnitTests
         //////////////////////////////////////////////////////////////////////
         protected virtual void ReadConfigFile()
         {
-            this.unitTestConfiguration = (IDictionary) ConfigurationSettings.GetConfig("unitTestSection");
+        
+            this.unitTestConfiguration = (IDictionary) ConfigurationManager.GetSection("unitTestSection");
 
             // no need to go further if the configuration file is needed.
             if (unitTestConfiguration == null)
@@ -133,7 +134,7 @@ namespace Google.GData.Client.UnitTests
                 }
             }
 
-            this.externalHosts = (IDictionary) ConfigurationSettings.GetConfig("unitTestExternalHosts");
+            this.externalHosts = (IDictionary)ConfigurationManager.GetSection("unitTestExternalHosts");
         }
         /////////////////////////////////////////////////////////////////////////////
 

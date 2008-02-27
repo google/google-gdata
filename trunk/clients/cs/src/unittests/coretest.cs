@@ -364,7 +364,7 @@ namespace Google.GData.Client.UnitTests
             FeedQuery query2 = new FeedQuery();
             query2.Uri = new Uri(CreateUriFileName("QueryRemoteHost"));
 
-            AtomFeed feed = service2.Query(query);
+            AtomFeed feed = service2.Query(query2);
             Assert.AreEqual(iCount, feed.Entries.Count, "loaded feed has different number of entries");
 
 

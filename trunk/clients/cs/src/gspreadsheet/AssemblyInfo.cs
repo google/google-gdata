@@ -17,8 +17,4 @@ using System.Runtime.CompilerServices;
 
 
 [assembly: AssemblyDelaySign(false)]
-#if WindowsCE || PocketPC
-#else
-[assembly: AssemblyKeyFile("spreadsheets.sn")]
-#endif
 [assembly: AssemblyKeyName("")]

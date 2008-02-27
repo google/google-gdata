@@ -36,6 +36,9 @@ namespace Google.GData.Client.LiveTests
             return (true);
         }
 
+
+   
+
         protected override void ReadConfigFile()
         {
             base.ReadConfigFile();

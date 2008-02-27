@@ -170,6 +170,9 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         public static string UriEncodeReserved(string content) 
         {
+            if (content == null)
+                return null;
+
             StringBuilder returnString = new StringBuilder(256);
 
             foreach (char ch in content) 

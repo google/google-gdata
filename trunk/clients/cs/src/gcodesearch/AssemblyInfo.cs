@@ -16,8 +16,4 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 
 [assembly: AssemblyDelaySign(false)]
-#if WindowsCE || PocketPC
-#else
-[assembly: AssemblyKeyFile("codesearch.sn")]
-#endif
 [assembly: AssemblyKeyName("")]
