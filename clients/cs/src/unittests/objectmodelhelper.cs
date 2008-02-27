@@ -472,7 +472,12 @@ namespace Google.GData.Client.UnitTests
            {
                return false;
            }
-           if (String.Compare(theOne.Content, theOther.Content)!= 0)
+
+           String content = theOther.Content == null ? "" : theOther.Content;
+           String other = theOne.Content == null ? "" : theOne.Content;
+           
+           
+           if (String.Compare(content, other)!= 0)
            {
                return false;
            }

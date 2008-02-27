@@ -17,8 +17,4 @@ using System.Runtime.CompilerServices;
 
 
 [assembly: AssemblyDelaySign(false)]
-#if WindowsCE || PocketPC
-#else
-[assembly: AssemblyKeyFile("gacl.sn")]
-#endif
 [assembly: AssemblyKeyName("")]

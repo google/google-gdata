@@ -205,9 +205,12 @@ namespace Google.GData.Client
             StreamWriter x = new StreamWriter(this.strCombined, true, System.Text.Encoding.UTF8, 512);
 
             HttpWebRequest r = request as HttpWebRequest;
- 
-            SaveHeaders(true, r.Headers, r.Method, r.RequestUri, w);
-            SaveHeaders(true, r.Headers, r.Method, r.RequestUri, x); 
+
+            if (r != null)
+            {
+                SaveHeaders(true, r.Headers, r.Method, r.RequestUri, w);
+                SaveHeaders(true, r.Headers, r.Method, r.RequestUri, x);
+            }
             if (this.RequestCopy != null)
             {
                 this.RequestCopy.Seek(0, SeekOrigin.Begin); 
@@ -230,9 +233,12 @@ namespace Google.GData.Client
             StreamWriter x = new StreamWriter(this.strCombined, true, System.Text.Encoding.UTF8, 512);
 
             HttpWebResponse r = response as HttpWebResponse;
+            if (r != null)
+            {
 
-            SaveHeaders(false, r.Headers, r.Method, r.ResponseUri, w);
-            SaveHeaders(false, r.Headers, r.Method, r.ResponseUri, x); 
+                SaveHeaders(false, r.Headers, r.Method, r.ResponseUri, w);
+                SaveHeaders(false, r.Headers, r.Method, r.ResponseUri, x);
+            }
 
             Stream result = this.GetResponseStream();
 
@@ -251,8 +257,8 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         /// <summary>private void SaveStream()</summary> 
         /// <param name="stream">the stream to save </param>
-        /// <param name="targetFile">the targetFilename  to save into </param>
-        /// <param name="webRequest">the webRequest that is going to be executed</param>
+        /// <param name="outOne">the first stream to save into </param>
+        /// <param name="outCombined">the combined stream to save into</param>
         //////////////////////////////////////////////////////////////////////
         private void SaveStream(Stream stream, StreamWriter outOne, StreamWriter outCombined)
         {
@@ -277,8 +283,11 @@ namespace Google.GData.Client
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>private void SaveStream()</summary> 
-        /// <param name="request">the HTTP webrequest to take the headers from</param>
-        /// <param name="stream">the stream to save </param>
+        /// <param name="isRequest">indicates wether this is a request or a response log</param>
+        /// <param name="headers"> the webheader collection to save</param>
+        /// <param name="method"> indicates the HTTP method used</param>
+        /// <param name="target">the target URI of the request</param>
+        /// <param name="outputStream">the stream to save to</param>
         //////////////////////////////////////////////////////////////////////
         private void SaveHeaders(bool isRequest, WebHeaderCollection headers, String method, Uri target, StreamWriter outputStream)
         {
@@ -315,18 +324,20 @@ namespace Google.GData.Client
         {
             if (this.memoryStream == null) 
             {
-                this.memoryStream = new MemoryStream(); 
-                Stream   req = base.GetResponseStream(); 
-
-                const int size = 4096;
-                byte[] bytes = new byte[4096];
-                int numBytes;
-    
-                while((numBytes = req.Read(bytes, 0, size)) > 0)
+                Stream   req = base.GetResponseStream();
+                if (req != null)
                 {
-                    this.memoryStream.Write(bytes, 0, numBytes); 
+                    this.memoryStream = new MemoryStream(); 
+                    const int size = 4096;
+                    byte[] bytes = new byte[4096];
+                    int numBytes;
+
+                    while ((numBytes = req.Read(bytes, 0, size)) > 0)
+                    {
+                        this.memoryStream.Write(bytes, 0, numBytes);
+                    }
+                    this.memoryStream.Seek(0, SeekOrigin.Begin);
                 }
-                this.memoryStream.Seek(0, SeekOrigin.Begin); 
             }
             return this.memoryStream; 
         }

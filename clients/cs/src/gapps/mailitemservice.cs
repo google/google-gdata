@@ -72,6 +72,7 @@ namespace Google.GData.Apps.Migration
         /// </summary>
         /// <param name="domain">the domain into which to migrate mail</param>
         /// <param name="entries">the mail messages to batch insert</param>
+        /// <param name="userName">the user for whom this should be done</param>
         /// <returns>a <code>MailItemFeed</code> containing the results of the
         /// batch insertion</returns>
         public MailItemFeed Batch(string domain, string userName, MailItemEntry[] entries)
