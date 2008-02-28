@@ -18,3 +18,5 @@ using System.Runtime.CompilerServices;
 
 [assembly: AssemblyDelaySign(false)]
 [assembly: AssemblyKeyName("")]
+[assembly: AssemblyTitle("Google Data API Spreadsheets Library")]
+
