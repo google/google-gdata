@@ -29,7 +29,6 @@ using System.Security.Permissions;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 //
-[assembly: AssemblyTitle("Google Data")]
 [assembly: AssemblyCopyright("Copyright (c) 2006 Google Inc.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
