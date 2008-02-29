@@ -215,7 +215,7 @@ namespace PhotoBrowser
         {
             if (this.googleAuthToken == null) 
             {
-                GoogleClientLogin loginDialog = new GoogleClientLogin(new PicasaService("PhotoBrowser")); 
+                GoogleClientLogin loginDialog = new GoogleClientLogin(new PicasaService("PhotoBrowser"), "youremailhere@gmail.com"); 
                 loginDialog.ShowDialog();
               
                 this.googleAuthToken = loginDialog.AuthenticationToken;

@@ -41,6 +41,7 @@ samples =	\
 	gblogger_demo.exe \
 	gcal_demo.exe \
 	gspreadsheet_demo.exe \
+	PhotoTool.exe \
 
 all: $(ALL_LIBS) tests $(samples)
 
@@ -135,6 +136,11 @@ gcal_demo.exe: $(ALLLIBS) $(gcal_demo_sources)
 gspreadsheet_demo_sources = samples/spreadsheets/spreadsheetdemo.cs
 gspreadsheet_demo.exe: $(ALLLIBS) $(gspreadsheet_demo_sources)
 	$(CSC) -out:$@ $(ALLREFS) $(gspreadsheet_demo_sources)
+
+PhotoTool_sources = $(wildcard samples/PhotoBrowser/*.cs)
+PhotoTool.exe: $(ALLLIBS) $(PhotoTool_sources)
+	$(CSC) -out:$@ $(ALLREFS) -r:System.Windows.Forms -r:System.Drawing -r:System.Data $(PhotoTool_sources)
+
 
 test:
 	nunit-console2 unittests.dll
