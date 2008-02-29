@@ -1,5 +1,5 @@
-CSC1=gmcs
-CSC=mcs
+CSC1=mcs
+CSC=gmcs
 
 DEFINES=/d:TRACE
 
@@ -23,9 +23,9 @@ ALLLIBS = \
 	Google.GData.Apps.dll		\
 	Google.GData.Photos.dll		\
 	Google.GData.Documents.dll \
-	Google.GData.AccessControl.dll 
+	Google.GData.AccessControl.dll \
 
-FRAMEWORK_REFS = -r:System.dll -r:System.Xml.dll -r:System.Web.dll
+FRAMEWORK_REFS = -r:System.dll -r:System.Xml.dll -r:System.Web.dll -r:System.Configuration.dll
 
 COREREFS = $(addprefix -r:,$(CORELIBS)) $(FRAMEWORK_REFS) 
 ALLREFS = $(addprefix -r:,$(ALLLIBS)) $(FRAMEWORK_REFS)
@@ -35,15 +35,13 @@ ACLREFS = $(addprefix -r:,$(ACLLIBS)) $(FRAMEWORK_REFS)
 samples =	\
 	gbase_queryexample.exe 		\
 	gbase_customertool.exe		\
-	insertsample.exe		\
-	updatesample.exe		\
-	readsample.exe			\
 	execrequest.exe			\
 	gapps_appsdemo.exe \
 	gapps_migration_sample.exe \
 	gblogger_demo.exe \
 	gcal_demo.exe \
 	gspreadsheet_demo.exe \
+	HealthTool.exe \
 
 all: $(ALL_LIBS) tests $(samples)
 
@@ -103,18 +101,6 @@ uninstall:
 
 tests: $(ALLLIBS)
 	$(CSC) $(DEFINES) -target:library -out:unittests.dll $(ALLREFS) -r:nunit.framework.dll $(test_sources)
-
-readsample_sources = $(wildcard samples/read/*.cs)
-readsample.exe: $(ALLLIBS) $(readsample_sources)
-	$(CSC) -out:$@ $(ALLREFS) $(readsample_sources)
-
-updatesample_sources = $(wildcard samples/update/*.cs)
-updatesample.exe: $(ALLLIBS) $(updatesample_sources)
-	$(CSC) -out:$@ $(ALLREFS) $(updatesample_sources)
-
-insertsample_sources = $(wildcard samples/read/*.cs)
-insertsample.exe: $(ALLLIBS) $(insertsample_sources)
-	$(CSC) -out:$@ $(ALLREFS) $(insertsample_sources)
 
 gbase_customertool_sources = samples/gbase/example.cs \
 	samples/gbase/customertool.cs	\
