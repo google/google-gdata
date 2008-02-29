@@ -41,7 +41,6 @@ samples =	\
 	gblogger_demo.exe \
 	gcal_demo.exe \
 	gspreadsheet_demo.exe \
-	HealthTool.exe \
 
 all: $(ALL_LIBS) tests $(samples)
 
