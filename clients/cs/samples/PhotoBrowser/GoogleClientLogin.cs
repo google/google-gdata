@@ -8,7 +8,8 @@ using Google.GData.Client;
 namespace Google.GData.Tools
 {
 	/// <summary>
-	/// Summary description for GoogleClientLoging.
+	///  This is a sample implementation for a login dialog. It returns you the authToken gained
+    /// from the Google Client Login Service
 	/// </summary>
 	public class GoogleClientLogin : System.Windows.Forms.Form
 	{
@@ -27,7 +28,11 @@ namespace Google.GData.Tools
 		/// </summary>
 		private System.ComponentModel.Container components = null;
 
-		public GoogleClientLogin(Service serviceToUse)
+        /// <summary>
+        /// allows you to construct the dialog with a given service
+        /// </summary>
+        /// <param name="serviceToUse">the service object to use</param>
+        public GoogleClientLogin(Service serviceToUse)
 		{
 			//
 			// Required for Windows Form Designer support
@@ -37,18 +42,23 @@ namespace Google.GData.Tools
             this.service = serviceToUse;
 		}
 
-        public GoogleClientLogin(string username)
+        /// <summary>
+        /// allows you to construct the dialog with a given service
+        /// and prefill the username to show
+        /// </summary>
+        /// <param name="serviceToUse">the service object to use</param>
+        /// <param name="username">the username</param>
+        public GoogleClientLogin(Service serviceToUse, string username)
         {
             //
             // Required for Windows Form Designer support
             //
             InitializeComponent();
 
-            //
-            // TODO: Add any constructor code after InitializeComponent call
-            //
+            this.service = serviceToUse;
             this.Username.Text = username;
         }
+
 
 		/// <summary>
 		/// Clean up any resources being used.
@@ -107,7 +117,7 @@ namespace Google.GData.Tools
             this.Username.Name = "Username";
             this.Username.Size = new System.Drawing.Size(208, 22);
             this.Username.TabIndex = 1;
-            this.Username.Text = "joe@gmail.com";
+            this.Username.Text = "";
             // 
             // Password
             // 
@@ -161,7 +171,10 @@ namespace Google.GData.Tools
         }
 		#endregion
  
-      
+
+        /// <summary>
+        /// returns the authentication token
+        /// </summary>
         public string AuthenticationToken
         {
             get 
@@ -170,6 +183,10 @@ namespace Google.GData.Tools
             }
         }
 
+        /// <summary>
+        /// returns if the checkbox to remember the authentication
+        /// was checked or not
+        /// </summary>
         public bool RememberAuthentication 
         {
             get 
@@ -178,6 +195,26 @@ namespace Google.GData.Tools
             }
         }
 
+        /// <summary>
+        /// indicates if the checkbox to remember the 
+        /// authentication token is shown. Remembering the 
+        /// token is then up to the calling application
+        /// </summary>
+        public bool ShowRememberAuthentication
+        {
+            get 
+            {
+                return this.RememberToken.Visible;
+            }
+            set 
+            {
+                this.RememberToken.Visible = value;
+            }
+        }
+
+        /// <summary>
+        /// returns the user name 
+        /// </summary>
         public string User
         {
             get 
@@ -198,7 +235,5 @@ namespace Google.GData.Tools
             this.authToken = this.service.QueryAuthenticationToken();
             this.Close();
         }
-
-
-	}
+    }
 }
