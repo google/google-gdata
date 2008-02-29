@@ -7,13 +7,13 @@ using Google.GData.Client;
 
 namespace Google.GData.Tools
 {
-	/// <summary>
-	///  This is a sample implementation for a login dialog. It returns you the authToken gained
+    /// <summary>
+    ///  This is a sample implementation for a login dialog. It returns you the authToken gained
     /// from the Google Client Login Service
-	/// </summary>
-	public class GoogleClientLogin : System.Windows.Forms.Form
-	{
-        private string authToken; 
+    /// </summary>
+    public class GoogleClientLogin : System.Windows.Forms.Form
+    {
+        private string authToken;
 
         private System.Windows.Forms.TextBox Password;
         private System.Windows.Forms.CheckBox RememberToken;
@@ -23,24 +23,24 @@ namespace Google.GData.Tools
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox Username;
         private Service service;
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
-		private System.ComponentModel.Container components = null;
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.Container components = null;
 
         /// <summary>
         /// allows you to construct the dialog with a given service
         /// </summary>
         /// <param name="serviceToUse">the service object to use</param>
         public GoogleClientLogin(Service serviceToUse)
-		{
-			//
-			// Required for Windows Form Designer support
-			//
-			InitializeComponent();
+        {
+            //
+            // Required for Windows Form Designer support
+            //
+            InitializeComponent();
 
             this.service = serviceToUse;
-		}
+        }
 
         /// <summary>
         /// allows you to construct the dialog with a given service
@@ -60,28 +60,28 @@ namespace Google.GData.Tools
         }
 
 
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
-		protected override void Dispose( bool disposing )
-		{
-			if( disposing )
-			{
-				if(components != null)
-				{
-					components.Dispose();
-				}
-			}
-			base.Dispose( disposing );
-		}
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (components != null)
+                {
+                    components.Dispose();
+                }
+            }
+            base.Dispose(disposing);
+        }
 
-		#region Windows Form Designer generated code
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+        #region Windows Form Designer generated code
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
             this.Login = new System.Windows.Forms.Button();
             this.Cancel = new System.Windows.Forms.Button();
             this.Username = new System.Windows.Forms.TextBox();
@@ -117,7 +117,6 @@ namespace Google.GData.Tools
             this.Username.Name = "Username";
             this.Username.Size = new System.Drawing.Size(208, 22);
             this.Username.TabIndex = 1;
-            this.Username.Text = "";
             // 
             // Password
             // 
@@ -126,7 +125,6 @@ namespace Google.GData.Tools
             this.Password.PasswordChar = '*';
             this.Password.Size = new System.Drawing.Size(208, 22);
             this.Password.TabIndex = 2;
-            this.Password.Text = "";
             // 
             // RememberToken
             // 
@@ -155,7 +153,9 @@ namespace Google.GData.Tools
             // 
             // GoogleClientLogin
             // 
+            this.AcceptButton = this.Login;
             this.AutoScaleBaseSize = new System.Drawing.Size(6, 15);
+            this.CancelButton = this.Cancel;
             this.ClientSize = new System.Drawing.Size(344, 152);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -165,19 +165,20 @@ namespace Google.GData.Tools
             this.Controls.Add(this.Cancel);
             this.Controls.Add(this.Login);
             this.Name = "GoogleClientLogin";
-            this.Text = "GoogleClientLoging";
+            this.Text = "GoogleClientLogin";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
-		#endregion
- 
+        #endregion
+
 
         /// <summary>
         /// returns the authentication token
         /// </summary>
         public string AuthenticationToken
         {
-            get 
+            get
             {
                 return this.authToken;
             }
@@ -187,9 +188,9 @@ namespace Google.GData.Tools
         /// returns if the checkbox to remember the authentication
         /// was checked or not
         /// </summary>
-        public bool RememberAuthentication 
+        public bool RememberAuthentication
         {
-            get 
+            get
             {
                 return this.RememberToken.Checked;
             }
@@ -202,11 +203,11 @@ namespace Google.GData.Tools
         /// </summary>
         public bool ShowRememberAuthentication
         {
-            get 
+            get
             {
                 return this.RememberToken.Visible;
             }
-            set 
+            set
             {
                 this.RememberToken.Visible = value;
             }
@@ -217,7 +218,7 @@ namespace Google.GData.Tools
         /// </summary>
         public string User
         {
-            get 
+            get
             {
                 return this.Username.Text;
             }
