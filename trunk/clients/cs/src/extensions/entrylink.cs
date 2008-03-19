@@ -30,13 +30,13 @@ namespace Google.GData.Extensions {
     {
 
         /// <summary>holds the href property of the EntryLink element</summary>
-        protected string href;
+        private string href;
         /// <summary>holds the readOnlySet property of the EntryLink element</summary>
-        protected bool readOnly;
+        private bool readOnly;
         /// <summary>holds the AtomEntry  property of the EntryLink element</summary>
-        protected AtomEntry entry;
+        private AtomEntry entry;
         /// <summary>holds the rel attribute of the EntyrLink element</summary> 
-        protected string rel;
+        private string rel;
 
         private bool readOnlySet; 
 

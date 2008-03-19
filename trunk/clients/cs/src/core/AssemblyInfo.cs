@@ -15,7 +15,6 @@
 using System.Reflection;
 using System;
 using System.Security.Permissions;
-using System.Runtime.InteropServices;
 
 [assembly: AssemblyDelaySign(false)]
 [assembly: AssemblyKeyName("")]
@@ -25,8 +24,6 @@ using System.Runtime.InteropServices;
     [assembly: SecurityPermission(SecurityAction.RequestMinimum, Execution=true)]
 #endif
 
-[assembly: ComVisible(false)]
-[assembly: CLSCompliant(true)]
 [assembly: AssemblyTitle("Google Data API Core Library")]
 
 

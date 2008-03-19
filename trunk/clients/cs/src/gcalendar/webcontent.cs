@@ -48,6 +48,7 @@ namespace Google.GData.Extensions
         /// <summary>width of the iframe/gif</summary> 
         /// <returns> </returns>
         //////////////////////////////////////////////////////////////////////
+        [CLSCompliant(false)]
         public uint Width
         {
             get { return this.width; }
@@ -58,6 +59,7 @@ namespace Google.GData.Extensions
         /// <summary>Height of the iframe/gif</summary> 
         /// <returns> </returns>
         //////////////////////////////////////////////////////////////////////
+        [CLSCompliant(false)]
         public uint Height
         {
             get { return this.height; }

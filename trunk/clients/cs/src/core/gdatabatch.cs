@@ -131,6 +131,10 @@ namespace Google.GData.Client
         /// <param name="writer">the xmlwriter to write into</param>
         public void Save(XmlWriter writer)
         {
+            if (writer == null)
+            {
+                throw new System.ArgumentNullException("writer");
+            }
             writer.WriteStartElement(BaseNameTable.gBatchPrefix, BaseNameTable.XmlElementBatchStatus, BaseNameTable.gBatchPrefix); 
 
             if (this.Code != GDataBatchStatus.CodeDefault) 
@@ -324,6 +328,11 @@ namespace Google.GData.Client
         /// <param name="writer">the xmlwriter to write into</param>
         public void Save(XmlWriter writer)
         {
+            if (writer == null)
+            {
+                throw new System.ArgumentNullException("writer");
+            }
+
             if (this.Type != GDataBatchOperationType.Default) 
             {
                 writer.WriteStartElement(BaseNameTable.gBatchPrefix, BaseNameTable.XmlElementBatchOperation, BaseNameTable.gBatchNamespace); 
@@ -439,6 +448,11 @@ namespace Google.GData.Client
         /// <param name="writer">the xmlwriter to write into</param>
         public void Save(XmlWriter writer)
         {
+            if (writer == null)
+            {
+                throw new System.ArgumentNullException("writer");
+            }
+
             if (this.Id != null) 
             {
                 writer.WriteElementString(BaseNameTable.XmlElementBatchId, BaseNameTable.gBatchNamespace, this.id);

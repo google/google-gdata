@@ -99,6 +99,7 @@ namespace Google.GData.Spreadsheets
         /// <param name="row"></param>
         /// <param name="column"></param>
         /// <returns>string</returns>
+        [CLSCompliant(false)]
         public string CellUri(uint row, uint column)
         {
             string target = this.Post;
@@ -115,6 +116,7 @@ namespace Google.GData.Spreadsheets
         /// to get CellEntries that are NOT yet on the client
         /// </summary>
         /// <returns>CellEntry</returns>
+        [CLSCompliant(false)]
         public CellEntry this[uint row, uint column]
         {
             get 
@@ -147,6 +149,7 @@ namespace Google.GData.Spreadsheets
         /// </summary>
         /// <param name="row"></param>
         /// <param name="column"></param>
+        [CLSCompliant(false)]
         public void Delete(uint row, uint column)
         {
             // now we need to create a new guy

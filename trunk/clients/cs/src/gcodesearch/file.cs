@@ -84,7 +84,7 @@ namespace Google.GData.CodeSearch
         /// <summary>Returns the constant representing
         ///  this XML element.</summary> 
         //////////////////////////////////////////////////////////////////////
-        public string XmlName
+        public static string XmlName
         {
             get { return GCodeSearchParserNameTable.EVENT_FILE; }
         }
@@ -94,7 +94,12 @@ namespace Google.GData.CodeSearch
         /// </summary>
         /// <param name="writer">the xmlwriter to write into</param>
         public void Save(XmlWriter writer)
-        {           
+        {
+            Tracing.Assert(writer != null, "writer should not be null");
+            if (writer == null)
+            {
+                throw new ArgumentNullException("writer");
+            }
             if (Utilities.IsPersistable(filename))
             {
                 writer.WriteStartElement(GCodeSearchParserNameTable.CSPrefix,

@@ -70,7 +70,7 @@ namespace Google.GData.Extensions {
             {
                 return getAttributes();
             }
-            set {this.attributes = value;}
+            set {setAttributes(value);}
         }
         // end of accessor public SortedList Attributes
  
@@ -95,6 +95,7 @@ namespace Google.GData.Extensions {
         /// <summary>
         ///  Accessor Method for the value as integer
         /// </summary>
+        [CLSCompliant(false)]
         public uint UnsignedIntegerValue
         {
             get { return Convert.ToUInt32(value, CultureInfo.InvariantCulture); }

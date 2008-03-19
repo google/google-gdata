@@ -73,6 +73,12 @@ namespace Google.GData.Client
         /// <param name="parser">The AtomFeedParser that called this</param>
         public virtual void Parse(ExtensionElementEventArgs e, AtomFeedParser parser)
         {
+            if (e == null)
+            {
+                throw new ArgumentNullException("e");
+            }
+        
+
             Tracing.TraceMsg("Entering Parse on AbstractEntry");
             XmlNode node = e.ExtensionElement;
             if (this.ExtensionFactories != null && this.ExtensionFactories.Count > 0)

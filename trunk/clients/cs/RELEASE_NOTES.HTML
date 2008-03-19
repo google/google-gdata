@@ -17,6 +17,12 @@
     </ul>
     <li>Bugfixes/changes</li>
     <ul>
+        <li>Changed a lot of codeplaces due to a new FxCop run. Where this 
+            has a public, visible effect, it is noted below:</li>
+        <ul>
+            <li>removed the setter for CustomHeaders, 
+                Google.GData.Client.GDataRequestFactory.CustomHeaders</li>
+        </ul>
         <li>Updated to VS 2005 solution files. VS 2003 files are removed.</li>
         <li>Changed documentation build to January Sandcastle release</li>
         <li>Entry.SetAlternateUri was not setting the correct link 

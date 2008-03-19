@@ -94,6 +94,11 @@ namespace Google.GData.AccessControl
         /// <returns>Notifications object</returns>
         public static AclRole parse(XmlNode node)
         {
+            Tracing.Assert(node != null, "node should not be null");
+            if (node == null)
+            {
+                throw new ArgumentNullException("node");
+            }
             AclRole role = null;
             Tracing.TraceMsg("Parsing a gAcl:AclRole");
             if (String.Compare(node.NamespaceURI, AclNameTable.gAclNamespace, true) == 0

@@ -49,7 +49,6 @@ namespace Google.GData.Client
         {
             this.service = service;
             this.uri = uri;
-            this.feedObject = null;
         }
     
         /// <summary>the feed to be created. If this is NULL, a service 
@@ -541,7 +540,7 @@ namespace Google.GData.Client
         /// <param name="newEntry">the entry to be inserted</param> 
         /// <returns> the inserted entry</returns>
         //////////////////////////////////////////////////////////////////////
-        public Stream StreamInsert(Uri feedUri, AtomEntry newEntry)
+        public Stream StreamInsert(Uri feedUri, AtomBase newEntry)
         {
             return StreamInsert(feedUri, newEntry, GDataRequestType.Insert); 
         }
@@ -742,7 +741,11 @@ namespace Google.GData.Client
         /// <returns>the returned AtomFeed</returns>
         public AtomFeed Batch(AtomFeed feed, Uri batchUri) 
         {
-            Uri uriToUse = batchUri; 
+            Uri uriToUse = batchUri;
+            if (feed == null)
+            {
+                throw new ArgumentNullException("feed");
+            }
 
             if (uriToUse == null)
             {

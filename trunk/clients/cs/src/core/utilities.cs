@@ -402,6 +402,11 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         static public string FindToken(TokenCollection tokens,  string key)
         {
+            if (tokens == null)
+            {
+                throw new ArgumentNullException("tokens");
+            }
+        
             string returnValue = null; 
             bool fNextOne=false; 
 
@@ -532,6 +537,15 @@ namespace Google.GData.Client
         /// <returns>none</returns>
         public static ArrayList FindExtensions(ArrayList arrList, string localName, string ns, ArrayList arr) 
         {
+           if (arrList == null)
+           {
+               throw new ArgumentNullException("arrList");
+           }
+           if (arr == null)
+           {
+               throw new ArgumentNullException("arr");
+           }
+
            foreach (object ob in arrList)
            {
                XmlNode node = ob as XmlNode;

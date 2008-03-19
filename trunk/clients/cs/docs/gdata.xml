@@ -4428,7 +4428,7 @@
             <param name="slugHeader">the value for the slug header, indicating filenaming</param>
             <returns>AtomEntry</returns>
         </member>
-        <member name="M:Google.GData.Client.Service.StreamInsert(System.Uri,Google.GData.Client.AtomEntry)">
+        <member name="M:Google.GData.Client.Service.StreamInsert(System.Uri,Google.GData.Client.AtomBase)">
             <summary>public WebResponse Insert(Uri insertUri, Stream entryStream, ICredentials credentials)</summary> 
             <param name="feedUri">the uri for the feed this entry should be inserted into</param> 
             <param name="newEntry">the entry to be inserted</param> 

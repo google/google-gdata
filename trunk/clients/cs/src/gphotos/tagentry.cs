@@ -67,6 +67,7 @@ namespace Google.GData.Photos {
         /// The weight of the tag. The weight is the number of times the tag appears 
         /// in photos under the current element. The default weight is 1.
         /// </summary>
+        [CLSCompliant(false)]
         public uint Weight 
         {
             get 

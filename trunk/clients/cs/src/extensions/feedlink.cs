@@ -29,13 +29,13 @@ namespace Google.GData.Extensions {
     {
 
         /// <summary>holds the href property</summary>
-        protected string href;
+        private string href;
         /// <summary>holds the readOnly property</summary>
-        protected bool readOnly;
+        private bool readOnly;
         /// <summary>holds the feed property</summary>
-        protected AtomFeed feed;
+        private AtomFeed feed;
           /// <summary>holds the rel attribute of the EntyrLink element</summary> 
-        protected string rel;
+        private string rel;
 
 
         private bool readOnlySet; 

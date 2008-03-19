@@ -534,6 +534,11 @@ namespace Google.GData.Client
             {
                 throw new ArgumentNullException("reader"); 
             }
+            if (owner == null)
+            {
+                throw new ArgumentNullException("owner");
+            }
+            
 
             AtomCategory category = owner.CreateAtomSubElement(reader, this) as AtomCategory;
 
@@ -583,6 +588,12 @@ namespace Google.GData.Client
             {
                 throw new ArgumentNullException("reader"); 
             }
+
+            if (owner == null)
+            {
+                throw new ArgumentNullException("owner");
+            }
+        
 
             Tracing.TraceCall();
 
@@ -755,6 +766,15 @@ namespace Google.GData.Client
         /// <param name="entry">the atomentry object to fill in</param>
         protected void ParseBatch(XmlReader reader, AtomEntry entry)
         {
+            if (reader == null)
+            {
+                throw new ArgumentNullException("reader");
+            }
+            if (entry == null)
+            {
+                throw new ArgumentNullException("entry");
+            }
+   
             if (IsCurrentNameSpace(reader, BaseNameTable.gBatchNamespace))
             {
                 object elementName = reader.LocalName;
@@ -834,6 +854,15 @@ namespace Google.GData.Client
         /// <param name="feed">the atomfeed object to fill in</param>
         protected void ParseBatch(XmlReader reader, AtomFeed feed) 
         {
+            if (reader == null)
+            {
+                throw new ArgumentNullException("reader");
+            }
+            if (feed == null)
+            {
+                throw new ArgumentNullException("feed");
+            }
+
             if (IsCurrentNameSpace(reader, BaseNameTable.gBatchNamespace))
             {
                 object elementName = reader.LocalName;
@@ -930,6 +959,11 @@ namespace Google.GData.Client
 
         protected GDataBatchErrorCollection ParseBatchErrors(XmlReader reader)
         {
+            if (reader == null)
+            {
+                throw new System.ArgumentNullException("reader");
+            }
+
             object localname = reader.LocalName;
             GDataBatchErrorCollection collection = null;
             if (localname.Equals(this.nameTable.BatchErrors))
@@ -958,6 +992,11 @@ namespace Google.GData.Client
         /// <returns>GDataBatchError</returns>
         protected GDataBatchError ParseBatchError(XmlReader reader)
         {
+            if (reader == null)
+            {
+                throw new System.ArgumentNullException("reader");
+            }
+
             object localname = reader.LocalName;
             GDataBatchError error = null;
             if (localname.Equals(this.nameTable.BatchError))
@@ -994,6 +1033,11 @@ namespace Google.GData.Client
         /// <returns>GDataBatchInterrupt</returns>
         protected GDataBatchInterrupt ParseBatchInterrupt(XmlReader reader)
         {
+            if (reader == null)
+            {
+                throw new ArgumentNullException("reader");
+            }
+        
             object localname = reader.LocalName;
             GDataBatchInterrupt interrupt = null;
             if (localname.Equals(this.nameTable.BatchInterrupt))
@@ -1045,6 +1089,10 @@ namespace Google.GData.Client
             if (reader == null)
             {
                 throw new ArgumentNullException("reader"); 
+            }
+            if (owner == null)
+            {
+                throw new System.ArgumentNullException("owner");
             }
 
             Tracing.TraceCall("Parsing atomTextConstruct");
@@ -1110,6 +1158,12 @@ namespace Google.GData.Client
                 throw new ArgumentNullException("reader"); 
             }
 
+            if (owner == null)
+            {
+                throw new ArgumentNullException("owner");
+            }
+        
+
             Tracing.TraceCall();
             AtomGenerator generator = owner.CreateAtomSubElement(reader, this) as AtomGenerator;
             if (generator != null)
@@ -1157,6 +1211,12 @@ namespace Google.GData.Client
             {
                 throw new ArgumentNullException("reader"); 
             }
+
+            if (owner == null)
+            {
+                throw new ArgumentNullException("owner");
+            }
+        
 
             // by default, skip to the next node after this routine
             skipNode = true; 

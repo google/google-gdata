@@ -27,10 +27,10 @@ namespace Google.GData.Extensions {
     public class RecurrenceException : IExtensionElement
     {
         /// <summary>optional nested entry</summary>
-        protected EntryLink entryLink; 
+        private EntryLink entryLink; 
 
         /// <summary>specialized exception or not</summary>
-        protected bool isSpecialized; 
+        private bool isSpecialized; 
 
         /// <summary>
         ///  Nested entry (optional).
@@ -52,7 +52,7 @@ namespace Google.GData.Extensions {
             set {this.isSpecialized = value;}
         }
         /// <summary> holds the value property</summary>
-        protected string value;
+        private string value;
         /// <summary>
         ///  Accessor method for the Value property
         /// </summary>

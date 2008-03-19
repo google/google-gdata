@@ -106,6 +106,19 @@ namespace Google.GData.AccessControl
         //////////////////////////////////////////////////////////////////////
         public override void Parse(ExtensionElementEventArgs e, AtomFeedParser parser)
         {
+
+            Tracing.Assert(parser != null, "parser should not be null");
+            Tracing.Assert(e != null, "e should not be null");
+            if (e == null)
+            {
+                throw new ArgumentNullException("e");
+            }
+            if (parser == null)
+            {
+                throw new ArgumentNullException("parser");
+            }
+
+           
             Tracing.TraceCall("AclEntry:Parse is called:" + e);
             XmlNode node = e.ExtensionElement;
  
