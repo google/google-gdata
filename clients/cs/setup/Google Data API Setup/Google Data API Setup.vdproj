@@ -1156,6 +1156,12 @@
         "Entry"
         {
         "MsmKey" = "8:_74ECC5C26CE6331A6EDFDEE7923F62FE"
+        "OwnerKey" = "8:_8CBEB51C10D3B41FCEAF1180A5FB6448"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_74ECC5C26CE6331A6EDFDEE7923F62FE"
         "OwnerKey" = "8:_05524B14F4E74A2A91E14EB17E46AE55"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -1977,6 +1983,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_B732D0E75CD54B15A3951B48FACFDCE5"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_B7AE1D0986D2404799DC56EB4C98A3FB"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -2026,6 +2038,12 @@
         "Entry"
         {
         "MsmKey" = "8:_BCE80B1BB563FF2124A3EFCB9F26313F"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_BD5FBAE234DB4AA495BB9A8572627FB9"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -2164,6 +2182,12 @@
         "Entry"
         {
         "MsmKey" = "8:_CC5432793BED417AA5C634FFD0645537"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_CE5198D5FF3A4A07A7B84C42A7E44463"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -2397,6 +2421,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_DDB1765850AB46C9AACE3657FE4CE8DD"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_DE7088AA340A428883CC95F20418D8B3"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -2554,6 +2584,12 @@
         "Entry"
         {
         "MsmKey" = "8:_F247F38D689E49CB804CAF330BB94864"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_F2CF7556DE9640E099C88C58E440F452"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -2818,18 +2854,6 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_8CBEB51C10D3B41FCEAF1180A5FB6448"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_A96E9FA74579406CBADCBA7C8560DDA0"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_A96E9FA74579406CBADCBA7C8560DDA0"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -2885,6 +2909,12 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_8E905672B76A4C8F839B020772EE6D7D"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_8CBEB51C10D3B41FCEAF1180A5FB6448"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -3058,13 +3088,19 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_1777EEAAC74F474ABE559E187BC4F3BA"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_599A17DFB1274822906F49B4BA1C133C"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_1777EEAAC74F474ABE559E187BC4F3BA"
+        "OwnerKey" = "8:_A96E9FA74579406CBADCBA7C8560DDA0"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -9612,6 +9648,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_B732D0E75CD54B15A3951B48FACFDCE5"
+            {
+            "SourcePath" = "8:..\\..\\Templates\\ProjectTemplates\\Google Calendar.zip"
+            "TargetName" = "8:Google Calendar.zip"
+            "Tag" = "8:"
+            "Folder" = "8:_8F377E9683524D14996821CDA36AEA42"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_B7AE1D0986D2404799DC56EB4C98A3FB"
             {
             "SourcePath" = "8:..\\..\\setuptree\\Sources\\Library\\unittests\\gapps\\mailitementrytest.cs"
@@ -9801,6 +9857,26 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_BD5FBAE234DB4AA495BB9A8572627FB9"
+            {
+            "SourcePath" = "8:..\\..\\Templates\\ProjectTemplates\\Google Base.zip"
+            "TargetName" = "8:Google Base.zip"
+            "Tag" = "8:"
+            "Folder" = "8:_8F377E9683524D14996821CDA36AEA42"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_BD9BE7C6B2B940BEAD1FE2A3BF2384B4"
@@ -10315,6 +10391,26 @@
             "TargetName" = "8:Core Client.csproj"
             "Tag" = "8:"
             "Folder" = "8:_0D8B407968F6406A984A933C3BDB591A"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_CE5198D5FF3A4A07A7B84C42A7E44463"
+            {
+            "SourcePath" = "8:..\\..\\Templates\\ProjectTemplates\\Google Picasa.zip"
+            "TargetName" = "8:Google Picasa.zip"
+            "Tag" = "8:"
+            "Folder" = "8:_8F377E9683524D14996821CDA36AEA42"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -10911,6 +11007,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_DDB1765850AB46C9AACE3657FE4CE8DD"
+            {
+            "SourcePath" = "8:..\\..\\Templates\\ProjectTemplates\\Google Spreadsheets.zip"
+            "TargetName" = "8:Google Spreadsheets.zip"
+            "Tag" = "8:"
+            "Folder" = "8:_8F377E9683524D14996821CDA36AEA42"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_DE7088AA340A428883CC95F20418D8B3"
             {
             "SourcePath" = "8:..\\..\\setuptree\\Sources\\Samples\\calendar\\Calendar.resx"
@@ -11473,6 +11589,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_F2CF7556DE9640E099C88C58E440F452"
+            {
+            "SourcePath" = "8:..\\..\\Templates\\ProjectTemplates\\Google Documents List.zip"
+            "TargetName" = "8:Google Documents List.zip"
+            "Tag" = "8:"
+            "Folder" = "8:_8F377E9683524D14996821CDA36AEA42"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_F30D3760F1B943DBA0E517D7F72399D5"
             {
             "SourcePath" = "8:..\\..\\setuptree\\Sources\\Library\\gapps\\emaillistrecipientservice.cs"
@@ -11939,15 +12075,48 @@
         }
         "Folder"
         {
-            "{1525181F-901A-416C-8A58-119130FE478E}:_2E01C48C25B64161A97BD4C396603A53"
+            "{1525181F-901A-416C-8A58-119130FE478E}:_25B7C52900354958964C8A69E9B8FDA9"
             {
-            "Name" = "8:#1916"
+            "Name" = "8:#1918"
             "AlwaysCreate" = "11:FALSE"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
-            "Property" = "8:DesktopFolder"
+            "Property" = "8:PersonalFolder"
                 "Folders"
                 {
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_447B2137B59A4FB78DCB0CA1F76BE0AD"
+                    {
+                    "Name" = "8:Visual Studio 2005"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_7D1E3B168E5D45F690A7F4FFEDBAAF50"
+                        "Folders"
+                        {
+                            "{9EF0B969-E518-4E46-987F-47570745A589}:_687E9CC6731143EAA57B02A8806B6A98"
+                            {
+                            "Name" = "8:Templates"
+                            "AlwaysCreate" = "11:FALSE"
+                            "Condition" = "8:"
+                            "Transitive" = "11:FALSE"
+                            "Property" = "8:_BFF48DA58B2447E6B72B698DA36E46BD"
+                                "Folders"
+                                {
+                                    "{9EF0B969-E518-4E46-987F-47570745A589}:_8F377E9683524D14996821CDA36AEA42"
+                                    {
+                                    "Name" = "8:ProjectTemplates"
+                                    "AlwaysCreate" = "11:FALSE"
+                                    "Condition" = "8:"
+                                    "Transitive" = "11:FALSE"
+                                    "Property" = "8:_68FC4F0531D24C5EAA84A7A195D41429"
+                                        "Folders"
+                                        {
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
             "{3C67513D-01DD-4637-8A68-80971EB9504F}:_675AC0F30E554EE6AFB1EEC46BC9AA61"
