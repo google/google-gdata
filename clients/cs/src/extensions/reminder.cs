@@ -130,27 +130,27 @@ namespace Google.GData.Extensions {
         /// <summary>
         /// Number of days before the event.
         /// </summary>
-        protected int days;
+        private int days;
 
         /// <summary>
         /// Number of hours.
         /// </summary>
-        protected int hours;
+        private int hours;
 
         /// <summary>
         /// Number of minutes.
         /// </summary>
-        protected int minutes;
+        private int minutes;
 
         /// <summary>
         /// Absolute time of the reminder.
         /// </summary>
-        protected DateTime absoluteTime;
+        private DateTime absoluteTime;
 
         /// <summary>
         /// holds the method type
         /// </summary>
-        protected ReminderMethod method;
+        private ReminderMethod method;
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>accessor method public Method Method</summary> 

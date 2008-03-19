@@ -232,6 +232,11 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         public static string getTokenFromReply(Uri uri)
         {
+            if (uri == null)
+            {
+                throw new ArgumentNullException("uri");
+            }
+
             char [] deli = {'?','&'}; 
             TokenCollection tokens = new TokenCollection(uri.Query, deli); 
             foreach (String token in tokens )
@@ -421,6 +426,11 @@ namespace Google.GData.Client
             }
             else
             {
+                if (requestUri == null)
+                {
+                    throw new ArgumentNullException("requestUri");
+                }
+
                 // Form signature for secure mode
                 TimeSpan t = (DateTime.UtcNow - new DateTime(1970, 1, 1));
                 int timestamp = (int)t.TotalSeconds;

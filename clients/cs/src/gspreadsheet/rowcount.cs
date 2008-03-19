@@ -36,6 +36,7 @@ namespace Google.GData.Spreadsheets
         /// <summary>
         /// default constructor with an initial value as a integer 
         /// </summary>
+        [CLSCompliant(false)]
         public RowCountElement(uint initValue)
         : base(GDataSpreadsheetsNameTable.XmlRowCountElement, 
                GDataSpreadsheetsNameTable.Prefix,
@@ -46,6 +47,7 @@ namespace Google.GData.Spreadsheets
         /// <summary>
         /// Gets or sets the count of rows.
         /// </summary>
+        [CLSCompliant(false)]
         public uint Count
         {
             get

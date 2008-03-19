@@ -80,6 +80,7 @@ namespace Google.GData.Extensions
         /// <summary>
         /// Alias for the Height property of the nested WebContent element.
         /// </summary>
+        [CLSCompliant(false)]
         public uint Height
         {
             get
@@ -95,6 +96,7 @@ namespace Google.GData.Extensions
         /// <summary>
         /// Alias for the Width property of the nested WebContent element.
         /// </summary>
+        [CLSCompliant(false)]
         public uint Width
         {
             get

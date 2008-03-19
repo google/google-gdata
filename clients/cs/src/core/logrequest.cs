@@ -138,7 +138,6 @@ namespace Google.GData.Client
             this.strInput = strInputFileName;
             this.strOutput = strOutputFileName;
             this.strCombined = strCombinedLogFileName;
-            this.memoryStream = null;
         }
         /////////////////////////////////////////////////////////////////////////////
 
@@ -149,8 +148,14 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         protected override void Dispose(bool disposing)
         {
-            this.memoryStream.Close();
-            base.Dispose(disposing); 
+            try
+            {
+                this.memoryStream.Close();
+            }
+            finally
+            {
+                base.Dispose(disposing);
+            }
         }
 
 
@@ -260,7 +265,7 @@ namespace Google.GData.Client
         /// <param name="outOne">the first stream to save into </param>
         /// <param name="outCombined">the combined stream to save into</param>
         //////////////////////////////////////////////////////////////////////
-        private void SaveStream(Stream stream, StreamWriter outOne, StreamWriter outCombined)
+        private static void SaveStream(Stream stream, StreamWriter outOne, StreamWriter outCombined)
         {
             if (stream != null)
             {
@@ -289,7 +294,7 @@ namespace Google.GData.Client
         /// <param name="target">the target URI of the request</param>
         /// <param name="outputStream">the stream to save to</param>
         //////////////////////////////////////////////////////////////////////
-        private void SaveHeaders(bool isRequest, WebHeaderCollection headers, String method, Uri target, StreamWriter outputStream)
+        private static void SaveHeaders(bool isRequest, WebHeaderCollection headers, String method, Uri target, StreamWriter outputStream)
         {
             if (outputStream != null && headers != null)
             {

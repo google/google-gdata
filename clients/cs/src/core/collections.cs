@@ -121,6 +121,10 @@ namespace Google.GData.Client
         /// <returns>Null if not found, otherwise the entry</returns>
         public AtomEntry FindById( AtomId value )  
         {
+            if (value == null)
+            {
+                throw new ArgumentNullException("value");
+            }
             foreach (AtomEntry entry in List)
             {
                 if (entry.Id.AbsoluteUri == value.AbsoluteUri)
@@ -141,9 +145,12 @@ namespace Google.GData.Client
             }
             set  
             {
-                if (value.Feed == null || value.Feed != this.feed)
+                if (value != null)
                 {
-                    value.setFeed(this.feed);
+                    if (value.Feed == null || value.Feed != this.feed)
+                    {
+                        value.setFeed(this.feed);
+                    }
                 }
                 List[index] = value;
             }
@@ -233,6 +240,10 @@ namespace Google.GData.Client
         /// <summary>standard typed accessor method </summary> 
         public int Add( AtomLink value )  
         {
+            if (value == null)
+            {
+                throw new ArgumentNullException("value");
+            }
     	    // Remove link with same relation to avoid duplication.
     	    AtomLink oldLink = FindService(value.Rel, value.Type);
     	    if (oldLink != null)
@@ -320,6 +331,10 @@ namespace Google.GData.Client
         /// <summary>standard typed accessor method </summary> 
         public int Add( AtomCategory value )  
         {
+            if (value == null)
+            {
+                throw new ArgumentNullException("value");
+            }
     	    // Remove category with the same term to avoid duplication.
     	    AtomCategory oldCategory = Find(value.Term, value.Scheme);
     	    if (oldCategory != null)

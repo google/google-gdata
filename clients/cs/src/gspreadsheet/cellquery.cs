@@ -96,6 +96,7 @@ namespace Google.GData.Spreadsheets
         /// <summary>
         /// The minimum index for a row allowed in the response
         /// </summary>
+        [CLSCompliant(false)]
         public uint MinimumRow
         {
             get
@@ -112,6 +113,7 @@ namespace Google.GData.Spreadsheets
         /// <summary>
         /// The maximum index for a row allowed in the response
         /// </summary>
+        [CLSCompliant(false)]
         public uint MaximumRow
         {
             get
@@ -128,6 +130,7 @@ namespace Google.GData.Spreadsheets
         /// <summary>
         /// The minimum index for a column allowed in the response
         /// </summary>
+        [CLSCompliant(false)]
         public uint MinimumColumn
         {
             get
@@ -144,6 +147,7 @@ namespace Google.GData.Spreadsheets
         /// <summary>
         /// The maximum index for a column allowed in a response
         /// </summary>
+        [CLSCompliant(false)]
         public uint MaximumColumn
         {
             get

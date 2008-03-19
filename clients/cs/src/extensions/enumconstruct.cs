@@ -59,7 +59,7 @@ namespace Google.GData.Extensions {
         /// <summary>
         ///  holds the enumType property
         /// </summary>
-        protected string enumType = null;
+        private string enumType = null;
 
         /// <summary>
         ///  Accessor Method for the enumType
@@ -72,7 +72,7 @@ namespace Google.GData.Extensions {
         /// <summary>
         /// String Value
         /// </summary>
-        protected string value;
+        private string value;
 
         /// <summary>
         ///  Accessor Method for the value

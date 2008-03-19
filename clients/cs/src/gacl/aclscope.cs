@@ -43,7 +43,7 @@ namespace Google.GData.AccessControl
         /// <summary>Returns the constant representing this XML element.
         /// </summary> 
         //////////////////////////////////////////////////////////////////////
-        public string XmlName
+        public static string XmlName
         {
             get { return AclNameTable.XmlAclScopeElement; }
         }
@@ -95,6 +95,12 @@ namespace Google.GData.AccessControl
         /// <returns>Notifications object</returns>
         public static AclScope parse(XmlNode node)
         {
+            Tracing.Assert(node != null, "node should not be null");
+            if (node == null)
+            {
+                throw new ArgumentNullException("node");
+            }
+
             AclScope scope = null;
             Tracing.TraceMsg("Parsing a gAcl:AclScope" + node);
             if (String.Compare(node.NamespaceURI, AclNameTable.gAclNamespace, true) == 0
@@ -124,6 +130,12 @@ namespace Google.GData.AccessControl
         public void Save(XmlWriter writer)
         {
 
+            Tracing.Assert(writer != null, "writer should not be null");
+            if (writer == null)
+            {
+                throw new ArgumentNullException("writer");
+            }
+       
             if (Utilities.IsPersistable(this.type) ||
                 Utilities.IsPersistable(this.value))
             {

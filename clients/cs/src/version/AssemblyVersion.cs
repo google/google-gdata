@@ -16,6 +16,8 @@ using System;
 using System.Security;
 using System.Reflection;
 using System.Security.Permissions;
+using System.Runtime.InteropServices;
+
 
 //
 // General Information about an assembly is controlled through the following 
@@ -33,6 +35,8 @@ using System.Security.Permissions;
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
+[assembly: ComVisible(false)]
+[assembly: CLSCompliant(true)]
 
 
 

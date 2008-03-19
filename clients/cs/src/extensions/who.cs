@@ -141,32 +141,32 @@ namespace Google.GData.Extensions {
         /// <summary>
         ///  relationship description as a String
         /// </summary>
-        protected string rel;
+        private string rel;
 
         /// <summary>
         /// String description of the person.
         /// </summary>
-        protected String valueString;
+        private String valueString;
 
         /// <summary>
         /// email adress of the person
         /// </summary>
-        protected String email;
+        private String email;
 
         /// <summary>
         ///  Type of event attendee.
         /// </summary>
-        protected AttendeeType attendeeType;
+        private AttendeeType attendeeType;
 
         /// <summary>
         ///  Status of event attendee.
         /// </summary>
-        protected AttendeeStatus attendeeStatus;
+        private AttendeeStatus attendeeStatus;
 
         /// <summary>
         /// Nested person entry.
         /// </summary>
-        protected EntryLink entryLink;
+        private EntryLink entryLink;
 
         #endregion
 

@@ -43,7 +43,7 @@ namespace Google.GData.Client
         /// </summary>
         /// <param name="uriBase">The uri for this cells feed.</param>
         /// <param name="iService">The Spreadsheets service.</param>
-        public AbstractFeed(Uri uriBase, IService iService) : base(uriBase, iService)
+        protected AbstractFeed(Uri uriBase, IService iService) : base(uriBase, iService)
         {
             NewAtomEntry += new FeedParserEventHandler(this.OnParsedNewAbstractEntry);
             NewExtensionElement += new ExtensionElementEventHandler(this.OnNewExtensionsElement);

@@ -34,7 +34,7 @@ namespace Google.GData.Extensions {
         /// <summary>
         /// this holds the attribute list for an extension element
         /// </summary>
-        protected SortedList attributes;
+        private SortedList attributes;
 
 
 
@@ -62,6 +62,11 @@ namespace Google.GData.Extensions {
                 this.attributes = new SortedList();
             }
             return this.attributes;
+        }
+
+        internal void setAttributes(SortedList list) 
+        {
+            this.attributes = list;
         }
         
         #region overloaded for persistence

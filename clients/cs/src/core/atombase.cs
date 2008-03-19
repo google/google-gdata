@@ -469,12 +469,13 @@ namespace Google.GData.Client
                         count += DeleteExtensions(localName, ns);
                     }
                 }
+                // now add the new ones
+                foreach (Object ob in newList)
+                {
+                    this.ExtensionElements.Add(ob);
+                }
             }
-            // now add the new ones
-            foreach (Object ob in newList)
-            {
-                this.ExtensionElements.Add(ob);
-            }
+            
             return count;
         }
 
@@ -503,6 +504,16 @@ namespace Google.GData.Client
         /// <returns>AtomBase</returns>
         public virtual AtomBase CreateAtomSubElement(XmlReader reader, AtomFeedParser parser)
         {
+            if (reader == null)
+            {
+                throw new ArgumentNullException("reader");
+            }
+            if (parser == null)
+            {
+                throw new ArgumentNullException("parser");
+            }
+
+
             Object localname = reader.LocalName;
             if (localname.Equals(parser.Nametable.Id))
             {
@@ -815,6 +826,10 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         static protected void WriteEncodedAttributeString(XmlWriter writer, string attributeName, string content)
         {
+            if (writer == null)
+            {
+                throw new ArgumentNullException("writer");
+            }
             if (Utilities.IsPersistable(content))
             {
                 string encoded = Utilities.EncodeString(content);
@@ -832,6 +847,10 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         static protected void WriteEncodedElementString(XmlWriter writer, string elementName, string content)
         {
+            if (writer == null)
+            {
+                throw new ArgumentNullException("writer");
+            }
             if (Utilities.IsPersistable(content))
             {
                 string encoded = Utilities.EncodeString(content);
@@ -848,6 +867,10 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         static protected void WriteEncodedElementString(XmlWriter writer, string elementName, AtomUri content)
         {
+            if (writer == null)
+            {
+                throw new ArgumentNullException("writer");
+            }
             if (Utilities.IsPersistable(content))
             {
                 string encoded = Utilities.EncodeString(content.ToString());

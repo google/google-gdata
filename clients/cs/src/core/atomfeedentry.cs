@@ -825,6 +825,15 @@ namespace Google.GData.Client
         /// <returns>AtomBase</returns>
         public override AtomBase CreateAtomSubElement(XmlReader reader, AtomFeedParser parser)
         {
+            if (reader == null)
+            {
+                throw new ArgumentNullException("reader");
+            }
+            if (parser == null)
+            {
+                throw new ArgumentNullException("parser");
+            }
+
             Object localname = reader.LocalName;
 
             if (localname.Equals(parser.Nametable.Source))

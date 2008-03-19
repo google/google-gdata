@@ -239,11 +239,8 @@ namespace Google.GData.Client
                 }
                 return this.customHeaders;
                 }
-            set {this.customHeaders = value;}
         }
         // end of accessor public StringArray CustomHeaders
-
-
     }
     /////////////////////////////////////////////////////////////////////////////
 
@@ -297,6 +294,8 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         public void Dispose()
         {
+            if (this.responseStream != null)
+                this.responseStream.Dispose();
             Dispose(true);
             GC.SuppressFinalize(this);
         }

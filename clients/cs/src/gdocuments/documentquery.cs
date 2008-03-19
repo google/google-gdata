@@ -92,9 +92,9 @@ namespace Google.GData.Documents {
         public static QueryCategory STARRED = new QueryCategory(ATOMCATEGORY_STARRED);
 
         //Local variable to hold the contents of a title query
-        public string title;
+        private string title;
         //Local variable to hold if the title query we are doing should be exact.
-        public bool titleExact;
+        private bool titleExact;
 
         /// <summary>
         /// base constructor
@@ -116,6 +116,7 @@ namespace Google.GData.Documents {
         /// <summary>
         /// Restricts the results to only starred documents
         /// </summary>
+        [CLSCompliant(false)]
         public bool Starred
         {
             get

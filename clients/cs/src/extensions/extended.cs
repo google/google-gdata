@@ -31,12 +31,12 @@ namespace Google.GData.Extensions
         /// <summary>
         /// the valueString (required).
         /// </summary>
-        protected string value; 
+        private string value; 
 
         /// <summary>
         /// the property name
         /// </summary>
-        protected string name; 
+        private string name; 
 
         
         //////////////////////////////////////////////////////////////////////

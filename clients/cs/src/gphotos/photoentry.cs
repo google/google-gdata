@@ -273,6 +273,7 @@ namespace Google.GData.Photos
         [Category("Meta Photo Data"),
         Description("The photo's timestamp")]
 #endif
+        [CLSCompliant(false)]
         public ulong Timestamp 
         {
             get 
@@ -337,6 +338,7 @@ namespace Google.GData.Photos
         [Category("Commenting"),
         Description("the number of comments on a photo.")]
 #endif
+        [CLSCompliant(false)]
         public uint CommentCount 
         {
             get 

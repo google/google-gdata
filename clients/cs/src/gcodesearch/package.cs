@@ -32,11 +32,11 @@ namespace Google.GData.CodeSearch
         /// <summary>
         /// holds the name fo the package
         /// </summary>
-        protected String name;
+        private String name;
         /// <summary>
         /// holds the uri of the package
         /// </summary>
-        protected String uri;
+        private String uri;
         /// <summary>
         /// public available attribute to hold the name of the package
         /// </summary>
@@ -105,7 +105,7 @@ namespace Google.GData.CodeSearch
         //////////////////////////////////////////////////////////////////////
         /// <summary>Returns the constant representing this XML element.</summary> 
         //////////////////////////////////////////////////////////////////////
-        public string XmlName
+        public static string XmlName
         {
             get { return GCodeSearchParserNameTable.EVENT_PACKAGE; }
         }
@@ -116,7 +116,12 @@ namespace Google.GData.CodeSearch
         /// <param name="writer">the xmlwriter to write into</param>
         /// 
         public void Save(XmlWriter writer)
-        {           
+        {
+            Tracing.Assert(writer != null, "writer should not be null");
+            if (writer == null)
+            {
+                throw new ArgumentNullException("writer");
+            }
             if (Utilities.IsPersistable(name) &&
                 Utilities.IsPersistable(uri))
             {

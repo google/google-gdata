@@ -116,8 +116,6 @@ namespace Google.GData.Client
     	    } else {
     	        this.UserAgent = GDataGAuthAgent;
     	    }
-            this.numberOfRetries = 0; 
-            this.fStrictRedirect = false; 
         }
         /////////////////////////////////////////////////////////////////////////////
 
@@ -555,7 +553,7 @@ namespace Google.GData.Client
         /// <param name="tokens">The tokencollection of the parsed return form</param>
         /// <param name="response">the  webresponse</param> 
         /// <returns>AuthenticationException</returns>
-        private LoggedException getAuthException(TokenCollection tokens,  HttpWebResponse response) 
+        private static LoggedException getAuthException(TokenCollection tokens,  HttpWebResponse response) 
         {
             String errorName = Utilities.FindToken(tokens, "Error");
             int code= (int)response.StatusCode;

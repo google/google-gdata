@@ -190,6 +190,7 @@ namespace Google.GData.Photos
         [Category("Meta Album Data"),
         Description("Specifies the bytes used for the album.")]
 #endif
+        [CLSCompliant(false)]
         public uint BytesUsed 
         {
             get 
@@ -293,6 +294,7 @@ namespace Google.GData.Photos
         [Category("Meta Album Data"),
         Description("Specifies the number of photos in the album.")]
 #endif
+        [CLSCompliant(false)]
         public uint NumPhotos 
         {
             get 
@@ -317,6 +319,7 @@ namespace Google.GData.Photos
         [Category("Meta Album Data"),
         Description("Specifies the number of remaining photo uploads for the album.")]
 #endif
+        [CLSCompliant(false)]
         public uint NumPhotosRemaining
         {
             get 
@@ -360,6 +363,7 @@ namespace Google.GData.Photos
         [Category("Commenting"),
         Description("Specifies the number of comments for the album.")]
 #endif
+        [CLSCompliant(false)]
         public uint CommentCount 
         {
             get 

@@ -30,7 +30,7 @@ namespace Google.GData.Extensions {
         /// <summary>
         ///  holds the feedLink property
         /// </summary>
-        protected FeedLink feedLink;
+        private FeedLink feedLink;
 
         /// <summary>
         /// Comments feed link.

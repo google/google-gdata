@@ -178,6 +178,11 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         public AtomFeed(AtomFeed originalFeed) : base()
         {
+            if (originalFeed == null)
+            {
+                throw new ArgumentNullException("originalFeed");
+            }
+  
             Tracing.TraceCall("Constructing AtomFeed");
             this.Batch = originalFeed.Batch;
             this.Post  = originalFeed.Post;

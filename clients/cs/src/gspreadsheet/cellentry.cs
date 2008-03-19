@@ -59,6 +59,7 @@ namespace Google.GData.Spreadsheets
             /// <summary>
             /// The row the cell lies in
             /// </summary>
+            [CLSCompliant(false)]
             public uint Row
             {
                 get
@@ -75,6 +76,7 @@ namespace Google.GData.Spreadsheets
             /// <summary>
             /// The column the cell lies in
             /// </summary>
+            [CLSCompliant(false)]
             public uint Column
             {
                 get
@@ -148,7 +150,9 @@ namespace Google.GData.Spreadsheets
         /// </summary>
         /// <param name="row"></param>
         /// <param name="column"></param>
-        public CellEntry(uint row, uint column) : this()
+        [CLSCompliant(false)]
+        public CellEntry(uint row, uint column)
+            : this()
         {
             this.Cell = new CellElement();
             this.Cell.Column = column;
@@ -162,7 +166,9 @@ namespace Google.GData.Spreadsheets
         /// <param name="row"></param>
         /// <param name="column"></param>
         /// <param name="inputValue">The uncalculated content of the cell.</param>
-        public CellEntry(uint row, uint column, string inputValue) : this(row, column)
+        [CLSCompliant(false)]
+        public CellEntry(uint row, uint column, string inputValue)
+            : this(row, column)
         {
             this.Cell.InputValue = inputValue;
         }
@@ -196,6 +202,7 @@ namespace Google.GData.Spreadsheets
         /// <summary>
         /// The row the cell lies in
         /// </summary>
+        [CLSCompliant(false)]
         public uint Row
         {
             get
@@ -213,6 +220,7 @@ namespace Google.GData.Spreadsheets
         /// <summary>
         /// The column the cell lies in
         /// </summary>
+        [CLSCompliant(false)]
         public uint Column
         {
             get

@@ -51,7 +51,9 @@ namespace Google.GData.Spreadsheets
         /// </summary>
         /// <param name="rows">The number of rows.</param>
         /// <param name="cols">The number of columns.</param>
-        public WorksheetEntry(uint rows, uint cols) : this()
+        [CLSCompliant(false)]
+        public WorksheetEntry(uint rows, uint cols)
+            : this()
         {
             this.ColCount = new ColCountElement(cols);
             this.RowCount = new RowCountElement(rows);
@@ -64,7 +66,9 @@ namespace Google.GData.Spreadsheets
         /// <param name="rows">The number of rows.</param>
         /// <param name="cols">The number of columns.</param>
         /// <param name="title">The title of the worksheet.</param>
-        public WorksheetEntry(uint rows, uint cols, string title) : this(rows,cols)
+        [CLSCompliant(false)]
+        public WorksheetEntry(uint rows, uint cols, string title)
+            : this(rows, cols)
         {
             this.Title = new AtomTextConstruct(AtomTextConstructElementType.Title,title);
         }
@@ -90,6 +94,7 @@ namespace Google.GData.Spreadsheets
         /// <summary>
         /// Sets the number of columns for this worksheet entry
         /// </summary>
+        [CLSCompliant(false)]
         public uint Cols
         {
             get { return this.ColCount.Count; }
@@ -118,6 +123,7 @@ namespace Google.GData.Spreadsheets
         /// <summary>
         /// Sets the number of rows for this worksheet entry
         /// </summary>
+        [CLSCompliant(false)]
         public uint Rows
         {
             get { return this.RowCount.Count; }

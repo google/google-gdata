@@ -31,27 +31,27 @@ namespace Google.GData.Extensions
         /// <summary>
         /// Event start time (required).
         /// </summary>
-        protected DateTime startTime;
+        private DateTime startTime;
 
         /// <summary>
         /// Event end time (optional).
         /// </summary>
-        protected DateTime endTime;
+        private DateTime endTime;
 
         /// <summary>
         /// String description of the event times.
         /// </summary>
-        protected String valueString;
+        private String valueString;
 
         /// <summary>
         /// flag, indicating if an all day status
         /// </summary>
-        protected bool fAllDay; 
+        private bool fAllDay; 
         
         /// <summary>
         /// reminder object to set reminder durations
         /// </summary>
-        protected ArrayList reminders;
+        private ArrayList reminders;
 
         /// <summary>
         /// Constructs a new instance of a When object.

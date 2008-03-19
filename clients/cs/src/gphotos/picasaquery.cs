@@ -112,11 +112,11 @@ namespace Google.GData.Photos {
         /// <summary>
         /// holds the kind parameters a query can have
         /// </summary>
-        protected string kinds = "";
+        protected string kindsAsText = "";
         /// <summary>
         /// holds the tag parameters a query can have
         /// </summary>
-        protected string tags = "";
+        private string tags = "";
         private AccessLevel access;
         private string thumbsize;
 
@@ -132,7 +132,7 @@ namespace Google.GData.Photos {
         public PicasaQuery()
         : base()
         {
-            this.kinds = Kinds.tag.ToString();
+            this.kindsAsText = Kinds.tag.ToString();
         }
 
 
@@ -144,7 +144,7 @@ namespace Google.GData.Photos {
         public PicasaQuery(string queryUri)
         : base(queryUri)
         {
-            this.kinds = Kinds.tag.ToString();
+            this.kindsAsText = Kinds.tag.ToString();
         }
 
         /// <summary>
@@ -187,8 +187,8 @@ namespace Google.GData.Photos {
         //////////////////////////////////////////////////////////////////////
         public virtual string KindParameter
         {
-            get {return this.kinds;}
-            set {this.kinds = value;}
+            get {return this.kindsAsText;}
+            set {this.kindsAsText = value;}
         }
         // end of accessor public WebAlbumKinds
 
@@ -248,7 +248,7 @@ namespace Google.GData.Photos {
                         switch (parameters[0])
                         {
                             case "kind":
-                                this.kinds = parameters[1];
+                                this.kindsAsText = parameters[1];
                                 break;
                             case "tag":
                                 this.tags = parameters[1];
