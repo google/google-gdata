@@ -426,7 +426,7 @@ namespace Google.GData.Client
             }
 
 
-            if (reader.NodeType == XmlNodeType.Attribute)
+            if (reader.NodeType == XmlNodeType.Attribute || reader.NodeType == XmlNodeType.Text )
             {
                 reader.MoveToElement();
             }

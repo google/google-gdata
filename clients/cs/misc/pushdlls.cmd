@@ -2,6 +2,7 @@
 
 echo "Run this inside the Visual Studio Development Prompt"
 devenv /rebuild Release "..\src\VS2005\Google Data API SDK.sln"
+devenv /rebuild Debug "..\src\VS2005\Google Data API SDK.sln"
 devenv /rebuild ASP "..\src\VS2005\Google Data API SDK.sln"
 devenv /rebuild Release "..\samples\Google Data APIs Samples.sln" 
 		
@@ -29,6 +30,18 @@ xcopy /y ..\src\VS2005\gapps\bin\Release\*.dll ..\lib\Release\*.*
 xcopy /y ..\src\VS2005\gacl\bin\Release\*.dll ..\lib\Release\*.*
 xcopy /y ..\src\VS2005\gphotos\bin\Release\*.dll ..\lib\Release\*.*
 xcopy /y ..\src\VS2005\gdoclist\bin\Release\*.dll ..\lib\Release\*.*
+
+# copy the debug DLLS
+xcopy /y ..\src\VS2005\gdata\bin\Debug\*.dll ..\lib\Debug\*.*
+xcopy /y ..\src\VS2005\gbase\bin\Debug\*.dll ..\lib\Debug\*.*
+xcopy /y ..\src\VS2005\gextension\bin\Debug\*.dll ..\lib\Debug\*.*
+xcopy /y ..\src\VS2005\gspreadsheets\bin\Debug\*.dll ..\lib\Debug\*.*
+xcopy /y ..\src\VS2005\gcalendar\bin\Debug\*.dll ..\lib\Debug\*.*
+xcopy /y ..\src\VS2005\gcodesearch\bin\Debug\*.dll ..\lib\Debug\*.*
+xcopy /y ..\src\VS2005\gapps\bin\Debug\*.dll ..\lib\Debug\*.*
+xcopy /y ..\src\VS2005\gacl\bin\Debug\*.dll ..\lib\Debug\*.*
+xcopy /y ..\src\VS2005\gphotos\bin\Debug\*.dll ..\lib\Debug\*.*
+xcopy /y ..\src\VS2005\gdoclist\bin\Debug\*.dll ..\lib\Debug\*.*
 
 # copy the ASP DLLS
 xcopy /y ..\src\VS2005\gdata\bin\asp\*.dll ..\lib\ASP.NET\*.*
