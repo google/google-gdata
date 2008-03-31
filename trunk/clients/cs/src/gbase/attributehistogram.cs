@@ -140,24 +140,47 @@ namespace Google.GData.GoogleBase
         ///////////////////////////////////////////////////////////////////////
         public static AttributeHistogram Parse(XmlNode node)
         {
-            string name = node.Attributes["name"].Value;
-            GBaseAttributeType type =
-                GBaseAttributeType.ForName(node.Attributes["type"].Value);
-            int count = NumberFormat.ToInt(node.Attributes["count"].Value);
-
-            ArrayList values = new ArrayList();
-            for (XmlNode child = node.FirstChild;
-                    child != null;
-                    child = child.NextSibling)
+            if (node.Attributes != null)
             {
-                if (child.LocalName == "value")
+                string name = null;
+                int count = 0;
+                GBaseAttributeType type = null;
+
+                name = Utilities.GetAttributeValue("name", node);
+                String value = Utilities.GetAttributeValue("type", node);
+                if (value != null)
                 {
-                    int valueCount = NumberFormat.ToInt(child.Attributes["count"].Value);
-                    values.Add(new HistogramValue(child.InnerText, valueCount));
+                    type = GBaseAttributeType.ForName(value);                
+                }
+                value = Utilities.GetAttributeValue("count", node);
+                if (value != null)
+                {
+                    count =  NumberFormat.ToInt(value);
+                }
+
+                if (name != null && type != null)
+                {
+                    ArrayList values = new ArrayList();
+                    for (XmlNode child = node.FirstChild;
+                            child != null;
+                            child = child.NextSibling)
+                    {
+                        if (child.LocalName == "value")
+                        {
+                            value = Utilities.GetAttributeValue("count", child);
+
+                            if (value != null)
+                            {
+                                int valueCount = NumberFormat.ToInt(value);
+                                values.Add(new HistogramValue(child.InnerText, valueCount));
+                            }
+                        }
+                    }
+                    return new AttributeHistogram(name, type, count,
+                                              (HistogramValue[])values.ToArray(typeof(HistogramValue)));
                 }
             }
-            return new AttributeHistogram(name, type, count,
-                                          (HistogramValue[])values.ToArray(typeof(HistogramValue)));
+            return null;
         }
 
         ///////////////////////////////////////////////////////////////////////

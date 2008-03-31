@@ -141,7 +141,9 @@ namespace Google.GData.GoogleBase
             ArrayList attributeIds = new ArrayList();
             for (XmlNode child = xml.FirstChild; child != null; child = child.NextSibling)
             {
-                if ("attribute" == child.LocalName)
+                if ("attribute" == child.LocalName 
+                    && child.Attributes != null 
+                    && child.Attributes["type"] != null)
                 {
                     GBaseAttributeType type = GBaseAttributeType.ForName(child.Attributes["type"].Value);
                     attributeIds.Add(new AttributeId(child.Attributes["name"].Value, type));

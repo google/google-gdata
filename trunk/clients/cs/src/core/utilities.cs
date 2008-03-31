@@ -573,6 +573,26 @@ namespace Google.GData.Client
            return arr;
         }
 
+        /// <summary>
+        /// save method to get an attribute value from an xmlnode
+        /// </summary>
+        /// <param name="attributeName"></param>
+        /// <param name="xmlNode"></param>
+        /// <returns></returns>
+        public static string GetAttributeValue(string attributeName, XmlNode xmlNode) 
+        {
+            
+            if (xmlNode != null &&
+                attributeName != null && 
+                xmlNode.Attributes != null && 
+                xmlNode.Attributes[attributeName] != null)
+            {
+                    return xmlNode.Attributes[attributeName].Value;
+            }
+            
+            return null;
+        }
+
         private static bool compareXmlNess(string l1, string l2, string ns1, string ns2) 
         {
             if (String.Compare(l1,l2)==0)

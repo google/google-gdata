@@ -86,10 +86,7 @@ namespace Google.GData.Extensions {
                 if (String.Compare(node.NamespaceURI, BaseNameTable.gNamespace, true) == 0)
                 {
                     attendee = new AttendeeType();
-                    if (node.Attributes != null)
-                    {
-                        attendee.Value = node.Attributes["value"].Value;
-                    }
+                    attendee.Value = Utilities.GetAttributeValue("value", node);
                 }
                 return attendee;
             }
@@ -127,10 +124,7 @@ namespace Google.GData.Extensions {
                 if (String.Compare(node.NamespaceURI, BaseNameTable.gNamespace, true) == 0)
                 {
                     attendee = new AttendeeStatus();
-                    if (node.Attributes != null)
-                    {
-                        attendee.Value = node.Attributes["value"].Value;
-                    }
+                    attendee.Value = Utilities.GetAttributeValue("value", node);
                 }
                 return attendee;
             }

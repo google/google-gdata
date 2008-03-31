@@ -108,18 +108,18 @@ namespace Google.GData.GoogleBase
         public void Parse(XmlNode xml)
         {
             Reset();
-            string totalString = xml.Attributes["total"].Value;
-            if (totalString != null)
+            String value = Utilities.GetAttributeValue("total", xml);
+            if (value != null)
             {
-                total = NumberFormat.ToInt(totalString);
+                total = NumberFormat.ToInt(value);
             }
 
             for (XmlNode child = xml.FirstChild; child != null; child = child.NextSibling)
             {
                 if ("source".Equals(child.LocalName) && GBaseNameTable.NSGBaseMeta.Equals(child.NamespaceURI))
                 {
-                    string name = child.Attributes["name"].Value;
-                    string countString = child.Attributes["count"].Value;
+                    string name = Utilities.GetAttributeValue("name", child);
+                    string countString = Utilities.GetAttributeValue("count", child);
                     if (name != null && countString != null)
                     {
                         this[name] = NumberFormat.ToInt(countString);

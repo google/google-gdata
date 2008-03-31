@@ -608,12 +608,14 @@ namespace Google.GData.GoogleBase {
 
             GBaseAttribute attribute = new GBaseAttribute();
             attribute.Name = FromXmlTagName(node.LocalName);
-            if (node.Attributes["type"] != null)
+            String value = Utilities.GetAttributeValue("type", node);
+            if (value != null)
             {
-                attribute.Type = GBaseAttributeType.ForName(node.Attributes["type"].Value);
+                attribute.Type = GBaseAttributeType.ForName(value);
             }
-            attribute.IsPrivate = node.Attributes["access"] != null &&
-                                  "private".Equals(node.Attributes["access"].Value);
+            value =  Utilities.GetAttributeValue("access",node);
+            attribute.IsPrivate = "private".Equals(value);
+
             foreach (XmlNode child in node.ChildNodes)
             {
                 if (child.NodeType == XmlNodeType.Element)

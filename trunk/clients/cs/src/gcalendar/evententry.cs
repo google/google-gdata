@@ -143,10 +143,7 @@ namespace Google.GData.Calendar {
                 if (String.Compare(node.NamespaceURI, BaseNameTable.gNamespace, true) == 0)
                 {
                     eventStatus = new EventStatus();
-                    if (node.Attributes != null)
-                    {
-                        eventStatus.Value = node.Attributes["value"].Value;
-                    }
+                    eventStatus.Value = Utilities.GetAttributeValue("value", node);
                 }
                 return eventStatus;
             }
@@ -203,10 +200,7 @@ namespace Google.GData.Calendar {
                 if (String.Compare(node.NamespaceURI, BaseNameTable.gNamespace, true) == 0)
                 {
                     vis = new Visibility();
-                    if (node.Attributes != null)
-                    {
-                        vis.Value = node.Attributes["value"].Value;
-                    }
+                    vis.Value = Utilities.GetAttributeValue("value", node);
                 }
                 return vis;
             }
@@ -255,10 +249,7 @@ namespace Google.GData.Calendar {
                 if (String.Compare(node.NamespaceURI, BaseNameTable.gNamespace, true) == 0)
                 {
                     trans = new Transparency();
-                    if (node.Attributes != null)
-                    {
-                        trans.Value = node.Attributes["value"].Value;
-                    }
+                    trans.Value = Utilities.GetAttributeValue("value", node);
                 }
                 return trans;
             }
@@ -316,11 +307,7 @@ namespace Google.GData.Calendar {
                 if (String.Compare(node.NamespaceURI, GDataParserNameTable.NSGCal, true) == 0)
                 {
                     notify = new SendNotifications();
-                    if (node.Attributes != null)
-                    {
-                        notify.Value = node.Attributes["value"].Value;
-                        Tracing.TraceMsg("Notification parsed, value = " + notify.Value);
-                    }
+                    notify.Value = Utilities.GetAttributeValue("value", node);
                 }
                 return notify;
             }
@@ -796,8 +783,7 @@ namespace Google.GData.Calendar {
         {
             XmlNode eventNode = e.ExtensionElement;
 
-            // Parse a Reminder Element - recurrence event, g:reminder is in top level
-            // reminders are already changed to IExtensionElementFactory, so call base
+            // reminders and recurrence are already changed to IExtensionElementFactory, so call base
             // see addEventEntryExtensions()
             base.Parse(e, parser);
 
@@ -819,12 +805,6 @@ namespace Google.GData.Calendar {
                 else if (eventNode.LocalName == GDataParserNameTable.XmlTransparencyElement)
                 {
                     this.EventTransparency = Transparency.parse(eventNode);
-                    e.DiscardEntry = true;
-                }
-                // Parse a Recurrence Element
-                else if (eventNode.LocalName == GDataParserNameTable.XmlRecurrenceElement)
-                {
-                    this.Recurrence = Recurrence.ParseRecurrence(eventNode);
                     e.DiscardEntry = true;
                 }
                 else if (eventNode.LocalName == GDataParserNameTable.XmlRecurrenceExceptionElement)
