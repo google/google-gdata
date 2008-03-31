@@ -478,9 +478,12 @@ namespace Google.GData.Client
                 authRequest.Method = HttpMethods.Post;
                 ASCIIEncoding encoder = new ASCIIEncoding();
 
+                string user = gc.Username == null ? "" : gc.Username;
+                string pwd = gc.getPassword() == null ? "" : gc.getPassword();
+
                 // now enter the data in the stream
-                string postData = GoogleAuthentication.Email + "=" + Utilities.UriEncodeReserved(gc.Username) + "&"; 
-                postData += GoogleAuthentication.Password + "=" + Utilities.UriEncodeReserved(gc.getPassword()) + "&";  
+                string postData = GoogleAuthentication.Email + "=" + Utilities.UriEncodeReserved(user) + "&"; 
+                postData += GoogleAuthentication.Password + "=" + Utilities.UriEncodeReserved(pwd) + "&";  
                 postData += GoogleAuthentication.Source + "=" + Utilities.UriEncodeReserved(this.factory.ApplicationName) + "&"; 
                 postData += GoogleAuthentication.Service + "=" + Utilities.UriEncodeReserved(this.factory.Service) + "&"; 
                 if (this.factory.CaptchaAnswer != null)
