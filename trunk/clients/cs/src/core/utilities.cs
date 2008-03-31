@@ -18,6 +18,8 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Globalization;
 using System.IO;
 using System.Net;
@@ -523,6 +525,7 @@ namespace Google.GData.Client
             }
             return null;
         }
+       
         /// <summary>
         /// Finds all ExtensionElement based on it's local name
         /// and it's namespace. If namespace is NULL, allwhere
@@ -571,6 +574,56 @@ namespace Google.GData.Client
                }
            }
            return arr;
+        }
+
+        /// <summary>
+        /// Finds all ExtensionElement based on it's local name
+        /// and it's namespace. If namespace is NULL, allwhere
+        /// the localname matches is found. If there are extensionelements that do 
+        /// not implment ExtensionElementFactory, they will not be taken into account
+        /// Primary use of this is to find XML nodes
+        /// </summary>
+        /// <param name="arrList">the array to search through</param>
+        /// <param name="localName">the xml local name of the element to find</param>
+        /// <param name="ns">the namespace of the elementToPersist</param>
+        /// <param name="collection">the collection to fill</param>
+        /// <returns>none</returns>
+        public static T FindExtensions<T>(ArrayList arrList, string localName, string ns, T collection) where T : IList
+        {
+            if (arrList == null)
+            {
+                throw new ArgumentNullException("arrList");
+            }
+            if (collection == null)
+            {
+                throw new ArgumentNullException("collection");
+            }
+
+            foreach (object ob in arrList)
+            {
+                XmlNode node = ob as XmlNode;
+                if (node != null)
+                {
+                    if (compareXmlNess(node.LocalName, localName, node.NamespaceURI, ns))
+                    {
+                        collection.Add(ob);
+                    }
+                }
+                else
+                {
+                    // only if the elements do implement the ExtensionElementFactory
+                    // do we know if it's xml name/namespace
+                    IExtensionElementFactory ele = ob as IExtensionElementFactory;
+                    if (ele != null)
+                    {
+                        if (compareXmlNess(ele.XmlName, localName, ele.XmlNameSpace, ns))
+                        {
+                            collection.Add(ob);
+                        }
+                    }
+                }
+            }
+            return collection;
         }
 
         /// <summary>

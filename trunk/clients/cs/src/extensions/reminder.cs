@@ -16,6 +16,8 @@
 using System;
 using System.Xml;
 using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 using Google.GData.Client;
 
@@ -366,7 +368,61 @@ namespace Google.GData.Extensions {
             }
             writer.WriteEndElement();
         }
-    }  
+    }
+
+
+    public class ReminderCollection : Collection<Reminder>
+    {
+        private ArrayList ownerList;
+
+        public ReminderCollection()
+        {
+        }
+
+        public ReminderCollection(ArrayList owner)
+        {
+            this.ownerList = owner;
+        }
+
+        protected override void InsertItem(int index, Reminder newItem)
+        {
+            base.InsertItem(index, newItem);
+
+            if (this.ownerList != null)
+            {
+                this.ownerList.Add(newItem);
+            }
+        }
+
+        protected override void SetItem(int index, Reminder newItem)
+        {
+            Reminder oldItem = base[index];
+            base.SetItem(index, newItem);
+            if (this.ownerList != null) 
+            {
+                if (oldItem != null)
+                {
+                    this.ownerList.Remove(oldItem);
+                }
+                this.ownerList.Add(newItem);
+            }
+        }
+
+        protected override void RemoveItem(int index)
+        {
+            Reminder oldItem = base[index];
+            base.RemoveItem(index);
+
+            if (this.ownerList != null && oldItem != null)
+            {
+                this.ownerList.Remove(oldItem);
+            }
+        }
+
+
+
+    }
+
 }
 
 

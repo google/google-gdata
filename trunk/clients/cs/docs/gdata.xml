@@ -186,6 +186,19 @@
             <param name="arr">the array to fill</param>
             <returns>none</returns>
         </member>
+        <member name="M:Google.GData.Client.AtomBase.FindExtensions``1(System.String,System.String,``0)">
+            <summary>
+            Finds all ExtensionElement based on it's local name
+            and it's namespace. If namespace is NULL, allwhere
+            the localname matches is found. If there are extensionelements that do 
+            not implment ExtensionElementFactory, they will not be taken into account
+            Primary use of this is to find XML nodes
+            </summary>
+            <param name="localName">the xml local name of the element to find</param>
+            <param name="ns">the namespace of the elementToPersist</param>
+            <param name="collection">the collection to fill</param>
+            <returns>none</returns>
+        </member>
         <member name="M:Google.GData.Client.AtomBase.DeleteExtensions(System.String,System.String)">
             <summary>
             Delete's all Extensions from the Extension list that match
@@ -2868,6 +2881,28 @@
             <param name="ns">the namespace of the elementToPersist</param>
             <param name="arr">the array to fill</param>
             <returns>none</returns>
+        </member>
+        <member name="M:Google.GData.Client.Utilities.FindExtensions``1(System.Collections.ArrayList,System.String,System.String,``0)">
+            <summary>
+            Finds all ExtensionElement based on it's local name
+            and it's namespace. If namespace is NULL, allwhere
+            the localname matches is found. If there are extensionelements that do 
+            not implment ExtensionElementFactory, they will not be taken into account
+            Primary use of this is to find XML nodes
+            </summary>
+            <param name="arrList">the array to search through</param>
+            <param name="localName">the xml local name of the element to find</param>
+            <param name="ns">the namespace of the elementToPersist</param>
+            <param name="collection">the collection to fill</param>
+            <returns>none</returns>
+        </member>
+        <member name="M:Google.GData.Client.Utilities.GetAttributeValue(System.String,System.Xml.XmlNode)">
+            <summary>
+            save method to get an attribute value from an xmlnode
+            </summary>
+            <param name="attributeName"></param>
+            <param name="xmlNode"></param>
+            <returns></returns>
         </member>
         <member name="P:Google.GData.Client.Utilities.EmptyDate">
             <summary>returns a blank emptyDate. That's the default for an empty string date</summary> 

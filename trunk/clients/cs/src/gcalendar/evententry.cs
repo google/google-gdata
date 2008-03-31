@@ -618,37 +618,38 @@ namespace Google.GData.Calendar {
         {
             get 
             {
-                ArrayList arr = this.Reminders;
-                if (arr != null && arr.Count > 0)
+                if (this.Reminders != null && this.Reminders.Count > 0)
                 {
-                    return arr[0] as Reminder;
+                    return this.Reminders[0];
                 }
                 return null;
             }
             set 
             {
                 ArrayList arr = null;
+                this.Reminders.Clear();
                 if (value != null)
                 {
-                    arr = new ArrayList();
-                    arr.Add(value);
+                    this.Reminders.Add(value);
                 }
-                this.Reminders = arr;
             }
         }
 
         /// <summary>
         /// property accessor for the Reminder
         /// </summary>
-        public ArrayList Reminders
+        public ReminderCollection Reminders
         {
             get 
             { 
                 // if we are a recurrent event, reminder is on the entry/toplevel
                 if (this.Recurrence != null)
                 {
-                    return FindExtensions(GDataParserNameTable.XmlReminderElement,
-                                      BaseNameTable.gNamespace);
+                    ReminderCollection collection = new ReminderCollection(this.ExtensionElements);
+                    FindExtensions(GDataParserNameTable.XmlReminderElement,
+                                      BaseNameTable.gNamespace, collection);
+
+                    return collection;
                  
                 } 
                 else
@@ -661,37 +662,6 @@ namespace Google.GData.Calendar {
                     }
                 }
                 return null; 
-            }
-
-            set
-            {
-                if (this.Recurrence != null)
-                {
-                    DeleteExtensions(GDataParserNameTable.XmlReminderElement,
-                                      BaseNameTable.gNamespace); 
-                    if (value != null)
-                    {
-                        // now add the new ones
-                        foreach (Object ob in value)
-                        {
-                            this.ExtensionElements.Add(ob);
-                        }
-                    }
-                }
-                else
-                {
-                    // non recurring case, set it on the first when
-                    // in the non recurrent case, it's on the first when element
-                    When w = GetFirstReminder(); 
-                    if (w != null)
-                    {
-                        w.Reminders = value; 
-                    }
-                    else
-                    {
-                        throw new ArgumentException("Neither recurrence, nor a when object found. Please construct a when object, or the recurrence object first before setting a reminder time"); 
-                    }
-                }
             }
         }
 
