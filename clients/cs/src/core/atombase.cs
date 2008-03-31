@@ -410,6 +410,24 @@ namespace Google.GData.Client
         }
 
         /// <summary>
+        /// Finds all ExtensionElement based on it's local name
+        /// and it's namespace. If namespace is NULL, allwhere
+        /// the localname matches is found. If there are extensionelements that do 
+        /// not implment ExtensionElementFactory, they will not be taken into account
+        /// Primary use of this is to find XML nodes
+        /// </summary>
+        /// <param name="localName">the xml local name of the element to find</param>
+        /// <param name="ns">the namespace of the elementToPersist</param>
+        /// <param name="collection">the collection to fill</param>
+        /// <returns>none</returns>
+        public T FindExtensions<T>(string localName, string ns, T collection) where T : IList
+        {
+            return Utilities.FindExtensions(this.ExtensionElements,
+                                            localName, ns, collection);
+
+        }
+
+        /// <summary>
         /// Delete's all Extensions from the Extension list that match
         /// a localName and a Namespace. 
         /// </summary>

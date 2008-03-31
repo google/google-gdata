@@ -2491,10 +2491,11 @@
             GData schema extension describing an RFC 2445 recurrence rule.
             </summary>
         </member>
-        <member name="M:Google.GData.Extensions.Recurrence.ParseRecurrence(System.Xml.XmlNode)">
-            <summary>parses an xml node to create a Recurrence object</summary> 
-            <param name="node">Recurrence node</param>
-            <returns> the created Recurrence object</returns>
+        <member name="M:Google.GData.Extensions.Recurrence.CreateInstance(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
+            <summary>Parses an xml node to create a Reminder object.</summary> 
+            <param name="node">the node to parse node</param>
+            <param name="parser">the xml parser to use if we need to dive deeper</param>
+            <returns>the created Reminder object</returns>
         </member>
         <member name="M:Google.GData.Extensions.Recurrence.Save(System.Xml.XmlWriter)">
             <summary>
@@ -2508,6 +2509,12 @@
             </summary>
         </member>
         <member name="P:Google.GData.Extensions.Recurrence.XmlName">
+            <summary>Returns the constant representing this XML element.</summary> 
+        </member>
+        <member name="P:Google.GData.Extensions.Recurrence.XmlNameSpace">
+            <summary>Returns the constant representing this XML element.</summary> 
+        </member>
+        <member name="P:Google.GData.Extensions.Recurrence.XmlPrefix">
             <summary>Returns the constant representing this XML element.</summary> 
         </member>
         <member name="T:Google.GData.Extensions.FeedLink">

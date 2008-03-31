@@ -51,7 +51,7 @@ namespace Google.GData.Extensions
         /// <summary>
         /// reminder object to set reminder durations
         /// </summary>
-        private ArrayList reminders;
+        private ReminderCollection reminders;
 
         /// <summary>
         /// Constructs a new instance of a When object.
@@ -105,17 +105,16 @@ namespace Google.GData.Extensions
         //////////////////////////////////////////////////////////////////////
         /// <summary>reminder accessor</summary> 
         //////////////////////////////////////////////////////////////////////
-        public ArrayList Reminders
+        public ReminderCollection Reminders
         {
             get 
             {
                 if (this.reminders == null)
                 {
-                    this.reminders = new ArrayList();
+                    this.reminders = new ReminderCollection();
                 }
                 return this.reminders; 
             }
-            set { this.reminders = value; }
         }
         //////////////////////////////////////////////////////////////////////
         /// <summary>accessor method public string ValueString</summary> 
@@ -297,9 +296,8 @@ namespace Google.GData.Extensions
                 }
                 if (this.reminders != null)
                 {
-                    foreach (Object o in this.Reminders)
+                    foreach (Reminder r in this.Reminders)
                     {
-                        Reminder r = o as Reminder;
                         r.Save(writer);
                     }
                 }

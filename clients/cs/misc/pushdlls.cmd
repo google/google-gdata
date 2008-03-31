@@ -30,6 +30,7 @@ xcopy /y ..\src\VS2005\gapps\bin\Release\*.dll ..\lib\Release\*.*
 xcopy /y ..\src\VS2005\gacl\bin\Release\*.dll ..\lib\Release\*.*
 xcopy /y ..\src\VS2005\gphotos\bin\Release\*.dll ..\lib\Release\*.*
 xcopy /y ..\src\VS2005\gdoclist\bin\Release\*.dll ..\lib\Release\*.*
+xcopy /y ..\src\VS2005\unittests\bin\Release\*.dll ..\lib\Release\*.*
 
 # copy the debug DLLS
 xcopy /y ..\src\VS2005\gdata\bin\Debug\*.dll ..\lib\Debug\*.*
@@ -42,6 +43,7 @@ xcopy /y ..\src\VS2005\gapps\bin\Debug\*.dll ..\lib\Debug\*.*
 xcopy /y ..\src\VS2005\gacl\bin\Debug\*.dll ..\lib\Debug\*.*
 xcopy /y ..\src\VS2005\gphotos\bin\Debug\*.dll ..\lib\Debug\*.*
 xcopy /y ..\src\VS2005\gdoclist\bin\Debug\*.dll ..\lib\Debug\*.*
+xcopy /y ..\src\VS2005\unittests\bin\Debug\*.dll ..\lib\Debug\*.*
 
 # copy the ASP DLLS
 xcopy /y ..\src\VS2005\gdata\bin\asp\*.dll ..\lib\ASP.NET\*.*

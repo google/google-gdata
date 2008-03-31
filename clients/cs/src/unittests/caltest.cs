@@ -667,8 +667,8 @@ namespace Google.GData.Client.LiveTests
                     EventEntry entry  = ObjectModelHelper.CreateEventEntry(1); 
                     entry.Title.Text = strTitle;
 
-                    entry.Reminders = null;
-
+                    entry.Reminders.Clear();
+                    
                     Reminder r1 = new Reminder();
                     r1.Method = Reminder.ReminderMethod.email;
                     r1.Minutes = 30;
