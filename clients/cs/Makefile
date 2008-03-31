@@ -57,38 +57,36 @@ gphotos_sources = $(wildcard src/gphotos/*.cs) $(wildcard src/version/*cs.cs)
 gdocuments_sources = $(wildcard src/gdocuments/*.cs) $(wildcard src/version/*cs.cs)
 test_sources = $(wildcard src/unittests/*.cs) $(wildcard src/unittests/gbase/*.cs) $(wildcard src/unittests/gapps/*.cs) $(wildcard src/version/*cs)
 
-Google.GData.Client.dll: $(core_sources) clientkey.sn
+Google.GData.Client.dll: $(core_sources) src/VS2005/gdata/clientkey.sn
 	$(CSC) $(DEFINES) -target:library -out:$@ $(core_sources) $(FRAMEWORK_REFS)
 
-Google.GData.Extensions.dll: Google.GData.Client.dll $(extension_sources) extensionkey.sn
+Google.GData.Extensions.dll: Google.GData.Client.dll $(extension_sources) src/VS2005/gextension/extensionkey.sn
 	$(CSC) $(DEFINES) -target:library -out:$@ -r:Google.GData.Client.dll $(extensions_sources) $(FRAMEWORK_REFS)
 
-Google.GData.Calendar.dll: $(ACLLIBS) $(gcalendar_sources) calendarkey.sn
+Google.GData.Calendar.dll: $(ACLLIBS) $(gcalendar_sources) src/VS2005/gcalendar/calendarkey.sn
 	$(CSC) -target:library -out:$@ $(ACLREFS) $(gcalendar_sources)
 
-Google.GData.CodeSearch.dll: $(CORELIBS) $(gcodesearch_sources) codesearch.sn
+Google.GData.CodeSearch.dll: $(CORELIBS) $(gcodesearch_sources) src/VS2005/gcodesearch/codesearch.sn
 	$(CSC) -target:library -out:$@ $(COREREFS) $(gcodesearch_sources)
 
-Google.GData.GoogleBase.dll: $(CORELIBS) $(gbase_sources) gbase.sn
+Google.GData.GoogleBase.dll: $(CORELIBS) $(gbase_sources) src/VS2005/gbase/gbase.sn
 	$(CSC) -target:library -out:$@ $(COREREFS) $(gbase_sources)
 
-Google.GData.Spreadsheets.dll: $(CORELIBS) $(gspreadsheet_sources) spreadsheets.sn
+Google.GData.Spreadsheets.dll: $(CORELIBS) $(gspreadsheet_sources) src/VS2005/gspreadsheets/spreadsheets.sn
 	$(CSC) -target:library -out:$@ $(COREREFS) $(gspreadsheet_sources)
 
-Google.GData.AccessControl.dll: $(CORELIBS) $(gacl_sources) gacl.sn
+Google.GData.AccessControl.dll: $(CORELIBS) $(gacl_sources) src/VS2005/gacl/gacl.sn
 	$(CSC) -target:library -out:$@ $(COREREFS) $(gacl_sources)
 
-Google.GData.Apps.dll: $(CORELIBS) $(gapps_sources) gapps.sn
+Google.GData.Apps.dll: $(CORELIBS) $(gapps_sources) src/VS2005/gapps/gapps.sn
 	$(CSC) -target:library -out:$@ $(COREREFS) $(gapps_sources)
 
-Google.GData.Photos.dll: $(CORELIBS) $(gphotos_sources) picasa.sn
+Google.GData.Photos.dll: $(CORELIBS) $(gphotos_sources) src/VS2005/gphotos/picasa.sn
 	$(CSC) $(DEFINES) -target:library -out:$@ $(COREREFS) $(gphotos_sources)
 
-Google.GData.Documents.dll: $(CORELIBS) $(gdocuments_sources) documents.sn
+Google.GData.Documents.dll: $(CORELIBS) $(gdocuments_sources) src/VS2005/gdoclist/documents.sn
 	$(CSC) $(DEFINES) -target:library -out:$@ $(COREREFS) $(gdocuments_sources)
 
-%.sn: 
-	cp src/signing/$@ .
 
 clean:
 	-rm *.sn *.dll *exe
