@@ -24,7 +24,7 @@ namespace Google.GData.Extensions {
     /// <summary>
     /// GData schema extension describing an RFC 2445 recurrence rule.
     /// </summary>
-    public class Recurrence : IExtensionElement
+    public class Recurrence : IExtensionElement, IExtensionElementFactory
     {
         private string value;
 
@@ -38,34 +38,35 @@ namespace Google.GData.Extensions {
         }
 
 
-        #region Recurrence Parser
+        #region overloaded from IExtensionElementFactory
         //////////////////////////////////////////////////////////////////////
-        /// <summary>parses an xml node to create a Recurrence object</summary> 
-        /// <param name="node">Recurrence node</param>
-        /// <returns> the created Recurrence object</returns>
+        /// <summary>Parses an xml node to create a Reminder object.</summary> 
+        /// <param name="node">the node to parse node</param>
+        /// <param name="parser">the xml parser to use if we need to dive deeper</param>
+        /// <returns>the created Reminder object</returns>
         //////////////////////////////////////////////////////////////////////
-        public static Recurrence ParseRecurrence(XmlNode node)
+        public IExtensionElement CreateInstance(XmlNode node, AtomFeedParser parser)
         {
             Tracing.TraceCall();
-            Recurrence recurrence = null;
-            Tracing.Assert(node != null, "node should not be null");
-            if (node == null)
+            if (node != null)
             {
-                throw new ArgumentNullException("node");
+                object localname = node.LocalName;
+                if (localname.Equals(this.XmlName) == false ||
+                    node.NamespaceURI.Equals(this.XmlNameSpace) == false)
+                {
+                    return null;
+                }
             }
 
-            object localname = node.LocalName;
-            if (localname.Equals(GDataParserNameTable.XmlRecurrenceElement))
+            Recurrence recurrence = new Recurrence();
+
+            if (node != null)
             {
-                recurrence = new Recurrence();
                 recurrence.Value = node.InnerText.Trim();
             }
 
             return recurrence;
         }
-        #endregion
-
-        #region overloaded for persistence
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>Returns the constant representing this XML element.</summary> 
@@ -74,6 +75,29 @@ namespace Google.GData.Extensions {
         {
             get { return GDataParserNameTable.XmlRecurrenceElement; }
         }
+
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Returns the constant representing this XML element.</summary> 
+        //////////////////////////////////////////////////////////////////////
+        public string XmlNameSpace
+        {
+            get { return BaseNameTable.gNamespace; }
+        }
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Returns the constant representing this XML element.</summary> 
+        //////////////////////////////////////////////////////////////////////
+        public string XmlPrefix
+        {
+            get { return BaseNameTable.gDataPrefix; }
+        }
+
+        #endregion
+
+
+
+        #region overloaded for persistence
 
 
         /// <summary>
