@@ -27,7 +27,7 @@ namespace Google.GData.Extensions {
     public class OriginalEvent : SimpleContainer
     {
         /// <summary>
-        /// default constructor for media:group
+        /// default constructor for an original event
         /// </summary>
         public OriginalEvent() :
             base(GDataParserNameTable.XmlOriginalEventElement,

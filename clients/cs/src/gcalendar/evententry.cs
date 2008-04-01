@@ -626,7 +626,6 @@ namespace Google.GData.Calendar {
             }
             set 
             {
-                ArrayList arr = null;
                 this.Reminders.Clear();
                 if (value != null)
                 {
@@ -645,7 +644,7 @@ namespace Google.GData.Calendar {
                 // if we are a recurrent event, reminder is on the entry/toplevel
                 if (this.Recurrence != null)
                 {
-                    ReminderCollection collection = new ReminderCollection(this.ExtensionElements);
+                    ReminderCollection collection = new ReminderCollection(this);
                     FindExtensions(GDataParserNameTable.XmlReminderElement,
                                       BaseNameTable.gNamespace, collection);
 

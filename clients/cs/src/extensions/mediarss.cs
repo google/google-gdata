@@ -373,7 +373,7 @@ namespace Google.GData.Extensions.MediaRss {
     //////////////////////////////////////////////////////////////////////
     /// <summary>Typed collection for Thumbnails Extensions.</summary>
     //////////////////////////////////////////////////////////////////////
-    public class ThumbnailCollection : ExtensionCollection
+    public class ThumbnailCollection : ExtensionCollection<MediaThumbnail>
     {
         private ThumbnailCollection() : base()
         {
@@ -384,57 +384,6 @@ namespace Google.GData.Extensions.MediaRss {
             : base(atomElement, MediaRssNameTable.MediaRssThumbnail, MediaRssNameTable.NSMediaRss)
         {
         }
-
-        /// <summary>standard typed accessor method </summary>
-        public MediaThumbnail this[int index]
-        {
-            get
-            {
-                return ((MediaThumbnail)List[index]);
-            }
-            set
-            {
-                setItem(index,value);
-            }
-        }
-
-        /// <summary>standard typed add method </summary>
-        public int Add(MediaThumbnail value)
-        {
-            return base.Add(value);
-        }
-
-        /// <summary>standard typed indexOf method </summary>
-        public int IndexOf(MediaThumbnail value)
-        {
-            return (List.IndexOf(value));
-        }
-
-        /// <summary>standard typed insert method </summary>
-        public void Insert(int index, MediaThumbnail value)
-        {
-            base.Insert(index, value);
-        }
-
-        /// <summary>standard typed remove method </summary> 
-        public void Remove(MediaThumbnail value)
-        {
-            base.Remove(value);
-        }
-
-        /// <summary>standard typed Contains method </summary> 
-        public bool Contains(MediaThumbnail value)
-        {
-            // If value is not of type AtomEntry, this will return false.
-            return (List.Contains(value));
-        }
-
-        /// <summary>standard typed OnValidate Override </summary> 
-        protected override void OnValidate(Object value)
-        {
-            if (value as MediaThumbnail == null)
-                throw new ArgumentException("value must be of type Google.GData.Extensions.MediaRss.MediaThumbnail.", "value");
-        }
     }
     /////////////////////////////////////////////////////////////////////////////
 
@@ -442,7 +391,7 @@ namespace Google.GData.Extensions.MediaRss {
  //////////////////////////////////////////////////////////////////////
     /// <summary>Typed collection for Thumbnails Extensions.</summary>
     //////////////////////////////////////////////////////////////////////
-    public class MediaContentCollection : ExtensionCollection
+    public class MediaContentCollection : ExtensionCollection<MediaContent>
     {
         private MediaContentCollection() : base()
         {
@@ -454,58 +403,6 @@ namespace Google.GData.Extensions.MediaRss {
         {
         }
 
-        /// <summary>standard typed accessor method </summary>
-        public MediaContent this[int index]
-        {
-            get
-            {
-                return ((MediaContent)List[index]);
-            }
-            set
-            {
-                setItem(index,value);
-            }
-        }
-
-        /// <summary>standard typed add method </summary>
-        public int Add(MediaContent value)
-        {
-            return base.Add(value);
-        }
-
-        /// <summary>standard typed indexOf method </summary>
-        public int IndexOf(MediaContent value)
-        {
-            return (List.IndexOf(value));
-        }
-
-        /// <summary>standard typed insert method </summary>
-        public void Insert(int index, MediaContent value)
-        {
-            base.Insert(index, value);
-        }
-
-        /// <summary>standard typed remove method </summary> 
-        public void Remove(MediaContent value)
-        {
-            base.Remove(value);
-        }
-
-        /// <summary>standard typed Contains method </summary> 
-        public bool Contains(MediaContent value)
-        {
-            // If value is not of type AtomEntry, this will return false.
-            return (List.Contains(value));
-        }
-
-        /// <summary>standard typed OnValidate Override </summary> 
-        protected override void OnValidate(Object value)
-        {
-            if (value as MediaContent == null)
-                throw new ArgumentException("value must be of type Google.GData.Extensions.MediaRss.MediaThumbnail.", "value");
-        }
     }
     /////////////////////////////////////////////////////////////////////////////
-
-
 }

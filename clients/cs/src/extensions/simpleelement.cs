@@ -59,21 +59,7 @@ namespace Google.GData.Extensions {
         }
 
        
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>accesses the Attribute list. The keys are the attribute names
-        /// the values the attribute values</summary> 
-        /// <returns> </returns>
-        //////////////////////////////////////////////////////////////////////
-        public SortedList Attributes
-        {
-            get 
-            {
-                return getAttributes();
-            }
-            set {setAttributes(value);}
-        }
-        // end of accessor public SortedList Attributes
- 
+       
         /// <summary>
         ///  Accessor Method for the value
         /// </summary>

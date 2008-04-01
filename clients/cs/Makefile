@@ -22,8 +22,9 @@ ALLLIBS = \
 	Google.GData.Spreadsheets.dll	\
 	Google.GData.Apps.dll		\
 	Google.GData.Photos.dll		\
-	Google.GData.Documents.dll \
-	Google.GData.AccessControl.dll \
+	Google.GData.Documents.dll 	\
+	Google.GData.AccessControl.dll 	\
+	Google.GData.Contacts.dll	\
 
 FRAMEWORK_REFS = -r:System.dll -r:System.Xml.dll -r:System.Web.dll -r:System.Configuration.dll
 
@@ -52,9 +53,10 @@ gcodesearch_sources = $(wildcard src/gcodesearch/*.cs) $(wildcard src/version/*.
 gspreadsheet_sources = $(wildcard src/gspreadsheet/*.cs) $(wildcard src/version/*.cs)
 gcalendar_sources =  $(wildcard src/gcalendar/*.cs) $(wildcard src/version/*.cs)
 gacl_sources = $(wildcard src/gacl/*.cs) $(wildcard src/version/*.cs)
-gapps_sources = $(wildcard src/gapps/*.cs) $(wildcard src/version/*cs.cs)
-gphotos_sources = $(wildcard src/gphotos/*.cs) $(wildcard src/version/*cs.cs)
-gdocuments_sources = $(wildcard src/gdocuments/*.cs) $(wildcard src/version/*cs.cs)
+gapps_sources = $(wildcard src/gapps/*.cs) $(wildcard src/version/*.cs)
+gphotos_sources = $(wildcard src/gphotos/*.cs) $(wildcard src/version/*.cs)
+gdocuments_sources = $(wildcard src/gdocuments/*.cs) $(wildcard src/version/*.cs)
+gcontact_sources = $(wildcard src/gcontacts/*.cs) $(wildcard src/version/*.cs)
 test_sources = $(wildcard src/unittests/*.cs) $(wildcard src/unittests/gbase/*.cs) $(wildcard src/unittests/gapps/*.cs) $(wildcard src/version/*cs)
 
 Google.GData.Client.dll: $(core_sources) src/VS2005/gdata/clientkey.sn
@@ -87,6 +89,8 @@ Google.GData.Photos.dll: $(CORELIBS) $(gphotos_sources) src/VS2005/gphotos/picas
 Google.GData.Documents.dll: $(CORELIBS) $(gdocuments_sources) src/VS2005/gdoclist/documents.sn
 	$(CSC) $(DEFINES) -target:library -out:$@ $(COREREFS) $(gdocuments_sources)
 
+Google.GData.Contacts.dll: $(CORELIBS) $(gcontact_sources) src/VS2005/gcontacts/contacts.sn
+	$(CSC) $(DEFINES) -target:library -out:$@ $(COREREFS) $(gcontact_sources)
 
 clean:
 	-rm *.sn *.dll *exe
