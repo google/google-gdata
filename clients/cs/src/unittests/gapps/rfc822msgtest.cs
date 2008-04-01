@@ -30,7 +30,7 @@ namespace Google.GData.Apps.UnitTests
         private Rfc822MsgElement rfc822Msg;
 
         public const string xmlElementAsText =
-            "<apps:rfc822Msg xmlns:apps=\"http://schemas.google.com/apps/2006\">Hi</apps:rfc822Msg>";
+            "<apps:rfc822Msg encoding=\"NONE\" xmlns:apps=\"http://schemas.google.com/apps/2006\">Hi</apps:rfc822Msg>";
 
         [SetUp]
         public void Init()
@@ -64,6 +64,21 @@ namespace Google.GData.Apps.UnitTests
             rfc822Msg = new Rfc822MsgElement("Hi");
             Assert.AreEqual("Hi", Encoding.ASCII.GetString(rfc822Msg.Value), "Message does not have correct value after setting");
             Assert.AreEqual("Hi", rfc822Msg.ToString(), "Message does not have correct value after setting");
+        }
+
+        [Test]
+        public void GetEncodingTest()
+        {
+            Assert.AreEqual(Rfc822MsgElement.EncodingMethod.NONE, rfc822Msg.MessageEncoding,
+                "Message encoding should initially be EncodingMethod.NONE");
+        }
+
+        [Test]
+        public void SetEncodingTest()
+        {
+            rfc822Msg = new Rfc822MsgElement(Encoding.ASCII.GetBytes("SGVsbG8h"), Rfc822MsgElement.EncodingMethod.BASE64);
+            Assert.AreEqual(Rfc822MsgElement.EncodingMethod.BASE64, rfc822Msg.MessageEncoding,
+                "Message does not have correct encoding after setting");
         }
 
         [Test]
