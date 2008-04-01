@@ -156,8 +156,32 @@
       <Link>emaillisttest.cs</Link>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="..\..\unittests\gapps\labelcollectiontest.cs">
+      <Link>labelcollectiontest.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\unittests\gapps\labeltest.cs">
+      <Link>labeltest.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="..\..\unittests\gapps\logintest.cs">
       <Link>logintest.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\unittests\gapps\mailitementrytest.cs">
+      <Link>mailitementrytest.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\unittests\gapps\mailitempropertycollectiontest.cs">
+      <Link>mailitempropertycollectiontest.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\unittests\gapps\mailitempropertytest.cs">
+      <Link>mailitempropertytest.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\unittests\gapps\mailitemservicetest.cs">
+      <Link>mailitemservicetest.cs</Link>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="..\..\unittests\gapps\nametest.cs">
@@ -178,6 +202,10 @@
     </Compile>
     <Compile Include="..\..\unittests\gapps\quotatest.cs">
       <Link>quotatest.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\unittests\gapps\rfc822msgtest.cs">
+      <Link>rfc822msgtest.cs</Link>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="..\..\unittests\gapps\userentrytest.cs">

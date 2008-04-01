@@ -227,6 +227,9 @@ namespace Google.GData.Extensions.Apps
         /// <summary>apps:rfc822Msg extension element</summary>
         public const string AppsRfc822Msg = "rfc822Msg";
 
+        /// <summary>encoding attribute of apps:rfc822Msg extension</summary>
+        public const string AppsRfc822MsgEncoding = "encoding";
+
         /// <summary>
         /// Base feed URI for all Google Apps Migration requests.
         /// </summary>
@@ -612,33 +615,62 @@ namespace Google.GData.Extensions.Apps
         private const int defaultStepSize = 128 * 1024;
 
         /// <summary>
+        /// A method by which an Rfc822Msg may be encoded.  Currently the
+        /// options are either plain UTF8 text (NONE) or Base64.
+        /// </summary>
+        public enum EncodingMethod
+        {
+            NONE,
+            BASE64
+        }
+
+        /// <summary>
         /// Constructs a new <code>Rfc822Msg</code> element with no message.
         /// </summary>
         public Rfc822MsgElement()
-            : base(AppsMigrationNameTable.AppsRfc822Msg,
-                   AppsMigrationNameTable.AppsPrefix,
-                   AppsMigrationNameTable.AppsNamespace)
+            : this((byte[])null, EncodingMethod.NONE)
         { }
 
         /// <summary>
         /// Constructs a new <code>Rfc822Msg</code> element with the specified message.
         /// </summary>
-        /// <param name="initValue">the RFC 822 message in byte array form</param>
-        public Rfc822MsgElement(byte[] initValue)
-            : base(AppsMigrationNameTable.AppsRfc822Msg,
-                   AppsMigrationNameTable.AppsPrefix,
-                   AppsMigrationNameTable.AppsNamespace)
-        {
-            this.value = initValue;
-        }
+        /// <param name="value">the RFC 822 message in byte array form</param>
+        public Rfc822MsgElement(byte[] value)
+            : this(value, EncodingMethod.NONE)
+        { }
 
         /// <summary>
         /// Constructs a new <code>Rfc822MsgElement</code> element with the specified message.
         /// </summary>
-        /// <param name="initValue">the RFC 822 message in string form</param>
-        public Rfc822MsgElement(string initValue)
-            : this(Encoding.ASCII.GetBytes(initValue))
+        /// <param name="value">the RFC 822 message in string form</param>
+        public Rfc822MsgElement(string value)
+            : this(Encoding.ASCII.GetBytes(value), EncodingMethod.NONE)
         { }
+
+        /// <summary>
+        /// Constructs a new <code>Rfc822MsgElement</code> element with the specified message
+        /// and encoding.
+        /// </summary>
+        /// <param name="value">the RFC 822 message in string form</param>
+        /// <param name="messageEncoding">the encoding method of this RFC822 message</param>
+        public Rfc822MsgElement(string value, EncodingMethod messageEncoding)
+            : this(Encoding.ASCII.GetBytes(value), EncodingMethod.NONE)
+        { }
+
+        /// <summary>
+        /// Constructs a new <code>Rfc822Msg</code> element with the specified message
+        /// and encoding.
+        /// </summary>
+        /// <param name="value">the RFC 822 message in byte array form</param>
+        /// <param name="messageEncoding">the encoding method of this RFC822 message</param>
+        public Rfc822MsgElement(byte[] value, EncodingMethod messageEncoding)
+            : base(AppsMigrationNameTable.AppsRfc822Msg,
+                   AppsMigrationNameTable.AppsPrefix,
+                   AppsMigrationNameTable.AppsNamespace)
+        {
+            this.Value = value;
+            this.MessageEncoding = messageEncoding;
+        }
 
         /// <summary>
         ///  Accessor method for the Rfc822 message in byte array form
@@ -647,6 +679,23 @@ namespace Google.GData.Extensions.Apps
         {
             get { return value; }
             set { this.value = value; }
+        }
+
+        /// <summary>
+        /// MessageEncoding property accessor
+        /// </summary>
+        public EncodingMethod MessageEncoding
+        {
+            get
+            {
+                return (EncodingMethod) Enum.Parse(typeof(EncodingMethod),
+                    Convert.ToString(getAttributes()[AppsMigrationNameTable.AppsRfc822MsgEncoding]),
+                    true);
+            }
+            set
+            {
+                getAttributes()[AppsMigrationNameTable.AppsRfc822MsgEncoding] = value.ToString();
+            }
         }
 
         #region overloaded for persistence
@@ -664,7 +713,7 @@ namespace Google.GData.Extensions.Apps
 
 
         //////////////////////////////////////////////////////////////////////
-        /// <summary>Parses an xml node to create a Who object.</summary> 
+        /// <summary>Parses an xml node to create an Rfc822Msg object.</summary> 
         /// <param name="node">the xml parses node, can be NULL</param>
         /// <param name="parser">the xml parser to use if we need to dive deeper</param>
         /// <returns>the created SimpleElement object</returns>
