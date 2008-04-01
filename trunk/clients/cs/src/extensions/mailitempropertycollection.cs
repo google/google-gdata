@@ -22,7 +22,7 @@ namespace Google.GData.Extensions.Apps
     /// <summary>
     /// Standard typed collection of <code>MailItemPropertyElement</code>s.
     /// </summary>
-    public class MailItemPropertyCollection : ExtensionCollection
+    public class MailItemPropertyCollection : ExtensionCollection<MailItemPropertyElement>
     {
 
         private MailItemPropertyCollection()
@@ -36,60 +36,5 @@ namespace Google.GData.Extensions.Apps
                    AppsMigrationNameTable.AppsMailItemProperty,
                    AppsMigrationNameTable.AppsNamespace)
         { }
-
-        /// <summary>standard typed accessor method </summary>
-        public MailItemPropertyElement this[int index]
-        {
-            get
-            {
-                return ((MailItemPropertyElement)List[index]);
-            }
-            set
-            {
-                setItem(index, value);
-            }
-        }
-
-        /// <summary>standard typed add method </summary>
-        public int Add(MailItemPropertyElement value)
-        {
-            return base.Add(value);
-        }
-
-        /// <summary>standard typed indexOf method </summary>
-        public int IndexOf(MailItemPropertyElement value)
-        {
-            return (List.IndexOf(value));
-        }
-
-        /// <summary>standard typed insert method </summary>
-        public void Insert(int index, MailItemPropertyElement value)
-        {
-            base.Insert(index, value);
-        }
-
-        /// <summary>standard typed remove method </summary> 
-        public void Remove(MailItemPropertyElement value)
-        {
-            base.Remove(value);
-        }
-
-        /// <summary>standard typed Contains method </summary> 
-        public bool Contains(MailItemPropertyElement value)
-        {
-            // If value is not of type AtomEntry, this will return false.
-            return (List.Contains(value));
-        }
-
-        /// <summary>standard typed OnValidate Override </summary> 
-        protected override void OnValidate(Object value)
-        {
-            if (value as MailItemPropertyElement == null)
-            {
-                throw new ArgumentException("value must be of type Google.GData.Extensions.Apps.MailItemPropertyElement",
-                    "value");
-            }
-        }
-
     }
 }

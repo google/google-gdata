@@ -111,7 +111,7 @@ namespace Google.GData.Extensions
             {
                 if (this.reminders == null)
                 {
-                    this.reminders = new ReminderCollection();
+                    this.reminders = new ReminderCollection(null);
                 }
                 return this.reminders; 
             }

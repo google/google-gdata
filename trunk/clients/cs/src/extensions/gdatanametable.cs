@@ -37,6 +37,22 @@ namespace Google.GData.Extensions
         /// <summary>the google calendar prefix</summary>
         public const string gCalPrefix  = "gCal"; 
 
+        /// <summary>
+        /// the starting string to define contacts relationship values
+        /// </summary>
+        public const string gContactsRel = "http://schemas.google.com/contacts/2008/rel";
+
+        /// <summary>
+        /// a relationship to a photo
+        /// </summary>
+        public const string ServicePhoto = gContacts + "#photo";
+
+        /// <summary>
+        /// the relationship to edit the photo
+        /// </summary>
+        public const string ServicePhotoEdit = gContacts + "#edit-photo";
+
+
 
         /// <summary>the event prefix </summary>
         public static string Event = gNamespacePrefix + "event";
@@ -82,7 +98,24 @@ namespace Google.GData.Extensions
         public const string XmlAccessLevelElement = "accesslevel";
         /// <summary>static string for parsing the hidden element in a calendar</summary>
         public const string XmlHiddenElement = "hidden";
-        
+
+        /// <summary>static string for parsing the email element in a contact</summary>
+        public const string XmlEmailElement = "email";
+        /// <summary>static string for parsing the IM element in a contact</summary>
+        public const string XmlIMElement = "im";
+        /// <summary>static string for parsing the phonenumber element in a contact</summary>
+        public const string XmlPhoneNumberElement = "phonenumber";
+        /// <summary>static string for parsing the postalAddress element in a contact</summary>
+        public const string XmlPostalAddressElement = "postalAddress";
+        /// <summary>static string for parsing the Organization element in a contact</summary>
+        public const string XmlOrganizationElement = "organization";
+        /// <summary>static string for parsing the deleted element in a contacts</summary>
+        public const string XmlDeletedElement = "deleted";
+        /// <summary>static string for parsing the organization name element in a contacts</summary>
+        public const string XmlOrgNameElement = "orgName";        
+        /// <summary>static string for parsing the organization title element in a contacts</summary>
+        public const string XmlOrgTitleElement = "orgTitle";
+
 #endregion
 
 #region attribute strings
@@ -120,6 +153,15 @@ namespace Google.GData.Extensions
         /// <summary>static string for parsing</summary>    
         public const string XmlAttributeMethod= "method";
      
+
+        /// <summary>static string for parsing the address attribute</summary>    
+        public const string XmlAttributeAddress= "address";
+        /// <summary>static string for parsing the primary attribute</summary>    
+        public const string XmlAttributePrimary= "primary";
+        /// <summary>static string for parsing the protocol attribute</summary>    
+        public const string XmlAttributeProtocol= "protocol";
+        /// <summary>static string for parsing the uri attribute</summary>    
+        public const string XmlAttributeUri = "uri";
 
 #endregion
 
