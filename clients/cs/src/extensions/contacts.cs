@@ -43,6 +43,10 @@ namespace Google.GData.Extensions
         }
     }
 
+    /// <summary>
+    /// holds static strings indicating several often used relationship 
+    /// values for the contacts API
+    /// </summary>
     public static class ContactsRelationships
     {
         /// <summary>
@@ -118,7 +122,7 @@ namespace Google.GData.Extensions
     {
 
         /// <summary>
-        /// default constructor for media:description 
+        /// default constructor for gd:email
         /// </summary>
         public EMail()
         : base(GDataParserNameTable.XmlEmailElement, 
@@ -140,6 +144,12 @@ namespace Google.GData.Extensions
             addAttributes();
         }
 
+        /// <summary>
+        /// default constructor for gd:mail with initialization of namespaces
+        /// </summary>
+        /// <param name="element"></param>
+        /// <param name="prefix"></param>
+        /// <param name="ns"></param>
         public EMail(string element, string prefix, string ns) : base(element, prefix, ns)
         {
             addAttributes();
@@ -295,11 +305,24 @@ namespace Google.GData.Extensions
     public class CommonAttributesElement : SimpleElement
     {
 
+        /// <summary>
+        /// default constructore with namesapce init
+        /// </summary>
+        /// <param name="element"></param>
+        /// <param name="prefix"></param>
+        /// <param name="ns"></param>
         public CommonAttributesElement(string element, string prefix, string ns) : base(element, prefix, ns)
         {
             addAttributes();
         }
 
+        /// <summary>
+        /// default constructor with namespaces and an init value
+        /// </summary>
+        /// <param name="element"></param>
+        /// <param name="prefix"></param>
+        /// <param name="ns"></param>
+        /// <param name="init"></param>
         public CommonAttributesElement(string element, string prefix, string ns, string init) : base(element, prefix, ns, init)
         {
             addAttributes();

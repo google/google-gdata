@@ -42,7 +42,7 @@ namespace Google.GData.Contacts {
     /// orderby           Sorting criterion. The only supported value is lastmodified.
     /// showdeleted       Include deleted contacts in the returned contacts feed. 
     ///                   Deleted contacts are shown as entries that contain nothing but an 
-    ///                   <atom:id> element and a <gd:deleted> element. 
+    ///                   atom:id element and a gd:deleted element. 
     ///                   (Google retains placeholders for deleted contacts for 30 days after 
     ///                   deletion; during that time, you can request the placeholders 
     ///                   using the showdeleted query parameter.) Valid values are true or false.
