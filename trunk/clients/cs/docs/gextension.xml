@@ -1128,6 +1128,16 @@
             options are either plain UTF8 text (NONE) or Base64.
             </summary>
         </member>
+        <member name="F:Google.GData.Extensions.Apps.Rfc822MsgElement.EncodingMethod.NONE">
+            <summary>
+            indicates no encoding
+            </summary>
+        </member>
+        <member name="F:Google.GData.Extensions.Apps.Rfc822MsgElement.EncodingMethod.BASE64">
+            <summary>
+            indicates base 64 encoding
+            </summary>
+        </member>
         <member name="T:Google.GData.Extensions.Apps.MailItemPropertyElement">
             <summary>
             Google Apps Data Migration API element describing an enumerable
@@ -2102,6 +2112,12 @@
             </summary>
             <param name="baseObject"></param>
         </member>
+        <member name="T:Google.GData.Extensions.ContactsRelationships">
+            <summary>
+            holds static strings indicating several often used relationship 
+            values for the contacts API
+            </summary>
+        </member>
         <member name="F:Google.GData.Extensions.ContactsRelationships.IsHome">
             <summary>
             indicates a home email in the rel field
@@ -2175,7 +2191,7 @@
         </member>
         <member name="M:Google.GData.Extensions.EMail.#ctor">
             <summary>
-            default constructor for media:description 
+            default constructor for gd:email
             </summary>
         </member>
         <member name="M:Google.GData.Extensions.EMail.#ctor(System.String)">
@@ -2183,6 +2199,14 @@
             default constructor for gd:email with an initial value
             </summary>
             <param name="initValue"/>
+        </member>
+        <member name="M:Google.GData.Extensions.EMail.#ctor(System.String,System.String,System.String)">
+            <summary>
+            default constructor for gd:mail with initialization of namespaces
+            </summary>
+            <param name="element"></param>
+            <param name="prefix"></param>
+            <param name="ns"></param>
         </member>
         <member name="P:Google.GData.Extensions.EMail.Address">
             <summary>accessor method public string Address</summary> 
@@ -2243,6 +2267,23 @@
             <summary>
             gd:PostalAddress element
             </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.CommonAttributesElement.#ctor(System.String,System.String,System.String)">
+            <summary>
+            default constructore with namesapce init
+            </summary>
+            <param name="element"></param>
+            <param name="prefix"></param>
+            <param name="ns"></param>
+        </member>
+        <member name="M:Google.GData.Extensions.CommonAttributesElement.#ctor(System.String,System.String,System.String,System.String)">
+            <summary>
+            default constructor with namespaces and an init value
+            </summary>
+            <param name="element"></param>
+            <param name="prefix"></param>
+            <param name="ns"></param>
+            <param name="init"></param>
         </member>
         <member name="P:Google.GData.Extensions.CommonAttributesElement.Label">
             <summary>accessor method public string Label</summary> 

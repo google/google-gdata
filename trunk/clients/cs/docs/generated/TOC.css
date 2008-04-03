@@ -1,6 +1,6 @@
 /* File    : TOC.css
 // Author  : Eric Woodruff  (Eric@EWoodruff.us)
-// Updated : 06/21/2007
+// Updated : 09/07/2007
 //
 // Stylesheet for the table of content
 */
@@ -13,7 +13,7 @@
 
 body
 {
-    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-family: verdana, arial, sans-serif;
     font-size: 8.5pt;
     background-color: #6699CC;
     color: White;
@@ -22,7 +22,7 @@ body
 
 input
 {
-	font-size: 9pt;
+	font-size: 8.5pt;
 }
 
 img

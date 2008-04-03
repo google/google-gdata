@@ -2,8 +2,8 @@
 // System  : Sandcastle Help File Builder
 // File    : TOC.js
 // Author  : Eric Woodruff  (Eric@EWoodruff.us)
-// Updated : 06/25/2007
-// Note    : Copyright 2006, Eric Woodruff, All rights reserved
+// Updated : 01/04/2008
+// Note    : Copyright 2006-2008, Eric Woodruff, All rights reserved
 // Compiler: JavaScript
 //
 // This file contains the methods necessary to implement a simple tree view
@@ -11,10 +11,11 @@
 // load tree nodes on demand.  It also contains the script necessary to do
 // full-text searches.
 //
-// This file may be freely used for any purpose including commercial
-// applications PROVIDING that this notice and the author's name and all
-// copyright notices remain intact.  In addition, altered source versions of
-// this file must be clearly marked as such.
+// This code may be used in compiled form in any way you desire.  This file
+// may be redistributed unmodified by any means PROVIDING it is not sold
+// for profit without the author's written consent.  This notice, the
+// author's name, and all copyright notices must remain intact in all
+// applications, documentation, and source files.
 //
 // This code is provided "as is" with no warranty either express or implied.
 // The author accepts no liability for any damage or loss of business that
@@ -174,7 +175,7 @@ function GetCurrentUrl()
 
     try
     {
-        url = window.parent.frames["TopicContent"].document.URL.replace(/\\/g, "/");
+        url = window.frames["TopicContent"].document.URL.replace(/\\/g, "/");
     }
     catch(e)
     {
@@ -189,9 +190,9 @@ function GetCurrentUrl()
             base = base.replace("file://", "file:///");
 
         if(base.substr(0, 5) == "file:")
-            window.location.href = base + "Index.html";
+            top.location.href = base + "Index.html";
         else
-            window.location.href = base + "Index.aspx";
+            top.location.href = base + "Index.aspx";
     }
 
     return url;
@@ -402,14 +403,14 @@ function ResizeTree()
             if(document.body)
                 y = document.body.clientHeight;
 
-    newHeight = y - parseInt(divNavOpts.style.height) - 6;
+    newHeight = y - parseInt(divNavOpts.style.height, 10) - 6;
 
     if(newHeight < 50)
         newHeight = 50;
 
     divTree.style.height = newHeight;
 
-    newHeight = y - parseInt(divSearchOpts.style.height) - 6;
+    newHeight = y - parseInt(divSearchOpts.style.height, 10) - 6;
 
     if(newHeight < 100)
         newHeight = 100;

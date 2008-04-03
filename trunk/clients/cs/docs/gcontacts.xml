@@ -1,0 +1,245 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Google.GData.Contacts</name>
+    </assembly>
+    <members>
+        <member name="T:Google.GData.Contacts.ContactsFeed">
+             <summary>
+                  The Contacts Data API provides a single type of feed: the contact feed.
+                  A contact feed is a private read/write feed that can be used to view and manage a user's
+                  contacts. The URI for the feed is as follows:
+                  http://www.google.com/m8/feeds/contacts/userID/base
+            
+                  For example, the contacts feed for user liz@gmail.com would have the following URI:
+                  http://www.google.com/m8/feeds/contacts/liz%40gmail.com/base
+            
+                  Since the contact feed is private, you can access it only by using an authenticated
+                  request. That is, the request must contain an authentication token for the user whose
+                  contacts you want to retrieve.
+             </summary>
+        </member>
+        <member name="M:Google.GData.Contacts.ContactsFeed.#ctor(System.Uri,Google.GData.Client.IService)">
+            <summary>
+             default constructor
+            </summary>
+            <param name="uriBase">the base URI of the feedEntry</param>
+            <param name="iService">the Service to use</param>
+        </member>
+        <member name="M:Google.GData.Contacts.ContactsFeed.#ctor(System.String,Google.GData.Client.IService)">
+            <summary>
+             default constructor with user name
+            </summary>
+            <param name="userName">the username for the contacts feed</param>
+            <param name="iService">the Service to use</param>
+        </member>
+        <member name="M:Google.GData.Contacts.ContactsFeed.CreateFeedEntry">
+            <summary>
+            this needs to get implemented by subclasses
+            </summary>
+            <returns>AtomEntry</returns>
+        </member>
+        <member name="M:Google.GData.Contacts.ContactsFeed.HandleExtensionElements(Google.GData.Client.ExtensionElementEventArgs,Google.GData.Client.AtomFeedParser)">
+            <summary>
+            get's called after we already handled the custom entry, to handle all 
+            other potential parsing tasks
+            </summary>
+            <param name="e"></param>
+            <param name="parser">the atom feed parser used</param>
+        </member>
+        <member name="T:Google.GData.Contacts.ContactEntry">
+            <summary>
+            Entry API customization class for defining entries in an Event feed.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Contacts.ContactEntry.ContactTerm">
+            <summary>
+            default contact term string for the contact relationship link
+            </summary>
+        </member>
+        <member name="F:Google.GData.Contacts.ContactEntry.CONTACT_CATEGORY">
+            <summary>
+            Category used to label entries that contain contact extension data.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Contacts.ContactEntry.#ctor">
+            <summary>
+            Constructs a new ContactEntry instance with the appropriate category
+            to indicate that it is an event.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Contacts.ContactEntry.Emails">
+            <summary>
+            getter/setter for the email extension element
+            </summary>
+        </member>
+        <member name="P:Google.GData.Contacts.ContactEntry.IMs">
+            <summary>
+            getter/setter for the IM extension element
+            </summary>
+        </member>
+        <member name="P:Google.GData.Contacts.ContactEntry.Phonenumbers">
+            <summary>
+            returns the phonenumber collection
+            </summary>
+        </member>
+        <member name="P:Google.GData.Contacts.ContactEntry.PostalAddresses">
+            <summary>
+            returns the phonenumber collection
+            </summary>
+        </member>
+        <member name="P:Google.GData.Contacts.ContactEntry.Organizations">
+            <summary>
+            returns the phonenumber collection
+            </summary>
+        </member>
+        <member name="P:Google.GData.Contacts.ContactEntry.IsDeleted">
+            <summary>
+            if this is a previously deleted contact, returns true
+            to delete a contact, use the delete method
+            </summary>
+        </member>
+        <member name="P:Google.GData.Contacts.ContactEntry.PhotoUri">
+            <summary>
+            retrieves the Uri of the Photo Link. To set this, you need to create an AtomLink object
+            and add/replace it in the atomlinks colleciton. 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.GData.Contacts.ContactEntry.PhotoEditUri">
+            <summary>
+            retrieves the Uri of the Photo Edit Link. To set this, you need to create an AtomLink object
+            and add/replace it in the atomlinks colleciton. 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Google.GData.Contacts.ContactService">
+            <summary>
+            The Contacts Data API allows client applications to view and update a user's contacts. 
+            Contacts are stored in the user's Google Account; most Google services have access 
+            to the contact list. Your client application can use the Contacts Data API to create 
+            new contacts, edit or delete existing contacts, and query for contacts that 
+            match particular criteria.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Contacts.ContactService.GContactAgent">
+            <summary>This service's User-Agent string</summary> 
+        </member>
+        <member name="F:Google.GData.Contacts.ContactService.GContactService">
+            <summary>The Calendar service's name</summary> 
+        </member>
+        <member name="M:Google.GData.Contacts.ContactService.#ctor(System.String)">
+            <summary>
+             default constructor
+            </summary>
+            <param name="applicationName">the applicationname</param>
+        </member>
+        <member name="M:Google.GData.Contacts.ContactService.Query(Google.GData.Contacts.ContactsQuery)">
+            <summary>
+            overloaded to create typed version of Query
+            </summary>
+            <param name="feedQuery"></param>
+            <returns>EventFeed</returns>
+        </member>
+        <member name="M:Google.GData.Contacts.ContactService.OnNewFeed(System.Object,Google.GData.Client.ServiceEventArgs)">
+            <summary>eventchaining. We catch this by from the base service, which 
+            would not by default create an atomFeed</summary> 
+            <param name="sender"> the object which send the event</param>
+            <param name="e">FeedParserEventArguments, holds the feedentry</param> 
+            <returns> </returns>
+        </member>
+        <member name="T:Google.GData.Contacts.ContactsQuery">
+            <summary>
+            A subclass of FeedQuery, to create an Contacts query URI.
+            Provides public properties that describe the different
+            aspects of the URI, as well as a composite URI.
+            The ContactsQuery supports the following GData parameters:
+            The Contacts Data API supports the following standard Google Data API query parameters:
+            Name              Description
+            alt               The type of feed to return, such as atom (the default), rss, or json.
+            max-results       The maximum number of entries to return. If you want to receive all of
+                              the contacts, rather than only the default maximum, you can specify a very 
+                              large number for max-results.
+            start-index       The 1-based index of the first result to be retrieved (for paging).
+            updated-min       The lower bound on entry update dates.
+            
+            For more information about the standard parameters, see the Google Data APIs protocol reference document.
+            In addition to the standard query parameters, the Contacts Data API supports the following parameters:
+            
+            Name              Description
+            orderby           Sorting criterion. The only supported value is lastmodified.
+            showdeleted       Include deleted contacts in the returned contacts feed. 
+                              Deleted contacts are shown as entries that contain nothing but an 
+                              atom:id element and a gd:deleted element. 
+                              (Google retains placeholders for deleted contacts for 30 days after 
+                              deletion; during that time, you can request the placeholders 
+                              using the showdeleted query parameter.) Valid values are true or false.
+            sortorder         Sorting order direction. Can be either ascending or descending.
+            </summary> 
+        </member>
+        <member name="F:Google.GData.Contacts.ContactsQuery.contactsBaseUri">
+            <summary>
+            contacts base URI 
+            </summary>
+        </member>
+        <member name="F:Google.GData.Contacts.ContactsQuery.OrderByLastModified">
+            <summary>
+            sortoder value for sorting by lastmodified
+            </summary>
+        </member>
+        <member name="F:Google.GData.Contacts.ContactsQuery.SortOrderAscending">
+            <summary>
+            sortoder value for sorting ascending
+            </summary>
+        </member>
+        <member name="F:Google.GData.Contacts.ContactsQuery.SortOrderDescending">
+            <summary>
+            sortoder value for sorting descending
+            </summary>
+        </member>
+        <member name="M:Google.GData.Contacts.ContactsQuery.#ctor">
+            <summary>
+            base constructor
+            </summary>
+        </member>
+        <member name="M:Google.GData.Contacts.ContactsQuery.#ctor(System.String)">
+            <summary>
+            base constructor, with initial queryUri
+            </summary>
+            <param name="queryUri">the query to use</param>
+        </member>
+        <member name="M:Google.GData.Contacts.ContactsQuery.CreateContactsUri(System.String)">
+            <summary>
+            convienience method to create an URI based on a userID for a picasafeed
+            </summary>
+            <param name="userID"></param>
+            <returns>string</returns>
+        </member>
+        <member name="M:Google.GData.Contacts.ContactsQuery.ParseUri(System.Uri)">
+            <summary>protected void ParseUri</summary> 
+            <param name="targetUri">takes an incoming Uri string and parses all the properties out of it</param>
+            <returns>throws a query exception when it finds something wrong with the input, otherwise returns a baseuri</returns>
+        </member>
+        <member name="M:Google.GData.Contacts.ContactsQuery.Reset">
+            <summary>Resets object state to default, as if newly created.
+            </summary> 
+        </member>
+        <member name="M:Google.GData.Contacts.ContactsQuery.CalculateQuery">
+            <summary>Creates the partial URI query string based on all
+             set properties.</summary> 
+            <returns> string => the query part of the URI </returns>
+        </member>
+        <member name="P:Google.GData.Contacts.ContactsQuery.SortOrder">
+            <summary>accessor method public string SortOder</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Contacts.ContactsQuery.OrderBy">
+            <summary>indicates the thumbsize required</summary>
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Contacts.ContactsQuery.ShowDeleted">
+            <summary>accessor method public bool ShowDeleted</summary> 
+            <returns> </returns>
+        </member>
+    </members>
+</doc>

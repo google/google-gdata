@@ -25,12 +25,13 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>
+    </DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\gcontacts.xml</DocumentationFile>
   </PropertyGroup>
- <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ASP|AnyCPU' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ASP|AnyCPU' ">
     <OutputPath>bin\asp\</OutputPath>
     <DefineConstants>PARTIALLY_TRUSTED</DefineConstants>
     <DebugSymbols>false</DebugSymbols>
@@ -39,7 +40,6 @@
     <DebugType>none</DebugType>
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
-
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -52,6 +52,7 @@
     <ProjectReference Include="..\gdata\Core Client.csproj">
       <Project>{B6F6D938-0D45-42BA-8A67-55D92EF03995}</Project>
       <Name>Core Client</Name>
+      <Private>True</Private>
     </ProjectReference>
     <ProjectReference Include="..\gextension\Common Data Extensions.csproj">
       <Project>{21BCB644-F9C3-4ADC-8BE1-4E55C6565011}</Project>
