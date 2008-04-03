@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GPhotosMobile", "GPhotosMob
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GDocListMobile", "GDocListMobile\GDocListMobile.csproj", "{065D22F2-3EF6-487B-872D-C0001427942C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GContactsMobile", "GContactsMobile\GContactsMobile.csproj", "{4F5AD3A8-2048-495F-9A00-BEC7FCD52D9F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -67,6 +69,10 @@ Global
 		{065D22F2-3EF6-487B-872D-C0001427942C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{065D22F2-3EF6-487B-872D-C0001427942C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{065D22F2-3EF6-487B-872D-C0001427942C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F5AD3A8-2048-495F-9A00-BEC7FCD52D9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F5AD3A8-2048-495F-9A00-BEC7FCD52D9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F5AD3A8-2048-495F-9A00-BEC7FCD52D9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F5AD3A8-2048-495F-9A00-BEC7FCD52D9F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -124,6 +124,9 @@
       <Link>comments.cs</Link>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="..\..\extensions\contacts.cs">
+      <Link>contacts.cs</Link>
+    </Compile>
     <Compile Include="..\..\extensions\entrylink.cs">
       <Link>entrylink.cs</Link>
       <SubType>Code</SubType>
