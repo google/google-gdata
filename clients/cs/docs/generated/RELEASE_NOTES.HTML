@@ -2,6 +2,66 @@
     
 <h1>This document lists the changes in the different releases</h1>
 
+
+<h2>1.1.4.0</h2>
+<ul>
+    <li>Features</li>
+    <ul>
+        <li>Moved the codebase to .NET 2.0.</li>
+        <li>Added project templates for VS 2005 that are installed by the 
+            setup program. If you use the .zip download, copy the templates into
+            the VS 2005 template folder</li>
+        <li>The setup program now points VS 2005 to the lib/release path 
+            for the Google DLLs. The DLLs are no longer installed in the 
+            GAC</li>
+	<li>Added new VS 2005 solution files for all targets for the contacts library.</li>
+    </ul>
+    <li>Bugfixes/changes</li>
+    <ul>
+        <li>Changed a lot of codeplaces due to a new FxCop run. Where this 
+            has a public, visible effect, it is noted below:</li>
+        <ul>
+            <li>removed the setter for CustomHeaders, 
+                Google.GData.Client.GDataRequestFactory.CustomHeaders</li>
+        </ul>
+        <li>Updated to VS 2005 solution files. VS 2003 files are removed.</li>
+        <li>Changed documentation build to January Sandcastle release</li>
+        <li>Entry.SetAlternateUri was not setting the correct link 
+            releationship and mediatype. </li>
+        <li>
+            small bugfixes to the base code (exceptions sometimes on missing attributes) 
+        </li>
+	<li>Fixed issue 105: Cannot add a reminder in a Recurring event using C# Calendar library</li>
+	<li>The Reminders property is now a typed generic collection</li>
+
+    </ul>
+
+
+
+<h2>1.1.3.0</h2>
+<ul>
+    <li>Features</li>
+    <ul>
+        <li>Added conditional Get support. The service object has an overloaded Query method now,
+        that allows you to pass a ifModifiedSince DateTime object into it.s</li>
+        <li>Added Authsub token revocation support. There is a new method 
+            revokeToken in AuthsubUtil, similiar to the java class library</li>
+	        
+    </ul>
+    <li>Bugfixes/changes</li>
+  	<li>Issue 93: ReFixed Title Exact Queries for Spreadsheets. Using 
+        Title-Exact resulted in two question marks in the query string.</li>
+  	<li>Fixed the GeoRSS where extension, which lived in a mistyped namespace.</li>
+    <li>Fixed the Latitude property, which was misspelled Lattitude</li>
+    <li>Added the Doclist assemblies to the setup program</li>s
+    <li>Added MediaGroup.Contents as a Collection:  as there
+        could be more than one. So all previous usages should be changed
+        to access the first element in a collection. The old method will remain
+        in there.</li>
+    </ul>
+</ul>
+
+
 <h2>1.1.2.0</h2>
 <ul>
     <li>Features</li>

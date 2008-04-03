@@ -1,10 +1,11 @@
-﻿<project schemaVersion="1.4.0.2">
+﻿<project schemaVersion="1.6.0.2">
     <assemblies>
         <assembly assemblyPath="..\lib\Release\Google.GData.AccessControl.dll" xmlCommentsPath="..\docs\gacl.xml" commentsOnly="False" />
         <assembly assemblyPath="..\lib\Release\Google.GData.Apps.dll" xmlCommentsPath="..\docs\gapps.xml" commentsOnly="False" />
         <assembly assemblyPath="..\lib\Release\Google.GData.Calendar.dll" xmlCommentsPath="..\docs\gcal.xml" commentsOnly="False" />
         <assembly assemblyPath="..\lib\Release\Google.GData.Client.dll" xmlCommentsPath="..\docs\gdata.xml" commentsOnly="False" />
         <assembly assemblyPath="..\lib\Release\Google.GData.CodeSearch.dll" xmlCommentsPath="..\docs\gcodesearch.xml" commentsOnly="False" />
+        <assembly assemblyPath="..\lib\Release\Google.GData.Contacts.dll" xmlCommentsPath="..\docs\gcontacts.xml" commentsOnly="False" />
         <assembly assemblyPath="..\lib\Release\Google.GData.Extensions.dll" xmlCommentsPath="..\docs\gextension.xml" commentsOnly="False" />
         <assembly assemblyPath="..\lib\Release\Google.GData.GoogleBase.dll" xmlCommentsPath="..\docs\gbase.xml" commentsOnly="False" />
         <assembly assemblyPath="..\lib\Release\Google.GData.Photos.dll" xmlCommentsPath="..\docs\gphotos.xml" commentsOnly="False" />
@@ -28,6 +29,10 @@ Here are some of the things you can do with the Code Search data API:
 
     * Create a plugin for your favorite IDE that searches over the Code Search index for relevant sample code.
     * Create client applications that use Google Code Search to find function definitions and sample code.</namespaceSummaryItem>
+        <namespaceSummaryItem name="Google.GData.Contacts" isDocumented="True">The Google Contacts Data API allows client applications to view and update Contacts content in the form of Google Data API feeds. Your client application can request a list of a user's contacts, edit or delete content in an existing contact, and query the content in an existing contact. Here are some of the things you can do with the Contacts Data API: 
+ - Synchronize Google contacts with contacts on a mobile device
+- Maintain relationships between people in social applications
+- Give users the ability to communicate directly with their friends from external applications using phone, email, and IM</namespaceSummaryItem>
         <namespaceSummaryItem name="Google.GData.Extensions" isDocumented="True">This namespace contains common extension elements that are used accross several Google Data API enabled properties</namespaceSummaryItem>
         <namespaceSummaryItem name="Google.GData.Extensions.Apps" isDocumented="True" />
         <namespaceSummaryItem name="Google.GData.Extensions.Exif" isDocumented="True">Picasa Web Albums uses the exif namespace to represent Exif data encoded in a photo. The schema URL for the exif namespace is http://schemas.google.com/photos/exif/2007.
@@ -117,10 +122,11 @@ Creating and deleting a feed is left up to the service; the GData protocol does 
     <SandcastlePath path="" />
     <WorkingPath path="" />
     <CleanIntermediates>True</CleanIntermediates>
+    <KeepLogFile>True</KeepLogFile>
     <HelpFileFormat>Help1xAndWebsite</HelpFileFormat>
     <PurgeDuplicateTopics>True</PurgeDuplicateTopics>
     <CppCommentsFixup>True</CppCommentsFixup>
-    <FrameworkVersion>1.1.4322</FrameworkVersion>
+    <FrameworkVersion>2.0.50727</FrameworkVersion>
     <BinaryTOC>True</BinaryTOC>
     <IncludeFavorites>False</IncludeFavorites>
     <Preliminary>False</Preliminary>
@@ -136,8 +142,12 @@ Creating and deleting a feed is left up to the service; the GData protocol does 
     <FooterText>GData .NET API (http://code.google.com/apis/gdata/client-cs.html)</FooterText>
     <ProjectLinkType>Local</ProjectLinkType>
     <SdkLinkType>Msdn</SdkLinkType>
+    <SdkLinkTarget>Blank</SdkLinkTarget>
     <PresentationStyle>vs2005</PresentationStyle>
     <NamingMethod>MemberName</NamingMethod>
     <SyntaxFilters>Standard</SyntaxFilters>
+    <ShowFeedbackControl>False</ShowFeedbackControl>
     <ContentPlacement>AboveNamespaces</ContentPlacement>
+    <ContentSiteMap path="" />
+    <TopicFileTransform path="" />
 </project>

@@ -54,7 +54,7 @@ namespace Google.GData.Contacts {
         /// <summary>
         /// contacts base URI 
         /// </summary>
-        public static string contactsBaseUri = "http://www.google.com/m8/feeds/contacts";
+        public static string contactsBaseUri = "http://www.google.com/m8/feeds/contacts/";
 
         /// <summary>
         /// sortoder value for sorting by lastmodified
@@ -101,7 +101,7 @@ namespace Google.GData.Contacts {
         /// <returns>string</returns>
         public static string CreateContactsUri(string userID) 
         {
-            return ContactsQuery.contactsBaseUri + userID + "/base";
+            return ContactsQuery.contactsBaseUri + Utilities.UriEncodeReserved(userID)+ "/base";
         }
 
 
@@ -213,14 +213,14 @@ namespace Google.GData.Contacts {
             }
 
 
-            if (this.OrderBy.Length > 0)
+            if (this.OrderBy != null && this.OrderBy.Length > 0)
             {
                 newPath.Append(paramInsertion);
                 newPath.AppendFormat(CultureInfo.InvariantCulture, "orderby={0}", Utilities.UriEncodeReserved(this.OrderBy));
                 paramInsertion = '&';
             }
 
-            if (this.SortOrder.Length > 0)
+            if (this.SortOrder != null && this.SortOrder.Length > 0)
             {
                 newPath.Append(paramInsertion);
                 newPath.AppendFormat(CultureInfo.InvariantCulture, "sortorder={0}", Utilities.UriEncodeReserved(this.SortOrder));
