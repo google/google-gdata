@@ -67,7 +67,7 @@ namespace Google.GData.AccessControl
         ///  default constructor
         /// </summary>
         /// <param name="uriBase">the base URI of the feed</param>
-        /// <param name="iService">the Service to use</param>
+        /// <param name="service">the Service to use</param>
         public AclFeed(Uri uriBase, IService service) : base(uriBase, service)
         {
         }

@@ -620,7 +620,13 @@ namespace Google.GData.Extensions.Apps
         /// </summary>
         public enum EncodingMethod
         {
+            /// <summary>
+            /// indicates no encoding
+            /// </summary>
             NONE,
+            /// <summary>
+            /// indicates base 64 encoding
+            /// </summary>
             BASE64
         }
 

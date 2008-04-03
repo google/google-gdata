@@ -85,6 +85,9 @@ namespace Google.GData.Documents {
         /// </summary>
         public static QueryCategory PRESENTATIONS = new QueryCategory(ATOMCATEGORY_PRESENTATIONS);
 
+        /// <summary>
+        /// predefined query category for starred documents
+        /// </summary>
         public static AtomCategory ATOMCATEGORY_STARRED = new AtomCategory("starred");
         /// <summary>
         /// predefined query category for starred documents

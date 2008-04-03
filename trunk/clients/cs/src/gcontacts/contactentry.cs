@@ -30,6 +30,9 @@ namespace Google.GData.Contacts {
     public class ContactEntry : AbstractEntry
     {
 
+        /// <summary>
+        /// default contact term string for the contact relationship link
+        /// </summary>
         public static string ContactTerm = "http://schemas.google.com/contact/2008#contact";
         /// <summary>
         /// Category used to label entries that contain contact extension data.

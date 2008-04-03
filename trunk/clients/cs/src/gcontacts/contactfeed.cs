@@ -52,7 +52,7 @@ namespace Google.GData.Contacts {
         /// <summary>
         ///  default constructor with user name
         /// </summary>
-        /// <param name="uriBase">the base URI of the feedEntry</param>
+        /// <param name="userName">the username for the contacts feed</param>
         /// <param name="iService">the Service to use</param>
         public ContactsFeed(String userName, IService iService) : base(new Uri(ContactsQuery.CreateContactsUri(userName)), iService)
         {
