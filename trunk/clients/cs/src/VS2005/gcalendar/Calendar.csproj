@@ -172,8 +172,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>mkdir "$(ProjectDir)\obj\$(ConfigurationName)"
-copy "$(ProjectDir)..\..\signing\*.*"  "$(ProjectDir)\obj\$(ConfigurationName)\*.*"</PreBuildEvent>
+    <PreBuildEvent>
+    </PreBuildEvent>
     <PostBuildEvent>
     </PostBuildEvent>
   </PropertyGroup>

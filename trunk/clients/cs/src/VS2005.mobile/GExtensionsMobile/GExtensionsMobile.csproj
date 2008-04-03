@@ -59,6 +59,9 @@
     <Compile Include="..\..\extensions\comments.cs">
       <Link>comments.cs</Link>
     </Compile>
+    <Compile Include="..\..\extensions\contacts.cs">
+      <Link>contacts.cs</Link>
+    </Compile>
     <Compile Include="..\..\extensions\entrylink.cs">
       <Link>entrylink.cs</Link>
     </Compile>

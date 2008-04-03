@@ -295,7 +295,7 @@ namespace Google.GData.Client
         public void Dispose()
         {
             if (this.responseStream != null)
-                this.responseStream.Dispose();
+                this.responseStream.Close();
             Dispose(true);
             GC.SuppressFinalize(this);
         }

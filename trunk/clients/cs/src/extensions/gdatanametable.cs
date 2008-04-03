@@ -45,12 +45,12 @@ namespace Google.GData.Extensions
         /// <summary>
         /// a relationship to a photo
         /// </summary>
-        public const string ServicePhoto = gContacts + "#photo";
+        public const string ServicePhoto = gContactsRel + "#photo";
 
         /// <summary>
         /// the relationship to edit the photo
         /// </summary>
-        public const string ServicePhotoEdit = gContacts + "#edit-photo";
+        public const string ServicePhotoEdit = gContactsRel + "#edit-photo";
 
 
 
