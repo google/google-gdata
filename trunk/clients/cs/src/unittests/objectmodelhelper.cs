@@ -16,6 +16,7 @@ using System;
 using NUnit.Framework;
 using Google.GData.Client;
 using Google.GData.Calendar; 
+using Google.GData.Contacts;
 using Google.GData.Extensions; 
 
 using System.IO;
@@ -161,7 +162,81 @@ namespace Google.GData.Client.UnitTests
         }
         /////////////////////////////////////////////////////////////////////////////
 
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>creates a new, in memory atom entry</summary> 
+        /// <returns>the new AtomEntry </returns>
+        //////////////////////////////////////////////////////////////////////
+        public static ContactEntry CreateContactEntry(int iCount)
+        {
+            ContactEntry entry = new ContactEntry();
+            // some unicode chars
+            Char[] chars = new Char[] {
+                                          '\u0023', // #
+                                          '\u0025', // %
+                                          '\u03a0', // Pi
+                                          '\u03a3',  // Sigma
+                                          '\u03d1', // beta
+            };
 
+            // if unicode needs to be disabled for testing, just uncomment this line
+            // chars = new Char[] { 'a', 'b', 'c', 'd', 'e'}; 
+
+
+
+            AtomPerson author = new AtomPerson(AtomPersonType.Author);
+            author.Name = "John Doe" + chars[0] + chars[1] + chars[2] + chars[3]; 
+            author.Email = "JohnDoe@example.com";
+            entry.Authors.Add(author);
+
+            entry.Content.Content = "this is the default note for a contact entry";
+            entry.Published = new DateTime(2001, 11, 20, 22, 30, 0);  
+            entry.Title.Text = "This is a contact number: " + iCount;
+            entry.Updated = DateTime.Now; 
+
+            // add an email.
+
+            EMail email = new EMail("joe@doe.com");
+            email.Primary = true;
+            email.Rel = ContactsRelationships.IsWork;
+
+            entry.Emails.Add(email);
+
+            email = new EMail("joe@alternate.de");
+            entry.Emails.Add(email);
+
+            IMAddress im = new IMAddress("joe@im.com");
+            im.Primary = true;
+            im.Rel =  ContactsRelationships.IsWork;
+
+            entry.IMs.Add(im);
+            im = new IMAddress("joe@im2.com");
+            im.Rel =  ContactsRelationships.IsHome;
+
+            PhoneNumber p = new PhoneNumber("123-3453457");
+            p.Primary = true;
+            p.Rel = ContactsRelationships.IsWork;
+            entry.Phonenumbers.Add(p);
+
+            p = new PhoneNumber("123-3334445");
+            p.Label = "some other thing";
+            entry.Phonenumbers.Add(p);
+
+            PostalAddress pa = new PostalAddress("This is the address");
+            pa.Primary = true;
+            pa.Rel = ContactsRelationships.IsHome;
+            entry.PostalAddresses.Add(pa);
+
+            Organization org = new Organization();
+            org.Name = "This Test Org.Com";
+            org.Title = "Junior guy";
+            org.Label = "volunteer stuff";
+
+            entry.Organizations.Add(org);
+
+
+            return entry;
+        }
+        /////////////////////////////////////////////////////////////////////////////
        //////////////////////////////////////////////////////////////////////
        /// <summary>compares two atomEntrys to see if they are identical objects</summary> 
        /// <param name="theOne">the first AtomEntry </param>
@@ -176,7 +251,6 @@ namespace Google.GData.Client.UnitTests
            {
                return theOne == theOther; 
            }
-
            Tracing.TraceMsg("Comparing AuthorCollection"); 
            if (ObjectModelHelper.IsPersonCollectionIdentical(theOne.Authors, theOther.Authors)==false)
            {

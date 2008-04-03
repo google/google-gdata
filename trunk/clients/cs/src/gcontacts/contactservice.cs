@@ -32,7 +32,7 @@ namespace Google.GData.Contacts {
     /// match particular criteria.
     /// </summary>
     //////////////////////////////////////////////////////////////////////
-    public class ContactService : Service
+    public class ContactsService : Service
     {
        
         /// <summary>This service's User-Agent string</summary> 
@@ -44,7 +44,7 @@ namespace Google.GData.Contacts {
         ///  default constructor
         /// </summary>
         /// <param name="applicationName">the applicationname</param>
-        public ContactService(string applicationName) : base(GContactService, applicationName, GContactAgent)
+        public ContactsService(string applicationName) : base(GContactService, applicationName, GContactAgent)
         {
             this.NewFeed += new ServiceEventHandler(this.OnNewFeed); 
         }
