@@ -142,6 +142,7 @@ namespace Google.GData.Extensions
                GDataParserNameTable.gNamespace)
         {
             addAttributes();
+            this.Address = initValue;
         }
 
         /// <summary>
@@ -176,15 +177,21 @@ namespace Google.GData.Extensions
         // end of accessor public string Address
 
         //////////////////////////////////////////////////////////////////////
-        /// <summary>accessor method public string Label</summary> 
-        /// <returns> </returns>
-        //////////////////////////////////////////////////////////////////////
+        /// <summary>accessor method for the Label value. Note you can only set this or
+        /// Rel, not both
+        /// </summary> 
         public string Label
         {
             get {return this.Attributes[GDataParserNameTable.XmlAttributeLabel] as string;}
-            set {this.Attributes[GDataParserNameTable.XmlAttributeLabel] = value;}
+            set 
+            {
+                if (this.Rel != null)
+                {
+                    throw new System.ArgumentException("Rel already has a value. You can only set Label or Rel");
+                } 
+                this.Attributes[GDataParserNameTable.XmlAttributeLabel] = value;
+            }
         }
-        // end of accessor public string Address
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>accessor method public string Primary</summary> 
@@ -198,15 +205,22 @@ namespace Google.GData.Extensions
         // end of accessor public string Address
 
         //////////////////////////////////////////////////////////////////////
-        /// <summary>accessor method public string Address</summary> 
+        /// <summary>accessor method for the Rel Value. Note you can only set this
+        /// or Label, not both</summary> 
         /// <returns> </returns>
         //////////////////////////////////////////////////////////////////////
         public string Rel
         {
             get {return this.Attributes[GDataParserNameTable.XmlAttributeRel] as string;}
-            set {this.Attributes[GDataParserNameTable.XmlAttributeRel] = value;}
+            set 
+            {
+                if (this.Label != null)
+                {
+                    throw new System.ArgumentException("Label already has a value. You can only set Label or Rel");
+                } 
+                this.Attributes[GDataParserNameTable.XmlAttributeRel] = value;
+            }
         }
-        // end of accessor public string Address
 
         /// <summary>
         /// returns if the email is the home email address
@@ -286,6 +300,15 @@ namespace Google.GData.Extensions
             this.Attributes.Add(GDataParserNameTable.XmlAttributeProtocol, null);
         }
 
+        public IMAddress(string initValue) 
+            : base(GDataParserNameTable.XmlIMElement, 
+                   GDataParserNameTable.gDataPrefix,
+                   GDataParserNameTable.gNamespace)
+            {
+                this.Attributes.Add(GDataParserNameTable.XmlAttributeProtocol, null);
+                this.Address = initValue;
+            }
+
         //////////////////////////////////////////////////////////////////////
         /// <summary>accessor method for the protocol</summary> 
         /// <returns> </returns>
@@ -336,16 +359,6 @@ namespace Google.GData.Extensions
         }
 
         //////////////////////////////////////////////////////////////////////
-        /// <summary>accessor method public string Label</summary> 
-        /// <returns> </returns>
-        //////////////////////////////////////////////////////////////////////
-        public string Label
-        {
-            get {return this.Attributes[GDataParserNameTable.XmlAttributeLabel] as string;}
-            set {this.Attributes[GDataParserNameTable.XmlAttributeLabel] = value;}
-        }
-
-        //////////////////////////////////////////////////////////////////////
         /// <summary>accessor method public string Primary</summary> 
         /// <returns> </returns>
         //////////////////////////////////////////////////////////////////////
@@ -356,14 +369,42 @@ namespace Google.GData.Extensions
         }
 
         //////////////////////////////////////////////////////////////////////
-        /// <summary>accessor method public string Rel</summary> 
+        /// <summary>accessor method for the Rel Value. Note you can only set this
+        /// or Label, not both</summary> 
         /// <returns> </returns>
         //////////////////////////////////////////////////////////////////////
         public string Rel
         {
             get {return this.Attributes[GDataParserNameTable.XmlAttributeRel] as string;}
-            set {this.Attributes[GDataParserNameTable.XmlAttributeRel] = value;}
+            set 
+            {
+                if (this.Label != null)
+                {
+                    throw new System.ArgumentException("Label already has a value. You can only set Label or Rel");
+                } 
+                this.Attributes[GDataParserNameTable.XmlAttributeRel] = value;
+            }
         }
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>accessor method for the Label value. Note you can only set this or
+        /// Rel, not both</summary> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        public string Label
+        {
+            get {return this.Attributes[GDataParserNameTable.XmlAttributeLabel] as string;}
+            set 
+            {
+                if (this.Rel != null)
+                {
+                    throw new System.ArgumentException("Rel already has a value. You can only set Label or Rel");
+                } 
+                this.Attributes[GDataParserNameTable.XmlAttributeLabel] = value;
+            }
+        }
+
+
         /// <summary>
         /// returns if the email is the home email address
         /// </summary>
@@ -497,15 +538,92 @@ namespace Google.GData.Extensions
         }
 
         //////////////////////////////////////////////////////////////////////
-        /// <summary>accessor method public string Label</summary> 
+        /// <summary>accessor method for the Rel Value. Note you can only set this
+        /// or Label, not both</summary> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        public string Rel
+        {
+            get {return this.Attributes[GDataParserNameTable.XmlAttributeRel] as string;}
+            set 
+            {
+                if (this.Label != null)
+                {
+                    throw new System.ArgumentException("Label already has a value. You can only set Label or Rel");
+                } 
+                this.Attributes[GDataParserNameTable.XmlAttributeRel] = value;
+            }
+        }
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>accessor method for the Label value. Note you can only set this or
+        /// Rel, not both</summary> 
         /// <returns> </returns>
         //////////////////////////////////////////////////////////////////////
         public string Label
         {
             get {return this.Attributes[GDataParserNameTable.XmlAttributeLabel] as string;}
-            set {this.Attributes[GDataParserNameTable.XmlAttributeLabel] = value;}
+            set 
+            {
+                if (this.Rel != null)
+                {
+                    throw new System.ArgumentException("Rel already has a value. You can only set Label or Rel");
+                } 
+                this.Attributes[GDataParserNameTable.XmlAttributeLabel] = value;
+            }
         }
 
+        /// <summary>
+        /// sets the value of the OrgName element
+        /// </summary>
+        /// <returns></returns>
+        public string Name 
+        {
+            get 
+            {
+                OrgName name = FindExtension(GDataParserNameTable.XmlOrgNameElement,
+                                        BaseNameTable.gNamespace) as OrgName;
+                if (name != null)
+                {
+                    return name.Value;
+                }
+                return null;
+            }
+            set
+            {
+                OrgName name = new OrgName(value);
+                ReplaceExtension(GDataParserNameTable.XmlOrgNameElement,
+                                        BaseNameTable.gNamespace,
+                                        name);
+
+            }
+        }
+
+        /// <summary>
+        /// access the OrgTitle element to set/get the title
+        /// </summary>
+        /// <returns></returns>
+        public string Title 
+        {
+            get 
+            {
+                OrgTitle title = FindExtension(GDataParserNameTable.XmlOrgTitleElement,
+                                        BaseNameTable.gNamespace) as OrgTitle;
+                if (title != null)
+                {
+                    return title.Value;
+                }
+                return null;
+            }
+            set
+            {
+                OrgTitle title = new OrgTitle(value);
+                ReplaceExtension(GDataParserNameTable.XmlOrgTitleElement,
+                                        BaseNameTable.gNamespace,
+                                        title);
+
+            }
+        }
         //////////////////////////////////////////////////////////////////////
         /// <summary>accessor method public string Primary</summary> 
         /// <returns> </returns>
@@ -516,15 +634,6 @@ namespace Google.GData.Extensions
             set {this.Attributes[GDataParserNameTable.XmlAttributePrimary] = value == true? "true" : "false";}
         }
 
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>accessor method public string Rel</summary> 
-        /// <returns> </returns>
-        //////////////////////////////////////////////////////////////////////
-        public string Rel
-        {
-            get {return this.Attributes[GDataParserNameTable.XmlAttributeRel] as string;}
-            set {this.Attributes[GDataParserNameTable.XmlAttributeRel] = value;}
-        }
         /// <summary>
         /// returns if the email is the home email address
         /// </summary>
