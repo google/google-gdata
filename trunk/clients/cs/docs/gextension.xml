@@ -2213,15 +2213,17 @@
             <returns> </returns>
         </member>
         <member name="P:Google.GData.Extensions.EMail.Label">
-            <summary>accessor method public string Label</summary> 
-            <returns> </returns>
+            <summary>accessor method for the Label value. Note you can only set this or
+            Rel, not both
+            </summary> 
         </member>
         <member name="P:Google.GData.Extensions.EMail.Primary">
             <summary>accessor method public string Primary</summary> 
             <returns> </returns>
         </member>
         <member name="P:Google.GData.Extensions.EMail.Rel">
-            <summary>accessor method public string Address</summary> 
+            <summary>accessor method for the Rel Value. Note you can only set this
+            or Label, not both</summary> 
             <returns> </returns>
         </member>
         <member name="P:Google.GData.Extensions.EMail.Home">
@@ -2259,6 +2261,12 @@
             default constructor for gd:deleted 
             </summary>
         </member>
+        <member name="M:Google.GData.Extensions.IMAddress.#ctor(System.String)">
+            <summary>
+            default constructor with an initial value
+            </summary>
+            <param name="initValue"></param>
+        </member>
         <member name="P:Google.GData.Extensions.IMAddress.Protocol">
             <summary>accessor method for the protocol</summary> 
             <returns> </returns>
@@ -2285,16 +2293,18 @@
             <param name="ns"></param>
             <param name="init"></param>
         </member>
-        <member name="P:Google.GData.Extensions.CommonAttributesElement.Label">
-            <summary>accessor method public string Label</summary> 
-            <returns> </returns>
-        </member>
         <member name="P:Google.GData.Extensions.CommonAttributesElement.Primary">
             <summary>accessor method public string Primary</summary> 
             <returns> </returns>
         </member>
         <member name="P:Google.GData.Extensions.CommonAttributesElement.Rel">
-            <summary>accessor method public string Rel</summary> 
+            <summary>accessor method for the Rel Value. Note you can only set this
+            or Label, not both</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Extensions.CommonAttributesElement.Label">
+            <summary>accessor method for the Label value. Note you can only set this or
+            Rel, not both</summary> 
             <returns> </returns>
         </member>
         <member name="P:Google.GData.Extensions.CommonAttributesElement.Home">
@@ -2356,16 +2366,30 @@
             default constructor for media:group
             </summary>
         </member>
-        <member name="P:Google.GData.Extensions.Organization.Label">
-            <summary>accessor method public string Label</summary> 
+        <member name="P:Google.GData.Extensions.Organization.Rel">
+            <summary>accessor method for the Rel Value. Note you can only set this
+            or Label, not both</summary> 
             <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Extensions.Organization.Label">
+            <summary>accessor method for the Label value. Note you can only set this or
+            Rel, not both</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Extensions.Organization.Name">
+            <summary>
+            sets the value of the OrgName element
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.GData.Extensions.Organization.Title">
+            <summary>
+            access the OrgTitle element to set/get the title
+            </summary>
+            <returns></returns>
         </member>
         <member name="P:Google.GData.Extensions.Organization.Primary">
             <summary>accessor method public string Primary</summary> 
-            <returns> </returns>
-        </member>
-        <member name="P:Google.GData.Extensions.Organization.Rel">
-            <summary>accessor method public string Rel</summary> 
             <returns> </returns>
         </member>
         <member name="P:Google.GData.Extensions.Organization.Home">

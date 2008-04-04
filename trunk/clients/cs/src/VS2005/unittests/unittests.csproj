@@ -124,6 +124,9 @@
       <Link>caltest.cs</Link>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="..\..\unittests\contactstest.cs">
+      <Link>contactstest.cs</Link>
+    </Compile>
     <Compile Include="..\..\unittests\coretest.cs">
       <Link>coretest.cs</Link>
       <SubType>Code</SubType>
@@ -309,6 +312,10 @@
     <ProjectReference Include="..\gcodesearch\Codesearch.csproj">
       <Project>{6C9717F6-4CEF-4665-82DA-31073493FFA0}</Project>
       <Name>Codesearch</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\gcontacts\Contacts.csproj">
+      <Project>{66B2AD47-7DD2-43E5-9124-D53486609992}</Project>
+      <Name>Contacts</Name>
     </ProjectReference>
     <ProjectReference Include="..\gdata\Core Client.csproj">
       <Project>{B6F6D938-0D45-42BA-8A67-55D92EF03995}</Project>

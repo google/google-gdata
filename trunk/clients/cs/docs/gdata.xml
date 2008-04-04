@@ -3678,6 +3678,43 @@
             <param name="link">the URI for the ID</param>
             <returns> </returns>
         </member>
+        <member name="M:Google.GData.Client.AtomId.GetHashCode">
+            <summary>
+            as we do comparisons, we need to override this
+            we return the hashcode of our string member
+            </summary>
+            <returns>int</returns>
+        </member>
+        <member name="M:Google.GData.Client.AtomId.CompareTo(System.Object)">
+            <summary>
+            overloaded IComparable interface method
+            </summary>
+            <param name="obj">the object to compare this instance with</param>
+            <returns>int</returns>
+        </member>
+        <member name="M:Google.GData.Client.AtomId.Equals(System.Object)">
+            <summary>
+            overridden equal method
+            </summary>
+            <param name="obj"></param>
+            <returns>bool</returns>
+        </member>
+        <member name="M:Google.GData.Client.AtomId.op_Equality(Google.GData.Client.AtomId,Google.GData.Client.AtomId)">
+            <summary>
+            overridden comparson operator
+            </summary>
+            <param name="a"></param>
+            <param name="b"></param>
+            <returns>bool</returns>
+        </member>
+        <member name="M:Google.GData.Client.AtomId.op_Inequality(Google.GData.Client.AtomId,Google.GData.Client.AtomId)">
+            <summary>
+            overridden comparson operator
+            </summary>
+            <param name="a"></param>
+            <param name="b"></param>
+            <returns>bool</returns>
+        </member>
         <member name="P:Google.GData.Client.AtomId.XmlName">
             <summary>Returns the constant representing this XML element.</summary> 
         </member>
