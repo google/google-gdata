@@ -60,7 +60,7 @@ namespace Google.GData.Client.LiveTests
         {
             Tracing.TraceMsg("Entering ContactsAuthenticationTest");
 
-            ContactsQuery query = new ContactsQuery(ContactsQuery.CreateContactsUri(this.userName));
+            ContactsQuery query = new ContactsQuery(ContactsQuery.CreateContactsUri(this.userName + "@googlemail.com"));
             ContactsService service = new ContactsService("unittests");
 
             if (this.userName != null)
@@ -93,7 +93,7 @@ namespace Google.GData.Client.LiveTests
         {
             Tracing.TraceMsg("Entering InsertContactsTest");
 
-            ContactsQuery query = new ContactsQuery(ContactsQuery.CreateContactsUri(this.userName));
+            ContactsQuery query = new ContactsQuery(ContactsQuery.CreateContactsUri(this.userName + "@googlemail.com")); 
             ContactsService service = new ContactsService("unittests");
 
             if (this.userName != null)
@@ -102,6 +102,8 @@ namespace Google.GData.Client.LiveTests
             }
 
             ContactsFeed feed = service.Query(query);
+
+            ArrayList inserted = new ArrayList();
             if (feed != null)
             {
                 Assert.IsTrue(feed.Entries != null, "the contacts needs entries");
@@ -109,9 +111,63 @@ namespace Google.GData.Client.LiveTests
                 for (int i=0; i<3; i++)
                 {
                     ContactEntry entry = ObjectModelHelper.CreateContactEntry(i);
-                    feed.Insert(entry);
+                    inserted.Add(feed.Insert(entry));
                 }
             }
+
+            if (inserted.Count > 0)
+            {
+                int iVer = inserted.Count;
+                feed = service.Query(query);
+
+                // let's find those guys
+                for (int i = 0; i < inserted.Count; i++)
+                {
+                    ContactEntry test = inserted[i] as ContactEntry;
+                    foreach (ContactEntry e in feed.Entries)
+                    {
+                        if (e.Id == test.Id)
+                        {
+                            iVer--;
+                        }
+                    }
+                }
+                Assert.IsTrue(iVer == 0, "The new entries should all be part of the feed now");
+            }
+
+            int all = feed.Entries.Count;
+
+
+            // now delete them again
+
+            foreach (ContactEntry e in inserted)
+            {
+                e.Delete();
+            }
+
+            // now make sure they are gone
+            if (inserted.Count > 0)
+            {
+                int iVer = inserted.Count;
+                feed = service.Query(query);
+
+                // let's find those guys
+                for (int i = 0; i < inserted.Count; i++)
+                {
+                    ContactEntry test = inserted[i] as ContactEntry;
+                    foreach (ContactEntry e in feed.Entries)
+                    {
+                        if (e.Id == test.Id)
+                        {
+                            iVer--;
+                        }
+                    }
+                }
+                Assert.IsTrue(iVer == 3, "The new entries should all be deleted now");
+                Assert.IsTrue(feed.Entries.Count == all - 3, "The count should be correct as well");
+            }
+
+            
         }
         /////////////////////////////////////////////////////////////////////////////
 

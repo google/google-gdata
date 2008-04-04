@@ -195,13 +195,14 @@ namespace Google.GData.Client.UnitTests
 
             // add an email.
 
-            EMail email = new EMail("joe@doe.com" + iCount);
+            EMail email = new EMail("joe@doe.com" + Guid.NewGuid().ToString());
             email.Primary = true;
             email.Rel = ContactsRelationships.IsWork;
 
             entry.Emails.Add(email);
 
-            email = new EMail("joe@alternate.de" + iCount);
+            email = new EMail("joe@alternate.de" +Guid.NewGuid().ToString());
+            email.Label = "some email";
             entry.Emails.Add(email);
 
             IMAddress im = new IMAddress("joe@im.com");

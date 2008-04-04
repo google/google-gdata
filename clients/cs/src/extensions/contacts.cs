@@ -300,6 +300,10 @@ namespace Google.GData.Extensions
             this.Attributes.Add(GDataParserNameTable.XmlAttributeProtocol, null);
         }
 
+        /// <summary>
+        /// default constructor with an initial value
+        /// </summary>
+        /// <param name="initValue"></param>
         public IMAddress(string initValue) 
             : base(GDataParserNameTable.XmlIMElement, 
                    GDataParserNameTable.gDataPrefix,
@@ -711,7 +715,7 @@ namespace Google.GData.Extensions
         /// </summary>
         /// <param name="initValue"/>
         public OrgTitle(string initValue)
-        : base(GDataParserNameTable.XmlOrgNameElement, 
+        : base(GDataParserNameTable.XmlOrgTitleElement, 
                BaseNameTable.gDataPrefix,
                BaseNameTable.gNamespace, initValue)
         {}
