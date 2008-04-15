@@ -104,7 +104,7 @@ namespace Google.GData.Extensions
         /// <summary>static string for parsing the IM element in a contact</summary>
         public const string XmlIMElement = "im";
         /// <summary>static string for parsing the phonenumber element in a contact</summary>
-        public const string XmlPhoneNumberElement = "phonenumber";
+        public const string XmlPhoneNumberElement = "phoneNumber";
         /// <summary>static string for parsing the postalAddress element in a contact</summary>
         public const string XmlPostalAddressElement = "postalAddress";
         /// <summary>static string for parsing the Organization element in a contact</summary>
