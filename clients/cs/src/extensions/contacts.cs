@@ -464,7 +464,7 @@ namespace Google.GData.Extensions
         /// default empty constructor for gd:PostalAddress
         /// </summary>
         public PostalAddress()
-        : base(GDataParserNameTable.XmlPhoneNumberElement, 
+        : base(GDataParserNameTable.XmlPostalAddressElement, 
                GDataParserNameTable.gDataPrefix,
                GDataParserNameTable.gNamespace)
         {
@@ -474,7 +474,7 @@ namespace Google.GData.Extensions
         ///  default constructor with an initial value
         /// </summary>
         public PostalAddress(string init)
-        : base(GDataParserNameTable.XmlPhoneNumberElement, 
+        : base(GDataParserNameTable.XmlPostalAddressElement, 
                GDataParserNameTable.gDataPrefix,
                GDataParserNameTable.gNamespace, init)
         {
