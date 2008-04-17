@@ -523,8 +523,20 @@
         <member name="P:Google.GData.Client.FeedQuery.Uri">
             <summary>We do not hold on to the precalculated Uri.
             It's safer and cheaper to calculate this on the fly.
-            Setting this loses the base Uri.</summary> 
+            Setting this loses the base Uri.
+            Note that the result of this is effected by the UseSSL flag. 
+            so if you created this with a NON ssl string, but the flag states you 
+            want to use SSL, this will result in an HTTPS URI
+            </summary> 
             <returns>returns the complete UriPart that is used to execute the query</returns>
+        </member>
+        <member name="P:Google.GData.Client.FeedQuery.UseSSL">
+            <summary>
+            indicates if constructed feed URIs should use http or https
+            - if you pass in a full URI, this one will get changed from http to https
+            or the other way round. This is mostly relevant for hosted domains. 
+            </summary>
+            <returns></returns>
         </member>
         <member name="P:Google.GData.Client.FeedQuery.Query">
             <summary>Accessor method public string Query.</summary> 
@@ -3888,6 +3900,17 @@
             <param name="msg"> the exception message as a string</param>
             <param name="response"> the webresponse object that caused the exception</param>
         </member>
+        <member name="T:Google.GData.Client.GDataVersionConflictException">
+            <summary>exception class is thrown when you tried 
+                 to modified/update a resource and the server detected a version 
+                   conflict.
+             </summary> 
+        </member>
+        <member name="M:Google.GData.Client.GDataVersionConflictException.#ctor(System.String,System.Net.WebResponse)">
+            <summary>constructs a version conflict exeception</summary> 
+            <param name="msg"> the exception message as a string</param>
+            <param name="response"> the webresponse object that caused the exception</param>
+        </member>
         <member name="T:Google.GData.Client.RssFeedParser">
             <summary>RssFeedParser
             </summary> 
@@ -4090,6 +4113,22 @@
              session cookie</param>
             <returns>the URL to be used to retrieve the AuthSub token</returns>
         </member>
+        <member name="M:Google.GData.Client.AuthSubUtil.getRequestUrl(System.String,System.String,System.String,System.Boolean,System.Boolean)">
+            <summary>Creates the request URL to be used to retrieve an AuthSub 
+            token. On success, the user will be redirected to the continue URL 
+            with the AuthSub token appended to the URL.
+            Use getTokenFromReply(String) to retrieve the token from the reply.
+            </summary> 
+            <param name="hostedDomain">the name of the hosted domain, 
+            like www.myexample.com</param>
+            <param name="continueUrl">the URL to redirect to on successful 
+            token retrieval</param>
+            <param name="scope">the scope of the requested AuthSub token</param>
+            <param name="secure">if the token will be used securely</param>
+            <param name="session"> if the token will be exchanged for a
+             session cookie</param>
+            <returns>the URL to be used to retrieve the AuthSub token</returns>
+        </member>
         <member name="M:Google.GData.Client.AuthSubUtil.getRequestUrl(System.String,System.String,System.String,System.String,System.Boolean,System.Boolean)">
             <summary>Creates the request URL to be used to retrieve an AuthSub 
             token. On success, the user will be redirected to the continue URL 
@@ -4114,6 +4153,28 @@
             with the AuthSub token appended to the URL.
             Use getTokenFromReply(String) to retrieve the token from the reply.
             </summary> 
+            <param name="protocol">the protocol to use to communicate with the 
+            server</param>
+            <param name="domain">the domain at which the authentication server 
+            exists</param>
+            <param name="handler">the location of the authentication handler
+             (defaults to "/accounts/AuthSubRequest".</param>
+            <param name="continueUrl">the URL to redirect to on successful 
+            token retrieval</param>
+            <param name="scope">the scope of the requested AuthSub token</param>
+            <param name="secure">if the token will be used securely</param>
+            <param name="session"> if the token will be exchanged for a
+             session cookie</param>
+            <returns>the URL to be used to retrieve the AuthSub token</returns>
+        </member>
+        <member name="M:Google.GData.Client.AuthSubUtil.getRequestUrl(System.String,System.String,System.String,System.String,System.String,System.String,System.Boolean,System.Boolean)">
+            <summary>Creates the request URL to be used to retrieve an AuthSub 
+            token. On success, the user will be redirected to the continue URL 
+            with the AuthSub token appended to the URL.
+            Use getTokenFromReply(String) to retrieve the token from the reply.
+            </summary> 
+            <param name="hostedDomain">the name of the hosted domain, 
+            like www.myexample.com</param>
             <param name="protocol">the protocol to use to communicate with the 
             server</param>
             <param name="domain">the domain at which the authentication server 

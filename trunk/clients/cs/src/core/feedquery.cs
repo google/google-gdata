@@ -202,6 +202,7 @@ namespace Google.GData.Client
             // set some defaults...
             this.FeedFormat = AlternativeFormat.Atom;
             this.baseUri = baseUri; 
+            this.UseSSL = this.baseUri.StartsWith("https://");
         }
         /////////////////////////////////////////////////////////////////////////////
 
@@ -527,6 +528,7 @@ namespace Google.GData.Client
 
                 newUri.Path = newPath.ToString(); 
                 this.baseUri = newUri.Uri.AbsoluteUri;
+                this.UseSSL = this.baseUri.StartsWith("https://");
 
             }
             return null; 
