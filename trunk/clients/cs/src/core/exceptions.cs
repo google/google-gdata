@@ -459,4 +459,25 @@ namespace Google.GData.Client
       }
 
     }
+
+    //////////////////////////////////////////////////////////////////////
+    /// <summary>exception class is thrown when you tried 
+    ///      to modified/update a resource and the server detected a version 
+    ///        conflict.
+    ///  </summary> 
+    //////////////////////////////////////////////////////////////////////    
+    public class GDataVersionConflictException : GDataRequestException
+    {
+      //////////////////////////////////////////////////////////////////////
+      /// <summary>constructs a version conflict exeception</summary> 
+      /// <param name="msg"> the exception message as a string</param>
+      /// <param name="response"> the webresponse object that caused the exception</param>
+      //////////////////////////////////////////////////////////////////////
+      public GDataVersionConflictException(string msg, WebResponse response)
+        : base(msg)
+      {
+        this.webResponse = response;
+      }
+
+    }
 } /////////////////////////////////////////////////////////////////////////////

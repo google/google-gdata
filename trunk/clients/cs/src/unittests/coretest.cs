@@ -168,6 +168,36 @@ namespace Google.GData.Client.UnitTests
         }
         /////////////////////////////////////////////////////////////////////////////
 
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>[Test] Creates a feedquery and checks if the SSL translation works</summary> 
+        //////////////////////////////////////////////////////////////////////
+        [Test] public void QuerySSLTest()
+        {
+
+            Tracing.TraceMsg("Entering QuerySSLTest test");
+
+            FeedQuery query = new FeedQuery();
+            query.Uri = new Uri("http://www.google.com");
+            Assert.AreEqual("http://www.google.com", query.Uri.ToString(), "both uris should be http now");
+            query.UseSSL = true;
+            Assert.AreEqual("https://www.google.com", query.Uri.ToString(), "both uris should be https now");
+            query.UseSSL = false;
+            Assert.AreEqual("http://www.google.com", query.Uri.ToString(), "both uris should be http now");
+
+            // now construct the other way round
+
+            query = new FeedQuery();
+            query.Uri = new Uri("https://www.google.com");
+
+            Assert.AreEqual("https://www.google.com", query.Uri.ToString(), "both uris should be https now");
+            query.UseSSL = false;
+            Assert.AreEqual("http://www.google.com", query.Uri.ToString(), "both uris should be http now");
+            query.UseSSL = true;
+            Assert.AreEqual("https://www.google.com", query.Uri.ToString(), "both uris should be https now");
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>[Test] creates a new entry, saves and loads it back
