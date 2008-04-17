@@ -177,6 +177,9 @@ namespace Google.GData.Client
         private int numToRetrieve;
         /// <summary>alternative format as AlternativeFormat</summary> 
         private AlternativeFormat altFormat;
+
+        private bool defaultSSL; 
+
         /// <summary>the base URI</summary> 
         protected string baseUri;
         #endregion
@@ -207,13 +210,18 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         /// <summary>We do not hold on to the precalculated Uri.
         /// It's safer and cheaper to calculate this on the fly.
-        /// Setting this loses the base Uri.</summary> 
+        /// Setting this loses the base Uri.
+        /// Note that the result of this is effected by the UseSSL flag. 
+        /// so if you created this with a NON ssl string, but the flag states you 
+        /// want to use SSL, this will result in an HTTPS URI
+        /// </summary> 
         /// <returns>returns the complete UriPart that is used to execute the query</returns>
         //////////////////////////////////////////////////////////////////////
         public Uri Uri
         {
             get {
-                return new Uri(this.baseUri + CalculateQuery());
+                String uriToUse = this.baseUri.Replace(this.UnusedProtocol, this.DefaultProtocol);
+                return new Uri(uriToUse + CalculateQuery());
                 }
             
 #if WindowsCE || PocketPC
@@ -248,6 +256,34 @@ namespace Google.GData.Client
         /////////////////////////////////////////////////////////////////////////////
 #endif
 
+        /// <summary>
+        /// indicates if constructed feed URIs should use http or https
+        /// - if you pass in a full URI, this one will get changed from http to https
+        /// or the other way round. This is mostly relevant for hosted domains. 
+        /// </summary>
+        /// <returns></returns>
+        public bool UseSSL
+        {
+            get { return this.defaultSSL; }
+            set { this.defaultSSL = value; }
+        }
+
+        private string DefaultProtocol
+        {
+            get 
+            {
+                return this.UseSSL == true ? "https://" : "http://"; 
+            }
+            
+        }
+
+        private string UnusedProtocol
+        {
+            get 
+            {
+                return this.UseSSL == true ? "http://" : "https://"; 
+            }
+        }
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>Accessor method public string Query.</summary> 

@@ -614,6 +614,13 @@ namespace Google.GData.Client
                                                     this.targetUri.ToString() + response.StatusCode.ToString(), this.webResponse); 
                 }
 
+                if (response.StatusCode == HttpStatusCode.Conflict)
+                {
+                    // a put went bad due to a version conflict
+                    throw new GDataVersionConflictException("Execution of request returned HttpStatusCode.Conflict: " + 
+                                                    this.targetUri.ToString() + response.StatusCode.ToString(), this.webResponse); 
+                }
+
                 if (this.IfModifiedSince != DateTime.MinValue && response.StatusCode == HttpStatusCode.NotModified)
                 {
                     // Throw an exception for conditional GET
