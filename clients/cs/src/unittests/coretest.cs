@@ -177,23 +177,25 @@ namespace Google.GData.Client.UnitTests
             Tracing.TraceMsg("Entering QuerySSLTest test");
 
             FeedQuery query = new FeedQuery();
-            query.Uri = new Uri("http://www.google.com");
-            Assert.AreEqual("http://www.google.com", query.Uri.ToString(), "both uris should be http now");
+            query.Uri = new Uri("http://www.google.com/");
+            Assert.AreEqual("http://www.google.com/", query.Uri.ToString(), "both uris should be http now");
             query.UseSSL = true;
-            Assert.AreEqual("https://www.google.com", query.Uri.ToString(), "both uris should be https now");
+            Assert.AreEqual("https://www.google.com/", query.Uri.ToString(), "both uris should be https now");
             query.UseSSL = false;
-            Assert.AreEqual("http://www.google.com", query.Uri.ToString(), "both uris should be http now");
+            Assert.AreEqual("http://www.google.com/", query.Uri.ToString(), "both uris should be http now");
 
             // now construct the other way round
 
             query = new FeedQuery();
-            query.Uri = new Uri("https://www.google.com");
+            query.Uri = new Uri("https://www.google.com/");
 
-            Assert.AreEqual("https://www.google.com", query.Uri.ToString(), "both uris should be https now");
+            Assert.IsTrue(query.UseSSL, "Use SSL should be true due to detection of the https string");
+
+            Assert.AreEqual("https://www.google.com/", query.Uri.ToString(), "both uris should be https now");
             query.UseSSL = false;
-            Assert.AreEqual("http://www.google.com", query.Uri.ToString(), "both uris should be http now");
+            Assert.AreEqual("http://www.google.com/", query.Uri.ToString(), "both uris should be http now");
             query.UseSSL = true;
-            Assert.AreEqual("https://www.google.com", query.Uri.ToString(), "both uris should be https now");
+            Assert.AreEqual("https://www.google.com/", query.Uri.ToString(), "both uris should be https now");
         }
         /////////////////////////////////////////////////////////////////////////////
 
