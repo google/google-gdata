@@ -752,7 +752,7 @@ namespace Google.GData.Client.LiveTests
                     AclEntry entry = new AclEntry();
                     entry.Role = AclRole.ACL_CALENDAR_FREEBUSY;
                     AclScope scope = new AclScope();
-                    scope.Value = "meohmy@test.com"; 
+                    scope.Value = "meoh2my@test.com"; 
                     scope.Type = AclScope.SCOPE_DEFAULT;
                     entry.Scope = scope;
 

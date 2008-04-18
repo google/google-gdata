@@ -33,7 +33,6 @@ namespace Google.GData.AccessControl
     public class AclEntry : AbstractEntry
     {
 
-        private AclRole aclRole;
         private AclScope aclScope;
 
         /// <summary>
@@ -51,6 +50,7 @@ namespace Google.GData.AccessControl
         {
             Categories.Add(ACL_CATEGORY);
             this.AddExtension(new AclRole());
+            this.AddExtension(new AclScope());
         }
 
 
@@ -64,15 +64,15 @@ namespace Google.GData.AccessControl
         /// </summary>
         public AclRole Role
         {
-            get { return this.aclRole;}
+            get 
+            { 
+                return FindExtension(AclNameTable.XmlAclRoleElement,
+                                     AclNameTable.gAclNamespace) as AclRole;
+            }
             set
             {
-                if (this.aclRole != null)
-                {
-                    ExtensionElements.Remove(this.aclRole);
-                }
-                this.aclRole = value; 
-                ExtensionElements.Add(this.aclRole);
+                ReplaceExtension(AclNameTable.XmlAclRoleElement,
+                                     AclNameTable.gAclNamespace, value);
             }
         }
 
@@ -81,65 +81,20 @@ namespace Google.GData.AccessControl
         /// </summary>
         public AclScope Scope 
         {
-            get { return this.aclScope;}
+            get 
+            { 
+                return FindExtension(AclNameTable.XmlAclScopeElement,
+                                     AclNameTable.gAclNamespace) as AclScope;
+            }
             set
             {
-                if (this.aclScope != null)
-                {
-                    ExtensionElements.Remove(this.aclScope);
-                }
-                this.aclScope = value; 
-                ExtensionElements.Add(this.aclScope);
+                ReplaceExtension(AclNameTable.XmlAclScopeElement,
+                                     AclNameTable.gAclNamespace, value);
             }
         }
 
     
 #endregion
-
-       
-
-#region AclEntry Parser
-
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>parses the inner state of the element</summary>
-        /// <param name="e">the extensionelement during the parsing process, xml node</param>
-        /// <param name="parser">the atomFeedParser that called this</param>
-        //////////////////////////////////////////////////////////////////////
-        public override void Parse(ExtensionElementEventArgs e, AtomFeedParser parser)
-        {
-
-            Tracing.Assert(parser != null, "parser should not be null");
-            Tracing.Assert(e != null, "e should not be null");
-            if (e == null)
-            {
-                throw new ArgumentNullException("e");
-            }
-            if (parser == null)
-            {
-                throw new ArgumentNullException("parser");
-            }
-
-            // AclRole is changed to IExtensionElementFactory, so call base
-            // see addEventEntryExtensions()
-            base.Parse(e, parser);
-
-           
-            Tracing.TraceCall("AclEntry:Parse is called:" + e);
-            XmlNode node = e.ExtensionElement;
- 
-            if (String.Compare(node.NamespaceURI, AclNameTable.gAclNamespace, true) == 0)
-            {
-                // Parse a Where Element
-                if (node.LocalName == AclNameTable.XmlAclScopeElement)
-                {
-                    this.Scope = AclScope.parse(node);
-                    e.DiscardEntry = true;
-                }
-            }
-        }
-
-#endregion
-
     }
 }
 

@@ -153,50 +153,5 @@ namespace Google.GData.Extensions {
             // the hashcode for an enum will be derived by it's value          
             return value != null ? value.GetHashCode() : 0;
         }
-
-        #region overloaded for persistence
-
-        /*
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>Returns the constant representing this XML element.</summary> 
-        //////////////////////////////////////////////////////////////////////
-        public string XmlName
-        {
-            get { return Type; }
-        }
-
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>Returns the constant representing this XML element.</summary> 
-        //////////////////////////////////////////////////////////////////////
-        public virtual string XmlNamespace
-        {
-            get { return BaseNameTable.gNamespace; }
-        }
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>Returns the constant representing this XML element.</summary> 
-        //////////////////////////////////////////////////////////////////////
-        public virtual string XmlNamespacePrefix
-        {
-            get { return BaseNameTable.gDataPrefix; }
-        }
-        
-
-        /// <summary>
-        /// Persistence method for the EnumConstruct object
-        /// </summary>
-        /// <param name="writer">the xmlwriter to write into</param>
-        public void Save(XmlWriter writer)
-        {
-            if (Utilities.IsPersistable(this.value))
-            {
-                
-                writer.WriteStartElement(XmlNamespacePrefix, XmlName, XmlNamespace); 
-                writer.WriteAttributeString(BaseNameTable.XmlValue, this.value);
-                writer.WriteEndElement();
-            }
-        }
-
-        */
-        #endregion
     }
 }   

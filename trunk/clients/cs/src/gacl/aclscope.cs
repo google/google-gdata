@@ -24,14 +24,11 @@ using Google.GData.Extensions;
 namespace Google.GData.AccessControl 
 {
 
-     /// <summary>
+    /// <summary>
     /// GData schema extension describing an account role
     /// </summary>
-    public class AclScope : IExtensionElement
+    public class AclScope : SimpleAttribute
     {
-        private string type;
-        private string value;
-
         /// <summary>string constant for the user scope</summary>
         public const string SCOPE_USER =  "user";
         /// <summary>string constant for the user scope</summary>
@@ -39,26 +36,29 @@ namespace Google.GData.AccessControl
         /// <summary>string constant for the user scope</summary>
         public const string SCOPE_DEFAULT =  "default";
 
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>Returns the constant representing this XML element.
-        /// </summary> 
-        //////////////////////////////////////////////////////////////////////
-        public static string XmlName
+        public AclScope() : base(AclNameTable.XmlAclScopeElement,
+                                         AclNameTable.gAclAlias,
+                                        AclNameTable.gAclNamespace)
         {
-            get { return AclNameTable.XmlAclScopeElement; }
+            this.Attributes.Add(AclNameTable.XmlAttributeType, null);
         }
 
-
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>accessor method public String Value</summary> 
-        /// <returns> </returns>
-        //////////////////////////////////////////////////////////////////////
-        public string Value
+        public AclScope(string initValue) : base(GDataParserNameTable.XmlExtendedPropertyElement,
+                                         BaseNameTable.gDataPrefix,
+                                         BaseNameTable.gNamespace,
+                                         initValue)
         {
-            get {return this.value;}
-            set {this.value = value;}
+            this.Attributes.Add(AclNameTable.XmlAttributeType, null);
         }
-        // end of accessor public String Value
+
+        public AclScope(string initValue, string initName) : base(GDataParserNameTable.XmlExtendedPropertyElement,
+                                         BaseNameTable.gDataPrefix,
+                                         BaseNameTable.gNamespace,
+                                         initValue)
+        {
+            this.Attributes.Add(AclNameTable.XmlAttributeType, initName);
+        }
+
 
 
         //////////////////////////////////////////////////////////////////////
@@ -67,13 +67,13 @@ namespace Google.GData.AccessControl
         //////////////////////////////////////////////////////////////////////
         public String Type
         {
-            get {return this.type;}
+            get {return this.Attributes[AclNameTable.XmlAttributeType] as string;}
             set {
                 if (String.Compare(value, SCOPE_USER) == 0 ||
                     String.Compare(value, SCOPE_DOMAIN) == 0 || 
                     String.Compare(value, SCOPE_DEFAULT) == 0)
                 {
-                    this.type = value;
+                    this.Attributes[AclNameTable.XmlAttributeType] = value;
                     if (String.Compare(value, SCOPE_DEFAULT) == 0)
                     {
                         // empty the value
@@ -87,69 +87,5 @@ namespace Google.GData.AccessControl
             }
         }
         // end of accessor public string Type
-
-        /// <summary>
-        ///  parse method is called from the atom parser to populate an Transparency node
-        /// </summary>
-        /// <param name="node">the xmlnode to parser</param>
-        /// <returns>Notifications object</returns>
-        public static AclScope parse(XmlNode node)
-        {
-            Tracing.Assert(node != null, "node should not be null");
-            if (node == null)
-            {
-                throw new ArgumentNullException("node");
-            }
-
-            AclScope scope = null;
-            Tracing.TraceMsg("Parsing a gAcl:AclScope" + node);
-            if (String.Compare(node.NamespaceURI, AclNameTable.gAclNamespace, true) == 0
-                && String.Compare(node.LocalName, AclNameTable.XmlAclScopeElement) == 0)
-            {
-                scope = new AclScope();
-                if (node.Attributes != null)
-                {
-                    if (node.Attributes[AclNameTable.XmlValue] != null)
-                    {
-                        scope.Value = node.Attributes[AclNameTable.XmlValue].Value;
-                    }
-                    if (node.Attributes[AclNameTable.XmlAttributeType] != null)
-                    {
-                        scope.Type = node.Attributes[AclNameTable.XmlAttributeType].Value;
-                    }
-                    Tracing.TraceMsg("AclScope parsed, value = " + scope.Value + ", type= " + scope.Type);
-                }
-            }
-            return scope;
-        }
-
-        /// <summary>
-        /// Persistence method for the When object
-        /// </summary>
-        /// <param name="writer">the xmlwriter to write into</param>
-        public void Save(XmlWriter writer)
-        {
-
-            Tracing.Assert(writer != null, "writer should not be null");
-            if (writer == null)
-            {
-                throw new ArgumentNullException("writer");
-            }
-       
-            if (Utilities.IsPersistable(this.type) ||
-                Utilities.IsPersistable(this.value))
-            {
-                writer.WriteStartElement(AclNameTable.gAclAlias, XmlName, AclNameTable.gAclNamespace);
-                if (Utilities.IsPersistable(this.type))
-                {
-                    writer.WriteAttributeString(AclNameTable.XmlAttributeType, this.type);
-                }
-                if (Utilities.IsPersistable(this.value))
-                {
-                    writer.WriteAttributeString(AclNameTable.XmlValue, this.value);
-                }
-                writer.WriteEndElement();
-            }
-        }
     }
 }
