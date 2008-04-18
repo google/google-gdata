@@ -59,7 +59,7 @@ namespace Google.GData.AccessControl
         ///  default constructor
         /// </summary>
         public AclRole()
-        : base(AclNameTable.XmlAclRoleElement)
+        : base(AclNameTable.XmlAclRoleElement, AclNameTable.gAclAlias, AclNameTable.gAclNamespace)
         {
         }
 
@@ -68,46 +68,8 @@ namespace Google.GData.AccessControl
         /// </summary>
         /// <param name="value">transparency value</param>
         public AclRole(string value)
-        : base(AclNameTable.XmlAclRoleElement, value)
+        : base(AclNameTable.XmlAclRoleElement, AclNameTable.gAclAlias, AclNameTable.gAclNamespace, value)
         {
-        }
-
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>Returns the constant representing this XML element.</summary> 
-        //////////////////////////////////////////////////////////////////////
-        public override string XmlNamespace
-        {
-            get { return AclNameTable.gAclNamespace; }
-        }
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>Returns the constant representing this XML element.</summary> 
-        //////////////////////////////////////////////////////////////////////
-        public override string XmlNamespacePrefix
-        {
-            get { return AclNameTable.gAclAlias; }
-        }
-
-        /// <summary>
-        ///  parse method is called from the atom parser to populate an Transparency node
-        /// </summary>
-        /// <param name="node">the xmlnode to parser</param>
-        /// <returns>Notifications object</returns>
-        public static AclRole parse(XmlNode node)
-        {
-            Tracing.Assert(node != null, "node should not be null");
-            if (node == null)
-            {
-                throw new ArgumentNullException("node");
-            }
-            AclRole role = null;
-            Tracing.TraceMsg("Parsing a gAcl:AclRole");
-            if (String.Compare(node.NamespaceURI, AclNameTable.gAclNamespace, true) == 0
-                && String.Compare(node.LocalName, AclNameTable.XmlAclRoleElement) == 0)
-            {
-                role = new AclRole();
-                role.Value = Utilities.GetAttributeValue("value", node);
-            }
-            return role;
         }
     }
 }

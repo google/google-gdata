@@ -94,6 +94,13 @@ namespace Google.GData.Calendar {
             this.AddExtension(new Who());
             this.AddExtension(new When());
             this.AddExtension(new OriginalEvent());
+            this.AddExtension(new SendNotifications());
+            this.AddExtension(new Transparency());
+            this.AddExtension(new Visibility());
+            this.AddExtension(new EventStatus());
+            this.AddExtension(new RecurrenceException());
+            this.AddExtension(new Comments());
+            this.AddExtension(new ExtendedProperty());
         }
 
         /// <summary>
@@ -130,23 +137,6 @@ namespace Google.GData.Calendar {
             public static EventStatus TENTATIVE = new EventStatus(TENTATIVE_VALUE);
             /// <summary>EventStatus constant for a Cancelled  event</summary>
             public static EventStatus CANCELED = new EventStatus(CANCELED_VALUE);
-
-
-            /// <summary>
-            ///  parse method is called from the atom parser to populate an EventStatus node
-            /// </summary>
-            /// <param name="node">the xmlnode to parser</param>
-            /// <returns>EventStatus object</returns>
-            public static EventStatus parse(XmlNode node)
-            {
-                EventStatus eventStatus = null;
-                if (String.Compare(node.NamespaceURI, BaseNameTable.gNamespace, true) == 0)
-                {
-                    eventStatus = new EventStatus();
-                    eventStatus.Value = Utilities.GetAttributeValue("value", node);
-                }
-                return eventStatus;
-            }
         }
 
         /// <summary>
@@ -188,22 +178,6 @@ namespace Google.GData.Calendar {
             public static Visibility CONFIDENTIAL = new Visibility(CONFIDENTIAL_VALUE);
             /// <summary>object constant for the private visibility value</summary>
             public static Visibility PRIVATE = new Visibility(PRIVATE_VALUE);
-
-            /// <summary>
-            ///  parse method is called from the atom parser to populate an Visibility node
-            /// </summary>
-            /// <param name="node">the xmlnode to parser</param>
-            /// <returns>Visibility object</returns>
-            public static Visibility parse(XmlNode node)
-            {
-                Visibility vis = null;
-                if (String.Compare(node.NamespaceURI, BaseNameTable.gNamespace, true) == 0)
-                {
-                    vis = new Visibility();
-                    vis.Value = Utilities.GetAttributeValue("value", node);
-                }
-                return vis;
-            }
         }
 
         /// <summary>
@@ -237,22 +211,6 @@ namespace Google.GData.Calendar {
             public static Transparency OPAQUE = new Transparency(OPAQUE_VALUE);
             /// <summary>object constant for the transparent transparency value</summary>
             public static Transparency TRANSPARENT = new Transparency(TRANSPARENT_VALUE);
-
-            /// <summary>
-            ///  parse method is called from the atom parser to populate an Transparency node
-            /// </summary>
-            /// <param name="node">the xmlnode to parser</param>
-            /// <returns>Transparency object</returns>
-            public static Transparency parse(XmlNode node)
-            {
-                Transparency trans = null;
-                if (String.Compare(node.NamespaceURI, BaseNameTable.gNamespace, true) == 0)
-                {
-                    trans = new Transparency();
-                    trans.Value = Utilities.GetAttributeValue("value", node);
-                }
-                return trans;
-            }
         }
 
         /// <summary>
@@ -265,7 +223,9 @@ namespace Google.GData.Calendar {
             ///  default constructor
             /// </summary>
             public SendNotifications()
-            : base(GDataParserNameTable.XmlSendNotificationsElement)
+            : base(GDataParserNameTable.XmlSendNotificationsElement,
+                   GDataParserNameTable.gCalPrefix,
+                   GDataParserNameTable.NSGCal)
             {
             }
 
@@ -274,42 +234,10 @@ namespace Google.GData.Calendar {
             /// </summary>
             /// <param name="value">transparency value</param>
             public SendNotifications(string value)
-            : base(GDataParserNameTable.XmlSendNotificationsElement, value)
+            : base(GDataParserNameTable.XmlSendNotificationsElement,
+                   GDataParserNameTable.gCalPrefix,
+                   GDataParserNameTable.NSGCal, value)
             {
-            }
-
-            //////////////////////////////////////////////////////////////////////
-            /// <summary>Returns the constant representing this XML element.</summary> 
-            //////////////////////////////////////////////////////////////////////
-            public override string XmlNamespace
-            {
-                get { return GDataParserNameTable.NSGCal; }
-            }
-            //////////////////////////////////////////////////////////////////////
-            /// <summary>Returns the constant representing this XML element.</summary> 
-            //////////////////////////////////////////////////////////////////////
-            public override string XmlNamespacePrefix
-            {
-                get { return GDataParserNameTable.gCalPrefix; }
-            }
-
-
-
-            /// <summary>
-            ///  parse method is called from the atom parser to populate an Transparency node
-            /// </summary>
-            /// <param name="node">the xmlnode to parser</param>
-            /// <returns>Notifications object</returns>
-            public static SendNotifications parse(XmlNode node)
-            {
-                SendNotifications notify = null;
-                Tracing.TraceMsg("Parsing a gCal:SendNotifications");
-                if (String.Compare(node.NamespaceURI, GDataParserNameTable.NSGCal, true) == 0)
-                {
-                    notify = new SendNotifications();
-                    notify.Value = Utilities.GetAttributeValue("value", node);
-                }
-                return notify;
             }
         }
 
@@ -323,7 +251,9 @@ namespace Google.GData.Calendar {
             ///  default constructor
             /// </summary>
             public QuickAddElement()
-            : base(GDataParserNameTable.XmlQuickAddElement)
+            : base(GDataParserNameTable.XmlQuickAddElement,
+                   GDataParserNameTable.gCalPrefix,
+                   GDataParserNameTable.NSGCal)
             {
             }
 
@@ -335,21 +265,6 @@ namespace Google.GData.Calendar {
             : base(GDataParserNameTable.XmlQuickAddElement, value)
             {
             }
-
-            //////////////////////////////////////////////////////////////////////
-            /// <summary>Returns the constant representing this XML element.</summary> 
-            //////////////////////////////////////////////////////////////////////
-            public override string XmlNamespace
-            {
-                get { return GDataParserNameTable.NSGCal; }
-            }
-            //////////////////////////////////////////////////////////////////////
-            /// <summary>Returns the constant representing this XML element.</summary> 
-            //////////////////////////////////////////////////////////////////////
-            public override string XmlNamespacePrefix
-            {
-                get { return GDataParserNameTable.gCalPrefix; }
-            }
         }
 
 
@@ -359,6 +274,7 @@ namespace Google.GData.Calendar {
         private WhenCollection times;
         private WhereCollection locations;
         private WhoCollection participants;
+        /*
         private EventStatus status;
         private Visibility visibility;
         private Transparency transparency;
@@ -367,7 +283,7 @@ namespace Google.GData.Calendar {
         private RecurrenceException exception; 
         private SendNotifications sendNotifications;
         private QuickAddElement quickAdd;
-
+        */
 #endregion
 
 #region Public Methods
@@ -416,22 +332,6 @@ namespace Google.GData.Calendar {
             }
         }
 
-        /// <summary>
-        ///  property accessor for the EventStatus
-        /// </summary>
-        public EventStatus Status
-        {
-            get { return status;}
-            set
-            {
-                if (status != null)
-                {
-                    ExtensionElements.Remove(status);
-                }
-                status = value; 
-                ExtensionElements.Add(status);
-            }
-        }
 
         /// <summary>
         ///  property accessor for the Eventnotifications
@@ -439,34 +339,37 @@ namespace Google.GData.Calendar {
         /// </summary>
         public bool Notifications
         {
-            get { 
-                    if (this.sendNotifications == null)
-                    {
-                        return false;
-                    }
-                    return this.sendNotifications.Value == Utilities.XSDTrue;
-                }
+            get 
+            { 
+                SendNotifications n = FindExtension(GDataParserNameTable.XmlSendNotificationsElement,
+                                     GDataParserNameTable.NSGCal) as SendNotifications;
 
-            set 
+                if (n == null)
+                {
+                    return false;
+                }
+                return n.Value == Utilities.XSDTrue; 
+            }
+            set
             {
+                SendNotifications n = FindExtension(GDataParserNameTable.XmlSendNotificationsElement,
+                                     GDataParserNameTable.NSGCal) as SendNotifications;
                 if (value == true)
                 {
-
-                    if (this.sendNotifications == null)
+                    if (n == null)
                     {
-                        this.sendNotifications = new SendNotifications(); 
-                        ExtensionElements.Add(this.sendNotifications);
+                        n = new SendNotifications(); 
+                        ExtensionElements.Add(n);
                     }
-                    this.sendNotifications.Value = Utilities.XSDTrue;
+                    n.Value = Utilities.XSDTrue;
                 }
                 else 
                 {
-                    if (this.sendNotifications != null)
+                    if (n != null)
                     {
-                        ExtensionElements.Remove(this.sendNotifications);
-                        this.sendNotifications = null; 
+                        DeleteExtensions(GDataParserNameTable.XmlSendNotificationsElement,
+                                     GDataParserNameTable.NSGCal);
                     }
-
                 }
             }
         }
@@ -480,32 +383,36 @@ namespace Google.GData.Calendar {
         /// </summary>
         public bool QuickAdd
         {
-            get { 
-                    if (this.quickAdd == null)
-                    {
-                        return false;
-                    }
-                    return this.quickAdd.Value == "true"; 
-                }
+            get 
+            { 
+                QuickAddElement q = FindExtension(GDataParserNameTable.XmlQuickAddElement,
+                                     GDataParserNameTable.NSGCal) as QuickAddElement;
 
-            set 
+                if (q == null)
+                {
+                    return false;
+                }
+                return q.Value == Utilities.XSDTrue; 
+            }
+            set
             {
+                QuickAddElement q = FindExtension(GDataParserNameTable.XmlQuickAddElement,
+                                     GDataParserNameTable.NSGCal) as QuickAddElement;
                 if (value == true)
                 {
-
-                    if (this.quickAdd == null)
+                    if (q == null)
                     {
-                        this.quickAdd = new QuickAddElement(); 
-                        ExtensionElements.Add(this.quickAdd);
+                        q = new QuickAddElement(); 
+                        ExtensionElements.Add(q);
                     }
-                    this.quickAdd.Value = Utilities.XSDTrue;
+                    q.Value = Utilities.XSDTrue;
                 }
                 else 
                 {
-                    if (this.quickAdd != null)
+                    if (q != null)
                     {
-                        ExtensionElements.Remove(this.quickAdd);
-                        this.quickAdd = null; 
+                        DeleteExtensions(GDataParserNameTable.XmlQuickAddElement,
+                                     GDataParserNameTable.NSGCal);
                     }
                 }
             }
@@ -513,21 +420,38 @@ namespace Google.GData.Calendar {
 
 
 
+        /// <summary>
+        ///  property accessor for the EventStatus
+        /// </summary>
+        public EventStatus Status
+        {
+            get 
+            { 
+                return FindExtension(GDataParserNameTable.XmlEventStatusElement,
+                                     GDataParserNameTable.gNamespace) as EventStatus;
+            }
+            set
+            {
+                ReplaceExtension(GDataParserNameTable.XmlEventStatusElement,
+                                     GDataParserNameTable.gNamespace, value);
+            }
+        }
+
 
         /// <summary>
         ///  property accessor for the Event Visibility 
         /// </summary>
         public Visibility EventVisibility
         {
-            get { return visibility; }
-            set 
+            get 
+            { 
+                return FindExtension(GDataParserNameTable.XmlVisibilityElement,
+                                     GDataParserNameTable.gNamespace) as Visibility;
+            }
+            set
             {
-                if (visibility != null)
-                {
-                    ExtensionElements.Remove(visibility);
-                }
-                visibility = value; 
-                ExtensionElements.Add(visibility); 
+                ReplaceExtension(GDataParserNameTable.XmlVisibilityElement,
+                                     GDataParserNameTable.gNamespace, value);
             }
         }
 
@@ -536,15 +460,15 @@ namespace Google.GData.Calendar {
         /// </summary>
         public Transparency EventTransparency
         {
-            get { return transparency;}
+            get 
+            { 
+                return FindExtension(GDataParserNameTable.XmlTransparencyElement,
+                                     GDataParserNameTable.gNamespace) as Transparency;
+            }
             set
             {
-                if (transparency != null)
-                {
-                    ExtensionElements.Remove(transparency);
-                }
-                transparency = value; 
-                ExtensionElements.Add(transparency);
+                ReplaceExtension(GDataParserNameTable.XmlTransparencyElement,
+                                     GDataParserNameTable.gNamespace, value);
             }
         }
 
@@ -553,15 +477,15 @@ namespace Google.GData.Calendar {
         /// </summary>
         public Recurrence Recurrence
         {
-            get { return recurrence;}
+            get 
+            { 
+                return FindExtension(GDataParserNameTable.XmlRecurrenceElement,
+                                     GDataParserNameTable.gNamespace) as Recurrence;
+            }
             set
             {
-                if (recurrence != null)
-                {
-                    ExtensionElements.Remove(recurrence);
-                }
-                recurrence = value; 
-                ExtensionElements.Add(recurrence);
+                ReplaceExtension(GDataParserNameTable.XmlRecurrenceElement,
+                                     GDataParserNameTable.gNamespace, value);
             }
         }
 
@@ -570,16 +494,16 @@ namespace Google.GData.Calendar {
       /// </summary>
       public RecurrenceException RecurrenceException
       {
-          get { return exception;}
-          set
-          {
-              if (exception != null)
-              {
-                  ExtensionElements.Remove(exception);
-              }
-              exception = value; 
-              ExtensionElements.Add(exception);
-          }
+            get 
+            { 
+                return FindExtension(GDataParserNameTable.XmlRecurrenceExceptionElement,
+                                     GDataParserNameTable.gNamespace) as RecurrenceException;
+            }
+            set
+            {
+                ReplaceExtension(GDataParserNameTable.XmlRecurrenceExceptionElement,
+                                     GDataParserNameTable.gNamespace, value);
+            }
       }
 
         /// <summary>
@@ -590,12 +514,29 @@ namespace Google.GData.Calendar {
             get 
             { 
                 return FindExtension(GDataParserNameTable.XmlOriginalEventElement,
-                                     BaseNameTable.gNamespace) as OriginalEvent;
+                                     GDataParserNameTable.gNamespace) as OriginalEvent;
             }
             set
             {
                 ReplaceExtension(GDataParserNameTable.XmlOriginalEventElement,
-                                     BaseNameTable.gNamespace, value);
+                                     GDataParserNameTable.gNamespace, value);
+            }
+        }
+
+        /// <summary>
+        ///  property accessor for the Comments
+        /// </summary>
+        public Comments Comments
+        {
+            get 
+            { 
+                return FindExtension(GDataParserNameTable.XmlCommentsElement,
+                                     GDataParserNameTable.gNamespace) as Comments;
+            }
+            set
+            {
+                ReplaceExtension(GDataParserNameTable.XmlCommentsElement,
+                                     GDataParserNameTable.gNamespace, value);
             }
         }
 
@@ -681,22 +622,6 @@ namespace Google.GData.Calendar {
             }
         }
 
-        /// <summary>
-        ///  property accessor for the Comments
-        /// </summary>
-        public Comments Comments
-        {
-            get { return comments;}
-            set
-            {
-                if (comments != null)
-                {
-                    ExtensionElements.Remove(comments);
-                }
-                comments = value;
-                ExtensionElements.Add(comments);
-            }
-        }
 
         /// <summary>
         /// Property to retrieve/set an associated WebContentLink
@@ -739,77 +664,6 @@ namespace Google.GData.Calendar {
             return base.CreateAtomSubElement(reader, parser);
             
         }
-     
-
-#region Event Parser
-
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>parses the inner state of the element</summary>
-        /// <param name="e">evennt arguments</param>
-        /// <param name="parser">the atomFeedParser that called this</param>
-        //////////////////////////////////////////////////////////////////////
-        public override void Parse(ExtensionElementEventArgs e, AtomFeedParser parser)
-        {
-            XmlNode eventNode = e.ExtensionElement;
-
-            // reminders and recurrence are already changed to IExtensionElementFactory, so call base
-            // see addEventEntryExtensions()
-            base.Parse(e, parser);
-
-            if (String.Compare(eventNode.NamespaceURI, BaseNameTable.gNamespace, true) == 0)
-            {
-                // Parse a Status Element
-                if (eventNode.LocalName == GDataParserNameTable.XmlEventStatusElement)
-                {
-                    this.Status = EventStatus.parse(eventNode);
-                    e.DiscardEntry = true;
-                }
-                // Parse a Visibility Element
-                else if (eventNode.LocalName == GDataParserNameTable.XmlVisibilityElement)
-                {
-                    this.EventVisibility = Visibility.parse(eventNode);
-                    e.DiscardEntry = true;
-                }
-                // Parse a Transparency Element
-                else if (eventNode.LocalName == GDataParserNameTable.XmlTransparencyElement)
-                {
-                    this.EventTransparency = Transparency.parse(eventNode);
-                    e.DiscardEntry = true;
-                }
-                else if (eventNode.LocalName == GDataParserNameTable.XmlRecurrenceExceptionElement)
-                {
-                    this.RecurrenceException = RecurrenceException.ParseRecurrenceException(eventNode, parser);
-                    e.DiscardEntry = true;
-                }
-                // Parse a Comments Element
-                else if (eventNode.LocalName == GDataParserNameTable.XmlCommentsElement)
-                {
-                    this.Comments = Comments.ParseComments(eventNode);
-                    e.DiscardEntry = true;
-                } else if (eventNode.LocalName == GDataParserNameTable.XmlExtendedPropertyElement)
-                {
-                    ExtendedProperty p = ExtendedProperty.Parse(eventNode); 
-                    if (p != null)
-                    {
-                        e.DiscardEntry = true;
-                        this.ExtensionElements.Add(p);
-                    }
-                }
-            }
-            else if (String.Compare(eventNode.NamespaceURI, GDataParserNameTable.NSGCal, true) == 0)
-            {
-                // parse the eventnotification element
-                Tracing.TraceMsg("Parsing in the gCal Namespace");
-                if (eventNode.LocalName == GDataParserNameTable.XmlSendNotificationsElement)
-                {
-                    this.sendNotifications = SendNotifications.parse(eventNode);
-                    e.DiscardEntry = true;
-                }
-            }
-        }
-
-#endregion
-
     }
 }
 
