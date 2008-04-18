@@ -98,19 +98,6 @@
             </summary>
             <param name="value">transparency value</param>
         </member>
-        <member name="M:Google.GData.AccessControl.AclRole.parse(System.Xml.XmlNode)">
-            <summary>
-             parse method is called from the atom parser to populate an Transparency node
-            </summary>
-            <param name="node">the xmlnode to parser</param>
-            <returns>Notifications object</returns>
-        </member>
-        <member name="P:Google.GData.AccessControl.AclRole.XmlNamespace">
-            <summary>Returns the constant representing this XML element.</summary> 
-        </member>
-        <member name="P:Google.GData.AccessControl.AclRole.XmlNamespacePrefix">
-            <summary>Returns the constant representing this XML element.</summary> 
-        </member>
         <member name="T:Google.GData.AccessControl.AclNameTable">
             <summary>Google Access Control List namespace</summary>
         </member>
@@ -159,27 +146,6 @@
         <member name="F:Google.GData.AccessControl.AclScope.SCOPE_DEFAULT">
             <summary>string constant for the user scope</summary>
         </member>
-        <member name="M:Google.GData.AccessControl.AclScope.parse(System.Xml.XmlNode)">
-            <summary>
-             parse method is called from the atom parser to populate an Transparency node
-            </summary>
-            <param name="node">the xmlnode to parser</param>
-            <returns>Notifications object</returns>
-        </member>
-        <member name="M:Google.GData.AccessControl.AclScope.Save(System.Xml.XmlWriter)">
-            <summary>
-            Persistence method for the When object
-            </summary>
-            <param name="writer">the xmlwriter to write into</param>
-        </member>
-        <member name="P:Google.GData.AccessControl.AclScope.XmlName">
-            <summary>Returns the constant representing this XML element.
-            </summary> 
-        </member>
-        <member name="P:Google.GData.AccessControl.AclScope.Value">
-            <summary>accessor method public String Value</summary> 
-            <returns> </returns>
-        </member>
         <member name="P:Google.GData.AccessControl.AclScope.Type">
             <summary>accessor method public string Type</summary> 
             <returns> </returns>
@@ -199,11 +165,6 @@
             Constructs a new AccessControlEntry instance with the appropriate category
             to indicate that it is an AccessControlEntry.
             </summary>
-        </member>
-        <member name="M:Google.GData.AccessControl.AclEntry.Parse(Google.GData.Client.ExtensionElementEventArgs,Google.GData.Client.AtomFeedParser)">
-            <summary>parses the inner state of the element</summary>
-            <param name="e">the extensionelement during the parsing process, xml node</param>
-            <param name="parser">the atomFeedParser that called this</param>
         </member>
         <member name="P:Google.GData.AccessControl.AclEntry.Role">
             <summary>

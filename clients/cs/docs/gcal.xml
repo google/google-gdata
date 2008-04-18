@@ -470,11 +470,6 @@
             <param name="parser">the parser is primarily used for nametable comparisons</param>
             <returns>AtomBase</returns>
         </member>
-        <member name="M:Google.GData.Calendar.EventEntry.Parse(Google.GData.Client.ExtensionElementEventArgs,Google.GData.Client.AtomFeedParser)">
-            <summary>parses the inner state of the element</summary>
-            <param name="e">evennt arguments</param>
-            <param name="parser">the atomFeedParser that called this</param>
-        </member>
         <member name="P:Google.GData.Calendar.EventEntry.Times">
             <summary>
              property accessor for the WhenCollection
@@ -490,11 +485,6 @@
              property accessor for the whos in the event
             </summary>
         </member>
-        <member name="P:Google.GData.Calendar.EventEntry.Status">
-            <summary>
-             property accessor for the EventStatus
-            </summary>
-        </member>
         <member name="P:Google.GData.Calendar.EventEntry.Notifications">
             <summary>
              property accessor for the Eventnotifications
@@ -507,6 +497,11 @@
             To create an event using Google Calendar's quick add feature, set the event 
             entry's content to the quick add string you'd like to use. Then add a 
             gCal:quickadd element with a value attribute set to true
+            </summary>
+        </member>
+        <member name="P:Google.GData.Calendar.EventEntry.Status">
+            <summary>
+             property accessor for the EventStatus
             </summary>
         </member>
         <member name="P:Google.GData.Calendar.EventEntry.EventVisibility">
@@ -534,6 +529,11 @@
             property accessor for the OriginalEvent
             </summary>
         </member>
+        <member name="P:Google.GData.Calendar.EventEntry.Comments">
+            <summary>
+             property accessor for the Comments
+            </summary>
+        </member>
         <member name="P:Google.GData.Calendar.EventEntry.Reminder">
             <summary>
             returns the FIRST reminder for backwards compatibility
@@ -549,11 +549,6 @@
             <summary>
             as eventId is a commonly used part in the calendar world, we expose it
             here. In general the EventId is the last part of the AtomId
-            </summary>
-        </member>
-        <member name="P:Google.GData.Calendar.EventEntry.Comments">
-            <summary>
-             property accessor for the Comments
             </summary>
         </member>
         <member name="P:Google.GData.Calendar.EventEntry.WebContentLink">
@@ -595,13 +590,6 @@
         <member name="F:Google.GData.Calendar.EventEntry.EventStatus.CANCELED">
             <summary>EventStatus constant for a Cancelled  event</summary>
         </member>
-        <member name="M:Google.GData.Calendar.EventEntry.EventStatus.parse(System.Xml.XmlNode)">
-            <summary>
-             parse method is called from the atom parser to populate an EventStatus node
-            </summary>
-            <param name="node">the xmlnode to parser</param>
-            <returns>EventStatus object</returns>
-        </member>
         <member name="T:Google.GData.Calendar.EventEntry.Visibility">
             <summary>
             Visibility class indicates the visibility of an eventNode
@@ -642,13 +630,6 @@
         <member name="F:Google.GData.Calendar.EventEntry.Visibility.PRIVATE">
             <summary>object constant for the private visibility value</summary>
         </member>
-        <member name="M:Google.GData.Calendar.EventEntry.Visibility.parse(System.Xml.XmlNode)">
-            <summary>
-             parse method is called from the atom parser to populate an Visibility node
-            </summary>
-            <param name="node">the xmlnode to parser</param>
-            <returns>Visibility object</returns>
-        </member>
         <member name="T:Google.GData.Calendar.EventEntry.Transparency">
             <summary>
              the Transparency of an event class
@@ -677,13 +658,6 @@
         <member name="F:Google.GData.Calendar.EventEntry.Transparency.TRANSPARENT">
             <summary>object constant for the transparent transparency value</summary>
         </member>
-        <member name="M:Google.GData.Calendar.EventEntry.Transparency.parse(System.Xml.XmlNode)">
-            <summary>
-             parse method is called from the atom parser to populate an Transparency node
-            </summary>
-            <param name="node">the xmlnode to parser</param>
-            <returns>Transparency object</returns>
-        </member>
         <member name="T:Google.GData.Calendar.EventEntry.SendNotifications">
             <summary>
              indicates if an eventupdate should reissue notifications
@@ -701,19 +675,6 @@
             </summary>
             <param name="value">transparency value</param>
         </member>
-        <member name="M:Google.GData.Calendar.EventEntry.SendNotifications.parse(System.Xml.XmlNode)">
-            <summary>
-             parse method is called from the atom parser to populate an Transparency node
-            </summary>
-            <param name="node">the xmlnode to parser</param>
-            <returns>Notifications object</returns>
-        </member>
-        <member name="P:Google.GData.Calendar.EventEntry.SendNotifications.XmlNamespace">
-            <summary>Returns the constant representing this XML element.</summary> 
-        </member>
-        <member name="P:Google.GData.Calendar.EventEntry.SendNotifications.XmlNamespacePrefix">
-            <summary>Returns the constant representing this XML element.</summary> 
-        </member>
         <member name="T:Google.GData.Calendar.EventEntry.QuickAddElement">
             <summary>
              indicates if this new entry should be a quickadd
@@ -730,12 +691,6 @@
              constructor with a default string value
             </summary>
             <param name="value">transparency value</param>
-        </member>
-        <member name="P:Google.GData.Calendar.EventEntry.QuickAddElement.XmlNamespace">
-            <summary>Returns the constant representing this XML element.</summary> 
-        </member>
-        <member name="P:Google.GData.Calendar.EventEntry.QuickAddElement.XmlNamespacePrefix">
-            <summary>Returns the constant representing this XML element.</summary> 
         </member>
         <member name="T:Google.GData.Calendar.CalendarService">
             <summary>

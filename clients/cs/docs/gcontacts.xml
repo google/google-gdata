@@ -93,7 +93,7 @@
             returns the phonenumber collection
             </summary>
         </member>
-        <member name="P:Google.GData.Contacts.ContactEntry.IsDeleted">
+        <member name="P:Google.GData.Contacts.ContactEntry.Deleted">
             <summary>
             if this is a previously deleted contact, returns true
             to delete a contact, use the delete method

@@ -33,8 +33,6 @@ namespace Google.GData.AccessControl
     public class AclEntry : AbstractEntry
     {
 
-        private AclScope aclScope;
-
         /// <summary>
         /// Category used to label entries that contain AccessControl extension data.
         /// </summary>

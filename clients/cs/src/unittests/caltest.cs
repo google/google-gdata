@@ -744,7 +744,16 @@ namespace Google.GData.Client.LiveTests
                 AclFeed aclFeed = service.Query(query);
                 AclEntry newEntry = null;
 
-                iCount = aclFeed.Entries.Count; 
+                foreach (AclEntry e in aclFeed.Entries ) 
+                {
+                    if (e.Scope.Value.StartsWith(this.userName) == false)
+                    {
+                        e.Delete();
+                    }
+                }
+                aclFeed = service.Query(query);
+
+                iCount = aclFeed.Entries.Count;
 
                 if (aclFeed != null)
                 {
@@ -752,8 +761,8 @@ namespace Google.GData.Client.LiveTests
                     AclEntry entry = new AclEntry();
                     entry.Role = AclRole.ACL_CALENDAR_FREEBUSY;
                     AclScope scope = new AclScope();
-                    scope.Value = "meoh2my@test.com"; 
-                    scope.Type = AclScope.SCOPE_DEFAULT;
+                    scope.Type = AclScope.SCOPE_USER;
+                    scope.Value = "meoh2my@test.com";
                     entry.Scope = scope;
 
                     newEntry = (AclEntry) aclFeed.Insert(entry);
