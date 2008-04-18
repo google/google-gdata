@@ -24,7 +24,7 @@ namespace Google.GData.Extensions {
     /// <summary>
     /// GData schema extension describing an RFC 2445 recurrence rule.
     /// </summary>
-    public class RecurrenceException : IExtensionElement
+    public class RecurrenceException : IExtensionElement, IExtensionElementFactory
     {
         /// <summary>optional nested entry</summary>
         private EntryLink entryLink; 
@@ -63,29 +63,32 @@ namespace Google.GData.Extensions {
         }
 
 
-        #region Recurrence Parser
+        #region overloaded from IExtensionElementFactory
         //////////////////////////////////////////////////////////////////////
-        /// <summary>parses an xml node to create a Recurrence object</summary> 
-        /// <param name="node">Recurrence node</param>
-        /// <param name="parser">AtomFeedParser to use</param>
-        /// <returns> the created Recurrence object</returns>
+        /// <summary>Parses an xml node to create a Where  object.</summary> 
+        /// <param name="node">the node to parse node</param>
+        /// <param name="parser">the xml parser to use if we need to dive deeper</param>
+        /// <returns>the created Where  object</returns>
         //////////////////////////////////////////////////////////////////////
-        public static RecurrenceException ParseRecurrenceException(XmlNode node, AtomFeedParser parser)
+        public IExtensionElement CreateInstance(XmlNode node, AtomFeedParser parser)
         {
             Tracing.TraceCall();
             RecurrenceException exception  = null;
 
-            Tracing.Assert(node != null, "node should not be null");
-
-            if (node == null)
+            if (node != null)
             {
-                throw new ArgumentNullException("node");
+                object localname = node.LocalName;
+                if (localname.Equals(this.XmlName) == false ||
+                  node.NamespaceURI.Equals(this.XmlNameSpace) == false)
+                {
+                    return null;
+                }
             }
 
-            object localname = node.LocalName;
-            if (localname.Equals(GDataParserNameTable.XmlRecurrenceExceptionElement))
+            exception = new RecurrenceException(); 
+
+            if (node != null)
             {
-                exception = new RecurrenceException(); 
                 if (node.Attributes != null)
                 {
                     if (node.Attributes[GDataParserNameTable.XmlAttributeSpecialized] != null)
@@ -106,12 +109,12 @@ namespace Google.GData.Extensions {
                         childNode = childNode.NextSibling;
                     }
                 }
+                if (exception.EntryLink == null)
+                {
+                    throw new ArgumentException("g:recurringException/entryLink is required.");
+                }
             }
 
-            if (exception.EntryLink == null)
-            {
-                throw new ArgumentException("g:recurringException/entryLink is required.");
-            }
             return exception; 
         }
 
@@ -120,13 +123,28 @@ namespace Google.GData.Extensions {
         #endregion
 
         #region overloaded for persistence
-
         //////////////////////////////////////////////////////////////////////
         /// <summary>Returns the constant representing this XML element.</summary> 
         //////////////////////////////////////////////////////////////////////
         public string XmlName
         {
-            get { return GDataParserNameTable.XmlRecurrenceExceptionElement; }
+            get { return GDataParserNameTable.XmlWhereElement; }
+        }
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Returns the constant representing this XML element.</summary> 
+        //////////////////////////////////////////////////////////////////////
+        public string XmlNameSpace
+        {
+            get { return BaseNameTable.gNamespace; }
+        }
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Returns the constant representing this XML element.</summary> 
+        //////////////////////////////////////////////////////////////////////
+        public string XmlPrefix
+        {
+            get { return BaseNameTable.gDataPrefix; }
         }
 
 

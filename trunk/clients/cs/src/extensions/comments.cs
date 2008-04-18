@@ -24,7 +24,7 @@ namespace Google.GData.Extensions {
     /// <summary>
     /// GData schema extension describing a comments feed.
     /// </summary>
-    public class Comments : IExtensionElement
+    public class Comments : IExtensionElement, IExtensionElementFactory
     {
 
         /// <summary>
@@ -41,26 +41,32 @@ namespace Google.GData.Extensions {
             set { feedLink = value;}
         }
 
-#region Comments Parser
+        #region overloaded from IExtensionElementFactory
         //////////////////////////////////////////////////////////////////////
-        /// <summary>parses an xml node to create an Comments object</summary> 
-        /// <param name="node">comments node</param>
-        /// <returns> the created Comments object</returns>
+        /// <summary>Parses an xml node to create a Where  object.</summary> 
+        /// <param name="node">the node to parse node</param>
+        /// <param name="parser">the xml parser to use if we need to dive deeper</param>
+        /// <returns>the created Where  object</returns>
         //////////////////////////////////////////////////////////////////////
-        public static Comments ParseComments(XmlNode node)
+        public IExtensionElement CreateInstance(XmlNode node, AtomFeedParser parser)
         {
             Tracing.TraceCall();
             Comments comments = null;
-            Tracing.Assert(node != null, "node should not be null");
-            if (node == null)
+
+            if (node != null)
             {
-                throw new ArgumentNullException("node");
+                object localname = node.LocalName;
+                if (localname.Equals(this.XmlName) == false ||
+                  node.NamespaceURI.Equals(this.XmlNameSpace) == false)
+                {
+                    return null;
+                }
             }
 
-            object localname = node.LocalName;
-            if (localname.Equals(GDataParserNameTable.XmlCommentsElement))
+            comments = new Comments();
+
+            if (node != null)
             {
-                comments = new Comments();
                 if (node.HasChildNodes)
                 {
                     XmlNode commentsChild = node.FirstChild;
@@ -81,19 +87,12 @@ namespace Google.GData.Extensions {
                         commentsChild = commentsChild.NextSibling;
                     }
                 }
-            }
 
-            if (comments.FeedLink == null)
-            {
-                throw new ArgumentException("gd:comments/gd:feedLink is required.");
             }
-
-            return comments;
+            return comments; 
         }
 
-#endregion
-
-#region overloaded for persistence
+        #endregion
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>Returns the constant representing this XML element.</summary> 
@@ -101,6 +100,22 @@ namespace Google.GData.Extensions {
         public string XmlName
         {
             get { return GDataParserNameTable.XmlCommentsElement;}
+        }
+
+          //////////////////////////////////////////////////////////////////////
+        /// <summary>Returns the constant representing this XML element.</summary> 
+        //////////////////////////////////////////////////////////////////////
+        public string XmlNameSpace
+        {
+            get { return BaseNameTable.gNamespace; }
+        }
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Returns the constant representing this XML element.</summary> 
+        //////////////////////////////////////////////////////////////////////
+        public string XmlPrefix
+        {
+            get { return BaseNameTable.gDataPrefix; }
         }
 
         /// <summary>
@@ -117,6 +132,5 @@ namespace Google.GData.Extensions {
                 writer.WriteEndElement();
             }
         }
-#endregion
     }
 }

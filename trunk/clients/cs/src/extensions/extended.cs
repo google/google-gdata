@@ -25,104 +25,46 @@ namespace Google.GData.Extensions
     /// <summary>
     /// GData schema extension describing an extended property/value pair
     /// </summary>
-    public class ExtendedProperty : IExtensionElement
+    public class ExtendedProperty : SimpleAttribute
     {
 
-        /// <summary>
-        /// the valueString (required).
-        /// </summary>
-        private string value; 
-
-        /// <summary>
-        /// the property name
-        /// </summary>
-        private string name; 
-
-        
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>accessor for the value</summary> 
-        /// <returns>the value as string </returns>
-        //////////////////////////////////////////////////////////////////////
-        public string Value
+        public ExtendedProperty() : base(GDataParserNameTable.XmlExtendedPropertyElement,
+                                         BaseNameTable.gDataPrefix,
+                                         BaseNameTable.gNamespace)
         {
-            get { return this.value; }
-            set { this.value = value; }
+            this.Attributes.Add(AtomParserNameTable.XmlName, null);
         }
 
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>accessor method for the name</summary> 
+        public ExtendedProperty(string initValue) : base(GDataParserNameTable.XmlExtendedPropertyElement,
+                                         BaseNameTable.gDataPrefix,
+                                         BaseNameTable.gNamespace,
+                                         initValue)
+        {
+            this.Attributes.Add(AtomParserNameTable.XmlName, null);
+        }
+
+        public ExtendedProperty(string initValue, string initName) : base(GDataParserNameTable.XmlExtendedPropertyElement,
+                                         BaseNameTable.gDataPrefix,
+                                         BaseNameTable.gNamespace,
+                                         initValue)
+        {
+            this.Attributes.Add(AtomParserNameTable.XmlName, initName);
+        }
+
+
+         //////////////////////////////////////////////////////////////////////
+        /// <summary>Accessor for "value" attribute.</summary> 
         /// <returns> </returns>
         //////////////////////////////////////////////////////////////////////
         public string Name
         {
-            get { return this.name; }
-            set { this.name = value; }
-        }
-
-
-        #region When Parser
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>Parses an xml node to create an ExtendedProperty object.</summary> 
-        /// <param name="node">when node</param>
-        /// <returns>the created ExtendedProperty object</returns>
-        //////////////////////////////////////////////////////////////////////
-        public static ExtendedProperty Parse(XmlNode node)
-        {
-            Tracing.TraceCall();
-            ExtendedProperty prop = null;
-            Tracing.Assert(node != null, "node should not be null");
-
-            if (node == null)
-            {
-                throw new ArgumentNullException("node");
+            get {
+                return this.Attributes[AtomParserNameTable.XmlName] as string;
             }
-            object localname = node.LocalName;
-
-            if (localname.Equals(GDataParserNameTable.XmlExtendedPropertyElement))
+            set
             {
-                prop = new ExtendedProperty();
-
-                if (node.Attributes != null)
-                {
-                    prop.Value = node.Attributes[GDataParserNameTable.XmlValue] != null ? 
-                         node.Attributes[GDataParserNameTable.XmlValue].Value : null; 
-                    prop.Name = node.Attributes[AtomParserNameTable.XmlName]!= null ? 
-                        node.Attributes[AtomParserNameTable.XmlName].Value : null; 
-                }
-            }
-            return prop;
-        }
-        #endregion
-
-        #region overloaded for persistence
-
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>Returns the constant representing this XML element.
-        /// </summary> 
-        //////////////////////////////////////////////////////////////////////
-        public string XmlName
-        {
-            get { return GDataParserNameTable.XmlExtendedPropertyElement; }
-        }
-
-        /// <summary>
-        /// Persistence method for the Extended property object
-        /// </summary>
-        /// <param name="writer">the xmlwriter to write into</param>
-        public void Save(XmlWriter writer)
-        {
-
-            if (Utilities.IsPersistable(this.Name))
-            {
-                writer.WriteStartElement(BaseNameTable.gDataPrefix, XmlName, BaseNameTable.gNamespace);
-                writer.WriteAttributeString(AtomParserNameTable.XmlName, this.Name); 
-                if (this.Value != null)
-                {
-                    writer.WriteAttributeString(GDataParserNameTable.XmlValue, this.Value); 
-                }
-                writer.WriteEndElement();
+                this.Attributes[AtomParserNameTable.XmlName] = value;
             }
         }
-        #endregion
     }
 }

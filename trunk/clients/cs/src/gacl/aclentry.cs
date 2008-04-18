@@ -50,6 +50,7 @@ namespace Google.GData.AccessControl
         : base()
         {
             Categories.Add(ACL_CATEGORY);
+            this.AddExtension(new AclRole());
         }
 
 
@@ -105,18 +106,22 @@ namespace Google.GData.AccessControl
         /// <param name="parser">the atomFeedParser that called this</param>
         //////////////////////////////////////////////////////////////////////
         public override void Parse(ExtensionElementEventArgs e, AtomFeedParser parser)
-        {
+        {
+
+            Tracing.Assert(parser != null, "parser should not be null");
+            Tracing.Assert(e != null, "e should not be null");
+            if (e == null)
+            {
+                throw new ArgumentNullException("e");
+            }
+            if (parser == null)
+            {
+                throw new ArgumentNullException("parser");
+            }
 
-            Tracing.Assert(parser != null, "parser should not be null");
-            Tracing.Assert(e != null, "e should not be null");
-            if (e == null)
-            {
-                throw new ArgumentNullException("e");
-            }
-            if (parser == null)
-            {
-                throw new ArgumentNullException("parser");
-            }
+            // AclRole is changed to IExtensionElementFactory, so call base
+            // see addEventEntryExtensions()
+            base.Parse(e, parser);
 
            
             Tracing.TraceCall("AclEntry:Parse is called:" + e);
@@ -124,14 +129,8 @@ namespace Google.GData.AccessControl
  
             if (String.Compare(node.NamespaceURI, AclNameTable.gAclNamespace, true) == 0)
             {
-                // Parse a Role Element
-                if (node.LocalName == AclNameTable.XmlAclRoleElement)
-                {
-                    this.Role = AclRole.parse(node);
-                    e.DiscardEntry = true;
-                }
                 // Parse a Where Element
-                else if (node.LocalName == AclNameTable.XmlAclScopeElement)
+                if (node.LocalName == AclNameTable.XmlAclScopeElement)
                 {
                     this.Scope = AclScope.parse(node);
                     e.DiscardEntry = true;

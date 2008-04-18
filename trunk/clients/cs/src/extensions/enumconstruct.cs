@@ -24,16 +24,18 @@ namespace Google.GData.Extensions {
     /// <summary>
     /// Extensible enum type used in many places.
     /// </summary>
-    public abstract class EnumConstruct : IExtensionElement
+    public abstract class EnumConstruct : SimpleAttribute
     {
 
         /// <summary>
         /// constructor
         /// </summary>
-        /// <param name="enumType">the type used to initialize</param>
-        protected EnumConstruct(string enumType)
+        /// <param name="enumType">the XmlElement that is used</param>
+        protected EnumConstruct(string xmlElement) :
+            base(xmlElement, 
+               BaseNameTable.gDataPrefix,
+               BaseNameTable.gNamespace)
         {
-            this.enumType = enumType;
             readOnly = false;
         }
 
@@ -42,31 +44,61 @@ namespace Google.GData.Extensions {
         /// When this constructor is used the instance has a constant value and
         /// may not be modified by the setValue() API.
         /// </summary>
-        /// <param name="enumType">the type used to initialize</param>
+        /// <param name="enumType">the XmlElement that is used</param>
         /// <param name="initialValue">the initial value of the type</param>
-        protected EnumConstruct(string enumType, string initialValue)
+        protected EnumConstruct(string xmlElement, string initialValue) :
+            base(xmlElement, 
+               BaseNameTable.gDataPrefix,
+               BaseNameTable.gNamespace,
+               initialValue)
         {
-            this.enumType = enumType;
-            this.value = initialValue;
             readOnly = true;
         }
+
+        /// <summary>
+        /// Creates a new EnumConstruct instance with a specific type and value.
+        /// When this constructor is used the instance has a constant value and
+        /// may not be modified by the setValue() API.
+        /// </summary>
+        /// <param name="enumType">the XmlElement that is used</param>
+        /// <param name="initialValue">the initial value of the type</param>
+        protected EnumConstruct(string xmlElement, string prefix, string nameSpace) :
+            base(xmlElement, 
+               prefix,
+               nameSpace)
+        {
+            readOnly = true;
+        }
+
+         /// <summary>
+        /// Creates a new EnumConstruct instance with a specific type and value.
+        /// When this constructor is used the instance has a constant value and
+        /// may not be modified by the setValue() API.
+        /// </summary>
+        /// <param name="enumType">the XmlElement that is used</param>
+        /// <param name="initialValue">the initial value of the type</param>
+        protected EnumConstruct(string xmlElement, string prefix, string nameSpace, string initialValue) :
+            base(xmlElement, 
+               prefix,
+               nameSpace,
+               initialValue)
+        {
+            readOnly = true;
+        }
+
 
         /// <summary>
         /// Construct value cannot be changed
         /// </summary>
         private bool readOnly;
 
-        /// <summary>
-        ///  holds the enumType property
-        /// </summary>
-        private string enumType = null;
 
         /// <summary>
         ///  Accessor Method for the enumType
         /// </summary>
         public string Type
         {
-            get { return enumType; }
+            get { return this.XmlName; }
         }
 
         /// <summary>
@@ -77,16 +109,16 @@ namespace Google.GData.Extensions {
         /// <summary>
         ///  Accessor Method for the value
         /// </summary>
-        public string Value
+        public override string Value
         {
-            get { return value; }
+            get { return base.Value; }
             set 
             {
                 if (readOnly)
                 {
-                    throw new ArgumentException(enumType + " instance is read only");
+                    throw new ArgumentException(this.XmlName + " instance is read only");
                 }
-                this.value = value;
+                base.Value = value;
             }
         }
 
@@ -124,6 +156,7 @@ namespace Google.GData.Extensions {
 
         #region overloaded for persistence
 
+        /*
         //////////////////////////////////////////////////////////////////////
         /// <summary>Returns the constant representing this XML element.</summary> 
         //////////////////////////////////////////////////////////////////////
@@ -146,7 +179,7 @@ namespace Google.GData.Extensions {
         {
             get { return BaseNameTable.gDataPrefix; }
         }
-
+        
 
         /// <summary>
         /// Persistence method for the EnumConstruct object
@@ -162,6 +195,8 @@ namespace Google.GData.Extensions {
                 writer.WriteEndElement();
             }
         }
+
+        */
         #endregion
     }
 }   
