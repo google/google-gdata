@@ -43,6 +43,19 @@ namespace Google.GData.Extensions
         }
     }
 
+    //////////////////////////////////////////////////////////////////////
+    /// <summary>if an extension element has a deleted member, it should implement
+    /// this interface. 
+    /// </summary> 
+    //////////////////////////////////////////////////////////////////////
+    public interface IContainsDeleted
+    {
+        /// <summary>
+        /// returns if an entry contains a Deleted extension. ReadOnly
+        /// </summary>
+        bool Deleted { get;}
+    }
+
     /// <summary>
     /// holds static strings indicating several often used relationship 
     /// values for the contacts API
@@ -133,16 +146,32 @@ namespace Google.GData.Extensions
         }
 
         /// <summary>
-        /// default constructor for gd:email with an initial value
+        /// default constructor for gd:email with an initial value for the email
         /// </summary>
-        /// <param name="initValue"/>
-        public EMail(string initValue)
+        /// <param name="emailAddress">the initial email address</param>
+        public EMail(string emailAddress)
         : base(GDataParserNameTable.XmlEmailElement, 
                GDataParserNameTable.gDataPrefix,
                GDataParserNameTable.gNamespace)
         {
             addAttributes();
-            this.Address = initValue;
+            this.Address = emailAddress;
+        }
+
+        /// <summary>
+        /// default constructor for gd:email with an initial value for the email
+        /// and the relationship
+        /// </summary>
+        /// <param name="emailAddress">the initial email address</param>
+        /// <param name="relationship">the value for the email relationship</param> 
+        public EMail(string emailAddress, string relationship)
+        : base(GDataParserNameTable.XmlEmailElement, 
+               GDataParserNameTable.gDataPrefix,
+               GDataParserNameTable.gNamespace)
+        {
+            addAttributes();
+            this.Address = emailAddress;
+            this.Rel = relationship;    
         }
 
         /// <summary>
@@ -155,6 +184,8 @@ namespace Google.GData.Extensions
         {
             addAttributes();
         }
+
+
 
         private void addAttributes()
         {

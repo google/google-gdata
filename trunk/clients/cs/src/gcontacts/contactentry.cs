@@ -27,7 +27,7 @@ namespace Google.GData.Contacts {
     /// Entry API customization class for defining entries in an Event feed.
     /// </summary>
     //////////////////////////////////////////////////////////////////////
-    public class ContactEntry : AbstractEntry
+    public class ContactEntry : AbstractEntry, IContainsDeleted
     {
 
         /// <summary>
@@ -139,7 +139,7 @@ namespace Google.GData.Contacts {
         /// if this is a previously deleted contact, returns true
         /// to delete a contact, use the delete method
         /// </summary>
-        public bool IsDeleted
+        public bool Deleted
         {
             get
             {
