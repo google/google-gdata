@@ -18,11 +18,11 @@
         <member name="F:Google.GData.Extensions.RecurrenceException.value">
             <summary> holds the value property</summary>
         </member>
-        <member name="M:Google.GData.Extensions.RecurrenceException.ParseRecurrenceException(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
-            <summary>parses an xml node to create a Recurrence object</summary> 
-            <param name="node">Recurrence node</param>
-            <param name="parser">AtomFeedParser to use</param>
-            <returns> the created Recurrence object</returns>
+        <member name="M:Google.GData.Extensions.RecurrenceException.CreateInstance(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
+            <summary>Parses an xml node to create a Where  object.</summary> 
+            <param name="node">the node to parse node</param>
+            <param name="parser">the xml parser to use if we need to dive deeper</param>
+            <returns>the created Where  object</returns>
         </member>
         <member name="M:Google.GData.Extensions.RecurrenceException.Save(System.Xml.XmlWriter)">
             <summary>
@@ -45,6 +45,12 @@
             </summary>
         </member>
         <member name="P:Google.GData.Extensions.RecurrenceException.XmlName">
+            <summary>Returns the constant representing this XML element.</summary> 
+        </member>
+        <member name="P:Google.GData.Extensions.RecurrenceException.XmlNameSpace">
+            <summary>Returns the constant representing this XML element.</summary> 
+        </member>
+        <member name="P:Google.GData.Extensions.RecurrenceException.XmlPrefix">
             <summary>Returns the constant representing this XML element.</summary> 
         </member>
         <member name="T:Google.GData.Extensions.GDataParserNameTable">
@@ -1213,38 +1219,98 @@
             GData schema extension describing an extended property/value pair
             </summary>
         </member>
-        <member name="F:Google.GData.Extensions.ExtendedProperty.value">
+        <member name="T:Google.GData.Extensions.SimpleAttribute">
             <summary>
-            the valueString (required).
+            a simple element with one attribute,called value that exposes 
+            that value as the value property
             </summary>
         </member>
-        <member name="F:Google.GData.Extensions.ExtendedProperty.name">
+        <member name="T:Google.GData.Extensions.SimpleElement">
             <summary>
-            the property name
+            Extensible enum type used in many places.
+            compared to the base class, this one
+            adds a default values
             </summary>
         </member>
-        <member name="M:Google.GData.Extensions.ExtendedProperty.Parse(System.Xml.XmlNode)">
-            <summary>Parses an xml node to create an ExtendedProperty object.</summary> 
-            <param name="node">when node</param>
-            <returns>the created ExtendedProperty object</returns>
-        </member>
-        <member name="M:Google.GData.Extensions.ExtendedProperty.Save(System.Xml.XmlWriter)">
+        <member name="M:Google.GData.Extensions.SimpleElement.#ctor(System.String,System.String,System.String)">
             <summary>
-            Persistence method for the Extended property object
+            constructor
             </summary>
-            <param name="writer">the xmlwriter to write into</param>
+            <param name="name">the xml name</param>
+            <param name="prefix">the xml prefix</param>
+            <param name="ns">the xml namespace</param>
         </member>
-        <member name="P:Google.GData.Extensions.ExtendedProperty.Value">
-            <summary>accessor for the value</summary> 
-            <returns>the value as string </returns>
+        <member name="M:Google.GData.Extensions.SimpleElement.#ctor(System.String,System.String,System.String,System.String)">
+            <summary>
+            constructor
+            </summary>
+            <param name="name">the xml name</param>
+            <param name="prefix">the xml prefix</param>
+            <param name="ns">the xml namespace</param>
+            <param name="value">the intial value</param>
         </member>
-        <member name="P:Google.GData.Extensions.ExtendedProperty.Name">
-            <summary>accessor method for the name</summary> 
+        <member name="M:Google.GData.Extensions.SimpleElement.ToString">
+            <summary>
+            debugging helper
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Google.GData.Extensions.SimpleElement.CreateInstance(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
+            <summary>Parses an xml node to create a Who object.</summary> 
+            <param name="node">the xml parses node, can be NULL</param>
+            <param name="parser">the xml parser to use if we need to dive deeper</param>
+            <returns>the created SimpleElement object</returns>
+        </member>
+        <member name="M:Google.GData.Extensions.SimpleElement.SaveInnerXml(System.Xml.XmlWriter)">
+            <summary>
+            saves out the value, get's called from Save
+            </summary>
+            <param name="writer"></param>
+        </member>
+        <member name="P:Google.GData.Extensions.SimpleElement.Value">
+            <summary>
+             Accessor Method for the value
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.SimpleElement.IntegerValue">
+            <summary>
+             Accessor Method for the value as integer
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.SimpleElement.UnsignedIntegerValue">
+            <summary>
+             Accessor Method for the value as integer
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.SimpleElement.FloatValue">
+            <summary>
+             Accessor Method for the value as float
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.SimpleAttribute.#ctor(System.String,System.String,System.String)">
+            <summary>
+            constructor
+            </summary>
+            <param name="name">the xml name</param>
+            <param name="prefix">the xml prefix</param>
+            <param name="ns">the xml namespace</param>
+        </member>
+        <member name="M:Google.GData.Extensions.SimpleAttribute.#ctor(System.String,System.String,System.String,System.String)">
+            <summary>
+            constructor
+            </summary>
+            <param name="name">the xml name</param>
+            <param name="prefix">the xml prefix</param>
+            <param name="ns">the xml namespace</param>
+            <param name="value">the intial value</param>
+        </member>
+        <member name="P:Google.GData.Extensions.SimpleAttribute.Value">
+            <summary>Accessor for "value" attribute.</summary> 
             <returns> </returns>
         </member>
-        <member name="P:Google.GData.Extensions.ExtendedProperty.XmlName">
-            <summary>Returns the constant representing this XML element.
-            </summary> 
+        <member name="P:Google.GData.Extensions.ExtendedProperty.Name">
+            <summary>Accessor for "value" attribute.</summary> 
+            <returns> </returns>
         </member>
         <member name="T:Google.GData.Extensions.Exif.ExifExtensions">
             <summary>
@@ -1388,68 +1454,6 @@
         <member name="T:Google.GData.Extensions.Exif.ExifDistance">
             <summary>
             ExifDistance schema extension describing an distance
-            </summary>
-        </member>
-        <member name="T:Google.GData.Extensions.SimpleElement">
-            <summary>
-            Extensible enum type used in many places.
-            compared to the base class, this one
-            adds a default values
-            </summary>
-        </member>
-        <member name="M:Google.GData.Extensions.SimpleElement.#ctor(System.String,System.String,System.String)">
-            <summary>
-            constructor
-            </summary>
-            <param name="name">the xml name</param>
-            <param name="prefix">the xml prefix</param>
-            <param name="ns">the xml namespace</param>
-        </member>
-        <member name="M:Google.GData.Extensions.SimpleElement.#ctor(System.String,System.String,System.String,System.String)">
-            <summary>
-            constructor
-            </summary>
-            <param name="name">the xml name</param>
-            <param name="prefix">the xml prefix</param>
-            <param name="ns">the xml namespace</param>
-            <param name="value">the intial value</param>
-        </member>
-        <member name="M:Google.GData.Extensions.SimpleElement.ToString">
-            <summary>
-            debugging helper
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Google.GData.Extensions.SimpleElement.CreateInstance(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
-            <summary>Parses an xml node to create a Who object.</summary> 
-            <param name="node">the xml parses node, can be NULL</param>
-            <param name="parser">the xml parser to use if we need to dive deeper</param>
-            <returns>the created SimpleElement object</returns>
-        </member>
-        <member name="M:Google.GData.Extensions.SimpleElement.SaveInnerXml(System.Xml.XmlWriter)">
-            <summary>
-            saves out the value, get's called from Save
-            </summary>
-            <param name="writer"></param>
-        </member>
-        <member name="P:Google.GData.Extensions.SimpleElement.Value">
-            <summary>
-             Accessor Method for the value
-            </summary>
-        </member>
-        <member name="P:Google.GData.Extensions.SimpleElement.IntegerValue">
-            <summary>
-             Accessor Method for the value as integer
-            </summary>
-        </member>
-        <member name="P:Google.GData.Extensions.SimpleElement.UnsignedIntegerValue">
-            <summary>
-             Accessor Method for the value as integer
-            </summary>
-        </member>
-        <member name="P:Google.GData.Extensions.SimpleElement.FloatValue">
-            <summary>
-             Accessor Method for the value as float
             </summary>
         </member>
         <member name="M:Google.GData.Extensions.Exif.ExifDistance.#ctor">
@@ -1989,7 +1993,7 @@
             <summary>
             constructor
             </summary>
-            <param name="enumType">the type used to initialize</param>
+            <param name="enumType">the XmlElement that is used</param>
         </member>
         <member name="M:Google.GData.Extensions.EnumConstruct.#ctor(System.String,System.String)">
             <summary>
@@ -1997,17 +2001,28 @@
             When this constructor is used the instance has a constant value and
             may not be modified by the setValue() API.
             </summary>
-            <param name="enumType">the type used to initialize</param>
+            <param name="enumType">the XmlElement that is used</param>
+            <param name="initialValue">the initial value of the type</param>
+        </member>
+        <member name="M:Google.GData.Extensions.EnumConstruct.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Creates a new EnumConstruct instance with a specific type and namespace
+            </summary>
+            <param name="enumType">the XmlElement that is used</param>
+            <param name="initialValue">the initial value of the type</param>
+        </member>
+        <member name="M:Google.GData.Extensions.EnumConstruct.#ctor(System.String,System.String,System.String,System.String)">
+            <summary>
+            Creates a new EnumConstruct instance with a specific type, namespace and value.
+            When this constructor is used the instance has a constant value and
+            may not be modified by the setValue() API.
+            </summary>
+            <param name="enumType">the XmlElement that is used</param>
             <param name="initialValue">the initial value of the type</param>
         </member>
         <member name="F:Google.GData.Extensions.EnumConstruct.readOnly">
             <summary>
             Construct value cannot be changed
-            </summary>
-        </member>
-        <member name="F:Google.GData.Extensions.EnumConstruct.enumType">
-            <summary>
-             holds the enumType property
             </summary>
         </member>
         <member name="F:Google.GData.Extensions.EnumConstruct.value">
@@ -2028,12 +2043,6 @@
             </summary>
             <returns>a hash based on the string value</returns>
         </member>
-        <member name="M:Google.GData.Extensions.EnumConstruct.Save(System.Xml.XmlWriter)">
-            <summary>
-            Persistence method for the EnumConstruct object
-            </summary>
-            <param name="writer">the xmlwriter to write into</param>
-        </member>
         <member name="P:Google.GData.Extensions.EnumConstruct.Type">
             <summary>
              Accessor Method for the enumType
@@ -2043,15 +2052,6 @@
             <summary>
              Accessor Method for the value
             </summary>
-        </member>
-        <member name="P:Google.GData.Extensions.EnumConstruct.XmlName">
-            <summary>Returns the constant representing this XML element.</summary> 
-        </member>
-        <member name="P:Google.GData.Extensions.EnumConstruct.XmlNamespace">
-            <summary>Returns the constant representing this XML element.</summary> 
-        </member>
-        <member name="P:Google.GData.Extensions.EnumConstruct.XmlNamespacePrefix">
-            <summary>Returns the constant representing this XML element.</summary> 
         </member>
         <member name="F:Google.GData.Extensions.Who.AttendeeType.EVENT_REQUIRED">
             <summary>this attendee is required</summary>
@@ -2111,6 +2111,16 @@
             helper to add all MediaRss extensions to a base object
             </summary>
             <param name="baseObject"></param>
+        </member>
+        <member name="T:Google.GData.Extensions.IContainsDeleted">
+            <summary>if an extension element has a deleted member, it should implement
+            this interface. 
+            </summary> 
+        </member>
+        <member name="P:Google.GData.Extensions.IContainsDeleted.Deleted">
+            <summary>
+            returns if an entry contains a Deleted extension. ReadOnly
+            </summary>
         </member>
         <member name="T:Google.GData.Extensions.ContactsRelationships">
             <summary>
@@ -2196,9 +2206,17 @@
         </member>
         <member name="M:Google.GData.Extensions.EMail.#ctor(System.String)">
             <summary>
-            default constructor for gd:email with an initial value
+            default constructor for gd:email with an initial value for the email
             </summary>
-            <param name="initValue"/>
+            <param name="emailAddress">the initial email address</param>
+        </member>
+        <member name="M:Google.GData.Extensions.EMail.#ctor(System.String,System.String)">
+            <summary>
+            default constructor for gd:email with an initial value for the email
+            and the relationship
+            </summary>
+            <param name="emailAddress">the initial email address</param>
+            <param name="relationship">the value for the email relationship</param> 
         </member>
         <member name="M:Google.GData.Extensions.EMail.#ctor(System.String,System.String,System.String)">
             <summary>
@@ -2654,10 +2672,11 @@
              holds the feedLink property
             </summary>
         </member>
-        <member name="M:Google.GData.Extensions.Comments.ParseComments(System.Xml.XmlNode)">
-            <summary>parses an xml node to create an Comments object</summary> 
-            <param name="node">comments node</param>
-            <returns> the created Comments object</returns>
+        <member name="M:Google.GData.Extensions.Comments.CreateInstance(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
+            <summary>Parses an xml node to create a Where  object.</summary> 
+            <param name="node">the node to parse node</param>
+            <param name="parser">the xml parser to use if we need to dive deeper</param>
+            <returns>the created Where  object</returns>
         </member>
         <member name="M:Google.GData.Extensions.Comments.Save(System.Xml.XmlWriter)">
             <summary>
@@ -2671,6 +2690,12 @@
             </summary>
         </member>
         <member name="P:Google.GData.Extensions.Comments.XmlName">
+            <summary>Returns the constant representing this XML element.</summary> 
+        </member>
+        <member name="P:Google.GData.Extensions.Comments.XmlNameSpace">
+            <summary>Returns the constant representing this XML element.</summary> 
+        </member>
+        <member name="P:Google.GData.Extensions.Comments.XmlPrefix">
             <summary>Returns the constant representing this XML element.</summary> 
         </member>
         <member name="T:Google.GData.Extensions.Location.GeoRssExtensions">
@@ -2783,33 +2808,6 @@
             the string that is stored in Value. Will THROW if
             that string is incorrectly formated
             </summary>
-        </member>
-        <member name="T:Google.GData.Extensions.SimpleAttribute">
-            <summary>
-            a simple element with one attribute,called value that exposes 
-            that value as the value property
-            </summary>
-        </member>
-        <member name="M:Google.GData.Extensions.SimpleAttribute.#ctor(System.String,System.String,System.String)">
-            <summary>
-            constructor
-            </summary>
-            <param name="name">the xml name</param>
-            <param name="prefix">the xml prefix</param>
-            <param name="ns">the xml namespace</param>
-        </member>
-        <member name="M:Google.GData.Extensions.SimpleAttribute.#ctor(System.String,System.String,System.String,System.String)">
-            <summary>
-            constructor
-            </summary>
-            <param name="name">the xml name</param>
-            <param name="prefix">the xml prefix</param>
-            <param name="ns">the xml namespace</param>
-            <param name="value">the intial value</param>
-        </member>
-        <member name="P:Google.GData.Extensions.SimpleAttribute.Value">
-            <summary>Accessor for "value" attribute.</summary> 
-            <returns> </returns>
         </member>
         <member name="T:Google.GData.Extensions.Recurrence">
             <summary>

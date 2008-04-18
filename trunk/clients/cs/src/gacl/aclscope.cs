@@ -77,7 +77,7 @@ namespace Google.GData.AccessControl
                     if (String.Compare(value, SCOPE_DEFAULT) == 0)
                     {
                         // empty the value
-                        this.Value = null;
+                        this.Value = String.Empty;
                     }
                 }
                 else 

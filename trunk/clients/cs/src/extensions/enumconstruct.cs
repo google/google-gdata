@@ -31,8 +31,9 @@ namespace Google.GData.Extensions {
         /// constructor
         /// </summary>
         /// <param name="enumType">the XmlElement that is used</param>
-        protected EnumConstruct(string xmlElement) :
-            base(xmlElement, 
+        protected EnumConstruct(string xmlElement)
+            :
+            base(xmlElement,
                BaseNameTable.gDataPrefix,
                BaseNameTable.gNamespace)
         {
@@ -46,8 +47,9 @@ namespace Google.GData.Extensions {
         /// </summary>
         /// <param name="enumType">the XmlElement that is used</param>
         /// <param name="initialValue">the initial value of the type</param>
-        protected EnumConstruct(string xmlElement, string initialValue) :
-            base(xmlElement, 
+        protected EnumConstruct(string xmlElement, string initialValue)
+            :
+            base(xmlElement,
                BaseNameTable.gDataPrefix,
                BaseNameTable.gNamespace,
                initialValue)
@@ -56,29 +58,29 @@ namespace Google.GData.Extensions {
         }
 
         /// <summary>
-        /// Creates a new EnumConstruct instance with a specific type and value.
-        /// When this constructor is used the instance has a constant value and
-        /// may not be modified by the setValue() API.
+        /// Creates a new EnumConstruct instance with a specific type and namespace
         /// </summary>
         /// <param name="enumType">the XmlElement that is used</param>
         /// <param name="initialValue">the initial value of the type</param>
-        protected EnumConstruct(string xmlElement, string prefix, string nameSpace) :
-            base(xmlElement, 
+        protected EnumConstruct(string xmlElement, string prefix, string nameSpace)
+            :
+            base(xmlElement,
                prefix,
                nameSpace)
         {
-            readOnly = true;
+            readOnly = false;
         }
 
-         /// <summary>
-        /// Creates a new EnumConstruct instance with a specific type and value.
+        /// <summary>
+        /// Creates a new EnumConstruct instance with a specific type, namespace and value.
         /// When this constructor is used the instance has a constant value and
         /// may not be modified by the setValue() API.
         /// </summary>
         /// <param name="enumType">the XmlElement that is used</param>
         /// <param name="initialValue">the initial value of the type</param>
-        protected EnumConstruct(string xmlElement, string prefix, string nameSpace, string initialValue) :
-            base(xmlElement, 
+        protected EnumConstruct(string xmlElement, string prefix, string nameSpace, string initialValue)
+            :
+            base(xmlElement,
                prefix,
                nameSpace,
                initialValue)
@@ -112,7 +114,7 @@ namespace Google.GData.Extensions {
         public override string Value
         {
             get { return base.Value; }
-            set 
+            set
             {
                 if (readOnly)
                 {
@@ -141,9 +143,16 @@ namespace Google.GData.Extensions {
             }
 
             EnumConstruct ec = (EnumConstruct)o;
-            return Type.Equals(ec.Type) && value.Equals(ec.value);
+
+            if (Type.Equals(ec.Type) == false)
+                return false;
+
+            if (value != null)
+                return value.Equals(ec.value);
+
+            return ec.value == null;
         }
-        
+
         /// <summary>
         ///  GetHashCode overload
         /// </summary>
