@@ -202,6 +202,50 @@ namespace Google.GData.Client
             
         }
 
+
+         //////////////////////////////////////////////////////////////////////
+        /// <summary>helper to read in a string and replace the reserved URI 
+        /// characters with hex encoding</summary> 
+        /// <param name="content">the parameter string</param>
+        /// <returns>hex encoded string</returns>
+        //////////////////////////////////////////////////////////////////////
+        public static string UriEncodeUnsafe(string content) 
+        {
+            if (content == null)
+                return null;
+
+            StringBuilder returnString = new StringBuilder(256);
+
+            foreach (char ch in content) 
+            {
+                if (ch == ';' || 
+                    ch == '/' ||
+                    ch == '?' ||
+                    ch == ':' ||
+                    ch == '@' ||
+                    ch == '&' ||
+                    ch == '=' ||
+                    ch == '+' ||
+                    ch == '$' ||
+                    ch == ',' || 
+                    ch == ' ' || 
+                    ch == '\'' || 
+                    ch == '"' || 
+                    ch == '>' || 
+                    ch == '<' || 
+                    ch == '#' || 
+                    ch == '%' ) 
+                {
+                    returnString.Append(Uri.HexEscape(ch));
+                }
+                else 
+                {
+                    returnString.Append(ch);
+                }
+            }
+            return returnString.ToString(); 
+        }
+
        
 
         //////////////////////////////////////////////////////////////////////
