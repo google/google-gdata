@@ -7,13 +7,32 @@
 <ul>
     <li>Features</li>
     <ul>
-        <li>Moved the codebase to .NET 2.0.</li>
+        <li>Moved the codebase to .NET 2.0. Note this means that gradually more 
+        code will change to use generics and other .NET 2.0 only features.Ê</li>
         <li>Added project templates for VS 2005 that are installed by the 
             setup program. If you use the .zip download, copy the templates into
             the VS 2005 template folder</li>
         <li>The setup program now points VS 2005 to the lib/release path 
             for the Google DLLs. The DLLs are no longer installed in the 
             GAC</li>
+        <li>Implemented IComparable and equal operators for AtomId</li>
+        <li>Google Contacts support</li>
+        <li>
+            Added a GDataVersionConflictException that is thrown when you tried 
+            to modified/update a resource and the server detected a version 
+            conflict.
+        </li>
+        <li>
+            Added support for the hd parameter for AuthSubRequests, so that a 
+            particular domain can be specified. 
+        </li>
+        <li>
+            Added support for a UseSSL property on the FeedQuery class. If set, 
+            requests are made against the https version of the feed, if 
+            available. This is mostly relevant for hosted domains. 
+        </li>
+        <li> Added a UriEncodeUnsafe to the Utilities class to help with 
+            encoding of user emails during the URL construction</li>
 	<li>Added new VS 2005 solution files for all targets for the contacts library.</li>
     </ul>
     <li>Bugfixes/changes</li>
@@ -31,6 +50,10 @@
         <li>
             small bugfixes to the base code (exceptions sometimes on missing attributes) 
         </li>
+        <li>Fixed a number of bugs in the calendar extension classes that 
+            occured if you set new objects into the accessors</li>
+        <li>Fixed a crashing bug in the equal operator of the EnumConstruct 
+            class</li>
 	<li>Fixed issue 105: Cannot add a reminder in a Recurring event using C# Calendar library</li>
 	<li>The Reminders property is now a typed generic collection</li>
 
