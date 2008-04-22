@@ -2798,6 +2798,12 @@
             <param name="content">the parameter string</param>
             <returns>hex encoded string</returns>
         </member>
+        <member name="M:Google.GData.Client.Utilities.UriEncodeUnsafe(System.String)">
+            <summary>helper to read in a string and replace the reserved URI 
+            characters with hex encoding</summary> 
+            <param name="content">the parameter string</param>
+            <returns>hex encoded string</returns>
+        </member>
         <member name="M:Google.GData.Client.Utilities.LocalDateInUTC(System.DateTime)">
             <summary>Method to output just the date portion as string</summary>
             <param name="dateTime">the DateTime object to output as a string</param>
