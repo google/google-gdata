@@ -117,6 +117,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\..\version\AssemblyVersion.cs">
+      <Link>AssemblyVersion.cs</Link>
+    </Compile>
     <Compile Include="..\..\gspreadsheet\AssemblyInfo.cs">
       <Link>AssemblyInfo.cs</Link>
       <SubType>Code</SubType>
@@ -184,9 +187,6 @@
     <Compile Include="..\..\gspreadsheet\worksheetquery.cs">
       <Link>worksheetquery.cs</Link>
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="..\..\version\AssemblyVersion.cs">
-      <Link>AssemblyVersion.cs</Link>
     </Compile>
   </ItemGroup>
   <ItemGroup>

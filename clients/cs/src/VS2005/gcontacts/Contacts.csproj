@@ -60,6 +60,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\..\version\AssemblyVersion.cs">
+      <Link>AssemblyVersion.cs</Link>
+    </Compile>
     <Compile Include="..\..\gcontacts\AssemblyInfo.cs">
       <Link>AssemblyInfo.cs</Link>
     </Compile>
@@ -74,9 +77,6 @@
     </Compile>
     <Compile Include="..\..\gcontacts\contactservice.cs">
       <Link>contactservice.cs</Link>
-    </Compile>
-    <Compile Include="..\..\version\AssemblyVersion.cs">
-      <Link>AssemblyVersion.cs</Link>
     </Compile>
   </ItemGroup>
   <ItemGroup>

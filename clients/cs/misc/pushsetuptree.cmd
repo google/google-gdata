@@ -6,6 +6,7 @@ svn export . exporttree\
 mkdir setuptree
 xcopy /E exporttree\src\*.* setuptree\Sources\Library\*.* 
 xcopy /E exporttree\samples\*.* setuptree\Sources\Samples\*.*
+xcopy /E exporttree\version\*.* setuptree\Sources\version\*.*
 xcopy exporttree\docs\*.chm setuptree\Documentation\*.*
 xcopy exporttree\*.txt setuptree\Documentation\*.*
 xcopy exporttree\*.html setuptree\Documentation\*.*

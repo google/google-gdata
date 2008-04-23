@@ -406,12 +406,6 @@
         "Entry"
         {
         "MsmKey" = "8:_24A16CB1702BD3C4F96CE783F2EEEE7E"
-        "OwnerKey" = "8:_3A0A1B52682E4E51BEB60C2C9E1AEDBA"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_24A16CB1702BD3C4F96CE783F2EEEE7E"
         "OwnerKey" = "8:_F5A83D7DAF374A1187F8A6840F21C1CF"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -455,6 +449,12 @@
         {
         "MsmKey" = "8:_24A16CB1702BD3C4F96CE783F2EEEE7E"
         "OwnerKey" = "8:_4A249741120643F584956AF0F472D251"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_24A16CB1702BD3C4F96CE783F2EEEE7E"
+        "OwnerKey" = "8:_3A0A1B52682E4E51BEB60C2C9E1AEDBA"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -1120,6 +1120,12 @@
         "Entry"
         {
         "MsmKey" = "8:_6636395B60314EEAAE2D3757B9CFE82A"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_665624ACEF0344F486C4BC39B6E46197"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -2302,12 +2308,6 @@
         "Entry"
         {
         "MsmKey" = "8:_D14195EDA2DF10C568C551889FF67829"
-        "OwnerKey" = "8:_3A0A1B52682E4E51BEB60C2C9E1AEDBA"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_D14195EDA2DF10C568C551889FF67829"
         "OwnerKey" = "8:_F6879DC4127F4718956B70C27F81DCC1"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -2369,6 +2369,12 @@
         {
         "MsmKey" = "8:_D14195EDA2DF10C568C551889FF67829"
         "OwnerKey" = "8:_4A249741120643F584956AF0F472D251"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_D14195EDA2DF10C568C551889FF67829"
+        "OwnerKey" = "8:_3A0A1B52682E4E51BEB60C2C9E1AEDBA"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -2721,12 +2727,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_EAFF3B6AC48342CA8F31F4985FF450D5"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_EB5A31581D714DDC9464A607ABEB3E7C"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -2950,12 +2950,6 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_3A0A1B52682E4E51BEB60C2C9E1AEDBA"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_F6879DC4127F4718956B70C27F81DCC1"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -3155,6 +3149,12 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_4A249741120643F584956AF0F472D251"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_3A0A1B52682E4E51BEB60C2C9E1AEDBA"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -7048,6 +7048,26 @@
             "TargetName" = "8:gbaseattributetest.cs"
             "Tag" = "8:"
             "Folder" = "8:_ADA2492311174A86AB583C355E2B4519"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_665624ACEF0344F486C4BC39B6E46197"
+            {
+            "SourcePath" = "8:..\\..\\setuptree\\Sources\\version\\AssemblyVersion.cs"
+            "TargetName" = "8:AssemblyVersion.cs"
+            "Tag" = "8:"
+            "Folder" = "8:_13A12AE2DBCF466AAE437335549E28F2"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -11745,26 +11765,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_EAFF3B6AC48342CA8F31F4985FF450D5"
-            {
-            "SourcePath" = "8:..\\..\\setuptree\\Sources\\Library\\version\\AssemblyVersion.cs"
-            "TargetName" = "8:AssemblyVersion.cs"
-            "Tag" = "8:"
-            "Folder" = "8:_796AECBE363B4F3B82A7136642DBB24C"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_EB5A31581D714DDC9464A607ABEB3E7C"
             {
             "SourcePath" = "8:..\\..\\setuptree\\Sources\\Library\\gcontacts\\AssemblyInfo.cs"
@@ -12633,6 +12633,17 @@
                     "Property" = "8:_9B654EF2A6E94513967E8FED62A2D42C"
                         "Folders"
                         {
+                            "{9EF0B969-E518-4E46-987F-47570745A589}:_13A12AE2DBCF466AAE437335549E28F2"
+                            {
+                            "Name" = "8:version"
+                            "AlwaysCreate" = "11:FALSE"
+                            "Condition" = "8:"
+                            "Transitive" = "11:FALSE"
+                            "Property" = "8:_A03E515F1347494ABEB5D62CA8C656C7"
+                                "Folders"
+                                {
+                                }
+                            }
                             "{9EF0B969-E518-4E46-987F-47570745A589}:_68610A6FC6B841048F3C504A30C7429C"
                             {
                             "Name" = "8:Library"
@@ -12693,17 +12704,6 @@
                                     "Condition" = "8:"
                                     "Transitive" = "11:FALSE"
                                     "Property" = "8:_7DA4549F5C32490ABC4E58B531E50FBE"
-                                        "Folders"
-                                        {
-                                        }
-                                    }
-                                    "{9EF0B969-E518-4E46-987F-47570745A589}:_796AECBE363B4F3B82A7136642DBB24C"
-                                    {
-                                    "Name" = "8:version"
-                                    "AlwaysCreate" = "11:FALSE"
-                                    "Condition" = "8:"
-                                    "Transitive" = "11:FALSE"
-                                    "Property" = "8:_CC4C73DC9A5C4E508D7EB13CC0F994FF"
                                         "Folders"
                                         {
                                         }
