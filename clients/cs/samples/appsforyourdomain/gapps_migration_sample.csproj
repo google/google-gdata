@@ -97,13 +97,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\src\version\AssemblyVersion.cs">
+    <Compile Include="..\..\version\AssemblyVersion.cs">
       <Link>AssemblyVersion.cs</Link>
     </Compile>
-    <Compile Include="migrationsample.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App.ico" />
+    <Compile Include="migration\migrationsample.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

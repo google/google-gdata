@@ -213,7 +213,6 @@
     </Compile>
     <Compile Include="..\..\version\AssemblyVersion.cs">
       <Link>AssemblyVersion.cs</Link>
-      <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
