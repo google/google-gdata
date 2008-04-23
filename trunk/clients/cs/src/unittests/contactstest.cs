@@ -166,10 +166,59 @@ namespace Google.GData.Client.LiveTests
                 Assert.IsTrue(iVer == 3, "The new entries should all be deleted now");
                 Assert.IsTrue(feed.Entries.Count == all - 3, "The count should be correct as well");
             }
-
-            
         }
         /////////////////////////////////////////////////////////////////////////////
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Tests the primary Accessors</summary> 
+        //////////////////////////////////////////////////////////////////////
+        [Test]
+        public void TestPrimaryContactsProperties()
+        {
+            Tracing.TraceMsg("Entering TestPrimaryContactsProperties");
+
+            ContactEntry entry = new ContactEntry();
+
+            EMail e = new EMail();
+            e.Primary = true;
+            e.Address = "joe@smith.com";
+
+            Assert.IsTrue(entry.PrimaryEmail == null, "Entry should have no primary Email");
+            entry.Emails.Add(e);
+            Assert.IsTrue(entry.PrimaryEmail == e, "Entry should have one primary Email");
+
+            entry.Emails.Remove(e);
+            Assert.IsTrue(entry.PrimaryEmail == null, "Entry should have no primary Email");
+
+            PostalAddress p = new PostalAddress("Testaddress");
+            p.Primary = true;
+            Assert.IsTrue(entry.PrimaryPostalAddress == null, "Entry should have no primary Postal");
+            entry.PostalAddresses.Add(p);
+            Assert.IsTrue(entry.PrimaryPostalAddress == p, "Entry should have one primary Postal");
+            entry.PostalAddresses.Remove(p);
+            Assert.IsTrue(entry.PrimaryPostalAddress == null, "Entry should have no primary Postal");
+
+            PhoneNumber n = new PhoneNumber("123345");
+            n.Primary = true;
+
+            Assert.IsTrue(entry.PrimaryPhonenumber == null, "Entry should have no primary Phonenumber");
+            entry.Phonenumbers.Add(n);
+            Assert.IsTrue(entry.PrimaryPhonenumber == n, "Entry should have one primary Phonenumber");
+
+            entry.Phonenumbers.Remove(n);
+            Assert.IsTrue(entry.PrimaryPhonenumber == null, "Entry should have no primary Phonenumber");
+
+            IMAddress i = new IMAddress("joe@smight.com");
+            i.Primary = true;
+
+            Assert.IsTrue(entry.PrimaryIMAddress == null, "Entry should have no primary IM");
+            entry.IMs.Add(new IMAddress());
+            entry.IMs.Add(i);
+            Assert.IsTrue(entry.PrimaryIMAddress == i, "Entry should have one primary IMAddress");
+
+            entry.IMs.Remove(i);
+            Assert.IsTrue(entry.PrimaryIMAddress == null, "Entry should have no primary IM");
+        }
 
     }
 }
