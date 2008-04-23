@@ -107,6 +107,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\..\version\AssemblyVersion.cs">
+      <Link>AssemblyVersion.cs</Link>
+    </Compile>
     <Compile Include="..\..\core\abstractentry.cs">
       <Link>abstractentry.cs</Link>
       <SubType>Code</SubType>
@@ -266,9 +269,6 @@
     <Compile Include="..\..\core\utilities.cs">
       <Link>utilities.cs</Link>
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="..\..\version\AssemblyVersion.cs">
-      <Link>AssemblyVersion.cs</Link>
     </Compile>
   </ItemGroup>
   <ItemGroup>

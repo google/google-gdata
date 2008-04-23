@@ -117,6 +117,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\..\version\AssemblyVersion.cs">
+      <Link>AssemblyVersion.cs</Link>
+    </Compile>
     <Compile Include="..\..\gphotos\albumentry.cs">
       <Link>albumentry.cs</Link>
       <SubType>Code</SubType>
@@ -160,9 +163,6 @@
     <Compile Include="..\..\gphotos\tagentry.cs">
       <Link>tagentry.cs</Link>
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="..\..\version\AssemblyVersion.cs">
-      <Link>AssemblyVersion.cs</Link>
     </Compile>
   </ItemGroup>
   <ItemGroup>

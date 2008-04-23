@@ -117,6 +117,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\..\version\AssemblyVersion.cs">
+      <Link>AssemblyVersion.cs</Link>
+    </Compile>
     <Compile Include="..\..\gapps\appsexception.cs">
       <Link>appsexception.cs</Link>
       <SubType>Code</SubType>
@@ -204,9 +207,6 @@
     <Compile Include="..\..\gapps\userservice.cs">
       <Link>userservice.cs</Link>
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="..\..\version\AssemblyVersion.cs">
-      <Link>AssemblyVersion.cs</Link>
     </Compile>
   </ItemGroup>
   <ItemGroup>
