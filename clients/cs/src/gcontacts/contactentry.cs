@@ -60,6 +60,86 @@ namespace Google.GData.Contacts {
             ContactsExtensions.AddExtension(this);
         }
 
+        /// <summary>
+        /// convienience accessor to find the primary Email
+        /// there is no setter, to change this use the Primary Flag on 
+        /// an individual object
+        /// </summary>
+        public EMail PrimaryEmail
+        {
+            get
+            {
+                foreach (EMail e in this.Emails)
+                {
+                    if (e.Primary == true)
+                    {
+                        return e;
+                    }
+                }
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// convienience accessor to find the primary Phonenumber
+        /// there is no setter, to change this use the Primary Flag on 
+        /// an individual object
+        /// </summary>
+        public PhoneNumber PrimaryPhonenumber
+        {
+            get
+            {
+                foreach (PhoneNumber p in this.Phonenumbers)
+                {
+                    if (p.Primary == true)
+                    {
+                        return p;
+                    }
+                }
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// convienience accessor to find the primary PostalAddress
+        /// there is no setter, to change this use the Primary Flag on 
+        /// an individual object
+        /// </summary>
+        public PostalAddress PrimaryPostalAddress
+        {
+            get
+            {
+                foreach (PostalAddress p in this.PostalAddresses)
+                {
+                    if (p.Primary == true)
+                    {
+                        return p;
+                    }
+                }
+                return null;
+            }
+        }
+        
+        /// <summary>
+        /// convienience accessor to find the primary IMAddress
+        /// there is no setter, to change this use the Primary Flag on 
+        /// an individual object
+        /// </summary>
+        public IMAddress PrimaryIMAddress
+        {
+            get
+            {
+                foreach (IMAddress im in this.IMs)
+                {
+                    if (im.Primary == true)
+                    {
+                        return im;
+                    }
+                }
+                return null;
+            }
+        }
+
 
         /// <summary>
         /// getter/setter for the email extension element

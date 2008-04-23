@@ -80,6 +80,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
     <None Include="contacts.sn" />
   </ItemGroup>
   <ItemGroup>
