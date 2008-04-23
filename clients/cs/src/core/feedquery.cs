@@ -221,7 +221,7 @@ namespace Google.GData.Client
         public Uri Uri
         {
             get {
-                String uriToUse = this.baseUri.Replace(this.UnusedProtocol, this.DefaultProtocol);
+                String uriToUse = this.baseUri == null ? String.Empty : this.baseUri.Replace(this.UnusedProtocol, this.DefaultProtocol);
                 return new Uri(uriToUse + CalculateQuery());
                 }
             
