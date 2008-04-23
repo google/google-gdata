@@ -51,6 +51,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\..\version\AssemblyVersion.cs">
+      <Link>AssemblyVersion.cs</Link>
+    </Compile>
     <Compile Include="..\..\core\abstractentry.cs">
       <Link>abstractentry.cs</Link>
     </Compile>
@@ -167,9 +170,6 @@
     </Compile>
     <Compile Include="..\..\core\utilities.cs">
       <Link>utilities.cs</Link>
-    </Compile>
-    <Compile Include="..\..\version\AssemblyVersion.cs">
-      <Link>AssemblyVersion.cs</Link>
     </Compile>
   </ItemGroup>
   <ItemGroup>

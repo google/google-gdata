@@ -50,6 +50,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\..\version\AssemblyVersion.cs">
+      <Link>AssemblyVersion.cs</Link>
+    </Compile>
     <Compile Include="..\..\gapps\appsexception.cs">
       <Link>appsexception.cs</Link>
     </Compile>
@@ -115,9 +118,6 @@
     </Compile>
     <Compile Include="..\..\gapps\userservice.cs">
       <Link>userservice.cs</Link>
-    </Compile>
-    <Compile Include="..\..\version\AssemblyVersion.cs">
-      <Link>AssemblyVersion.cs</Link>
     </Compile>
   </ItemGroup>
   <ItemGroup>

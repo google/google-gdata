@@ -68,6 +68,34 @@
             to indicate that it is an event.
             </summary>
         </member>
+        <member name="P:Google.GData.Contacts.ContactEntry.PrimaryEmail">
+            <summary>
+            convienience accessor to find the primary Email
+            there is no setter, to change this use the Primary Flag on 
+            an individual object
+            </summary>
+        </member>
+        <member name="P:Google.GData.Contacts.ContactEntry.PrimaryPhonenumber">
+            <summary>
+            convienience accessor to find the primary Phonenumber
+            there is no setter, to change this use the Primary Flag on 
+            an individual object
+            </summary>
+        </member>
+        <member name="P:Google.GData.Contacts.ContactEntry.PrimaryPostalAddress">
+            <summary>
+            convienience accessor to find the primary PostalAddress
+            there is no setter, to change this use the Primary Flag on 
+            an individual object
+            </summary>
+        </member>
+        <member name="P:Google.GData.Contacts.ContactEntry.PrimaryIMAddress">
+            <summary>
+            convienience accessor to find the primary IMAddress
+            there is no setter, to change this use the Primary Flag on 
+            an individual object
+            </summary>
+        </member>
         <member name="P:Google.GData.Contacts.ContactEntry.Emails">
             <summary>
             getter/setter for the email extension element
