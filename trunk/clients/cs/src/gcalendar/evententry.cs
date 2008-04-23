@@ -101,6 +101,7 @@ namespace Google.GData.Calendar {
             this.AddExtension(new RecurrenceException());
             this.AddExtension(new Comments());
             this.AddExtension(new ExtendedProperty());
+            this.AddExtension(new Recurrence());
         }
 
         /// <summary>

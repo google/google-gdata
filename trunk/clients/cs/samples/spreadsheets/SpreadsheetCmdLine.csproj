@@ -45,14 +45,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\src\version\AssemblyVersion.cs">
+    <Compile Include="..\..\version\AssemblyVersion.cs">
       <Link>AssemblyVersion.cs</Link>
     </Compile>
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="spreadsheetdemo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App.ico" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
