@@ -518,11 +518,36 @@ namespace Google.GData.Client.UnitTests
                     Assert.IsTrue(token.Equals("Line2?other=whatishere"), "The fourth smart token should be whatishere, but it is: " + token);
                 }
             }
+        }
 
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>checks if the feedquery object is stable</summary> 
+        //////////////////////////////////////////////////////////////////////
+        [Test]
+        public void TestFeedQuery()
+        {
+            Tracing.TraceMsg("Entering DefaultHostExtensionTest");
 
+            try
+            {
+                FeedQuery query = new FeedQuery();
+                query.NumberToRetrieve = 20;
+                Uri u = query.Uri;
+
+            }
+            catch (UriFormatException u)
+            {
+                // ignore this.
+            }
+            catch (Exception e)
+            {
+                Assert.Fail("That should not have crashed");
+            }
 
         }
-  
+        /////////////////////////////////////////////////////////////////////////////
+
+
     } /// end of CoreTestSuite
 }
 
