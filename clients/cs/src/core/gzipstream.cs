@@ -159,9 +159,24 @@ namespace Google.GData.Client
         /// <summary>GZipStream destructor. Cleans all allocated resources.</summary>
         ~GZipStream()
         {
-            inputBufferHandle.Free();
-            inflateEnd(ref this.zstream);
-        }
+			Dispose(false);
+		}
+
+		//////////////////////////////////////////////////////////////////////
+		/// <summary>Handle Dispose since Stream implements IDisposable</summary> 
+		/// <param name="disposing">indicates if dispose called it or finalize</param>
+		//////////////////////////////////////////////////////////////////////
+		protected override void Dispose(bool disposing)
+		{
+			base.Dispose(disposing);
+
+			if (inputBufferHandle.IsAllocated)
+			{
+				inputBufferHandle.Free();
+				inflateEnd(ref this.zstream);
+			}
+		}
+
 
         /// <summary>Reads a number of decompressed bytes into the specified byte array.</summary>
         /// <param name="array">The array used to store decompressed bytes.</param>
