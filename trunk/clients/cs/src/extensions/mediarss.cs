@@ -15,8 +15,6 @@
 
 using System;
 using System.Xml;
-//using System.Collections;
-//using System.Text;
 using Google.GData.Client;
 
 namespace Google.GData.Extensions.MediaRss {

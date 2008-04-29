@@ -52,6 +52,19 @@ namespace Google.GData.Client.LiveTests
         }
 
 
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>runs an authentication test</summary> 
+        //////////////////////////////////////////////////////////////////////
+        [Test] public void ContactsObjectModelTest()
+        {
+            Tracing.TraceMsg("Entering ContactsObjectModelTest");
+
+            EMail email = new EMail("joe@doe.com");
+            Assert.AreEqual(email.Address, "joe@doe.com", "constructor should have set address field");
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>runs an authentication test</summary> 
