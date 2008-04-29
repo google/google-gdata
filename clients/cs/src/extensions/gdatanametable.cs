@@ -116,6 +116,20 @@ namespace Google.GData.Extensions
         /// <summary>static string for parsing the organization title element in a contacts</summary>
         public const string XmlOrgTitleElement = "orgTitle";
 
+
+        /// <summary>xmlelement for gd:rating</summary> 
+        public const string XmlRatingElement = "rating";
+        /// <summary>xml attribute min for gd:rating</summary> 
+        public const string XmlAttributeMin = "min";
+        /// <summary>xml attribute max for gd:rating</summary> 
+        public const string XmlAttributeMax = "max";
+        /// <summary>xml attribute numRaters for gd:rating</summary> 
+        public const string XmlAttributeNumRaters = "numRaters";
+        /// <summary>xml attribute average for gd:rating</summary> 
+        public const string XmlAttributeAverage = "average";
+
+
+
 #endregion
 
 #region attribute strings

@@ -25,6 +25,7 @@ ALLLIBS = \
 	Google.GData.Documents.dll 	\
 	Google.GData.AccessControl.dll 	\
 	Google.GData.Contacts.dll	\
+	Google.GData.YouTube.dll	\
 
 FRAMEWORK_REFS = -r:System.dll -r:System.Xml.dll -r:System.Web.dll -r:System.Configuration.dll
 
@@ -46,17 +47,18 @@ samples =	\
 
 all: $(ALL_LIBS) tests $(samples)
 
-core_sources = $(wildcard src/core/*.cs) $(wildcard src/version/*.cs)
-extensions_sources = $(wildcard src/extensions/*.cs) $(wildcard src/version/*.cs)
-gbase_sources = $(wildcard src/gbase/*.cs) $(wildcard src/version/*.cs)
-gcodesearch_sources = $(wildcard src/gcodesearch/*.cs) $(wildcard src/version/*.cs)
-gspreadsheet_sources = $(wildcard src/gspreadsheet/*.cs) $(wildcard src/version/*.cs)
-gcalendar_sources =  $(wildcard src/gcalendar/*.cs) $(wildcard src/version/*.cs)
-gacl_sources = $(wildcard src/gacl/*.cs) $(wildcard src/version/*.cs)
-gapps_sources = $(wildcard src/gapps/*.cs) $(wildcard src/version/*.cs)
-gphotos_sources = $(wildcard src/gphotos/*.cs) $(wildcard src/version/*.cs)
-gdocuments_sources = $(wildcard src/gdocuments/*.cs) $(wildcard src/version/*.cs)
-gcontact_sources = $(wildcard src/gcontacts/*.cs) $(wildcard src/version/*.cs)
+core_sources = $(wildcard src/core/*.cs) $(wildcard version/*.cs)
+extensions_sources = $(wildcard src/extensions/*.cs) $(wildcard version/*.cs)
+gbase_sources = $(wildcard src/gbase/*.cs) $(wildcard version/*.cs)
+gcodesearch_sources = $(wildcard src/gcodesearch/*.cs) $(wildcard version/*.cs)
+gspreadsheet_sources = $(wildcard src/gspreadsheet/*.cs) $(wildcard version/*.cs)
+gcalendar_sources =  $(wildcard src/gcalendar/*.cs) $(wildcard version/*.cs)
+gacl_sources = $(wildcard src/gacl/*.cs) $(wildcard version/*.cs)
+gapps_sources = $(wildcard src/gapps/*.cs) $(wildcard version/*.cs)
+gphotos_sources = $(wildcard src/gphotos/*.cs) $(wildcard version/*.cs)
+gdocuments_sources = $(wildcard src/gdocuments/*.cs) $(wildcard version/*.cs)
+gcontact_sources = $(wildcard src/gcontacts/*.cs) $(wildcard version/*.cs)
+youtube_sources = $(wildcard src/youtube/*.cs) $(wildcard version/*.cs)
 test_sources = $(wildcard src/unittests/*.cs) $(wildcard src/unittests/gbase/*.cs) $(wildcard src/unittests/gapps/*.cs) $(wildcard src/version/*cs)
 
 Google.GData.Client.dll: $(core_sources) src/VS2005/gdata/clientkey.sn
@@ -91,6 +93,9 @@ Google.GData.Documents.dll: $(CORELIBS) $(gdocuments_sources) src/VS2005/gdoclis
 
 Google.GData.Contacts.dll: $(CORELIBS) $(gcontact_sources) src/VS2005/gcontacts/contacts.sn
 	$(CSC) $(DEFINES) -target:library -out:$@ $(COREREFS) $(gcontact_sources)
+
+Google.GData.YouTube.dll: $(CORELIBS) $(youtube_sources) src/VS2005/youtube/youtube.sn
+	$(CSC) $(DEFINES) -target:library -out:$@ $(COREREFS) $(youtube_sources)
 
 clean:
 	-rm *.sn *.dll *exe

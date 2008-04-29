@@ -95,7 +95,29 @@ namespace Google.GData.Client
             }
             return;
         }
+
+        /// <summary>
+        /// helper to toggle categories
+        /// </summary>
+        /// <param name="cat"></param>
+        /// <param name="value"></param>
+        protected void ToggleCategory(AtomCategory cat, bool value)
+        {
+            if (value == true)
+            {
+                if (this.Categories.Contains(cat) == false)
+                {
+                    this.Categories.Add(cat);
+                }
+            } 
+            else 
+            { 
+                this.Categories.Remove(cat);
+            }
+        }
+
     }
+
 }
 /////////////////////////////////////////////////////////////////////////////
  

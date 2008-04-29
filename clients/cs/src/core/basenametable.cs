@@ -124,15 +124,13 @@ namespace Google.GData.Client
 
         // app publishing control strings
         /// <summary>prefix for appPublishing if writing</summary> 
-        public const string gAppPublishing = "app"; 
+        public const string gAppPublishingPrefix = "app"; 
 
         /// <summary>xmlelement for app:control</summary> 
         public const string XmlElementPubControl = "control"; 
 
         /// <summary>xmlelement for app:draft</summary> 
         public const string XmlElementPubDraft = "draft"; 
-
-        
 
 
         // batch strings:

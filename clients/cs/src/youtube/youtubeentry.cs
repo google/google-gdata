@@ -23,9 +23,9 @@ using Google.GData.Extensions;
 using Google.GData.Extensions.MediaRss;
 using Google.GData.Extensions.Exif;
 using Google.GData.Extensions.Location;
+using Google.GData.Extensions.AppControl;
 
-
-namespace Google.GData.Photos {
+namespace Google.GData.YouTube {
 
 
     //////////////////////////////////////////////////////////////////////
@@ -33,43 +33,61 @@ namespace Google.GData.Photos {
     /// Entry API customization class for defining entries in an Event feed.
     /// </summary>
     //////////////////////////////////////////////////////////////////////
-    public class PicasaEntry : AbstractEntry
+    public class YouTubeEntry : AbstractEntry
     {
         /// <summary>
         /// Category used to label entries that contain photo extension data.
         /// </summary>
-        public static AtomCategory PHOTO_CATEGORY =
-        new AtomCategory(GPhotoNameTable.PhotoKind, new AtomUri(BaseNameTable.gKind));
+//        public static AtomCategory PHOTO_CATEGORY =
+        //new AtomCategory(GPhotoNameTable.PhotoKind, new AtomUri(BaseNameTable.gKind));
 
         /// <summary>
-        /// Category used to label entries that contain photo extension data.
+        /// Constructs a new YouTubeEntry instance with the appropriate category
+        /// to indicate that it is an youTube Entry.
         /// </summary>
-        public static AtomCategory ALBUM_CATEGORY =
-        new AtomCategory(GPhotoNameTable.AlbumKind, new AtomUri(BaseNameTable.gKind));
-
-        /// <summary>
-        /// Category used to label entries that contain comment extension data.
-        /// </summary>
-        public static AtomCategory COMMENT_CATEGORY =
-        new AtomCategory(GPhotoNameTable.CommentKind, new AtomUri(BaseNameTable.gKind));
-
-        /// <summary>
-        /// Category used to label entries that contain photo extension data.
-        /// </summary>
-        public static AtomCategory TAG_CATEGORY =
-        new AtomCategory(GPhotoNameTable.TagKind, new AtomUri(BaseNameTable.gKind));
-
-        /// <summary>
-        /// Constructs a new PicasaEntry instance
-        /// </summary>
-        public PicasaEntry()
+        public YouTubeEntry()
         : base()
         {
-            Tracing.TraceMsg("Created PicasaEntry");
-            GPhotoExtensions.AddExtension(this);
-            MediaRssExtensions.AddExtension(this);
-            ExifExtensions.AddExtension(this);
+            Tracing.TraceMsg("Created YouTubeEntry");
+            addYouTubeEntryExtensions();
+        
+        }
+
+
+         /// <summary>
+        ///  helper method to add extensions to the evententry
+        /// </summary>
+        private void addYouTubeEntryExtensions()
+        {
+            MediaGroup mg = new MediaGroup();
+            // extend the MediaGroup to accept a Duration 
+            // and Private element()
+            mg.ExtensionFactories.Add(new Duration());
+            mg.ExtensionFactories.Add(new Private());
+
+            // now add it to us
+            this.ExtensionFactories.Add(mg);
+
             GeoRssExtensions.AddExtension(this);
+
+
+            // create a default appControl element
+            AppControl ac = new AppControl();
+            // add the youtube state element
+            ac.ExtensionFactories.Add(new State());
+            this.ExtensionFactories.Add(ac);
+
+            // things from the gd namespce
+            this.AddExtension(new Comments());
+            this.AddExtension(new Rating());
+
+            // add youtube namespace elements
+            this.AddExtension(new Description());  // only playlist entry
+            this.AddExtension(new Position());  // only playlist entry
+            this.AddExtension(new Statistics());
+            this.AddExtension(new Location());
+            this.AddExtension(new Recorded());
+
         }
 
         /// <summary>
@@ -86,24 +104,6 @@ namespace Google.GData.Photos {
             {
                 ReplaceExtension(GeoNametable.GeoRssWhereElement,
                                 GeoNametable.NSGeoRss,
-                                value);
-            }
-        }
-
-        /// <summary>
-        /// getter/setter for the ExifTags extension element
-        /// </summary>
-        public ExifTags Exif 
-        {
-            get
-            {
-                return FindExtension(ExifNameTable.ExifTags,
-                                     ExifNameTable.NSExif) as ExifTags;
-            }
-            set
-            {
-                ReplaceExtension(ExifNameTable.ExifTags,
-                                ExifNameTable.NSExif,
                                 value);
             }
         }
@@ -134,9 +134,9 @@ namespace Google.GData.Photos {
         /// </summary>
         /// <param name="extension">the name of the extension to look for</param>
         /// <returns>SimpleElement, or NULL if the extension was not found</returns>
-        public SimpleElement getPhotoExtension(string extension) 
+        public SimpleElement getYouTubeExtension(string extension) 
         {
-            return FindExtension(extension, GPhotoNameTable.NSGPhotos) as SimpleElement;
+            return FindExtension(extension, YouTubeNameTable.NSYouTube) as SimpleElement;
         }
 
         /// <summary>
@@ -146,9 +146,9 @@ namespace Google.GData.Photos {
         /// </summary>
         /// <param name="extension">the name of the extension to look for</param>
         /// <returns>value as string, or NULL if the extension was not found</returns>
-        public string getPhotoExtensionValue(string extension) 
+        public string getYouTubeExtensionValue(string extension) 
         {
-            SimpleElement e = getPhotoExtension(extension);
+            SimpleElement e = getYouTubeExtension(extension);
             if (e != null)
             {
                 return e.Value;
@@ -176,17 +176,17 @@ namespace Google.GData.Photos {
         /// <param name="newValue">the new value for this extension element</param>
         /// <returns>SimpleElement, either a brand new one, or the one
         /// returned by the service</returns>
-        public SimpleElement setPhotoExtension(string extension, string newValue) 
+        public SimpleElement setYouTubeExtension(string extension, string newValue) 
         {
             if (extension == null)
             {
                 throw new System.ArgumentNullException("extension");
             }
             
-            SimpleElement ele = getPhotoExtension(extension);
+            SimpleElement ele = getYouTubeExtension(extension);
             if (ele == null)
             {
-                ele = CreateExtension(extension, GPhotoNameTable.NSGPhotos) as SimpleElement;
+                ele = CreateExtension(extension, YouTubeNameTable.NSYouTube) as SimpleElement;
                 this.ExtensionElements.Add(ele);
             }
             ele.Value = newValue;
@@ -194,6 +194,7 @@ namespace Google.GData.Photos {
             return ele;
         }
 
+        /*
         /// <summary>
         /// returns true if the entry is a photo entry
         /// </summary>
@@ -208,51 +209,7 @@ namespace Google.GData.Photos {
                 ToggleCategory(PHOTO_CATEGORY, value);
             }
         } 
-
-        /// <summary>
-        /// returns true if the entry is a comment entry
-        /// </summary>
-        public bool IsComment
-        {
-            get 
-            {
-                return (this.Categories.Contains(COMMENT_CATEGORY));
-            }
-            set 
-            {
-                ToggleCategory(COMMENT_CATEGORY, value);
-            }
-        } 
-
-        /// <summary>
-        /// returns true if the entry is an album entry
-        /// </summary>
-        public bool IsAlbum
-        {
-            get 
-            {
-                return (this.Categories.Contains(ALBUM_CATEGORY));
-            }
-            set 
-            {
-                ToggleCategory(ALBUM_CATEGORY, value);
-            }
-        } 
-
-        /// <summary>
-        /// returns true if the entry is a tag entry
-        /// </summary>
-        public bool IsTag
-        {
-            get 
-            {
-                return (this.Categories.Contains(TAG_CATEGORY));
-            }
-            set 
-            {
-                ToggleCategory(TAG_CATEGORY, value);
-            }
-        } 
+        */
     }
 }
 
