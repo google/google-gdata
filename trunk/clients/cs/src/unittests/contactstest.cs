@@ -116,6 +116,8 @@ namespace Google.GData.Client.LiveTests
 
             ContactsFeed feed = service.Query(query);
 
+            PhoneNumber p = null;
+
             ArrayList inserted = new ArrayList();
             if (feed != null)
             {
@@ -124,6 +126,7 @@ namespace Google.GData.Client.LiveTests
                 for (int i=0; i<3; i++)
                 {
                     ContactEntry entry = ObjectModelHelper.CreateContactEntry(i);
+                    p = entry.PrimaryPhonenumber; 
                     inserted.Add(feed.Insert(entry));
                 }
             }
@@ -142,6 +145,11 @@ namespace Google.GData.Client.LiveTests
                         if (e.Id == test.Id)
                         {
                             iVer--;
+
+                            // verify we got the phonenumber back....
+
+                            Assert.IsTrue(e.PrimaryPhonenumber != null, "They should have a primary phonenumber");
+                            Assert.AreEqual(e.PrimaryPhonenumber.Value,p.Value, "They should be identical");
                         }
                     }
                 }
