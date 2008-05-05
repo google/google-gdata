@@ -430,6 +430,43 @@ namespace Google.GData.YouTube {
                             case "vq":
                                 this.VQ = parameters[1];
                                 break;
+                            case "orderby":
+                                this.OrderBy = parameters[1];
+                                break;
+                            case "client":
+                                this.Client = parameters[1];
+                                break;
+                            case "lr":
+                                this.LR = parameters[1];
+                                break;
+                            case "racy":
+                                this.Racy = parameters[1];
+                                break;
+                            case "restriction":
+                                this.Restriction = parameters[1];
+                                break;
+                            case "time":
+                                if ("all_time" == parameters[1])
+                                {
+                                    this.Time = UploadTime.AllTime;
+                                } 
+                                else if ("this_month" == parameters[1])
+                                {
+                                    this.Time = UploadTime.ThisMonth;
+                                }
+                                else if ("today" == parameters[1])
+                                {
+                                    this.Time = UploadTime.Today;
+                                }
+                                else if ("this_week" == parameters[1])
+                                {
+                                    this.Time = UploadTime.ThisWeek;
+                                }
+                                else 
+                                {
+                                    this.Time = UploadTime.UploadTimeUndefined;
+                                }
+                                break;
                         }
                     }
                 }

@@ -773,7 +773,11 @@ namespace Google.GData.Client
         /// <returns></returns>
         protected char AppendQueryPart(DateTime value, string parameterName, char connectChar, StringBuilder builder)
         {
-            return AppendQueryPart(Utilities.LocalDateTimeInUTC(value), parameterName, connectChar, builder);
+            if (Utilities.IsPersistable(value))
+            {
+                return AppendQueryPart(Utilities.LocalDateTimeInUTC(value), parameterName, connectChar, builder);
+            }
+            return connectChar;
         }
 
         //////////////////////////////////////////////////////////////////////
