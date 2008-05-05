@@ -291,6 +291,9 @@
       <Link>writetest.cs</Link>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="..\..\unittests\youtubetest.cs">
+      <Link>youtubetest.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\gacl\Access Control.csproj">
@@ -336,6 +339,10 @@
     <ProjectReference Include="..\gspreadsheets\Spreadsheets.csproj">
       <Project>{3FF0C48A-48CC-49CE-8B65-0C780770A75D}</Project>
       <Name>Spreadsheets</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\youtube\YouTube.csproj">
+      <Project>{2C497F73-7C10-4DC6-A680-CAA9DF442E91}</Project>
+      <Name>YouTube</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

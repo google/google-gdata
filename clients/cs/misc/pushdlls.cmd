@@ -32,6 +32,7 @@ xcopy /y ..\src\VS2005\gacl\bin\Release\*.dll ..\lib\Release\*.*
 xcopy /y ..\src\VS2005\gphotos\bin\Release\*.dll ..\lib\Release\*.*
 xcopy /y ..\src\VS2005\gdoclist\bin\Release\*.dll ..\lib\Release\*.*
 xcopy /y ..\src\VS2005\gcontacts\bin\Release\*.dll ..\lib\Release\*.*
+xcopy /y ..\src\VS2005\youtube\bin\Release\*.dll ..\lib\Release\*.*
 
 # copy the debug DLLS
 xcopy /y ..\src\VS2005\gdata\bin\Debug\*.dll ..\lib\Debug\*.*
@@ -45,6 +46,7 @@ xcopy /y ..\src\VS2005\gacl\bin\Debug\*.dll ..\lib\Debug\*.*
 xcopy /y ..\src\VS2005\gphotos\bin\Debug\*.dll ..\lib\Debug\*.*
 xcopy /y ..\src\VS2005\gdoclist\bin\Debug\*.dll ..\lib\Debug\*.*
 xcopy /y ..\src\VS2005\gcontacts\bin\Debug\*.dll ..\lib\Debug\*.*
+xcopy /y ..\src\VS2005\youtube\bin\Debug\*.dll ..\lib\Debug\*.*
 xcopy /y ..\src\VS2005\unittests\bin\Debug\*.dll ..\lib\Debug\*.*
 
 # copy the ASP DLLS
@@ -59,6 +61,7 @@ xcopy /y ..\src\VS2005\gacl\bin\asp\*.dll ..\lib\ASP.NET\*.*
 xcopy /y ..\src\VS2005\gphotos\bin\asp\*.dll ..\lib\ASP.NET\*.*
 xcopy /y ..\src\VS2005\gdoclist\bin\asp\*.dll ..\lib\ASP.NET\*.*
 xcopy /y ..\src\VS2005\gcontacts\bin\asp\*.dll ..\lib\ASP.NET\*.*
+xcopy /y ..\src\VS2005\youtube\bin\asp\*.dll ..\lib\ASP.NET\*.*
 
 
 #copy the modile DLLS
