@@ -2713,6 +2713,42 @@
         <member name="P:Google.GData.Extensions.Comments.XmlPrefix">
             <summary>Returns the constant representing this XML element.</summary> 
         </member>
+        <member name="T:Google.GData.Extensions.AppControl.AppControl">
+            <summary>
+            MediaGroup container element for the MediaRss namespace
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.AppControl.AppControl.#ctor">
+            <summary>
+            default constructor for media:group
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.AppControl.AppControl.Draft">
+            <summary>
+            returns the media:credit element
+            </summary>
+        </member>
+        <member name="T:Google.GData.Extensions.AppControl.AppDraft">
+            <summary>
+            app:draft schema extension describing that an entry is in draft mode
+            it's a child of app:control
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.AppControl.AppDraft.#ctor">
+            <summary>
+            default constructor for media:credit
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.AppControl.AppDraft.#ctor(System.Boolean)">
+            <summary>
+            default constructor for media:credit
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.AppControl.AppDraft.BooleanValue">
+            <summary>
+             Accessor Method for the value as integer
+            </summary>
+        </member>
         <member name="T:Google.GData.Extensions.Location.GeoRssExtensions">
             <summary>
             helper to instantiate all factories defined in here and attach 
@@ -3011,6 +3047,43 @@
             <summary>
              the parking location
             </summary>
+        </member>
+        <member name="T:Google.GData.Extensions.Rating">
+            <summary>
+            The gd:rating tag specifies the rating that you are assigning to a resource (in a request to add a rating) 
+            or the current average rating of the resource based on aggregated user ratings
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.Rating.#ctor">
+            <summary>
+            default constructor for gd:rating
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.Rating.Min">
+            <summary>
+            The min attribute specifies the minimum rating that can be assigned to a resource. This value must be 1.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.GData.Extensions.Rating.Max">
+            <summary>
+            The max attribute specifies the maximum rating that can be assigned to a resource. This value must be 5.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.GData.Extensions.Rating.NumRaters">
+            <summary>
+            The numRaters attribute indicates how many people have rated the resource. This attribute is not used 
+            in a request to add a rating
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.GData.Extensions.Rating.Average">
+            <summary>
+            The average attribute indicates the average rating given to the resource.
+            This attribute is not used in a request to add a rating.
+            </summary>
+            <returns></returns>
         </member>
     </members>
 </doc>

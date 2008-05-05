@@ -414,15 +414,15 @@ namespace Google.GData.YouTube {
                                     {
                                         if (String.Compare(f, "1",  false, CultureInfo.InvariantCulture) == 0)
                                         {
-                                            this.formats.Add(VideoFormat.RTSP);
+                                            this.Formats.Add(VideoFormat.RTSP);
                                         } 
                                         else if (String.Compare(f, "5",  false, CultureInfo.InvariantCulture) == 0)
                                         {
-                                            this.formats.Add(VideoFormat.Embeddable);
+                                            this.Formats.Add(VideoFormat.Embeddable);
                                         }
                                         else if (String.Compare(f, "6",  false, CultureInfo.InvariantCulture) == 0)
                                         {
-                                            this.formats.Add(VideoFormat.Mobile);
+                                            this.Formats.Add(VideoFormat.Mobile);
                                         }
                                     }
                                 }

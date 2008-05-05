@@ -261,13 +261,6 @@
             to indicate that it is an event.
             </summary>
         </member>
-        <member name="M:Google.GData.Documents.DocumentEntry.ToggleCategory(Google.GData.Client.AtomCategory,System.Boolean)">
-            <summary>
-            adds or removes a category based on the toggle flag. Helper methods
-            </summary>
-            <param name="category"></param>
-            <param name="toggle"></param>
-        </member>
         <member name="P:Google.GData.Documents.DocumentEntry.IsDocument">
             <summary>
             Reflects if this entry is a word processor document

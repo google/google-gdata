@@ -514,6 +514,46 @@
             <summary>Creates the partial URI query string based on all set properties.</summary> 
             <returns> string => the query part of the URI</returns>
         </member>
+        <member name="M:Google.GData.Client.FeedQuery.AppendQueryPart(System.String,System.String,System.Char,System.Text.StringBuilder)">
+            <summary>
+            helper to format a string parameter into the query
+            </summary>
+            <param name="value"></param>
+            <param name="parameterName"></param>
+            <param name="connectChar"></param>
+            <param name="builder"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Google.GData.Client.FeedQuery.AppendQueryPart(System.Int32,System.Int32,System.String,System.Char,System.Text.StringBuilder)">
+            <summary>
+            helper to format an inteer parameter into the query
+            </summary>
+            <param name="value"></param>
+            <param name="parameterName"></param>
+            <param name="connectChar"></param>
+            <param name="builder"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Google.GData.Client.FeedQuery.AppendQueryPart(System.UInt32,System.Int32,System.String,System.Char,System.Text.StringBuilder)">
+            <summary>
+            helper to format an inteer parameter into the query
+            </summary>
+            <param name="value"></param>
+            <param name="parameterName"></param>
+            <param name="connectChar"></param>
+            <param name="builder"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Google.GData.Client.FeedQuery.AppendQueryPart(System.DateTime,System.String,System.Char,System.Text.StringBuilder)">
+            <summary>
+            helper to format a DateTime parameter into the query
+            </summary>
+            <param name="value"></param>
+            <param name="parameterName"></param>
+            <param name="connectChar"></param>
+            <param name="builder"></param>
+            <returns></returns>
+        </member>
         <member name="M:Google.GData.Client.FeedQuery.FormatToString(Google.GData.Client.AlternativeFormat)">
             <summary>Converts an AlternativeFormat to a string for use in
             the query string.</summary> 
