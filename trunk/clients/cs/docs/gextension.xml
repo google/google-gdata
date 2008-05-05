@@ -163,6 +163,21 @@
         <member name="F:Google.GData.Extensions.GDataParserNameTable.XmlOrgTitleElement">
             <summary>static string for parsing the organization title element in a contacts</summary>
         </member>
+        <member name="F:Google.GData.Extensions.GDataParserNameTable.XmlRatingElement">
+            <summary>xmlelement for gd:rating</summary> 
+        </member>
+        <member name="F:Google.GData.Extensions.GDataParserNameTable.XmlAttributeMin">
+            <summary>xml attribute min for gd:rating</summary> 
+        </member>
+        <member name="F:Google.GData.Extensions.GDataParserNameTable.XmlAttributeMax">
+            <summary>xml attribute max for gd:rating</summary> 
+        </member>
+        <member name="F:Google.GData.Extensions.GDataParserNameTable.XmlAttributeNumRaters">
+            <summary>xml attribute numRaters for gd:rating</summary> 
+        </member>
+        <member name="F:Google.GData.Extensions.GDataParserNameTable.XmlAttributeAverage">
+            <summary>xml attribute average for gd:rating</summary> 
+        </member>
         <member name="F:Google.GData.Extensions.GDataParserNameTable.XmlAttributeStartTime">
             <summary>static string for parsing</summary>    
         </member>

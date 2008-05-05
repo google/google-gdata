@@ -676,7 +676,7 @@ namespace Google.GData.Client
             while (NextChildElement(reader, ref depth))
             {
                 localname = reader.LocalName;
-                bool fSkip = false;
+                bool fSkip = true;
 
                 if (IsCurrentNameSpace(reader, BaseNameTable.NSAtom))
                 {
@@ -734,7 +734,9 @@ namespace Google.GData.Client
                     // this will either move the reader to the end of an element, or, 
                     // if at the end, to the start of a new one. some methods use readInnerXm
                     // and might therefore already be at the start of the next
-                    if (fSkip == false)
+                    if (fSkip)
+                        // note: we want to get rid of fskip and move the logic into the parsing methods
+                        /// ParseXXX should just come back with a clearly defined state
                         reader.Read();
                 }
                 else if (IsCurrentNameSpace(reader, BaseNameTable.gBatchNamespace))

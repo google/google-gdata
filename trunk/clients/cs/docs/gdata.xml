@@ -2144,6 +2144,10 @@
         <member name="M:Google.GData.Client.GZipStream.Finalize">
             <summary>GZipStream destructor. Cleans all allocated resources.</summary>
         </member>
+        <member name="M:Google.GData.Client.GZipStream.Dispose(System.Boolean)">
+            <summary>Handle Dispose since Stream implements IDisposable</summary> 
+            <param name="disposing">indicates if dispose called it or finalize</param>
+        </member>
         <member name="M:Google.GData.Client.GZipStream.Read(System.Byte[],System.Int32,System.Int32)">
             <summary>Reads a number of decompressed bytes into the specified byte array.</summary>
             <param name="array">The array used to store decompressed bytes.</param>
@@ -3231,7 +3235,7 @@
         <member name="F:Google.GData.Client.BaseNameTable.gBatchPrefix">
             <summary>prefix for gdata:batch if writing</summary> 
         </member>
-        <member name="F:Google.GData.Client.BaseNameTable.gAppPublishing">
+        <member name="F:Google.GData.Client.BaseNameTable.gAppPublishingPrefix">
             <summary>prefix for appPublishing if writing</summary> 
         </member>
         <member name="F:Google.GData.Client.BaseNameTable.XmlElementPubControl">
@@ -3683,6 +3687,13 @@
             </summary>
             <param name="e">The extension element that should be added to this entry</param>
             <param name="parser">The AtomFeedParser that called this</param>
+        </member>
+        <member name="M:Google.GData.Client.AbstractEntry.ToggleCategory(Google.GData.Client.AtomCategory,System.Boolean)">
+            <summary>
+            helper to toggle categories
+            </summary>
+            <param name="cat"></param>
+            <param name="value"></param>
         </member>
         <member name="T:Google.GData.Client.AtomId">
             <summary>The "atom:id" element conveys a permanent, universally unique identifier for an entry or feed.
