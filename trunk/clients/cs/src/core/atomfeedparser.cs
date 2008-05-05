@@ -197,7 +197,6 @@ namespace Google.GData.Client
                 AtomFeed feed = source as AtomFeed; 
                 if (IsCurrentNameSpace(reader, BaseNameTable.NSAtom))
                 {
-                    bool fSkip = true; 
                     if (localname.Equals(this.nameTable.Title))
                     {
                         source.Title = ParseTextConstruct(reader, source);
@@ -208,8 +207,6 @@ namespace Google.GData.Client
                     }
                     else if (localname.Equals(this.nameTable.Link))
                     {
-                        // create the link
-                        fSkip = false; 
                         source.Links.Add(ParseLink(reader, source)); 
                     }
                     else if (localname.Equals(this.nameTable.Id))
@@ -256,10 +253,9 @@ namespace Google.GData.Client
                     {
                         ParseEntry(reader);
                     }
-                    // this will either move the reader to the end of an element, or, 
+                    // this will either move the reader to the end of an element
                     // if at the end, to the start of a new one. 
-                    if (fSkip)
-                        reader.Read();
+                    reader.Read();
                 }
                 else if (feed != null && IsCurrentNameSpace(reader, BaseNameTable.gBatchNamespace))
                 {
@@ -594,6 +590,7 @@ namespace Google.GData.Client
                 throw new ArgumentNullException("owner");
             }
         
+            bool noChildren = reader.IsEmptyElement;
 
             Tracing.TraceCall();
 
@@ -635,11 +632,14 @@ namespace Google.GData.Client
                     }
                 }
             }
-            reader.MoveToElement();
-            int lvl = -1;
-            while (NextChildElement(reader, ref lvl))
+            if (noChildren == false)
             {
-                ParseExtensionElements(reader, link);
+                reader.MoveToElement();
+                int lvl = -1;
+                while (NextChildElement(reader, ref lvl))
+                {
+                    ParseExtensionElements(reader, link);
+                }
             }
             return link;
         }
@@ -675,11 +675,11 @@ namespace Google.GData.Client
             int depth = -1;
             while (NextChildElement(reader, ref depth))
             {
-                localname = reader.LocalName; 
+                localname = reader.LocalName;
+                bool fSkip = false;
 
                 if (IsCurrentNameSpace(reader, BaseNameTable.NSAtom))
                 {
-                    bool fSkip = true; 
                     if (localname.Equals(this.nameTable.Id))
                     {
                         entry.Id = entry.CreateAtomSubElement(reader, this) as AtomId;
@@ -687,7 +687,6 @@ namespace Google.GData.Client
                     }
                     else if (localname.Equals(this.nameTable.Link))
                     {
-                        fSkip = false; 
                         entry.Links.Add(ParseLink(reader, entry)); 
                     }
                     else if (localname.Equals(this.nameTable.Updated))
@@ -733,8 +732,9 @@ namespace Google.GData.Client
                         entry.Title = ParseTextConstruct(reader, entry);
                     }
                     // this will either move the reader to the end of an element, or, 
-                    // if at the end, to the start of a new one. 
-                    if (fSkip)
+                    // if at the end, to the start of a new one. some methods use readInnerXm
+                    // and might therefore already be at the start of the next
+                    if (fSkip == false)
                         reader.Read();
                 }
                 else if (IsCurrentNameSpace(reader, BaseNameTable.gBatchNamespace))
