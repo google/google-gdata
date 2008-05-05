@@ -685,57 +685,14 @@ namespace Google.GData.Client
                 paramInsertion = '&'; 
             }
 
-            // just add all the other things, as they are available... 
-            if (Utilities.IsPersistable(this.Query))
-            {  
-                newPath.Append(paramInsertion);
-                newPath.AppendFormat(CultureInfo.InvariantCulture, "q={0}", Utilities.UriEncodeReserved(this.Query));
-                paramInsertion = '&'; 
-            }
-            if (Utilities.IsPersistable(this.Author))
-            {
-                newPath.Append(paramInsertion);
-                newPath.AppendFormat(CultureInfo.InvariantCulture, "author={0}", Utilities.UriEncodeReserved(this.Author)); 
-                paramInsertion = '&'; 
-            }
-            if (Utilities.IsPersistable(this.StartDate))
-            {
-                newPath.Append(paramInsertion);
-                newPath.AppendFormat(CultureInfo.InvariantCulture, "updated-min={0}", Utilities.UriEncodeReserved(Utilities.LocalDateTimeInUTC(this.StartDate)));
-                paramInsertion = '&'; 
-            }
-            if (Utilities.IsPersistable(this.EndDate))
-            {
-                newPath.Append(paramInsertion);
-                newPath.AppendFormat(CultureInfo.InvariantCulture, "updated-max={0:G}", Utilities.UriEncodeReserved(Utilities.LocalDateTimeInUTC(this.EndDate)));
-                paramInsertion = '&'; 
-            }
-
-            if (Utilities.IsPersistable(this.MinPublication))
-            {
-                newPath.Append(paramInsertion);
-                newPath.AppendFormat(CultureInfo.InvariantCulture, "published-min={0:G}", Utilities.UriEncodeReserved(Utilities.LocalDateTimeInUTC(this.MinPublication)));
-                paramInsertion = '&'; 
-            }
-            if (Utilities.IsPersistable(this.MaxPublication))
-            {
-                newPath.Append(paramInsertion);
-                newPath.AppendFormat(CultureInfo.InvariantCulture, "published-max={0:G}", Utilities.UriEncodeReserved(Utilities.LocalDateTimeInUTC(this.MaxPublication)));
-                paramInsertion = '&'; 
-            }
-
-            if (this.StartIndex != 0)
-            {
-                newPath.Append(paramInsertion);
-                newPath.AppendFormat(CultureInfo.InvariantCulture, "start-index={0:d}", this.StartIndex);
-                paramInsertion = '&'; 
-            }
-            if (this.NumberToRetrieve != 0)
-            {
-                newPath.Append(paramInsertion);
-                newPath.AppendFormat(CultureInfo.InvariantCulture, "max-results={0:d}", this.NumberToRetrieve);
-                paramInsertion = '&'; 
-            }
+            paramInsertion = AppendQueryPart(this.Query, "q", paramInsertion, newPath);
+            paramInsertion = AppendQueryPart(this.Author, "author", paramInsertion, newPath);
+            paramInsertion = AppendQueryPart(this.StartDate, "updated-min", paramInsertion, newPath);
+            paramInsertion = AppendQueryPart(this.EndDate, "updated-max", paramInsertion, newPath);
+            paramInsertion = AppendQueryPart(this.MinPublication, "published-min", paramInsertion, newPath);            
+            paramInsertion = AppendQueryPart(this.MaxPublication, "published-max", paramInsertion, newPath);
+            paramInsertion = AppendQueryPart(this.StartIndex, 0,  "start-index", paramInsertion, newPath);
+            paramInsertion = AppendQueryPart(this.NumberToRetrieve, 0,  "max-results", paramInsertion, newPath);
 
             if (Utilities.IsPersistable(this.ExtraParameters))
             {
@@ -748,7 +705,76 @@ namespace Google.GData.Client
         }
         /////////////////////////////////////////////////////////////////////////////
 
+        /// <summary>
+        /// helper to format a string parameter into the query
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="parameterName"></param>
+        /// <param name="connectChar"></param>
+        /// <param name="builder"></param>
+        /// <returns></returns>
+        protected char AppendQueryPart(string value, string parameterName, char connectChar, StringBuilder builder)
+        {
+            if (Utilities.IsPersistable(value))
+            {
+                builder.Append(connectChar);
+                builder.AppendFormat(CultureInfo.InvariantCulture, parameterName+"={0}", Utilities.UriEncodeReserved(value)); 
+                connectChar = '&'; 
+            }
+            return connectChar;
+        }
 
+        /// <summary>
+        /// helper to format an inteer parameter into the query
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="parameterName"></param>
+        /// <param name="connectChar"></param>
+        /// <param name="builder"></param>
+        /// <returns></returns>
+        protected char AppendQueryPart(int value, int defValue, string parameterName, char connectChar, StringBuilder builder)
+        {
+            if (value != defValue)
+            {
+                builder.Append(connectChar);
+                builder.AppendFormat(CultureInfo.InvariantCulture, parameterName+"={0:d}", value); 
+                connectChar = '&'; 
+            }
+            return connectChar;
+        }
+
+         /// <summary>
+        /// helper to format an inteer parameter into the query
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="parameterName"></param>
+        /// <param name="connectChar"></param>
+        /// <param name="builder"></param>
+        /// <returns></returns>
+        [CLSCompliant(false)]
+        protected char AppendQueryPart(uint value, int defValue, string parameterName, char connectChar, StringBuilder builder)
+        {
+            if (value != defValue)
+            {
+                builder.Append(connectChar);
+                builder.AppendFormat(CultureInfo.InvariantCulture, parameterName+"={0:d}", value); 
+                connectChar = '&'; 
+            }
+            return connectChar;
+        }
+
+        /// <summary>
+        /// helper to format a DateTime parameter into the query
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="parameterName"></param>
+        /// <param name="connectChar"></param>
+        /// <param name="builder"></param>
+        /// <returns></returns>
+        protected char AppendQueryPart(DateTime value, string parameterName, char connectChar, StringBuilder builder)
+        {
+            return AppendQueryPart(Utilities.LocalDateTimeInUTC(value), parameterName, connectChar, builder);
+        }
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>Converts an AlternativeFormat to a string for use in

@@ -19,11 +19,18 @@
 
    <li>Bugfixes</li>
    <ul>
-	<li>Fixed a memory leak related to the embedded gzip stream</li> 
-    <li>Fixed a parsing bug in the AtomLink class</li>
-       <li>Fixed the build script for building ASP dlls. A corruption in 
+        <li>Fixed a memory leak related to the embedded gzip stream</li> 
+        <li>Fixed a parsing bug in the AtomLink class</li>
+        <li>Fixed the build script for building ASP dlls. A corruption in 
            the solution file resulted in those not being rebuild anymore since
-           1.1.3.1</li>
+           1.1.3.1
+        </li>
+       <li>
+           Fixed issue 120: cellQuery range and return-empty problem on empty 
+           cells. Created a set of new helpers on the feedQuery object that 
+           solve that issue. 
+       </li>
+
    </ul>
 </ul>
 

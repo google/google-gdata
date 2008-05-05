@@ -148,14 +148,52 @@ namespace Google.GData.YouTube {
             Mobile,
         }
 
+        /// <summary>
+        /// describing the requested video format
+        /// </summary>
+        public enum UploadTime
+        {
+            /// <summary>
+            /// time undefined, default value for the server
+            /// </summary>
+            UploadTimeUndefined,
+            /// <summary>
+            /// today (1day)
+            /// </summary>
+            Today,
+            /// <summary>
+            /// This week (7days)
+            /// </summary>
+            ThisWeek,
+            /// <summary>
+            /// 1 month
+            /// </summary>
+            ThisMonth,
+            /// <summary>all time</summary>
+            AllTime
+        }
 
 
         private List<VideoFormat> formats;
+        private string videoQuery;
+        private string orderBy;
+        private string client;
+        private string lr;
+        private string racy;
+        private string restriction;
+        private UploadTime uploadTime = UploadTime.UploadTimeUndefined;
+        
+
   
         /// <summary>
-        /// picasa base URI 
+        /// youTube base video URI 
         /// </summary>
-        public static string picasaBaseUri = "http://picasaweb.google.com/data/feed/api/user/";
+        public const string DefaultVideoUri = "http://gdata.youtube.com/feeds/api/videos";
+       
+        /// <summary>
+        /// youTube base mobile video URI 
+        /// </summary>
+        public const string MobileVideoUri = "http://gdata.youtube.com/feeds/mobile/videos";
        
 
         /// <summary>
@@ -175,6 +213,15 @@ namespace Google.GData.YouTube {
         public YouTubeQuery(string queryUri)
         : base(queryUri)
         {
+        }
+
+        /// <summary>
+        /// returns a YouTubeQuery object for the default video feed
+        /// </summary>
+        /// <returns></returns>
+        public static YouTubeQuery VideoQuery() 
+        {
+            return new YouTubeQuery(YouTubeQuery.DefaultVideoUri);
         }
 
         //////////////////////////////////////////////////////////////////////
@@ -200,6 +247,141 @@ namespace Google.GData.YouTube {
         }
         // end of accessor public VideoFormat Format
 
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>accessor method public UploadTime Time</summary> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        public UploadTime Time
+        {
+            get {return this.uploadTime;}
+            set {this.uploadTime = value;}
+        }
+        // end of accessor public UploadTime Time
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>The vq parameter, which is only supported for video feeds, 
+        /// specifies a search query term. YouTube will search all video 
+        /// metadata for videos matching the term. Video metadata includes
+        ///  titles, keywords, descriptions, authors' usernames, and 
+        /// categories</summary> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        public string VQ
+        {
+            get {return this.videoQuery;}
+            set {this.videoQuery = value;}
+        }
+        // end of accessor public string VideoQuery
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// The orderby parameter, which is only supported for video feeds, 
+        /// specifies the value that will be used to sort videos in the search
+        ///  result set. Valid values for this parameter are relevance, 
+        /// published, viewCount and rating. In addition, you can request
+        ///  results that are most relevant to a specific language by
+        ///  setting the parameter value to relevance_lang_languageCode, 
+        /// where languageCode is an ISO 639-1 two-letter 
+        /// language code. (Use the values zh-Hans for simplified Chinese
+        ///  and zh-Hant for traditional Chinese.) In addition, 
+        /// please note that results in other languages will still be 
+        /// returned if they are highly relevant to the search query term.
+        /// The default value for this parameter is relevance 
+        /// for a search results feed.
+        /// accessor method public string OrderBy</summary> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        public string OrderBy
+        {
+            get {return this.orderBy;}
+            set {this.orderBy = value;}
+        }
+        // end of accessor public string OrderBy
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// The client parameter is an alphanumeric string that identifies your
+        ///  application. The client parameter is an alternate way of specifying 
+        /// your client ID. You can also use the X-GData-Client request header to
+        ///  specify your client ID. Your application does not need to 
+        /// specify your client ID twice by using both the client parameter and 
+        /// the X-GData-Client request header, but it should provide your 
+        /// client ID using at least one of those two methods.
+        /// Note that you should set this normally on the YouTubeService object,
+        /// this property is only included for completeness
+        /// </summary> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        public string Client
+        {
+            get {return this.client;}
+            set {this.client = value;}
+        }
+        // end of accessor public string Client
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// The lr parameter restricts the search to videos that have a title, 
+        /// description or keywords in a specific language. Valid values for 
+        /// the lr parameter are ISO 639-1 two-letter language codes. You can
+        /// also use the values zh-Hans for simplified Chinese and zh-Hant
+        ///  for traditional Chinese. This parameter can be used when requesting 
+        /// any video feeds other than standard feeds.
+        /// </summary> 
+        //////////////////////////////////////////////////////////////////////
+        public string LR
+        {
+            get {return this.lr;}
+            set {this.lr = value;}
+        }
+        // end of accessor public string LR
+
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// The racy parameter allows a search result set to include restricted
+        /// content as well as standard content. Valid values for this parameter
+        ///  are include and exclude. By default, restricted content is excluded. 
+        /// Feed entries for videos that contain restricted content will contain
+        /// the <media:rating> element.
+        /// 
+        /// 
+        /// </summary> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        public string Racy
+        {
+            get {return this.racy;}
+            set {this.racy = value;}
+        }
+        // end of accessor public string Racy
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// The restriction parameter identifies the IP address that should be 
+        /// used to filter videos that can only be played in specific countries. 
+        /// We recommend that you always use this parameter to specify the end 
+        /// user's IP address. (By default, the API filters out videos that
+        ///  cannot be played in the country from which you send API requests. 
+        /// This restriction is based on your client application's IP address.)
+        /// To request videos playable from a specific computer, include the 
+        /// restriction parameter in your request and set the parameter value 
+        /// to the IP address of the computer where the videos will be 
+        /// played Ð e.g. restriction=255.255.255.255.
+        /// To request videos that are playable in a specific country, 
+        /// include the restriction parameter in your request and set 
+        /// the parameter value to the ISO 3166 two-letter country code 
+        /// of the country where the videos will be played
+        ///  Ð e.g. restriction=DE.
+        /// </summary> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        public string Restriction
+        {
+            get {return this.restriction;}
+            set {this.restriction = value;}
+        }
+        // end of accessor public string Restriction
    
 #if WindowsCE || PocketPC
 #else
@@ -244,6 +426,9 @@ namespace Google.GData.YouTube {
                                         }
                                     }
                                 }
+                                break;
+                            case "vq":
+                                this.VQ = parameters[1];
                                 break;
                         }
                     }
@@ -310,8 +495,36 @@ namespace Google.GData.YouTube {
                     newPath.AppendFormat(CultureInfo.InvariantCulture, "format={0}", Utilities.UriEncodeReserved(res));
                     paramInsertion = '&';
                 }
-
             }
+
+            if (this.Time != UploadTime.UploadTimeUndefined)
+            {
+                string res = ""; 
+                switch (this.Time)
+                {
+                    case UploadTime.AllTime:
+                        res = "all_time";
+                        break;
+                    case UploadTime.ThisMonth:
+                        res = "this_month";
+                        break;
+                    case UploadTime.ThisWeek:
+                        res = "this_week";
+                        break;
+                    case UploadTime.Today:
+                        res = "today";
+                        break;
+                }
+                paramInsertion = AppendQueryPart(res, "time", paramInsertion, newPath);
+            }
+
+            paramInsertion = AppendQueryPart(this.VQ, "vq", paramInsertion, newPath);
+            paramInsertion = AppendQueryPart(this.OrderBy, "orderby", paramInsertion, newPath);
+            paramInsertion = AppendQueryPart(this.Client, "client", paramInsertion, newPath);
+            paramInsertion = AppendQueryPart(this.LR, "lr", paramInsertion, newPath);
+            paramInsertion = AppendQueryPart(this.Racy, "racy", paramInsertion, newPath);
+            paramInsertion = AppendQueryPart(this.Restriction, "restriction", paramInsertion, newPath);
+
             return newPath.ToString();
         }
     }

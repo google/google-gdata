@@ -101,7 +101,7 @@ namespace Google.GData.Client
         /// </summary>
         /// <param name="cat"></param>
         /// <param name="value"></param>
-        protected void ToggleCategory(AtomCategory cat, bool value)
+        public void ToggleCategory(AtomCategory cat, bool value)
         {
             if (value == true)
             {

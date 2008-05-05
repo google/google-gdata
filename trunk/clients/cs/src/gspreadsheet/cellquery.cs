@@ -95,8 +95,8 @@ namespace Google.GData.Spreadsheets
 
         /// <summary>
         /// The minimum index for a row allowed in the response
-        /// </summary>
-        [CLSCompliant(false)]
+        /// </summary>
+        [CLSCompliant(false)]
         public uint MinimumRow
         {
             get
@@ -112,8 +112,8 @@ namespace Google.GData.Spreadsheets
 
         /// <summary>
         /// The maximum index for a row allowed in the response
-        /// </summary>
-        [CLSCompliant(false)]
+        /// </summary>
+        [CLSCompliant(false)]
         public uint MaximumRow
         {
             get
@@ -129,7 +129,7 @@ namespace Google.GData.Spreadsheets
 
         /// <summary>
         /// The minimum index for a column allowed in the response
-        /// </summary>
+        /// </summary>
         [CLSCompliant(false)]
         public uint MinimumColumn
         {
@@ -146,7 +146,7 @@ namespace Google.GData.Spreadsheets
 
         /// <summary>
         /// The maximum index for a column allowed in a response
-        /// </summary>
+        /// </summary>
         [CLSCompliant(false)]
         public uint MaximumColumn
         {
@@ -275,53 +275,19 @@ namespace Google.GData.Spreadsheets
                 paramInsertion = '&';
             }
 
-            if (MinimumRow > 0)
-            {
-                newPath.Append(paramInsertion);
-
-                newPath.AppendFormat(CultureInfo.InvariantCulture, "min-row={0}", Utilities.UriEncodeReserved(MinimumRow.ToString()));
-                paramInsertion = '&';
-            }
-
-            if (MaximumRow > 0 && MaximumRow < uint.MaxValue)
-            {
-                newPath.Append(paramInsertion);
-
-                newPath.AppendFormat(CultureInfo.InvariantCulture, "max-row={0}", Utilities.UriEncodeReserved(MaximumRow.ToString()));
-                paramInsertion = '&';
-            }
-
-            if (MinimumColumn > 0)
-            {
-                newPath.Append(paramInsertion);
-
-                newPath.AppendFormat(CultureInfo.InvariantCulture, "min-col={0}", Utilities.UriEncodeReserved(MinimumColumn.ToString()));
-                paramInsertion = '&';
-            }
-
-            if (MaximumColumn > 0 && MaximumRow < uint.MaxValue)
-            {
-                newPath.Append(paramInsertion);
-
-                newPath.AppendFormat(CultureInfo.InvariantCulture, "max-col={0}", Utilities.UriEncodeReserved(MaximumColumn.ToString()));
-                paramInsertion = '&';
-            }
-
-            if (Range.Length > 0)
-            {
-                newPath.Append(paramInsertion);
-
-                newPath.AppendFormat(CultureInfo.InvariantCulture, "range={0}", Utilities.UriEncodeReserved(Range));
-            }
+            paramInsertion = AppendQueryPart(this.MinimumRow, 0, "min-row", paramInsertion, newPath);
+            paramInsertion = AppendQueryPart(this.MaximumRow, 0, "max-row", paramInsertion, newPath);
+            paramInsertion = AppendQueryPart(this.MinimumColumn, 0, "min-col", paramInsertion, newPath);
+            paramInsertion = AppendQueryPart(this.MaximumColumn, 0, "max-col", paramInsertion, newPath);
+            paramInsertion = AppendQueryPart(this.Range, "range", paramInsertion, newPath);
 
             if (ReturnEmpty == ReturnEmtpyCells.yes)
             {
-                newPath.Append(paramInsertion);
-                newPath.Append("return-empty=true");
-            } else if (ReturnEmpty == ReturnEmtpyCells.no)
+                paramInsertion = AppendQueryPart("true", "return-emtpy", paramInsertion, newPath);
+            } 
+            else if (ReturnEmpty == ReturnEmtpyCells.no)
             { 
-                newPath.Append(paramInsertion);
-                newPath.Append("return-empty=false");
+                paramInsertion = AppendQueryPart("false", "return-emtpy", paramInsertion, newPath);
             }
 
             return newPath.ToString();
