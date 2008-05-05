@@ -201,8 +201,7 @@
         </member>
         <member name="M:Google.GData.Photos.PicasaEntry.#ctor">
             <summary>
-            Constructs a new EventEntry instance with the appropriate category
-            to indicate that it is an event.
+            Constructs a new PicasaEntry instance
             </summary>
         </member>
         <member name="M:Google.GData.Photos.PicasaEntry.getPhotoExtension(System.String)">
@@ -241,13 +240,6 @@
             <param name="newValue">the new value for this extension element</param>
             <returns>SimpleElement, either a brand new one, or the one
             returned by the service</returns>
-        </member>
-        <member name="M:Google.GData.Photos.PicasaEntry.ToggleCategory(Google.GData.Client.AtomCategory,System.Boolean)">
-            <summary>
-            helper to toggle categories
-            </summary>
-            <param name="cat"></param>
-            <param name="value"></param>
         </member>
         <member name="P:Google.GData.Photos.PicasaEntry.Location">
             <summary>
