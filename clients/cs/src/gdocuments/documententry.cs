@@ -73,21 +73,6 @@ namespace Google.GData.Documents {
             Tracing.TraceMsg("Created DocumentEntry");
         }
 
-
-        /// <summary>
-        /// adds or removes a category based on the toggle flag. Helper methods
-        /// </summary>
-        /// <param name="category"></param>
-        /// <param name="toggle"></param>
-        public void ToggleCategory(AtomCategory category, bool toggle) {
-            if(toggle) {
-                this.Categories.Add(category);
-            }
-            else {
-                this.Categories.Remove(category);
-            }
-        }
-
         /// <summary>
         /// Reflects if this entry is a word processor document
         /// </summary>
