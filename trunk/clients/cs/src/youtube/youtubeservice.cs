@@ -21,6 +21,8 @@ using System.Text;
 using System.Net; 
 using Google.GData.Client;
 using Google.GData.Extensions;
+using System.Collections;
+using System.Collections.Specialized;
 
 
 namespace Google.GData.YouTube {
@@ -46,13 +48,30 @@ namespace Google.GData.YouTube {
         /// <summary>The Calendar service's name</summary> 
         public const string YTService = "youtube";
 
+
+        private string clientID;
+        private string developerID;
         /// <summary>
         ///  default constructor
         /// </summary>
         /// <param name="applicationName">the applicationname</param>
-        public YouTubeService(string applicationName) : base(YTService, applicationName, YTAgent)
+        /// <param name="client">the client identifier</param>
+        /// <param name="developerKey">the developerKey</param>/// 
+        public YouTubeService(string applicationName, string client, string developerKey) : base(YTService, applicationName, YTAgent)
         {
+            if (client == null)
+            {
+                throw new ArgumentNullException("client"); 
+            }
+            if (developerKey == null)
+            {
+                throw new ArgumentNullException("developerKey"); 
+            }
+
             this.NewFeed += new ServiceEventHandler(this.OnNewFeed); 
+            clientID = client;
+            developerID = developerKey;
+            OnRequestFactoryChanged();
         }
    
         /// <summary>
@@ -65,6 +84,33 @@ namespace Google.GData.YouTube {
             return base.Query(feedQuery) as YouTubeFeed;
         }
 
+
+        /// <summary>
+        /// notifier if someone changes the requestfactory of the service
+        /// </summary>
+        public override void OnRequestFactoryChanged() 
+        {
+            GDataGAuthRequestFactory factory = this.RequestFactory as GDataGAuthRequestFactory;
+            if (factory != null && this.developerID != null && this.clientID != null)
+            {
+                RemoveOldKeys(factory.CustomHeaders);
+                factory.CustomHeaders.Add(GoogleAuthentication.YouTubeClientId + this.clientID); 
+                factory.CustomHeaders.Add(GoogleAuthentication.YouTubeDevKey + this.developerID); 
+            }
+        }
+
+        private static void RemoveOldKeys(StringCollection headers)
+        {
+            foreach (string header in headers)
+            {
+                if (header.StartsWith(GoogleAuthentication.WebKey))
+                {
+                    headers.Remove(header);
+                    return;
+                }
+            }
+            return;
+        }
         //////////////////////////////////////////////////////////////////////
         /// <summary>eventchaining. We catch this by from the base service, which 
         /// would not by default create an atomFeed</summary> 

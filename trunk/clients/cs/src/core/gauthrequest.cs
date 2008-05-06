@@ -71,6 +71,10 @@ namespace Google.GData.Client
         public const string Override = "X-HTTP-Method-Override"; 
         /// <summary>Google webkey identifier</summary>
         public const string WebKey = "X-Google-Key: key=";
+        /// <summary>Google YouTube client identifier</summary>
+        public const string YouTubeClientId = "X-GData-Client:";
+        /// <summary>Google YouTube developer identifier</summary>
+        public const string YouTubeDevKey = "X-GData-Key: key=";
         /// <summary>Google webkey identifier</summary>
         public const string AccountType = "accountType=";
         /// <summary>default value for the account type</summary>

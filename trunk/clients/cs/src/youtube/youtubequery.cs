@@ -184,18 +184,63 @@ namespace Google.GData.YouTube {
         private UploadTime uploadTime = UploadTime.UploadTimeUndefined;
         
 
-  
+
+        public const string StandardFeeds = "http://gdata.youtube.com/feeds/api/standardfeeds/";
         /// <summary>
         /// youTube base video URI 
         /// </summary>
         public const string DefaultVideoUri = "http://gdata.youtube.com/feeds/api/videos";
-       
+
+
         /// <summary>
         /// youTube base mobile video URI 
         /// </summary>
         public const string MobileVideoUri = "http://gdata.youtube.com/feeds/mobile/videos";
        
+        /// <summary>
+        /// youTube base standard top rated video URI 
+        /// </summary>
+        public const string TopRatedVideo = YouTubeQuery.StandardFeeds + "top_rated";
 
+        /// <summary>
+        /// youTube base standard favorites video URI 
+        /// </summary>
+        public const string FavoritesVideo = YouTubeQuery.StandardFeeds +"top_favorites";
+        
+        /// <summary>
+        /// youTube base standard most viewed video URI 
+        /// </summary>
+        public const string MostViewedVideo = YouTubeQuery.StandardFeeds +"most_viewed";
+
+        /// <summary>
+        /// youTube base standard most recent video URI 
+        /// </summary>
+        public const string MostRecentVideo = YouTubeQuery.StandardFeeds +"most_recent";
+
+        /// <summary>
+        /// youTube base standard most discussed video URI 
+        /// </summary>
+        public const string MostDiscussedVideo = YouTubeQuery.StandardFeeds +"most_discussed";
+
+        /// <summary>
+        /// youTube base standard most linked video URI 
+        /// </summary>
+        public const string MostLinkedVideo = YouTubeQuery.StandardFeeds +"most_linked";
+
+        /// <summary>
+        /// youTube base standard most responded video URI 
+        /// </summary>
+        public const string MostRespondedVideo = YouTubeQuery.StandardFeeds +"most_responded";
+
+        /// <summary>
+        /// youTube base standard recently featured video URI 
+        /// </summary>
+        public const string RecentlyFeaturedVideo = YouTubeQuery.StandardFeeds +"recently_featured";
+
+        /// <summary>
+        /// youTube base standard mobile phones video URI 
+        /// </summary>
+        public const string MobilePhonesVideo = YouTubeQuery.StandardFeeds +"watch_on_mobile";
         /// <summary>
         /// base constructor
         /// </summary>
@@ -213,15 +258,6 @@ namespace Google.GData.YouTube {
         public YouTubeQuery(string queryUri)
         : base(queryUri)
         {
-        }
-
-        /// <summary>
-        /// returns a YouTubeQuery object for the default video feed
-        /// </summary>
-        /// <returns></returns>
-        public static YouTubeQuery VideoQuery() 
-        {
-            return new YouTubeQuery(YouTubeQuery.DefaultVideoUri);
         }
 
         //////////////////////////////////////////////////////////////////////

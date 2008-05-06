@@ -38,6 +38,10 @@ namespace Google.GData.Client.LiveTests
     public class YouTubeTestSuite : BaseLiveTestClass
     {
 
+        private string ytClient;
+        private string ytDevKey;
+
+
         //////////////////////////////////////////////////////////////////////
         /// <summary>default empty constructor</summary> 
         //////////////////////////////////////////////////////////////////////
@@ -53,6 +57,28 @@ namespace Google.GData.Client.LiveTests
         }
 
 
+                //////////////////////////////////////////////////////////////////////
+        /// <summary>private void ReadConfigFile()</summary> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        protected override void ReadConfigFile()
+        {
+            base.ReadConfigFile();
+
+            if (unitTestConfiguration.Contains("youTubeClientID") == true)
+            {
+                this.ytClient = (string) unitTestConfiguration["youTubeClientID"];
+            }
+            if (unitTestConfiguration.Contains("youTubeDevKey") == true)
+            {
+                this.ytDevKey = (string) unitTestConfiguration["youTubeDevKey"];
+            }
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+
+
+
         //////////////////////////////////////////////////////////////////////
         /// <summary>runs a test on the YouTube Query object</summary> 
         //////////////////////////////////////////////////////////////////////
@@ -60,7 +86,7 @@ namespace Google.GData.Client.LiveTests
         {
             Tracing.TraceMsg("Entering YouTubeQueryTest");
 
-            YouTubeQuery query = YouTubeQuery.VideoQuery();
+            YouTubeQuery query = new YouTubeQuery(YouTubeQuery.DefaultVideoUri);
 
             query.Formats.Add(YouTubeQuery.VideoFormat.RTSP);
             query.Formats.Add(YouTubeQuery.VideoFormat.Mobile);
@@ -76,6 +102,33 @@ namespace Google.GData.Client.LiveTests
             Assert.AreEqual(query.Formats[0], YouTubeQuery.VideoFormat.RTSP, "Should be RTSP");
             Assert.AreEqual(query.Racy, "included", "Racy should be included");
 
+
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+
+
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>runs a test on the YouTube Feed object</summary> 
+        //////////////////////////////////////////////////////////////////////
+        [Test] public void YouTubeFeedTest()
+        {
+            Tracing.TraceMsg("Entering YouTubeFeedTest");
+
+            YouTubeQuery query = new YouTubeQuery(YouTubeQuery.TopRatedVideo);
+            YouTubeService service = new YouTubeService("NETUnittests", this.ytClient, this.ytDevKey);
+
+
+            query.Formats.Add(YouTubeQuery.VideoFormat.RTSP);
+            query.Time = YouTubeQuery.UploadTime.ThisWeek;
+
+            YouTubeFeed feed = service.Query(query);
+
+            foreach (YouTubeEntry e in feed.Entries )
+            {
+                
+            }
 
         }
         /////////////////////////////////////////////////////////////////////////////
