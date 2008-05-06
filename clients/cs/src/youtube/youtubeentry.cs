@@ -66,7 +66,7 @@ namespace Google.GData.YouTube {
             mg.ExtensionFactories.Add(new Private());
 
             // now add it to us
-            this.ExtensionFactories.Add(mg);
+            this.AddExtension(mg);
 
             GeoRssExtensions.AddExtension(this);
 
@@ -75,7 +75,7 @@ namespace Google.GData.YouTube {
             AppControl ac = new AppControl();
             // add the youtube state element
             ac.ExtensionFactories.Add(new State());
-            this.ExtensionFactories.Add(ac);
+            this.AddExtension(ac);
 
             // things from the gd namespce
             this.AddExtension(new Comments());
@@ -193,23 +193,6 @@ namespace Google.GData.YouTube {
 
             return ele;
         }
-
-        /*
-        /// <summary>
-        /// returns true if the entry is a photo entry
-        /// </summary>
-        public bool IsPhoto
-        {
-            get 
-            {
-                return (this.Categories.Contains(PHOTO_CATEGORY));
-            }
-            set 
-            {
-                ToggleCategory(PHOTO_CATEGORY, value);
-            }
-        } 
-        */
     }
 }
 

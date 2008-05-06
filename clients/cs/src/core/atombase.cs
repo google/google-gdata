@@ -260,12 +260,7 @@ namespace Google.GData.Client
             {
                 throw new ArgumentNullException("factory"); 
             }
-         
-            if (this.extensionFactories == null)
-            {
-                this.extensionFactories = new ArrayList();
-            }
-            this.extensionFactories.Add(factory);
+            this.ExtensionFactories.Add(factory);
         }
         //////////////////////////////////////////////////////////////////////
 
@@ -276,7 +271,11 @@ namespace Google.GData.Client
         public ArrayList ExtensionFactories 
         {
             get 
-            { 
+            {
+                if (this.extensionFactories == null)
+                {
+                    this.extensionFactories = new ArrayList();
+                }
                 return this.extensionFactories;
             }
         }

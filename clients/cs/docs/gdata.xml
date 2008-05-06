@@ -1434,6 +1434,12 @@
         <member name="F:Google.GData.Client.GoogleAuthentication.WebKey">
             <summary>Google webkey identifier</summary>
         </member>
+        <member name="F:Google.GData.Client.GoogleAuthentication.YouTubeClientId">
+            <summary>Google YouTube client identifier</summary>
+        </member>
+        <member name="F:Google.GData.Client.GoogleAuthentication.YouTubeDevKey">
+            <summary>Google YouTube developer identifier</summary>
+        </member>
         <member name="F:Google.GData.Client.GoogleAuthentication.AccountType">
             <summary>Google webkey identifier</summary>
         </member>
@@ -1510,6 +1516,12 @@
         <member name="P:Google.GData.Client.GDataRequestFactory.KeepAlive">
             <summary>indicates if the connection should be kept alive, default
             is true</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Client.GDataRequestFactory.Timeout">
+            <summary>get's and set's the Timeout property used for the created
+            HTTPRequestObject in milliseconds. if you set it to -1 it will stick 
+            with the default of the HTPPRequestObject</summary> 
             <returns> </returns>
         </member>
         <member name="P:Google.GData.Client.GDataRequestFactory.CustomHeaders">
