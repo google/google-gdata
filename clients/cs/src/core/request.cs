@@ -104,6 +104,10 @@ namespace Google.GData.Client
         private bool useGZip;
         private string contentType = "application/atom+xml; charset=UTF-8";
         private string slugHeader;
+        // set to default by default
+        private int timeOut = -1;
+   
+
 
         /// <summary>Cookie setting header, returned from server</summary>
         public const string SetCookieHeader = "Set-Cookie"; 
@@ -111,6 +115,7 @@ namespace Google.GData.Client
         public const string CookieHeader = "Cookie"; 
         /// <summary>Slug client header</summary>
         public const string SlugHeader = "Slug";
+
 
 
         //////////////////////////////////////////////////////////////////////
@@ -218,7 +223,21 @@ namespace Google.GData.Client
           set {this.keepAlive = value;}
         }
         /////////////////////////////////////////////////////////////////////////////
-         
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>get's and set's the Timeout property used for the created
+        /// HTTPRequestObject in milliseconds. if you set it to -1 it will stick 
+        /// with the default of the HTPPRequestObject</summary> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        public int Timeout
+        {
+            get {return this.timeOut;}
+            set {this.timeOut = value;}
+        }
+        // end of accessor public int Timeout
+
+
         internal bool hasCustomHeaders
         {
             get {
@@ -275,7 +294,7 @@ namespace Google.GData.Client
         private string contentType;
         /// <summary>holds the slugheader to use if overridden</summary>
         private string slugHeader;
-   
+
         //////////////////////////////////////////////////////////////////////
         /// <summary>default constructor</summary> 
         //////////////////////////////////////////////////////////////////////
@@ -368,6 +387,7 @@ namespace Google.GData.Client
             set {this.credentials = value;}
         }
         /////////////////////////////////////////////////////////////////////////////
+
 
        //////////////////////////////////////////////////////////////////////
         /// <summary>set's and get's the content Type, used for binary transfers</summary> 
@@ -496,6 +516,12 @@ namespace Google.GData.Client
                             this.Request.Headers.Add(s); 
                         }
                     }
+
+                    if (this.factory.Timeout != -1)
+                    {
+                        web.Timeout = this.factory.Timeout;
+                    }
+
                     if (this.Slug != null)
                     {
                         this.Request.Headers.Add(GDataRequestFactory.SlugHeader + ": " + Utilities.UriEncodeReserved(this.Slug));
