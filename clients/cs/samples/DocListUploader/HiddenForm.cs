@@ -319,7 +319,15 @@ namespace DocListUploader
             if (lastUploadEntry != null && lastToolTipWasUpload)
             {
                 //display the last uploaded document in the browser.
-                Process.Start(lastUploadEntry.AlternateUri.ToString());
+                try
+                {
+                    Process.Start(lastUploadEntry.AlternateUri.ToString());
+                }
+                catch (Win32Exception)
+                {
+                    //nothing is registered to handle URLs, so let's use IE!
+                    Process.Start("IExplore.exe", lastUploadEntry.AlternateUri.ToString());
+                }
             }
         }
 
