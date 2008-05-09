@@ -236,7 +236,15 @@ namespace DocListUploader
             if (DocList.SelectedItems.Count > 0)
             {
                 DocumentEntry entry = (DocumentEntry) DocList.SelectedItems[0].Tag;
-                Process.Start(entry.AlternateUri.ToString());
+                try
+                {
+                    Process.Start(entry.AlternateUri.ToString());
+                }
+                catch (Win32Exception)
+                {
+                    //nothing is registered to handle URLs, so let's use IE!
+                    Process.Start("IExplore.exe", entry.AlternateUri.ToString());
+                }
             }
         }
 
