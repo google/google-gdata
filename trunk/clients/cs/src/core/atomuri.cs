@@ -78,13 +78,13 @@ namespace Google.GData.Client
         }
 
         /// <summary>comparison method similar to strings</summary> 
-        public static int Compare(AtomUri a, AtomUri b)
+        public static int Compare(AtomUri oneAtomUri, AtomUri anotherAtomUri)
         {
-            if (a != null) 
+            if (oneAtomUri != null) 
             {
-                return a.CompareTo(b);
+                return oneAtomUri.CompareTo(anotherAtomUri);
             }
-            else if (b == null) 
+            else if (anotherAtomUri == null) 
             {
                 return 0;
             }

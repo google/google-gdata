@@ -1056,19 +1056,19 @@ namespace Google.GData.Client
                         }
                         else if (localname.Equals(this.nameTable.BatchSuccessCount))
                         {
-                            interrupt.Successes = int.Parse(Utilities.DecodedValue(reader.Value)); 
+                            interrupt.Successes = int.Parse(Utilities.DecodedValue(reader.Value),CultureInfo.InvariantCulture); 
                         }
                         else if (localname.Equals(this.nameTable.BatchFailureCount))
                         {
-                            interrupt.Failures = int.Parse(Utilities.DecodedValue(reader.Value)); 
+                            interrupt.Failures = int.Parse(Utilities.DecodedValue(reader.Value),CultureInfo.InvariantCulture);  
                         }
                         else if (localname.Equals(this.nameTable.BatchParsedCount))
                         {
-                            interrupt.Parsed = int.Parse(Utilities.DecodedValue(reader.Value)); 
+                            interrupt.Parsed = int.Parse(Utilities.DecodedValue(reader.Value),CultureInfo.InvariantCulture); 
                         }
                         else if (localname.Equals(this.nameTable.BatchUnprocessed))
                         {
-                            interrupt.Unprocessed= int.Parse(Utilities.DecodedValue(reader.Value)); 
+                            interrupt.Unprocessed= int.Parse(Utilities.DecodedValue(reader.Value),CultureInfo.InvariantCulture); 
                         }
 
                     }

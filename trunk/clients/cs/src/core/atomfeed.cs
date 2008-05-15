@@ -325,7 +325,7 @@ namespace Google.GData.Client
                         int i = batchFeed.Entries.Add(entry); 
                         AtomEntry batchEntry = batchFeed.Entries[i]; 
                         batchEntry.BatchData = new GDataBatchEntryData();
-                        batchEntry.BatchData.Id = id.ToString(); 
+                        batchEntry.BatchData.Id = id.ToString(CultureInfo.InvariantCulture); 
                         id++;
                         entry.Dirty = false;
                     }

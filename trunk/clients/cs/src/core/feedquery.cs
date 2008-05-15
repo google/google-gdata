@@ -710,18 +710,21 @@ namespace Google.GData.Client
         /// </summary>
         /// <param name="value"></param>
         /// <param name="parameterName"></param>
-        /// <param name="connectChar"></param>
+        /// <param name="connect"></param>
         /// <param name="builder"></param>
         /// <returns></returns>
-        protected char AppendQueryPart(string value, string parameterName, char connectChar, StringBuilder builder)
+        protected static char AppendQueryPart(string value, string parameterName, char connect, StringBuilder builder)
         {
+            if (builder == null)
+                throw new ArgumentNullException("builder");
+
             if (Utilities.IsPersistable(value))
             {
-                builder.Append(connectChar);
+                builder.Append(connect);
                 builder.AppendFormat(CultureInfo.InvariantCulture, parameterName+"={0}", Utilities.UriEncodeReserved(value)); 
-                connectChar = '&'; 
+                connect = '&'; 
             }
-            return connectChar;
+            return connect;
         }
 
         /// <summary>
@@ -729,18 +732,21 @@ namespace Google.GData.Client
         /// </summary>
         /// <param name="value"></param>
         /// <param name="parameterName"></param>
-        /// <param name="connectChar"></param>
+        /// <param name="connect"></param>
         /// <param name="builder"></param>
         /// <returns></returns>
-        protected char AppendQueryPart(int value, int defValue, string parameterName, char connectChar, StringBuilder builder)
+        protected static char AppendQueryPart(int value, int defValue, string parameterName, char connect, StringBuilder builder)
         {
+            if (builder == null)
+                throw new ArgumentNullException("builder");
+
             if (value != defValue)
             {
-                builder.Append(connectChar);
+                builder.Append(connect);
                 builder.AppendFormat(CultureInfo.InvariantCulture, parameterName+"={0:d}", value); 
-                connectChar = '&'; 
+                connect = '&'; 
             }
-            return connectChar;
+            return connect;
         }
 
          /// <summary>
@@ -748,19 +754,22 @@ namespace Google.GData.Client
         /// </summary>
         /// <param name="value"></param>
         /// <param name="parameterName"></param>
-        /// <param name="connectChar"></param>
+        /// <param name="connect"></param>
         /// <param name="builder"></param>
         /// <returns></returns>
         [CLSCompliant(false)]
-        protected char AppendQueryPart(uint value, int defValue, string parameterName, char connectChar, StringBuilder builder)
+        protected static char AppendQueryPart(uint value, int defValue, string parameterName, char connect, StringBuilder builder)
         {
+            if (builder == null)
+                throw new ArgumentNullException("builder");
+
             if (value != defValue)
             {
-                builder.Append(connectChar);
+                builder.Append(connect);
                 builder.AppendFormat(CultureInfo.InvariantCulture, parameterName+"={0:d}", value); 
-                connectChar = '&'; 
+                connect = '&'; 
             }
-            return connectChar;
+            return connect;
         }
 
         /// <summary>
@@ -768,16 +777,19 @@ namespace Google.GData.Client
         /// </summary>
         /// <param name="value"></param>
         /// <param name="parameterName"></param>
-        /// <param name="connectChar"></param>
+        /// <param name="connect"></param>
         /// <param name="builder"></param>
         /// <returns></returns>
-        protected char AppendQueryPart(DateTime value, string parameterName, char connectChar, StringBuilder builder)
+        protected static char AppendQueryPart(DateTime value, string parameterName, char connect, StringBuilder builder)
         {
+            if (builder == null)
+                throw new ArgumentNullException("builder");
+
             if (Utilities.IsPersistable(value))
             {
-                return AppendQueryPart(Utilities.LocalDateTimeInUTC(value), parameterName, connectChar, builder);
+                return FeedQuery.AppendQueryPart(Utilities.LocalDateTimeInUTC(value), parameterName, connect, builder);
             }
-            return connectChar;
+            return connect;
         }
 
         //////////////////////////////////////////////////////////////////////

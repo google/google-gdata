@@ -48,7 +48,6 @@ namespace Google.GData.Extensions {
         {
             this.countHint = -1; 
             this.readOnly = true; 
-            this.readOnlySet = false; 
         }
 
         /// <summary>
@@ -185,7 +184,7 @@ namespace Google.GData.Extensions {
         //////////////////////////////////////////////////////////////////////
         /// <summary>Returns the constant representing this XML element.</summary> 
         //////////////////////////////////////////////////////////////////////
-        public string XmlName
+        public static string XmlName
         {
             get { return GDataParserNameTable.XmlFeedLinkElement;}
         }

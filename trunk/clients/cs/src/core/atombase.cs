@@ -361,7 +361,7 @@ namespace Google.GData.Client
         {
             foreach (IExtensionElementFactory f in this.ExtensionFactories)
             {
-                if (String.Compare(ns, f.XmlNameSpace, true) == 0)
+                if (String.Compare(ns, f.XmlNameSpace, true, CultureInfo.InvariantCulture) == 0)
                 {
                     if (String.Compare(localName, f.XmlName) == 0)
                     {

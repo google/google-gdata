@@ -18,6 +18,7 @@ using System.Xml;
 using System.Collections;
 using System.Text;
 using Google.GData.Client;
+using System.Globalization;
 
 namespace Google.GData.Extensions 
 {
@@ -197,9 +198,9 @@ namespace Google.GData.Extensions
                     IExtensionElementFactory f = new Reminder() as IExtensionElementFactory;
                     while (whenChildNode != null && whenChildNode is XmlElement)
                     {
-                        if (String.Compare(whenChildNode.NamespaceURI, f.XmlNameSpace, true) == 0)
+                        if (String.Compare(whenChildNode.NamespaceURI, f.XmlNameSpace, true, CultureInfo.InvariantCulture) == 0)
                         {
-                            if (String.Compare(whenChildNode.LocalName, f.XmlName) == 0)
+                            if (String.Compare(whenChildNode.LocalName, f.XmlName, true, CultureInfo.InvariantCulture) == 0)
                             {
                                 Reminder r = f.CreateInstance(whenChildNode, null) as Reminder;
                                 when.Reminders.Add(r);
@@ -212,12 +213,12 @@ namespace Google.GData.Extensions
             
             if (!startTimeFlag)
             {
-                throw new ArgumentNullException("g:when/@startTime is required.");
+                throw new ClientFeedException("g:when/@startTime is required.");
             }
 
             if (endTimeFlag && when.startTime.CompareTo(when.endTime) > 0)
             {
-                throw new ArgumentException("g:when/@startTime must be less than or equal to g:when/@endTime.");
+                throw new ClientFeedException("g:when/@startTime must be less than or equal to g:when/@endTime.");
             }
 
             return when;
@@ -280,7 +281,7 @@ namespace Google.GData.Extensions
                 }
                 else
                 {
-                    throw new ArgumentNullException("g:when/@startTime is required.");
+                    throw new ClientFeedException("g:when/@startTime is required.");
                 }
     
                 if (endTime != new DateTime(1, 1, 1))

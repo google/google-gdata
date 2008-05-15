@@ -630,9 +630,9 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         /// <summary>Executes the request and prepares the response stream. Also 
         /// does error checking</summary> 
-        /// <param name="iRetrying">indicates the n-th time this is run</param>
+        /// <param name="retryCounter">indicates the n-th time this is run</param>
         //////////////////////////////////////////////////////////////////////
-        protected void Execute(int iRetrying)
+        protected void Execute(int retryCounter)
         {
             Tracing.TraceCall("GoogleAuth: Execution called");
             try
@@ -675,7 +675,7 @@ namespace Google.GData.Client
             }
             catch (GDataRequestException re)
             {
-                if (iRetrying > this.factory.NumberOfRetries)
+                if (retryCounter > this.factory.NumberOfRetries)
                 {
                     Tracing.TraceMsg("Got no response object");
                     throw;
@@ -684,7 +684,7 @@ namespace Google.GData.Client
                 // only reset the base, the auth cookie is still valid
                 // and cookies are stored in the factory
                 base.Reset();
-                this.Execute(iRetrying + 1); 
+                this.Execute(retryCounter + 1); 
             }
             catch (Exception e)
             {

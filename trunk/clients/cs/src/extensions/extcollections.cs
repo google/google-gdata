@@ -57,7 +57,7 @@ namespace Google.GData.Extensions
         /// <param name="containerElement">the base element holding the extension list</param>
         /// <param name="localName">the local name of the extension</param>
         /// <param name="ns">the namespace</param>
-        public ExtensionCollection(IExtensionContainer containerElement, string localName, string ns) : base()
+        protected ExtensionCollection(IExtensionContainer containerElement, string localName, string ns) : base()
         {
              this.container = containerElement;
              if (this.container != null)

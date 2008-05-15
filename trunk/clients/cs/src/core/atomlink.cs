@@ -59,10 +59,10 @@ namespace Google.GData.Client
 
 
         /// <summary>HTML Link Type</summary> 
-        public static string HTML_TYPE = "text/html";
+        public const string HTML_TYPE = "text/html";
 
         /// <summary>ATOM Link Type</summary>
-        public static string ATOM_TYPE = "application/atom+xml";
+        public const string ATOM_TYPE = "application/atom+xml";
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>default empty constructor</summary> 

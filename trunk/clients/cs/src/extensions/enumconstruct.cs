@@ -37,7 +37,6 @@ namespace Google.GData.Extensions {
                BaseNameTable.gDataPrefix,
                BaseNameTable.gNamespace)
         {
-            readOnly = false;
         }
 
         /// <summary>
@@ -54,7 +53,6 @@ namespace Google.GData.Extensions {
                BaseNameTable.gNamespace,
                initialValue)
         {
-            readOnly = true;
         }
 
         /// <summary>
@@ -68,7 +66,6 @@ namespace Google.GData.Extensions {
                prefix,
                nameSpace)
         {
-            readOnly = false;
         }
 
         /// <summary>
@@ -129,7 +126,7 @@ namespace Google.GData.Extensions {
         /// </summary>
         /// <param name="o">the object to compare to</param>
         /// <returns>bool</returns>
-        public override bool Equals(Object o)
+        public override bool Equals(Object obj)
         {
             //
             // Two EnumConstant instances are considered equal of they are of the
@@ -137,12 +134,12 @@ namespace Google.GData.Extensions {
             // a subtype adds additional member elements that effect the equivalence  
             // test, it *must* override this implemention.
             //
-            if (o == null || !this.GetType().Equals(o.GetType()))
+            if (obj == null || !this.GetType().Equals(obj.GetType()))
             {
                 return false;
             }
 
-            EnumConstruct ec = (EnumConstruct)o;
+            EnumConstruct ec = (EnumConstruct)obj;
 
             if (Type.Equals(ec.Type) == false)
                 return false;

@@ -56,7 +56,7 @@ namespace Google.GData.Client
         private string value;
         
         /// <summary>default value for the status code</summary>
-        public static int CodeDefault = -1; 
+        public const int CodeDefault = -1; 
 
         /// <summary>
         /// set's the defaults for code
@@ -139,7 +139,7 @@ namespace Google.GData.Client
 
             if (this.Code != GDataBatchStatus.CodeDefault) 
             {
-                writer.WriteAttributeString(BaseNameTable.XmlAttributeBatchStatusCode, this.Code.ToString()); 
+                writer.WriteAttributeString(BaseNameTable.XmlAttributeBatchStatusCode, this.Code.ToString(CultureInfo.InvariantCulture)); 
             }
             if (Utilities.IsPersistable(this.ContentType)) 
             {
@@ -379,11 +379,11 @@ namespace Google.GData.Client
         /// <summary>
         /// Constructor for batch data
         /// </summary>
-        /// <param name="ID">The batch ID of this entry</param>
+        /// <param name="id">The batch ID of this entry</param>
         /// <param name="type">The batch operation to be performed</param>
-        public GDataBatchEntryData(string ID, GDataBatchOperationType type) : this(type)
+        public GDataBatchEntryData(string id, GDataBatchOperationType type) : this(type)
         {
-            this.Id = ID;
+            this.Id = id;
         }
 
     

@@ -20,6 +20,7 @@ using System;
 using System.Security.Cryptography;
 using System.Net;
 using System.Text;
+using System.Globalization;
 
 
 
@@ -35,11 +36,14 @@ namespace Google.GData.Client
     /// <summary>helper class for communications between a 3rd party site and Google using the AuthSub protocol
     /// </summary> 
     //////////////////////////////////////////////////////////////////////
-    public class AuthSubUtil
+    public sealed class AuthSubUtil
     {
         private static string DEFAULT_PROTOCOL = "https"; 
         private static string DEFAULT_DOMAIN = "www.google.com";
         private static string DEFAULT_HANDLER = "/accounts/AuthSubRequest";
+
+        // to prevent the compiler from creating a default public one.
+        private AuthSubUtil() { }
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>Creates the request URL to be used to retrieve an AuthSub 
@@ -491,7 +495,7 @@ namespace Google.GData.Client
         {
             if (key == null)
             {
-                return String.Format("Authorization: AuthSub token=\"{0}\"", token);
+                return String.Format(CultureInfo.InvariantCulture, "Authorization: AuthSub token=\"{0}\"", token);
             }
             else
             {
@@ -506,10 +510,11 @@ namespace Google.GData.Client
 
                 string nounce = generateULONGRnd(); 
 
-                string dataToSign = String.Format("{0} {1} {2} {3}", 
+                string dataToSign = String.Format(CultureInfo.InvariantCulture,
+                                                    "{0} {1} {2} {3}", 
                                                   requestMethod, 
                                                   requestUri.AbsoluteUri,
-                                                  timestamp.ToString(), 
+                                                  timestamp.ToString(CultureInfo.InvariantCulture), 
                                                   nounce);
 
 
@@ -519,7 +524,8 @@ namespace Google.GData.Client
 
                 string algorithmName = key is DSACryptoServiceProvider ? "dsa-sha1" : "rsa-sha1";
 
-                return String.Format("Authorization: AuthSub token=\"{0}\" data=\"{1}\" sig=\"{2}\" sigalg=\"{3}\"",
+                return String.Format(CultureInfo.InvariantCulture,
+                                        "Authorization: AuthSub token=\"{0}\" data=\"{1}\" sig=\"{2}\" sigalg=\"{3}\"",
                                      token, dataToSign, encodedSignature,  algorithmName);
             }
 
@@ -548,7 +554,7 @@ namespace Google.GData.Client
                 {
                     continue; 
                 }
-                x.Insert(i, Convert.ToInt16(randomNumber[i]).ToString()[0]);
+                x.Insert(i, Convert.ToInt16(randomNumber[i], CultureInfo.InvariantCulture).ToString()[0]);
             }
             return x.ToString(); 
         }

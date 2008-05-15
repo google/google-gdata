@@ -106,7 +106,7 @@ namespace Google.GData.GoogleBase
         /// <summary>Replaces the default AtomFeed with a GBaseFeed
         /// for the Query Batch operations.</summary>
         //////////////////////////////////////////////////////////////////////
-        protected override AtomFeed createFeed(Uri uriToUse)
+        protected override AtomFeed CreateFeed(Uri uriToUse)
         {
             return new GBaseFeed(uriToUse, this);
         }

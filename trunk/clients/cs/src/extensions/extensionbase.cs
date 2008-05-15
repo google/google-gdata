@@ -62,7 +62,6 @@ namespace Google.GData.Extensions {
             {
                 return getAttributes();
             }
-            set {setAttributes(value);}
         }
         // end of accessor public SortedList Attributes
  
@@ -81,10 +80,6 @@ namespace Google.GData.Extensions {
             return this.attributes;
         }
 
-        internal void setAttributes(SortedList list) 
-        {
-            this.attributes = list;
-        }
         
         #region overloaded for persistence
 
@@ -186,27 +181,6 @@ namespace Google.GData.Extensions {
             return;
         }
 
-        /// <summary>
-        /// helper method to extract an attribute as string from
-        /// an xmlnode using the passed in node and the attributename
-        /// </summary>
-        /// <param name="node">node to extract attribute from</param>
-        /// <param name="attributeName">the name of the attribute</param>
-        /// <returns>string - null if attribute is not present</returns>
-        protected string getAttribute(XmlNode node, string attributeName)
-        { 
-            string retValue = null;
-
-            if (node.Attributes != null)
-            {
-                if (node.Attributes[attributeName] != null)
-                {
-                    retValue = node.Attributes[attributeName].Value;
-                }
-            }
-            return retValue;
-        }
-      
         /// <summary>
         /// Persistence method for the EnumConstruct object
         /// </summary>

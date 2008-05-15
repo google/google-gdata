@@ -62,7 +62,6 @@ namespace Google.GData.Extensions {
                 }
                 return this.extensions;
             }
-            set {this.extensions = value;}
         }
 
 
@@ -146,7 +145,6 @@ namespace Google.GData.Extensions {
                 }
                 return this.extensionFactories;
             }
-            set {this.extensionFactories = value;}
         }
 
         // end of accessor public ArrayList Extensions
