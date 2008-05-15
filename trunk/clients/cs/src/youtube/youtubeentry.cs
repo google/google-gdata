@@ -162,7 +162,7 @@ namespace Google.GData.YouTube {
         /// <summary>
         /// instead of having 20 extension elements
         /// we have one string based setter
-        /// usage is: entry.setPhotoExtension("albumid") to set the element
+        /// usage is: entry.setYouTubeExtension("albumid") to set the element
         /// this will create the extension if it's not there
         /// note, you can ofcourse, just get an existing one and work with that 
         /// object: 
@@ -187,9 +187,13 @@ namespace Google.GData.YouTube {
             if (ele == null)
             {
                 ele = CreateExtension(extension, YouTubeNameTable.NSYouTube) as SimpleElement;
-                this.ExtensionElements.Add(ele);
+                if (ele != null)
+                {
+                    this.ExtensionElements.Add(ele);
+                }
             }
-            ele.Value = newValue;
+            if (ele != null)
+                ele.Value = newValue;
 
             return ele;
         }
