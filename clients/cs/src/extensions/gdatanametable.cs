@@ -55,7 +55,7 @@ namespace Google.GData.Extensions
 
 
         /// <summary>the event prefix </summary>
-        public static string Event = gNamespacePrefix + "event";
+        public const string Event = gNamespacePrefix + "event";
 
 #region element strings
         /// <summary> timezone indicator on the feedlevel</summary>

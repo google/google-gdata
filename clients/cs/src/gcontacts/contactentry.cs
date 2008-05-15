@@ -34,7 +34,7 @@ namespace Google.GData.Contacts {
         /// default contact term string for the contact relationship link
         /// </summary>
         public static string ContactTerm = "http://schemas.google.com/contact/2008#contact";
-        /// <summary>
+        /// <summary>`
         /// Category used to label entries that contain contact extension data.
         /// </summary>
         public static AtomCategory CONTACT_CATEGORY =

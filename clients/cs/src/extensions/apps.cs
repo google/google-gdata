@@ -121,7 +121,7 @@ namespace Google.GData.Extensions.Apps
         /// <summary>
         /// XML attribute for the ipWhitelisted flag of a login element.
         /// </summary>
-        public const string AppsLoginIpWhitelisted = "ipWhitelisted";
+        public const string AppsLoginIPWhitelisted = "ipWhitelisted";
 
         /// <summary>
         /// XML attribute for the hashFunctionName flag of a login element.
@@ -327,7 +327,7 @@ namespace Google.GData.Extensions.Apps
             this.UserName = userName;
             this.Password = password;
             this.Suspended = suspended;
-            this.IpWhitelisted = ipWhitelisted;
+            this.IPWhitelisted = ipWhitelisted;
         }
 
         /// <summary>
@@ -353,7 +353,7 @@ namespace Google.GData.Extensions.Apps
             this.UserName = userName;
             this.Password = password;
             this.Suspended = suspended;
-            this.IpWhitelisted = ipWhitelisted;
+            this.IPWhitelisted = ipWhitelisted;
             this.HashFunctionName = hashFunctionName;
         }
 
@@ -387,10 +387,10 @@ namespace Google.GData.Extensions.Apps
         /// <summary>
         /// IpWhitelisted property accessor
         /// </summary>
-        public bool IpWhitelisted
+        public bool IPWhitelisted
         {
-            get { return Convert.ToBoolean(getAttributes()[AppsNameTable.AppsLoginIpWhitelisted]); }
-            set { getAttributes()[AppsNameTable.AppsLoginIpWhitelisted] = value; }
+            get { return Convert.ToBoolean(getAttributes()[AppsNameTable.AppsLoginIPWhitelisted]); }
+            set { getAttributes()[AppsNameTable.AppsLoginIPWhitelisted] = value; }
         }
 
         /// <summary>
@@ -660,7 +660,7 @@ namespace Google.GData.Extensions.Apps
         /// <param name="value">the RFC 822 message in string form</param>
         /// <param name="messageEncoding">the encoding method of this RFC822 message</param>
         public Rfc822MsgElement(string value, EncodingMethod messageEncoding)
-            : this(Encoding.ASCII.GetBytes(value), EncodingMethod.NONE)
+            : this(Encoding.ASCII.GetBytes(value), messageEncoding)
         { }
 
         /// <summary>
@@ -817,32 +817,32 @@ namespace Google.GData.Extensions.Apps
 
         /// <summary>Indicates that a mail item should be marked as a draft
         /// when inserted into GMail.</summary>
-        public static readonly MailItemPropertyElement DRAFT =
+        public static MailItemPropertyElement DRAFT =
             new MailItemPropertyElement(MailItemProperty.IS_DRAFT);
 
         /// <summary>Indicates that a mail item should be placed in the inbox
         /// when inserted into GMail.</summary>
-        public static readonly MailItemPropertyElement INBOX =
+        public static MailItemPropertyElement INBOX =
             new MailItemPropertyElement(MailItemProperty.IS_INBOX);
 
         /// <summary>Indicates that a mail item should be marked as "Sent" when
         /// inserted into GMail.</summary>
-        public static readonly MailItemPropertyElement SENT =
+        public static MailItemPropertyElement SENT =
             new MailItemPropertyElement(MailItemProperty.IS_SENT);
 
         /// <summary>Indicates that a mail item should be starred when inserted
         /// into GMail.</summary>
-        public static readonly MailItemPropertyElement STARRED =
+        public static MailItemPropertyElement STARRED =
             new MailItemPropertyElement(MailItemProperty.IS_STARRED);
 
         /// <summary>Indicates that a mail item should be placed in the trash
         /// when inserted into GMail.</summary>
-        public static readonly MailItemPropertyElement TRASH =
+        public static MailItemPropertyElement TRASH =
             new MailItemPropertyElement(MailItemProperty.IS_TRASH);
 
         /// <summary>Indicates that a mail item should be marked as unread when
         /// inserted into GMail.</summary>
-        public static readonly MailItemPropertyElement UNREAD =
+        public static MailItemPropertyElement UNREAD =
             new MailItemPropertyElement(MailItemProperty.IS_UNREAD);
 
         /// <summary>
@@ -867,7 +867,7 @@ namespace Google.GData.Extensions.Apps
             this.Value = value;
         }
 
-        /// <summary>
+        /// <summary>\
         /// Value property accessor
         /// </summary>
         public MailItemProperty Value

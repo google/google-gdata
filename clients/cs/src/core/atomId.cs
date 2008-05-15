@@ -95,10 +95,10 @@ namespace Google.GData.Client
 			if (obj == null)
 				return -1;
 
-			if (obj is AtomId == false)
-				throw new ArgumentException("obj is not the same type as this instance.", "obj");
-
             AtomId other = obj as AtomId; 
+
+			if (other == null)
+				throw new ArgumentException("obj is not the same type as this instance.", "obj");
 
             if (this.Uri != null) 
                 return this.Uri.CompareTo(other.Uri);

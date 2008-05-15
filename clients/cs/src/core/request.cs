@@ -20,6 +20,7 @@ using System;
 using System.IO;
 using System.Net;
 using System.Collections.Specialized;
+using System.Globalization;
 
 #endregion
 
@@ -609,7 +610,7 @@ namespace Google.GData.Client
                 HttpWebResponse response = this.webResponse as HttpWebResponse;
                 HttpWebRequest request = this.webRequest as HttpWebRequest;
 
-                this.useGZip = (string.Compare(response.ContentEncoding, "gzip", true) == 0);
+                this.useGZip = (string.Compare(response.ContentEncoding, "gzip", true, CultureInfo.InvariantCulture) == 0);
                 if (this.useGZip == true)
                     this.responseStream = new GZipStream(this.responseStream, CompressionMode.Decompress);
 

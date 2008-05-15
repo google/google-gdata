@@ -17,6 +17,8 @@ using System;
 using System.IO;
 using System.Diagnostics;
 using System.Reflection;
+using System.Globalization;
+using System.Text;
 
 
 //////////////////////////////////////////////////////////////////////
@@ -111,18 +113,18 @@ namespace Google.GData.Client
             {
                 if (startFrame != null)
                 {
-                    string      outMsg = "";
+                    StringBuilder  outMsg = new StringBuilder();
                     MethodBase  method = startFrame.GetMethod();
 
                     while (indent-- > 0)
-                        outMsg += "    ";
+                        outMsg.Append("    ");
 
-                    outMsg += "--> " + method.DeclaringType.Name + "." + method.Name + "()";
+                    outMsg.Append("--> " + method.DeclaringType.Name + "." + method.Name + "()");
 
-                    if (msg != "")
-                        outMsg += ": " + msg;
+                    if (String.IsNullOrEmpty(msg) == false)
+                        outMsg.Append(": " + msg);
 
-                    Tracing.TraceMsg(outMsg);
+                    Tracing.TraceMsg(outMsg.ToString());
                 }
                 else
                 {
@@ -186,7 +188,7 @@ namespace Google.GData.Client
         {
             try
             {
-                Trace.WriteLine("[" + DateTime.Now.ToString("HH:mm:ss:ffff") + "] - " + msg);
+                Trace.WriteLine("[" + DateTime.Now.ToString("HH:mm:ss:ffff", CultureInfo.InvariantCulture) + "] - " + msg);
                 Trace.Flush();
             } 
             catch

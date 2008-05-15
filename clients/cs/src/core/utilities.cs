@@ -54,9 +54,9 @@ namespace Google.GData.Client
         }
         /////////////////////////////////////////////////////////////////////////////
         /// <summary>Little helper that checks if a string is XML persistable</summary> 
-        public static bool IsPersistable(string s)
+        public static bool IsPersistable(string toPersist)
         {
-            if (s != null && s.Length != 0 && s.Trim().Length != 0)
+            if (string.IsNullOrEmpty(toPersist) == false && toPersist.Trim().Length != 0)
             {
                 return true;
             }
@@ -70,9 +70,9 @@ namespace Google.GData.Client
         }
 
         /// <summary>Little helper that checks if an int is XML persistable</summary> 
-        public static bool IsPersistable(int iNum)
+        public static bool IsPersistable(int number)
         {
-            return iNum == 0 ? false : true;
+            return number == 0 ? false : true;
         }
 
         /// <summary>Little helper that checks if a datevalue is XML persistable</summary> 
@@ -107,7 +107,7 @@ namespace Google.GData.Client
             {
                 return ConvertBooleanToXSDString((bool) obj);
             }
-            return Convert.ToString(obj);
+            return Convert.ToString(obj, CultureInfo.InvariantCulture);
         }
 
 
@@ -306,7 +306,7 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         internal static string FormatNumOffset(TimeSpan timeSpan)
         {
-            return String.Format("{0:00}:{1:00}", timeSpan.Hours, timeSpan.Minutes);
+            return String.Format(CultureInfo.InvariantCulture, "{0:00}:{1:00}", timeSpan.Hours, timeSpan.Minutes);
         }
 
         //////////////////////////////////////////////////////////////////////

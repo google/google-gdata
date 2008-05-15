@@ -128,16 +128,16 @@ namespace Google.GData.Extensions.Location {
         /// finds our position element, if we don't have one
         /// creates a new one depending on the fCreate parameter
         /// </summary>
-        /// <param name="fCreate">creates the subelements on true</param> 
+        /// <param name="create">creates the subelements on true</param> 
         /// <returns>GeoKmlPosition</returns>
-        protected GeoKmlPosition GetPosition(bool fCreate) 
+        protected GeoKmlPosition GetPosition(bool create) 
         {
             GeoKmlPoint point = FindExtension(GeoNametable.GeoKmlPointElement, 
                                               GeoNametable.NSGeoKml) as GeoKmlPoint;
 
             GeoKmlPosition position = null;
 
-            if (point == null && fCreate == true)
+            if (point == null && create == true)
             {
                 point = new GeoKmlPoint();
                 this.ExtensionElements.Add(point);
@@ -148,7 +148,7 @@ namespace Google.GData.Extensions.Location {
                                                GeoNametable.NSGeoKml) as GeoKmlPosition;
 
 
-                if (position == null && fCreate == true)
+                if (position == null && create == true)
                 {
                     position = new GeoKmlPosition("0 0");
                     point.ExtensionElements.Add(position);

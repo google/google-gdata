@@ -17,6 +17,7 @@ using System;
 using System.Xml;
 using System.Collections;
 using System.Text;
+using System.Globalization;
 using Google.GData.Client;
 
 namespace Google.GData.Extensions {
@@ -36,25 +37,25 @@ namespace Google.GData.Extensions {
         public class RelType
         {
             /// <summary>Relationship value Attendee</summary>
-            public static string EVENT_ATTENDEE = BaseNameTable.gNamespacePrefix + "event.attendee";
+            public const string EVENT_ATTENDEE = BaseNameTable.gNamespacePrefix + "event.attendee";
             /// <summary>Relationship value Organizer</summary>
-            public static string EVENT_ORGANIZER = BaseNameTable.gNamespacePrefix + "event.organizer";
+            public const string EVENT_ORGANIZER = BaseNameTable.gNamespacePrefix + "event.organizer";
             /// <summary>Relationship value Speaker</summary>
-            public static string EVENT_SPEAKER = BaseNameTable.gNamespacePrefix + "event.speaker";
+            public const string EVENT_SPEAKER = BaseNameTable.gNamespacePrefix + "event.speaker";
             /// <summary>Relationship value Performer</summary>
-            public static string EVENT_PERFORMER = BaseNameTable.gNamespacePrefix + "event.performer";
+            public const string EVENT_PERFORMER = BaseNameTable.gNamespacePrefix + "event.performer";
             /// <summary>Relationship value Assigned To</summary>
-            public static string TASK_ASSIGNED_TO = BaseNameTable.gNamespacePrefix + "task.assigned-to";
+            public const string TASK_ASSIGNED_TO = BaseNameTable.gNamespacePrefix + "task.assigned-to";
             /// <summary>Relationship value Message From</summary>
-            public static string MESSAGE_FROM = BaseNameTable.gNamespacePrefix + "message.from";
+            public const string MESSAGE_FROM = BaseNameTable.gNamespacePrefix + "message.from";
             /// <summary>Relationship value message is a reply to</summary>
-            public static string MESSAGE_REPLY_TO = BaseNameTable.gNamespacePrefix + "message.reply-to";
+            public const string MESSAGE_REPLY_TO = BaseNameTable.gNamespacePrefix + "message.reply-to";
             /// <summary>Relationship value message goes to</summary>
-            public static string MESSAGE_TO = BaseNameTable.gNamespacePrefix + "message.to";
+            public const string MESSAGE_TO = BaseNameTable.gNamespacePrefix + "message.to";
             /// <summary>Relationship value message CC</summary>
-            public static string MESSAGE_CC = BaseNameTable.gNamespacePrefix + "message.cc";
+            public const string MESSAGE_CC = BaseNameTable.gNamespacePrefix + "message.cc";
             /// <summary>Relationship value message BCC</summary>
-            public static string MESSAGE_BCC = BaseNameTable.gNamespacePrefix + "message.bcc";
+            public const string MESSAGE_BCC = BaseNameTable.gNamespacePrefix + "message.bcc";
         }
 
         /// <summary>
@@ -83,7 +84,7 @@ namespace Google.GData.Extensions {
             public static AttendeeType parse(XmlNode node)
             {
                 AttendeeType attendee = null;
-                if (String.Compare(node.NamespaceURI, BaseNameTable.gNamespace, true) == 0)
+                if (String.Compare(node.NamespaceURI, BaseNameTable.gNamespace, true, CultureInfo.InvariantCulture) == 0)
                 {
                     attendee = new AttendeeType();
                     attendee.Value = Utilities.GetAttributeValue("value", node);
@@ -121,7 +122,7 @@ namespace Google.GData.Extensions {
             public static AttendeeStatus parse(XmlNode node)
             {
                 AttendeeStatus attendee = null;
-                if (String.Compare(node.NamespaceURI, BaseNameTable.gNamespace, true) == 0)
+                if (String.Compare(node.NamespaceURI, BaseNameTable.gNamespace, true, CultureInfo.InvariantCulture) == 0)
                 {
                     attendee = new AttendeeStatus();
                     attendee.Value = Utilities.GetAttributeValue("value", node);
@@ -327,6 +328,9 @@ namespace Google.GData.Extensions {
         /// <param name="writer">the xmlwriter to write into</param>
         public void Save(XmlWriter writer)
         {
+            if (writer == null)
+                throw new ArgumentNullException("writer");
+
             if (Utilities.IsPersistable(this.Rel) ||
                 Utilities.IsPersistable(this.valueString) ||
                 Utilities.IsPersistable(this.email) ||
@@ -343,7 +347,7 @@ namespace Google.GData.Extensions {
                 }
                 else
                 {
-                    throw new ArgumentNullException("g:who/@rel is required.");
+                    throw new ClientFeedException("g:who/@rel is required.");
                 }
     
                 if (Utilities.IsPersistable(this.valueString))

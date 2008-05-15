@@ -24,9 +24,6 @@ namespace Google.GData.Extensions.Apps
     /// </summary>
     public class LabelCollection : ExtensionCollection<LabelElement>
     {
-        /// <summary>holds the owning feed</summary> 
-        private AtomBase atomElement;
-
         private LabelCollection()
             : base()
         {
@@ -36,7 +33,6 @@ namespace Google.GData.Extensions.Apps
         public LabelCollection(AtomBase atomElement)
             : base(atomElement, AppsMigrationNameTable.AppsLabel, AppsMigrationNameTable.AppsNamespace)
         {
-            this.atomElement = atomElement;
         }
     }
 }

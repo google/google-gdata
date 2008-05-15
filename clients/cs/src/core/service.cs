@@ -252,7 +252,7 @@ namespace Google.GData.Client
             if (request.GetResponseStream() != null)
               request.GetResponseStream().Close();
 
-            throw e;
+            throw;
           }
           // return the response
           Tracing.TraceCall("Exit");
@@ -338,7 +338,7 @@ namespace Google.GData.Client
           if (responseStream != null)
           {
             Tracing.TraceCall("Using Atom always.... ");
-            feed = createFeed(feedQuery.Uri);
+            feed = CreateFeed(feedQuery.Uri);
 
             feed.NewAtomEntry += new FeedParserEventHandler(this.OnParsedNewEntry);
             feed.NewExtensionElement += new ExtensionElementEventHandler(this.OnNewExtensionElement);
@@ -403,7 +403,7 @@ namespace Google.GData.Client
             request.Execute();
             outputStream.Close();
 
-            AtomFeed returnFeed = createFeed(target);
+            AtomFeed returnFeed = CreateFeed(target);
 
             returnFeed.NewAtomEntry += new FeedParserEventHandler(this.OnParsedNewEntry); 
             returnFeed.NewExtensionElement += new ExtensionElementEventHandler(this.OnNewExtensionElement);
@@ -475,7 +475,7 @@ namespace Google.GData.Client
 
             Stream returnStream = StreamInsert(feedUri, newEntry);
 
-            AtomFeed returnFeed = createFeed(feedUri);
+            AtomFeed returnFeed = CreateFeed(feedUri);
 
             returnFeed.NewAtomEntry += new FeedParserEventHandler(this.OnParsedNewEntry); 
             returnFeed.NewExtensionElement += new ExtensionElementEventHandler(this.OnNewExtensionElement);
@@ -507,7 +507,7 @@ namespace Google.GData.Client
         public AtomEntry Update(Uri uriTarget, Stream input, string contentType, string slugHeader)
         {
             Stream returnStream = StreamSend(uriTarget, input, GDataRequestType.Update, contentType, slugHeader);
-            AtomFeed returnFeed = createFeed(uriTarget);
+            AtomFeed returnFeed = CreateFeed(uriTarget);
             returnFeed.Parse(returnStream, AlternativeFormat.Atom);
             // there should be ONE entry echoed back. 
             returnStream.Close(); 
@@ -525,7 +525,7 @@ namespace Google.GData.Client
         public AtomEntry Insert(Uri uriTarget, Stream input, string contentType, string slugHeader)
         {
             Stream returnStream = StreamSend(uriTarget, input, GDataRequestType.Insert, contentType, slugHeader);
-            AtomFeed returnFeed = createFeed(uriTarget);
+            AtomFeed returnFeed = CreateFeed(uriTarget);
             returnFeed.Parse(returnStream, AlternativeFormat.Atom);
             // there should be ONE entry echoed back. 
             returnStream.Close(); 
@@ -645,7 +645,7 @@ namespace Google.GData.Client
             if (inputStream == null)
             {
                 Tracing.Assert(inputStream != null, "payload should not be null");
-                throw new ArgumentNullException("payload"); 
+                throw new ArgumentNullException("inputStream"); 
             }
             if (type != GDataRequestType.Insert && type != GDataRequestType.Update)
             {
@@ -706,7 +706,7 @@ namespace Google.GData.Client
         /// overriding this method.
         /// </summary>
         //////////////////////////////////////////////////////////////////////
-        protected virtual AtomFeed createFeed(Uri uriToUse)
+        protected virtual AtomFeed CreateFeed(Uri uriToUse)
         {
             ServiceEventArgs args = null;
             AtomFeed feed = null;
@@ -772,7 +772,7 @@ namespace Google.GData.Client
 
             Stream returnStream = StreamInsert(uriToUse, feed, GDataRequestType.Batch);
 
-            AtomFeed returnFeed = createFeed(uriToUse);
+            AtomFeed returnFeed = CreateFeed(uriToUse);
 
 
             returnFeed.NewAtomEntry += new FeedParserEventHandler(this.OnParsedNewEntry); 
@@ -822,18 +822,18 @@ namespace Google.GData.Client
 
         //////////////////////////////////////////////////////////////////////
         ///<summary>Deletes an Atom entry when given a Uri</summary>
-        ///<param name="uri"></param>
+        ///<param name="uriTarget">The target Uri to call http delete against</param>
         /////////////////////////////////////////////////////////////////////
-        public void Delete(Uri uri)
+        public void Delete(Uri uriTarget)
         {
-            Tracing.Assert(uri != null, "uri should not be null");
-            if (uri == null)
+            Tracing.Assert(uriTarget != null, "uri should not be null");
+            if (uriTarget == null)
             {
-                throw new ArgumentNullException("uri");
+                throw new ArgumentNullException("uriTarget");
             }
 
-            Tracing.TraceMsg("Deleting entry: " + uri.ToString());
-            IGDataRequest request = RequestFactory.CreateRequest(GDataRequestType.Delete, uri);
+            Tracing.TraceMsg("Deleting entry: " + uriTarget.ToString());
+            IGDataRequest request = RequestFactory.CreateRequest(GDataRequestType.Delete, uriTarget);
             request.Credentials = Credentials;
             request.Execute();
             IDisposable disp = request as IDisposable;

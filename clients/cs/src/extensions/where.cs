@@ -54,15 +54,15 @@ namespace Google.GData.Extensions
             /// <summary>
             /// The standard relationship EVENT_ALTERNATE
             /// </summary>
-            public static string EVENT = null;
+            public const string EVENT = null; 
             /// <summary>
             /// the alternate EVENT location
             /// </summary>
-            public static string EVENT_ALTERNATE = BaseNameTable.gNamespacePrefix + "event.alternate";
+            public const string EVENT_ALTERNATE = BaseNameTable.gNamespacePrefix + "event.alternate";
             /// <summary>
             ///  the parking location
             /// </summary>
-            public static string EVENT_PARKING = BaseNameTable.gNamespacePrefix + "event.parking";
+            public const string EVENT_PARKING = BaseNameTable.gNamespacePrefix + "event.parking";
         }
 
         /// <summary>
@@ -75,16 +75,16 @@ namespace Google.GData.Extensions
         /// <summary>
         /// default constructor, takes 3 parameters
         /// </summary>
-        /// <param name="valueString">the valueString property value</param>
+        /// <param name="value">the valueString property value</param>
         /// <param name="label">label property value</param>
         /// <param name="rel">default for the Rel property value</param>
         public Where(String rel,
                                  String label, 
-                                 String valueString)
+                                 String value)
         {
             this.Rel = rel;
             this.Label = label;
-            this.ValueString = valueString;
+            this.ValueString = value;
         }
 
         private string rel;

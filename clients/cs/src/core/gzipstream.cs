@@ -179,11 +179,11 @@ namespace Google.GData.Client
 
 
         /// <summary>Reads a number of decompressed bytes into the specified byte array.</summary>
-        /// <param name="array">The array used to store decompressed bytes.</param>
+        /// <param name="buffer">The array used to store decompressed bytes.</param>
         /// <param name="offset">The location in the array to begin reading.</param>
         /// <param name="count">The number of bytes decompressed.</param>
         /// <returns>The number of bytes that were decompressed into the byte array. If the end of the stream has been reached, zero or the number of bytes read is returned.</returns>
-        public override int Read(byte[] array, int offset, int count)
+        public override int Read(byte[] buffer, int offset, int count)
         {
             if (this.mode == CompressionMode.Compress)
                 throw new NotSupportedException("Can't read on a compress stream!");
@@ -211,10 +211,10 @@ namespace Google.GData.Client
                     {
                         case ZLibReturnCode.StreamEnd:
                             exitLoop = true;
-                            Array.Copy(tmpOutputBuffer, 0, array, offset, count - (int)this.zstream.avail_out);
+                            Array.Copy(tmpOutputBuffer, 0, buffer, offset, count - (int)this.zstream.avail_out);
                             break;
                         case ZLibReturnCode.Ok:
-                            Array.Copy(tmpOutputBuffer, 0, array, offset, count - (int)this.zstream.avail_out);
+                            Array.Copy(tmpOutputBuffer, 0, buffer, offset, count - (int)this.zstream.avail_out);
                             break;
                         case ZLibReturnCode.MemoryError:
                             throw new OutOfMemoryException("ZLib return code: " + result.ToString());
@@ -286,10 +286,10 @@ namespace Google.GData.Client
         }
 
         /// <summary>This property is not supported and always throws a NotSupportedException.</summary>
-        /// <param name="array">The array used to store compressed bytes.</param>
+        /// <param name="buffer">The array used to store compressed bytes.</param>
         /// <param name="offset">The location in the array to begin reading.</param>
         /// <param name="count">The number of bytes compressed.</param>
-        public override void Write(byte[] array, int offset, int count)
+        public override void Write(byte[] buffer, int offset, int count)
         {
             throw new NotSupportedException("Not yet supported!");
         }

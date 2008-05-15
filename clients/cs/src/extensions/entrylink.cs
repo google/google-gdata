@@ -193,7 +193,7 @@ namespace Google.GData.Extensions {
         //////////////////////////////////////////////////////////////////////
         /// <summary>Returns the constant representing this XML element.</summary> 
         //////////////////////////////////////////////////////////////////////
-        public string XmlName
+        public static string XmlName
         {
             get { return GDataParserNameTable.XmlEntryLinkElement; }
         }

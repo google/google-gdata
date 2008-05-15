@@ -20,6 +20,7 @@ using System;
 using System.Xml;
 using System.Collections;
 using System.Net;
+using System.Globalization;
 
 #endregion
 
@@ -42,8 +43,8 @@ namespace Google.GData.Client
         /// Constructor, set's up extension handlers
         /// </summary>
         /// <param name="uriBase">The uri for this cells feed.</param>
-        /// <param name="iService">The Spreadsheets service.</param>
-        protected AbstractFeed(Uri uriBase, IService iService) : base(uriBase, iService)
+        /// <param name="service">The Spreadsheets service.</param>
+        protected AbstractFeed(Uri uriBase, IService service) : base(uriBase, service)
         {
             NewAtomEntry += new FeedParserEventHandler(this.OnParsedNewAbstractEntry);
             NewExtensionElement += new ExtensionElementEventHandler(this.OnNewExtensionsElement);
@@ -149,9 +150,9 @@ namespace Google.GData.Client
                 foreach (IExtensionElementFactory f in this.ExtensionFactories)
                 {
                     Tracing.TraceMsg("Found extension Factories");
-                    if (String.Compare(node.NamespaceURI, f.XmlNameSpace, true) == 0)
+                    if (String.Compare(node.NamespaceURI, f.XmlNameSpace, true, CultureInfo.InvariantCulture) == 0)
                     {
-                        if (String.Compare(node.LocalName, f.XmlName) == 0)
+                        if (String.Compare(node.LocalName, f.XmlName, true, CultureInfo.InvariantCulture) == 0)
                         {
                             e.Base.ExtensionElements.Add(f.CreateInstance(node, parser));
                             e.DiscardEntry = true;

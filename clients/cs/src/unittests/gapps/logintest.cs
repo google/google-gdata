@@ -69,14 +69,14 @@ namespace Google.GData.Apps.UnitTests
         [Test]
         public void GetIpWhitelistedTest()
         {
-            Assert.IsTrue(login.IpWhitelisted, "User account should initially be IP whitelisted");
+            Assert.IsTrue(login.IPWhitelisted, "User account should initially be IP whitelisted");
         }
 
         [Test]
         public void SetIpWhitelistedTest()
         {
-            login.IpWhitelisted = false;
-            Assert.IsFalse(login.IpWhitelisted, "User account should not be IP whitelisted after setting");
+            login.IPWhitelisted = false;
+            Assert.IsFalse(login.IPWhitelisted, "User account should not be IP whitelisted after setting");
         }
 
         [Test]
@@ -150,7 +150,7 @@ namespace Google.GData.Apps.UnitTests
             Assert.AreEqual("jdoe", login.UserName, "Parsed login should have username=\"jdoe\"");
             Assert.AreEqual("mypasswd", login.Password, "Parsed login should have password=\"mypasswd\"");
             Assert.IsTrue(login.Suspended, "Parsed login should have suspended=true");
-            Assert.IsTrue(login.IpWhitelisted, "Parsed login should have ipWhitedlisted=true");
+            Assert.IsTrue(login.IPWhitelisted, "Parsed login should have ipWhitedlisted=true");
            
             Assert.AreEqual("SHA-1", login.HashFunctionName, "Parsed login should have hashFunctionName=\"SHA-1\"");
             Assert.IsTrue(login.Admin, "Parsed login should have admin=true");
@@ -181,7 +181,7 @@ namespace Google.GData.Apps.UnitTests
             Assert.IsTrue(serializedXml.IndexOf("suspended=\"" + login.Suspended.ToString().ToLower() + "\"") >= 0,
                 "Serialized XML does not contain correct suspended attribute.");
             Assert.IsTrue(serializedXml.IndexOf("ipWhitelisted=\"" +
-                login.IpWhitelisted.ToString().ToLower() + "\"") >= 0,
+                login.IPWhitelisted.ToString().ToLower() + "\"") >= 0,
                 "Serialized XML does not contain correct ipWhitelisted attribute.");
 
             // Make sure that the "admin" and "changePasswordAtNextLogin" attributes
@@ -217,7 +217,7 @@ namespace Google.GData.Apps.UnitTests
             Assert.IsTrue(serializedXml.IndexOf("suspended=\"" + login.Suspended.ToString().ToLower() + "\"") >= 0,
                 "Serialized XML does not contain correct suspended attribute.");
             Assert.IsTrue(serializedXml.IndexOf("ipWhitelisted=\"" +
-                login.IpWhitelisted.ToString().ToLower() + "\"") >= 0,
+                login.IPWhitelisted.ToString().ToLower() + "\"") >= 0,
                 "Serialized XML does not contain correct ipWhitelisted attribute.");
 
             // Make sure that the "admin" and "changePasswordAtNextLogin" attributes
