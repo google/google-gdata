@@ -131,7 +131,10 @@ namespace Google.GData.Calendar {
 
 
         /// <summary>
-        ///  Accessor method for StartTime
+        ///  StartTime, this effects the start-min parameter of the uri
+        ///  Together with start-max creates a timespan such that only 
+        ///  events that are within the timespan are returned. 
+        ///  If not specified, default start-min is 1970-01-01.
         /// </summary>
         public DateTime StartTime
         {
@@ -141,7 +144,10 @@ namespace Google.GData.Calendar {
 
 
         /// <summary>
-        ///  Accessor method for EndTime
+        ///  EndTime, this effects the start-max parameter of the uri
+        ///  Together with start-min creates a timespan such that 
+        ///  only events that are within the timespan are returned. 
+        ///  If not specified, default start-max is 2031-01-01.
         /// </summary>
         public DateTime EndTime
         {
@@ -151,7 +157,8 @@ namespace Google.GData.Calendar {
 
 
         /// <summary>
-        ///  Accessor method for RecurrenceStart
+        ///  RecurrenceStart, effects the recurrance-expansion-start parameter
+        ///  Specifies beginning of time period for which to expand recurring events.
         /// </summary>
         public DateTime RecurrenceStart
         {
@@ -161,7 +168,8 @@ namespace Google.GData.Calendar {
 
 
         /// <summary>
-        ///  Accessor method for RecurrenceEnd
+        ///  RecurrenceEnd, effects the recurrance-expansion-end parameter
+        ///  Specifies ending of time period for which to expand recurring events.
         /// </summary>
         public DateTime RecurrenceEnd
         {
