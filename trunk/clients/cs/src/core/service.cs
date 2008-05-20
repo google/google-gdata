@@ -395,21 +395,13 @@ namespace Google.GData.Client
 
             Uri target = new Uri(entry.EditUri.ToString());
 
-            IGDataRequest request = this.RequestFactory.CreateRequest(GDataRequestType.Update,target);
-            request.Credentials = this.Credentials;
-            Stream outputStream = request.GetRequestStream();
-
-            entry.SaveToXml(outputStream);
-            request.Execute();
-            outputStream.Close();
-
+            Stream returnStream = EntrySend(target, entry, GDataRequestType.Update);
             AtomFeed returnFeed = CreateFeed(target);
 
             returnFeed.NewAtomEntry += new FeedParserEventHandler(this.OnParsedNewEntry); 
             returnFeed.NewExtensionElement += new ExtensionElementEventHandler(this.OnNewExtensionElement);
 
-            Stream returnStream = request.GetResponseStream();
-
+            
             returnFeed.Parse(returnStream, AlternativeFormat.Atom);
             // there should be ONE entry echoed back. 
             returnStream.Close(); 
@@ -473,7 +465,7 @@ namespace Google.GData.Client
                 throw new ArgumentNullException("newEntry"); 
             }
 
-            Stream returnStream = StreamInsert(feedUri, newEntry);
+            Stream returnStream = EntrySend(feedUri, newEntry, GDataRequestType.Insert);
 
             AtomFeed returnFeed = CreateFeed(feedUri);
 
@@ -500,7 +492,7 @@ namespace Google.GData.Client
         /// simple update for media resources
         /// </summary>
         /// <param name="uriTarget"></param>
-        /// <param name="input"></param>
+        /// <param name="input">the stream to send</param>
         /// <param name="contentType"></param>
         /// <param name="slugHeader">the value for the slug header, indicating filenaming</param>
         /// <returns>AtomEntry</returns>
@@ -535,26 +527,13 @@ namespace Google.GData.Client
 
 
         //////////////////////////////////////////////////////////////////////
-        /// <summary>public WebResponse Insert(Uri insertUri, Stream entryStream, ICredentials credentials)</summary> 
-        /// <param name="feedUri">the uri for the feed this entry should be inserted into</param> 
-        /// <param name="newEntry">the entry to be inserted</param> 
-        /// <returns> the inserted entry</returns>
-        //////////////////////////////////////////////////////////////////////
-        public Stream StreamInsert(Uri feedUri, AtomBase newEntry)
-        {
-            return StreamInsert(feedUri, newEntry, GDataRequestType.Insert); 
-        }
-
-
-
-        //////////////////////////////////////////////////////////////////////
         /// <summary>Inserts an AtomBase entry against a Uri</summary> 
         /// <param name="feedUri">the uri for the feed this object should be posted against</param> 
         /// <param name="baseEntry">the entry to be inserted</param> 
         /// <param name="type">the type of request to create</param> 
         /// <returns> the response as a stream</returns>
         //////////////////////////////////////////////////////////////////////
-        public Stream StreamInsert(Uri feedUri, AtomBase baseEntry, GDataRequestType type)
+        public virtual Stream EntrySend(Uri feedUri, AtomBase baseEntry, GDataRequestType type)
         {
             Tracing.Assert(feedUri != null, "feedUri should not be null");
             if (feedUri == null)
@@ -678,21 +657,28 @@ namespace Google.GData.Client
        
             Stream outputStream = request.GetRequestStream();
 
-            BinaryWriter w = new BinaryWriter(outputStream);
+            WriteInputStreamToResponse(inputStream, outputStream);
+
+            request.Execute();
+            outputStream.Close();
+            return request.GetResponseStream();
+        }
+
+
+        protected void WriteInputStreamToResponse(Stream input, Stream output)
+        {
+
+            BinaryWriter w = new BinaryWriter(output);
             const int size = 4096;
             byte[] bytes = new byte[4096];
             int numBytes;
 
-            while((numBytes = inputStream.Read(bytes, 0, size)) > 0)
+            while((numBytes = input.Read(bytes, 0, size)) > 0)
             {
                 w.Write(bytes, 0, numBytes);
             }
             w.Flush();
-            request.Execute();
-            w.Close();
-            return request.GetResponseStream();
         }
-
 
 
 
@@ -770,7 +756,7 @@ namespace Google.GData.Client
             }
 
 
-            Stream returnStream = StreamInsert(uriToUse, feed, GDataRequestType.Batch);
+            Stream returnStream = EntrySend(uriToUse, feed, GDataRequestType.Batch);
 
             AtomFeed returnFeed = CreateFeed(uriToUse);
 

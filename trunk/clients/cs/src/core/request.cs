@@ -96,6 +96,7 @@ namespace Google.GData.Client
     {
         /// <summary>this factory's agent</summary> 
         public const string GDataAgent = "GData-CS/1.0.0";
+        public const string DefaultContentType = "application/atom+xml; charset=UTF-8";
         /// <summary>holds the user-agent</summary> 
         private string userAgent;
         private StringCollection customHeaders;     // holds any custom headers to set
@@ -103,7 +104,7 @@ namespace Google.GData.Client
         private WebProxy webProxy;                  // holds a webproxy to use
         private bool keepAlive;                     // indicates wether or not to keep the connection alive
         private bool useGZip;
-        private string contentType = "application/atom+xml; charset=UTF-8";
+        private string contentType = DefaultContentType;
         private string slugHeader;
         // set to default by default
         private int timeOut = -1;

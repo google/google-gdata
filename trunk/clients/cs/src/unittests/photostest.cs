@@ -248,7 +248,60 @@ namespace Google.GData.Client.LiveTests
         }
         /////////////////////////////////////////////////////////////////////////////
 
-        
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>tries to insert a photo using MIME multipart</summary> 
+        //////////////////////////////////////////////////////////////////////
+        [Test] public void InsertMimePhotoTest()
+        {
+            Tracing.TraceMsg("Entering InsertMimePhotoTest");
+
+            AlbumQuery query = new AlbumQuery();
+            PicasaService service = new PicasaService("unittests");
+           
+            if (this.defaultPhotosUri != null)
+            {
+                if (this.userName != null)
+                {
+                    service.Credentials = new GDataCredentials(this.userName, this.passWord);
+                }
+
+                query.Uri = new Uri(this.defaultPhotosUri);
+
+                PicasaFeed feed = service.Query(query);
+                if (feed != null)
+                {
+                    
+                    Assert.IsTrue(feed.Entries != null, "the albumfeed needs entries");
+                    Assert.IsTrue(feed.Entries[0] != null, "the albumfeed needs at least ONE entry");
+
+                    PicasaEntry album = feed.Entries[0] as PicasaEntry;
+
+                    PhotoEntry newPhoto = new PhotoEntry();
+                    newPhoto.Title.Text = "this is a title";
+                    newPhoto.Summary.Text = "A lovely shot in the ocean";
+
+                    newPhoto.MediaSource = new MediaFileSource("testnet.jpg", "image/jpeg");
+
+                    Uri postUri = new Uri(album.FeedUri.ToString());
+
+                    PicasaEntry entry = service.Insert(postUri, newPhoto) as PicasaEntry;
+
+                    Assert.IsTrue(entry.IsPhoto, "the new entry should be a photo entry");
+
+                    entry.Title.Text = "This is a new Title";
+                    entry.Summary.Text = "A lovely shot in the shade";
+                    PicasaEntry updatedEntry = entry.Update() as PicasaEntry;
+                    Assert.IsTrue(updatedEntry.IsPhoto, "the new entry should be a photo entry");
+                    Assert.IsTrue(updatedEntry.Title.Text == "This is a new Title", "The titles should be identical");
+                    Assert.IsTrue(updatedEntry.Summary.Text == "A lovely shot in the shade", "The summariesa should be identical");
+
+
+                }
+            }
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+
 
         protected void DisplayExtensions(AtomBase obj) 
         {

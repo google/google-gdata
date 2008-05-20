@@ -23,8 +23,16 @@
         </li>
     </ul>
 
-   <li>Bugfixes</li>
+   <li>Bugfixes/Changes</li>
    <ul>
+       <li>
+           Changed the Service.StreamInsert to a more appropriate name. It is
+           now called Service.EntrySend and virtual
+       </li>
+       <li>
+           Added a MediaService subclass that is going to be used for all 
+           media/mime multipart enabled services (YouTube, Picasa)
+       </li>
         <li>Fixed a memory leak related to the embedded gzip stream</li> 
         <li>Fixed a parsing bug in the AtomLink class</li>
         <li>Fixed the build script for building ASP dlls. A corruption in 

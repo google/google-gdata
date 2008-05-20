@@ -93,7 +93,7 @@ namespace Google.GData.Client.UnitTests
             {
                 Tracing.TraceMsg("DefaultHostInsertOneAndDelete, iteration : " + i); 
 
-                Stream s = service.StreamInsert(new Uri(this.defaultHost), entry); 
+                Stream s = service.EntrySend(new Uri(this.defaultHost), entry, GDataRequestType.Insert); 
                 s.Close();
 
                 returnFeed = service.Query(query);

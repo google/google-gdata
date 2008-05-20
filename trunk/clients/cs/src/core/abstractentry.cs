@@ -22,6 +22,7 @@ using System.Net;
 using System.Collections;
 
 
+
 #endregion
 
 //////////////////////////////////////////////////////////////////////
@@ -36,6 +37,7 @@ namespace Google.GData.Client
     public abstract class AbstractEntry : AtomEntry
     {
 
+        private MediaSource mediaSource;
         /// <summary>
         /// base implementation, as with the abstract feed, we are adding
         /// the gnamespace
@@ -115,6 +117,19 @@ namespace Google.GData.Client
                 this.Categories.Remove(cat);
             }
         }
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>access the associated media element. Note, that setting this
+        /// WILL cause subsequent updates to be done using MIME multipart posts
+        /// </summary> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        public MediaSource MediaSource
+        {
+            get {return this.mediaSource;}
+            set {this.mediaSource = value;}
+        }
+        // end of accessor public MediaSource Media
 
     }
 
