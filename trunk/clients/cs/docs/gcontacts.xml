@@ -58,7 +58,7 @@
             </summary>
         </member>
         <member name="F:Google.GData.Contacts.ContactEntry.CONTACT_CATEGORY">
-            <summary>
+            <summary>`
             Category used to label entries that contain contact extension data.
             </summary>
         </member>

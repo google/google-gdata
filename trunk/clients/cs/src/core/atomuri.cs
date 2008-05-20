@@ -53,11 +53,7 @@ namespace Google.GData.Client
         /// <summary>alternating constructor with a string</summary> 
         public AtomUri(string str)
         {
-#if WindowsCE || PocketPC
             this.strContent = str; 
-#else
-            this.strContent = System.Web.HttpUtility.UrlDecode(str);
-#endif
         }
 
         //////////////////////////////////////////////////////////////////////

@@ -343,7 +343,7 @@ namespace Google.GData.Client
             {
                 if (localName.Equals(this.nameTable.Base))
                 {
-                    baseObject.Base = new AtomUri(Utilities.DecodedValue(reader.Value));
+                    baseObject.Base = new AtomUri(reader.Value);
                     fRet = false;
                 }
                 else if (localName.Equals(this.nameTable.Language))
@@ -552,7 +552,7 @@ namespace Google.GData.Client
                         }
                         else if (localname.Equals(this.nameTable.Scheme))
                         {
-                            category.Scheme = new AtomUri(Utilities.DecodedValue(reader.Value));
+                            category.Scheme = new AtomUri(reader.Value);
                         }
                         else if (localname.Equals(this.nameTable.Label))
                         {
@@ -604,7 +604,7 @@ namespace Google.GData.Client
                     localname = reader.LocalName;
                     if (localname.Equals(this.nameTable.HRef))
                     {
-                        link.HRef = new AtomUri(Utilities.DecodedValue(reader.Value));
+                        link.HRef = new AtomUri(reader.Value);
                     }
                     else if (localname.Equals(this.nameTable.Rel))
                     {
@@ -1179,7 +1179,7 @@ namespace Google.GData.Client
 
                         if (attributeName.Equals(this.nameTable.Uri))
                         {
-                            generator.Uri = new AtomUri(Utilities.DecodedValue(reader.Value));
+                            generator.Uri = new AtomUri(reader.Value);
                         }
                         else if (attributeName.Equals(this.nameTable.Version))
                         {
@@ -1238,7 +1238,7 @@ namespace Google.GData.Client
                         }
                         else if (localname.Equals(this.nameTable.Src))
                         {
-                            content.Src = new AtomUri(Utilities.DecodedValue(reader.Value));
+                            content.Src = new AtomUri(reader.Value);
                         }
                         else
                         {

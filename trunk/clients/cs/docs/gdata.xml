@@ -520,7 +520,7 @@
             </summary>
             <param name="value"></param>
             <param name="parameterName"></param>
-            <param name="connectChar"></param>
+            <param name="connect"></param>
             <param name="builder"></param>
             <returns></returns>
         </member>
@@ -530,7 +530,7 @@
             </summary>
             <param name="value"></param>
             <param name="parameterName"></param>
-            <param name="connectChar"></param>
+            <param name="connect"></param>
             <param name="builder"></param>
             <returns></returns>
         </member>
@@ -540,7 +540,7 @@
             </summary>
             <param name="value"></param>
             <param name="parameterName"></param>
-            <param name="connectChar"></param>
+            <param name="connect"></param>
             <param name="builder"></param>
             <returns></returns>
         </member>
@@ -550,7 +550,7 @@
             </summary>
             <param name="value"></param>
             <param name="parameterName"></param>
-            <param name="connectChar"></param>
+            <param name="connect"></param>
             <param name="builder"></param>
             <returns></returns>
         </member>
@@ -1042,6 +1042,79 @@
         <member name="P:Google.GData.Client.AtomTextConstruct.XmlName">
             <summary>Returns the constant representing this XML element.</summary> 
         </member>
+        <member name="T:Google.GData.Client.MediaSource">
+            <summary>
+            placeholder for a media object to be uploaded
+            the base class only defines some primitives like content type
+            </summary>
+        </member>
+        <member name="M:Google.GData.Client.MediaSource.#ctor(System.String)">
+            <summary>
+            constructs a media source based on a contenttype
+            </summary>
+            <param name="contenttype">the contenttype of the file</param>
+            <returns></returns>
+        </member>
+        <member name="M:Google.GData.Client.MediaSource.#ctor(System.String,System.String)">
+            <summary>
+            constructs a media source based on a contenttype and a name
+            </summary>
+            <param name="name">the name of the content</param>
+            <param name="contenttype">the contenttype of the file</param>
+            <returns></returns>
+        </member>
+        <member name="P:Google.GData.Client.MediaSource.ContentLength">
+            <summary>
+            returns the length of the content of the media source
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.GData.Client.MediaSource.Name">
+            <summary>
+            the name value of the content influence directly the slug
+            header send
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.GData.Client.MediaSource.ContentType">
+            <summary>
+            returns the contenttype of the media source, like img/jpg
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.GData.Client.MediaSource.Data">
+            <summary>
+            returns a stream of the actual content that is base64 encoded
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Google.GData.Client.MediaFileSource">
+            <summary>
+            a file based implementation. Takes a filename as it's base working mode
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Google.GData.Client.MediaFileSource.#ctor(System.String,System.String)">
+            <summary>
+            constructor. note that you can override the slug header without influencing the filename
+            </summary>
+            <param name="fileName">the file to be used, this will be the default slug header</param>
+            <param name="contentType">the content type to be used</param>
+            <returns></returns>
+        </member>
+        <member name="P:Google.GData.Client.MediaFileSource.ContentLength">
+            <summary>
+            returns the content lenght of the file
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.GData.Client.MediaFileSource.Data">
+            <summary>
+            returns the stream for the file. The file will be opened in readonly mode
+            note, the caller has to release the resource
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:Google.GData.Client.FeedParserEventArgs">
             <summary>Parsing event class...
             </summary> 
@@ -1382,6 +1455,290 @@
         </member>
         <member name="P:Google.GData.Client.AtomEntry.ReadOnly">
             <summary>returns whether or not the entry is read-only </summary> 
+        </member>
+        <member name="T:Google.GData.Client.MediaService">
+            <summary>MediaService implementation. Adds the ability to send MimeMultipart
+            message (used for Piasa/YouTube etc
+            </summary> 
+        </member>
+        <member name="T:Google.GData.Client.Service">
+            <summary>base Service implementation
+            </summary> 
+        </member>
+        <member name="T:Google.GData.Client.IService">
+            <summary>base Service interface definition
+            </summary> 
+        </member>
+        <member name="M:Google.GData.Client.IService.QueryOpenSearchRssDescription(System.Uri)">
+            <summary>the minimal Get OpenSearchRssDescription function</summary> 
+        </member>
+        <member name="M:Google.GData.Client.IService.Query(Google.GData.Client.FeedQuery)">
+            <summary>the minimal query implementation</summary> 
+        </member>
+        <member name="M:Google.GData.Client.IService.Query(Google.GData.Client.FeedQuery,System.DateTime)">
+            <summary>the minimal query implementation with conditional GET</summary> 
+        </member>
+        <member name="M:Google.GData.Client.IService.Update(Google.GData.Client.AtomEntry)">
+            <summary>simple update for atom resources</summary> 
+        </member>
+        <member name="M:Google.GData.Client.IService.Insert(Google.GData.Client.AtomFeed,Google.GData.Client.AtomEntry)">
+            <summary>simple insert for atom entries, based on a feed</summary> 
+        </member>
+        <member name="M:Google.GData.Client.IService.Delete(Google.GData.Client.AtomEntry)">
+            <summary>delete an entry</summary> 
+        </member>
+        <member name="M:Google.GData.Client.IService.Delete(System.Uri)">
+            <summary>delete an entry</summary> 
+        </member>
+        <member name="M:Google.GData.Client.IService.Batch(Google.GData.Client.AtomFeed,System.Uri)">
+            <summary>batch operation, posting of a set of entries</summary>
+        </member>
+        <member name="M:Google.GData.Client.IService.Update(System.Uri,System.IO.Stream,System.String,System.String)">
+            <summary>simple update for media resources</summary> 
+        </member>
+        <member name="M:Google.GData.Client.IService.Insert(System.Uri,System.IO.Stream,System.String,System.String)">
+            <summary>simple insert for media resources</summary> 
+        </member>
+        <member name="P:Google.GData.Client.IService.Credentials">
+            <summary>get/set for credentials to the service calls. Gets passed through to GDatarequest</summary> 
+        </member>
+        <member name="P:Google.GData.Client.IService.RequestFactory">
+            <summary>get/set for the GDataRequestFactory object to use</summary> 
+        </member>
+        <member name="F:Google.GData.Client.Service.GServiceAgent">
+            <summary>this service's user-agent</summary> 
+        </member>
+        <member name="F:Google.GData.Client.Service.credentials">
+            <summary>holds the credential information</summary> 
+        </member>
+        <member name="F:Google.GData.Client.Service.GDataRequestFactory">
+            <summary>the GDatarequest to use</summary> 
+        </member>
+        <member name="M:Google.GData.Client.Service.#ctor">
+            <summary>default constructor, sets the default GDataRequest</summary> 
+        </member>
+        <member name="M:Google.GData.Client.Service.#ctor(System.String)">
+            <summary>default constructor, sets the default GDataRequest</summary> 
+        </member>
+        <member name="M:Google.GData.Client.Service.#ctor(System.String,System.String)">
+            <summary>this will trigger the creation of an authenticating service</summary> 
+        </member>
+        <member name="M:Google.GData.Client.Service.#ctor(System.String,System.String,System.String)">
+            <summary>this will trigger the creation of an authenticating servicea</summary> 
+        </member>
+        <member name="M:Google.GData.Client.Service.OnRequestFactoryChanged">
+            <summary>
+            notifier if someone changes the requestfactory of the service
+            </summary>
+        </member>
+        <member name="M:Google.GData.Client.Service.QueryAuthenticationToken">
+            <summary>
+            if the service is using a Google Request Factory it will use that 
+            assuming credentials are set to retrieve the authentication token
+            for those credentials
+            </summary>
+            <returns>string</returns>
+        </member>
+        <member name="M:Google.GData.Client.Service.SetAuthenticationToken(System.String)">
+            <summary>
+            if the service is using a Google Request Factory it will set the passed 
+            in token to the factory
+            </summary>
+            <returns>string</returns>
+        </member>
+        <member name="M:Google.GData.Client.Service.Query(System.Uri)">
+            <summary>the basic interface. Take a URI and just get it</summary> 
+            <param name="queryUri">the URI to execute</param>
+            <returns> a webresponse object</returns>
+        </member>
+        <member name="M:Google.GData.Client.Service.Query(System.Uri,System.DateTime)">
+            <summary>the basic interface. Take a URI and just get it</summary> 
+            <param name="queryUri">the URI to execute</param>
+            <param name="ifModifiedSince">used to set a precondition date that 
+            indicates the feed should be returned only if it has been modified 
+            after the specified date. A value of DateTime.MinValue indicates no 
+            precondition.</param>
+            <returns> a webresponse object</returns>
+        </member>
+        <member name="M:Google.GData.Client.Service.setUserCredentials(System.String,System.String)">
+            <summary>
+            Sets the credentials of the user to authenticate requests
+            to the server.
+            </summary>
+            <param name="username"></param>
+            <param name="password"></param>
+        </member>
+        <member name="M:Google.GData.Client.Service.Get(System.String)">
+            <summary>
+            Returns a single Atom entry based upon its unique URI.
+            </summary>
+            <param name="entryUri">The URI of the Atom entry.</param>
+            <returns>AtomEntry representing the entry.</returns>
+        </member>
+        <member name="M:Google.GData.Client.Service.Query(Google.GData.Client.FeedQuery)">
+            <summary>executes the query and returns an AtomFeed object tree</summary> 
+            <param name="feedQuery">the query parameters as a FeedQuery object </param>
+            <returns>AtomFeed object tree</returns>
+        </member>
+        <member name="M:Google.GData.Client.Service.Query(Google.GData.Client.FeedQuery,System.DateTime)">
+            <summary>executes the query and returns an AtomFeed object tree</summary> 
+            <param name="feedQuery">the query parameters as a FeedQuery object </param>
+            <param name="ifModifiedSince">used to set a precondition date that 
+            indicates the feed should be returned only if it has been modified 
+            after the specified date. A value of null indicates no 
+            precondition.</param>
+            <returns>AtomFeed object tree</returns>
+        </member>
+        <member name="M:Google.GData.Client.Service.QueryOpenSearchRssDescription(System.Uri)">
+            <summary>object QueryOpenSearchRssDescription()</summary> 
+            <param name="serviceUri">the service to ask for an OpenSearchRss Description</param> 
+            <returns> a webresponse object</returns>
+        </member>
+        <member name="M:Google.GData.Client.Service.Update(Google.GData.Client.AtomEntry)">
+            <summary>WebResponse Update(Uri updateUri, Stream entryStream, ICredentials credentials)</summary> 
+            <param name="entry">the old entry to update</param> 
+            <returns> the new Entry, as returned from the server</returns>
+        </member>
+        <member name="M:Google.GData.Client.Service.Insert(Google.GData.Client.AtomFeed,Google.GData.Client.AtomEntry)">
+            <summary>public WebResponse Insert(Uri insertUri, Stream entryStream, ICredentials credentials)</summary> 
+            <param name="feed">the feed this entry should be inserted into</param> 
+            <param name="entry">the entry to be inserted</param> 
+            <returns> the inserted entry</returns>
+        </member>
+        <member name="M:Google.GData.Client.Service.Insert(System.Uri,Google.GData.Client.AtomEntry)">
+            <summary>public WebResponse Insert(Uri insertUri, Stream entryStream, ICredentials credentials)</summary> 
+            <param name="feedUri">the uri for the feed this entry should be inserted into</param> 
+            <param name="newEntry">the entry to be inserted</param> 
+            <returns> the inserted entry</returns>
+        </member>
+        <member name="M:Google.GData.Client.Service.Update(System.Uri,System.IO.Stream,System.String,System.String)">
+            <summary>
+            simple update for media resources
+            </summary>
+            <param name="uriTarget"></param>
+            <param name="input">the stream to send</param>
+            <param name="contentType"></param>
+            <param name="slugHeader">the value for the slug header, indicating filenaming</param>
+            <returns>AtomEntry</returns>
+        </member>
+        <member name="M:Google.GData.Client.Service.Insert(System.Uri,System.IO.Stream,System.String,System.String)">
+            <summary>
+            Simple insert for media resources
+            </summary>
+            <param name="uriTarget"></param>
+            <param name="input"></param>
+            <param name="contentType"></param>
+            <param name="slugHeader">the value for the slug header, indicating filenaming</param>
+            <returns>AtomEntry</returns>
+        </member>
+        <member name="M:Google.GData.Client.Service.EntrySend(System.Uri,Google.GData.Client.AtomBase,Google.GData.Client.GDataRequestType)">
+            <summary>Inserts an AtomBase entry against a Uri</summary> 
+            <param name="feedUri">the uri for the feed this object should be posted against</param> 
+            <param name="baseEntry">the entry to be inserted</param> 
+            <param name="type">the type of request to create</param> 
+            <returns> the response as a stream</returns>
+        </member>
+        <member name="M:Google.GData.Client.Service.StringSend(System.Uri,System.String,Google.GData.Client.GDataRequestType)">
+            <summary>
+            this is a helper function for external utilities. It is not worth
+            running the other insert/saves through here, as this would involve
+            double buffering/copying of the bytes
+            </summary>
+            <param name="targetUri"></param>
+            <param name="payload"></param>
+            <param name="type"></param>
+            <returns>Stream</returns>
+        </member>
+        <member name="M:Google.GData.Client.Service.StreamSend(System.Uri,System.IO.Stream,Google.GData.Client.GDataRequestType,System.String,System.String)">
+            <summary>
+            this is a helper function for to send binary data to a resource
+            it is not worth running the other insert/saves through here, as this would involve
+            double buffering/copying of the bytes
+            </summary>
+            <param name="targetUri"></param>
+            <param name="inputStream"></param>
+            <param name="type"></param>
+            <param name="contentType">the contenttype to use in the request, if NULL is passed, factory default is used</param>
+            <param name="slugHeader">the slugHeader to use in the request, if NULL is passed, factory default is used</param>
+            <returns>Stream</returns>
+        </member>
+        <member name="M:Google.GData.Client.Service.CreateFeed(System.Uri)">
+             <summary>creates a new feed instance to be returned by
+             Batch(), Query() and other operations
+            
+             Subclasses can supply their own feed implementation by
+             overriding this method.
+             </summary>
+        </member>
+        <member name="M:Google.GData.Client.Service.Batch(Google.GData.Client.AtomFeed,System.Uri)">
+            <summary>
+            takes a given feed, and does a batch post of that feed
+            against the batchUri parameter. If that one is NULL 
+            it will try to use the batch link URI in the feed
+            </summary>
+            <param name="feed">the feed to post</param>
+            <param name="batchUri">the URI to user</param>
+            <returns>the returned AtomFeed</returns>
+        </member>
+        <member name="M:Google.GData.Client.Service.Delete(Google.GData.Client.AtomEntry)">
+            <summary>deletes an Atom entry object</summary> 
+            <param name="entry"> </param>
+        </member>
+        <member name="M:Google.GData.Client.Service.Delete(System.Uri)">
+            <summary>Deletes an Atom entry when given a Uri</summary>
+            <param name="uriTarget">The target Uri to call http delete against</param>
+        </member>
+        <member name="M:Google.GData.Client.Service.OnParsedNewEntry(System.Object,Google.GData.Client.FeedParserEventArgs)">
+            <summary>eventchaining. We catch this by the baseFeedParsers, which 
+            would not do anything with the gathered data. We pass the event up
+            to the user</summary> 
+            <param name="sender"> the object which send the event</param>
+            <param name="e">FeedParserEventArguments, holds the feedentry</param> 
+            <returns> </returns>
+        </member>
+        <member name="M:Google.GData.Client.Service.OnNewExtensionElement(System.Object,Google.GData.Client.ExtensionElementEventArgs)">
+            <summary>eventchaining. We catch this by the baseFeedParsers, which 
+            would not do anything with the gathered data. We pass the event up
+            to the user, and if he did not dicscard it, we add the entry to our
+            collection</summary> 
+            <param name="sender"> the object which send the event</param>
+            <param name="e">FeedParserEventArguments, holds the feedentry</param> 
+            <returns> </returns>
+        </member>
+        <member name="E:Google.GData.Client.Service.NewAtomEntry">
+            <summary>holds the hooks for the eventing in the feedparser</summary> 
+        </member>
+        <member name="E:Google.GData.Client.Service.NewExtensionElement">
+            <summary>eventhandler, when the parser finds a new extension element-> mirrored from underlying parser</summary> 
+        </member>
+        <member name="E:Google.GData.Client.Service.NewFeed">
+            <summary>eventhandler, when the service needs to create a new feed</summary> 
+        </member>
+        <member name="P:Google.GData.Client.Service.RequestFactory">
+            <summary>accessor method public IGDataRequest Request</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Client.Service.Credentials">
+            <summary>accessor method public ICredentials Credentials</summary> 
+            <returns> </returns>
+        </member>
+        <member name="M:Google.GData.Client.MediaService.#ctor(System.String)">
+            <summary>default constructor, sets the default GDataRequest</summary> 
+        </member>
+        <member name="M:Google.GData.Client.MediaService.#ctor(System.String,System.String)">
+            <summary>this will trigger the creation of an authenticating service</summary> 
+        </member>
+        <member name="M:Google.GData.Client.MediaService.#ctor(System.String,System.String,System.String)">
+            <summary>this will trigger the creation of an authenticating servicea</summary> 
+        </member>
+        <member name="M:Google.GData.Client.MediaService.EntrySend(System.Uri,Google.GData.Client.AtomBase,Google.GData.Client.GDataRequestType)">
+            <summary>Inserts an AtomBase entry against a Uri. The overloaded
+            version here will check if this is an AbstractEntry and if it has
+            a media property set. If so, it will create a mime multipart envelope</summary> 
+            <param name="feedUri">the uri for the feed this object should be posted against</param> 
+            <param name="baseEntry">the entry to be inserted</param> 
+            <param name="type">the type of request to create</param> 
+            <returns> the response as a stream</returns>
         </member>
         <member name="T:Google.GData.Client.GoogleAuthentication">
             <summary>constants for the authentication handler
@@ -1776,7 +2133,7 @@
         <member name="M:Google.GData.Client.GDataGAuthRequest.Execute(System.Int32)">
             <summary>Executes the request and prepares the response stream. Also 
             does error checking</summary> 
-            <param name="iRetrying">indicates the n-th time this is run</param>
+            <param name="retryCounter">indicates the n-th time this is run</param>
         </member>
         <member name="M:Google.GData.Client.GDataGAuthRequest.CopyRequestData">
             <summary>takes our copy of the stream, and puts it into the request stream</summary> 
@@ -2202,7 +2559,7 @@
         </member>
         <member name="M:Google.GData.Client.GZipStream.Read(System.Byte[],System.Int32,System.Int32)">
             <summary>Reads a number of decompressed bytes into the specified byte array.</summary>
-            <param name="array">The array used to store decompressed bytes.</param>
+            <param name="buffer">The array used to store decompressed bytes.</param>
             <param name="offset">The location in the array to begin reading.</param>
             <param name="count">The number of bytes decompressed.</param>
             <returns>The number of bytes that were decompressed into the byte array. If the end of the stream has been reached, zero or the number of bytes read is returned.</returns>
@@ -2225,7 +2582,7 @@
         </member>
         <member name="M:Google.GData.Client.GZipStream.Write(System.Byte[],System.Int32,System.Int32)">
             <summary>This property is not supported and always throws a NotSupportedException.</summary>
-            <param name="array">The array used to store compressed bytes.</param>
+            <param name="buffer">The array used to store compressed bytes.</param>
             <param name="offset">The location in the array to begin reading.</param>
             <param name="count">The number of bytes compressed.</param>
         </member>
@@ -2336,6 +2693,12 @@
                empty
             </summary> 
         </member>
+        <member name="F:Google.GData.Client.AtomLink.HTML_TYPE">
+            <summary>HTML Link Type</summary> 
+        </member>
+        <member name="F:Google.GData.Client.AtomLink.ATOM_TYPE">
+            <summary>ATOM Link Type</summary>
+        </member>
         <member name="F:Google.GData.Client.AtomLink.href">
             <summary>property holder exposed over get/set</summary> 
         </member>
@@ -2353,12 +2716,6 @@
         </member>
         <member name="F:Google.GData.Client.AtomLink.length">
             <summary>property holder exposed over get/set</summary> 
-        </member>
-        <member name="F:Google.GData.Client.AtomLink.HTML_TYPE">
-            <summary>HTML Link Type</summary> 
-        </member>
-        <member name="F:Google.GData.Client.AtomLink.ATOM_TYPE">
-            <summary>ATOM Link Type</summary>
         </member>
         <member name="M:Google.GData.Client.AtomLink.#ctor">
             <summary>default empty constructor</summary> 
@@ -2638,46 +2995,6 @@
             <summary>accessor method public string Version</summary> 
             <returns> </returns>
         </member>
-        <member name="T:Google.GData.Client.IService">
-            <summary>base Service interface definition
-            </summary> 
-        </member>
-        <member name="M:Google.GData.Client.IService.QueryOpenSearchRssDescription(System.Uri)">
-            <summary>the minimal Get OpenSearchRssDescription function</summary> 
-        </member>
-        <member name="M:Google.GData.Client.IService.Query(Google.GData.Client.FeedQuery)">
-            <summary>the minimal query implementation</summary> 
-        </member>
-        <member name="M:Google.GData.Client.IService.Query(Google.GData.Client.FeedQuery,System.DateTime)">
-            <summary>the minimal query implementation with conditional GET</summary> 
-        </member>
-        <member name="M:Google.GData.Client.IService.Update(Google.GData.Client.AtomEntry)">
-            <summary>simple update for atom resources</summary> 
-        </member>
-        <member name="M:Google.GData.Client.IService.Insert(Google.GData.Client.AtomFeed,Google.GData.Client.AtomEntry)">
-            <summary>simple insert for atom entries, based on a feed</summary> 
-        </member>
-        <member name="M:Google.GData.Client.IService.Delete(Google.GData.Client.AtomEntry)">
-            <summary>delete an entry</summary> 
-        </member>
-        <member name="M:Google.GData.Client.IService.Delete(System.Uri)">
-            <summary>delete an entry</summary> 
-        </member>
-        <member name="M:Google.GData.Client.IService.Batch(Google.GData.Client.AtomFeed,System.Uri)">
-            <summary>batch operation, posting of a set of entries</summary>
-        </member>
-        <member name="M:Google.GData.Client.IService.Update(System.Uri,System.IO.Stream,System.String,System.String)">
-            <summary>simple update for media resources</summary> 
-        </member>
-        <member name="M:Google.GData.Client.IService.Insert(System.Uri,System.IO.Stream,System.String,System.String)">
-            <summary>simple insert for media resources</summary> 
-        </member>
-        <member name="P:Google.GData.Client.IService.Credentials">
-            <summary>get/set for credentials to the service calls. Gets passed through to GDatarequest</summary> 
-        </member>
-        <member name="P:Google.GData.Client.IService.RequestFactory">
-            <summary>get/set for the GDataRequestFactory object to use</summary> 
-        </member>
         <member name="T:Google.GData.Client.GDataRequestType">
             <summary>enum to describe the different operations on the GDataRequest
             </summary> 
@@ -2743,7 +3060,7 @@
             Constructor, set's up extension handlers
             </summary>
             <param name="uriBase">The uri for this cells feed.</param>
-            <param name="iService">The Spreadsheets service.</param>
+            <param name="service">The Spreadsheets service.</param>
         </member>
         <member name="M:Google.GData.Client.AbstractFeed.AddOtherNamespaces(System.Xml.XmlWriter)">
             <summary>extension feeds most likely add the GData namespace, so let's 
@@ -3747,6 +4064,12 @@
             <param name="cat"></param>
             <param name="value"></param>
         </member>
+        <member name="P:Google.GData.Client.AbstractEntry.MediaSource">
+            <summary>access the associated media element. Note, that setting this
+            WILL cause subsequent updates to be done using MIME multipart posts
+            </summary> 
+            <returns> </returns>
+        </member>
         <member name="T:Google.GData.Client.AtomId">
             <summary>The "atom:id" element conveys a permanent, universally unique identifier for an entry or feed.
             </summary> 
@@ -4139,7 +4462,7 @@
             <summary>
             Constructor for batch data
             </summary>
-            <param name="ID">The batch ID of this entry</param>
+            <param name="id">The batch ID of this entry</param>
             <param name="type">The batch operation to be performed</param>
         </member>
         <member name="M:Google.GData.Client.GDataBatchEntryData.Save(System.Xml.XmlWriter)">
@@ -4387,6 +4710,13 @@
             </summary> 
             <param name="msg"></param>
         </member>
+        <member name="M:Google.GData.Client.AuthenticationException.#ctor(System.String,System.Exception)">
+            <summary>
+            default constructor
+            </summary>
+            <param name="msg">message for exception</param>
+            <param name="e">inner exception</param>
+        </member>
         <member name="T:Google.GData.Client.InvalidCredentialsException">
             <summary>thrown when the credentials are wrong</summary> 
         </member>
@@ -4395,6 +4725,13 @@
         </member>
         <member name="M:Google.GData.Client.InvalidCredentialsException.#ctor(System.String)">
             <summary>constructor taking a descriptive string</summary> 
+        </member>
+        <member name="M:Google.GData.Client.InvalidCredentialsException.#ctor(System.String,System.Exception)">
+            <summary>
+            default constructor
+            </summary>
+            <param name="msg">message for exception</param>
+            <param name="e">inner exception</param>
         </member>
         <member name="T:Google.GData.Client.AccountDeletedException">
             <summary>thrown when the account was deleted
@@ -4406,6 +4743,13 @@
         <member name="M:Google.GData.Client.AccountDeletedException.#ctor(System.String)">
             <summary>constructor taking a descriptive string</summary> 
         </member>
+        <member name="M:Google.GData.Client.AccountDeletedException.#ctor(System.String,System.Exception)">
+            <summary>
+            default constructor
+            </summary>
+            <param name="msg">message for exception</param>
+            <param name="e">inner exception</param>
+        </member>
         <member name="T:Google.GData.Client.AccountDisabledException">
             <summary>thrown when the account was disabled
             </summary> 
@@ -4415,6 +4759,13 @@
         </member>
         <member name="M:Google.GData.Client.AccountDisabledException.#ctor(System.String)">
             <summary>constructor taking a descriptive string</summary> 
+        </member>
+        <member name="M:Google.GData.Client.AccountDisabledException.#ctor(System.String,System.Exception)">
+            <summary>
+            default constructor
+            </summary>
+            <param name="msg">message for exception</param>
+            <param name="e">inner exception</param>
         </member>
         <member name="T:Google.GData.Client.NotVerifiedException">
             <summary>the account hoder was not verified
@@ -4426,6 +4777,13 @@
         <member name="M:Google.GData.Client.NotVerifiedException.#ctor(System.String)">
             <summary>constructor taking a descriptive string</summary> 
         </member>
+        <member name="M:Google.GData.Client.NotVerifiedException.#ctor(System.String,System.Exception)">
+            <summary>
+            default constructor
+            </summary>
+            <param name="msg">message for exception</param>
+            <param name="e">inner exception</param>
+        </member>
         <member name="T:Google.GData.Client.TermsNotAgreedException">
             <summary>The Terms were not agreed with..
             </summary> 
@@ -4435,6 +4793,13 @@
         </member>
         <member name="M:Google.GData.Client.TermsNotAgreedException.#ctor(System.String)">
             <summary>constructor taking a descriptive string</summary> 
+        </member>
+        <member name="M:Google.GData.Client.TermsNotAgreedException.#ctor(System.String,System.Exception)">
+            <summary>
+            default constructor
+            </summary>
+            <param name="msg">message for exception</param>
+            <param name="e">inner exception</param>
         </member>
         <member name="T:Google.GData.Client.ServiceUnavailableException">
             <summary>The service is current not available
@@ -4446,6 +4811,13 @@
         <member name="M:Google.GData.Client.ServiceUnavailableException.#ctor(System.String)">
             <summary>constructor taking a descriptive string</summary> 
         </member>
+        <member name="M:Google.GData.Client.ServiceUnavailableException.#ctor(System.String,System.Exception)">
+            <summary>
+            default constructor
+            </summary>
+            <param name="msg">message for exception</param>
+            <param name="e">inner exception</param>
+        </member>
         <member name="T:Google.GData.Client.CaptchaRequiredException">
             <summary>many unsuccessfull logins might create this...
             </summary> 
@@ -4455,6 +4827,13 @@
         </member>
         <member name="M:Google.GData.Client.CaptchaRequiredException.#ctor(System.String,System.String,System.String)">
             <summary>constructor taking a descriptive string</summary> 
+        </member>
+        <member name="M:Google.GData.Client.CaptchaRequiredException.#ctor(System.String,System.Exception)">
+            <summary>
+            default constructor
+            </summary>
+            <param name="msg">message for exception</param>
+            <param name="e">inner exception</param>
         </member>
         <member name="P:Google.GData.Client.CaptchaRequiredException.Url">
             <summary>Read only accessor for captchaUrl</summary> 
@@ -4499,233 +4878,6 @@
         </member>
         <member name="T:Google.GData.Client.ServiceEventHandler">
             <summary>Delegate declaration for the feed creation in a service</summary> 
-        </member>
-        <member name="T:Google.GData.Client.Service">
-            <summary>base Service implementation
-            </summary> 
-        </member>
-        <member name="F:Google.GData.Client.Service.GServiceAgent">
-            <summary>this service's user-agent</summary> 
-        </member>
-        <member name="F:Google.GData.Client.Service.credentials">
-            <summary>holds the credential information</summary> 
-        </member>
-        <member name="F:Google.GData.Client.Service.GDataRequestFactory">
-            <summary>the GDatarequest to use</summary> 
-        </member>
-        <member name="M:Google.GData.Client.Service.#ctor">
-            <summary>default constructor, sets the default GDataRequest</summary> 
-        </member>
-        <member name="M:Google.GData.Client.Service.#ctor(System.String)">
-            <summary>default constructor, sets the default GDataRequest</summary> 
-        </member>
-        <member name="M:Google.GData.Client.Service.#ctor(System.String,System.String)">
-            <summary>this will trigger the creation of an authenticating service</summary> 
-        </member>
-        <member name="M:Google.GData.Client.Service.#ctor(System.String,System.String,System.String)">
-            <summary>this will trigger the creation of an authenticating servicea</summary> 
-        </member>
-        <member name="M:Google.GData.Client.Service.OnRequestFactoryChanged">
-            <summary>
-            notifier if someone changes the requestfactory of the service
-            </summary>
-        </member>
-        <member name="M:Google.GData.Client.Service.QueryAuthenticationToken">
-            <summary>
-            if the service is using a Google Request Factory it will use that 
-            assuming credentials are set to retrieve the authentication token
-            for those credentials
-            </summary>
-            <returns>string</returns>
-        </member>
-        <member name="M:Google.GData.Client.Service.SetAuthenticationToken(System.String)">
-            <summary>
-            if the service is using a Google Request Factory it will set the passed 
-            in token to the factory
-            </summary>
-            <returns>string</returns>
-        </member>
-        <member name="M:Google.GData.Client.Service.Query(System.Uri)">
-            <summary>the basic interface. Take a URI and just get it</summary> 
-            <param name="queryUri">the URI to execute</param>
-            <returns> a webresponse object</returns>
-        </member>
-        <member name="M:Google.GData.Client.Service.Query(System.Uri,System.DateTime)">
-            <summary>the basic interface. Take a URI and just get it</summary> 
-            <param name="queryUri">the URI to execute</param>
-            <param name="ifModifiedSince">used to set a precondition date that 
-            indicates the feed should be returned only if it has been modified 
-            after the specified date. A value of DateTime.MinValue indicates no 
-            precondition.</param>
-            <returns> a webresponse object</returns>
-        </member>
-        <member name="M:Google.GData.Client.Service.setUserCredentials(System.String,System.String)">
-            <summary>
-            Sets the credentials of the user to authenticate requests
-            to the server.
-            </summary>
-            <param name="username"></param>
-            <param name="password"></param>
-        </member>
-        <member name="M:Google.GData.Client.Service.Get(System.String)">
-            <summary>
-            Returns a single Atom entry based upon its unique URI.
-            </summary>
-            <param name="entryUri">The URI of the Atom entry.</param>
-            <returns>AtomEntry representing the entry.</returns>
-        </member>
-        <member name="M:Google.GData.Client.Service.Query(Google.GData.Client.FeedQuery)">
-            <summary>executes the query and returns an AtomFeed object tree</summary> 
-            <param name="feedQuery">the query parameters as a FeedQuery object </param>
-            <returns>AtomFeed object tree</returns>
-        </member>
-        <member name="M:Google.GData.Client.Service.Query(Google.GData.Client.FeedQuery,System.DateTime)">
-            <summary>executes the query and returns an AtomFeed object tree</summary> 
-            <param name="feedQuery">the query parameters as a FeedQuery object </param>
-            <param name="ifModifiedSince">used to set a precondition date that 
-            indicates the feed should be returned only if it has been modified 
-            after the specified date. A value of null indicates no 
-            precondition.</param>
-            <returns>AtomFeed object tree</returns>
-        </member>
-        <member name="M:Google.GData.Client.Service.QueryOpenSearchRssDescription(System.Uri)">
-            <summary>object QueryOpenSearchRssDescription()</summary> 
-            <param name="serviceUri">the service to ask for an OpenSearchRss Description</param> 
-            <returns> a webresponse object</returns>
-        </member>
-        <member name="M:Google.GData.Client.Service.Update(Google.GData.Client.AtomEntry)">
-            <summary>WebResponse Update(Uri updateUri, Stream entryStream, ICredentials credentials)</summary> 
-            <param name="entry">the old entry to update</param> 
-            <returns> the new Entry, as returned from the server</returns>
-        </member>
-        <member name="M:Google.GData.Client.Service.Insert(Google.GData.Client.AtomFeed,Google.GData.Client.AtomEntry)">
-            <summary>public WebResponse Insert(Uri insertUri, Stream entryStream, ICredentials credentials)</summary> 
-            <param name="feed">the feed this entry should be inserted into</param> 
-            <param name="entry">the entry to be inserted</param> 
-            <returns> the inserted entry</returns>
-        </member>
-        <member name="M:Google.GData.Client.Service.Insert(System.Uri,Google.GData.Client.AtomEntry)">
-            <summary>public WebResponse Insert(Uri insertUri, Stream entryStream, ICredentials credentials)</summary> 
-            <param name="feedUri">the uri for the feed this entry should be inserted into</param> 
-            <param name="newEntry">the entry to be inserted</param> 
-            <returns> the inserted entry</returns>
-        </member>
-        <member name="M:Google.GData.Client.Service.Update(System.Uri,System.IO.Stream,System.String,System.String)">
-            <summary>
-            simple update for media resources
-            </summary>
-            <param name="uriTarget"></param>
-            <param name="input"></param>
-            <param name="contentType"></param>
-            <param name="slugHeader">the value for the slug header, indicating filenaming</param>
-            <returns>AtomEntry</returns>
-        </member>
-        <member name="M:Google.GData.Client.Service.Insert(System.Uri,System.IO.Stream,System.String,System.String)">
-            <summary>
-            Simple insert for media resources
-            </summary>
-            <param name="uriTarget"></param>
-            <param name="input"></param>
-            <param name="contentType"></param>
-            <param name="slugHeader">the value for the slug header, indicating filenaming</param>
-            <returns>AtomEntry</returns>
-        </member>
-        <member name="M:Google.GData.Client.Service.StreamInsert(System.Uri,Google.GData.Client.AtomBase)">
-            <summary>public WebResponse Insert(Uri insertUri, Stream entryStream, ICredentials credentials)</summary> 
-            <param name="feedUri">the uri for the feed this entry should be inserted into</param> 
-            <param name="newEntry">the entry to be inserted</param> 
-            <returns> the inserted entry</returns>
-        </member>
-        <member name="M:Google.GData.Client.Service.StreamInsert(System.Uri,Google.GData.Client.AtomBase,Google.GData.Client.GDataRequestType)">
-            <summary>Inserts an AtomBase entry against a Uri</summary> 
-            <param name="feedUri">the uri for the feed this object should be posted against</param> 
-            <param name="baseEntry">the entry to be inserted</param> 
-            <param name="type">the type of request to create</param> 
-            <returns> the response as a stream</returns>
-        </member>
-        <member name="M:Google.GData.Client.Service.StringSend(System.Uri,System.String,Google.GData.Client.GDataRequestType)">
-            <summary>
-            this is a helper function for external utilities. It is not worth
-            running the other insert/saves through here, as this would involve
-            double buffering/copying of the bytes
-            </summary>
-            <param name="targetUri"></param>
-            <param name="payload"></param>
-            <param name="type"></param>
-            <returns>Stream</returns>
-        </member>
-        <member name="M:Google.GData.Client.Service.StreamSend(System.Uri,System.IO.Stream,Google.GData.Client.GDataRequestType,System.String,System.String)">
-            <summary>
-            this is a helper function for to send binary data to a resource
-            it is not worth running the other insert/saves through here, as this would involve
-            double buffering/copying of the bytes
-            </summary>
-            <param name="targetUri"></param>
-            <param name="inputStream"></param>
-            <param name="type"></param>
-            <param name="contentType">the contenttype to use in the request, if NULL is passed, factory default is used</param>
-            <param name="slugHeader">the slugHeader to use in the request, if NULL is passed, factory default is used</param>
-            <returns>Stream</returns>
-        </member>
-        <member name="M:Google.GData.Client.Service.createFeed(System.Uri)">
-             <summary>creates a new feed instance to be returned by
-             Batch(), Query() and other operations
-            
-             Subclasses can supply their own feed implementation by
-             overriding this method.
-             </summary>
-        </member>
-        <member name="M:Google.GData.Client.Service.Batch(Google.GData.Client.AtomFeed,System.Uri)">
-            <summary>
-            takes a given feed, and does a batch post of that feed
-            against the batchUri parameter. If that one is NULL 
-            it will try to use the batch link URI in the feed
-            </summary>
-            <param name="feed">the feed to post</param>
-            <param name="batchUri">the URI to user</param>
-            <returns>the returned AtomFeed</returns>
-        </member>
-        <member name="M:Google.GData.Client.Service.Delete(Google.GData.Client.AtomEntry)">
-            <summary>deletes an Atom entry object</summary> 
-            <param name="entry"> </param>
-        </member>
-        <member name="M:Google.GData.Client.Service.Delete(System.Uri)">
-            <summary>Deletes an Atom entry when given a Uri</summary>
-            <param name="uri"></param>
-        </member>
-        <member name="M:Google.GData.Client.Service.OnParsedNewEntry(System.Object,Google.GData.Client.FeedParserEventArgs)">
-            <summary>eventchaining. We catch this by the baseFeedParsers, which 
-            would not do anything with the gathered data. We pass the event up
-            to the user</summary> 
-            <param name="sender"> the object which send the event</param>
-            <param name="e">FeedParserEventArguments, holds the feedentry</param> 
-            <returns> </returns>
-        </member>
-        <member name="M:Google.GData.Client.Service.OnNewExtensionElement(System.Object,Google.GData.Client.ExtensionElementEventArgs)">
-            <summary>eventchaining. We catch this by the baseFeedParsers, which 
-            would not do anything with the gathered data. We pass the event up
-            to the user, and if he did not dicscard it, we add the entry to our
-            collection</summary> 
-            <param name="sender"> the object which send the event</param>
-            <param name="e">FeedParserEventArguments, holds the feedentry</param> 
-            <returns> </returns>
-        </member>
-        <member name="E:Google.GData.Client.Service.NewAtomEntry">
-            <summary>holds the hooks for the eventing in the feedparser</summary> 
-        </member>
-        <member name="E:Google.GData.Client.Service.NewExtensionElement">
-            <summary>eventhandler, when the parser finds a new extension element-> mirrored from underlying parser</summary> 
-        </member>
-        <member name="E:Google.GData.Client.Service.NewFeed">
-            <summary>eventhandler, when the service needs to create a new feed</summary> 
-        </member>
-        <member name="P:Google.GData.Client.Service.RequestFactory">
-            <summary>accessor method public IGDataRequest Request</summary> 
-            <returns> </returns>
-        </member>
-        <member name="P:Google.GData.Client.Service.Credentials">
-            <summary>accessor method public ICredentials Credentials</summary> 
-            <returns> </returns>
         </member>
         <member name="T:Google.GData.Client.GAuthSubRequestFactory">
             <summary> GDataAuthSubRequestFactory implementation</summary> 
