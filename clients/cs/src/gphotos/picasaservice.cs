@@ -49,7 +49,7 @@ namespace Google.GData.Photos {
     /// to Picasa Web Albums.
     /// </summary>
     //////////////////////////////////////////////////////////////////////
-    public class PicasaService : Service
+    public class PicasaService : MediaService
     {
        
         /// <summary>This service's User-Agent string</summary> 
