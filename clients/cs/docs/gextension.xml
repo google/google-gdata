@@ -79,6 +79,9 @@
             the relationship to edit the photo
             </summary>
         </member>
+        <member name="F:Google.GData.Extensions.GDataParserNameTable.Event">
+            <summary>the event prefix </summary>
+        </member>
         <member name="F:Google.GData.Extensions.GDataParserNameTable.XmlTimeZoneElement">
             <summary> timezone indicator on the feedlevel</summary>
         </member>
@@ -262,9 +265,6 @@
         <member name="F:Google.GData.Extensions.GDataParserNameTable.XmlQuickAddElement">
              <summary>static string for the quickAdd element</summary>    
         </member>
-        <member name="F:Google.GData.Extensions.GDataParserNameTable.Event">
-            <summary>the event prefix </summary>
-        </member>
         <member name="T:Google.GData.Extensions.Apps.LabelCollection">
             <summary>
             Standard typed collection of labels.
@@ -334,9 +334,6 @@
         </member>
         <member name="P:Google.GData.Extensions.ExtensionCollection`1.Item(System.Int32)">
             <summary>standard typed accessor method </summary> 
-        </member>
-        <member name="F:Google.GData.Extensions.Apps.LabelCollection.atomElement">
-            <summary>holds the owning feed</summary> 
         </member>
         <member name="M:Google.GData.Extensions.Apps.LabelCollection.#ctor(Google.GData.Client.AtomBase)">
             <summary>constructor</summary>
@@ -488,15 +485,6 @@
             and reads all that are in there.
             </summary>
             <param name="node">XmlNode with attributes</param>
-        </member>
-        <member name="M:Google.GData.Extensions.ExtensionBase.getAttribute(System.Xml.XmlNode,System.String)">
-            <summary>
-            helper method to extract an attribute as string from
-            an xmlnode using the passed in node and the attributename
-            </summary>
-            <param name="node">node to extract attribute from</param>
-            <param name="attributeName">the name of the attribute</param>
-            <returns>string - null if attribute is not present</returns>
         </member>
         <member name="M:Google.GData.Extensions.ExtensionBase.Save(System.Xml.XmlWriter)">
             <summary>
@@ -751,7 +739,7 @@
             XML attribute for the suspended flag of a login element.
             </summary>
         </member>
-        <member name="F:Google.GData.Extensions.Apps.AppsNameTable.AppsLoginIpWhitelisted">
+        <member name="F:Google.GData.Extensions.Apps.AppsNameTable.AppsLoginIPWhitelisted">
             <summary>
             XML attribute for the ipWhitelisted flag of a login element.
             </summary>
@@ -952,7 +940,7 @@
             Suspended property accessor
             </summary>
         </member>
-        <member name="P:Google.GData.Extensions.Apps.LoginElement.IpWhitelisted">
+        <member name="P:Google.GData.Extensions.Apps.LoginElement.IPWhitelisted">
             <summary>
             IpWhitelisted property accessor
             </summary>
@@ -1202,7 +1190,7 @@
             <param name="value">the <code>MailItemProperty</code> value for this element</param>
         </member>
         <member name="P:Google.GData.Extensions.Apps.MailItemPropertyElement.Value">
-            <summary>
+            <summary>\
             Value property accessor
             </summary>
         </member>
@@ -2805,7 +2793,7 @@
             finds our position element, if we don't have one
             creates a new one depending on the fCreate parameter
             </summary>
-            <param name="fCreate">creates the subelements on true</param> 
+            <param name="create">creates the subelements on true</param> 
             <returns>GeoKmlPosition</returns>
         </member>
         <member name="P:Google.GData.Extensions.Location.GeoRssWhere.Latitude">
@@ -2983,7 +2971,7 @@
             <summary>
             default constructor, takes 3 parameters
             </summary>
-            <param name="valueString">the valueString property value</param>
+            <param name="value">the valueString property value</param>
             <param name="label">label property value</param>
             <param name="rel">default for the Rel property value</param>
         </member>

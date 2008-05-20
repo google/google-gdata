@@ -283,6 +283,9 @@
       <Link>objectmodelhelper.cs</Link>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="..\..\unittests\photostest.cs">
+      <Link>photostest.cs</Link>
+    </Compile>
     <Compile Include="..\..\unittests\unittests.cs">
       <Link>unittests.cs</Link>
       <SubType>Code</SubType>

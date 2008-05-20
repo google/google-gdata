@@ -40,7 +40,7 @@
              of the default
              <c>https://www.google.com/accounts/ClientLogin</c></param>
         </member>
-        <member name="M:Google.GData.GoogleBase.GBaseService.createFeed(System.Uri)">
+        <member name="M:Google.GData.GoogleBase.GBaseService.CreateFeed(System.Uri)">
             <summary>Replaces the default AtomFeed with a GBaseFeed
             for the Query Batch operations.</summary>
         </member>

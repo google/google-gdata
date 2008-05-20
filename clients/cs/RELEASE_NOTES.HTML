@@ -25,6 +25,12 @@
 
    <li>Bugfixes/Changes</li>
    <ul>
+       <li>Changed the way AtomUris are loaded. In the past they were, for 
+           readability reasons, decoded on the load. This caused issue in 
+           certain situations, where the server expected the encoded version to 
+           be exactly the same later on. For that reason, AtomUris are now not 
+           decoded/encoded automatically, but this is left to the programmer. 
+           </li>
        <li>
            Changed the Service.StreamInsert to a more appropriate name. It is
            now called Service.EntrySend and virtual
@@ -44,6 +50,13 @@
            cells. Created a set of new helpers on the feedQuery object that 
            solve that issue. 
        </li>
+       <li>Fixed another round of FxCop violations. Where this has an external 
+           effect, this is noted below.
+           <ul>
+               <li>Changed Apps.IpWhiteListed to Apps.IPWhiteListed</li>
+           </ul>
+           
+           </li>
 
    </ul>
 </ul>
