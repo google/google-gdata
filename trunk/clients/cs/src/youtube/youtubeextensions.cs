@@ -49,11 +49,6 @@ namespace Google.GData.YouTube {
         public const string ytPrefix = "yt"; 
 
         /// <summary>
-        /// Comment Kind definition
-        /// this is the term value for a category
-        /// </summary>
-//        public const string CommentKind = NSGPhotos + "#comment";
-        /// <summary>
         /// age element string
         /// </summary>
         public const string Age = "age";
@@ -186,9 +181,16 @@ namespace Google.GData.YouTube {
     /// </summary>
     public class Books : SimpleElement
     {
+        /// <summary>
+        /// default constructor
+        /// </summary>
         public Books()
         : base(YouTubeNameTable.Books, YouTubeNameTable.ytPrefix, YouTubeNameTable.NSYouTube)
         {}
+        /// <summary>
+        /// constructor with an init value
+        /// </summary>
+        /// <param name="initValue"></param>
         public Books(string initValue)
         : base(YouTubeNameTable.Books, YouTubeNameTable.ytPrefix, YouTubeNameTable.NSYouTube, initValue)
         {}
@@ -199,9 +201,16 @@ namespace Google.GData.YouTube {
     /// </summary>
     public class Company : SimpleElement
     {
+        /// <summary>
+        /// default constructor
+        /// </summary>
         public Company()
         : base(YouTubeNameTable.Company, YouTubeNameTable.ytPrefix, YouTubeNameTable.NSYouTube)
         {}
+        /// <summary>
+        /// constructor taking the initial value
+        /// </summary>
+        /// <param name="initValue"></param>
         public Company(string initValue)
         : base(YouTubeNameTable.Company, YouTubeNameTable.ytPrefix, YouTubeNameTable.NSYouTube, initValue)
         {}
@@ -212,9 +221,16 @@ namespace Google.GData.YouTube {
     /// </summary>
     public class Description : SimpleElement
     {
+        /// <summary>
+        /// default constructor
+        /// </summary>
         public Description()
         : base(YouTubeNameTable.Description, YouTubeNameTable.ytPrefix, YouTubeNameTable.NSYouTube)
         {}
+        /// <summary>
+        /// constructor taking the initial value
+        /// </summary>
+        /// <param name="initValue"></param>
         public Description(string initValue)
         : base(YouTubeNameTable.Description, YouTubeNameTable.ytPrefix, YouTubeNameTable.NSYouTube, initValue)
         {}
@@ -225,11 +241,19 @@ namespace Google.GData.YouTube {
     /// </summary>
     public class Duration : SimpleElement
     {
+        /// <summary>
+        /// default constructor
+        /// </summary>
         public Duration()
         : base(YouTubeNameTable.Duration, YouTubeNameTable.ytPrefix, YouTubeNameTable.NSYouTube)
         {
             this.Attributes.Add("seconds", null);
         }
+
+        /// <summary>
+        /// constructor taking the initial value
+        /// </summary>
+        /// <param name="initValue"></param>
         public Duration(string initValue)
         : base(YouTubeNameTable.Duration, YouTubeNameTable.ytPrefix, YouTubeNameTable.NSYouTube, initValue)
         {
@@ -242,9 +266,16 @@ namespace Google.GData.YouTube {
     /// </summary>
     public class FirstName : SimpleElement
     {
+        /// <summary>
+        /// default constructor
+        /// </summary>
         public FirstName()
         : base(YouTubeNameTable.FirstName, YouTubeNameTable.ytPrefix, YouTubeNameTable.NSYouTube)
         {}
+        /// <summary>
+        /// constructor taking the initial value
+        /// </summary>
+        /// <param name="initValue"></param>
         public FirstName(string initValue)
         : base(YouTubeNameTable.FirstName, YouTubeNameTable.ytPrefix, YouTubeNameTable.NSYouTube, initValue)
         {}
@@ -255,9 +286,16 @@ namespace Google.GData.YouTube {
     /// </summary>
     public class Gender : SimpleElement
     {
+        /// <summary>
+        /// default constructor
+        /// </summary>
         public Gender()
         : base(YouTubeNameTable.Gender, YouTubeNameTable.ytPrefix, YouTubeNameTable.NSYouTube)
         {}
+        /// <summary>
+        /// constructor taking the initial value
+        /// </summary>
+        /// <param name="initValue"></param>
         public Gender(string initValue)
         : base(YouTubeNameTable.Gender, YouTubeNameTable.ytPrefix, YouTubeNameTable.NSYouTube, initValue)
         {}
@@ -268,9 +306,16 @@ namespace Google.GData.YouTube {
     /// </summary>
     public class Hobbies : SimpleElement
     {
+        /// <summary>
+        /// default constructor
+        /// </summary>
         public Hobbies()
         : base(YouTubeNameTable.Hobbies, YouTubeNameTable.ytPrefix, YouTubeNameTable.NSYouTube)
         {}
+        /// <summary>
+        /// constructor taking the initial value
+        /// </summary>
+        /// <param name="initValue"></param>
         public Hobbies(string initValue)
         : base(YouTubeNameTable.Hobbies, YouTubeNameTable.ytPrefix, YouTubeNameTable.NSYouTube, initValue)
         {}
@@ -281,9 +326,16 @@ namespace Google.GData.YouTube {
     /// </summary>
     public class HomeTown : SimpleElement
     {
+        /// <summary>
+        /// default constructor
+        /// </summary>
         public HomeTown()
         : base(YouTubeNameTable.HomeTown, YouTubeNameTable.ytPrefix, YouTubeNameTable.NSYouTube)
         {}
+        /// <summary>
+        /// constructor taking the initial value
+        /// </summary>
+        /// <param name="initValue"></param>
         public HomeTown(string initValue)
         : base(YouTubeNameTable.HomeTown, YouTubeNameTable.ytPrefix, YouTubeNameTable.NSYouTube, initValue)
         {}
@@ -295,9 +347,16 @@ namespace Google.GData.YouTube {
     /// </summary>
     public class LastName : SimpleElement
     {
+        /// <summary>
+        /// default constructor
+        /// </summary>
         public LastName()
         : base(YouTubeNameTable.LastName, YouTubeNameTable.ytPrefix, YouTubeNameTable.NSYouTube)
         {}
+        /// <summary>
+        /// constructor taking the initial value
+        /// </summary>
+        /// <param name="initValue"></param>
         public LastName(string initValue)
         : base(YouTubeNameTable.LastName, YouTubeNameTable.ytPrefix, YouTubeNameTable.NSYouTube, initValue)
         {}
@@ -308,9 +367,16 @@ namespace Google.GData.YouTube {
     /// </summary>
     public class Location : SimpleElement
     {
+        /// <summary>
+        /// default constructor
+        /// </summary>
         public Location()
         : base(YouTubeNameTable.Location, YouTubeNameTable.ytPrefix, YouTubeNameTable.NSYouTube)
         {}
+        /// <summary>
+        /// constructor taking the initial value
+        /// </summary>
+        /// <param name="initValue"></param>
         public Location(string initValue)
         : base(YouTubeNameTable.Location, YouTubeNameTable.ytPrefix, YouTubeNameTable.NSYouTube, initValue)
         {}
@@ -321,9 +387,16 @@ namespace Google.GData.YouTube {
     /// </summary>
     public class Movies : SimpleElement
     {
+        /// <summary>
+        /// default constructor
+        /// </summary>
         public Movies()
         : base(YouTubeNameTable.Movies, YouTubeNameTable.ytPrefix, YouTubeNameTable.NSYouTube)
         {}
+        /// <summary>
+        /// constructor taking the initial value
+        /// </summary>
+        /// <param name="initValue"></param>
         public Movies(string initValue)
         : base(YouTubeNameTable.Movies, YouTubeNameTable.ytPrefix, YouTubeNameTable.NSYouTube, initValue)
         {}
@@ -334,9 +407,16 @@ namespace Google.GData.YouTube {
     /// </summary>
     public class Music : SimpleElement
     {
+        /// <summary>
+        /// default constructor
+        /// </summary>
         public Music()
         : base(YouTubeNameTable.Music, YouTubeNameTable.ytPrefix, YouTubeNameTable.NSYouTube)
         {}
+        /// <summary>
+        /// constructor taking the initial value
+        /// </summary>
+        /// <param name="initValue"></param>
         public Music(string initValue)
         : base(YouTubeNameTable.Music, YouTubeNameTable.ytPrefix, YouTubeNameTable.NSYouTube, initValue)
         {}
@@ -347,9 +427,16 @@ namespace Google.GData.YouTube {
     /// </summary>
     public class NoEmbed : SimpleElement
     {
+        /// <summary>
+        /// default constructor
+        /// </summary>
         public NoEmbed()
         : base(YouTubeNameTable.NoEmbed, YouTubeNameTable.ytPrefix, YouTubeNameTable.NSYouTube)
         {}
+        /// <summary>
+        /// constructor taking the initial value
+        /// </summary>
+        /// <param name="initValue"></param>
         public NoEmbed(string initValue)
         : base(YouTubeNameTable.NoEmbed, YouTubeNameTable.ytPrefix, YouTubeNameTable.NSYouTube, initValue)
         {}
@@ -360,9 +447,16 @@ namespace Google.GData.YouTube {
     /// </summary>
     public class Occupation : SimpleElement
     {
+        /// <summary>
+        /// default constructor
+        /// </summary>
         public Occupation()
         : base(YouTubeNameTable.Occupation, YouTubeNameTable.ytPrefix, YouTubeNameTable.NSYouTube)
         {}
+        /// <summary>
+        /// constructor taking the initial value
+        /// </summary>
+        /// <param name="initValue"></param>
         public Occupation(string initValue)
         : base(YouTubeNameTable.Occupation, YouTubeNameTable.ytPrefix, YouTubeNameTable.NSYouTube, initValue)
         {}
@@ -373,9 +467,16 @@ namespace Google.GData.YouTube {
     /// </summary>
     public class Position : SimpleElement
     {
+        /// <summary>
+        /// default constructor
+        /// </summary>
         public Position()
         : base(YouTubeNameTable.Position, YouTubeNameTable.ytPrefix, YouTubeNameTable.NSYouTube)
         {}
+        /// <summary>
+        /// constructor taking the initial value
+        /// </summary>
+        /// <param name="initValue"></param>
         public Position(string initValue)
         : base(YouTubeNameTable.Position, YouTubeNameTable.ytPrefix, YouTubeNameTable.NSYouTube, initValue)
         {}
@@ -386,9 +487,16 @@ namespace Google.GData.YouTube {
     /// </summary>
     public class Private : SimpleElement
     {
+        /// <summary>
+        /// default constructor
+        /// </summary>
         public Private()
         : base(YouTubeNameTable.Private, YouTubeNameTable.ytPrefix, YouTubeNameTable.NSYouTube)
         {}
+        /// <summary>
+        /// constructor taking the initial value
+        /// </summary>
+        /// <param name="initValue"></param>
         public Private(string initValue)
         : base(YouTubeNameTable.Private, YouTubeNameTable.ytPrefix, YouTubeNameTable.NSYouTube, initValue)
         {}
@@ -399,9 +507,16 @@ namespace Google.GData.YouTube {
     /// </summary>
     public class QueryString : SimpleElement
     {
+        /// <summary>
+        /// default constructor
+        /// </summary>
         public QueryString()
         : base(YouTubeNameTable.QueryString, YouTubeNameTable.ytPrefix, YouTubeNameTable.NSYouTube)
         {}
+        /// <summary>
+        /// constructor taking the initial value
+        /// </summary>
+        /// <param name="initValue"></param>
         public QueryString(string initValue)
         : base(YouTubeNameTable.QueryString, YouTubeNameTable.ytPrefix, YouTubeNameTable.NSYouTube, initValue)
         {}
@@ -412,9 +527,16 @@ namespace Google.GData.YouTube {
     /// </summary>
     public class Racy : SimpleElement
     {
+        /// <summary>
+        /// default constructor 
+        /// </summary>
         public Racy()
         : base(YouTubeNameTable.Racy, YouTubeNameTable.ytPrefix, YouTubeNameTable.NSYouTube)
         {}
+        /// <summary>
+        /// constructor taking the initial value
+        /// </summary>
+        /// <param name="initValue"></param>
         public Racy(string initValue)
         : base(YouTubeNameTable.Racy, YouTubeNameTable.ytPrefix, YouTubeNameTable.NSYouTube, initValue)
         {}
@@ -425,9 +547,16 @@ namespace Google.GData.YouTube {
     /// </summary>
     public class Recorded : SimpleElement
     {
+        /// <summary>
+        /// default constructor
+        /// </summary>
         public Recorded()
         : base(YouTubeNameTable.Recorded, YouTubeNameTable.ytPrefix, YouTubeNameTable.NSYouTube)
         {}
+        /// <summary>
+        /// constructor taking the initial value
+        /// </summary>
+        /// <param name="initValue"></param>
         public Recorded(string initValue)
         : base(YouTubeNameTable.Recorded, YouTubeNameTable.ytPrefix, YouTubeNameTable.NSYouTube, initValue)
         {}
@@ -438,9 +567,16 @@ namespace Google.GData.YouTube {
     /// </summary>
     public class Relationship : SimpleElement
     {
+        /// <summary>
+        /// default constructor
+        /// </summary>
         public Relationship()
         : base(YouTubeNameTable.Relationship, YouTubeNameTable.ytPrefix, YouTubeNameTable.NSYouTube)
         {}
+        /// <summary>
+        /// constructor taking the initial value
+        /// </summary>
+        /// <param name="initValue"></param>
         public Relationship(string initValue)
         : base(YouTubeNameTable.Relationship, YouTubeNameTable.ytPrefix, YouTubeNameTable.NSYouTube, initValue)
         {}
@@ -452,9 +588,16 @@ namespace Google.GData.YouTube {
     /// </summary>
     public class School : SimpleElement
     {
+        /// <summary>
+        /// default constructor
+        /// </summary>
         public School()
         : base(YouTubeNameTable.School, YouTubeNameTable.ytPrefix, YouTubeNameTable.NSYouTube)
         {}
+        /// <summary>
+        /// constructor taking the initial value
+        /// </summary>
+        /// <param name="initValue"></param>
         public School(string initValue)
         : base(YouTubeNameTable.School, YouTubeNameTable.ytPrefix, YouTubeNameTable.NSYouTube, initValue)
         {}
@@ -469,6 +612,9 @@ namespace Google.GData.YouTube {
     /// </summary>
     public class State : SimpleElement
     {
+        /// <summary>
+        /// default constructor
+        /// </summary>
         public State()
         : base(YouTubeNameTable.State, YouTubeNameTable.ytPrefix, YouTubeNameTable.NSYouTube)
         {
@@ -477,6 +623,10 @@ namespace Google.GData.YouTube {
             this.Attributes.Add("reasonCode", null);
             this.Attributes.Add("helpUrl", null);
         }
+        /// <summary>
+        /// constructor taking the initial value
+        /// </summary>
+        /// <param name="initValue"></param>
         public State(string initValue)
         : base(YouTubeNameTable.State, YouTubeNameTable.ytPrefix, YouTubeNameTable.NSYouTube, initValue)
         {
@@ -493,6 +643,9 @@ namespace Google.GData.YouTube {
     /// </summary>
     public class Statistics : SimpleElement
     {
+        /// <summary>
+        /// default constructor
+        /// </summary>
         public Statistics()
         : base(YouTubeNameTable.Statistics, YouTubeNameTable.ytPrefix, YouTubeNameTable.NSYouTube)
         {
@@ -502,6 +655,10 @@ namespace Google.GData.YouTube {
             this.Attributes.Add("lastWebAccess", null);
             this.Attributes.Add("favoriteCount", null);
         }
+        /// <summary>
+        /// constructor taking the initial value
+        /// </summary>
+        /// <param name="initValue"></param>
         public Statistics(string initValue)
         : base(YouTubeNameTable.Statistics, YouTubeNameTable.ytPrefix, YouTubeNameTable.NSYouTube, initValue)
         {
@@ -518,9 +675,16 @@ namespace Google.GData.YouTube {
     /// </summary>
     public class Status : SimpleElement
     {
+        /// <summary>
+        /// default constructor
+        /// </summary>
         public Status()
         : base(YouTubeNameTable.Status, YouTubeNameTable.ytPrefix, YouTubeNameTable.NSYouTube)
         {}
+        /// <summary>
+        /// constructor taking the initial value
+        /// </summary>
+        /// <param name="initValue"></param>
         public Status(string initValue)
         : base(YouTubeNameTable.Status, YouTubeNameTable.ytPrefix, YouTubeNameTable.NSYouTube, initValue)
         {}
@@ -531,9 +695,16 @@ namespace Google.GData.YouTube {
     /// </summary>
     public class UserName : SimpleElement
     {
+        /// <summary>
+        /// default constructor
+        /// </summary>
         public UserName()
         : base(YouTubeNameTable.UserName, YouTubeNameTable.ytPrefix, YouTubeNameTable.NSYouTube)
         {}
+        /// <summary>
+        /// constructor taking the initial value
+        /// </summary>
+        /// <param name="initValue"></param>
         public UserName(string initValue)
         : base(YouTubeNameTable.UserName, YouTubeNameTable.ytPrefix, YouTubeNameTable.NSYouTube, initValue)
         {}

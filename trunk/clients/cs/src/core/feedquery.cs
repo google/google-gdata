@@ -731,6 +731,7 @@ namespace Google.GData.Client
         /// helper to format an inteer parameter into the query
         /// </summary>
         /// <param name="value"></param>
+        /// <param name="defValue">default value</param>
         /// <param name="parameterName"></param>
         /// <param name="connect"></param>
         /// <param name="builder"></param>
@@ -753,6 +754,7 @@ namespace Google.GData.Client
         /// helper to format an inteer parameter into the query
         /// </summary>
         /// <param name="value"></param>
+        /// <param name="defValue">default value</param>
         /// <param name="parameterName"></param>
         /// <param name="connect"></param>
         /// <param name="builder"></param>

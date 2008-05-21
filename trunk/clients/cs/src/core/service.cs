@@ -664,7 +664,11 @@ namespace Google.GData.Client
             return request.GetResponseStream();
         }
 
-
+        /// <summary>
+        /// write the current stream to a response stream
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="output"></param>
         protected void WriteInputStreamToResponse(Stream input, Stream output)
         {
 

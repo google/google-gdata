@@ -2,6 +2,69 @@
     
 <h1>This document lists the changes in the different releases</h1>
 
+<h2>1.2.0.0</h2>
+<ul>
+    <li>Features</li>
+    <ul>
+        <li>
+            Added support for the gd:rating element
+        </li>
+        <li>
+            Added support for mediarss:category> as a childcollection of 
+            media:group
+        </li>
+        <li>
+            Created a real app:control extension
+        </li>
+        <li>
+            Added support for YouTube
+        </li>
+        <li>
+            Added support for the timeout property of the http request. You do 
+            this by setting tbe timeout on the GDataRequestFactory to something 
+            else than -1, which indicates the default of the created HTTPRequest 
+            object.
+        </li>
+    </ul>
+
+   <li>Bugfixes/Changes</li>
+   <ul>
+       <li>Changed the way AtomUris are loaded. In the past they were, for 
+           readability reasons, decoded on the load. This caused issue in 
+           certain situations, where the server expected the encoded version to 
+           be exactly the same later on. For that reason, AtomUris are now not 
+           decoded/encoded automatically, but this is left to the programmer. 
+           </li>
+       <li>
+           Changed the Service.StreamInsert to a more appropriate name. It is
+           now called Service.EntrySend and virtual
+       </li>
+       <li>
+           Added a MediaService subclass that is going to be used for all 
+           media/mime multipart enabled services (YouTube, Picasa)
+       </li>
+        <li>Fixed a memory leak related to the embedded gzip stream</li> 
+        <li>Fixed a parsing bug in the AtomLink class</li>
+        <li>Fixed the build script for building ASP dlls. A corruption in 
+           the solution file resulted in those not being rebuild anymore since
+           1.1.3.1
+        </li>
+       <li>
+           Fixed issue 120: cellQuery range and return-empty problem on empty 
+           cells. Created a set of new helpers on the feedQuery object that 
+           solve that issue. 
+       </li>
+       <li>Fixed another round of FxCop violations. Where this has an external 
+           effect, this is noted below.
+           <ul>
+               <li>Changed Apps.IpWhiteListed to Apps.IPWhiteListed</li>
+           </ul>
+           
+           </li>
+
+   </ul>
+</ul>
+
 <h2>1.1.4.1</h2>
 <ul>
     <li>Features</li>
@@ -9,7 +72,7 @@
         <li>Added PrimaryEmail, PrimaryPostalAddress, PrimaryPhonenumber 
             and PrimaryIMAddress to the ContactEntry as convienience 
             accessors</li>
-    </ul>
+        </ul>
     <li>Bugfixes</li>
     <ul>
         <li>Added the Recurrence class as an extension element back to the 

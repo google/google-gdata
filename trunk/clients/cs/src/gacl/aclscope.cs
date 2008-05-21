@@ -36,6 +36,9 @@ namespace Google.GData.AccessControl
         /// <summary>string constant for the user scope</summary>
         public const string SCOPE_DEFAULT =  "default";
 
+        /// <summary>
+        /// default constructor
+        /// </summary>
         public AclScope() : base(AclNameTable.XmlAclScopeElement,
                                          AclNameTable.gAclAlias,
                                         AclNameTable.gAclNamespace)
@@ -43,6 +46,10 @@ namespace Google.GData.AccessControl
             this.Attributes.Add(AclNameTable.XmlAttributeType, null);
         }
 
+        /// <summary>
+        /// default constructor with an init value
+        /// </summary>
+        /// <param name="initValue"></param>
         public AclScope(string initValue) : base(GDataParserNameTable.XmlExtendedPropertyElement,
                                          BaseNameTable.gDataPrefix,
                                          BaseNameTable.gNamespace,
@@ -51,6 +58,11 @@ namespace Google.GData.AccessControl
             this.Attributes.Add(AclNameTable.XmlAttributeType, null);
         }
 
+        /// <summary>
+        /// constructor taking an initial value and a name
+        /// </summary>
+        /// <param name="initValue"></param>
+        /// <param name="initName"></param>
         public AclScope(string initValue, string initName) : base(GDataParserNameTable.XmlExtendedPropertyElement,
                                          BaseNameTable.gDataPrefix,
                                          BaseNameTable.gNamespace,

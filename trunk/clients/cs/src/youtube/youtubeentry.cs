@@ -36,12 +36,6 @@ namespace Google.GData.YouTube {
     public class YouTubeEntry : AbstractEntry
     {
         /// <summary>
-        /// Category used to label entries that contain photo extension data.
-        /// </summary>
-//        public static AtomCategory PHOTO_CATEGORY =
-        //new AtomCategory(GPhotoNameTable.PhotoKind, new AtomUri(BaseNameTable.gKind));
-
-        /// <summary>
         /// Constructs a new YouTubeEntry instance with the appropriate category
         /// to indicate that it is an youTube Entry.
         /// </summary>

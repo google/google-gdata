@@ -1648,6 +1648,9 @@
         <member name="F:Google.GData.Extensions.MediaRss.MediaRssNameTable.MediaRssContent">
             <summary>static string to specify the media:content element</summary>
         </member>
+        <member name="F:Google.GData.Extensions.MediaRss.MediaRssNameTable.MediaRssCategory">
+            <summary>static string to specify the media:category element</summary>
+        </member>
         <member name="F:Google.GData.Extensions.MediaRss.MediaRssNameTable.MediaRssDescription">
             <summary>static string to specify the media:description element</summary>
         </member>
@@ -1705,6 +1708,11 @@
              property accessor for the Contents Collection 
             </summary>
         </member>
+        <member name="P:Google.GData.Extensions.MediaRss.MediaGroup.Categories">
+            <summary>
+             property accessor for the Category Collection 
+            </summary>
+        </member>
         <member name="T:Google.GData.Extensions.MediaRss.MediaCredit">
             <summary>
             media:credit schema extension describing an credit given to media
@@ -1749,6 +1757,23 @@
             <summary>
             default constructor for media:content
             </summary>
+        </member>
+        <member name="T:Google.GData.Extensions.MediaRss.MediaCategory">
+            <summary>
+            media:content schema extension describing the content URL
+            it's a child of media:group
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.MediaRss.MediaCategory.#ctor">
+            <summary>
+            default constructor for media:content
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.MediaRss.MediaCategory.#ctor(System.String)">
+            <summary>
+            default constructor for media:credit with an initial value
+            </summary>
+            <param name="initValue"/>
         </member>
         <member name="T:Google.GData.Extensions.MediaRss.MediaKeywords">
             <summary>
@@ -1807,6 +1832,12 @@
             <summary>Typed collection for Thumbnails Extensions.</summary>
         </member>
         <member name="M:Google.GData.Extensions.MediaRss.MediaContentCollection.#ctor(Google.GData.Client.IExtensionContainer)">
+            <summary>constructor</summary> 
+        </member>
+        <member name="T:Google.GData.Extensions.MediaRss.MediaCategoryCollection">
+            <summary>Typed collection for Thumbnails Extensions.</summary>
+        </member>
+        <member name="M:Google.GData.Extensions.MediaRss.MediaCategoryCollection.#ctor(Google.GData.Client.IExtensionContainer)">
             <summary>constructor</summary> 
         </member>
         <member name="T:Google.GData.Extensions.ReminderCollection">

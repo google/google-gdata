@@ -30,7 +30,7 @@ namespace Google.GData.Extensions {
         /// <summary>
         /// constructor
         /// </summary>
-        /// <param name="enumType">the XmlElement that is used</param>
+        /// <param name="xmlElement">the XmlElement that is used</param>
         protected EnumConstruct(string xmlElement)
             :
             base(xmlElement,
@@ -44,7 +44,7 @@ namespace Google.GData.Extensions {
         /// When this constructor is used the instance has a constant value and
         /// may not be modified by the setValue() API.
         /// </summary>
-        /// <param name="enumType">the XmlElement that is used</param>
+        /// <param name="xmlElement">the XmlElement that is used</param>
         /// <param name="initialValue">the initial value of the type</param>
         protected EnumConstruct(string xmlElement, string initialValue)
             :
@@ -58,8 +58,9 @@ namespace Google.GData.Extensions {
         /// <summary>
         /// Creates a new EnumConstruct instance with a specific type and namespace
         /// </summary>
-        /// <param name="enumType">the XmlElement that is used</param>
-        /// <param name="initialValue">the initial value of the type</param>
+        /// <param name="xmlElement">the XmlElement that is used</param>
+        /// <param name="prefix">the prefix to use</param>
+        /// <param name="nameSpace">the namespace to use</param>
         protected EnumConstruct(string xmlElement, string prefix, string nameSpace)
             :
             base(xmlElement,
@@ -73,8 +74,10 @@ namespace Google.GData.Extensions {
         /// When this constructor is used the instance has a constant value and
         /// may not be modified by the setValue() API.
         /// </summary>
-        /// <param name="enumType">the XmlElement that is used</param>
-        /// <param name="initialValue">the initial value of the type</param>
+        /// <param name="xmlElement">the XmlElement that is used</param>
+        /// <param name="prefix">the prefix to use</param>
+        /// <param name="nameSpace">the namespace to use</param>
+        /// <param name="initialValue">the initial value</param>
         protected EnumConstruct(string xmlElement, string prefix, string nameSpace, string initialValue)
             :
             base(xmlElement,
@@ -101,11 +104,6 @@ namespace Google.GData.Extensions {
         }
 
         /// <summary>
-        /// String Value
-        /// </summary>
-        private string value;
-
-        /// <summary>
         ///  Accessor Method for the value
         /// </summary>
         public override string Value
@@ -124,7 +122,7 @@ namespace Google.GData.Extensions {
         /// <summary>
         ///  Equal operator overload
         /// </summary>
-        /// <param name="o">the object to compare to</param>
+        /// <param name="obj">the object to compare to</param>
         /// <returns>bool</returns>
         public override bool Equals(Object obj)
         {
@@ -144,10 +142,10 @@ namespace Google.GData.Extensions {
             if (Type.Equals(ec.Type) == false)
                 return false;
 
-            if (value != null)
-                return value.Equals(ec.value);
+            if (Value != null)
+                return Value.Equals(ec.Value);
 
-            return ec.value == null;
+            return ec.Value == null;
         }
 
         /// <summary>
@@ -157,7 +155,7 @@ namespace Google.GData.Extensions {
         public override int GetHashCode()
         {
             // the hashcode for an enum will be derived by it's value          
-            return value != null ? value.GetHashCode() : 0;
+            return Value != null ? Value.GetHashCode() : 0;
         }
     }
 }   
