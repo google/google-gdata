@@ -39,13 +39,17 @@ namespace Google.GData.YouTube {
     /// subscriptions, contacts and other account-specific entities.
     /// </summary>
     //////////////////////////////////////////////////////////////////////
-    public class YouTubeService : Service
+    public class YouTubeService : MediaService
     {
        
         /// <summary>This service's User-Agent string</summary> 
         public const string YTAgent = "GYouTube-CS/1.0.0";
         /// <summary>The Calendar service's name</summary> 
         public const string YTService = "youtube";
+
+        public const string DefaultCategory = "http://gdata.youtube.com/schemas/2007/categories.cat"; 
+
+        public const string AuthenticationHandler = "https://www.google.com/youtube/accounts/ClientLogin";
 
 
         private string clientID;
@@ -85,6 +89,19 @@ namespace Google.GData.YouTube {
 
 
         /// <summary>
+        /// upload a new video to this users youtube account
+        /// </summary>
+        /// <param name="userName">the username (account) to use</param>
+        /// <param name="entry">the youtube entry</param>
+        /// <returns></returns>
+        public YouTubeEntry Upload(string userName, YouTubeEntry entry)
+        {
+            Uri uri = new Uri("http://uploads.gdata.youtube.com/feeds/api/users/" + userName + "/uploads");
+            return base.Insert(uri, entry) as YouTubeEntry;
+        }
+
+
+        /// <summary>
         /// notifier if someone changes the requestfactory of the service
         /// </summary>
         public override void OnRequestFactoryChanged() 
@@ -95,6 +112,7 @@ namespace Google.GData.YouTube {
                 RemoveOldKeys(factory.CustomHeaders);
                 factory.CustomHeaders.Add(GoogleAuthentication.YouTubeClientId + this.clientID); 
                 factory.CustomHeaders.Add(GoogleAuthentication.YouTubeDevKey + this.developerID); 
+                factory.Handler = YouTubeService.AuthenticationHandler;
             }
         }
 
@@ -110,6 +128,9 @@ namespace Google.GData.YouTube {
             }
             return;
         }
+
+
+
         //////////////////////////////////////////////////////////////////////
         /// <summary>eventchaining. We catch this by from the base service, which 
         /// would not by default create an atomFeed</summary> 

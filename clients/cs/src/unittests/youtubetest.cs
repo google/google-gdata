@@ -40,7 +40,8 @@ namespace Google.GData.Client.LiveTests
 
         private string ytClient;
         private string ytDevKey;
-
+        private string ytUser;
+        private string ytPwd;
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>default empty constructor</summary> 
@@ -72,6 +73,14 @@ namespace Google.GData.Client.LiveTests
             if (unitTestConfiguration.Contains("youTubeDevKey") == true)
             {
                 this.ytDevKey = (string) unitTestConfiguration["youTubeDevKey"];
+            }
+            if (unitTestConfiguration.Contains("youTubeUser") == true)
+            {
+                this.ytUser = (string) unitTestConfiguration["youTubeUser"];
+            }
+            if (unitTestConfiguration.Contains("youTubePwd") == true)
+            {
+                this.ytPwd = (string) unitTestConfiguration["youTubePwd"];
             }
         }
         /////////////////////////////////////////////////////////////////////////////
@@ -127,9 +136,75 @@ namespace Google.GData.Client.LiveTests
 
             foreach (YouTubeEntry e in feed.Entries )
             {
-                
+                Assert.IsTrue(e.Media.Title.Value != null, "There should be a title");
             }
 
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+          //////////////////////////////////////////////////////////////////////
+        /// <summary>runs a test on the YouTube Feed object</summary> 
+        //////////////////////////////////////////////////////////////////////
+        [Test] public void YouTubeInsertTest()
+        {
+            Tracing.TraceMsg("Entering YouTubeFeedTest");
+
+            YouTubeService service = new YouTubeService("NETUnittests", this.ytClient, this.ytDevKey);
+            if (this.userName != null)
+            {
+                service.Credentials = new GDataCredentials(this.ytUser, this.ytPwd);
+            }
+
+            YouTubeEntry entry = new YouTubeEntry();
+
+            entry.MediaSource = new MediaFileSource("test_movie.mov", "video/quicktime");
+            entry.Media = new MediaGroup();
+            entry.Media.Description = new MediaDescription("This is a test");
+            entry.Media.Title = new MediaTitle("Sample upload");
+            entry.Media.Keywords = new MediaKeywords("math");
+
+            // entry.Media.Categories
+
+            MediaCategory category = new MediaCategory("Nonprofit");
+            category.Attributes["scheme"] = YouTubeService.DefaultCategory;
+
+            entry.Media.Categories.Add(category);
+
+            YouTubeEntry newEntry = service.Upload(this.ytUser, entry);
+
+            Assert.AreEqual(newEntry.Media.Description.Value, entry.Media.Description.Value, "Description should be equal");
+            Assert.AreEqual(newEntry.Media.Keywords.Value, entry.Media.Keywords.Value, "Keywords should be equal");
+
+            // now change the entry
+
+            newEntry.Title.Text = "This test upload will soon be deleted";
+            YouTubeEntry anotherEntry = newEntry.Update() as YouTubeEntry;
+
+            // bugbug in YouTube server. Returns empty category that the service DOES not like on reuse. so remove
+            ArrayList a = new ArrayList();
+            foreach (MediaCategory m in anotherEntry.Media.Categories)
+            {
+                if (String.IsNullOrEmpty(m.Value))
+                {
+                    a.Add(m);
+                }
+            }
+
+            foreach (MediaCategory m in a)
+            {
+                anotherEntry.Media.Categories.Remove(m);
+            }
+
+            Assert.AreEqual(newEntry.Media.Description.Value, anotherEntry.Media.Description.Value, "Description should be equal");
+            Assert.AreEqual(newEntry.Media.Keywords.Value, anotherEntry.Media.Keywords.Value, "Keywords should be equal");
+
+            // now update the video
+            anotherEntry.MediaSource = new MediaFileSource("test.mp4", "video/mp4");
+            anotherEntry.Update();
+
+            // now delete the guy again
+
+            newEntry.Delete();
         }
         /////////////////////////////////////////////////////////////////////////////
 
