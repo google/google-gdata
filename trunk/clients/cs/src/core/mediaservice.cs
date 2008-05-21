@@ -127,7 +127,7 @@ namespace Google.GData.Client
             CreateBoundary(w, entry.MediaSource.ContentType);
             WriteInputStreamToResponse(entry.MediaSource.Data, outputStream);
             w.WriteLine();
-            w.WriteLine("--" + MediaService.MimeBoundary);
+            w.WriteLine("--" + MediaService.MimeBoundary + "--");
             w.Flush();
             request.Execute();
             outputStream.Close();
@@ -138,6 +138,10 @@ namespace Google.GData.Client
         {
             w.WriteLine("--" + MediaService.MimeBoundary);
             w.WriteLine("Content-Type: " + contentType);
+            if (contentType != GDataRequestFactory.DefaultContentType)
+            {
+                w.WriteLine("Content-Transfer-Encoding: binary");
+            }
             w.WriteLine();
             w.Flush();
         }
