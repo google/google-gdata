@@ -47,8 +47,14 @@ namespace Google.GData.YouTube {
         /// <summary>The Calendar service's name</summary> 
         public const string YTService = "youtube";
 
+        /// <summary>
+        /// default category for YouTube
+        /// </summary>
         public const string DefaultCategory = "http://gdata.youtube.com/schemas/2007/categories.cat"; 
 
+        /// <summary>
+        /// the YouTube authentication handler URL
+        /// </summary>
         public const string AuthenticationHandler = "https://www.google.com/youtube/accounts/ClientLogin";
 
 

@@ -736,7 +736,7 @@ namespace Google.GData.Client
                     // and might therefore already be at the start of the next
                     if (fSkip)
                         // note: we want to get rid of fskip and move the logic into the parsing methods
-                        /// ParseXXX should just come back with a clearly defined state
+                        // ParseXXX should just come back with a clearly defined state
                         reader.Read();
                 }
                 else if (IsCurrentNameSpace(reader, BaseNameTable.gBatchNamespace))

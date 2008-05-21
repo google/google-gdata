@@ -96,6 +96,10 @@ namespace Google.GData.Client
     {
         /// <summary>this factory's agent</summary> 
         public const string GDataAgent = "GData-CS/1.0.0";
+        
+        /// <summary>
+        /// the default content type for the atom envelope
+        /// </summary>
         public const string DefaultContentType = "application/atom+xml; charset=UTF-8";
         /// <summary>holds the user-agent</summary> 
         private string userAgent;

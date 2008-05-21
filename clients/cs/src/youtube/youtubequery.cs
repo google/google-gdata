@@ -70,8 +70,7 @@ namespace Google.GData.YouTube {
     ///             videos or to find videos that are associated with one of several search terms. 
     ///             For example, to search for videos matching either "boating" or "sailing", 
     ///             set the vq parameter to boating%7Csailing. (Note that the pipe character must 
-    ///             be URL-escaped.) Similarly, to search for videos matching either "boating" 
-    ///             or "sailing" but not "fishing", set the vq parameter to "boating&7Csailing+-fishing".
+    ///             be URL-escaped.) 
     /// orderby	    The orderby parameter specifies the value that will be used to sort videos in the
     ///             search result set. Valid values for this parameter are relevance, published, viewCount 
     ///             and rating. In addition, you can request results that are most relevant to a specific 
@@ -93,7 +92,7 @@ namespace Google.GData.YouTube {
     ///     Value	    Video Format
     ///         1	    RTSP streaming URL for mobile video playback. H.263 video (up to 176x144) and AMR audio.
     ///         5	    HTTP URL to the embeddable player (SWF) for this video. This format is not available for a
-    ///                 video that is not embeddable. Developers commonly add &format=5 to their queries to restrict
+    ///                 video that is not embeddable. Developers commonly add format=5 to their queries to restrict
     ///                 results to videos that can be embedded on their sites.
     ///         6	    RTSP streaming URL for mobile video playback. MPEG-4 SP video (up to 176x144) and AAC audio
     /// lr	    The lr parameter restricts the search to videos that have a title, description or keywords in a
@@ -103,7 +102,7 @@ namespace Google.GData.YouTube {
     /// racy	The racy parameter allows a search result set to include restricted content as well as standard 
     ///         content. Valid values for this parameter are include and exclude. By default, restricted content 
     ///         is excluded. Feed entries for videos that contain restricted content will contain an additional 
-    ///         <yt:racy> element.
+    ///         yt:racy element.
     /// restriction	The restriction parameter identifies the IP address that should be used to filter videos 
     ///         that can only be played in specific countries. By default, the API filters out videos that cannot 
     ///         be played in the country from which you send API requests. This restriction is based on your 
@@ -184,7 +183,9 @@ namespace Google.GData.YouTube {
         private UploadTime uploadTime = UploadTime.UploadTimeUndefined;
         
 
-
+        /// <summary>
+        /// the standard feeds URL
+        /// </summary>
         public const string StandardFeeds = "http://gdata.youtube.com/feeds/api/standardfeeds/";
         /// <summary>
         /// youTube base video URI 
@@ -267,10 +268,11 @@ namespace Google.GData.YouTube {
         ///     Value	    Video Format
         ///         1	    RTSP streaming URL for mobile video playback. H.263 video (up to 176x144) and AMR audio.
         ///         5	    HTTP URL to the embeddable player (SWF) for this video. This format is not available for a
-        ///                 video that is not embeddable. Developers commonly add &format=5 to their queries to restrict
+        ///                 video that is not embeddable. Developers commonly add format=5 to their queries to restrict
         ///                 results to videos that can be embedded on their sites.
         ///         6	    RTSP streaming URL for mobile video playback. MPEG-4 SP video (up to 176x144) and AAC audio
-        /// <returns> </returns>
+        /// </summary>
+        /// <returns> the list of formats</returns>
         //////////////////////////////////////////////////////////////////////
         public List<VideoFormat> Formats
         {
@@ -379,9 +381,7 @@ namespace Google.GData.YouTube {
         /// content as well as standard content. Valid values for this parameter
         ///  are include and exclude. By default, restricted content is excluded. 
         /// Feed entries for videos that contain restricted content will contain
-        /// the <media:rating> element.
-        /// 
-        /// 
+        /// the media:rating element.
         /// </summary> 
         /// <returns> </returns>
         //////////////////////////////////////////////////////////////////////

@@ -10,6 +10,7 @@
         <assembly assemblyPath="..\lib\Release\Google.GData.GoogleBase.dll" xmlCommentsPath="..\docs\gbase.xml" commentsOnly="False" />
         <assembly assemblyPath="..\lib\Release\Google.GData.Photos.dll" xmlCommentsPath="..\docs\gphotos.xml" commentsOnly="False" />
         <assembly assemblyPath="..\lib\Release\Google.GData.Spreadsheets.dll" xmlCommentsPath="..\docs\gspreadsheet.xml" commentsOnly="False" />
+        <assembly assemblyPath="..\lib\Release\Google.GData.YouTube.dll" xmlCommentsPath="..\src\VS2005\youtube\bin\youtube.xml" commentsOnly="False" />
     </assemblies>
     <namespaceSummaries>
         <namespaceSummaryItem name="" isDocumented="True" />
@@ -34,7 +35,8 @@ Here are some of the things you can do with the Code Search data API:
 - Maintain relationships between people in social applications
 - Give users the ability to communicate directly with their friends from external applications using phone, email, and IM</namespaceSummaryItem>
         <namespaceSummaryItem name="Google.GData.Extensions" isDocumented="True">This namespace contains common extension elements that are used accross several Google Data API enabled properties</namespaceSummaryItem>
-        <namespaceSummaryItem name="Google.GData.Extensions.Apps" isDocumented="True" />
+        <namespaceSummaryItem name="Google.GData.Extensions.AppControl" isDocumented="False">This namespace contains the AtomPublishing control elements</namespaceSummaryItem>
+        <namespaceSummaryItem name="Google.GData.Extensions.Apps" isDocumented="True">Extensions for the Apps Provisioning API</namespaceSummaryItem>
         <namespaceSummaryItem name="Google.GData.Extensions.Exif" isDocumented="True">Picasa Web Albums uses the exif namespace to represent Exif data encoded in a photo. The schema URL for the exif namespace is http://schemas.google.com/photos/exif/2007.
 
 The exif elements all appear inside the container element called tags
@@ -94,6 +96,7 @@ Here are some of the things you can do with the Spreadsheets data API:
     * Use a spreadsheet as a database and access data for another application via the Spreadsheets data API.
     * Use an external graphing library with the Spreadsheets data API to add nice looking graphs to your site.
     * Implement auto-filtering and other spreadsheet functionality in an application you build for your users.</namespaceSummaryItem>
+        <namespaceSummaryItem name="Google.GData.YouTube" isDocumented="True">YouTube offers open access to key parts of the YouTube video repository and user community, via an open API interface and RSS feeds. Using our APIs, you can easily integrate online videos from YouTube's rapidly growing repository of videos into your application.</namespaceSummaryItem>
     </namespaceSummaries>
     <additionalContent>
         <contentItem sourcePath="..\docs\AdditionalContent\*.html" destPath="AdditionalContent\" excludeItems="False" />

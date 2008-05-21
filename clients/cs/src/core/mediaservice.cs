@@ -134,6 +134,11 @@ namespace Google.GData.Client
             return request.GetResponseStream();
         }
     
+        /// <summary>
+        /// creates the MIME boundary string
+        /// </summary>
+        /// <param name="w">stream to write to</param>
+        /// <param name="contentType">content type to use</param>
         protected void CreateBoundary(StreamWriter w, string contentType)
         {
             w.WriteLine("--" + MediaService.MimeBoundary);

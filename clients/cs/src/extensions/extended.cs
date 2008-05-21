@@ -28,6 +28,9 @@ namespace Google.GData.Extensions
     public class ExtendedProperty : SimpleAttribute
     {
 
+        /// <summary>
+        /// default constructor for an extended property
+        /// </summary>
         public ExtendedProperty() : base(GDataParserNameTable.XmlExtendedPropertyElement,
                                          BaseNameTable.gDataPrefix,
                                          BaseNameTable.gNamespace)
@@ -35,6 +38,10 @@ namespace Google.GData.Extensions
             this.Attributes.Add(AtomParserNameTable.XmlName, null);
         }
 
+        /// <summary>
+        /// default constructor with an initial value
+        /// </summary>
+        /// <param name="initValue"></param>
         public ExtendedProperty(string initValue) : base(GDataParserNameTable.XmlExtendedPropertyElement,
                                          BaseNameTable.gDataPrefix,
                                          BaseNameTable.gNamespace,
@@ -43,6 +50,11 @@ namespace Google.GData.Extensions
             this.Attributes.Add(AtomParserNameTable.XmlName, null);
         }
 
+        /// <summary>
+        /// default constructor with a value and a key name
+        /// </summary>
+        /// <param name="initValue">initial value</param>
+        /// <param name="initName">name for the key</param>
         public ExtendedProperty(string initValue, string initName) : base(GDataParserNameTable.XmlExtendedPropertyElement,
                                          BaseNameTable.gDataPrefix,
                                          BaseNameTable.gNamespace,
