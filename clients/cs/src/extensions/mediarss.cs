@@ -16,6 +16,7 @@
 using System;
 using System.Xml;
 using Google.GData.Client;
+using System.Globalization;
 
 namespace Google.GData.Extensions.MediaRss {
 
@@ -370,6 +371,12 @@ namespace Google.GData.Extensions.MediaRss {
     /// </summary>
     public class MediaThumbnail : SimpleElement
     {
+
+        public const string AttributeUrl = "url";
+        public const string AttributeHeight = "height";
+        public const string AttributeWidth = "width";
+
+
         /// <summary>
         /// default constructor for media:thumbnail
         /// </summary>
@@ -378,10 +385,61 @@ namespace Google.GData.Extensions.MediaRss {
                MediaRssNameTable.mediaRssPrefix,
                MediaRssNameTable.NSMediaRss)
         {
-            this.Attributes.Add("url", null);
+            this.Attributes.Add(AttributeUrl, null);
             this.Attributes.Add("height", null);
             this.Attributes.Add("width", null);
         }
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>convienience accessor for the Url</summary> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        public string Url
+        {
+           get 
+            {
+                return this.Attributes[AttributeUrl] as string;
+            }
+            set
+            {
+                this.Attributes[AttributeUrl] = value;
+            }
+        }
+        // end of accessor public string Url
+
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>convienience accessor for the Height</summary> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        public int Height
+        {
+           get 
+            {
+                return Int16.Parse((this.Attributes["height"] as string));
+            }
+            set
+            {
+                this.Attributes["height"] = value.ToString(CultureInfo.InvariantCulture);
+            }
+        }
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>convienience accessor for the Width</summary> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        public int Width
+        {
+           get 
+            {
+                return Int16.Parse(this.Attributes["width"] as string);
+            }
+            set
+            {
+                this.Attributes["width"] = value.ToString(CultureInfo.InvariantCulture);
+            }
+        }
+        // end of accessor public string Url
     }
 
     /// <summary>
