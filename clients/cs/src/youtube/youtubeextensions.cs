@@ -15,10 +15,9 @@
 
 using System;
 using System.Xml;
-//using System.Collections;
-//using System.Text;
 using Google.GData.Client;
 using Google.GData.Extensions;
+using System.Globalization;
 
 namespace Google.GData.YouTube {
 
@@ -643,18 +642,30 @@ namespace Google.GData.YouTube {
     /// </summary>
     public class Statistics : SimpleElement
     {
+        /// <summary>the viewCount xml attribute </summary>
+        public const string AttributeViewCount = "viewCount";
+        /// <summary>the videoWatchCount xml attribute </summary>
+        public const string AttributeWatchCount = "videoWatchCount";
+        /// <summary>the subscriberCount xml attribute </summary>
+        public const string AttributeSubscriberCount = "subscriberCount";
+        /// <summary>the lastWebAccess xml attribute </summary>
+        public const string AttributeLastWebAccess = "lastWebAccess";
+        /// <summary>the favoriteCount xml attribute </summary>
+        public const string AttributeFavoriteCount = "favoriteCount";
+
         /// <summary>
         /// default constructor
         /// </summary>
         public Statistics()
         : base(YouTubeNameTable.Statistics, YouTubeNameTable.ytPrefix, YouTubeNameTable.NSYouTube)
         {
-            this.Attributes.Add("viewCount", null);
-            this.Attributes.Add("videoWatchCount", null);
-            this.Attributes.Add("subscriberCount", null);
-            this.Attributes.Add("lastWebAccess", null);
-            this.Attributes.Add("favoriteCount", null);
+            this.Attributes.Add(AttributeViewCount, null);
+            this.Attributes.Add(AttributeWatchCount, null);
+            this.Attributes.Add(AttributeSubscriberCount, null);
+            this.Attributes.Add(AttributeLastWebAccess, null);
+            this.Attributes.Add(AttributeFavoriteCount, null);
         }
+
         /// <summary>
         /// constructor taking the initial value
         /// </summary>
@@ -662,12 +673,93 @@ namespace Google.GData.YouTube {
         public Statistics(string initValue)
         : base(YouTubeNameTable.Statistics, YouTubeNameTable.ytPrefix, YouTubeNameTable.NSYouTube, initValue)
         {
-            this.Attributes.Add("viewCount", null);
-            this.Attributes.Add("videoWatchCount", null);
-            this.Attributes.Add("subscriberCount", null);
-            this.Attributes.Add("lastWebAccess", null);
-            this.Attributes.Add("favoriteCount", null);
+            this.Attributes.Add(AttributeViewCount, null);
+            this.Attributes.Add(AttributeWatchCount, null);
+            this.Attributes.Add(AttributeSubscriberCount, null);
+            this.Attributes.Add(AttributeLastWebAccess, null);
+            this.Attributes.Add(AttributeFavoriteCount, null);
         }
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>convienience accessor for the ViewCount</summary> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        public string ViewCount
+        {
+           get 
+            {
+                return this.Attributes[AttributeViewCount] as string;
+            }
+            set
+            {
+                this.Attributes[AttributeViewCount] = value;
+            }
+        }
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>convienience accessor for the Watched Count</summary> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        public string WatchCount
+        {
+           get 
+            {
+                return this.Attributes[AttributeWatchCount] as string;
+            }
+            set
+            {
+                this.Attributes[AttributeWatchCount] = value;
+            }
+        }
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>convienience accessor for the SubscriberCount</summary> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        public string SubscriberCount
+        {
+           get 
+            {
+                return this.Attributes[AttributeSubscriberCount] as string;
+            }
+            set
+            {
+                this.Attributes[AttributeSubscriberCount] = value;
+            }
+        }
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>convienience accessor for the LastWebAccess</summary> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        public string LastWebAccess 
+        {
+           get 
+            {
+                return this.Attributes[AttributeLastWebAccess] as string;
+            }
+            set
+            {
+                this.Attributes[AttributeLastWebAccess] = value;
+            }
+        }
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>convienience accessor for the Favorite</summary> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        public string FavoriteCount
+        {
+           get 
+            {
+                return this.Attributes[AttributeFavoriteCount] as string;
+            }
+            set
+            {
+                this.Attributes[AttributeFavoriteCount] = value;
+            }
+        }
+
     }
 
     /// <summary>

@@ -120,6 +120,25 @@ namespace Google.GData.YouTube {
             }
         }
 
+        /// <summary>
+        /// returns the yt:statistics element
+        /// </summary>
+        /// <returns></returns>
+        public Statistics Statistics
+        {
+            get
+            {
+                return FindExtension(YouTubeNameTable.Statistics,
+                                     YouTubeNameTable.NSYouTube) as Statistics;
+            }
+            set
+            {
+                ReplaceExtension(YouTubeNameTable.Statistics,
+                                YouTubeNameTable.NSYouTube,
+                                value);
+            }
+        }
+
       
         /// <summary>
         /// instead of having 20 extension elements
