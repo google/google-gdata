@@ -242,6 +242,13 @@ namespace Google.GData.YouTube {
         /// youTube base standard mobile phones video URI 
         /// </summary>
         public const string MobilePhonesVideo = YouTubeQuery.StandardFeeds +"watch_on_mobile";
+
+        /// <summary>
+        /// default users upload account
+        /// </summary>
+        public const string DefaultUploads = "http://gdata.youtube.com/feeds/api/users/default/uploads";
+
+
         /// <summary>
         /// base constructor
         /// </summary>
