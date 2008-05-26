@@ -412,15 +412,15 @@ namespace Google.GData.Extensions.MediaRss {
         /// <summary>convienience accessor for the Height</summary> 
         /// <returns> </returns>
         //////////////////////////////////////////////////////////////////////
-        public int Height
+        public string Height
         {
            get 
             {
-                return Int16.Parse((this.Attributes["height"] as string));
+                return this.Attributes["height"] as string;
             }
             set
             {
-                this.Attributes["height"] = value.ToString(CultureInfo.InvariantCulture);
+                this.Attributes["height"] = value;
             }
         }
 
@@ -428,15 +428,15 @@ namespace Google.GData.Extensions.MediaRss {
         /// <summary>convienience accessor for the Width</summary> 
         /// <returns> </returns>
         //////////////////////////////////////////////////////////////////////
-        public int Width
+        public string Width
         {
            get 
             {
-                return Int16.Parse(this.Attributes["width"] as string);
+                return this.Attributes["width"] as string;
             }
             set
             {
-                this.Attributes["width"] = value.ToString(CultureInfo.InvariantCulture);
+                this.Attributes["width"] = value;
             }
         }
         // end of accessor public string Url
