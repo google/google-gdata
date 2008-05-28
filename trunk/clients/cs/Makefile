@@ -26,6 +26,7 @@ ALLLIBS = \
 	Google.GData.AccessControl.dll 	\
 	Google.GData.Contacts.dll	\
 	Google.GData.YouTube.dll	\
+		Google.GData.Health.dll \
 
 FRAMEWORK_REFS = -r:System.dll -r:System.Xml.dll -r:System.Web.dll -r:System.Configuration.dll
 
@@ -44,6 +45,7 @@ samples =	\
 	gcal_demo.exe \
 	gspreadsheet_demo.exe \
 	PhotoTool.exe \
+	HealthTool.exe \
 
 all: $(ALL_LIBS) tests $(samples)
 
@@ -59,6 +61,7 @@ gphotos_sources = $(wildcard src/gphotos/*.cs) $(wildcard version/*.cs)
 gdocuments_sources = $(wildcard src/gdocuments/*.cs) $(wildcard version/*.cs)
 gcontact_sources = $(wildcard src/gcontacts/*.cs) $(wildcard version/*.cs)
 youtube_sources = $(wildcard src/youtube/*.cs) $(wildcard version/*.cs)
+health_sources = $(wildcard src/ghealth/*.cs) $(wildcard version/*.cs)
 test_sources = $(wildcard src/unittests/*.cs) $(wildcard src/unittests/gbase/*.cs) $(wildcard src/unittests/gapps/*.cs) $(wildcard src/version/*cs)
 
 Google.GData.Client.dll: $(core_sources) src/VS2005/gdata/clientkey.sn
@@ -96,6 +99,10 @@ Google.GData.Contacts.dll: $(CORELIBS) $(gcontact_sources) src/VS2005/gcontacts/
 
 Google.GData.YouTube.dll: $(CORELIBS) $(youtube_sources) src/VS2005/youtube/youtube.sn
 	$(CSC) $(DEFINES) -target:library -out:$@ $(COREREFS) $(youtube_sources)
+
+Google.GData.Health.dll: $(CORELIBS) $(health_sources) src/VS2005/ghealth/ghealth.sn
+	$(CSC) $(DEFINES) -target:library -out:$@ $(COREREFS) $(health_sources)
+
 
 clean:
 	-rm *.sn *.dll *exe
@@ -147,6 +154,11 @@ gspreadsheet_demo.exe: $(ALLLIBS) $(gspreadsheet_demo_sources)
 PhotoTool_sources = $(wildcard samples/PhotoBrowser/*.cs)
 PhotoTool.exe: $(ALLLIBS) $(PhotoTool_sources)
 	$(CSC) -out:$@ $(ALLREFS) -r:System.Windows.Forms -r:System.Drawing -r:System.Data $(PhotoTool_sources)
+	
+healthtool_sources = $(wildcard samples/health/*.cs)
+HealthTool.exe: $(ALLLIBS) $(healthtool_sources)
+	$(CSC) -out:$@ $(ALLREFS) $(healthtool_sources)
+
 
 
 test:
