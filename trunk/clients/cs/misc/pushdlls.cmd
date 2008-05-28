@@ -4,23 +4,7 @@ echo "Run this inside the Visual Studio Development Prompt"
 devenv /rebuild Release "..\src\VS2005\Google Data API SDK.sln"
 devenv /rebuild Debug "..\src\VS2005\Google Data API SDK.sln"
 devenv /rebuild ASP "..\src\VS2005\Google Data API SDK.sln"
-devenv /rebuild Release "..\samples\Google Data APIs Samples.sln" 
 devenv /rebuild Release ..\src\VS2005.mobile\gdatamobile.sln
-		
-
-# copy all exe files
-xcopy /y ..\samples\Blogger\bin\Release\*.exe ..\lib\Release\*.*
-xcopy /y ..\samples\Calendar\bin\Release\*.exe ..\lib\Release\*.*
-xcopy /y ..\samples\CodeSearch\bin\Release\*.exe ..\lib\Release\*.*
-xcopy /y ..\samples\spreadsheets\bin\Release\*.exe ..\lib\Release\*.*
-xcopy /y ..\samples\gbase\bin\Release\*.exe ..\lib\Release\*.*
-xcopy /y ..\samples\gbase\*.exe ..\lib\Release\*.*
-xcopy /y ..\samples\\appsforyourdomain\bin\Release\*.exe ..\lib\Release\*.*
-xcopy /y ..\samples\ExecRequest\bin\Release\*.exe ..\lib\Release\*.*
-xcopy /y ..\samples\PhotoBrowser\bin\Release\*.exe ..\lib\Release\*.*
-xcopy /y ..\samples\DocListUploader\bin\Release\*.exe ..\lib\Release\*.*
-xcopy /y ..\samples\health\bin\Release\*.exe ..\lib\Release\*.*
-
 
 # copy the DLLS
 xcopy /y ..\src\VS2005\gdata\bin\Release\*.dll ..\lib\Release\*.*
@@ -83,6 +67,24 @@ xcopy /y ..\src\VS2005.mobile\GDocListMobile\bin\Release\*.dll ..\lib\Mobile\Win
 xcopy /y ..\src\VS2005.mobile\GContactsMobile\bin\Release\*.dll ..\lib\Mobile\WindowsMobile\*.*
 xcopy /y ..\src\VS2005.mobile\GHealthMobile\bin\Release\*.dll ..\lib\Mobile\WindowsMobile\*.*
 xcopy /y ..\src\VS2005.mobile\GYouTubeMobile\bin\Release\*.dll ..\lib\Mobile\WindowsMobile\*.*
+		
+
+devenv /rebuild Release "..\samples\Google Data APIs Samples.sln" 
+
+# copy all exe files
+xcopy /y ..\samples\Blogger\bin\Release\*.exe ..\lib\Release\*.*
+xcopy /y ..\samples\Calendar\bin\Release\*.exe ..\lib\Release\*.*
+xcopy /y ..\samples\CodeSearch\bin\Release\*.exe ..\lib\Release\*.*
+xcopy /y ..\samples\spreadsheets\bin\Release\*.exe ..\lib\Release\*.*
+xcopy /y ..\samples\gbase\bin\Release\*.exe ..\lib\Release\*.*
+xcopy /y ..\samples\gbase\*.exe ..\lib\Release\*.*
+xcopy /y ..\samples\\appsforyourdomain\bin\Release\*.exe ..\lib\Release\*.*
+xcopy /y ..\samples\ExecRequest\bin\Release\*.exe ..\lib\Release\*.*
+xcopy /y ..\samples\PhotoBrowser\bin\Release\*.exe ..\lib\Release\*.*
+xcopy /y ..\samples\DocListUploader\bin\Release\*.exe ..\lib\Release\*.*
+xcopy /y ..\samples\health\bin\Release\*.exe ..\lib\Release\*.*
+
+
 
 # copy the xml doc files
 xcopy /y ..\src\VS2005\gdata\bin\*.xml ..\docs\*.*
