@@ -275,16 +275,6 @@ namespace Google.GData.Calendar {
         private WhenCollection times;
         private WhereCollection locations;
         private WhoCollection participants;
-        /*
-        private EventStatus status;
-        private Visibility visibility;
-        private Transparency transparency;
-        private Recurrence recurrence;
-        private Comments comments;
-        private RecurrenceException exception; 
-        private SendNotifications sendNotifications;
-        private QuickAddElement quickAdd;
-        */
 #endregion
 
 #region Public Methods
@@ -532,7 +522,7 @@ namespace Google.GData.Calendar {
             get 
             { 
                 return FindExtension(GDataParserNameTable.XmlCommentsElement,
-                                     GDataParserNameTable.gNamespace) as Comments;
+                                 GDataParserNameTable.gNamespace) as Comments;
             }
             set
             {
