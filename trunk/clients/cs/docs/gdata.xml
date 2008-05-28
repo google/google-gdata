@@ -529,6 +529,7 @@
             helper to format an inteer parameter into the query
             </summary>
             <param name="value"></param>
+            <param name="defValue">default value</param>
             <param name="parameterName"></param>
             <param name="connect"></param>
             <param name="builder"></param>
@@ -539,6 +540,7 @@
             helper to format an inteer parameter into the query
             </summary>
             <param name="value"></param>
+            <param name="defValue">default value</param>
             <param name="parameterName"></param>
             <param name="connect"></param>
             <param name="builder"></param>
@@ -1662,6 +1664,13 @@
             <param name="slugHeader">the slugHeader to use in the request, if NULL is passed, factory default is used</param>
             <returns>Stream</returns>
         </member>
+        <member name="M:Google.GData.Client.Service.WriteInputStreamToResponse(System.IO.Stream,System.IO.Stream)">
+            <summary>
+            write the current stream to a response stream
+            </summary>
+            <param name="input"></param>
+            <param name="output"></param>
+        </member>
         <member name="M:Google.GData.Client.Service.CreateFeed(System.Uri)">
              <summary>creates a new feed instance to be returned by
              Batch(), Query() and other operations
@@ -1739,6 +1748,13 @@
             <param name="baseEntry">the entry to be inserted</param> 
             <param name="type">the type of request to create</param> 
             <returns> the response as a stream</returns>
+        </member>
+        <member name="M:Google.GData.Client.MediaService.CreateBoundary(System.IO.StreamWriter,System.String)">
+            <summary>
+            creates the MIME boundary string
+            </summary>
+            <param name="w">stream to write to</param>
+            <param name="contentType">content type to use</param>
         </member>
         <member name="T:Google.GData.Client.GoogleAuthentication">
             <summary>constants for the authentication handler
@@ -1827,6 +1843,11 @@
         </member>
         <member name="F:Google.GData.Client.GDataRequestFactory.GDataAgent">
             <summary>this factory's agent</summary> 
+        </member>
+        <member name="F:Google.GData.Client.GDataRequestFactory.DefaultContentType">
+            <summary>
+            the default content type for the atom envelope
+            </summary>
         </member>
         <member name="F:Google.GData.Client.GDataRequestFactory.SetCookieHeader">
             <summary>Cookie setting header, returned from server</summary>

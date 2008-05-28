@@ -138,6 +138,25 @@ namespace Google.GData.YouTube {
             }
         }
 
+        /// <summary>
+        ///  property accessor for the Comments
+        /// </summary>
+        public Comments Comments
+        {
+            get
+            {
+                return FindExtension(GDataParserNameTable.XmlCommentsElement,
+                                 GDataParserNameTable.gNamespace) as Comments;
+            }
+            set
+            {
+                ReplaceExtension(GDataParserNameTable.XmlCommentsElement,
+                                     GDataParserNameTable.gNamespace, value);
+            }
+        }
+
+
+
       
         /// <summary>
         /// instead of having 20 extension elements

@@ -19,6 +19,8 @@ xcopy /y ..\samples\\appsforyourdomain\bin\Release\*.exe ..\lib\Release\*.*
 xcopy /y ..\samples\ExecRequest\bin\Release\*.exe ..\lib\Release\*.*
 xcopy /y ..\samples\PhotoBrowser\bin\Release\*.exe ..\lib\Release\*.*
 xcopy /y ..\samples\DocListUploader\bin\Release\*.exe ..\lib\Release\*.*
+xcopy /y ..\samples\health\bin\Release\*.exe ..\lib\Release\*.*
+
 
 # copy the DLLS
 xcopy /y ..\src\VS2005\gdata\bin\Release\*.dll ..\lib\Release\*.*
@@ -33,6 +35,7 @@ xcopy /y ..\src\VS2005\gphotos\bin\Release\*.dll ..\lib\Release\*.*
 xcopy /y ..\src\VS2005\gdoclist\bin\Release\*.dll ..\lib\Release\*.*
 xcopy /y ..\src\VS2005\gcontacts\bin\Release\*.dll ..\lib\Release\*.*
 xcopy /y ..\src\VS2005\youtube\bin\Release\*.dll ..\lib\Release\*.*
+xcopy /y ..\src\VS2005\ghealth\bin\Release\*.dll ..\lib\Release\*.*
 
 # copy the debug DLLS
 xcopy /y ..\src\VS2005\gdata\bin\Debug\*.dll ..\lib\Debug\*.*
@@ -47,6 +50,7 @@ xcopy /y ..\src\VS2005\gphotos\bin\Debug\*.dll ..\lib\Debug\*.*
 xcopy /y ..\src\VS2005\gdoclist\bin\Debug\*.dll ..\lib\Debug\*.*
 xcopy /y ..\src\VS2005\gcontacts\bin\Debug\*.dll ..\lib\Debug\*.*
 xcopy /y ..\src\VS2005\youtube\bin\Debug\*.dll ..\lib\Debug\*.*
+xcopy /y ..\src\VS2005\ghealth\bin\Debug\*.dll ..\lib\Debug\*.*
 xcopy /y ..\src\VS2005\unittests\bin\Debug\*.dll ..\lib\Debug\*.*
 
 # copy the ASP DLLS
@@ -62,6 +66,7 @@ xcopy /y ..\src\VS2005\gphotos\bin\asp\*.dll ..\lib\ASP.NET\*.*
 xcopy /y ..\src\VS2005\gdoclist\bin\asp\*.dll ..\lib\ASP.NET\*.*
 xcopy /y ..\src\VS2005\gcontacts\bin\asp\*.dll ..\lib\ASP.NET\*.*
 xcopy /y ..\src\VS2005\youtube\bin\asp\*.dll ..\lib\ASP.NET\*.*
+xcopy /y ..\src\VS2005\ghealth\bin\asp\*.dll ..\lib\ASP.NET\*.*
 
 
 #copy the modile DLLS
@@ -76,6 +81,8 @@ xcopy /y ..\src\VS2005.mobile\GAclMobile\bin\Release\*.dll ..\lib\Mobile\Windows
 xcopy /y ..\src\VS2005.mobile\GPhotosMobile\bin\Release\*.dll ..\lib\Mobile\WindowsMobile\*.*
 xcopy /y ..\src\VS2005.mobile\GDocListMobile\bin\Release\*.dll ..\lib\Mobile\WindowsMobile\*.*
 xcopy /y ..\src\VS2005.mobile\GContactsMobile\bin\Release\*.dll ..\lib\Mobile\WindowsMobile\*.*
+xcopy /y ..\src\VS2005.mobile\GHealthMobile\bin\Release\*.dll ..\lib\Mobile\WindowsMobile\*.*
+xcopy /y ..\src\VS2005.mobile\GYouTubeMobile\bin\Release\*.dll ..\lib\Mobile\WindowsMobile\*.*
 
 # copy the xml doc files
 xcopy /y ..\src\VS2005\gdata\bin\*.xml ..\docs\*.*
@@ -89,6 +96,8 @@ xcopy /y ..\src\VS2005\gacl\bin\*.xml ..\docs\*.*
 xcopy /y ..\src\VS2005\gphotos\bin\*.xml ..\docs\*.*
 xcopy /y ..\src\VS2005\gdoclist\bin\*.xml ..\docs\*.*
 xcopy /y ..\src\VS2005\gcontacts\bin\*.xml ..\docs\*.*
+xcopy /y ..\src\VS2005\youtube\bin\*.xml ..\docs\*.*
+xcopy /y ..\src\VS2005\ghealth\bin\*.xml ..\docs\*.*
 
 rem run ILMerge on PhotoBrowser.exe
 cd ..\lib\release\

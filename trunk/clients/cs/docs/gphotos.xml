@@ -1,210 +1,80 @@
 <?xml version="1.0"?>
 <doc>
     <assembly>
-        <name>Google.GData.Photos</name>
+        <name>Google.GData.YouTube</name>
     </assembly>
     <members>
-        <member name="T:Google.GData.Photos.PicasaQuery">
+        <member name="T:Google.GData.YouTube.YouTubeService">
             <summary>
-            A subclass of FeedQuery, to create an PicasaQuery query URI.
-            Provides public properties that describe the different
-            aspects of the URI, as well as a composite URI.
-            The PicasaQuery supports the following GData parameters:
-                start-index and max-results parameters. It does not currently support the other standard parameters.
-             in addition, the following parameters:
-                Parameter   Meaning     
-                 kind           what feed to retrieve
-                 access     Visibility parameter    
-                 thumbsize  Thumbnail size parameter 
-            </summary> 
-        </member>
-        <member name="F:Google.GData.Photos.PicasaQuery.kindsAsText">
-            <summary>
-            holds the kind parameters a query can have
+            The YouTube Data API allows applications to perform functions normally 
+            executed on the YouTube website. The API enables your application to search 
+            for YouTube videos and to retrieve standard video feeds, comments and video
+            responses. 
+            In addition, the API lets your application upload videos to YouTube or 
+            update existing videos. Your can also retrieve playlists, subscriptions, 
+            user profiles and more. Finally, your application can submit 
+            authenticated requests to enable users to create playlists, 
+            subscriptions, contacts and other account-specific entities.
             </summary>
         </member>
-        <member name="F:Google.GData.Photos.PicasaQuery.tags">
+        <member name="F:Google.GData.YouTube.YouTubeService.YTAgent">
+            <summary>This service's User-Agent string</summary> 
+        </member>
+        <member name="F:Google.GData.YouTube.YouTubeService.YTService">
+            <summary>The Calendar service's name</summary> 
+        </member>
+        <member name="M:Google.GData.YouTube.YouTubeService.#ctor(System.String,System.String,System.String)">
             <summary>
-            holds the tag parameters a query can have
+             default constructor
+            </summary>
+            <param name="applicationName">the applicationname</param>
+            <param name="client">the client identifier</param>
+            <param name="developerKey">the developerKey</param>/// 
+        </member>
+        <member name="M:Google.GData.YouTube.YouTubeService.Query(Google.GData.YouTube.YouTubeQuery)">
+            <summary>
+            overloaded to create typed version of Query
+            </summary>
+            <param name="feedQuery"></param>
+            <returns>EventFeed</returns>
+        </member>
+        <member name="M:Google.GData.YouTube.YouTubeService.Upload(System.String,Google.GData.YouTube.YouTubeEntry)">
+            <summary>
+            upload a new video to this users youtube account
+            </summary>
+            <param name="userName">the username (account) to use</param>
+            <param name="entry">the youtube entry</param>
+            <returns></returns>
+        </member>
+        <member name="M:Google.GData.YouTube.YouTubeService.OnRequestFactoryChanged">
+            <summary>
+            notifier if someone changes the requestfactory of the service
             </summary>
         </member>
-        <member name="F:Google.GData.Photos.PicasaQuery.picasaBaseUri">
-            <summary>
-            picasa base URI 
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.PicasaQuery.#ctor">
-            <summary>
-            base constructor
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.PicasaQuery.#ctor(System.String)">
-            <summary>
-            base constructor, with initial queryUri
-            </summary>
-            <param name="queryUri">the query to use</param>
-        </member>
-        <member name="M:Google.GData.Photos.PicasaQuery.CreatePicasaUri(System.String)">
-            <summary>
-            convienience method to create an URI based on a userID for a picasafeed
-            </summary>
-            <param name="userID"></param>
-            <returns>string</returns>
-        </member>
-        <member name="M:Google.GData.Photos.PicasaQuery.CreatePicasaUri(System.String,System.String)">
-            <summary>
-            convienience method to create an URI based on a userID
-            and an album name for a picasafeed
-            </summary>
-            <param name="userID"></param>
-            <param name="albumName"></param>
-            <returns>string</returns>
-        </member>
-        <member name="M:Google.GData.Photos.PicasaQuery.CreatePicasaUri(System.String,System.String,System.String)">
-            <summary>
-            Convenience method to create a URI based on a user id, albumname, and photoid
-            </summary>
-            <param name="userID">The username that owns the content</param>
-            <param name="albumName">The name of the album that contains the content</param>
-            <param name="photoID">The ID of the photo that contains the content</param>
-            <returns>A URI to a Picasa Web Albums feed</returns>
-        </member>
-        <member name="M:Google.GData.Photos.PicasaQuery.ParseUri(System.Uri)">
-            <summary>protected void ParseUri</summary> 
-            <param name="targetUri">takes an incoming Uri string and parses all the properties out of it</param>
-            <returns>throws a query exception when it finds something wrong with the input, otherwise returns a baseuri</returns>
-        </member>
-        <member name="M:Google.GData.Photos.PicasaQuery.Reset">
-            <summary>Resets object state to default, as if newly created.
-            </summary> 
-        </member>
-        <member name="M:Google.GData.Photos.PicasaQuery.CalculateQuery">
-            <summary>Creates the partial URI query string based on all
-             set properties.</summary> 
-            <returns> string => the query part of the URI </returns>
-        </member>
-        <member name="P:Google.GData.Photos.PicasaQuery.KindParameter">
-            <summary>comma separated list of kinds to retrieve</summary>
+        <member name="M:Google.GData.YouTube.YouTubeService.OnNewFeed(System.Object,Google.GData.Client.ServiceEventArgs)">
+            <summary>eventchaining. We catch this by from the base service, which 
+            would not by default create an atomFeed</summary> 
+            <param name="sender"> the object which send the event</param>
+            <param name="e">FeedParserEventArguments, holds the feedentry</param> 
             <returns> </returns>
         </member>
-        <member name="P:Google.GData.Photos.PicasaQuery.Tags">
-            <summary>
-            comma separated list of the tags to search for in the feed.
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.PicasaQuery.Access">
-            <summary>indicates the access</summary> 
-        </member>
-        <member name="P:Google.GData.Photos.PicasaQuery.Thumbsize">
-            <summary>indicates the thumbsize required</summary>
-            <returns> </returns>
-        </member>
-        <member name="T:Google.GData.Photos.PicasaQuery.Kinds">
-            <summary>
-            The kind parameter lets you request information about a particular kind 
-            of item. The parameter value should be a comma-separated list of requested kinds.
-            If you omit the kind parameter, Picasa Web Albums chooses a default kind 
-            depending on the level of feed you're requesting. For a user-based feed, 
-            the default kind is album; for an album-based feed, the default kind is 
-            photo; for a photo-based feed, the default kind is comment; for a community 
-            search feed, the default kind is photo. 
-            </summary>
-        </member>
-        <member name="F:Google.GData.Photos.PicasaQuery.Kinds.album">
-            <summary>
-            Feed includes some or all of the albums the specified 
-            user has in their gallery. Which albums are returned 
-            depends on the visibility value specified.
-            </summary>
-        </member>
-        <member name="F:Google.GData.Photos.PicasaQuery.Kinds.photo">
-            <summary>
-            Feed includes the photos in an album (album-based), 
-            recent photos uploaded by a user (user-based) or 
-            photos uploaded by all users (community search).
-            </summary>
-        </member>
-        <member name="F:Google.GData.Photos.PicasaQuery.Kinds.comment">
-            <summary>
-            Feed includes the comments that have been made on a photo.
-            </summary>
-        </member>
-        <member name="F:Google.GData.Photos.PicasaQuery.Kinds.tag">
-            <summary>
-            Includes all tags associated with the specified user, album, 
-            or photo. For user-based and album-based feeds, the tags 
-            include a weight value indicating how often they occurred.
-            </summary>
-        </member>
-        <member name="F:Google.GData.Photos.PicasaQuery.Kinds.none">
-            <summary>
-            using none implies the server default
-            </summary>
-        </member>
-        <member name="T:Google.GData.Photos.PicasaQuery.AccessLevel">
-            <summary>
-            describing the visibility level of picasa feeds
-            </summary>
-        </member>
-        <member name="F:Google.GData.Photos.PicasaQuery.AccessLevel.AccessUndefined">
-            <summary>
-            no parameter. Setting the accessLevel to undefined
-            implies the server default
-            </summary>
-        </member>
-        <member name="F:Google.GData.Photos.PicasaQuery.AccessLevel.AccessAll">
-            <summary>
-            Shows both public and private data.  	
-            Requires authentication. Default for authenticated users.
-            </summary>
-        </member>
-        <member name="F:Google.GData.Photos.PicasaQuery.AccessLevel.AccessPrivate">
-            <summary>
-            Shows only private data. Requires authentication.
-            </summary>
-        </member>
-        <member name="F:Google.GData.Photos.PicasaQuery.AccessLevel.AccessPublic">
-            <summary>
-            Shows only public data.  	
-            Does not require authentication. Default for unauthenticated users.
-            </summary>
-        </member>
-        <member name="T:Google.GData.Photos.CommentEntry">
+        <member name="T:Google.GData.YouTube.YouTubeEntry">
             <summary>
             Entry API customization class for defining entries in an Event feed.
             </summary>
         </member>
-        <member name="T:Google.GData.Photos.PicasaEntry">
+        <member name="M:Google.GData.YouTube.YouTubeEntry.#ctor">
             <summary>
-            Entry API customization class for defining entries in an Event feed.
+            Constructs a new YouTubeEntry instance with the appropriate category
+            to indicate that it is an youTube Entry.
             </summary>
         </member>
-        <member name="F:Google.GData.Photos.PicasaEntry.PHOTO_CATEGORY">
+        <member name="M:Google.GData.YouTube.YouTubeEntry.addYouTubeEntryExtensions">
             <summary>
-            Category used to label entries that contain photo extension data.
+             helper method to add extensions to the evententry
             </summary>
         </member>
-        <member name="F:Google.GData.Photos.PicasaEntry.ALBUM_CATEGORY">
-            <summary>
-            Category used to label entries that contain photo extension data.
-            </summary>
-        </member>
-        <member name="F:Google.GData.Photos.PicasaEntry.COMMENT_CATEGORY">
-            <summary>
-            Category used to label entries that contain comment extension data.
-            </summary>
-        </member>
-        <member name="F:Google.GData.Photos.PicasaEntry.TAG_CATEGORY">
-            <summary>
-            Category used to label entries that contain photo extension data.
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.PicasaEntry.#ctor">
-            <summary>
-            Constructs a new PicasaEntry instance
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.PicasaEntry.getPhotoExtension(System.String)">
+        <member name="M:Google.GData.YouTube.YouTubeEntry.getYouTubeExtension(System.String)">
             <summary>
             instead of having 20 extension elements
             we have one string based getter
@@ -213,7 +83,7 @@
             <param name="extension">the name of the extension to look for</param>
             <returns>SimpleElement, or NULL if the extension was not found</returns>
         </member>
-        <member name="M:Google.GData.Photos.PicasaEntry.getPhotoExtensionValue(System.String)">
+        <member name="M:Google.GData.YouTube.YouTubeEntry.getYouTubeExtensionValue(System.String)">
             <summary>
             instead of having 20 extension elements
             we have one string based getter
@@ -222,11 +92,11 @@
             <param name="extension">the name of the extension to look for</param>
             <returns>value as string, or NULL if the extension was not found</returns>
         </member>
-        <member name="M:Google.GData.Photos.PicasaEntry.setPhotoExtension(System.String,System.String)">
+        <member name="M:Google.GData.YouTube.YouTubeEntry.setYouTubeExtension(System.String,System.String)">
             <summary>
             instead of having 20 extension elements
             we have one string based setter
-            usage is: entry.setPhotoExtension("albumid") to set the element
+            usage is: entry.setYouTubeExtension("albumid") to set the element
             this will create the extension if it's not there
             note, you can ofcourse, just get an existing one and work with that 
             object: 
@@ -241,1102 +111,560 @@
             <returns>SimpleElement, either a brand new one, or the one
             returned by the service</returns>
         </member>
-        <member name="P:Google.GData.Photos.PicasaEntry.Location">
+        <member name="P:Google.GData.YouTube.YouTubeEntry.Location">
             <summary>
             getter/setter for the GeoRssWhere extension element
             </summary>
         </member>
-        <member name="P:Google.GData.Photos.PicasaEntry.Exif">
-            <summary>
-            getter/setter for the ExifTags extension element
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.PicasaEntry.Media">
+        <member name="P:Google.GData.YouTube.YouTubeEntry.Media">
             <summary>
             returns the media:rss group container element
             </summary>
         </member>
-        <member name="P:Google.GData.Photos.PicasaEntry.IsPhoto">
-            <summary>
-            returns true if the entry is a photo entry
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.PicasaEntry.IsComment">
-            <summary>
-            returns true if the entry is a comment entry
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.PicasaEntry.IsAlbum">
-            <summary>
-            returns true if the entry is an album entry
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.PicasaEntry.IsTag">
-            <summary>
-            returns true if the entry is a tag entry
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.CommentEntry.#ctor">
-            <summary>
-            Constructs a new EventEntry instance with the appropriate category
-            to indicate that it is an event.
-            </summary>
-        </member>
-        <member name="T:Google.GData.Photos.CommentAccessor">
-            <summary>
-             accessor for a Comment Entry
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.CommentAccessor.#ctor(Google.GData.Photos.PicasaEntry)">
-            <summary>
-            constructs a photo accessor for the passed in entry
-            </summary>
-            <param name="entry"></param>
-        </member>
-        <member name="P:Google.GData.Photos.CommentAccessor.PhotoId">
-            <summary>
-            The ID of the photo associated with the current comment.
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.CommentAccessor.AlbumId">
-            <summary>
-            The albums ID
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.CommentAccessor.Id">
-            <summary>
-            the id of the comment
-            </summary>
-        </member>
-        <member name="T:Google.GData.Photos.KindQuery">
-            <summary>
-            A subclass of PicasaQuery, to create an Album query URI.
-            Provides public properties that describe the different
-            aspects of the URI, as well as a composite URI.
-            The AlbumQuery automatically set's the kind parameter to Album
-            </summary> 
-        </member>
-        <member name="M:Google.GData.Photos.KindQuery.#ctor(Google.GData.Photos.PicasaQuery.Kinds)">
-            <summary>
-            base constructor
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.KindQuery.#ctor(System.String,Google.GData.Photos.PicasaQuery.Kinds)">
-            <summary>
-            base constructor, with initial queryUri
-            </summary>
-            <param name="queryUri">the query to use</param>
-            <param name="kind">the kind of query</param>
-        </member>
-        <member name="P:Google.GData.Photos.KindQuery.KindParameter">
-            <summary>read only: the kinds to retrieve</summary>
-            <returns>a comma separated string of Kinds </returns>
-        </member>
-        <member name="T:Google.GData.Photos.AlbumQuery">
-            <summary>
-            A subclass of PicasaQuery, to create an Album query URI.
-            Provides public properties that describe the different
-            aspects of the URI, as well as a composite URI.
-            The AlbumQuery automatically set's the kind parameter to Album
-            </summary> 
-        </member>
-        <member name="M:Google.GData.Photos.AlbumQuery.#ctor">
-            <summary>
-            base constructor
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.AlbumQuery.#ctor(System.String)">
-            <summary>
-            base constructor, with initial queryUri
-            </summary>
-            <param name="queryUri">the query to use</param>
-        </member>
-        <member name="T:Google.GData.Photos.PhotoQuery">
-            <summary>
-            A subclass of PicasaQuery, to create an Album query URI.
-            Provides public properties that describe the different
-            aspects of the URI, as well as a composite URI.
-            The PhotoQuery automatically set's the kind parameter to Photo
-            </summary> 
-        </member>
-        <member name="M:Google.GData.Photos.PhotoQuery.#ctor">
-            <summary>
-            base constructor
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.PhotoQuery.#ctor(System.String)">
-            <summary>
-            base constructor, with initial queryUri
-            </summary>
-            <param name="queryUri">the query to use</param>
-        </member>
-        <member name="T:Google.GData.Photos.CommentsQuery">
-            <summary>
-            A subclass of PicasaQuery, to create an Comments query URI.
-            Provides public properties that describe the different
-            aspects of the URI, as well as a composite URI.
-            The CommentsQuery automatically set's the kind parameter to Comment
-            </summary> 
-        </member>
-        <member name="M:Google.GData.Photos.CommentsQuery.#ctor">
-            <summary>
-            base constructor
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.CommentsQuery.#ctor(System.String)">
-            <summary>
-            base constructor, with initial queryUri
-            </summary>
-            <param name="queryUri">the query to use</param>
-        </member>
-        <member name="T:Google.GData.Photos.TagQuery">
-            <summary>
-            A subclass of PicasaQuery, to create an Comments query URI.
-            Provides public properties that describe the different
-            aspects of the URI, as well as a composite URI.
-            The TagQuery automatically set's the kind parameter to Tag
-            </summary> 
-        </member>
-        <member name="M:Google.GData.Photos.TagQuery.#ctor">
-            <summary>
-            base constructor
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.TagQuery.#ctor(System.String)">
-            <summary>
-            base constructor, with initial queryUri
-            </summary>
-            <param name="queryUri">the query to use</param>
-        </member>
-        <member name="T:Google.GData.Photos.PhotoEntry">
-            <summary>
-            A photoEntry is a shallow subclass for a PicasaEntry to ease
-            access for photospecific properties
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.PhotoEntry.#ctor">
-            <summary>
-            Constructs a new EventEntry instance with the appropriate category
-            to indicate that it is an event.
-            </summary>
-        </member>
-        <member name="T:Google.GData.Photos.PhotoAccessor">
-            <summary>
-            this is a pure accessor class that can either take a photoentry or work with 
-            a picasaentry to get you convienience accessors
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.PhotoAccessor.#ctor(Google.GData.Photos.PicasaEntry)">
-            <summary>
-            constructs a photo accessor for the passed in entry
-            </summary>
-            <param name="entry"></param>
-        </member>
-        <member name="P:Google.GData.Photos.PhotoAccessor.PhotoTitle">
-            <summary>
-            The title of the photo
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.PhotoAccessor.PhotoSummary">
-            <summary>
-            The  summary of the Photo
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.PhotoAccessor.Checksum">
-            <summary>
-            The checksum on the photo. This optional field can be used by 
-            uploaders to associate a checksum with a photo to ease duplicate detection
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.PhotoAccessor.Client">
-            <summary>
-            The client application that created the photo. (Optional element.)
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.PhotoAccessor.Height">
-            <summary>
-            The height of the photo in pixels
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.PhotoAccessor.Width">
-            <summary>
-            The width of the photo in pixels
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.PhotoAccessor.Position">
-            <summary>
-            The ordinal position of the photo in the parent album
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.PhotoAccessor.Rotation">
-            <summary>
-            The rotation of the photo in degrees, used to change the rotation of the photo. Will only be shown if 
-            the rotation has not already been applied to the requested images.
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.PhotoAccessor.Size">
-            <summary>
-            The size of the photo in bytes
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.PhotoAccessor.Timestamp">
-            <summary>
-            The photo's timestamp, represented as the number of milliseconds since 
-            January 1st, 1970. Contains the date of the photo either set externally
-            or retrieved from the Exif data.
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.PhotoAccessor.Version">
-            <summary>
-            The version number of the photo. Version numbers are based on modification time, 
-            so they don't increment linearly. Note that if you try to update a photo using a 
-            version number other than the latest one, you may receive an error; 
-            for more information, see Optimistic concurrency (versioning) in the GData reference document
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.PhotoAccessor.AlbumId">
-            <summary>
-            The albums ID
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.PhotoAccessor.CommentCount">
-            <summary>
-            the number of comments on a photo
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.PhotoAccessor.CommentingEnabled">
-            <summary>
-            is commenting enabled on a photo
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.PhotoAccessor.Id">
-            <summary>
-            the id of the photo
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.PhotoAccessor.Longitude">
-            <summary>
-            the Longitude  of the photo
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.PhotoAccessor.Latitude">
-            <summary>
-            the Longitude  of the photo
-            </summary>
-        </member>
-        <member name="T:Google.GData.Photos.AlbumEntry">
-            <summary>
-            Entry API customization class for defining entries in an Event feed.
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.AlbumEntry.#ctor">
-            <summary>
-            Constructs a new EventEntry instance with the appropriate category
-            to indicate that it is an event.
-            </summary>
-        </member>
-        <member name="T:Google.GData.Photos.AlbumAccessor">
-            <summary>
-             accessor for an AlbumEntry
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.AlbumAccessor.#ctor(Google.GData.Photos.PicasaEntry)">
-            <summary>
-            constructs a photo accessor for the passed in entry
-            </summary>
-            <param name="entry"></param>
-        </member>
-        <member name="P:Google.GData.Photos.AlbumAccessor.Access">
-            <summary>
-            The album's access level. In this document, access level is also 
-            referred to as "visibility." Valid values are public or private.
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.AlbumAccessor.AlbumAuthorNickname">
-            <summary>
-            The nickname of the author
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.AlbumAccessor.AlbumAuthor">
-            <summary>
-            The  author's name
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.AlbumAccessor.AlbumTitle">
-            <summary>
-            The title of the album
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.AlbumAccessor.AlbumSummary">
-            <summary>
-            The  summary of the album
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.AlbumAccessor.BytesUsed">
-            <summary>
-            The number of bytes of storage that this album uses.
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.AlbumAccessor.Location">
-            <summary>
-            The user-specified location associated with the album
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.AlbumAccessor.Longitude">
-            <summary>
-            the Longitude  of the photo
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.AlbumAccessor.Latitude">
-            <summary>
-            the Longitude  of the photo
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.AlbumAccessor.NumPhotos">
-            <summary>
-            The number of photos in the album.
-            </summary>
-            
-        </member>
-        <member name="P:Google.GData.Photos.AlbumAccessor.NumPhotosRemaining">
-            <summary>
-            The number of remaining photo uploads allowed in this album. 
-            This is equivalent to the user's maximum number of photos per 
-            album (gphoto:maxPhotosPerAlbum) minus the number of photos 
-            currently in the album (gphoto:numphotos).
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.AlbumAccessor.Name">
-            <summary>
-            The name of the album, which is the URL-usable name 
-            derived from the title. This is the name that should be used in all 
-            URLs involving the album.
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.AlbumAccessor.CommentCount">
-            <summary>
-            the number of comments on an album
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.AlbumAccessor.CommentingEnabled">
-            <summary>
-            is commenting enabled on an album
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.AlbumAccessor.Id">
-            <summary>
-            the id of the album
-            </summary>
-        </member>
-        <member name="T:Google.GData.Photos.TagEntry">
-            <summary>
-            Entry API customization class for defining entries in an Event feed.
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.TagEntry.#ctor">
-            <summary>
-            Constructs a new EventEntry instance with the appropriate category
-            to indicate that it is an event.
-            </summary>
-        </member>
-        <member name="T:Google.GData.Photos.TagAccessor">
-            <summary>
-             accessor for a tag Entry
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.TagAccessor.#ctor(Google.GData.Photos.PicasaEntry)">
-            <summary>
-            constructs a tag accessor for the passed in entry
-            </summary>
-            <param name="entry"></param>
-        </member>
-        <member name="P:Google.GData.Photos.TagAccessor.Weight">
-            <summary>
-            The weight of the tag. The weight is the number of times the tag appears 
-            in photos under the current element. The default weight is 1.
-            </summary>
-        </member>
-        <member name="T:Google.GData.Photos.GPhotoExtensions">
-            <summary>
-            helper to instantiate all factories defined in here and attach 
-            them to a base object
-            </summary> 
-        </member>
-        <member name="M:Google.GData.Photos.GPhotoExtensions.AddExtension(Google.GData.Client.AtomBase)">
-            <summary>
-            helper to add all picasa photo extensions to the base object
-            </summary>
-            <param name="baseObject"></param>
-        </member>
-        <member name="T:Google.GData.Photos.GPhotoNameTable">
-            <summary>
-            short table to hold the namespace and the prefix
-            </summary>
-        </member>
-        <member name="F:Google.GData.Photos.GPhotoNameTable.NSGPhotos">
-            <summary>static string to specify the GeoRSS namespace supported</summary>
-        </member>
-        <member name="F:Google.GData.Photos.GPhotoNameTable.gPhotoPrefix">
-            <summary>static string to specify the Google Picasa prefix used</summary>
-        </member>
-        <member name="F:Google.GData.Photos.GPhotoNameTable.CommentKind">
-            <summary>
-            Comment Kind definition
-            this is the term value for a category
-            </summary>
-        </member>
-        <member name="F:Google.GData.Photos.GPhotoNameTable.PhotoKind">
-            <summary>
-            Photo Kind definition
-            this is the term value for a category
-            </summary>
-        </member>
-        <member name="F:Google.GData.Photos.GPhotoNameTable.AlbumKind">
-            <summary>
-            Album Kind definition
-            this is the term value for a category
-            </summary>
-        </member>
-        <member name="F:Google.GData.Photos.GPhotoNameTable.TagKind">
-            <summary>
-            Tag Kind definition
-            this is the term value for a category
-            </summary>
-        </member>
-        <member name="F:Google.GData.Photos.GPhotoNameTable.Id">
-            <summary>
-            id element string
-            </summary>
-        </member>
-        <member name="F:Google.GData.Photos.GPhotoNameTable.AlbumId">
-            <summary>
-            album id element string
-            </summary>
-        </member>
-        <member name="F:Google.GData.Photos.GPhotoNameTable.CommentCount">
-            <summary>
-            comment count element string
-            </summary>
-        </member>
-        <member name="F:Google.GData.Photos.GPhotoNameTable.CommentingEnabled">
-            <summary>
-            commenting enabled element string
-            </summary>
-        </member>
-        <member name="F:Google.GData.Photos.GPhotoNameTable.MaxPhotosPerAlbum">
-            <summary>
-            maximal photos per album element string
-            </summary>
-        </member>
-        <member name="F:Google.GData.Photos.GPhotoNameTable.Nickname">
-            <summary>
-            nickname element string
-            </summary>
-        </member>
-        <member name="F:Google.GData.Photos.GPhotoNameTable.QuotaCurrent">
-            <summary>
-            current Quota element string
-            </summary>
-        </member>
-        <member name="F:Google.GData.Photos.GPhotoNameTable.QuotaLimit">
-            <summary>
-             Quota Limit element string
-            </summary>
-        </member>
-        <member name="F:Google.GData.Photos.GPhotoNameTable.Thumbnail">
-            <summary>
-            Thumbnail element string
-            </summary>
-        </member>
-        <member name="F:Google.GData.Photos.GPhotoNameTable.User">
-            <summary>
-            User element string
-            </summary>
-        </member>
-        <member name="F:Google.GData.Photos.GPhotoNameTable.Access">
-            <summary>
-            access element string
-            </summary>
-        </member>
-        <member name="F:Google.GData.Photos.GPhotoNameTable.BytesUsed">
-            <summary>
-            bytesUsed element string
-            </summary>
-        </member>
-        <member name="F:Google.GData.Photos.GPhotoNameTable.Location">
-            <summary>
-            location element string
-            </summary>
-        </member>
-        <member name="F:Google.GData.Photos.GPhotoNameTable.Name">
-            <summary>
-            name element string
-            </summary>
-        </member>
-        <member name="F:Google.GData.Photos.GPhotoNameTable.NumPhotos">
-            <summary>
-            numphotos element string
-            </summary>
-        </member>
-        <member name="F:Google.GData.Photos.GPhotoNameTable.NumPhotosRemaining">
-            <summary>
-            numphotosremaining element string
-            </summary>
-        </member>
-        <member name="F:Google.GData.Photos.GPhotoNameTable.Checksum">
-            <summary>
-            numphotos element string
-            </summary>
-        </member>
-        <member name="F:Google.GData.Photos.GPhotoNameTable.Client">
-            <summary>
-            client element string
-            </summary>
-        </member>
-        <member name="F:Google.GData.Photos.GPhotoNameTable.Height">
-            <summary>
-            height element string
-            </summary>
-        </member>
-        <member name="F:Google.GData.Photos.GPhotoNameTable.Position">
-            <summary>
-            position element string
-            </summary>
-        </member>
-        <member name="F:Google.GData.Photos.GPhotoNameTable.Rotation">
-            <summary>
-            rotation element string
-            </summary>
-        </member>
-        <member name="F:Google.GData.Photos.GPhotoNameTable.Size">
-            <summary>
-            size element string
-            </summary>
-        </member>
-        <member name="F:Google.GData.Photos.GPhotoNameTable.Timestamp">
-            <summary>
-            timestamp element string
-            </summary>
-        </member>
-        <member name="F:Google.GData.Photos.GPhotoNameTable.Version">
-            <summary>
-            version element string
-            </summary>
-        </member>
-        <member name="F:Google.GData.Photos.GPhotoNameTable.Photoid">
-            <summary>
-            photoid element string
-            </summary>
-        </member>
-        <member name="F:Google.GData.Photos.GPhotoNameTable.Width">
-            <summary>
-            width element string
-            </summary>
-        </member>
-        <member name="F:Google.GData.Photos.GPhotoNameTable.Weight">
-            <summary>
-            weight element string
-            </summary>
-        </member>
-        <member name="T:Google.GData.Photos.GPhotoId">
-            <summary>
-            id schema extension describing an ID.
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.GPhotoId.#ctor">
-            <summary>
-            default constructor 
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.GPhotoId.#ctor(System.String)">
-            <summary>
-            default constructor with an initial value as a string 
-            </summary>
-        </member>
-        <member name="T:Google.GData.Photos.GPhotoAlbumId">
-            <summary>
-            GPhotoAlbumId schema extension describing an albumid
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.GPhotoAlbumId.#ctor">
-            <summary>
-            default constructor 
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.GPhotoAlbumId.#ctor(System.String)">
-            <summary>
-            default constructor with an initial value as a string 
-            </summary>
-        </member>
-        <member name="T:Google.GData.Photos.GPhotoCommentCount">
-            <summary>
-            GPhotoCommentCount schema extension describing an commentCount
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.GPhotoCommentCount.#ctor">
-            <summary>
-            default constructor 
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.GPhotoCommentCount.#ctor(System.String)">
-            <summary>
-            default constructor with an initial value as a string 
-            </summary>
-        </member>
-        <member name="T:Google.GData.Photos.GPhotoCommentingEnabled">
-            <summary>
-            GPhotoCommentingEnabled schema extension describing an commentingEnabled
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.GPhotoCommentingEnabled.#ctor">
-            <summary>
-            default constructor 
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.GPhotoCommentingEnabled.#ctor(System.String)">
-            <summary>
-            default constructor with an initial value as a string 
-            </summary>
-        </member>
-        <member name="T:Google.GData.Photos.GPhotoMaxPhotosPerAlbum">
-            <summary>
-            GPhotoMaxPhotosPerAlbum schema extension describing an maxPhotosPerAlbum
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.GPhotoMaxPhotosPerAlbum.#ctor">
-            <summary>
-            default constructor 
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.GPhotoMaxPhotosPerAlbum.#ctor(System.String)">
-            <summary>
-            default constructor with an initial value as a string 
-            </summary>
-        </member>
-        <member name="T:Google.GData.Photos.GPhotoNickName">
-            <summary>
-            GPhotoNickName schema extension describing an nickname
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.GPhotoNickName.#ctor">
-            <summary>
-            default constructor 
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.GPhotoNickName.#ctor(System.String)">
-            <summary>
-            default constructor with an initial value as a string 
-            </summary>
-        </member>
-        <member name="T:Google.GData.Photos.GPhotoQuotaCurrent">
-            <summary>
-            GPhotoQuotaCurrent schema extension describing an quotacurrent
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.GPhotoQuotaCurrent.#ctor">
-            <summary>
-            default constructor 
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.GPhotoQuotaCurrent.#ctor(System.String)">
-            <summary>
-            default constructor with an initial value as a string 
-            </summary>
-        </member>
-        <member name="T:Google.GData.Photos.GPhotoQuotaLimit">
-            <summary>
-            GPhotoQuotaLimit schema extension describing an quotalimit
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.GPhotoQuotaLimit.#ctor">
-            <summary>
-            default constructor 
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.GPhotoQuotaLimit.#ctor(System.String)">
-            <summary>
-            default constructor with an initial value as a string 
-            </summary>
-        </member>
-        <member name="T:Google.GData.Photos.GPhotoThumbnail">
-            <summary>
-            GPhotoThumbnail schema extension describing an thumbnail
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.GPhotoThumbnail.#ctor">
-            <summary>
-            default constructor 
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.GPhotoThumbnail.#ctor(System.String)">
-            <summary>
-            default constructor with an initial value as a string 
-            </summary>
-        </member>
-        <member name="T:Google.GData.Photos.GPhotoUser">
-            <summary>
-            GPhotoUser schema extension describing an user
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.GPhotoUser.#ctor">
-            <summary>
-            default constructor 
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.GPhotoUser.#ctor(System.String)">
-            <summary>
-            default constructor with an initial value as a string 
-            </summary>
-        </member>
-        <member name="T:Google.GData.Photos.GPhotoAccess">
-            <summary>
-            GPhotoAccess schema extension describing an access
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.GPhotoAccess.#ctor">
-            <summary>
-            default constructor 
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.GPhotoAccess.#ctor(System.String)">
-            <summary>
-            default constructor with an initial value as a string 
-            </summary>
-        </member>
-        <member name="T:Google.GData.Photos.GPhotoBytesUsed">
-            <summary>
-            GPhotoBytesUsed schema extension describing an bytesUsed
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.GPhotoBytesUsed.#ctor">
-            <summary>
-            default constructor 
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.GPhotoBytesUsed.#ctor(System.String)">
-            <summary>
-            default constructor with an initial value as a string 
-            </summary>
-        </member>
-        <member name="T:Google.GData.Photos.GPhotoLocation">
-            <summary>
-            GPhotoLocation schema extension describing an location
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.GPhotoLocation.#ctor">
-            <summary>
-            default constructor 
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.GPhotoLocation.#ctor(System.String)">
-            <summary>
-            default constructor with an initial value as a string 
-            </summary>
-        </member>
-        <member name="T:Google.GData.Photos.GPhotoName">
-            <summary>
-            GPhotoName schema extension describing an name
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.GPhotoName.#ctor">
-            <summary>
-            default constructor 
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.GPhotoName.#ctor(System.String)">
-            <summary>
-            default constructor with an initial value as a string 
-            </summary>
-        </member>
-        <member name="T:Google.GData.Photos.GPhotoNumPhotos">
-            <summary>
-            GPhotoNumPhotos schema extension describing an numphotos
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.GPhotoNumPhotos.#ctor">
-            <summary>
-            default constructor 
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.GPhotoNumPhotos.#ctor(System.String)">
-            <summary>
-            default constructor with an initial value as a string 
-            </summary>
-        </member>
-        <member name="T:Google.GData.Photos.GPhotoNumPhotosRemaining">
-            <summary>
-            GPhotoNumPhotosRemaining schema extension describing an numphotosremaining
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.GPhotoNumPhotosRemaining.#ctor">
-            <summary>
-            default constructor 
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.GPhotoNumPhotosRemaining.#ctor(System.String)">
-            <summary>
-            default constructor with an initial value as a string 
-            </summary>
-        </member>
-        <member name="T:Google.GData.Photos.GPhotoChecksum">
-            <summary>
-            GPhotoChecksum schema extension describing an checksum
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.GPhotoChecksum.#ctor">
-            <summary>
-            default constructor 
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.GPhotoChecksum.#ctor(System.String)">
-            <summary>
-            default constructor with an initial value as a string 
-            </summary>
-        </member>
-        <member name="T:Google.GData.Photos.GPhotoClient">
-            <summary>
-            GPhotoClient schema extension describing an client
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.GPhotoClient.#ctor">
-            <summary>
-            default constructor 
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.GPhotoClient.#ctor(System.String)">
-            <summary>
-            default constructor with an initial value as a string 
-            </summary>
-        </member>
-        <member name="T:Google.GData.Photos.GPhotoHeight">
-            <summary>
-            GPhotoHeight schema extension describing an height
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.GPhotoHeight.#ctor">
-            <summary>
-            default constructor 
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.GPhotoHeight.#ctor(System.String)">
-            <summary>
-            default constructor with an initial value as a string 
-            </summary>
-        </member>
-        <member name="T:Google.GData.Photos.GPhotoPosition">
-            <summary>
-            GPhotoPosition schema extension describing an position
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.GPhotoPosition.#ctor">
-            <summary>
-            default constructor 
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.GPhotoPosition.#ctor(System.String)">
-            <summary>
-            default constructor with an initial value as a string 
-            </summary>
-        </member>
-        <member name="T:Google.GData.Photos.GPhotoRotation">
-            <summary>
-            GPhotoRotation schema extension describing an rotation
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.GPhotoRotation.#ctor">
-            <summary>
-            default constructor 
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.GPhotoRotation.#ctor(System.String)">
-            <summary>
-            default constructor with an initial value as a string 
-            </summary>
-        </member>
-        <member name="T:Google.GData.Photos.GPhotoSize">
-            <summary>
-            GPhotoSize schema extension describing an size
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.GPhotoSize.#ctor">
-            <summary>
-            default constructor 
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.GPhotoSize.#ctor(System.String)">
-            <summary>
-            default constructor with an initial value as a string 
-            </summary>
-        </member>
-        <member name="T:Google.GData.Photos.GPhotoTimestamp">
-            <summary>
-            GPhotoTimestamp schema extension describing an timestamp
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.GPhotoTimestamp.#ctor">
-            <summary>
-            default constructor 
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.GPhotoTimestamp.#ctor(System.String)">
-            <summary>
-            default constructor with an initial value as a string 
-            </summary>
-        </member>
-        <member name="T:Google.GData.Photos.GPhotoVersion">
-            <summary>
-            GPhotoVersion schema extension describing an version
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.GPhotoVersion.#ctor">
-            <summary>
-            default constructor 
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.GPhotoVersion.#ctor(System.String)">
-            <summary>
-            default constructor with an initial value as a string 
-            </summary>
-        </member>
-        <member name="T:Google.GData.Photos.GPhotoPhotoId">
-            <summary>
-            GPhotoPhotoId schema extension describing an photoid
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.GPhotoPhotoId.#ctor">
-            <summary>
-            default constructor 
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.GPhotoPhotoId.#ctor(System.String)">
-            <summary>
-            default constructor with an initial value as a string 
-            </summary>
-        </member>
-        <member name="T:Google.GData.Photos.GPhotoWidth">
-            <summary>
-            GPhotoWidth schema extension describing an width
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.GPhotoWidth.#ctor">
-            <summary>
-            default constructor 
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.GPhotoWidth.#ctor(System.String)">
-            <summary>
-            default constructor with an initial value as a string 
-            </summary>
-        </member>
-        <member name="T:Google.GData.Photos.GPhotoWeight">
-            <summary>
-            GPhotoWeight schema extension describing an weight
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.GPhotoWeight.#ctor">
-            <summary>
-            default constructor 
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.GPhotoWeight.#ctor(System.String)">
-            <summary>
-            default constructor with an initial value as a string 
-            </summary>
-        </member>
-        <member name="T:Google.GData.Photos.PicasaService">
-            <summary>
-            Picasa Web Albums provides a variety of representations of photo- 
-            and album-related data. There are three independent axes for 
-            specifying what you want when you request data: visibility, projection, and path/kind.
-            Visibility values let you request data at various levels of sharing. 
-            For example, a visibility value of public requests publicly visible data. 
-            For a list of values, see Visibility values, below. The default visibility 
-            depends on whether the request is authenticated or not.
-            Projection values let you indicate what elements and extensions 
-            should appear in the feed you're requesting. For example, a projection 
-            value of base indicates that the representation is a basic Atom feed 
-            without any extension elements, suitable for display in an Atom reader. 
-            You must specify a projection value. Path and kind values let you indicate what 
-            type of items you want information about. For example, a path of user/liz 
-            and a kind value of tag requests a feed of tags associated with the 
-            user whose username is liz. Path and kind values are separate parts of the 
-            URI, but they're used together to indicate the item type(s) desired. 
-            You must specify a path, but kind is optional; the default kind depends on the path.
-            To request a particular representation, you specify a visibility value, 
-            a projection value, and a path and kind in the URI that you send 
-            to Picasa Web Albums.
-            </summary>
-        </member>
-        <member name="F:Google.GData.Photos.PicasaService.GPicasaAgent">
-            <summary>This service's User-Agent string</summary> 
-        </member>
-        <member name="F:Google.GData.Photos.PicasaService.GPicasaService">
-            <summary>The Calendar service's name</summary> 
-        </member>
-        <member name="M:Google.GData.Photos.PicasaService.#ctor(System.String)">
-            <summary>
-             default constructor
-            </summary>
-            <param name="applicationName">the applicationname</param>
-        </member>
-        <member name="M:Google.GData.Photos.PicasaService.Query(Google.GData.Photos.KindQuery)">
-            <summary>
-            overloaded to create typed version of Query
-            </summary>
-            <param name="feedQuery"></param>
-            <returns>EventFeed</returns>
-        </member>
-        <member name="M:Google.GData.Photos.PicasaService.OnNewFeed(System.Object,Google.GData.Client.ServiceEventArgs)">
-            <summary>eventchaining. We catch this by from the base service, which 
-            would not by default create an atomFeed</summary> 
-            <param name="sender"> the object which send the event</param>
-            <param name="e">FeedParserEventArguments, holds the feedentry</param> 
-            <returns> </returns>
-        </member>
-        <member name="T:Google.GData.Photos.PicasaFeed">
-            <summary>
-            Picasa Web Albums provides a variety of representations of photo- 
-            and album-related data. There are three independent axes for 
-            specifying what you want when you request data: visibility, projection, and path/kind.
-            Visibility values let you request data at various levels of sharing. 
-            For example, a visibility value of public requests publicly visible data. 
-            For a list of values, see Visibility values, below. The default visibility 
-            depends on whether the request is authenticated or not.
-            Projection values let you indicate what elements and extensions 
-            should appear in the feed you're requesting. For example, a projection 
-            value of base indicates that the representation is a basic Atom feed 
-            without any extension elements, suitable for display in an Atom reader. 
-            You must specify a projection value. Path and kind values let you indicate what 
-            type of items you want information about. For example, a path of user/liz 
-            and a kind value of tag requests a feed of tags associated with the 
-            user whose username is liz. Path and kind values are separate parts of the 
-            URI, but they're used together to indicate the item type(s) desired. 
-            You must specify a path, but kind is optional; the default kind depends on the path.
-            To request a particular representation, you specify a visibility value, 
-            a projection value, and a path and kind in the URI that you send 
-            to Picasa Web Albums.
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.PicasaFeed.#ctor(System.Uri,Google.GData.Client.IService)">
+        <member name="T:Google.GData.YouTube.YouTubeFeed">
+            <summary>
+            The YouTube Data API allows applications to perform functions normally 
+            executed on the YouTube website. The API enables your application to search 
+            for YouTube videos and to retrieve standard video feeds, comments and video
+            responses. 
+            In addition, the API lets your application upload videos to YouTube or 
+            update existing videos. Your can also retrieve playlists, subscriptions, 
+            user profiles and more. Finally, your application can submit 
+            authenticated requests to enable users to create playlists, 
+            subscriptions, contacts and other account-specific entities.
+            </summary>
+        </member>
+        <member name="M:Google.GData.YouTube.YouTubeFeed.#ctor(System.Uri,Google.GData.Client.IService)">
             <summary>
              default constructor
             </summary>
             <param name="uriBase">the base URI of the feedEntry</param>
             <param name="iService">the Service to use</param>
         </member>
-        <member name="M:Google.GData.Photos.PicasaFeed.CreateFeedEntry">
+        <member name="M:Google.GData.YouTube.YouTubeFeed.CreateFeedEntry">
             <summary>
             this needs to get implemented by subclasses
             </summary>
             <returns>AtomEntry</returns>
         </member>
-        <member name="M:Google.GData.Photos.PicasaFeed.HandleExtensionElements(Google.GData.Client.ExtensionElementEventArgs,Google.GData.Client.AtomFeedParser)">
+        <member name="M:Google.GData.YouTube.YouTubeFeed.HandleExtensionElements(Google.GData.Client.ExtensionElementEventArgs,Google.GData.Client.AtomFeedParser)">
             <summary>
             get's called after we already handled the custom entry, to handle all 
             other potential parsing tasks
             </summary>
             <param name="e"></param>
             <param name="parser">the atom feed parser used</param>
+        </member>
+        <member name="T:Google.GData.YouTube.YouTubeExtensions">
+            <summary>
+            helper to instantiate all factories defined in here and attach 
+            them to a base object
+            </summary> 
+        </member>
+        <member name="M:Google.GData.YouTube.YouTubeExtensions.AddExtension(Google.GData.Client.AtomBase)">
+            <summary>
+            helper to add all picasa photo extensions to the base object
+            </summary>
+            <param name="baseObject"></param>
+        </member>
+        <member name="T:Google.GData.YouTube.YouTubeNameTable">
+            <summary>
+            short table to hold the namespace and the prefix
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YouTubeNameTable.NSYouTube">
+            <summary>static string to specify the GeoRSS namespace supported</summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YouTubeNameTable.ytPrefix">
+            <summary>static string to specify the Google Picasa prefix used</summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YouTubeNameTable.Age">
+            <summary>
+            age element string
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YouTubeNameTable.Books">
+            <summary>
+            books element string
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YouTubeNameTable.Company">
+            <summary>
+            Company element string
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YouTubeNameTable.Description">
+            <summary>
+            Description element string
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YouTubeNameTable.Duration">
+            <summary>
+            Duration element string
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YouTubeNameTable.FirstName">
+            <summary>
+            FirstName element string
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YouTubeNameTable.Gender">
+            <summary>
+            Gender element string
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YouTubeNameTable.Hobbies">
+            <summary>
+            Hobbies element string
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YouTubeNameTable.HomeTown">
+            <summary>
+            HomeTown element string
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YouTubeNameTable.LastName">
+            <summary>
+            LastName element string
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YouTubeNameTable.Location">
+            <summary>
+            Location element string
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YouTubeNameTable.Movies">
+            <summary>
+            Movies element string
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YouTubeNameTable.Music">
+            <summary>
+            Music element string
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YouTubeNameTable.NoEmbed">
+            <summary>
+            NoEmbed element string
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YouTubeNameTable.Occupation">
+            <summary>
+            Occupation element string
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YouTubeNameTable.Position">
+            <summary>
+            Position element string
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YouTubeNameTable.Private">
+            <summary>
+            Private element string
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YouTubeNameTable.QueryString">
+            <summary>
+            QueryString element string
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YouTubeNameTable.Racy">
+            <summary>
+            Racy element string
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YouTubeNameTable.Recorded">
+            <summary>
+            Recorded element string
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YouTubeNameTable.Relationship">
+            <summary>
+            Relationship element string
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YouTubeNameTable.School">
+            <summary>
+            School element string
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YouTubeNameTable.State">
+            <summary>
+            State element string
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YouTubeNameTable.Statistics">
+            <summary>
+            Statistics element string
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YouTubeNameTable.Status">
+            <summary>
+            Status element string
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YouTubeNameTable.UserName">
+            <summary>
+            UserName element string
+            </summary>
+        </member>
+        <member name="T:Google.GData.YouTube.Age">
+            <summary>
+            id schema extension describing an ID.
+            </summary>
+        </member>
+        <member name="M:Google.GData.YouTube.Age.#ctor">
+            <summary>
+            default constructor 
+            </summary>
+        </member>
+        <member name="M:Google.GData.YouTube.Age.#ctor(System.String)">
+            <summary>
+            default constructor with an initial value as a string 
+            </summary>
+        </member>
+        <member name="T:Google.GData.YouTube.Books">
+            <summary>
+            Books schema extension describing a YouTube Books
+            </summary>
+        </member>
+        <member name="T:Google.GData.YouTube.Company">
+            <summary>
+            Company schema extension describing a YouTube Company
+            </summary>
+        </member>
+        <member name="T:Google.GData.YouTube.Description">
+            <summary>
+            Description schema extension describing a YouTube Description
+            </summary>
+        </member>
+        <member name="T:Google.GData.YouTube.Duration">
+            <summary>
+            Duration schema extension describing a YouTube Duration
+            </summary>
+        </member>
+        <member name="T:Google.GData.YouTube.FirstName">
+            <summary>
+            FirstName schema extension describing a YouTube FirstName
+            </summary>
+        </member>
+        <member name="T:Google.GData.YouTube.Gender">
+            <summary>
+            Gender schema extension describing a YouTube Gender
+            </summary>
+        </member>
+        <member name="T:Google.GData.YouTube.Hobbies">
+            <summary>
+            Hobbies schema extension describing a YouTube Hobbies
+            </summary>
+        </member>
+        <member name="T:Google.GData.YouTube.HomeTown">
+            <summary>
+            HomeTown schema extension describing a YouTube HomeTown
+            </summary>
+        </member>
+        <member name="T:Google.GData.YouTube.LastName">
+            <summary>
+            LastName schema extension describing a YouTube LastName
+            </summary>
+        </member>
+        <member name="T:Google.GData.YouTube.Location">
+            <summary>
+            Location schema extension describing a YouTube Location
+            </summary>
+        </member>
+        <member name="T:Google.GData.YouTube.Movies">
+            <summary>
+            Movies schema extension describing a YouTube Movies
+            </summary>
+        </member>
+        <member name="T:Google.GData.YouTube.Music">
+            <summary>
+            Music schema extension describing a YouTube Music
+            </summary>
+        </member>
+        <member name="T:Google.GData.YouTube.NoEmbed">
+            <summary>
+            NoEmbed schema extension describing a YouTube NoEmbed
+            </summary>
+        </member>
+        <member name="T:Google.GData.YouTube.Occupation">
+            <summary>
+            Occupation schema extension describing a YouTube Occupation
+            </summary>
+        </member>
+        <member name="T:Google.GData.YouTube.Position">
+            <summary>
+            Position schema extension describing a YouTube Position
+            </summary>
+        </member>
+        <member name="T:Google.GData.YouTube.Private">
+            <summary>
+            Private schema extension describing a YouTube Private
+            </summary>
+        </member>
+        <member name="T:Google.GData.YouTube.QueryString">
+            <summary>
+            QueryString schema extension describing a YouTube QueryString
+            </summary>
+        </member>
+        <member name="T:Google.GData.YouTube.Racy">
+            <summary>
+            Racy schema extension describing a YouTube Racy
+            </summary>
+        </member>
+        <member name="T:Google.GData.YouTube.Recorded">
+            <summary>
+            Recorded schema extension describing a YouTube Recorded
+            </summary>
+        </member>
+        <member name="T:Google.GData.YouTube.Relationship">
+            <summary>
+            Relationship schema extension describing a YouTube Relationship
+            </summary>
+        </member>
+        <member name="T:Google.GData.YouTube.School">
+            <summary>
+            Identifies the school that the user attended according to the information 
+            in the user's public YouTube profile.
+            </summary>
+        </member>
+        <member name="T:Google.GData.YouTube.State">
+            <summary>
+            State schema extension describing a YouTube State, child of app:control
+            The state tag contains information that describes the status of a video. 
+            For videos that failed to upload or were rejected after the upload 
+            process, the reasonCode attribute and the tag value provide 
+            insight into the reason for the upload problem.
+            </summary>
+        </member>
+        <member name="T:Google.GData.YouTube.Statistics">
+            <summary>
+            The statistics tag provides statistics about a video or a user. 
+            The statistics tag is not provided in a video entry if the value 
+            of the viewCount attribute is 0.
+            </summary>
+        </member>
+        <member name="T:Google.GData.YouTube.Status">
+            <summary>
+            Status schema extension describing a YouTube Status
+            </summary>
+        </member>
+        <member name="T:Google.GData.YouTube.UserName">
+            <summary>
+            UserName schema extension describing a YouTube UserName
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "T:Google.GData.YouTube.YouTubeQuery" -->
+        <member name="F:Google.GData.YouTube.YouTubeQuery.DefaultVideoUri">
+            <summary>
+            youTube base video URI 
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YouTubeQuery.MobileVideoUri">
+            <summary>
+            youTube base mobile video URI 
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YouTubeQuery.TopRatedVideo">
+            <summary>
+            youTube base standard top rated video URI 
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YouTubeQuery.FavoritesVideo">
+            <summary>
+            youTube base standard favorites video URI 
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YouTubeQuery.MostViewedVideo">
+            <summary>
+            youTube base standard most viewed video URI 
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YouTubeQuery.MostRecentVideo">
+            <summary>
+            youTube base standard most recent video URI 
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YouTubeQuery.MostDiscussedVideo">
+            <summary>
+            youTube base standard most discussed video URI 
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YouTubeQuery.MostLinkedVideo">
+            <summary>
+            youTube base standard most linked video URI 
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YouTubeQuery.MostRespondedVideo">
+            <summary>
+            youTube base standard most responded video URI 
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YouTubeQuery.RecentlyFeaturedVideo">
+            <summary>
+            youTube base standard recently featured video URI 
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YouTubeQuery.MobilePhonesVideo">
+            <summary>
+            youTube base standard mobile phones video URI 
+            </summary>
+        </member>
+        <member name="M:Google.GData.YouTube.YouTubeQuery.#ctor">
+            <summary>
+            base constructor
+            </summary>
+        </member>
+        <member name="M:Google.GData.YouTube.YouTubeQuery.#ctor(System.String)">
+            <summary>
+            base constructor, with initial queryUri
+            </summary>
+            <param name="queryUri">the query to use</param>
+        </member>
+        <member name="M:Google.GData.YouTube.YouTubeQuery.ParseUri(System.Uri)">
+            <summary>protected void ParseUri</summary> 
+            <param name="targetUri">takes an incoming Uri string and parses all the properties out of it</param>
+            <returns>throws a query exception when it finds something wrong with the input, otherwise returns a baseuri</returns>
+        </member>
+        <member name="M:Google.GData.YouTube.YouTubeQuery.Reset">
+            <summary>Resets object state to default, as if newly created.
+            </summary> 
+        </member>
+        <member name="M:Google.GData.YouTube.YouTubeQuery.CalculateQuery">
+            <summary>Creates the partial URI query string based on all
+             set properties.</summary> 
+            <returns> string => the query part of the URI </returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:Google.GData.YouTube.YouTubeQuery.Formats" -->
+        <member name="P:Google.GData.YouTube.YouTubeQuery.Time">
+            <summary>accessor method public UploadTime Time</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.YouTube.YouTubeQuery.VQ">
+            <summary>The vq parameter, which is only supported for video feeds, 
+            specifies a search query term. YouTube will search all video 
+            metadata for videos matching the term. Video metadata includes
+             titles, keywords, descriptions, authors' usernames, and 
+            categories</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.YouTube.YouTubeQuery.OrderBy">
+            <summary>
+            The orderby parameter, which is only supported for video feeds, 
+            specifies the value that will be used to sort videos in the search
+             result set. Valid values for this parameter are relevance, 
+            published, viewCount and rating. In addition, you can request
+             results that are most relevant to a specific language by
+             setting the parameter value to relevance_lang_languageCode, 
+            where languageCode is an ISO 639-1 two-letter 
+            language code. (Use the values zh-Hans for simplified Chinese
+             and zh-Hant for traditional Chinese.) In addition, 
+            please note that results in other languages will still be 
+            returned if they are highly relevant to the search query term.
+            The default value for this parameter is relevance 
+            for a search results feed.
+            accessor method public string OrderBy</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.YouTube.YouTubeQuery.Client">
+            <summary>
+            The client parameter is an alphanumeric string that identifies your
+             application. The client parameter is an alternate way of specifying 
+            your client ID. You can also use the X-GData-Client request header to
+             specify your client ID. Your application does not need to 
+            specify your client ID twice by using both the client parameter and 
+            the X-GData-Client request header, but it should provide your 
+            client ID using at least one of those two methods.
+            Note that you should set this normally on the YouTubeService object,
+            this property is only included for completeness
+            </summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.YouTube.YouTubeQuery.LR">
+            <summary>
+            The lr parameter restricts the search to videos that have a title, 
+            description or keywords in a specific language. Valid values for 
+            the lr parameter are ISO 639-1 two-letter language codes. You can
+            also use the values zh-Hans for simplified Chinese and zh-Hant
+             for traditional Chinese. This parameter can be used when requesting 
+            any video feeds other than standard feeds.
+            </summary> 
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:Google.GData.YouTube.YouTubeQuery.Racy" -->
+        <member name="P:Google.GData.YouTube.YouTubeQuery.Restriction">
+            <summary>
+            The restriction parameter identifies the IP address that should be 
+            used to filter videos that can only be played in specific countries. 
+            We recommend that you always use this parameter to specify the end 
+            user's IP address. (By default, the API filters out videos that
+             cannot be played in the country from which you send API requests. 
+            This restriction is based on your client application's IP address.)
+            To request videos playable from a specific computer, include the 
+            restriction parameter in your request and set the parameter value 
+            to the IP address of the computer where the videos will be 
+            played Ð e.g. restriction=255.255.255.255.
+            To request videos that are playable in a specific country, 
+            include the restriction parameter in your request and set 
+            the parameter value to the ISO 3166 two-letter country code 
+            of the country where the videos will be played
+             Ð e.g. restriction=DE.
+            </summary> 
+            <returns> </returns>
+        </member>
+        <member name="T:Google.GData.YouTube.YouTubeQuery.VideoFormat">
+            <summary>
+            describing the requested video format
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YouTubeQuery.VideoFormat.FormatUndefined">
+            <summary>
+            no parameter. Setting the accessLevel to undefined
+            implies the server default
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YouTubeQuery.VideoFormat.RTSP">
+            <summary>
+            RTSP streaming URL for mobile video playback. H.263 video (up to 176x144) and AMR audio.
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YouTubeQuery.VideoFormat.Embeddable">
+            <summary>
+            HTTP URL to the embeddable player
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YouTubeQuery.VideoFormat.Mobile">
+            <summary>
+            SRTSP streaming URL for mobile video playback.
+            </summary>
+        </member>
+        <member name="T:Google.GData.YouTube.YouTubeQuery.UploadTime">
+            <summary>
+            describing the requested video format
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YouTubeQuery.UploadTime.UploadTimeUndefined">
+            <summary>
+            time undefined, default value for the server
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YouTubeQuery.UploadTime.Today">
+            <summary>
+            today (1day)
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YouTubeQuery.UploadTime.ThisWeek">
+            <summary>
+            This week (7days)
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YouTubeQuery.UploadTime.ThisMonth">
+            <summary>
+            1 month
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YouTubeQuery.UploadTime.AllTime">
+            <summary>all time</summary>
         </member>
     </members>
 </doc>

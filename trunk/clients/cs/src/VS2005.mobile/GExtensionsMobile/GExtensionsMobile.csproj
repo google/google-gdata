@@ -53,6 +53,9 @@
     <Compile Include="..\..\..\version\AssemblyVersion.cs">
       <Link>AssemblyVersion.cs</Link>
     </Compile>
+    <Compile Include="..\..\extensions\appcontrol.cs">
+      <Link>appcontrol.cs</Link>
+    </Compile>
     <Compile Include="..\..\extensions\apps.cs">
       <Link>apps.cs</Link>
     </Compile>
@@ -103,6 +106,9 @@
     </Compile>
     <Compile Include="..\..\extensions\originalevent.cs">
       <Link>originalevent.cs</Link>
+    </Compile>
+    <Compile Include="..\..\extensions\ratings.cs">
+      <Link>ratings.cs</Link>
     </Compile>
     <Compile Include="..\..\extensions\recurexception.cs">
       <Link>recurexception.cs</Link>

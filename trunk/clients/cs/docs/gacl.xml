@@ -146,6 +146,24 @@
         <member name="F:Google.GData.AccessControl.AclScope.SCOPE_DEFAULT">
             <summary>string constant for the user scope</summary>
         </member>
+        <member name="M:Google.GData.AccessControl.AclScope.#ctor">
+            <summary>
+            default constructor
+            </summary>
+        </member>
+        <member name="M:Google.GData.AccessControl.AclScope.#ctor(System.String)">
+            <summary>
+            default constructor with an init value
+            </summary>
+            <param name="initValue"></param>
+        </member>
+        <member name="M:Google.GData.AccessControl.AclScope.#ctor(System.String,System.String)">
+            <summary>
+            constructor taking an initial value and a name
+            </summary>
+            <param name="initValue"></param>
+            <param name="initName"></param>
+        </member>
         <member name="P:Google.GData.AccessControl.AclScope.Type">
             <summary>accessor method public string Type</summary> 
             <returns> </returns>
