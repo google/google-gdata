@@ -371,9 +371,17 @@ namespace Google.GData.Extensions.MediaRss {
     /// </summary>
     public class MediaThumbnail : SimpleElement
     {
-
+        /// <summary>
+        /// the attribute string for the URL attribute
+        /// </summary>
         public const string AttributeUrl = "url";
+        /// <summary>
+        /// the attribute string for the height attribute
+        /// </summary>
         public const string AttributeHeight = "height";
+        /// <summary>
+        /// the attribute string for the width attribute
+        /// </summary>
         public const string AttributeWidth = "width";
 
 

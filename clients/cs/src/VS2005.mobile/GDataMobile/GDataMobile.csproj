@@ -153,6 +153,12 @@
     <Compile Include="..\..\core\logrequest.cs">
       <Link>logrequest.cs</Link>
     </Compile>
+    <Compile Include="..\..\core\mediaservice.cs">
+      <Link>mediaservice.cs</Link>
+    </Compile>
+    <Compile Include="..\..\core\mediasource.cs">
+      <Link>mediasource.cs</Link>
+    </Compile>
     <Compile Include="..\..\core\request.cs">
       <Link>request.cs</Link>
     </Compile>

@@ -41,37 +41,37 @@ namespace Google.GData.Health {
     ///                                 information and category queries for specifics about the
     ///                                 Google Health implementation of this parameter.
     ///                                 For example:
-    ///         -/medication/{http://schemas.google.com/health/item}Lipitor&max-results=10 will return the first 10 entries for the medication Lipitor.
+    ///         -/medication/{http://schemas.google.com/health/item}Lipitor max-results=10 will return the first 10 entries for the medication Lipitor.
     /// digest=true May only be used on the profile feed. Returns content as an aggregation of all entries into a single CCR entry, 
     ///             which contains the collection of enclosed entries.
     ///             Refer to Digest parameter for usage information.
     ///             The default value is digest=false. You may set this to true or false.
     ///             For example: http://www.google.com/health/feeds/profile/default?digest=true will return a digest version of the profile feed.
     /// grouped=true    Returns a count of results per group. The default value is grouped=false. You may set this to true or false.
-    ///                 For example: ?grouped=true&max-results-in-group=50 will return the first 50 records for each group.
-    ///                 ?grouped=true&max-results-in-group=1 will return the top record for each group (which, incidentally, would be the profile summary query.)
+    ///                 For example: ?grouped=true&amp;max-results-in-group=50 will return the first 50 records for each group.
+    ///                 ?grouped=true&amp;max-results-in-group=1 will return the top record for each group (which, incidentally, would be the profile summary query.)
     /// max-results-group   Specifies the maximum number of groups to be retrieved. Must be an integer value greater than zero.
     ///                     This parameter is only valid if grouped=true.
     /// For example: 
-    ///     /feeds/profile/default/-medications?grouped=true&max-results-in-group=2max-results-group=10 will return the top 10 medications with up to 2 items each.
-    ///     /feeds/profile/default/-medications?grouped=true&max-results-in-group=2&max-results-group=10&max-results=3 will 
+    ///     /feeds/profile/default/-medications?grouped=true&amp;max-results-in-group=2&amp;max-results-group=10 will return the top 10 medications with up to 2 items each.
+    ///     /feeds/profile/default/-medications?grouped=true&amp;max-results-in-group=2&amp;max-results-group=10&amp;max-results=3 will 
     ///         return the top 10 medications with up to 2 items each, but no more than 3 total results.
     /// max-results-in-group    Specifies the maximum number of records to be retrieved from each group. 
     ///                         The limits that you specify with this parameter apply to all groups.
     ///                         Must be an integer value greater than zero.
     ///                         This parameter is only valid if grouped=true.
     ///                         For example:
-    ///     /feeds/profile/default/-medications?grouped=true&max-results-in-group=2max-results-group=10 will return the top 10 medications with up to 2 items each.
-    ///     /feeds/profile/default/-medications?grouped=true&max-results-in-group=2&max-results-group=10&max-results=3 will return the top 10 medications with up to 2 items each, but no more than 3 total results.
+    ///     /feeds/profile/default/-medications?grouped=true&amp;max-results-in-group=2&amp;max-results-group=10 will return the top 10 medications with up to 2 items each.
+    ///     /feeds/profile/default/-medications?grouped=true&amp;max-results-in-group=2&amp;max-results-group=10&amp;max-results=3 will return the top 10 medications with up to 2 items each, but no more than 3 total results.
     /// start-index-group   Retrieves only items whose group ranking is at least start-index-group. 
     ///                     This should be set to a 1-based index of the first group to be retrieved. The range is applied per category.
     ///                     This parameter is only valid if grouped=false.
     /// For example:
-    ///         ?grouped=true&start-index-group=43 will return items from groups 44 and higher.
+    ///         ?grouped=true&amp;start-index-group=43 will return items from groups 44 and higher.
     /// start-index-in-group     Is a 1-based index of the records to be retrieved from each group
     ///                             This parameter is only valid if grouped=false.
     /// For example:
-    ///         ?grouped=true&start-index-in-group=2 will skip the first item of each group.
+    ///         ?grouped=true&amp;start-index-in-group=2 will skip the first item of each group.
     /// 
     /// </summary>
     //////////////////////////////////////////////////////////////////////

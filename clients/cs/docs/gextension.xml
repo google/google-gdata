@@ -1311,6 +1311,24 @@
             <summary>Accessor for "value" attribute.</summary> 
             <returns> </returns>
         </member>
+        <member name="M:Google.GData.Extensions.ExtendedProperty.#ctor">
+            <summary>
+            default constructor for an extended property
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.ExtendedProperty.#ctor(System.String)">
+            <summary>
+            default constructor with an initial value
+            </summary>
+            <param name="initValue"></param>
+        </member>
+        <member name="M:Google.GData.Extensions.ExtendedProperty.#ctor(System.String,System.String)">
+            <summary>
+            default constructor with a value and a key name
+            </summary>
+            <param name="initValue">initial value</param>
+            <param name="initName">name for the key</param>
+        </member>
         <member name="P:Google.GData.Extensions.ExtendedProperty.Name">
             <summary>Accessor for "value" attribute.</summary> 
             <returns> </returns>
@@ -1800,10 +1818,37 @@
             it's a child of media:group
             </summary>
         </member>
+        <member name="F:Google.GData.Extensions.MediaRss.MediaThumbnail.AttributeUrl">
+            <summary>
+            the attribute string for the URL attribute
+            </summary>
+        </member>
+        <member name="F:Google.GData.Extensions.MediaRss.MediaThumbnail.AttributeHeight">
+            <summary>
+            the attribute string for the height attribute
+            </summary>
+        </member>
+        <member name="F:Google.GData.Extensions.MediaRss.MediaThumbnail.AttributeWidth">
+            <summary>
+            the attribute string for the width attribute
+            </summary>
+        </member>
         <member name="M:Google.GData.Extensions.MediaRss.MediaThumbnail.#ctor">
             <summary>
             default constructor for media:thumbnail
             </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.MediaRss.MediaThumbnail.Url">
+            <summary>convienience accessor for the Url</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Extensions.MediaRss.MediaThumbnail.Height">
+            <summary>convienience accessor for the Height</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Extensions.MediaRss.MediaThumbnail.Width">
+            <summary>convienience accessor for the Width</summary> 
+            <returns> </returns>
         </member>
         <member name="T:Google.GData.Extensions.MediaRss.MediaTitle">
             <summary>
@@ -2027,7 +2072,7 @@
             <summary>
             constructor
             </summary>
-            <param name="enumType">the XmlElement that is used</param>
+            <param name="xmlElement">the XmlElement that is used</param>
         </member>
         <member name="M:Google.GData.Extensions.EnumConstruct.#ctor(System.String,System.String)">
             <summary>
@@ -2035,15 +2080,16 @@
             When this constructor is used the instance has a constant value and
             may not be modified by the setValue() API.
             </summary>
-            <param name="enumType">the XmlElement that is used</param>
+            <param name="xmlElement">the XmlElement that is used</param>
             <param name="initialValue">the initial value of the type</param>
         </member>
         <member name="M:Google.GData.Extensions.EnumConstruct.#ctor(System.String,System.String,System.String)">
             <summary>
             Creates a new EnumConstruct instance with a specific type and namespace
             </summary>
-            <param name="enumType">the XmlElement that is used</param>
-            <param name="initialValue">the initial value of the type</param>
+            <param name="xmlElement">the XmlElement that is used</param>
+            <param name="prefix">the prefix to use</param>
+            <param name="nameSpace">the namespace to use</param>
         </member>
         <member name="M:Google.GData.Extensions.EnumConstruct.#ctor(System.String,System.String,System.String,System.String)">
             <summary>
@@ -2051,24 +2097,21 @@
             When this constructor is used the instance has a constant value and
             may not be modified by the setValue() API.
             </summary>
-            <param name="enumType">the XmlElement that is used</param>
-            <param name="initialValue">the initial value of the type</param>
+            <param name="xmlElement">the XmlElement that is used</param>
+            <param name="prefix">the prefix to use</param>
+            <param name="nameSpace">the namespace to use</param>
+            <param name="initialValue">the initial value</param>
         </member>
         <member name="F:Google.GData.Extensions.EnumConstruct.readOnly">
             <summary>
             Construct value cannot be changed
             </summary>
         </member>
-        <member name="F:Google.GData.Extensions.EnumConstruct.value">
-            <summary>
-            String Value
-            </summary>
-        </member>
         <member name="M:Google.GData.Extensions.EnumConstruct.Equals(System.Object)">
             <summary>
              Equal operator overload
             </summary>
-            <param name="o">the object to compare to</param>
+            <param name="obj">the object to compare to</param>
             <returns>bool</returns>
         </member>
         <member name="M:Google.GData.Extensions.EnumConstruct.GetHashCode">

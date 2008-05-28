@@ -51,8 +51,6 @@ namespace Google.GData.Health {
         /// default constructor
         /// </summary>
         /// <param name="applicationName"></param>
-        /// <param name="client"></param>
-        /// <param name="developerKey"></param>
         /// <returns></returns>
         public HealthService(string applicationName) : base(ServiceName, applicationName, Agent)
         {
