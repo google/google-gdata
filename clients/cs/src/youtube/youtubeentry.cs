@@ -36,8 +36,7 @@ namespace Google.GData.YouTube {
     public class YouTubeEntry : AbstractEntry
     {
         /// <summary>
-        /// Constructs a new YouTubeEntry instance with the appropriate category
-        /// to indicate that it is an youTube Entry.
+        /// Constructs a new YouTubeEntry instance
         /// </summary>
         public YouTubeEntry()
         : base()
