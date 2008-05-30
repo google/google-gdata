@@ -56,6 +56,13 @@
             <param name="entry">the youtube entry</param>
             <returns></returns>
         </member>
+        <member name="M:Google.GData.YouTube.YouTubeService.Upload(Google.GData.YouTube.YouTubeEntry)">
+            <summary>
+            upload a new video to the default/authenticated account
+            </summary>
+            <param name="entry">the youtube entry</param>
+            <returns></returns>
+        </member>
         <member name="M:Google.GData.YouTube.YouTubeService.OnRequestFactoryChanged">
             <summary>
             notifier if someone changes the requestfactory of the service

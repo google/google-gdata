@@ -52,6 +52,12 @@ xcopy /y ..\src\VS2005\gcontacts\bin\asp\*.dll ..\lib\ASP.NET\*.*
 xcopy /y ..\src\VS2005\youtube\bin\asp\*.dll ..\lib\ASP.NET\*.*
 xcopy /y ..\src\VS2005\ghealth\bin\asp\*.dll ..\lib\ASP.NET\*.*
 
+# copy asp dlls for the youtube sample
+xcopy /y ..\src\VS2005\gdata\bin\asp\*.dll ..\samples\YouTubeSample\bin\*.*
+xcopy /y ..\src\VS2005\gdata\bin\asp\*.dll ..\samples\YouTubeSample\bin\*.*
+xcopy /y ..\src\VS2005\youtube\bin\asp\*.dll ..\samples\YouTubeSample\bin\*.*
+ 
+
 
 #copy the modile DLLS
 xcopy /y ..\src\VS2005.mobile\GBaseMobile\bin\Release\*.dll ..\lib\Mobile\WindowsMobile\*.*

@@ -1104,6 +1104,16 @@
             <param name="contentType">the content type to be used</param>
             <returns></returns>
         </member>
+        <member name="M:Google.GData.Client.MediaFileSource.#ctor(System.IO.Stream,System.String,System.String)">
+            <summary>
+            constructor. note that you can override the slug header without influencing the filename
+            </summary>
+            <param name="data">The stream for the file. If this constructor is used, the filename is only 
+            used for descriptive purposes, the data will be read from the passed stream</param>
+            <param name="fileName">the file to be used, this will be the default slug header</param>
+            <param name="contentType">the content type to be used</param>
+            <returns></returns>
+        </member>
         <member name="P:Google.GData.Client.MediaFileSource.ContentLength">
             <summary>
             returns the content lenght of the file

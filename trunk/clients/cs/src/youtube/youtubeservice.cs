@@ -106,7 +106,19 @@ namespace Google.GData.YouTube {
             return base.Insert(uri, entry) as YouTubeEntry;
         }
 
+        /// <summary>
+        /// upload a new video to the default/authenticated account
+        /// </summary>
+        /// <param name="entry">the youtube entry</param>
+        /// <returns></returns>
+        public YouTubeEntry Upload(YouTubeEntry entry)
+        {
+            Uri uri = new Uri("http://uploads.gdata.youtube.com/feeds/api/users/default/uploads");
+            return base.Insert(uri, entry) as YouTubeEntry;
+        }
 
+
+      
         /// <summary>
         /// notifier if someone changes the requestfactory of the service
         /// </summary>

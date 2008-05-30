@@ -4,12 +4,13 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" >
 <head runat="server">
-    <title>Untitled Page</title>
+    <title>Most popular YouTube vidoes</title>
 </head>
 <body>
     <form id="form1" runat="server">
-    <a href="YourVideo.aspx">Your Videos</a>
+    <a href="Default.aspx">Your Videos</a>
     <a href="MostCommented.aspx">Most Commented</a>
+    <a href="SearchVideos.aspx">Search YouTube</a>
     <div>
         &nbsp;&nbsp;
         <asp:GridView ID="GridView1" runat="server" DataSourceID="ObjectDataMostPopular" AutoGenerateColumns="False" OnInit="Page_Load">

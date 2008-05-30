@@ -123,6 +123,7 @@ namespace Google.GData.Client
     {
 
         private string file;
+        private Stream stream;
         /// <summary>
         /// constructor. note that you can override the slug header without influencing the filename
         /// </summary>
@@ -132,6 +133,20 @@ namespace Google.GData.Client
         public MediaFileSource(string fileName, string contentType) : base(fileName, contentType)
         {
             this.file = fileName;
+        }
+
+        /// <summary>
+        /// constructor. note that you can override the slug header without influencing the filename
+        /// </summary>
+        /// <param name="data">The stream for the file. If this constructor is used, the filename is only 
+        /// used for descriptive purposes, the data will be read from the passed stream</param>
+        /// <param name="fileName">the file to be used, this will be the default slug header</param>
+        /// <param name="contentType">the content type to be used</param>
+        /// <returns></returns>
+        public MediaFileSource(Stream data, string fileName, string contentType)
+            : base(fileName, contentType)
+        {
+            this.stream = data;
         }
 
         /// <summary>
@@ -155,8 +170,12 @@ namespace Google.GData.Client
         {
             get
             {
-                FileStream f = File.OpenRead(this.file);
-                return f;
+                if (String.IsNullOrEmpty(this.file) == false)
+                {
+                    FileStream f = File.OpenRead(this.file);
+                    return f;
+                }
+                return this.stream;
             }
         }
     }
