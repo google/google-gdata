@@ -17,12 +17,16 @@ public class YouTubeWrapper
 {
     private YouTubeEntry ytEntry;
 
-	public YouTubeWrapper(YouTubeEntry entry)
-	{
-        this.ytEntry = entry;
-	}
+    public YouTubeWrapper()
+    {
+    }
 
-    public string VideoTitle
+    public YouTubeWrapper(YouTubeEntry entry)
+    {
+        this.ytEntry = entry;
+    }
+
+     public string VideoTitle
     {
         get
         {
@@ -34,7 +38,9 @@ public class YouTubeWrapper
     {
         get
         {
-            return this.ytEntry.Media.Thumbnails[0].Url;
+            if (this.ytEntry.Media.Thumbnails.Count > 0)
+                return this.ytEntry.Media.Thumbnails[0].Url;
+            return "";
         }
 
     }
@@ -67,7 +73,9 @@ public class YouTubeWrapper
     {
         get
         {
-            return this.ytEntry.Statistics.ViewCount;
+            if (this.ytEntry.Statistics != null)
+                return this.ytEntry.Statistics.ViewCount;
+            return "";
         }
     }
 
@@ -85,4 +93,81 @@ public class YouTubeWrapper
             return 0;
         }
     }
+
+    public Uri YouTubePage
+    {
+        get
+        {
+            return new Uri(this.ytEntry.AlternateUri.ToString());
+        }
+    }
 }
+
+
+public class YouTubeErrorWrapper : YouTubeWrapper
+{
+    private string message;
+
+    public YouTubeErrorWrapper(string message)
+    {
+        this.message = message;
+    }
+
+    public new string VideoTitle
+    {
+        get
+        {
+            return this.message;
+        }
+    }
+
+    public new string VideoThumbnailUrl
+    {
+        get
+        {
+            return "";
+        }
+    }
+
+    public new string Description
+    {
+        get
+        {
+            return "";
+        }
+    }
+
+    public new string Published
+    {
+        get
+        {
+            return "";
+        }
+    }
+
+    public new string Author
+    {
+        get
+        {
+            return "";
+        }
+    }
+
+    public new string NumberOfViews
+    {
+        get
+        {
+            return "";
+        }
+    }
+
+    public new int NumberOfComments
+    {
+        get
+        {
+            return 0;
+        }
+    }
+
+}
+
