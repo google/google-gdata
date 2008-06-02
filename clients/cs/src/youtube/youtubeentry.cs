@@ -157,6 +157,46 @@ namespace Google.GData.YouTube {
         }
 
 
+       /// <summary>
+       /// returns the gd:rating element
+       /// </summary>
+       /// <returns></returns>
+       public Rating Rating
+       {
+           get
+           {
+               return FindExtension(GDataParserNameTable.XmlRatingElement,
+                                    GDataParserNameTable.gNamespace) as Rating;
+           }
+           set
+           {
+
+                ReplaceExtension(GDataParserNameTable.XmlRatingElement,
+                               GDataParserNameTable.gNamespace,
+                               value);
+           }
+       }
+
+       /// <summary>
+       /// returns the yt:duration element
+       /// </summary>
+       /// <returns></returns>
+       public Duration Duration
+       {
+           get
+           {
+               return Media.FindExtension(YouTubeNameTable.Duration,
+                                    YouTubeNameTable.NSYouTube) as Duration;
+           }
+           set
+           {
+               Media.ReplaceExtension(YouTubeNameTable.Duration,
+                               YouTubeNameTable.NSYouTube,
+                               value);
+           }
+       }
+
+
 
       
         /// <summary>
