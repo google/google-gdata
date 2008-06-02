@@ -240,13 +240,16 @@ namespace Google.GData.YouTube {
     /// </summary>
     public class Duration : SimpleElement
     {
+         /// <summary>the seconds xml attribute </summary>
+        public const string AttributeSeconds = "seconds";
+
         /// <summary>
         /// default constructor
         /// </summary>
         public Duration()
         : base(YouTubeNameTable.Duration, YouTubeNameTable.ytPrefix, YouTubeNameTable.NSYouTube)
         {
-            this.Attributes.Add("seconds", null);
+            this.Attributes.Add(AttributeSeconds, null);
         }
 
         /// <summary>
@@ -256,8 +259,25 @@ namespace Google.GData.YouTube {
         public Duration(string initValue)
         : base(YouTubeNameTable.Duration, YouTubeNameTable.ytPrefix, YouTubeNameTable.NSYouTube, initValue)
         {
-            this.Attributes.Add("seconds", null);
+            this.Attributes.Add(AttributeSeconds, null);
         }
+
+        //////////////////////////////////////////////////////////////////////
+       /// <summary>returns you the seconds attribute</summary>
+       /// <returns> </returns>
+       //////////////////////////////////////////////////////////////////////
+       public string Seconds
+       {
+           get
+           {
+               return this.Attributes[AttributeSeconds] as string;
+           }
+           set
+           {
+               this.Attributes[AttributeSeconds] = value;
+           }
+       }
+
     }
 
     /// <summary>
