@@ -475,7 +475,7 @@ namespace Google.GData.Client
         /// this is determined by walking the extension elements collection</summary> 
         /// <returns>true if this is a draft element</returns>
         //////////////////////////////////////////////////////////////////////
-        public bool IsDraft
+        public virtual bool IsDraft
         {
             get {
                 XmlElement draft = FindDraftNode() as XmlElement;
@@ -510,7 +510,7 @@ namespace Google.GData.Client
         /// <summary>searches the extension list for the app:draft node</summary> 
         /// <returns>null if not there</returns>
         //////////////////////////////////////////////////////////////////////
-        protected XmlNode FindDraftNode()
+        private XmlNode FindDraftNode()
         {
             Tracing.TraceCall();
             foreach (Object extension in this.ExtensionElements)

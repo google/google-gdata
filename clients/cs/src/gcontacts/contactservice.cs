@@ -59,6 +59,15 @@ namespace Google.GData.Contacts {
             return base.Query(feedQuery) as ContactsFeed;
         }
 
+        /// <summary>
+        /// overloaded to create typed version of Query
+        /// </summary>
+        /// <param name="feedQuery"></param>
+        /// <returns>EventFeed</returns>
+        public GroupsFeed Query(GroupsQuery feedQuery) 
+        {
+            return base.Query(feedQuery) as GroupsFeed;
+        }
         //////////////////////////////////////////////////////////////////////
         /// <summary>eventchaining. We catch this by from the base service, which 
         /// would not by default create an atomFeed</summary> 
@@ -74,7 +83,14 @@ namespace Google.GData.Contacts {
                 throw new ArgumentNullException("e"); 
             }
 
-            e.Feed = new ContactsFeed(e.Uri, e.Service);
+            if (e.Uri.ToString().Contains(ContactsQuery.groupsBaseUri) == true)
+            {
+                e.Feed = new GroupsFeed(e.Uri, e.Service);
+            }
+            else 
+            {
+                e.Feed = new ContactsFeed(e.Uri, e.Service);
+            }
         }
         /////////////////////////////////////////////////////////////////////////////
     }

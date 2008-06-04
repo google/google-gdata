@@ -747,13 +747,10 @@ namespace Google.GData.Extensions.Apps
             if (node != null)
             {
                 e.Value = System.Text.Encoding.ASCII.GetBytes(node.InnerText);
-
-                if (node.Attributes != null)
-                {
-                    e.ProcessAttributes(node);
-                }
             }
 
+            e.ProcessAttributes(node);
+            e.ProcessChildNodes(node, parser);
             return e;
         }
 

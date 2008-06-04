@@ -139,12 +139,10 @@ namespace Google.GData.Extensions {
             if (node != null)
             {
                 e.Value = node.InnerText;
-
-                if (node.Attributes != null)
-                {
-                    e.ProcessAttributes(node);
-                }
             }
+
+            e.ProcessAttributes(node);
+            e.ProcessChildNodes(node, parser);
 
             return e;
         }

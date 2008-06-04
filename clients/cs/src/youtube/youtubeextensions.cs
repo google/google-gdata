@@ -42,9 +42,9 @@ namespace Google.GData.YouTube {
     /// </summary>
     public class YouTubeNameTable 
     {
-        /// <summary>static string to specify the GeoRSS namespace supported</summary>
+        /// <summary>static string to specify the YouTube namespace supported</summary>
         public const string NSYouTube = "http://gdata.youtube.com/schemas/2007"; 
-        /// <summary>static string to specify the Google Picasa prefix used</summary>
+        /// <summary>static string to specify the Google YouTube prefix used</summary>
         public const string ytPrefix = "yt"; 
 
         /// <summary>
@@ -262,7 +262,7 @@ namespace Google.GData.YouTube {
             this.Attributes.Add(AttributeSeconds, null);
         }
 
-        //////////////////////////////////////////////////////////////////////
+       //////////////////////////////////////////////////////////////////////
        /// <summary>returns you the seconds attribute</summary>
        /// <returns> </returns>
        //////////////////////////////////////////////////////////////////////
@@ -277,7 +277,6 @@ namespace Google.GData.YouTube {
                this.Attributes[AttributeSeconds] = value;
            }
        }
-
     }
 
     /// <summary>
