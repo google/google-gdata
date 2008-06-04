@@ -170,7 +170,6 @@ namespace Google.GData.Extensions {
         /// <summary>
         /// used to copy the unknown childnodes for later saving
         /// </summary>
-        /// <param name="factory"></param>
         public virtual void ProcessChildNodes(XmlNode node, AtomFeedParser parser) 
         {
             if (node != null && node.HasChildNodes)

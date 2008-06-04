@@ -148,6 +148,29 @@
              property accessor for the Comments
             </summary>
         </member>
+        <member name="P:Google.GData.YouTube.YouTubeEntry.Rating">
+            <summary>
+            returns the gd:rating element
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.GData.YouTube.YouTubeEntry.Duration">
+            <summary>
+            returns the yt:duration element
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.GData.YouTube.YouTubeEntry.AppControl">
+            <summary>
+            returns the app:control element
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.GData.YouTube.YouTubeEntry.IsDraft">
+            <summary>specifies if app:control/app:draft is yes or no. 
+            this is determined by walking the extension elements collection</summary> 
+            <returns>true if this is a draft element</returns>
+        </member>
         <member name="T:Google.GData.YouTube.YouTubeFeed">
             <summary>
             The YouTube Data API allows applications to perform functions normally 
@@ -200,10 +223,10 @@
             </summary>
         </member>
         <member name="F:Google.GData.YouTube.YouTubeNameTable.NSYouTube">
-            <summary>static string to specify the GeoRSS namespace supported</summary>
+            <summary>static string to specify the YouTube namespace supported</summary>
         </member>
         <member name="F:Google.GData.YouTube.YouTubeNameTable.ytPrefix">
-            <summary>static string to specify the Google Picasa prefix used</summary>
+            <summary>static string to specify the Google YouTube prefix used</summary>
         </member>
         <member name="F:Google.GData.YouTube.YouTubeNameTable.Age">
             <summary>
@@ -403,6 +426,9 @@
             Duration schema extension describing a YouTube Duration
             </summary>
         </member>
+        <member name="F:Google.GData.YouTube.Duration.AttributeSeconds">
+            <summary>the seconds xml attribute </summary>
+        </member>
         <member name="M:Google.GData.YouTube.Duration.#ctor">
             <summary>
             default constructor
@@ -413,6 +439,10 @@
             constructor taking the initial value
             </summary>
             <param name="initValue"></param>
+        </member>
+        <member name="P:Google.GData.YouTube.Duration.Seconds">
+            <summary>returns you the seconds attribute</summary>
+            <returns> </returns>
         </member>
         <member name="T:Google.GData.YouTube.FirstName">
             <summary>
