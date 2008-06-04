@@ -226,6 +226,24 @@ namespace Google.GData.Extensions
         }
     }
 
+
+    //////////////////////////////////////////////////////////////////////
+    /// <summary>Typed collection for Where Extensions.</summary> 
+    //////////////////////////////////////////////////////////////////////
+    public class ExtendedPropertyCollection : ExtensionCollection<ExtendedProperty>
+    {
+
+        private ExtendedPropertyCollection() : base()
+        {
+        }
+
+        /// <summary>constructor</summary> 
+        public ExtendedPropertyCollection(IExtensionContainer atomElement) 
+            : base(atomElement, GDataParserNameTable.XmlExtendedPropertyElement, BaseNameTable.gNamespace)
+        {
+        }
+    }
+
     //////////////////////////////////////////////////////////////////////
     /// <summary>Typed collection for Who Extensions.</summary>
     //////////////////////////////////////////////////////////////////////

@@ -174,31 +174,46 @@ namespace Google.GData.Extensions {
             // create a new container
             sc = this.MemberwiseClone() as SimpleContainer;
       
+            sc.ProcessAttributes(node);
+            sc.ProcessChildNodes(node, parser);
+            return sc;
+        }
+
+         /// <summary>
+        /// used to copy the unknown childnodes for later saving
+        /// </summary>
+        /// <param name="factory"></param>
+        public override void ProcessChildNodes(XmlNode node, AtomFeedParser parser)
+        {
             if (node != null && node.HasChildNodes)
             {
                 XmlNode childNode = node.FirstChild;
-                while (childNode != null && childNode is XmlElement)
+                while (childNode != null)
                 {
-                    foreach (IExtensionElementFactory f in this.ExtensionFactories)
+                    bool fProcessed = false;
+                    if (childNode is XmlElement)
                     {
-                        if (String.Compare(childNode.NamespaceURI, f.XmlNameSpace) == 0)
+                        foreach (IExtensionElementFactory f in this.ExtensionFactories)
                         {
-                            if (String.Compare(childNode.LocalName, f.XmlName) == 0)
+                            if (String.Compare(childNode.NamespaceURI, f.XmlNameSpace) == 0)
                             {
-                                Tracing.TraceMsg("Added extension to SimpleContainer for: " + f.XmlName);
-                                sc.ExtensionElements.Add(f.CreateInstance(childNode, parser));
-                                break;
+                                if (String.Compare(childNode.LocalName, f.XmlName) == 0)
+                                {
+                                    Tracing.TraceMsg("Added extension to SimpleContainer for: " + f.XmlName);
+                                    ExtensionElements.Add(f.CreateInstance(childNode, parser));
+                                    fProcessed = true;
+                                    break;
+                                }
                             }
                         }
                     }
+                    if (fProcessed == false)
+                    {
+                        this.ChildNodes.Add(childNode);
+                    }
                     childNode = childNode.NextSibling;
                 }
-                if (node.Attributes != null)
-                {
-                    sc.ProcessAttributes(node);
-                }
             }
-            return sc;
         }
 
         /// <summary>

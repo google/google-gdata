@@ -19,6 +19,7 @@ using System.Text;
 using System.Xml;
 using Google.GData.Client;
 using System.Globalization;
+using System.Collections.Generic;
 
 namespace Google.GData.Extensions {
 
@@ -31,6 +32,7 @@ namespace Google.GData.Extensions {
         private string xmlName;
         private string xmlPrefix;
         private string xmlNamespace;
+        private List<XmlNode> unknownChildren;
         /// <summary>
         /// this holds the attribute list for an extension element
         /// </summary>
@@ -116,8 +118,26 @@ namespace Google.GData.Extensions {
         }
 
 
+        /// <summary>
+        ///  returns the list of childnodes that are unknown to the extension
+        ///  used for example for the GD:ExtendedProperty
+        /// </summary>
+        /// <returns></returns>
+        public List<XmlNode> ChildNodes
+        {
+            get 
+            {
+                if (this.unknownChildren == null)
+                {
+                    this.unknownChildren = new List<XmlNode>();
+                }
+                return this.unknownChildren;
+            }
+        }
+
+
          //////////////////////////////////////////////////////////////////////
-        /// <summary>Parses an xml node to create a Who object.</summary> 
+        /// <summary>Parses an xml node to create an instance of this  object.</summary> 
         /// <param name="node">the xml parses node, can be NULL</param>
         /// <param name="parser">the xml parser to use if we need to dive deeper</param>
         /// <returns>the created IExtensionElement object</returns>
@@ -136,16 +156,32 @@ namespace Google.GData.Extensions {
                 {
                     return null;
                 }
-            }
-            
+            } 
             // memberwise close is fine here, as everything is identical beside the value
             e = this.MemberwiseClone() as ExtensionBase;
             e.InitInstance(this);
-            if (node.Attributes != null)
-            {
-                e.ProcessAttributes(node);
-            }
+
+            e.ProcessAttributes(node);
+            e.ProcessChildNodes(node, parser);
+
             return e;
+        }
+
+        /// <summary>
+        /// used to copy the unknown childnodes for later saving
+        /// </summary>
+        /// <param name="factory"></param>
+        public virtual void ProcessChildNodes(XmlNode node, AtomFeedParser parser) 
+        {
+            if (node != null && node.HasChildNodes)
+            {
+                XmlNode childNode = node.FirstChild;
+                while (childNode != null)
+                {
+                    this.ChildNodes.Add(childNode);
+                    childNode = childNode.NextSibling;
+                }
+            }
         }
   
         /// <summary>
@@ -171,7 +207,7 @@ namespace Google.GData.Extensions {
         /// <param name="node">XmlNode with attributes</param>
         public virtual void ProcessAttributes(XmlNode node)
         {
-            if (node != null)
+            if (node != null && node.Attributes != null)
             {
                 for (int i = 0; i < node.Attributes.Count; i++)
                 {
@@ -202,6 +238,13 @@ namespace Google.GData.Extensions {
             }
             SaveInnerXml(writer);
 
+            foreach (XmlNode node in this.ChildNodes)
+            {
+                if (node != null)
+                {
+                    node.WriteTo(writer);
+                }
+            }
             writer.WriteEndElement();
         }
 

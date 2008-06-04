@@ -185,16 +185,74 @@ namespace Google.GData.YouTube {
        {
            get
            {
-               return Media.FindExtension(YouTubeNameTable.Duration,
-                                    YouTubeNameTable.NSYouTube) as Duration;
+               if (this.Media != null)
+               {
+                   return Media.FindExtension(YouTubeNameTable.Duration,
+                                        YouTubeNameTable.NSYouTube) as Duration;
+               }
+               return null;
            }
            set
            {
-               Media.ReplaceExtension(YouTubeNameTable.Duration,
+               if (this.Media == null)
+               {
+                   this.Media = new MediaGroup();
+               }
+               this.Media.ReplaceExtension(YouTubeNameTable.Duration,
                                YouTubeNameTable.NSYouTube,
                                value);
            }
        }
+
+
+       /// <summary>
+       /// returns the app:control element
+       /// </summary>
+       /// <returns></returns>
+       public AppControl AppControl
+       {
+           get
+           {
+               return FindExtension(BaseNameTable.XmlElementPubControl,
+                                    BaseNameTable.NSAppPublishing) as AppControl;
+           }
+           set
+           {
+               ReplaceExtension(BaseNameTable.XmlElementPubControl,
+                                    BaseNameTable.NSAppPublishing,
+                               value);
+           }
+       }
+
+       //////////////////////////////////////////////////////////////////////
+        /// <summary>specifies if app:control/app:draft is yes or no. 
+        /// this is determined by walking the extension elements collection</summary> 
+        /// <returns>true if this is a draft element</returns>
+        //////////////////////////////////////////////////////////////////////
+        public override bool IsDraft
+        {
+            get {
+                if (this.AppControl != null && this.AppControl.Draft != null)
+                {
+                    return this.AppControl.Draft.BooleanValue;
+                }
+                return false; 
+            }
+
+            set {
+                this.Dirty = true; 
+                if (this.AppControl == null)
+                {
+                    this.AppControl = new AppControl();
+                }
+                if (this.AppControl.Draft == null)
+                {
+                    this.AppControl.Draft = new AppDraft();
+                }
+                this.AppControl.Draft.BooleanValue = value;
+            }
+        }
+        // end of accessor public bool IsDraft
 
 
 

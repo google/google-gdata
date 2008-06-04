@@ -98,6 +98,38 @@ namespace Google.GData.Client.LiveTests
         /////////////////////////////////////////////////////////////////////////////
 
 
+        /////////////////////////////////////////////////////////////////////
+        /// <summary>runs an basic auth test against the groups feed test</summary> 
+        //////////////////////////////////////////////////////////////////////
+        [Test] public void GroupsAuthenticationTest()
+        {
+            Tracing.TraceMsg("Entering GroupsAuthenticationTest");
+
+            GroupsQuery query = new GroupsQuery(ContactsQuery.CreateContactsUri(this.userName + "@googlemail.com"));
+            ContactsService service = new ContactsService("unittests");
+
+            if (this.userName != null)
+            {
+                service.Credentials = new GDataCredentials(this.userName, this.passWord);
+            }
+
+            GroupsFeed feed = service.Query(query);
+
+            ObjectModelHelper.DumpAtomObject(feed,CreateDumpFileName("GroupsAuthTest")); 
+
+            if (feed != null && feed.Entries.Count > 0)
+            {
+                Tracing.TraceMsg("Found a Feed " + feed.ToString());
+
+                foreach (GroupEntry entry in feed.Entries)
+                {
+                    Tracing.TraceMsg("Found an entry " + entry.ToString());
+                }
+            }
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+
         
         //////////////////////////////////////////////////////////////////////
         /// <summary>runs an authentication test, inserts a new contact</summary> 
@@ -145,9 +177,7 @@ namespace Google.GData.Client.LiveTests
                         if (e.Id == test.Id)
                         {
                             iVer--;
-
                             // verify we got the phonenumber back....
-
                             Assert.IsTrue(e.PrimaryPhonenumber != null, "They should have a primary phonenumber");
                             Assert.AreEqual(e.PrimaryPhonenumber.Value,p.Value, "They should be identical");
                         }
