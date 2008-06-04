@@ -467,10 +467,15 @@
             <returns></returns>
         </member>
         <member name="M:Google.GData.Extensions.ExtensionBase.CreateInstance(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
-            <summary>Parses an xml node to create a Who object.</summary> 
+            <summary>Parses an xml node to create an instance of this  object.</summary> 
             <param name="node">the xml parses node, can be NULL</param>
             <param name="parser">the xml parser to use if we need to dive deeper</param>
             <returns>the created IExtensionElement object</returns>
+        </member>
+        <member name="M:Google.GData.Extensions.ExtensionBase.ProcessChildNodes(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
+            <summary>
+            used to copy the unknown childnodes for later saving
+            </summary>
         </member>
         <member name="M:Google.GData.Extensions.ExtensionBase.InitInstance(Google.GData.Extensions.ExtensionBase)">
             <summary>
@@ -512,6 +517,13 @@
         </member>
         <member name="P:Google.GData.Extensions.ExtensionBase.XmlPrefix">
             <summary>Returns the constant representing this XML element.</summary> 
+        </member>
+        <member name="P:Google.GData.Extensions.ExtensionBase.ChildNodes">
+            <summary>
+             returns the list of childnodes that are unknown to the extension
+             used for example for the GD:ExtendedProperty
+            </summary>
+            <returns></returns>
         </member>
         <member name="M:Google.GData.Extensions.SimpleContainer.#ctor(System.String,System.String,System.String)">
             <summary>
@@ -567,6 +579,13 @@
             <param name="node">the node to work on, can be NULL</param>
             <param name="parser">the xml parser to use if we need to dive deeper</param>
             <returns>the created SimpleElement object</returns>
+        </member>
+        <member name="M:Google.GData.Extensions.SimpleContainer.ProcessChildNodes(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
+            <summary>
+            used to copy the unknown childnodes for later saving
+            </summary>
+            <param name="node">the node to process</param>
+            <param name="parser">the feed parser to pass down if need be</param>
         </member>
         <member name="M:Google.GData.Extensions.SimpleContainer.SaveInnerXml(System.Xml.XmlWriter)">
             <summary>
@@ -1901,6 +1920,12 @@
             <summary>Typed collection for Where Extensions.</summary> 
         </member>
         <member name="M:Google.GData.Extensions.WhereCollection.#ctor(Google.GData.Client.IExtensionContainer)">
+            <summary>constructor</summary> 
+        </member>
+        <member name="T:Google.GData.Extensions.ExtendedPropertyCollection">
+            <summary>Typed collection for Where Extensions.</summary> 
+        </member>
+        <member name="M:Google.GData.Extensions.ExtendedPropertyCollection.#ctor(Google.GData.Client.IExtensionContainer)">
             <summary>constructor</summary> 
         </member>
         <member name="T:Google.GData.Extensions.WhoCollection">

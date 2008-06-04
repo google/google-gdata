@@ -83,12 +83,11 @@ public class YouTubeWrapper
     {
         get
         {
-            if (this.ytEntry.Comments != null)
+            if (this.ytEntry != null && 
+                this.ytEntry.Comments != null &&
+                this.ytEntry.Comments.FeedLink != null)
             {
-                if (this.ytEntry.Comments.FeedLink != null)
-                {
                     return this.ytEntry.Comments.FeedLink.CountHint;
-                }
             }
             return 0;
         }
@@ -98,7 +97,9 @@ public class YouTubeWrapper
     {
         get
         {
-            return new Uri(this.ytEntry.AlternateUri.ToString());
+            if (this.ytEntry != null && this.ytEntry.AlternateUri != null)
+                return new Uri(this.ytEntry.AlternateUri.ToString());
+            return null;
         }
     }
 }
@@ -160,14 +161,5 @@ public class YouTubeErrorWrapper : YouTubeWrapper
             return "";
         }
     }
-
-    public new int NumberOfComments
-    {
-        get
-        {
-            return 0;
-        }
-    }
-
 }
 

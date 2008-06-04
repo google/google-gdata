@@ -92,6 +92,7 @@ namespace Google.GData.Client.LiveTests
                 foreach (ContactEntry entry in feed.Entries)
                 {
                     Tracing.TraceMsg("Found an entry " + entry.ToString());
+                    Tracing.TraceMsg("Found a photoUri " + entry.PhotoUri);
                 }
             }
         }
@@ -105,7 +106,7 @@ namespace Google.GData.Client.LiveTests
         {
             Tracing.TraceMsg("Entering GroupsAuthenticationTest");
 
-            GroupsQuery query = new GroupsQuery(ContactsQuery.CreateContactsUri(this.userName + "@googlemail.com"));
+            GroupsQuery query = new GroupsQuery(ContactsQuery.CreateGroupsUri(null));
             ContactsService service = new ContactsService("unittests");
 
             if (this.userName != null)
@@ -115,17 +116,25 @@ namespace Google.GData.Client.LiveTests
 
             GroupsFeed feed = service.Query(query);
 
-            ObjectModelHelper.DumpAtomObject(feed,CreateDumpFileName("GroupsAuthTest")); 
+            ObjectModelHelper.DumpAtomObject(feed,CreateDumpFileName("GroupsAuthTest"));
 
-            if (feed != null && feed.Entries.Count > 0)
-            {
-                Tracing.TraceMsg("Found a Feed " + feed.ToString());
+            GroupEntry newGroup = new GroupEntry();
+            newGroup.Title.Text = "Private Data";
 
-                foreach (GroupEntry entry in feed.Entries)
-                {
-                    Tracing.TraceMsg("Found an entry " + entry.ToString());
-                }
-            }
+            GroupEntry insertedGroup = feed.Insert(newGroup);
+
+            // now insert a new contact taht belongs to that group
+            ContactsQuery q = new ContactsQuery(ContactsQuery.CreateContactsUri(this.userName + "@googlemail.com")); 
+            ContactsFeed cf = service.Query(q);
+            ContactEntry entry = ObjectModelHelper.CreateContactEntry(1);
+            GroupMembership member = new GroupMembership();
+            member.HRef = insertedGroup.SelfUri.ToString();
+
+            
+
+            ContactEntry insertedEntry = cf.Insert(entry);
+            insertedEntry.GroupMembership.Add(member);
+            insertedEntry.Update();
         }
         /////////////////////////////////////////////////////////////////////////////
 
@@ -136,6 +145,7 @@ namespace Google.GData.Client.LiveTests
         //////////////////////////////////////////////////////////////////////
         [Test] public void InsertContactsTest()
         {
+            const int numberOfInserts = 3;
             Tracing.TraceMsg("Entering InsertContactsTest");
 
             ContactsQuery query = new ContactsQuery(ContactsQuery.CreateContactsUri(this.userName + "@googlemail.com")); 
@@ -155,7 +165,7 @@ namespace Google.GData.Client.LiveTests
             {
                 Assert.IsTrue(feed.Entries != null, "the contacts needs entries");
 
-                for (int i=0; i<3; i++)
+                for (int i=0; i< numberOfInserts; i++)
                 {
                     ContactEntry entry = ObjectModelHelper.CreateContactEntry(i);
                     p = entry.PrimaryPhonenumber; 
@@ -165,7 +175,7 @@ namespace Google.GData.Client.LiveTests
 
             if (inserted.Count > 0)
             {
-                int iVer = inserted.Count;
+                int iVer = numberOfInserts;
                 feed = service.Query(query);
 
                 // let's find those guys

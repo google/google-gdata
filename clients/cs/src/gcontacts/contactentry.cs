@@ -29,7 +29,7 @@ namespace Google.GData.Contacts {
         /// <summary>static string to specify the Contacts namespace supported</summary>
         public const string NSContacts = "http://schemas.google.com/contact/2008"; 
         /// <summary>static string to specify the Google Contacts prefix used</summary>
-        public const string contactsPrefix = "gContact  "; 
+        public const string contactsPrefix = "gContact"; 
 
         /// <summary>
         /// Group Member ship info element string
@@ -218,7 +218,6 @@ namespace Google.GData.Contacts {
         private PhonenumberCollection phonenumbers;
         private PostalAddressCollection postals;
         private OrganizationCollection organizations;
-        private ExtendedPropertyCollection xproperties;
         private GroupMembershipCollection groups;
 
 
@@ -232,6 +231,7 @@ namespace Google.GData.Contacts {
             Tracing.TraceMsg("Created Contact Entry");
             Categories.Add(CONTACT_CATEGORY);
             this.AddExtension(new GroupMembership());
+            ContactsExtensions.AddExtension(this);
         }
 
         /// <summary>
@@ -325,7 +325,7 @@ namespace Google.GData.Contacts {
         {
             get 
             {
-                if (this.xproperties == null)
+                if (this.groups == null)
                 {
                     this.groups =  new GroupMembershipCollection(this); 
                 }
