@@ -199,15 +199,23 @@ namespace PhotoBrowser
             if (entry != null) 
             {
                 this.Cursor = Cursors.WaitCursor;
-                Stream stream  = this.picasaService.Query(new Uri(findLargestThumbnail(entry.Media.Thumbnails)));
-                this.PhotoPreview.Image = new Bitmap(stream);
+                try
+                {
+                    Stream stream = this.picasaService.Query(new Uri(findLargestThumbnail(entry.Media.Thumbnails)));
+                    this.PhotoPreview.Image = new Bitmap(stream);
+                }
+                catch
+                {
+                    Icon error = new Icon(SystemIcons.Exclamation, 40, 40);
+                    this.PhotoPreview.Image = error.ToBitmap();
+                }
                 this.PhotoInspector.SelectedObject = new PhotoAccessor(entry);
                 this.Cursor = Cursors.Default;
             }
             else 
             {
                 this.PhotoPreview.Image = null;
-                this.PhotoInspector.SelectedObject = null; 
+                this.PhotoInspector.SelectedObject = null;
             }
         }
 

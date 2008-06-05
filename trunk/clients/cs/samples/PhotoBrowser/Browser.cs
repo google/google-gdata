@@ -221,11 +221,15 @@ namespace PhotoBrowser
                 this.googleAuthToken = loginDialog.AuthenticationToken;
                 this.user = loginDialog.User;
 
-                if (this.googleAuthToken == null)
+                if (this.googleAuthToken != null)
+                {
+                    picasaService.SetAuthenticationToken(loginDialog.AuthenticationToken);
+                    UpdateAlbumFeed();
+                }
+                else
+                {
                     this.Close();
-
-                picasaService.SetAuthenticationToken(loginDialog.AuthenticationToken);
-                UpdateAlbumFeed();
+                }
             }
         
         }
@@ -318,8 +322,16 @@ namespace PhotoBrowser
             {
                 this.Cursor = Cursors.WaitCursor;
                 MediaThumbnail thumb = entry.Media.Thumbnails[0];
-                Stream stream  = this.picasaService.Query(new Uri(thumb.Attributes["url"] as string));
-                this.AlbumPicture.Image = new Bitmap(stream);
+                try
+                {
+                    Stream stream = this.picasaService.Query(new Uri(thumb.Attributes["url"] as string));
+                    this.AlbumPicture.Image = new Bitmap(stream);
+                }
+                catch
+                {
+                    Icon error = new Icon(SystemIcons.Exclamation, 40, 40);
+                    this.AlbumPicture.Image = error.ToBitmap();
+                }
                 this.AlbumInspector.SelectedObject = new AlbumAccessor(entry);
                 this.Cursor = Cursors.Default;
             }
