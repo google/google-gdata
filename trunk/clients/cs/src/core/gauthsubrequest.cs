@@ -64,7 +64,6 @@ namespace Google.GData.Client
             return new GAuthSubRequest(type, uriTarget, this); 
         }
         /////////////////////////////////////////////////////////////////////////////
-        // 
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>accessor method public string Token</summary> 

@@ -209,6 +209,15 @@ namespace Google.GData.Client
             {
                 factory.GAuthToken = token;
             }
+            else 
+            {
+                GAuthSubRequestFactory f = this.GDataRequestFactory as GAuthSubRequestFactory;
+                if (f != null)
+                {
+                    f.Token = token;
+                }
+            }
+
         }
 
    
