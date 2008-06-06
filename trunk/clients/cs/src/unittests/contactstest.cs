@@ -106,7 +106,7 @@ namespace Google.GData.Client.LiveTests
         {
             Tracing.TraceMsg("Entering GroupsAuthenticationTest");
 
-            GroupsQuery query = new GroupsQuery(ContactsQuery.CreateGroupsUri(null));
+            GroupsQuery query = new GroupsQuery(ContactsQuery.CreateGroupsUri(this.userName + "@googlemail.com"));
             ContactsService service = new ContactsService("unittests");
 
             if (this.userName != null)
@@ -123,18 +123,52 @@ namespace Google.GData.Client.LiveTests
 
             GroupEntry insertedGroup = feed.Insert(newGroup);
 
-            // now insert a new contact taht belongs to that group
-            ContactsQuery q = new ContactsQuery(ContactsQuery.CreateContactsUri(this.userName + "@googlemail.com")); 
+            GroupEntry g2 = new GroupEntry();
+            g2.Title.Text = "Another Private Group";
+            GroupEntry insertedGroup2 = feed.Insert(g2);
+
+            // now insert a new contact that belongs to that group
+            ContactsQuery q = new ContactsQuery(ContactsQuery.CreateContactsUri(this.userName + "@googlemail.com"));
             ContactsFeed cf = service.Query(q);
             ContactEntry entry = ObjectModelHelper.CreateContactEntry(1);
             GroupMembership member = new GroupMembership();
-            member.HRef = insertedGroup.SelfUri.ToString();
-
-            
+            member.HRef = insertedGroup.Id.Uri.ToString();
+            GroupMembership member2 = new GroupMembership();
+            member2.HRef = insertedGroup2.Id.Uri.ToString();
 
             ContactEntry insertedEntry = cf.Insert(entry);
+            // now change the group membership
             insertedEntry.GroupMembership.Add(member);
-            insertedEntry.Update();
+            insertedEntry.GroupMembership.Add(member2);
+            ContactEntry currentEntry = insertedEntry.Update();
+
+            Assert.IsTrue(currentEntry.GroupMembership.Count == 2, "The entry should be in 2 groups");
+
+            currentEntry.GroupMembership.Clear();
+            currentEntry.Update();
+            // now we should have 2 new groups and one new entry with no groups anymore
+
+
+            int oldCountGroups = feed.Entries.Count;
+            int oldCountContacts = cf.Entries.Count;
+
+            currentEntry.Delete();
+
+            insertedGroup.Delete();
+            insertedGroup2.Delete();
+
+            feed = service.Query(query);
+            cf = service.Query(q);
+
+            Assert.AreEqual(oldCountContacts, cf.Entries.Count, "Contacts count should be the same");
+            Assert.AreEqual(oldCountGroups, feed.Entries.Count, "Groups count should be the same");
+
+
+
+
+
+
+
         }
         /////////////////////////////////////////////////////////////////////////////
 
