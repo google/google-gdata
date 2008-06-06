@@ -234,6 +234,16 @@ namespace Google.GData.Contacts {
             ContactsExtensions.AddExtension(this);
         }
 
+
+        /// <summary>
+        /// typed override of the Update method
+        /// </summary>
+        /// <returns></returns>
+        public new ContactEntry Update()
+        {
+            return base.Update() as ContactEntry;
+        }
+
         /// <summary>
         /// convienience accessor to find the primary Email
         /// there is no setter, to change this use the Primary Flag on 

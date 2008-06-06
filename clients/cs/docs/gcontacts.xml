@@ -215,6 +215,12 @@
             to indicate that it is an event.
             </summary>
         </member>
+        <member name="M:Google.GData.Contacts.ContactEntry.Update">
+            <summary>
+            typed override of the Update method
+            </summary>
+            <returns></returns>
+        </member>
         <member name="P:Google.GData.Contacts.ContactEntry.PrimaryEmail">
             <summary>
             convienience accessor to find the primary Email
