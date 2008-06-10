@@ -147,7 +147,13 @@ namespace Google.GData.Health {
         } 
 
         /// <summary>
-        /// get/sets the CCR node inside the extensions collection. 
+        /// get/sets the CCR node inside the extensions collection. If you want to find specific nodes
+        /// inside that CCR node, you need to use xpath with namespaces. That looks like this:
+        /// xmlDocument = new XmlDocument();
+        /// xmlDocument.ImportNode(healthEntry.CCR);
+        /// ccrNameManager = new XmlNamespaceManager(xmlDocument.NameTable);
+        /// ccrNameManager.AddNamespace("ccr", "urn:astm-org:CCR");
+        /// xmlNode node = xmlDocument.CCR.SelectSingleNode("//ccr:ProductName/ccr:Text", ccrNameManager);
         /// </summary>
         /// <returns></returns>
         public XmlNode CCR
