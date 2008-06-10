@@ -192,6 +192,17 @@ namespace Google.GData.Contacts {
             Tracing.TraceMsg("Created Group Entry");
             Categories.Add(GROUP_CATEGORY);
         }
+
+        /// <summary>
+        /// typed override of the Update method
+        /// </summary>
+        /// <returns></returns>
+        public new GroupEntry Update()
+        {
+            return base.Update() as GroupEntry;
+        }
+
+
     }
 
     //////////////////////////////////////////////////////////////////////

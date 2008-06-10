@@ -24,6 +24,7 @@
                 <asp:BoundField DataField="Author" HeaderText="Author" ReadOnly="True" SortExpression="Author" />
                 <asp:BoundField DataField="NumberOfViews" HeaderText="NumberOfViews" ReadOnly="True"
                     SortExpression="NumberOfViews" />
+                <asp:BoundField DataField="Rating" HeaderText="Rating" SortExpression="Rating" />
             </Columns>
         </asp:GridView>
         &nbsp;&nbsp;&nbsp;&nbsp;

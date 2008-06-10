@@ -177,7 +177,10 @@ namespace Google.GData.Extensions {
                 XmlNode childNode = node.FirstChild;
                 while (childNode != null)
                 {
-                    this.ChildNodes.Add(childNode);
+                    if (childNode.NodeType == XmlNodeType.Element)
+                    {
+                        this.ChildNodes.Add(childNode);
+                    }
                     childNode = childNode.NextSibling;
                 }
             }

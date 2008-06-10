@@ -334,7 +334,22 @@ namespace Google.GData.Extensions.MediaRss {
         : base(MediaRssNameTable.MediaRssCategory, 
                MediaRssNameTable.mediaRssPrefix,
                MediaRssNameTable.NSMediaRss, initValue)
-        {}
+        {
+            this.Attributes.Add("scheme", null);
+            this.Attributes.Add("lable", null);
+        }
+
+        /// <summary>
+        /// Constructor for MediaCategory with an initial value
+        /// and a scheme.
+        /// </summary>
+        /// <param name="initValue">The value of the tag</param>
+        /// <param name="scheme">The scheme of the tag</param>
+        public MediaCategory(string initValue, string scheme)
+        : this(initValue)
+        {
+            this.Attributes["scheme"] = scheme;
+        }
     }
 
     /// <summary>

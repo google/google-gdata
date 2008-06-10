@@ -63,6 +63,13 @@
             <param name="entry">the youtube entry</param>
             <returns></returns>
         </member>
+        <member name="M:Google.GData.YouTube.YouTubeService.FormUpload(Google.GData.YouTube.YouTubeEntry)">
+            <summary>
+            Method for browser-based upload, gets back a non-Atom response
+            </summary>
+            <param name="newEntry">The YouTubeEntry containing the metadata for a video upload</param>
+            <returns>A FormUploadToken object containing an upload token and POST url</returns>
+        </member>
         <member name="M:Google.GData.YouTube.YouTubeService.OnRequestFactoryChanged">
             <summary>
             notifier if someone changes the requestfactory of the service
@@ -154,6 +161,11 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="P:Google.GData.YouTube.YouTubeEntry.RatingsLink">
+            <summary>
+            returns the ratings link relationship as an atomUri
+            </summary>
+        </member>
         <member name="P:Google.GData.YouTube.YouTubeEntry.Duration">
             <summary>
             returns the yt:duration element
@@ -170,6 +182,15 @@
             <summary>specifies if app:control/app:draft is yes or no. 
             this is determined by walking the extension elements collection</summary> 
             <returns>true if this is a draft element</returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:Google.GData.YouTube.YouTubeEntry.State" -->
+        <member name="P:Google.GData.YouTube.YouTubeEntry.RelatedVideosUri">
+            <summary>accessor for the related videos feed URI</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.YouTube.YouTubeEntry.VideoResponsesUri">
+            <summary>accessor for the video responses feed URI</summary> 
+            <returns> </returns>
         </member>
         <member name="T:Google.GData.YouTube.YouTubeFeed">
             <summary>
@@ -228,6 +249,9 @@
         <member name="F:Google.GData.YouTube.YouTubeNameTable.ytPrefix">
             <summary>static string to specify the Google YouTube prefix used</summary>
         </member>
+        <member name="F:Google.GData.YouTube.YouTubeNameTable.RatingsRelationship">
+            <summary>static string for the ratings relationship</summary>
+        </member>
         <member name="F:Google.GData.YouTube.YouTubeNameTable.Age">
             <summary>
             age element string
@@ -238,6 +262,11 @@
             books element string
             </summary>
         </member>
+        <member name="F:Google.GData.YouTube.YouTubeNameTable.CategorySchema">
+            <summary>
+            The schema used for categories
+            </summary>
+        </member>
         <member name="F:Google.GData.YouTube.YouTubeNameTable.Company">
             <summary>
             Company element string
@@ -246,6 +275,11 @@
         <member name="F:Google.GData.YouTube.YouTubeNameTable.Description">
             <summary>
             Description element string
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YouTubeNameTable.DeveloperTagSchema">
+            <summary>
+            The schema used for developer tags
             </summary>
         </member>
         <member name="F:Google.GData.YouTube.YouTubeNameTable.Duration">
@@ -271,6 +305,11 @@
         <member name="F:Google.GData.YouTube.YouTubeNameTable.HomeTown">
             <summary>
             HomeTown element string
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YouTubeNameTable.KeywordSchema">
+            <summary>
+            The schema used for keywords
             </summary>
         </member>
         <member name="F:Google.GData.YouTube.YouTubeNameTable.LastName">
@@ -328,9 +367,19 @@
             Recorded element string
             </summary>
         </member>
+        <member name="F:Google.GData.YouTube.YouTubeNameTable.RelatedVideo">
+            <summary>
+            The related videos URI in the link collection
+            </summary>
+        </member>
         <member name="F:Google.GData.YouTube.YouTubeNameTable.Relationship">
             <summary>
             Relationship element string
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YouTubeNameTable.ResponseVideo">
+            <summary>
+            The video response URI in the link collection
             </summary>
         </member>
         <member name="F:Google.GData.YouTube.YouTubeNameTable.School">
@@ -821,6 +870,44 @@
             constructor taking the initial value
             </summary>
             <param name="initValue"></param>
+        </member>
+        <member name="T:Google.GData.YouTube.FormUploadToken">
+            <summary>
+            Simple class to hold the response of a browser-based upload request
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.FormUploadToken.url">
+            <summary>
+            The URL that the browser must POST to
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.FormUploadToken.token">
+            <summary>
+            The token which much be included in the browser form.
+            </summary>
+        </member>
+        <member name="M:Google.GData.YouTube.FormUploadToken.#ctor(System.String,System.String)">
+            <summary>
+            Simple constructor that initializes private members
+            </summary>
+            <param name="url">The URL that the browser must POST to</param>
+            <param name="token">The token which much be included in the browser form.</param>
+        </member>
+        <member name="M:Google.GData.YouTube.FormUploadToken.#ctor(System.IO.Stream)">
+            <summary>
+            Constructor that initializes the object from a server response
+            </summary>
+            <param name="stream">Stream containing a server response</param>
+        </member>
+        <member name="P:Google.GData.YouTube.FormUploadToken.Url">
+            <summary>
+            Property to access the URL the browser must POST to
+            </summary>
+        </member>
+        <member name="P:Google.GData.YouTube.FormUploadToken.Token">
+            <summary>
+            Property to access the token the browser must include in the form POST
+            </summary>
         </member>
         <member name="T:Google.GData.YouTube.YouTubeQuery">
             <summary>

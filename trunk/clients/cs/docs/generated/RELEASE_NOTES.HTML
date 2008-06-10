@@ -30,6 +30,19 @@
             else than -1, which indicates the default of the created HTTPRequest 
             object.
         </li>
+        <li>Added support for the new Contacts feed.
+            <ul>
+                <li>ContactEntry now has a collection of ExtendedProperties</li>
+                <li>ContactEntry now has a collection of GroupMemberships</li>
+                <li>The ContactsQuery.CreateContactsUri returns a FULL 
+                    projection now by default. There is a new 
+                    CreateContactsUri(user,projection) to get the old behaviour,
+                    or get other projections</li>
+                <li>There is a new ContactsQuery.CreateGroupsUri helper</li>
+                <li>ContactsQuery now supports the group parameter</li>
+
+            </ul>
+            </li>
     </ul>
 
    <li>Bugfixes/Changes</li>
