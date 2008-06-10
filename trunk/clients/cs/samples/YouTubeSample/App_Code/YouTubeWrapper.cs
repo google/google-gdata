@@ -100,7 +100,7 @@ public class YouTubeWrapper
             if (this.ytEntry != null &&
                 this.ytEntry.Rating != null)
             {
-                return this.ytEntry.Rating.Average;
+                return this.ytEntry.Rating.Average.ToString();
             }
             return "not rated";
         }

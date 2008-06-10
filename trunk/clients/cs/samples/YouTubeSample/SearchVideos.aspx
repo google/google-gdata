@@ -8,9 +8,10 @@
 </head>
 <body>
     <form id="form1" runat="server">
+    <a href="default.aspx">Your Videos</a>
     <a href="MostPopular.aspx">Most Popular</a>
     <a href="MostCommented.aspx">Most Commented</a>
-    <a href="default.aspx">Your Videos</a>
+    <b>Search YouTube</b>
     <div>
         <br />
         This will be searching the top rated video feed.<br />

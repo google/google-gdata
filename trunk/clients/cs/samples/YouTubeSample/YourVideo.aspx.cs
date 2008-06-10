@@ -14,18 +14,35 @@ using Google.GData.Extensions.MediaRss;
 using Google.GData.YouTube;
 
 
-public partial class MostPopular : System.Web.UI.Page
+public partial class YourVideo : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
     }
 
+    protected void CheckForUpload()
+    {
+        string status = Request.QueryString["status"];
+        string id = Request.QueryString["id"];
+        
+        if (status != null)
+        {
+            if (status == "200")
+            {
+                Response.Write("<div>Video uploaded successfully!</div>");
+            }
+            else
+            {
+                Response.Write("<div>Video failed with code " + status);
+            }
+        }
+    }
+
     protected void SubmitVideo_ServerClick(object sender, EventArgs e)
     {
-        if (this.VideoUpload.HasFile &&
-            String.IsNullOrEmpty(this.Title.Text) == false &&
+        if (String.IsNullOrEmpty(this.Title.Text) == false &&
             String.IsNullOrEmpty(this.Description.Text) == false &&
-            String.IsNullOrEmpty(this.Category.Text) == false &&
+            String.IsNullOrEmpty(this.Category.SelectedValue) == false &&
             String.IsNullOrEmpty(this.Keyword.Text) == false)
         {
 
@@ -42,20 +59,29 @@ public partial class MostPopular : System.Web.UI.Page
             try
             {
                 YouTubeEntry entry = new YouTubeEntry();
-
-                entry.MediaSource = new MediaFileSource(this.VideoUpload.FileContent, this.VideoUpload.FileName, "video/quicktime");
+                
                 entry.Media = new MediaGroup();
                 entry.Media.Description = new MediaDescription(this.Description.Text);
                 entry.Media.Title = new MediaTitle(this.Title.Text);
                 entry.Media.Keywords = new MediaKeywords(this.Keyword.Text);
 
                 // entry.Media.Categories
-                MediaCategory category = new MediaCategory(this.Category.Text);
+                MediaCategory category = new MediaCategory(this.Category.SelectedValue);
                 category.Attributes["scheme"] = YouTubeService.DefaultCategory;
 
                 entry.Media.Categories.Add(category);
-                service.Upload(entry);
-                this.ObjectDataMostPopular.Select();
+                FormUploadToken token = service.FormUpload(entry);
+                HttpContext.Current.Session["form_upload_url"] = token.Url;
+                HttpContext.Current.Session["form_upload_token"] = token.Token;
+                string page = "http://" + Request.ServerVariables["SERVER_NAME"];
+                if (Request.ServerVariables["SERVER_PORT"] != "80")
+                {
+                    page += ":" + Request.ServerVariables["SERVER_PORT"];
+                }
+                page += Request.ServerVariables["URL"];
+
+                HttpContext.Current.Session["form_upload_redirect"] = page;
+                Response.Redirect("UploadVideo.aspx");
             }
             catch (GDataRequestException gdre)
             {
