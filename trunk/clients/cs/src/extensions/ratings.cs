@@ -122,7 +122,7 @@ namespace Google.GData.Extensions
         {
             get
             {
-                return Int16.Parse(this.Attributes[BaseNameTable.XmlValue] as string, CultureInfo.InvariantCulture);
+                return Int16.Parse(this.Attributes[BaseNameTable.XmlValue] as string);
             }
             set
             {

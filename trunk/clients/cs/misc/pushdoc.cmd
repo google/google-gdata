@@ -13,8 +13,8 @@ move "%temp_dir%\TempHTML\*.log" .
 
 echo "%temp_dir%\*.*"
 echo "%target_dir%\*.*"
-move /y "%temp_dir%\*.*" "%target_dir%\"
-move /y "%temp_dir%\html\*.*" "%target_dir%\html\"
+rem move /y "%temp_dir%\*.*" "%target_dir%\"
+rem move /y "%temp_dir%\html\*.*" "%target_dir%\html\"
 time /t
 
 

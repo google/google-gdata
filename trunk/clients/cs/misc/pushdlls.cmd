@@ -59,7 +59,7 @@ xcopy /y ..\src\VS2005\youtube\bin\asp\*.dll ..\samples\YouTubeSample\bin\*.*
  
 
 
-#copy the modile DLLS
+#copy the mobile DLLS
 xcopy /y ..\src\VS2005.mobile\GBaseMobile\bin\Release\*.dll ..\lib\Mobile\WindowsMobile\*.*
 xcopy /y ..\src\VS2005.mobile\GCalendarMobile\bin\Release\*.dll ..\lib\Mobile\WindowsMobile\*.*
 xcopy /y ..\src\VS2005.mobile\GCodeSearchMobile\bin\Release\*.dll ..\lib\Mobile\WindowsMobile\*.*

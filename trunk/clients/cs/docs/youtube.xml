@@ -183,7 +183,11 @@
             this is determined by walking the extension elements collection</summary> 
             <returns>true if this is a draft element</returns>
         </member>
-        <!-- Badly formed XML comment ignored for member "P:Google.GData.YouTube.YouTubeEntry.State" -->
+        <member name="P:Google.GData.YouTube.YouTubeEntry.State">
+            <summary>
+            Returns the yt:state tag inside of app:control
+            </summary>
+        </member>
         <member name="P:Google.GData.YouTube.YouTubeEntry.RelatedVideosUri">
             <summary>accessor for the related videos feed URI</summary> 
             <returns> </returns>
