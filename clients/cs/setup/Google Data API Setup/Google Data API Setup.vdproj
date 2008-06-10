@@ -2667,6 +2667,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_B0C9498CBC5847F7A489E9BC17EBB3F6"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_B10EEF8E03D64F939630E8BEE286EC9F"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -3004,6 +3010,12 @@
         "Entry"
         {
         "MsmKey" = "8:_CFA4877B1ACD4806A73C3A42C40DBF4A"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_CFBCB9A75BB94D80BB823D3DD84583DC"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -11573,6 +11585,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_B0C9498CBC5847F7A489E9BC17EBB3F6"
+            {
+            "SourcePath" = "8:..\\..\\setuptree\\Sources\\Samples\\YouTubeSample\\UploadVideo.aspx"
+            "TargetName" = "8:UploadVideo.aspx"
+            "Tag" = "8:"
+            "Folder" = "8:_BAB595B6F3144DED8B7ED0E30C0E8C57"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_B10EEF8E03D64F939630E8BEE286EC9F"
             {
             "SourcePath" = "8:..\\..\\Templates\\ProjectTemplates\\Google Health.zip"
@@ -12831,6 +12863,26 @@
             "TargetName" = "8:AssemblyInfo.cs"
             "Tag" = "8:"
             "Folder" = "8:_63E720FA3F8D43C880C5633B8960F23E"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_CFBCB9A75BB94D80BB823D3DD84583DC"
+            {
+            "SourcePath" = "8:..\\..\\setuptree\\Sources\\Samples\\YouTubeSample\\UploadVideo.aspx.cs"
+            "TargetName" = "8:UploadVideo.aspx.cs"
+            "Tag" = "8:"
+            "Folder" = "8:_BAB595B6F3144DED8B7ED0E30C0E8C57"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -15670,14 +15722,14 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Google Data API SDK"
-        "ProductCode" = "8:{D365B945-C939-447E-932A-037E0DA41568}"
-        "PackageCode" = "8:{92E91CD9-CEBA-4525-8E84-AC1DCA4CA7F4}"
+        "ProductCode" = "8:{C0E09BA8-BEDF-4905-AE64-94C3E5D94E3D}"
+        "PackageCode" = "8:{4509A18E-0154-49C0-9677-85B406225B52}"
         "UpgradeCode" = "8:{A59A79D3-A51E-441F-AF3E-7DB21460BB1B}"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.0.0"
+        "ProductVersion" = "8:1.2.0"
         "Manufacturer" = "8:Google"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:http://code.google.com/p/google-gdata/"

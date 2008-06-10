@@ -279,7 +279,7 @@ namespace Google.GData.YouTube {
         // end of accessor public bool IsDraft
 
         /// <summary>
-        /// Returns the <yt:state> tag inside of <app:control>
+        /// Returns the yt:state tag inside of app:control
         /// </summary>
         public State State
         {
