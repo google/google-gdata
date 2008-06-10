@@ -194,6 +194,12 @@
             to indicate that it is an event.
             </summary>
         </member>
+        <member name="M:Google.GData.Contacts.GroupEntry.Update">
+            <summary>
+            typed override of the Update method
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:Google.GData.Contacts.ContactEntry">
             <summary>
             Entry API customization class for defining entries in an Event feed.

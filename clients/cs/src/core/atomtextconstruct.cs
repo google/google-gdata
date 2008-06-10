@@ -224,7 +224,17 @@ namespace Google.GData.Client
         protected override void SaveInnerXml(XmlWriter writer)
         {
             base.SaveInnerXml(writer);
-            WriteEncodedString(writer, this.text);
+            if (this.Type == AtomTextConstructType.xhtml)
+            {
+                if (Utilities.IsPersistable(this.text))
+                {
+                    writer.WriteRaw(this.text);
+                }
+            }
+            else
+            {
+                WriteEncodedString(writer, this.text);
+            }
         }
         /////////////////////////////////////////////////////////////////////////////
 

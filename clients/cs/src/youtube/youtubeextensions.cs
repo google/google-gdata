@@ -18,6 +18,7 @@ using System.Xml;
 using Google.GData.Client;
 using Google.GData.Extensions;
 using System.Globalization;
+using System.IO;
 
 namespace Google.GData.YouTube {
 
@@ -46,7 +47,9 @@ namespace Google.GData.YouTube {
         public const string NSYouTube = "http://gdata.youtube.com/schemas/2007"; 
         /// <summary>static string to specify the Google YouTube prefix used</summary>
         public const string ytPrefix = "yt"; 
-
+        /// <summary>static string for the ratings relationship</summary>
+        public const string RatingsRelationship = "http://gdata.youtube.com/schemas/2007#video.ratings"; 
+        
         /// <summary>
         /// age element string
         /// </summary>
@@ -56,6 +59,10 @@ namespace Google.GData.YouTube {
         /// </summary>
         public const string Books = "books";
         /// <summary>
+        /// The schema used for categories
+        /// </summary>
+        public const string CategorySchema = "http://gdata.youtube.com/schemas/2007/categories.cat";
+        /// <summary>
         /// Company element string
         /// </summary>
         public const string Company = "company";
@@ -63,6 +70,10 @@ namespace Google.GData.YouTube {
         /// Description element string
         /// </summary>
         public const string Description = "description";
+        /// <summary>
+        /// The schema used for developer tags
+        /// </summary>
+        public const string DeveloperTagSchema = "http://gdata.youtube.com/schemas/2007/developertags.cat";
         /// <summary>
         /// Duration element string
         /// </summary>
@@ -83,6 +94,10 @@ namespace Google.GData.YouTube {
         /// HomeTown element string
         /// </summary>
         public const string HomeTown = "tometown";
+        /// <summary>
+        /// The schema used for keywords
+        /// </summary>
+        public const string KeywordSchema = "http://gdata.youtube.com/schemas/2007/keywords.cat";
         /// <summary>
         /// LastName element string
         /// </summary>
@@ -128,9 +143,17 @@ namespace Google.GData.YouTube {
         /// </summary>
         public const string Recorded = "recorded";
         /// <summary>
+        /// The related videos URI in the link collection
+        /// </summary>
+        public const string RelatedVideo = "http://gdata.youtube.com/schemas/2007#video.related";
+        /// <summary>
         /// Relationship element string
         /// </summary>
         public const string Relationship = "relationship";
+        /// <summary>
+        /// The video response URI in the link collection
+        /// </summary>
+        public const string ResponseVideo = "http://gdata.youtube.com/schemas/2007#video.responses";
         /// <summary>
         /// School element string
         /// </summary>
@@ -819,6 +842,76 @@ namespace Google.GData.YouTube {
         public UserName(string initValue)
         : base(YouTubeNameTable.UserName, YouTubeNameTable.ytPrefix, YouTubeNameTable.NSYouTube, initValue)
         {}
+    }
+
+    /// <summary>
+    /// Simple class to hold the response of a browser-based upload request
+    /// </summary>
+    public class FormUploadToken
+    {
+        /// <summary>
+        /// The URL that the browser must POST to
+        /// </summary>
+        private string url;
+        /// <summary>
+        /// The token which much be included in the browser form.
+        /// </summary>
+        private string token;
+
+        /// <summary>
+        /// Simple constructor that initializes private members
+        /// </summary>
+        /// <param name="url">The URL that the browser must POST to</param>
+        /// <param name="token">The token which much be included in the browser form.</param>
+        public FormUploadToken(string url, string token)
+        {
+            this.url = url;
+            this.token = token;
+        }
+
+        /// <summary>
+        /// Constructor that initializes the object from a server response
+        /// </summary>
+        /// <param name="stream">Stream containing a server response</param>
+        public FormUploadToken(Stream stream)
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.Load(stream);
+           
+            this.url = doc.GetElementsByTagName("url")[0].InnerText;
+            this.token = doc.GetElementsByTagName("token")[0].InnerText;     
+        }
+
+        /// <summary>
+        /// Property to access the URL the browser must POST to
+        /// </summary>
+        public string Url
+        {
+            get
+            {
+                return this.url;
+            }
+            set
+            {
+                this.url = value;
+            }
+        }
+
+        /// <summary>
+        /// Property to access the token the browser must include in the form POST
+        /// </summary>
+        public string Token
+        {
+            get
+            {
+                return this.token;
+            }
+            set
+            {
+                this.token = value;
+            }
+        }
+
     }
     
 

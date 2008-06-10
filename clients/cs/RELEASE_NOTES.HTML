@@ -12,7 +12,7 @@
         <li>Added direct properties for Url, Height, Width for the 
             MediaThumbnail</li>
         <li>
-            Added support for mediarss:category> as a childcollection of 
+            Added support for mediarss:category as a childcollection of 
             media:group
         </li>
         <li>
@@ -47,6 +47,10 @@
 
    <li>Bugfixes/Changes</li>
    <ul>
+       <li>It a text element is of type XHTML we now use the 
+           XmlWriter.WriteRaw method. This leaves encoding/decoding in the hands
+           of the user of the API, but it seems to be the only way to guarantee
+           that all kind of xhtml can be created.</li>
        <li>Changed the way AtomUris are loaded. In the past they were, for 
            readability reasons, decoded on the load. This caused issue in 
            certain situations, where the server expected the encoded version to 

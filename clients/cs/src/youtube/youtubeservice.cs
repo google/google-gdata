@@ -117,6 +117,29 @@ namespace Google.GData.YouTube {
             return base.Insert(uri, entry) as YouTubeEntry;
         }
 
+        
+        /// <summary>
+        /// Method for browser-based upload, gets back a non-Atom response
+        /// </summary>
+        /// <param name="newEntry">The YouTubeEntry containing the metadata for a video upload</param>
+        /// <returns>A FormUploadToken object containing an upload token and POST url</returns>
+        public FormUploadToken FormUpload(YouTubeEntry newEntry)
+        {
+            Uri uri = new Uri("http://gdata.youtube.com/action/GetUploadToken");
+            
+            if (newEntry == null)
+            {
+                throw new ArgumentNullException("newEntry");
+            }
+
+            Stream returnStream = EntrySend(uri, newEntry, GDataRequestType.Insert);
+
+            FormUploadToken token = new FormUploadToken(returnStream);
+
+            returnStream.Close();
+
+            return token;
+        }
 
       
         /// <summary>

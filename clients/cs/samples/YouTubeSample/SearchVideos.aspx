@@ -57,6 +57,7 @@
                     SortExpression="NumberOfViews" />
                 <asp:BoundField DataField="NumberOfComments" HeaderText="NumberOfComments" ReadOnly="True"
                     SortExpression="NumberOfComments" />
+                <asp:BoundField DataField="Rating" HeaderText="Rating" SortExpression="Rating" />
                 <asp:HyperLinkField DataNavigateUrlFields="YouTubePage" DataTextField="VideoTitle" DataTextFormatString="&quot;Watch the video&quot;"/>                    
             </Columns>
         </asp:GridView>

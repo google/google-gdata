@@ -78,6 +78,19 @@ namespace Google.GData.Extensions.Location {
         }
 
         /// <summary>
+        /// Constructor for a GeoRSS where element with an
+        /// initial lat and long
+        /// </summary>
+        /// <param name="latitude">The latitude of the point</param>
+        /// <param name="longitude">The longitude of the point</param>
+        public GeoRssWhere(double latitude, double longitude) :
+            this()
+        {
+            this.Latitude = latitude;
+            this.Longitude = longitude;
+        }
+
+        /// <summary>
         ///  accessor for the Latitude part 
         /// </summary>
         public double Latitude

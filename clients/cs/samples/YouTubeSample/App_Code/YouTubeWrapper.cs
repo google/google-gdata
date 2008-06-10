@@ -93,6 +93,20 @@ public class YouTubeWrapper
         }
     }
 
+    public string Rating
+    {
+        get
+        {
+            if (this.ytEntry != null &&
+                this.ytEntry.Rating != null)
+            {
+                return this.ytEntry.Rating.Average;
+            }
+            return "not rated";
+        }
+    }
+
+
     public Uri YouTubePage
     {
         get

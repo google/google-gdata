@@ -141,14 +141,14 @@ Creating and deleting a feed is left up to the service; the GData protocol does 
     <Preliminary>False</Preliminary>
     <RootNamespaceContainer>False</RootNamespaceContainer>
     <RootNamespaceTitle />
-    <HelpTitle>Google GData .NET API Documentation</HelpTitle>
+    <HelpTitle>Google Data API for .Net Documentation</HelpTitle>
     <HtmlHelpName>Google.GData.Documentation</HtmlHelpName>
     <Language>en-US</Language>
     <CopyrightHref />
     <CopyrightText>Google Inc.</CopyrightText>
     <FeedbackEMailAddress />
     <HeaderText />
-    <FooterText>GData .NET API (http://code.google.com/apis/gdata/client-cs.html)</FooterText>
+    <FooterText>Google Data API for .Net (http://code.google.com/apis/gdata)</FooterText>
     <ProjectLinkType>Local</ProjectLinkType>
     <SdkLinkType>Msdn</SdkLinkType>
     <SdkLinkTarget>Blank</SdkLinkTarget>

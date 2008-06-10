@@ -176,6 +176,30 @@ namespace Google.GData.YouTube {
                                value);
            }
        }
+        
+       /// <summary>
+       /// returns the ratings link relationship as an atomUri
+       /// </summary>
+       public AtomUri RatingsLink
+       {
+           get
+           {
+                AtomLink link = this.Links.FindService(YouTubeNameTable.RatingsRelationship, AtomLink.ATOM_TYPE);
+                // scan the link collection
+                return link == null ? null : link.HRef;
+            }
+            set
+            {
+                AtomLink link = this.Links.FindService(YouTubeNameTable.RatingsRelationship, AtomLink.ATOM_TYPE);
+                if (link == null)
+                {
+                    link = new AtomLink(AtomLink.ATOM_TYPE, YouTubeNameTable.RatingsRelationship);
+                    this.Links.Add(link);
+                }
+                link.HRef = value;
+            }
+        }
+        /////////////////////////////////////////////////////////////////////////////
 
        /// <summary>
        /// returns the yt:duration element
@@ -254,7 +278,32 @@ namespace Google.GData.YouTube {
         }
         // end of accessor public bool IsDraft
 
+        /// <summary>
+        /// Returns the <yt:state> tag inside of <app:control>
+        /// </summary>
+        public State State
+        {
+            get
+            {
+                if (this.AppControl != null)
+                {
+                    return this.AppControl.FindExtension(YouTubeNameTable.State, 
+                        YouTubeNameTable.NSYouTube) as State;
+                }
 
+                return null;
+            }
+            set
+            {
+                this.Dirty = true;
+                if (this.AppControl == null)
+                {
+                    this.AppControl = new AppControl();
+                }
+                this.AppControl.ReplaceExtension(YouTubeNameTable.State,
+                    YouTubeNameTable.NSYouTube, value);
+            }
+        }
 
       
         /// <summary>
@@ -327,6 +376,35 @@ namespace Google.GData.YouTube {
 
             return ele;
         }
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>accessor for the related videos feed URI</summary> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        public AtomUri RelatedVideosUri
+        {
+            get
+            {
+                AtomLink link = this.Links.FindService(YouTubeNameTable.RelatedVideo, AtomLink.ATOM_TYPE);
+                // scan the link collection
+                return link == null ? null : link.HRef;
+            }
+        }
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>accessor for the video responses feed URI</summary> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        public AtomUri VideoResponsesUri
+        {
+            get
+            {
+                AtomLink link = this.Links.FindService(YouTubeNameTable.ResponseVideo, AtomLink.ATOM_TYPE);
+                // scan the link collection
+                return link == null ? null : link.HRef;
+            }
+        }
     }
 }
+
 

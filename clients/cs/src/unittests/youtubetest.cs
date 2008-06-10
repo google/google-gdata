@@ -127,6 +127,10 @@ namespace Google.GData.Client.LiveTests
 
             YouTubeQuery query = new YouTubeQuery(YouTubeQuery.TopRatedVideo);
             YouTubeService service = new YouTubeService("NETUnittests", this.ytClient, this.ytDevKey);
+            if (this.userName != null)
+            {
+                service.Credentials = new GDataCredentials(this.ytUser, this.ytPwd);
+            }
 
 
             query.Formats.Add(YouTubeQuery.VideoFormat.RTSP);
@@ -138,7 +142,6 @@ namespace Google.GData.Client.LiveTests
             {
                 Assert.IsTrue(e.Media.Title.Value != null, "There should be a title");
             }
-
         }
         /////////////////////////////////////////////////////////////////////////////
 
@@ -201,6 +204,7 @@ namespace Google.GData.Client.LiveTests
             // now update the video
             anotherEntry.MediaSource = new MediaFileSource("test.mp4", "video/mp4");
             anotherEntry.Update();
+
 
             // now delete the guy again
 

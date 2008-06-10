@@ -1812,6 +1812,14 @@
             </summary>
             <param name="initValue"/>
         </member>
+        <member name="M:Google.GData.Extensions.MediaRss.MediaCategory.#ctor(System.String,System.String)">
+            <summary>
+            Constructor for MediaCategory with an initial value
+            and a scheme.
+            </summary>
+            <param name="initValue">The value of the tag</param>
+            <param name="scheme">The scheme of the tag</param>
+        </member>
         <member name="T:Google.GData.Extensions.MediaRss.MediaKeywords">
             <summary>
             media:keywords schema extension describing a 
@@ -2887,6 +2895,14 @@
             default constructor for a GeoRSS where element
             </summary>
         </member>
+        <member name="M:Google.GData.Extensions.Location.GeoRssWhere.#ctor(System.Double,System.Double)">
+            <summary>
+            Constructor for a GeoRSS where element with an
+            initial lat and long
+            </summary>
+            <param name="latitude">The latitude of the point</param>
+            <param name="longitude">The longitude of the point</param>
+        </member>
         <member name="M:Google.GData.Extensions.Location.GeoRssWhere.GetPosition(System.Boolean)">
             <summary>
             finds our position element, if we don't have one
@@ -3143,7 +3159,8 @@
         </member>
         <member name="M:Google.GData.Extensions.Rating.#ctor">
             <summary>
-            default constructor for gd:rating
+            default constructor for gd:rating. This will set min and max
+            to 1 and 5 respectively
             </summary>
         </member>
         <member name="P:Google.GData.Extensions.Rating.Min">
@@ -3171,6 +3188,10 @@
             This attribute is not used in a request to add a rating.
             </summary>
             <returns></returns>
+        </member>
+        <member name="P:Google.GData.Extensions.Rating.Value">
+            <summary>Accessor for "value" attribute.</summary> 
+            <returns> </returns>
         </member>
     </members>
 </doc>

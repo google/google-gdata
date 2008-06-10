@@ -133,6 +133,10 @@ namespace Google.GData.Client
         public MediaFileSource(string fileName, string contentType) : base(fileName, contentType)
         {
             this.file = fileName;
+
+            //strip out the path from the Slug header
+            FileInfo fileInfo = new FileInfo(fileName);
+            this.Name = fileInfo.Name;
         }
 
         /// <summary>
