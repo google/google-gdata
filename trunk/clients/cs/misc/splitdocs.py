@@ -87,7 +87,7 @@ class FileMover:
     for root, dirs, files in os.walk(target):
       if 'folder' in root:
         if fileName in files:
-          return root
+          return root 
     return ""
 
   def TestIfFileExists(self, fileName, target):
@@ -122,7 +122,7 @@ allOldFiles = []
 for root, dirs, files in os.walk(basePath): 
   if 'folder' in root:
     for f in files: 
-      allOldFiles.append((root, f)) 
+      allOldFiles.append((root + "/", f)) 
 
 
 usock = urllib.urlopen("../docs/generated/Index.html")
