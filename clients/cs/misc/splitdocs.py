@@ -41,7 +41,7 @@ class BaseHTMLProcessor(SGMLParser):
     def handle_data(self, text):            
         self.pieces.append(text) 
     def handle_comment(self, text):         
-        self.pieces.append("<!−−%(text)s−−>" % locals()) 
+        self.pieces.append("<!--%(text)s-->" % locals()) 
     def handle_pi(self, text):              
         self.pieces.append("<?%(text)s>" % locals()) 
     def handle_decl(self, text): 
@@ -90,11 +90,11 @@ class FileMover:
     return testPath
         
     
-basePath = "/Users/frank/googlegdata/clients/cs/docs/generated/"
-targetPath = "/Users/frank/googlegdata/clients/cs/docs/generated/"
+basePath = "../docs/generated/"
+targetPath = "../docs/generated/"
 subFolder = "folder"
 
-usock = urllib.urlopen("/Users/frank/googlegdata/clients/cs/docs/generated/Index.html")
+usock = urllib.urlopen("../docs/generated/Index.html")
 parser = BaseHTMLProcessor()
 parser.feed(usock.read())
 usock.close()
