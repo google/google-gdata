@@ -1,13 +1,16 @@
-from sgmllib import SGMLParser
+﻿from sgmllib import SGMLParser
 import urllib
 import htmlentitydefs
 import shutil
+import os
 import os.path
+from os.path import join, getsize
 
 global basePath
 global targetPath
 global pathVar
 global subFolder
+global allOldFiles
 
 pathVar = 1
 
@@ -68,14 +71,33 @@ class FileMover:
     relFile = currentFile
     src = base + currentFile
     if os.path.isfile(src):
-      target = self.EnsureCorrectTargetPath(target, pathVar)
       (dirName, fileName) = os.path.split(src)
-      dst = target + fileName
+      
+      targetFolder = self.TestIfFileExists(fileName, target)
+      if targetFolder == "":
+          targetFolder = self.EnsureCorrectTargetPath(target, pathVar)
+      dst = targetFolder + fileName
       shutil.copyfile(src, dst)
       relFile = "%s%s/%s" % (subFolder, pathVar, fileName)
     # now remove the basePath and return only the relative portion
     # which just assumes that the index is in the directory above
     return relFile;
+    
+  def TestIfFileExistsOld(self, fileName, target):
+    for root, dirs, files in os.walk(target):
+      if 'folder' in root:
+        if fileName in files:
+          return root
+    return ""
+
+  def TestIfFileExists(self, fileName, target):
+    global allOldFiles
+    for path, name in allOldFiles:
+      if name == fileName:
+        return path
+    return ""
+
+  
     
   def EnsureCorrectTargetPath(self, basePath, varPath):
     global pathVar
@@ -94,10 +116,19 @@ basePath = "../docs/generated/"
 targetPath = "../docs/generated/"
 subFolder = "folder"
 
+allOldFiles = []
+
+#populate the list of the current files, all files in folderx subfolders
+for root, dirs, files in os.walk(basePath): 
+  if 'folder' in root:
+    for f in files: 
+      allOldFiles.append((root, f)) 
+
+
 usock = urllib.urlopen("../docs/generated/Index.html")
 parser = BaseHTMLProcessor()
 parser.feed(usock.read())
 usock.close()
 parser.close()
 print parser.output()
-#for url in parser.urls: print url
+
