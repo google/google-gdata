@@ -16,6 +16,12 @@
           <li>Fixed issue 135. There was a bug in the FeedQuery parsing 
               code that resulted in URIs with date parameters that are encoded
               to potentially throw</li>
+          <li>Removed the Cookie property and replaced it with a Cookies 
+              properter on the RequestFactory. The old code, using just a simple
+              string, was implemented for mobile benefits, as the 
+              CookieContainer, that is used now, does not exist on the compact
+              framework. The simple solution though is creating problems in some
+              scenarios, and had to be removed.</li>
       </ul>
   </ul>
 

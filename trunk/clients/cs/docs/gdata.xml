@@ -1880,8 +1880,9 @@
         <member name="P:Google.GData.Client.GDataRequestFactory.UseGZip">
             <summary>set wether or not new request should use GZip</summary>
         </member>
-        <member name="P:Google.GData.Client.GDataRequestFactory.Cookie">
-            <summary>set's and get's the sharding cookie</summary> 
+        <member name="P:Google.GData.Client.GDataRequestFactory.Cookies">
+            <summary>The cookie container that is used for requests. Note 
+            that this is not available on the compact framework</summary> 
             <returns> </returns>
         </member>
         <member name="P:Google.GData.Client.GDataRequestFactory.ContentType">
