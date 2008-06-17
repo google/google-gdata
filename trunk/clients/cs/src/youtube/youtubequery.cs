@@ -219,6 +219,11 @@ namespace Google.GData.YouTube {
         public const string MostRecentVideo = YouTubeQuery.StandardFeeds +"most_recent";
 
         /// <summary>
+        /// youTube base standard most popular video URI 
+        /// </summary>
+        public const string MostPopular = YouTubeQuery.StandardFeeds +"most_popular";
+
+        /// <summary>
         /// youTube base standard most discussed video URI 
         /// </summary>
         public const string MostDiscussedVideo = YouTubeQuery.StandardFeeds +"most_discussed";
