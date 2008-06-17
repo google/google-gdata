@@ -234,7 +234,10 @@ namespace Google.GData.Extensions {
                     {
                         string name = this.getAttributes().GetKey(i) as string;
                         string value = Utilities.ConvertToXSDString(this.getAttributes().GetByIndex(i));
-                        writer.WriteAttributeString(name, value);
+                        if (Utilities.IsPersistable(name) && Utilities.IsPersistable(value))
+                        {
+                            writer.WriteAttributeString(name, value);
+                        }
                     }
                 }
             }
