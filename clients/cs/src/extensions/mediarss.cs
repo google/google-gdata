@@ -64,6 +64,8 @@ namespace Google.GData.Extensions.MediaRss {
         public const string MediaRssThumbnail    = "thumbnail";
         /// <summary>static string to specify the media:title element</summary>
         public const string MediaRssTitle    = "title";
+        /// <summary>static string to specify the media:rating element</summary>
+        public const string MediaRssRating = "rating";
 
     }
 
@@ -90,6 +92,7 @@ namespace Google.GData.Extensions.MediaRss {
             this.ExtensionFactories.Add(new MediaThumbnail());
             this.ExtensionFactories.Add(new MediaTitle());
             this.ExtensionFactories.Add(new MediaCategory());
+            this.ExtensionFactories.Add(new MediaRating());
         }
 
         /// <summary>
@@ -162,6 +165,23 @@ namespace Google.GData.Extensions.MediaRss {
             }
         }
 
+        /// <summary>
+        /// returns the media:rating element
+        /// </summary>
+        public MediaRating Rating
+        {
+            get
+            {
+                return FindExtension(MediaRssNameTable.MediaRssRating,
+                                     MediaRssNameTable.NSMediaRss) as MediaRating;
+            }
+            set
+            {
+                ReplaceExtension(MediaRssNameTable.MediaRssRating,
+                                MediaRssNameTable.NSMediaRss,
+                                value);
+            }
+        }
 
         /// <summary>
         ///  property accessor for the Thumbnails 
@@ -494,6 +514,50 @@ namespace Google.GData.Extensions.MediaRss {
             this.Attributes.Add("type", null);
         }
     }
+
+    /// <summary>
+    /// media:rating schema extension describing the rating given to media
+    /// it's a child of media:group
+    /// </summary>
+    public class MediaRating : SimpleElement
+    {
+        /// <summary>
+        /// default constructor for media:rating
+        /// </summary>
+        public MediaRating()
+            : base(MediaRssNameTable.MediaRssRating,
+                   MediaRssNameTable.mediaRssPrefix,
+                   MediaRssNameTable.NSMediaRss)
+        {
+            this.Attributes.Add("scheme", null);
+        }
+
+        /// <summary>
+        /// default constructor for media:rating with an initial value
+        /// </summary>
+        /// <param name="initValue"/>
+        public MediaRating(string initValue)
+            : base(MediaRssNameTable.MediaRssRating,
+                   MediaRssNameTable.mediaRssPrefix,
+                   MediaRssNameTable.NSMediaRss, initValue)
+        {
+            this.Attributes.Add("scheme", null);
+        }
+
+        /// <summary>
+        /// Constructor for MediaRating with an initial value
+        /// and a scheme.
+        /// </summary>
+        /// <param name="initValue">The value of the tag</param>
+        /// <param name="scheme">The scheme of the tag</param>
+        public MediaRating(string initValue, string scheme)
+        : this(initValue)
+        {
+            this.Attributes["scheme"] = scheme;
+        }
+
+    }
+
 
     //////////////////////////////////////////////////////////////////////
     /// <summary>Typed collection for Thumbnails Extensions.</summary>
