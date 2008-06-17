@@ -202,16 +202,16 @@ namespace Google.GData.Calendar {
                         switch (parameters[0])
                         {
                             case "start-min":
-                                this.startTime = DateTime.Parse(parameters[1], CultureInfo.InvariantCulture);
+                                this.startTime = DateTime.Parse(Utilities.UrlDecodedValue(parameters[1]), CultureInfo.InvariantCulture);
                                 break;
                             case "start-max":
-                                this.endTime = DateTime.Parse(parameters[1], CultureInfo.InvariantCulture);
+                                this.endTime = DateTime.Parse(Utilities.UrlDecodedValue(parameters[1]), CultureInfo.InvariantCulture);
                                 break;
                             case "recurrence-expansion-start":
-                                this.recurrenceStart = DateTime.Parse(parameters[1], CultureInfo.InvariantCulture);
+                                this.recurrenceStart = DateTime.Parse(Utilities.UrlDecodedValue(parameters[1]), CultureInfo.InvariantCulture);
                                 break;
                             case "recurrence-expansion-end":
-                                this.recurrenceEnd = DateTime.Parse(parameters[1], CultureInfo.InvariantCulture);
+                                this.recurrenceEnd = DateTime.Parse(Utilities.UrlDecodedValue(parameters[1]), CultureInfo.InvariantCulture);
                                 break;
                             case "singleevents":
                                 this.singleEvents = bool.Parse(parameters[1]); 

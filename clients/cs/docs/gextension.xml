@@ -1700,6 +1700,9 @@
         <member name="F:Google.GData.Extensions.MediaRss.MediaRssNameTable.MediaRssTitle">
             <summary>static string to specify the media:title element</summary>
         </member>
+        <member name="F:Google.GData.Extensions.MediaRss.MediaRssNameTable.MediaRssRating">
+            <summary>static string to specify the media:rating element</summary>
+        </member>
         <member name="T:Google.GData.Extensions.MediaRss.MediaGroup">
             <summary>
             MediaGroup container element for the MediaRss namespace
@@ -1728,6 +1731,11 @@
         <member name="P:Google.GData.Extensions.MediaRss.MediaGroup.Title">
             <summary>
             returns the media:credit element
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.MediaRss.MediaGroup.Rating">
+            <summary>
+            returns the media:rating element
             </summary>
         </member>
         <member name="P:Google.GData.Extensions.MediaRss.MediaGroup.Thumbnails">
@@ -1893,6 +1901,31 @@
             default constructor for media:title with an initial value
             </summary>
             <param name="initValue"/>
+        </member>
+        <member name="T:Google.GData.Extensions.MediaRss.MediaRating">
+            <summary>
+            media:rating schema extension describing the rating given to media
+            it's a child of media:group
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.MediaRss.MediaRating.#ctor">
+            <summary>
+            default constructor for media:rating
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.MediaRss.MediaRating.#ctor(System.String)">
+            <summary>
+            default constructor for media:rating with an initial value
+            </summary>
+            <param name="initValue"/>
+        </member>
+        <member name="M:Google.GData.Extensions.MediaRss.MediaRating.#ctor(System.String,System.String)">
+            <summary>
+            Constructor for MediaRating with an initial value
+            and a scheme.
+            </summary>
+            <param name="initValue">The value of the tag</param>
+            <param name="scheme">The scheme of the tag</param>
         </member>
         <member name="T:Google.GData.Extensions.MediaRss.ThumbnailCollection">
             <summary>Typed collection for Thumbnails Extensions.</summary>

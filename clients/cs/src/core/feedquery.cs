@@ -503,16 +503,16 @@ namespace Google.GData.Client
                                 this.NumberToRetrieve = int.Parse(parameters[1], CultureInfo.InvariantCulture);
                                 break;
                             case "updated-min":
-                                this.StartDate = DateTime.Parse(parameters[1], CultureInfo.InvariantCulture);
+                                this.StartDate = DateTime.Parse(Utilities.UrlDecodedValue(parameters[1]), CultureInfo.InvariantCulture);
                                 break;
                             case "updated-max":
-                                this.EndDate = DateTime.Parse(parameters[1], CultureInfo.InvariantCulture);
+                                this.EndDate = DateTime.Parse(Utilities.UrlDecodedValue(parameters[1]), CultureInfo.InvariantCulture);
                                 break;
                             case "published-min":
-                                this.MinPublication = DateTime.Parse(parameters[1], CultureInfo.InvariantCulture);
+                                this.MinPublication = DateTime.Parse(Utilities.UrlDecodedValue(parameters[1]), CultureInfo.InvariantCulture);
                                 break;
                             case "published-max":
-                                this.MaxPublication = DateTime.Parse(parameters[1], CultureInfo.InvariantCulture);
+                                this.MaxPublication = DateTime.Parse(Utilities.UrlDecodedValue(parameters[1]), CultureInfo.InvariantCulture);
                                 break;
                             default:
                                 break;
