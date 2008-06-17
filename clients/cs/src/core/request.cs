@@ -104,7 +104,6 @@ namespace Google.GData.Client
         /// <summary>holds the user-agent</summary> 
         private string userAgent;
         private StringCollection customHeaders;     // holds any custom headers to set
-        private String shardingCookie;              // holds the sharding cookie if returned
         private WebProxy webProxy;                  // holds a webproxy to use
         private bool keepAlive;                     // indicates wether or not to keep the connection alive
         private bool useGZip;
@@ -161,16 +160,26 @@ namespace Google.GData.Client
         }
         //////////////////////////////////////////////////////////////////////
 
+#if WindowsCE || PocketPC
+#else
+        private CookieContainer cookies;
         //////////////////////////////////////////////////////////////////////
-        /// <summary>set's and get's the sharding cookie</summary> 
+        /// <summary>The cookie container that is used for requests. Note 
+        /// that this is not available on the compact framework</summary> 
         /// <returns> </returns>
         //////////////////////////////////////////////////////////////////////
-        public string Cookie
+        public CookieContainer Cookies
         {
-            get {return this.shardingCookie;}
-            set {this.shardingCookie = value;}
+            get 
+            {
+                if (this.cookies == null)
+                    this.cookies = new CookieContainer();
+
+                return this.cookies; }
+            set { this.cookies = value; }
         }
-        /////////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////
+#endif
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>set's and get's the content Type, used for binary transfers</summary> 
@@ -512,8 +521,11 @@ namespace Google.GData.Client
 
                     web.ContentType = this.ContentType;
                     web.UserAgent = this.factory.UserAgent;
-                    web.KeepAlive = this.factory.KeepAlive; 
-             
+                    web.KeepAlive = this.factory.KeepAlive;
+#if WindowsCE || PocketPC
+#else
+                    web.CookieContainer = this.factory.Cookies;
+#endif
                     // add all custom headers
                     if (this.factory.hasCustomHeaders == true)
                     {
@@ -531,10 +543,6 @@ namespace Google.GData.Client
                     if (this.Slug != null)
                     {
                         this.Request.Headers.Add(GDataRequestFactory.SlugHeader + ": " + Utilities.UriEncodeReserved(this.Slug));
-                    }
-                    if (this.factory.Cookie != null)
-                    {
-                        this.Request.Headers.Add(GDataRequestFactory.CookieHeader + ": " + this.factory.Cookie); 
                     }
                     if (this.factory.Proxy != null)
                     {
@@ -626,17 +634,6 @@ namespace Google.GData.Client
 
                 Tracing.TraceMsg("Returned contenttype is: " + (response.ContentType == null ? "None" : response.ContentType) + " from URI : " + request.RequestUri.ToString()); ; 
                 Tracing.TraceMsg("Returned statuscode is: " + response.StatusCode + code); 
-
-                // check for a returned set-cookie header and store it
-                if (response != null && 
-                    response.Headers != null)
-                {
-                    String cookie = response.Headers[GDataRequestFactory.SetCookieHeader];
-                    if (cookie != null)
-                    {
-                        this.factory.Cookie = cookie; 
-                    }
-                }
 
                 if (response.StatusCode == HttpStatusCode.Forbidden)
                 {
