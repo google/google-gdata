@@ -1042,6 +1042,11 @@
             youTube base standard most recent video URI 
             </summary>
         </member>
+        <member name="F:Google.GData.YouTube.YouTubeQuery.MostPopular">
+            <summary>
+            youTube base standard most popular video URI 
+            </summary>
+        </member>
         <member name="F:Google.GData.YouTube.YouTubeQuery.MostDiscussedVideo">
             <summary>
             youTube base standard most discussed video URI 

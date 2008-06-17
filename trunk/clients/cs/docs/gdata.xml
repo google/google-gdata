@@ -3196,6 +3196,12 @@
             </summary>
             <param name="value">the string to decode</param>
         </member>
+        <member name="M:Google.GData.Client.Utilities.UrlDecodedValue(System.String)">
+            <summary>
+            used as a cover method to hide the actual decoding implementation
+            </summary>
+            <param name="value">the string to decode</param>
+        </member>
         <member name="M:Google.GData.Client.Utilities.UriEncodeReserved(System.String)">
             <summary>helper to read in a string and replace the reserved URI 
             characters with hex encoding</summary> 
