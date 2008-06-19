@@ -85,6 +85,13 @@ namespace Google.GData.Documents {
         /// </summary>
         public static QueryCategory PRESENTATIONS = new QueryCategory(ATOMCATEGORY_PRESENTATIONS);
 
+        private static AtomCategory ATOMCATEGORY_PDFS = new AtomCategory("pdf");
+        /// <summary>
+        /// predefined query category for presentations
+        /// </summary>
+        public static QueryCategory PDFS = new QueryCategory(ATOMCATEGORY_PDFS);
+        
+        
         /// <summary>
         /// predefined query category for starred documents
         /// </summary>
@@ -296,4 +303,20 @@ namespace Google.GData.Documents {
         }
    }
 
+     /// <summary>
+    /// a subclass setup to just retrieve all PDFs
+    /// </summary>
+    public class PDFsQuery : DocumentsListQuery
+    {
+
+        /// <summary>
+        /// base constructor
+        /// </summary>
+        public PDFsQuery()
+        : base()
+        {
+            this.Categories.Add(DocumentsListQuery.PDFS);
+        }
+   }    
+    
 }
