@@ -276,9 +276,9 @@ namespace Google.GData.Spreadsheets
             }
 
             paramInsertion = AppendQueryPart(this.MinimumRow, 0, "min-row", paramInsertion, newPath);
-            paramInsertion = AppendQueryPart(this.MaximumRow, 0, "max-row", paramInsertion, newPath);
+            paramInsertion = AppendQueryPart(this.MaximumRow, uint.MaxValue, "max-row", paramInsertion, newPath);
             paramInsertion = AppendQueryPart(this.MinimumColumn, 0, "min-col", paramInsertion, newPath);
-            paramInsertion = AppendQueryPart(this.MaximumColumn, 0, "max-col", paramInsertion, newPath);
+            paramInsertion = AppendQueryPart(this.MaximumColumn, uint.MaxValue, "max-col", paramInsertion, newPath);
             paramInsertion = AppendQueryPart(this.Range, "range", paramInsertion, newPath);
 
             if (ReturnEmpty == ReturnEmtpyCells.yes)

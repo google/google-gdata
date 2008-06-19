@@ -760,7 +760,7 @@ namespace Google.GData.Client
         /// <param name="builder"></param>
         /// <returns></returns>
         [CLSCompliant(false)]
-        protected static char AppendQueryPart(uint value, int defValue, string parameterName, char connect, StringBuilder builder)
+        protected static char AppendQueryPart(uint value, uint defValue, string parameterName, char connect, StringBuilder builder)
         {
             if (builder == null)
                 throw new ArgumentNullException("builder");
