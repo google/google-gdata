@@ -39,6 +39,7 @@ namespace Google.GData.Documents {
         static string PRESENTATION_KIND = "http://schemas.google.com/docs/2007#presentation";
         static string DOCUMENT_KIND = "http://schemas.google.com/docs/2007#document";
         static string SPREADSHEET_KIND = "http://schemas.google.com/docs/2007#spreadsheet";
+        static string PDF_KIND = "http://schemas.google.com/docs/2007#pdf";
         static string STARRED_KIND = "http://schemas.google.com/g/2005/labels#starred";
 
         /// <summary>
@@ -52,13 +53,21 @@ namespace Google.GData.Documents {
         public static AtomCategory SPREADSHEET_CATEGORY =
             new AtomCategory(SPREADSHEET_KIND, new AtomUri(BaseNameTable.gKind));
         /// <summary>
+        /// a predefined atom category for PDF
+        /// </summary>
+        public static AtomCategory PDF_CATEGORY =
+            new AtomCategory(PDF_KIND, new AtomUri(BaseNameTable.gKind));
+        /// <summary>
+        /// a predefined atom category for starred documentss
+        /// </summary>
+        /// <summary>
         /// a predefined atom category for Presentations
         /// </summary>
         public static AtomCategory PRESENTATION_CATEGORY =
             new AtomCategory(PRESENTATION_KIND, new AtomUri(BaseNameTable.gKind));
         /// <summary>
         /// a predefined atom category for starred documentss
-        /// </summary>
+        /// </summary>        
         public static AtomCategory STARRED_CATEGORY =
             new AtomCategory(STARRED_KIND, new AtomUri(BaseNameTable.gLabels));
 
@@ -118,6 +127,21 @@ namespace Google.GData.Documents {
             }
         }
 
+        /// <summary>
+        /// Reflects if this entry is a PDF document
+        /// </summary>
+        public bool IsPDF
+        {
+            get 
+            {
+                return this.Categories.Contains(DocumentEntry.PDF_CATEGORY);
+            }
+            set 
+            {
+                this.ToggleCategory(DocumentEntry.PDF_CATEGORY, value);
+            }
+        }        
+        
         /// <summary>
         /// Reflects if this entry is starred
         /// </summary>

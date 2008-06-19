@@ -72,6 +72,7 @@ namespace Google.GData.Documents {
             GDocumentsAllowedTypes.Add("XLS", "application/vnd.ms-excel");
             GDocumentsAllowedTypes.Add("PPT", "application/vnd.ms-powerpoint");
             GDocumentsAllowedTypes.Add("PPS", "application/vnd.ms-powerpoint");
+            GDocumentsAllowedTypes.Add("PDF", "application/pdf");
         }
 
         /// <summary>
