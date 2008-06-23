@@ -461,8 +461,6 @@ namespace Google.GData.Client.LiveTests
             EventQuery query = new EventQuery();
             CalendarService service = new CalendarService(this.ApplicationName);
 
-            int iCount; 
-
             if (this.defaultCalendarUri != null)
             {
                 if (this.userName != null)
@@ -476,10 +474,6 @@ namespace Google.GData.Client.LiveTests
 
                 query.Uri = new Uri(this.defaultCalendarUri);
                 EventFeed calFeed = service.Query(query) as EventFeed;
-
-                iCount = calFeed.Entries.Count; 
-
-                String strTitle = "Dinner & time" + Guid.NewGuid().ToString(); 
 
                 if (calFeed != null)
                 {
@@ -1478,11 +1472,11 @@ namespace Google.GData.Client.LiveTests
                 string guid = Guid.NewGuid().ToString(); 
 
                 ExtendedProperty prop; 
-
+                EventEntry entry;
 
                 if (calFeed != null)
                 {
-                    EventEntry entry = ObjectModelHelper.CreateEventEntry(1); 
+                    entry = ObjectModelHelper.CreateEventEntry(1); 
                     entry.Title.Text = guid; 
 
                     prop = new ExtendedProperty(); 
@@ -1495,12 +1489,12 @@ namespace Google.GData.Client.LiveTests
                 }
 
                 calFeed = service.Query(query) as EventFeed;
-
                 prop = null;
+                entry = null;
 
                 if (calFeed != null && calFeed.Entries.Count > 0)
                 {
-                    EventEntry entry = calFeed.Entries[0] as EventEntry;
+                    entry = calFeed.Entries[0] as EventEntry;
 
                     Assert.AreEqual(entry.Title.Text, guid, "Expected the same entry");
 
@@ -1518,6 +1512,26 @@ namespace Google.GData.Client.LiveTests
                 }
 
                 Assert.IsTrue(prop != null, "prop should not be null"); 
+
+                // now delete the prop again
+
+                if (entry != null)
+                {
+                    entry.ExtensionElements.Remove(prop);
+                    prop = null;
+                    EventEntry newEntry = entry.Update() as EventEntry; 
+                    foreach (Object o in newEntry.ExtensionElements )
+                    {
+                        ExtendedProperty p = o as ExtendedProperty; 
+                        if (p != null)
+                        {
+                            Tracing.TraceMsg("Found one extended property"); 
+                            prop = p; 
+                            break;
+                        }
+                    }
+                    Assert.IsTrue(prop == null, "prop should be gone now");
+                }
 
                 service.Credentials = null; 
 
