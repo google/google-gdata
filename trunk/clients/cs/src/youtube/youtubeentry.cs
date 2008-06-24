@@ -27,13 +27,12 @@ using Google.GData.Extensions.AppControl;
 
 namespace Google.GData.YouTube {
 
-
     //////////////////////////////////////////////////////////////////////
     /// <summary>
     /// Entry API customization class for defining entries in an Event feed.
     /// </summary>
     //////////////////////////////////////////////////////////////////////
-    public class YouTubeEntry : AbstractEntry
+    public class YouTubeEntry : YouTubeBaseEntry
     {
         /// <summary>
         /// Constructs a new YouTubeEntry instance
@@ -63,7 +62,6 @@ namespace Google.GData.YouTube {
 
             GeoRssExtensions.AddExtension(this);
 
-
             // create a default appControl element
             AppControl ac = new AppControl();
             // add the youtube state element
@@ -75,8 +73,6 @@ namespace Google.GData.YouTube {
             this.AddExtension(new Rating());
 
             // add youtube namespace elements
-            this.AddExtension(new Description());  // only playlist entry
-            this.AddExtension(new Position());  // only playlist entry
             this.AddExtension(new Statistics());
             this.AddExtension(new Location());
             this.AddExtension(new Recorded());
@@ -306,76 +302,6 @@ namespace Google.GData.YouTube {
         }
 
       
-        /// <summary>
-        /// instead of having 20 extension elements
-        /// we have one string based getter
-        /// usage is: entry.getPhotoExtension("albumid") to get the element
-        /// </summary>
-        /// <param name="extension">the name of the extension to look for</param>
-        /// <returns>SimpleElement, or NULL if the extension was not found</returns>
-        public SimpleElement getYouTubeExtension(string extension) 
-        {
-            return FindExtension(extension, YouTubeNameTable.NSYouTube) as SimpleElement;
-        }
-
-        /// <summary>
-        /// instead of having 20 extension elements
-        /// we have one string based getter
-        /// usage is: entry.getPhotoExtensionValue("albumid") to get the elements value
-        /// </summary>
-        /// <param name="extension">the name of the extension to look for</param>
-        /// <returns>value as string, or NULL if the extension was not found</returns>
-        public string getYouTubeExtensionValue(string extension) 
-        {
-            SimpleElement e = getYouTubeExtension(extension);
-            if (e != null)
-            {
-                return e.Value;
-            }
-            return null;
-        }
-
-
-
-
-        /// <summary>
-        /// instead of having 20 extension elements
-        /// we have one string based setter
-        /// usage is: entry.setYouTubeExtension("albumid") to set the element
-        /// this will create the extension if it's not there
-        /// note, you can ofcourse, just get an existing one and work with that 
-        /// object: 
-        ///     SimpleElement e = entry.getPhotoExtension("albumid");
-        ///     e.Value = "new value";  
-        /// 
-        /// or 
-        ///    entry.setPhotoExtension("albumid", "new Value");
-        /// </summary>
-        /// <param name="extension">the name of the extension to look for</param>
-        /// <param name="newValue">the new value for this extension element</param>
-        /// <returns>SimpleElement, either a brand new one, or the one
-        /// returned by the service</returns>
-        public SimpleElement setYouTubeExtension(string extension, string newValue) 
-        {
-            if (extension == null)
-            {
-                throw new System.ArgumentNullException("extension");
-            }
-            
-            SimpleElement ele = getYouTubeExtension(extension);
-            if (ele == null)
-            {
-                ele = CreateExtension(extension, YouTubeNameTable.NSYouTube) as SimpleElement;
-                if (ele != null)
-                {
-                    this.ExtensionElements.Add(ele);
-                }
-            }
-            if (ele != null)
-                ele.Value = newValue;
-
-            return ele;
-        }
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>accessor for the related videos feed URI</summary> 

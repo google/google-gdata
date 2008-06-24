@@ -25,18 +25,19 @@ namespace Google.GData.YouTube {
  
     //////////////////////////////////////////////////////////////////////
     /// <summary>
-    /// The YouTube Data API allows applications to perform functions normally 
-    /// executed on the YouTube website. The API enables your application to search 
-    /// for YouTube videos and to retrieve standard video feeds, comments and video
-    /// responses. 
-    /// In addition, the API lets your application upload videos to YouTube or 
-    /// update existing videos. Your can also retrieve playlists, subscriptions, 
-    /// user profiles and more. Finally, your application can submit 
-    /// authenticated requests to enable users to create playlists, 
-    /// subscriptions, contacts and other account-specific entities.
+    /// A user's playlists feed contains a list of the playlists created by
+    ///  that user. If you are requesting the playlists feed for the currently
+    ///  authenticated user, the feed will contain both public and private playlists. 
+    /// However, if you send an unauthenticated request or request playlists created 
+    /// by someone other than the currently authenticated user, the feed will only
+    ///  contain public playlists.
+    /// In a playlists feed, each entry contains information about a single playlist, 
+    /// including the playlist title, description and author. The <gd:feedLink> tag 
+    /// in the entry identifies the URL that allows you to retrieve the playlist feed, 
+    /// which specifies information about the videos in the playlist.
     /// </summary>
     //////////////////////////////////////////////////////////////////////
-    public class YouTubeFeed : AbstractFeed
+    public class PlaylistsFeed : YouTubeFeed
     {
 
         /// <summary>
@@ -44,7 +45,7 @@ namespace Google.GData.YouTube {
         /// </summary>
         /// <param name="uriBase">the base URI of the feedEntry</param>
         /// <param name="iService">the Service to use</param>
-        public YouTubeFeed(Uri uriBase, IService iService) : base(uriBase, iService)
+        public PlaylistsFeed(Uri uriBase, IService iService) : base(uriBase, iService)
         {
         }
 
@@ -54,18 +55,7 @@ namespace Google.GData.YouTube {
         /// <returns>AtomEntry</returns>
         public override AtomEntry CreateFeedEntry()
         {
-            return new YouTubeEntry();
-        }
-
-        /// <summary>
-        /// get's called after we already handled the custom entry, to handle all 
-        /// other potential parsing tasks
-        /// </summary>
-        /// <param name="e"></param>
-        /// <param name="parser">the atom feed parser used</param>
-        protected override void HandleExtensionElements(ExtensionElementEventArgs e, AtomFeedParser parser)
-        {
-            base.HandleExtensionElements(e, parser);
+            return new PlaylistsEntry();
         }
     }
 }

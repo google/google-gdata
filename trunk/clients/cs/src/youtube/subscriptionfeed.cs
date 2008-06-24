@@ -25,18 +25,25 @@ namespace Google.GData.YouTube {
  
     //////////////////////////////////////////////////////////////////////
     /// <summary>
-    /// The YouTube Data API allows applications to perform functions normally 
-    /// executed on the YouTube website. The API enables your application to search 
-    /// for YouTube videos and to retrieve standard video feeds, comments and video
-    /// responses. 
-    /// In addition, the API lets your application upload videos to YouTube or 
-    /// update existing videos. Your can also retrieve playlists, subscriptions, 
-    /// user profiles and more. Finally, your application can submit 
-    /// authenticated requests to enable users to create playlists, 
-    /// subscriptions, contacts and other account-specific entities.
+    /// A user's subscriptions feed contains a list of the channels, 
+    /// favorite video lists and search queries to which the user has subscribed.
+    /// In a subscriptions feed, each entry contains information about a single
+    ///  subscription. Each entry contains the following key tags:
+    /// The gd:feedLink tag in the entry identifies the URL that allows 
+    /// you to retrieve videos for the subscription.
+    /// For one of the category tags in the entry, the scheme attribute
+    /// value will be http://gdata.youtube.com/schemas/2007/subscriptiontypes.cat. 
+    /// That tag's term attribute indicates whether the entry describes a 
+    /// subscription to a channel (term="channel"), another user's 
+    /// favorite videos list (term="favorites"), or to videos that match
+    ///  specific keywords (term="query").
+    /// If the subscription is to another user's channel or list of favorite videos, 
+    /// the yt:username tag will identify the user who owns the channel or favorite video list.
+    /// If the subscription is to a keyword query, the yt:queryString element will
+    /// contain the subscribed-to query term.
     /// </summary>
     //////////////////////////////////////////////////////////////////////
-    public class YouTubeFeed : AbstractFeed
+    public class SubscriptionFeed : YouTubeFeed
     {
 
         /// <summary>
@@ -44,7 +51,7 @@ namespace Google.GData.YouTube {
         /// </summary>
         /// <param name="uriBase">the base URI of the feedEntry</param>
         /// <param name="iService">the Service to use</param>
-        public YouTubeFeed(Uri uriBase, IService iService) : base(uriBase, iService)
+        public SubscriptionFeed(Uri uriBase, IService iService) : base(uriBase, iService)
         {
         }
 
@@ -54,18 +61,7 @@ namespace Google.GData.YouTube {
         /// <returns>AtomEntry</returns>
         public override AtomEntry CreateFeedEntry()
         {
-            return new YouTubeEntry();
-        }
-
-        /// <summary>
-        /// get's called after we already handled the custom entry, to handle all 
-        /// other potential parsing tasks
-        /// </summary>
-        /// <param name="e"></param>
-        /// <param name="parser">the atom feed parser used</param>
-        protected override void HandleExtensionElements(ExtensionElementEventArgs e, AtomFeedParser parser)
-        {
-            base.HandleExtensionElements(e, parser);
+            return new SubscriptionEntry();
         }
     }
 }

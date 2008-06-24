@@ -93,7 +93,55 @@ namespace Google.GData.YouTube {
             return base.Query(feedQuery) as YouTubeFeed;
         }
 
+        /// <summary>
+        /// returns a playlist feed based on a youtubeQuery
+        /// </summary>
+        /// <param name="feedQuery"></param>
+        /// <returns>EventFeed</returns>
+        public PlaylistFeed GetPlaylist(YouTubeQuery feedQuery) 
+        {
+            return base.Query(feedQuery) as PlaylistFeed;
+        }
 
+        /// <summary>
+        /// returns a playlist feed based on a youtubeQuery
+        /// </summary>
+        /// <param name="feedQuery"></param>
+        /// <returns>EventFeed</returns>
+        public FriendsFeed GetFriends(YouTubeQuery feedQuery) 
+        {
+            return base.Query(feedQuery) as FriendsFeed;
+        }
+
+        /// <summary>
+        /// returns a playlists feed based on a youtubeQuery
+        /// </summary>
+        /// <param name="feedQuery"></param>
+        /// <returns>EventFeed</returns>
+        public PlaylistsFeed GetPlaylists(YouTubeQuery feedQuery) 
+        {
+            return base.Query(feedQuery) as PlaylistsFeed;
+        }
+
+        /// <summary>
+        /// returns a subscription feed based on a youtubeQuery
+        /// </summary>
+        /// <param name="feedQuery"></param>
+        /// <returns>EventFeed</returns>
+        public SubscriptionFeed GetSubscriptions(YouTubeQuery feedQuery) 
+        {
+            return base.Query(feedQuery) as SubscriptionFeed;
+        }
+
+        /// <summary>
+        /// returns a message feed based on a youtubeQuery
+        /// </summary>
+        /// <param name="feedQuery"></param>
+        /// <returns>EventFeed</returns>
+        public MessageFeed GetMessages(YouTubeQuery feedQuery) 
+        {
+            return base.Query(feedQuery) as MessageFeed;
+        }
         /// <summary>
         /// upload a new video to this users youtube account
         /// </summary>
@@ -187,8 +235,59 @@ namespace Google.GData.YouTube {
                 throw new ArgumentNullException("e"); 
             }
 
-            e.Feed = new YouTubeFeed(e.Uri, e.Service);
+            if (e.Uri.AbsolutePath.IndexOf("feeds/api/playlists/") != -1)
+            {
+                // playlists base url: http://gdata.youtube.com/feeds/api/playlists/
+                e.Feed = new PlaylistFeed(e.Uri, e.Service);
+            } 
+            else if(e.Uri.AbsolutePath.IndexOf("feeds/api") != -1 && 
+                    e.Uri.AbsolutePath.IndexOf("contacts") != -1)
+            {
+                // contacts feeds are http://gdata.youtube.com/feeds/api/users/username/contacts
+                e.Feed = new FriendsFeed(e.Uri, e.Service);
+            }
+            else if(e.Uri.AbsolutePath.IndexOf("feeds/api/users") != -1 && 
+                    e.Uri.AbsolutePath.IndexOf("playlists") != -1)
+            {
+                // user based list of playlists are http://gdata.youtube.com/feeds/api/users/username/playlists
+                e.Feed = new PlaylistsFeed(e.Uri, e.Service);
+            }
+            else if(e.Uri.AbsolutePath.IndexOf("feeds/api/users") != -1 && 
+                    e.Uri.AbsolutePath.IndexOf("subscriptions") != -1)
+            {
+                // user based list of subscriptions are http://gdata.youtube.com/feeds/api/users/username/subscriptions
+                e.Feed = new SubscriptionFeed(e.Uri, e.Service);
+            }
+            else if(e.Uri.AbsolutePath.IndexOf("feeds/api/users") != -1 && 
+                    e.Uri.AbsolutePath.IndexOf("inbox") != -1)
+            {
+                // user based list of messages are http://gdata.youtube.com/feeds/api/users/username/inbox
+                e.Feed = new MessageFeed(e.Uri, e.Service);
+            }
+            else if(e.Uri.AbsolutePath.IndexOf("feeds/api/videos") != -1 && 
+                    e.Uri.AbsolutePath.IndexOf("comments") != -1)
+            {
+                // user based list of messages are http://gdata.youtube.com/feeds/api/videos/videoid/comments
+                e.Feed = new CommentsFeed(e.Uri, e.Service);
+            }
+            else if(IsProfileUri(e.Uri))
+            {
+                // user based list of playlists are http://gdata.youtube.com/feeds/api/users/username/playlists
+                e.Feed = new ProfileFeed(e.Uri, e.Service);
+            }
+            else 
+            {
+                e.Feed = new YouTubeFeed(e.Uri, e.Service);
+            }
         }
         /////////////////////////////////////////////////////////////////////////////
+
+        private bool IsProfileUri(Uri uri)
+        {
+            String str = uri.AbsolutePath;
+            int end  = str.LastIndexOf('/');
+            str = str.Remove(end, str.Length-end);
+            return str.IndexOf("feeds/api/users") != -1;
+        }
     }
 }

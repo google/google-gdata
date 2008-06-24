@@ -23,8 +23,6 @@ using Google.GData.Client;
 
 namespace Google.GData.YouTube {
 
-
-
     //////////////////////////////////////////////////////////////////////
     /// <summary>
     /// A subclass of FeedQuery, to create an YouTube query URI.
@@ -253,6 +251,8 @@ namespace Google.GData.YouTube {
         /// </summary>
         public const string DefaultUploads = "http://gdata.youtube.com/feeds/api/users/default/uploads";
 
+        public const string BaseUserUri = "http://gdata.youtube.com/feeds/api/users/";
+
 
         /// <summary>
         /// base constructor
@@ -430,6 +430,74 @@ namespace Google.GData.YouTube {
             set {this.restriction = value;}
         }
         // end of accessor public string Restriction
+
+
+        /// <summary>
+        /// convienience method to create an URI based on a userID
+        /// for the subscriptions
+        /// </summary>
+        /// <param name="userID"></param>
+        /// <returns>string</returns>
+        public static string CreateSubscriptionUri(string userID) 
+        {
+            return CreateCustomUri(userID, "subscriptions");
+        }
+
+        /// <summary>
+        /// convienience method to create an URI based on a userID
+        /// for the playlists of an user
+        /// </summary>
+        /// <param name="userID"></param>
+        /// <returns>string</returns>
+        public static string CreatePlaylistsUri(string userID) 
+        {
+            return CreateCustomUri(userID, "playlists");
+        }
+
+        /// <summary>
+        /// convienience method to create an URI based on a userID
+        /// for the favorites of an user
+        /// </summary>
+        /// <param name="userID"></param>
+        /// <returns>string</returns>
+        public static string CreateFavoritesUri(string userID) 
+        {
+            return CreateCustomUri(userID, "favorites");
+        }
+
+        /// <summary>
+        /// convienience method to create an URI based on a userID
+        /// for the messages of an user
+        /// </summary>
+        /// <param name="userID"></param>
+        /// <returns>string</returns>
+        public static string CreateMessagesUri(string userID) 
+        {
+            return CreateCustomUri(userID, "inbox");
+        }
+
+        /// <summary>
+        /// convienience method to create an URI based on a userID
+        /// for the contacts of an user
+        /// </summary>
+        /// <param name="userID"></param>
+        /// <returns>string</returns>
+        public static string CreateContactsUri(string userID) 
+        {
+            return CreateCustomUri(userID, "contacts");
+        }
+
+
+
+        private static string CreateCustomUri(string userID, string path) 
+        {
+           if (String.IsNullOrEmpty(userID))
+           {
+               return YouTubeQuery.BaseUserUri + "default/" + path;
+           }
+           return YouTubeQuery.BaseUserUri + userID + "/" + path;
+        }
+
    
 #if WindowsCE || PocketPC
 #else

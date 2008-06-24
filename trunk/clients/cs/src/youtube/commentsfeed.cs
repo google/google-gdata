@@ -25,18 +25,12 @@ namespace Google.GData.YouTube {
  
     //////////////////////////////////////////////////////////////////////
     /// <summary>
-    /// The YouTube Data API allows applications to perform functions normally 
-    /// executed on the YouTube website. The API enables your application to search 
-    /// for YouTube videos and to retrieve standard video feeds, comments and video
-    /// responses. 
-    /// In addition, the API lets your application upload videos to YouTube or 
-    /// update existing videos. Your can also retrieve playlists, subscriptions, 
-    /// user profiles and more. Finally, your application can submit 
-    /// authenticated requests to enable users to create playlists, 
-    /// subscriptions, contacts and other account-specific entities.
+    /// Each video entry contains a gd:comments tag, which encapsulates the 
+    /// URL to which you will send API requests to retrieve or append to the
+    /// list of comments for the video. 
     /// </summary>
     //////////////////////////////////////////////////////////////////////
-    public class YouTubeFeed : AbstractFeed
+    public class CommentsFeed : YouTubeFeed
     {
 
         /// <summary>
@@ -44,7 +38,7 @@ namespace Google.GData.YouTube {
         /// </summary>
         /// <param name="uriBase">the base URI of the feedEntry</param>
         /// <param name="iService">the Service to use</param>
-        public YouTubeFeed(Uri uriBase, IService iService) : base(uriBase, iService)
+        public CommentsFeed(Uri uriBase, IService iService) : base(uriBase, iService)
         {
         }
 
@@ -54,18 +48,7 @@ namespace Google.GData.YouTube {
         /// <returns>AtomEntry</returns>
         public override AtomEntry CreateFeedEntry()
         {
-            return new YouTubeEntry();
-        }
-
-        /// <summary>
-        /// get's called after we already handled the custom entry, to handle all 
-        /// other potential parsing tasks
-        /// </summary>
-        /// <param name="e"></param>
-        /// <param name="parser">the atom feed parser used</param>
-        protected override void HandleExtensionElements(ExtensionElementEventArgs e, AtomFeedParser parser)
-        {
-            base.HandleExtensionElements(e, parser);
+            return new CommentEntry();
         }
     }
 }

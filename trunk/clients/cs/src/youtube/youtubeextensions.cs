@@ -22,21 +22,6 @@ using System.IO;
 
 namespace Google.GData.YouTube {
 
-    /// <summary>
-    /// helper to instantiate all factories defined in here and attach 
-    /// them to a base object
-    /// </summary> 
-    public class YouTubeExtensions 
-    {
-        /// <summary>
-        /// helper to add all picasa photo extensions to the base object
-        /// </summary>
-        /// <param name="baseObject"></param>
-        public static void AddExtension(AtomBase baseObject) 
-        {
-            baseObject.AddExtension(new Age());
-        }
-    }
 
     /// <summary>
     /// short table to hold the namespace and the prefix
@@ -49,7 +34,39 @@ namespace Google.GData.YouTube {
         public const string ytPrefix = "yt"; 
         /// <summary>static string for the ratings relationship</summary>
         public const string RatingsRelationship = "http://gdata.youtube.com/schemas/2007#video.ratings"; 
-        
+
+
+        /// <summary>string for the video kind category</summary>
+        public const string KIND_VIDEO = NSYouTube + "#video";
+        /// <summary>string for the complaint kind category</summary>
+        public const string KIND_COMPLAINT = NSYouTube + "#complaint";
+        /// <summary>string for the comment kind category</summary>
+        public const string KIND_COMMENT = NSYouTube + "#comment";
+        /// <summary>string for the playlistLink kind category</summary>
+        public const string KIND_PLAYLIST_LINK = NSYouTube + "#playlistLink";
+        /// <summary>string for the subscription kind category</summary>
+        public const string KIND_SUBSCRIPTION = NSYouTube + "#subscription";
+        /// <summary>string for the friend kind category</summary>
+        public const string KIND_FRIEND = NSYouTube + "#friend";
+        /// <summary>string for the rating kind category</summary>
+        public const string KIND_RATING = NSYouTube + "#rating";
+        /// <summary>string for the userProfile kind category</summary>
+        public const string KIND_USER_PROFILE = NSYouTube + "#userProfile";        
+        /// <summary>string for the playlist kind category</summary>
+        public const string KIND_PLAYLIST = NSYouTube + "#playlist";
+        /// <summary>string for the videoMessage kind category</summary>
+        public const string KIND_VIDEO_MESSAGE = NSYouTube + "#videoMessage";
+
+        /// <summary>
+        /// The schema used for friends entries
+        /// </summary>
+        public const string FriendsCategorySchema = NSYouTube + "/contact.cat";
+
+        /// <summary>
+        /// The schema used for subscription entries
+        /// </summary>
+        public const string SubscriptionCategorySchema = NSYouTube + "/subscriptiontypes.cat";
+
         /// <summary>
         /// age element string
         /// </summary>
@@ -61,7 +78,7 @@ namespace Google.GData.YouTube {
         /// <summary>
         /// The schema used for categories
         /// </summary>
-        public const string CategorySchema = "http://gdata.youtube.com/schemas/2007/categories.cat";
+        public const string CategorySchema = NSYouTube + "/categories.cat";
         /// <summary>
         /// Company element string
         /// </summary>
@@ -73,7 +90,7 @@ namespace Google.GData.YouTube {
         /// <summary>
         /// The schema used for developer tags
         /// </summary>
-        public const string DeveloperTagSchema = "http://gdata.youtube.com/schemas/2007/developertags.cat";
+        public const string DeveloperTagSchema = NSYouTube + "/developertags.cat";
         /// <summary>
         /// Duration element string
         /// </summary>
@@ -97,7 +114,7 @@ namespace Google.GData.YouTube {
         /// <summary>
         /// The schema used for keywords
         /// </summary>
-        public const string KeywordSchema = "http://gdata.youtube.com/schemas/2007/keywords.cat";
+        public const string KeywordSchema = NSYouTube + "/keywords.cat";
         /// <summary>
         /// LastName element string
         /// </summary>
@@ -145,7 +162,7 @@ namespace Google.GData.YouTube {
         /// <summary>
         /// The related videos URI in the link collection
         /// </summary>
-        public const string RelatedVideo = "http://gdata.youtube.com/schemas/2007#video.related";
+        public const string RelatedVideo = NSYouTube + "#video.related";
         /// <summary>
         /// Relationship element string
         /// </summary>
@@ -153,7 +170,7 @@ namespace Google.GData.YouTube {
         /// <summary>
         /// The video response URI in the link collection
         /// </summary>
-        public const string ResponseVideo = "http://gdata.youtube.com/schemas/2007#video.responses";
+        public const string ResponseVideo = NSYouTube + "#video.responses";
         /// <summary>
         /// School element string
         /// </summary>
