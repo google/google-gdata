@@ -22,10 +22,28 @@ using Google.GData.Client;
 
 namespace Google.GData.Extensions {
 
+
+    //////////////////////////////////////////////////////////////////////
+    /// <summary>Typed collection for Thumbnails Extensions.</summary>
+    //////////////////////////////////////////////////////////////////////
+    public class FeedLinkCollection : ExtensionCollection<FeedLink>
+    {
+        private FeedLinkCollection() : base()
+        {
+        }
+
+        /// <summary>constructor</summary> 
+        public FeedLinkCollection(IExtensionContainer atomElement) 
+            : base(atomElement, GDataParserNameTable.XmlFeedLinkElement, BaseNameTable.gNamespace)
+        {
+        }
+    }
+    /////////////////////////////////////////////////////////////////////////////
+
     /// <summary>
     /// GData schema extension describing a nested feed link.
     /// </summary>
-    public class FeedLink : IExtensionElement
+    public class FeedLink : IExtensionElement, IExtensionElementFactory
     {
 
         /// <summary>holds the href property</summary>
@@ -178,16 +196,46 @@ namespace Google.GData.Extensions {
         }
 
 #endregion
-
-#region overloaded for persistence
+      #region overloaded from IExtensionElementFactory
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Parses an xml node to create a Where  object.</summary> 
+        /// <param name="node">the node to parse node</param>
+        /// <param name="parser">the xml parser to use if we need to dive deeper</param>
+        /// <returns>the created Where  object</returns>
+        //////////////////////////////////////////////////////////////////////
+        public IExtensionElement CreateInstance(XmlNode node, AtomFeedParser parser)
+        {
+            return FeedLink.ParseFeedLink(node);
+        }
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>Returns the constant representing this XML element.</summary> 
         //////////////////////////////////////////////////////////////////////
-        public static string XmlName
+        public string XmlName
         {
             get { return GDataParserNameTable.XmlFeedLinkElement;}
         }
+
+          //////////////////////////////////////////////////////////////////////
+        /// <summary>Returns the constant representing this XML element.</summary> 
+        //////////////////////////////////////////////////////////////////////
+        public string XmlNameSpace
+        {
+            get { return BaseNameTable.gNamespace; }
+        }
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Returns the constant representing this XML element.</summary> 
+        //////////////////////////////////////////////////////////////////////
+        public string XmlPrefix
+        {
+            get { return BaseNameTable.gDataPrefix; }
+        }
+
+        #endregion
+
+#region overloaded for persistence
+
 
         /// <summary>
         /// Persistence method for the FeedLink object
@@ -197,7 +245,7 @@ namespace Google.GData.Extensions {
         {
             if (Utilities.IsPersistable(this.Href) || this.Feed != null)
             {
-                writer.WriteStartElement(BaseNameTable.gDataPrefix, XmlName, BaseNameTable.gNamespace);
+                writer.WriteStartElement(XmlPrefix, XmlName, XmlNameSpace);
     
                 if (Utilities.IsPersistable(this.Href))
                 {
