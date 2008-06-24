@@ -36,7 +36,7 @@ namespace Google.GData.YouTube {
     /// subscriptions, contacts and other account-specific entities.
     /// </summary>
     //////////////////////////////////////////////////////////////////////
-    public class YouTubeFeed : AbstractFeed
+    public class PlaylistFeed : YouTubeFeed
     {
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace Google.GData.YouTube {
         /// </summary>
         /// <param name="uriBase">the base URI of the feedEntry</param>
         /// <param name="iService">the Service to use</param>
-        public YouTubeFeed(Uri uriBase, IService iService) : base(uriBase, iService)
+        public PlaylistFeed(Uri uriBase, IService iService) : base(uriBase, iService)
         {
         }
 
@@ -54,18 +54,7 @@ namespace Google.GData.YouTube {
         /// <returns>AtomEntry</returns>
         public override AtomEntry CreateFeedEntry()
         {
-            return new YouTubeEntry();
-        }
-
-        /// <summary>
-        /// get's called after we already handled the custom entry, to handle all 
-        /// other potential parsing tasks
-        /// </summary>
-        /// <param name="e"></param>
-        /// <param name="parser">the atom feed parser used</param>
-        protected override void HandleExtensionElements(ExtensionElementEventArgs e, AtomFeedParser parser)
-        {
-            base.HandleExtensionElements(e, parser);
+            return new PlaylistEntry();
         }
     }
 }
