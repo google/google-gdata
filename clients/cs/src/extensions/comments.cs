@@ -127,7 +127,7 @@ namespace Google.GData.Extensions {
             if (FeedLink != null)
             {
                 // only save out if there is something to save
-                writer.WriteStartElement(BaseNameTable.gDataPrefix, XmlName, BaseNameTable.gNamespace);
+                writer.WriteStartElement(XmlPrefix, XmlName, XmlNameSpace);
                 FeedLink.Save(writer);
                 writer.WriteEndElement();
             }
