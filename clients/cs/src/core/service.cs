@@ -483,17 +483,20 @@ namespace Google.GData.Client
             returnFeed.NewAtomEntry += new FeedParserEventHandler(this.OnParsedNewEntry); 
             returnFeed.NewExtensionElement += new ExtensionElementEventHandler(this.OnNewExtensionElement);
             returnFeed.Parse(returnStream, AlternativeFormat.Atom);
-            returnStream.Close(); 
+            returnStream.Close();
 
+            AtomEntry entry=null; 
             // there should be ONE entry echoed back. 
-
-            AtomEntry entry = returnFeed.Entries[0];
-            if (entry != null)
+            if (returnFeed.Entries.Count > 0)
             {
-                entry.Service  = this;
-                entry.setFeed(null);
-            }
 
+                entry = returnFeed.Entries[0];
+                if (entry != null)
+                {
+                    entry.Service = this;
+                    entry.setFeed(null);
+                }
+            }
             return entry; 
         }
         /////////////////////////////////////////////////////////////////////////////

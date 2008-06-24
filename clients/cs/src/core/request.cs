@@ -385,7 +385,7 @@ namespace Google.GData.Client
             if (disposing == true)
             {
                 Tracing.TraceMsg("disposing of request"); 
-                this.Reset(); 
+                Reset(); 
                 this.disposed = true;
             }
         }

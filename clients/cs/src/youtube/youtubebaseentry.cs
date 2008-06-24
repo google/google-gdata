@@ -27,7 +27,9 @@ using Google.GData.Extensions.AppControl;
 
 namespace Google.GData.YouTube {
 
-    // this class only holds a few helper methods for other entry classes inside the youtube namespace
+    /// <summary>
+    /// this class only holds a few helper methods for other entry classes inside the youtube namespace
+    /// </summary>
     public abstract class YouTubeBaseEntry : AbstractEntry
     {
         /// <summary>

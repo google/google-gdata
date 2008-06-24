@@ -119,6 +119,11 @@
             predefined query category for presentations
             </summary>
         </member>
+        <member name="F:Google.GData.Documents.DocumentsListQuery.PDFS">
+            <summary>
+            predefined query category for presentations
+            </summary>
+        </member>
         <member name="F:Google.GData.Documents.DocumentsListQuery.ATOMCATEGORY_STARRED">
             <summary>
             predefined query category for starred documents
@@ -196,6 +201,16 @@
             base constructor
             </summary>
         </member>
+        <member name="T:Google.GData.Documents.PDFsQuery">
+            <summary>
+            a subclass setup to just retrieve all PDFs
+            </summary>
+        </member>
+        <member name="M:Google.GData.Documents.PDFsQuery.#ctor">
+            <summary>
+            base constructor
+            </summary>
+        </member>
         <member name="T:Google.GData.Documents.DocumentsFeed">
             <summary>
             Google Documents List feed URI takes the following form:
@@ -245,7 +260,15 @@
             a predefined atom category for Spreadsheets
             </summary>
         </member>
+        <member name="F:Google.GData.Documents.DocumentEntry.PDF_CATEGORY">
+            <summary>
+            a predefined atom category for PDF
+            </summary>
+        </member>
         <member name="F:Google.GData.Documents.DocumentEntry.PRESENTATION_CATEGORY">
+            <summary>
+            a predefined atom category for starred documentss
+            </summary>
             <summary>
             a predefined atom category for Presentations
             </summary>
@@ -253,7 +276,7 @@
         <member name="F:Google.GData.Documents.DocumentEntry.STARRED_CATEGORY">
             <summary>
             a predefined atom category for starred documentss
-            </summary>
+            </summary>        
         </member>
         <member name="M:Google.GData.Documents.DocumentEntry.#ctor">
             <summary>
@@ -274,6 +297,11 @@
         <member name="P:Google.GData.Documents.DocumentEntry.IsPresentation">
             <summary>
             Reflects if this entry is a presentation document
+            </summary>
+        </member>
+        <member name="P:Google.GData.Documents.DocumentEntry.IsPDF">
+            <summary>
+            Reflects if this entry is a PDF document
             </summary>
         </member>
         <member name="P:Google.GData.Documents.DocumentEntry.IsStarred">

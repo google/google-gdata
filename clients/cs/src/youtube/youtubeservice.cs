@@ -270,6 +270,13 @@ namespace Google.GData.YouTube {
                 // user based list of messages are http://gdata.youtube.com/feeds/api/videos/videoid/comments
                 e.Feed = new CommentsFeed(e.Uri, e.Service);
             }
+            else if (e.Uri.AbsolutePath.IndexOf("feeds/api/users") != -1 &&
+               e.Uri.AbsolutePath.IndexOf("uploads") != -1)
+            {
+                // user based upload service are http://gdata.youtube.com/feeds/api/users/videoid/uploads
+                e.Feed = new YouTubeFeed(e.Uri, e.Service);
+            }
+
             else if(IsProfileUri(e.Uri))
             {
                 // user based list of playlists are http://gdata.youtube.com/feeds/api/users/username/playlists
@@ -277,6 +284,7 @@ namespace Google.GData.YouTube {
             }
             else 
             {
+                // everything not detected yet, is a youtubefeed.
                 e.Feed = new YouTubeFeed(e.Uri, e.Service);
             }
         }
@@ -285,9 +293,22 @@ namespace Google.GData.YouTube {
         private bool IsProfileUri(Uri uri)
         {
             String str = uri.AbsolutePath;
-            int end  = str.LastIndexOf('/');
-            str = str.Remove(end, str.Length-end);
-            return str.IndexOf("feeds/api/users") != -1;
+            if (str.StartsWith("/") == true)
+            {
+                str = str.Substring(1);
+            }
+            if (str.EndsWith("/") == true)
+            {
+                str = str.Remove(str.Length-1);
+            }
+            if (str.StartsWith("feeds/api/users/") == true)
+            {
+                str = str.Substring(16);
+                // now there should be one word left, no more slashes
+                if (str.IndexOf('/') == -1)
+                    return true;
+            }
+            return false;
         }
     }
 }

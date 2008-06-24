@@ -251,6 +251,9 @@ namespace Google.GData.YouTube {
         /// </summary>
         public const string DefaultUploads = "http://gdata.youtube.com/feeds/api/users/default/uploads";
 
+        /// <summary>
+        /// base uri for user based feeds
+        /// </summary>
         public const string BaseUserUri = "http://gdata.youtube.com/feeds/api/users/";
 
 

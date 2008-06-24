@@ -644,7 +644,7 @@ namespace Google.GData.Client
             {
                 Tracing.TraceMsg("need to reauthenticate, got a forbidden back");
                 // do it again, once, reset AuthToken first and streams first
-                base.Reset();
+                Reset();
                 this.factory.GAuthToken = null; 
                 CopyRequestData();
                 base.Execute();
@@ -668,7 +668,7 @@ namespace Google.GData.Client
                         }
                     }
                 }
-                base.Reset();
+                Reset();
                 this.TargetUri = new Uri(re.Location);
                 CopyRequestData();
                 base.Execute();
@@ -683,7 +683,7 @@ namespace Google.GData.Client
                 Tracing.TraceMsg("Let's retry this"); 
                 // only reset the base, the auth cookie is still valid
                 // and cookies are stored in the factory
-                base.Reset();
+                Reset();
                 this.Execute(retryCounter + 1); 
             }
             catch (Exception e)

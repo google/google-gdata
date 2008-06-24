@@ -123,6 +123,51 @@
     <Compile Include="..\..\youtube\AssemblyInfo.cs">
       <Link>AssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="..\..\youtube\commententry.cs">
+      <Link>commententry.cs</Link>
+    </Compile>
+    <Compile Include="..\..\youtube\commentsfeed.cs">
+      <Link>commentsfeed.cs</Link>
+    </Compile>
+    <Compile Include="..\..\youtube\friendsentry.cs">
+      <Link>friendsentry.cs</Link>
+    </Compile>
+    <Compile Include="..\..\youtube\friendsfeed.cs">
+      <Link>friendsfeed.cs</Link>
+    </Compile>
+    <Compile Include="..\..\youtube\messageentry.cs">
+      <Link>messageentry.cs</Link>
+    </Compile>
+    <Compile Include="..\..\youtube\messagefeed.cs">
+      <Link>messagefeed.cs</Link>
+    </Compile>
+    <Compile Include="..\..\youtube\playlistentry.cs">
+      <Link>playlistentry.cs</Link>
+    </Compile>
+    <Compile Include="..\..\youtube\playlistfeed.cs">
+      <Link>playlistfeed.cs</Link>
+    </Compile>
+    <Compile Include="..\..\youtube\playlistsentry.cs">
+      <Link>playlistsentry.cs</Link>
+    </Compile>
+    <Compile Include="..\..\youtube\playlistsfeed.cs">
+      <Link>playlistsfeed.cs</Link>
+    </Compile>
+    <Compile Include="..\..\youtube\profileentry.cs">
+      <Link>profileentry.cs</Link>
+    </Compile>
+    <Compile Include="..\..\youtube\profilefeed.cs">
+      <Link>profilefeed.cs</Link>
+    </Compile>
+    <Compile Include="..\..\youtube\subscriptionentry.cs">
+      <Link>subscriptionentry.cs</Link>
+    </Compile>
+    <Compile Include="..\..\youtube\subscriptionfeed.cs">
+      <Link>subscriptionfeed.cs</Link>
+    </Compile>
+    <Compile Include="..\..\youtube\youtubebaseentry.cs">
+      <Link>youtubebaseentry.cs</Link>
+    </Compile>
     <Compile Include="..\..\youtube\youtubeentry.cs">
       <Link>youtubeentry.cs</Link>
     </Compile>
