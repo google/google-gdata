@@ -46,12 +46,26 @@ namespace Google.GData.YouTube {
     //////////////////////////////////////////////////////////////////////
     public class SubscriptionEntry : YouTubeBaseEntry
     {
-
+        /// <summary>
+        /// describes the subscription types for a subscription feed
+        /// </summary>
         public enum SubscriptionType 
         {
+            /// <summary>
+            /// indicates a channel subscription
+            /// </summary>
             channel,
+            /// <summary>
+            /// indicates a user favorites subscription
+            /// </summary>
             favorites, 
+            /// <summary>
+            /// indicates a query based subscription
+            /// </summary>
             query,
+            /// <summary>
+            /// indicates an unknown state
+            /// </summary>
             unknown
         }
 

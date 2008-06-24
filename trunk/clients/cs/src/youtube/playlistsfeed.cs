@@ -32,7 +32,7 @@ namespace Google.GData.YouTube {
     /// by someone other than the currently authenticated user, the feed will only
     ///  contain public playlists.
     /// In a playlists feed, each entry contains information about a single playlist, 
-    /// including the playlist title, description and author. The <gd:feedLink> tag 
+    /// including the playlist title, description and author. The gd:feedLink tag 
     /// in the entry identifies the URL that allows you to retrieve the playlist feed, 
     /// which specifies information about the videos in the playlist.
     /// </summary>

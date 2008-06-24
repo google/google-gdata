@@ -3471,6 +3471,9 @@
             <summary>Log's the response object if overridden in subclass</summary>
             <param name="response">the response to log</param> 
         </member>
+        <member name="M:Google.GData.Client.GDataLoggingRequest.Reset">
+            <summary>resets the object's state</summary> 
+        </member>
         <member name="M:Google.GData.Client.GDataLoggingRequest.SaveStream(System.IO.Stream,System.IO.StreamWriter,System.IO.StreamWriter)">
             <summary>private void SaveStream()</summary> 
             <param name="stream">the stream to save </param>
