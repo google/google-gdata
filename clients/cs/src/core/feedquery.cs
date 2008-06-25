@@ -180,6 +180,8 @@ namespace Google.GData.Client
 
         private bool defaultSSL; 
 
+        private bool useCategoryQueriesAsParameter;
+
         /// <summary>the base URI</summary> 
         protected string baseUri;
         #endregion
@@ -235,6 +237,17 @@ namespace Google.GData.Client
         }
         /////////////////////////////////////////////////////////////////////////////
 
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>accessor method public bool CategoryQueriesAsParameter</summary> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        public bool CategoryQueriesAsParameter
+        {
+            get {return this.useCategoryQueriesAsParameter;}
+            set {this.useCategoryQueriesAsParameter = value;}
+        }
+        // end of accessor public bool CategoryQueriesAsParameter
 
 #if WindowsCE || PocketPC
 #else
@@ -455,23 +468,7 @@ namespace Google.GData.Client
                     }
                     else if (fCategory == true)
                     {
-                        // take the string, and create some category objects out of it...
-                        
-                        // replace the curly braces and the or operator | so that we can tokenize better
-                        segment = segment.Replace("%7B", "{"); 
-                        segment = segment.Replace("%7D", "}");
-                        segment = segment.Replace("%7C", "|");
-
-                        // let's see if it's the only one...
-                        tokens = new TokenCollection(segment, new char[1] {'|'}); 
-                        QueryCategoryOperator op = QueryCategoryOperator.AND; 
-                        foreach (String token in tokens)
-                        {
-                            // each one is a category
-                            QueryCategory category = new QueryCategory(token, op); 
-                            this.Categories.Add(category);
-                            op = QueryCategoryOperator.OR; 
-                        }
+                        ParseCategoryString(segment);
                     }
                     else
                     {
@@ -514,6 +511,9 @@ namespace Google.GData.Client
                             case "published-max":
                                 this.MaxPublication = DateTime.Parse(Utilities.UrlDecodedValue(parameters[1]), CultureInfo.InvariantCulture);
                                 break;
+                            case "category":
+                                ParseCategoryQueryString(parameters[1]);
+                                break;
                             default:
                                 break;
                         }
@@ -534,7 +534,52 @@ namespace Google.GData.Client
             return null; 
         }
         /////////////////////////////////////////////////////////////////////////////
-        
+
+
+        /// <summary>
+        /// this will take the complete parameter string and split it into parts
+        /// </summary>
+        /// <param name="categories"></param>
+        /// <returns></returns>
+        private void ParseCategoryQueryString(string categories)
+        {
+            // split the string in parts
+            char [] deli = {','}; 
+            TokenCollection tokens = new TokenCollection(categories, deli); 
+
+            foreach (String token in tokens)
+            {
+                ParseCategoryString(token);
+            }
+        }
+
+        /// <summary>
+        /// this will take one category part and parse it
+        /// </summary>
+        /// <param name="categories"></param>
+        /// <returns></returns>
+        private void ParseCategoryString(string category)
+        {
+            // take the string, and create some category objects out of it...
+
+            // replace the curly braces and the or operator | so that we can tokenize better
+            category = category.Replace("%7B", "{"); 
+            category = category.Replace("%7D", "}");
+            category = category.Replace("%7C", "|");
+
+            // let's see if it's the only one...
+            TokenCollection tokens = new TokenCollection(category, new char[1] {'|'}); 
+            QueryCategoryOperator op = QueryCategoryOperator.AND; 
+            foreach (String token in tokens)
+            {
+                // each one is a category
+                QueryCategory cat = new QueryCategory(token, op); 
+                this.Categories.Add(cat);
+                op = QueryCategoryOperator.OR; 
+            }
+        }
+
+
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>protected void ParseUri</summary> 
@@ -628,56 +673,8 @@ namespace Google.GData.Client
 
 
             StringBuilder newPath = new StringBuilder("", 2048);  
+            char paramInsertion = CreateCategoryString(newPath);
 
-
-            // now let's build up a big string and check if we have all the parts we need
-            bool firstTime = true; 
-
-            // categories come first 
-            
-            foreach (QueryCategory category in this.Categories )
-            {
-                string strCategory = Utilities.UriEncodeReserved(category.Category.UriString); 
-
-                if (Utilities.IsPersistable(strCategory))
-                {
-                    if (firstTime == true)
-                    {
-                        newPath.Append("/-/"); 
-                    }
-                    else
-                    {
-                        switch (category.Operator)
-                        {
-                            case QueryCategoryOperator.AND:
-                                // we get another AND, so it's a new path
-                                newPath.Append("/");
-                                break;
-                            case QueryCategoryOperator.OR:
-                                newPath.Append("|");
-                                break;
-                        }
-                    }
-    
-                    firstTime = false; 
-    
-                    if (category.Excluded == true)
-                    {
-                        newPath.AppendFormat(CultureInfo.InvariantCulture, "-{0}", strCategory);
-                    }
-                    else
-                    {
-                        newPath.AppendFormat(CultureInfo.InvariantCulture, "{0}", strCategory);
-                    }   
-                }
-                else
-                {
-                    throw new ClientQueryException("One of the categories could not be persisted to a string");
-                }
-            }
-
-            char paramInsertion = '?';
-            
             if (this.FeedFormat != AlternativeFormat.Atom)
             {
                 newPath.Append(paramInsertion);
@@ -704,6 +701,63 @@ namespace Google.GData.Client
 
         }
         /////////////////////////////////////////////////////////////////////////////
+
+
+        private char CreateCategoryString(StringBuilder builder)
+        {
+            bool firstTime = true;
+
+            int iLen = builder.Length;
+
+            string prePendString = this.CategoryQueriesAsParameter == true ? "?category=" : "/-/";
+            string seperator =  this.CategoryQueriesAsParameter == true ? "," : "/";
+
+            foreach (QueryCategory category in this.Categories )
+            {
+                string strCategory = Utilities.UriEncodeReserved(category.Category.UriString); 
+
+                if (Utilities.IsPersistable(strCategory))
+                {
+                    if (firstTime == true)
+                    {
+                        builder.Append(prePendString); 
+                    }
+                    else
+                    {
+                        switch (category.Operator)
+                        {
+                            case QueryCategoryOperator.AND:
+                                // we get another AND, so it's a new path
+                                builder.Append(seperator);
+                                break;
+                            case QueryCategoryOperator.OR:
+                                builder.Append("|");
+                                break;
+                        }
+                    }
+                    firstTime = false; 
+                    if (category.Excluded == true)
+                    {
+                        builder.AppendFormat(CultureInfo.InvariantCulture, "-{0}", strCategory);
+                    }
+                    else
+                    {
+                        builder.AppendFormat(CultureInfo.InvariantCulture, "{0}", strCategory);
+                    }   
+                }
+                else
+                {
+                    throw new ClientQueryException("One of the categories could not be persisted to a string");
+                }
+            }
+
+            if (builder.Length > iLen && this.CategoryQueriesAsParameter == true)
+            {
+                return '&';
+            }
+            return '?';
+
+        }
 
         /// <summary>
         /// helper to format a string parameter into the query

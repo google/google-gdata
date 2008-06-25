@@ -263,6 +263,7 @@ namespace Google.GData.YouTube {
         public YouTubeQuery()
         : base()
         {
+            this.CategoryQueriesAsParameter = true;
         }
 
 
@@ -274,6 +275,7 @@ namespace Google.GData.YouTube {
         public YouTubeQuery(string queryUri)
         : base(queryUri)
         {
+            this.CategoryQueriesAsParameter = true;
         }
 
         //////////////////////////////////////////////////////////////////////
