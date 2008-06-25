@@ -10,6 +10,12 @@
           <li>Added the most-popular constant to the defined youtube 
               queries</li>
           <li>Added PDF support to the Google Documents API</li>
+          <li>Added a CategoryQueriesAsParameter property on the feedquery 
+              class, and making that false by default. On the YouTubeQuery this
+              is true by default. The effect is that category queries will not
+              be created by extending/changing the path portion of the URL, but
+              instead using a new parameter "category" and putting the 
+              categories comma delimited into the query part of the uri.</li>
           
       </ul>
       <li>Bugfixes</li>

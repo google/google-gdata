@@ -492,6 +492,20 @@
             <param name="targetUri">takes an incoming Uri string and parses all the properties out of it</param>
             <returns>throws a query exception when it finds something wrong with the input, otherwise returns a baseuri</returns>
         </member>
+        <member name="M:Google.GData.Client.FeedQuery.ParseCategoryQueryString(System.String)">
+            <summary>
+            this will take the complete parameter string and split it into parts
+            </summary>
+            <param name="categories"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Google.GData.Client.FeedQuery.ParseCategoryString(System.String)">
+            <summary>
+            this will take one category part and parse it
+            </summary>
+            <param name="categories"></param>
+            <returns></returns>
+        </member>
         <member name="M:Google.GData.Client.FeedQuery.ParseUri(System.String)">
             <summary>protected void ParseUri</summary> 
             <param name="target">takes an incoming string and parses all the properties out of it</param>
@@ -571,6 +585,10 @@
             want to use SSL, this will result in an HTTPS URI
             </summary> 
             <returns>returns the complete UriPart that is used to execute the query</returns>
+        </member>
+        <member name="P:Google.GData.Client.FeedQuery.CategoryQueriesAsParameter">
+            <summary>accessor method public bool CategoryQueriesAsParameter</summary> 
+            <returns> </returns>
         </member>
         <member name="P:Google.GData.Client.FeedQuery.UseSSL">
             <summary>
