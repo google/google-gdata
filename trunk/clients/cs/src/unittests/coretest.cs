@@ -53,11 +53,8 @@ namespace Google.GData.Client.UnitTests
             query.Uri = new Uri(this.defaultHost);
 
             AtomCategory aCat = new AtomCategory("Test", new AtomUri("urn:test.com")); 
-
             QueryCategory qCat = new QueryCategory(aCat);
-
             query.Categories.Add(qCat);
-
 
             aCat = new AtomCategory("TestNotAndOr", new AtomUri("urn:test.com")); 
             qCat = new QueryCategory(aCat);
@@ -82,13 +79,19 @@ namespace Google.GData.Client.UnitTests
             Tracing.TraceInfo("query: "  + query.Uri);  
 
             Uri uri =  query.Uri; 
-
             Tracing.TraceInfo("Uri: query= " + uri.Query); 
             query.Uri = uri; 
-
             Tracing.TraceInfo("Parsed Query URI: " + query.Uri); 
+            Assert.IsTrue(uri.AbsolutePath.Equals(query.Uri.AbsolutePath), "both query URIs should be identical, uri: " + uri.AbsolutePath + " compared to query: " + query.Uri.AbsolutePath); 
 
-            Assert.IsTrue(uri.AbsolutePath.Equals(query.Uri.AbsolutePath), "both query URIs should be identical"); 
+            query.CategoryQueriesAsParameter = true;
+
+            uri = query.Uri;
+            Tracing.TraceInfo("Uri: query= " + uri.Query); 
+            query.Uri = uri; 
+            Tracing.TraceInfo("Parsed Query URI: " + query.Uri.AbsoluteUri); 
+            Assert.IsTrue(uri.AbsolutePath.Equals(query.Uri.AbsolutePath), "both query URIs should be identical, uri: " + uri.AbsolutePath + " compared to query: " + query.Uri.AbsolutePath); 
+
         }
         /////////////////////////////////////////////////////////////////////////////
 
@@ -200,6 +203,7 @@ namespace Google.GData.Client.UnitTests
         /////////////////////////////////////////////////////////////////////////////
 
 
+      
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>[Test] creates a new entry, saves and loads it back
