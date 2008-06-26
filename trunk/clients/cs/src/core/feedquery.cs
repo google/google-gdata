@@ -556,7 +556,7 @@ namespace Google.GData.Client
         /// <summary>
         /// this will take one category part and parse it
         /// </summary>
-        /// <param name="categories"></param>
+        /// <param name="category"></param>
         /// <returns></returns>
         private void ParseCategoryString(string category)
         {

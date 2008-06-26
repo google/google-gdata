@@ -129,6 +129,9 @@
     <Compile Include="..\..\youtube\commentsfeed.cs">
       <Link>commentsfeed.cs</Link>
     </Compile>
+    <Compile Include="..\..\youtube\complaintentry.cs">
+      <Link>complaintentry.cs</Link>
+    </Compile>
     <Compile Include="..\..\youtube\friendsentry.cs">
       <Link>friendsentry.cs</Link>
     </Compile>
