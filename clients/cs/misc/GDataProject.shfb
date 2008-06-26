@@ -6,6 +6,7 @@
         <assembly assemblyPath="..\lib\Release\Google.GData.Client.dll" xmlCommentsPath="..\docs\gdata.xml" commentsOnly="False" />
         <assembly assemblyPath="..\lib\Release\Google.GData.CodeSearch.dll" xmlCommentsPath="..\docs\gcodesearch.xml" commentsOnly="False" />
         <assembly assemblyPath="..\lib\Release\Google.GData.Contacts.dll" xmlCommentsPath="..\docs\gcontacts.xml" commentsOnly="False" />
+        <assembly assemblyPath="..\lib\Release\Google.GData.Documents.dll" xmlCommentsPath="..\docs\gdocuments.xml" commentsOnly="False" />
         <assembly assemblyPath="..\lib\Release\Google.GData.Extensions.dll" xmlCommentsPath="..\docs\gextension.xml" commentsOnly="False" />
         <assembly assemblyPath="..\lib\Release\Google.GData.GoogleBase.dll" xmlCommentsPath="..\docs\gbase.xml" commentsOnly="False" />
         <assembly assemblyPath="..\lib\Release\Google.GData.Health.dll" xmlCommentsPath="..\docs\health.xml" commentsOnly="False" />
@@ -14,7 +15,7 @@
         <assembly assemblyPath="..\lib\Release\Google.GData.YouTube.dll" xmlCommentsPath="..\docs\youtube.xml" commentsOnly="False" />
     </assemblies>
     <namespaceSummaries>
-        <namespaceSummaryItem name="" isDocumented="True" />
+        <namespaceSummaryItem name="" isDocumented="False" />
         <namespaceSummaryItem name="Google.GData.AccessControl" isDocumented="True">This namespace contains elements and methods to deal with AccessControl lists. AccessControl lists are used, for example, in the Google Calendar to enable authorization and security on a per calendar level</namespaceSummaryItem>
         <namespaceSummaryItem name="Google.GData.Apps" isDocumented="True">Google Apps allows website administrators to offer their users cobranded versions of a variety of personalized Google applications, such as Gmail. This document describes the Google Apps Provisioning API, which enables Google partners to programmatically enable access to these applications. Specifically, the API provides functions for creating, retrieving, updating and deleting user accounts, nicknames and email lists.
 
@@ -35,6 +36,7 @@ Here are some of the things you can do with the Code Search data API:
  - Synchronize Google contacts with contacts on a mobile device
 - Maintain relationships between people in social applications
 - Give users the ability to communicate directly with their friends from external applications using phone, email, and IM</namespaceSummaryItem>
+        <namespaceSummaryItem name="Google.GData.Documents" isDocumented="True">The Google Documents List Data API allows client applications to view and search through documents stored in Google Documents using Google Data API feeds. Your client application can request a list of a user's word processing documents and/or spreadsheets and upload existing documents to Google Documents.</namespaceSummaryItem>
         <namespaceSummaryItem name="Google.GData.Extensions" isDocumented="True">This namespace contains common extension elements that are used accross several Google Data API enabled properties</namespaceSummaryItem>
         <namespaceSummaryItem name="Google.GData.Extensions.AppControl" isDocumented="True">This namespace contains the AtomPublishing control elements</namespaceSummaryItem>
         <namespaceSummaryItem name="Google.GData.Extensions.Apps" isDocumented="True">Extensions for the Apps Provisioning API</namespaceSummaryItem>
@@ -157,6 +159,6 @@ Creating and deleting a feed is left up to the service; the GData protocol does 
     <SyntaxFilters>Standard</SyntaxFilters>
     <ShowFeedbackControl>False</ShowFeedbackControl>
     <ContentPlacement>AboveNamespaces</ContentPlacement>
-    <ContentSiteMap path="" />
+    <ContentSiteMap path=".\helpfile.sitemap" />
     <TopicFileTransform path="" />
 </project>
