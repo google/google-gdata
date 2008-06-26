@@ -2,6 +2,37 @@
     
 <h1>This document lists the changes in the different releases</h1>
 
+<h2>1.2.1.0</h2>
+  <ul>
+      <li>Features</li>
+      <ul>
+          <li>Added media:rating to media:group</li>
+          <li>Added the most-popular constant to the defined youtube 
+              queries</li>
+          <li>Added PDF support to the Google Documents API</li>
+          <li>Added a CategoryQueriesAsParameter property on the feedquery 
+              class, and making that false by default. On the YouTubeQuery this
+              is true by default. The effect is that category queries will not
+              be created by extending/changing the path portion of the URL, but
+              instead using a new parameter "category" and putting the 
+              categories comma delimited into the query part of the uri.</li>
+          
+      </ul>
+      <li>Bugfixes</li>
+      <ul>
+          <li>Fixed issue 135. There was a bug in the FeedQuery parsing 
+              code that resulted in URIs with date parameters that are encoded
+              to potentially throw</li>
+          <li>Removed the Cookie property and replaced it with a Cookies 
+              properter on the RequestFactory. The old code, using just a simple
+              string, was implemented for mobile benefits, as the 
+              CookieContainer, that is used now, does not exist on the compact
+              framework. The simple solution though is creating problems in some
+              scenarios, and had to be removed.</li>
+      </ul>
+  </ul>
+
+
 <h2>1.2.0.0</h2>
 <ul>
     <li>Features</li>
@@ -16,7 +47,8 @@
             media:group
         </li>
         <li>
-            Created a real app:control extension
+            Created a real app:control extension. This one is currently only 
+            used in the YouTube namespace.
         </li>
         <li>
             Added support for YouTube
