@@ -330,7 +330,22 @@ namespace Google.GData.YouTube {
                 return link == null ? null : link.HRef;
             }
         }
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>accessor for the complaint URI</summary> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        public AtomUri ComplaintUri
+        {
+            get
+            {
+                AtomLink link = this.Links.FindService(YouTubeNameTable.Complaint, AtomLink.ATOM_TYPE);
+                // scan the link collection
+                return link == null ? null : link.HRef;
+            }
+        }
     }
 }
+
 
 

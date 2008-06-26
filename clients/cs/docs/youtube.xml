@@ -236,6 +236,70 @@
             <summary>accessor for the video responses feed URI</summary> 
             <returns> </returns>
         </member>
+        <member name="P:Google.GData.YouTube.YouTubeEntry.ComplaintUri">
+            <summary>accessor for the complaint URI</summary> 
+            <returns> </returns>
+        </member>
+        <member name="T:Google.GData.YouTube.ComplaintEntry">
+            <summary>
+            Entry API customization class for defining comment entries in an comments feed.
+            </summary>
+        </member>
+        <member name="M:Google.GData.YouTube.ComplaintEntry.#ctor">
+            <summary>
+            Constructs a new CommentEntry instance
+            </summary>
+        </member>
+        <member name="P:Google.GData.YouTube.ComplaintEntry.Complaint">
+            <summary>
+            getter/setter for yt:content subelement
+            </summary>
+        </member>
+        <member name="P:Google.GData.YouTube.ComplaintEntry.Type">
+            <summary>
+            gets and sets the associated atom:category
+            </summary>
+        </member>
+        <member name="T:Google.GData.YouTube.ComplaintEntry.ComplaintType">
+            <summary>
+            Describes the nature of the complaint
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.ComplaintEntry.ComplaintType.PORN">
+            <summary>
+            The video contains sexual content
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.ComplaintEntry.ComplaintType.VIOLENCE">
+            <summary>
+            The video contains violent or repulsive content
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.ComplaintEntry.ComplaintType.HATE">
+            <summary>
+            The video contains hateful or abusive content
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.ComplaintEntry.ComplaintType.DANGEROUS">
+            <summary>
+            The video contains harmful or dangerous acts
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.ComplaintEntry.ComplaintType.RIGHTS">
+            <summary>
+            The video infringes on the complainant's rights or copyright.
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.ComplaintEntry.ComplaintType.SPAM">
+            <summary>
+            The video is clearly spam.
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.ComplaintEntry.ComplaintType.UNKNOWN">
+            <summary>
+            The type of complaint is not set yet.
+            </summary>
+        </member>
         <member name="T:Google.GData.YouTube.SubscriptionFeed">
             <summary>
             A user's subscriptions feed contains a list of the channels, 
@@ -404,6 +468,11 @@
             The schema used for subscription entries
             </summary>
         </member>
+        <member name="F:Google.GData.YouTube.YouTubeNameTable.ComplaintCategorySchema">
+            <summary>
+            The schema used for complaint entries
+            </summary>
+        </member>
         <member name="F:Google.GData.YouTube.YouTubeNameTable.Age">
             <summary>
             age element string
@@ -422,6 +491,11 @@
         <member name="F:Google.GData.YouTube.YouTubeNameTable.Company">
             <summary>
             Company element string
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YouTubeNameTable.Content">
+            <summary>
+            content element string
             </summary>
         </member>
         <member name="F:Google.GData.YouTube.YouTubeNameTable.Description">
@@ -534,6 +608,11 @@
             The video response URI in the link collection
             </summary>
         </member>
+        <member name="F:Google.GData.YouTube.YouTubeNameTable.Complaint">
+            <summary>
+            The video complaint URI in the link collection
+            </summary>
+        </member>
         <member name="F:Google.GData.YouTube.YouTubeNameTable.School">
             <summary>
             School element string
@@ -601,6 +680,22 @@
             </summary>
         </member>
         <member name="M:Google.GData.YouTube.Company.#ctor(System.String)">
+            <summary>
+            constructor taking the initial value
+            </summary>
+            <param name="initValue"></param>
+        </member>
+        <member name="T:Google.GData.YouTube.Content">
+            <summary>
+            content schema extension describing a YouTube complaint
+            </summary>
+        </member>
+        <member name="M:Google.GData.YouTube.Content.#ctor">
+            <summary>
+            default constructor
+            </summary>
+        </member>
+        <member name="M:Google.GData.YouTube.Content.#ctor(System.String)">
             <summary>
             constructor taking the initial value
             </summary>
@@ -1623,6 +1718,16 @@
             getter/setter for UserName subelement
             </summary>
         </member>
+        <member name="P:Google.GData.YouTube.ProfileEntry.Relationship">
+            <summary>
+            The yt:relationship tag identifies the user's relationship status
+            </summary>
+        </member>
+        <member name="P:Google.GData.YouTube.ProfileEntry.Hometown">
+            <summary>
+            The yt:hometown tag identifies the user's hometown
+            </summary>
+        </member>
         <member name="P:Google.GData.YouTube.ProfileEntry.Statistics">
             <summary>
             returns the yt:statistics element
@@ -1637,6 +1742,11 @@
         <member name="P:Google.GData.YouTube.ProfileEntry.MediaThumbnail">
             <summary>
             getter/setter for the media thumbnail subelement
+            </summary>
+        </member>
+        <member name="P:Google.GData.YouTube.ProfileEntry.Description">
+            <summary>
+            getter/setter for Description subelement
             </summary>
         </member>
         <member name="T:Google.GData.YouTube.SubscriptionEntry">
@@ -1713,7 +1823,7 @@
         </member>
         <member name="T:Google.GData.YouTube.MessageEntry">
             <summary>
-            Entry API customization class for defining entries in an Playlist feed.
+            Entry API customization class for defining entries in an messages feed.
             </summary>
         </member>
         <member name="F:Google.GData.YouTube.MessageEntry.MESSAGE_CATEGORY">
@@ -1729,11 +1839,6 @@
         <member name="P:Google.GData.YouTube.MessageEntry.Description">
             <summary>
             getter/setter for Description subelement
-            </summary>
-        </member>
-        <member name="P:Google.GData.YouTube.MessageEntry.Position">
-            <summary>
-            getter/setter for Position subelement
             </summary>
         </member>
         <member name="T:Google.GData.YouTube.PlaylistFeed">

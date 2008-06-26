@@ -89,7 +89,7 @@ namespace Google.GData.YouTube {
             }
 
             SimpleElement ele = getYouTubeExtension(extension);
-            if (ele == null)
+            if (ele == null && newValue != null)
             {
                 ele = CreateExtension(extension, YouTubeNameTable.NSYouTube) as SimpleElement;
                 if (ele != null)
@@ -97,8 +97,14 @@ namespace Google.GData.YouTube {
                     this.ExtensionElements.Add(ele);
                 }
             }
-            if (ele != null)
+            if (newValue == null && ele != null)
+            {
+                DeleteExtensions(extension, YouTubeNameTable.NSYouTube);
+            }
+
+            if (ele != null) 
                 ele.Value = newValue;
+
 
             return ele;
         }

@@ -28,7 +28,7 @@ namespace Google.GData.YouTube {
 
     //////////////////////////////////////////////////////////////////////
     /// <summary>
-    /// Entry API customization class for defining entries in an Playlist feed.
+    /// Entry API customization class for defining entries in an messages feed.
     /// </summary>
     //////////////////////////////////////////////////////////////////////
     public class MessageEntry : YouTubeEntry
@@ -47,10 +47,8 @@ namespace Google.GData.YouTube {
         {
             Tracing.TraceMsg("Created MessageEntry");
             Description d = new Description();
-            Position p = new Position();
 
             this.AddExtension(d);
-            this.AddExtension(p);
 
             Categories.Add(MESSAGE_CATEGORY);
         }
@@ -70,22 +68,8 @@ namespace Google.GData.YouTube {
                 setYouTubeExtension(YouTubeNameTable.Description,value);
             }
         }
-
-        /// <summary>
-        /// getter/setter for Position subelement
-        /// </summary>
-        public int Position 
-        {
-            get
-            {
-                return Convert.ToInt32(getYouTubeExtensionValue(YouTubeNameTable.Position), CultureInfo.InvariantCulture);
-            }
-            set
-            {
-                setYouTubeExtension(YouTubeNameTable.Position,value.ToString(CultureInfo.InvariantCulture));
-            }
-        }
     }
 }
+
 
 

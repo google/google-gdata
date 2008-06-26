@@ -20,10 +20,6 @@ using System.IO;
 using System.Collections;
 using Google.GData.Client;
 using Google.GData.Extensions;
-using Google.GData.Extensions.MediaRss;
-using Google.GData.Extensions.Exif;
-using Google.GData.Extensions.Location;
-using Google.GData.Extensions.AppControl;
 
 namespace Google.GData.YouTube {
 
@@ -188,5 +184,6 @@ namespace Google.GData.YouTube {
 
     }
 }
+
 
 

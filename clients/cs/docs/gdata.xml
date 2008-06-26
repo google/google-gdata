@@ -503,7 +503,7 @@
             <summary>
             this will take one category part and parse it
             </summary>
-            <param name="categories"></param>
+            <param name="category"></param>
             <returns></returns>
         </member>
         <member name="M:Google.GData.Client.FeedQuery.ParseUri(System.String)">

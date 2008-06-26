@@ -68,6 +68,11 @@ namespace Google.GData.YouTube {
         public const string SubscriptionCategorySchema = NSYouTube + "/subscriptiontypes.cat";
 
         /// <summary>
+        /// The schema used for complaint entries
+        /// </summary>
+        public const string ComplaintCategorySchema = NSYouTube + "/complaint-reasons.cat";
+
+        /// <summary>
         /// age element string
         /// </summary>
         public const string Age = "age";
@@ -83,6 +88,10 @@ namespace Google.GData.YouTube {
         /// Company element string
         /// </summary>
         public const string Company = "company";
+        /// <summary>
+        /// content element string
+        /// </summary>
+        public const string Content = "content";
         /// <summary>
         /// Description element string
         /// </summary>
@@ -110,7 +119,7 @@ namespace Google.GData.YouTube {
         /// <summary>
         /// HomeTown element string
         /// </summary>
-        public const string HomeTown = "tometown";
+        public const string HomeTown = "hometown";
         /// <summary>
         /// The schema used for keywords
         /// </summary>
@@ -138,7 +147,7 @@ namespace Google.GData.YouTube {
         /// <summary>
         /// Occupation element string
         /// </summary>
-        public const string Occupation = "ccupation";
+        public const string Occupation = "occupation";
         /// <summary>
         /// Position element string
         /// </summary>
@@ -171,6 +180,10 @@ namespace Google.GData.YouTube {
         /// The video response URI in the link collection
         /// </summary>
         public const string ResponseVideo = NSYouTube + "#video.responses";
+        /// <summary>
+        /// The video complaint URI in the link collection
+        /// </summary>
+        public const string Complaint = NSYouTube + "#video.complaints";
         /// <summary>
         /// School element string
         /// </summary>
@@ -253,6 +266,26 @@ namespace Google.GData.YouTube {
         public Company(string initValue)
         : base(YouTubeNameTable.Company, YouTubeNameTable.ytPrefix, YouTubeNameTable.NSYouTube, initValue)
         {}
+    }
+
+    /// <summary>
+    /// content schema extension describing a YouTube complaint
+    /// </summary>
+    public class Content : SimpleElement
+    {
+        /// <summary>
+        /// default constructor
+        /// </summary>
+        public Content()
+            : base(YouTubeNameTable.Content, YouTubeNameTable.ytPrefix, YouTubeNameTable.NSYouTube)
+        { }
+        /// <summary>
+        /// constructor taking the initial value
+        /// </summary>
+        /// <param name="initValue"></param>
+        public Content(string initValue)
+            : base(YouTubeNameTable.Content, YouTubeNameTable.ytPrefix, YouTubeNameTable.NSYouTube, initValue)
+        { }
     }
 
     /// <summary>

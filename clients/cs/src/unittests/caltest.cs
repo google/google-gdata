@@ -732,8 +732,6 @@ namespace Google.GData.Client.LiveTests
                 factory.MethodOverride = true;
                 service.RequestFactory = this.factory; 
 
-               // service.NewFeed += new ServiceEventHandler(this.OnNewAclFeed); 
-
                 query.Uri = new Uri(this.aclFeedUri);
                 AclFeed aclFeed = service.Query(query);
                 AclEntry newEntry = null;
@@ -797,29 +795,61 @@ namespace Google.GData.Client.LiveTests
 
                 service.Credentials = null; 
                 factory.MethodOverride = false;
-
             }
-
         }
         /////////////////////////////////////////////////////////////////////////////
 
-
         //////////////////////////////////////////////////////////////////////
-        /// <summary>eventchaining. We catch this by the baseFeedParsers, which 
-        /// would not do anything with the gathered data. We pass the event up
-        /// to the user</summary> 
-        /// <param name="sender"> the object which send the event</param>
-        /// <param name="e">FeedParserEventArguments, holds the feedentry</param> 
-        /// <returns> </returns>
+        /// <summary>Tests the ACL extensions, this time getting the feed from the entry</summary> 
         //////////////////////////////////////////////////////////////////////
-        protected void OnNewAclFeed(object sender, ServiceEventArgs e)
+        [Test] public void CalendarACL2Test()
         {
-            Tracing.TraceMsg("Created new Acl Feed");
-            if (e == null)
+            Tracing.TraceMsg("Entering CalendarACL2Test");
+
+            CalendarQuery query = new CalendarQuery();
+            CalendarService service = new CalendarService(this.ApplicationName);
+
+            int iCount; 
+
+            if (this.defaultCalendarUri != null)
             {
-                throw new ArgumentNullException("e"); 
+                if (this.userName != null)
+                {
+                    service.Credentials = new GDataCredentials(this.userName, this.passWord);
+                }
+
+
+                GDataLoggingRequestFactory factory = (GDataLoggingRequestFactory) this.factory;
+                factory.MethodOverride = true;
+                service.RequestFactory = this.factory;
+
+                query.Uri = new Uri(this.defaultOwnCalendarsUri);
+                CalendarFeed calFeed = service.Query(query);
+
+                if (calFeed != null && calFeed.Entries != null && calFeed.Entries[0] != null)
+                {
+                   AtomLink link = calFeed.Entries[0].Links.FindService(AclNameTable.LINK_REL_ACCESS_CONTROL_LIST, null);
+                   AclEntry aclEntry = new AclEntry();
+
+                   aclEntry.Scope = new AclScope();
+                   aclEntry.Scope.Type = AclScope.SCOPE_USER;
+                   aclEntry.Scope.Value = "meoh2my@test.com";
+                   aclEntry.Role = AclRole.ACL_CALENDAR_READ;
+
+                   Uri aclUri = null;
+                   if (link != null)
+                   {
+                       aclUri = new Uri(link.HRef.ToString());
+                   }
+                   else
+                   {
+                       throw new Exception("ACL link was null.");
+                   }
+
+                   AclEntry insertedEntry = service.Insert(aclUri, aclEntry) as AclEntry;
+                   insertedEntry.Delete();
+                }
             }
-            e.Feed = new AclFeed(e.Uri, e.Service);
         }
         /////////////////////////////////////////////////////////////////////////////
 

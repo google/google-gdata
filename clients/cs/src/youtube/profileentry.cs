@@ -65,6 +65,9 @@ namespace Google.GData.YouTube {
             this.AddExtension(new Statistics());
             this.AddExtension(new FeedLink());
             this.AddExtension(new MediaThumbnail());
+            this.AddExtension(new Description());
+            this.AddExtension(new Relationship());
+            this.AddExtension(new HomeTown());
         }
 
         /// <summary>
@@ -265,6 +268,36 @@ namespace Google.GData.YouTube {
         }
 
         /// <summary>
+        /// The yt:relationship tag identifies the user's relationship status
+        /// </summary>
+        public string Relationship
+        {
+            get
+            {
+                return getYouTubeExtensionValue(YouTubeNameTable.Relationship);
+            }
+            set
+            {
+                setYouTubeExtension(YouTubeNameTable.Relationship, value);
+            }
+        }
+
+        /// <summary>
+        /// The yt:hometown tag identifies the user's hometown
+        /// </summary>
+        public string Hometown
+        {
+            get
+            {
+                return getYouTubeExtensionValue(YouTubeNameTable.HomeTown);
+            }
+            set
+            {
+                setYouTubeExtension(YouTubeNameTable.HomeTown, value);
+            }
+        }
+
+        /// <summary>
         /// returns the yt:statistics element
         /// </summary>
         /// <returns></returns>
@@ -317,7 +350,23 @@ namespace Google.GData.YouTube {
                                         value);
             }
         }
+
+        /// <summary>
+        /// getter/setter for Description subelement
+        /// </summary>
+        public string Description
+        {
+            get
+            {
+                return getYouTubeExtensionValue(YouTubeNameTable.Description);
+            }
+            set
+            {
+                setYouTubeExtension(YouTubeNameTable.Description, value);
+            }
+        }
     }
 }
+
 
 
