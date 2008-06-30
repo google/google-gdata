@@ -145,7 +145,7 @@ namespace Google.GData.Client.LiveTests
         }
         /////////////////////////////////////////////////////////////////////////////
 
-          //////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////
         /// <summary>runs a test on the YouTube Feed object</summary> 
         //////////////////////////////////////////////////////////////////////
         [Test] public void YouTubeInsertTest()
@@ -209,6 +209,51 @@ namespace Google.GData.Client.LiveTests
             // now delete the guy again
 
             newEntry.Delete();
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>runs a test on the YouTube Feed object</summary> 
+        //////////////////////////////////////////////////////////////////////
+        [Test] public void YouTubeRatingsTest()
+        {
+            Tracing.TraceMsg("Entering YouTubeRatingsTest");
+
+            YouTubeService service = new YouTubeService("NETUnittests", this.ytClient, this.ytDevKey);
+            if (this.userName != null)
+            {
+                service.Credentials = new GDataCredentials(this.ytUser, this.ytPwd);
+            }
+
+            YouTubeEntry entry = new YouTubeEntry();
+
+            entry.MediaSource = new MediaFileSource("test_movie.mov", "video/quicktime");
+            entry.Media = new MediaGroup();
+            entry.Media.Description = new MediaDescription("This is a test");
+            entry.Media.Title = new MediaTitle("Sample upload");
+            entry.Media.Keywords = new MediaKeywords("math");
+
+            // entry.Media.Categories
+
+            MediaCategory category = new MediaCategory("Nonprofit");
+            category.Attributes["scheme"] = YouTubeService.DefaultCategory;
+
+            entry.Media.Categories.Add(category);
+
+            YouTubeEntry newEntry = service.Upload(this.ytUser, entry);
+
+            Assert.AreEqual(newEntry.Media.Description.Value, entry.Media.Description.Value, "Description should be equal");
+            Assert.AreEqual(newEntry.Media.Keywords.Value, entry.Media.Keywords.Value, "Keywords should be equal");
+
+            AtomUri ratingsLink = newEntry.RatingsLink;
+
+            Rating rating = new Rating();
+            rating.Value = 1;
+            newEntry.Rating = rating;
+
+            YouTubeEntry ratedEntry = newEntry.Update();
+            ratedEntry.Delete();
         }
         /////////////////////////////////////////////////////////////////////////////
 
