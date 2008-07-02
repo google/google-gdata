@@ -750,6 +750,15 @@
             <param name="type">the link type to find</param>
             <returns>the found link or NULL </returns>
         </member>
+        <member name="M:Google.GData.Client.AtomLinkCollection.FindServiceList(System.String,System.String)">
+            <summary>public AtomLink FindService(string service,string type)
+              Retrieves the first link with the supplied 'rel' and/or 'type' value.
+              If either parameter is null, the corresponding match isn't needed.
+            </summary> 
+            <param name="service">the service entry to find</param>
+            <param name="type">the link type to find</param>
+            <returns>the found link or NULL </returns>
+        </member>
         <member name="M:Google.GData.Client.AtomLinkCollection.OnValidate(System.Object)">
             <summary>standard typed accessor method </summary> 
         </member>

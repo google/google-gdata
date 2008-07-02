@@ -97,6 +97,9 @@ namespace Google.GData.YouTube {
                     this.ExtensionElements.Add(ele);
                 }
             }
+            if (ele == null)
+                throw new System.ArgumentException("invalid extension element specified");
+
             if (newValue == null && ele != null)
             {
                 DeleteExtensions(extension, YouTubeNameTable.NSYouTube);
@@ -104,6 +107,7 @@ namespace Google.GData.YouTube {
 
             if (ele != null) 
                 ele.Value = newValue;
+
 
 
             return ele;

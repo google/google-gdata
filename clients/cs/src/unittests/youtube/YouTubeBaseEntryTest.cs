@@ -71,10 +71,10 @@ namespace Google.GData.Client.UnitTests.YouTube
         public void setYouTubeExtensionTest()
         {
             YouTubeBaseEntry target = CreateYouTubeBaseEntry(); // TODO: Initialize to an appropriate value
-            string newValue = "61";
+            string newValue = "3";
             string  actual;
-            target.setYouTubeExtension(YouTubeNameTable.Age, newValue);
-            actual = target.getYouTubeExtensionValue(YouTubeNameTable.Age);
+            target.setYouTubeExtension(YouTubeNameTable.Location, newValue);
+            actual = target.getYouTubeExtensionValue(YouTubeNameTable.Location);
             Assert.AreEqual(newValue, actual);
         }
 

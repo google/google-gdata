@@ -193,7 +193,6 @@ namespace Google.GData.Client.UnitTests.YouTube
         {
             YouTubeQuery target = new YouTubeQuery();
             Assert.IsNotNull(target);
-            Assert.IsNull(target.Uri);
         }
 
         /// <summary>
