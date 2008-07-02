@@ -15,15 +15,8 @@
 #define USE_TRACING
 
 using System;
-using System.Xml;
-using System.IO; 
-using System.Collections;
+using System.Collections.Generic;
 using Google.GData.Client;
-using Google.GData.Extensions;
-using Google.GData.Extensions.MediaRss;
-using Google.GData.Extensions.Exif;
-using Google.GData.Extensions.Location;
-using Google.GData.Extensions.AppControl;
 
 namespace Google.GData.YouTube {
 
@@ -35,12 +28,47 @@ namespace Google.GData.YouTube {
     //////////////////////////////////////////////////////////////////////
     public class CommentEntry : AbstractEntry
     {
+
+        private AtomLinkCollection replies;
+
         /// <summary>
         /// Constructs a new CommentEntry instance
         /// </summary>
         public CommentEntry()
         : base()
         {
+        }
+
+        /// <summary>
+        /// returns the list of reply links inside the entry. Not that modifying that list 
+        /// will not modify link collection. This is a readonly copy. But the items in that 
+        /// list are the same as in the linkcollection, so you can remove them from there
+        /// </summary>
+        public  List<AtomLink> Replies
+        {
+            get 
+            {
+                return this.Links.FindServiceList(YouTubeNameTable.ReplyToRelationship,  AtomLink.ATOM_TYPE);
+            }
+        }
+
+
+        /// <summary>
+        /// Adds a reply link to this commententry
+        ///    -> this new entry will reply to the passed in entry when the comment is 
+        ///    submitted. This will not protect from adding the same guy several times.
+        /// </summary>
+        /// <param name="theOriginalComment"></param>
+        /// <returns></returns>
+        public void  ReplyTo(CommentEntry theOriginalComment)
+        {
+            if (theOriginalComment.SelfUri == null)
+            {
+                throw new ArgumentException("You can only reply to an entry with a valid SelfUri");
+            }
+            AtomLink link = new AtomLink(AtomLink.ATOM_TYPE, YouTubeNameTable.ReplyToRelationship);
+            link.HRef = theOriginalComment.SelfUri; 
+            this.Links.Add(link);
         }
     }
 }
