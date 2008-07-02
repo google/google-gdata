@@ -89,7 +89,7 @@ namespace Google.GData.Extensions
         {
             get
             {
-                return Int16.Parse(this.Attributes[GDataParserNameTable.XmlAttributeNumRaters] as string);
+                return Int32.Parse(this.Attributes[GDataParserNameTable.XmlAttributeNumRaters] as string);
             }
             set
             {
