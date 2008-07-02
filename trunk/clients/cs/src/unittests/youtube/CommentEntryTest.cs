@@ -73,5 +73,21 @@ namespace Google.GData.Client.UnitTests.YouTube
             CommentEntry target = new CommentEntry();
             Assert.IsNotNull(target,"object should not be null"); 
         }
+
+         /// <summary>
+        ///A test for replyto and replies properties
+        ///</summary>
+        [Test]
+        public void CommentEntryReplyToTest()
+        {
+            CommentEntry target = new CommentEntry();
+            Assert.AreEqual(target.Replies.Count, 0," list should be emptyl"); 
+            CommentEntry other = new CommentEntry();
+            other.SelfUri = new AtomUri("http://www.test.org");
+            target.ReplyTo(other);
+            Assert.AreEqual(target.Replies.Count, 1," list should be emptyl"); 
+
+
+        }
     }
 }

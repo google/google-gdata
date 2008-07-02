@@ -66,20 +66,6 @@ namespace Google.GData.Client.UnitTests.YouTube
 
 
         /// <summary>
-        ///A test for Position
-        ///</summary>
-        [Test]
-        public void PositionTest()
-        {
-            MessageEntry target = new MessageEntry(); // TODO: Initialize to an appropriate value
-            int expected = 3; 
-            int actual;
-            target.Position = expected;
-            actual = target.Position;
-            Assert.AreEqual(expected, actual);
-        }
-
-        /// <summary>
         ///A test for Description
         ///</summary>
         [Test]

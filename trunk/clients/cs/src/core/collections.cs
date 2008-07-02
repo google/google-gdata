@@ -18,6 +18,7 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 #endregion
 
@@ -303,6 +304,33 @@ namespace Google.GData.Client
         }
         /////////////////////////////////////////////////////////////////////////////
 
+          //////////////////////////////////////////////////////////////////////
+        /// <summary>public AtomLink FindService(string service,string type)
+        ///   Retrieves the first link with the supplied 'rel' and/or 'type' value.
+        ///   If either parameter is null, the corresponding match isn't needed.
+        /// </summary> 
+        /// <param name="service">the service entry to find</param>
+        /// <param name="type">the link type to find</param>
+        /// <returns>the found link or NULL </returns>
+        //////////////////////////////////////////////////////////////////////
+        public List<AtomLink> FindServiceList(string service, string type)
+        {
+            List<AtomLink> foundLinks = new List<AtomLink>();
+
+            foreach (AtomLink link in List )
+            {
+                string linkRel = link.Rel;
+                string linkType = link.Type;
+
+                if ((service == null || (linkRel != null && linkRel == service )) &&
+                    (type == null || (linkType != null && linkType == type))) {
+
+                  foundLinks.Add(link);;
+                }
+            }
+            return foundLinks;
+        }
+        /////////////////////////////////////////////////////////////////////////////
 
         /// <summary>standard typed accessor method </summary> 
         protected override void OnValidate( Object value )  

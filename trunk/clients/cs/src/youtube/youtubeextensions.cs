@@ -33,8 +33,9 @@ namespace Google.GData.YouTube {
         /// <summary>static string to specify the Google YouTube prefix used</summary>
         public const string ytPrefix = "yt"; 
         /// <summary>static string for the ratings relationship</summary>
-        public const string RatingsRelationship = "http://gdata.youtube.com/schemas/2007#video.ratings"; 
-
+        public const string RatingsRelationship = NSYouTube + "#video.ratings"; 
+        /// <summary>static string for the in reply to  relationship</summary>
+        public const string ReplyToRelationship = NSYouTube + "#in-reply-to"; 
 
         /// <summary>string for the video kind category</summary>
         public const string KIND_VIDEO = NSYouTube + "#video";
