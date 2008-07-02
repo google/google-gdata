@@ -162,13 +162,6 @@ namespace Google.GData.Client.LiveTests
 
             Assert.AreEqual(oldCountContacts, cf.Entries.Count, "Contacts count should be the same");
             Assert.AreEqual(oldCountGroups, feed.Entries.Count, "Groups count should be the same");
-
-
-
-
-
-
-
         }
         /////////////////////////////////////////////////////////////////////////////
 

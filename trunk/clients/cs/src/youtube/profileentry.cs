@@ -203,7 +203,7 @@ namespace Google.GData.YouTube {
             }
             set
             {
-                setYouTubeExtension(YouTubeNameTable.Location,value);
+                setYouTubeExtension(YouTubeNameTable.Movies,value);
             }
         }
 
