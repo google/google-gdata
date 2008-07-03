@@ -11,8 +11,18 @@
             id schema extension describing an ID.
             </div></td></tr><tr data="class; public"><td><img src="../icons/pubclass.gif" title="Public class" /></td><td><a href="T_Google_GData_YouTube_Books.htm">Books</a></td><td><div class="summary">
             Books schema extension describing a YouTube Books
+            </div></td></tr><tr data="class; public"><td><img src="../icons/pubclass.gif" title="Public class" /></td><td><a href="T_Google_GData_YouTube_CommentEntry.htm">CommentEntry</a></td><td><div class="summary">
+            Entry API customization class for defining comment entries in an comments feed.
+            </div></td></tr><tr data="class; public"><td><img src="../icons/pubclass.gif" title="Public class" /></td><td><a href="T_Google_GData_YouTube_CommentsFeed.htm">CommentsFeed</a></td><td><div class="summary">
+            Each video entry contains a gd:comments tag, which encapsulates the 
+            URL to which you will send API requests to retrieve or append to the
+            list of comments for the video. 
             </div></td></tr><tr data="class; public"><td><img src="../icons/pubclass.gif" title="Public class" /></td><td><a href="T_Google_GData_YouTube_Company.htm">Company</a></td><td><div class="summary">
             Company schema extension describing a YouTube Company
+            </div></td></tr><tr data="class; public"><td><img src="../icons/pubclass.gif" title="Public class" /></td><td><a href="T_Google_GData_YouTube_ComplaintEntry.htm">ComplaintEntry</a></td><td><div class="summary">
+            Entry API customization class for defining comment entries in an comments feed.
+            </div></td></tr><tr data="class; public"><td><img src="../icons/pubclass.gif" title="Public class" /></td><td><a href="T_Google_GData_YouTube_Content.htm">Content</a></td><td><div class="summary">
+            content schema extension describing a YouTube complaint
             </div></td></tr><tr data="class; public"><td><img src="../icons/pubclass.gif" title="Public class" /></td><td><a href="T_Google_GData_YouTube_Description.htm">Description</a></td><td><div class="summary">
             Description schema extension describing a YouTube Description
             </div></td></tr><tr data="class; public"><td><img src="../icons/pubclass.gif" title="Public class" /></td><td><a href="T_Google_GData_YouTube_Duration.htm">Duration</a></td><td><div class="summary">
@@ -21,6 +31,17 @@
             FirstName schema extension describing a YouTube FirstName
             </div></td></tr><tr data="class; public"><td><img src="../icons/pubclass.gif" title="Public class" /></td><td><a href="T_Google_GData_YouTube_FormUploadToken.htm">FormUploadToken</a></td><td><div class="summary">
             Simple class to hold the response of a browser-based upload request
+            </div></td></tr><tr data="class; public"><td><img src="../icons/pubclass.gif" title="Public class" /></td><td><a href="T_Google_GData_YouTube_FriendsEntry.htm">FriendsEntry</a></td><td><div class="summary">
+            Entry API customization class for defining entries in an Event feed.
+            </div></td></tr><tr data="class; public"><td><img src="../icons/pubclass.gif" title="Public class" /></td><td><a href="T_Google_GData_YouTube_FriendsFeed.htm">FriendsFeed</a></td><td><div class="summary">
+            A user's contacts feed lists all of the contacts for a specified user.
+            To request the currently logged-in user's contact list, send an HTTP
+             GET request to the following URL. 
+                http://gdata.youtube.com/feeds/api/users/default/contacts
+            To request another user's contact list, send an HTTP GET request to the following URL. 
+                http://gdata.youtube.com/feeds/api/users/username/contacts
+            In the URL above, you must replace the text username with the user's YouTube username.
+            Contacts can be classified as either Friends or Family.
             </div></td></tr><tr data="class; public"><td><img src="../icons/pubclass.gif" title="Public class" /></td><td><a href="T_Google_GData_YouTube_Gender.htm">Gender</a></td><td><div class="summary">
             Gender schema extension describing a YouTube Gender
             </div></td></tr><tr data="class; public"><td><img src="../icons/pubclass.gif" title="Public class" /></td><td><a href="T_Google_GData_YouTube_Hobbies.htm">Hobbies</a></td><td><div class="summary">
@@ -31,6 +52,10 @@
             LastName schema extension describing a YouTube LastName
             </div></td></tr><tr data="class; public"><td><img src="../icons/pubclass.gif" title="Public class" /></td><td><a href="T_Google_GData_YouTube_Location.htm">Location</a></td><td><div class="summary">
             Location schema extension describing a YouTube Location
+            </div></td></tr><tr data="class; public"><td><img src="../icons/pubclass.gif" title="Public class" /></td><td><a href="T_Google_GData_YouTube_MessageEntry.htm">MessageEntry</a></td><td><div class="summary">
+            Entry API customization class for defining entries in an messages feed.
+            </div></td></tr><tr data="class; public"><td><img src="../icons/pubclass.gif" title="Public class" /></td><td><a href="T_Google_GData_YouTube_MessageFeed.htm">MessageFeed</a></td><td><div class="summary">
+            Messages can be sent between YouTube users, optionally including a video.
             </div></td></tr><tr data="class; public"><td><img src="../icons/pubclass.gif" title="Public class" /></td><td><a href="T_Google_GData_YouTube_Movies.htm">Movies</a></td><td><div class="summary">
             Movies schema extension describing a YouTube Movies
             </div></td></tr><tr data="class; public"><td><img src="../icons/pubclass.gif" title="Public class" /></td><td><a href="T_Google_GData_YouTube_Music.htm">Music</a></td><td><div class="summary">
@@ -39,10 +64,40 @@
             NoEmbed schema extension describing a YouTube NoEmbed
             </div></td></tr><tr data="class; public"><td><img src="../icons/pubclass.gif" title="Public class" /></td><td><a href="T_Google_GData_YouTube_Occupation.htm">Occupation</a></td><td><div class="summary">
             Occupation schema extension describing a YouTube Occupation
+            </div></td></tr><tr data="class; public"><td><img src="../icons/pubclass.gif" title="Public class" /></td><td><a href="T_Google_GData_YouTube_PlaylistEntry.htm">PlaylistEntry</a></td><td><div class="summary">
+            Entry API customization class for defining entries in an Playlist feed.
+            </div></td></tr><tr data="class; public"><td><img src="../icons/pubclass.gif" title="Public class" /></td><td><a href="T_Google_GData_YouTube_PlaylistFeed.htm">PlaylistFeed</a></td><td><div class="summary">
+            The YouTube Data API allows applications to perform functions normally 
+            executed on the YouTube website. The API enables your application to search 
+            for YouTube videos and to retrieve standard video feeds, comments and video
+            responses. 
+            In addition, the API lets your application upload videos to YouTube or 
+            update existing videos. Your can also retrieve playlists, subscriptions, 
+            user profiles and more. Finally, your application can submit 
+            authenticated requests to enable users to create playlists, 
+            subscriptions, contacts and other account-specific entities.
+            </div></td></tr><tr data="class; public"><td><img src="../icons/pubclass.gif" title="Public class" /></td><td><a href="T_Google_GData_YouTube_PlaylistsEntry.htm">PlaylistsEntry</a></td><td><div class="summary">
+            Entry API customization class for defining entries in an Playlist feed.
+            </div></td></tr><tr data="class; public"><td><img src="../icons/pubclass.gif" title="Public class" /></td><td><a href="T_Google_GData_YouTube_PlaylistsFeed.htm">PlaylistsFeed</a></td><td><div class="summary">
+            A user's playlists feed contains a list of the playlists created by
+             that user. If you are requesting the playlists feed for the currently
+             authenticated user, the feed will contain both public and private playlists. 
+            However, if you send an unauthenticated request or request playlists created 
+            by someone other than the currently authenticated user, the feed will only
+             contain public playlists.
+            In a playlists feed, each entry contains information about a single playlist, 
+            including the playlist title, description and author. The gd:feedLink tag 
+            in the entry identifies the URL that allows you to retrieve the playlist feed, 
+            which specifies information about the videos in the playlist.
             </div></td></tr><tr data="class; public"><td><img src="../icons/pubclass.gif" title="Public class" /></td><td><a href="T_Google_GData_YouTube_Position.htm">Position</a></td><td><div class="summary">
             Position schema extension describing a YouTube Position
             </div></td></tr><tr data="class; public"><td><img src="../icons/pubclass.gif" title="Public class" /></td><td><a href="T_Google_GData_YouTube_Private.htm">Private</a></td><td><div class="summary">
             Private schema extension describing a YouTube Private
+            </div></td></tr><tr data="class; public"><td><img src="../icons/pubclass.gif" title="Public class" /></td><td><a href="T_Google_GData_YouTube_ProfileEntry.htm">ProfileEntry</a></td><td><div class="summary">
+            A user profile contains information that the user lists on his YouTube profile page.
+            </div></td></tr><tr data="class; public"><td><img src="../icons/pubclass.gif" title="Public class" /></td><td><a href="T_Google_GData_YouTube_ProfileFeed.htm">ProfileFeed</a></td><td><div class="summary">
+            A user profile contains information that the user lists on his YouTube 
+            profile page.
             </div></td></tr><tr data="class; public"><td><img src="../icons/pubclass.gif" title="Public class" /></td><td><a href="T_Google_GData_YouTube_QueryString.htm">QueryString</a></td><td><div class="summary">
             QueryString schema extension describing a YouTube QueryString
             </div></td></tr><tr data="class; public"><td><img src="../icons/pubclass.gif" title="Public class" /></td><td><a href="T_Google_GData_YouTube_Racy.htm">Racy</a></td><td><div class="summary">
@@ -66,13 +121,42 @@
             of the viewCount attribute is 0.
             </div></td></tr><tr data="class; public"><td><img src="../icons/pubclass.gif" title="Public class" /></td><td><a href="T_Google_GData_YouTube_Status.htm">Status</a></td><td><div class="summary">
             Status schema extension describing a YouTube Status
+            </div></td></tr><tr data="class; public"><td><img src="../icons/pubclass.gif" title="Public class" /></td><td><a href="T_Google_GData_YouTube_SubscriptionEntry.htm">SubscriptionEntry</a></td><td><div class="summary">
+            The gd:feedLink tag in the entry identifies the URL that allows 
+            you to retrieve videos for the subscription.
+            For one of the category tags in the entry, the scheme attribute
+            value will be http://gdata.youtube.com/schemas/2007/subscriptiontypes.cat. 
+            That tag's term attribute indicates whether the entry describes a 
+            subscription to a channel (term="channel"), another user's 
+            favorite videos list (term="favorites"), or to videos that match
+             specific keywords (term="query").
+            If the subscription is to another user's channel or list of favorite videos, 
+            the yt:username tag will identify the user who owns the channel or favorite video list.
+            If the subscription is to a keyword query, the yt:queryString element will
+            contain the subscribed-to query term.
+            </div></td></tr><tr data="class; public"><td><img src="../icons/pubclass.gif" title="Public class" /></td><td><a href="T_Google_GData_YouTube_SubscriptionFeed.htm">SubscriptionFeed</a></td><td><div class="summary">
+            A user's subscriptions feed contains a list of the channels, 
+            favorite video lists and search queries to which the user has subscribed.
+            In a subscriptions feed, each entry contains information about a single
+             subscription. Each entry contains the following key tags:
+            The gd:feedLink tag in the entry identifies the URL that allows 
+            you to retrieve videos for the subscription.
+            For one of the category tags in the entry, the scheme attribute
+            value will be http://gdata.youtube.com/schemas/2007/subscriptiontypes.cat. 
+            That tag's term attribute indicates whether the entry describes a 
+            subscription to a channel (term="channel"), another user's 
+            favorite videos list (term="favorites"), or to videos that match
+             specific keywords (term="query").
+            If the subscription is to another user's channel or list of favorite videos, 
+            the yt:username tag will identify the user who owns the channel or favorite video list.
+            If the subscription is to a keyword query, the yt:queryString element will
+            contain the subscribed-to query term.
             </div></td></tr><tr data="class; public"><td><img src="../icons/pubclass.gif" title="Public class" /></td><td><a href="T_Google_GData_YouTube_UserName.htm">UserName</a></td><td><div class="summary">
             UserName schema extension describing a YouTube UserName
+            </div></td></tr><tr data="class; public"><td><img src="../icons/pubclass.gif" title="Public class" /></td><td><a href="T_Google_GData_YouTube_YouTubeBaseEntry.htm">YouTubeBaseEntry</a></td><td><div class="summary">
+            this class only holds a few helper methods for other entry classes inside the youtube namespace
             </div></td></tr><tr data="class; public"><td><img src="../icons/pubclass.gif" title="Public class" /></td><td><a href="T_Google_GData_YouTube_YouTubeEntry.htm">YouTubeEntry</a></td><td><div class="summary">
             Entry API customization class for defining entries in an Event feed.
-            </div></td></tr><tr data="class; public"><td><img src="../icons/pubclass.gif" title="Public class" /></td><td><a href="T_Google_GData_YouTube_YouTubeExtensions.htm">YouTubeExtensions</a></td><td><div class="summary">
-            helper to instantiate all factories defined in here and attach 
-            them to a base object
             </div></td></tr><tr data="class; public"><td><img src="../icons/pubclass.gif" title="Public class" /></td><td><a href="T_Google_GData_YouTube_YouTubeFeed.htm">YouTubeFeed</a></td><td><div class="summary">
             The YouTube Data API allows applications to perform functions normally 
             executed on the YouTube website. The API enables your application to search 
@@ -188,7 +272,11 @@
             subscriptions, contacts and other account-specific entities.
             </div></td></tr></table></div><h1 class="heading"><span onclick="ExpandCollapse(enumerationToggle)" style="cursor:default;" onkeypress="ExpandCollapse_CheckKey(enumerationToggle, event)" tabindex="0"><img id="enumerationToggle" class="toggle" name="toggleSwitch" src="../icons/collapse_all.gif" />Enumerations</span></h1><div id="enumerationSection" class="section" name="collapseableSection" style=""><table id="typeList" class="members" frame="lhs" cellpadding="2"><col width="10%" /><tr><th class="iconColumn">
            
-       </th><th class="nameColumn">Enumeration</th><th class="descriptionColumn">Description</th></tr><tr data="enumeration; public"><td><img src="../icons/pubenumeration.gif" title="Public enumeration" /></td><td><a href="T_Google_GData_YouTube_YouTubeQuery_UploadTime.htm">YouTubeQuery<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span></span>UploadTime</a></td><td><div class="summary">
+       </th><th class="nameColumn">Enumeration</th><th class="descriptionColumn">Description</th></tr><tr data="enumeration; public"><td><img src="../icons/pubenumeration.gif" title="Public enumeration" /></td><td><a href="T_Google_GData_YouTube_ComplaintEntry_ComplaintType.htm">ComplaintEntry<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span></span>ComplaintType</a></td><td><div class="summary">
+            Describes the nature of the complaint
+            </div></td></tr><tr data="enumeration; public"><td><img src="../icons/pubenumeration.gif" title="Public enumeration" /></td><td><a href="T_Google_GData_YouTube_SubscriptionEntry_SubscriptionType.htm">SubscriptionEntry<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span></span>SubscriptionType</a></td><td><div class="summary">
+            describes the subscription types for a subscription feed
+            </div></td></tr><tr data="enumeration; public"><td><img src="../icons/pubenumeration.gif" title="Public enumeration" /></td><td><a href="T_Google_GData_YouTube_YouTubeQuery_UploadTime.htm">YouTubeQuery<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span></span>UploadTime</a></td><td><div class="summary">
             describing the requested video format
             </div></td></tr><tr data="enumeration; public"><td><img src="../icons/pubenumeration.gif" title="Public enumeration" /></td><td><a href="T_Google_GData_YouTube_YouTubeQuery_VideoFormat.htm">YouTubeQuery<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span></span>VideoFormat</a></td><td><div class="summary">
             describing the requested video format
