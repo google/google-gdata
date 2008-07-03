@@ -4,7 +4,7 @@ import htmlentitydefs
 import shutil
 import os
 import os.path
-from os.path import join, getsize
+from os.path import join, getsize, split
 
 global basePath
 global targetPath
@@ -12,7 +12,6 @@ global pathVar
 global subFolder
 global allOldFiles
 
-pathVar = 1
 
 
 class URLLister(SGMLParser):
@@ -72,16 +71,18 @@ class FileMover:
     src = base + currentFile
     if os.path.isfile(src):
       (dirName, fileName) = os.path.split(src)
-      
       targetFolder = self.TestIfFileExists(fileName, target)
       if targetFolder == "":
           targetFolder = self.EnsureCorrectTargetPath(target, pathVar)
       dst = targetFolder + fileName
+      folderName =  split(dst)
+      folderName = split(folderName[0])
+      folderName = folderName[1]
       shutil.copyfile(src, dst)
-      relFile = "%s%s/%s" % (subFolder, pathVar, fileName)
+      relFile = "%s/%s" % (folderName, fileName)
     # now remove the basePath and return only the relative portion
     # which just assumes that the index is in the directory above
-    return relFile;
+    return relFile
     
   def TestIfFileExistsOld(self, fileName, target):
     for root, dirs, files in os.walk(target):
@@ -115,7 +116,7 @@ class FileMover:
 basePath = "../docs/generated/"
 targetPath = "../docs/generated/"
 subFolder = "folder"
-
+pathVar = 1
 allOldFiles = []
 
 #populate the list of the current files, all files in folderx subfolders
