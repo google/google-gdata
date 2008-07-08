@@ -186,8 +186,8 @@ namespace Google.GData.Extensions {
                                 throw new ArgumentException("Only one feed is allowed inside the g:feedLink");
                             }
                         }
+                        feedChild = feedChild.NextSibling;
                     }
-                    feedChild = feedChild.NextSibling;
                 }
 
             }
