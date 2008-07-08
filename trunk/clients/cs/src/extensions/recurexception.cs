@@ -128,7 +128,7 @@ namespace Google.GData.Extensions {
         //////////////////////////////////////////////////////////////////////
         public string XmlName
         {
-            get { return GDataParserNameTable.XmlWhereElement; }
+            get { return GDataParserNameTable.XmlRecurrenceExceptionElement; }
         }
 
         //////////////////////////////////////////////////////////////////////
