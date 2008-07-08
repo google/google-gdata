@@ -30,7 +30,7 @@ namespace Google.GData.YouTube {
 
     //////////////////////////////////////////////////////////////////////
     /// <summary>
-    /// Entry API customization class for defining entries in an Event feed.
+    /// An individual entry inside the FriendsFeed. It represents a contact of the user
     /// </summary>
     //////////////////////////////////////////////////////////////////////
     public class FriendsEntry : YouTubeBaseEntry
@@ -43,7 +43,7 @@ namespace Google.GData.YouTube {
 
 
         /// <summary>
-        /// Constructs a new YouTubeEntry instance
+        /// Constructs a new FriendsEntry instance
         /// </summary>
         public FriendsEntry()
         : base()
@@ -84,8 +84,6 @@ namespace Google.GData.YouTube {
                 setYouTubeExtension(YouTubeNameTable.UserName,value);
             }
         }
-
-
     }
 }
 
