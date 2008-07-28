@@ -196,7 +196,8 @@ namespace Google.GData.Client
                     ch == '=' ||
                     ch == '+' ||
                     ch == '$' ||
-                    ch == ',' )
+                    ch == ','  ||
+                    ch == '%' )
                 {
                     returnString.Append(Uri.HexEscape(ch));
                 }
