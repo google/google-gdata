@@ -1,4 +1,5 @@
 #summary What is in store for the .NET SDK, what are we working on
+#labels Featured
 
 = Introduction =
 
@@ -26,5 +27,3 @@ We (as the Google Data API team) do not plan currently to write extensive OAuth 
 === One vertical library ===
 
 We want to make it easier to use the SDK. While the SDK provides normally a good layer on top of the pure protocol, thinking in terms of feeds and entries is not always in our minds when we want to solve real world problems. One of the things we want to try is to create a layer on top of the SDK to make it more natural to work against one particular property. We are not sure yet which one (probably spreadsheets?). Again feedback welcome. 
-
-
