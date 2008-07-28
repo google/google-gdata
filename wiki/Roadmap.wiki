@@ -1,0 +1,30 @@
+#summary What is in store for the .NET SDK, what are we working on
+
+= Introduction =
+
+We will be trying to keep a list of things we currently work on for the .NET client SDK here, and we wil try to update this on a regular basis. Not all items are going to be part of the "next" release, but where this is the case (like a long term goal), we will try to indicate this as such. 
+
+
+= Details =
+
+=== LINQ support ===
+
+One of the more natural things to do is to make sure that we can use LINQ against our Google Data API properties. What would be more natural then to use query statements in your code to get just the subset of calendar entries that you want to work with. Now we are in the preliminary investigation phase here, and feedback on what you want to do with this is highly appreciated.
+
+This item is not sure for the next release. 
+
+=== Astoria support ===
+
+With Microsoft moving to support AtomPub in it's database layer, it would be nice to be able to use that database layer to talk against our Google Data API enabled properties. Again there is work to be done in the investigation phase, but we think this also has a bundle of nice use cases, and again feedback appreciated. 
+
+This item is not sure for the next release. 
+
+=== OAuth enabling ===
+
+We (as the Google Data API team) do not plan currently to write extensive OAuth client code (there should be code in several projects already out there), but you should be able to use that token you retrieved with any one of those libraries inside this SDK easily. 
+
+=== One vertical library ===
+
+We want to make it easier to use the SDK. While the SDK provides normally a good layer on top of the pure protocol, thinking in terms of feeds and entries is not always in our minds when we want to solve real world problems. One of the things we want to try is to create a layer on top of the SDK to make it more natural to work against one particular property. We are not sure yet which one (probably spreadsheets?). Again feedback welcome. 
+
+
