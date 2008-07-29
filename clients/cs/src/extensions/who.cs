@@ -80,7 +80,8 @@ namespace Google.GData.Extensions {
             /// the xml parsing method
             /// </summary>
             /// <param name="node">the xml node holding the attendeeStatus</param>
-            /// <returns>AttendeeType</returns>
+            /// <returns>AttendeeType</returns>
+
             public static AttendeeType parse(XmlNode node)
             {
                 AttendeeType attendee = null;
@@ -118,7 +119,8 @@ namespace Google.GData.Extensions {
             /// the xml parsing method
             /// </summary>
             /// <param name="node">the xml node holding the attendeeStatus</param>
-            /// <returns>AttendeeStatus</returns>
+            /// <returns>AttendeeStatus</returns>
+
             public static AttendeeStatus parse(XmlNode node)
             {
                 AttendeeStatus attendee = null;
@@ -271,21 +273,23 @@ namespace Google.GData.Extensions {
                 if (node.HasChildNodes)
                 {
                     XmlNode childNode = node.FirstChild;
-                    while (childNode != null && childNode is XmlElement)
+                    while (childNode != null)
                     {
-    
-                        if (childNode.LocalName == GDataParserNameTable.XmlAttendeeTypeElement)
-                        {
-                            who.Attendee_Type = AttendeeType.parse(childNode);
-                        }
-                        else if (childNode.LocalName == GDataParserNameTable.XmlAttendeeStatusElement)
-                        {
-                            who.Attendee_Status = AttendeeStatus.parse(childNode);
-                        }
-                        else if (childNode.LocalName == GDataParserNameTable.XmlEntryLinkElement)
-                        {
-                            who.EntryLink = EntryLink.ParseEntryLink(childNode, parser);
-                        }
+						if (childNode is XmlElement)
+						{
+							if (childNode.LocalName == GDataParserNameTable.XmlAttendeeTypeElement)
+							{
+								who.Attendee_Type = AttendeeType.parse(childNode);
+							}
+							else if (childNode.LocalName == GDataParserNameTable.XmlAttendeeStatusElement)
+							{
+								who.Attendee_Status = AttendeeStatus.parse(childNode);
+							}
+							else if (childNode.LocalName == GDataParserNameTable.XmlEntryLinkElement)
+							{
+								who.EntryLink = EntryLink.ParseEntryLink(childNode, parser);
+							}
+						}
                         childNode = childNode.NextSibling;
                     }
                 }
