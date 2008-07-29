@@ -194,13 +194,18 @@ namespace Google.GData.Client
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>set's and get's the slug header, used for binary transfers
-        /// note that the data will be URLencoded before send</summary> 
+        /// note that the data will be converted to ASCII and URLencoded on setting it
+        /// </summary> 
         /// <returns> </returns>
         //////////////////////////////////////////////////////////////////////
         public string Slug
         {
             get {return this.slugHeader;}
-            set {this.slugHeader = value;}
+            set 
+            {
+                this.slugHeader = Utilities.EncodeStringToASCII(value);
+                this.slugHeader = Utilities.UriEncodeReserved(this.slugHeader);
+            }
         }
         /////////////////////////////////////////////////////////////////////////////
 
@@ -416,13 +421,20 @@ namespace Google.GData.Client
         /////////////////////////////////////////////////////////////////////////////
 
         //////////////////////////////////////////////////////////////////////
-        /// <summary>set's and get's the slugHeader, used for binary transfers</summary> 
+        /// <summary>set's and get's the slugHeader, used for binary transfers
+        /// will encode to ascii and urlencode the string on setting it. 
+        /// </summary> 
+        /// 
         /// <returns> </returns>
         //////////////////////////////////////////////////////////////////////
         public string Slug
         {
             get {return this.slugHeader == null ? this.factory.Slug : this.slugHeader;}
-            set {this.slugHeader = value;}
+            set 
+            {
+                this.slugHeader = Utilities.EncodeStringToASCII(value);
+                this.slugHeader = Utilities.UriEncodeReserved(this.slugHeader);
+            }
         }
         /////////////////////////////////////////////////////////////////////////////
 
@@ -542,7 +554,7 @@ namespace Google.GData.Client
 
                     if (this.Slug != null)
                     {
-                        this.Request.Headers.Add(GDataRequestFactory.SlugHeader + ": " + Utilities.UriEncodeReserved(this.Slug));
+                        this.Request.Headers.Add(GDataRequestFactory.SlugHeader + ": " + this.Slug);
                     }
                     if (this.factory.Proxy != null)
                     {
