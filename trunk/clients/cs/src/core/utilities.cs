@@ -139,22 +139,33 @@ namespace Google.GData.Client
             return utf8String; 
         }
 
-
-
-        //////////////////////////////////////////////////////////////////////
+         //////////////////////////////////////////////////////////////////////
         /// <summary>helper to read in a string and Encode it</summary> 
         /// <param name="content">the xmlreader string</param>
-        /// <returns>html encoded string</returns>
+        /// <returns>UTF8 encoded string</returns>
         //////////////////////////////////////////////////////////////////////
-        public static string EncodeHtmlString(string content)
+        public static string EncodeStringToASCII(string content)
         {
             // get the encoding
-            return content; 
+            Encoding asciiEncoder = Encoding.ASCII; 
+            Encoding utf16Encoder = Encoding.Unicode;
 
+            Byte [] bytes = utf16Encoder.GetBytes(content); 
+
+            Byte [] asciiBytes = Encoding.Convert(utf16Encoder, asciiEncoder, bytes); 
+
+            char[] asciiChars = new char[asciiEncoder.GetCharCount(asciiBytes, 0, asciiBytes.Length)];
+            asciiEncoder.GetChars(asciiBytes, 0, asciiBytes.Length, asciiChars, 0);
+      
+            String asciiString = new String(asciiChars); 
+
+            return asciiString; 
         }
+
 
         /// <summary>
         /// used as a cover method to hide the actual decoding implementation
+        /// decodes an html decoded string
         /// </summary>
         /// <param name="value">the string to decode</param>
         public static string DecodedValue(string value) 
@@ -164,6 +175,7 @@ namespace Google.GData.Client
 
         /// <summary>
         /// used as a cover method to hide the actual decoding implementation
+        /// decodes an URL decoded string
         /// </summary>
         /// <param name="value">the string to decode</param>
         public static string UrlDecodedValue(string value)
