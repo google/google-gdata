@@ -11,6 +11,7 @@ global targetPath
 global pathVar
 global subFolder
 global allOldFiles
+global allNewFiles
 
 
 
@@ -26,6 +27,43 @@ class URLLister(SGMLParser):
 
 
 class BaseHTMLProcessor(SGMLParser): 
+  def reset(self):                        
+      self.pieces = [] 
+      SGMLParser.reset(self) 
+  def unknown_starttag(self, tag, attrs): 
+      strattrs = "".join([' %s="%s"' % (key, value) for key, value in attrs]) 
+      self.pieces.append("<%(tag)s%(strattrs)s>" % locals()) 
+  def unknown_endtag(self, tag):          
+      self.pieces.append("</%(tag)s>" % locals()) 
+  def handle_charref(self, ref):          
+      self.pieces.append("&#%(ref)s;" % locals()) 
+  def handle_entityref(self, ref):        
+      self.pieces.append("&%(ref)s" % locals()) 
+      if htmlentitydefs.entitydefs.has_key(ref): 
+          self.pieces.append(";") 
+  def handle_data(self, text):            
+      self.pieces.append(text) 
+  def handle_comment(self, text):         
+      self.pieces.append("<!--%(text)s-->" % locals()) 
+  def handle_pi(self, text):              
+      self.pieces.append("<?%(text)s>" % locals()) 
+  def handle_decl(self, text): 
+      self.pieces.append("<!%(text)s>" % locals()) 
+      
+  def start_a(self, attrs):
+    strattrs = ""
+    for key, value in attrs:
+      if key == 'href':
+        value = FileMover().Move(basePath, targetPath, value)
+      strattrs += "".join(' %s="%s"' % (key, value))      
+    self.pieces.append("<a %(strattrs)s>" % locals()) 
+  
+     
+  def output(self):               
+      """Return processed HTML as a single string""" 
+      return "".join(self.pieces) 
+        
+class MofifyFileProcessor(SGMLParser): 
     def reset(self):                        
         self.pieces = [] 
         SGMLParser.reset(self) 
@@ -48,21 +86,30 @@ class BaseHTMLProcessor(SGMLParser):
         self.pieces.append("<?%(text)s>" % locals()) 
     def handle_decl(self, text): 
         self.pieces.append("<!%(text)s>" % locals()) 
-        
+
     def start_a(self, attrs):
       strattrs = ""
       for key, value in attrs:
         if key == 'href':
-          value = FileMover().Move(basePath, targetPath, value)
+          value = self.FindNewLocation(value)
         strattrs += "".join(' %s="%s"' % (key, value))      
       self.pieces.append("<a %(strattrs)s>" % locals()) 
 
-       
+
     def output(self):               
         """Return processed HTML as a single string""" 
         return "".join(self.pieces) 
-        
-      
+
+    def FindNewLocation(self, fileName):
+      global allOldFiles
+      for path, name in allOldFiles:
+        if name == fileName:
+          folder = split(path + f)
+          folder = split(folder[0])
+          folder = folder[1]
+          return "../" + folder + "/" + fileName
+      """If we don't find it, return original, might be http ref to ms docs"""
+      return fileName
 
 class FileMover:
   def Move(self, base, target, currentFile):
@@ -84,13 +131,6 @@ class FileMover:
     # which just assumes that the index is in the directory above
     return relFile
     
-  def TestIfFileExistsOld(self, fileName, target):
-    for root, dirs, files in os.walk(target):
-      if 'folder' in root:
-        if fileName in files:
-          return root 
-    return ""
-
   def TestIfFileExists(self, fileName, target):
     global allOldFiles
     for path, name in allOldFiles:
@@ -113,8 +153,8 @@ class FileMover:
     return testPath
         
     
-basePath = "../docs/generated/"
-targetPath = "../docs/generated/"
+basePath = "../../../../docs/"
+targetPath = "../../../../docs/"
 subFolder = "folder"
 pathVar = 1
 allOldFiles = []
@@ -125,11 +165,36 @@ for root, dirs, files in os.walk(basePath):
     for f in files: 
       allOldFiles.append((root + "/", f)) 
 
-
-usock = urllib.urlopen("../docs/generated/Index.html")
+usock = urllib.urlopen("../../../../docs/orgindex.html")
 parser = BaseHTMLProcessor()
 parser.feed(usock.read())
 usock.close()
 parser.close()
-print parser.output()
+
+print "writing new index file index.html"
+
+file = open("../../../../docs/index.html", 'w')
+file.write(parser.output())
+file.close()
+
+allOldFiles = [] 
+
+#now walk over the list of files in the foderx subfolders and manage the references in there
+for root, dirs, files in os.walk(basePath): 
+  if 'folder' in root:
+    for f in files: 
+      allOldFiles.append((root + "/", f)) 
+
+for path, name in allOldFiles:
+  usock = urllib.urlopen(path+name)
+  parser = MofifyFileProcessor()
+  parser.feed(usock.read())
+  usock.close()
+  parser.close()
+
+  print "modifying file: " + path + name
+  file = open(path+name, 'w')
+  file.write(parser.output())
+  file.close()
+
 
