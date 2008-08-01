@@ -99,39 +99,61 @@ namespace Google.GData.Client
                 return base.EntrySend(feedUri, baseEntry, type);
             }
 
-            IGDataRequest request = this.RequestFactory.CreateRequest(type,feedUri);
-            request.Credentials = this.Credentials;
-
-            GDataRequest r = request as GDataRequest;
-
-            if (r != null) 
+            Stream outputStream = null;
+            Stream inputStream=null;
+            try
             {
-                r.ContentType = MediaService.MimeContentType;
-                r.Slug = entry.MediaSource.Name;
-
-                GDataRequestFactory f = this.RequestFactory as GDataRequestFactory;
-                if (f != null)
+                IGDataRequest request = this.RequestFactory.CreateRequest(type,feedUri);
+                request.Credentials = this.Credentials;
+    
+                GDataRequest r = request as GDataRequest;
+    
+                if (r != null) 
                 {
-                    f.CustomHeaders.Add("MIME-version: 1.0");
+                    r.ContentType = MediaService.MimeContentType;
+                    r.Slug = entry.MediaSource.Name;
+    
+                    GDataRequestFactory f = this.RequestFactory as GDataRequestFactory;
+                    if (f != null)
+                    {
+                        f.CustomHeaders.Add("MIME-version: 1.0");
+                    }
+                }
+    
+                outputStream = request.GetRequestStream();
+                inputStream = entry.MediaSource.Data;
+                StreamWriter w = new StreamWriter(outputStream);
+
+                w.WriteLine("Media multipart posting");
+                CreateBoundary(w, GDataRequestFactory.DefaultContentType);
+                baseEntry.SaveToXml(outputStream);
+                w.WriteLine();
+                CreateBoundary(w, entry.MediaSource.ContentType);
+                WriteInputStreamToResponse(inputStream, outputStream);
+                w.WriteLine();
+                w.WriteLine("--" + MediaService.MimeBoundary + "--");
+                w.Flush();
+                request.Execute();
+                outputStream.Close();
+                outputStream = null;
+                return request.GetResponseStream();
+            }
+            catch (Exception e)
+            {
+                throw; 
+            }
+            finally
+            {
+                if (outputStream != null)
+                {
+                    outputStream.Close();
+                }
+                if (inputStream != null)
+                {
+                    inputStream.Close();
                 }
             }
-
-            Stream outputStream = request.GetRequestStream();
-
-            StreamWriter w = new StreamWriter(outputStream);
-
-            w.WriteLine("Media multipart posting");
-            CreateBoundary(w, GDataRequestFactory.DefaultContentType);
-            baseEntry.SaveToXml(outputStream);
-            w.WriteLine();
-            CreateBoundary(w, entry.MediaSource.ContentType);
-            WriteInputStreamToResponse(entry.MediaSource.Data, outputStream);
-            w.WriteLine();
-            w.WriteLine("--" + MediaService.MimeBoundary + "--");
-            w.Flush();
-            request.Execute();
-            outputStream.Close();
-            return request.GetResponseStream();
+            return null;
         }
     
         /// <summary>
