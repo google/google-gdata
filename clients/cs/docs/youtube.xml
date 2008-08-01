@@ -1634,7 +1634,7 @@
         </member>
         <member name="T:Google.GData.YouTube.FriendsEntry">
             <summary>
-            Entry API customization class for defining entries in an Event feed.
+            An individual entry inside the FriendsFeed. It represents a contact of the user
             </summary>
         </member>
         <member name="F:Google.GData.YouTube.FriendsEntry.FRIENDS_CATEGORY">
@@ -1644,7 +1644,7 @@
         </member>
         <member name="M:Google.GData.YouTube.FriendsEntry.#ctor">
             <summary>
-            Constructs a new YouTubeEntry instance
+            Constructs a new FriendsEntry instance
             </summary>
         </member>
         <member name="P:Google.GData.YouTube.FriendsEntry.Status">

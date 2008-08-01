@@ -1918,7 +1918,8 @@
         </member>
         <member name="P:Google.GData.Client.GDataRequestFactory.Slug">
             <summary>set's and get's the slug header, used for binary transfers
-            note that the data will be URLencoded before send</summary> 
+            note that the data will be converted to ASCII and URLencoded on setting it
+            </summary> 
             <returns> </returns>
         </member>
         <member name="P:Google.GData.Client.GDataRequestFactory.UserAgent">
@@ -2136,7 +2137,10 @@
             <returns> </returns>
         </member>
         <member name="P:Google.GData.Client.GDataRequest.Slug">
-            <summary>set's and get's the slugHeader, used for binary transfers</summary> 
+            <summary>set's and get's the slugHeader, used for binary transfers
+            will encode to ascii and urlencode the string on setting it. 
+            </summary> 
+            
             <returns> </returns>
         </member>
         <member name="P:Google.GData.Client.GDataRequest.Request">
@@ -3213,20 +3217,22 @@
             <param name="content">the xmlreader string</param>
             <returns>UTF8 encoded string</returns>
         </member>
-        <member name="M:Google.GData.Client.Utilities.EncodeHtmlString(System.String)">
+        <member name="M:Google.GData.Client.Utilities.EncodeStringToASCII(System.String)">
             <summary>helper to read in a string and Encode it</summary> 
             <param name="content">the xmlreader string</param>
-            <returns>html encoded string</returns>
+            <returns>UTF8 encoded string</returns>
         </member>
         <member name="M:Google.GData.Client.Utilities.DecodedValue(System.String)">
             <summary>
             used as a cover method to hide the actual decoding implementation
+            decodes an html decoded string
             </summary>
             <param name="value">the string to decode</param>
         </member>
         <member name="M:Google.GData.Client.Utilities.UrlDecodedValue(System.String)">
             <summary>
             used as a cover method to hide the actual decoding implementation
+            decodes an URL decoded string
             </summary>
             <param name="value">the string to decode</param>
         </member>
