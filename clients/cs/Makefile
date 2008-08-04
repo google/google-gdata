@@ -47,7 +47,7 @@ samples =	\
 	PhotoTool.exe \
 	HealthTool.exe \
 
-all: $(ALL_LIBS) tests $(samples)
+all: $(ALLLIBS) tests $(samples)
 
 core_sources = $(wildcard src/core/*.cs) $(wildcard version/*.cs)
 extensions_sources = $(wildcard src/extensions/*.cs) $(wildcard version/*.cs)
@@ -108,10 +108,10 @@ clean:
 	-rm *.sn *.dll *exe
 
 install: all
-	for i in $(ALL_LIBS); do gacutil -i $$i; done
+	for i in $(ALLLIBS); do gacutil -i $$i; done
 
 uninstall:
-	for i in $(ALL_LIBS); do gacutil -u $$i; done
+	for i in $(ALLLIBS); do gacutil -u $$i; done
 
 tests: $(ALLLIBS)
 	$(CSC) $(DEFINES) -target:library -out:unittests.dll $(ALLREFS) -r:nunit.framework.dll $(test_sources)
