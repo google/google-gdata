@@ -606,10 +606,7 @@
             <summary>Accessor method public string Category.</summary> 
             <returns>the category filter</returns>
         </member>
-        <member name="P:Google.GData.Client.FeedQuery.ExtraParameters">
-            <summary>Accessor method public string ExtraParameters.</summary> 
-            <returns></returns>
-        </member>
+        <!-- Badly formed XML comment ignored for member "P:Google.GData.Client.FeedQuery.ExtraParameters" -->
         <member name="P:Google.GData.Client.FeedQuery.Author">
             <summary>Accessor method public string Author.</summary> 
             <returns>the requested author</returns>

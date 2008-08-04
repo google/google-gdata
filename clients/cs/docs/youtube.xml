@@ -41,6 +41,12 @@
             <param name="client">the client identifier</param>
             <param name="developerKey">the developerKey</param>/// 
         </member>
+        <member name="M:Google.GData.YouTube.YouTubeService.#ctor(System.String)">
+            <summary>
+             readonly constructor 
+            </summary>
+            <param name="client">the client identifier</param>
+        </member>
         <member name="M:Google.GData.YouTube.YouTubeService.Query(Google.GData.YouTube.YouTubeQuery)">
             <summary>
             overloaded to create typed version of Query

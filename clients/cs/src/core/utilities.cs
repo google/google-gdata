@@ -345,11 +345,11 @@ namespace Google.GData.Client
                 Uri uriSuperBase= null;
                 Uri uriComplete = null;
     
-                if (inheritedBase != null)
+                if (inheritedBase != null && inheritedBase.ToString() != null)
                 {
                     uriSuperBase = new Uri(inheritedBase.ToString()); 
                 }
-                if (localBase != null)
+                if (localBase != null && localBase.ToString() != null)
                 {
                     if (uriSuperBase != null)
                     {
