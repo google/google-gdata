@@ -8,6 +8,10 @@ We will be trying to keep a list of things we currently work on for the .NET cli
 
 = Details =
 
+=== Bug fixes ===
+
+Before feature work starts, we are going through the issue tracker and are knocking down the bugs that were found/reported in the last few weeks. If you are effected by them, take your favorite subversion client and get the latest binaries. 
+
 === LINQ support ===
 
 One of the more natural things to do is to make sure that we can use LINQ against our Google Data API properties. What would be more natural then to use query statements in your code to get just the subset of calendar entries that you want to work with. Now we are in the preliminary investigation phase here, and feedback on what you want to do with this is highly appreciated.
