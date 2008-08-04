@@ -12,6 +12,9 @@
       <li>Features</li>
       <li>Bugfixes</li>
       <ul>
+          <li>Fixed issue 148, RemoveAt did not remove the object from the 
+              containing collection, only locally. Fixed by overriding the 
+              OnRemove method. </li>
           <li>Fixed issue 155, there was no way to create a read only 
               youtube service, or rephrased, one that did not require a 
               developer key</li>
