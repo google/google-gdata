@@ -278,6 +278,21 @@ namespace Google.GData.Client.LiveTests
             entry.Emails.Remove(e);
             Assert.IsTrue(entry.PrimaryEmail == null, "Entry should have no primary Email");
 
+            entry.Emails.Add(e);
+            Assert.IsTrue(entry.PrimaryEmail == e, "Entry should have one primary Email");
+
+            entry.Emails.RemoveAt(0);
+            Assert.IsTrue(entry.PrimaryEmail == null, "Entry should have no primary Email");
+
+            foreach (Object o in entry.ExtensionElements)
+            {
+                if (o is EMail)
+                {
+                    Assert.IsTrue(o == null, "There should be no email in the collection");
+                }
+            }
+
+
             PostalAddress p = new PostalAddress("Testaddress");
             p.Primary = true;
             Assert.IsTrue(entry.PrimaryPostalAddress == null, "Entry should have no primary Postal");

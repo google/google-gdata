@@ -141,13 +141,25 @@ namespace Google.GData.Extensions
         /// <param name="value"></param>
         public void Remove( T value )  
         {
-            if (this.container != null)
-            {
-                this.container.ExtensionElements.Remove(value);
-            }
             List.Remove( value );
         }
 
+        /// <summary>
+        /// override this one to catch all cases, makes sure that
+        /// the container collection will remove the object as well
+        /// </summary>
+        /// <param name="index"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        protected override void OnRemove(int index,  Object value)
+        {
+            if (this.container != null)
+            {
+                this.container.ExtensionElements.Remove(value);
+            }   
+        }
+
+        
          /// <summary>standard typed indexOf method </summary>
         public int IndexOf(T value)
         {
