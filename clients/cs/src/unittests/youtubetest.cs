@@ -145,6 +145,30 @@ namespace Google.GData.Client.LiveTests
         }
         /////////////////////////////////////////////////////////////////////////////
 
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>runs a test on the YouTube Feed object using the read only service</summary> 
+        //////////////////////////////////////////////////////////////////////
+        [Test] public void YouTubeReadOnlyTest()
+        {
+            Tracing.TraceMsg("Entering YouTubeFeedTest");
+
+            YouTubeQuery query = new YouTubeQuery(YouTubeQuery.TopRatedVideo);
+            YouTubeService service = new YouTubeService("NETUnittests");
+
+            query.Formats.Add(YouTubeQuery.VideoFormat.RTSP);
+            query.Time = YouTubeQuery.UploadTime.ThisWeek;
+
+            YouTubeFeed feed = service.Query(query);
+
+            foreach (YouTubeEntry e in feed.Entries )
+            {
+                Assert.IsTrue(e.Media.Title.Value != null, "There should be a title");
+            }
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+
         //////////////////////////////////////////////////////////////////////
         /// <summary>runs a test on the YouTube Feed object</summary> 
         //////////////////////////////////////////////////////////////////////

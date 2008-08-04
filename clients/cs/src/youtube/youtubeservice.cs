@@ -60,6 +60,8 @@ namespace Google.GData.YouTube {
 
         private string clientID;
         private string developerID;
+
+
         /// <summary>
         ///  default constructor
         /// </summary>
@@ -82,7 +84,17 @@ namespace Google.GData.YouTube {
             developerID = developerKey;
             OnRequestFactoryChanged();
         }
-   
+
+
+        /// <summary>
+        ///  readonly constructor 
+        /// </summary>
+        /// <param name="client">the client identifier</param>
+        public YouTubeService(string applicationName) : base(YTService, applicationName, YTAgent)
+        {
+            this.NewFeed += new ServiceEventHandler(this.OnNewFeed); 
+            OnRequestFactoryChanged();
+        }
         /// <summary>
         /// overloaded to create typed version of Query
         /// </summary>
