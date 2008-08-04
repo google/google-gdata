@@ -569,6 +569,7 @@ namespace Google.GData.Client
             category = category.Replace("%7B", "{"); 
             category = category.Replace("%7D", "}");
             category = category.Replace("%7C", "|");
+            category = Utilities.UrlDecodedValue(category);
 
             // let's see if it's the only one...
             TokenCollection tokens = new TokenCollection(category, new char[1] {'|'}); 

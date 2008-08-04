@@ -179,12 +179,13 @@ namespace Google.GData.Client
                 StreamWriter w = new StreamWriter(this.strOutput); 
                 StreamWriter x = new StreamWriter(this.strCombined, true, System.Text.Encoding.UTF8, 512);
 
-                SaveHeaders(false, response.Headers, null, response.ResponseUri, w);
-                SaveHeaders(false, response.Headers, null, response.ResponseUri, x); 
 
                 if (response != null)
                 {
-                    Stream   req = response.GetResponseStream(); 
+                    SaveHeaders(false, response.Headers, null, response.ResponseUri, w);
+                    SaveHeaders(false, response.Headers, null, response.ResponseUri, x);
+
+                    Stream req = response.GetResponseStream(); 
                     SaveStream(req, x, w); 
                 }
                 w.Close();
