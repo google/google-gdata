@@ -1698,9 +1698,11 @@
             <param name="slugHeader">the slugHeader to use in the request, if NULL is passed, factory default is used</param>
             <returns>Stream</returns>
         </member>
-        <member name="M:Google.GData.Client.Service.WriteInputStreamToResponse(System.IO.Stream,System.IO.Stream)">
+        <member name="M:Google.GData.Client.Service.WriteInputStreamToRequest(System.IO.Stream,System.IO.Stream)">
             <summary>
-            write the current stream to a response stream
+            write the current stream to an output stream
+            this is primarily used to write data to the 
+            request stream
             </summary>
             <param name="input"></param>
             <param name="output"></param>
@@ -3214,10 +3216,19 @@
             <param name="content">the xmlreader string</param>
             <returns>UTF8 encoded string</returns>
         </member>
-        <member name="M:Google.GData.Client.Utilities.EncodeStringToASCII(System.String)">
-            <summary>helper to read in a string and Encode it</summary> 
-            <param name="content">the xmlreader string</param>
-            <returns>UTF8 encoded string</returns>
+        <member name="M:Google.GData.Client.Utilities.EncodeStringToUtf8(System.String)">
+            <summary>
+            returns you a bytearray of UTF8 bytes from the string passed in
+            the passed in string is assumed to be UTF16
+            </summary>
+            <param name="content">UTF16 string</param>
+            <returns>utf 8 byte array</returns>
+        </member>
+        <member name="M:Google.GData.Client.Utilities.EncodeSlugHeader(System.String)">
+            <summary>helper to read in a string and Encode it according to 
+            RFC 5023 rules for slugheaders</summary> 
+            <param name="slug">the Unicode string for the slug header</param>
+            <returns>ASCII  encoded string</returns>
         </member>
         <member name="M:Google.GData.Client.Utilities.DecodedValue(System.String)">
             <summary>

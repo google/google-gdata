@@ -671,7 +671,7 @@ namespace Google.GData.Client
        
             Stream outputStream = request.GetRequestStream();
 
-            WriteInputStreamToResponse(inputStream, outputStream);
+            WriteInputStreamToRequest(inputStream, outputStream);
 
             request.Execute();
             outputStream.Close();
@@ -679,13 +679,14 @@ namespace Google.GData.Client
         }
 
         /// <summary>
-        /// write the current stream to a response stream
+        /// write the current stream to an output stream
+        /// this is primarily used to write data to the 
+        /// request stream
         /// </summary>
         /// <param name="input"></param>
         /// <param name="output"></param>
-        protected void WriteInputStreamToResponse(Stream input, Stream output)
+        protected void WriteInputStreamToRequest(Stream input, Stream output)
         {
-
             BinaryWriter w = new BinaryWriter(output);
             const int size = 4096;
             byte[] bytes = new byte[4096];

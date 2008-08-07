@@ -29,8 +29,6 @@ namespace Google.GData.YouTube {
     public class CommentEntry : AbstractEntry
     {
 
-        private AtomLinkCollection replies;
-
         /// <summary>
         /// Constructs a new CommentEntry instance
         /// </summary>
