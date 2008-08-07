@@ -12,26 +12,29 @@
       <li>Features</li>
       <li>Bugfixes</li>
       <ul>
-	  <li>Fixed issue 147, a composite feed with a comment was not loading</li>
-          <li>Fixed issue 148, RemoveAt did not remove the object from the 
-              containing collection, only locally. Fixed by overriding the 
-              OnRemove method. </li>
-          <li>Fixed issue 155, there was no way to create a read only 
-              youtube service, or rephrased, one that did not require a 
-              developer key</li>
-          <li>Fixed issue 159, a typo in the makefile that prevented gac 
-              install/uninstall</li>
-          <li>Fixed issue 156, if an exception happened during upload, the 
-              resource was kept open</li>
-          <li>Fixed issue 149, the Who element failed to parse attendee 
-              status if a whitespace element was encountered</li>
-          <li>Fixed an issue with character encoding in the slug header. 
-              This would effect upload of files with non-ascii names.</li>
-      		<li>Fixed issue  144, recurrenceexception is not parsed correctly</li>
-      		<li>Fixed issue 145, FeedLink element parser error</li>
-             <li>Fixed issue 146. Passwords containing percentage signs were not 
-              properly encoded.
-          </li>
+            <li>Fixed issue 157, Slug Header encoding. This was not 
+                correctly confirming to RFC5023. Introduced a new helper method
+                in the utilities class for this purpose.</li>
+            <li>Fixed issue 147, a composite feed with a comment was not loading</li>
+            <li>Fixed issue 148, RemoveAt did not remove the object from the 
+            containing collection, only locally. Fixed by overriding the 
+            OnRemove method. </li>
+            <li>Fixed issue 155, there was no way to create a read only 
+            youtube service, or rephrased, one that did not require a 
+            developer key</li>
+            <li>Fixed issue 159, a typo in the makefile that prevented gac 
+            install/uninstall</li>
+            <li>Fixed issue 156, if an exception happened during upload, the 
+            resource was kept open</li>
+            <li>Fixed issue 149, the Who element failed to parse attendee 
+            status if a whitespace element was encountered</li>
+            <li>Fixed an issue with character encoding in the slug header. 
+            This would effect upload of files with non-ascii names.</li>
+            <li>Fixed issue  144, recurrenceexception is not parsed correctly</li>
+            <li>Fixed issue 145, FeedLink element parser error</li>
+            <li>Fixed issue 146. Passwords containing percentage signs were not 
+            properly encoded.
+            </li>
        </ul>
      </ul>
      
