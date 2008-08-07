@@ -127,9 +127,7 @@ namespace Google.GData.Client
             Encoding utf8Encoder = Encoding.UTF8; 
             Encoding utf16Encoder = Encoding.Unicode;
 
-            Byte [] bytes = utf16Encoder.GetBytes(content); 
-
-            Byte [] utf8Bytes = Encoding.Convert(utf16Encoder, utf8Encoder, bytes); 
+            Byte[] utf8Bytes = EncodeStringToUtf8(content);
 
             char[] utf8Chars = new char[utf8Encoder.GetCharCount(utf8Bytes, 0, utf8Bytes.Length)];
             utf8Encoder.GetChars(utf8Bytes, 0, utf8Bytes.Length, utf8Chars, 0);
@@ -139,28 +137,60 @@ namespace Google.GData.Client
             return utf8String; 
         }
 
-         //////////////////////////////////////////////////////////////////////
-        /// <summary>helper to read in a string and Encode it</summary> 
-        /// <param name="content">the xmlreader string</param>
-        /// <returns>UTF8 encoded string</returns>
-        //////////////////////////////////////////////////////////////////////
-        public static string EncodeStringToASCII(string content)
+        /// <summary>
+        /// returns you a bytearray of UTF8 bytes from the string passed in
+        /// the passed in string is assumed to be UTF16
+        /// </summary>
+        /// <param name="content">UTF16 string</param>
+        /// <returns>utf 8 byte array</returns>
+        public static Byte[] EncodeStringToUtf8(string content)
         {
             // get the encoding
-            Encoding asciiEncoder = Encoding.ASCII; 
+            Encoding utf8Encoder = Encoding.UTF8;
             Encoding utf16Encoder = Encoding.Unicode;
 
-            Byte [] bytes = utf16Encoder.GetBytes(content); 
+            Byte[] bytes = utf16Encoder.GetBytes(content);
 
-            Byte [] asciiBytes = Encoding.Convert(utf16Encoder, asciiEncoder, bytes); 
-
-            char[] asciiChars = new char[asciiEncoder.GetCharCount(asciiBytes, 0, asciiBytes.Length)];
-            asciiEncoder.GetChars(asciiBytes, 0, asciiBytes.Length, asciiChars, 0);
-      
-            String asciiString = new String(asciiChars); 
-
-            return asciiString; 
+            Byte[] utf8Bytes = Encoding.Convert(utf16Encoder, utf8Encoder, bytes);
+            return utf8Bytes;
         }
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>helper to read in a string and Encode it according to 
+        /// RFC 5023 rules for slugheaders</summary> 
+        /// <param name="slug">the Unicode string for the slug header</param>
+        /// <returns>ASCII  encoded string</returns>
+        //////////////////////////////////////////////////////////////////////
+        public static string EncodeSlugHeader(string slug)
+        {
+            if (slug == null)
+                return "";
+
+            Byte[] bytes =EncodeStringToUtf8(slug);
+
+            if (bytes == null)
+                return "";
+
+            StringBuilder returnString = new StringBuilder(256);
+
+            foreach (byte b in bytes)
+            {
+                if ((b < 0x20) ||
+                    (b == 0x25) ||
+                    (b > 0x7E))
+                {
+                    returnString.AppendFormat("%{0:X}", b);
+                }
+                else
+                {
+                    returnString.Append((char) b);
+                }
+            }
+
+            return returnString.ToString(); 
+        }
+
+
 
 
         /// <summary>

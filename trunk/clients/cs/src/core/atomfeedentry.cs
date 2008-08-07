@@ -756,9 +756,12 @@ namespace Google.GData.Client
             if (this.Service != null)
             {
                 AtomEntry updatedEntry = Service.Update(this);
-                this.CopyEntry(updatedEntry);
-                this.MarkElementDirty(false);
-                return updatedEntry; 
+                if (updatedEntry != null)
+                {
+                    this.CopyEntry(updatedEntry);
+                    this.MarkElementDirty(false);
+                    return updatedEntry;
+                }
             }
             return null;
         }

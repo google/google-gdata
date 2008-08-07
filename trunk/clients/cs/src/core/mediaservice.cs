@@ -129,7 +129,7 @@ namespace Google.GData.Client
                 baseEntry.SaveToXml(outputStream);
                 w.WriteLine();
                 CreateBoundary(w, entry.MediaSource.ContentType);
-                WriteInputStreamToResponse(inputStream, outputStream);
+                WriteInputStreamToRequest(inputStream, outputStream);
                 w.WriteLine();
                 w.WriteLine("--" + MediaService.MimeBoundary + "--");
                 w.Flush();
@@ -153,7 +153,6 @@ namespace Google.GData.Client
                     inputStream.Close();
                 }
             }
-            return null;
         }
     
         /// <summary>

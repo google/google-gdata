@@ -203,8 +203,7 @@ namespace Google.GData.Client
             get {return this.slugHeader;}
             set 
             {
-                this.slugHeader = Utilities.EncodeStringToASCII(value);
-                this.slugHeader = Utilities.UriEncodeReserved(this.slugHeader);
+                this.slugHeader = Utilities.EncodeSlugHeader(value);
             }
         }
         /////////////////////////////////////////////////////////////////////////////
@@ -432,8 +431,7 @@ namespace Google.GData.Client
             get {return this.slugHeader == null ? this.factory.Slug : this.slugHeader;}
             set 
             {
-                this.slugHeader = Utilities.EncodeStringToASCII(value);
-                this.slugHeader = Utilities.UriEncodeReserved(this.slugHeader);
+                this.slugHeader = Utilities.EncodeSlugHeader(value);
             }
         }
         /////////////////////////////////////////////////////////////////////////////
@@ -500,6 +498,7 @@ namespace Google.GData.Client
             if (this.webRequest == null && this.targetUri != null)
             {
                 this.webRequest = WebRequest.Create(this.targetUri);
+
                 this.webResponse = null; 
                 if (this.webRequest == null)
                 {
@@ -693,8 +692,6 @@ namespace Google.GData.Client
                 response = null;
                 request = null; 
             }
-            // now we need to check all kinds of error returns... 
-
         }
         /////////////////////////////////////////////////////////////////////////////
 
