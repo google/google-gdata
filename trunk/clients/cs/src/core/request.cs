@@ -505,6 +505,7 @@ namespace Google.GData.Client
                     throw new OutOfMemoryException("Could not create a new Webrequest"); 
                 }
                 HttpWebRequest web = this.webRequest as HttpWebRequest;
+
                 if (web != null)
                 {
                     switch (this.type) 
