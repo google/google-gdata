@@ -108,7 +108,7 @@ namespace Google.GData.YouTube {
         /// <summary>
         /// FirstName element string
         /// </summary>
-        public const string FirstName = "firstname";
+        public const string FirstName = "firstName";
         /// <summary>
         /// Gender element string
         /// </summary>
