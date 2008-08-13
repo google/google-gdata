@@ -166,6 +166,91 @@ namespace Google.GData.Client.LiveTests
         }
         /////////////////////////////////////////////////////////////////////////////
 
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>runs an authentication test, inserts a new contact</summary> 
+        //////////////////////////////////////////////////////////////////////
+        [Test]
+        public void ConflictContactsTest()
+        {
+            const int numberOfInserts = 37;
+            const int numberWithAdds = 70; 
+            Tracing.TraceMsg("Entering InsertContactsTest");
+
+            ContactsQuery query = new ContactsQuery(ContactsQuery.CreateContactsUri(this.userName + "@googlemail.com"));
+            ContactsService service = new ContactsService("unittests");
+
+            if (this.userName != null)
+            {
+                service.Credentials = new GDataCredentials(this.userName, this.passWord);
+            }
+
+            ContactsFeed feed = service.Query(query);
+
+            int originalCount = feed.Entries.Count;
+
+            PhoneNumber p = null;
+            string email = Guid.NewGuid().ToString();
+
+            List<ContactEntry> inserted = new List<ContactEntry>();
+
+            // insert a number of guys
+            for (int i = 0; i < numberOfInserts; i++)
+            {
+                ContactEntry entry = ObjectModelHelper.CreateContactEntry(i);
+                entry.PrimaryEmail.Address = email + i.ToString() + "@doe.com";
+                p = entry.PrimaryPhonenumber;
+                inserted.Add(feed.Insert(entry));
+            }
+
+
+            if (feed != null)
+            {
+                for (int x = numberOfInserts; x <= numberWithAdds; x++)
+                {
+                    for (int i = 0; i < x; i++)
+                    {
+                        ContactEntry entry = ObjectModelHelper.CreateContactEntry(i);
+                        entry.PrimaryEmail.Address = email + i.ToString() + "@doe.com";
+
+                        p = entry.PrimaryPhonenumber;
+                        try
+                        {
+                            inserted.Add(feed.Insert(entry));
+                        }
+                        catch (GDataRequestException e)
+                        {
+                        }
+                    }
+                }
+            }
+
+            List<ContactEntry> list = new List<ContactEntry>();
+            feed = service.Query(query);
+            foreach (ContactEntry e in feed.Entries)
+            {
+                list.Add(e);
+            }
+
+            while (feed.NextChunk != null)
+            {
+                ContactsQuery nq = new ContactsQuery(feed.NextChunk);
+                feed = service.Query(nq);
+                foreach (ContactEntry e in feed.Entries)
+                {
+                    list.Add(e);
+                }
+            }
+
+            Assert.AreEqual(list.Count, numberWithAdds - originalCount, "We should have added new entries");
+
+            foreach (ContactEntry e in inserted)
+            {
+                e.Delete();
+            }
+
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
 
         
         //////////////////////////////////////////////////////////////////////
@@ -195,15 +280,16 @@ namespace Google.GData.Client.LiveTests
             {
                 Assert.IsTrue(feed.Entries != null, "the contacts needs entries");
 
-                for (int i=0; i< numberOfInserts; i++)
+                for (int i = 0; i < numberOfInserts; i++)
                 {
                     ContactEntry entry = ObjectModelHelper.CreateContactEntry(i);
-                    p = entry.PrimaryPhonenumber; 
+                    entry.PrimaryEmail.Address = "joe" + i.ToString() + "@doe.com";
+
+                    p = entry.PrimaryPhonenumber;
                     inserted.Add(feed.Insert(entry));
                 }
             }
 
-            // get all entries...
 
             List<ContactEntry> list = new List<ContactEntry>();
 
