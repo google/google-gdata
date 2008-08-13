@@ -397,13 +397,7 @@ namespace Google.GData.Client
                 {
                     throw new GDataRequestException("Execution of exchangeForSessionToken request returned unexpected result: " +code,  response); 
                 }
-                // verify the content length. This should not be big, hence a big result might indicate a phoney
-                if (response.ContentLength > 1024)
-                {
-                    throw new GDataRequestException("Execution of exchangeForSessionToken request returned unexpected large content length: " + response.ContentLength,  response); 
-                }
                 // get the body and parse it
-
                 authSubToken = Utilities.ParseValueFormStream(response.GetResponseStream(), GoogleAuthentication.AuthSubToken); 
             }
 

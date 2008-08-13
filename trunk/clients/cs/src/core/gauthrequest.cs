@@ -522,12 +522,6 @@ namespace Google.GData.Client
                 {
                     throw new GDataRequestException("Execution of authentication request returned unexpected content type: " + response.ContentType,  response); 
                 }
-                // verify the content length. This should not be big, hence a big result might indicate a phoney
-                if (response.ContentLength > 1024)
-                {
-                    throw new GDataRequestException("Execution of authentication request returned unexpected large content length: " + response.ContentLength, response);
-                }
-
                 TokenCollection tokens = Utilities.ParseStreamInTokenCollection(response.GetResponseStream());
                 authToken = Utilities.FindToken(tokens, GoogleAuthentication.AuthToken); 
 
