@@ -26,6 +26,7 @@ using Google.GData.Client;
 using Google.GData.Client.UnitTests;
 using Google.GData.Extensions;
 using Google.GData.Contacts;
+using System.Collections.Generic;
 
 
 
@@ -172,7 +173,7 @@ namespace Google.GData.Client.LiveTests
         //////////////////////////////////////////////////////////////////////
         [Test] public void InsertContactsTest()
         {
-            const int numberOfInserts = 3;
+            const int numberOfInserts = 37;
             Tracing.TraceMsg("Entering InsertContactsTest");
 
             ContactsQuery query = new ContactsQuery(ContactsQuery.CreateContactsUri(this.userName + "@googlemail.com")); 
@@ -185,9 +186,11 @@ namespace Google.GData.Client.LiveTests
 
             ContactsFeed feed = service.Query(query);
 
+            int originalCount = feed.Entries.Count;
+
             PhoneNumber p = null;
 
-            ArrayList inserted = new ArrayList();
+            List<ContactEntry> inserted = new List<ContactEntry>();
             if (feed != null)
             {
                 Assert.IsTrue(feed.Entries != null, "the contacts needs entries");
@@ -200,16 +203,36 @@ namespace Google.GData.Client.LiveTests
                 }
             }
 
+            // get all entries...
+
+            List<ContactEntry> list = new List<ContactEntry>();
+
+            feed = service.Query(query);
+            foreach (ContactEntry e in feed.Entries)
+            {
+                list.Add(e);
+            }
+
+            while (feed.NextChunk != null)
+            {
+                ContactsQuery nq = new ContactsQuery(feed.NextChunk); 
+                feed = service.Query(nq);
+                foreach (ContactEntry e in feed.Entries)
+                {
+                    list.Add(e);
+                }
+            }
+            
+
+
             if (inserted.Count > 0)
             {
                 int iVer = numberOfInserts;
-                feed = service.Query(query);
-
                 // let's find those guys
                 for (int i = 0; i < inserted.Count; i++)
                 {
                     ContactEntry test = inserted[i] as ContactEntry;
-                    foreach (ContactEntry e in feed.Entries)
+                    foreach (ContactEntry e in list)
                     {
                         if (e.Id == test.Id)
                         {
@@ -220,11 +243,9 @@ namespace Google.GData.Client.LiveTests
                         }
                     }
                 }
+
                 Assert.IsTrue(iVer == 0, "The new entries should all be part of the feed now");
             }
-
-            int all = feed.Entries.Count;
-
 
             // now delete them again
 
@@ -239,20 +260,16 @@ namespace Google.GData.Client.LiveTests
                 int iVer = inserted.Count;
                 feed = service.Query(query);
 
-                // let's find those guys
+                // let's find those guys, we should not find ANY
                 for (int i = 0; i < inserted.Count; i++)
                 {
                     ContactEntry test = inserted[i] as ContactEntry;
                     foreach (ContactEntry e in feed.Entries)
                     {
-                        if (e.Id == test.Id)
-                        {
-                            iVer--;
-                        }
+                        Assert.IsTrue(e.Id != test.Id, "The new entries should all be deleted now");
                     }
                 }
-                Assert.IsTrue(iVer == 3, "The new entries should all be deleted now");
-                Assert.IsTrue(feed.Entries.Count == all - 3, "The count should be correct as well");
+                Assert.IsTrue(feed.Entries.Count == originalCount, "The count should be correct as well");
             }
         }
         /////////////////////////////////////////////////////////////////////////////
