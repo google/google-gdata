@@ -126,6 +126,7 @@ namespace Google.GData.Client
         /// <summary>holds a flag indicating if the thing should be send to the server</summary> 
         private bool fIsDirty; 
 
+
         //////////////////////////////////////////////////////////////////////
         /// <summary>sets the element and all subelemts dirty flag</summary> 
         /// <param name="fFlag">indicates the property value to set</param>

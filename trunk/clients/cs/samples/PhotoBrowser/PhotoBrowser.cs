@@ -1,15 +1,17 @@
 using System;
 using System.Drawing;
 using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms;
 using Google.GData.Photos;
+using Google.GData.Client;
 using Google.GData.Extensions.MediaRss;
 using System.IO;
 
 namespace PhotoBrowser
 {
-	/// <summary>
+    /// <summary>
 	/// Summary description for PhotoBrowser.
 	/// </summary>
 	public class PictureBrowser : System.Windows.Forms.Form
@@ -25,33 +27,49 @@ namespace PhotoBrowser
         private System.Windows.Forms.Button UploadPhoto;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
+        private List<UserState> states = new List<UserState>();
+
+        private delegate void SaveAnotherPictureDelegate(UserState us);
+
+        private ProgressBar progressBar;
+        private Label FileInfo;
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
 		private System.ComponentModel.Container components = null;
 
-		public PictureBrowser(PicasaService service, PicasaFeed feed, string albumTitle)
-		{
-			//
-			// Required for Windows Form Designer support
-			//
-			InitializeComponent();
 
-            this.photoFeed = feed;
+
+        public PictureBrowser(PicasaService service, bool doBackup)
+        {
+            //
+            // Required for Windows Form Designer support
+            //
+            InitializeComponent();
             this.picasaService = service;
-            this.Text += albumTitle;
 
-            if (this.photoFeed != null && this.photoFeed.Entries.Count > 0) 
+            this.picasaService.AcynOperationCompleted += new AsyncOperationCompletedEventHandler(this.OnDone);
+            this.picasaService.AcynOperationProgress += new AsyncOperationProgressEventHandler(this.OnProgress);
+
+            if (doBackup == true)
             {
-                foreach (PicasaEntry entry in this.photoFeed.Entries)
-                {
-                    ListViewItem item = new ListViewItem(entry.Title.Text);
-                    item.Tag = entry;
-                    this.PhotoList.Items.Add(item);
-                }
+                this.DownloadPhoto.Enabled = false;
+                this.DownloadPhoto.Visible = false;
+                this.UploadPhoto.Enabled = false;
+                this.UploadPhoto.Visible = false;
             }
-            
-		}
+        }
+
+        public void StartQuery(string uri, string albumTitle)
+        {
+            UserState us = new UserState();
+            this.states.Add(us);
+
+            us.opType = UserState.OperationType.query;
+            us.filename = albumTitle;
+
+            this.picasaService.QueryFeedAync(new Uri(uri), DateTime.MinValue, us);
+        }
 
 		/// <summary>
 		/// Clean up any resources being used.
@@ -84,6 +102,9 @@ namespace PhotoBrowser
             this.UploadPhoto = new System.Windows.Forms.Button();
             this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.progressBar = new System.Windows.Forms.ProgressBar();
+            this.FileInfo = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.PhotoPreview)).BeginInit();
             this.SuspendLayout();
             // 
             // PhotoPreview
@@ -97,25 +118,29 @@ namespace PhotoBrowser
             // 
             // PhotoList
             // 
+            this.PhotoList.Alignment = System.Windows.Forms.ListViewAlignment.Default;
+            this.PhotoList.FullRowSelect = true;
+            this.PhotoList.GridLines = true;
+            this.PhotoList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.PhotoList.LabelWrap = false;
             this.PhotoList.Location = new System.Drawing.Point(24, 64);
+            this.PhotoList.MultiSelect = false;
             this.PhotoList.Name = "PhotoList";
-            this.PhotoList.Size = new System.Drawing.Size(176, 216);
+            this.PhotoList.ShowGroups = false;
+            this.PhotoList.Size = new System.Drawing.Size(210, 216);
+            this.PhotoList.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.PhotoList.TabIndex = 0;
+            this.PhotoList.UseCompatibleStateImageBehavior = false;
             this.PhotoList.View = System.Windows.Forms.View.List;
             this.PhotoList.SelectedIndexChanged += new System.EventHandler(this.PhotoList_SelectedIndexChanged);
             // 
             // PhotoInspector
             // 
-            this.PhotoInspector.CommandsVisibleIfAvailable = true;
-            this.PhotoInspector.LargeButtons = false;
             this.PhotoInspector.LineColor = System.Drawing.SystemColors.ScrollBar;
             this.PhotoInspector.Location = new System.Drawing.Point(24, 296);
             this.PhotoInspector.Name = "PhotoInspector";
             this.PhotoInspector.Size = new System.Drawing.Size(496, 192);
             this.PhotoInspector.TabIndex = 2;
-            this.PhotoInspector.Text = "propertyGrid1";
-            this.PhotoInspector.ViewBackColor = System.Drawing.SystemColors.Window;
-            this.PhotoInspector.ViewForeColor = System.Drawing.SystemColors.WindowText;
             // 
             // label1
             // 
@@ -135,7 +160,7 @@ namespace PhotoBrowser
             // 
             // DownloadPhoto
             // 
-            this.DownloadPhoto.Location = new System.Drawing.Point(560, 64);
+            this.DownloadPhoto.Location = new System.Drawing.Point(27, 575);
             this.DownloadPhoto.Name = "DownloadPhoto";
             this.DownloadPhoto.Size = new System.Drawing.Size(88, 40);
             this.DownloadPhoto.TabIndex = 5;
@@ -144,9 +169,9 @@ namespace PhotoBrowser
             // 
             // UploadPhoto
             // 
-            this.UploadPhoto.Location = new System.Drawing.Point(560, 128);
+            this.UploadPhoto.Location = new System.Drawing.Point(131, 575);
             this.UploadPhoto.Name = "UploadPhoto";
-            this.UploadPhoto.Size = new System.Drawing.Size(88, 48);
+            this.UploadPhoto.Size = new System.Drawing.Size(88, 40);
             this.UploadPhoto.TabIndex = 6;
             this.UploadPhoto.Text = "&Upload Photos";
             this.UploadPhoto.Click += new System.EventHandler(this.UploadPhoto_Click);
@@ -160,10 +185,26 @@ namespace PhotoBrowser
             this.openFileDialog.Filter = "JPeg Files|*.jpg";
             this.openFileDialog.Multiselect = true;
             // 
+            // progressBar
+            // 
+            this.progressBar.Location = new System.Drawing.Point(24, 551);
+            this.progressBar.Name = "progressBar";
+            this.progressBar.Size = new System.Drawing.Size(496, 18);
+            this.progressBar.TabIndex = 7;
+            // 
+            // FileInfo
+            // 
+            this.FileInfo.Location = new System.Drawing.Point(24, 491);
+            this.FileInfo.Name = "FileInfo";
+            this.FileInfo.Size = new System.Drawing.Size(496, 57);
+            this.FileInfo.TabIndex = 8;
+            // 
             // PictureBrowser
             // 
             this.AutoScaleBaseSize = new System.Drawing.Size(6, 15);
-            this.ClientSize = new System.Drawing.Size(672, 584);
+            this.ClientSize = new System.Drawing.Size(534, 627);
+            this.Controls.Add(this.FileInfo);
+            this.Controls.Add(this.progressBar);
             this.Controls.Add(this.UploadPhoto);
             this.Controls.Add(this.DownloadPhoto);
             this.Controls.Add(this.label2);
@@ -172,11 +213,27 @@ namespace PhotoBrowser
             this.Controls.Add(this.PhotoList);
             this.Controls.Add(this.PhotoPreview);
             this.Name = "PictureBrowser";
-            this.Text = "Browsing album: ";
+            this.Text = "Waiting for data to load";
+            ((System.ComponentModel.ISupportInitialize)(this.PhotoPreview)).EndInit();
             this.ResumeLayout(false);
 
         }
 		#endregion
+
+        private void InitializeList(string title)
+        {
+            this.Text = title;
+
+            if (this.photoFeed != null && this.photoFeed.Entries.Count > 0) 
+            {
+                foreach (PicasaEntry entry in this.photoFeed.Entries)
+                {
+                    ListViewItem item = new ListViewItem(entry.Title.Text);
+                    item.Tag = entry;
+                    this.PhotoList.Items.Add(item);
+                }
+            }
+        }
 
         private void PhotoList_SelectedIndexChanged(object sender, System.EventArgs e)
         {
@@ -238,7 +295,6 @@ namespace PhotoBrowser
         {
             // Show the FolderBrowserDialog.
             DialogResult result = folderBrowserDialog.ShowDialog();
-            this.Cursor = Cursors.WaitCursor;
         
             if( result == DialogResult.OK )
             {
@@ -249,44 +305,51 @@ namespace PhotoBrowser
                     string filename = folderName + "\\image" + i.ToString() + ".jpg";
                     i++;
                     PicasaEntry entry = item.Tag as PicasaEntry;
-                    PictureBrowser.saveImageFile(entry, filename, this.picasaService);
+                    this.DoSaveImageFile(entry, filename);
                 }
             }
-            this.Cursor = Cursors.Default;
-   
         }
 
-        static public void saveImageFile(PicasaEntry entry, string filename, PicasaService service)
+
+
+
+        public void BackupAlbum(string albumUri, string foldername)
+        {
+
+            UserState us = new UserState();
+
+            us.opType = UserState.OperationType.queryForBackup;
+            us.filename = "Starting backup to : " + foldername;
+            us.foldername = foldername;
+            this.states.Add(us);
+
+            this.picasaService.QueryFeedAync(new Uri(albumUri), DateTime.MinValue, us);
+
+
+        }
+
+
+        public void DoSaveImageFile(PicasaEntry entry, string filename)
         {
             if (entry.Media != null &&
                 entry.Media.Content != null)
             {
-                Stream stream  = service.Query(new Uri(entry.Media.Content.Attributes["url"] as string));
-                FileStream fs = new FileStream(filename, FileMode.OpenOrCreate);
-                BinaryWriter w = new BinaryWriter(fs);
-                byte []buffer = new byte[1024];
-                int iRead=0;
-                int iOffset = 0; 
-                while ((iRead = stream.Read(buffer, 0, 1024)) > 0) 
-                {
-                    w.Write(buffer, 0, iRead);
-                    iOffset += iRead;
-                }
-                w.Close();
-                fs.Close();
-            }    
+                UserState ut = new UserState();
+                ut.opType = UserState.OperationType.download;
+                ut.filename = filename;
+                this.states.Add(ut);
+
+                this.picasaService.QueryStreamAync(new Uri(entry.Media.Content.Attributes["url"] as string), DateTime.MinValue, ut);
+            }
         }
 
         private void UploadPhoto_Click(object sender, System.EventArgs e)
         {
             DialogResult result = openFileDialog.ShowDialog();
-            this.Cursor = Cursors.WaitCursor;
-        
+ 
             if( result == DialogResult.OK )
             {
                 string[] files = openFileDialog.FileNames;
-                Uri postUri = new Uri(this.photoFeed.Post);
-
                 // Open each file and display the image in PictureBox1.
                 // Call Application.DoEvents to force a repaint after each
                 // file is read.        
@@ -295,15 +358,157 @@ namespace PhotoBrowser
                     System.IO.FileInfo fileInfo = new System.IO.FileInfo(file);
                     System.IO.FileStream fileStream = fileInfo.OpenRead();
 
-                    PicasaEntry entry = this.picasaService.Insert(postUri, fileStream, "image/jpeg", file) as PicasaEntry;
+                    this.FileInfo.Text = "Starting upload....";
+                    PicasaEntry entry = new PhotoEntry();
 
-                    ListViewItem item = new ListViewItem(entry.Title.Text);
-                    item.Tag = entry;
-                    this.PhotoList.Items.Add(item);
-            
+                    UserState ut = new UserState();
+                    ut.opType = UserState.OperationType.upload;
+                    this.states.Add(ut);
+                    entry.MediaSource = new Google.GData.Client.MediaFileSource(fileStream, file, "image/jpeg");
+                    this.picasaService.InsertAsync(new Uri(this.photoFeed.Post), entry, ut);
                 }
             }
         }
- 
+
+        private void OnProgress(object sender, AsyncOperationProgressEventArgs e)
+        {
+
+            if (this.states.Contains(e.UserState as UserState) == true)
+            {
+                this.progressBar.Value = e.ProgressPercentage ;
+            }
+        }
+
+
+        private void OnDone(object sender, AsyncOperationCompletedEventArgs e)
+        {
+            if (e.Error == null)
+            {
+                UserState ut = e.UserState as UserState;
+
+                if (this.states.Contains(ut) == false)
+                    return;
+
+                this.states.Remove(ut);
+
+                if (ut.opType == UserState.OperationType.query ||
+                    ut.opType == UserState.OperationType.queryForBackup)
+                {
+                    if (e.Feed != null)
+                    {
+                        this.photoFeed = e.Feed as PicasaFeed;
+                        this.InitializeList(ut.filename);
+                    }
+                }
+
+                if (ut.opType == UserState.OperationType.upload)
+                {
+                    if (e.Entry != null)
+                    {
+                        ListViewItem item = new ListViewItem(e.Entry.Title.Text);
+                        item.Tag = e.Entry;
+                        this.PhotoList.Items.Add(item);
+                        this.FileInfo.Text = "Upload succeeded";
+                    }
+                }
+                if (ut.opType == UserState.OperationType.download ||
+                    ut.opType == UserState.OperationType.downloadList)
+                {
+                    if (e.ResponseStream != null)
+                    {
+                        WriteFile(ut.filename, e.ResponseStream);
+                        this.FileInfo.Text = "Saved file: " + ut.filename;
+                    }
+                }
+                if (ut.opType == UserState.OperationType.downloadList)
+                {
+                    // we need to create a new object for uniqueness
+
+                    UserState u = new UserState();
+                    u.counter = ut.counter + 1;
+                    u.feed = ut.feed;
+                    u.foldername = ut.foldername;
+                    u.opType = UserState.OperationType.downloadList;
+                    
+                    if (u.feed.Entries.Count > 0)
+                    {
+                        u.feed.Entries.RemoveAt(0);
+                        this.PhotoList.Items.RemoveAt(0);
+
+                    }
+                    this.states.Add(u);
+                    SaveAnotherPictureDelegate d = new SaveAnotherPictureDelegate(this.CreateAnotherSaveFile);
+
+                    this.BeginInvoke(d, u);
+
+                }
+                if (ut.opType == UserState.OperationType.queryForBackup)
+                {
+                    UserState u = new UserState();
+                    u.opType = UserState.OperationType.downloadList;
+                    u.feed = this.photoFeed;
+                    u.counter = 1;
+                    u.foldername = ut.foldername;
+                    u.filename = ut.foldername + "\\image1.jpg";
+                    this.states.Add(u);
+                    SaveAnotherPictureDelegate d = new SaveAnotherPictureDelegate(this.CreateAnotherSaveFile);
+                    this.BeginInvoke(d, u);
+                }
+            }
+            this.progressBar.Value = 0; 
+        }
+
+        private void CreateAnotherSaveFile(UserState us)
+        {
+            if (us.feed.Entries.Count > 0)
+            {
+                PicasaEntry p = us.feed.Entries[0] as PicasaEntry;
+                us.filename = us.foldername + "\\image" + us.counter.ToString() + ".jpg";
+                this.picasaService.QueryStreamAync(new Uri(p.Media.Content.Attributes["url"] as string), DateTime.MinValue, us);
+            }
+            else if (us.feed.Entries.Count == 0 && us.feed.NextChunk != null)
+            {
+            }
+            else
+            {
+                this.Close();
+            }
+        }
+
+        private void WriteFile(string filename, Stream input)
+        {
+            FileStream fs = new FileStream(filename, FileMode.OpenOrCreate);
+            BinaryWriter w = new BinaryWriter(fs);
+            byte[] buffer = new byte[4096];
+            int iRead = 0;
+            int iOffset = 0;
+            while ((iRead = input.Read(buffer, 0, 4069)) > 0)
+            {
+                w.Write(buffer, 0, iRead);
+                iOffset += iRead;
+            }
+            w.Close();
+            fs.Close();
+        }
 	}
+
+    public class UserState
+    {
+        public enum OperationType
+        {
+            upload,
+            download,
+            downloadList,
+            query,
+            queryForBackup
+        }
+
+        public string filename;
+        public OperationType opType;
+        public PicasaFeed feed;
+        public int counter = 0; 
+        public string foldername;
+
+    }
+
 }

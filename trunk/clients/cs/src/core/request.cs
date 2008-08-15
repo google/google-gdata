@@ -21,6 +21,7 @@ using System.IO;
 using System.Net;
 using System.Collections.Specialized;
 using System.Globalization;
+using System.ComponentModel;
 
 #endregion
 
@@ -313,6 +314,11 @@ namespace Google.GData.Client
         private string contentType;
         /// <summary>holds the slugheader to use if overridden</summary>
         private string slugHeader;
+        // holds the returned contentlength
+        private long contentLength;
+
+
+
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>default constructor</summary> 
@@ -376,6 +382,7 @@ namespace Google.GData.Client
         }
         //////////////////////////////////////////////////////////////////////
 
+
         //////////////////////////////////////////////////////////////////////
         /// <summary>does the real disposition</summary> 
         /// <param name="disposing">indicates if dispose called it or finalize</param>
@@ -437,6 +444,17 @@ namespace Google.GData.Client
         /////////////////////////////////////////////////////////////////////////////
 
 
+        /// <summary>
+        /// returnes the contentlength of the response, -1 if none was given
+        /// </summary>
+        /// <returns></returns>
+        public long ContentLength
+        {
+            get
+            {
+                return this.contentLength;
+            }
+        }
 
 
         //////////////////////////////////////////////////////////////////////
@@ -689,6 +707,8 @@ namespace Google.GData.Client
                     throw new GDataRequestException("Execution of request returned unexpected result: " + this.targetUri.ToString() + 
                                                     response.StatusCode.ToString(), this.webResponse); 
                 }
+
+                this.contentLength = response.ContentLength;
 
                 response = null;
                 request = null; 

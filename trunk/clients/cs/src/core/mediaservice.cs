@@ -80,7 +80,7 @@ namespace Google.GData.Client
         /// <param name="type">the type of request to create</param> 
         /// <returns> the response as a stream</returns>
         //////////////////////////////////////////////////////////////////////
-        public override Stream EntrySend(Uri feedUri, AtomBase baseEntry, GDataRequestType type)
+        internal override Stream EntrySend(Uri feedUri, AtomBase baseEntry, GDataRequestType type, AsyncSendData data)
         {
             if (feedUri == null)
             {
@@ -96,7 +96,7 @@ namespace Google.GData.Client
             // if the entry is not an abstractentry or if no media is set, do the default
             if (entry == null || entry.MediaSource == null)
             {
-                return base.EntrySend(feedUri, baseEntry, type);
+                return base.EntrySend(feedUri, baseEntry, type, data);
             }
 
             Stream outputStream = null;
@@ -119,6 +119,16 @@ namespace Google.GData.Client
                         f.CustomHeaders.Add("MIME-version: 1.0");
                     }
                 }
+
+                if (data != null)
+                {
+                    GDataGAuthRequest gr = request as GDataGAuthRequest;
+                    if (gr != null)
+                    {
+                        gr.AsyncData = data;
+                    }
+                }
+
     
                 outputStream = request.GetRequestStream();
                 inputStream = entry.MediaSource.Data;

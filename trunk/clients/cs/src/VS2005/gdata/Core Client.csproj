@@ -122,6 +122,9 @@
       <Link>AssemblyInfo.cs</Link>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="..\..\core\asyncservice.cs">
+      <Link>asyncservice.cs</Link>
+    </Compile>
     <Compile Include="..\..\core\atombase.cs">
       <Link>atombase.cs</Link>
       <SubType>Code</SubType>
@@ -262,7 +265,6 @@
     </Compile>
     <Compile Include="..\..\core\service.cs">
       <Link>service.cs</Link>
-      <SubType>Code</SubType>
     </Compile>
     <Compile Include="..\..\core\serviceinterface.cs">
       <Link>serviceinterface.cs</Link>

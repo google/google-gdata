@@ -101,70 +101,69 @@ namespace Spreadsheets
         {
             this.cellUpdateRowTextBox = new System.Windows.Forms.TextBox();
             this.tabControl = new System.Windows.Forms.TabControl();
-            this.listFeedTabPage = new System.Windows.Forms.TabPage();
-            this.cellUpdateColumnLabel = new System.Windows.Forms.Label();
-            this.listUpdateSubmitButton = new System.Windows.Forms.Button();
-            this.listQueryTabPage = new System.Windows.Forms.TabPage();
-            this.passwordLabel = new System.Windows.Forms.Label();
-            this.worksheetListTabPage = new System.Windows.Forms.TabPage();
-            this.listQueryOrderByLabel = new System.Windows.Forms.Label();
-            this.listUpdateTabPage = new System.Windows.Forms.TabPage();
-            this.listQueryQueryTextBox = new System.Windows.Forms.TextBox();
-            this.usernameTextBox = new System.Windows.Forms.TextBox();
-            this.spreadsheetListView = new System.Windows.Forms.ListView();
-            this.cellUpdateDataTextBox = new System.Windows.Forms.TextBox();
-            this.cellUpdateRowLabel = new System.Windows.Forms.Label();
-            this.listDeleteEntryTextBox = new System.Windows.Forms.TextBox();
-            this.listAddExampleLabel = new System.Windows.Forms.Label();
-            this.listQuerySubmitButton = new System.Windows.Forms.Button();
-            this.spreadsheetListTabPage = new System.Windows.Forms.TabPage();
-            this.listListView = new System.Windows.Forms.ListView();
-            this.listEntryLabel = new System.Windows.Forms.Label();
-            this.cellUpdateDataLabel = new System.Windows.Forms.Label();
-            this.passwordTextBox = new System.Windows.Forms.TextBox();
-            this.listEntryComboBox = new System.Windows.Forms.ComboBox();
-            this.listDeleteSubmitButton = new System.Windows.Forms.Button();
-            this.listQueryReverseCheckBox = new System.Windows.Forms.CheckBox();
             this.loginTabPage = new System.Windows.Forms.TabPage();
-            this.listDeleteTabPage = new System.Windows.Forms.TabPage();
-            this.listActionTabControl = new System.Windows.Forms.TabControl();
-            this.listInsertTabPage = new System.Windows.Forms.TabPage();
-            this.cellUpdateSubmitButton = new System.Windows.Forms.Button();
+            this.passwordTextBox = new System.Windows.Forms.TextBox();
+            this.passwordLabel = new System.Windows.Forms.Label();
+            this.usernameTextBox = new System.Windows.Forms.TextBox();
+            this.usernameLabel = new System.Windows.Forms.Label();
+            this.spreadsheetListTabPage = new System.Windows.Forms.TabPage();
+            this.spreadsheetListView = new System.Windows.Forms.ListView();
+            this.worksheetListTabPage = new System.Windows.Forms.TabPage();
             this.worksheetListView = new System.Windows.Forms.ListView();
-            this.listDeleteEntryLabel = new System.Windows.Forms.Label();
-            this.cellUpdateColumnTextBox = new System.Windows.Forms.TextBox();
+            this.cellsFeedTabPage = new System.Windows.Forms.TabPage();
+            this.cellsListView = new System.Windows.Forms.ListView();
             this.cellsActionTabContol = new System.Windows.Forms.TabControl();
             this.updateCellsTabPage = new System.Windows.Forms.TabPage();
+            this.cellUpdateDataTextBox = new System.Windows.Forms.TextBox();
+            this.cellUpdateDataLabel = new System.Windows.Forms.Label();
+            this.cellUpdateColumnTextBox = new System.Windows.Forms.TextBox();
+            this.cellUpdateColumnLabel = new System.Windows.Forms.Label();
+            this.cellUpdateRowLabel = new System.Windows.Forms.Label();
+            this.cellUpdateSubmitButton = new System.Windows.Forms.Button();
+            this.listFeedTabPage = new System.Windows.Forms.TabPage();
+            this.listActionTabControl = new System.Windows.Forms.TabControl();
+            this.listQueryTabPage = new System.Windows.Forms.TabPage();
+            this.listQuerySubmitButton = new System.Windows.Forms.Button();
+            this.listQueryQueryTextBox = new System.Windows.Forms.TextBox();
             this.listQueryQueryLabel = new System.Windows.Forms.Label();
-            this.listUpdateTextBox = new System.Windows.Forms.TextBox();
-            this.usernameLabel = new System.Windows.Forms.Label();
+            this.listQueryReverseCheckBox = new System.Windows.Forms.CheckBox();
             this.listOrderByTextBox = new System.Windows.Forms.TextBox();
-            this.cellsListView = new System.Windows.Forms.ListView();
-            this.cellsFeedTabPage = new System.Windows.Forms.TabPage();
-            this.listAddSubmitButton = new System.Windows.Forms.Button();
+            this.listQueryOrderByLabel = new System.Windows.Forms.Label();
+            this.listUpdateTabPage = new System.Windows.Forms.TabPage();
+            this.listEntryComboBox = new System.Windows.Forms.ComboBox();
+            this.listEntryLabel = new System.Windows.Forms.Label();
+            this.listUpdateSubmitButton = new System.Windows.Forms.Button();
+            this.listUpdateTextBox = new System.Windows.Forms.TextBox();
+            this.listInsertTabPage = new System.Windows.Forms.TabPage();
             this.listAddTextBox = new System.Windows.Forms.TextBox();
+            this.listAddExampleLabel = new System.Windows.Forms.Label();
+            this.listAddSubmitButton = new System.Windows.Forms.Button();
+            this.listDeleteTabPage = new System.Windows.Forms.TabPage();
+            this.listDeleteSubmitButton = new System.Windows.Forms.Button();
+            this.listDeleteEntryTextBox = new System.Windows.Forms.TextBox();
+            this.listDeleteEntryLabel = new System.Windows.Forms.Label();
+            this.listListView = new System.Windows.Forms.ListView();
             this.tabControl.SuspendLayout();
-            this.listFeedTabPage.SuspendLayout();
-            this.listQueryTabPage.SuspendLayout();
-            this.worksheetListTabPage.SuspendLayout();
-            this.listUpdateTabPage.SuspendLayout();
-            this.spreadsheetListTabPage.SuspendLayout();
             this.loginTabPage.SuspendLayout();
-            this.listDeleteTabPage.SuspendLayout();
-            this.listActionTabControl.SuspendLayout();
-            this.listInsertTabPage.SuspendLayout();
+            this.spreadsheetListTabPage.SuspendLayout();
+            this.worksheetListTabPage.SuspendLayout();
+            this.cellsFeedTabPage.SuspendLayout();
             this.cellsActionTabContol.SuspendLayout();
             this.updateCellsTabPage.SuspendLayout();
-            this.cellsFeedTabPage.SuspendLayout();
+            this.listFeedTabPage.SuspendLayout();
+            this.listActionTabControl.SuspendLayout();
+            this.listQueryTabPage.SuspendLayout();
+            this.listUpdateTabPage.SuspendLayout();
+            this.listInsertTabPage.SuspendLayout();
+            this.listDeleteTabPage.SuspendLayout();
             this.SuspendLayout();
             // 
             // cellUpdateRowTextBox
             // 
-            this.cellUpdateRowTextBox.Location = new System.Drawing.Point(48, 8);
+            this.cellUpdateRowTextBox.Location = new System.Drawing.Point(58, 9);
             this.cellUpdateRowTextBox.Name = "cellUpdateRowTextBox";
-            this.cellUpdateRowTextBox.Size = new System.Drawing.Size(48, 20);
+            this.cellUpdateRowTextBox.Size = new System.Drawing.Size(57, 22);
             this.cellUpdateRowTextBox.TabIndex = 2;
-            this.cellUpdateRowTextBox.Text = "";
             // 
             // tabControl
             // 
@@ -182,309 +181,118 @@ namespace Spreadsheets
             this.tabControl.TabIndex = 0;
             this.tabControl.SelectedIndexChanged += new System.EventHandler(this.OnSelectedIndexChanged);
             // 
-            // listFeedTabPage
-            // 
-            this.listFeedTabPage.Controls.Add(this.listActionTabControl);
-            this.listFeedTabPage.Controls.Add(this.listListView);
-            this.listFeedTabPage.Location = new System.Drawing.Point(4, 25);
-            this.listFeedTabPage.Name = "listFeedTabPage";
-            this.listFeedTabPage.Size = new System.Drawing.Size(792, 521);
-            this.listFeedTabPage.TabIndex = 5;
-            this.listFeedTabPage.Text = "List Feed";
-            // 
-            // cellUpdateColumnLabel
-            // 
-            this.cellUpdateColumnLabel.Location = new System.Drawing.Point(104, 8);
-            this.cellUpdateColumnLabel.Name = "cellUpdateColumnLabel";
-            this.cellUpdateColumnLabel.Size = new System.Drawing.Size(48, 23);
-            this.cellUpdateColumnLabel.TabIndex = 3;
-            this.cellUpdateColumnLabel.Text = "Column";
-            this.cellUpdateColumnLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // listUpdateSubmitButton
-            // 
-            this.listUpdateSubmitButton.Location = new System.Drawing.Point(688, 104);
-            this.listUpdateSubmitButton.Name = "listUpdateSubmitButton";
-            this.listUpdateSubmitButton.TabIndex = 2;
-            this.listUpdateSubmitButton.Text = "Submit";
-            this.listUpdateSubmitButton.Click += new System.EventHandler(this.OnClickSubmitButton);
-            // 
-            // listQueryTabPage
-            // 
-            this.listQueryTabPage.Controls.Add(this.listQuerySubmitButton);
-            this.listQueryTabPage.Controls.Add(this.listQueryQueryTextBox);
-            this.listQueryTabPage.Controls.Add(this.listQueryQueryLabel);
-            this.listQueryTabPage.Controls.Add(this.listQueryReverseCheckBox);
-            this.listQueryTabPage.Controls.Add(this.listOrderByTextBox);
-            this.listQueryTabPage.Controls.Add(this.listQueryOrderByLabel);
-            this.listQueryTabPage.Location = new System.Drawing.Point(4, 22);
-            this.listQueryTabPage.Name = "listQueryTabPage";
-            this.listQueryTabPage.Size = new System.Drawing.Size(776, 134);
-            this.listQueryTabPage.TabIndex = 0;
-            this.listQueryTabPage.Text = "Query";
-            // 
-            // passwordLabel
-            // 
-            this.passwordLabel.Location = new System.Drawing.Point(24, 64);
-            this.passwordLabel.Name = "passwordLabel";
-            this.passwordLabel.Size = new System.Drawing.Size(72, 24);
-            this.passwordLabel.TabIndex = 2;
-            this.passwordLabel.Text = "Password";
-            // 
-            // worksheetListTabPage
-            // 
-            this.worksheetListTabPage.Controls.Add(this.worksheetListView);
-            this.worksheetListTabPage.Location = new System.Drawing.Point(4, 25);
-            this.worksheetListTabPage.Name = "worksheetListTabPage";
-            this.worksheetListTabPage.Size = new System.Drawing.Size(792, 521);
-            this.worksheetListTabPage.TabIndex = 2;
-            this.worksheetListTabPage.Text = "Select Worksheet";
-            // 
-            // listQueryOrderByLabel
-            // 
-            this.listQueryOrderByLabel.Location = new System.Drawing.Point(8, 8);
-            this.listQueryOrderByLabel.Name = "listQueryOrderByLabel";
-            this.listQueryOrderByLabel.TabIndex = 0;
-            this.listQueryOrderByLabel.Text = "orderby=column:";
-            this.listQueryOrderByLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // listUpdateTabPage
-            // 
-            this.listUpdateTabPage.Controls.Add(this.listEntryComboBox);
-            this.listUpdateTabPage.Controls.Add(this.listEntryLabel);
-            this.listUpdateTabPage.Controls.Add(this.listUpdateSubmitButton);
-            this.listUpdateTabPage.Controls.Add(this.listUpdateTextBox);
-            this.listUpdateTabPage.Location = new System.Drawing.Point(4, 22);
-            this.listUpdateTabPage.Name = "listUpdateTabPage";
-            this.listUpdateTabPage.Size = new System.Drawing.Size(776, 134);
-            this.listUpdateTabPage.TabIndex = 2;
-            this.listUpdateTabPage.Text = "Update";
-            // 
-            // listQueryQueryTextBox
-            // 
-            this.listQueryQueryTextBox.Location = new System.Drawing.Point(112, 32);
-            this.listQueryQueryTextBox.Name = "listQueryQueryTextBox";
-            this.listQueryQueryTextBox.Size = new System.Drawing.Size(328, 20);
-            this.listQueryQueryTextBox.TabIndex = 4;
-            this.listQueryQueryTextBox.Text = "";
-            // 
-            // usernameTextBox
-            // 
-            this.usernameTextBox.Location = new System.Drawing.Point(96, 32);
-            this.usernameTextBox.Name = "usernameTextBox";
-            this.usernameTextBox.Size = new System.Drawing.Size(168, 20);
-            this.usernameTextBox.TabIndex = 1;
-            this.usernameTextBox.Text = "";
-            // 
-            // spreadsheetListView
-            // 
-            this.spreadsheetListView.Location = new System.Drawing.Point(8, 8);
-            this.spreadsheetListView.MultiSelect = false;
-            this.spreadsheetListView.Name = "spreadsheetListView";
-            this.spreadsheetListView.Size = new System.Drawing.Size(776, 504);
-            this.spreadsheetListView.TabIndex = 0;
-            this.spreadsheetListView.View = System.Windows.Forms.View.List;
-            // 
-            // cellUpdateDataTextBox
-            // 
-            this.cellUpdateDataTextBox.Location = new System.Drawing.Point(48, 40);
-            this.cellUpdateDataTextBox.Name = "cellUpdateDataTextBox";
-            this.cellUpdateDataTextBox.Size = new System.Drawing.Size(160, 20);
-            this.cellUpdateDataTextBox.TabIndex = 6;
-            this.cellUpdateDataTextBox.Text = "";
-            // 
-            // cellUpdateRowLabel
-            // 
-            this.cellUpdateRowLabel.Location = new System.Drawing.Point(8, 8);
-            this.cellUpdateRowLabel.Name = "cellUpdateRowLabel";
-            this.cellUpdateRowLabel.Size = new System.Drawing.Size(40, 23);
-            this.cellUpdateRowLabel.TabIndex = 1;
-            this.cellUpdateRowLabel.Text = "Row";
-            this.cellUpdateRowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // listDeleteEntryTextBox
-            // 
-            this.listDeleteEntryTextBox.Location = new System.Drawing.Point(56, 8);
-            this.listDeleteEntryTextBox.Name = "listDeleteEntryTextBox";
-            this.listDeleteEntryTextBox.TabIndex = 1;
-            this.listDeleteEntryTextBox.Text = "";
-            // 
-            // listAddExampleLabel
-            // 
-            this.listAddExampleLabel.Location = new System.Drawing.Point(8, 8);
-            this.listAddExampleLabel.Name = "listAddExampleLabel";
-            this.listAddExampleLabel.Size = new System.Drawing.Size(760, 23);
-            this.listAddExampleLabel.TabIndex = 1;
-            this.listAddExampleLabel.Text = "Example:";
-            // 
-            // listQuerySubmitButton
-            // 
-            this.listQuerySubmitButton.Location = new System.Drawing.Point(688, 104);
-            this.listQuerySubmitButton.Name = "listQuerySubmitButton";
-            this.listQuerySubmitButton.TabIndex = 5;
-            this.listQuerySubmitButton.Text = "Submit";
-            this.listQuerySubmitButton.Click += new System.EventHandler(this.OnClickSubmitButton);
-            // 
-            // spreadsheetListTabPage
-            // 
-            this.spreadsheetListTabPage.Controls.Add(this.spreadsheetListView);
-            this.spreadsheetListTabPage.Location = new System.Drawing.Point(4, 25);
-            this.spreadsheetListTabPage.Name = "spreadsheetListTabPage";
-            this.spreadsheetListTabPage.Size = new System.Drawing.Size(792, 521);
-            this.spreadsheetListTabPage.TabIndex = 1;
-            this.spreadsheetListTabPage.Text = "Select Spreadsheet";
-            // 
-            // listListView
-            // 
-            this.listListView.GridLines = true;
-            this.listListView.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.listListView.Location = new System.Drawing.Point(8, 8);
-            this.listListView.MultiSelect = false;
-            this.listListView.Name = "listListView";
-            this.listListView.Size = new System.Drawing.Size(776, 344);
-            this.listListView.TabIndex = 0;
-            this.listListView.View = System.Windows.Forms.View.Details;
-            // 
-            // listEntryLabel
-            // 
-            this.listEntryLabel.Location = new System.Drawing.Point(8, 8);
-            this.listEntryLabel.Name = "listEntryLabel";
-            this.listEntryLabel.Size = new System.Drawing.Size(40, 23);
-            this.listEntryLabel.TabIndex = 3;
-            this.listEntryLabel.Text = "Entry:";
-            this.listEntryLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // cellUpdateDataLabel
-            // 
-            this.cellUpdateDataLabel.Location = new System.Drawing.Point(8, 40);
-            this.cellUpdateDataLabel.Name = "cellUpdateDataLabel";
-            this.cellUpdateDataLabel.Size = new System.Drawing.Size(40, 23);
-            this.cellUpdateDataLabel.TabIndex = 5;
-            this.cellUpdateDataLabel.Text = "Data";
-            this.cellUpdateDataLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // passwordTextBox
-            // 
-            this.passwordTextBox.Location = new System.Drawing.Point(96, 64);
-            this.passwordTextBox.Name = "passwordTextBox";
-            this.passwordTextBox.PasswordChar = '*';
-            this.passwordTextBox.Size = new System.Drawing.Size(168, 20);
-            this.passwordTextBox.TabIndex = 3;
-            this.passwordTextBox.Text = "";
-            // 
-            // listEntryComboBox
-            // 
-            this.listEntryComboBox.Location = new System.Drawing.Point(48, 8);
-            this.listEntryComboBox.Name = "listEntryComboBox";
-            this.listEntryComboBox.Size = new System.Drawing.Size(72, 21);
-            this.listEntryComboBox.TabIndex = 4;
-            this.listEntryComboBox.SelectedIndexChanged += new System.EventHandler(this.OnSelectedUpdateListEntryChanged);
-            // 
-            // listDeleteSubmitButton
-            // 
-            this.listDeleteSubmitButton.Location = new System.Drawing.Point(688, 104);
-            this.listDeleteSubmitButton.Name = "listDeleteSubmitButton";
-            this.listDeleteSubmitButton.TabIndex = 2;
-            this.listDeleteSubmitButton.Text = "Submit";
-            this.listDeleteSubmitButton.Click += new System.EventHandler(this.OnClickSubmitButton);
-            // 
-            // listQueryReverseCheckBox
-            // 
-            this.listQueryReverseCheckBox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.listQueryReverseCheckBox.Location = new System.Drawing.Point(368, 8);
-            this.listQueryReverseCheckBox.Name = "listQueryReverseCheckBox";
-            this.listQueryReverseCheckBox.Size = new System.Drawing.Size(72, 24);
-            this.listQueryReverseCheckBox.TabIndex = 2;
-            this.listQueryReverseCheckBox.Text = "reverse?";
-            // 
             // loginTabPage
             // 
             this.loginTabPage.Controls.Add(this.passwordTextBox);
             this.loginTabPage.Controls.Add(this.passwordLabel);
             this.loginTabPage.Controls.Add(this.usernameTextBox);
             this.loginTabPage.Controls.Add(this.usernameLabel);
-            this.loginTabPage.Location = new System.Drawing.Point(4, 25);
+            this.loginTabPage.Location = new System.Drawing.Point(4, 28);
             this.loginTabPage.Name = "loginTabPage";
-            this.loginTabPage.Size = new System.Drawing.Size(792, 521);
+            this.loginTabPage.Size = new System.Drawing.Size(792, 518);
             this.loginTabPage.TabIndex = 0;
             this.loginTabPage.Text = "Login";
             // 
-            // listDeleteTabPage
+            // passwordTextBox
             // 
-            this.listDeleteTabPage.Controls.Add(this.listDeleteSubmitButton);
-            this.listDeleteTabPage.Controls.Add(this.listDeleteEntryTextBox);
-            this.listDeleteTabPage.Controls.Add(this.listDeleteEntryLabel);
-            this.listDeleteTabPage.Location = new System.Drawing.Point(4, 22);
-            this.listDeleteTabPage.Name = "listDeleteTabPage";
-            this.listDeleteTabPage.Size = new System.Drawing.Size(776, 134);
-            this.listDeleteTabPage.TabIndex = 3;
-            this.listDeleteTabPage.Text = "Delete";
+            this.passwordTextBox.Location = new System.Drawing.Point(115, 74);
+            this.passwordTextBox.Name = "passwordTextBox";
+            this.passwordTextBox.PasswordChar = '*';
+            this.passwordTextBox.Size = new System.Drawing.Size(202, 22);
+            this.passwordTextBox.TabIndex = 3;
             // 
-            // listActionTabControl
+            // passwordLabel
             // 
-            this.listActionTabControl.Controls.Add(this.listQueryTabPage);
-            this.listActionTabControl.Controls.Add(this.listUpdateTabPage);
-            this.listActionTabControl.Controls.Add(this.listInsertTabPage);
-            this.listActionTabControl.Controls.Add(this.listDeleteTabPage);
-            this.listActionTabControl.Location = new System.Drawing.Point(8, 360);
-            this.listActionTabControl.Name = "listActionTabControl";
-            this.listActionTabControl.SelectedIndex = 0;
-            this.listActionTabControl.Size = new System.Drawing.Size(784, 160);
-            this.listActionTabControl.TabIndex = 1;
+            this.passwordLabel.Location = new System.Drawing.Point(29, 74);
+            this.passwordLabel.Name = "passwordLabel";
+            this.passwordLabel.Size = new System.Drawing.Size(86, 28);
+            this.passwordLabel.TabIndex = 2;
+            this.passwordLabel.Text = "Password";
             // 
-            // listInsertTabPage
+            // usernameTextBox
             // 
-            this.listInsertTabPage.Controls.Add(this.listAddTextBox);
-            this.listInsertTabPage.Controls.Add(this.listAddExampleLabel);
-            this.listInsertTabPage.Controls.Add(this.listAddSubmitButton);
-            this.listInsertTabPage.Location = new System.Drawing.Point(4, 22);
-            this.listInsertTabPage.Name = "listInsertTabPage";
-            this.listInsertTabPage.Size = new System.Drawing.Size(776, 134);
-            this.listInsertTabPage.TabIndex = 1;
-            this.listInsertTabPage.Text = "Add";
+            this.usernameTextBox.Location = new System.Drawing.Point(115, 37);
+            this.usernameTextBox.Name = "usernameTextBox";
+            this.usernameTextBox.Size = new System.Drawing.Size(202, 22);
+            this.usernameTextBox.TabIndex = 1;
             // 
-            // cellUpdateSubmitButton
+            // usernameLabel
             // 
-            this.cellUpdateSubmitButton.Location = new System.Drawing.Point(688, 104);
-            this.cellUpdateSubmitButton.Name = "cellUpdateSubmitButton";
-            this.cellUpdateSubmitButton.TabIndex = 0;
-            this.cellUpdateSubmitButton.Text = "Submit";
-            this.cellUpdateSubmitButton.Click += new System.EventHandler(this.OnClickSubmitButton);
+            this.usernameLabel.Location = new System.Drawing.Point(29, 37);
+            this.usernameLabel.Name = "usernameLabel";
+            this.usernameLabel.Size = new System.Drawing.Size(86, 26);
+            this.usernameLabel.TabIndex = 0;
+            this.usernameLabel.Text = "Username";
+            // 
+            // spreadsheetListTabPage
+            // 
+            this.spreadsheetListTabPage.Controls.Add(this.spreadsheetListView);
+            this.spreadsheetListTabPage.Location = new System.Drawing.Point(4, 28);
+            this.spreadsheetListTabPage.Name = "spreadsheetListTabPage";
+            this.spreadsheetListTabPage.Size = new System.Drawing.Size(952, 603);
+            this.spreadsheetListTabPage.TabIndex = 1;
+            this.spreadsheetListTabPage.Text = "Select Spreadsheet";
+            // 
+            // spreadsheetListView
+            // 
+            this.spreadsheetListView.Location = new System.Drawing.Point(10, 9);
+            this.spreadsheetListView.MultiSelect = false;
+            this.spreadsheetListView.Name = "spreadsheetListView";
+            this.spreadsheetListView.Size = new System.Drawing.Size(931, 582);
+            this.spreadsheetListView.TabIndex = 0;
+            this.spreadsheetListView.UseCompatibleStateImageBehavior = false;
+            this.spreadsheetListView.View = System.Windows.Forms.View.List;
+            // 
+            // worksheetListTabPage
+            // 
+            this.worksheetListTabPage.Controls.Add(this.worksheetListView);
+            this.worksheetListTabPage.Location = new System.Drawing.Point(4, 28);
+            this.worksheetListTabPage.Name = "worksheetListTabPage";
+            this.worksheetListTabPage.Size = new System.Drawing.Size(952, 603);
+            this.worksheetListTabPage.TabIndex = 2;
+            this.worksheetListTabPage.Text = "Select Worksheet";
             // 
             // worksheetListView
             // 
-            this.worksheetListView.Location = new System.Drawing.Point(8, 8);
+            this.worksheetListView.Location = new System.Drawing.Point(10, 9);
             this.worksheetListView.MultiSelect = false;
             this.worksheetListView.Name = "worksheetListView";
-            this.worksheetListView.Size = new System.Drawing.Size(776, 504);
+            this.worksheetListView.Size = new System.Drawing.Size(931, 582);
             this.worksheetListView.TabIndex = 0;
+            this.worksheetListView.UseCompatibleStateImageBehavior = false;
             this.worksheetListView.View = System.Windows.Forms.View.List;
             // 
-            // listDeleteEntryLabel
+            // cellsFeedTabPage
             // 
-            this.listDeleteEntryLabel.Location = new System.Drawing.Point(8, 8);
-            this.listDeleteEntryLabel.Name = "listDeleteEntryLabel";
-            this.listDeleteEntryLabel.Size = new System.Drawing.Size(48, 23);
-            this.listDeleteEntryLabel.TabIndex = 0;
-            this.listDeleteEntryLabel.Text = "Entry #";
-            this.listDeleteEntryLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cellsFeedTabPage.Controls.Add(this.cellsListView);
+            this.cellsFeedTabPage.Controls.Add(this.cellsActionTabContol);
+            this.cellsFeedTabPage.Location = new System.Drawing.Point(4, 28);
+            this.cellsFeedTabPage.Name = "cellsFeedTabPage";
+            this.cellsFeedTabPage.Size = new System.Drawing.Size(952, 603);
+            this.cellsFeedTabPage.TabIndex = 4;
+            this.cellsFeedTabPage.Text = "Cells Feed";
             // 
-            // cellUpdateColumnTextBox
+            // cellsListView
             // 
-            this.cellUpdateColumnTextBox.Location = new System.Drawing.Point(152, 8);
-            this.cellUpdateColumnTextBox.Name = "cellUpdateColumnTextBox";
-            this.cellUpdateColumnTextBox.Size = new System.Drawing.Size(56, 20);
-            this.cellUpdateColumnTextBox.TabIndex = 4;
-            this.cellUpdateColumnTextBox.Text = "";
+            this.cellsListView.AutoArrange = false;
+            this.cellsListView.GridLines = true;
+            this.cellsListView.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.cellsListView.Location = new System.Drawing.Point(10, 9);
+            this.cellsListView.MultiSelect = false;
+            this.cellsListView.Name = "cellsListView";
+            this.cellsListView.Size = new System.Drawing.Size(931, 397);
+            this.cellsListView.TabIndex = 2;
+            this.cellsListView.UseCompatibleStateImageBehavior = false;
+            this.cellsListView.View = System.Windows.Forms.View.Details;
             // 
             // cellsActionTabContol
             // 
             this.cellsActionTabContol.Controls.Add(this.updateCellsTabPage);
-            this.cellsActionTabContol.Location = new System.Drawing.Point(8, 360);
+            this.cellsActionTabContol.Location = new System.Drawing.Point(10, 415);
             this.cellsActionTabContol.Multiline = true;
             this.cellsActionTabContol.Name = "cellsActionTabContol";
             this.cellsActionTabContol.SelectedIndex = 0;
-            this.cellsActionTabContol.Size = new System.Drawing.Size(784, 160);
+            this.cellsActionTabContol.Size = new System.Drawing.Size(940, 185);
             this.cellsActionTabContol.TabIndex = 3;
             // 
             // updateCellsTabPage
@@ -496,103 +304,304 @@ namespace Spreadsheets
             this.updateCellsTabPage.Controls.Add(this.cellUpdateRowTextBox);
             this.updateCellsTabPage.Controls.Add(this.cellUpdateRowLabel);
             this.updateCellsTabPage.Controls.Add(this.cellUpdateSubmitButton);
-            this.updateCellsTabPage.Location = new System.Drawing.Point(4, 22);
+            this.updateCellsTabPage.Location = new System.Drawing.Point(4, 25);
             this.updateCellsTabPage.Name = "updateCellsTabPage";
-            this.updateCellsTabPage.Size = new System.Drawing.Size(776, 134);
+            this.updateCellsTabPage.Size = new System.Drawing.Size(932, 156);
             this.updateCellsTabPage.TabIndex = 0;
             this.updateCellsTabPage.Text = "Update";
             // 
+            // cellUpdateDataTextBox
+            // 
+            this.cellUpdateDataTextBox.Location = new System.Drawing.Point(58, 46);
+            this.cellUpdateDataTextBox.Name = "cellUpdateDataTextBox";
+            this.cellUpdateDataTextBox.Size = new System.Drawing.Size(192, 22);
+            this.cellUpdateDataTextBox.TabIndex = 6;
+            // 
+            // cellUpdateDataLabel
+            // 
+            this.cellUpdateDataLabel.Location = new System.Drawing.Point(10, 46);
+            this.cellUpdateDataLabel.Name = "cellUpdateDataLabel";
+            this.cellUpdateDataLabel.Size = new System.Drawing.Size(48, 27);
+            this.cellUpdateDataLabel.TabIndex = 5;
+            this.cellUpdateDataLabel.Text = "Data";
+            this.cellUpdateDataLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // cellUpdateColumnTextBox
+            // 
+            this.cellUpdateColumnTextBox.Location = new System.Drawing.Point(182, 9);
+            this.cellUpdateColumnTextBox.Name = "cellUpdateColumnTextBox";
+            this.cellUpdateColumnTextBox.Size = new System.Drawing.Size(68, 22);
+            this.cellUpdateColumnTextBox.TabIndex = 4;
+            // 
+            // cellUpdateColumnLabel
+            // 
+            this.cellUpdateColumnLabel.Location = new System.Drawing.Point(125, 9);
+            this.cellUpdateColumnLabel.Name = "cellUpdateColumnLabel";
+            this.cellUpdateColumnLabel.Size = new System.Drawing.Size(57, 27);
+            this.cellUpdateColumnLabel.TabIndex = 3;
+            this.cellUpdateColumnLabel.Text = "Column";
+            this.cellUpdateColumnLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // cellUpdateRowLabel
+            // 
+            this.cellUpdateRowLabel.Location = new System.Drawing.Point(10, 9);
+            this.cellUpdateRowLabel.Name = "cellUpdateRowLabel";
+            this.cellUpdateRowLabel.Size = new System.Drawing.Size(48, 27);
+            this.cellUpdateRowLabel.TabIndex = 1;
+            this.cellUpdateRowLabel.Text = "Row";
+            this.cellUpdateRowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // cellUpdateSubmitButton
+            // 
+            this.cellUpdateSubmitButton.Location = new System.Drawing.Point(826, 120);
+            this.cellUpdateSubmitButton.Name = "cellUpdateSubmitButton";
+            this.cellUpdateSubmitButton.Size = new System.Drawing.Size(90, 27);
+            this.cellUpdateSubmitButton.TabIndex = 0;
+            this.cellUpdateSubmitButton.Text = "Submit";
+            this.cellUpdateSubmitButton.Click += new System.EventHandler(this.OnClickSubmitButton);
+            // 
+            // listFeedTabPage
+            // 
+            this.listFeedTabPage.Controls.Add(this.listActionTabControl);
+            this.listFeedTabPage.Controls.Add(this.listListView);
+            this.listFeedTabPage.Location = new System.Drawing.Point(4, 28);
+            this.listFeedTabPage.Name = "listFeedTabPage";
+            this.listFeedTabPage.Size = new System.Drawing.Size(952, 603);
+            this.listFeedTabPage.TabIndex = 5;
+            this.listFeedTabPage.Text = "List Feed";
+            // 
+            // listActionTabControl
+            // 
+            this.listActionTabControl.Controls.Add(this.listQueryTabPage);
+            this.listActionTabControl.Controls.Add(this.listUpdateTabPage);
+            this.listActionTabControl.Controls.Add(this.listInsertTabPage);
+            this.listActionTabControl.Controls.Add(this.listDeleteTabPage);
+            this.listActionTabControl.Location = new System.Drawing.Point(10, 415);
+            this.listActionTabControl.Name = "listActionTabControl";
+            this.listActionTabControl.SelectedIndex = 0;
+            this.listActionTabControl.Size = new System.Drawing.Size(940, 185);
+            this.listActionTabControl.TabIndex = 1;
+            // 
+            // listQueryTabPage
+            // 
+            this.listQueryTabPage.Controls.Add(this.listQuerySubmitButton);
+            this.listQueryTabPage.Controls.Add(this.listQueryQueryTextBox);
+            this.listQueryTabPage.Controls.Add(this.listQueryQueryLabel);
+            this.listQueryTabPage.Controls.Add(this.listQueryReverseCheckBox);
+            this.listQueryTabPage.Controls.Add(this.listOrderByTextBox);
+            this.listQueryTabPage.Controls.Add(this.listQueryOrderByLabel);
+            this.listQueryTabPage.Location = new System.Drawing.Point(4, 25);
+            this.listQueryTabPage.Name = "listQueryTabPage";
+            this.listQueryTabPage.Size = new System.Drawing.Size(932, 156);
+            this.listQueryTabPage.TabIndex = 0;
+            this.listQueryTabPage.Text = "Query";
+            // 
+            // listQuerySubmitButton
+            // 
+            this.listQuerySubmitButton.Location = new System.Drawing.Point(826, 120);
+            this.listQuerySubmitButton.Name = "listQuerySubmitButton";
+            this.listQuerySubmitButton.Size = new System.Drawing.Size(90, 27);
+            this.listQuerySubmitButton.TabIndex = 5;
+            this.listQuerySubmitButton.Text = "Submit";
+            this.listQuerySubmitButton.Click += new System.EventHandler(this.OnClickSubmitButton);
+            // 
+            // listQueryQueryTextBox
+            // 
+            this.listQueryQueryTextBox.Location = new System.Drawing.Point(134, 37);
+            this.listQueryQueryTextBox.Name = "listQueryQueryTextBox";
+            this.listQueryQueryTextBox.Size = new System.Drawing.Size(394, 22);
+            this.listQueryQueryTextBox.TabIndex = 4;
+            // 
             // listQueryQueryLabel
             // 
-            this.listQueryQueryLabel.Location = new System.Drawing.Point(8, 32);
+            this.listQueryQueryLabel.Location = new System.Drawing.Point(10, 37);
             this.listQueryQueryLabel.Name = "listQueryQueryLabel";
+            this.listQueryQueryLabel.Size = new System.Drawing.Size(120, 26);
             this.listQueryQueryLabel.TabIndex = 3;
             this.listQueryQueryLabel.Text = "sq=";
             this.listQueryQueryLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // listUpdateTextBox
+            // listQueryReverseCheckBox
             // 
-            this.listUpdateTextBox.Location = new System.Drawing.Point(128, 8);
-            this.listUpdateTextBox.Name = "listUpdateTextBox";
-            this.listUpdateTextBox.Size = new System.Drawing.Size(640, 20);
-            this.listUpdateTextBox.TabIndex = 1;
-            this.listUpdateTextBox.Text = "";
-            // 
-            // usernameLabel
-            // 
-            this.usernameLabel.Location = new System.Drawing.Point(24, 32);
-            this.usernameLabel.Name = "usernameLabel";
-            this.usernameLabel.Size = new System.Drawing.Size(72, 23);
-            this.usernameLabel.TabIndex = 0;
-            this.usernameLabel.Text = "Username";
+            this.listQueryReverseCheckBox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.listQueryReverseCheckBox.Location = new System.Drawing.Point(442, 9);
+            this.listQueryReverseCheckBox.Name = "listQueryReverseCheckBox";
+            this.listQueryReverseCheckBox.Size = new System.Drawing.Size(86, 28);
+            this.listQueryReverseCheckBox.TabIndex = 2;
+            this.listQueryReverseCheckBox.Text = "reverse?";
             // 
             // listOrderByTextBox
             // 
-            this.listOrderByTextBox.Location = new System.Drawing.Point(112, 8);
+            this.listOrderByTextBox.Location = new System.Drawing.Point(134, 9);
             this.listOrderByTextBox.Name = "listOrderByTextBox";
-            this.listOrderByTextBox.Size = new System.Drawing.Size(248, 20);
+            this.listOrderByTextBox.Size = new System.Drawing.Size(298, 22);
             this.listOrderByTextBox.TabIndex = 1;
-            this.listOrderByTextBox.Text = "";
             // 
-            // cellsListView
+            // listQueryOrderByLabel
             // 
-            this.cellsListView.AutoArrange = false;
-            this.cellsListView.GridLines = true;
-            this.cellsListView.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.cellsListView.Location = new System.Drawing.Point(8, 8);
-            this.cellsListView.MultiSelect = false;
-            this.cellsListView.Name = "cellsListView";
-            this.cellsListView.Size = new System.Drawing.Size(776, 344);
-            this.cellsListView.TabIndex = 2;
-            this.cellsListView.View = System.Windows.Forms.View.Details;
+            this.listQueryOrderByLabel.Location = new System.Drawing.Point(10, 9);
+            this.listQueryOrderByLabel.Name = "listQueryOrderByLabel";
+            this.listQueryOrderByLabel.Size = new System.Drawing.Size(120, 27);
+            this.listQueryOrderByLabel.TabIndex = 0;
+            this.listQueryOrderByLabel.Text = "orderby=column:";
+            this.listQueryOrderByLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // cellsFeedTabPage
+            // listUpdateTabPage
             // 
-            this.cellsFeedTabPage.Controls.Add(this.cellsListView);
-            this.cellsFeedTabPage.Controls.Add(this.cellsActionTabContol);
-            this.cellsFeedTabPage.Location = new System.Drawing.Point(4, 25);
-            this.cellsFeedTabPage.Name = "cellsFeedTabPage";
-            this.cellsFeedTabPage.Size = new System.Drawing.Size(792, 521);
-            this.cellsFeedTabPage.TabIndex = 4;
-            this.cellsFeedTabPage.Text = "Cells Feed";
+            this.listUpdateTabPage.Controls.Add(this.listEntryComboBox);
+            this.listUpdateTabPage.Controls.Add(this.listEntryLabel);
+            this.listUpdateTabPage.Controls.Add(this.listUpdateSubmitButton);
+            this.listUpdateTabPage.Controls.Add(this.listUpdateTextBox);
+            this.listUpdateTabPage.Location = new System.Drawing.Point(4, 25);
+            this.listUpdateTabPage.Name = "listUpdateTabPage";
+            this.listUpdateTabPage.Size = new System.Drawing.Size(932, 156);
+            this.listUpdateTabPage.TabIndex = 2;
+            this.listUpdateTabPage.Text = "Update";
+            // 
+            // listEntryComboBox
+            // 
+            this.listEntryComboBox.Location = new System.Drawing.Point(58, 9);
+            this.listEntryComboBox.Name = "listEntryComboBox";
+            this.listEntryComboBox.Size = new System.Drawing.Size(86, 24);
+            this.listEntryComboBox.TabIndex = 4;
+            this.listEntryComboBox.SelectedIndexChanged += new System.EventHandler(this.OnSelectedUpdateListEntryChanged);
+            // 
+            // listEntryLabel
+            // 
+            this.listEntryLabel.Location = new System.Drawing.Point(10, 9);
+            this.listEntryLabel.Name = "listEntryLabel";
+            this.listEntryLabel.Size = new System.Drawing.Size(48, 27);
+            this.listEntryLabel.TabIndex = 3;
+            this.listEntryLabel.Text = "Entry:";
+            this.listEntryLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // listUpdateSubmitButton
+            // 
+            this.listUpdateSubmitButton.Location = new System.Drawing.Point(826, 120);
+            this.listUpdateSubmitButton.Name = "listUpdateSubmitButton";
+            this.listUpdateSubmitButton.Size = new System.Drawing.Size(90, 27);
+            this.listUpdateSubmitButton.TabIndex = 2;
+            this.listUpdateSubmitButton.Text = "Submit";
+            this.listUpdateSubmitButton.Click += new System.EventHandler(this.OnClickSubmitButton);
+            // 
+            // listUpdateTextBox
+            // 
+            this.listUpdateTextBox.Location = new System.Drawing.Point(154, 9);
+            this.listUpdateTextBox.Name = "listUpdateTextBox";
+            this.listUpdateTextBox.Size = new System.Drawing.Size(768, 22);
+            this.listUpdateTextBox.TabIndex = 1;
+            // 
+            // listInsertTabPage
+            // 
+            this.listInsertTabPage.Controls.Add(this.listAddTextBox);
+            this.listInsertTabPage.Controls.Add(this.listAddExampleLabel);
+            this.listInsertTabPage.Controls.Add(this.listAddSubmitButton);
+            this.listInsertTabPage.Location = new System.Drawing.Point(4, 25);
+            this.listInsertTabPage.Name = "listInsertTabPage";
+            this.listInsertTabPage.Size = new System.Drawing.Size(932, 156);
+            this.listInsertTabPage.TabIndex = 1;
+            this.listInsertTabPage.Text = "Add";
+            // 
+            // listAddTextBox
+            // 
+            this.listAddTextBox.Location = new System.Drawing.Point(10, 37);
+            this.listAddTextBox.Name = "listAddTextBox";
+            this.listAddTextBox.Size = new System.Drawing.Size(912, 22);
+            this.listAddTextBox.TabIndex = 2;
+            // 
+            // listAddExampleLabel
+            // 
+            this.listAddExampleLabel.Location = new System.Drawing.Point(10, 9);
+            this.listAddExampleLabel.Name = "listAddExampleLabel";
+            this.listAddExampleLabel.Size = new System.Drawing.Size(912, 27);
+            this.listAddExampleLabel.TabIndex = 1;
+            this.listAddExampleLabel.Text = "Example:";
             // 
             // listAddSubmitButton
             // 
-            this.listAddSubmitButton.Location = new System.Drawing.Point(688, 104);
+            this.listAddSubmitButton.Location = new System.Drawing.Point(826, 120);
             this.listAddSubmitButton.Name = "listAddSubmitButton";
+            this.listAddSubmitButton.Size = new System.Drawing.Size(90, 27);
             this.listAddSubmitButton.TabIndex = 0;
             this.listAddSubmitButton.Text = "Submit";
             this.listAddSubmitButton.Click += new System.EventHandler(this.OnClickSubmitButton);
             // 
-            // listAddTextBox
+            // listDeleteTabPage
             // 
-            this.listAddTextBox.Location = new System.Drawing.Point(8, 32);
-            this.listAddTextBox.Name = "listAddTextBox";
-            this.listAddTextBox.Size = new System.Drawing.Size(760, 20);
-            this.listAddTextBox.TabIndex = 2;
-            this.listAddTextBox.Text = "";
+            this.listDeleteTabPage.Controls.Add(this.listDeleteSubmitButton);
+            this.listDeleteTabPage.Controls.Add(this.listDeleteEntryTextBox);
+            this.listDeleteTabPage.Controls.Add(this.listDeleteEntryLabel);
+            this.listDeleteTabPage.Location = new System.Drawing.Point(4, 25);
+            this.listDeleteTabPage.Name = "listDeleteTabPage";
+            this.listDeleteTabPage.Size = new System.Drawing.Size(932, 156);
+            this.listDeleteTabPage.TabIndex = 3;
+            this.listDeleteTabPage.Text = "Delete";
+            // 
+            // listDeleteSubmitButton
+            // 
+            this.listDeleteSubmitButton.Location = new System.Drawing.Point(826, 120);
+            this.listDeleteSubmitButton.Name = "listDeleteSubmitButton";
+            this.listDeleteSubmitButton.Size = new System.Drawing.Size(90, 27);
+            this.listDeleteSubmitButton.TabIndex = 2;
+            this.listDeleteSubmitButton.Text = "Submit";
+            this.listDeleteSubmitButton.Click += new System.EventHandler(this.OnClickSubmitButton);
+            // 
+            // listDeleteEntryTextBox
+            // 
+            this.listDeleteEntryTextBox.Location = new System.Drawing.Point(67, 9);
+            this.listDeleteEntryTextBox.Name = "listDeleteEntryTextBox";
+            this.listDeleteEntryTextBox.Size = new System.Drawing.Size(120, 22);
+            this.listDeleteEntryTextBox.TabIndex = 1;
+            // 
+            // listDeleteEntryLabel
+            // 
+            this.listDeleteEntryLabel.Location = new System.Drawing.Point(10, 9);
+            this.listDeleteEntryLabel.Name = "listDeleteEntryLabel";
+            this.listDeleteEntryLabel.Size = new System.Drawing.Size(57, 27);
+            this.listDeleteEntryLabel.TabIndex = 0;
+            this.listDeleteEntryLabel.Text = "Entry #";
+            this.listDeleteEntryLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // listListView
+            // 
+            this.listListView.GridLines = true;
+            this.listListView.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.listListView.Location = new System.Drawing.Point(10, 9);
+            this.listListView.MultiSelect = false;
+            this.listListView.Name = "listListView";
+            this.listListView.Size = new System.Drawing.Size(931, 397);
+            this.listListView.TabIndex = 0;
+            this.listListView.UseCompatibleStateImageBehavior = false;
+            this.listListView.View = System.Windows.Forms.View.Details;
             // 
             // SpreadsheetsSampleApp
             // 
-            this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
+            this.AutoScaleBaseSize = new System.Drawing.Size(6, 15);
             this.ClientSize = new System.Drawing.Size(800, 550);
             this.Controls.Add(this.tabControl);
             this.Name = "SpreadsheetsSampleApp";
             this.Text = "Spreadsheets Sample App";
             this.tabControl.ResumeLayout(false);
-            this.listFeedTabPage.ResumeLayout(false);
-            this.listQueryTabPage.ResumeLayout(false);
-            this.worksheetListTabPage.ResumeLayout(false);
-            this.listUpdateTabPage.ResumeLayout(false);
-            this.spreadsheetListTabPage.ResumeLayout(false);
             this.loginTabPage.ResumeLayout(false);
-            this.listDeleteTabPage.ResumeLayout(false);
-            this.listActionTabControl.ResumeLayout(false);
-            this.listInsertTabPage.ResumeLayout(false);
+            this.loginTabPage.PerformLayout();
+            this.spreadsheetListTabPage.ResumeLayout(false);
+            this.worksheetListTabPage.ResumeLayout(false);
+            this.cellsFeedTabPage.ResumeLayout(false);
             this.cellsActionTabContol.ResumeLayout(false);
             this.updateCellsTabPage.ResumeLayout(false);
-            this.cellsFeedTabPage.ResumeLayout(false);
+            this.updateCellsTabPage.PerformLayout();
+            this.listFeedTabPage.ResumeLayout(false);
+            this.listActionTabControl.ResumeLayout(false);
+            this.listQueryTabPage.ResumeLayout(false);
+            this.listQueryTabPage.PerformLayout();
+            this.listUpdateTabPage.ResumeLayout(false);
+            this.listUpdateTabPage.PerformLayout();
+            this.listInsertTabPage.ResumeLayout(false);
+            this.listInsertTabPage.PerformLayout();
+            this.listDeleteTabPage.ResumeLayout(false);
+            this.listDeleteTabPage.PerformLayout();
             this.ResumeLayout(false);
+
         }
 #endregion
 

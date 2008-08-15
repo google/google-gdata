@@ -276,12 +276,9 @@ namespace PhotoBrowser
                 string photoUri = entry.FeedUri; 
                 if (photoUri != null) 
                 {
-                    PhotoQuery query = new PhotoQuery(photoUri);
-                    this.Cursor = Cursors.WaitCursor;
-                    PicasaFeed photoFeed = this.picasaService.Query(query);
-                    this.Cursor = Cursors.Default;
-                    PictureBrowser b = new PictureBrowser(this.picasaService, photoFeed, entry.Title.Text);
+                    PictureBrowser b = new PictureBrowser(this.picasaService, false);
                     b.Show();
+                    b.StartQuery(photoUri, entry.Title.Text);
                 }
             }
         }
@@ -360,28 +357,16 @@ namespace PhotoBrowser
 
                 // Show the FolderBrowserDialog.
                 DialogResult result = folderBrowserDialog.ShowDialog();
+
+                PictureBrowser backgroundjob = new PictureBrowser(this.picasaService, true);
+                backgroundjob.Show();
               
                 if( result == DialogResult.OK )
                 {
                     string folderName = folderBrowserDialog.SelectedPath;
-                    this.Cursor = Cursors.WaitCursor;
-        
                     if (photoUri != null) 
                     {
-                        PhotoQuery query = new PhotoQuery(photoUri);
-                        this.Cursor = Cursors.WaitCursor;
-                        PicasaFeed photoFeed = this.picasaService.Query(query);
-                 
-                        int i=1;
-
-                        foreach (PicasaEntry photo in photoFeed.Entries)
-                        {
-                            string filename = folderName + "\\image" + i.ToString() + ".jpg";
-                            i++;
-                            PictureBrowser.saveImageFile(photo, filename, this.picasaService);
-                        }
-                        
-                        this.Cursor = Cursors.Default;
+                        backgroundjob.BackupAlbum(photoUri, folderName);
                     }
                 }
             }
