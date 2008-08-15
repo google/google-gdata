@@ -1498,6 +1498,8 @@
             </summary> 
         </member>
         <member name="T:Google.GData.Client.Service">
+            <summary>async functionallity of the Service implementation
+            </summary> 
             <summary>base Service implementation
             </summary> 
         </member>
@@ -1544,6 +1546,135 @@
         <member name="F:Google.GData.Client.Service.GServiceAgent">
             <summary>this service's user-agent</summary> 
         </member>
+        <member name="M:Google.GData.Client.Service.QueryFeedAync(System.Uri,System.DateTime,System.Object)">
+            <summary>
+            the basic interface as an async version. This call will return directly
+            and you need to rely on the events fired to figure out what happened.
+            </summary>
+            <param name="queryUri">the Uri to Query</param>
+            <param name="ifModifiedSince">The ifmodifiedsince date, use DateTime.MinValue if you want everything</param>
+            <param name="userData">The userData token. this must be unique if you make several async requests at once</param>
+            <returns>nothing</returns>
+        </member>
+        <member name="M:Google.GData.Client.Service.QueryStreamAync(System.Uri,System.DateTime,System.Object)">
+            <summary>
+            the basic interface as an async version. This call will return directly
+            and you need to rely on the events fired to figure out what happened.
+            this version does not parse the response from the webserver but 
+            provides it to you in the event
+            </summary>
+            <param name="queryUri">the Uri to Query</param>
+            <param name="ifModifiedSince">The ifmodifiedsince date, use DateTime.MinValue if you want everything</param>
+            <param name="userData">The userData token. this must be unique if you make several async requests at once</param>
+            <returns>nothing</returns>
+        </member>
+        <member name="M:Google.GData.Client.Service.QueryAsync(System.Uri,System.DateTime,System.Boolean,System.Object)">
+            <summary>
+            the basic interface as an async version. This call will return directly
+            and you need to rely on the events fired to figure out what happened.
+            </summary>
+            <param name="queryUri">the Uri to Query</param>
+            <param name="ifModifiedSince">The ifmodifiedsince date, use DateTime.MinValue if you want everything</param>
+            <param name="doParse">if true, returns a feed, else a stream</param>
+            <param name="userData">The userData token. this must be unique if you make several async requests at once</param>
+            <returns>nothing</returns>
+        </member>
+        <member name="M:Google.GData.Client.Service.AsyncQueryWorker(Google.GData.Client.AsyncQueryData,System.ComponentModel.AsyncOperation,System.Threading.SendOrPostCallback)">
+            <summary>
+             worker method for the query case
+            </summary>
+            <param name="data"></param>
+            <param name="asyncOp"></param>
+            <param name="completionMethodDelegate"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Google.GData.Client.Service.UpdateAsync(Google.GData.Client.AtomEntry,System.Object)">
+            <summary>
+            updates the entry asynchronous, you need to supply a valid and unique
+            token. Events will be send to the async delegates you setup on the service
+            object
+            </summary>
+            <param name="entry"></param>
+            <param name="userData">a unique identifier to associate this request with</param>
+            <returns></returns>
+        </member>
+        <member name="M:Google.GData.Client.Service.InsertAsync(System.Uri,Google.GData.Client.AtomEntry,System.Object)">
+            <summary>
+            inserts the entry asynchronous, you need to supply a valid and unique
+            token. Events will be send to the async delegates you setup on the service
+            object
+            </summary>
+            <param name="feedUri">the target feed the entry get's inserted into</param>
+            <param name="entry"></param>
+            <param name="userData">a unique identifier to associate this request with</param>
+            <returns></returns>
+        </member>
+        <member name="M:Google.GData.Client.Service.BatchAsync(Google.GData.Client.AtomFeed,System.Uri,System.Object)">
+            <summary>
+            takes a given feed, and does a batch post of that feed
+            against the batchUri parameter. If that one is NULL 
+            it will try to use the batch link URI in the feed
+            </summary>
+            <param name="feed">the feed to post</param>
+            <param name="batchUri">the URI to user</param>
+            <returns></returns>
+        </member>
+        <member name="M:Google.GData.Client.Service.StreamSendAsync(System.Uri,System.IO.Stream,Google.GData.Client.GDataRequestType,System.String,System.String,System.Object)">
+            <summary>
+            this is a helper function for to send binary data asyncronous to a resource
+            </summary>
+            <param name="targetUri"></param>
+            <param name="inputStream"></param>
+            <param name="type"></param>
+            <param name="contentType">the contenttype to use in the request, if NULL is passed, factory default is used</param>
+            <param name="slugHeader">the slugHeader to use in the request, if NULL is passed, factory default is used</param>
+            <param name="userData">a unique identifier to associate this request with</param>
+            <returns></returns>
+        </member>
+        <member name="M:Google.GData.Client.Service.AsyncStarter(Google.GData.Client.AsyncSendData,Google.GData.Client.Service.WorkerSendEventHandler,System.Object)">
+            <summary>
+            starts the async job for several send methods
+            </summary>
+            <param name="data"></param>
+            <param name="userData"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Google.GData.Client.Service.AsyncUpdateWorker(Google.GData.Client.AsyncSendData,System.ComponentModel.AsyncOperation,System.Threading.SendOrPostCallback)">
+            <summary>
+             worker method for the update case
+            </summary>
+            <param name="data"></param>
+            <param name="asyncOp"></param>
+            <param name="completionMethodDelegate"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Google.GData.Client.Service.AsyncInsertWorker(Google.GData.Client.AsyncSendData,System.ComponentModel.AsyncOperation,System.Threading.SendOrPostCallback)">
+            <summary>
+             worker method for the update case
+            </summary>
+            <param name="data"></param>
+            <param name="asyncOp"></param>
+            <param name="completionMethodDelegate"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Google.GData.Client.Service.AsyncBatchWorker(Google.GData.Client.AsyncSendData,System.ComponentModel.AsyncOperation,System.Threading.SendOrPostCallback)">
+            <summary>
+             worker method for the batch case
+            </summary>
+            <param name="data"></param>
+            <param name="asyncOp"></param>
+            <param name="completionMethodDelegate"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Google.GData.Client.Service.AsyncStreamSendWorker(Google.GData.Client.AsyncSendData,System.ComponentModel.AsyncOperation,System.Threading.SendOrPostCallback)">
+            <summary>
+             worker method for the direct stream send
+            </summary>
+            <param name="data"></param>
+            <param name="asyncOp"></param>
+            <param name="completionMethodDelegate"></param>
+            <returns></returns>
+        </member>
         <member name="F:Google.GData.Client.Service.credentials">
             <summary>holds the credential information</summary> 
         </member>
@@ -1578,9 +1709,17 @@
         <member name="M:Google.GData.Client.Service.SetAuthenticationToken(System.String)">
             <summary>
             if the service is using a Google Request Factory it will set the passed 
-            in token to the factory
+            in token to the factory. NET CF does not support authsubtokens here
             </summary>
             <returns>string</returns>
+        </member>
+        <member name="M:Google.GData.Client.Service.setUserCredentials(System.String,System.String)">
+            <summary>
+            Sets the credentials of the user to authenticate requests
+            to the server.
+            </summary>
+            <param name="username"></param>
+            <param name="password"></param>
         </member>
         <member name="M:Google.GData.Client.Service.Query(System.Uri)">
             <summary>the basic interface. Take a URI and just get it</summary> 
@@ -1596,13 +1735,14 @@
             precondition.</param>
             <returns> a webresponse object</returns>
         </member>
-        <member name="M:Google.GData.Client.Service.setUserCredentials(System.String,System.String)">
-            <summary>
-            Sets the credentials of the user to authenticate requests
-            to the server.
-            </summary>
-            <param name="username"></param>
-            <param name="password"></param>
+        <member name="M:Google.GData.Client.Service.Query(System.Uri,System.DateTime,System.Int64@)">
+            <summary>the basic interface. Take a URI and just get it</summary> 
+            <param name="queryUri">the URI to execute</param>
+            <param name="ifModifiedSince">used to set a precondition date that 
+            indicates the feed should be returned only if it has been modified 
+            after the specified date. A value of DateTime.MinValue indicates no 
+            precondition.</param>
+            <returns> a webresponse object</returns>
         </member>
         <member name="M:Google.GData.Client.Service.Get(System.String)">
             <summary>
@@ -1635,6 +1775,11 @@
             <param name="entry">the old entry to update</param> 
             <returns> the new Entry, as returned from the server</returns>
         </member>
+        <member name="M:Google.GData.Client.Service.Update(Google.GData.Client.AtomEntry,Google.GData.Client.AsyncSendData)">
+            <summary>WebResponse Update(Uri updateUri, Stream entryStream, ICredentials credentials)</summary> 
+            <param name="entry">the old entry to update</param> 
+            <returns> the new Entry, as returned from the server</returns>
+        </member>
         <member name="M:Google.GData.Client.Service.Insert(Google.GData.Client.AtomFeed,Google.GData.Client.AtomEntry)">
             <summary>public WebResponse Insert(Uri insertUri, Stream entryStream, ICredentials credentials)</summary> 
             <param name="feed">the feed this entry should be inserted into</param> 
@@ -1645,6 +1790,13 @@
             <summary>public WebResponse Insert(Uri insertUri, Stream entryStream, ICredentials credentials)</summary> 
             <param name="feedUri">the uri for the feed this entry should be inserted into</param> 
             <param name="newEntry">the entry to be inserted</param> 
+            <returns> the inserted entry</returns>
+        </member>
+        <member name="M:Google.GData.Client.Service.Insert(System.Uri,Google.GData.Client.AtomEntry,Google.GData.Client.AsyncSendData)">
+            <summary>public WebResponse Insert(Uri insertUri, Stream entryStream, ICredentials credentials)</summary> 
+            <param name="feedUri">the uri for the feed this entry should be inserted into</param> 
+            <param name="newEntry">the entry to be inserted</param> 
+            <param name="data">the data used for an async request</param>
             <returns> the inserted entry</returns>
         </member>
         <member name="M:Google.GData.Client.Service.Update(System.Uri,System.IO.Stream,System.String,System.String)">
@@ -1668,6 +1820,13 @@
             <returns>AtomEntry</returns>
         </member>
         <member name="M:Google.GData.Client.Service.EntrySend(System.Uri,Google.GData.Client.AtomBase,Google.GData.Client.GDataRequestType)">
+            <summary>Inserts an AtomBase entry against a Uri</summary> 
+            <param name="feedUri">the uri for the feed this object should be posted against</param> 
+            <param name="baseEntry">the entry to be inserted</param> 
+            <param name="type">the type of request to create</param> 
+            <returns> the response as a stream</returns>
+        </member>
+        <member name="M:Google.GData.Client.Service.EntrySend(System.Uri,Google.GData.Client.AtomBase,Google.GData.Client.GDataRequestType,Google.GData.Client.AsyncSendData)">
             <summary>Inserts an AtomBase entry against a Uri</summary> 
             <param name="feedUri">the uri for the feed this object should be posted against</param> 
             <param name="baseEntry">the entry to be inserted</param> 
@@ -1698,6 +1857,7 @@
             <param name="slugHeader">the slugHeader to use in the request, if NULL is passed, factory default is used</param>
             <returns>Stream</returns>
         </member>
+        <!-- Badly formed XML comment ignored for member "M:Google.GData.Client.Service.StreamSend(System.Uri,System.IO.Stream,Google.GData.Client.GDataRequestType,System.String,System.String,Google.GData.Client.AsyncSendData)" -->
         <member name="M:Google.GData.Client.Service.WriteInputStreamToRequest(System.IO.Stream,System.IO.Stream)">
             <summary>
             write the current stream to an output stream
@@ -1716,6 +1876,16 @@
              </summary>
         </member>
         <member name="M:Google.GData.Client.Service.Batch(Google.GData.Client.AtomFeed,System.Uri)">
+            <summary>
+            takes a given feed, and does a batch post of that feed
+            against the batchUri parameter. If that one is NULL 
+            it will try to use the batch link URI in the feed
+            </summary>
+            <param name="feed">the feed to post</param>
+            <param name="batchUri">the URI to user</param>
+            <returns>the returned AtomFeed</returns>
+        </member>
+        <member name="M:Google.GData.Client.Service.Batch(Google.GData.Client.AtomFeed,System.Uri,Google.GData.Client.AsyncSendData)">
             <summary>
             takes a given feed, and does a batch post of that feed
             against the batchUri parameter. If that one is NULL 
@@ -1750,6 +1920,12 @@
             <param name="e">FeedParserEventArguments, holds the feedentry</param> 
             <returns> </returns>
         </member>
+        <member name="E:Google.GData.Client.Service.AcynOperationCompleted">
+            <summary>eventhandler, fired when an async operation is completed</summary> 
+        </member>
+        <member name="E:Google.GData.Client.Service.AcynOperationProgress">
+            <summary>eventhandler, fired when an async operation reports progress</summary> 
+        </member>
         <member name="E:Google.GData.Client.Service.NewAtomEntry">
             <summary>holds the hooks for the eventing in the feedparser</summary> 
         </member>
@@ -1776,7 +1952,7 @@
         <member name="M:Google.GData.Client.MediaService.#ctor(System.String,System.String,System.String)">
             <summary>this will trigger the creation of an authenticating servicea</summary> 
         </member>
-        <member name="M:Google.GData.Client.MediaService.EntrySend(System.Uri,Google.GData.Client.AtomBase,Google.GData.Client.GDataRequestType)">
+        <member name="M:Google.GData.Client.MediaService.EntrySend(System.Uri,Google.GData.Client.AtomBase,Google.GData.Client.GDataRequestType,Google.GData.Client.AsyncSendData)">
             <summary>Inserts an AtomBase entry against a Uri. The overloaded
             version here will check if this is an AbstractEntry and if it has
             a media property set. If so, it will create a mime multipart envelope</summary> 
@@ -2141,6 +2317,12 @@
             </summary> 
             
             <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Client.GDataRequest.ContentLength">
+            <summary>
+            returnes the contentlength of the response, -1 if none was given
+            </summary>
+            <returns></returns>
         </member>
         <member name="P:Google.GData.Client.GDataRequest.Request">
             <summary>accessor method protected WebRequest Request</summary> 
@@ -4203,6 +4385,74 @@
         </member>
         <member name="P:Google.GData.Client.AtomId.XmlName">
             <summary>Returns the constant representing this XML element.</summary> 
+        </member>
+        <member name="T:Google.GData.Client.AsyncOperationCompletedEventArgs">
+            <summary>
+            EventArgument class for async events, this one is used
+            when the operation is completed.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Client.AsyncOperationCompletedEventArgs.#ctor(Google.GData.Client.AsyncData)">
+            <summary>
+            constructor. Takes the URI and the service this event applies to
+            </summary>
+            <param name="uri">URI executed</param>
+            <param name="service">service object doing the execution</param>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:Google.GData.Client.AsyncOperationCompletedEventArgs.Feed" -->
+        <!-- Badly formed XML comment ignored for member "P:Google.GData.Client.AsyncOperationCompletedEventArgs.Entry" -->
+        <!-- Badly formed XML comment ignored for member "P:Google.GData.Client.AsyncOperationCompletedEventArgs.ResponseStream" -->
+        <member name="P:Google.GData.Client.AsyncOperationCompletedEventArgs.Uri">
+            <summary>the Uri to be used</summary> 
+            <returns> </returns>
+        </member>
+        <member name="T:Google.GData.Client.AsyncOperationCompletedEventHandler">
+            <summary>Delegate declaration for the feed creation in a service</summary> 
+        </member>
+        <member name="T:Google.GData.Client.AsyncOperationProgressEventArgs">
+            <summary>
+            EventArgument class for async operation progress reports
+            </summary>
+        </member>
+        <member name="M:Google.GData.Client.AsyncOperationProgressEventArgs.#ctor(System.Int64,System.Int64,System.Int32,System.Object)">
+            <summary>
+            constructor. Takes the URI and the service this event applies to
+            </summary>
+            <param name="uri">URI currently executed</param>
+            <param name="service">service object doing the execution</param>
+        </member>
+        <member name="P:Google.GData.Client.AsyncOperationProgressEventArgs.CompleteSize">
+            <summary>the complete upload size</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Client.AsyncOperationProgressEventArgs.Position">
+            <summary>the current position in the upload process</summary> 
+            <returns> </returns>
+        </member>
+        <member name="T:Google.GData.Client.AsyncOperationProgressEventHandler">
+            <summary>Delegate declaration for the feed creation in a service</summary> 
+        </member>
+        <member name="P:Google.GData.Client.AsyncData.UriToUse">
+            <summary>
+            the uri to use
+            </summary>
+        </member>
+        <member name="T:Google.GData.Client.AsyncQueryData">
+            <summary>
+            internal class for the data to pass to the async worker thread
+            </summary>
+        </member>
+        <member name="P:Google.GData.Client.AsyncQueryData.Modified">
+            <summary>
+             the date for the ifModified timestamp
+            </summary>
+        </member>
+        <member name="P:Google.GData.Client.AsyncQueryData.ParseFeed">
+            <summary>
+            indicates if the async operation should try to 
+            parse the server returned stream, or just return the stream
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:Google.GData.Client.LoggedException">
             <summary>standard exception class to be used inside the query object

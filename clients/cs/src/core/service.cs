@@ -20,6 +20,10 @@ using System;
 using System.Xml;
 using System.IO;
 using System.Net;
+using System.Threading;
+using System.ComponentModel;
+using System.Collections.Specialized;
+
 
 #endregion
 
@@ -92,7 +96,7 @@ namespace Google.GData.Client
     /// <summary>base Service implementation
     /// </summary> 
     //////////////////////////////////////////////////////////////////////
-    public class Service : IService  
+    public partial class Service : IService
     {
         /// <summary>this service's user-agent</summary> 
         public const string GServiceAgent = "GService-CS/1.0.0";
@@ -199,7 +203,7 @@ namespace Google.GData.Client
 
         /// <summary>
         /// if the service is using a Google Request Factory it will set the passed 
-        /// in token to the factory
+        /// in token to the factory. NET CF does not support authsubtokens here
         /// </summary>
         /// <returns>string</returns>
         public void SetAuthenticationToken(string token) 
@@ -221,6 +225,19 @@ namespace Google.GData.Client
             }
 #endif
         }
+
+        /// <summary>
+        /// Sets the credentials of the user to authenticate requests
+        /// to the server.
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
+        public void setUserCredentials(String username, String password)
+        {
+            this.Credentials = new GDataCredentials(username, password);
+        }
+
+
 
    
         //////////////////////////////////////////////////////////////////////
@@ -244,45 +261,59 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         public Stream Query(Uri queryUri, DateTime ifModifiedSince)
         {
-          Tracing.TraceCall("Enter");
-          if (queryUri == null)
-          {
-            throw new System.ArgumentNullException("queryUri");
-          }
-          IGDataRequest request = this.RequestFactory.CreateRequest(GDataRequestType.Query, queryUri);
-          request.Credentials = this.Credentials;
-          request.IfModifiedSince = ifModifiedSince;
-
-          try
-          {
-            request.Execute();
-          }
-          catch (Exception e)
-          {
-            // Prevent connection leaks
-            if (request.GetResponseStream() != null)
-              request.GetResponseStream().Close();
-
-            throw;
-          }
-          // return the response
-          Tracing.TraceCall("Exit");
-          return request.GetResponseStream();
+            long l;
+            return this.Query(queryUri, ifModifiedSince, out l);
         }
-
         /////////////////////////////////////////////////////////////////////////////
 
-
-        /// <summary>
-        /// Sets the credentials of the user to authenticate requests
-        /// to the server.
-        /// </summary>
-        /// <param name="username"></param>
-        /// <param name="password"></param>
-        public void setUserCredentials(String username, String password)
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>the basic interface. Take a URI and just get it</summary> 
+        /// <param name="queryUri">the URI to execute</param>
+        /// <param name="ifModifiedSince">used to set a precondition date that 
+        /// indicates the feed should be returned only if it has been modified 
+        /// after the specified date. A value of DateTime.MinValue indicates no 
+        /// precondition.</param>
+        /// <returns> a webresponse object</returns>
+        //////////////////////////////////////////////////////////////////////
+        private Stream Query(Uri queryUri, DateTime ifModifiedSince, out long contentLength)
         {
-            this.Credentials = new GDataCredentials(username, password);
+            Tracing.TraceCall("Enter");
+            if (queryUri == null)
+            {
+              throw new System.ArgumentNullException("queryUri");
+            }
+
+            contentLength = -1; 
+
+            IGDataRequest request = this.RequestFactory.CreateRequest(GDataRequestType.Query, queryUri);
+            request.Credentials = this.Credentials;
+            request.IfModifiedSince = ifModifiedSince;
+
+            try
+            {
+              request.Execute();
+            }
+            catch (Exception e)
+            {
+              // Prevent connection leaks
+              if (request.GetResponseStream() != null)
+                request.GetResponseStream().Close();
+
+              throw;
+            }
+
+            // return the response
+            GDataGAuthRequest gr = request as GDataGAuthRequest;
+            if (gr != null)
+            {
+                 contentLength = gr.ContentLength;
+            }
+            
+            Tracing.TraceCall("Exit");
+            return request.GetResponseStream();
         }
+        /////////////////////////////////////////////////////////////////////////////
+
 
         /// <summary>
         /// Returns a single Atom entry based upon its unique URI.
@@ -362,6 +393,9 @@ namespace Google.GData.Client
         /////////////////////////////////////////////////////////////////////////////
 
 
+
+
+
         //////////////////////////////////////////////////////////////////////
         /// <summary>object QueryOpenSearchRssDescription()</summary> 
         /// <param name="serviceUri">the service to ask for an OpenSearchRss Description</param> 
@@ -392,6 +426,18 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         public AtomEntry Update(AtomEntry entry)
         {
+            return this.Update(entry, null);
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>WebResponse Update(Uri updateUri, Stream entryStream, ICredentials credentials)</summary> 
+        /// <param name="entry">the old entry to update</param> 
+        /// <returns> the new Entry, as returned from the server</returns>
+        //////////////////////////////////////////////////////////////////////
+        private AtomEntry Update(AtomEntry entry, AsyncSendData data)
+        {
             Tracing.Assert(entry != null, "entry should not be null");
             if (entry == null)
             {
@@ -406,22 +452,26 @@ namespace Google.GData.Client
 
             Uri target = new Uri(entry.EditUri.ToString());
 
-            Stream returnStream = EntrySend(target, entry, GDataRequestType.Update);
-            AtomFeed returnFeed = CreateFeed(target);
+            Stream returnStream = EntrySend(target, entry, GDataRequestType.Update, data);
 
-            returnFeed.NewAtomEntry += new FeedParserEventHandler(this.OnParsedNewEntry); 
-            returnFeed.NewExtensionElement += new ExtensionElementEventHandler(this.OnNewExtensionElement);
+            if (returnStream != null)
+            {
+                AtomFeed returnFeed = CreateFeed(target);
 
-            
-            returnFeed.Parse(returnStream, AlternativeFormat.Atom);
-            // there should be ONE entry echoed back. 
-            returnStream.Close(); 
+                returnFeed.NewAtomEntry += new FeedParserEventHandler(this.OnParsedNewEntry); 
+                returnFeed.NewExtensionElement += new ExtensionElementEventHandler(this.OnNewExtensionElement);
 
-            return returnFeed.Entries[0]; 
 
+                returnFeed.Parse(returnStream, AlternativeFormat.Atom);
+                // there should be ONE entry echoed back. 
+                returnStream.Close(); 
+
+                return returnFeed.Entries[0]; 
+            }
+
+            return null;
         }
         /////////////////////////////////////////////////////////////////////////////
-
 
    
 
@@ -465,6 +515,19 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         public AtomEntry Insert(Uri feedUri, AtomEntry newEntry)
         {
+            return this.Insert(feedUri, newEntry, null);
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>public WebResponse Insert(Uri insertUri, Stream entryStream, ICredentials credentials)</summary> 
+        /// <param name="feedUri">the uri for the feed this entry should be inserted into</param> 
+        /// <param name="newEntry">the entry to be inserted</param> 
+        /// <param name="data">the data used for an async request</param>
+        /// <returns> the inserted entry</returns>
+        //////////////////////////////////////////////////////////////////////
+        private AtomEntry Insert(Uri feedUri, AtomEntry newEntry, AsyncSendData data)
+        {
             Tracing.Assert(feedUri != null, "feedUri should not be null");
             if (feedUri == null)
             {
@@ -476,7 +539,7 @@ namespace Google.GData.Client
                 throw new ArgumentNullException("newEntry"); 
             }
 
-            Stream returnStream = EntrySend(feedUri, newEntry, GDataRequestType.Insert);
+            Stream returnStream = EntrySend(feedUri, newEntry, GDataRequestType.Insert, data);
 
             AtomFeed returnFeed = CreateFeed(feedUri);
 
@@ -500,6 +563,7 @@ namespace Google.GData.Client
             return entry; 
         }
         /////////////////////////////////////////////////////////////////////////////
+
 
 
         /// <summary>
@@ -547,7 +611,20 @@ namespace Google.GData.Client
         /// <param name="type">the type of request to create</param> 
         /// <returns> the response as a stream</returns>
         //////////////////////////////////////////////////////////////////////
-        public virtual Stream EntrySend(Uri feedUri, AtomBase baseEntry, GDataRequestType type)
+        public Stream EntrySend(Uri feedUri, AtomBase baseEntry, GDataRequestType type)
+        {
+            return this.EntrySend(feedUri, baseEntry, type, null); 
+        }
+
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Inserts an AtomBase entry against a Uri</summary> 
+        /// <param name="feedUri">the uri for the feed this object should be posted against</param> 
+        /// <param name="baseEntry">the entry to be inserted</param> 
+        /// <param name="type">the type of request to create</param> 
+        /// <returns> the response as a stream</returns>
+        //////////////////////////////////////////////////////////////////////
+        internal virtual Stream EntrySend(Uri feedUri, AtomBase baseEntry, GDataRequestType type, AsyncSendData data)
         {
             Tracing.Assert(feedUri != null, "feedUri should not be null");
             if (feedUri == null)
@@ -562,6 +639,16 @@ namespace Google.GData.Client
 
             IGDataRequest request = this.RequestFactory.CreateRequest(type,feedUri);
             request.Credentials = this.Credentials;
+
+            if (data != null)
+            {
+                GDataGAuthRequest gr = request as GDataGAuthRequest;
+                if (gr != null)
+                {
+                    gr.AsyncData = data;
+                }
+            }
+
             Stream outputStream = request.GetRequestStream();
 
             baseEntry.SaveToXml(outputStream);
@@ -570,6 +657,7 @@ namespace Google.GData.Client
             outputStream.Close();
             return request.GetResponseStream();
         }
+
 
 
         /// <summary>
@@ -623,12 +711,35 @@ namespace Google.GData.Client
         /// <param name="contentType">the contenttype to use in the request, if NULL is passed, factory default is used</param>
         /// <param name="slugHeader">the slugHeader to use in the request, if NULL is passed, factory default is used</param>
         /// <returns>Stream</returns>
-        
         public Stream StreamSend(Uri targetUri, 
                                  Stream inputStream, 
                                  GDataRequestType type, 
                                  string contentType,
                                  string slugHeader)
+        {
+
+            return StreamSend(targetUri, inputStream, type, contentType, slugHeader, null);
+        }
+
+
+        /// <summary>
+        /// this is a helper function for to send binary data to a resource
+        /// it is not worth running the other insert/saves through here, as this would involve
+        /// double buffering/copying of the bytes
+        /// </summary>
+        /// <param name="targetUri"></param>
+        /// <param name="inputStream"></param>
+        /// <param name="type"></param>
+        /// <param name="contentType">the contenttype to use in the request, if NULL is passed, factory default is used</param>
+        /// <param name="slugHeader">the slugHeader to use in the request, if NULL is passed, factory default is used</param>
+        /// <param name="data">The async data needed for notifications</data>
+        /// <returns>Stream</returns>
+        private Stream StreamSend(Uri targetUri, 
+                                 Stream inputStream, 
+                                 GDataRequestType type, 
+                                 string contentType,
+                                 string slugHeader,
+                                 AsyncSendData data)
         {
             Tracing.Assert(targetUri != null, "targetUri should not be null");
             if (targetUri == null)
@@ -646,9 +757,18 @@ namespace Google.GData.Client
                 throw new ArgumentNullException("type"); 
             }
 
-            
+
             IGDataRequest request = this.RequestFactory.CreateRequest(type,targetUri);
             request.Credentials = this.Credentials;
+
+            if (data != null)
+            {
+                GDataGAuthRequest gr = request as GDataGAuthRequest;
+                if (gr != null)
+                {
+                    gr.AsyncData = data;
+                }
+            }
 
             // set the contenttype of the request
             if (contentType != null)
@@ -668,7 +788,7 @@ namespace Google.GData.Client
                     r.Slug = slugHeader;
                 }
             }
-       
+
             Stream outputStream = request.GetRequestStream();
 
             WriteInputStreamToRequest(inputStream, outputStream);
@@ -698,9 +818,6 @@ namespace Google.GData.Client
             }
             w.Flush();
         }
-
-
-
 
 
         //////////////////////////////////////////////////////////////////////
@@ -746,6 +863,22 @@ namespace Google.GData.Client
         /// <returns>the returned AtomFeed</returns>
         public AtomFeed Batch(AtomFeed feed, Uri batchUri) 
         {
+            return Batch(feed, batchUri, null);
+        }
+        //////////////////////////////////////////////////////////////////////
+
+
+
+        /// <summary>
+        /// takes a given feed, and does a batch post of that feed
+        /// against the batchUri parameter. If that one is NULL 
+        /// it will try to use the batch link URI in the feed
+        /// </summary>
+        /// <param name="feed">the feed to post</param>
+        /// <param name="batchUri">the URI to user</param>
+        /// <returns>the returned AtomFeed</returns>
+        private AtomFeed Batch(AtomFeed feed, Uri batchUri, AsyncSendData data) 
+        {
             Uri uriToUse = batchUri;
             if (feed == null)
             {
@@ -775,7 +908,7 @@ namespace Google.GData.Client
             }
 
 
-            Stream returnStream = EntrySend(uriToUse, feed, GDataRequestType.Batch);
+            Stream returnStream = EntrySend(uriToUse, feed, GDataRequestType.Batch, data);
 
             AtomFeed returnFeed = CreateFeed(uriToUse);
 
@@ -786,12 +919,11 @@ namespace Google.GData.Client
             returnFeed.Parse(returnStream, AlternativeFormat.Atom);
 
             returnStream.Close(); 
-         
+
             return returnFeed;  
-            
+
         }
         //////////////////////////////////////////////////////////////////////
-
 
 
     

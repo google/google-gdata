@@ -21,6 +21,7 @@ using System.IO;
 using System.Net;
 using System.Text;
 using System.Collections;
+using System.ComponentModel;
 
 #endregion
 
@@ -300,7 +301,8 @@ namespace Google.GData.Client
         private MemoryStream requestCopy;
         /// <summary>holds the factory instance</summary> 
         private GDataGAuthRequestFactory factory; 
-
+        private AsyncData asyncData;
+        
         //////////////////////////////////////////////////////////////////////
         /// <summary>default constructor</summary> 
         //////////////////////////////////////////////////////////////////////
@@ -332,6 +334,14 @@ namespace Google.GData.Client
        }
        /////////////////////////////////////////////////////////////////////////////
        
+
+       internal AsyncData AsyncData
+       {
+           set 
+           {
+               this.asyncData = value;
+           }
+       }
 
         
         //////////////////////////////////////////////////////////////////////
@@ -713,20 +723,37 @@ namespace Google.GData.Client
                 Stream req = base.GetRequestStream();
 
                 const int size = 4096;
-                byte[] bytes = new byte[4096];
+                byte[] bytes = new byte[size];
                 int numBytes;
 
-                this.requestCopy.Seek(0, SeekOrigin.Begin); 
+                double oneLoop = 100;
+                if (requestCopy.Length > size)
+                {
+                    oneLoop = (100 / ((double) this.requestCopy.Length / size));
+
+                }
+                double current = 0; 
+
+                this.requestCopy.Seek(0, SeekOrigin.Begin);
+
+                long bytesWritten = 0; 
 
                 while((numBytes = this.requestCopy.Read(bytes, 0, size)) > 0)
                 {
                     req.Write(bytes, 0, numBytes);
+                    bytesWritten += numBytes; 
+                    if (this.asyncData != null && this.asyncData.Delegate != null)
+                    {
+                        AsyncOperationProgressEventArgs args;
+                        args = new AsyncOperationProgressEventArgs(this.requestCopy.Length, bytesWritten, (int)current, this.asyncData.UserData);
+                        this.asyncData.Operation.Post(this.asyncData.Delegate, args);
+                        current += oneLoop;
+                    }
                 }
                 req.Close();
             }
         }
         /////////////////////////////////////////////////////////////////////////////
-
     }
     /////////////////////////////////////////////////////////////////////////////
 } 
