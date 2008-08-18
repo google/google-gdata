@@ -63,6 +63,9 @@
     <Compile Include="..\..\core\AssemblyInfo.cs">
       <Link>AssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="..\..\core\asyncservice.cs">
+      <Link>asyncservice.cs</Link>
+    </Compile>
     <Compile Include="..\..\core\atombase.cs">
       <Link>atombase.cs</Link>
     </Compile>
