@@ -125,7 +125,6 @@ namespace Google.GData.Client
         {
             // get the encoding
             Encoding utf8Encoder = Encoding.UTF8; 
-            Encoding utf16Encoder = Encoding.Unicode;
 
             Byte[] utf8Bytes = EncodeStringToUtf8(content);
 

@@ -82,7 +82,7 @@ namespace Google.GData.Extensions.AppControl {
           /// <summary>
         ///  Accessor Method for the value as integer
         /// </summary>
-        public bool BooleanValue
+        public override bool BooleanValue
         {
             get { return this.Value == "yes" ? true : false; } 
             set { this.Value = (value == true) ? "yes" : "no"; }
