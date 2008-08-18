@@ -10,8 +10,26 @@
 <h2>1.2.2.0</h2>
    <ul>
       <li>Features</li>
+       <ul>
+           <li>
+               Asyncronous/background support including a sample application. 
+               You can now easily fire off that long running YouTube upload, or 
+               the download of a picture as a seperate thread, so that your main 
+               application is no longer blocked. It uses the AsyncOperation 
+               pattern, and is not available (due to missing base support in the 
+               compact framework) in the Windows Mobile build. 
+
+               The sample PhotoBrowser application was changed to use that 
+               pattern, and a page in the helpfile introduces the concept. 
+           </li>
+       </ul>
       <li>Bugfixes</li>
       <ul>
+          <li>
+              Fixed issue 161, changed the WebProxy property on the 
+              RequestFactory object to IWebProxy to make this interface more 
+              flexible.
+          </li>
              <li>Removed an obsolete size check for the authentication 
                    response for client login and login for webapplications.</li>
             <li>Fixed issue 160, FirstName in the profile feed of YouTube 
