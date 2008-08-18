@@ -382,14 +382,15 @@ namespace PhotoBrowser
 
         private void OnDone(object sender, AsyncOperationCompletedEventArgs e)
         {
+            UserState ut = e.UserState as UserState;
+
+            if (this.states.Contains(ut) == false)
+                return;
+
+            this.states.Remove(ut);
+        
             if (e.Error == null)
             {
-                UserState ut = e.UserState as UserState;
-
-                if (this.states.Contains(ut) == false)
-                    return;
-
-                this.states.Remove(ut);
 
                 if (ut.opType == UserState.OperationType.query ||
                     ut.opType == UserState.OperationType.queryForBackup)
