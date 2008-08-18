@@ -22,6 +22,107 @@ using Google.GData.Extensions;
 
 namespace Google.GData.Calendar {
 
+
+    // a few new subelements
+
+    //////////////////////////////////////////////////////////////////////
+    /// <summary>subelements definition for the event entry thar are calendar specific
+    /// </summary> 
+    //////////////////////////////////////////////////////////////////////
+    public class GCalNameTable
+    {
+        /// <summary>syncEvent</summary>
+        public const string XmlSyncEventElement = "syncEvent"; 
+        /// <summary>sequence element</summary>
+        public const string XmlSequenceElement = "sequence"; 
+        /// <summary>uid element</summary>
+        public const string XmlUidElement = "uid"; 
+    }
+    //end of public class GCalEventTable
+
+
+     /// <summary>
+    /// Indicates whether this is a sync scenario where we allow setting the gCal:uid, the gCal:sequence, 
+    /// and the organizer of an event. This element makes sense only when inserting and updating
+    ///  events. This element should primarily be used in a sync scenario.
+    /// </summary>
+    public class GCalSyncEvent : SimpleAttribute
+    {
+        /// <summary>
+        /// default calendar access level constructor
+        /// </summary>        
+        public GCalSyncEvent()
+            : base(GCalNameTable.XmlSyncEventElement, GDataParserNameTable.gCalPrefix, 
+              GDataParserNameTable.NSGCal)
+        {
+        }
+
+        /// <summary>
+        /// default calendar acccess level
+        ///  constructor with an initial value
+        /// </summary>
+        /// <param name="initValue"></param>
+        public GCalSyncEvent(string initValue)
+            : base(GCalNameTable.XmlSyncEventElement, GDataParserNameTable.gCalPrefix, 
+            GDataParserNameTable.NSGCal, initValue)
+        {
+        }
+    }
+
+     /// <summary>
+    /// Indicates the globally unique identifier (UID) of the event as defined in Section 4.8.4.7 of RFC 2445.
+    /// </summary>
+    public class GCalUid : SimpleAttribute
+    {
+        /// <summary>
+        /// default calendar access level constructor
+        /// </summary>        
+        public GCalUid()
+            : base(GCalNameTable.XmlUidElement, GDataParserNameTable.gCalPrefix, 
+              GDataParserNameTable.NSGCal)
+        {
+        }
+
+        /// <summary>
+        /// default calendar acccess level
+        ///  constructor with an initial value
+        /// </summary>
+        /// <param name="initValue"></param>
+        public GCalUid(string initValue)
+            : base(GCalNameTable.XmlUidElement, GDataParserNameTable.gCalPrefix, 
+            GDataParserNameTable.NSGCal, initValue)
+        {
+        }
+    }
+
+
+    /// <summary>
+    /// Indicates the revision sequence number of the event as defined in Section 4.8.7.4 of RFC 2445. Must be non-negative.
+    /// </summary>
+    public class GCalSequence : SimpleAttribute
+    {
+        /// <summary>
+        /// default calendar access level constructor
+        /// </summary>        
+        public GCalSequence()
+            : base(GCalNameTable.XmlSequenceElement, GDataParserNameTable.gCalPrefix, 
+              GDataParserNameTable.NSGCal)
+        {
+        }
+
+        /// <summary>
+        /// default calendar acccess level
+        ///  constructor with an initial value
+        /// </summary>
+        /// <param name="initValue"></param>
+        public GCalSequence(string initValue)
+            : base(GCalNameTable.XmlSequenceElement, GDataParserNameTable.gCalPrefix, 
+            GDataParserNameTable.NSGCal, initValue)
+        {
+        }
+    }
+
+
     //////////////////////////////////////////////////////////////////////
     /// <summary>
     /// Entry API customization class for defining entries in an Event feed.
@@ -102,6 +203,9 @@ namespace Google.GData.Calendar {
             this.AddExtension(new Comments());
             this.AddExtension(new ExtendedProperty());
             this.AddExtension(new Recurrence());
+            this.AddExtension(new GCalSequence());
+            this.AddExtension(new GCalUid());
+            this.AddExtension(new GCalSyncEvent());
         }
 
         /// <summary>
@@ -629,6 +733,59 @@ namespace Google.GData.Calendar {
                 this.Links.Add(value);
             }
         }
+
+
+        /// <summary>
+        ///  property accessor for the SyncEvent element
+        /// </summary>
+        public GCalSyncEvent  SyncEvent
+        {
+            get 
+            { 
+                return FindExtension(GCalNameTable.XmlSyncEventElement,
+                                     GDataParserNameTable.NSGCal) as GCalSyncEvent;
+            }
+            set
+            {
+                ReplaceExtension(GCalNameTable.XmlSyncEventElement,
+                                     GDataParserNameTable.NSGCal, value);
+            }
+        }
+
+        /// <summary>
+        ///  property accessor for the uid element
+        /// </summary>
+        public GCalUid  Uid
+        {
+            get 
+            { 
+                return FindExtension(GCalNameTable.XmlUidElement,
+                                     GDataParserNameTable.NSGCal) as GCalUid;
+            }
+            set
+            {
+                ReplaceExtension(GCalNameTable.XmlUidElement,
+                                     GDataParserNameTable.NSGCal, value);
+            }
+        }
+                /// <summary>
+        ///  property accessor for the SyncEvent element
+        /// </summary>
+        public GCalSequence  Sequence
+        {
+            get 
+            { 
+                return FindExtension(GCalNameTable.XmlSequenceElement,
+                                     GDataParserNameTable.NSGCal) as GCalSequence;
+            }
+            set
+            {
+                ReplaceExtension(GCalNameTable.XmlSequenceElement,
+                                     GDataParserNameTable.NSGCal, value);
+            }
+        }
+
+
 
 #endregion
 

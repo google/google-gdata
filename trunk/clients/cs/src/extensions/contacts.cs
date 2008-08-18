@@ -231,7 +231,7 @@ namespace Google.GData.Extensions
         public bool Primary
         {
             get {return ("true" == (this.Attributes[GDataParserNameTable.XmlAttributePrimary] as string));}
-            set {this.Attributes[GDataParserNameTable.XmlAttributePrimary] = value == true? "true" : "false";}
+            set {this.Attributes[GDataParserNameTable.XmlAttributePrimary] = value == true? Utilities.XSDTrue : Utilities.XSDFalse;}
         }
         // end of accessor public string Address
 
@@ -400,7 +400,7 @@ namespace Google.GData.Extensions
         public bool Primary
         {
             get {return ("true" == (this.Attributes[GDataParserNameTable.XmlAttributePrimary] as string));}
-            set {this.Attributes[GDataParserNameTable.XmlAttributePrimary] = value == true? "true" : "false";}
+            set {this.Attributes[GDataParserNameTable.XmlAttributePrimary] = value == true? Utilities.XSDTrue : Utilities.XSDFalse;}
         }
 
         //////////////////////////////////////////////////////////////////////
@@ -666,7 +666,7 @@ namespace Google.GData.Extensions
         public bool Primary
         {
             get {return ("true" == (this.Attributes[GDataParserNameTable.XmlAttributePrimary] as string));}
-            set {this.Attributes[GDataParserNameTable.XmlAttributePrimary] = value == true? "true" : "false";}
+            set {this.Attributes[GDataParserNameTable.XmlAttributePrimary] = value == true? Utilities.XSDTrue : Utilities.XSDFalse;}
         }
 
         /// <summary>

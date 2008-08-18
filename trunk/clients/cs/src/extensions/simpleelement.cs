@@ -74,8 +74,8 @@ namespace Google.GData.Extensions {
         /// </summary>
         public int IntegerValue
         {
-            get { return Convert.ToInt32(value, CultureInfo.InvariantCulture); }
-            set { this.value = value.ToString(CultureInfo.InvariantCulture); }
+            get { return Convert.ToInt32(this.Value, CultureInfo.InvariantCulture); }
+            set { this.Value = value.ToString(CultureInfo.InvariantCulture); }
         }
 
         /// <summary>
@@ -84,8 +84,8 @@ namespace Google.GData.Extensions {
         [CLSCompliant(false)]
         public uint UnsignedIntegerValue
         {
-            get { return Convert.ToUInt32(value, CultureInfo.InvariantCulture); }
-            set { this.value = value.ToString(CultureInfo.InvariantCulture); }
+            get { return Convert.ToUInt32(this.Value, CultureInfo.InvariantCulture); }
+            set { this.Value = value.ToString(CultureInfo.InvariantCulture); }
         }
 
         /// <summary>
@@ -93,8 +93,17 @@ namespace Google.GData.Extensions {
         /// </summary>
         public double FloatValue
         {
-            get { return Convert.ToDouble(value, CultureInfo.InvariantCulture); }
-            set { this.value = value.ToString(CultureInfo.InvariantCulture); }
+            get { return Convert.ToDouble(this.Value, CultureInfo.InvariantCulture); }
+            set { this.Value = value.ToString(CultureInfo.InvariantCulture); }
+        }
+
+         /// <summary>
+        ///  Accessor Method for the value as boolean
+        /// </summary>
+        public virtual bool BooleanValue
+        {
+            get { return Utilities.XSDTrue == this.Value;}
+            set { this.Value = value == true? Utilities.XSDTrue : Utilities.XSDFalse;}
         }
 
    
