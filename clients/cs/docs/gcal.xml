@@ -418,6 +418,72 @@
             </summary>
             <param name="queryUri">the query to use</param>
         </member>
+        <member name="T:Google.GData.Calendar.GCalNameTable">
+            <summary>subelements definition for the event entry thar are calendar specific
+            </summary> 
+        </member>
+        <member name="F:Google.GData.Calendar.GCalNameTable.XmlSyncEventElement">
+            <summary>syncEvent</summary>
+        </member>
+        <member name="F:Google.GData.Calendar.GCalNameTable.XmlSequenceElement">
+            <summary>sequence element</summary>
+        </member>
+        <member name="F:Google.GData.Calendar.GCalNameTable.XmlUidElement">
+            <summary>uid element</summary>
+        </member>
+        <member name="T:Google.GData.Calendar.GCalSyncEvent">
+            <summary>
+            Indicates whether this is a sync scenario where we allow setting the gCal:uid, the gCal:sequence, 
+            and the organizer of an event. This element makes sense only when inserting and updating
+             events. This element should primarily be used in a sync scenario.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Calendar.GCalSyncEvent.#ctor">
+            <summary>
+            default calendar access level constructor
+            </summary>        
+        </member>
+        <member name="M:Google.GData.Calendar.GCalSyncEvent.#ctor(System.String)">
+            <summary>
+            default calendar acccess level
+             constructor with an initial value
+            </summary>
+            <param name="initValue"></param>
+        </member>
+        <member name="T:Google.GData.Calendar.GCalUid">
+            <summary>
+            Indicates the globally unique identifier (UID) of the event as defined in Section 4.8.4.7 of RFC 2445.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Calendar.GCalUid.#ctor">
+            <summary>
+            default calendar access level constructor
+            </summary>        
+        </member>
+        <member name="M:Google.GData.Calendar.GCalUid.#ctor(System.String)">
+            <summary>
+            default calendar acccess level
+             constructor with an initial value
+            </summary>
+            <param name="initValue"></param>
+        </member>
+        <member name="T:Google.GData.Calendar.GCalSequence">
+            <summary>
+            Indicates the revision sequence number of the event as defined in Section 4.8.7.4 of RFC 2445. Must be non-negative.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Calendar.GCalSequence.#ctor">
+            <summary>
+            default calendar access level constructor
+            </summary>        
+        </member>
+        <member name="M:Google.GData.Calendar.GCalSequence.#ctor(System.String)">
+            <summary>
+            default calendar acccess level
+             constructor with an initial value
+            </summary>
+            <param name="initValue"></param>
+        </member>
         <member name="T:Google.GData.Calendar.EventEntry">
             <summary>
             Entry API customization class for defining entries in an Event feed.
@@ -562,6 +628,21 @@
         <member name="P:Google.GData.Calendar.EventEntry.WebContentLink">
             <summary>
             Property to retrieve/set an associated WebContentLink
+            </summary>
+        </member>
+        <member name="P:Google.GData.Calendar.EventEntry.SyncEvent">
+            <summary>
+             property accessor for the SyncEvent element
+            </summary>
+        </member>
+        <member name="P:Google.GData.Calendar.EventEntry.Uid">
+            <summary>
+             property accessor for the uid element
+            </summary>
+        </member>
+        <member name="P:Google.GData.Calendar.EventEntry.Sequence">
+            <summary>
+             property accessor for the SyncEvent element
             </summary>
         </member>
         <member name="T:Google.GData.Calendar.EventEntry.EventStatus">
