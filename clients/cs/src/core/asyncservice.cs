@@ -212,6 +212,7 @@ namespace Google.GData.Client
                 this.uriToUse = value;
             }
         }
+
         public object UserData
         {
             get
