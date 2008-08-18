@@ -105,7 +105,7 @@ namespace Google.GData.Client
         /// <summary>holds the user-agent</summary> 
         private string userAgent;
         private StringCollection customHeaders;     // holds any custom headers to set
-        private WebProxy webProxy;                  // holds a webproxy to use
+        private IWebProxy webProxy;                  // holds an iwebproxy interface
         private bool keepAlive;                     // indicates wether or not to keep the connection alive
         private bool useGZip;
         private string contentType = DefaultContentType;
@@ -225,7 +225,7 @@ namespace Google.GData.Client
         /// <summary>accessor method to the webproxy object to use</summary> 
         /// <returns> </returns>
         //////////////////////////////////////////////////////////////////////
-        public WebProxy Proxy
+        public IWebProxy Proxy
         {
             get {return this.webProxy;}
             set {this.webProxy = value;}

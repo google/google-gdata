@@ -1318,6 +1318,11 @@
              Accessor Method for the value as float
             </summary>
         </member>
+        <member name="P:Google.GData.Extensions.SimpleElement.BooleanValue">
+            <summary>
+             Accessor Method for the value as boolean
+            </summary>
+        </member>
         <member name="M:Google.GData.Extensions.SimpleAttribute.#ctor(System.String,System.String,System.String)">
             <summary>
             constructor
