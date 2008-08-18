@@ -109,7 +109,7 @@ namespace Google.GData.YouTube {
                     {
                         try
                         {
-                            t = (ComplaintType) Enum.Parse(typeof(ComplaintType), category.Term);
+                            t = (ComplaintType) Enum.Parse(typeof(ComplaintType), category.Term, true);
                         }
                         catch (ArgumentException e)
                         {

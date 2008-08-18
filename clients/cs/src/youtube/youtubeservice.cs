@@ -311,7 +311,8 @@ namespace Google.GData.YouTube {
             }
             if (str.EndsWith("/") == true)
             {
-                str = str.Remove(str.Length-1);
+                // remove the last char
+                str.Remove(str.Length - 1, 1);
             }
             if (str.StartsWith("feeds/api/users/") == true)
             {

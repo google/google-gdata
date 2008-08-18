@@ -179,7 +179,7 @@ namespace Google.GData.Client
                     (b == 0x25) ||
                     (b > 0x7E))
                 {
-                    returnString.AppendFormat("%{0:X}", b);
+                    returnString.AppendFormat(CultureInfo.InvariantCulture, "%{0:X}", b);
                 }
                 else
                 {

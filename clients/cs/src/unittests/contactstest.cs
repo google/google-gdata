@@ -172,8 +172,8 @@ namespace Google.GData.Client.LiveTests
         [Test]
         public void ConflictContactsTest()
         {
-            const int numberOfInserts = 37;
-            const int numberWithAdds = 70; 
+            const int numberOfInserts = 500;
+            const int numberWithAdds = 520; 
             Tracing.TraceMsg("Entering InsertContactsTest");
 
             ContactsQuery query = new ContactsQuery(ContactsQuery.CreateContactsUri(this.userName + "@googlemail.com"));
