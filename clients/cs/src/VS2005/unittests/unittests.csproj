@@ -286,6 +286,9 @@
     <Compile Include="..\..\unittests\photostest.cs">
       <Link>photostest.cs</Link>
     </Compile>
+    <Compile Include="..\..\unittests\spreadsheets.cs">
+      <Link>spreadsheets.cs</Link>
+    </Compile>
     <Compile Include="..\..\unittests\unittests.cs">
       <Link>unittests.cs</Link>
       <SubType>Code</SubType>

@@ -172,6 +172,9 @@
       <Link>spreadsheetquery.cs</Link>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="..\..\gspreadsheet\spreadsheets.cs">
+      <Link>spreadsheets.cs</Link>
+    </Compile>
     <Compile Include="..\..\gspreadsheet\spreadsheetservice.cs">
       <Link>spreadsheetservice.cs</Link>
       <SubType>Code</SubType>

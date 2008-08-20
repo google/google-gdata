@@ -271,7 +271,7 @@ namespace Google.Spreadsheets
                 {
                     if (Char.IsDigit(s, i))
                     {
-                        rowStart = i - 1; 
+                        rowStart = i; 
                         break;
                     }
                 }
@@ -297,6 +297,7 @@ namespace Google.Spreadsheets
                     colValue += (c - 'A' + 1) * (int) Math.Pow(26, y); 
                 }
                 retArray[count] = colValue;
+                count+=2;
             }
             return retArray;
         }
