@@ -51,10 +51,16 @@ namespace Google.GData.Spreadsheets.UnitTests
             
             result = app.ParseRangeString("A2:D2");
             Assert.IsTrue(result[0] == 1, "A2 , A == 1");
-            Assert.IsTrue(result[1] == 1, "A2 , 2 == 2");
-            Assert.IsTrue(result[2] == 1, "D2 , D == 4");
-            Assert.IsTrue(result[3] == 1, "D2 , 2 == 2");
+            Assert.IsTrue(result[1] == 2, "A2 , 2 == 2");
+            Assert.IsTrue(result[2] == 4, "D2 , D == 4");
+            Assert.IsTrue(result[3] == 2, "D2 , 2 == 2");
 
+
+            result = app.ParseRangeString("Z17:AB2");
+            Assert.IsTrue(result[0] == 26, "Z17 , Z == 26");
+            Assert.IsTrue(result[1] == 17, "Z17 , 17 == 17");
+            Assert.IsTrue(result[2] == 28, "AB2 , AB == 28");
+            Assert.IsTrue(result[3] == 2, "AB2 , 2 == 2");
 
         }
     }
