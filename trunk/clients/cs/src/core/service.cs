@@ -733,7 +733,7 @@ namespace Google.GData.Client
         /// <param name="contentType">the contenttype to use in the request, if NULL is passed, factory default is used</param>
         /// <param name="slugHeader">the slugHeader to use in the request, if NULL is passed, factory default is used</param>
         /// <param name="data">The async data needed for notifications</data>
-        /// <returns>Stream</returns>
+        /// <returns>Stream from the server response. You should close this stream explicitly.</returns>
         private Stream StreamSend(Uri targetUri, 
                                  Stream inputStream, 
                                  GDataRequestType type, 
