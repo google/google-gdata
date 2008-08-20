@@ -172,17 +172,24 @@ namespace Google.GData.Client.LiveTests
         [Test]
         public void ConflictContactsTest()
         {
-            const int numberOfInserts = 500;
-            const int numberWithAdds = 520; 
+            const int numberOfInserts = 50;
+            const int numberWithAdds = 60; 
             Tracing.TraceMsg("Entering InsertContactsTest");
 
             ContactsQuery query = new ContactsQuery(ContactsQuery.CreateContactsUri(this.userName + "@googlemail.com"));
             ContactsService service = new ContactsService("unittests");
 
+            GDataGAuthRequestFactory factory = service.RequestFactory  as GDataGAuthRequestFactory;
+            // factory.NumberOfRetries = 3;
+
+
             if (this.userName != null)
             {
                 service.Credentials = new GDataCredentials(this.userName, this.passWord);
             }
+
+            // clean the contacts feed
+            DeleteAllContacts();
 
             ContactsFeed feed = service.Query(query);
 
@@ -199,7 +206,10 @@ namespace Google.GData.Client.LiveTests
                 ContactEntry entry = ObjectModelHelper.CreateContactEntry(i);
                 entry.PrimaryEmail.Address = email + i.ToString() + "@doe.com";
                 p = entry.PrimaryPhonenumber;
-                inserted.Add(feed.Insert(entry));
+                entry = feed.Insert(entry);
+                AddContactPhoto(entry, service);
+                inserted.Add(entry);
+
             }
 
 
@@ -215,7 +225,9 @@ namespace Google.GData.Client.LiveTests
                         p = entry.PrimaryPhonenumber;
                         try
                         {
-                            inserted.Add(feed.Insert(entry));
+                            entry = feed.Insert(entry);
+                            AddContactPhoto(entry, service);
+                            inserted.Add(entry);
                         }
                         catch (GDataRequestException e)
                         {
@@ -243,15 +255,67 @@ namespace Google.GData.Client.LiveTests
 
             Assert.AreEqual(list.Count, numberWithAdds - originalCount, "We should have added new entries");
 
-            foreach (ContactEntry e in inserted)
-            {
-                e.Delete();
-            }
+            // clean the contacts feed
+            DeleteAllContacts();
 
         }
         /////////////////////////////////////////////////////////////////////////////
+        
+        
+        private void AddContactPhoto(ContactEntry entry, ContactsService contactService)
+        {
+            try
+            {
+                using (FileStream fs = new FileStream("contactphoto.jpg", System.IO.FileMode.Open))
+                {
+                    Stream res = contactService.StreamSend(entry.PhotoEditUri, fs, GDataRequestType.Update, "image/jpg", null);
+                    res.Close();
+                }
+            } finally   
+            {
+            }
+        } 
 
 
+
+        private void DeleteAllContacts()
+        {
+
+            ContactsQuery query = new ContactsQuery(ContactsQuery.CreateContactsUri(this.userName + "@googlemail.com"));
+            ContactsService service = new ContactsService("unittests");
+
+            if (this.userName != null)
+            {
+                service.Credentials = new GDataCredentials(this.userName, this.passWord);
+            }
+
+            ContactsFeed feed = service.Query(query);
+
+            List<ContactEntry> list = new List<ContactEntry>();
+            feed = service.Query(query);
+            foreach (ContactEntry e in feed.Entries)
+            {
+                list.Add(e);
+            }
+
+            while (feed.NextChunk != null)
+            {
+                ContactsQuery nq = new ContactsQuery(feed.NextChunk);
+                feed = service.Query(nq);
+                foreach (ContactEntry e in feed.Entries)
+                {
+                    list.Add(e);
+                }
+            }
+
+            foreach (ContactEntry e in list)
+            {
+                e.Delete();
+            }
+            feed = service.Query(query);
+
+            Assert.IsTrue(feed.Entries.Count == 0, "Feed should be emtpy now");
+        }
         
         //////////////////////////////////////////////////////////////////////
         /// <summary>runs an authentication test, inserts a new contact</summary> 
