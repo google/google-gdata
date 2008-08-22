@@ -737,6 +737,78 @@
         <member name="F:Google.GData.Spreadsheets.GDataSpreadsheetsNameTable.XmlAttributeNumericValue">
             <summary>String for numericValue attribute</summary>
         </member>
+        <member name="T:Google.Spreadsheets.Application">
+            <summary>the main object to access everything else with
+            
+            </summary> 
+        </member>
+        <member name="M:Google.Spreadsheets.Application.#ctor(System.String,System.String)">
+            <summary>
+            default constructor for client login. 
+            </summary>
+            <param name="user">the username to user</param>
+            <param name="password">the users password</param>
+            <returns></returns>
+        </member>
+        <member name="M:Google.Spreadsheets.Application.#ctor(System.String)">
+            <summary>
+            constructor for webapplications. Obtain the token using the authsub
+            helper methods
+            </summary>
+            <param name="token">Your authentication token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Google.Spreadsheets.Application.Refresh">
+            <summary>
+            this will reload the list of spreadsheets from the server and reset the 
+            currently active spreadsheet/worksheet
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Google.Spreadsheets.Application.ParseRangeString(System.String)">
+            
+              Parse a range given as, e.g., A2:D4 into numerical
+             coordinates. The letter indicates the column in use,
+             the number the row
+             
+        </member>
+        <member name="P:Google.Spreadsheets.Application.Spreadsheets">
+            <summary>
+             this returns a list of strings, with the names of each spreadsheet
+            this will do a roundtrip to the google servers to retrieve the list 
+            of spreadsheets if not done yet
+            </summary>
+            <returns>List of strings</returns>
+        </member>
+        <member name="P:Google.Spreadsheets.Application.CurrentSpreadsheet">
+            <summary>
+            this will return the current spreadsheetname that is being worked on, or, if set
+            see if there is a spreadsheet of that name, and if so, make this the current spreadsheet
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.Spreadsheets.Application.WorkSheets">
+            <summary>
+            returns a list of Worksheet names for the currently set spreadsheet,
+            or NULL if no spreadsheet was set
+            </summary>
+            <returns>NULL for no spreadsheet, an empty list for no worksheets in the 
+            spreadsheet or a list of names of the worksheets in the current spreadsheet</returns>
+        </member>
+        <member name="P:Google.Spreadsheets.Application.CurrentWorksheet">
+            <summary>
+            this will return the current worksheetname that is being worked on, or, if set
+            see if there is a worksheet of that name, and if so, make this the current worksheet
+            Note that this requires that a current spreadsheet is set
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.Spreadsheets.Application.CompleteRange">
+            <summary>
+            get the whole spreadsheet as a range, one line is one row, one cell is  
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:Google.GData.Spreadsheets.CellEntry">
             <summary>
             Entry API customization class for defining entries in a Cells feed.
