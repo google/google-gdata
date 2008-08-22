@@ -76,7 +76,7 @@ namespace Google.GData.GoogleBase.UnitTests
         {
             float fvalue;
             Assert.IsTrue(attrs.ExtractFloatAttribute("a", out fvalue));
-            Assert.AreEqual(3.14, fvalue);
+            Assert.AreEqual((float)3.14, fvalue);
         }
 
         [Test]
@@ -100,15 +100,15 @@ namespace Google.GData.GoogleBase.UnitTests
             float fvalue;
 
             Assert.IsTrue(attrs.ExtractNumberAttribute("a", out fvalue));
-            Assert.AreEqual(12, fvalue);
+            Assert.AreEqual((float) 12, fvalue);
 
             attrs.Remove(aInt);
             Assert.IsTrue(attrs.ExtractNumberAttribute("a", out fvalue));
-            Assert.AreEqual(3.14, fvalue);
+            Assert.AreEqual((float)3.14, fvalue);
 
             attrs.Remove(aFloat);
             Assert.IsTrue(attrs.ExtractNumberAttribute("a", out fvalue));
-            Assert.AreEqual(2.7, fvalue);
+            Assert.AreEqual((float) 2.7, fvalue);
         }
 
         [Test]

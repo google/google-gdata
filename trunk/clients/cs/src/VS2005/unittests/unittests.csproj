@@ -286,8 +286,32 @@
     <Compile Include="..\..\unittests\photostest.cs">
       <Link>photostest.cs</Link>
     </Compile>
-    <Compile Include="..\..\unittests\spreadsheets.cs">
-      <Link>spreadsheets.cs</Link>
+    <Compile Include="..\..\unittests\spreadsheets\cellelementtest.cs">
+      <Link>spreadsheets\cellelementtest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\spreadsheets\cellentrytest.cs">
+      <Link>spreadsheets\cellentrytest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\spreadsheets\cellquerytest.cs">
+      <Link>spreadsheets\cellquerytest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\spreadsheets\colcounttest.cs">
+      <Link>spreadsheets\colcounttest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\spreadsheets\listentrytest.cs">
+      <Link>spreadsheets\listentrytest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\spreadsheets\listquerytest.cs">
+      <Link>spreadsheets\listquerytest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\spreadsheets\rowcounttest.cs">
+      <Link>spreadsheets\rowcounttest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\spreadsheets\spreadsheetlive.cs">
+      <Link>spreadsheets\spreadsheetlive.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\spreadsheets\spreadsheets.cs">
+      <Link>spreadsheets\spreadsheets.cs</Link>
     </Compile>
     <Compile Include="..\..\unittests\unittests.cs">
       <Link>unittests.cs</Link>

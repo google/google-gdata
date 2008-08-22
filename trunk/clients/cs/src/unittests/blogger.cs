@@ -390,7 +390,7 @@ namespace Google.GData.Client.LiveTests
 
                 if (blogFeed != null)
                 {
-                    for (int i=0; i< 100; i++)
+                    for (int i=0; i< 30; i++)
                     {
                         AtomEntry entry = ObjectModelHelper.CreateAtomEntry(i); 
                         entry.Categories.Clear();
