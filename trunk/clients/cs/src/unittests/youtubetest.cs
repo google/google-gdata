@@ -186,7 +186,7 @@ namespace Google.GData.Client.LiveTests
 
             entry.MediaSource = new MediaFileSource("test_movie.mov", "video/quicktime");
             entry.Media = new MediaGroup();
-            entry.Media.Description = new MediaDescription("This is a test");
+            entry.Media.Description = new MediaDescription("This is a test with and & in it");
             entry.Media.Title = new MediaTitle("Sample upload");
             entry.Media.Keywords = new MediaKeywords("math");
 
