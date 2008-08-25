@@ -1675,6 +1675,14 @@
             <param name="completionMethodDelegate"></param>
             <returns></returns>
         </member>
+        <member name="M:Google.GData.Client.Service.CancelAsync(System.Object)">
+            <summary>
+            this method cancels the corresponding async operation. 
+            It sends still a completed event, but that event will then
+            have the cancel property set to true
+            </summary>
+            <param name="userData">your identifier for the operation to be cancelled</param>
+        </member>
         <member name="F:Google.GData.Client.Service.credentials">
             <summary>holds the credential information</summary> 
         </member>
@@ -1920,10 +1928,10 @@
             <param name="e">FeedParserEventArguments, holds the feedentry</param> 
             <returns> </returns>
         </member>
-        <member name="E:Google.GData.Client.Service.AcynOperationCompleted">
+        <member name="E:Google.GData.Client.Service.AsyncOperationCompleted">
             <summary>eventhandler, fired when an async operation is completed</summary> 
         </member>
-        <member name="E:Google.GData.Client.Service.AcynOperationProgress">
+        <member name="E:Google.GData.Client.Service.AsyncOperationProgress">
             <summary>eventhandler, fired when an async operation reports progress</summary> 
         </member>
         <member name="E:Google.GData.Client.Service.NewAtomEntry">
