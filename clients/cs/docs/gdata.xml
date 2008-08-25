@@ -353,7 +353,7 @@
             <summary>holds the src URI attribute</summary> 
         </member>
         <member name="F:Google.GData.Client.AtomContent.content">
-            <summary>holds teh content</summary> 
+            <summary>holds the content</summary> 
         </member>
         <member name="M:Google.GData.Client.AtomContent.#ctor">
             <summary>default constructor. Set's the content type to text.</summary> 

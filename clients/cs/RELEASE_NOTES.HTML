@@ -27,6 +27,8 @@
        </ul>
       <li>Bugfixes</li>
       <ul>
+          <li>Fixed an issue regarding content, type=text. This element was not encoding correctly
+          which could lead to server errors based on the contents of the element.</li>
           <li>Fixed issue 164, the code will now throw an exception if we 
               get an empty location header in a redirect situation</li>
           <li>

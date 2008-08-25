@@ -107,7 +107,7 @@ namespace Google.GData.Client
         private string type;
         /// <summary>holds the src URI attribute</summary> 
         private AtomUri src;
-        /// <summary>holds teh content</summary> 
+        /// <summary>holds the content</summary> 
         private string content; 
 
 
@@ -173,7 +173,7 @@ namespace Google.GData.Client
             base.SaveInnerXml(writer);
             if (Utilities.IsPersistable(this.content))
             {
-                if (this.type == "html" || this.type == "text/html")
+                if (this.type == "html" || this.type.StartsWith("text"))
                 {
                     // per spec, text/html should be encoded. 
                     // but what do we do if we get it encoded? we would now double encode
