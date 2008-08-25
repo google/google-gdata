@@ -139,7 +139,6 @@ namespace Google.GData.Client.LiveTests
             Assert.IsTrue(newEntry.RowCount.Count == 10, "Row count should be equal 10");
             Assert.IsTrue(newEntry.Title.Text == "New Worksheet", "Titles should be identical");
 
-            /*
 
             CellFeed cells = newEntry.QueryCellFeed(ReturnEmtpyCells.yes);
             Assert.IsTrue(cells != null, "There should be a cell feed for the new worksheet");
@@ -165,7 +164,6 @@ namespace Google.GData.Client.LiveTests
                 }
             }
             cells.Publish();
-            */
             // cleanup the new worksheet at the end
             newEntry.Delete();
     

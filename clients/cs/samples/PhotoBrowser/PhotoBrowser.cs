@@ -33,6 +33,7 @@ namespace PhotoBrowser
 
         private ProgressBar progressBar;
         private Label FileInfo;
+        private Button CancelAsync;
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
@@ -48,8 +49,8 @@ namespace PhotoBrowser
             InitializeComponent();
             this.picasaService = service;
 
-            this.picasaService.AcynOperationCompleted += new AsyncOperationCompletedEventHandler(this.OnDone);
-            this.picasaService.AcynOperationProgress += new AsyncOperationProgressEventHandler(this.OnProgress);
+            this.picasaService.AsyncOperationCompleted += new AsyncOperationCompletedEventHandler(this.OnDone);
+            this.picasaService.AsyncOperationProgress += new AsyncOperationProgressEventHandler(this.OnProgress);
 
             if (doBackup == true)
             {
@@ -104,6 +105,7 @@ namespace PhotoBrowser
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.progressBar = new System.Windows.Forms.ProgressBar();
             this.FileInfo = new System.Windows.Forms.Label();
+            this.CancelAsync = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.PhotoPreview)).BeginInit();
             this.SuspendLayout();
             // 
@@ -160,15 +162,17 @@ namespace PhotoBrowser
             // 
             // DownloadPhoto
             // 
+            this.DownloadPhoto.Enabled = false;
             this.DownloadPhoto.Location = new System.Drawing.Point(27, 575);
             this.DownloadPhoto.Name = "DownloadPhoto";
             this.DownloadPhoto.Size = new System.Drawing.Size(88, 40);
             this.DownloadPhoto.TabIndex = 5;
-            this.DownloadPhoto.Text = "&Export Photos";
+            this.DownloadPhoto.Text = "&Export Photo";
             this.DownloadPhoto.Click += new System.EventHandler(this.DownloadPhoto_Click);
             // 
             // UploadPhoto
             // 
+            this.UploadPhoto.Enabled = false;
             this.UploadPhoto.Location = new System.Drawing.Point(131, 575);
             this.UploadPhoto.Name = "UploadPhoto";
             this.UploadPhoto.Size = new System.Drawing.Size(88, 40);
@@ -199,10 +203,23 @@ namespace PhotoBrowser
             this.FileInfo.Size = new System.Drawing.Size(496, 57);
             this.FileInfo.TabIndex = 8;
             // 
+            // CancelAsync
+            // 
+            this.CancelAsync.Enabled = false;
+            this.CancelAsync.Location = new System.Drawing.Point(421, 575);
+            this.CancelAsync.Name = "CancelAsync";
+            this.CancelAsync.Size = new System.Drawing.Size(99, 40);
+            this.CancelAsync.TabIndex = 9;
+            this.CancelAsync.Text = "&Cancel";
+            this.CancelAsync.UseVisualStyleBackColor = true;
+            this.CancelAsync.Visible = false;
+            this.CancelAsync.Click += new System.EventHandler(this.CancelAsync_Click);
+            // 
             // PictureBrowser
             // 
             this.AutoScaleBaseSize = new System.Drawing.Size(6, 15);
             this.ClientSize = new System.Drawing.Size(534, 627);
+            this.Controls.Add(this.CancelAsync);
             this.Controls.Add(this.FileInfo);
             this.Controls.Add(this.progressBar);
             this.Controls.Add(this.UploadPhoto);
@@ -214,6 +231,7 @@ namespace PhotoBrowser
             this.Controls.Add(this.PhotoPreview);
             this.Name = "PictureBrowser";
             this.Text = "Waiting for data to load";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.PictureBrowser_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.PhotoPreview)).EndInit();
             this.ResumeLayout(false);
 
@@ -232,6 +250,7 @@ namespace PhotoBrowser
                     item.Tag = entry;
                     this.PhotoList.Items.Add(item);
                 }
+                this.UploadPhoto.Enabled = true;
             }
         }
 
@@ -268,11 +287,13 @@ namespace PhotoBrowser
                 }
                 this.PhotoInspector.SelectedObject = new PhotoAccessor(entry);
                 this.Cursor = Cursors.Default;
+                this.DownloadPhoto.Enabled = true;
             }
             else 
             {
                 this.PhotoPreview.Image = null;
                 this.PhotoInspector.SelectedObject = null;
+                this.DownloadPhoto.Enabled = false;
             }
         }
 
@@ -372,6 +393,8 @@ namespace PhotoBrowser
 
         private void OnProgress(object sender, AsyncOperationProgressEventArgs e)
         {
+            this.CancelAsync.Enabled = true;
+            this.CancelAsync.Visible = true;
 
             if (this.states.Contains(e.UserState as UserState) == true)
             {
@@ -389,7 +412,7 @@ namespace PhotoBrowser
 
             this.states.Remove(ut);
         
-            if (e.Error == null)
+            if (e.Error == null && e.Cancelled == false)
             {
 
                 if (ut.opType == UserState.OperationType.query ||
@@ -456,7 +479,14 @@ namespace PhotoBrowser
                     this.BeginInvoke(d, u);
                 }
             }
-            this.progressBar.Value = 0; 
+            this.progressBar.Value = 0;
+
+            if (this.states.Count == 0)
+            {
+                this.CancelAsync.Enabled = false;
+                this.CancelAsync.Visible = false;
+            }
+
         }
 
         private void CreateAnotherSaveFile(UserState us)
@@ -490,6 +520,28 @@ namespace PhotoBrowser
             }
             w.Close();
             fs.Close();
+        }
+
+        private void PictureBrowser_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // here we should cancel our async events
+            foreach (object o in this.states)
+            {
+                this.picasaService.CancelAsync(o);
+            }
+
+        }
+
+        private void CancelAsync_Click(object sender, EventArgs e)
+        {
+            // here we should cancel our async events
+            foreach (object o in this.states)
+            {
+                this.picasaService.CancelAsync(o);
+            }
+
+            this.FileInfo.Text = "Operation was cancelled";
+
         }
 	}
 
