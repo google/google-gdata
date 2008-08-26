@@ -24,3 +24,17 @@ still easy to accomplish.
 }}}
 
 And that's all. 
+
+An alternative method is to use the app.config file, and don't modify your code at all.
+{{{
+<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+ <system.net>
+  <defaultProxy>
+   <proxy usesystemdefault="true"/>
+  </defaultProxy>
+ </system.net>
+</configuration>
+}}}
+
+The above snippet, when placed in your config file for your .NET application will make all outgoing HTTP connections use the default proxy. There is a lot more information on MSDN about the config files and how to specify proxy settings.  
