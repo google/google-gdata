@@ -11,6 +11,14 @@
    <ul>
       <li>Features</li>
        <ul>
+           <li>Added a SetRequestFactory method on the AppsService. This 
+               allows a user of the AppsService to set advanced HTTP properties
+               for the underlying service objects used (like setting a proxy
+               server, additional headers etc.) by creating a new RequestFactory
+               object and passing it into the service. To make it easy to create
+               this factory object a helper CreateRequestFactory was added to 
+               the AppsService object as well. 
+               </li>
            <li>
                Asyncronous/background support including a sample application. 
                You can now easily fire off that long running YouTube upload, or 

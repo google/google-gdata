@@ -13,6 +13,7 @@
  * limitations under the License.
 */
 
+using System;
 using Google.GData.Client;
 using Google.GData.Extensions.Apps;
 
@@ -236,6 +237,40 @@ namespace Google.GData.Apps
         public UserEntry UpdateUser(UserEntry entry)
         {
             return entry.Update();
+        }
+
+        /// <summary>
+        /// the appsservice is an application object holding several
+        /// real services object. To allow the setting of advanced http properties,
+        /// proxies and other things, we allow setting the factory class that is used. 
+        /// 
+        /// a getter does not make a lot of sense here, as which of the several factories in use
+        /// are we getting? It also would give the illusion that you could get one object and then
+        /// modify it's settings. 
+        /// </summary>
+        /// <param name="factory">The factory to use for the AppsService</param>
+        /// <returns></returns>
+        public void  SetRequestFactory(IGDataRequestFactory factory)
+        {
+            if (factory == null)
+            {
+                throw new ArgumentNullException("factory", "The factory object should not be NULL");
+            }
+            emailListRecipientService.RequestFactory = factory;
+            emailListService.RequestFactory = factory;
+            nicknameService.RequestFactory = factory;
+            userAccountService.RequestFactory = factory;
+        }
+
+
+        /// <summary>
+        /// this creates a default AppsService Factory object that can be used to 
+        /// be modified and then set using SetRequestFactory()
+        /// </summary>
+        /// <returns></returns>
+        public IGDataRequestFactory CreateRequestFactory()
+        {
+            return  new GDataGAuthRequestFactory(AppsNameTable.GAppsService, this.applicationName, AppsNameTable.GAppsAgent);
         }
 
         /// <summary>
