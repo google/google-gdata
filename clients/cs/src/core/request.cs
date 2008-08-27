@@ -247,7 +247,9 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         /// <summary>get's and set's the Timeout property used for the created
         /// HTTPRequestObject in milliseconds. if you set it to -1 it will stick 
-        /// with the default of the HTPPRequestObject</summary> 
+        /// with the default of the HTPPRequestObject. From MSDN:
+        /// The number of milliseconds to wait before the request times out. 
+        /// The default is 100,000 milliseconds (100 seconds).</summary> 
         /// <returns> </returns>
         //////////////////////////////////////////////////////////////////////
         public int Timeout
