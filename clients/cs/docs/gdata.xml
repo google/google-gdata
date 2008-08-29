@@ -477,7 +477,12 @@
             <summary>Default constructor.</summary> 
         </member>
         <member name="M:Google.GData.Client.FeedQuery.#ctor(System.String)">
-            <summary>constructor taking a base URI constructor.</summary> 
+            <summary>constructor taking a base URI constructor. Note, that
+            if this form is used, the string will not be parsed. So a uri that
+            would have additional query parameters will not have this reflected. 
+            this version is primarily there to be used on mobile devices, as on 
+            mobile we don't have URI parsing code available.
+            </summary> 
         </member>
         <member name="M:Google.GData.Client.FeedQuery.Parse(System.Uri,Google.GData.Client.Service@,Google.GData.Client.FeedQuery@)">
             <summary>Passing in a complete URI, we strip all the

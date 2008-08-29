@@ -131,6 +131,150 @@
       <Link>coretest.cs</Link>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="..\..\unittests\core\AbstractEntryTest.cs">
+      <Link>Core\AbstractEntryTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\core\AbstractFeedTest.cs">
+      <Link>Core\AbstractFeedTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\core\AccountDeletedExceptionTest.cs">
+      <Link>Core\AccountDeletedExceptionTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\core\AccountDisabledExceptionTest.cs">
+      <Link>Core\AccountDisabledExceptionTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\core\AtomBaseLinkTest.cs">
+      <Link>Core\AtomBaseLinkTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\core\AtomBaseTest.cs">
+      <Link>Core\AtomBaseTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\core\AtomCategoryCollectionTest.cs">
+      <Link>Core\AtomCategoryCollectionTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\core\AtomCategoryTest.cs">
+      <Link>Core\AtomCategoryTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\core\AtomContentTest.cs">
+      <Link>Core\AtomContentTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\core\AtomEntryTest.cs">
+      <Link>Core\AtomEntryTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\core\AtomFeedTest.cs">
+      <Link>Core\AtomFeedTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\core\AtomGeneratorTest.cs">
+      <Link>Core\AtomGeneratorTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\core\AtomIconTest.cs">
+      <Link>Core\AtomIconTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\core\AtomIdTest.cs">
+      <Link>Core\AtomIdTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\core\AtomLinkTest.cs">
+      <Link>Core\AtomLinkTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\core\AtomLogoTest.cs">
+      <Link>Core\AtomLogoTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\core\AtomPersonTest.cs">
+      <Link>Core\AtomPersonTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\core\AtomSourceTest.cs">
+      <Link>Core\AtomSourceTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\core\AtomTextConstructTest.cs">
+      <Link>Core\AtomTextConstructTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\core\AtomUriTest.cs">
+      <Link>Core\AtomUriTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\core\DocumentQueryTest.cs">
+      <Link>Core\DocumentQueryTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\core\ExtensionElementEventArgsTest.cs">
+      <Link>Core\ExtensionElementEventArgsTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\core\FeedParserEventArgsTest.cs">
+      <Link>Core\FeedParserEventArgsTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\core\FeedQueryTest.cs">
+      <Link>Core\FeedQueryTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\core\GAuthSubRequestFactoryTest.cs">
+      <Link>Core\GAuthSubRequestFactoryTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\core\GDataBatchEntryDataTest.cs">
+      <Link>Core\GDataBatchEntryDataTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\core\GDataBatchErrorTest.cs">
+      <Link>Core\GDataBatchErrorTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\core\GDataBatchFeedDataTest.cs">
+      <Link>Core\GDataBatchFeedDataTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\core\GDataBatchInterruptTest.cs">
+      <Link>Core\GDataBatchInterruptTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\core\GDataBatchRequestExceptionTest.cs">
+      <Link>Core\GDataBatchRequestExceptionTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\core\GDataBatchStatusTest.cs">
+      <Link>Core\GDataBatchStatusTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\core\GDataCredentialsTest.cs">
+      <Link>Core\GDataCredentialsTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\core\GDataForbiddenExceptionTest.cs">
+      <Link>Core\GDataForbiddenExceptionTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\core\GDataGAuthRequestFactoryTest.cs">
+      <Link>Core\GDataGAuthRequestFactoryTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\core\GDataLoggingRequestFactoryTest.cs">
+      <Link>Core\GDataLoggingRequestFactoryTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\core\GDataNotModifiedExceptionTest.cs">
+      <Link>Core\GDataNotModifiedExceptionTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\core\GDataRedirectExceptionTest.cs">
+      <Link>Core\GDataRedirectExceptionTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\core\GDataRequestExceptionTest.cs">
+      <Link>Core\GDataRequestExceptionTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\core\GDataRequestFactoryTest.cs">
+      <Link>Core\GDataRequestFactoryTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\core\GDataVersionConflictExceptionTest.cs">
+      <Link>Core\GDataVersionConflictExceptionTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\core\InvalidCredentialsExceptionTest.cs">
+      <Link>Core\InvalidCredentialsExceptionTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\core\NotVerifiedExceptionTest.cs">
+      <Link>Core\NotVerifiedExceptionTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\core\QueryCategoryTest.cs">
+      <Link>Core\QueryCategoryTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\core\ServiceEventArgsTest.cs">
+      <Link>Core\ServiceEventArgsTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\core\ServiceTest.cs">
+      <Link>Core\ServiceTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\core\ServiceUnavailableExceptionTest.cs">
+      <Link>Core\ServiceUnavailableExceptionTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\core\TermsNotAgreedExceptionTest.cs">
+      <Link>Core\TermsNotAgreedExceptionTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\core\UtilitiesTest.cs">
+      <Link>Core\UtilitiesTest.cs</Link>
+    </Compile>
     <Compile Include="..\..\unittests\gapps\appsexceptiontest.cs">
       <Link>GoogleApps\appsexceptiontest.cs</Link>
       <SubType>Code</SubType>
