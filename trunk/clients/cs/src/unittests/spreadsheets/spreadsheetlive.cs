@@ -104,6 +104,7 @@ namespace Google.GData.Client.LiveTests
                     w.Delete();
                 }
             }
+            
             WorksheetEntry defEntry = sheets.Entries[0] as WorksheetEntry;
 
             Assert.IsTrue(defEntry!= null, "There should be one default entry in this account/sheet");
@@ -138,7 +139,6 @@ namespace Google.GData.Client.LiveTests
             Assert.IsTrue(newEntry.ColCount.Count == 20, "Column count should be equal 20");
             Assert.IsTrue(newEntry.RowCount.Count == 10, "Row count should be equal 10");
             Assert.IsTrue(newEntry.Title.Text == "New Worksheet", "Titles should be identical");
-
 
             CellFeed cells = newEntry.QueryCellFeed(ReturnEmtpyCells.yes);
             Assert.IsTrue(cells != null, "There should be a cell feed for the new worksheet");

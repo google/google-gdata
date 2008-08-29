@@ -27,7 +27,7 @@ using System.Xml;
 namespace Google.GData.Client
 {
     /// <summary>a simple static collection of HTTP method strings </summary> 
-    public class HttpMethods
+    public static class HttpMethods
     {
         /// <summary>the delete method</summary> 
         public const string Delete = "DELETE";
@@ -40,7 +40,7 @@ namespace Google.GData.Client
     }
 
     /// <summary>a simple static collection of HTTP form post strings </summary> 
-    public class HttpFormPost 
+    public static class HttpFormPost 
     {
         /// <summary>form encoding</summary> 
         public const string Encoding = "application/x-www-form-urlencoded";

@@ -110,7 +110,9 @@ namespace Google.GData.Client
         {
             get
             {
-                return GetAbsoluteUri(this.HRef.ToString()); 
+                if (this.HRef != null)
+                    return GetAbsoluteUri(this.HRef.ToString());
+                return null;
             }
         }
         /////////////////////////////////////////////////////////////////////////////
