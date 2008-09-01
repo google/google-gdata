@@ -63,6 +63,40 @@
             <param name="e">FeedParserEventArguments, holds the feedentry</param> 
             <returns> </returns>
         </member>
+        <member name="T:Google.GData.Documents.DocumentsFeed">
+            <summary>
+            Google Documents List feed URI takes the following form:
+                http://docs.google.com/feeds/documents/visibility/projection
+            The visibility parameter has two possible values: private and public. 
+            In almost all cases, your client should use private. 
+            The projection parameter indicates what information is included in the representation. 
+            For example, if your client specifies a projection of basic, it's requesting an Atom feed
+             without any GData extension elements. 
+            Currently, in the Documents List feed, only the private/full combination 
+            for visibility and projection is available. 
+            </summary>
+        </member>
+        <member name="M:Google.GData.Documents.DocumentsFeed.#ctor(System.Uri,Google.GData.Client.IService)">
+            <summary>
+             default constructor
+            </summary>
+            <param name="uriBase">the base URI of the feedEntry</param>
+            <param name="iService">the Service to use</param>
+        </member>
+        <member name="M:Google.GData.Documents.DocumentsFeed.CreateFeedEntry">
+            <summary>
+            this needs to get implemented by subclasses
+            </summary>
+            <returns>AtomEntry</returns>
+        </member>
+        <member name="M:Google.GData.Documents.DocumentsFeed.HandleExtensionElements(Google.GData.Client.ExtensionElementEventArgs,Google.GData.Client.AtomFeedParser)">
+            <summary>
+            get's called after we already handled the custom entry, to handle all 
+            other potential parsing tasks
+            </summary>
+            <param name="e"></param>
+            <param name="parser">the atom feed parser used</param>
+        </member>
         <member name="T:Google.GData.Documents.DocumentsListQuery">
             <summary>
             A subclass of FeedQuery, to create an Documents query URI.
@@ -210,40 +244,6 @@
             <summary>
             base constructor
             </summary>
-        </member>
-        <member name="T:Google.GData.Documents.DocumentsFeed">
-            <summary>
-            Google Documents List feed URI takes the following form:
-                http://docs.google.com/feeds/documents/visibility/projection
-            The visibility parameter has two possible values: private and public. 
-            In almost all cases, your client should use private. 
-            The projection parameter indicates what information is included in the representation. 
-            For example, if your client specifies a projection of basic, it's requesting an Atom feed
-             without any GData extension elements. 
-            Currently, in the Documents List feed, only the private/full combination 
-            for visibility and projection is available. 
-            </summary>
-        </member>
-        <member name="M:Google.GData.Documents.DocumentsFeed.#ctor(System.Uri,Google.GData.Client.IService)">
-            <summary>
-             default constructor
-            </summary>
-            <param name="uriBase">the base URI of the feedEntry</param>
-            <param name="iService">the Service to use</param>
-        </member>
-        <member name="M:Google.GData.Documents.DocumentsFeed.CreateFeedEntry">
-            <summary>
-            this needs to get implemented by subclasses
-            </summary>
-            <returns>AtomEntry</returns>
-        </member>
-        <member name="M:Google.GData.Documents.DocumentsFeed.HandleExtensionElements(Google.GData.Client.ExtensionElementEventArgs,Google.GData.Client.AtomFeedParser)">
-            <summary>
-            get's called after we already handled the custom entry, to handle all 
-            other potential parsing tasks
-            </summary>
-            <param name="e"></param>
-            <param name="parser">the atom feed parser used</param>
         </member>
         <member name="T:Google.GData.Documents.DocumentEntry">
             <summary>

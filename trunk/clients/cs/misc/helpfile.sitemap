@@ -9,5 +9,6 @@
     <siteMapNode title="Understanding the Unknown" url="..\docs\AdditionalContent\UnderstandingUnknown.html" />
     <siteMapNode title="Using Batch support in Google Base" url="..\docs\AdditionalContent\BatchSupport.html" />
     <siteMapNode title="Using Proxy servers" url="..\docs\AdditionalContent\UsingProxies.html" />
+    <siteMapNode title="Creating asyncronous requests" url="..\docs\AdditionalContent\Multithreadedoperations.html" />
   </siteMapNode>
 </siteMap>
