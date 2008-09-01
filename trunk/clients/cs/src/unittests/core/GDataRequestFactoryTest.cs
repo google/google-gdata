@@ -172,7 +172,7 @@ namespace Google.GData.Client.UnitTests.Core
             StringCollection actual;
             actual = target.CustomHeaders;
             Assert.IsNotNull(actual);
-            Assert.That(actual.Count == 0); 
+            Assert.IsTrue(actual.Count == 0); 
         }
 
 

@@ -239,7 +239,7 @@ namespace Google.GData.Client
         /////////////////////////////////////////////////////////////////////////////
 
         //////////////////////////////////////////////////////////////////////
-        /// <summary>accessor method public string Language</summary> 
+        /// <summary>returns and sets the xml:lang value</summary> 
         /// <returns> </returns>
         //////////////////////////////////////////////////////////////////////
         public string Language
@@ -530,7 +530,6 @@ namespace Google.GData.Client
             {
                 throw new ArgumentNullException("parser");
             }
-
 
             Object localname = reader.LocalName;
             if (localname.Equals(parser.Nametable.Id))

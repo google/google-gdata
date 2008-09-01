@@ -73,7 +73,7 @@ namespace Google.GData.Client.UnitTests.Picasa
         {
             AtomBase baseObject = new AtomEntry();
             GPhotoExtensions.AddExtension(baseObject);
-            Assert.That(baseObject.ExtensionFactories.Count > 0);
+            Assert.IsTrue(baseObject.ExtensionFactories.Count > 0);
         }
     }
 }

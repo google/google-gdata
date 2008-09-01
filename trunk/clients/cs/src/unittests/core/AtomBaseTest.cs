@@ -144,7 +144,7 @@ namespace Google.GData.Client.UnitTests.Core
         public void ShouldBePersistedTest()
         {
             AtomBase target = CreateAtomBase(); 
-            Assert.That(target.ShouldBePersisted()==false);
+            Assert.IsTrue(target.ShouldBePersisted()==false);
         }
 
         /// <summary>

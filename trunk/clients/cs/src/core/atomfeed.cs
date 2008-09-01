@@ -495,23 +495,6 @@ namespace Google.GData.Client
         }
         /////////////////////////////////////////////////////////////////////////////
 
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>accessor method public string[] Parameters</summary> 
-        /// <returns> </returns>
-        //////////////////////////////////////////////////////////////////////
-        public StringCollection Parameters
-        {
-            get { 
-                if (this.parameters == null)
-                {
-                    this.parameters = new StringCollection();
-                }
-                return this.parameters;
-            }
-        }
-        /////////////////////////////////////////////////////////////////////////////
-
-
 
 
 
