@@ -367,7 +367,7 @@ namespace Google.GData.Photos
             }
             set 
             {
-                this.entry.setPhotoExtension(GPhotoNameTable.CommentCount, Utilities.ConvertBooleanToXSDString(value));
+                this.entry.setPhotoExtension(GPhotoNameTable.CommentingEnabled, Utilities.ConvertBooleanToXSDString(value));
             }
         }
 

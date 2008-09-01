@@ -134,9 +134,18 @@ namespace Google.GData.Photos
             set 
             {
                 AtomPersonCollection authors = this.entry.Authors;
-                if (authors != null && authors.Count >0) 
+                if (authors != null) 
                 {
-                    AtomPerson person = authors[0];
+                    AtomPerson person = null;
+                    if (authors.Count > 0)
+                    {
+                        person = authors[0]; 
+                    }
+                    else 
+                    {
+                        person = new AtomPerson(AtomPersonType.Author);
+                        this.entry.Authors.Add(person);
+                    }
                     person.Name = value;
                 }
             }

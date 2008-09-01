@@ -35,6 +35,14 @@
        </ul>
       <li>Bugfixes</li>
       <ul>
+          <li>
+              Fixed a bug in CommentingEnabled on the PhotoAccessor, which was 
+              setting internally the wrong property.
+          </li>
+          <li>
+              Changed the behaviour of AlbumEntry.AlbumAuthor. The setter will 
+              now create a new author is no author is present. 
+          </li>
           <li>Fixed an issue regarding content, type=text. This element was not encoding correctly
           which could lead to server errors based on the contents of the element.</li>
           <li>Fixed issue 164, the code will now throw an exception if we 
