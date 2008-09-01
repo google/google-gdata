@@ -12,7 +12,7 @@ namespace Google.GData.Client.UnitTests.Core
     ///This is a test class for AbstractEntryTest and is intended
     ///to contain all AbstractEntryTest Unit Tests
     ///</summary>
-    [TestFixture][Category("Picasa")]
+    [TestFixture][Category("CoreClient")]
     public class AbstractEntryTest
     {
 

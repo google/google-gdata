@@ -26,7 +26,7 @@ namespace Google.GData.Photos {
     /// helper to instantiate all factories defined in here and attach 
     /// them to a base object
     /// </summary> 
-    public class GPhotoExtensions 
+    public static class GPhotoExtensions 
     {
         /// <summary>
         /// helper to add all picasa photo extensions to the base object
@@ -67,7 +67,7 @@ namespace Google.GData.Photos {
     /// <summary>
     /// short table to hold the namespace and the prefix
     /// </summary>
-    public class GPhotoNameTable 
+    public static class GPhotoNameTable 
     {
         /// <summary>static string to specify the GeoRSS namespace supported</summary>
         public const string NSGPhotos = "http://schemas.google.com/photos/2007"; 

@@ -430,6 +430,138 @@
     <Compile Include="..\..\unittests\photostest.cs">
       <Link>photostest.cs</Link>
     </Compile>
+    <Compile Include="..\..\unittests\picasa\AlbumAccessorTest.cs">
+      <Link>Picasa\AlbumAccessorTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\picasa\AlbumEntryTest.cs">
+      <Link>Picasa\AlbumEntryTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\picasa\AlbumQueryTest.cs">
+      <Link>Picasa\AlbumQueryTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\picasa\CommentAccessorTest.cs">
+      <Link>Picasa\CommentAccessorTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\picasa\CommentEntryTest.cs">
+      <Link>Picasa\CommentEntryTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\picasa\CommentsQueryTest.cs">
+      <Link>Picasa\CommentsQueryTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\picasa\GPhotoAccessTest.cs">
+      <Link>Picasa\GPhotoAccessTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\picasa\GPhotoAlbumIdTest.cs">
+      <Link>Picasa\GPhotoAlbumIdTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\picasa\GPhotoBytesUsedTest.cs">
+      <Link>Picasa\GPhotoBytesUsedTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\picasa\GPhotoChecksumTest.cs">
+      <Link>Picasa\GPhotoChecksumTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\picasa\GPhotoClientTest.cs">
+      <Link>Picasa\GPhotoClientTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\picasa\GPhotoCommentCountTest.cs">
+      <Link>Picasa\GPhotoCommentCountTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\picasa\GPhotoCommentingEnabledTest.cs">
+      <Link>Picasa\GPhotoCommentingEnabledTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\picasa\GPhotoExtensionsTest.cs">
+      <Link>Picasa\GPhotoExtensionsTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\picasa\GPhotoHeightTest.cs">
+      <Link>Picasa\GPhotoHeightTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\picasa\GPhotoIdTest.cs">
+      <Link>Picasa\GPhotoIdTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\picasa\GPhotoLocationTest.cs">
+      <Link>Picasa\GPhotoLocationTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\picasa\GPhotoMaxPhotosPerAlbumTest.cs">
+      <Link>Picasa\GPhotoMaxPhotosPerAlbumTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\picasa\GPhotoNameTest.cs">
+      <Link>Picasa\GPhotoNameTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\picasa\GPhotoNickNameTest.cs">
+      <Link>Picasa\GPhotoNickNameTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\picasa\GPhotoNumPhotosRemainingTest.cs">
+      <Link>Picasa\GPhotoNumPhotosRemainingTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\picasa\GPhotoNumPhotosTest.cs">
+      <Link>Picasa\GPhotoNumPhotosTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\picasa\GPhotoPhotoIdTest.cs">
+      <Link>Picasa\GPhotoPhotoIdTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\picasa\GPhotoPositionTest.cs">
+      <Link>Picasa\GPhotoPositionTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\picasa\GPhotoQuotaCurrentTest.cs">
+      <Link>Picasa\GPhotoQuotaCurrentTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\picasa\GPhotoQuotaLimitTest.cs">
+      <Link>Picasa\GPhotoQuotaLimitTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\picasa\GPhotoRotationTest.cs">
+      <Link>Picasa\GPhotoRotationTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\picasa\GPhotoSizeTest.cs">
+      <Link>Picasa\GPhotoSizeTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\picasa\GPhotoThumbnailTest.cs">
+      <Link>Picasa\GPhotoThumbnailTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\picasa\GPhotoTimestampTest.cs">
+      <Link>Picasa\GPhotoTimestampTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\picasa\GPhotoUserTest.cs">
+      <Link>Picasa\GPhotoUserTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\picasa\GPhotoVersionTest.cs">
+      <Link>Picasa\GPhotoVersionTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\picasa\GPhotoWeightTest.cs">
+      <Link>Picasa\GPhotoWeightTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\picasa\GPhotoWidthTest.cs">
+      <Link>Picasa\GPhotoWidthTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\picasa\KindQueryTest.cs">
+      <Link>Picasa\KindQueryTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\picasa\PhotoAccessorTest.cs">
+      <Link>Picasa\PhotoAccessorTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\picasa\PhotoEntryTest.cs">
+      <Link>Picasa\PhotoEntryTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\picasa\PhotoQueryTest.cs">
+      <Link>Picasa\PhotoQueryTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\picasa\PicasaEntryTest.cs">
+      <Link>Picasa\PicasaEntryTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\picasa\PicasaFeedTest.cs">
+      <Link>Picasa\PicasaFeedTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\picasa\PicasaQueryTest.cs">
+      <Link>Picasa\PicasaQueryTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\picasa\TagAccessorTest.cs">
+      <Link>Picasa\TagAccessorTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\picasa\TagEntryTest.cs">
+      <Link>Picasa\TagEntryTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\picasa\TagQueryTest.cs">
+      <Link>Picasa\TagQueryTest.cs</Link>
+    </Compile>
     <Compile Include="..\..\unittests\spreadsheets\cellelementtest.cs">
       <Link>spreadsheets\cellelementtest.cs</Link>
     </Compile>
