@@ -162,8 +162,9 @@ allOldFiles = []
 #populate the list of the current files, all files in folderx subfolders
 for root, dirs, files in os.walk(basePath): 
   if 'folder' in root:
-    for f in files: 
-      allOldFiles.append((root + "/", f)) 
+    if '.svn' not in root:
+      for f in files: 
+        allOldFiles.append((root + "/", f)) 
 
 usock = urllib.urlopen("../../../../docs/orgindex.html")
 parser = BaseHTMLProcessor()
@@ -182,8 +183,9 @@ allOldFiles = []
 #now walk over the list of files in the foderx subfolders and manage the references in there
 for root, dirs, files in os.walk(basePath): 
   if 'folder' in root:
-    for f in files: 
-      allOldFiles.append((root + "/", f)) 
+    if '.svn' not in root:
+      for f in files: 
+        allOldFiles.append((root + "/", f)) 
 
 for path, name in allOldFiles:
   usock = urllib.urlopen(path+name)
