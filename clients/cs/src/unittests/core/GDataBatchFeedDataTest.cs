@@ -92,7 +92,7 @@ namespace Google.GData.Client.UnitTests.Core
         {
             GDataBatchFeedData target = new GDataBatchFeedData();
             Assert.IsNotNull(target);
-            Assert.That(target.Type == GDataBatchOperationType.Default);
+            Assert.IsTrue(target.Type == GDataBatchOperationType.Default);
         }
     }
 }

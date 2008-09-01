@@ -141,7 +141,7 @@ namespace Google.GData.Client.UnitTests.Core
             Assert.IsNotNull(target);
             Assert.IsNull(target.Content);
             Assert.IsNull(target.Src);
-            Assert.That(target.Type == "text");
+            Assert.IsTrue(target.Type == "text");
         }
     }
 }

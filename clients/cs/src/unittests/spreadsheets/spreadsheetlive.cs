@@ -70,7 +70,7 @@ namespace Google.GData.Client.LiveTests
         //////////////////////////////////////////////////////////////////////
         /// <summary>adds a worksheet to the default spreadsheet</summary> 
         //////////////////////////////////////////////////////////////////////
-        [Test, Description("The RETURN-EMPTY part is currently disabled, as the server is broken")] 
+        [Test] 
         public void InsertWorksheetTest()
         {
             Tracing.TraceMsg("Entering InsertWorksheetTest");

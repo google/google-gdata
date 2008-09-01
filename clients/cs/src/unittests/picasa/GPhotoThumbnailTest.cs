@@ -73,7 +73,7 @@ namespace Google.GData.Client.UnitTests.Picasa
         {
             GPhotoThumbnail target = new GPhotoThumbnail();
             Assert.IsNotNull(target);
-            Assert.That(String.IsNullOrEmpty(target.Value));
+            Assert.IsTrue(String.IsNullOrEmpty(target.Value));
         }
 
         /// <summary>

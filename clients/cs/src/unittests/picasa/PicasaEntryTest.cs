@@ -181,7 +181,7 @@ namespace Google.GData.Client.UnitTests.Picasa
             string newValue = "theid";
             SimpleElement actual;
             actual = target.setPhotoExtension(extension, newValue);
-            Assert.That(actual is GPhotoPhotoId);
+            Assert.IsTrue(actual is GPhotoPhotoId);
             Assert.AreEqual(newValue, actual.Value);
         }
 

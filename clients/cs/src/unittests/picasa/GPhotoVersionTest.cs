@@ -73,7 +73,7 @@ namespace Google.GData.Client.UnitTests.Picasa
         {
             GPhotoVersion target = new GPhotoVersion();
             Assert.IsNotNull(target);
-            Assert.That(String.IsNullOrEmpty(target.Value));
+            Assert.IsTrue(String.IsNullOrEmpty(target.Value));
         }
 
         /// <summary>

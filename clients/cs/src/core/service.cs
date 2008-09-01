@@ -273,6 +273,7 @@ namespace Google.GData.Client
         /// indicates the feed should be returned only if it has been modified 
         /// after the specified date. A value of DateTime.MinValue indicates no 
         /// precondition.</param>
+        /// <param name="contentLength">returns the content length of the response</param>
         /// <returns> a webresponse object</returns>
         //////////////////////////////////////////////////////////////////////
         private Stream Query(Uri queryUri, DateTime ifModifiedSince, out long contentLength)
