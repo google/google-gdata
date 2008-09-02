@@ -10,15 +10,73 @@
 <h2>1.2.2.0</h2>
    <ul>
       <li>Features</li>
+       <ul>
+           <li>Added a SetRequestFactory method on the AppsService. This 
+               allows a user of the AppsService to set advanced HTTP properties
+               for the underlying service objects used (like setting a proxy
+               server, additional headers etc.) by creating a new RequestFactory
+               object and passing it into the service. To make it easy to create
+               this factory object a helper CreateRequestFactory was added to 
+               the AppsService object as well. 
+               </li>
+           <li>
+               Asyncronous/background support including a sample application. 
+               You can now easily fire off that long running YouTube upload, or 
+               the download of a picture as a seperate thread, so that your main 
+               application is no longer blocked. It uses the AsyncOperation 
+               pattern, and is not available (due to missing base support in the 
+               compact framework) in the Windows Mobile build. <br>
+               The sample PhotoBrowser application was changed to use that 
+               pattern, and a page in the helpfile introduces the concept. 
+           </li>
+           <li>Added support for Issue 163: the calendar recently 
+               introduced several new elements, this adds support for syncEvent,
+               uui and sequence</li>
+       </ul>
       <li>Bugfixes</li>
       <ul>
-          <li>Fixed an issue with character encoding in the slug header. 
-              This would effect upload of files with non-ascii names.</li>
-      		<li>Fixed issue  144, recurrenceexception is not parsed correctly</li>
-      		<li>Fixed issue 145, FeedLink element parser error</li>
-             <li>Fixed issue 146. Passwords containing percentage signs were not 
-              properly encoded.
+          <li>
+              Fixed a bug in CommentingEnabled on the PhotoAccessor, which was 
+              setting internally the wrong property.
           </li>
+          <li>
+              Changed the behaviour of AlbumEntry.AlbumAuthor. The setter will 
+              now create a new author is no author is present. 
+          </li>
+          <li>Fixed an issue regarding content, type=text. This element was not encoding correctly
+          which could lead to server errors based on the contents of the element.</li>
+          <li>Fixed issue 164, the code will now throw an exception if we 
+              get an empty location header in a redirect situation</li>
+          <li>
+              Fixed issue 161, changed the WebProxy property on the 
+              RequestFactory object to IWebProxy to make this interface more 
+              flexible.
+          </li>
+             <li>Removed an obsolete size check for the authentication 
+                   response for client login and login for webapplications.</li>
+            <li>Fixed issue 160, FirstName in the profile feed of YouTube 
+                was spelled wrong and hence not loaded correctly.</li>
+            <li>Fixed issue 157, Slug Header encoding. This was not 
+                correctly confirming to RFC5023. Introduced a new helper method
+                in the utilities class for this purpose.</li>
+            <li>Fixed issue 147, a composite feed with a comment was not loading</li>
+            <li>Fixed issue 148, RemoveAt did not remove the object from the 
+            containing collection, only locally. Fixed by overriding the 
+            OnRemove method. </li>
+            <li>Fixed issue 155, there was no way to create a read only 
+            youtube service, or rephrased, one that did not require a 
+            developer key</li>
+            <li>Fixed issue 159, a typo in the makefile that prevented gac 
+            install/uninstall</li>
+            <li>Fixed issue 156, if an exception happened during upload, the 
+            resource was kept open</li>
+            <li>Fixed issue 149, the Who element failed to parse attendee 
+            status if a whitespace element was encountered</li>
+            <li>Fixed issue  144, recurrenceexception is not parsed correctly</li>
+            <li>Fixed issue 145, FeedLink element parser error</li>
+            <li>Fixed issue 146. Passwords containing percentage signs were not 
+            properly encoded.
+            </li>
        </ul>
      </ul>
      
