@@ -62,6 +62,7 @@ gdocuments_sources = $(wildcard src/gdocuments/*.cs) $(wildcard version/*.cs)
 gcontact_sources = $(wildcard src/gcontacts/*.cs) $(wildcard version/*.cs)
 youtube_sources = $(wildcard src/youtube/*.cs) $(wildcard version/*.cs)
 health_sources = $(wildcard src/ghealth/*.cs) $(wildcard version/*.cs)
+blogger_sources = $(wildcard src/blogger/*.cs) $(wildcard version/*.cs)
 test_sources = $(wildcard src/unittests/*.cs) $(wildcard src/unittests/gbase/*.cs) $(wildcard src/unittests/gapps/*.cs)\
 				 $(wildcard src/unittests/spreadsheets/*.cs) $(wildcard src/unittests/youtube/*.cs)  $(wildcard src/version/*cs)\
 				 $(wildcard src/unittests/core/*.cs)  $(wildcard src/unittests/picasa/*.cs)
@@ -105,6 +106,8 @@ Google.GData.YouTube.dll: $(CORELIBS) $(youtube_sources) src/VS2005/youtube/yout
 Google.GData.Health.dll: $(CORELIBS) $(health_sources) src/VS2005/ghealth/ghealth.sn
 	$(CSC) $(DEFINES) -target:library -out:$@ $(COREREFS) $(health_sources)
 
+Google.GData.Blogger.dll: $(CORELIBS) $(blogger_sources) src/VS2005/blogger/blogger.sn
+	$(CSC) $(DEFINES) -target:library -out:$@ $(COREREFS) $(blogger_sources) src/VS2005/blogger/blogger.sn
 
 clean:
 	-rm *.sn *.dll *exe
