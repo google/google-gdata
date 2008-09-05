@@ -24,6 +24,7 @@ using System.Collections;
 using System.Globalization;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
+using Google.GData.Extensions.AppControl;
 
 #endregion
 
@@ -243,6 +244,17 @@ namespace Google.GData.Client
         }
         /////////////////////////////////////////////////////////////////////////////
         #endregion
+
+
+        
+        /// <summary>
+        /// default AtomEntry constructor. Adds the AppControl element
+        /// as a default extension
+        /// </summary>
+        public AtomEntry()
+        {
+            this.AddExtension(new AppControl());
+        }
 
 
         //////////////////////////////////////////////////////////////////////
@@ -470,74 +482,58 @@ namespace Google.GData.Client
         }
         /////////////////////////////////////////////////////////////////////////////
 
+
+        /// <summary>
+        /// returns the app:control element
+        /// </summary>
+        /// <returns></returns>
+        public AppControl AppControl
+        {
+            get
+            {
+                return FindExtension(BaseNameTable.XmlElementPubControl,
+                                     BaseNameTable.NSAppPublishing) as AppControl;
+            }
+            set
+            {
+                ReplaceExtension(BaseNameTable.XmlElementPubControl,
+                                     BaseNameTable.NSAppPublishing,
+                                value);
+            }
+        }
+
+
         //////////////////////////////////////////////////////////////////////
         /// <summary>specifies if app:control/app:draft is yes or no. 
         /// this is determined by walking the extension elements collection</summary> 
         /// <returns>true if this is a draft element</returns>
         //////////////////////////////////////////////////////////////////////
-        public virtual bool IsDraft
+        public bool IsDraft
         {
-            get {
-                XmlElement draft = FindDraftNode() as XmlElement;
-                if (draft != null && draft.InnerText == "yes")
+            get
+            {
+                if (this.AppControl != null && this.AppControl.Draft != null)
                 {
-                    return true; 
+                    return this.AppControl.Draft.BooleanValue;
                 }
-                return false; 
+                return false;
             }
 
-            set {
-                this.Dirty = true; 
-                XmlNode draft = FindDraftNode(); 
-                if (draft == null && value == true)
+            set
+            {
+                this.Dirty = true;
+                if (this.AppControl == null)
                 {
-                    XmlDocument doc = new XmlDocument();
-                    XmlDocumentFragment fragment = doc.CreateDocumentFragment();
-                    fragment.InnerXml = "<app:control xmlns:app='http://purl.org/atom/app#'>" +
-                        "<app:draft>yes</app:draft></app:control>";
-                    this.ExtensionElements.Add(fragment.FirstChild);
+                    this.AppControl = new AppControl();
                 }
-                else if (draft != null && value == false)
+                if (this.AppControl.Draft == null)
                 {
-                    draft.Value = value == true ? "yes" : "no"; 
+                    this.AppControl.Draft = new AppDraft();
                 }
-
+                this.AppControl.Draft.BooleanValue = value;
             }
         }
         // end of accessor public bool IsDraft
-
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>searches the extension list for the app:draft node</summary> 
-        /// <returns>null if not there</returns>
-        //////////////////////////////////////////////////////////////////////
-        private XmlNode FindDraftNode()
-        {
-            Tracing.TraceCall();
-            foreach (Object extension in this.ExtensionElements)
-            {
-                XmlNode node = extension as XmlNode; 
-
-                if (node != null)
-                {
-                    if (node.NamespaceURI == BaseNameTable.NSAppPublishing
-                         && node.LocalName == BaseNameTable.XmlElementPubControl) 
-                    {
-                        XmlNode child = node.FirstChild;
-                        while (child != null && child is XmlElement)
-                        {
-                            if (child.NamespaceURI == BaseNameTable.NSAppPublishing 
-                                && child.LocalName == BaseNameTable.XmlElementPubDraft)
-                            {
-                                return child;
-                            }
-                            child = child.NextSibling;
-                        }
-                    }
-                }
-            } 
-            return null;
-        }
-        //end of protected XmlNode FindDraftNode()
 
 
         //////////////////////////////////////////////////////////////////////

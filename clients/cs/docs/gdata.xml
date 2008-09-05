@@ -1573,6 +1573,12 @@
             <summary>saves the inner state of the element</summary> 
             <param name="writer">the xmlWriter to save into </param>
         </member>
+        <member name="M:Google.GData.Client.AtomEntry.#ctor">
+            <summary>
+            default AtomEntry constructor. Adds the AppControl element
+            as a default extension
+            </summary>
+        </member>
         <member name="M:Google.GData.Client.AtomEntry.setFeed(Google.GData.Client.AtomFeed)">
             <summary>internal method to set the feed</summary> 
         </member>
@@ -1580,10 +1586,6 @@
             <summary>helper method to create a new, decoupled entry based on a feedEntry</summary> 
             <param name="entryToImport">the entry from a feed that you want to put somewhere else</param>
             <returns> the new entry ready to be inserted</returns>
-        </member>
-        <member name="M:Google.GData.Client.AtomEntry.FindDraftNode">
-            <summary>searches the extension list for the app:draft node</summary> 
-            <returns>null if not there</returns>
         </member>
         <member name="M:Google.GData.Client.AtomEntry.Update">
             <summary>commits the item to the server</summary> 
@@ -1668,6 +1670,12 @@
         <member name="P:Google.GData.Client.AtomEntry.Published">
             <summary>accessor method public DateTime PublicationDate</summary> 
             <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Client.AtomEntry.AppControl">
+            <summary>
+            returns the app:control element
+            </summary>
+            <returns></returns>
         </member>
         <member name="P:Google.GData.Client.AtomEntry.IsDraft">
             <summary>specifies if app:control/app:draft is yes or no. 

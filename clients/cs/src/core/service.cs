@@ -523,18 +523,6 @@ namespace Google.GData.Client
 
      
         //////////////////////////////////////////////////////////////////////
-        /// <summary>public WebResponse Insert(Uri insertUri, Stream entryStream, ICredentials credentials)</summary> 
-        /// <param name="feedUri">the uri for the feed this entry should be inserted into</param> 
-        /// <param name="newEntry">the entry to be inserted</param> 
-        /// <returns> the inserted entry</returns>
-        //////////////////////////////////////////////////////////////////////
-        public AtomEntry Insert(Uri feedUri, AtomEntry newEntry)
-        {
-            return this.Insert(feedUri, newEntry, null);
-        }
-        /////////////////////////////////////////////////////////////////////////////
-        
-        //////////////////////////////////////////////////////////////////////
         /// <summary>templated type safe verion of the interface</summary> 
         /// <param name="entry">the old entry to update</param> 
         /// <returns> the new Entry, as returned from the server</returns>
@@ -551,13 +539,18 @@ namespace Google.GData.Client
         /// <param name="entry">the old entry to update</param> 
         /// <returns> the new Entry, as returned from the server</returns>
         //////////////////////////////////////////////////////////////////////
-        public TEntry  Insert<TEntry>(Uri feedUri, TEntry entry) where TEntry : AtomEntry
+        public TEntry Insert<TEntry>(Uri feedUri, TEntry entry) where TEntry : AtomEntry
         {
             return this.Insert(feedUri, entry, null) as TEntry;
         }
         /////////////////////////////////////////////////////////////////////////////
 
- 
+
+        protected AtomEntry internalInsert(Uri feedUri, AtomEntry newEntry)
+        {
+            return this.Insert(feedUri, newEntry, null);
+        }
+
 
 
         //////////////////////////////////////////////////////////////////////

@@ -62,11 +62,18 @@ namespace Google.GData.YouTube {
 
             GeoRssExtensions.AddExtension(this);
 
-            // create a default appControl element
-            AppControl ac = new AppControl();
+
+            AppControl app = new AppControl();
+            AppControl acf = FindExtensionFactory(app.XmlName, app.XmlNameSpace) as AppControl;
+            if (acf == null)
+            {
+                // create a default appControl element
+                acf = new AppControl();
+                this.AddExtension(acf);
+            }
             // add the youtube state element
-            ac.ExtensionFactories.Add(new State());
-            this.AddExtension(ac);
+            acf.ExtensionFactories.Add(new State());
+            
 
             // things from the gd namespce
             this.AddExtension(new Comments());
@@ -236,54 +243,6 @@ namespace Google.GData.YouTube {
        }
 
 
-       /// <summary>
-       /// returns the app:control element
-       /// </summary>
-       /// <returns></returns>
-       public AppControl AppControl
-       {
-           get
-           {
-               return FindExtension(BaseNameTable.XmlElementPubControl,
-                                    BaseNameTable.NSAppPublishing) as AppControl;
-           }
-           set
-           {
-               ReplaceExtension(BaseNameTable.XmlElementPubControl,
-                                    BaseNameTable.NSAppPublishing,
-                               value);
-           }
-       }
-
-       //////////////////////////////////////////////////////////////////////
-        /// <summary>specifies if app:control/app:draft is yes or no. 
-        /// this is determined by walking the extension elements collection</summary> 
-        /// <returns>true if this is a draft element</returns>
-        //////////////////////////////////////////////////////////////////////
-        public override bool IsDraft
-        {
-            get {
-                if (this.AppControl != null && this.AppControl.Draft != null)
-                {
-                    return this.AppControl.Draft.BooleanValue;
-                }
-                return false; 
-            }
-
-            set {
-                this.Dirty = true; 
-                if (this.AppControl == null)
-                {
-                    this.AppControl = new AppControl();
-                }
-                if (this.AppControl.Draft == null)
-                {
-                    this.AppControl.Draft = new AppDraft();
-                }
-                this.AppControl.Draft.BooleanValue = value;
-            }
-        }
-        // end of accessor public bool IsDraft
 
         /// <summary>
         /// Returns the yt:state tag inside of app:control

@@ -224,17 +224,6 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="P:Google.GData.YouTube.YouTubeEntry.AppControl">
-            <summary>
-            returns the app:control element
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="P:Google.GData.YouTube.YouTubeEntry.IsDraft">
-            <summary>specifies if app:control/app:draft is yes or no. 
-            this is determined by walking the extension elements collection</summary> 
-            <returns>true if this is a draft element</returns>
-        </member>
         <member name="P:Google.GData.YouTube.YouTubeEntry.State">
             <summary>
             Returns the yt:state tag inside of app:control
