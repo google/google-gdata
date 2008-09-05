@@ -60,6 +60,9 @@
     <Compile Include="..\..\core\abstractfeed.cs">
       <Link>abstractfeed.cs</Link>
     </Compile>
+    <Compile Include="..\..\core\appcontrol.cs">
+      <Link>appcontrol.cs</Link>
+    </Compile>
     <Compile Include="..\..\core\AssemblyInfo.cs">
       <Link>AssemblyInfo.cs</Link>
     </Compile>
@@ -132,6 +135,9 @@
     <Compile Include="..\..\core\exceptions.cs">
       <Link>exceptions.cs</Link>
     </Compile>
+    <Compile Include="..\..\core\extensionbase.cs">
+      <Link>extensionbase.cs</Link>
+    </Compile>
     <Compile Include="..\..\core\feedconstants.cs">
       <Link>feedconstants.cs</Link>
     </Compile>
@@ -173,6 +179,12 @@
     </Compile>
     <Compile Include="..\..\core\serviceinterface.cs">
       <Link>serviceinterface.cs</Link>
+    </Compile>
+    <Compile Include="..\..\core\simplecontainer.cs">
+      <Link>simplecontainer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\core\simpleelement.cs">
+      <Link>simpleelement.cs</Link>
     </Compile>
     <Compile Include="..\..\core\tracing.cs">
       <Link>tracing.cs</Link>

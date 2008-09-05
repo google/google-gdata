@@ -53,9 +53,6 @@
     <Compile Include="..\..\..\version\AssemblyVersion.cs">
       <Link>AssemblyVersion.cs</Link>
     </Compile>
-    <Compile Include="..\..\extensions\appcontrol.cs">
-      <Link>appcontrol.cs</Link>
-    </Compile>
     <Compile Include="..\..\extensions\apps.cs">
       <Link>apps.cs</Link>
     </Compile>
@@ -82,9 +79,6 @@
     </Compile>
     <Compile Include="..\..\extensions\extended.cs">
       <Link>extended.cs</Link>
-    </Compile>
-    <Compile Include="..\..\extensions\extensionbase.cs">
-      <Link>extensionbase.cs</Link>
     </Compile>
     <Compile Include="..\..\extensions\feedlink.cs">
       <Link>feedlink.cs</Link>
@@ -118,12 +112,6 @@
     </Compile>
     <Compile Include="..\..\extensions\reminder.cs">
       <Link>reminder.cs</Link>
-    </Compile>
-    <Compile Include="..\..\extensions\simplecontainer.cs">
-      <Link>simplecontainer.cs</Link>
-    </Compile>
-    <Compile Include="..\..\extensions\simpleelement.cs">
-      <Link>simpleelement.cs</Link>
     </Compile>
     <Compile Include="..\..\extensions\when.cs">
       <Link>when.cs</Link>

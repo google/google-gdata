@@ -4,1347 +4,6 @@
         <name>Google.GData.Extensions</name>
     </assembly>
     <members>
-        <member name="T:Google.GData.Extensions.ExtendedProperty">
-            <summary>
-            GData schema extension describing an extended property/value pair
-            </summary>
-        </member>
-        <member name="T:Google.GData.Extensions.SimpleAttribute">
-            <summary>
-            a simple element with one attribute,called value that exposes 
-            that value as the value property
-            </summary>
-        </member>
-        <member name="T:Google.GData.Extensions.SimpleElement">
-            <summary>
-            Extensible enum type used in many places.
-            compared to the base class, this one
-            adds a default values
-            </summary>
-        </member>
-        <member name="T:Google.GData.Extensions.ExtensionBase">
-            <summary>
-            Extensible type used in many places.
-            </summary>
-        </member>
-        <member name="F:Google.GData.Extensions.ExtensionBase.attributes">
-            <summary>
-            this holds the attribute list for an extension element
-            </summary>
-        </member>
-        <member name="M:Google.GData.Extensions.ExtensionBase.#ctor(System.String,System.String,System.String)">
-            <summary>
-            constructor
-            </summary>
-            <param name="name">the xml name</param>
-            <param name="prefix">the xml prefix</param>
-            <param name="ns">the xml namespace</param>
-        </member>
-        <member name="M:Google.GData.Extensions.ExtensionBase.getAttributes">
-            <summary>
-            returns the attributes list
-            </summary>
-            <returns>SortedList</returns>
-        </member>
-        <member name="M:Google.GData.Extensions.ExtensionBase.ToString">
-            <summary>
-            debugging helper
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Google.GData.Extensions.ExtensionBase.CreateInstance(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
-            <summary>Parses an xml node to create an instance of this  object.</summary> 
-            <param name="node">the xml parses node, can be NULL</param>
-            <param name="parser">the xml parser to use if we need to dive deeper</param>
-            <returns>the created IExtensionElement object</returns>
-        </member>
-        <member name="M:Google.GData.Extensions.ExtensionBase.ProcessChildNodes(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
-            <summary>
-            used to copy the unknown childnodes for later saving
-            </summary>
-        </member>
-        <member name="M:Google.GData.Extensions.ExtensionBase.InitInstance(Google.GData.Extensions.ExtensionBase)">
-            <summary>
-            used to copy the attribute lists over
-            </summary>
-            <param name="factory"></param>
-        </member>
-        <member name="M:Google.GData.Extensions.ExtensionBase.ProcessAttributes(System.Xml.XmlNode)">
-            <summary>
-            default method override to handle attribute processing
-            the base implementation does process the attributes list
-            and reads all that are in there.
-            </summary>
-            <param name="node">XmlNode with attributes</param>
-        </member>
-        <member name="M:Google.GData.Extensions.ExtensionBase.Save(System.Xml.XmlWriter)">
-            <summary>
-            Persistence method for the EnumConstruct object
-            </summary>
-            <param name="writer">the xmlwriter to write into</param>
-        </member>
-        <member name="M:Google.GData.Extensions.ExtensionBase.SaveInnerXml(System.Xml.XmlWriter)">
-            <summary>
-            a subclass that want's to save addtional XML would need to overload this
-            the default implementation does nothing
-            </summary>
-            <param name="writer"></param>
-        </member>
-        <member name="P:Google.GData.Extensions.ExtensionBase.Attributes">
-            <summary>accesses the Attribute list. The keys are the attribute names
-            the values the attribute values</summary> 
-            <returns> </returns>
-        </member>
-        <member name="P:Google.GData.Extensions.ExtensionBase.XmlName">
-            <summary>Returns the constant representing this XML element.</summary> 
-        </member>
-        <member name="P:Google.GData.Extensions.ExtensionBase.XmlNameSpace">
-            <summary>Returns the constant representing this XML element.</summary> 
-        </member>
-        <member name="P:Google.GData.Extensions.ExtensionBase.XmlPrefix">
-            <summary>Returns the constant representing this XML element.</summary> 
-        </member>
-        <member name="P:Google.GData.Extensions.ExtensionBase.ChildNodes">
-            <summary>
-             returns the list of childnodes that are unknown to the extension
-             used for example for the GD:ExtendedProperty
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Google.GData.Extensions.SimpleElement.#ctor(System.String,System.String,System.String)">
-            <summary>
-            constructor
-            </summary>
-            <param name="name">the xml name</param>
-            <param name="prefix">the xml prefix</param>
-            <param name="ns">the xml namespace</param>
-        </member>
-        <member name="M:Google.GData.Extensions.SimpleElement.#ctor(System.String,System.String,System.String,System.String)">
-            <summary>
-            constructor
-            </summary>
-            <param name="name">the xml name</param>
-            <param name="prefix">the xml prefix</param>
-            <param name="ns">the xml namespace</param>
-            <param name="value">the intial value</param>
-        </member>
-        <member name="M:Google.GData.Extensions.SimpleElement.ToString">
-            <summary>
-            debugging helper
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Google.GData.Extensions.SimpleElement.CreateInstance(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
-            <summary>Parses an xml node to create a Who object.</summary> 
-            <param name="node">the xml parses node, can be NULL</param>
-            <param name="parser">the xml parser to use if we need to dive deeper</param>
-            <returns>the created SimpleElement object</returns>
-        </member>
-        <member name="M:Google.GData.Extensions.SimpleElement.SaveInnerXml(System.Xml.XmlWriter)">
-            <summary>
-            saves out the value, get's called from Save
-            </summary>
-            <param name="writer"></param>
-        </member>
-        <member name="P:Google.GData.Extensions.SimpleElement.Value">
-            <summary>
-             Accessor Method for the value
-            </summary>
-        </member>
-        <member name="P:Google.GData.Extensions.SimpleElement.IntegerValue">
-            <summary>
-             Accessor Method for the value as integer
-            </summary>
-        </member>
-        <member name="P:Google.GData.Extensions.SimpleElement.UnsignedIntegerValue">
-            <summary>
-             Accessor Method for the value as integer
-            </summary>
-        </member>
-        <member name="P:Google.GData.Extensions.SimpleElement.FloatValue">
-            <summary>
-             Accessor Method for the value as float
-            </summary>
-        </member>
-        <member name="P:Google.GData.Extensions.SimpleElement.BooleanValue">
-            <summary>
-             Accessor Method for the value as boolean
-            </summary>
-        </member>
-        <member name="M:Google.GData.Extensions.SimpleAttribute.#ctor(System.String,System.String,System.String)">
-            <summary>
-            constructor
-            </summary>
-            <param name="name">the xml name</param>
-            <param name="prefix">the xml prefix</param>
-            <param name="ns">the xml namespace</param>
-        </member>
-        <member name="M:Google.GData.Extensions.SimpleAttribute.#ctor(System.String,System.String,System.String,System.String)">
-            <summary>
-            constructor
-            </summary>
-            <param name="name">the xml name</param>
-            <param name="prefix">the xml prefix</param>
-            <param name="ns">the xml namespace</param>
-            <param name="value">the intial value</param>
-        </member>
-        <member name="P:Google.GData.Extensions.SimpleAttribute.Value">
-            <summary>Accessor for "value" attribute.</summary> 
-            <returns> </returns>
-        </member>
-        <member name="M:Google.GData.Extensions.ExtendedProperty.#ctor">
-            <summary>
-            default constructor for an extended property
-            </summary>
-        </member>
-        <member name="M:Google.GData.Extensions.ExtendedProperty.#ctor(System.String)">
-            <summary>
-            default constructor with an initial value
-            </summary>
-            <param name="initValue"></param>
-        </member>
-        <member name="M:Google.GData.Extensions.ExtendedProperty.#ctor(System.String,System.String)">
-            <summary>
-            default constructor with a value and a key name
-            </summary>
-            <param name="initValue">initial value</param>
-            <param name="initName">name for the key</param>
-        </member>
-        <member name="P:Google.GData.Extensions.ExtendedProperty.Name">
-            <summary>Accessor for "value" attribute.</summary> 
-            <returns> </returns>
-        </member>
-        <member name="T:Google.GData.Extensions.MediaRss.MediaRssExtensions">
-            <summary>
-            helper to instantiate all factories defined in here and attach 
-            them to a base object
-            </summary>
-        </member>
-        <member name="M:Google.GData.Extensions.MediaRss.MediaRssExtensions.AddExtension(Google.GData.Client.AtomBase)">
-            <summary>
-            helper to add all MediaRss extensions to a base object
-            </summary>
-            <param name="baseObject"></param>
-        </member>
-        <member name="T:Google.GData.Extensions.MediaRss.MediaRssNameTable">
-            <summary>
-            short table for constants related to mediaRss declarations
-            </summary>
-        </member>
-        <member name="F:Google.GData.Extensions.MediaRss.MediaRssNameTable.NSMediaRss">
-            <summary>static string to specify the mediarss namespace
-            TODO: picasa has the namespace slighly wrong.
-            </summary>
-        </member>
-        <member name="F:Google.GData.Extensions.MediaRss.MediaRssNameTable.mediaRssPrefix">
-            <summary>static string to specify the used mediarss prefix</summary>
-        </member>
-        <member name="F:Google.GData.Extensions.MediaRss.MediaRssNameTable.MediaRssGroup">
-            <summary>static string to specify the media:group element</summary>
-        </member>
-        <member name="F:Google.GData.Extensions.MediaRss.MediaRssNameTable.MediaRssCredit">
-            <summary>static string to specify the media:credit element</summary>
-        </member>
-        <member name="F:Google.GData.Extensions.MediaRss.MediaRssNameTable.MediaRssContent">
-            <summary>static string to specify the media:content element</summary>
-        </member>
-        <member name="F:Google.GData.Extensions.MediaRss.MediaRssNameTable.MediaRssCategory">
-            <summary>static string to specify the media:category element</summary>
-        </member>
-        <member name="F:Google.GData.Extensions.MediaRss.MediaRssNameTable.MediaRssDescription">
-            <summary>static string to specify the media:description element</summary>
-        </member>
-        <member name="F:Google.GData.Extensions.MediaRss.MediaRssNameTable.MediaRssKeywords">
-            <summary>static string to specify the media:keywords element</summary>
-        </member>
-        <member name="F:Google.GData.Extensions.MediaRss.MediaRssNameTable.MediaRssThumbnail">
-            <summary>static string to specify the media:thumbnail element</summary>
-        </member>
-        <member name="F:Google.GData.Extensions.MediaRss.MediaRssNameTable.MediaRssTitle">
-            <summary>static string to specify the media:title element</summary>
-        </member>
-        <member name="F:Google.GData.Extensions.MediaRss.MediaRssNameTable.MediaRssRating">
-            <summary>static string to specify the media:rating element</summary>
-        </member>
-        <member name="T:Google.GData.Extensions.MediaRss.MediaGroup">
-            <summary>
-            MediaGroup container element for the MediaRss namespace
-            </summary>
-        </member>
-        <member name="T:Google.GData.Extensions.SimpleContainer">
-            <summary>
-            base class to implement extensions holding extensions
-            TODO: at one point think about using this as the base for atom:base
-            as there is some utility overlap between the 2 of them
-            </summary>
-        </member>
-        <member name="M:Google.GData.Extensions.SimpleContainer.#ctor(System.String,System.String,System.String)">
-            <summary>
-            constructor
-            </summary>
-            <param name="name">the xml name</param>
-            <param name="prefix">the xml prefix</param>
-            <param name="ns">the xml namespace</param>
-        </member>
-        <member name="M:Google.GData.Extensions.SimpleContainer.FindExtension(System.String,System.String)">
-            <summary>
-            Finds a specific ExtensionElement based on it's local name
-            and it's namespace. If namespace is NULL, the first one where
-            the localname matches is found. If there are extensionelements that do 
-            not implment ExtensionElementFactory, they will not be taken into account
-            </summary>
-            <param name="localName">the xml local name of the element to find</param>
-            <param name="ns">the namespace of the elementToPersist</param>
-            <returns>Object</returns>
-        </member>
-        <member name="M:Google.GData.Extensions.SimpleContainer.ReplaceExtension(System.String,System.String,System.Object)">
-            <summary>
-            all extension elements that match a namespace/localname
-            given will be removed and the new one will be inserted
-            </summary> 
-            <param name="localName">the local name to find</param>
-            <param name="ns">the namespace to match, if null, ns is ignored</param>
-            <param name="obj">the new element to put in</param>
-        </member>
-        <member name="M:Google.GData.Extensions.SimpleContainer.FindExtensions(System.String,System.String)">
-            <summary>
-            Finds all ExtensionElement based on it's local name
-            and it's namespace. If namespace is NULL, allwhere
-            the localname matches is found. If there are extensionelements that do 
-            not implment ExtensionElementFactory, they will not be taken into account
-            Primary use of this is to find XML nodes
-            </summary>
-            <param name="localName">the xml local name of the element to find</param>
-            <param name="ns">the namespace of the elementToPersist</param>
-            <returns>none</returns>
-        </member>
-        <member name="M:Google.GData.Extensions.SimpleContainer.DeleteExtensions(System.String,System.String)">
-            <summary>
-            Delete's all Extensions from the Extension list that match
-            a localName and a Namespace. 
-            </summary>
-            <param name="localName">the local name to find</param>
-            <param name="ns">the namespace to match, if null, ns is ignored</param>
-            <returns>int - the number of deleted extensions</returns>
-        </member>
-        <member name="M:Google.GData.Extensions.SimpleContainer.CreateInstance(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
-            <summary>Parses an xml node to create a Who object.</summary> 
-            <param name="node">the node to work on, can be NULL</param>
-            <param name="parser">the xml parser to use if we need to dive deeper</param>
-            <returns>the created SimpleElement object</returns>
-        </member>
-        <member name="M:Google.GData.Extensions.SimpleContainer.ProcessChildNodes(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
-            <summary>
-            used to copy the unknown childnodes for later saving
-            </summary>
-            <param name="node">the node to process</param>
-            <param name="parser">the feed parser to pass down if need be</param>
-        </member>
-        <member name="M:Google.GData.Extensions.SimpleContainer.SaveInnerXml(System.Xml.XmlWriter)">
-            <summary>
-            saves out the inner xml, so all of our subelements
-            get's called from Save, whcih takes care of saving attributes
-            </summary>
-            <param name="writer"></param>
-        </member>
-        <member name="P:Google.GData.Extensions.SimpleContainer.ExtensionElements">
-            <summary>the list of extensions for this container
-            the elements in that list MUST implement IExtensionElementFactory 
-            and IExtensionElement</summary> 
-            <returns> </returns>
-        </member>
-        <member name="P:Google.GData.Extensions.SimpleContainer.ExtensionFactories">
-            <summary>the list of extensions for this container
-            the elements in that list MUST implement IExtensionElementFactory 
-            and IExtensionElement</summary> 
-            <returns> </returns>
-        </member>
-        <member name="M:Google.GData.Extensions.MediaRss.MediaGroup.#ctor">
-            <summary>
-            default constructor for media:group
-            </summary>
-        </member>
-        <member name="P:Google.GData.Extensions.MediaRss.MediaGroup.Credit">
-            <summary>
-            returns the media:credit element
-            </summary>
-        </member>
-        <member name="P:Google.GData.Extensions.MediaRss.MediaGroup.Description">
-            <summary>
-            returns the media:credit element
-            </summary>
-        </member>
-        <member name="P:Google.GData.Extensions.MediaRss.MediaGroup.Keywords">
-            <summary>
-            returns the media:content element
-            </summary>
-        </member>
-        <member name="P:Google.GData.Extensions.MediaRss.MediaGroup.Title">
-            <summary>
-            returns the media:credit element
-            </summary>
-        </member>
-        <member name="P:Google.GData.Extensions.MediaRss.MediaGroup.Rating">
-            <summary>
-            returns the media:rating element
-            </summary>
-        </member>
-        <member name="P:Google.GData.Extensions.MediaRss.MediaGroup.Thumbnails">
-            <summary>
-             property accessor for the Thumbnails 
-            </summary>
-        </member>
-        <member name="P:Google.GData.Extensions.MediaRss.MediaGroup.Content">
-            <summary>
-            returns the media:content element
-            </summary>
-        </member>
-        <member name="P:Google.GData.Extensions.MediaRss.MediaGroup.Contents">
-            <summary>
-             property accessor for the Contents Collection 
-            </summary>
-        </member>
-        <member name="P:Google.GData.Extensions.MediaRss.MediaGroup.Categories">
-            <summary>
-             property accessor for the Category Collection 
-            </summary>
-        </member>
-        <member name="T:Google.GData.Extensions.MediaRss.MediaCredit">
-            <summary>
-            media:credit schema extension describing an credit given to media
-            it's a child of media:group
-            </summary>
-        </member>
-        <member name="M:Google.GData.Extensions.MediaRss.MediaCredit.#ctor">
-            <summary>
-            default constructor for media:credit
-            </summary>
-        </member>
-        <member name="M:Google.GData.Extensions.MediaRss.MediaCredit.#ctor(System.String)">
-            <summary>
-            default constructor for media:credit with an initial value
-            </summary>
-            <param name="initValue"/>
-        </member>
-        <member name="T:Google.GData.Extensions.MediaRss.MediaDescription">
-            <summary>
-            media:description schema extension describing an description given to media
-            it's a child of media:group
-            </summary>
-        </member>
-        <member name="M:Google.GData.Extensions.MediaRss.MediaDescription.#ctor">
-            <summary>
-            default constructor for media:description 
-            </summary>
-        </member>
-        <member name="M:Google.GData.Extensions.MediaRss.MediaDescription.#ctor(System.String)">
-            <summary>
-            default constructor for media:description with an initial value
-            </summary>
-            <param name="initValue"/>
-        </member>
-        <member name="T:Google.GData.Extensions.MediaRss.MediaContent">
-            <summary>
-            media:content schema extension describing the content URL
-            it's a child of media:group
-            </summary>
-        </member>
-        <member name="M:Google.GData.Extensions.MediaRss.MediaContent.#ctor">
-            <summary>
-            default constructor for media:content
-            </summary>
-        </member>
-        <member name="T:Google.GData.Extensions.MediaRss.MediaCategory">
-            <summary>
-            media:content schema extension describing the content URL
-            it's a child of media:group
-            </summary>
-        </member>
-        <member name="M:Google.GData.Extensions.MediaRss.MediaCategory.#ctor">
-            <summary>
-            default constructor for media:content
-            </summary>
-        </member>
-        <member name="M:Google.GData.Extensions.MediaRss.MediaCategory.#ctor(System.String)">
-            <summary>
-            default constructor for media:credit with an initial value
-            </summary>
-            <param name="initValue"/>
-        </member>
-        <member name="M:Google.GData.Extensions.MediaRss.MediaCategory.#ctor(System.String,System.String)">
-            <summary>
-            Constructor for MediaCategory with an initial value
-            and a scheme.
-            </summary>
-            <param name="initValue">The value of the tag</param>
-            <param name="scheme">The scheme of the tag</param>
-        </member>
-        <member name="T:Google.GData.Extensions.MediaRss.MediaKeywords">
-            <summary>
-            media:keywords schema extension describing a 
-            comma seperated list of keywords
-            it's a child of media:group
-            </summary>
-        </member>
-        <member name="M:Google.GData.Extensions.MediaRss.MediaKeywords.#ctor">
-            <summary>
-            default constructor for media:keywords
-            </summary>
-        </member>
-        <member name="M:Google.GData.Extensions.MediaRss.MediaKeywords.#ctor(System.String)">
-            <summary>
-            default constructor for media:keywords with an initial value
-            </summary>
-            <param name="initValue"/>
-        </member>
-        <member name="T:Google.GData.Extensions.MediaRss.MediaThumbnail">
-            <summary>
-            media:thumbnail schema extension describing a 
-            thumbnail URL with height/width
-            it's a child of media:group
-            </summary>
-        </member>
-        <member name="F:Google.GData.Extensions.MediaRss.MediaThumbnail.AttributeUrl">
-            <summary>
-            the attribute string for the URL attribute
-            </summary>
-        </member>
-        <member name="F:Google.GData.Extensions.MediaRss.MediaThumbnail.AttributeHeight">
-            <summary>
-            the attribute string for the height attribute
-            </summary>
-        </member>
-        <member name="F:Google.GData.Extensions.MediaRss.MediaThumbnail.AttributeWidth">
-            <summary>
-            the attribute string for the width attribute
-            </summary>
-        </member>
-        <member name="M:Google.GData.Extensions.MediaRss.MediaThumbnail.#ctor">
-            <summary>
-            default constructor for media:thumbnail
-            </summary>
-        </member>
-        <member name="P:Google.GData.Extensions.MediaRss.MediaThumbnail.Url">
-            <summary>convienience accessor for the Url</summary> 
-            <returns> </returns>
-        </member>
-        <member name="P:Google.GData.Extensions.MediaRss.MediaThumbnail.Height">
-            <summary>convienience accessor for the Height</summary> 
-            <returns> </returns>
-        </member>
-        <member name="P:Google.GData.Extensions.MediaRss.MediaThumbnail.Width">
-            <summary>convienience accessor for the Width</summary> 
-            <returns> </returns>
-        </member>
-        <member name="T:Google.GData.Extensions.MediaRss.MediaTitle">
-            <summary>
-            media:title schema extension describing the title given to media
-            it's a child of media:group
-            </summary>
-        </member>
-        <member name="M:Google.GData.Extensions.MediaRss.MediaTitle.#ctor">
-            <summary>
-            default constructor for media:title
-            </summary>
-        </member>
-        <member name="M:Google.GData.Extensions.MediaRss.MediaTitle.#ctor(System.String)">
-            <summary>
-            default constructor for media:title with an initial value
-            </summary>
-            <param name="initValue"/>
-        </member>
-        <member name="T:Google.GData.Extensions.MediaRss.MediaRating">
-            <summary>
-            media:rating schema extension describing the rating given to media
-            it's a child of media:group
-            </summary>
-        </member>
-        <member name="M:Google.GData.Extensions.MediaRss.MediaRating.#ctor">
-            <summary>
-            default constructor for media:rating
-            </summary>
-        </member>
-        <member name="M:Google.GData.Extensions.MediaRss.MediaRating.#ctor(System.String)">
-            <summary>
-            default constructor for media:rating with an initial value
-            </summary>
-            <param name="initValue"/>
-        </member>
-        <member name="M:Google.GData.Extensions.MediaRss.MediaRating.#ctor(System.String,System.String)">
-            <summary>
-            Constructor for MediaRating with an initial value
-            and a scheme.
-            </summary>
-            <param name="initValue">The value of the tag</param>
-            <param name="scheme">The scheme of the tag</param>
-        </member>
-        <member name="T:Google.GData.Extensions.MediaRss.ThumbnailCollection">
-            <summary>Typed collection for Thumbnails Extensions.</summary>
-        </member>
-        <member name="T:Google.GData.Extensions.ExtensionCollection`1">
-            <summary>
-            base class to take an object pointer with extension information
-            and expose a localname/namespace subset as a collection
-            that still works on the original
-            </summary>
-        </member>
-        <member name="F:Google.GData.Extensions.ExtensionCollection`1.container">
-            <summary>holds the owning feed</summary>
-        </member>
-        <member name="M:Google.GData.Extensions.ExtensionCollection`1.#ctor">
-            <summary>
-            protected default constructor, not usable by outside
-            </summary>
-        </member>
-        <member name="M:Google.GData.Extensions.ExtensionCollection`1.#ctor(Google.GData.Client.IExtensionContainer,System.String,System.String)">
-            <summary>
-            takes the base object, and the localname/ns combo to look for
-            will copy objects to an internal array for caching. Note that when the external 
-            ExtensionList is modified, this will have no effect on this copy
-            </summary>
-            <param name="containerElement">the base element holding the extension list</param>
-            <param name="localName">the local name of the extension</param>
-            <param name="ns">the namespace</param>
-        </member>
-        <member name="M:Google.GData.Extensions.ExtensionCollection`1.setItem(System.Int32,`0)">
-            <summary>
-            useful for subclasses that want to overload the set method
-            </summary>
-            <param name="index">the index in the array</param>
-            <param name="item">the item to set </param>
-        </member>
-        <member name="M:Google.GData.Extensions.ExtensionCollection`1.Add(`0)">
-            <summary>
-            default untyped add implementation. Adds the object as well to the parent
-            object ExtensionList
-            </summary>
-            <param name="value"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Google.GData.Extensions.ExtensionCollection`1.Insert(System.Int32,`0)">
-            <summary>
-            inserts an element into the collection by index
-            </summary>
-            <param name="index"></param>
-            <param name="value"></param>
-        </member>
-        <member name="M:Google.GData.Extensions.ExtensionCollection`1.Remove(`0)">
-            <summary>
-            removes an element at a given index
-            </summary>
-            <param name="value"></param>
-        </member>
-        <member name="M:Google.GData.Extensions.ExtensionCollection`1.OnRemove(System.Int32,System.Object)">
-            <summary>
-            override this one to catch all cases, makes sure that
-            the container collection will remove the object as well
-            </summary>
-            <param name="index"></param>
-            <param name="value"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Google.GData.Extensions.ExtensionCollection`1.IndexOf(`0)">
-            <summary>standard typed indexOf method </summary>
-        </member>
-        <member name="M:Google.GData.Extensions.ExtensionCollection`1.Contains(`0)">
-            <summary>standard typed Contains method </summary> 
-        </member>
-        <member name="M:Google.GData.Extensions.ExtensionCollection`1.OnClear">
-            <summary>standard override OnClear, to remove the objects from the extension list</summary> 
-        </member>
-        <member name="P:Google.GData.Extensions.ExtensionCollection`1.Item(System.Int32)">
-            <summary>standard typed accessor method </summary> 
-        </member>
-        <member name="M:Google.GData.Extensions.MediaRss.ThumbnailCollection.#ctor(Google.GData.Client.IExtensionContainer)">
-            <summary>constructor</summary> 
-        </member>
-        <member name="T:Google.GData.Extensions.MediaRss.MediaContentCollection">
-            <summary>Typed collection for Thumbnails Extensions.</summary>
-        </member>
-        <member name="M:Google.GData.Extensions.MediaRss.MediaContentCollection.#ctor(Google.GData.Client.IExtensionContainer)">
-            <summary>constructor</summary> 
-        </member>
-        <member name="T:Google.GData.Extensions.MediaRss.MediaCategoryCollection">
-            <summary>Typed collection for Thumbnails Extensions.</summary>
-        </member>
-        <member name="M:Google.GData.Extensions.MediaRss.MediaCategoryCollection.#ctor(Google.GData.Client.IExtensionContainer)">
-            <summary>constructor</summary> 
-        </member>
-        <member name="T:Google.GData.Extensions.Apps.LabelCollection">
-            <summary>
-            Standard typed collection of labels.
-            </summary>
-        </member>
-        <member name="M:Google.GData.Extensions.Apps.LabelCollection.#ctor(Google.GData.Client.AtomBase)">
-            <summary>constructor</summary>
-        </member>
-        <member name="T:Google.GData.Extensions.AppControl.AppControl">
-            <summary>
-            MediaGroup container element for the MediaRss namespace
-            </summary>
-        </member>
-        <member name="M:Google.GData.Extensions.AppControl.AppControl.#ctor">
-            <summary>
-            default constructor for media:group
-            </summary>
-        </member>
-        <member name="P:Google.GData.Extensions.AppControl.AppControl.Draft">
-            <summary>
-            returns the media:credit element
-            </summary>
-        </member>
-        <member name="T:Google.GData.Extensions.AppControl.AppDraft">
-            <summary>
-            app:draft schema extension describing that an entry is in draft mode
-            it's a child of app:control
-            </summary>
-        </member>
-        <member name="M:Google.GData.Extensions.AppControl.AppDraft.#ctor">
-            <summary>
-            default constructor for media:credit
-            </summary>
-        </member>
-        <member name="M:Google.GData.Extensions.AppControl.AppDraft.#ctor(System.Boolean)">
-            <summary>
-            default constructor for media:credit
-            </summary>
-        </member>
-        <member name="P:Google.GData.Extensions.AppControl.AppDraft.BooleanValue">
-            <summary>
-             Accessor Method for the value as integer
-            </summary>
-        </member>
-        <member name="T:Google.GData.Extensions.ContactsExtensions">
-            <summary>
-            helper to instantiate all factories defined in here and attach 
-            them to a base object
-            </summary>
-        </member>
-        <member name="M:Google.GData.Extensions.ContactsExtensions.AddExtension(Google.GData.Client.AtomBase)">
-            <summary>
-            helper to add all MediaRss extensions to a base object
-            </summary>
-            <param name="baseObject"></param>
-        </member>
-        <member name="T:Google.GData.Extensions.IContainsDeleted">
-            <summary>if an extension element has a deleted member, it should implement
-            this interface. 
-            </summary> 
-        </member>
-        <member name="P:Google.GData.Extensions.IContainsDeleted.Deleted">
-            <summary>
-            returns if an entry contains a Deleted extension. ReadOnly
-            </summary>
-        </member>
-        <member name="T:Google.GData.Extensions.ContactsRelationships">
-            <summary>
-            holds static strings indicating several often used relationship 
-            values for the contacts API
-            </summary>
-        </member>
-        <member name="F:Google.GData.Extensions.ContactsRelationships.IsHome">
-            <summary>
-            indicates a home email in the rel field
-            </summary>
-        </member>
-        <member name="F:Google.GData.Extensions.ContactsRelationships.IsOther">
-            <summary>
-            indicates an undefined email in the rel field, label might be used to be
-            more precise
-            </summary>
-        </member>
-        <member name="F:Google.GData.Extensions.ContactsRelationships.IsWork">
-            <summary>
-            indicates a work email in the rel field
-            </summary>
-        </member>
-        <member name="F:Google.GData.Extensions.ContactsRelationships.IsGeneral">
-            <summary>
-            indicates a general value in the rel field
-            </summary>
-        </member>
-        <member name="F:Google.GData.Extensions.ContactsRelationships.IsCar">
-            <summary>
-            indicates a car related value in the rel field
-            </summary>
-        </member>
-        <member name="F:Google.GData.Extensions.ContactsRelationships.IsFax">
-            <summary>
-            indicates a fax value in the rel field
-            </summary>
-        </member>
-        <member name="F:Google.GData.Extensions.ContactsRelationships.IsHomeFax">
-            <summary>
-            indicates a home fax value in the rel field
-            </summary>
-        </member>
-        <member name="F:Google.GData.Extensions.ContactsRelationships.IsWorkFax">
-            <summary>
-            indicates a work fax value in the rel field
-            </summary>
-        </member>
-        <member name="F:Google.GData.Extensions.ContactsRelationships.IsInternalExtension">
-            <summary>
-            indicates an internal extension value in the rel field
-            </summary>
-        </member>
-        <member name="F:Google.GData.Extensions.ContactsRelationships.IsMobile">
-            <summary>
-            indicates a mobile number value in the rel field
-            </summary>
-        </member>
-        <member name="F:Google.GData.Extensions.ContactsRelationships.IsPager">
-            <summary>
-            indicates a pager value in the rel field
-            </summary>
-        </member>
-        <member name="F:Google.GData.Extensions.ContactsRelationships.IsSatellite">
-            <summary>
-            indicates a satellite value in the rel field
-            </summary>
-        </member>
-        <member name="F:Google.GData.Extensions.ContactsRelationships.IsVoip">
-            <summary>
-            indicates a voip value in the rel field
-            </summary>
-        </member>
-        <member name="T:Google.GData.Extensions.EMail">
-            <summary>
-            gd:email schema extension describing an email address in contacts
-            </summary>
-        </member>
-        <member name="M:Google.GData.Extensions.EMail.#ctor">
-            <summary>
-            default constructor for gd:email
-            </summary>
-        </member>
-        <member name="M:Google.GData.Extensions.EMail.#ctor(System.String)">
-            <summary>
-            default constructor for gd:email with an initial value for the email
-            </summary>
-            <param name="emailAddress">the initial email address</param>
-        </member>
-        <member name="M:Google.GData.Extensions.EMail.#ctor(System.String,System.String)">
-            <summary>
-            default constructor for gd:email with an initial value for the email
-            and the relationship
-            </summary>
-            <param name="emailAddress">the initial email address</param>
-            <param name="relationship">the value for the email relationship</param> 
-        </member>
-        <member name="M:Google.GData.Extensions.EMail.#ctor(System.String,System.String,System.String)">
-            <summary>
-            default constructor for gd:mail with initialization of namespaces
-            </summary>
-            <param name="element"></param>
-            <param name="prefix"></param>
-            <param name="ns"></param>
-        </member>
-        <member name="P:Google.GData.Extensions.EMail.Address">
-            <summary>accessor method public string Address</summary> 
-            <returns> </returns>
-        </member>
-        <member name="P:Google.GData.Extensions.EMail.Label">
-            <summary>accessor method for the Label value. Note you can only set this or
-            Rel, not both
-            </summary> 
-        </member>
-        <member name="P:Google.GData.Extensions.EMail.Primary">
-            <summary>accessor method public string Primary</summary> 
-            <returns> </returns>
-        </member>
-        <member name="P:Google.GData.Extensions.EMail.Rel">
-            <summary>accessor method for the Rel Value. Note you can only set this
-            or Label, not both</summary> 
-            <returns> </returns>
-        </member>
-        <member name="P:Google.GData.Extensions.EMail.Home">
-            <summary>
-            returns if the email is the home email address
-            </summary>
-        </member>
-        <member name="P:Google.GData.Extensions.EMail.Work">
-            <summary>
-            returns if the email is the home email address
-            </summary>
-        </member>
-        <member name="P:Google.GData.Extensions.EMail.Other">
-            <summary>
-            returns if the email is the home email address
-            </summary>
-        </member>
-        <member name="T:Google.GData.Extensions.Deleted">
-            <summary>
-            gd:deleted schema extension describing an deleted address in contacts
-            </summary>
-        </member>
-        <member name="M:Google.GData.Extensions.Deleted.#ctor">
-            <summary>
-            default constructor for gd:deleted 
-            </summary>
-        </member>
-        <member name="T:Google.GData.Extensions.IMAddress">
-            <summary>
-            gd:deleted schema extension describing an deleted address in contacts
-            </summary>
-        </member>
-        <member name="M:Google.GData.Extensions.IMAddress.#ctor">
-            <summary>
-            default constructor for gd:deleted 
-            </summary>
-        </member>
-        <member name="M:Google.GData.Extensions.IMAddress.#ctor(System.String)">
-            <summary>
-            default constructor with an initial value
-            </summary>
-            <param name="initValue"></param>
-        </member>
-        <member name="P:Google.GData.Extensions.IMAddress.Protocol">
-            <summary>accessor method for the protocol</summary> 
-            <returns> </returns>
-        </member>
-        <member name="T:Google.GData.Extensions.CommonAttributesElement">
-            <summary>
-            gd:PostalAddress element
-            </summary>
-        </member>
-        <member name="M:Google.GData.Extensions.CommonAttributesElement.#ctor(System.String,System.String,System.String)">
-            <summary>
-            default constructore with namesapce init
-            </summary>
-            <param name="element"></param>
-            <param name="prefix"></param>
-            <param name="ns"></param>
-        </member>
-        <member name="M:Google.GData.Extensions.CommonAttributesElement.#ctor(System.String,System.String,System.String,System.String)">
-            <summary>
-            default constructor with namespaces and an init value
-            </summary>
-            <param name="element"></param>
-            <param name="prefix"></param>
-            <param name="ns"></param>
-            <param name="init"></param>
-        </member>
-        <member name="P:Google.GData.Extensions.CommonAttributesElement.Primary">
-            <summary>accessor method public string Primary</summary> 
-            <returns> </returns>
-        </member>
-        <member name="P:Google.GData.Extensions.CommonAttributesElement.Rel">
-            <summary>accessor method for the Rel Value. Note you can only set this
-            or Label, not both</summary> 
-            <returns> </returns>
-        </member>
-        <member name="P:Google.GData.Extensions.CommonAttributesElement.Label">
-            <summary>accessor method for the Label value. Note you can only set this or
-            Rel, not both</summary> 
-            <returns> </returns>
-        </member>
-        <member name="P:Google.GData.Extensions.CommonAttributesElement.Home">
-            <summary>
-            returns if the email is the home email address
-            </summary>
-        </member>
-        <member name="P:Google.GData.Extensions.CommonAttributesElement.Work">
-            <summary>
-            returns if the email is the home email address
-            </summary>
-        </member>
-        <member name="P:Google.GData.Extensions.CommonAttributesElement.Other">
-            <summary>
-            returns if the email is the home email address
-            </summary>
-        </member>
-        <member name="T:Google.GData.Extensions.PostalAddress">
-            <summary>
-            gd:PostalAddress element
-            </summary>
-        </member>
-        <member name="M:Google.GData.Extensions.PostalAddress.#ctor">
-            <summary>
-            default empty constructor for gd:PostalAddress
-            </summary>
-        </member>
-        <member name="M:Google.GData.Extensions.PostalAddress.#ctor(System.String)">
-            <summary>
-             default constructor with an initial value
-            </summary>
-        </member>
-        <member name="T:Google.GData.Extensions.PhoneNumber">
-            <summary>
-            gd:phonenumber element
-            </summary>
-        </member>
-        <member name="M:Google.GData.Extensions.PhoneNumber.#ctor">
-            <summary>
-            default empty constructor for gd:phonenumber
-            </summary>
-        </member>
-        <member name="M:Google.GData.Extensions.PhoneNumber.#ctor(System.String)">
-            <summary>
-             default constructor with an initial value
-            </summary>
-        </member>
-        <member name="P:Google.GData.Extensions.PhoneNumber.Uri">
-            <summary>accessor method public string uri</summary> 
-            <returns> </returns>
-        </member>
-        <member name="T:Google.GData.Extensions.Organization">
-            <summary>
-            GData schema extension describing an organization
-            </summary>
-        </member>
-        <member name="M:Google.GData.Extensions.Organization.#ctor">
-            <summary>
-            default constructor for media:group
-            </summary>
-        </member>
-        <member name="P:Google.GData.Extensions.Organization.Rel">
-            <summary>accessor method for the Rel Value. Note you can only set this
-            or Label, not both</summary> 
-            <returns> </returns>
-        </member>
-        <member name="P:Google.GData.Extensions.Organization.Label">
-            <summary>accessor method for the Label value. Note you can only set this or
-            Rel, not both</summary> 
-            <returns> </returns>
-        </member>
-        <member name="P:Google.GData.Extensions.Organization.Name">
-            <summary>
-            sets the value of the OrgName element
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="P:Google.GData.Extensions.Organization.Title">
-            <summary>
-            access the OrgTitle element to set/get the title
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="P:Google.GData.Extensions.Organization.Primary">
-            <summary>accessor method public string Primary</summary> 
-            <returns> </returns>
-        </member>
-        <member name="P:Google.GData.Extensions.Organization.Home">
-            <summary>
-            returns if the email is the home email address
-            </summary>
-        </member>
-        <member name="P:Google.GData.Extensions.Organization.Other">
-            <summary>
-            returns if the email is the home email address
-            </summary>
-        </member>
-        <member name="T:Google.GData.Extensions.OrgName">
-            <summary>
-            gd:OrgName schema extension describing an organization name
-            it's a child of Organization
-            </summary>
-        </member>
-        <member name="M:Google.GData.Extensions.OrgName.#ctor">
-            <summary>
-            default constructor for gd:OrgName 
-            </summary>
-        </member>
-        <member name="M:Google.GData.Extensions.OrgName.#ctor(System.String)">
-            <summary>
-            default constructor for gd:OrgName  with an initial value
-            </summary>
-            <param name="initValue"/>
-        </member>
-        <member name="T:Google.GData.Extensions.OrgTitle">
-            <summary>
-            gd:OrgTitle schema extension describing the title of a person in an organization
-            it's a child of Organization
-            </summary>
-        </member>
-        <member name="M:Google.GData.Extensions.OrgTitle.#ctor">
-            <summary>
-            default constructor for gd:OrgTitle 
-            </summary>
-        </member>
-        <member name="M:Google.GData.Extensions.OrgTitle.#ctor(System.String)">
-            <summary>
-            default constructor for gd:OrgTitle  with an initial value
-            </summary>
-            <param name="initValue"/>
-        </member>
-        <member name="T:Google.GData.Extensions.Where">
-            <summary>
-            A place (such as an event location) associated with the containing entity. The type of 
-            the association is determined by the rel attribute; the details of the location are 
-            contained in an embedded or linked-to Contact entry.
-            A gd:where element is more general than a gd:geoPt element. The former identifies a place
-             using a text description and/or a Contact entry, while the latter identifies a place 
-            using a specific geographic location.
-                Properties
-               Property 	    Type 	    Description
-                @label? 	    xs:string 	Specifies a user-readable label to distinguish this location from other locations.
-                @rel? 	        xs:string 	Specifies the relationship between the containing entity and the contained location. Possible values
-                (see below) are defined by other elements. For example, gd:when defines http://schemas.google.com/g/2005#event.
-                @valueString? 	xs:string 	A simple string value that can be used as a representation of this location.
-                gd:entryLink? 	entryLink 	Entry representing location details. This entry should implement the Contact kind.
-                rel values
-                Value 	                                                    Description
-               http://schemas.google.com/g/2005#event or not specified 	 Place where the enclosing event takes place.
-               http://schemas.google.com/g/2005#event.alternate 	          A secondary location. For example, a remote 
-                                                                             site with a videoconference link to the main site.
-               http://schemas.google.com/g/2005#event.parking 	              A nearby parking lot.
-            </summary>
-        </member>
-        <member name="M:Google.GData.Extensions.Where.#ctor">
-            <summary>
-            Constructs an empty Where instance
-            </summary>
-        </member>
-        <member name="M:Google.GData.Extensions.Where.#ctor(System.String,System.String,System.String)">
-            <summary>
-            default constructor, takes 3 parameters
-            </summary>
-            <param name="value">the valueString property value</param>
-            <param name="label">label property value</param>
-            <param name="rel">default for the Rel property value</param>
-        </member>
-        <member name="M:Google.GData.Extensions.Where.CreateInstance(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
-            <summary>Parses an xml node to create a Where  object.</summary> 
-            <param name="node">the node to parse node</param>
-            <param name="parser">the xml parser to use if we need to dive deeper</param>
-            <returns>the created Where  object</returns>
-        </member>
-        <member name="M:Google.GData.Extensions.Where.Save(System.Xml.XmlWriter)">
-            <summary>
-            Persistence method for the Where object
-            </summary>
-            <param name="writer">the xmlwriter to write into</param>
-        </member>
-        <member name="P:Google.GData.Extensions.Where.Rel">
-            <summary>
-            Rel property accessor
-            </summary>
-        </member>
-        <member name="P:Google.GData.Extensions.Where.Label">
-            <summary>
-            User-readable label that identifies this location.
-            </summary>
-        </member>
-        <member name="P:Google.GData.Extensions.Where.ValueString">
-            <summary>
-            String description of the event places.
-            </summary>
-        </member>
-        <member name="P:Google.GData.Extensions.Where.EntryLink">
-            <summary>
-             Nested entry (optional).
-            </summary>
-        </member>
-        <member name="P:Google.GData.Extensions.Where.XmlName">
-            <summary>Returns the constant representing this XML element.</summary> 
-        </member>
-        <member name="P:Google.GData.Extensions.Where.XmlNameSpace">
-            <summary>Returns the constant representing this XML element.</summary> 
-        </member>
-        <member name="P:Google.GData.Extensions.Where.XmlPrefix">
-            <summary>Returns the constant representing this XML element.</summary> 
-        </member>
-        <member name="T:Google.GData.Extensions.Where.RelType">
-            <summary>
-            Relation type. Describes the meaning of this location.
-            </summary>
-        </member>
-        <member name="F:Google.GData.Extensions.Where.RelType.EVENT">
-            <summary>
-            The standard relationship EVENT_ALTERNATE
-            </summary>
-        </member>
-        <member name="F:Google.GData.Extensions.Where.RelType.EVENT_ALTERNATE">
-            <summary>
-            the alternate EVENT location
-            </summary>
-        </member>
-        <member name="F:Google.GData.Extensions.Where.RelType.EVENT_PARKING">
-            <summary>
-             the parking location
-            </summary>
-        </member>
-        <member name="T:Google.GData.Extensions.Reminder">
-             <summary>
-             GData schema extension describing a reminder on an event.
-             </summary>
-             <remarks>
-             <para>You can represent a set of reminders where each has a (1) reminder
-             period and (2) notification method.  The method can be either "sms",
-             "email", "alert", "none", "all".</para>
-            
-             <para>The meaning of this set of reminders differs based on whether you
-             are reading or writing feeds.  When reading, the set of reminders
-             returned on an event takes into account both defaults on a
-             parent recurring event (when applicable) as well as the user's
-             defaults on calendar.  If there are no gd:reminders returned that
-             means the event has absolutely no reminders.  "none" or "all" will
-             not apply in this case.</para>
-            
-             <para>Writing is different because we have to be backwards-compatible
-             (see *) with the old way of setting reminders.  For easier analysis
-             we describe all the behaviors defined in the table below.  (Notice
-             we only include cases for minutes, as the other cases specified in
-             terms of days/hours/absoluteTime can be converted to this case.)</para>
-            
-             <para>Notice method is case-sensitive: must be in lowercase!</para>
-            
-             <list type="table">
-                 <listheader>
-                     <term></term>
-                     <term>No method or method=all</term>
-                     <term>method=none</term>
-                     <term>method=email|sms|alert</term>
-                 </listheader>
-                 <item>
-                     <term>No gd:rem</term>
-                     <term>*No reminder</term>
-                     <term>N/A</term>
-                     <term>N/A</term>
-                 </item>
-                 <item>
-                     <term>1 gd:rem</term>
-                     <term>*Use user's default settings</term>
-                     <term>No reminder</term>
-                     <term>InvalidEntryException</term>
-                 </item>
-                 <item>
-                     <term>1 gd:rem min=0</term>    
-                     <term>*Use user's default settings</term>
-                     <term>No reminder</term>
-                     <term>InvalidEntryException</term>
-                 </item>
-                 <item>
-                     <term>1 gd:rem min=-1</term>
-                     <term>*No reminder</term>
-                     <term>No reminder</term>
-                     <term>InvalidEntryException</term>
-                 </item>
-                 <item>
-                     <term>1 gd:rem min=+n</term>
-                     <term>*Override with no +n for user's selected methods</term>
-                     <term>No reminder</term>
-                     <term>Set exactly one reminder on event at +n with given method</term>
-                 </item>
-                 <item>
-                     <term>Multiple gd:rem</term>
-                     <term>InvalidEntryException</term>
-                     <term>InvalidEntryException</term>
-                     <term>Copy this set exactly</term>
-                 </item>
-             </list>
-             
-             <para>Hence, to override an event with a set of reminder time, method
-             pairs, just specify them exactly.  To clear an event of all
-             overrides (and go back to inheriting the user's defaults), one can
-             simply specify a single gd:reminder with no extra attributes.  To
-             have NO event reminders on an event, either set a single
-             gd:reminder with negative reminder time, or simply update the event
-             with a single gd:reminder method=none.</para>
-             </remarks>
-        </member>
-        <member name="F:Google.GData.Extensions.Reminder.days">
-            <summary>
-            Number of days before the event.
-            </summary>
-        </member>
-        <member name="F:Google.GData.Extensions.Reminder.hours">
-            <summary>
-            Number of hours.
-            </summary>
-        </member>
-        <member name="F:Google.GData.Extensions.Reminder.minutes">
-            <summary>
-            Number of minutes.
-            </summary>
-        </member>
-        <member name="F:Google.GData.Extensions.Reminder.absoluteTime">
-            <summary>
-            Absolute time of the reminder.
-            </summary>
-        </member>
-        <member name="F:Google.GData.Extensions.Reminder.method">
-            <summary>
-            holds the method type
-            </summary>
-        </member>
-        <member name="M:Google.GData.Extensions.Reminder.CreateInstance(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
-            <summary>Parses an xml node to create a Reminder object.</summary> 
-            <param name="node">the node to parse node</param>
-            <param name="parser">the xml parser to use if we need to dive deeper</param>
-            <returns>the created Reminder object</returns>
-        </member>
-        <member name="M:Google.GData.Extensions.Reminder.Save(System.Xml.XmlWriter)">
-            <summary>
-            Persistence method for the Reminder  object
-            </summary>
-            <param name="writer">the xmlwriter to write into</param>
-        </member>
-        <member name="P:Google.GData.Extensions.Reminder.Method">
-            <summary>accessor method public Method Method</summary> 
-            <returns> </returns>
-        </member>
-        <member name="P:Google.GData.Extensions.Reminder.Days">
-            <summary>accessor method public Days</summary> 
-            <returns> </returns>
-        </member>
-        <member name="P:Google.GData.Extensions.Reminder.Hours">
-            <summary>accessor method public Hours</summary> 
-            <returns> </returns>
-        </member>
-        <member name="P:Google.GData.Extensions.Reminder.Minutes">
-            <summary>accessor method public Minutes</summary> 
-            <returns> </returns>
-        </member>
-        <member name="P:Google.GData.Extensions.Reminder.AbsoluteTime">
-            <summary>accessor method public absoluteTime</summary> 
-            <returns> </returns>
-        </member>
-        <member name="P:Google.GData.Extensions.Reminder.XmlName">
-            <summary>Returns the constant representing this XML element.</summary> 
-        </member>
-        <member name="P:Google.GData.Extensions.Reminder.XmlNameSpace">
-            <summary>Returns the constant representing this XML element.</summary> 
-        </member>
-        <member name="P:Google.GData.Extensions.Reminder.XmlPrefix">
-            <summary>Returns the constant representing this XML element.</summary> 
-        </member>
-        <member name="T:Google.GData.Extensions.Reminder.ReminderMethod">
-            <summary>
-            the different reminder methods available
-            </summary>
-        </member>
-        <member name="F:Google.GData.Extensions.Reminder.ReminderMethod.alert">
-            <summary>
-            visible alert
-            </summary>
-        </member>
-        <member name="F:Google.GData.Extensions.Reminder.ReminderMethod.all">
-            <summary>
-            all alerts
-            </summary>
-        </member>
-        <member name="F:Google.GData.Extensions.Reminder.ReminderMethod.email">
-            <summary>
-            alert per email
-            </summary>
-        </member>
-        <member name="F:Google.GData.Extensions.Reminder.ReminderMethod.none">
-            <summary>
-            no aert
-            </summary>
-        </member>
-        <member name="F:Google.GData.Extensions.Reminder.ReminderMethod.sms">
-            <summary>
-            alert per SMS
-            </summary>
-        </member>
-        <member name="F:Google.GData.Extensions.Reminder.ReminderMethod.unspecified">
-            <summary>
-            no alert specified (invalid)
-            </summary>
-        </member>
         <member name="T:Google.GData.Extensions.RecurrenceException">
             <summary>
             GData schema extension describing an RFC 2445 recurrence rule.
@@ -1606,309 +265,244 @@
         <member name="F:Google.GData.Extensions.GDataParserNameTable.XmlQuickAddElement">
              <summary>static string for the quickAdd element</summary>    
         </member>
-        <member name="T:Google.GData.Extensions.Who">
+        <member name="T:Google.GData.Extensions.Apps.LabelCollection">
             <summary>
-            GData schema extension describing a person.
-            It contains a gd:entryLink element containing the described person.
+            Standard typed collection of labels.
             </summary>
         </member>
-        <member name="F:Google.GData.Extensions.Who.rel">
+        <member name="T:Google.GData.Extensions.ExtensionCollection`1">
             <summary>
-             relationship description as a String
+            base class to take an object pointer with extension information
+            and expose a localname/namespace subset as a collection
+            that still works on the original
             </summary>
         </member>
-        <member name="F:Google.GData.Extensions.Who.valueString">
+        <member name="F:Google.GData.Extensions.ExtensionCollection`1.container">
+            <summary>holds the owning feed</summary>
+        </member>
+        <member name="M:Google.GData.Extensions.ExtensionCollection`1.#ctor">
             <summary>
-            String description of the person.
+            protected default constructor, not usable by outside
             </summary>
         </member>
-        <member name="F:Google.GData.Extensions.Who.email">
+        <member name="M:Google.GData.Extensions.ExtensionCollection`1.#ctor(Google.GData.Client.IExtensionContainer,System.String,System.String)">
             <summary>
-            email adress of the person
+            takes the base object, and the localname/ns combo to look for
+            will copy objects to an internal array for caching. Note that when the external 
+            ExtensionList is modified, this will have no effect on this copy
+            </summary>
+            <param name="containerElement">the base element holding the extension list</param>
+            <param name="localName">the local name of the extension</param>
+            <param name="ns">the namespace</param>
+        </member>
+        <member name="M:Google.GData.Extensions.ExtensionCollection`1.setItem(System.Int32,`0)">
+            <summary>
+            useful for subclasses that want to overload the set method
+            </summary>
+            <param name="index">the index in the array</param>
+            <param name="item">the item to set </param>
+        </member>
+        <member name="M:Google.GData.Extensions.ExtensionCollection`1.Add(`0)">
+            <summary>
+            default untyped add implementation. Adds the object as well to the parent
+            object ExtensionList
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Google.GData.Extensions.ExtensionCollection`1.Insert(System.Int32,`0)">
+            <summary>
+            inserts an element into the collection by index
+            </summary>
+            <param name="index"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Google.GData.Extensions.ExtensionCollection`1.Remove(`0)">
+            <summary>
+            removes an element at a given index
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:Google.GData.Extensions.ExtensionCollection`1.OnRemove(System.Int32,System.Object)">
+            <summary>
+            override this one to catch all cases, makes sure that
+            the container collection will remove the object as well
+            </summary>
+            <param name="index"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Google.GData.Extensions.ExtensionCollection`1.IndexOf(`0)">
+            <summary>standard typed indexOf method </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.ExtensionCollection`1.Contains(`0)">
+            <summary>standard typed Contains method </summary> 
+        </member>
+        <member name="M:Google.GData.Extensions.ExtensionCollection`1.OnClear">
+            <summary>standard override OnClear, to remove the objects from the extension list</summary> 
+        </member>
+        <member name="P:Google.GData.Extensions.ExtensionCollection`1.Item(System.Int32)">
+            <summary>standard typed accessor method </summary> 
+        </member>
+        <member name="M:Google.GData.Extensions.Apps.LabelCollection.#ctor(Google.GData.Client.AtomBase)">
+            <summary>constructor</summary>
+        </member>
+        <member name="T:Google.GData.Extensions.When">
+            <summary>
+            GData schema extension describing a period of time.
             </summary>
         </member>
-        <member name="F:Google.GData.Extensions.Who.attendeeType">
+        <member name="F:Google.GData.Extensions.When.startTime">
             <summary>
-             Type of event attendee.
+            Event start time (required).
             </summary>
         </member>
-        <member name="F:Google.GData.Extensions.Who.attendeeStatus">
+        <member name="F:Google.GData.Extensions.When.endTime">
             <summary>
-             Status of event attendee.
+            Event end time (optional).
             </summary>
         </member>
-        <member name="F:Google.GData.Extensions.Who.entryLink">
+        <member name="F:Google.GData.Extensions.When.valueString">
             <summary>
-            Nested person entry.
+            String description of the event times.
             </summary>
         </member>
-        <member name="M:Google.GData.Extensions.Who.CreateInstance(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
+        <member name="F:Google.GData.Extensions.When.fAllDay">
+            <summary>
+            flag, indicating if an all day status
+            </summary>
+        </member>
+        <member name="F:Google.GData.Extensions.When.reminders">
+            <summary>
+            reminder object to set reminder durations
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.When.#ctor">
+            <summary>
+            Constructs a new instance of a When object.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.When.#ctor(System.DateTime,System.DateTime)">
+            <summary>
+            Constructs a new instance of a When object with provided data.
+            </summary>
+            <param name="start">The beginning of the event.</param>
+            <param name="end">The end of the event.</param>
+        </member>
+        <member name="M:Google.GData.Extensions.When.#ctor(System.DateTime,System.DateTime,System.Boolean)">
+            <summary>
+            Constructs a new instance of a When object with provided data.
+            </summary>
+            <param name="start">The beginning of the event.</param>
+            <param name="end">The end of the event.</param>
+            <param name="allDay">A flag to indicate an all day event.</param>
+        </member>
+        <member name="M:Google.GData.Extensions.When.CreateInstance(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
             <summary>Parses an xml node to create a Where  object.</summary> 
             <param name="node">the node to parse node</param>
             <param name="parser">the xml parser to use if we need to dive deeper</param>
             <returns>the created Where  object</returns>
         </member>
-        <member name="M:Google.GData.Extensions.Who.Save(System.Xml.XmlWriter)">
+        <member name="M:Google.GData.Extensions.When.Save(System.Xml.XmlWriter)">
             <summary>
-            Persistence method for the Who object
+            Persistence method for the When object
             </summary>
             <param name="writer">the xmlwriter to write into</param>
         </member>
-        <member name="P:Google.GData.Extensions.Who.Rel">
-            <summary>accessor method public string Rel</summary> 
+        <member name="P:Google.GData.Extensions.When.StartTime">
+            <summary>accessor method public DateTime StartTime</summary> 
             <returns> </returns>
         </member>
-        <member name="P:Google.GData.Extensions.Who.ValueString">
+        <member name="P:Google.GData.Extensions.When.EndTime">
+            <summary>accessor method public DateTime EndTime</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Extensions.When.Reminders">
+            <summary>reminder accessor</summary> 
+        </member>
+        <member name="P:Google.GData.Extensions.When.ValueString">
             <summary>accessor method public string ValueString</summary> 
             <returns> </returns>
         </member>
-        <member name="P:Google.GData.Extensions.Who.Email">
-            <summary>accessor method for the email property</summary> 
+        <member name="P:Google.GData.Extensions.When.AllDay">
+            <summary>accessor method to the allday event flag</summary>
+            <returns>true if it's an all day event</returns>
+        </member>
+        <member name="P:Google.GData.Extensions.When.XmlName">
+            <summary>Returns the constant representing this XML element.
+            </summary> 
+        </member>
+        <member name="P:Google.GData.Extensions.When.XmlNameSpace">
+            <summary>Returns the constant representing this XML element.</summary> 
+        </member>
+        <member name="P:Google.GData.Extensions.When.XmlPrefix">
+            <summary>Returns the constant representing this XML element.</summary> 
+        </member>
+        <member name="T:Google.GData.Extensions.Apps.MailItemPropertyCollection">
+            <summary>
+            Standard typed collection of <code>MailItemPropertyElement</code>s.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.Apps.MailItemPropertyCollection.#ctor(Google.GData.Client.AtomBase)">
+            <summary>constructor</summary>
+        </member>
+        <member name="T:Google.GData.Extensions.EntryLink">
+            <summary>
+            GData schema extension describing a nested entry link.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Extensions.EntryLink.href">
+            <summary>holds the href property of the EntryLink element</summary>
+        </member>
+        <member name="F:Google.GData.Extensions.EntryLink.readOnly">
+            <summary>holds the readOnlySet property of the EntryLink element</summary>
+        </member>
+        <member name="F:Google.GData.Extensions.EntryLink.entry">
+            <summary>holds the AtomEntry  property of the EntryLink element</summary>
+        </member>
+        <member name="F:Google.GData.Extensions.EntryLink.rel">
+            <summary>holds the rel attribute of the EntyrLink element</summary> 
+        </member>
+        <member name="M:Google.GData.Extensions.EntryLink.ParseEntryLink(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
+            <summary>parses an xml node to create an EntryLink object</summary> 
+            <param name="node">entrylink node</param>
+            <param name="parser">AtomFeedParser to use</param>
+            <returns> the created EntryLink object</returns>
+        </member>
+        <member name="M:Google.GData.Extensions.EntryLink.OnParsedNewEntry(System.Object,Google.GData.Client.FeedParserEventArgs)">
+            <summary>Event chaining. We catch this from the AtomFeedParser
+            we want to set this to our property, and do not add the entry to the collection
+            </summary> 
+            <param name="sender"> the object which send the event</param>
+            <param name="e">FeedParserEventArguments, holds the feed entry</param> 
             <returns> </returns>
         </member>
-        <member name="P:Google.GData.Extensions.Who.Attendee_Type">
+        <member name="M:Google.GData.Extensions.EntryLink.Save(System.Xml.XmlWriter)">
             <summary>
-             Attendee_Type accessor
+            Used to save the EntryLink instance into the passed in xmlwriter
+            </summary>
+            <param name="writer">the XmlWriter to write into</param>
+        </member>
+        <member name="P:Google.GData.Extensions.EntryLink.Href">
+            <summary>
+            Entry  URI
             </summary>
         </member>
-        <member name="P:Google.GData.Extensions.Who.Attendee_Status">
+        <member name="P:Google.GData.Extensions.EntryLink.ReadOnly">
             <summary>
-             Attendee_Status accessor
+            Read only flag.
             </summary>
         </member>
-        <member name="P:Google.GData.Extensions.Who.EntryLink">
+        <member name="P:Google.GData.Extensions.EntryLink.Entry">
             <summary>
-             EntryLink Accessor
+             Nested entry (optional).
             </summary>
         </member>
-        <member name="P:Google.GData.Extensions.Who.XmlName">
-            <summary>Returns the constant representing this XML element.</summary> 
+        <member name="P:Google.GData.Extensions.EntryLink.Rel">
+            <summary>accessor method public string Rel</summary> 
+            <returns> </returns>
         </member>
-        <member name="P:Google.GData.Extensions.Who.XmlNameSpace">
-            <summary>Returns the constant representing this XML element.</summary> 
-        </member>
-        <member name="P:Google.GData.Extensions.Who.XmlPrefix">
-            <summary>Returns the constant representing this XML element.</summary> 
-        </member>
-        <member name="T:Google.GData.Extensions.Who.RelType">
-            <summary>
-            Relation type. Describes the meaning of this association.
-            </summary>
-        </member>
-        <member name="F:Google.GData.Extensions.Who.RelType.EVENT_ATTENDEE">
-            <summary>Relationship value Attendee</summary>
-        </member>
-        <member name="F:Google.GData.Extensions.Who.RelType.EVENT_ORGANIZER">
-            <summary>Relationship value Organizer</summary>
-        </member>
-        <member name="F:Google.GData.Extensions.Who.RelType.EVENT_SPEAKER">
-            <summary>Relationship value Speaker</summary>
-        </member>
-        <member name="F:Google.GData.Extensions.Who.RelType.EVENT_PERFORMER">
-            <summary>Relationship value Performer</summary>
-        </member>
-        <member name="F:Google.GData.Extensions.Who.RelType.TASK_ASSIGNED_TO">
-            <summary>Relationship value Assigned To</summary>
-        </member>
-        <member name="F:Google.GData.Extensions.Who.RelType.MESSAGE_FROM">
-            <summary>Relationship value Message From</summary>
-        </member>
-        <member name="F:Google.GData.Extensions.Who.RelType.MESSAGE_REPLY_TO">
-            <summary>Relationship value message is a reply to</summary>
-        </member>
-        <member name="F:Google.GData.Extensions.Who.RelType.MESSAGE_TO">
-            <summary>Relationship value message goes to</summary>
-        </member>
-        <member name="F:Google.GData.Extensions.Who.RelType.MESSAGE_CC">
-            <summary>Relationship value message CC</summary>
-        </member>
-        <member name="F:Google.GData.Extensions.Who.RelType.MESSAGE_BCC">
-            <summary>Relationship value message BCC</summary>
-        </member>
-        <member name="T:Google.GData.Extensions.Who.AttendeeType">
-            <summary>
-            AttendeeType class
-            </summary>
-        </member>
-        <member name="T:Google.GData.Extensions.EnumConstruct">
-            <summary>
-            Extensible enum type used in many places.
-            </summary>
-        </member>
-        <member name="M:Google.GData.Extensions.EnumConstruct.#ctor(System.String)">
-            <summary>
-            constructor
-            </summary>
-            <param name="xmlElement">the XmlElement that is used</param>
-        </member>
-        <member name="M:Google.GData.Extensions.EnumConstruct.#ctor(System.String,System.String)">
-            <summary>
-            Creates a new EnumConstruct instance with a specific type and value.
-            When this constructor is used the instance has a constant value and
-            may not be modified by the setValue() API.
-            </summary>
-            <param name="xmlElement">the XmlElement that is used</param>
-            <param name="initialValue">the initial value of the type</param>
-        </member>
-        <member name="M:Google.GData.Extensions.EnumConstruct.#ctor(System.String,System.String,System.String)">
-            <summary>
-            Creates a new EnumConstruct instance with a specific type and namespace
-            </summary>
-            <param name="xmlElement">the XmlElement that is used</param>
-            <param name="prefix">the prefix to use</param>
-            <param name="nameSpace">the namespace to use</param>
-        </member>
-        <member name="M:Google.GData.Extensions.EnumConstruct.#ctor(System.String,System.String,System.String,System.String)">
-            <summary>
-            Creates a new EnumConstruct instance with a specific type, namespace and value.
-            When this constructor is used the instance has a constant value and
-            may not be modified by the setValue() API.
-            </summary>
-            <param name="xmlElement">the XmlElement that is used</param>
-            <param name="prefix">the prefix to use</param>
-            <param name="nameSpace">the namespace to use</param>
-            <param name="initialValue">the initial value</param>
-        </member>
-        <member name="F:Google.GData.Extensions.EnumConstruct.readOnly">
-            <summary>
-            Construct value cannot be changed
-            </summary>
-        </member>
-        <member name="M:Google.GData.Extensions.EnumConstruct.Equals(System.Object)">
-            <summary>
-             Equal operator overload
-            </summary>
-            <param name="obj">the object to compare to</param>
-            <returns>bool</returns>
-        </member>
-        <member name="M:Google.GData.Extensions.EnumConstruct.GetHashCode">
-            <summary>
-             GetHashCode overload
-            </summary>
-            <returns>a hash based on the string value</returns>
-        </member>
-        <member name="P:Google.GData.Extensions.EnumConstruct.Type">
-            <summary>
-             Accessor Method for the enumType
-            </summary>
-        </member>
-        <member name="P:Google.GData.Extensions.EnumConstruct.Value">
-            <summary>
-             Accessor Method for the value
-            </summary>
-        </member>
-        <member name="F:Google.GData.Extensions.Who.AttendeeType.EVENT_REQUIRED">
-            <summary>this attendee is required</summary>
-        </member>
-        <member name="F:Google.GData.Extensions.Who.AttendeeType.EVENT_OPTIONAL">
-            <summary>this attendee is optional</summary>
-        </member>
-        <member name="M:Google.GData.Extensions.Who.AttendeeType.#ctor">
-            <summary>
-             default constructor
-            </summary>
-        </member>
-        <member name="M:Google.GData.Extensions.Who.AttendeeType.parse(System.Xml.XmlNode)">
-            <summary>
-            the xml parsing method
-            </summary>
-            <param name="node">the xml node holding the attendeeStatus</param>
-            <returns>AttendeeType</returns>
-        </member>
-        <member name="T:Google.GData.Extensions.Who.AttendeeStatus">
-            <summary>
-            represents the status of the attendee
-            </summary>
-        </member>
-        <member name="F:Google.GData.Extensions.Who.AttendeeStatus.EVENT_INVITED">
-            <summary>attendee was invited</summary>
-        </member>
-        <member name="F:Google.GData.Extensions.Who.AttendeeStatus.EVENT_ACCEPTED">
-            <summary> attendee has accepted</summary>
-        </member>
-        <member name="F:Google.GData.Extensions.Who.AttendeeStatus.EVENT_TENTATIVE">
-            <summary>attendee might or might not...</summary>
-        </member>
-        <member name="F:Google.GData.Extensions.Who.AttendeeStatus.EVENT_DECLINED">
-            <summary>this attendee declined politely</summary>
-        </member>
-        <member name="M:Google.GData.Extensions.Who.AttendeeStatus.#ctor">
-            <summary>
-            default constructor
-            </summary>
-        </member>
-        <member name="M:Google.GData.Extensions.Who.AttendeeStatus.parse(System.Xml.XmlNode)">
-            <summary>
-            the xml parsing method
-            </summary>
-            <param name="node">the xml node holding the attendeeStatus</param>
-            <returns>AttendeeStatus</returns>
-        </member>
-        <member name="T:Google.GData.Extensions.Recurrence">
-            <summary>
-            GData schema extension describing an RFC 2445 recurrence rule.
-            </summary>
-        </member>
-        <member name="M:Google.GData.Extensions.Recurrence.CreateInstance(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
-            <summary>Parses an xml node to create a Reminder object.</summary> 
-            <param name="node">the node to parse node</param>
-            <param name="parser">the xml parser to use if we need to dive deeper</param>
-            <returns>the created Reminder object</returns>
-        </member>
-        <member name="M:Google.GData.Extensions.Recurrence.Save(System.Xml.XmlWriter)">
-            <summary>
-            Persistence method for the Recurrence object
-            </summary>
-            <param name="writer">the xmlwriter to write into</param>
-        </member>
-        <member name="P:Google.GData.Extensions.Recurrence.Value">
-            <summary>
-             Value property accessor
-            </summary>
-        </member>
-        <member name="P:Google.GData.Extensions.Recurrence.XmlName">
-            <summary>Returns the constant representing this XML element.</summary> 
-        </member>
-        <member name="P:Google.GData.Extensions.Recurrence.XmlNameSpace">
-            <summary>Returns the constant representing this XML element.</summary> 
-        </member>
-        <member name="P:Google.GData.Extensions.Recurrence.XmlPrefix">
-            <summary>Returns the constant representing this XML element.</summary> 
-        </member>
-        <member name="T:Google.GData.Extensions.Comments">
-            <summary>
-            GData schema extension describing a comments feed.
-            </summary>
-        </member>
-        <member name="F:Google.GData.Extensions.Comments.feedLink">
-            <summary>
-             holds the feedLink property
-            </summary>
-        </member>
-        <member name="M:Google.GData.Extensions.Comments.CreateInstance(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
-            <summary>Parses an xml node to create a Where  object.</summary> 
-            <param name="node">the node to parse node</param>
-            <param name="parser">the xml parser to use if we need to dive deeper</param>
-            <returns>the created Where  object</returns>
-        </member>
-        <member name="M:Google.GData.Extensions.Comments.Save(System.Xml.XmlWriter)">
-            <summary>
-            Persistence method for the Comment  object
-            </summary>
-            <param name="writer">the xmlwriter to write into</param>
-        </member>
-        <member name="P:Google.GData.Extensions.Comments.FeedLink">
-            <summary>
-            Comments feed link.
-            </summary>
-        </member>
-        <member name="P:Google.GData.Extensions.Comments.XmlName">
-            <summary>Returns the constant representing this XML element.</summary> 
-        </member>
-        <member name="P:Google.GData.Extensions.Comments.XmlNameSpace">
-            <summary>Returns the constant representing this XML element.</summary> 
-        </member>
-        <member name="P:Google.GData.Extensions.Comments.XmlPrefix">
+        <member name="P:Google.GData.Extensions.EntryLink.XmlName">
             <summary>Returns the constant representing this XML element.</summary> 
         </member>
         <member name="T:Google.GData.Extensions.Apps.GAppsExtensions">
@@ -2474,165 +1068,31 @@
         <member name="F:Google.GData.Extensions.Apps.MailItemPropertyElement.MailItemProperty.IS_UNREAD">
             <summary>Mark as unread</summary>
         </member>
-        <member name="T:Google.GData.Extensions.When">
+        <member name="T:Google.GData.Extensions.ExtendedProperty">
             <summary>
-            GData schema extension describing a period of time.
+            GData schema extension describing an extended property/value pair
             </summary>
         </member>
-        <member name="F:Google.GData.Extensions.When.startTime">
+        <member name="M:Google.GData.Extensions.ExtendedProperty.#ctor">
             <summary>
-            Event start time (required).
+            default constructor for an extended property
             </summary>
         </member>
-        <member name="F:Google.GData.Extensions.When.endTime">
+        <member name="M:Google.GData.Extensions.ExtendedProperty.#ctor(System.String)">
             <summary>
-            Event end time (optional).
+            default constructor with an initial value
             </summary>
+            <param name="initValue"></param>
         </member>
-        <member name="F:Google.GData.Extensions.When.valueString">
+        <member name="M:Google.GData.Extensions.ExtendedProperty.#ctor(System.String,System.String)">
             <summary>
-            String description of the event times.
+            default constructor with a value and a key name
             </summary>
+            <param name="initValue">initial value</param>
+            <param name="initName">name for the key</param>
         </member>
-        <member name="F:Google.GData.Extensions.When.fAllDay">
-            <summary>
-            flag, indicating if an all day status
-            </summary>
-        </member>
-        <member name="F:Google.GData.Extensions.When.reminders">
-            <summary>
-            reminder object to set reminder durations
-            </summary>
-        </member>
-        <member name="M:Google.GData.Extensions.When.#ctor">
-            <summary>
-            Constructs a new instance of a When object.
-            </summary>
-        </member>
-        <member name="M:Google.GData.Extensions.When.#ctor(System.DateTime,System.DateTime)">
-            <summary>
-            Constructs a new instance of a When object with provided data.
-            </summary>
-            <param name="start">The beginning of the event.</param>
-            <param name="end">The end of the event.</param>
-        </member>
-        <member name="M:Google.GData.Extensions.When.#ctor(System.DateTime,System.DateTime,System.Boolean)">
-            <summary>
-            Constructs a new instance of a When object with provided data.
-            </summary>
-            <param name="start">The beginning of the event.</param>
-            <param name="end">The end of the event.</param>
-            <param name="allDay">A flag to indicate an all day event.</param>
-        </member>
-        <member name="M:Google.GData.Extensions.When.CreateInstance(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
-            <summary>Parses an xml node to create a Where  object.</summary> 
-            <param name="node">the node to parse node</param>
-            <param name="parser">the xml parser to use if we need to dive deeper</param>
-            <returns>the created Where  object</returns>
-        </member>
-        <member name="M:Google.GData.Extensions.When.Save(System.Xml.XmlWriter)">
-            <summary>
-            Persistence method for the When object
-            </summary>
-            <param name="writer">the xmlwriter to write into</param>
-        </member>
-        <member name="P:Google.GData.Extensions.When.StartTime">
-            <summary>accessor method public DateTime StartTime</summary> 
-            <returns> </returns>
-        </member>
-        <member name="P:Google.GData.Extensions.When.EndTime">
-            <summary>accessor method public DateTime EndTime</summary> 
-            <returns> </returns>
-        </member>
-        <member name="P:Google.GData.Extensions.When.Reminders">
-            <summary>reminder accessor</summary> 
-        </member>
-        <member name="P:Google.GData.Extensions.When.ValueString">
-            <summary>accessor method public string ValueString</summary> 
-            <returns> </returns>
-        </member>
-        <member name="P:Google.GData.Extensions.When.AllDay">
-            <summary>accessor method to the allday event flag</summary>
-            <returns>true if it's an all day event</returns>
-        </member>
-        <member name="P:Google.GData.Extensions.When.XmlName">
-            <summary>Returns the constant representing this XML element.
-            </summary> 
-        </member>
-        <member name="P:Google.GData.Extensions.When.XmlNameSpace">
-            <summary>Returns the constant representing this XML element.</summary> 
-        </member>
-        <member name="P:Google.GData.Extensions.When.XmlPrefix">
-            <summary>Returns the constant representing this XML element.</summary> 
-        </member>
-        <member name="T:Google.GData.Extensions.Rating">
-            <summary>
-            The gd:rating tag specifies the rating that you are assigning to a resource (in a request to add a rating) 
-            or the current average rating of the resource based on aggregated user ratings
-            </summary>
-        </member>
-        <member name="M:Google.GData.Extensions.Rating.#ctor">
-            <summary>
-            default constructor for gd:rating. This will set min and max
-            to 1 and 5 respectively
-            </summary>
-        </member>
-        <member name="P:Google.GData.Extensions.Rating.Min">
-            <summary>
-            The min attribute specifies the minimum rating that can be assigned to a resource. This value must be 1.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="P:Google.GData.Extensions.Rating.Max">
-            <summary>
-            The max attribute specifies the maximum rating that can be assigned to a resource. This value must be 5.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="P:Google.GData.Extensions.Rating.NumRaters">
-            <summary>
-            The numRaters attribute indicates how many people have rated the resource. This attribute is not used 
-            in a request to add a rating
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="P:Google.GData.Extensions.Rating.Average">
-            <summary>
-            The average attribute indicates the average rating given to the resource.
-            This attribute is not used in a request to add a rating.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="P:Google.GData.Extensions.Rating.Value">
+        <member name="P:Google.GData.Extensions.ExtendedProperty.Name">
             <summary>Accessor for "value" attribute.</summary> 
-            <returns> </returns>
-        </member>
-        <member name="T:Google.GData.Extensions.OriginalEvent">
-            <summary>
-            GData schema extension describing the original recurring event.
-            </summary>
-        </member>
-        <member name="M:Google.GData.Extensions.OriginalEvent.#ctor">
-            <summary>
-            default constructor for an original event
-            </summary>
-        </member>
-        <member name="M:Google.GData.Extensions.OriginalEvent.CreateInstance(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
-            <summary>Parses an xml node to create a Who object.</summary> 
-            <param name="node">the xml parses node, can be NULL</param>
-            <param name="parser">the xml parser to use if we need to dive deeper</param>
-            <returns>the created IExtensionElement object</returns>
-        </member>
-        <member name="P:Google.GData.Extensions.OriginalEvent.Href">
-            <summary>accessor method public Href</summary> 
-            <returns> </returns>
-        </member>
-        <member name="P:Google.GData.Extensions.OriginalEvent.IdOriginal">
-            <summary>accessor method public IdOriginal</summary> 
-            <returns> </returns>
-        </member>
-        <member name="P:Google.GData.Extensions.OriginalEvent.OriginalStartTime">
-            <summary>accessor method public original Start Time</summary> 
             <returns> </returns>
         </member>
         <member name="T:Google.GData.Extensions.Exif.ExifExtensions">
@@ -2934,150 +1394,299 @@
             </summary>
             <param name="initValue"></param>
         </member>
-        <member name="T:Google.GData.Extensions.FeedLinkCollection">
+        <member name="T:Google.GData.Extensions.MediaRss.MediaRssExtensions">
+            <summary>
+            helper to instantiate all factories defined in here and attach 
+            them to a base object
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.MediaRss.MediaRssExtensions.AddExtension(Google.GData.Client.AtomBase)">
+            <summary>
+            helper to add all MediaRss extensions to a base object
+            </summary>
+            <param name="baseObject"></param>
+        </member>
+        <member name="T:Google.GData.Extensions.MediaRss.MediaRssNameTable">
+            <summary>
+            short table for constants related to mediaRss declarations
+            </summary>
+        </member>
+        <member name="F:Google.GData.Extensions.MediaRss.MediaRssNameTable.NSMediaRss">
+            <summary>static string to specify the mediarss namespace
+            TODO: picasa has the namespace slighly wrong.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Extensions.MediaRss.MediaRssNameTable.mediaRssPrefix">
+            <summary>static string to specify the used mediarss prefix</summary>
+        </member>
+        <member name="F:Google.GData.Extensions.MediaRss.MediaRssNameTable.MediaRssGroup">
+            <summary>static string to specify the media:group element</summary>
+        </member>
+        <member name="F:Google.GData.Extensions.MediaRss.MediaRssNameTable.MediaRssCredit">
+            <summary>static string to specify the media:credit element</summary>
+        </member>
+        <member name="F:Google.GData.Extensions.MediaRss.MediaRssNameTable.MediaRssContent">
+            <summary>static string to specify the media:content element</summary>
+        </member>
+        <member name="F:Google.GData.Extensions.MediaRss.MediaRssNameTable.MediaRssCategory">
+            <summary>static string to specify the media:category element</summary>
+        </member>
+        <member name="F:Google.GData.Extensions.MediaRss.MediaRssNameTable.MediaRssDescription">
+            <summary>static string to specify the media:description element</summary>
+        </member>
+        <member name="F:Google.GData.Extensions.MediaRss.MediaRssNameTable.MediaRssKeywords">
+            <summary>static string to specify the media:keywords element</summary>
+        </member>
+        <member name="F:Google.GData.Extensions.MediaRss.MediaRssNameTable.MediaRssThumbnail">
+            <summary>static string to specify the media:thumbnail element</summary>
+        </member>
+        <member name="F:Google.GData.Extensions.MediaRss.MediaRssNameTable.MediaRssTitle">
+            <summary>static string to specify the media:title element</summary>
+        </member>
+        <member name="F:Google.GData.Extensions.MediaRss.MediaRssNameTable.MediaRssRating">
+            <summary>static string to specify the media:rating element</summary>
+        </member>
+        <member name="T:Google.GData.Extensions.MediaRss.MediaGroup">
+            <summary>
+            MediaGroup container element for the MediaRss namespace
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.MediaRss.MediaGroup.#ctor">
+            <summary>
+            default constructor for media:group
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.MediaRss.MediaGroup.Credit">
+            <summary>
+            returns the media:credit element
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.MediaRss.MediaGroup.Description">
+            <summary>
+            returns the media:credit element
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.MediaRss.MediaGroup.Keywords">
+            <summary>
+            returns the media:content element
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.MediaRss.MediaGroup.Title">
+            <summary>
+            returns the media:credit element
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.MediaRss.MediaGroup.Rating">
+            <summary>
+            returns the media:rating element
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.MediaRss.MediaGroup.Thumbnails">
+            <summary>
+             property accessor for the Thumbnails 
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.MediaRss.MediaGroup.Content">
+            <summary>
+            returns the media:content element
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.MediaRss.MediaGroup.Contents">
+            <summary>
+             property accessor for the Contents Collection 
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.MediaRss.MediaGroup.Categories">
+            <summary>
+             property accessor for the Category Collection 
+            </summary>
+        </member>
+        <member name="T:Google.GData.Extensions.MediaRss.MediaCredit">
+            <summary>
+            media:credit schema extension describing an credit given to media
+            it's a child of media:group
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.MediaRss.MediaCredit.#ctor">
+            <summary>
+            default constructor for media:credit
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.MediaRss.MediaCredit.#ctor(System.String)">
+            <summary>
+            default constructor for media:credit with an initial value
+            </summary>
+            <param name="initValue"/>
+        </member>
+        <member name="T:Google.GData.Extensions.MediaRss.MediaDescription">
+            <summary>
+            media:description schema extension describing an description given to media
+            it's a child of media:group
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.MediaRss.MediaDescription.#ctor">
+            <summary>
+            default constructor for media:description 
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.MediaRss.MediaDescription.#ctor(System.String)">
+            <summary>
+            default constructor for media:description with an initial value
+            </summary>
+            <param name="initValue"/>
+        </member>
+        <member name="T:Google.GData.Extensions.MediaRss.MediaContent">
+            <summary>
+            media:content schema extension describing the content URL
+            it's a child of media:group
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.MediaRss.MediaContent.#ctor">
+            <summary>
+            default constructor for media:content
+            </summary>
+        </member>
+        <member name="T:Google.GData.Extensions.MediaRss.MediaCategory">
+            <summary>
+            media:content schema extension describing the content URL
+            it's a child of media:group
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.MediaRss.MediaCategory.#ctor">
+            <summary>
+            default constructor for media:content
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.MediaRss.MediaCategory.#ctor(System.String)">
+            <summary>
+            default constructor for media:credit with an initial value
+            </summary>
+            <param name="initValue"/>
+        </member>
+        <member name="M:Google.GData.Extensions.MediaRss.MediaCategory.#ctor(System.String,System.String)">
+            <summary>
+            Constructor for MediaCategory with an initial value
+            and a scheme.
+            </summary>
+            <param name="initValue">The value of the tag</param>
+            <param name="scheme">The scheme of the tag</param>
+        </member>
+        <member name="T:Google.GData.Extensions.MediaRss.MediaKeywords">
+            <summary>
+            media:keywords schema extension describing a 
+            comma seperated list of keywords
+            it's a child of media:group
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.MediaRss.MediaKeywords.#ctor">
+            <summary>
+            default constructor for media:keywords
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.MediaRss.MediaKeywords.#ctor(System.String)">
+            <summary>
+            default constructor for media:keywords with an initial value
+            </summary>
+            <param name="initValue"/>
+        </member>
+        <member name="T:Google.GData.Extensions.MediaRss.MediaThumbnail">
+            <summary>
+            media:thumbnail schema extension describing a 
+            thumbnail URL with height/width
+            it's a child of media:group
+            </summary>
+        </member>
+        <member name="F:Google.GData.Extensions.MediaRss.MediaThumbnail.AttributeUrl">
+            <summary>
+            the attribute string for the URL attribute
+            </summary>
+        </member>
+        <member name="F:Google.GData.Extensions.MediaRss.MediaThumbnail.AttributeHeight">
+            <summary>
+            the attribute string for the height attribute
+            </summary>
+        </member>
+        <member name="F:Google.GData.Extensions.MediaRss.MediaThumbnail.AttributeWidth">
+            <summary>
+            the attribute string for the width attribute
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.MediaRss.MediaThumbnail.#ctor">
+            <summary>
+            default constructor for media:thumbnail
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.MediaRss.MediaThumbnail.Url">
+            <summary>convienience accessor for the Url</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Extensions.MediaRss.MediaThumbnail.Height">
+            <summary>convienience accessor for the Height</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Extensions.MediaRss.MediaThumbnail.Width">
+            <summary>convienience accessor for the Width</summary> 
+            <returns> </returns>
+        </member>
+        <member name="T:Google.GData.Extensions.MediaRss.MediaTitle">
+            <summary>
+            media:title schema extension describing the title given to media
+            it's a child of media:group
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.MediaRss.MediaTitle.#ctor">
+            <summary>
+            default constructor for media:title
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.MediaRss.MediaTitle.#ctor(System.String)">
+            <summary>
+            default constructor for media:title with an initial value
+            </summary>
+            <param name="initValue"/>
+        </member>
+        <member name="T:Google.GData.Extensions.MediaRss.MediaRating">
+            <summary>
+            media:rating schema extension describing the rating given to media
+            it's a child of media:group
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.MediaRss.MediaRating.#ctor">
+            <summary>
+            default constructor for media:rating
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.MediaRss.MediaRating.#ctor(System.String)">
+            <summary>
+            default constructor for media:rating with an initial value
+            </summary>
+            <param name="initValue"/>
+        </member>
+        <member name="M:Google.GData.Extensions.MediaRss.MediaRating.#ctor(System.String,System.String)">
+            <summary>
+            Constructor for MediaRating with an initial value
+            and a scheme.
+            </summary>
+            <param name="initValue">The value of the tag</param>
+            <param name="scheme">The scheme of the tag</param>
+        </member>
+        <member name="T:Google.GData.Extensions.MediaRss.ThumbnailCollection">
             <summary>Typed collection for Thumbnails Extensions.</summary>
         </member>
-        <member name="M:Google.GData.Extensions.FeedLinkCollection.#ctor(Google.GData.Client.IExtensionContainer)">
+        <member name="M:Google.GData.Extensions.MediaRss.ThumbnailCollection.#ctor(Google.GData.Client.IExtensionContainer)">
             <summary>constructor</summary> 
         </member>
-        <member name="T:Google.GData.Extensions.FeedLink">
-            <summary>
-            GData schema extension describing a nested feed link.
-            </summary>
+        <member name="T:Google.GData.Extensions.MediaRss.MediaContentCollection">
+            <summary>Typed collection for Thumbnails Extensions.</summary>
         </member>
-        <member name="F:Google.GData.Extensions.FeedLink.href">
-            <summary>holds the href property</summary>
+        <member name="M:Google.GData.Extensions.MediaRss.MediaContentCollection.#ctor(Google.GData.Client.IExtensionContainer)">
+            <summary>constructor</summary> 
         </member>
-        <member name="F:Google.GData.Extensions.FeedLink.readOnly">
-            <summary>holds the readOnly property</summary>
+        <member name="T:Google.GData.Extensions.MediaRss.MediaCategoryCollection">
+            <summary>Typed collection for Thumbnails Extensions.</summary>
         </member>
-        <member name="F:Google.GData.Extensions.FeedLink.feed">
-            <summary>holds the feed property</summary>
-        </member>
-        <member name="F:Google.GData.Extensions.FeedLink.rel">
-            <summary>holds the rel attribute of the EntyrLink element</summary> 
-        </member>
-        <member name="M:Google.GData.Extensions.FeedLink.#ctor">
-            <summary>
-            constructor
-            </summary>
-        </member>
-        <member name="M:Google.GData.Extensions.FeedLink.ParseFeedLink(System.Xml.XmlNode)">
-            <summary>Parses an xml node to create an FeedLink object.</summary> 
-            <param name="node">feedLink node</param>
-            <returns> the created FeedLink object</returns>
-        </member>
-        <member name="M:Google.GData.Extensions.FeedLink.CreateInstance(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
-            <summary>Parses an xml node to create a Where  object.</summary> 
-            <param name="node">the node to parse node</param>
-            <param name="parser">the xml parser to use if we need to dive deeper</param>
-            <returns>the created Where  object</returns>
-        </member>
-        <member name="M:Google.GData.Extensions.FeedLink.Save(System.Xml.XmlWriter)">
-            <summary>
-            Persistence method for the FeedLink object
-            </summary>
-            <param name="writer">the xmlwriter to write into</param>
-        </member>
-        <member name="P:Google.GData.Extensions.FeedLink.Href">
-            <summary>
-            Entry  URI
-            </summary>
-        </member>
-        <member name="P:Google.GData.Extensions.FeedLink.ReadOnly">
-            <summary>
-            Read only flag.
-            </summary>
-        </member>
-        <member name="P:Google.GData.Extensions.FeedLink.CountHint">
-            <summary>
-            Count hint.
-            </summary>
-        </member>
-        <member name="P:Google.GData.Extensions.FeedLink.Feed">
-            <summary>
-             Nested entry (optional).
-            </summary>
-        </member>
-        <member name="P:Google.GData.Extensions.FeedLink.Rel">
-            <summary>accessor method public string Rel</summary> 
-            <returns> </returns>
-        </member>
-        <member name="P:Google.GData.Extensions.FeedLink.XmlName">
-            <summary>Returns the constant representing this XML element.</summary> 
-        </member>
-        <member name="P:Google.GData.Extensions.FeedLink.XmlNameSpace">
-            <summary>Returns the constant representing this XML element.</summary> 
-        </member>
-        <member name="P:Google.GData.Extensions.FeedLink.XmlPrefix">
-            <summary>Returns the constant representing this XML element.</summary> 
-        </member>
-        <member name="T:Google.GData.Extensions.EntryLink">
-            <summary>
-            GData schema extension describing a nested entry link.
-            </summary>
-        </member>
-        <member name="F:Google.GData.Extensions.EntryLink.href">
-            <summary>holds the href property of the EntryLink element</summary>
-        </member>
-        <member name="F:Google.GData.Extensions.EntryLink.readOnly">
-            <summary>holds the readOnlySet property of the EntryLink element</summary>
-        </member>
-        <member name="F:Google.GData.Extensions.EntryLink.entry">
-            <summary>holds the AtomEntry  property of the EntryLink element</summary>
-        </member>
-        <member name="F:Google.GData.Extensions.EntryLink.rel">
-            <summary>holds the rel attribute of the EntyrLink element</summary> 
-        </member>
-        <member name="M:Google.GData.Extensions.EntryLink.ParseEntryLink(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
-            <summary>parses an xml node to create an EntryLink object</summary> 
-            <param name="node">entrylink node</param>
-            <param name="parser">AtomFeedParser to use</param>
-            <returns> the created EntryLink object</returns>
-        </member>
-        <member name="M:Google.GData.Extensions.EntryLink.OnParsedNewEntry(System.Object,Google.GData.Client.FeedParserEventArgs)">
-            <summary>Event chaining. We catch this from the AtomFeedParser
-            we want to set this to our property, and do not add the entry to the collection
-            </summary> 
-            <param name="sender"> the object which send the event</param>
-            <param name="e">FeedParserEventArguments, holds the feed entry</param> 
-            <returns> </returns>
-        </member>
-        <member name="M:Google.GData.Extensions.EntryLink.Save(System.Xml.XmlWriter)">
-            <summary>
-            Used to save the EntryLink instance into the passed in xmlwriter
-            </summary>
-            <param name="writer">the XmlWriter to write into</param>
-        </member>
-        <member name="P:Google.GData.Extensions.EntryLink.Href">
-            <summary>
-            Entry  URI
-            </summary>
-        </member>
-        <member name="P:Google.GData.Extensions.EntryLink.ReadOnly">
-            <summary>
-            Read only flag.
-            </summary>
-        </member>
-        <member name="P:Google.GData.Extensions.EntryLink.Entry">
-            <summary>
-             Nested entry (optional).
-            </summary>
-        </member>
-        <member name="P:Google.GData.Extensions.EntryLink.Rel">
-            <summary>accessor method public string Rel</summary> 
-            <returns> </returns>
-        </member>
-        <member name="P:Google.GData.Extensions.EntryLink.XmlName">
-            <summary>Returns the constant representing this XML element.</summary> 
-        </member>
-        <member name="T:Google.GData.Extensions.Apps.MailItemPropertyCollection">
-            <summary>
-            Standard typed collection of <code>MailItemPropertyElement</code>s.
-            </summary>
-        </member>
-        <member name="M:Google.GData.Extensions.Apps.MailItemPropertyCollection.#ctor(Google.GData.Client.AtomBase)">
-            <summary>constructor</summary>
+        <member name="M:Google.GData.Extensions.MediaRss.MediaCategoryCollection.#ctor(Google.GData.Client.IExtensionContainer)">
+            <summary>constructor</summary> 
         </member>
         <member name="T:Google.GData.Extensions.ReminderCollection">
             <summary>Typed collection for When Extensions.</summary> 
@@ -3138,6 +1747,842 @@
         </member>
         <member name="M:Google.GData.Extensions.OrganizationCollection.#ctor(Google.GData.Client.IExtensionContainer)">
             <summary>constructor</summary> 
+        </member>
+        <member name="T:Google.GData.Extensions.Who">
+            <summary>
+            GData schema extension describing a person.
+            It contains a gd:entryLink element containing the described person.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Extensions.Who.rel">
+            <summary>
+             relationship description as a String
+            </summary>
+        </member>
+        <member name="F:Google.GData.Extensions.Who.valueString">
+            <summary>
+            String description of the person.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Extensions.Who.email">
+            <summary>
+            email adress of the person
+            </summary>
+        </member>
+        <member name="F:Google.GData.Extensions.Who.attendeeType">
+            <summary>
+             Type of event attendee.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Extensions.Who.attendeeStatus">
+            <summary>
+             Status of event attendee.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Extensions.Who.entryLink">
+            <summary>
+            Nested person entry.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.Who.CreateInstance(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
+            <summary>Parses an xml node to create a Where  object.</summary> 
+            <param name="node">the node to parse node</param>
+            <param name="parser">the xml parser to use if we need to dive deeper</param>
+            <returns>the created Where  object</returns>
+        </member>
+        <member name="M:Google.GData.Extensions.Who.Save(System.Xml.XmlWriter)">
+            <summary>
+            Persistence method for the Who object
+            </summary>
+            <param name="writer">the xmlwriter to write into</param>
+        </member>
+        <member name="P:Google.GData.Extensions.Who.Rel">
+            <summary>accessor method public string Rel</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Extensions.Who.ValueString">
+            <summary>accessor method public string ValueString</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Extensions.Who.Email">
+            <summary>accessor method for the email property</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Extensions.Who.Attendee_Type">
+            <summary>
+             Attendee_Type accessor
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.Who.Attendee_Status">
+            <summary>
+             Attendee_Status accessor
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.Who.EntryLink">
+            <summary>
+             EntryLink Accessor
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.Who.XmlName">
+            <summary>Returns the constant representing this XML element.</summary> 
+        </member>
+        <member name="P:Google.GData.Extensions.Who.XmlNameSpace">
+            <summary>Returns the constant representing this XML element.</summary> 
+        </member>
+        <member name="P:Google.GData.Extensions.Who.XmlPrefix">
+            <summary>Returns the constant representing this XML element.</summary> 
+        </member>
+        <member name="T:Google.GData.Extensions.Who.RelType">
+            <summary>
+            Relation type. Describes the meaning of this association.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Extensions.Who.RelType.EVENT_ATTENDEE">
+            <summary>Relationship value Attendee</summary>
+        </member>
+        <member name="F:Google.GData.Extensions.Who.RelType.EVENT_ORGANIZER">
+            <summary>Relationship value Organizer</summary>
+        </member>
+        <member name="F:Google.GData.Extensions.Who.RelType.EVENT_SPEAKER">
+            <summary>Relationship value Speaker</summary>
+        </member>
+        <member name="F:Google.GData.Extensions.Who.RelType.EVENT_PERFORMER">
+            <summary>Relationship value Performer</summary>
+        </member>
+        <member name="F:Google.GData.Extensions.Who.RelType.TASK_ASSIGNED_TO">
+            <summary>Relationship value Assigned To</summary>
+        </member>
+        <member name="F:Google.GData.Extensions.Who.RelType.MESSAGE_FROM">
+            <summary>Relationship value Message From</summary>
+        </member>
+        <member name="F:Google.GData.Extensions.Who.RelType.MESSAGE_REPLY_TO">
+            <summary>Relationship value message is a reply to</summary>
+        </member>
+        <member name="F:Google.GData.Extensions.Who.RelType.MESSAGE_TO">
+            <summary>Relationship value message goes to</summary>
+        </member>
+        <member name="F:Google.GData.Extensions.Who.RelType.MESSAGE_CC">
+            <summary>Relationship value message CC</summary>
+        </member>
+        <member name="F:Google.GData.Extensions.Who.RelType.MESSAGE_BCC">
+            <summary>Relationship value message BCC</summary>
+        </member>
+        <member name="T:Google.GData.Extensions.Who.AttendeeType">
+            <summary>
+            AttendeeType class
+            </summary>
+        </member>
+        <member name="T:Google.GData.Extensions.EnumConstruct">
+            <summary>
+            Extensible enum type used in many places.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.EnumConstruct.#ctor(System.String)">
+            <summary>
+            constructor
+            </summary>
+            <param name="xmlElement">the XmlElement that is used</param>
+        </member>
+        <member name="M:Google.GData.Extensions.EnumConstruct.#ctor(System.String,System.String)">
+            <summary>
+            Creates a new EnumConstruct instance with a specific type and value.
+            When this constructor is used the instance has a constant value and
+            may not be modified by the setValue() API.
+            </summary>
+            <param name="xmlElement">the XmlElement that is used</param>
+            <param name="initialValue">the initial value of the type</param>
+        </member>
+        <member name="M:Google.GData.Extensions.EnumConstruct.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Creates a new EnumConstruct instance with a specific type and namespace
+            </summary>
+            <param name="xmlElement">the XmlElement that is used</param>
+            <param name="prefix">the prefix to use</param>
+            <param name="nameSpace">the namespace to use</param>
+        </member>
+        <member name="M:Google.GData.Extensions.EnumConstruct.#ctor(System.String,System.String,System.String,System.String)">
+            <summary>
+            Creates a new EnumConstruct instance with a specific type, namespace and value.
+            When this constructor is used the instance has a constant value and
+            may not be modified by the setValue() API.
+            </summary>
+            <param name="xmlElement">the XmlElement that is used</param>
+            <param name="prefix">the prefix to use</param>
+            <param name="nameSpace">the namespace to use</param>
+            <param name="initialValue">the initial value</param>
+        </member>
+        <member name="F:Google.GData.Extensions.EnumConstruct.readOnly">
+            <summary>
+            Construct value cannot be changed
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.EnumConstruct.Equals(System.Object)">
+            <summary>
+             Equal operator overload
+            </summary>
+            <param name="obj">the object to compare to</param>
+            <returns>bool</returns>
+        </member>
+        <member name="M:Google.GData.Extensions.EnumConstruct.GetHashCode">
+            <summary>
+             GetHashCode overload
+            </summary>
+            <returns>a hash based on the string value</returns>
+        </member>
+        <member name="P:Google.GData.Extensions.EnumConstruct.Type">
+            <summary>
+             Accessor Method for the enumType
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.EnumConstruct.Value">
+            <summary>
+             Accessor Method for the value
+            </summary>
+        </member>
+        <member name="F:Google.GData.Extensions.Who.AttendeeType.EVENT_REQUIRED">
+            <summary>this attendee is required</summary>
+        </member>
+        <member name="F:Google.GData.Extensions.Who.AttendeeType.EVENT_OPTIONAL">
+            <summary>this attendee is optional</summary>
+        </member>
+        <member name="M:Google.GData.Extensions.Who.AttendeeType.#ctor">
+            <summary>
+             default constructor
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.Who.AttendeeType.parse(System.Xml.XmlNode)">
+            <summary>
+            the xml parsing method
+            </summary>
+            <param name="node">the xml node holding the attendeeStatus</param>
+            <returns>AttendeeType</returns>
+        </member>
+        <member name="T:Google.GData.Extensions.Who.AttendeeStatus">
+            <summary>
+            represents the status of the attendee
+            </summary>
+        </member>
+        <member name="F:Google.GData.Extensions.Who.AttendeeStatus.EVENT_INVITED">
+            <summary>attendee was invited</summary>
+        </member>
+        <member name="F:Google.GData.Extensions.Who.AttendeeStatus.EVENT_ACCEPTED">
+            <summary> attendee has accepted</summary>
+        </member>
+        <member name="F:Google.GData.Extensions.Who.AttendeeStatus.EVENT_TENTATIVE">
+            <summary>attendee might or might not...</summary>
+        </member>
+        <member name="F:Google.GData.Extensions.Who.AttendeeStatus.EVENT_DECLINED">
+            <summary>this attendee declined politely</summary>
+        </member>
+        <member name="M:Google.GData.Extensions.Who.AttendeeStatus.#ctor">
+            <summary>
+            default constructor
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.Who.AttendeeStatus.parse(System.Xml.XmlNode)">
+            <summary>
+            the xml parsing method
+            </summary>
+            <param name="node">the xml node holding the attendeeStatus</param>
+            <returns>AttendeeStatus</returns>
+        </member>
+        <member name="T:Google.GData.Extensions.ContactsExtensions">
+            <summary>
+            helper to instantiate all factories defined in here and attach 
+            them to a base object
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.ContactsExtensions.AddExtension(Google.GData.Client.AtomBase)">
+            <summary>
+            helper to add all MediaRss extensions to a base object
+            </summary>
+            <param name="baseObject"></param>
+        </member>
+        <member name="T:Google.GData.Extensions.IContainsDeleted">
+            <summary>if an extension element has a deleted member, it should implement
+            this interface. 
+            </summary> 
+        </member>
+        <member name="P:Google.GData.Extensions.IContainsDeleted.Deleted">
+            <summary>
+            returns if an entry contains a Deleted extension. ReadOnly
+            </summary>
+        </member>
+        <member name="T:Google.GData.Extensions.ContactsRelationships">
+            <summary>
+            holds static strings indicating several often used relationship 
+            values for the contacts API
+            </summary>
+        </member>
+        <member name="F:Google.GData.Extensions.ContactsRelationships.IsHome">
+            <summary>
+            indicates a home email in the rel field
+            </summary>
+        </member>
+        <member name="F:Google.GData.Extensions.ContactsRelationships.IsOther">
+            <summary>
+            indicates an undefined email in the rel field, label might be used to be
+            more precise
+            </summary>
+        </member>
+        <member name="F:Google.GData.Extensions.ContactsRelationships.IsWork">
+            <summary>
+            indicates a work email in the rel field
+            </summary>
+        </member>
+        <member name="F:Google.GData.Extensions.ContactsRelationships.IsGeneral">
+            <summary>
+            indicates a general value in the rel field
+            </summary>
+        </member>
+        <member name="F:Google.GData.Extensions.ContactsRelationships.IsCar">
+            <summary>
+            indicates a car related value in the rel field
+            </summary>
+        </member>
+        <member name="F:Google.GData.Extensions.ContactsRelationships.IsFax">
+            <summary>
+            indicates a fax value in the rel field
+            </summary>
+        </member>
+        <member name="F:Google.GData.Extensions.ContactsRelationships.IsHomeFax">
+            <summary>
+            indicates a home fax value in the rel field
+            </summary>
+        </member>
+        <member name="F:Google.GData.Extensions.ContactsRelationships.IsWorkFax">
+            <summary>
+            indicates a work fax value in the rel field
+            </summary>
+        </member>
+        <member name="F:Google.GData.Extensions.ContactsRelationships.IsInternalExtension">
+            <summary>
+            indicates an internal extension value in the rel field
+            </summary>
+        </member>
+        <member name="F:Google.GData.Extensions.ContactsRelationships.IsMobile">
+            <summary>
+            indicates a mobile number value in the rel field
+            </summary>
+        </member>
+        <member name="F:Google.GData.Extensions.ContactsRelationships.IsPager">
+            <summary>
+            indicates a pager value in the rel field
+            </summary>
+        </member>
+        <member name="F:Google.GData.Extensions.ContactsRelationships.IsSatellite">
+            <summary>
+            indicates a satellite value in the rel field
+            </summary>
+        </member>
+        <member name="F:Google.GData.Extensions.ContactsRelationships.IsVoip">
+            <summary>
+            indicates a voip value in the rel field
+            </summary>
+        </member>
+        <member name="T:Google.GData.Extensions.EMail">
+            <summary>
+            gd:email schema extension describing an email address in contacts
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.EMail.#ctor">
+            <summary>
+            default constructor for gd:email
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.EMail.#ctor(System.String)">
+            <summary>
+            default constructor for gd:email with an initial value for the email
+            </summary>
+            <param name="emailAddress">the initial email address</param>
+        </member>
+        <member name="M:Google.GData.Extensions.EMail.#ctor(System.String,System.String)">
+            <summary>
+            default constructor for gd:email with an initial value for the email
+            and the relationship
+            </summary>
+            <param name="emailAddress">the initial email address</param>
+            <param name="relationship">the value for the email relationship</param> 
+        </member>
+        <member name="M:Google.GData.Extensions.EMail.#ctor(System.String,System.String,System.String)">
+            <summary>
+            default constructor for gd:mail with initialization of namespaces
+            </summary>
+            <param name="element"></param>
+            <param name="prefix"></param>
+            <param name="ns"></param>
+        </member>
+        <member name="P:Google.GData.Extensions.EMail.Address">
+            <summary>accessor method public string Address</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Extensions.EMail.Label">
+            <summary>accessor method for the Label value. Note you can only set this or
+            Rel, not both
+            </summary> 
+        </member>
+        <member name="P:Google.GData.Extensions.EMail.Primary">
+            <summary>accessor method public string Primary</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Extensions.EMail.Rel">
+            <summary>accessor method for the Rel Value. Note you can only set this
+            or Label, not both</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Extensions.EMail.Home">
+            <summary>
+            returns if the email is the home email address
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.EMail.Work">
+            <summary>
+            returns if the email is the home email address
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.EMail.Other">
+            <summary>
+            returns if the email is the home email address
+            </summary>
+        </member>
+        <member name="T:Google.GData.Extensions.Deleted">
+            <summary>
+            gd:deleted schema extension describing an deleted address in contacts
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.Deleted.#ctor">
+            <summary>
+            default constructor for gd:deleted 
+            </summary>
+        </member>
+        <member name="T:Google.GData.Extensions.IMAddress">
+            <summary>
+            gd:deleted schema extension describing an deleted address in contacts
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.IMAddress.#ctor">
+            <summary>
+            default constructor for gd:deleted 
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.IMAddress.#ctor(System.String)">
+            <summary>
+            default constructor with an initial value
+            </summary>
+            <param name="initValue"></param>
+        </member>
+        <member name="P:Google.GData.Extensions.IMAddress.Protocol">
+            <summary>accessor method for the protocol</summary> 
+            <returns> </returns>
+        </member>
+        <member name="T:Google.GData.Extensions.CommonAttributesElement">
+            <summary>
+            gd:PostalAddress element
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.CommonAttributesElement.#ctor(System.String,System.String,System.String)">
+            <summary>
+            default constructore with namesapce init
+            </summary>
+            <param name="element"></param>
+            <param name="prefix"></param>
+            <param name="ns"></param>
+        </member>
+        <member name="M:Google.GData.Extensions.CommonAttributesElement.#ctor(System.String,System.String,System.String,System.String)">
+            <summary>
+            default constructor with namespaces and an init value
+            </summary>
+            <param name="element"></param>
+            <param name="prefix"></param>
+            <param name="ns"></param>
+            <param name="init"></param>
+        </member>
+        <member name="P:Google.GData.Extensions.CommonAttributesElement.Primary">
+            <summary>accessor method public string Primary</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Extensions.CommonAttributesElement.Rel">
+            <summary>accessor method for the Rel Value. Note you can only set this
+            or Label, not both</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Extensions.CommonAttributesElement.Label">
+            <summary>accessor method for the Label value. Note you can only set this or
+            Rel, not both</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Extensions.CommonAttributesElement.Home">
+            <summary>
+            returns if the email is the home email address
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.CommonAttributesElement.Work">
+            <summary>
+            returns if the email is the home email address
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.CommonAttributesElement.Other">
+            <summary>
+            returns if the email is the home email address
+            </summary>
+        </member>
+        <member name="T:Google.GData.Extensions.PostalAddress">
+            <summary>
+            gd:PostalAddress element
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.PostalAddress.#ctor">
+            <summary>
+            default empty constructor for gd:PostalAddress
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.PostalAddress.#ctor(System.String)">
+            <summary>
+             default constructor with an initial value
+            </summary>
+        </member>
+        <member name="T:Google.GData.Extensions.PhoneNumber">
+            <summary>
+            gd:phonenumber element
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.PhoneNumber.#ctor">
+            <summary>
+            default empty constructor for gd:phonenumber
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.PhoneNumber.#ctor(System.String)">
+            <summary>
+             default constructor with an initial value
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.PhoneNumber.Uri">
+            <summary>accessor method public string uri</summary> 
+            <returns> </returns>
+        </member>
+        <member name="T:Google.GData.Extensions.Organization">
+            <summary>
+            GData schema extension describing an organization
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.Organization.#ctor">
+            <summary>
+            default constructor for media:group
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.Organization.Rel">
+            <summary>accessor method for the Rel Value. Note you can only set this
+            or Label, not both</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Extensions.Organization.Label">
+            <summary>accessor method for the Label value. Note you can only set this or
+            Rel, not both</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Extensions.Organization.Name">
+            <summary>
+            sets the value of the OrgName element
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.GData.Extensions.Organization.Title">
+            <summary>
+            access the OrgTitle element to set/get the title
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.GData.Extensions.Organization.Primary">
+            <summary>accessor method public string Primary</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Extensions.Organization.Home">
+            <summary>
+            returns if the email is the home email address
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.Organization.Other">
+            <summary>
+            returns if the email is the home email address
+            </summary>
+        </member>
+        <member name="T:Google.GData.Extensions.OrgName">
+            <summary>
+            gd:OrgName schema extension describing an organization name
+            it's a child of Organization
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.OrgName.#ctor">
+            <summary>
+            default constructor for gd:OrgName 
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.OrgName.#ctor(System.String)">
+            <summary>
+            default constructor for gd:OrgName  with an initial value
+            </summary>
+            <param name="initValue"/>
+        </member>
+        <member name="T:Google.GData.Extensions.OrgTitle">
+            <summary>
+            gd:OrgTitle schema extension describing the title of a person in an organization
+            it's a child of Organization
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.OrgTitle.#ctor">
+            <summary>
+            default constructor for gd:OrgTitle 
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.OrgTitle.#ctor(System.String)">
+            <summary>
+            default constructor for gd:OrgTitle  with an initial value
+            </summary>
+            <param name="initValue"/>
+        </member>
+        <member name="T:Google.GData.Extensions.Reminder">
+             <summary>
+             GData schema extension describing a reminder on an event.
+             </summary>
+             <remarks>
+             <para>You can represent a set of reminders where each has a (1) reminder
+             period and (2) notification method.  The method can be either "sms",
+             "email", "alert", "none", "all".</para>
+            
+             <para>The meaning of this set of reminders differs based on whether you
+             are reading or writing feeds.  When reading, the set of reminders
+             returned on an event takes into account both defaults on a
+             parent recurring event (when applicable) as well as the user's
+             defaults on calendar.  If there are no gd:reminders returned that
+             means the event has absolutely no reminders.  "none" or "all" will
+             not apply in this case.</para>
+            
+             <para>Writing is different because we have to be backwards-compatible
+             (see *) with the old way of setting reminders.  For easier analysis
+             we describe all the behaviors defined in the table below.  (Notice
+             we only include cases for minutes, as the other cases specified in
+             terms of days/hours/absoluteTime can be converted to this case.)</para>
+            
+             <para>Notice method is case-sensitive: must be in lowercase!</para>
+            
+             <list type="table">
+                 <listheader>
+                     <term></term>
+                     <term>No method or method=all</term>
+                     <term>method=none</term>
+                     <term>method=email|sms|alert</term>
+                 </listheader>
+                 <item>
+                     <term>No gd:rem</term>
+                     <term>*No reminder</term>
+                     <term>N/A</term>
+                     <term>N/A</term>
+                 </item>
+                 <item>
+                     <term>1 gd:rem</term>
+                     <term>*Use user's default settings</term>
+                     <term>No reminder</term>
+                     <term>InvalidEntryException</term>
+                 </item>
+                 <item>
+                     <term>1 gd:rem min=0</term>    
+                     <term>*Use user's default settings</term>
+                     <term>No reminder</term>
+                     <term>InvalidEntryException</term>
+                 </item>
+                 <item>
+                     <term>1 gd:rem min=-1</term>
+                     <term>*No reminder</term>
+                     <term>No reminder</term>
+                     <term>InvalidEntryException</term>
+                 </item>
+                 <item>
+                     <term>1 gd:rem min=+n</term>
+                     <term>*Override with no +n for user's selected methods</term>
+                     <term>No reminder</term>
+                     <term>Set exactly one reminder on event at +n with given method</term>
+                 </item>
+                 <item>
+                     <term>Multiple gd:rem</term>
+                     <term>InvalidEntryException</term>
+                     <term>InvalidEntryException</term>
+                     <term>Copy this set exactly</term>
+                 </item>
+             </list>
+             
+             <para>Hence, to override an event with a set of reminder time, method
+             pairs, just specify them exactly.  To clear an event of all
+             overrides (and go back to inheriting the user's defaults), one can
+             simply specify a single gd:reminder with no extra attributes.  To
+             have NO event reminders on an event, either set a single
+             gd:reminder with negative reminder time, or simply update the event
+             with a single gd:reminder method=none.</para>
+             </remarks>
+        </member>
+        <member name="F:Google.GData.Extensions.Reminder.days">
+            <summary>
+            Number of days before the event.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Extensions.Reminder.hours">
+            <summary>
+            Number of hours.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Extensions.Reminder.minutes">
+            <summary>
+            Number of minutes.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Extensions.Reminder.absoluteTime">
+            <summary>
+            Absolute time of the reminder.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Extensions.Reminder.method">
+            <summary>
+            holds the method type
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.Reminder.CreateInstance(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
+            <summary>Parses an xml node to create a Reminder object.</summary> 
+            <param name="node">the node to parse node</param>
+            <param name="parser">the xml parser to use if we need to dive deeper</param>
+            <returns>the created Reminder object</returns>
+        </member>
+        <member name="M:Google.GData.Extensions.Reminder.Save(System.Xml.XmlWriter)">
+            <summary>
+            Persistence method for the Reminder  object
+            </summary>
+            <param name="writer">the xmlwriter to write into</param>
+        </member>
+        <member name="P:Google.GData.Extensions.Reminder.Method">
+            <summary>accessor method public Method Method</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Extensions.Reminder.Days">
+            <summary>accessor method public Days</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Extensions.Reminder.Hours">
+            <summary>accessor method public Hours</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Extensions.Reminder.Minutes">
+            <summary>accessor method public Minutes</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Extensions.Reminder.AbsoluteTime">
+            <summary>accessor method public absoluteTime</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Extensions.Reminder.XmlName">
+            <summary>Returns the constant representing this XML element.</summary> 
+        </member>
+        <member name="P:Google.GData.Extensions.Reminder.XmlNameSpace">
+            <summary>Returns the constant representing this XML element.</summary> 
+        </member>
+        <member name="P:Google.GData.Extensions.Reminder.XmlPrefix">
+            <summary>Returns the constant representing this XML element.</summary> 
+        </member>
+        <member name="T:Google.GData.Extensions.Reminder.ReminderMethod">
+            <summary>
+            the different reminder methods available
+            </summary>
+        </member>
+        <member name="F:Google.GData.Extensions.Reminder.ReminderMethod.alert">
+            <summary>
+            visible alert
+            </summary>
+        </member>
+        <member name="F:Google.GData.Extensions.Reminder.ReminderMethod.all">
+            <summary>
+            all alerts
+            </summary>
+        </member>
+        <member name="F:Google.GData.Extensions.Reminder.ReminderMethod.email">
+            <summary>
+            alert per email
+            </summary>
+        </member>
+        <member name="F:Google.GData.Extensions.Reminder.ReminderMethod.none">
+            <summary>
+            no aert
+            </summary>
+        </member>
+        <member name="F:Google.GData.Extensions.Reminder.ReminderMethod.sms">
+            <summary>
+            alert per SMS
+            </summary>
+        </member>
+        <member name="F:Google.GData.Extensions.Reminder.ReminderMethod.unspecified">
+            <summary>
+            no alert specified (invalid)
+            </summary>
+        </member>
+        <member name="T:Google.GData.Extensions.OriginalEvent">
+            <summary>
+            GData schema extension describing the original recurring event.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.OriginalEvent.#ctor">
+            <summary>
+            default constructor for an original event
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.OriginalEvent.CreateInstance(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
+            <summary>Parses an xml node to create a Who object.</summary> 
+            <param name="node">the xml parses node, can be NULL</param>
+            <param name="parser">the xml parser to use if we need to dive deeper</param>
+            <returns>the created IExtensionElement object</returns>
+        </member>
+        <member name="P:Google.GData.Extensions.OriginalEvent.Href">
+            <summary>accessor method public Href</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Extensions.OriginalEvent.IdOriginal">
+            <summary>accessor method public IdOriginal</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Extensions.OriginalEvent.OriginalStartTime">
+            <summary>accessor method public original Start Time</summary> 
+            <returns> </returns>
+        </member>
+        <member name="T:Google.GData.Extensions.Comments">
+            <summary>
+            GData schema extension describing a comments feed.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Extensions.Comments.feedLink">
+            <summary>
+             holds the feedLink property
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.Comments.CreateInstance(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
+            <summary>Parses an xml node to create a Where  object.</summary> 
+            <param name="node">the node to parse node</param>
+            <param name="parser">the xml parser to use if we need to dive deeper</param>
+            <returns>the created Where  object</returns>
+        </member>
+        <member name="M:Google.GData.Extensions.Comments.Save(System.Xml.XmlWriter)">
+            <summary>
+            Persistence method for the Comment  object
+            </summary>
+            <param name="writer">the xmlwriter to write into</param>
+        </member>
+        <member name="P:Google.GData.Extensions.Comments.FeedLink">
+            <summary>
+            Comments feed link.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.Comments.XmlName">
+            <summary>Returns the constant representing this XML element.</summary> 
+        </member>
+        <member name="P:Google.GData.Extensions.Comments.XmlNameSpace">
+            <summary>Returns the constant representing this XML element.</summary> 
+        </member>
+        <member name="P:Google.GData.Extensions.Comments.XmlPrefix">
+            <summary>Returns the constant representing this XML element.</summary> 
         </member>
         <member name="T:Google.GData.Extensions.Location.GeoRssExtensions">
             <summary>
@@ -3257,6 +2702,254 @@
             the string that is stored in Value. Will THROW if
             that string is incorrectly formated
             </summary>
+        </member>
+        <member name="T:Google.GData.Extensions.Recurrence">
+            <summary>
+            GData schema extension describing an RFC 2445 recurrence rule.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.Recurrence.CreateInstance(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
+            <summary>Parses an xml node to create a Reminder object.</summary> 
+            <param name="node">the node to parse node</param>
+            <param name="parser">the xml parser to use if we need to dive deeper</param>
+            <returns>the created Reminder object</returns>
+        </member>
+        <member name="M:Google.GData.Extensions.Recurrence.Save(System.Xml.XmlWriter)">
+            <summary>
+            Persistence method for the Recurrence object
+            </summary>
+            <param name="writer">the xmlwriter to write into</param>
+        </member>
+        <member name="P:Google.GData.Extensions.Recurrence.Value">
+            <summary>
+             Value property accessor
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.Recurrence.XmlName">
+            <summary>Returns the constant representing this XML element.</summary> 
+        </member>
+        <member name="P:Google.GData.Extensions.Recurrence.XmlNameSpace">
+            <summary>Returns the constant representing this XML element.</summary> 
+        </member>
+        <member name="P:Google.GData.Extensions.Recurrence.XmlPrefix">
+            <summary>Returns the constant representing this XML element.</summary> 
+        </member>
+        <member name="T:Google.GData.Extensions.FeedLinkCollection">
+            <summary>Typed collection for Thumbnails Extensions.</summary>
+        </member>
+        <member name="M:Google.GData.Extensions.FeedLinkCollection.#ctor(Google.GData.Client.IExtensionContainer)">
+            <summary>constructor</summary> 
+        </member>
+        <member name="T:Google.GData.Extensions.FeedLink">
+            <summary>
+            GData schema extension describing a nested feed link.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Extensions.FeedLink.href">
+            <summary>holds the href property</summary>
+        </member>
+        <member name="F:Google.GData.Extensions.FeedLink.readOnly">
+            <summary>holds the readOnly property</summary>
+        </member>
+        <member name="F:Google.GData.Extensions.FeedLink.feed">
+            <summary>holds the feed property</summary>
+        </member>
+        <member name="F:Google.GData.Extensions.FeedLink.rel">
+            <summary>holds the rel attribute of the EntyrLink element</summary> 
+        </member>
+        <member name="M:Google.GData.Extensions.FeedLink.#ctor">
+            <summary>
+            constructor
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.FeedLink.ParseFeedLink(System.Xml.XmlNode)">
+            <summary>Parses an xml node to create an FeedLink object.</summary> 
+            <param name="node">feedLink node</param>
+            <returns> the created FeedLink object</returns>
+        </member>
+        <member name="M:Google.GData.Extensions.FeedLink.CreateInstance(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
+            <summary>Parses an xml node to create a Where  object.</summary> 
+            <param name="node">the node to parse node</param>
+            <param name="parser">the xml parser to use if we need to dive deeper</param>
+            <returns>the created Where  object</returns>
+        </member>
+        <member name="M:Google.GData.Extensions.FeedLink.Save(System.Xml.XmlWriter)">
+            <summary>
+            Persistence method for the FeedLink object
+            </summary>
+            <param name="writer">the xmlwriter to write into</param>
+        </member>
+        <member name="P:Google.GData.Extensions.FeedLink.Href">
+            <summary>
+            Entry  URI
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.FeedLink.ReadOnly">
+            <summary>
+            Read only flag.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.FeedLink.CountHint">
+            <summary>
+            Count hint.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.FeedLink.Feed">
+            <summary>
+             Nested entry (optional).
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.FeedLink.Rel">
+            <summary>accessor method public string Rel</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Extensions.FeedLink.XmlName">
+            <summary>Returns the constant representing this XML element.</summary> 
+        </member>
+        <member name="P:Google.GData.Extensions.FeedLink.XmlNameSpace">
+            <summary>Returns the constant representing this XML element.</summary> 
+        </member>
+        <member name="P:Google.GData.Extensions.FeedLink.XmlPrefix">
+            <summary>Returns the constant representing this XML element.</summary> 
+        </member>
+        <member name="T:Google.GData.Extensions.Where">
+            <summary>
+            A place (such as an event location) associated with the containing entity. The type of 
+            the association is determined by the rel attribute; the details of the location are 
+            contained in an embedded or linked-to Contact entry.
+            A gd:where element is more general than a gd:geoPt element. The former identifies a place
+             using a text description and/or a Contact entry, while the latter identifies a place 
+            using a specific geographic location.
+                Properties
+               Property 	    Type 	    Description
+                @label? 	    xs:string 	Specifies a user-readable label to distinguish this location from other locations.
+                @rel? 	        xs:string 	Specifies the relationship between the containing entity and the contained location. Possible values
+                (see below) are defined by other elements. For example, gd:when defines http://schemas.google.com/g/2005#event.
+                @valueString? 	xs:string 	A simple string value that can be used as a representation of this location.
+                gd:entryLink? 	entryLink 	Entry representing location details. This entry should implement the Contact kind.
+                rel values
+                Value 	                                                    Description
+               http://schemas.google.com/g/2005#event or not specified 	 Place where the enclosing event takes place.
+               http://schemas.google.com/g/2005#event.alternate 	          A secondary location. For example, a remote 
+                                                                             site with a videoconference link to the main site.
+               http://schemas.google.com/g/2005#event.parking 	              A nearby parking lot.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.Where.#ctor">
+            <summary>
+            Constructs an empty Where instance
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.Where.#ctor(System.String,System.String,System.String)">
+            <summary>
+            default constructor, takes 3 parameters
+            </summary>
+            <param name="value">the valueString property value</param>
+            <param name="label">label property value</param>
+            <param name="rel">default for the Rel property value</param>
+        </member>
+        <member name="M:Google.GData.Extensions.Where.CreateInstance(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
+            <summary>Parses an xml node to create a Where  object.</summary> 
+            <param name="node">the node to parse node</param>
+            <param name="parser">the xml parser to use if we need to dive deeper</param>
+            <returns>the created Where  object</returns>
+        </member>
+        <member name="M:Google.GData.Extensions.Where.Save(System.Xml.XmlWriter)">
+            <summary>
+            Persistence method for the Where object
+            </summary>
+            <param name="writer">the xmlwriter to write into</param>
+        </member>
+        <member name="P:Google.GData.Extensions.Where.Rel">
+            <summary>
+            Rel property accessor
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.Where.Label">
+            <summary>
+            User-readable label that identifies this location.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.Where.ValueString">
+            <summary>
+            String description of the event places.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.Where.EntryLink">
+            <summary>
+             Nested entry (optional).
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.Where.XmlName">
+            <summary>Returns the constant representing this XML element.</summary> 
+        </member>
+        <member name="P:Google.GData.Extensions.Where.XmlNameSpace">
+            <summary>Returns the constant representing this XML element.</summary> 
+        </member>
+        <member name="P:Google.GData.Extensions.Where.XmlPrefix">
+            <summary>Returns the constant representing this XML element.</summary> 
+        </member>
+        <member name="T:Google.GData.Extensions.Where.RelType">
+            <summary>
+            Relation type. Describes the meaning of this location.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Extensions.Where.RelType.EVENT">
+            <summary>
+            The standard relationship EVENT_ALTERNATE
+            </summary>
+        </member>
+        <member name="F:Google.GData.Extensions.Where.RelType.EVENT_ALTERNATE">
+            <summary>
+            the alternate EVENT location
+            </summary>
+        </member>
+        <member name="F:Google.GData.Extensions.Where.RelType.EVENT_PARKING">
+            <summary>
+             the parking location
+            </summary>
+        </member>
+        <member name="T:Google.GData.Extensions.Rating">
+            <summary>
+            The gd:rating tag specifies the rating that you are assigning to a resource (in a request to add a rating) 
+            or the current average rating of the resource based on aggregated user ratings
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.Rating.#ctor">
+            <summary>
+            default constructor for gd:rating. This will set min and max
+            to 1 and 5 respectively
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.Rating.Min">
+            <summary>
+            The min attribute specifies the minimum rating that can be assigned to a resource. This value must be 1.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.GData.Extensions.Rating.Max">
+            <summary>
+            The max attribute specifies the maximum rating that can be assigned to a resource. This value must be 5.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.GData.Extensions.Rating.NumRaters">
+            <summary>
+            The numRaters attribute indicates how many people have rated the resource. This attribute is not used 
+            in a request to add a rating
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.GData.Extensions.Rating.Average">
+            <summary>
+            The average attribute indicates the average rating given to the resource.
+            This attribute is not used in a request to add a rating.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.GData.Extensions.Rating.Value">
+            <summary>Accessor for "value" attribute.</summary> 
+            <returns> </returns>
         </member>
     </members>
 </doc>

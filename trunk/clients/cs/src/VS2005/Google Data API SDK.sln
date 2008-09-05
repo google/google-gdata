@@ -28,6 +28,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YouTube", "youtube\YouTube.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Health", "ghealth\Health.csproj", "{EB301864-5CE6-4C63-A541-FE647F682D75}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blogger", "blogger\Blogger.csproj", "{BE48B106-7766-494C-B0F1-00989ACF2480}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		ASP|Any CPU = ASP|Any CPU
@@ -118,6 +120,12 @@ Global
 		{EB301864-5CE6-4C63-A541-FE647F682D75}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EB301864-5CE6-4C63-A541-FE647F682D75}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EB301864-5CE6-4C63-A541-FE647F682D75}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE48B106-7766-494C-B0F1-00989ACF2480}.ASP|Any CPU.ActiveCfg = ASP|Any CPU
+		{BE48B106-7766-494C-B0F1-00989ACF2480}.ASP|Any CPU.Build.0 = ASP|Any CPU
+		{BE48B106-7766-494C-B0F1-00989ACF2480}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE48B106-7766-494C-B0F1-00989ACF2480}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE48B106-7766-494C-B0F1-00989ACF2480}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE48B106-7766-494C-B0F1-00989ACF2480}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

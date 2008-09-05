@@ -20,6 +20,7 @@ xcopy /y ..\src\VS2005\gdoclist\bin\Release\*.dll ..\lib\Release\*.*
 xcopy /y ..\src\VS2005\gcontacts\bin\Release\*.dll ..\lib\Release\*.*
 xcopy /y ..\src\VS2005\youtube\bin\Release\*.dll ..\lib\Release\*.*
 xcopy /y ..\src\VS2005\ghealth\bin\Release\*.dll ..\lib\Release\*.*
+xcopy /y ..\src\VS2005\blogger\bin\Release\*.dll ..\lib\Release\*.*
 
 # copy the debug DLLS
 xcopy /y ..\src\VS2005\gdata\bin\Debug\*.dll ..\lib\Debug\*.*
@@ -36,6 +37,7 @@ xcopy /y ..\src\VS2005\gcontacts\bin\Debug\*.dll ..\lib\Debug\*.*
 xcopy /y ..\src\VS2005\youtube\bin\Debug\*.dll ..\lib\Debug\*.*
 xcopy /y ..\src\VS2005\ghealth\bin\Debug\*.dll ..\lib\Debug\*.*
 xcopy /y ..\src\VS2005\unittests\bin\Debug\*.dll ..\lib\Debug\*.*
+xcopy /y ..\src\VS2005\blogger\bin\Debug\*.dll ..\lib\Debug\*.*
 
 # copy the ASP DLLS
 xcopy /y ..\src\VS2005\gdata\bin\asp\*.dll ..\lib\ASP.NET\*.*
@@ -51,6 +53,7 @@ xcopy /y ..\src\VS2005\gdoclist\bin\asp\*.dll ..\lib\ASP.NET\*.*
 xcopy /y ..\src\VS2005\gcontacts\bin\asp\*.dll ..\lib\ASP.NET\*.*
 xcopy /y ..\src\VS2005\youtube\bin\asp\*.dll ..\lib\ASP.NET\*.*
 xcopy /y ..\src\VS2005\ghealth\bin\asp\*.dll ..\lib\ASP.NET\*.*
+xcopy /y ..\src\VS2005\blogger\bin\asp\*.dll ..\lib\ASP.NET\*.*
 
 # copy asp dlls for the youtube sample
 xcopy /y ..\src\VS2005\gdata\bin\asp\*.dll ..\samples\YouTubeSample\bin\*.*
@@ -73,6 +76,7 @@ xcopy /y ..\src\VS2005.mobile\GDocListMobile\bin\Release\*.dll ..\lib\Mobile\Win
 xcopy /y ..\src\VS2005.mobile\GContactsMobile\bin\Release\*.dll ..\lib\Mobile\WindowsMobile\*.*
 xcopy /y ..\src\VS2005.mobile\GHealthMobile\bin\Release\*.dll ..\lib\Mobile\WindowsMobile\*.*
 xcopy /y ..\src\VS2005.mobile\GYouTubeMobile\bin\Release\*.dll ..\lib\Mobile\WindowsMobile\*.*
+xcopy /y ..\src\VS2005.mobile\GBloggerMobile\bin\Release\*.dll ..\lib\Mobile\WindowsMobile\*.*
 		
 
 devenv /rebuild Release "..\samples\Google Data APIs Samples.sln" 
@@ -106,6 +110,7 @@ xcopy /y ..\src\VS2005\gdoclist\bin\*.xml ..\docs\*.*
 xcopy /y ..\src\VS2005\gcontacts\bin\*.xml ..\docs\*.*
 xcopy /y ..\src\VS2005\youtube\bin\*.xml ..\docs\*.*
 xcopy /y ..\src\VS2005\ghealth\bin\*.xml ..\docs\*.*
+xcopy /y ..\src\VS2005\blogger\bin\*.xml ..\docs\*.*
 
 rem run ILMerge on PhotoBrowser.exe
 cd ..\lib\release\

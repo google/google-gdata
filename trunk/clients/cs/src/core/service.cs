@@ -494,7 +494,7 @@ namespace Google.GData.Client
         /// <param name="entry">the entry to be inserted</param> 
         /// <returns> the inserted entry</returns>
         //////////////////////////////////////////////////////////////////////
-        public AtomEntry Insert(AtomFeed feed, AtomEntry entry)
+        AtomEntry IService.Insert(AtomFeed feed, AtomEntry entry)
         {
 
             Tracing.Assert(feed != null, "feed should not be null");
@@ -541,7 +541,8 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         public TEntry  Insert<TEntry>(AtomFeed feed, TEntry entry) where TEntry : AtomEntry
         {
-            return this.Insert(feed, entry) as TEntry;
+            IService s = this as IService; 
+            return s.Insert(feed, entry) as TEntry;
         }
         /////////////////////////////////////////////////////////////////////////////
 
@@ -552,7 +553,7 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         public TEntry  Insert<TEntry>(Uri feedUri, TEntry entry) where TEntry : AtomEntry
         {
-            return this.Insert(feedUri, entry) as TEntry;
+            return this.Insert(feedUri, entry, null) as TEntry;
         }
         /////////////////////////////////////////////////////////////////////////////
 
