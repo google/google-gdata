@@ -115,9 +115,6 @@
     <Compile Include="..\..\..\version\AssemblyVersion.cs">
       <Link>AssemblyVersion.cs</Link>
     </Compile>
-    <Compile Include="..\..\extensions\appcontrol.cs">
-      <Link>appcontrol.cs</Link>
-    </Compile>
     <Compile Include="..\..\extensions\apps.cs">
       <Link>apps.cs</Link>
       <SubType>Code</SubType>
@@ -151,10 +148,6 @@
     </Compile>
     <Compile Include="..\..\extensions\extended.cs">
       <Link>extended.cs</Link>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="..\..\extensions\extensionbase.cs">
-      <Link>extensionbase.cs</Link>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="..\..\extensions\feedlink.cs">
@@ -198,14 +191,6 @@
     </Compile>
     <Compile Include="..\..\extensions\reminder.cs">
       <Link>reminder.cs</Link>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="..\..\extensions\simplecontainer.cs">
-      <Link>simplecontainer.cs</Link>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="..\..\extensions\simpleelement.cs">
-      <Link>simpleelement.cs</Link>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="..\..\extensions\when.cs">

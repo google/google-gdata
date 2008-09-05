@@ -25,7 +25,6 @@ using System.Web;
 using NUnit.Framework;
 using Google.GData.Client;
 using Google.GData.Client.UnitTests;
-using Google.GData.Extensions;
 using Google.GData.Blogger;
 
 

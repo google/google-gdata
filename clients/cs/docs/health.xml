@@ -4,132 +4,6 @@
         <name>Google.GData.Health</name>
     </assembly>
     <members>
-        <member name="T:Google.GData.Health.HealthNameTable">
-            <summary>
-             contains the static strings for the health namespace
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="F:Google.GData.Health.HealthNameTable.CCR">
-            <summary> Continuity of Care Record namespace (CCR) namespace</summary>
-        </member>
-        <member name="F:Google.GData.Health.HealthNameTable.CCR_PREFIX">
-            <summary> Continuity of Care Record namespace (CCR) namespace prefix</summary>
-        </member>
-        <member name="F:Google.GData.Health.HealthNameTable.CCR_ALIAS">
-            <summary> Continuity of Care Record namespace (CCR) namespace alias</summary>
-        </member>
-        <member name="F:Google.GData.Health.HealthNameTable.ContinuityOfCareElement">
-            <summary>
-            the CCR element name
-            </summary>
-        </member>
-        <member name="F:Google.GData.Health.HealthNameTable.H9">
-            <summary> The h9 namespace (H9) namespace</summary>
-        </member>
-        <member name="F:Google.GData.Health.HealthNameTable.H9_PREFIX">
-            <summary> The h9 namespace (H9) namespace prefix</summary>
-        </member>
-        <member name="F:Google.GData.Health.HealthNameTable.H9_ALIAS">
-            <summary> The h9 namespace (H9) namespace alias</summary>
-        </member>
-        <member name="F:Google.GData.Health.HealthNameTable.H9KINDS">
-            <summary> The h9kinds namespace (H9KINDS) namespace</summary>
-        </member>
-        <member name="F:Google.GData.Health.HealthNameTable.H9KINDS_PREFIX">
-            <summary> The h9kinds namespace (H9KINDS) namespace prefix</summary>
-        </member>
-        <member name="F:Google.GData.Health.HealthNameTable.H9PROFILE">
-            <summary>the term for a profile entry</summary>
-        </member>
-        <member name="F:Google.GData.Health.HealthNameTable.H9REGISTER">
-            <summary>the term for a registry entry</summary>
-        </member>
-        <member name="F:Google.GData.Health.HealthNameTable.H9KINDS_ALIAS">
-            <summary> The h9kinds namespace (H9KINDS) namespace alias</summary>
-        </member>
-        <member name="F:Google.GData.Health.HealthNameTable.H9M">
-            <summary> The h9 metadata namespace (H9M) namespace</summary>
-        </member>
-        <member name="F:Google.GData.Health.HealthNameTable.H9M_PREFIX">
-            <summary> The h9 metadata namespace (H9M) namespace prefix</summary>
-        </member>
-        <member name="F:Google.GData.Health.HealthNameTable.H9M_ALIAS">
-            <summary> The h9 metadata namespace (H9M) namespace alias</summary>
-        </member>
-        <member name="F:Google.GData.Health.HealthNameTable.REL_COMPLETE_URL">
-            <summary> Link Rel for a complete url of an entry, indicating the smallest feed
-            containing the entry.</summary>
-        </member>
-        <member name="T:Google.GData.Health.HealthEntry">
-            <summary>
-            Entry API customization class for defining entries in an Event feed.
-            </summary>
-        </member>
-        <member name="F:Google.GData.Health.HealthEntry.PROFILE_CATEGORY">
-            <summary>
-            Category used to label entries that contain photo extension data.
-            </summary>
-        </member>
-        <member name="F:Google.GData.Health.HealthEntry.REGISTER_CATEGORY">
-            <summary>
-            Category used to label entries that contain photo extension data.
-            </summary>
-        </member>
-        <member name="M:Google.GData.Health.HealthEntry.#ctor">
-            <summary>
-            Constructs a new HealthEntry instance with the appropriate category
-            to indicate that it is an Health Entry.
-            </summary>
-        </member>
-        <member name="P:Google.GData.Health.HealthEntry.IsProfile">
-            <summary>
-            returns true if the entry is a profile entry
-            </summary>
-        </member>
-        <member name="P:Google.GData.Health.HealthEntry.IsRegister">
-            <summary>
-            returns true if the entry is a register entry
-            </summary>
-        </member>
-        <member name="P:Google.GData.Health.HealthEntry.CCR">
-            <summary>
-            get/sets the CCR node inside the extensions collection. If you want to find specific nodes
-            inside that CCR node, you need to use xpath with namespaces. That looks like this:
-            <code>
-            xmlDocument = new XmlDocument();
-            xmlDocument.ImportNode(healthEntry.CCR);
-            ccrNameManager = new XmlNamespaceManager(xmlDocument.NameTable);
-            ccrNameManager.AddNamespace("ccr", "urn:astm-org:CCR");
-            xmlNode node = xmlDocument.CCR.SelectSingleNode("//ccr:ProductName/ccr:Text", ccrNameManager);
-            </code>
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="T:Google.GData.Health.ProfileEntry">
-            <summary>
-            shallow subclass to add the appropriate category for construction
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Google.GData.Health.ProfileEntry.#ctor">
-            <summary>
-            Constructs a new ProfileEntry instance with the appropriate category
-            to indicate that it is an event.
-            </summary>
-        </member>
-        <member name="T:Google.GData.Health.RegisterEntry">
-            <summary>
-            shallow subclass to add the appropriate category for construction
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Google.GData.Health.RegisterEntry.#ctor">
-            <summary>
-            Constructs a new RegisterEntry instance with the appropriate category
-            to indicate that it is an event.
-            </summary>
-        </member>
         <member name="T:Google.GData.Health.HealthService">
             <summary>
             The YouTube Data API allows applications to perform functions normally 
@@ -353,6 +227,132 @@
             This parameter is only valid if grouped=true
             </summary> 
             <returns> </returns>
+        </member>
+        <member name="T:Google.GData.Health.HealthNameTable">
+            <summary>
+             contains the static strings for the health namespace
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="F:Google.GData.Health.HealthNameTable.CCR">
+            <summary> Continuity of Care Record namespace (CCR) namespace</summary>
+        </member>
+        <member name="F:Google.GData.Health.HealthNameTable.CCR_PREFIX">
+            <summary> Continuity of Care Record namespace (CCR) namespace prefix</summary>
+        </member>
+        <member name="F:Google.GData.Health.HealthNameTable.CCR_ALIAS">
+            <summary> Continuity of Care Record namespace (CCR) namespace alias</summary>
+        </member>
+        <member name="F:Google.GData.Health.HealthNameTable.ContinuityOfCareElement">
+            <summary>
+            the CCR element name
+            </summary>
+        </member>
+        <member name="F:Google.GData.Health.HealthNameTable.H9">
+            <summary> The h9 namespace (H9) namespace</summary>
+        </member>
+        <member name="F:Google.GData.Health.HealthNameTable.H9_PREFIX">
+            <summary> The h9 namespace (H9) namespace prefix</summary>
+        </member>
+        <member name="F:Google.GData.Health.HealthNameTable.H9_ALIAS">
+            <summary> The h9 namespace (H9) namespace alias</summary>
+        </member>
+        <member name="F:Google.GData.Health.HealthNameTable.H9KINDS">
+            <summary> The h9kinds namespace (H9KINDS) namespace</summary>
+        </member>
+        <member name="F:Google.GData.Health.HealthNameTable.H9KINDS_PREFIX">
+            <summary> The h9kinds namespace (H9KINDS) namespace prefix</summary>
+        </member>
+        <member name="F:Google.GData.Health.HealthNameTable.H9PROFILE">
+            <summary>the term for a profile entry</summary>
+        </member>
+        <member name="F:Google.GData.Health.HealthNameTable.H9REGISTER">
+            <summary>the term for a registry entry</summary>
+        </member>
+        <member name="F:Google.GData.Health.HealthNameTable.H9KINDS_ALIAS">
+            <summary> The h9kinds namespace (H9KINDS) namespace alias</summary>
+        </member>
+        <member name="F:Google.GData.Health.HealthNameTable.H9M">
+            <summary> The h9 metadata namespace (H9M) namespace</summary>
+        </member>
+        <member name="F:Google.GData.Health.HealthNameTable.H9M_PREFIX">
+            <summary> The h9 metadata namespace (H9M) namespace prefix</summary>
+        </member>
+        <member name="F:Google.GData.Health.HealthNameTable.H9M_ALIAS">
+            <summary> The h9 metadata namespace (H9M) namespace alias</summary>
+        </member>
+        <member name="F:Google.GData.Health.HealthNameTable.REL_COMPLETE_URL">
+            <summary> Link Rel for a complete url of an entry, indicating the smallest feed
+            containing the entry.</summary>
+        </member>
+        <member name="T:Google.GData.Health.HealthEntry">
+            <summary>
+            Entry API customization class for defining entries in an Event feed.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Health.HealthEntry.PROFILE_CATEGORY">
+            <summary>
+            Category used to label entries that contain photo extension data.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Health.HealthEntry.REGISTER_CATEGORY">
+            <summary>
+            Category used to label entries that contain photo extension data.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Health.HealthEntry.#ctor">
+            <summary>
+            Constructs a new HealthEntry instance with the appropriate category
+            to indicate that it is an Health Entry.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Health.HealthEntry.IsProfile">
+            <summary>
+            returns true if the entry is a profile entry
+            </summary>
+        </member>
+        <member name="P:Google.GData.Health.HealthEntry.IsRegister">
+            <summary>
+            returns true if the entry is a register entry
+            </summary>
+        </member>
+        <member name="P:Google.GData.Health.HealthEntry.CCR">
+            <summary>
+            get/sets the CCR node inside the extensions collection. If you want to find specific nodes
+            inside that CCR node, you need to use xpath with namespaces. That looks like this:
+            <code>
+            xmlDocument = new XmlDocument();
+            xmlDocument.ImportNode(healthEntry.CCR);
+            ccrNameManager = new XmlNamespaceManager(xmlDocument.NameTable);
+            ccrNameManager.AddNamespace("ccr", "urn:astm-org:CCR");
+            xmlNode node = xmlDocument.CCR.SelectSingleNode("//ccr:ProductName/ccr:Text", ccrNameManager);
+            </code>
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Google.GData.Health.ProfileEntry">
+            <summary>
+            shallow subclass to add the appropriate category for construction
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Google.GData.Health.ProfileEntry.#ctor">
+            <summary>
+            Constructs a new ProfileEntry instance with the appropriate category
+            to indicate that it is an event.
+            </summary>
+        </member>
+        <member name="T:Google.GData.Health.RegisterEntry">
+            <summary>
+            shallow subclass to add the appropriate category for construction
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Google.GData.Health.RegisterEntry.#ctor">
+            <summary>
+            Constructs a new RegisterEntry instance with the appropriate category
+            to indicate that it is an event.
+            </summary>
         </member>
     </members>
 </doc>

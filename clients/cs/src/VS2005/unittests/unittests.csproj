@@ -740,6 +740,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\blogger\Blogger.csproj">
+      <Project>{BE48B106-7766-494C-B0F1-00989ACF2480}</Project>
+      <Name>Blogger</Name>
+    </ProjectReference>
     <ProjectReference Include="..\gacl\Access Control.csproj">
       <Project>{279D35CE-871A-4C76-B823-A73675EDF191}</Project>
       <Name>Access Control</Name>

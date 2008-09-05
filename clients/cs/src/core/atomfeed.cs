@@ -738,12 +738,12 @@ namespace Google.GData.Client
         /// <returns>the entry as echoed back from the server. The entry is NOT added
         ///          to the feeds collection</returns>
         //////////////////////////////////////////////////////////////////////
-        public AtomEntry Insert(AtomEntry newEntry)
+        public TEntry Insert<TEntry>(TEntry newEntry) where TEntry : AtomEntry
         {
             Tracing.Assert(newEntry != null, "newEntry should not be null");
             if (newEntry == null)
             {
-                throw new ArgumentNullException("newEntry"); 
+                throw new ArgumentNullException("newEntry");
             }
             AtomEntry echoedEntry = null;
             if (newEntry.Feed == this)
@@ -759,22 +759,15 @@ namespace Google.GData.Client
             }
             else if (AtomFeed.IsFeedIdentical(newEntry.Feed, this) == false)
             {
-                newEntry = AtomEntry.ImportFromFeed(newEntry); 
+                newEntry = AtomEntry.ImportFromFeed(newEntry) as TEntry;
                 newEntry.setFeed(this);
             }
 
             if (this.Service != null)
             {
-                echoedEntry = Service.Insert(this, newEntry); 
+                echoedEntry = Service.Insert(this, newEntry);
             }
-            return echoedEntry;
-        }
-        /////////////////////////////////////////////////////////////////////////////
-        
-
-        public TEntry Insert<TEntry>(TEntry entry) where TEntry : AtomEntry
-        {
-            return this.Insert(entry) as TEntry; 
+            return echoedEntry as TEntry;
         }
 
         //////////////////////////////////////////////////////////////////////

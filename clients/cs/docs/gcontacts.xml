@@ -4,47 +4,89 @@
         <name>Google.GData.Contacts</name>
     </assembly>
     <members>
-        <member name="T:Google.GData.Contacts.ContactsService">
-            <summary>
-            The Contacts Data API allows client applications to view and update a user's contacts. 
-            Contacts are stored in the user's Google Account; most Google services have access 
-            to the contact list. Your client application can use the Contacts Data API to create 
-            new contacts, edit or delete existing contacts, and query for contacts that 
-            match particular criteria.
-            </summary>
+        <member name="T:Google.GData.Contacts.ContactsFeed">
+             <summary>
+                  A contact feed is a private read/write feed that can be used to view and manage a user's
+                  contacts. The URI for the feed is as follows:
+                  http://www.google.com/m8/feeds/contacts/userID/base
+            
+                  For example, the contacts feed for user liz@gmail.com would have the following URI:
+                  http://www.google.com/m8/feeds/contacts/liz%40gmail.com/base
+            
+                  Since the contact feed is private, you can access it only by using an authenticated
+                  request. That is, the request must contain an authentication token for the user whose
+                  contacts you want to retrieve.
+             </summary>
         </member>
-        <member name="F:Google.GData.Contacts.ContactsService.GContactAgent">
-            <summary>This service's User-Agent string</summary> 
-        </member>
-        <member name="F:Google.GData.Contacts.ContactsService.GContactService">
-            <summary>The Calendar service's name</summary> 
-        </member>
-        <member name="M:Google.GData.Contacts.ContactsService.#ctor(System.String)">
+        <member name="M:Google.GData.Contacts.ContactsFeed.#ctor(System.Uri,Google.GData.Client.IService)">
             <summary>
              default constructor
             </summary>
-            <param name="applicationName">the applicationname</param>
+            <param name="uriBase">the base URI of the feedEntry</param>
+            <param name="iService">the Service to use</param>
         </member>
-        <member name="M:Google.GData.Contacts.ContactsService.Query(Google.GData.Contacts.ContactsQuery)">
+        <member name="M:Google.GData.Contacts.ContactsFeed.#ctor(System.String,Google.GData.Client.IService)">
             <summary>
-            overloaded to create typed version of Query
+             default constructor with user name
             </summary>
-            <param name="feedQuery"></param>
-            <returns>EventFeed</returns>
+            <param name="userName">the username for the contacts feed</param>
+            <param name="iService">the Service to use</param>
         </member>
-        <member name="M:Google.GData.Contacts.ContactsService.Query(Google.GData.Contacts.GroupsQuery)">
+        <member name="M:Google.GData.Contacts.ContactsFeed.CreateFeedEntry">
             <summary>
-            overloaded to create typed version of Query
+            this needs to get implemented by subclasses
             </summary>
-            <param name="feedQuery"></param>
-            <returns>EventFeed</returns>
+            <returns>AtomEntry</returns>
         </member>
-        <member name="M:Google.GData.Contacts.ContactsService.OnNewFeed(System.Object,Google.GData.Client.ServiceEventArgs)">
-            <summary>eventchaining. We catch this by from the base service, which 
-            would not by default create an atomFeed</summary> 
-            <param name="sender"> the object which send the event</param>
-            <param name="e">FeedParserEventArguments, holds the feedentry</param> 
-            <returns> </returns>
+        <member name="M:Google.GData.Contacts.ContactsFeed.HandleExtensionElements(Google.GData.Client.ExtensionElementEventArgs,Google.GData.Client.AtomFeedParser)">
+            <summary>
+            get's called after we already handled the custom entry, to handle all 
+            other potential parsing tasks
+            </summary>
+            <param name="e"></param>
+            <param name="parser">the atom feed parser used</param>
+        </member>
+        <member name="T:Google.GData.Contacts.GroupsFeed">
+             <summary>
+                  A groups feed is a private read/write feed that can be used to view and manage a user's
+                  groups. The URI for the feed is as follows:
+                  http://www.google.com/m8/feeds/groups/userID/base
+            
+                  For example, the contacts feed for user liz@gmail.com would have the following URI:
+                  http://www.google.com/m8/feeds/groups/liz%40gmail.com/base
+            
+                  Since the groups feed is private, you can access it only by using an authenticated
+                  request. That is, the request must contain an authentication token for the user whose
+                  contacts you want to retrieve.
+             </summary>
+        </member>
+        <member name="M:Google.GData.Contacts.GroupsFeed.#ctor(System.Uri,Google.GData.Client.IService)">
+            <summary>
+             default constructor
+            </summary>
+            <param name="uriBase">the base URI of the feedEntry</param>
+            <param name="iService">the Service to use</param>
+        </member>
+        <member name="M:Google.GData.Contacts.GroupsFeed.#ctor(System.String,Google.GData.Client.IService)">
+            <summary>
+             default constructor with user name
+            </summary>
+            <param name="userName">the username for the contacts feed</param>
+            <param name="iService">the Service to use</param>
+        </member>
+        <member name="M:Google.GData.Contacts.GroupsFeed.CreateFeedEntry">
+            <summary>
+            this needs to get implemented by subclasses
+            </summary>
+            <returns>AtomEntry</returns>
+        </member>
+        <member name="M:Google.GData.Contacts.GroupsFeed.HandleExtensionElements(Google.GData.Client.ExtensionElementEventArgs,Google.GData.Client.AtomFeedParser)">
+            <summary>
+            get's called after we already handled the custom entry, to handle all 
+            other potential parsing tasks
+            </summary>
+            <param name="e"></param>
+            <param name="parser">the atom feed parser used</param>
         </member>
         <member name="T:Google.GData.Contacts.ContactsNameTable">
             <summary>
@@ -244,103 +286,47 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="T:Google.GData.Contacts.ContactsFeed">
-             <summary>
-                  A contact feed is a private read/write feed that can be used to view and manage a user's
-                  contacts. The URI for the feed is as follows:
-                  http://www.google.com/m8/feeds/contacts/userID/base
-            
-                  For example, the contacts feed for user liz@gmail.com would have the following URI:
-                  http://www.google.com/m8/feeds/contacts/liz%40gmail.com/base
-            
-                  Since the contact feed is private, you can access it only by using an authenticated
-                  request. That is, the request must contain an authentication token for the user whose
-                  contacts you want to retrieve.
-             </summary>
+        <member name="T:Google.GData.Contacts.ContactsService">
+            <summary>
+            The Contacts Data API allows client applications to view and update a user's contacts. 
+            Contacts are stored in the user's Google Account; most Google services have access 
+            to the contact list. Your client application can use the Contacts Data API to create 
+            new contacts, edit or delete existing contacts, and query for contacts that 
+            match particular criteria.
+            </summary>
         </member>
-        <member name="M:Google.GData.Contacts.ContactsFeed.#ctor(System.Uri,Google.GData.Client.IService)">
+        <member name="F:Google.GData.Contacts.ContactsService.GContactAgent">
+            <summary>This service's User-Agent string</summary> 
+        </member>
+        <member name="F:Google.GData.Contacts.ContactsService.GContactService">
+            <summary>The Calendar service's name</summary> 
+        </member>
+        <member name="M:Google.GData.Contacts.ContactsService.#ctor(System.String)">
             <summary>
              default constructor
             </summary>
-            <param name="uriBase">the base URI of the feedEntry</param>
-            <param name="iService">the Service to use</param>
+            <param name="applicationName">the applicationname</param>
         </member>
-        <member name="M:Google.GData.Contacts.ContactsFeed.#ctor(System.String,Google.GData.Client.IService)">
+        <member name="M:Google.GData.Contacts.ContactsService.Query(Google.GData.Contacts.ContactsQuery)">
             <summary>
-             default constructor with user name
+            overloaded to create typed version of Query
             </summary>
-            <param name="userName">the username for the contacts feed</param>
-            <param name="iService">the Service to use</param>
+            <param name="feedQuery"></param>
+            <returns>EventFeed</returns>
         </member>
-        <member name="M:Google.GData.Contacts.ContactsFeed.CreateFeedEntry">
+        <member name="M:Google.GData.Contacts.ContactsService.Query(Google.GData.Contacts.GroupsQuery)">
             <summary>
-            this needs to get implemented by subclasses
+            overloaded to create typed version of Query
             </summary>
-            <returns>AtomEntry</returns>
+            <param name="feedQuery"></param>
+            <returns>EventFeed</returns>
         </member>
-        <member name="M:Google.GData.Contacts.ContactsFeed.Insert(Google.GData.Contacts.ContactEntry)">
-            <summary>
-            typed version of insert
-            </summary>
-            <param name="newEntry">the new contact entry to insert</param>
-            <returns>the server version after update</returns>
-        </member>
-        <member name="M:Google.GData.Contacts.ContactsFeed.HandleExtensionElements(Google.GData.Client.ExtensionElementEventArgs,Google.GData.Client.AtomFeedParser)">
-            <summary>
-            get's called after we already handled the custom entry, to handle all 
-            other potential parsing tasks
-            </summary>
-            <param name="e"></param>
-            <param name="parser">the atom feed parser used</param>
-        </member>
-        <member name="T:Google.GData.Contacts.GroupsFeed">
-             <summary>
-                  A groups feed is a private read/write feed that can be used to view and manage a user's
-                  groups. The URI for the feed is as follows:
-                  http://www.google.com/m8/feeds/groups/userID/base
-            
-                  For example, the contacts feed for user liz@gmail.com would have the following URI:
-                  http://www.google.com/m8/feeds/groups/liz%40gmail.com/base
-            
-                  Since the groups feed is private, you can access it only by using an authenticated
-                  request. That is, the request must contain an authentication token for the user whose
-                  contacts you want to retrieve.
-             </summary>
-        </member>
-        <member name="M:Google.GData.Contacts.GroupsFeed.#ctor(System.Uri,Google.GData.Client.IService)">
-            <summary>
-             default constructor
-            </summary>
-            <param name="uriBase">the base URI of the feedEntry</param>
-            <param name="iService">the Service to use</param>
-        </member>
-        <member name="M:Google.GData.Contacts.GroupsFeed.#ctor(System.String,Google.GData.Client.IService)">
-            <summary>
-             default constructor with user name
-            </summary>
-            <param name="userName">the username for the contacts feed</param>
-            <param name="iService">the Service to use</param>
-        </member>
-        <member name="M:Google.GData.Contacts.GroupsFeed.CreateFeedEntry">
-            <summary>
-            this needs to get implemented by subclasses
-            </summary>
-            <returns>AtomEntry</returns>
-        </member>
-        <member name="M:Google.GData.Contacts.GroupsFeed.Insert(Google.GData.Contacts.GroupEntry)">
-            <summary>
-            typed version of insert
-            </summary>
-            <param name="newEntry">the new contact entry to insert</param>
-            <returns>the server version after update</returns>
-        </member>
-        <member name="M:Google.GData.Contacts.GroupsFeed.HandleExtensionElements(Google.GData.Client.ExtensionElementEventArgs,Google.GData.Client.AtomFeedParser)">
-            <summary>
-            get's called after we already handled the custom entry, to handle all 
-            other potential parsing tasks
-            </summary>
-            <param name="e"></param>
-            <param name="parser">the atom feed parser used</param>
+        <member name="M:Google.GData.Contacts.ContactsService.OnNewFeed(System.Object,Google.GData.Client.ServiceEventArgs)">
+            <summary>eventchaining. We catch this by from the base service, which 
+            would not by default create an atomFeed</summary> 
+            <param name="sender"> the object which send the event</param>
+            <param name="e">FeedParserEventArguments, holds the feedentry</param> 
+            <returns> </returns>
         </member>
         <member name="T:Google.GData.Contacts.GroupsQuery">
             <summary>
