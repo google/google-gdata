@@ -77,6 +77,18 @@ namespace Google.GData.Photos {
         }
 
         //////////////////////////////////////////////////////////////////////
+        /// <summary>templated type safe verion of the interface</summary> 
+        /// <param name="entry">the old entry to update</param> 
+        /// <returns> the new Entry, as returned from the server</returns>
+        //////////////////////////////////////////////////////////////////////
+        public new PicasaEntry Insert<TEntry>(Uri feedUri, TEntry entry) where TEntry : PicasaEntry
+        {
+            return this.internalInsert(feedUri, entry) as PicasaEntry;
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+
+        //////////////////////////////////////////////////////////////////////
         /// <summary>eventchaining. We catch this by from the base service, which 
         /// would not by default create an atomFeed</summary> 
         /// <param name="sender"> the object which send the event</param>

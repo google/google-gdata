@@ -144,7 +144,7 @@ namespace Google.GData.Client.UnitTests.Core
         public void ShouldBePersistedTest()
         {
             AtomBase target = CreateAtomBase(); 
-            Assert.IsTrue(target.ShouldBePersisted()==false);
+            Assert.IsTrue(target.ShouldBePersisted()==true);
         }
 
         /// <summary>
@@ -243,8 +243,8 @@ namespace Google.GData.Client.UnitTests.Core
 
         internal virtual AtomBase CreateAtomBase()
         {
-            AtomEntry entry = new AtomEntry();
-            entry.Content.Content = "this";
+            AtomTextConstruct entry = new AtomTextConstruct();
+            entry.Text = "test";
             return entry;
         }
 
