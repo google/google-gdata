@@ -144,6 +144,8 @@ namespace Google.GData.Contacts {
             set {this.sortOrder = value;}
         }
         // end of accessor public string SortOder
+
+
         //////////////////////////////////////////////////////////////////////
         /// <summary>Sorting criterion. The only supported value is lastmodified</summary>
         /// <returns> </returns>
@@ -153,7 +155,6 @@ namespace Google.GData.Contacts {
             get {return this.orderBy;}
             set {this.orderBy = value;}
         }
-        // end of accessor public Thumbsize
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>Include deleted contacts in the returned contacts feed. 

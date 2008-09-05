@@ -26,7 +26,8 @@ ALLLIBS = \
 	Google.GData.AccessControl.dll 	\
 	Google.GData.Contacts.dll	\
 	Google.GData.YouTube.dll	\
-		Google.GData.Health.dll \
+	Google.GData.Health.dll \
+	Google.GData.Blogger.dll \
 
 FRAMEWORK_REFS = -r:System.dll -r:System.Xml.dll -r:System.Web.dll -r:System.Configuration.dll
 
@@ -107,7 +108,7 @@ Google.GData.Health.dll: $(CORELIBS) $(health_sources) src/VS2005/ghealth/ghealt
 	$(CSC) $(DEFINES) -target:library -out:$@ $(COREREFS) $(health_sources)
 
 Google.GData.Blogger.dll: $(CORELIBS) $(blogger_sources) src/VS2005/blogger/blogger.sn
-	$(CSC) $(DEFINES) -target:library -out:$@ $(COREREFS) $(blogger_sources) src/VS2005/blogger/blogger.sn
+	$(CSC) $(DEFINES) -target:library -out:$@ $(COREREFS) $(blogger_sources) 
 
 clean:
 	-rm *.sn *.dll *exe

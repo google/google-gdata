@@ -64,16 +64,6 @@ namespace Google.GData.Contacts {
             return new ContactEntry();  
         }
 
-        /// <summary>
-        /// typed version of insert
-        /// </summary>
-        /// <param name="newEntry">the new contact entry to insert</param>
-        /// <returns>the server version after update</returns>
-        public ContactEntry Insert(ContactEntry newEntry)
-        {
-            return base.Insert(newEntry) as ContactEntry;
-        }
-    
 
         /// <summary>
         /// get's called after we already handled the custom entry, to handle all 
@@ -131,15 +121,6 @@ namespace Google.GData.Contacts {
             return new GroupEntry();  
         }
 
-        /// <summary>
-        /// typed version of insert
-        /// </summary>
-        /// <param name="newEntry">the new contact entry to insert</param>
-        /// <returns>the server version after update</returns>
-        public GroupEntry Insert(GroupEntry newEntry)
-        {
-            return base.Insert(newEntry) as GroupEntry;
-        }
 
         /// <summary>
         /// get's called after we already handled the custom entry, to handle all 

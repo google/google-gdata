@@ -155,7 +155,7 @@ namespace Spreadsheets
                 newRow.Elements.Add(curElement);
             }
 
-            ListEntry insertedRow = feed.Insert(newRow) as ListEntry;
+            ListEntry insertedRow = feed.Insert(newRow); 
             Console.WriteLine("Successfully inserted new row: \"{0}\"",
                 insertedRow.Content.Content);
 

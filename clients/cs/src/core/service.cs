@@ -418,8 +418,6 @@ namespace Google.GData.Client
 
 
 
-
-
         //////////////////////////////////////////////////////////////////////
         /// <summary>WebResponse Update(Uri updateUri, Stream entryStream, ICredentials credentials)</summary> 
         /// <param name="entry">the old entry to update</param> 
@@ -427,7 +425,21 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         public AtomEntry Update(AtomEntry entry)
         {
-            return this.Update(entry, null);
+            return this.Update(entry, null); 
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+
+
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>templated type safe verion of the interface</summary> 
+        /// <param name="entry">the old entry to update</param> 
+        /// <returns> the new Entry, as returned from the server</returns>
+        //////////////////////////////////////////////////////////////////////
+        public TEntry  Update<TEntry>(TEntry entry) where TEntry : AtomEntry
+        {
+            return this.Update(entry) as TEntry;
         }
         /////////////////////////////////////////////////////////////////////////////
 
@@ -506,8 +518,10 @@ namespace Google.GData.Client
             return Insert(target, entry);
         }
         /////////////////////////////////////////////////////////////////////////////
+        
 
 
+     
         //////////////////////////////////////////////////////////////////////
         /// <summary>public WebResponse Insert(Uri insertUri, Stream entryStream, ICredentials credentials)</summary> 
         /// <param name="feedUri">the uri for the feed this entry should be inserted into</param> 
@@ -519,6 +533,31 @@ namespace Google.GData.Client
             return this.Insert(feedUri, newEntry, null);
         }
         /////////////////////////////////////////////////////////////////////////////
+        
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>templated type safe verion of the interface</summary> 
+        /// <param name="entry">the old entry to update</param> 
+        /// <returns> the new Entry, as returned from the server</returns>
+        //////////////////////////////////////////////////////////////////////
+        public TEntry  Insert<TEntry>(AtomFeed feed, TEntry entry) where TEntry : AtomEntry
+        {
+            return this.Insert(feed, entry) as TEntry;
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>templated type safe verion of the interface</summary> 
+        /// <param name="entry">the old entry to update</param> 
+        /// <returns> the new Entry, as returned from the server</returns>
+        //////////////////////////////////////////////////////////////////////
+        public TEntry  Insert<TEntry>(Uri feedUri, TEntry entry) where TEntry : AtomEntry
+        {
+            return this.Insert(feedUri, entry) as TEntry;
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+ 
+
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>public WebResponse Insert(Uri insertUri, Stream entryStream, ICredentials credentials)</summary> 

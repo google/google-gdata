@@ -163,7 +163,7 @@ namespace Google.GData.YouTube {
         public YouTubeEntry Upload(string userName, YouTubeEntry entry)
         {
             Uri uri = new Uri("http://uploads.gdata.youtube.com/feeds/api/users/" + userName + "/uploads");
-            return base.Insert(uri, entry) as YouTubeEntry;
+            return base.Insert(uri, entry); 
         }
 
         /// <summary>
@@ -174,7 +174,7 @@ namespace Google.GData.YouTube {
         public YouTubeEntry Upload(YouTubeEntry entry)
         {
             Uri uri = new Uri("http://uploads.gdata.youtube.com/feeds/api/users/default/uploads");
-            return base.Insert(uri, entry) as YouTubeEntry;
+            return base.Insert(uri, entry); 
         }
 
         

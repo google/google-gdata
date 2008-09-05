@@ -135,8 +135,6 @@ namespace Google.GData.Client
         private int startIndex;
         /// <summary>holds number of items per page</summary> 
         private int itemsPerPage;
-        /// <summary>holds a collection of processed parameters</summary> 
-        private StringCollection parameters;
         /// <summary>holds the service interface to use</summary> 
         private IService service;
 
@@ -168,6 +166,7 @@ namespace Google.GData.Client
                 this.ImpliedBase = new AtomUri(uriBase.AbsoluteUri);
             }
             this.Service = service;
+            NewExtensionElement += new ExtensionElementEventHandler(this.OnNewExtensionsElement);
         }
         /////////////////////////////////////////////////////////////////////////////
 
@@ -771,6 +770,12 @@ namespace Google.GData.Client
             return echoedEntry;
         }
         /////////////////////////////////////////////////////////////////////////////
+        
+
+        public TEntry Insert<TEntry>(TEntry entry) where TEntry : AtomEntry
+        {
+            return this.Insert(entry) as TEntry; 
+        }
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>goes over all entries, and updates the ones that are dirty</summary> 
@@ -825,6 +830,64 @@ namespace Google.GData.Client
             return false; 
         }
 #endregion
+
+
+        /// <summary>eventhandler - called for event extension element
+        /// </summary>
+        /// <param name="sender">the object which send the event</param>
+        /// <param name="e">FeedParserEventArguments, holds the feedEntry</param> 
+        /// <returns> </returns>
+        protected void OnNewExtensionsElement(object sender, ExtensionElementEventArgs e)
+        {
+            if (e == null)
+            {
+                throw new ArgumentNullException("e");
+            }
+            AtomFeedParser parser = sender as AtomFeedParser;
+
+            if (e.Base.XmlName == AtomParserNameTable.XmlAtomEntryElement)
+            {
+                 // the base is the Entry of the feed, let's call our parsing on the Entry
+                AtomEntry entry = e.Base as AtomEntry;
+                if (entry != null)
+                {
+                    entry.Parse(e, parser);
+                }
+            }
+            else 
+            {    
+                HandleExtensionElements(e, parser);
+            }
+        }
+
+        /// <summary>
+        /// event on the Feed to handle extension elements during parsing
+        /// </summary>
+        /// <param name="e">the event arguments</param>        /// <param name="parser">the parser that caused this</param>
+        protected virtual void HandleExtensionElements(ExtensionElementEventArgs e, AtomFeedParser parser) 
+        {
+            Tracing.TraceMsg("Entering HandleExtensionElements on AbstractFeed");
+            XmlNode node = e.ExtensionElement;
+            if (this.ExtensionFactories != null && this.ExtensionFactories.Count > 0)
+            {
+                Tracing.TraceMsg("Entring default Parsing for AbstractFeed");
+                foreach (IExtensionElementFactory f in this.ExtensionFactories)
+                {
+                    Tracing.TraceMsg("Found extension Factories");
+                    if (String.Compare(node.NamespaceURI, f.XmlNameSpace, true, CultureInfo.InvariantCulture) == 0)
+                    {
+                        if (String.Compare(node.LocalName, f.XmlName, true, CultureInfo.InvariantCulture) == 0)
+                        {
+                            e.Base.ExtensionElements.Add(f.CreateInstance(node, parser));
+                            e.DiscardEntry = true;
+                            break;
+                        }
+                    }
+                }
+            }
+            return;
+
+        }
 
 
 

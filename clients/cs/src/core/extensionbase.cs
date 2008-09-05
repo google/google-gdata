@@ -190,7 +190,7 @@ namespace Google.GData.Extensions {
         /// used to copy the attribute lists over
         /// </summary>
         /// <param name="factory"></param>
-        internal void InitInstance(ExtensionBase factory)
+        protected void InitInstance(ExtensionBase factory)
         {
             this.attributes = null;
             for (int i=0; i < factory.getAttributes().Count; i++)

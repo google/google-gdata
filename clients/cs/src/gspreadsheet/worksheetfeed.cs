@@ -46,16 +46,5 @@ namespace Google.GData.Spreadsheets
         {
             return new WorksheetEntry();
         }
-
-        /// <summary>
-        /// custom insert to avoid the casting in the developer's code
-        /// </summary>
-        /// <param name="newEntry"></param>
-        /// <returns>WorksheetEntry</returns>
-        public WorksheetEntry Insert(WorksheetEntry newEntry)
-        {
-            return base.Insert(newEntry) as WorksheetEntry;
-        }
- 
     }
 }

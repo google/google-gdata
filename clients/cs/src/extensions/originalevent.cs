@@ -35,8 +35,8 @@ namespace Google.GData.Extensions {
                  BaseNameTable.gNamespace)
         {
             this.ExtensionFactories.Add(new When());
-            this.getAttributes().Add(GDataParserNameTable.XmlAttributeId, null);
-            this.getAttributes().Add(GDataParserNameTable.XmlAttributeHref, null);
+            this.Attributes.Add(GDataParserNameTable.XmlAttributeId, null);
+            this.Attributes.Add(GDataParserNameTable.XmlAttributeHref, null);
 
         }
 
@@ -46,8 +46,8 @@ namespace Google.GData.Extensions {
         //////////////////////////////////////////////////////////////////////
         public string Href
         {
-            get { return this.getAttributes()[GDataParserNameTable.XmlAttributeHref] as string; }
-            set { this.getAttributes()[GDataParserNameTable.XmlAttributeHref] = value; }
+            get { return this.Attributes[GDataParserNameTable.XmlAttributeHref] as string; }
+            set { this.Attributes[GDataParserNameTable.XmlAttributeHref] = value; }
         }
 
         //////////////////////////////////////////////////////////////////////
@@ -56,8 +56,8 @@ namespace Google.GData.Extensions {
         //////////////////////////////////////////////////////////////////////
         public string IdOriginal
         {
-            get { return this.getAttributes()[GDataParserNameTable.XmlAttributeId] as string; }
-            set { this.getAttributes()[GDataParserNameTable.XmlAttributeId] = value; }
+            get { return this.Attributes[GDataParserNameTable.XmlAttributeId] as string; }
+            set { this.Attributes[GDataParserNameTable.XmlAttributeId] = value; }
         }
 
         //////////////////////////////////////////////////////////////////////

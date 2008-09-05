@@ -26,7 +26,7 @@ using NUnit.Framework;
 using Google.GData.Client;
 using Google.GData.Client.UnitTests;
 using Google.GData.Extensions;
-using Google.GData.Calendar;
+using Google.GData.Blogger;
 
 
 namespace Google.GData.Client.LiveTests
@@ -106,8 +106,8 @@ namespace Google.GData.Client.LiveTests
         {
             Tracing.TraceMsg("Entering Blogger AuthenticationTest");
 
-            FeedQuery query = new FeedQuery();
-            Service service = new Service(this.ServiceName, this.ApplicationName);
+            BloggerQuery query = new BloggerQuery();
+            BloggerService service = new BloggerService(this.ApplicationName);
 
             int iCount; 
 
@@ -121,7 +121,7 @@ namespace Google.GData.Client.LiveTests
                 service.RequestFactory = this.factory; 
 
                 query.Uri = new Uri(this.bloggerURI);
-                AtomFeed blogFeed = service.Query(query);
+                BloggerFeed blogFeed = service.Query(query);
 
                 ObjectModelHelper.DumpAtomObject(blogFeed,CreateDumpFileName("AuthenticationTest")); 
                 iCount = blogFeed.Entries.Count; 
@@ -130,10 +130,7 @@ namespace Google.GData.Client.LiveTests
 
                 if (blogFeed != null && blogFeed.Entries.Count > 0)
                 {
-                    // get the first entry
-                    AtomEntry entry = blogFeed.Entries[0];
-
-                    entry = ObjectModelHelper.CreateAtomEntry(1);
+                    BloggerEntry entry = ObjectModelHelper.CreateAtomEntry(1) as BloggerEntry;
                     // blogger does not like labels yet.
                     entry.Categories.Clear(); 
                     entry.Title.Text = strTitle;
@@ -141,17 +138,17 @@ namespace Google.GData.Client.LiveTests
                     entry.IsDraft = true; 
                     entry.Updated = Utilities.EmptyDate;
                     entry.Published = Utilities.EmptyDate; 
-                    AtomEntry newEntry = blogFeed.Insert(entry); 
+                    BloggerEntry newEntry = blogFeed.Insert(entry); 
                     iCount++; 
                     Tracing.TraceMsg("Created blogger entry");
 
                     // try to get just that guy.....
-                    FeedQuery singleQuery = new FeedQuery();
+                    BloggerQuery singleQuery = new BloggerQuery();
                     singleQuery.Uri = new Uri(newEntry.SelfUri.ToString()); 
 
-                    AtomFeed newFeed = service.Query(singleQuery);
+                    BloggerFeed newFeed = service.Query(singleQuery);
 
-                    AtomEntry sameGuy = newFeed.Entries[0]; 
+                    BloggerEntry sameGuy = newFeed.Entries[0] as BloggerEntry;
 
                     Tracing.TraceMsg("retrieved blogger entry");
 

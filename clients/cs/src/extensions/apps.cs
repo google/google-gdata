@@ -16,6 +16,7 @@
 using System;
 using System.Xml;
 using Google.GData.Client;
+using Google.GData.Extensions;
 using System.Text;
 
 namespace Google.GData.Extensions.Apps
@@ -275,8 +276,8 @@ namespace Google.GData.Extensions.Apps
         /// </summary>
         public string Name
         {
-            get { return Convert.ToString(getAttributes()[AppsNameTable.AppsEmailListName]); }
-            set { this.getAttributes()[AppsNameTable.AppsEmailListName] = value; }
+            get { return Convert.ToString(this.Attributes[AppsNameTable.AppsEmailListName]); }
+            set { this.Attributes[AppsNameTable.AppsEmailListName] = value; }
         }
     }
 
@@ -362,8 +363,8 @@ namespace Google.GData.Extensions.Apps
         /// </summary>
         public string UserName
         {
-            get { return Convert.ToString(getAttributes()[AppsNameTable.AppsLoginUserName]); }
-            set { getAttributes()[AppsNameTable.AppsLoginUserName] = value; }
+            get { return Convert.ToString(Attributes[AppsNameTable.AppsLoginUserName]); }
+            set { Attributes[AppsNameTable.AppsLoginUserName] = value; }
         }
 
         /// <summary>
@@ -371,8 +372,8 @@ namespace Google.GData.Extensions.Apps
         /// </summary>
         public string Password
         {
-            get { return Convert.ToString(getAttributes()[AppsNameTable.AppsLoginPassword]); }
-            set { getAttributes()[AppsNameTable.AppsLoginPassword] = value; }
+            get { return Convert.ToString(Attributes[AppsNameTable.AppsLoginPassword]); }
+            set { Attributes[AppsNameTable.AppsLoginPassword] = value; }
         }
 
         /// <summary>
@@ -380,8 +381,8 @@ namespace Google.GData.Extensions.Apps
         /// </summary>
         public bool Suspended
         {
-            get { return Convert.ToBoolean(getAttributes()[AppsNameTable.AppsLoginSuspended]); }
-            set { getAttributes()[AppsNameTable.AppsLoginSuspended] = value; }
+            get { return Convert.ToBoolean(Attributes[AppsNameTable.AppsLoginSuspended]); }
+            set { Attributes[AppsNameTable.AppsLoginSuspended] = value; }
         }
 
         /// <summary>
@@ -389,8 +390,8 @@ namespace Google.GData.Extensions.Apps
         /// </summary>
         public bool IPWhitelisted
         {
-            get { return Convert.ToBoolean(getAttributes()[AppsNameTable.AppsLoginIPWhitelisted]); }
-            set { getAttributes()[AppsNameTable.AppsLoginIPWhitelisted] = value; }
+            get { return Convert.ToBoolean(Attributes[AppsNameTable.AppsLoginIPWhitelisted]); }
+            set { Attributes[AppsNameTable.AppsLoginIPWhitelisted] = value; }
         }
 
         /// <summary>
@@ -400,11 +401,11 @@ namespace Google.GData.Extensions.Apps
         {
             get
             {
-                return Convert.ToString(getAttributes()[AppsNameTable.AppsLoginHashFunctionName]);
+                return Convert.ToString(Attributes[AppsNameTable.AppsLoginHashFunctionName]);
             }
             set
             {
-                getAttributes()[AppsNameTable.AppsLoginHashFunctionName] = value;
+                Attributes[AppsNameTable.AppsLoginHashFunctionName] = value;
             }
         }
 
@@ -414,8 +415,8 @@ namespace Google.GData.Extensions.Apps
         /// </summary>
         public bool Admin
         {
-            get { return Convert.ToBoolean(getAttributes()[AppsNameTable.AppsLoginAdmin]); }
-            set { getAttributes()[AppsNameTable.AppsLoginAdmin] = value; }
+            get { return Convert.ToBoolean(Attributes[AppsNameTable.AppsLoginAdmin]); }
+            set { Attributes[AppsNameTable.AppsLoginAdmin] = value; }
         }
 
         /// <summary>
@@ -424,8 +425,8 @@ namespace Google.GData.Extensions.Apps
         /// </summary>
         public bool AgreedToTerms
         {
-            get { return Convert.ToBoolean(getAttributes()[AppsNameTable.AppsLoginAgreedToTerms]); }
-            set { getAttributes()[AppsNameTable.AppsLoginAgreedToTerms] = value; }
+            get { return Convert.ToBoolean(Attributes[AppsNameTable.AppsLoginAgreedToTerms]); }
+            set { Attributes[AppsNameTable.AppsLoginAgreedToTerms] = value; }
         }
 
         /// <summary>
@@ -434,8 +435,8 @@ namespace Google.GData.Extensions.Apps
         /// </summary>
         public bool ChangePasswordAtNextLogin
         {
-            get { return Convert.ToBoolean(getAttributes()[AppsNameTable.AppsLoginChangePasswordAtNextLogin]); }
-            set { getAttributes()[AppsNameTable.AppsLoginChangePasswordAtNextLogin] = value; }
+            get { return Convert.ToBoolean(Attributes[AppsNameTable.AppsLoginChangePasswordAtNextLogin]); }
+            set { Attributes[AppsNameTable.AppsLoginChangePasswordAtNextLogin] = value; }
         }
     }
 
@@ -474,8 +475,8 @@ namespace Google.GData.Extensions.Apps
         /// </summary>
         public string FamilyName
         {
-            get { return Convert.ToString(getAttributes()[AppsNameTable.AppsNameFamilyName]); }
-            set { getAttributes()[AppsNameTable.AppsNameFamilyName] = value; }
+            get { return Convert.ToString(Attributes[AppsNameTable.AppsNameFamilyName]); }
+            set { Attributes[AppsNameTable.AppsNameFamilyName] = value; }
         }
 
         /// <summary>
@@ -483,8 +484,8 @@ namespace Google.GData.Extensions.Apps
         /// </summary>
         public string GivenName
         {
-            get { return Convert.ToString(getAttributes()[AppsNameTable.AppsNameGivenName]); }
-            set { getAttributes()[AppsNameTable.AppsNameGivenName] = value; }
+            get { return Convert.ToString(Attributes[AppsNameTable.AppsNameGivenName]); }
+            set { Attributes[AppsNameTable.AppsNameGivenName] = value; }
         }
     }
 
@@ -521,8 +522,8 @@ namespace Google.GData.Extensions.Apps
         /// </summary>
         public string Name
         {
-            get { return Convert.ToString(getAttributes()[AppsNameTable.AppsNicknameName]); }
-            set { getAttributes()[AppsNameTable.AppsNicknameName] = value; }
+            get { return Convert.ToString(Attributes[AppsNameTable.AppsNicknameName]); }
+            set { Attributes[AppsNameTable.AppsNicknameName] = value; }
         }
     }
 
@@ -559,8 +560,8 @@ namespace Google.GData.Extensions.Apps
         /// </summary>
         public int Limit
         {
-            get { return Convert.ToInt32(getAttributes()[AppsNameTable.AppsQuotaLimit]); }
-            set { getAttributes()[AppsNameTable.AppsQuotaLimit] = value; }
+            get { return Convert.ToInt32(Attributes[AppsNameTable.AppsQuotaLimit]); }
+            set { Attributes[AppsNameTable.AppsQuotaLimit] = value; }
         }
     }
 
@@ -598,8 +599,8 @@ namespace Google.GData.Extensions.Apps
         /// </summary>
         public string LabelName
         {
-            get { return Convert.ToString(this.getAttributes()[AppsMigrationNameTable.AppsLabelName]); }
-            set { this.getAttributes()[AppsMigrationNameTable.AppsLabelName] = value; }
+            get { return Convert.ToString(this.Attributes[AppsMigrationNameTable.AppsLabelName]); }
+            set { this.Attributes[AppsMigrationNameTable.AppsLabelName] = value; }
         }
     }
 
@@ -695,12 +696,12 @@ namespace Google.GData.Extensions.Apps
             get
             {
                 return (EncodingMethod) Enum.Parse(typeof(EncodingMethod),
-                    Convert.ToString(getAttributes()[AppsMigrationNameTable.AppsRfc822MsgEncoding]),
+                    Convert.ToString(Attributes[AppsMigrationNameTable.AppsRfc822MsgEncoding]),
                     true);
             }
             set
             {
-                getAttributes()[AppsMigrationNameTable.AppsRfc822MsgEncoding] = value.ToString();
+                Attributes[AppsMigrationNameTable.AppsRfc822MsgEncoding] = value.ToString();
             }
         }
 
@@ -872,12 +873,12 @@ namespace Google.GData.Extensions.Apps
             get
             {
                 return (MailItemProperty) Enum.Parse(typeof(MailItemProperty),
-                    Convert.ToString(getAttributes()[BaseNameTable.XmlValue]),
+                    Convert.ToString(Attributes[BaseNameTable.XmlValue]),
                     true);
             }
             set
             {
-                getAttributes()[BaseNameTable.XmlValue] = value.ToString();
+                Attributes[BaseNameTable.XmlValue] = value.ToString();
             }
         }
     }
