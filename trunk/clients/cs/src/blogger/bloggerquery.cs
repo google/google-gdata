@@ -14,9 +14,11 @@
 */
 
 using System;
+using System.Text;
+using System.Globalization;
 using Google.GData.Client;
 
-namespace Google.GData.Blooger
+namespace Google.GData.Blogger
 {
 
     //////////////////////////////////////////////////////////////////////
@@ -26,10 +28,14 @@ namespace Google.GData.Blooger
     //////////////////////////////////////////////////////////////////////
     public class BloggerQuery : FeedQuery
     {
+        public const string OrderByUpdated = "updated";
+        public const string OrderByPublished = "published";
+
+        private string orderBy;
         /// <summary>
         /// default constructor, does nothing 
         /// </summary>
-        public CalendarQuery() : base()
+        public BloggerQuery() : base()
         {
         }
 
@@ -40,6 +46,88 @@ namespace Google.GData.Blooger
         public BloggerQuery(string queryUri)
         : base(queryUri)
         {
+        }
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>You can add orderby=published or orderby=updated to a GData query 
+        /// to get the posts sorted in that order. 
+        /// Some notes: 
+        /// - updated is the default 
+        /// - This has no effect on comments feeds, whose updated and published 
+        ///     dates are the same 
+        /// - Pagination in the by-updated feed is limited to the most recently 
+        ///     published 500 posts. </summary>
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        public string OrderBy
+        {
+            get {return this.orderBy;}
+            set {this.orderBy = value;}
+        }
+
+#if WindowsCE || PocketPC
+#else
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>protected void ParseUri</summary> 
+        /// <param name="targetUri">takes an incoming Uri string and parses all the properties out of it</param>
+        /// <returns>throws a query exception when it finds something wrong with the input, otherwise returns a baseuri</returns>
+        //////////////////////////////////////////////////////////////////////
+        protected override Uri ParseUri(Uri targetUri)
+        {
+            base.ParseUri(targetUri);
+            if (targetUri != null)
+            {
+                char[] deli = { '?', '&' };
+
+                TokenCollection tokens = new TokenCollection(targetUri.Query, deli);
+                foreach (String token in tokens)
+                {
+                    if (token.Length > 0)
+                    {
+                        char[] otherDeli = { '=' };
+                        String[] parameters = token.Split(otherDeli, 2);
+                        switch (parameters[0])
+                        {
+                            case "orderby":
+                                this.OrderBy = parameters[1];
+                                break;
+                        }
+                    }
+                }
+            }
+            return this.Uri;
+        }
+#endif
+
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Creates the partial URI query string based on all
+        ///  set properties.</summary> 
+        /// <returns> string => the query part of the URI </returns>
+        //////////////////////////////////////////////////////////////////////
+        protected override string CalculateQuery()
+        {
+            string path = base.CalculateQuery();
+            StringBuilder newPath = new StringBuilder(path, 2048);
+
+            char paramInsertion;
+
+            if (path.IndexOf('?') == -1)
+            {
+                paramInsertion = '?';
+            }
+            else
+            {
+                paramInsertion = '&';
+            }
+
+            if (this.OrderBy != null && this.OrderBy.Length > 0)
+            {
+                newPath.Append(paramInsertion);
+                newPath.AppendFormat(CultureInfo.InvariantCulture, "orderby={0}", Utilities.UriEncodeReserved(this.OrderBy));
+                paramInsertion = '&';
+            }
+            return newPath.ToString();
         }
     }
 }

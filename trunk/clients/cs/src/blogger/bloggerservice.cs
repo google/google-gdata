@@ -15,10 +15,6 @@
 
 
 using System;
-using System.IO;
-using System.Collections;
-using System.Text;
-using System.Net; 
 using Google.GData.Client;
 
 
@@ -32,15 +28,15 @@ namespace Google.GData.Blogger {
     public class BloggerService : Service
     {
         /// <summary>This service's User-Agent string</summary> 
-        public const string BloggerAgent = "GBlogger.NET/1.0.0";
+        public const string Agent = "GBlogger.NET/1.0.0";
         /// <summary>The Calendar service's name</summary> 
-        public const string BloggerService = "blogger";
+        public const string Service = "blogger";
 
         /// <summary>
         ///  default constructor
         /// </summary>
         /// <param name="applicationName">the applicationname</param>
-        public BloggerService(string applicationName) : base(BloggerService, applicationName, BloggerAgent)
+        public BloggerService(string applicationName) : base(BloggerService.Service, applicationName, BloggerService.Agent)
         {
             this.NewFeed += new ServiceEventHandler(this.OnNewFeed); 
         }

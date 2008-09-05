@@ -273,7 +273,7 @@ namespace CalendarDemoConsoleApplication
             Uri aclUri =
                 new Uri("http://www.google.com/calendar/feeds/gdata.ops.test@gmail.com/acl/full");
 
-            AclEntry insertedEntry = service.Insert(aclUri, entry) as AclEntry;
+            AclEntry insertedEntry = service.Insert(aclUri, entry); 
             Console.WriteLine("Added user {0}", insertedEntry.Scope.Value);
 
             return insertedEntry;

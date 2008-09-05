@@ -68,35 +68,6 @@ namespace Google.GData.Client
             return false; 
         }
 
-        /// <summary>
-        /// Parses the inner state of the element
-        /// </summary>
-        /// <param name="e">The extension element that should be added to this entry</param>
-        /// <param name="parser">The AtomFeedParser that called this</param>
-        public virtual void Parse(ExtensionElementEventArgs e, AtomFeedParser parser)
-        {
-            if (e == null)
-            {
-                throw new ArgumentNullException("e");
-            }
-        
-
-            Tracing.TraceMsg("Entering Parse on AbstractEntry");
-            XmlNode node = e.ExtensionElement;
-            if (this.ExtensionFactories != null && this.ExtensionFactories.Count > 0)
-            {
-                Tracing.TraceMsg("Entring default Parsing for AbstractEntry");
-
-                IExtensionElementFactory f = FindExtensionFactory(node.LocalName, 
-                                                                  node.NamespaceURI);
-                if (f != null)
-                {
-                    this.ExtensionElements.Add(f.CreateInstance(node, parser));
-                    e.DiscardEntry = true;
-                }
-            }
-            return;
-        }
 
         /// <summary>
         /// helper to toggle categories

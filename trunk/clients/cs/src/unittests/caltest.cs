@@ -846,7 +846,7 @@ namespace Google.GData.Client.LiveTests
                        throw new Exception("ACL link was null.");
                    }
 
-                   AclEntry insertedEntry = service.Insert(aclUri, aclEntry) as AclEntry;
+                   AclEntry insertedEntry = service.Insert(aclUri, aclEntry); 
                    insertedEntry.Delete();
                 }
             }

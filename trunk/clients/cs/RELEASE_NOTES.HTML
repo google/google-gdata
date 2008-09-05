@@ -7,6 +7,36 @@
     
 <h1>This document lists the changes in the different releases</h1>
 
+    <h2>
+        1.2.3.0
+    </h2>
+    <ul>
+        <li>
+            Features
+        </li>
+        <ul>
+            <li>
+                Created a blogger service, feed, entry and query class. The 
+                query class allows the OrderBy parameter. This also fixes issue 
+                151 on the public issue list.
+            </li>
+        </ul>
+        <li>
+        
+        </ul>
+            Bugfixes/changes
+        </li>
+        <ul>
+            <li>
+                Moved the core of the extension functionallity, so just the base
+                classes, into the Google.GData.Client, so that the base 
+                AtomFeed/AtomEntry can be extended using this extension system. 
+                Otherwise there would be a circular reference between client.dll 
+                and extension.dll
+            </li>
+        </ul>
+    </ul>
+
 <h2>1.2.2.0</h2>
    <ul>
       <li>Features</li>

@@ -66,7 +66,6 @@ namespace Google.GData.Client.UnitTests
             entry.Published = new DateTime(2001, 11, 20, 22, 30, 0);  
             entry.Title.Text = "This is a entry number: " + iCount;
             entry.Updated = DateTime.Now; 
-
     
             return entry;
         }

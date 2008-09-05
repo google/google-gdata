@@ -14,11 +14,7 @@
 */
 
 using System;
-using System.Collections;
-using System.Text;
-using System.Xml;
 using Google.GData.Client;
-using Google.GData.Extensions;
 
 namespace Google.GData.Blogger
 {

@@ -239,7 +239,7 @@ namespace PhotoBrowser
             acc.Access = this.AlbumPublic.Checked ? "public" : "private";
             acc.CommentingEnabled = this.AllowComments.Checked;
 
-            this.newEntry = this.service.Insert(this.feed, entry) as PicasaEntry;
+            this.newEntry = this.service.Insert(this.feed, entry); 
             this.Close();
 
         }
