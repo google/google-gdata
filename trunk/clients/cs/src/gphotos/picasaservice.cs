@@ -81,7 +81,7 @@ namespace Google.GData.Photos {
         /// <param name="entry">the old entry to update</param> 
         /// <returns> the new Entry, as returned from the server</returns>
         //////////////////////////////////////////////////////////////////////
-        public new PicasaEntry Insert<TEntry>(Uri feedUri, TEntry entry) where TEntry : PicasaEntry
+        public new PicasaEntry Insert<TEntry>(Uri feedUri, TEntry entry) where TEntry : AtomEntry
         {
             return this.internalInsert(feedUri, entry) as PicasaEntry;
         }
