@@ -29,8 +29,8 @@ namespace Google.GData.Extensions {
     /// </summary>
     public class SimpleContainer : ExtensionBase, IExtensionContainer
     {
-        private ArrayList extensions;
-        private ArrayList extensionFactories;
+        private ExtensionList extensions;
+        private ExtensionList extensionFactories;
 
         /// <summary>
         /// constructor
@@ -58,7 +58,7 @@ namespace Google.GData.Extensions {
             {
                 if (this.extensions == null)
                 {
-                    this.extensions = new ArrayList();
+                    this.extensions = new ExtensionList(this);
                 }
                 return this.extensions;
             }
@@ -141,7 +141,7 @@ namespace Google.GData.Extensions {
             {
                 if (this.extensionFactories == null)
                 {
-                    this.extensionFactories = new ArrayList();
+                    this.extensionFactories = new ExtensionList(this);
                 }
                 return this.extensionFactories;
             }
@@ -177,6 +177,17 @@ namespace Google.GData.Extensions {
             sc.ProcessAttributes(node);
             sc.ProcessChildNodes(node, parser);
             return sc;
+        }
+
+        /// <summary>
+        /// need so setup the namespace based on the version information     
+        /// </summary>
+        protected override void VersionInfoChanged()
+        {
+            base.VersionInfoChanged();
+
+            this.VersionInfo.ImprintVersion(this.extensions);
+            this.VersionInfo.ImprintVersion(this.extensionFactories);
         }
 
          /// <summary>

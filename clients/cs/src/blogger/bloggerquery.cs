@@ -28,7 +28,13 @@ namespace Google.GData.Blogger
     //////////////////////////////////////////////////////////////////////
     public class BloggerQuery : FeedQuery
     {
+        /// <summary>
+        /// constant string for the order by updated query
+        /// </summary>
         public const string OrderByUpdated = "updated";
+        /// <summary>
+        /// constant string for the order by published query
+        /// </summary>
         public const string OrderByPublished = "published";
 
         private string orderBy;

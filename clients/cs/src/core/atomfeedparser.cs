@@ -36,10 +36,8 @@ namespace Google.GData.Client
     public class AtomFeedParser : BaseFeedParser
     {
         /// <summary>holds the nametable used for parsing, based on XMLNameTable</summary>
-        private AtomParserNameTable nameTable; 
-
-        /// <summary>let's remember the feed version for parsing</summary> 
-        private string version;
+        private AtomParserNameTable nameTable;
+        private VersionInformation versionInfo = new VersionInformation();
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>standard empty constructor</summary> 
@@ -54,13 +52,14 @@ namespace Google.GData.Client
 
 
         //////////////////////////////////////////////////////////////////////
-        /// <summary>accessor method public string Version</summary> 
-        /// <returns> </returns>
+        /// <summary>standard empty constructor</summary> 
         //////////////////////////////////////////////////////////////////////
-        public string Version
+        public AtomFeedParser(IVersionAware v) : base()
         {
-            get {return this.version;}
-            set {this.version = value;}
+            Tracing.TraceCall("constructing AtomFeedParser");
+            this.nameTable = new AtomParserNameTable(); 
+            this.nameTable.InitAtomParserNameTable();
+            this.versionInfo = new VersionInformation(v);
         }
         /////////////////////////////////////////////////////////////////////////////
 
@@ -262,7 +261,7 @@ namespace Google.GData.Client
                     // parse the google batch extensions if they are there
                     ParseBatch(reader, feed); 
                 }
-                else if (feed != null && IsCurrentNameSpace(reader, BaseNameTable.NSOpenSearchRss))
+                else if (feed != null && IsCurrentNameSpace(reader, BaseNameTable.OpenSearchNamespace(this.versionInfo)))
                 {
                     if (localname.Equals(this.nameTable.TotalResults))
                     {

@@ -74,12 +74,20 @@ namespace Google.GData.Client
         private object name;
 
 
-        /// <summary>static namespace string declaration</summary> 
+        /// <summary>
+        ///  namespace of the opensearch v1.0 elements
+        /// </summary>
         public const string NSOpenSearchRss = "http://a9.com/-/spec/opensearchrss/1.0/";
+        /// <summary>
+        ///  namespace of the opensearch v1.1 elements
+        /// </summary>
+        public const string NSOpenSearch11 = "http://a9.com/-/spec/opensearch/1.1/"; 
         /// <summary>static namespace string declaration</summary> 
         public const string NSAtom = "http://www.w3.org/2005/Atom";
-        /// <summary>namespace for app publishing control</summary> 
+        /// <summary>namespace for app publishing control, draft version</summary> 
         public const string NSAppPublishing = "http://purl.org/atom/app#"; 
+       /// <summary>namespace for app publishing control, final version</summary> 
+        public const string NSAppPublishingFinal = "http://www.w3.org/2007/app"; 
         /// <summary>xml namespace</summary> 
         public const string NSXml = "http://www.w3.org/XML/1998/namespace";
         /// <summary>GD namespace</summary> 
@@ -130,7 +138,16 @@ namespace Google.GData.Client
         public const string XmlElementPubControl = "control"; 
 
         /// <summary>xmlelement for app:draft</summary> 
-        public const string XmlElementPubDraft = "draft"; 
+        public const string XmlElementPubDraft = "draft";
+        /// <summary>xmlelement for app:draft</summary> 
+        public const string XmlElementPubEdited = "edited";
+
+        /// <summary>
+        /// static string for parsing the etag element
+        /// </summary>
+        /// <returns></returns>
+        public const string XmlEtagElement = "etag";
+
 
 
         // batch strings:
@@ -428,10 +445,53 @@ namespace Google.GData.Client
             get {return this.name;}
         }
         /////////////////////////////////////////////////////////////////////////////
-
-
-
         #endregion end of Read only accessors
+
+
+
+        /// <summary>
+        /// returns the correct opensearchnamespace to use based
+        /// on the version information passed in. All protocols with 
+        /// version > 1 use opensearch1.1 where version 1 uses
+        /// opensearch 1.0
+        /// </summary>
+        /// <param name="v">The versioninformation</param>
+        /// <returns></returns>
+        public static string OpenSearchNamespace(IVersionAware v)
+        {
+            int major = VersionDefaults.Major;
+            if (v != null)
+                major = v.ProtocolMajor;
+
+            if (major == 1)
+                return BaseNameTable.NSOpenSearchRss;
+
+            return BaseNameTable.NSOpenSearch11;
+        }
+
+
+
+        /// <summary>
+        /// returns the correct app:publishing namespace to use based
+        /// on the version information passed in. All protocols with 
+        /// version > 1 use the final version of the namespace, where 
+        /// version 1 uses the draft version. 
+        /// </summary>
+        /// <param name="v">The versioninformation</param>
+        /// <returns></returns>
+        public static string AppPublishingNamespace(IVersionAware v)
+        {
+            int major = VersionDefaults.Major; 
+
+            if (v != null)
+                major = v.ProtocolMajor;
+                
+            if (major == 1)
+                return BaseNameTable.NSAppPublishing;
+
+            return BaseNameTable.NSAppPublishingFinal;
+        }
+
 
     }
     /////////////////////////////////////////////////////////////////////////////

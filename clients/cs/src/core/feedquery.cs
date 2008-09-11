@@ -337,7 +337,7 @@ namespace Google.GData.Client
         /// <summary>ExtraParameters holds a string that just get's added to the
         /// query string per se. The parameter should honor URL encoding, the library
         /// will not touch it's value, but just append it to the existing query. The 
-        /// ? or & character will be inserted by the FeedQuery object.</summary> 
+        /// URL parameter characters will be inserted by the FeedQuery object.</summary> 
         /// <returns></returns>
         //////////////////////////////////////////////////////////////////////
         public string ExtraParameters

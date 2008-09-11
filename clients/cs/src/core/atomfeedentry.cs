@@ -492,12 +492,12 @@ namespace Google.GData.Client
             get
             {
                 return FindExtension(BaseNameTable.XmlElementPubControl,
-                                     BaseNameTable.NSAppPublishing) as AppControl;
+                                     BaseNameTable.AppPublishingNamespace(this)) as AppControl;
             }
             set
             {
                 ReplaceExtension(BaseNameTable.XmlElementPubControl,
-                                     BaseNameTable.NSAppPublishing,
+                                     BaseNameTable.AppPublishingNamespace(this),
                                 value);
             }
         }

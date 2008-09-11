@@ -358,7 +358,7 @@ namespace Google.GData.Extensions
     }
 
     /// <summary>
-    /// gd:PostalAddress element
+    /// a base class used for PostalAddress and others. 
     /// </summary>
     public class CommonAttributesElement : SimpleElement
     {

@@ -184,6 +184,8 @@ namespace Google.GData.Client
                         value = newEntry; 
                     }
                 }
+                value.ProtocolMajor = this.feed.ProtocolMajor;
+                value.ProtocolMinor = this.feed.ProtocolMinor;
             }
             return( List.Add( value ) );
         }
@@ -606,5 +608,31 @@ namespace Google.GData.Client
         }
     }
     /////////////////////////////////////////////////////////////////////////////
+    
+
+    /// <summary>
+    ///  internal list to override the add and the constructor
+    /// </summary>
+    /// <returns></returns>
+    internal class ExtensionList : ArrayList
+    {
+        IVersionAware container; 
+
+        public ExtensionList(IVersionAware container)
+        {
+            this.container = container;
+        }
+        public override int Add (Object value)
+        {
+            IVersionAware target = value as IVersionAware;
+
+            if (target != null)
+            {
+                target.ProtocolMajor = this.container.ProtocolMajor;
+                target.ProtocolMinor = this.container.ProtocolMinor;
+            }
+            return base.Add(value);
+        }
+    }
 
 } 

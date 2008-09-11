@@ -20,6 +20,8 @@ using System;
 using System.Xml;
 using System.Net;
 using System.Collections;
+using Google.GData.Extensions.AppControl;
+using Google.GData.Extensions;
 
 
 
@@ -34,8 +36,17 @@ namespace Google.GData.Client
    /// <summary>
     /// Entry API customization class for defining entries in a custom feed
     /// </summary>
-    public abstract class AbstractEntry : AtomEntry
+    public abstract class AbstractEntry : AtomEntry, ISupportsEtag
     {
+
+        /// <summary>
+        /// default constructor, adding app:edited and etag extensions
+        /// </summary>
+        public AbstractEntry()
+        {
+            this.AddExtension(new AppEdited());
+            this.AddExtension(new Etag());
+        }
 
         private MediaSource mediaSource;
         /// <summary>
@@ -102,8 +113,53 @@ namespace Google.GData.Client
         }
         // end of accessor public MediaSource Media
 
-    }
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>returns this feeds etag, if any
+        /// This is a protocol version 2 feature
+        /// </summary>
+        //////////////////////////////////////////////////////////////////////
+        public string Etag
+        {
+            get
+            {
+                Etag e = FindExtension(BaseNameTable.XmlEtagElement,
+                                     BaseNameTable.gNamespace) as Etag;
 
+                if (e != null)
+                    return e.Value;
+
+                return null;
+            }
+            set
+            {
+                Etag e = new Etag(value);
+                ReplaceExtension(BaseNameTable.XmlEtagElement,
+                                 BaseNameTable.gNamespace,
+                                 e);
+            }
+        }
+
+
+        /// <summary>
+        /// returns the app:edited element of the entry, if any. 
+        /// This is a protocol version 2 feature
+        /// </summary>
+        public AppEdited Edited
+        {
+            get
+            {
+
+                return FindExtension(BaseNameTable.XmlElementPubEdited,
+                                     BaseNameTable.NSAppPublishingFinal) as AppEdited;
+            }
+            set
+            {
+                ReplaceExtension(BaseNameTable.XmlElementPubEdited,
+                                 BaseNameTable.NSAppPublishingFinal,
+                                 value);
+            }
+        }
+    }
 }
 /////////////////////////////////////////////////////////////////////////////
  

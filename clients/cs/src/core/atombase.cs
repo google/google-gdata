@@ -83,6 +83,42 @@ namespace Google.GData.Client
         }
     }
 
+    /// <summary>Helper to walk the tree and set the versioninformation</summary> 
+    internal class ChangeVersion : IBaseWalkerAction
+    {
+        private VersionInformation v; 
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Constructor.</summary> 
+        /// <param name="v">the versioninformation to pass </param>
+        //////////////////////////////////////////////////////////////////////
+        internal ChangeVersion(IVersionAware v)
+        {
+            this.v = new VersionInformation(v); 
+        }
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Walker action. Just sets a property.</summary> 
+        /// <param name="atom">object to set the property on </param>
+        /// <returns> always false, indicating to walk the whole tree</returns>
+        //////////////////////////////////////////////////////////////////////
+        public bool Go(AtomBase atom)
+        {
+            Tracing.Assert(atom != null, "atom should not be null");
+            if (atom == null)
+            {
+                throw new ArgumentNullException("atom");
+            }
+            atom.SetVersionInfo(v);
+            return false;
+        }
+    }
+
+
+
+
+
+
     /// <summary>Helper class, mainly used to walk the tree for the dirty flag.</summary> 
     public class BaseIsPersistable : IBaseWalkerAction
     {
@@ -109,7 +145,7 @@ namespace Google.GData.Client
     /// <summary>AtomBase object representation.
     /// </summary> 
     //////////////////////////////////////////////////////////////////////
-    public abstract class AtomBase : IExtensionContainer
+    public abstract class AtomBase : IExtensionContainer, IVersionAware
     {
         /// <summary>holds the base Uri</summary> 
         private AtomUri uriBase;
@@ -118,9 +154,9 @@ namespace Google.GData.Client
         /// <summary>holds the xml:lang element</summary> 
         private string atomLanguageTag;
         /// <summary>extension element collection</summary>
-        private ArrayList extensionsList; 
+        private ExtensionList extensionsList; 
         /// <summary> extension element factories </summary>
-        private ArrayList extensionFactories; 
+        private ExtensionList extensionFactories; 
        /// <summary>a boolean indicating that recalc is allowed to happen implicitly now</summary> 
         private bool fAllowRecalc;
         /// <summary>holds a flag indicating if the thing should be send to the server</summary> 
@@ -275,7 +311,7 @@ namespace Google.GData.Client
             {
                 if (this.extensionFactories == null)
                 {
-                    this.extensionFactories = new ArrayList();
+                    this.extensionFactories = new ExtensionList(this);
                 }
                 return this.extensionFactories;
             }
@@ -310,7 +346,7 @@ namespace Google.GData.Client
             {
                 if (this.extensionsList == null)
                 {
-                    this.extensionsList = new ArrayList();
+                    this.extensionsList = new ExtensionList(this);
                 }
                 return this.extensionsList;
             }
@@ -896,7 +932,30 @@ namespace Google.GData.Client
         }
         /////////////////////////////////////////////////////////////////////////////
 
-         
+
+        /// <summary>
+        /// this potential overloaded method get's called when the version information
+        /// of an object is changed. It handles setting the versioninformation on 
+        /// all children and the factories. 
+        /// </summary>
+        /// <returns></returns>
+        protected virtual void OnVersionInfoChanged()
+        {
+            WalkTree(new ChangeVersion(this)); 
+        }
+
+        /// <summary>
+        /// this get's called out of a notification chain. It set's 
+        /// this objects version info and the extension lists. We do not
+        /// use the property accessor to avoid the notification loop
+        /// </summary>
+        /// <param name="obj"></param>
+        internal void SetVersionInfo(IVersionAware obj)
+        {
+            this.versionInfo = new VersionInformation(obj);
+            this.versionInfo.ImprintVersion(this.ExtensionElements);
+            this.versionInfo.ImprintVersion(this.ExtensionFactories);
+        }
 
 
         /// <summary>Method to check whether object should be saved.
@@ -918,6 +977,43 @@ namespace Google.GData.Client
 
         #endregion 
 
+
+        private VersionInformation versionInfo = new VersionInformation();
+        /// <summary>
+        /// returns the major protocol version number this element 
+        /// is working against. 
+        /// </summary>
+        /// <returns></returns>
+        public int ProtocolMajor
+        {
+            get
+            {
+                return this.versionInfo.ProtocolMajor;
+            }
+            set
+            {
+                this.versionInfo.ProtocolMajor  = value;
+                OnVersionInfoChanged();
+            }
+        }
+
+        /// <summary>
+        /// returns the minor protocol version number this element 
+        /// is working against. 
+        /// </summary>
+        /// <returns></returns>
+        public int ProtocolMinor
+        {
+            get
+            {
+                return this.versionInfo.ProtocolMinor;
+            }
+            set
+            {
+                this.versionInfo.ProtocolMinor  = value;
+                OnVersionInfoChanged();
+            }
+        }
     }
     /////////////////////////////////////////////////////////////////////////////
 } 

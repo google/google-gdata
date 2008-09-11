@@ -91,10 +91,15 @@ namespace Google.GData.Client
     //////////////////////////////////////////////////////////////////////
     /// <summary>base GDataRequestFactory implementation</summary> 
     //////////////////////////////////////////////////////////////////////
-    public class GDataGAuthRequestFactory : GDataRequestFactory
+    public class GDataGAuthRequestFactory : GDataRequestFactory, IVersionAware
     {
         /// <summary>this factory's agent</summary> 
         public const string GDataGAuthAgent = "GDataGAuth-CS/1.0.0";
+        /// <summary>
+        ///  the header used to indicate version requests
+        /// </summary>
+        public const string GDataVersion = "GData-Version"; 
+
         private string gAuthToken;   // we want to remember the token here
         private string handler;      // so the handler is useroverridable, good for testing
         private string gService;         // the service we pass to Gaia for token creation
@@ -287,7 +292,46 @@ namespace Google.GData.Client
             set {this.handler = value;}
         }
         /////////////////////////////////////////////////////////////////////////////
+
+        private VersionInformation versionInfo = new VersionInformation();
+        /// <summary>
+        /// returns the major protocol version number this element 
+        /// is working against. 
+        /// </summary>
+        /// <returns></returns>
+        public int ProtocolMajor
+        {
+            get
+            {
+                return this.versionInfo.ProtocolMajor;
+            }
+            set
+            {
+                this.versionInfo.ProtocolMajor = value;
+            }
+        }
+
+        /// <summary>
+        /// returns the minor protocol version number this element 
+        /// is working against. 
+        /// </summary>
+        /// <returns></returns>
+        public int ProtocolMinor
+        {
+            get
+            {
+                return this.versionInfo.ProtocolMinor;
+            }
+            set
+            {
+                this.versionInfo.ProtocolMinor = value;
+            }
+        }
+
+
         
+
+
     }
     /////////////////////////////////////////////////////////////////////////////
 
@@ -302,6 +346,7 @@ namespace Google.GData.Client
         /// <summary>holds the factory instance</summary> 
         private GDataGAuthRequestFactory factory; 
         private AsyncData asyncData;
+        private VersionInformation responseVersion;
         
         //////////////////////////////////////////////////////////////////////
         /// <summary>default constructor</summary> 
@@ -401,6 +446,19 @@ namespace Google.GData.Client
         /////////////////////////////////////////////////////////////////////////////
 
 
+        /// <summary>
+        /// returns the version information that the response indicated
+        /// can be NULL if used against a non versioned endpoint
+        /// </summary>
+        internal VersionInformation ResponseVersion
+        {
+            get
+            {
+                return this.responseVersion;
+            }
+        }
+
+
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>sets the redirect to false after everything else
@@ -412,6 +470,17 @@ namespace Google.GData.Client
             HttpWebRequest http = this.Request as HttpWebRequest; 
             if (http != null)
             {
+
+                http.Headers.Remove(GDataGAuthRequestFactory.GDataVersion);
+                http.Headers.Remove(GoogleAuthentication.Override);
+
+                IVersionAware v = this.factory as IVersionAware;
+                if (v != null)
+                {
+                    // need to add the version header to the request
+                    http.Headers.Add(GDataGAuthRequestFactory.GDataVersion, v.ProtocolMajor.ToString() + "." + v.ProtocolMinor.ToString());
+                }
+
                 // we do not want this to autoredirect, our security header will be 
                 // lost in that case
                 http.AllowAutoRedirect = false;
@@ -643,6 +712,11 @@ namespace Google.GData.Client
             {
                 CopyRequestData();
                 base.Execute();
+                if (this.Response is HttpWebResponse)
+                {
+                    HttpWebResponse response = this.Response as HttpWebResponse;
+                    this.responseVersion = new VersionInformation(response.Headers[GDataGAuthRequestFactory.GDataVersion]);
+                }
             }
             catch (GDataForbiddenException re) 
             {
@@ -724,8 +798,8 @@ namespace Google.GData.Client
                 // Since we don't use write buffering on the WebRequest object,
                 // we need to ensure the Content-Length field is correctly set
                 // to the length we want to set.
-                base.EnsureWebRequest();
-                base.Request.ContentLength = this.requestCopy.Length;
+                EnsureWebRequest();
+                this.Request.ContentLength = this.requestCopy.Length;
                 // stream it into the real request stream
                 Stream req = base.GetRequestStream();
 

@@ -424,8 +424,6 @@ namespace Google.GData.Client
             {
                 throw new ArgumentNullException("reader"); 
             }
-
-
             if (reader.NodeType == XmlNodeType.Attribute || reader.NodeType == XmlNodeType.Text )
             {
                 reader.MoveToElement();
@@ -437,10 +435,6 @@ namespace Google.GData.Client
             return !reader.EOF;
         }
         /////////////////////////////////////////////////////////////////////////////
-
-
-
-
     }
     /////////////////////////////////////////////////////////////////////////////
 }

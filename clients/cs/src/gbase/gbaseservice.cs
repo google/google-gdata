@@ -128,6 +128,7 @@ namespace Google.GData.GoogleBase
         /// </summary>
         public override void OnRequestFactoryChanged() 
         {
+            base.OnRequestFactoryChanged();
             GDataGAuthRequestFactory factory = this.RequestFactory as GDataGAuthRequestFactory;
             if (factory != null && this.devKey != null)
             {

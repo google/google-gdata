@@ -90,7 +90,6 @@ namespace Google.GData.Client.LiveTests
                 }
 
                 GDataLoggingRequestFactory factory = (GDataLoggingRequestFactory)this.factory;
-                factory.MethodOverride = true;
                 service.RequestFactory = this.factory; 
 
                 query.Uri = new Uri(uriToClean);
@@ -120,7 +119,6 @@ namespace Google.GData.Client.LiveTests
 
                     Assert.AreEqual(0, feed.Entries.Count, "Feed should have no more entries, it has: " + feed.Entries.Count); 
                     service.Credentials = null; 
-                    factory.MethodOverride = false;
                 }
             }
         }

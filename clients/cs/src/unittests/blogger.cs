@@ -69,7 +69,7 @@ namespace Google.GData.Client.LiveTests
         {
             Tracing.ExitTracing();
             FeedCleanup(this.bloggerURI, this.userName, this.passWord);
-     }
+        }
         /////////////////////////////////////////////////////////////////////////////
 
       
@@ -101,7 +101,8 @@ namespace Google.GData.Client.LiveTests
         //////////////////////////////////////////////////////////////////////
         /// <summary>runs an authentication test</summary> 
         //////////////////////////////////////////////////////////////////////
-        [Test] public void GoogleAuthenticationTest()
+        [Test] 
+        public void GoogleAuthenticationTest()
         {
             Tracing.TraceMsg("Entering Blogger AuthenticationTest");
 
@@ -226,7 +227,6 @@ namespace Google.GData.Client.LiveTests
                 }
 
                 GDataLoggingRequestFactory factory = (GDataLoggingRequestFactory) this.factory;
-                factory.MethodOverride = true;
                 service.RequestFactory = this.factory; 
 
                 query.Uri = new Uri(this.bloggerURI);
@@ -260,11 +260,7 @@ namespace Google.GData.Client.LiveTests
                 }
 
                 service.Credentials = null; 
-
-                factory.MethodOverride = false;
-
             }
-
         }
         /////////////////////////////////////////////////////////////////////////////
 
@@ -272,7 +268,8 @@ namespace Google.GData.Client.LiveTests
         //////////////////////////////////////////////////////////////////////
         /// <summary>checks for xhtml persistence</summary> 
         //////////////////////////////////////////////////////////////////////
-        [Test] public void BloggerHTMLTest()
+        [Test] 
+        public void BloggerHTMLTest()
         {
             Tracing.TraceMsg("Entering BloggerHTMLTest");
 
@@ -287,7 +284,6 @@ namespace Google.GData.Client.LiveTests
                 }
 
                 GDataLoggingRequestFactory factory = (GDataLoggingRequestFactory) this.factory;
-                factory.MethodOverride = true;
                 service.RequestFactory = this.factory; 
 
                 query.Uri = new Uri(this.bloggerURI);
@@ -323,7 +319,6 @@ namespace Google.GData.Client.LiveTests
                 }
 
                 service.Credentials = null; 
-                factory.MethodOverride = false;
             }
         }
         /////////////////////////////////////////////////////////////////////////////
@@ -331,7 +326,8 @@ namespace Google.GData.Client.LiveTests
         //////////////////////////////////////////////////////////////////////
         /// <summary>tests if we can access a public feed</summary> 
         //////////////////////////////////////////////////////////////////////
-        [Test] public void BloggerPublicFeedTest()
+        [Test] 
+        public void BloggerPublicFeedTest()
         {
             Tracing.TraceMsg("Entering BloggerPublicFeedTest");
 
@@ -359,6 +355,116 @@ namespace Google.GData.Client.LiveTests
 
         }
         /////////////////////////////////////////////////////////////////////////////
+
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>tests if we can access a public feed</summary> 
+        //////////////////////////////////////////////////////////////////////
+        [Test]
+        public void BloggerVersion2Test()
+        {
+            Tracing.TraceMsg("Entering BloggerVersion2Test");
+
+            BloggerQuery query = new BloggerQuery();
+            BloggerService service = new BloggerService(this.ApplicationName);
+
+            string title = "V1" + Guid.NewGuid().ToString();
+
+            service.ProtocolMajor = 1; 
+
+            service.RequestFactory = this.factory;
+            query.Uri = new Uri(this.bloggerURI);
+
+            // insert a new entry in version 1
+
+            AtomEntry entry = ObjectModelHelper.CreateAtomEntry(1); 
+            entry.Categories.Clear();
+            entry.Title.Text = title;
+            entry.IsDraft = true;
+            entry.ProtocolMajor = 12;
+
+
+
+            AtomEntry returnedEntry = service.Insert(new Uri(this.bloggerURI), entry);
+            Assert.IsTrue(returnedEntry.ProtocolMajor == service.ProtocolMajor);
+            Assert.IsTrue(entry.IsDraft);
+            Assert.IsTrue(returnedEntry.IsDraft);
+
+            BloggerFeed feed = service.Query(query);
+            Assert.IsTrue(feed.ProtocolMajor == service.ProtocolMajor);
+            if (feed != null)
+            {
+                Assert.IsTrue(feed.TotalResults >= feed.Entries.Count, "totalresults should be >= number of entries");
+                Assert.IsTrue(feed.Entries.Count > 0, "We should have some entries");
+            }
+
+            service.ProtocolMajor = 2;
+            feed = service.Query(query);
+            Assert.IsTrue(feed.ProtocolMajor == service.ProtocolMajor);
+
+            if (feed != null)
+            {
+                Assert.IsTrue(feed.Entries.Count > 0, "We should have some entries");
+                Assert.IsTrue(feed.TotalResults >= feed.Entries.Count, "totalresults should be >= number of entries");
+
+                foreach (BloggerEntry e in feed.Entries)
+                {
+                    if (e.Title.Text == title)
+                    {
+                        Assert.IsTrue(e.ProtocolMajor == 2);
+                        Assert.IsTrue(e.IsDraft);
+                    }
+                }
+            }
+
+
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>tests the etag functionallity for updates</summary> 
+        //////////////////////////////////////////////////////////////////////
+        [Test]
+        public void BloggerETagTest()
+        {
+            Tracing.TraceMsg("Entering BloggerETagTest");
+
+            BloggerQuery query = new BloggerQuery();
+            BloggerService service = new BloggerService(this.ApplicationName);
+            service.ProtocolMajor = 2;
+
+            string title = "V1" + Guid.NewGuid().ToString();
+
+            service.RequestFactory = this.factory;
+
+            query.Uri = new Uri(this.bloggerURI);
+
+            // insert a new entry in version 1
+
+            AtomEntry entry = ObjectModelHelper.CreateAtomEntry(1); 
+            entry.Categories.Clear();
+            entry.Title.Text = title;
+            entry.IsDraft = true;
+
+            BloggerEntry returnedEntry = service.Insert(new Uri(this.bloggerURI), entry) as BloggerEntry;
+
+            Assert.IsTrue(returnedEntry.ProtocolMajor == service.ProtocolMajor);
+            Assert.IsTrue(entry.IsDraft);
+            Assert.IsTrue(returnedEntry.IsDraft);
+            Assert.IsTrue(returnedEntry.Etag != null);
+
+            string etagOld = returnedEntry.Etag; 
+
+            returnedEntry.Content.Content = "This is a test";
+
+            BloggerEntry newEntry = returnedEntry.Update() as BloggerEntry; 
+
+            Assert.IsTrue(newEntry.Etag != null);
+            Assert.IsTrue(newEntry.Etag != etagOld);
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>runs an authentication test</summary> 

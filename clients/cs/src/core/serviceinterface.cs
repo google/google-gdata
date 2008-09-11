@@ -135,6 +135,7 @@ namespace Google.GData.Client
             get;
             set;
         }
+
         /// <summary>get's the request stream to write into</summary> 
         Stream GetRequestStream();
         /// <summary>Executes the request</summary> 
@@ -142,6 +143,23 @@ namespace Google.GData.Client
         /// <summary>get's the response stream to read from</summary> 
         Stream GetResponseStream();
     }
+
+    /// <summary>
+    /// interface to indicate that an element supports an Etag. Currently implemented on AbstractEntry,
+    /// AbstractFeed and GDataRequest
+    /// </summary>
+    public interface ISupportsEtag
+    {
+        /// <summary>set the etag for updates</summary>
+        string Etag
+        {
+            get;
+            set;
+        }
+
+    }
+
+
 
     //////////////////////////////////////////////////////////////////////
     /// <summary>Thin layer to create an action on an item/response
@@ -249,7 +267,6 @@ namespace Google.GData.Client
         /// <param name="ns">the namespace to match, if null, ns is ignored</param>
         /// <returns>int - the number of deleted extensions</returns>
         int DeleteExtensions(string localName, string ns);
-        
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>the list of extensions for this container
@@ -258,14 +275,6 @@ namespace Google.GData.Client
         /// <returns> </returns>
         //////////////////////////////////////////////////////////////////////
         ArrayList ExtensionFactories { get; }
-        
     }
-
-
-
-
-
-
-
 } 
 /////////////////////////////////////////////////////////////////////////////

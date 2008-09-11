@@ -26,12 +26,13 @@ namespace Google.GData.Extensions {
     /// <summary>
     /// Extensible type used in many places.
     /// </summary>
-    public abstract class ExtensionBase : IExtensionElement, IExtensionElementFactory
+    public abstract class ExtensionBase : IExtensionElement, IExtensionElementFactory, IVersionAware
     {
 
         private string xmlName;
         private string xmlPrefix;
         private string xmlNamespace;
+
         private List<XmlNode> unknownChildren;
         /// <summary>
         /// this holds the attribute list for an extension element
@@ -52,6 +53,73 @@ namespace Google.GData.Extensions {
             this.xmlPrefix = prefix;
             this.xmlNamespace = ns;
         }
+
+
+
+
+        private VersionInformation versionInfo = new VersionInformation();
+        internal VersionInformation VersionInfo
+        {
+            get
+            {
+                return this.versionInfo;
+            }
+        }
+
+        /// <summary>
+        /// returns the major protocol version number this element 
+        /// is working against. 
+        /// </summary>
+        /// <returns></returns>
+        public int ProtocolMajor
+        {
+            get
+            {
+                return this.versionInfo.ProtocolMajor;
+            }
+            set
+            {
+                this.versionInfo.ProtocolMajor  = value;
+                this.VersionInfoChanged();
+            }
+        }
+
+        /// <summary>
+        /// returns the minor protocol version number this element 
+        /// is working against. 
+        /// </summary>
+        /// <returns></returns>
+        int IVersionAware.ProtocolMinor
+        {
+            get
+            {
+                return this.versionInfo.ProtocolMinor;
+            }
+            set
+            {
+                this.versionInfo.ProtocolMinor  = value;
+                this.VersionInfoChanged();
+            }
+        }
+
+
+        /// <summary>
+        /// virtual to be overloaded by subclasses which are interested in reacting on versioninformation
+        /// changes
+        /// </summary>
+        protected virtual void VersionInfoChanged()
+        {
+        }
+
+        /// <summary>
+        /// method for subclasses who need to change a namespace for parsing/persistence during runtime
+        /// </summary>
+        /// <param name="ns"></param>
+        protected void SetXmlNamespace(string ns)
+        {
+            this.xmlNamespace = ns; 
+        }
+
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>accesses the Attribute list. The keys are the attribute names
