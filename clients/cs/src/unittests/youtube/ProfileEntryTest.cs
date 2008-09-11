@@ -240,7 +240,7 @@ namespace Google.GData.Client.UnitTests.YouTube
         public void FeedLinksTest()
         {
             ProfileEntry target = new ProfileEntry(); // TODO: Initialize to an appropriate value
-            FeedLinkCollection actual;
+            ExtensionCollection<FeedLink> actual;
             actual = target.FeedLinks;
             Assert.IsNotNull(actual);
         }

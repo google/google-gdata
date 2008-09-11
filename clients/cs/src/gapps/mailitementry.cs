@@ -38,8 +38,8 @@ namespace Google.GData.Apps.Migration
             new AtomCategory(AppsMigrationNameTable.MailItem,
                              new AtomUri(BaseNameTable.gKind));
 
-        private LabelCollection labels;
-        private MailItemPropertyCollection mailItemProperties;
+        private ExtensionCollection<LabelElement> labels;
+        private ExtensionCollection<MailItemPropertyElement> mailItemProperties;
 
         /// <summary>
         /// Constructs a new <code>MailItemEntry</code> object.
@@ -73,13 +73,13 @@ namespace Google.GData.Apps.Migration
         /// <summary>
         /// Labels property accessor
         /// </summary>
-        public LabelCollection Labels
+        public ExtensionCollection<LabelElement> Labels
         {
             get
             {
                 if (labels == null)
                 {
-                    labels = new LabelCollection(this);
+                    labels = new ExtensionCollection<LabelElement>(this);
                 }
                 return labels;
             }
@@ -88,13 +88,13 @@ namespace Google.GData.Apps.Migration
         /// <summary>
         /// MailItemProperties accessor
         /// </summary>
-        public MailItemPropertyCollection MailItemProperties
+        public ExtensionCollection<MailItemPropertyElement> MailItemProperties
         {
             get
             {
                 if (mailItemProperties == null)
                 {
-                    mailItemProperties = new MailItemPropertyCollection(this);
+                    mailItemProperties = new ExtensionCollection<MailItemPropertyElement>(this);
                 }
                 return mailItemProperties;
             }

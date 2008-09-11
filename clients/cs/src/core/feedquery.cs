@@ -197,12 +197,7 @@ namespace Google.GData.Client
 
 
         //////////////////////////////////////////////////////////////////////
-        /// <summary>constructor taking a base URI constructor. Note, that
-        /// if this form is used, the string will not be parsed. So a uri that
-        /// would have additional query parameters will not have this reflected. 
-        /// this version is primarily there to be used on mobile devices, as on 
-        /// mobile we don't have URI parsing code available.
-        /// </summary> 
+        /// <summary>constructor taking a base URI constructor.</summary> 
         //////////////////////////////////////////////////////////////////////
         public FeedQuery(string baseUri)
         {

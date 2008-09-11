@@ -214,7 +214,7 @@ namespace Google.GData.GoogleBase.UnitTests
                 Parse("<bozo><a>hello</a><b>world</b></bozo>");
             Assert.AreEqual("hello", attribute["a"], "<a>");
             Assert.AreEqual("world", attribute["b"], "<b>");
-            Assert.AreEqual(2, attribute.SubElementNames.Length, "names.length");
+            Assert.AreEqual(2, attribute.SubElementNames.Count, "names.length");
             Assert.IsNull(attribute.Content, "no content");
         }
 

@@ -803,7 +803,7 @@ namespace Google.GData.Client
 
             this.ExtensionElements.Clear();
 
-            foreach (Object extension in updatedEntry.ExtensionElements)
+            foreach (IExtensionElementAndFactory extension in updatedEntry.ExtensionElements)
             {
                 this.ExtensionElements.Add(extension);
             }
@@ -845,7 +845,6 @@ namespace Google.GData.Client
             return base.CreateAtomSubElement(reader, parser);
             
         }
-
 
         #region overloaded for property changes, xml:base
         //////////////////////////////////////////////////////////////////////
@@ -971,7 +970,6 @@ namespace Google.GData.Client
         }
         /////////////////////////////////////////////////////////////////////////////
         #endregion
-
 
         /// <summary>
         /// Parses the inner state of the element

@@ -26,7 +26,7 @@ namespace Google.GData.CodeSearch
     /// GData schema extension describing a c:file
     /// Contains a name extension with the name of the file.
     /// </summary>
-    public class File : IExtensionElement 
+    public class File : IExtensionElementAndFactory
     {   /// <summary>
         /// holds the attribute for the name of the file
         /// </summary>
@@ -102,8 +102,9 @@ namespace Google.GData.CodeSearch
             }
             if (Utilities.IsPersistable(filename))
             {
-                writer.WriteStartElement(GCodeSearchParserNameTable.CSPrefix,
-                                         XmlName, GCodeSearchParserNameTable.CSNamespace);
+                writer.WriteStartElement(XmlPrefix,
+                                         XmlName, 
+                                         XmlNameSpace);
                 writer.WriteAttributeString(GCodeSearchParserNameTable.ATTRIBUTE_NAME,
                     filename);
                 writer.WriteEndElement();
@@ -116,6 +117,39 @@ namespace Google.GData.CodeSearch
             }
         }
         #endregion
-    
+
+
+        #region IExtensionElementFactory Members
+
+        string IExtensionElementFactory.XmlName
+        {
+            get
+            {
+                return XmlName;
+            }
+        }
+
+        public string XmlNameSpace
+        {
+            get
+            {
+                return GCodeSearchParserNameTable.CSNamespace;
+            }
+        }
+
+        public string XmlPrefix
+        {
+            get
+            {
+                return GCodeSearchParserNameTable.CSPrefix;
+            }
+        }
+
+        public IExtensionElementAndFactory CreateInstance(XmlNode node, AtomFeedParser parser)
+        {
+            return ParseFile(node, parser);
+        }
+
+        #endregion
     }
 }

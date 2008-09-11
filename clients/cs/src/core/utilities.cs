@@ -572,10 +572,9 @@ namespace Google.GData.Client
                 // that's the blank value you get when setting a DateTime to an empty string inthe property browswer
                 return new DateTime(1,1,1);
             }
-
         }
         /////////////////////////////////////////////////////////////////////////////
-        
+
         /// <summary>
         /// Finds a specific ExtensionElement based on it's local name
         /// and it's namespace. If namespace is NULL, the first one where
@@ -587,39 +586,49 @@ namespace Google.GData.Client
         /// <param name="localName">the xml local name of the element to find</param>
         /// <param name="ns">the namespace of the elementToPersist</param>
         /// <returns>Object</returns>
-        public static Object FindExtension(ArrayList arrList, string localName, string ns) 
+        public static Object FindExtension(List<IExtensionElementAndFactory> arrList, string localName, string ns)
         {
             if (arrList == null)
             {
                 return null;
             }
-            foreach (object ob in arrList)
+
+            foreach (IExtensionElementAndFactory ele in arrList)
             {
-                XmlNode node = ob as XmlNode;
-                if (node != null)
+                if (compareXmlNess(ele.XmlName, localName, ele.XmlNameSpace, ns))
                 {
-                    if (compareXmlNess(node.LocalName, localName, node.NamespaceURI, ns))
-                    {
-                        return ob;
-                    }
-                }
-                else
-                {
-                    // only if the elements do implement the ExtensionElementFactory
-                    // do we know if it's xml name/namespace
-                    IExtensionElementFactory ele = ob as IExtensionElementFactory;
-                    if (ele != null)
-                    {
-                        if (compareXmlNess(ele.XmlName, localName, ele.XmlNameSpace, ns))
-                        {
-                            return ob;
-                        }
-                    }
+                    return ele;
                 }
             }
+            
+            //TODO Determine what to do about XmlNode extensions.
+            //foreach (object ob in arrList)
+            //{
+            //    XmlNode node = ob as XmlNode;
+            //    if (node != null)
+            //    {
+            //        if (compareXmlNess(node.LocalName, localName, node.NamespaceURI, ns))
+            //        {
+            //            return ob;
+            //        }
+            //    }
+            //    else
+            //    {
+            //        // only if the elements do implement the ExtensionElementFactory
+            //        // do we know if it's xml name/namespace
+            //        IExtensionElementFactory ele = ob as IExtensionElementFactory;
+            //        if (ele != null)
+            //        {
+            //            if (compareXmlNess(ele.XmlName, localName, ele.XmlNameSpace, ns))
+            //            {
+            //                return ob;
+            //            }
+            //        }
+            //    }
+            //}
             return null;
         }
-       
+
         /// <summary>
         /// Finds all ExtensionElement based on it's local name
         /// and it's namespace. If namespace is NULL, allwhere
@@ -632,7 +641,8 @@ namespace Google.GData.Client
         /// <param name="ns">the namespace of the elementToPersist</param>
         /// <param name="arr">the array to fill</param>
         /// <returns>none</returns>
-        public static ArrayList FindExtensions(ArrayList arrList, string localName, string ns, ArrayList arr) 
+        public static List<IExtensionElementAndFactory> FindExtensions(List<IExtensionElementAndFactory> arrList, string localName, string ns, 
+            List<IExtensionElementAndFactory> arr) 
         {
            if (arrList == null)
            {
@@ -643,31 +653,43 @@ namespace Google.GData.Client
                throw new ArgumentNullException("arr");
            }
 
-           foreach (object ob in arrList)
+           foreach (IExtensionElementAndFactory element in arrList)
            {
-               XmlNode node = ob as XmlNode;
-               if (node != null)
+               if (compareXmlNess(element.XmlName, localName, element.XmlNameSpace, ns))
                {
-                   if (compareXmlNess(node.LocalName, localName, node.NamespaceURI, ns))
-                   {
-                       arr.Add(ob);
-                   }
-               }
-               else
-               {
-                   // only if the elements do implement the ExtensionElementFactory
-                   // do we know if it's xml name/namespace
-                   IExtensionElementFactory ele = ob as IExtensionElementFactory;
-                   if (ele != null)
-                   {
-                       if (compareXmlNess(ele.XmlName, localName, ele.XmlNameSpace, ns))
-                       {
-                           arr.Add(ob);
-                       }
-                   }
+                   arr.Add(element);
                }
            }
+
            return arr;
+
+            //TODO determine what to do about XmlNodes in the ExtensionElements Object.
+
+           //foreach (object ob in arrList)
+           //{
+           //    XmlNode node = ob as XmlNode;
+           //    if (node != null)
+           //    {
+           //        if (compareXmlNess(node.LocalName, localName, node.NamespaceURI, ns))
+           //        {
+           //            arr.Add(ob);
+           //        }
+           //    }
+           //    else
+           //    {
+           //        // only if the elements do implement the ExtensionElementFactory
+           //        // do we know if it's xml name/namespace
+           //        IExtensionElementFactory ele = ob as IExtensionElementFactory;
+           //        if (ele != null)
+           //        {
+           //            if (compareXmlNess(ele.XmlName, localName, ele.XmlNameSpace, ns))
+           //            {
+           //                arr.Add(ob);
+           //            }
+           //        }
+           //    }
+           //}
+           //return arr;
         }
 
         /// <summary>
@@ -682,7 +704,9 @@ namespace Google.GData.Client
         /// <param name="ns">the namespace of the elementToPersist</param>
         /// <param name="collection">the collection to fill</param>
         /// <returns>none</returns>
-        public static T FindExtensions<T>(ArrayList arrList, string localName, string ns, T collection) where T : IList
+        public static IList<T> FindExtensions<T>(List<IExtensionElementAndFactory> arrList, 
+            string localName, string ns, IList<T> collection)
+            where T : class, IExtensionElementAndFactory
         {
             if (arrList == null)
             {
@@ -693,18 +717,19 @@ namespace Google.GData.Client
                 throw new ArgumentNullException("collection");
             }
 
-            foreach (object ob in arrList)
+            foreach (IExtensionElementAndFactory ob in arrList)
             {
-                XmlNode node = ob as XmlNode;
-                if (node != null)
-                {
-                    if (compareXmlNess(node.LocalName, localName, node.NamespaceURI, ns))
-                    {
-                        collection.Add(ob);
-                    }
-                }
-                else
-                {
+                //TODO Determine how to handle XML Nodes.
+                //XmlNode node = ob as XmlNode;
+                //if (node != null)
+                //{
+                //    if (compareXmlNess(node.LocalName, localName, node.NamespaceURI, ns))
+                //    {
+                //        collection.Add(ob as T);
+                //    }
+                //}
+                //else
+                //{
                     // only if the elements do implement the ExtensionElementFactory
                     // do we know if it's xml name/namespace
                     IExtensionElementFactory ele = ob as IExtensionElementFactory;
@@ -712,10 +737,10 @@ namespace Google.GData.Client
                     {
                         if (compareXmlNess(ele.XmlName, localName, ele.XmlNameSpace, ns))
                         {
-                            collection.Add(ob);
+                            collection.Add(ob as T);
                         }
                     }
-                }
+                //}
             }
             return collection;
         }
@@ -756,10 +781,6 @@ namespace Google.GData.Client
             return false;
         }
 
-
- 
-        
-        
     }
     /////////////////////////////////////////////////////////////////////////////
 

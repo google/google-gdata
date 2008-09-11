@@ -18,6 +18,7 @@ using System.Collections;
 using System.Text;
 using System.Xml;
 using Google.GData.Client;
+using System.Collections.Generic;
 #endregion
 
 namespace Google.GData.GoogleBase {
@@ -78,7 +79,7 @@ namespace Google.GData.GoogleBase {
         /// <param name="baseList">a list that contains GBaseAttribute object,
         /// among others</param>
         ///////////////////////////////////////////////////////////////////////
-        public GBaseAttributes(ArrayList baseList)
+        public GBaseAttributes(List<IExtensionElementAndFactory> baseList)
                 : base(baseList)
         {
         }
@@ -88,7 +89,7 @@ namespace Google.GData.GoogleBase {
         /// <summary>g:label tags, a list of classifications the item may
         /// fall under.</summary>
         ///////////////////////////////////////////////////////////////////////
-        public String[] Labels
+        public List<String> Labels
         {
             get
             {
@@ -149,7 +150,7 @@ namespace Google.GData.GoogleBase {
         /// <summary>g:image_link tags, up to 10 images that illustrate
         /// the entry.</summary>
         ///////////////////////////////////////////////////////////////////////
-        public String[] ImageLinks
+        public List<String> ImageLinks
         {
             get
             {
@@ -176,7 +177,7 @@ namespace Google.GData.GoogleBase {
         ///////////////////////////////////////////////////////////////////////
         /// <summary>g:payment tags.</summary>
         ///////////////////////////////////////////////////////////////////////
-        public String[] PaymentMethods
+        public List<String> PaymentMethods
         {
             get
             {

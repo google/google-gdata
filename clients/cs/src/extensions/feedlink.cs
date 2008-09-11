@@ -22,28 +22,10 @@ using Google.GData.Client;
 
 namespace Google.GData.Extensions {
 
-
-    //////////////////////////////////////////////////////////////////////
-    /// <summary>Typed collection for Thumbnails Extensions.</summary>
-    //////////////////////////////////////////////////////////////////////
-    public class FeedLinkCollection : ExtensionCollection<FeedLink>
-    {
-        private FeedLinkCollection() : base()
-        {
-        }
-
-        /// <summary>constructor</summary> 
-        public FeedLinkCollection(IExtensionContainer atomElement) 
-            : base(atomElement, GDataParserNameTable.XmlFeedLinkElement, BaseNameTable.gNamespace)
-        {
-        }
-    }
-    /////////////////////////////////////////////////////////////////////////////
-
     /// <summary>
     /// GData schema extension describing a nested feed link.
     /// </summary>
-    public class FeedLink : IExtensionElement, IExtensionElementFactory
+    public class FeedLink : IExtensionElementAndFactory
     {
 
         /// <summary>holds the href property</summary>
@@ -203,7 +185,7 @@ namespace Google.GData.Extensions {
         /// <param name="parser">the xml parser to use if we need to dive deeper</param>
         /// <returns>the created Where  object</returns>
         //////////////////////////////////////////////////////////////////////
-        public IExtensionElement CreateInstance(XmlNode node, AtomFeedParser parser)
+        public IExtensionElementAndFactory CreateInstance(XmlNode node, AtomFeedParser parser)
         {
             return FeedLink.ParseFeedLink(node);
         }

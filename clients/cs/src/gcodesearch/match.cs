@@ -119,7 +119,7 @@ namespace Google.GData.CodeSearch
     /// Contains a line extension with the number of the line in which the
     /// match occured and a linetext element with the line itself.
     /// </summary>
-    public class Match : IExtensionElement 
+    public class Match : IExtensionElementAndFactory
     {
         /// <summary>
         /// holds the attribute for the line number in which the match happens
@@ -216,8 +216,7 @@ namespace Google.GData.CodeSearch
             if (Utilities.IsPersistable(linenumber) &&
                 Utilities.IsPersistable(linetext))
             {
-                writer.WriteStartElement(GCodeSearchParserNameTable.CSPrefix,
-                    XmlName, GCodeSearchParserNameTable.CSNamespace);
+                writer.WriteStartElement(XmlPrefix, XmlName, XmlNameSpace);
 
                 writer.WriteAttributeString(GCodeSearchParserNameTable.ATTRIBUTE_LINE_NUMBER,
                                             linenumber);
@@ -231,6 +230,39 @@ namespace Google.GData.CodeSearch
                 throw new ArgumentNullException(GCodeSearchParserNameTable.CSPrefix +
                     ":" + XmlName + " is required.");
             }
+        }
+
+        #endregion
+
+        #region IExtensionElementFactory Members
+
+        string IExtensionElementFactory.XmlName
+        {
+            get
+            {
+                return XmlName;
+            }
+        }
+
+        public string XmlNameSpace
+        {
+            get
+            {
+                return GCodeSearchParserNameTable.CSNamespace;
+            }
+        }
+
+        public string XmlPrefix
+        {
+            get
+            {
+                return GCodeSearchParserNameTable.CSPrefix;
+            }
+        }
+
+        public IExtensionElementAndFactory CreateInstance(XmlNode node, AtomFeedParser parser)
+        {
+            return ParseMatch(node, parser);
         }
 
         #endregion

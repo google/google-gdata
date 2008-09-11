@@ -17,24 +17,26 @@ using System;
 using System.Collections;
 using Google.GData.Client;
 
+//TODO DELETE THIS CLASS FROM SVN
+
 namespace Google.GData.Extensions.Apps
 {
-    /// <summary>
-    /// Standard typed collection of <code>MailItemPropertyElement</code>s.
-    /// </summary>
-    public class MailItemPropertyCollection : ExtensionCollection<MailItemPropertyElement>
-    {
+    ///// <summary>
+    ///// Standard typed collection of <code>MailItemPropertyElement</code>s.
+    ///// </summary>
+    //public class MailItemPropertyCollection : ExtensionCollection<MailItemPropertyElement>
+    //{
 
-        private MailItemPropertyCollection()
-            : base()
-        {
-        }
+    //    private MailItemPropertyCollection()
+    //        : base()
+    //    {
+    //    }
 
-        /// <summary>constructor</summary>
-        public MailItemPropertyCollection(AtomBase atomElement)
-            : base(atomElement,
-                   AppsMigrationNameTable.AppsMailItemProperty,
-                   AppsMigrationNameTable.AppsNamespace)
-        { }
-    }
+    //    /// <summary>constructor</summary>
+    //    public MailItemPropertyCollection(AtomBase atomElement)
+    //        : base(atomElement,
+    //               AppsMigrationNameTable.AppsMailItemProperty,
+    //               AppsMigrationNameTable.AppsNamespace)
+    //    { }
+    //}
 }

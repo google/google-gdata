@@ -24,7 +24,7 @@ namespace Google.GData.Extensions {
     /// <summary>
     /// GData schema extension describing an RFC 2445 recurrence rule.
     /// </summary>
-    public class Recurrence : IExtensionElement, IExtensionElementFactory
+    public class Recurrence : IExtensionElementAndFactory
     {
         private string value;
 
@@ -45,7 +45,7 @@ namespace Google.GData.Extensions {
         /// <param name="parser">the xml parser to use if we need to dive deeper</param>
         /// <returns>the created Reminder object</returns>
         //////////////////////////////////////////////////////////////////////
-        public IExtensionElement CreateInstance(XmlNode node, AtomFeedParser parser)
+        public IExtensionElementAndFactory CreateInstance(XmlNode node, AtomFeedParser parser)
         {
             Tracing.TraceCall();
             if (node != null)

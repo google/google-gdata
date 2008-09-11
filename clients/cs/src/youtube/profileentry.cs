@@ -39,7 +39,7 @@ namespace Google.GData.YouTube {
         public static AtomCategory PROFILE_CATEGORY =
         new AtomCategory(YouTubeNameTable.KIND_USER_PROFILE, new AtomUri(BaseNameTable.gKind));
 
-        private FeedLinkCollection links;
+        private ExtensionCollection<FeedLink> links;
         /// <summary>
         /// Constructs a new ProfileEntry instance
         /// </summary>
@@ -319,13 +319,13 @@ namespace Google.GData.YouTube {
         /// <summary>
         ///  property accessor for the Thumbnails 
         /// </summary>
-        public FeedLinkCollection FeedLinks
+        public ExtensionCollection<FeedLink> FeedLinks
         {
             get 
             {
                 if (this.links == null)
                 {
-                    this.links =  new FeedLinkCollection(this); 
+                    this.links = new ExtensionCollection<FeedLink>(this); 
                 }
                 return this.links;
             }

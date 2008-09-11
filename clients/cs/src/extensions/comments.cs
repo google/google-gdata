@@ -24,7 +24,7 @@ namespace Google.GData.Extensions {
     /// <summary>
     /// GData schema extension describing a comments feed.
     /// </summary>
-    public class Comments : IExtensionElement, IExtensionElementFactory
+    public class Comments : IExtensionElementAndFactory
     {
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace Google.GData.Extensions {
         /// <param name="parser">the xml parser to use if we need to dive deeper</param>
         /// <returns>the created Where  object</returns>
         //////////////////////////////////////////////////////////////////////
-        public IExtensionElement CreateInstance(XmlNode node, AtomFeedParser parser)
+        public IExtensionElementAndFactory CreateInstance(XmlNode node, AtomFeedParser parser)
         {
             Tracing.TraceCall();
             Comments comments = null;

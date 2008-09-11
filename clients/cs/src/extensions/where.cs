@@ -43,7 +43,7 @@ namespace Google.GData.Extensions
     ///                                                                  site with a videoconference link to the main site.
     ///    http://schemas.google.com/g/2005#event.parking 	              A nearby parking lot.
     /// </summary>
-    public class Where : IExtensionElement, IExtensionElementFactory
+    public class Where : IExtensionElementAndFactory
     {
 
         /// <summary>
@@ -135,7 +135,7 @@ namespace Google.GData.Extensions
         /// <param name="parser">the xml parser to use if we need to dive deeper</param>
         /// <returns>the created Where  object</returns>
         //////////////////////////////////////////////////////////////////////
-        public IExtensionElement CreateInstance(XmlNode node, AtomFeedParser parser)
+        public IExtensionElementAndFactory CreateInstance(XmlNode node, AtomFeedParser parser)
         {
             Tracing.TraceCall();
             Where where = null;

@@ -159,7 +159,7 @@ namespace Google.GData.GoogleBase
     /// <summary>Object representation for the gm:stats tags in
     /// the customer item feed.</summary>
     //////////////////////////////////////////////////////////////////////
-    public class Stats : IExtensionElement
+    public class Stats : IExtensionElementAndFactory
     {
         private Statistic impressions = new Statistic();
         private Statistic clicks = new Statistic();
@@ -235,9 +235,9 @@ namespace Google.GData.GoogleBase
         {
             if (impressions.Total > 0 || clicks.Total > 0 || pageViews.Total > 0)
             {
-                writer.WriteStartElement(GBaseNameTable.GBaseMetaPrefix,
-                                         "stats",
-                                         GBaseNameTable.NSGBaseMeta);
+                writer.WriteStartElement(XmlPrefix,
+                                         XmlName,
+                                         XmlNameSpace);
                 impressions.Save("impressions", writer);
                 clicks.Save("clicks", writer);
                 pageViews.Save("page_views", writer);
@@ -245,6 +245,39 @@ namespace Google.GData.GoogleBase
                 writer.WriteEndElement();
             }
         }
+
+        #region IExtensionElementFactory Members
+
+        public string XmlName
+        {
+            get
+            {
+                return "stats";
+            }
+        }
+
+        public string XmlNameSpace
+        {
+            get
+            {
+                return GBaseNameTable.NSGBaseMeta;
+            }
+        }
+
+        public string XmlPrefix
+        {
+            get
+            {
+                return GBaseNameTable.GBaseMetaPrefix;
+            }
+        }
+
+        public IExtensionElementAndFactory CreateInstance(XmlNode node, AtomFeedParser parser)
+        {
+            return Parse(node);
+        }
+
+        #endregion
     }
 
 }

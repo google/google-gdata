@@ -48,7 +48,7 @@ namespace Google.GData.Client
     /// <summary>
     /// holds the batch status information
     /// </summary>
-    public class GDataBatchStatus : IExtensionElement
+    public class GDataBatchStatus : IExtensionElementAndFactory
     {
         private int code;
         private string reason; 
@@ -122,8 +122,71 @@ namespace Google.GData.Client
         }
         // end of accessor Errors
 
-        */ 
-    
+        */
+
+        /// <summary>
+        /// reads the current positioned reader and creates a batchstatus element
+        /// </summary>
+        /// <param name="reader">XmlReader positioned at the start of the status element</param>
+        /// <returns>GDataBatchStatus</returns>
+        public static GDataBatchStatus ParseBatchStatus(XmlReader reader, AtomFeedParser parser)
+        {
+            Tracing.Assert(reader != null, "reader should not be null");
+            if (reader == null)
+            {
+                throw new ArgumentNullException("reader");
+            }
+            GDataBatchStatus status = null;
+
+            object localname = reader.LocalName;
+            if (localname.Equals(parser.Nametable.BatchStatus))
+            {
+                status = new GDataBatchStatus();
+                if (reader.HasAttributes)
+                {
+                    while (reader.MoveToNextAttribute())
+                    {
+                        localname = reader.LocalName;
+                        if (localname.Equals(parser.Nametable.BatchReason))
+                        {
+                            status.Reason = Utilities.DecodedValue(reader.Value);
+                        }
+                        else if (localname.Equals(parser.Nametable.BatchContentType))
+                        {
+                            status.ContentType = Utilities.DecodedValue(reader.Value);
+                        }
+                        else if (localname.Equals(parser.Nametable.BatchStatusCode))
+                        {
+                            status.Code = int.Parse(Utilities.DecodedValue(reader.Value), CultureInfo.InvariantCulture);
+                        }
+                    }
+                }
+
+                // FIX: THIS CODE SEEMS TO MAKE AN INFINITE LOOP WITH NextChildElement()
+                //reader.MoveToElement();
+                //status.Value = Utilities.DecodedValue(reader.ReadString());
+                ////////////////////////////////////////////////////////////////////////
+
+                // status can have one child element, errors
+                // for now disabled, as this is currently not supported on the server
+                // instead the errors come as encoded strings
+                /*
+                int lvl = -1;
+                while(NextChildElement(reader, ref lvl))
+                {
+                    localname = reader.LocalName;
+
+                    if (localname.Equals(this.nameTable.BatchErrors))
+                    {
+                        // author.Name = Utilities.DecodeString(Utilities.DecodedValue(reader.ReadString()));
+                        status.Errors = ParseBatchErrors(reader); 
+                    }
+                }
+                */
+            }
+            return status;
+        }
+
         #region Persistence overloads
         /// <summary>
         /// Persistence method for the GDataBatchStatus object
@@ -157,12 +220,45 @@ namespace Google.GData.Client
             writer.WriteEndElement();
         }
         #endregion
-     }
+
+        #region IExtensionElementFactory Members
+
+        public string XmlName
+        {
+            get
+            {
+                return BaseNameTable.XmlElementBatchStatus;
+            }
+        }
+
+        public string XmlNameSpace
+        {
+            get
+            {
+                return BaseNameTable.gBatchPrefix;
+            }
+        }
+
+        public string XmlPrefix
+        {
+            get
+            {
+                return BaseNameTable.gBatchPrefix;
+            }
+        }
+
+        public IExtensionElementAndFactory CreateInstance(XmlNode node, AtomFeedParser parser)
+        {
+            return ParseBatchStatus(new XmlNodeReader(node), parser);
+        }
+
+        #endregion
+    }
 
     /// <summary>
     ///  represents the Error element in the GDataBatch response
     /// </summary>
-    public class GDataBatchError : IExtensionElement
+    public class GDataBatchError : IExtensionElementAndFactory
     {
         private string errorType;
         private string errorReason;
@@ -211,12 +307,87 @@ namespace Google.GData.Client
         {
         }
         #endregion
+
+        #region IExtensionElementFactory Members
+
+        /// <summary>
+        /// parses a single error element
+        /// </summary>
+        /// <param name="reader">XmlReader positioned at the start of the status element</param>
+        /// <returns>GDataBatchError</returns>
+        public static GDataBatchError ParseBatchError(XmlReader reader, AtomFeedParser parser)
+        {
+            if (reader == null)
+            {
+                throw new System.ArgumentNullException("reader");
+            }
+
+            object localname = reader.LocalName;
+            GDataBatchError error = null;
+            if (localname.Equals(parser.Nametable.BatchError))
+            {
+                error = new GDataBatchError();
+                if (reader.HasAttributes)
+                {
+                    while (reader.MoveToNextAttribute())
+                    {
+                        localname = reader.LocalName;
+                        if (localname.Equals(parser.Nametable.BatchReason))
+                        {
+                            error.Reason = Utilities.DecodedValue(reader.Value);
+                        }
+                        else if (localname.Equals(parser.Nametable.Type))
+                        {
+                            error.Type = Utilities.DecodedValue(reader.Value);
+                        }
+                        else if (localname.Equals(parser.Nametable.BatchField))
+                        {
+                            error.Field = Utilities.DecodedValue(reader.Value);
+                        }
+                    }
+                }
+            }
+            return error;
+        }
+
+        public string XmlName
+        {
+            get
+            {
+                return BaseNameTable.XmlElementBatchError;
+            }
+        }
+
+        public string XmlNameSpace
+        {
+            get
+            {
+                //TODO Determine XmlNameSpace
+                return string.Empty;
+            }
+        }
+
+        public string XmlPrefix
+        {
+            get
+            {
+                //TODO Determine XmlPrefix
+                return string.Empty;
+            }
+        }
+
+        public IExtensionElementAndFactory CreateInstance(XmlNode node, AtomFeedParser parser)
+        {
+            return ParseBatchError(new XmlNodeReader(node), parser);
+        }
+
+        #endregion
     }
 
     /// <summary>
     /// holds the batch status information
     /// </summary>
-    public class GDataBatchInterrupt : IExtensionElement
+    public class GDataBatchInterrupt : IExtensionElementAndFactory
     {
         private string reason; 
         private int    success; 
@@ -290,6 +461,91 @@ namespace Google.GData.Client
         {
         }
         #endregion
+
+        #region IExtensionElementFactory Members
+
+        /// <summary>
+        /// parses a batchinterrupt element from a correctly positioned reader
+        /// </summary>
+        /// <param name="reader">XmlReader at the start of the element</param>
+        /// <returns>GDataBatchInterrupt</returns>
+        public static GDataBatchInterrupt ParseBatchInterrupt(XmlReader reader, AtomFeedParser parser)
+        {
+            if (reader == null)
+            {
+                throw new ArgumentNullException("reader");
+            }
+
+            object localname = reader.LocalName;
+            GDataBatchInterrupt interrupt = null;
+            if (localname.Equals(parser.Nametable.BatchInterrupt))
+            {
+                interrupt = new GDataBatchInterrupt();
+                if (reader.HasAttributes)
+                {
+                    while (reader.MoveToNextAttribute())
+                    {
+                        localname = reader.LocalName;
+                        if (localname.Equals(parser.Nametable.BatchReason))
+                        {
+                            interrupt.Reason = Utilities.DecodedValue(reader.Value);
+                        }
+                        else if (localname.Equals(parser.Nametable.BatchSuccessCount))
+                        {
+                            interrupt.Successes = int.Parse(Utilities.DecodedValue(reader.Value), CultureInfo.InvariantCulture);
+                        }
+                        else if (localname.Equals(parser.Nametable.BatchFailureCount))
+                        {
+                            interrupt.Failures = int.Parse(Utilities.DecodedValue(reader.Value), CultureInfo.InvariantCulture);
+                        }
+                        else if (localname.Equals(parser.Nametable.BatchParsedCount))
+                        {
+                            interrupt.Parsed = int.Parse(Utilities.DecodedValue(reader.Value), CultureInfo.InvariantCulture);
+                        }
+                        else if (localname.Equals(parser.Nametable.BatchUnprocessed))
+                        {
+                            interrupt.Unprocessed = int.Parse(Utilities.DecodedValue(reader.Value), CultureInfo.InvariantCulture);
+                        }
+
+                    }
+                }
+            }
+            return interrupt;
+
+        }
+
+        public string XmlName
+        {
+            get
+            {
+                return BaseNameTable.XmlElementBatchInterrupt;
+            }
+        }
+
+        public string XmlNameSpace
+        {
+            get
+            {
+                //TODO Determine XmlNameSpace
+                return string.Empty;
+            }
+        }
+
+        public string XmlPrefix
+        {
+            get
+            {
+                //TODO Determine XmlNameSpace
+                return string.Empty;
+            }
+        }
+
+        public IExtensionElementAndFactory CreateInstance(XmlNode node, AtomFeedParser parser)
+        {
+            return ParseBatchInterrupt(new XmlNodeReader(node), parser);
+        }
+
+        #endregion
     }
 
 
@@ -298,7 +554,8 @@ namespace Google.GData.Client
     /// for the AtomFeed
     /// </summary> 
     //////////////////////////////////////////////////////////////////////
-    public class GDataBatchFeedData : IExtensionElement
+    //TODO determine why this item is an IExtensionElement, it is not being parsed anywhere.
+    public class GDataBatchFeedData : IExtensionElementAndFactory
     {
         private GDataBatchOperationType operationType; 
         /// <summary>
@@ -335,14 +592,45 @@ namespace Google.GData.Client
 
             if (this.Type != GDataBatchOperationType.Default) 
             {
-                writer.WriteStartElement(BaseNameTable.gBatchPrefix, BaseNameTable.XmlElementBatchOperation, BaseNameTable.gBatchNamespace); 
+                writer.WriteStartElement(XmlPrefix, XmlName, XmlNameSpace); 
                 writer.WriteAttributeString(BaseNameTable.XmlAttributeType, this.operationType.ToString());           
                 writer.WriteEndElement(); 
             }
         }
         #endregion
 
+        #region IExtensionElementFactory Members
 
+        public string XmlName
+        {
+            get
+            {
+                return BaseNameTable.XmlElementBatchOperation;
+            }
+        }
+
+        public string XmlNameSpace
+        {
+            get
+            {
+                return BaseNameTable.gBatchNamespace;
+            }
+        }
+
+        public string XmlPrefix
+        {
+            get
+            {
+                return BaseNameTable.gBatchPrefix;
+            }
+        }
+
+        public IExtensionElementAndFactory CreateInstance(XmlNode node, AtomFeedParser parser)
+        {
+            throw new Exception("The method or operation is not implemented.");
+        }
+
+        #endregion
     }
     /////////////////////////////////////////////////////////////////////////////
 
@@ -351,7 +639,8 @@ namespace Google.GData.Client
     /// for an AtomEntry
     /// </summary> 
     //////////////////////////////////////////////////////////////////////
-    public class GDataBatchEntryData : IExtensionElement
+    //TODO determine why this item is an IExtensionElement, it is not being parsed anywhere.
+    public class GDataBatchEntryData : IExtensionElementAndFactory
     {
         private GDataBatchOperationType operationType; 
         private string id; 
@@ -439,8 +728,6 @@ namespace Google.GData.Client
         }
         // end of accessor public GDataBatchStatus Status
 
-
-    
         #region Persistence overloads
         /// <summary>
         /// Persistence method for the GDataEntryBatch object
@@ -459,7 +746,7 @@ namespace Google.GData.Client
             }
             if (this.Type != GDataBatchOperationType.Default) 
             {
-                writer.WriteStartElement(BaseNameTable.gBatchPrefix, BaseNameTable.XmlElementBatchOperation, BaseNameTable.gBatchNamespace); 
+                writer.WriteStartElement(XmlPrefix, XmlName, XmlNameSpace); 
                 writer.WriteAttributeString(BaseNameTable.XmlAttributeType, this.operationType.ToString());           
                 writer.WriteEndElement(); 
             }            
@@ -470,7 +757,40 @@ namespace Google.GData.Client
         }
         #endregion
 
+        #region IExtensionElementFactory Members
 
+        public string XmlName
+        {
+            get
+            {
+                //TODO This doesn't seem correct.
+                return BaseNameTable.XmlElementBatchOperation;
+            }
+        }
+
+        public string XmlNameSpace
+        {
+            get
+            {
+                return BaseNameTable.gBatchNamespace;
+            }
+        }
+
+        public string XmlPrefix
+        {
+            get
+            {
+                return BaseNameTable.gBatchPrefix;
+            }
+        }
+
+        public IExtensionElementAndFactory CreateInstance(XmlNode node, AtomFeedParser parser)
+        {
+            //we really don't know how to create an instance of ourself.
+            throw new Exception("The method or operation is not implemented.");
+        }
+
+        #endregion
     }
     /////////////////////////////////////////////////////////////////////////////
 

@@ -65,8 +65,8 @@ namespace Google.GData.Client.UnitTests
             entry.Content.Type = "html"; 
             entry.Published = new DateTime(2001, 11, 20, 22, 30, 0);  
             entry.Title.Text = "This is a entry number: " + iCount;
-            entry.Updated = DateTime.Now; 
     
+            entry.Updated = DateTime.Now;
             return entry;
         }
         /////////////////////////////////////////////////////////////////////////////
@@ -79,6 +79,9 @@ namespace Google.GData.Client.UnitTests
         {
             AtomEntry entry = CreateAtomEntry(iCount); 
 
+            //TODO Frank should we determine the Factory for this item and Create an instance of the extension.
+            //object o = entry.FindExtensionFactory("label", "http://base.google.com/ns/1.0");
+
             // now add some base specific nodes. This should later be replaced by 
             // the GoogleBase classes
             XmlDocument doc = new XmlDocument();
@@ -87,8 +90,8 @@ namespace Google.GData.Client.UnitTests
             doc.LoadXml("<gb:item_type xmlns:gb='http://base.google.com/ns/1.0'>products</gb:item_type>");
             XmlNode gbaseNode2 = doc.DocumentElement;
 
-            entry.ExtensionElements.Add(gbaseNode1);
-            entry.ExtensionElements.Add(gbaseNode2);
+            entry.XmlExtensionElements.Add(gbaseNode1);
+            entry.XmlExtensionElements.Add(gbaseNode2);
 
             return entry;
         }

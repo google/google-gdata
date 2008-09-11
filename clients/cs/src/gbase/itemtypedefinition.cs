@@ -20,6 +20,7 @@ using System.Text;
 using System.Net;
 using System.Xml;
 using Google.GData.Client;
+using System.Collections.Generic;
 #endregion
 
 namespace Google.GData.GoogleBase
@@ -36,9 +37,9 @@ namespace Google.GData.GoogleBase
     ///////////////////////////////////////////////////////////////////////
     public class ItemTypeDefinition
     {
-        private static readonly AttributeId[] NoAttributes = new AttributeId[0];
+        private static readonly List<AttributeId> NoAttributes = new List<AttributeId>();
 
-        private readonly ArrayList extensions;
+        private readonly List<IExtensionElementAndFactory> extensions;
 
         ///////////////////////////////////////////////////////////////////////
         /// <summary>Creates an ItemTypeDefinition based
@@ -46,9 +47,11 @@ namespace Google.GData.GoogleBase
         /// <param name="extensions">list of extensions to query and modify
         /// </param>
         ///////////////////////////////////////////////////////////////////////
-        public ItemTypeDefinition(ArrayList extensions)
+        public ItemTypeDefinition(List<IExtensionElementAndFactory> extensions)
         {
+            //TODO make a copy instead of a reference to the elements.
             this.extensions = extensions;
+            //this.extensions = new List<IExtensionElementAndFactory>(extensions);
         }
 
         ///////////////////////////////////////////////////////////////////////
@@ -77,7 +80,7 @@ namespace Google.GData.GoogleBase
         ///////////////////////////////////////////////////////////////////////
         /// <summary>Attributes defined for the item type</summary>
         ///////////////////////////////////////////////////////////////////////
-        public AttributeId[] Attributes
+        public List<AttributeId> Attributes
         {
             get
             {
@@ -85,13 +88,14 @@ namespace Google.GData.GoogleBase
                     GBaseUtilities.GetExtension(extensions,
                                                 typeof(ItemTypeAttributes))
                     as ItemTypeAttributes;
+                //the concern here is the collection becomes global.
                 return extension == null ? NoAttributes : extension.Attributes;
             }
             set
             {
                 GBaseUtilities.SetExtension(extensions,
                                             typeof(ItemTypeAttributes),
-                                            value == null || value.Length == 0
+                                            value == null || value.Count == 0
                                             ? null: new ItemTypeAttributes(value));
             }
         }
@@ -104,31 +108,39 @@ namespace Google.GData.GoogleBase
     /// This object is usually used only through
     /// <see cref="ItemTypeDefinition"/>.</summary>
     ///////////////////////////////////////////////////////////////////////
-    public class ItemTypeAttributes : IExtensionElement
+    public class ItemTypeAttributes : IExtensionElementAndFactory
     {
-        private readonly AttributeId[] attributes;
+        private readonly List<AttributeId> _attributes;
 
         ///////////////////////////////////////////////////////////////////////
         /// <summary>Creates an new gm:attributes tag with gm:attributes</summary>
         /// <param name="attributes">attributes defined for the item type</param>
         ///////////////////////////////////////////////////////////////////////
+        [Obsolete("Please call the overload passing in a List<AttributeId>.")]
         public ItemTypeAttributes(AttributeId[] attributes)
         {
-            if (attributes == null)
-            {
-                throw new ArgumentNullException("attributes");
-            }
-            this.attributes = attributes;
+            _attributes = new List<AttributeId>();
+            _attributes.AddRange(attributes);
+        }
+
+        ///////////////////////////////////////////////////////////////////////
+        /// <summary>Creates an new gm:attributes tag with gm:attributes</summary>
+        /// <param name="attributes">attributes defined for the item type</param>
+        ///////////////////////////////////////////////////////////////////////
+        public ItemTypeAttributes(List<AttributeId> attributes)
+        {
+            _attributes = new List<AttributeId>();
+            _attributes.AddRange(attributes.ToArray());
         }
 
         ///////////////////////////////////////////////////////////////////////
         /// <summary>Attribute name and types.</summary>
         ///////////////////////////////////////////////////////////////////////
-        public AttributeId[] Attributes
+        public List<AttributeId> Attributes
         {
             get
             {
-                return attributes;
+                return _attributes;
             }
         }
 
@@ -138,7 +150,7 @@ namespace Google.GData.GoogleBase
         ///////////////////////////////////////////////////////////////////////
         public static ItemTypeAttributes Parse(XmlNode xml)
         {
-            ArrayList attributeIds = new ArrayList();
+            List<AttributeId> attributeIds = new List<AttributeId>();
             for (XmlNode child = xml.FirstChild; child != null; child = child.NextSibling)
             {
                 if ("attribute" == child.LocalName 
@@ -149,20 +161,19 @@ namespace Google.GData.GoogleBase
                     attributeIds.Add(new AttributeId(child.Attributes["name"].Value, type));
                 }
             }
-            return new ItemTypeAttributes((AttributeId[])attributeIds.ToArray(typeof(AttributeId)));
+            return new ItemTypeAttributes(attributeIds);
         }
-
 
         ///////////////////////////////////////////////////////////////////////
         /// <summary>Generates an XML representation for this object.</summary>
         ///////////////////////////////////////////////////////////////////////
         public void Save(XmlWriter writer)
         {
-            writer.WriteStartElement(GBaseNameTable.GBaseMetaPrefix,
-                                     "attributes",
-                                     GBaseNameTable.NSGBaseMeta);
+            writer.WriteStartElement(XmlPrefix,
+                                     XmlName,
+                                     XmlNameSpace);
 
-            foreach (AttributeId attributeId in attributes)
+            foreach (AttributeId attributeId in _attributes)
             {
                 writer.WriteStartElement(GBaseNameTable.GBaseMetaPrefix,
                                          "attribute",
@@ -177,6 +188,39 @@ namespace Google.GData.GoogleBase
 
             writer.WriteEndElement();
         }
+
+        #region IExtensionElementFactory Members
+
+        public string XmlName
+        {
+            get
+            {
+                return "attributes";
+            }
+        }
+
+        public string XmlNameSpace
+        {
+            get
+            {
+                return GBaseNameTable.NSGBaseMeta;
+            }
+        }
+
+        public string XmlPrefix
+        {
+            get
+            {
+                return GBaseNameTable.GBaseMetaPrefix;
+            }
+        }
+
+        public IExtensionElementAndFactory CreateInstance(XmlNode node, AtomFeedParser parser)
+        {
+            return Parse(node);
+        }
+
+        #endregion
     }
 
 
@@ -225,7 +269,7 @@ namespace Google.GData.GoogleBase
     /// This tag is usually accessed through
     /// <see cref="ItemTypeDefinition"/></summary>
     ///////////////////////////////////////////////////////////////////////
-    public class MetadataItemType : IExtensionElement
+    public class MetadataItemType : IExtensionElementAndFactory
     {
         private readonly string name;
 
@@ -262,12 +306,45 @@ namespace Google.GData.GoogleBase
         ///////////////////////////////////////////////////////////////////////
         public void Save(XmlWriter writer)
         {
-            writer.WriteStartElement(GBaseNameTable.GBaseMetaPrefix,
-                                     "item_type",
-                                     GBaseNameTable.NSGBaseMeta);
+            writer.WriteStartElement(XmlPrefix,
+                                      XmlName,
+                                      XmlNameSpace);
             writer.WriteString(name);
             writer.WriteEndElement();
         }
+
+        #region IExtensionElementFactory Members
+
+        public string XmlName
+        {
+            get
+            {
+                return "item_type";
+            }
+        }
+
+        public string XmlNameSpace
+        {
+            get
+            {
+                return GBaseNameTable.NSGBaseMeta;
+            }
+        }
+
+        public string XmlPrefix
+        {
+            get
+            {
+                return GBaseNameTable.GBaseMetaPrefix;
+            }
+        }
+
+        public IExtensionElementAndFactory CreateInstance(XmlNode node, AtomFeedParser parser)
+        {
+            return Parse(node);
+        }
+
+        #endregion
     }
 
 }

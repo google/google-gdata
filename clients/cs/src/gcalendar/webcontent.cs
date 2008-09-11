@@ -26,7 +26,7 @@ namespace Google.GData.Extensions
     /// <summary>
     /// GData schema extension describing a webcontent for the calendar
     /// </summary>
-    public class WebContent : IExtensionElement, IExtensionElementFactory
+    public class WebContent : IExtensionElementAndFactory
     {
         private string url;
         private uint width; 
@@ -93,7 +93,7 @@ namespace Google.GData.Extensions
         /// <param name="parser">the atomfeedparser to use for deep dive parsing</param>
         /// <returns>the created SimpleElement object</returns>
         //////////////////////////////////////////////////////////////////////
-        public IExtensionElement CreateInstance(XmlNode node, AtomFeedParser parser) 
+        public IExtensionElementAndFactory CreateInstance(XmlNode node, AtomFeedParser parser) 
         {
             Tracing.TraceCall();
 

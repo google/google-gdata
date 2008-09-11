@@ -28,7 +28,7 @@ namespace Google.GData.Extensions {
     /// GData schema extension describing a person.
     /// It contains a gd:entryLink element containing the described person.
     /// </summary>
-    public class Who : IExtensionElement, IExtensionElementFactory
+    public class Who : IExtensionElementAndFactory
     {
 
         /// <summary>
@@ -235,7 +235,7 @@ namespace Google.GData.Extensions {
         /// <param name="parser">the xml parser to use if we need to dive deeper</param>
         /// <returns>the created Where  object</returns>
         //////////////////////////////////////////////////////////////////////
-        public IExtensionElement CreateInstance(XmlNode node, AtomFeedParser parser)
+        public IExtensionElementAndFactory CreateInstance(XmlNode node, AtomFeedParser parser)
         {
             Tracing.TraceCall();
             Who who = null;

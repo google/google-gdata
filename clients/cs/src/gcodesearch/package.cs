@@ -27,7 +27,7 @@ namespace Google.GData.CodeSearch
     /// Contains a filename extension with the number of the package
     /// and the packageuri extension with the its procedence.
     /// </summary>
-    public class Package : IExtensionElement 
+    public class Package : IExtensionElementAndFactory
     {
         /// <summary>
         /// holds the name fo the package
@@ -125,8 +125,7 @@ namespace Google.GData.CodeSearch
             if (Utilities.IsPersistable(name) &&
                 Utilities.IsPersistable(uri))
             {
-                writer.WriteStartElement(GCodeSearchParserNameTable.CSPrefix,
-                    XmlName, GCodeSearchParserNameTable.CSNamespace);
+                writer.WriteStartElement(XmlPrefix, XmlName, XmlNameSpace);
                 writer.WriteAttributeString(GCodeSearchParserNameTable.ATTRIBUTE_NAME,
                                             name);
                 writer.WriteAttributeString(GCodeSearchParserNameTable.ATTRIBUTE_URI,
@@ -140,6 +139,39 @@ namespace Google.GData.CodeSearch
                     ":" + XmlName + " is required.");
             }
         }
+        #endregion
+
+        #region IExtensionElementFactory Members
+
+        string IExtensionElementFactory.XmlName
+        {
+            get
+            {
+                return XmlName;
+            }
+        }
+
+        public string XmlNameSpace
+        {
+            get
+            {
+                return GCodeSearchParserNameTable.CSNamespace;
+            }
+        }
+
+        public string XmlPrefix
+        {
+            get
+            {
+                return GCodeSearchParserNameTable.CSPrefix;
+            }
+        }
+
+        public IExtensionElementAndFactory CreateInstance(XmlNode node, AtomFeedParser parser)
+        {
+            return ParsePackage(node, parser);
+        }
+
         #endregion
     }
 }

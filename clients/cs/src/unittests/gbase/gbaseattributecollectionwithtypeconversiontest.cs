@@ -21,6 +21,7 @@ using System.Net;
 using NUnit.Framework;
 using Google.GData.Client;
 using Google.GData.GoogleBase;
+using System.Collections.Generic;
 
 
 namespace Google.GData.GoogleBase.UnitTests
@@ -28,14 +29,14 @@ namespace Google.GData.GoogleBase.UnitTests
 
     public abstract class TypeConversionTestBase
     {
-        protected ArrayList list;
+        //protected List<IExtensionElementAndFactory> list = new List<IExtensionElementAndFactory>();
         protected GBaseAttributeCollectionWithTypeConversion attrs;
 
         [SetUp]
         public virtual void SetUp()
         {
-            list = new ArrayList();
-            attrs = new GBaseAttributeCollectionWithTypeConversion(list);
+            //attrs = new GBaseAttributeCollectionWithTypeConversion(list);
+            attrs = new GBaseAttributeCollectionWithTypeConversion(new List<IExtensionElementAndFactory>());
         }
     }
 
@@ -114,8 +115,8 @@ namespace Google.GData.GoogleBase.UnitTests
         [Test]
         public void GetNumberAttributes()
         {
-            float[] values = attrs.GetNumberAttributes("a");
-            Assert.AreEqual(3, values.Length);
+            List<float> values = attrs.GetNumberAttributes("a");
+            Assert.AreEqual(3, values.Count);
             Assert.AreEqual(12, values[0]);
             Assert.AreEqual(3.14f, values[1]);
             Assert.AreEqual(2.7f, values[2]);
@@ -124,16 +125,16 @@ namespace Google.GData.GoogleBase.UnitTests
         [Test]
         public void GetFloatAttributes()
         {
-            float[] values = attrs.GetFloatAttributes("a");
-            Assert.AreEqual(1, values.Length);
+            List<float> values = attrs.GetFloatAttributes("a");
+            Assert.AreEqual(1, values.Count);
             Assert.AreEqual(3.14f, values[0]);
         }
 
         [Test]
         public void GetIntAttributes()
         {
-            int[] values = attrs.GetIntAttributes("a");
-            Assert.AreEqual(1, values.Length);
+            List<int> values = attrs.GetIntAttributes("a");
+            Assert.AreEqual(1, values.Count);
             Assert.AreEqual(12, values[0]);
         }
     }
@@ -196,24 +197,24 @@ namespace Google.GData.GoogleBase.UnitTests
         [Test]
         public void GetIntUnitAttributes()
         {
-            IntUnit[] values = attrs.GetIntUnitAttributes("a");
-            Assert.AreEqual(1, values.Length);
+            List<IntUnit> values = attrs.GetIntUnitAttributes("a");
+            Assert.AreEqual(1, values.Count);
             Assert.AreEqual(aIntUnitValue, values[0]);
         }
 
         [Test]
         public void GetFloatUnitAttributes()
         {
-            FloatUnit[] values = attrs.GetFloatUnitAttributes("a");
-            Assert.AreEqual(1, values.Length);
+            List<FloatUnit> values = attrs.GetFloatUnitAttributes("a");
+            Assert.AreEqual(1, values.Count);
             Assert.AreEqual(aFloatUnitValue, values[0]);
         }
 
         [Test]
         public void GetNumberUnitAttributes()
         {
-            NumberUnit[] values = attrs.GetNumberUnitAttributes("a");
-            Assert.AreEqual(3, values.Length);
+            List<NumberUnit> values = attrs.GetNumberUnitAttributes("a");
+            Assert.AreEqual(3, values.Count);
             Assert.AreEqual(aFloatUnitValue, values[0]);
             Assert.AreEqual(aIntUnitValue, values[1]);
             Assert.AreEqual(aNumberUnitValue, values[2]);
@@ -235,8 +236,10 @@ namespace Google.GData.GoogleBase.UnitTests
 
         private static readonly GBaseAttribute dateAttr =
             new GBaseAttribute("a", GBaseAttributeType.Date, ADateString);
+
         private static readonly GBaseAttribute dateTimeAttr =
             new GBaseAttribute("a", GBaseAttributeType.DateTime, ADateTimeString);
+        
         private static readonly GBaseAttribute dateTimeRangeAttr =
             new GBaseAttribute("a", GBaseAttributeType.DateTimeRange,
                                ADateTimeString + " " + BDateTimeString);
@@ -254,6 +257,7 @@ namespace Google.GData.GoogleBase.UnitTests
         [Test]
         public void GetDateAttributeTest()
         {
+            SetUp();
             DateTime value;
             Assert.IsTrue(attrs.ExtractDateAttribute("a", out value));
             Assert.AreEqual(ADateTime, value);
@@ -270,6 +274,7 @@ namespace Google.GData.GoogleBase.UnitTests
         [Test]
         public void GetDateTimeAttributeTest()
         {
+            SetUp();
             DateTime value;
 
             Assert.IsTrue(attrs.ExtractDateTimeAttribute("a", out value));

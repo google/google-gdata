@@ -21,6 +21,7 @@ using System.Text;
 using System.Net;
 using System.Xml;
 using Google.GData.Client;
+using System.Collections.Generic;
 
 #endregion
 
@@ -37,12 +38,12 @@ namespace Google.GData.GoogleBase
     /// an histogram feed using: GoogleBaseEntry.AttributeHistogram
     /// </summary>
     ///////////////////////////////////////////////////////////////////////
-    public class AttributeHistogram : IExtensionElement
+    public class AttributeHistogram : IExtensionElementAndFactory
     {
         private readonly string name;
         private readonly GBaseAttributeType type;
         private readonly int count;
-        private readonly HistogramValue[] values;
+        private readonly List<HistogramValue> values;
 
         ///////////////////////////////////////////////////////////////////////
         /// <summary>Creates an AttributeHistogram with no example values.
@@ -72,12 +73,12 @@ namespace Google.GData.GoogleBase
         public AttributeHistogram(string name,
                                   GBaseAttributeType type,
                                   int count,
-                                  HistogramValue[] values)
+                                  List<HistogramValue> values)
         {
             this.name = name;
             this.type = type;
             this.count = count;
-            this.values = values == null ? new HistogramValue[0] : values;
+            this.values = values == null ? new List<HistogramValue>() : values;
         }
 
         ///////////////////////////////////////////////////////////////////////
@@ -126,7 +127,7 @@ namespace Google.GData.GoogleBase
         /// <summary>The most common values found for this attribute in
         /// the histogram query results. It might be empty.</summary>
         ///////////////////////////////////////////////////////////////////////
-        public HistogramValue[] Values
+        public List<HistogramValue> Values
         {
             get
             {
@@ -160,7 +161,7 @@ namespace Google.GData.GoogleBase
 
                 if (name != null && type != null)
                 {
-                    ArrayList values = new ArrayList();
+                    List<HistogramValue> values = new List<HistogramValue>();
                     for (XmlNode child = node.FirstChild;
                             child != null;
                             child = child.NextSibling)
@@ -176,8 +177,7 @@ namespace Google.GData.GoogleBase
                             }
                         }
                     }
-                    return new AttributeHistogram(name, type, count,
-                                              (HistogramValue[])values.ToArray(typeof(HistogramValue)));
+                    return new AttributeHistogram(name, type, count, values);
                 }
             }
             return null;
@@ -188,9 +188,9 @@ namespace Google.GData.GoogleBase
         ///////////////////////////////////////////////////////////////////////
         public void Save(XmlWriter writer)
         {
-            writer.WriteStartElement(GBaseNameTable.GBaseMetaPrefix,
-                                     "attribute",
-                                     GBaseNameTable.NSGBaseMeta);
+            writer.WriteStartElement(XmlPrefix,
+                                     XmlName,
+                                     XmlNameSpace);
             writer.WriteAttributeString("name", name);
             writer.WriteAttributeString("type", type.Name);
             writer.WriteAttributeString("count", NumberFormat.ToString(count));
@@ -208,6 +208,39 @@ namespace Google.GData.GoogleBase
             writer.WriteEndElement();
         }
 
+
+        #region IExtensionElementFactory Members
+
+        public string XmlName
+        {
+            get
+            {
+                return "attribute";
+            }
+        }
+
+        public string XmlNameSpace
+        {
+            get
+            {
+                return GBaseNameTable.NSGBaseMeta;
+            }
+        }
+
+        public string XmlPrefix
+        {
+            get
+            {
+                return GBaseNameTable.GBaseMetaPrefix;
+            }
+        }
+
+        public IExtensionElementAndFactory CreateInstance(XmlNode node, AtomFeedParser parser)
+        {
+            return Parse(node);
+        }
+
+        #endregion
     }
 
     ///////////////////////////////////////////////////////////////////////

@@ -19,6 +19,7 @@ using System.IO;
 using System.Collections;
 using Google.GData.Client;
 using Google.GData.Extensions;
+using System.Collections.Generic;
 
 namespace Google.GData.Calendar {
 
@@ -376,22 +377,22 @@ namespace Google.GData.Calendar {
 
 #region EventEntry Attributes
 
-        private WhenCollection times;
-        private WhereCollection locations;
-        private WhoCollection participants;
+        private ExtensionCollection<When> times;
+        private ExtensionCollection<Where> locations;
+        private ExtensionCollection<Who> participants;
 #endregion
 
 #region Public Methods
         /// <summary>
         ///  property accessor for the WhenCollection
         /// </summary>
-        public WhenCollection Times
+        public ExtensionCollection<When> Times
         {
             get 
             {
                 if (this.times == null)
                 {
-                    this.times =  new WhenCollection(this);
+                    this.times = new ExtensionCollection<When>(this);
                 }
                 return this.times;
             }
@@ -400,13 +401,13 @@ namespace Google.GData.Calendar {
         /// <summary>
         ///  property accessor for the WhereCollection
         /// </summary>
-        public WhereCollection Locations
+        public ExtensionCollection<Where> Locations
         {
             get 
             {
                 if (this.locations == null)
                 {
-                    this.locations =  new WhereCollection(this);
+                    this.locations = new ExtensionCollection<Where>(this);
                 }
                 return this.locations;
             }
@@ -415,13 +416,13 @@ namespace Google.GData.Calendar {
         /// <summary>
         ///  property accessor for the whos in the event
         /// </summary>
-        public WhoCollection Participants
+        public ExtensionCollection<Who> Participants
         {
             get 
             {
                 if (this.participants == null)
                 {
-                    this.participants =  new WhoCollection(this); 
+                    this.participants = new ExtensionCollection<Who>(this); 
                 }
                 return this.participants;
             }
@@ -673,19 +674,17 @@ namespace Google.GData.Calendar {
         /// <summary>
         /// property accessor for the Reminder
         /// </summary>
-        public ReminderCollection Reminders
+        public ExtensionCollection<Reminder> Reminders
         {
             get 
             { 
                 // if we are a recurrent event, reminder is on the entry/toplevel
                 if (this.Recurrence != null)
                 {
-                    ReminderCollection collection = new ReminderCollection(this);
+                    ExtensionCollection<Reminder> collection = new ExtensionCollection<Reminder>(this);
                     FindExtensions(GDataParserNameTable.XmlReminderElement,
-                                      BaseNameTable.gNamespace, collection);
-
+                                      BaseNameTable.gNamespace, collection as IList<Reminder>);
                     return collection;
-                 
                 } 
                 else
                 {

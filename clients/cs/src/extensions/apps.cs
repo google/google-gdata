@@ -725,7 +725,7 @@ namespace Google.GData.Extensions.Apps
         /// <param name="parser">the xml parser to use if we need to dive deeper</param>
         /// <returns>the created SimpleElement object</returns>
         //////////////////////////////////////////////////////////////////////
-        public override IExtensionElement CreateInstance(XmlNode node, AtomFeedParser parser)
+        public override IExtensionElementAndFactory CreateInstance(XmlNode node, AtomFeedParser parser)
         {
             Tracing.TraceCall();
 

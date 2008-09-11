@@ -26,7 +26,7 @@ namespace Google.GData.Extensions {
     /// <summary>
     /// GData schema extension describing a nested entry link.
     /// </summary>
-    public class EntryLink : IExtensionElement
+    public class EntryLink : IExtensionElementAndFactory
     {
 
         /// <summary>holds the href property of the EntryLink element</summary>
@@ -230,6 +230,40 @@ namespace Google.GData.Extensions {
                 writer.WriteEndElement();
             }
         }
+        #endregion
+
+        #region IExtensionElementFactory Members
+
+        string IExtensionElementFactory.XmlName
+        {
+            get
+            {
+                return GDataParserNameTable.XmlEntryLinkElement;
+            }
+        }
+
+        public string XmlNameSpace
+        {
+            get
+            {
+                return BaseNameTable.gNamespace;
+            }
+        }
+
+        public string XmlPrefix
+        {
+            get
+            {
+                //TODO Check if this is correct.
+                return GDataParserNameTable.XmlEntryLinkElement;
+            }
+        }
+
+        public IExtensionElementAndFactory CreateInstance(XmlNode node, AtomFeedParser parser)
+        {
+            return EntryLink.ParseEntryLink(node, parser);
+        }
+
         #endregion
     }
 }

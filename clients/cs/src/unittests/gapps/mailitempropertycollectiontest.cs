@@ -17,6 +17,7 @@ using System;
 using NUnit.Framework;
 using Google.GData.Client;
 using Google.GData.Extensions.Apps;
+using Google.GData.Extensions;
 
 namespace Google.GData.Apps.UnitTests
 {
@@ -24,12 +25,12 @@ namespace Google.GData.Apps.UnitTests
     [Category("GoogleApps")]
     public class MailItemPropertyCollectionTest
     {
-        private MailItemPropertyCollection mailItemProperties;
+        private ExtensionCollection<MailItemPropertyElement> mailItemProperties;
 
         [SetUp]
         public void Init()
         {
-            mailItemProperties = new MailItemPropertyCollection(new AtomEntry());
+            mailItemProperties = new ExtensionCollection<MailItemPropertyElement>(new AtomEntry());
         }
 
         [TearDown]

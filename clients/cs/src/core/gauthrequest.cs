@@ -36,7 +36,7 @@ namespace Google.GData.Client
     /// <summary>constants for the authentication handler
     /// </summary> 
     //////////////////////////////////////////////////////////////////////
-    public static class GoogleAuthentication
+    public class GoogleAuthentication
     {
         ///  <summary>account prefix path </summary>
         public const string AccountPrefix = "/accounts";

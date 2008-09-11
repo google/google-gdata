@@ -21,6 +21,7 @@ using System.Net;
 using System.IO;
 using System.Xml;
 using System.Collections;
+using System.Collections.Generic;
 
 #endregion
 
@@ -153,6 +154,10 @@ namespace Google.GData.Client
         bool Go(AtomBase atom);
     }
 
+    public interface IExtensionElementAndFactory : IExtensionElement, IExtensionElementFactory
+    {
+    
+    }
 
     //////////////////////////////////////////////////////////////////////
     /// <summary>if an extension element is created and wants to persist itself,
@@ -190,7 +195,7 @@ namespace Google.GData.Client
         /// <param name="node">the xmlnode to parse</param>
         /// <param name="parser">the atomfeedparser to use if deep parsing of subelements is required</param>
         /// <returns></returns>
-        IExtensionElement CreateInstance(XmlNode node, AtomFeedParser parser); 
+        IExtensionElementAndFactory CreateInstance(XmlNode node, AtomFeedParser parser); 
     }
 
 
@@ -207,7 +212,10 @@ namespace Google.GData.Client
         /// and IExtensionElement</summary> 
         /// <returns> </returns>
         //////////////////////////////////////////////////////////////////////
-        ArrayList ExtensionElements { get; }
+        List<IExtensionElementAndFactory> ExtensionElements
+        {
+            get;
+        }
       
         /// <summary>
         /// Finds a specific ExtensionElement based on it's local name
@@ -239,7 +247,7 @@ namespace Google.GData.Client
         /// <param name="localName">the xml local name of the element to find</param>
         /// <param name="ns">the namespace of the elementToPersist</param>
         /// <returns>none</returns>
-        ArrayList FindExtensions(string localName, string ns);
+        List<IExtensionElementAndFactory> FindExtensions(string localName, string ns);
         
         /// <summary>
         /// Delete's all Extensions from the Extension list that match
@@ -257,7 +265,10 @@ namespace Google.GData.Client
         /// and IExtensionElement</summary> 
         /// <returns> </returns>
         //////////////////////////////////////////////////////////////////////
-        ArrayList ExtensionFactories { get; }
+        List<IExtensionElementAndFactory> ExtensionFactories
+        {
+            get;
+        }
         
     }
 

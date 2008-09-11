@@ -68,7 +68,6 @@ namespace Google.GData.Client
             return false; 
         }
 
-
         /// <summary>
         /// helper to toggle categories
         /// </summary>

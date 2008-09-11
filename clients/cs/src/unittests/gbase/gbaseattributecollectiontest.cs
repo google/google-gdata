@@ -21,6 +21,7 @@ using System.Net;
 using NUnit.Framework;
 using Google.GData.Client;
 using Google.GData.GoogleBase;
+using System.Collections.Generic;
 
 
 namespace Google.GData.GoogleBase.UnitTests
@@ -35,26 +36,24 @@ namespace Google.GData.GoogleBase.UnitTests
         protected readonly GBaseAttribute attr3 =
             new GBaseAttribute("attr3", GBaseAttributeType.Int);
 
-
-        protected ArrayList extList;
+        protected List<IExtensionElementAndFactory> extList = new List<IExtensionElementAndFactory>();
         protected GBaseAttributeCollection attrs;
 
         [SetUp]
         public virtual void setUp()
         {
-            extList = new ArrayList();
             attrs = new GBaseAttributeCollection(extList);
         }
 
         protected void AddThreeAttributes()
         {
-            extList.Add("a");
+            //extList.Add("a");
             extList.Add(attr1);
-            extList.Add("b");
-            extList.Add("c");
+            //extList.Add("b");
+            //extList.Add("c");
             extList.Add(attr2);
             extList.Add(attr3);
-            extList.Add("d");
+            //extList.Add("d");
         }
     }
 
@@ -120,26 +119,30 @@ namespace Google.GData.GoogleBase.UnitTests
             AddThreeAttributes();
         }
 
-        [Test]
-        public void ClearTest()
-        {
-            attrs.Clear();
+        //this is no longer a valid test for two reasons.
+        //1. we don't allow you to save crazy stuff in the collection.
+        //2. Clear removes all of the items. it used to just ignore the bad stuff.
+        //[Test]
+        //public void ClearTest()
+        //{
+        //    attrs.Clear();
 
-            Assert.AreEqual(4, extList.Count, "count");
-            Assert.AreEqual("a", extList[0]);
-            Assert.AreEqual("b", extList[1]);
-            Assert.AreEqual("c", extList[2]);
-            Assert.AreEqual("d", extList[3]);
-        }
+        //    Assert.AreEqual(4, extList.Count, "count");
+        //    Assert.AreEqual("a", extList[0]);
+        //    Assert.AreEqual("b", extList[1]);
+        //    Assert.AreEqual("c", extList[2]);
+        //    Assert.AreEqual("d", extList[3]);
+        //}
 
         [Test]
         public void TestGetWithName()
         {
+            attrs.Clear();
             attrs.Add(aInt);
             attrs.Add(aBool);
 
-            GBaseAttribute[] got = attrs.GetAttributes("a");
-            Assert.AreEqual(2, got.Length, "count");
+            List<GBaseAttribute> got = attrs.GetAttributes("a");
+            Assert.AreEqual(2, got.Count, "count");
             Assert.AreEqual(aInt, got[0]);
             Assert.AreEqual(aBool, got[1]);
         }
@@ -147,12 +150,13 @@ namespace Google.GData.GoogleBase.UnitTests
         [Test]
         public void TestGetWithNameAndType()
         {
+            attrs.Clear();
             attrs.Add(aInt);
             attrs.Add(aInt2);
             attrs.Add(aBool);
 
-            GBaseAttribute[] got = attrs.GetAttributes("a", GBaseAttributeType.Int);
-            Assert.AreEqual(2, got.Length, "count");
+            List<GBaseAttribute> got = attrs.GetAttributes("a", GBaseAttributeType.Int);
+            Assert.AreEqual(2, got.Count, "count");
             Assert.AreEqual(aInt, got[0]);
             Assert.AreEqual(aInt2, got[1]);
         }
@@ -223,12 +227,12 @@ namespace Google.GData.GoogleBase.UnitTests
             attrs.Add(aFloat);
             attrs.Add(aNumber);
 
-            Assert.AreEqual(3, attrs.GetAttributes("a").Length, "by name");
-            Assert.AreEqual(3, attrs.GetAttributes("a", GBaseAttributeType.Number).Length,
+            Assert.AreEqual(3, attrs.GetAttributes("a").Count, "by name");
+            Assert.AreEqual(3, attrs.GetAttributes("a", GBaseAttributeType.Number).Count,
                             "type=number");
-            Assert.AreEqual(1, attrs.GetAttributes("a", GBaseAttributeType.Float).Length,
+            Assert.AreEqual(1, attrs.GetAttributes("a", GBaseAttributeType.Float).Count,
                             "type=float");
-            Assert.AreEqual(1, attrs.GetAttributes("a", GBaseAttributeType.Int).Length,
+            Assert.AreEqual(1, attrs.GetAttributes("a", GBaseAttributeType.Int).Count,
                             "type=int");
 
             Assert.AreEqual(aInt, attrs.GetAttribute("a", GBaseAttributeType.Int));

@@ -19,6 +19,7 @@ using System.Collections;
 using System.Text;
 using System.Xml;
 using Google.GData.Client;
+using System.Collections.Generic;
 #endregion
 
 namespace Google.GData.GoogleBase {
@@ -367,7 +368,7 @@ namespace Google.GData.GoogleBase {
     /// <see href="GBaseAttributes">GBaseAttributes</see>.
     /// </summary>
     ///////////////////////////////////////////////////////////////////////
-    public class GBaseAttribute : IExtensionElement
+    public class GBaseAttribute : IExtensionElementAndFactory
     {
         private static readonly char[] kXmlWhitespaces = { ' ', '\t', '\n', '\r' };
         private string name;
@@ -580,17 +581,18 @@ namespace Google.GData.GoogleBase {
         /// You can get the value of these sub-elements using this[name].
         /// </summary>
         //////////////////////////////////////////////////////////////////////
-        public string[] SubElementNames
+        public List<string> SubElementNames
         {
             get
             {
-                if (subElements == null)
+                List<string> retVal = new List<string>();
+                if (subElements != null)
                 {
-                    return new string[0];
+                    string[] retval = new string[subElements.Count];
+                    subElements.Keys.CopyTo(retval, 0);
+                    retVal.AddRange(retval);
                 }
-                string[] retval = new string[subElements.Count];
-                subElements.Keys.CopyTo(retval, 0);
-                return retval;
+                return retVal;
             }
         }
 
@@ -855,6 +857,41 @@ namespace Google.GData.GoogleBase {
         {
             return name.Replace('_', ' ');
         }
+
+        #region IExtensionElementFactory Members
+
+        public string XmlName
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(Name))
+                    return Name;
+                return "UNDEFINED";
+            }
+        }
+
+        public string XmlNameSpace
+        {
+            get
+            {
+                return GBaseNameTable.NSGBase;
+            }
+        }
+
+        public string XmlPrefix
+        {
+            get
+            {
+                return GBaseNameTable.GBasePrefix;
+            }
+        }
+
+        public IExtensionElementAndFactory CreateInstance(XmlNode node, AtomFeedParser parser)
+        {
+            return ParseGBaseAttribute(node);
+        }
+
+        #endregion
     }
 
 }

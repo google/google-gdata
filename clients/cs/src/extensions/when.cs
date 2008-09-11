@@ -26,7 +26,7 @@ namespace Google.GData.Extensions
     /// <summary>
     /// GData schema extension describing a period of time.
     /// </summary>
-    public class When : IExtensionElement, IExtensionElementFactory
+    public class When : IExtensionElementAndFactory
     {
 
         /// <summary>
@@ -52,7 +52,7 @@ namespace Google.GData.Extensions
         /// <summary>
         /// reminder object to set reminder durations
         /// </summary>
-        private ReminderCollection reminders;
+        private ExtensionCollection<Reminder> reminders;
 
         /// <summary>
         /// Constructs a new instance of a When object.
@@ -106,13 +106,13 @@ namespace Google.GData.Extensions
         //////////////////////////////////////////////////////////////////////
         /// <summary>reminder accessor</summary> 
         //////////////////////////////////////////////////////////////////////
-        public ReminderCollection Reminders
+        public ExtensionCollection<Reminder> Reminders
         {
             get 
             {
                 if (this.reminders == null)
                 {
-                    this.reminders = new ReminderCollection(null);
+                    this.reminders = new ExtensionCollection<Reminder>();
                 }
                 return this.reminders; 
             }
@@ -145,7 +145,7 @@ namespace Google.GData.Extensions
         /// <param name="parser">the xml parser to use if we need to dive deeper</param>
         /// <returns>the created Where  object</returns>
         //////////////////////////////////////////////////////////////////////
-        public IExtensionElement CreateInstance(XmlNode node, AtomFeedParser parser)
+        public IExtensionElementAndFactory CreateInstance(XmlNode node, AtomFeedParser parser)
         {
             Tracing.TraceCall();
             When when = null;

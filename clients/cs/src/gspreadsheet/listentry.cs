@@ -39,7 +39,7 @@ namespace Google.GData.Spreadsheets
         /// <summary>
         /// GData schema extension describing a custom element in a spreadsheet.
         /// </summary>
-        public class Custom : IExtensionElement
+        public class Custom : IExtensionElementAndFactory
         {
             private string localName;
             private string value;
@@ -169,13 +169,45 @@ namespace Google.GData.Spreadsheets
             {
                 if (LocalName != null && Value != null)
                 {
-                    writer.WriteStartElement(GDataSpreadsheetsNameTable.ExtendedPrefix,
-                                             XmlName, GDataSpreadsheetsNameTable.NSGSpreadsheetsExtended);
+                    writer.WriteStartElement(XmlPrefix, XmlName, XmlNameSpace);
                     writer.WriteString(Value);
                     writer.WriteEndElement();
                 }
             }
 #endregion
+
+            #region IExtensionElementFactory Members
+
+            string IExtensionElementFactory.XmlName
+            {
+                get
+                {
+                    return XmlName;
+                }
+            }
+
+            public string XmlNameSpace
+            {
+                get
+                {
+                    return GDataSpreadsheetsNameTable.NSGSpreadsheetsExtended;
+                }
+            }
+
+            public string XmlPrefix
+            {
+                get
+                {
+                    return GDataSpreadsheetsNameTable.ExtendedPrefix;
+                }
+            }
+
+            public IExtensionElementAndFactory CreateInstance(XmlNode node, AtomFeedParser parser)
+            {
+                return ParseCustom(node, parser);
+            }
+
+            #endregion
         } // class Custom
 
 #endregion

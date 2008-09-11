@@ -90,30 +90,12 @@ namespace Google.GData.Contacts {
        }
     }
 
-
-    //////////////////////////////////////////////////////////////////////
-    /// <summary>Typed collection for GroupMembershipCollection Extensions.</summary> 
-    //////////////////////////////////////////////////////////////////////
-    public class GroupMembershipCollection : ExtensionCollection<GroupMembership>
-    {
-
-        private GroupMembershipCollection() : base()
-        {
-        }
-
-        /// <summary>constructor</summary> 
-        public GroupMembershipCollection(IExtensionContainer atomElement) 
-            : base(atomElement, ContactsNameTable.GroupMembershipInfo, ContactsNameTable.NSContacts)
-        {
-        }
-    }
-
     /// <summary>
     /// abstract class for a basecontactentry, used for contacts and groups
     /// </summary>
     public abstract class BaseContactEntry : AbstractEntry, IContainsDeleted
     {
-        private ExtendedPropertyCollection xproperties;
+        private ExtensionCollection<ExtendedProperty> xproperties;
 
 
         /// <summary>
@@ -133,13 +115,13 @@ namespace Google.GData.Contacts {
         /// returns the extended properties on this object
         /// </summary>
         /// <returns></returns>
-        public ExtendedPropertyCollection ExtendedProperties
+        public ExtensionCollection<ExtendedProperty> ExtendedProperties
         {
             get 
             {
                 if (this.xproperties == null)
                 {
-                    this.xproperties =  new ExtendedPropertyCollection(this); 
+                    this.xproperties = new ExtensionCollection<ExtendedProperty>(this); 
                 }
                 return this.xproperties;
             }
@@ -224,12 +206,12 @@ namespace Google.GData.Contacts {
         new AtomCategory(ContactEntry.ContactTerm, new AtomUri(BaseNameTable.gKind));
 
 
-        private EMailCollection emails;
-        private IMCollection ims;
-        private PhonenumberCollection phonenumbers;
-        private PostalAddressCollection postals;
-        private OrganizationCollection organizations;
-        private GroupMembershipCollection groups;
+        private ExtensionCollection<EMail> emails;
+        private ExtensionCollection<IMAddress> ims;
+        private ExtensionCollection<PhoneNumber> phonenumbers;
+        private ExtensionCollection<PostalAddress> postals;
+        private ExtensionCollection<Organization> organizations;
+        private ExtensionCollection<GroupMembership> groups;
 
 
         /// <summary>
@@ -335,37 +317,32 @@ namespace Google.GData.Contacts {
             }
         }
 
-
-
-
         /// <summary>
         /// returns the groupmembership info on this object
         /// </summary>
         /// <returns></returns>
-        public GroupMembershipCollection GroupMembership
+        public ExtensionCollection<GroupMembership> GroupMembership
         {
             get 
             {
                 if (this.groups == null)
                 {
-                    this.groups =  new GroupMembershipCollection(this); 
+                    this.groups = new ExtensionCollection<GroupMembership>(this); 
                 }
                 return this.groups;
             }
         }
 
-
-
         /// <summary>
         /// getter/setter for the email extension element
         /// </summary>
-        public EMailCollection Emails
+        public ExtensionCollection<EMail> Emails
         {
             get 
             {
                 if (this.emails == null)
                 {
-                    this.emails =  new EMailCollection(this); 
+                    this.emails = new ExtensionCollection<EMail>(this); 
                 }
                 return this.emails;
             }
@@ -374,13 +351,13 @@ namespace Google.GData.Contacts {
         /// <summary>
         /// getter/setter for the IM extension element
         /// </summary>
-        public IMCollection IMs
+        public ExtensionCollection<IMAddress> IMs
         {
             get 
             {
                 if (this.ims == null)
                 {
-                    this.ims =  new IMCollection(this); 
+                    this.ims = new ExtensionCollection<IMAddress>(this); 
                 }
                 return this.ims;
             }
@@ -389,13 +366,13 @@ namespace Google.GData.Contacts {
         /// <summary>
         /// returns the phonenumber collection
         /// </summary>
-        public PhonenumberCollection Phonenumbers
+        public ExtensionCollection<PhoneNumber> Phonenumbers
         {
             get 
             {
                 if (this.phonenumbers == null)
                 {
-                    this.phonenumbers =  new PhonenumberCollection(this); 
+                    this.phonenumbers = new ExtensionCollection<PhoneNumber>(this); 
                 }
                 return this.phonenumbers;
             }
@@ -404,13 +381,13 @@ namespace Google.GData.Contacts {
         /// <summary>
         /// returns the phonenumber collection
         /// </summary>
-        public PostalAddressCollection PostalAddresses
+        public ExtensionCollection<PostalAddress> PostalAddresses
         {
             get 
             {
                 if (this.postals == null)
                 {
-                    this.postals =  new PostalAddressCollection(this); 
+                    this.postals = new ExtensionCollection<PostalAddress>(this); 
                 }
                 return this.postals;
             }
@@ -419,13 +396,13 @@ namespace Google.GData.Contacts {
         /// <summary>
         /// returns the phonenumber collection
         /// </summary>
-        public OrganizationCollection Organizations
+        public ExtensionCollection<Organization> Organizations
         {
             get 
             {
                 if (this.organizations == null)
                 {
-                    this.organizations =  new OrganizationCollection(this); 
+                    this.organizations = new ExtensionCollection<Organization>(this); 
                 }
                 return this.organizations;
             }

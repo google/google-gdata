@@ -798,11 +798,11 @@ namespace Google.GData.Client
                 }
                 else if (elementName.Equals(this.nameTable.BatchStatus))
                 {
-                    batch.Status = ParseBatchStatus(reader); 
+                    batch.Status = GDataBatchStatus.ParseBatchStatus(reader, this); 
                 }
                 else if (elementName.Equals(this.nameTable.BatchInterrupt))
                 {
-                    batch.Interrupt= ParseBatchInterrupt(reader); 
+                    batch.Interrupt= GDataBatchInterrupt.ParseBatchInterrupt(reader, this); 
                 }
                 else
                 {
@@ -889,76 +889,12 @@ namespace Google.GData.Client
             }
         }
 
-
-        /// <summary>
-        /// reads the current positioned reader and creates a batchstatus element
-        /// </summary>
-        /// <param name="reader">XmlReader positioned at the start of the status element</param>
-        /// <returns>GDataBatchStatus</returns>
-        protected GDataBatchStatus ParseBatchStatus(XmlReader reader) 
-        {
-            Tracing.Assert(reader != null, "reader should not be null");
-            if (reader == null)
-            {
-                throw new ArgumentNullException("reader"); 
-            }
-            GDataBatchStatus status = null; 
-
-            object localname = reader.LocalName;
-            if (localname.Equals(this.nameTable.BatchStatus))
-            {
-                status = new GDataBatchStatus();
-                if (reader.HasAttributes)
-                {
-                    while (reader.MoveToNextAttribute())
-                    {
-                        localname = reader.LocalName;
-                        if (localname.Equals(this.nameTable.BatchReason))
-                        {
-                            status.Reason = Utilities.DecodedValue(reader.Value);
-                        }
-                        else if (localname.Equals(this.nameTable.BatchContentType))
-                        {
-                            status.ContentType = Utilities.DecodedValue(reader.Value); 
-                        }
-                        else if (localname.Equals(this.nameTable.BatchStatusCode))
-                        {
-                            status.Code = int.Parse(Utilities.DecodedValue(reader.Value), CultureInfo.InvariantCulture);
-                        }
-                    }
-                }
-
-                // FIX: THIS CODE SEEMS TO MAKE AN INFINITE LOOP WITH NextChildElement()
-                //reader.MoveToElement();
-                //status.Value = Utilities.DecodedValue(reader.ReadString());
-                ////////////////////////////////////////////////////////////////////////
-
-                // status can have one child element, errors
-                // for now disabled, as this is currently not supported on the server
-                // instead the errors come as encoded strings
-                /*
-                int lvl = -1;
-                while(NextChildElement(reader, ref lvl))
-                {
-                    localname = reader.LocalName;
-
-                    if (localname.Equals(this.nameTable.BatchErrors))
-                    {
-                        // author.Name = Utilities.DecodeString(Utilities.DecodedValue(reader.ReadString()));
-                        status.Errors = ParseBatchErrors(reader); 
-                    }
-                }
-                */
-            }
-            return status;
-        }
-
         /// <summary>
         ///  parses a list of errors
         /// </summary>
         /// <param name="reader">XmlReader positioned at the start of the status element</param>
         /// <returns>GDataBatchErrorCollection</returns>
-
+        [Obsolete("ParseBatchErrors does not appear to be called by any code.")]
         protected GDataBatchErrorCollection ParseBatchErrors(XmlReader reader)
         {
             if (reader == null)
@@ -978,7 +914,7 @@ namespace Google.GData.Client
                     localname = reader.LocalName;
                     if (localname.Equals(this.nameTable.BatchError))
                     {
-                        collection.Add(ParseBatchError(reader));
+                        collection.Add(GDataBatchError.ParseBatchError(reader, this));
                     }
 
                 }
@@ -986,98 +922,6 @@ namespace Google.GData.Client
             }
             return collection;
         }
-
-        /// <summary>
-        /// parses a single error element
-        /// </summary>
-        /// <param name="reader">XmlReader positioned at the start of the status element</param>
-        /// <returns>GDataBatchError</returns>
-        protected GDataBatchError ParseBatchError(XmlReader reader)
-        {
-            if (reader == null)
-            {
-                throw new System.ArgumentNullException("reader");
-            }
-
-            object localname = reader.LocalName;
-            GDataBatchError error = null;
-            if (localname.Equals(this.nameTable.BatchError))
-            {
-                error = new GDataBatchError(); 
-                if (reader.HasAttributes)
-                {
-                    while (reader.MoveToNextAttribute())
-                    {
-                        localname = reader.LocalName;
-                        if (localname.Equals(this.nameTable.BatchReason))
-                        {
-                            error.Reason = Utilities.DecodedValue(reader.Value);
-                        }
-                        else if (localname.Equals(this.nameTable.Type))
-                        {
-                            error.Type = Utilities.DecodedValue(reader.Value); 
-                        }
-                        else if (localname.Equals(this.nameTable.BatchField))
-                        {
-                            error.Field = Utilities.DecodedValue(reader.Value); 
-                        }
-                    }
-                }
-            }
-            return error; 
-        }
-
-
-        /// <summary>
-        /// parses a batchinterrupt element from a correctly positioned reader
-        /// </summary>
-        /// <param name="reader">XmlReader at the start of the element</param>
-        /// <returns>GDataBatchInterrupt</returns>
-        protected GDataBatchInterrupt ParseBatchInterrupt(XmlReader reader)
-        {
-            if (reader == null)
-            {
-                throw new ArgumentNullException("reader");
-            }
-        
-            object localname = reader.LocalName;
-            GDataBatchInterrupt interrupt = null;
-            if (localname.Equals(this.nameTable.BatchInterrupt))
-            {
-                interrupt = new GDataBatchInterrupt(); 
-                if (reader.HasAttributes)
-                {
-                    while (reader.MoveToNextAttribute())
-                    {
-                        localname = reader.LocalName;
-                        if (localname.Equals(this.nameTable.BatchReason))
-                        {
-                            interrupt.Reason = Utilities.DecodedValue(reader.Value);
-                        }
-                        else if (localname.Equals(this.nameTable.BatchSuccessCount))
-                        {
-                            interrupt.Successes = int.Parse(Utilities.DecodedValue(reader.Value),CultureInfo.InvariantCulture); 
-                        }
-                        else if (localname.Equals(this.nameTable.BatchFailureCount))
-                        {
-                            interrupt.Failures = int.Parse(Utilities.DecodedValue(reader.Value),CultureInfo.InvariantCulture);  
-                        }
-                        else if (localname.Equals(this.nameTable.BatchParsedCount))
-                        {
-                            interrupt.Parsed = int.Parse(Utilities.DecodedValue(reader.Value),CultureInfo.InvariantCulture); 
-                        }
-                        else if (localname.Equals(this.nameTable.BatchUnprocessed))
-                        {
-                            interrupt.Unprocessed= int.Parse(Utilities.DecodedValue(reader.Value),CultureInfo.InvariantCulture); 
-                        }
-
-                    }
-                }
-            }
-            return interrupt; 
-
-        }
-
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>parses an AtomTextConstruct</summary> 

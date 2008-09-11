@@ -17,6 +17,7 @@ using System;
 using System.Text;
 using Google.GData.Client;
 using Google.GData.Extensions.Apps;
+using System.Collections.Generic;
 
 namespace Google.GData.Apps.Migration
 {
@@ -75,7 +76,7 @@ namespace Google.GData.Apps.Migration
         /// <param name="userName">the user for whom this should be done</param>
         /// <returns>a <code>MailItemFeed</code> containing the results of the
         /// batch insertion</returns>
-        public MailItemFeed Batch(string domain, string userName, MailItemEntry[] entries)
+        public MailItemFeed Batch(string domain, string userName, List<MailItemEntry> entries)
         {
             Uri batchUri = new Uri(AppsMigrationNameTable.AppsMigrationBaseFeedUri + "/" + domain +
                 "/" + userName + mailFeedUriSuffix + batchFeedUriSuffix);
@@ -87,6 +88,22 @@ namespace Google.GData.Apps.Migration
             }
 
             return base.Batch(feed, batchUri) as MailItemFeed;
+        }
+
+        /// <summary>
+        /// Inserts one or more mail item entries in a single batched request.
+        /// Use this method to reduce HTTP overhead when inserting many emails
+        /// in a single transfer.
+        /// </summary>
+        /// <param name="domain">the domain into which to migrate mail</param>
+        /// <param name="entries">the mail messages to batch insert</param>
+        /// <param name="userName">the user for whom this should be done</param>
+        /// <returns>a <code>MailItemFeed</code> containing the results of the
+        /// batch insertion</returns>
+        [Obsolete("Please call the overload passing in a List<MailItemEntry>")]
+        public MailItemFeed Batch(string domain, string userName, MailItemEntry[] entries)
+        {
+            return Batch(domain, userName, new List<MailItemEntry>(entries));
         }
 
         /// <summary>

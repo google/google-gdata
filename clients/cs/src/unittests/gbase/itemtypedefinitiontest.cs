@@ -21,6 +21,7 @@ using System.Net;
 using NUnit.Framework;
 using Google.GData.Client;
 using Google.GData.GoogleBase;
+using System.Collections.Generic;
 
 
 namespace Google.GData.GoogleBase.UnitTests
@@ -57,8 +58,8 @@ namespace Google.GData.GoogleBase.UnitTests
                                        "<attribute name='a' type='text'/>" +
                                        "<attribute name='b' type='boolean'/>" +
                                        "</attributes>"));
-            AttributeId[] attributeIds = attrs.Attributes;
-            Assert.AreEqual(2, attributeIds.Length);
+            List<AttributeId> attributeIds = attrs.Attributes;
+            Assert.AreEqual(2, attributeIds.Count);
             Assert.AreEqual("a", attributeIds[0].Name);
             Assert.AreEqual(GBaseAttributeType.Text, attributeIds[0].Type);
             Assert.AreEqual("b", attributeIds[1].Name);
@@ -70,9 +71,9 @@ namespace Google.GData.GoogleBase.UnitTests
         {
             ItemTypeAttributes attrs = ItemTypeAttributes.Parse(Parse("<attributes/>"));
 
-            AttributeId[] attributeIds = attrs.Attributes;
+            List<AttributeId> attributeIds = attrs.Attributes;
             Assert.IsNotNull(attributeIds);
-            Assert.AreEqual(0, attributeIds.Length);
+            Assert.AreEqual(0, attributeIds.Count);
         }
 
         [Test]
@@ -82,9 +83,9 @@ namespace Google.GData.GoogleBase.UnitTests
                                   new AttributeId("y", GBaseAttributeType.Float) };
             string xml = GenerateXml(new ItemTypeAttributes(ids));
 
-            AttributeId[] parsedIds =
+            List<AttributeId> parsedIds =
                 ItemTypeAttributes.Parse(Parse(xml)).Attributes;
-            Assert.AreEqual(2, parsedIds.Length);
+            Assert.AreEqual(2, parsedIds.Count);
             Assert.AreEqual("x", parsedIds[0].Name);
             Assert.AreEqual(GBaseAttributeType.Int, parsedIds[0].Type);
             Assert.AreEqual("y", parsedIds[1].Name);
@@ -97,20 +98,20 @@ namespace Google.GData.GoogleBase.UnitTests
         {
             AttributeId[] ids = { new AttributeId("x", GBaseAttributeType.Int) };
 
-            ArrayList extList = new ArrayList();
-            extList.Add("garbage");
-            extList.Add(12);
+            List<IExtensionElementAndFactory> extList = new List<IExtensionElementAndFactory>();
+            //extList.Add("garbage");
+            //extList.Add(12);
 
             ItemTypeDefinition defs = new ItemTypeDefinition(extList);
             Assert.IsNull(defs.ItemType);
             Assert.IsNotNull(defs.Attributes);
-            Assert.AreEqual(0, defs.Attributes.Length);
+            Assert.AreEqual(0, defs.Attributes.Count);
 
             extList.Add(new MetadataItemType("hello"));
             Assert.AreEqual("hello", defs.ItemType);
 
             extList.Add(new ItemTypeAttributes(ids));
-            Assert.AreEqual(1, defs.Attributes.Length);
+            Assert.AreEqual(1, defs.Attributes.Count);
             Assert.AreEqual("x", defs.Attributes[0].Name);
         }
 

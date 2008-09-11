@@ -17,6 +17,7 @@ using System;
 using NUnit.Framework;
 using Google.GData.Client;
 using Google.GData.Extensions.Apps;
+using Google.GData.Extensions;
 
 namespace Google.GData.Apps.UnitTests
 {
@@ -24,12 +25,12 @@ namespace Google.GData.Apps.UnitTests
     [Category("GoogleApps")]
     public class LabelCollectionTest
     {
-        private LabelCollection labels;
+        private ExtensionCollection<LabelElement> labels;
 
         [SetUp]
         public void Init()
         {
-            labels = new LabelCollection(new AtomEntry());
+            labels = new ExtensionCollection<LabelElement>(new AtomEntry());
         }
 
         [TearDown]

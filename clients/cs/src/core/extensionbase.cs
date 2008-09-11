@@ -26,7 +26,7 @@ namespace Google.GData.Extensions {
     /// <summary>
     /// Extensible type used in many places.
     /// </summary>
-    public abstract class ExtensionBase : IExtensionElement, IExtensionElementFactory
+    public abstract class ExtensionBase : IExtensionElementAndFactory, IExtensionElement, IExtensionElementFactory
     {
 
         private string xmlName;
@@ -142,7 +142,7 @@ namespace Google.GData.Extensions {
         /// <param name="parser">the xml parser to use if we need to dive deeper</param>
         /// <returns>the created IExtensionElement object</returns>
         //////////////////////////////////////////////////////////////////////
-        public virtual IExtensionElement CreateInstance(XmlNode node, AtomFeedParser parser) 
+        public virtual IExtensionElementAndFactory CreateInstance(XmlNode node, AtomFeedParser parser) 
         {
             Tracing.TraceCall();
 

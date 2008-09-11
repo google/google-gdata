@@ -21,6 +21,7 @@ using System.Xml;
 using System.IO; 
 using System.Globalization;
 using System.Collections;
+using System.Collections.Generic;
 
 
 #endregion
@@ -118,9 +119,13 @@ namespace Google.GData.Client
         /// <summary>holds the xml:lang element</summary> 
         private string atomLanguageTag;
         /// <summary>extension element collection</summary>
-        private ArrayList extensionsList; 
+        private List<IExtensionElementAndFactory> extensionsList = new List<IExtensionElementAndFactory>(); 
+
+        //todo this is temp until we can compile everything
+        private List<XmlNode> xmlextensionList = new List<XmlNode>();
+
         /// <summary> extension element factories </summary>
-        private ArrayList extensionFactories; 
+        private List<IExtensionElementAndFactory> extensionFactories = new List<IExtensionElementAndFactory>(); 
        /// <summary>a boolean indicating that recalc is allowed to happen implicitly now</summary> 
         private bool fAllowRecalc;
         /// <summary>holds a flag indicating if the thing should be send to the server</summary> 
@@ -261,22 +266,24 @@ namespace Google.GData.Client
             {
                 throw new ArgumentNullException("factory"); 
             }
-            this.ExtensionFactories.Add(factory);
+            if (factory is IExtensionElementAndFactory)
+            {
+                this.ExtensionFactories.Add(factory as IExtensionElementAndFactory);
+            }
+            else
+            {
+                throw new ArgumentException("factory must implement IExtensionElementAndFactory");
+            }
         }
         //////////////////////////////////////////////////////////////////////
-
 
         /// <summary>
         /// read only accessor for the Extension Factories
         /// </summary>
-        public ArrayList ExtensionFactories 
+        public List<IExtensionElementAndFactory> ExtensionFactories 
         {
             get 
             {
-                if (this.extensionFactories == null)
-                {
-                    this.extensionFactories = new ArrayList();
-                }
                 return this.extensionFactories;
             }
         }
@@ -302,20 +309,24 @@ namespace Google.GData.Client
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>read only accessor for the ExtensionsElements Collections</summary> 
-        /// <returns> an ArrayList of ExtensionElements</returns>
+        /// <returns> an List&lt;IExtensionElementAndFactory&gt; of ExtensionElements</returns>
         //////////////////////////////////////////////////////////////////////
-        public ArrayList ExtensionElements
+        public List<IExtensionElementAndFactory> ExtensionElements
         {
             get 
             {
-                if (this.extensionsList == null)
-                {
-                    this.extensionsList = new ArrayList();
-                }
                 return this.extensionsList;
             }
         }
         /////////////////////////////////////////////////////////////////////////////
+
+        public List<XmlNode> XmlExtensionElements
+        {
+            get
+            {
+                return xmlextensionList;
+            }
+        }
 
         /// <summary>
         /// Finds a specific ExtensionElement based on it's local name
@@ -373,9 +384,6 @@ namespace Google.GData.Client
             return null;
         }
 
-
-
-
         /// <summary>
         /// Finds all ExtensionElement based on it's local name
         /// and it's namespace. If namespace is NULL, allwhere
@@ -386,9 +394,9 @@ namespace Google.GData.Client
         /// <param name="localName">the xml local name of the element to find</param>
         /// <param name="ns">the namespace of the elementToPersist</param>
         /// <returns>Object</returns>
-        public ArrayList FindExtensions(string localName, string ns) 
+        public List<IExtensionElementAndFactory> FindExtensions(string localName, string ns) 
         {
-            return FindExtensions(localName, ns, new ArrayList());
+            return FindExtensions(localName, ns, new List<IExtensionElementAndFactory>());
         }
 
         /// <summary>
@@ -402,7 +410,7 @@ namespace Google.GData.Client
         /// <param name="ns">the namespace of the elementToPersist</param>
         /// <param name="arr">the array to fill</param>
         /// <returns>none</returns>
-        public ArrayList FindExtensions(string localName, string ns, ArrayList arr) 
+        public List<IExtensionElementAndFactory> FindExtensions(string localName, string ns, List<IExtensionElementAndFactory> arr) 
         {
             return Utilities.FindExtensions(this.ExtensionElements, 
                                             localName, ns, arr);
@@ -420,7 +428,8 @@ namespace Google.GData.Client
         /// <param name="ns">the namespace of the elementToPersist</param>
         /// <param name="collection">the collection to fill</param>
         /// <returns>none</returns>
-        public T FindExtensions<T>(string localName, string ns, T collection) where T : IList
+        public IList<T> FindExtensions<T>(string localName, string ns, IList<T> collection)
+            where T : class, IExtensionElementAndFactory
         {
             return Utilities.FindExtensions(this.ExtensionElements,
                                             localName, ns, collection);
@@ -437,10 +446,10 @@ namespace Google.GData.Client
         public int DeleteExtensions(string localName, string ns) 
         {
             // Find them first
-            ArrayList arr = FindExtensions(localName, ns);
-            foreach (object ob in arr)
+            List<IExtensionElementAndFactory> arr = FindExtensions(localName, ns);
+            foreach (IExtensionElementAndFactory ob in arr)
             {
-                this.ExtensionElements.Remove(ob);
+                    this.ExtensionElements.Remove(ob);
             }
             return arr.Count;
         }
@@ -458,6 +467,7 @@ namespace Google.GData.Client
         /// <returns>int - the number of deleted extensions</returns>
         public int ReplaceExtensions(ArrayList newList) 
         {
+            //TODO determine if this is being called from outside of the project.
              int count = 0;
             // get rid of all of the old ones matching the specs
             if (newList != null)
@@ -487,10 +497,14 @@ namespace Google.GData.Client
                         count += DeleteExtensions(localName, ns);
                     }
                 }
+                //TODO Conver to List<>
                 // now add the new ones
                 foreach (Object ob in newList)
                 {
-                    this.ExtensionElements.Add(ob);
+                    if (ob is IExtensionElementAndFactory)
+                    {
+                        this.ExtensionElements.Add(ob as IExtensionElementAndFactory);
+                    }
                 }
             }
             
@@ -508,7 +522,15 @@ namespace Google.GData.Client
             (string localName, string ns, Object obj)
         {
             DeleteExtensions(localName, ns);
-            this.ExtensionElements.Add(obj);
+            //TODO convert to list and check for xml
+            if (obj is IExtensionElementAndFactory)
+            {
+                this.ExtensionElements.Add(obj as IExtensionElementAndFactory);
+            }
+            else
+            {
+                throw new ArgumentException("obj must be of type IExtensionElementAndFactory");
+            }
         }
 
 
@@ -530,6 +552,7 @@ namespace Google.GData.Client
             {
                 throw new ArgumentNullException("parser");
             }
+
 
             Object localname = reader.LocalName;
             if (localname.Equals(parser.Nametable.Id))
@@ -917,7 +940,6 @@ namespace Google.GData.Client
         }
 
         #endregion 
-
     }
     /////////////////////////////////////////////////////////////////////////////
 } 

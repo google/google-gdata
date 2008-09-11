@@ -19,8 +19,10 @@ using System.Text;
 using System.Xml;
 using Google.GData.Client;
 using System.Globalization;
+using System.Collections.Generic;
 
-namespace Google.GData.Extensions {
+namespace Google.GData.Extensions
+{
 
     /// <summary>
     /// base class to implement extensions holding extensions
@@ -29,8 +31,10 @@ namespace Google.GData.Extensions {
     /// </summary>
     public class SimpleContainer : ExtensionBase, IExtensionContainer
     {
-        private ArrayList extensions;
-        private ArrayList extensionFactories;
+        private List<IExtensionElementAndFactory> extensions
+            = new List<IExtensionElementAndFactory>();
+        private List<IExtensionElementAndFactory> extensionFactories
+            = new List<IExtensionElementAndFactory>();
 
         /// <summary>
         /// constructor
@@ -38,12 +42,11 @@ namespace Google.GData.Extensions {
         /// <param name="name">the xml name</param>
         /// <param name="prefix">the xml prefix</param>
         /// <param name="ns">the xml namespace</param>
-        protected SimpleContainer(string name, string prefix, string ns) : base(name, prefix, ns)
+        protected SimpleContainer(string name, string prefix, string ns)
+            : base(name, prefix, ns)
         {
         }
 
-       
-       
         #region overloaded for persistence
 
         //////////////////////////////////////////////////////////////////////
@@ -52,14 +55,10 @@ namespace Google.GData.Extensions {
         /// and IExtensionElement</summary> 
         /// <returns> </returns>
         //////////////////////////////////////////////////////////////////////
-        public ArrayList ExtensionElements
+        public List<IExtensionElementAndFactory> ExtensionElements
         {
-            get 
+            get
             {
-                if (this.extensions == null)
-                {
-                    this.extensions = new ArrayList();
-                }
                 return this.extensions;
             }
         }
@@ -74,7 +73,7 @@ namespace Google.GData.Extensions {
         /// <param name="localName">the xml local name of the element to find</param>
         /// <param name="ns">the namespace of the elementToPersist</param>
         /// <returns>Object</returns>
-        public Object FindExtension(string localName, string ns) 
+        public Object FindExtension(string localName, string ns)
         {
             return Utilities.FindExtension(this.ExtensionElements, localName, ns);
         }
@@ -90,7 +89,10 @@ namespace Google.GData.Extensions {
         {
 
             DeleteExtensions(localName, ns);
-            this.ExtensionElements.Add(obj);
+            if (obj is IExtensionElementAndFactory)
+            {
+                this.ExtensionElements.Add(obj as IExtensionElementAndFactory);
+            }
         }
 
         /// <summary>
@@ -103,10 +105,10 @@ namespace Google.GData.Extensions {
         /// <param name="localName">the xml local name of the element to find</param>
         /// <param name="ns">the namespace of the elementToPersist</param>
         /// <returns>none</returns>
-        public ArrayList FindExtensions(string localName, string ns) 
+        public List<IExtensionElementAndFactory> FindExtensions(string localName, string ns)
         {
-            return Utilities.FindExtensions(this.ExtensionElements, 
-                                            localName, ns, new ArrayList());
+            return Utilities.FindExtensions(this.ExtensionElements,
+                                            localName, ns, new List<IExtensionElementAndFactory>());
 
         }
 
@@ -117,11 +119,11 @@ namespace Google.GData.Extensions {
         /// <param name="localName">the local name to find</param>
         /// <param name="ns">the namespace to match, if null, ns is ignored</param>
         /// <returns>int - the number of deleted extensions</returns>
-        public int DeleteExtensions(string localName, string ns) 
+        public int DeleteExtensions(string localName, string ns)
         {
             // Find them first
-            ArrayList arr = FindExtensions(localName, ns);
-            foreach (object ob in arr)
+            List<IExtensionElementAndFactory> arr = FindExtensions(localName, ns);
+            foreach (IExtensionElementAndFactory ob in arr)
             {
                 this.extensions.Remove(ob);
             }
@@ -135,14 +137,10 @@ namespace Google.GData.Extensions {
         /// and IExtensionElement</summary> 
         /// <returns> </returns>
         //////////////////////////////////////////////////////////////////////
-        public ArrayList ExtensionFactories
+        public List<IExtensionElementAndFactory> ExtensionFactories
         {
-            get 
+            get
             {
-                if (this.extensionFactories == null)
-                {
-                    this.extensionFactories = new ArrayList();
-                }
                 return this.extensionFactories;
             }
         }
@@ -156,7 +154,7 @@ namespace Google.GData.Extensions {
         /// <param name="parser">the xml parser to use if we need to dive deeper</param>
         /// <returns>the created SimpleElement object</returns>
         //////////////////////////////////////////////////////////////////////
-        public override IExtensionElement CreateInstance(XmlNode node, AtomFeedParser parser) 
+        public override IExtensionElementAndFactory CreateInstance(XmlNode node, AtomFeedParser parser)
         {
             Tracing.TraceCall("for: " + XmlName);
 
@@ -170,16 +168,16 @@ namespace Google.GData.Extensions {
                 }
             }
 
-            SimpleContainer sc = null;            
+            SimpleContainer sc = null;
             // create a new container
             sc = this.MemberwiseClone() as SimpleContainer;
-      
+
             sc.ProcessAttributes(node);
             sc.ProcessChildNodes(node, parser);
             return sc;
         }
 
-         /// <summary>
+        /// <summary>
         /// used to copy the unknown childnodes for later saving
         /// </summary>
         /// <param name="node">the node to process</param>
@@ -224,9 +222,9 @@ namespace Google.GData.Extensions {
         /// <param name="writer"></param>
         public override void SaveInnerXml(XmlWriter writer)
         {
-           if (this.extensions != null)
+            if (this.extensions != null)
             {
-                foreach (IExtensionElement e in this.ExtensionElements)
+                foreach (IExtensionElementAndFactory e in this.ExtensionElements)
                 {
                     e.Save(writer);
                 }
@@ -234,4 +232,4 @@ namespace Google.GData.Extensions {
         }
         #endregion
     }
-}  
+}
