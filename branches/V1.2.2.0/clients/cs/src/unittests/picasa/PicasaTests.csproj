@@ -1,0 +1,108 @@
+﻿<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{4994E2CA-C579-475D-9716-A3BEF588018F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PicasaTests</RootNamespace>
+    <AssemblyName>PicasaTests</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Google.GData.Photos, Version=1.1.9.25604, Culture=neutral, PublicKeyToken=a25b50f2e8e3887a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>D:\googlegdata\clients\cs\lib\Release\Google.GData.Photos.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AlbumAccessorTest.cs" />
+    <Compile Include="AlbumEntryTest.cs" />
+    <Compile Include="AlbumQueryTest.cs" />
+    <Compile Include="CommentAccessorTest.cs" />
+    <Compile Include="CommentEntryTest.cs" />
+    <Compile Include="CommentsQueryTest.cs" />
+    <Compile Include="GPhotoAccessTest.cs" />
+    <Compile Include="GPhotoAlbumIdTest.cs" />
+    <Compile Include="GPhotoBytesUsedTest.cs" />
+    <Compile Include="GPhotoChecksumTest.cs" />
+    <Compile Include="GPhotoClientTest.cs" />
+    <Compile Include="GPhotoCommentCountTest.cs" />
+    <Compile Include="GPhotoCommentingEnabledTest.cs" />
+    <Compile Include="GPhotoExtensionsTest.cs" />
+    <Compile Include="GPhotoHeightTest.cs" />
+    <Compile Include="GPhotoIdTest.cs" />
+    <Compile Include="GPhotoLocationTest.cs" />
+    <Compile Include="GPhotoMaxPhotosPerAlbumTest.cs" />
+    <Compile Include="GPhotoNameTableTest.cs" />
+    <Compile Include="GPhotoNameTest.cs" />
+    <Compile Include="GPhotoNickNameTest.cs" />
+    <Compile Include="GPhotoNumPhotosRemainingTest.cs" />
+    <Compile Include="GPhotoNumPhotosTest.cs" />
+    <Compile Include="GPhotoPhotoIdTest.cs" />
+    <Compile Include="GPhotoPositionTest.cs" />
+    <Compile Include="GPhotoQuotaCurrentTest.cs" />
+    <Compile Include="GPhotoQuotaLimitTest.cs" />
+    <Compile Include="GPhotoRotationTest.cs" />
+    <Compile Include="GPhotoSizeTest.cs" />
+    <Compile Include="GPhotoThumbnailTest.cs" />
+    <Compile Include="GPhotoTimestampTest.cs" />
+    <Compile Include="GPhotoUserTest.cs" />
+    <Compile Include="GPhotoVersionTest.cs" />
+    <Compile Include="GPhotoWeightTest.cs" />
+    <Compile Include="GPhotoWidthTest.cs" />
+    <Compile Include="KindQueryTest.cs" />
+    <Compile Include="PhotoAccessorTest.cs" />
+    <Compile Include="PhotoEntryTest.cs" />
+    <Compile Include="PhotoQueryTest.cs" />
+    <Compile Include="PicasaEntryTest.cs" />
+    <Compile Include="PicasaFeedTest.cs" />
+    <Compile Include="PicasaQueryTest.cs" />
+    <Compile Include="PicasaServiceTest.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TagAccessorTest.cs" />
+    <Compile Include="TagEntryTest.cs" />
+    <Compile Include="TagQueryTest.cs" />
+    <Compile Include="UnitTest1.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AuthoringTests.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Shadow Include="Test References\Google.GData.Photos.accessor" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

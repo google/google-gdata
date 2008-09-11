@@ -1,0 +1,234 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{21BCB644-F9C3-4ADC-8BE1-4E55C6565011}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ApplicationIcon>
+    </ApplicationIcon>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
+    <AssemblyName>Google.GData.Extensions</AssemblyName>
+    <AssemblyOriginatorKeyFile>extensionkey.sn</AssemblyOriginatorKeyFile>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Google.GData.Extensions</RootNamespace>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <StartupObject>
+    </StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>
+    </DefineConstants>
+    <DocumentationFile>bin\gextension.xml</DocumentationFile>
+    <DebugSymbols>false</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>none</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ASP|AnyCPU' ">
+    <OutputPath>bin\asp\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>PARTIALLY_TRUSTED</DefineConstants>
+    <DocumentationFile>bin\gextension.xml</DocumentationFile>
+    <DebugSymbols>false</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>none</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+    </Reference>
+    <ProjectReference Include="..\gdata\Core Client.csproj">
+      <Name>Core Client</Name>
+      <Project>{B6F6D938-0D45-42BA-8A67-55D92EF03995}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\..\version\AssemblyVersion.cs">
+      <Link>AssemblyVersion.cs</Link>
+    </Compile>
+    <Compile Include="..\..\extensions\appcontrol.cs">
+      <Link>appcontrol.cs</Link>
+    </Compile>
+    <Compile Include="..\..\extensions\apps.cs">
+      <Link>apps.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\extensions\AssemblyInfo.cs">
+      <Link>AssemblyInfo.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\extensions\comments.cs">
+      <Link>comments.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\extensions\contacts.cs">
+      <Link>contacts.cs</Link>
+    </Compile>
+    <Compile Include="..\..\extensions\entrylink.cs">
+      <Link>entrylink.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\extensions\enumconstruct.cs">
+      <Link>enumconstruct.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\extensions\exif.cs">
+      <Link>exif.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\extensions\extcollections.cs">
+      <Link>extcollections.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\extensions\extended.cs">
+      <Link>extended.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\extensions\extensionbase.cs">
+      <Link>extensionbase.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\extensions\feedlink.cs">
+      <Link>feedlink.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\extensions\gdatanametable.cs">
+      <Link>gdatanametable.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\extensions\georsswhere.cs">
+      <Link>georsswhere.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\extensions\labelcollection.cs">
+      <Link>labelcollection.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\extensions\mailitempropertycollection.cs">
+      <Link>mailitempropertycollection.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\extensions\mediarss.cs">
+      <Link>mediarss.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\extensions\originalevent.cs">
+      <Link>originalevent.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\extensions\ratings.cs">
+      <Link>ratings.cs</Link>
+    </Compile>
+    <Compile Include="..\..\extensions\recurexception.cs">
+      <Link>recurexception.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\extensions\recurrence.cs">
+      <Link>recurrence.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\extensions\reminder.cs">
+      <Link>reminder.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\extensions\simplecontainer.cs">
+      <Link>simplecontainer.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\extensions\simpleelement.cs">
+      <Link>simpleelement.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\extensions\when.cs">
+      <Link>when.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\extensions\where.cs">
+      <Link>where.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\extensions\who.cs">
+      <Link>who.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="extensionkey.sn" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>
