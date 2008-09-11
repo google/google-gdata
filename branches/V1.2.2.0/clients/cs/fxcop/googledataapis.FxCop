@@ -1,0 +1,4219 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FxCopProject Version="1.35" Name="Google Data Apis">
+ <ProjectOptions>
+  <SharedProject>True</SharedProject>
+  <Stylesheet Apply="False">http://www.gotdotnet.com/team/fxcop//xsl/1.35/FxCopReport.xsl</Stylesheet>
+  <SaveMessages>
+   <Project Status="Active, Excluded" NewOnly="False" />
+   <Report Status="Active" NewOnly="False" />
+  </SaveMessages>
+  <ProjectFile Compress="True" DefaultTargetCheck="True" DefaultRuleCheck="True" SaveByRuleGroup="" Deterministic="True" />
+  <EnableMultithreadedLoad>True</EnableMultithreadedLoad>
+  <EnableMultithreadedAnalysis>True</EnableMultithreadedAnalysis>
+  <SourceLookup>True</SourceLookup>
+  <AnalysisExceptionsThreshold>10</AnalysisExceptionsThreshold>
+  <RuleExceptionsThreshold>1</RuleExceptionsThreshold>
+  <Spelling Locale="en-us" />
+  <VersionAware>False</VersionAware>
+  <OverrideRuleVisibilities>False</OverrideRuleVisibilities>
+  <CustomDictionaries SearchFxCopDir="True" SearchUserProfile="True" SearchProjectDir="True" />
+  <SearchGlobalAssemblyCache>False</SearchGlobalAssemblyCache>
+  <DeadlockDetectionTimeout>120</DeadlockDetectionTimeout>
+ </ProjectOptions>
+ <Targets>
+  <Target Name="$(ProjectDir)/../lib/Debug/Google.GData.Client.dll" Analyze="False" AnalyzeAllChildren="False" />
+  <Target Name="$(ProjectDir)/../lib/Debug/Google.GData.YouTube.dll" Analyze="False" AnalyzeAllChildren="False" />
+  <Target Name="$(ProjectDir)/../lib/Release/Google.GData.AccessControl.dll" Analyze="False" AnalyzeAllChildren="False" />
+  <Target Name="$(ProjectDir)/../lib/Release/Google.GData.Apps.dll" Analyze="False" AnalyzeAllChildren="False" />
+  <Target Name="$(ProjectDir)/../lib/Release/Google.GData.Calendar.dll" Analyze="False" AnalyzeAllChildren="False" />
+  <Target Name="$(ProjectDir)/../lib/Release/Google.GData.CodeSearch.dll" Analyze="False" AnalyzeAllChildren="False" />
+  <Target Name="$(ProjectDir)/../lib/Release/Google.GData.Contacts.dll" Analyze="False" AnalyzeAllChildren="False" />
+  <Target Name="$(ProjectDir)/../lib/Release/Google.GData.Documents.dll" Analyze="False" AnalyzeAllChildren="False" />
+  <Target Name="$(ProjectDir)/../lib/Release/Google.GData.Extensions.dll" Analyze="True" AnalyzeAllChildren="True" />
+  <Target Name="$(ProjectDir)/../lib/Release/Google.GData.GoogleBase.dll" Analyze="False" AnalyzeAllChildren="False" />
+  <Target Name="$(ProjectDir)/../lib/Release/Google.GData.Photos.dll" Analyze="False" AnalyzeAllChildren="False" />
+  <Target Name="$(ProjectDir)/../lib/Release/Google.GData.Spreadsheets.dll" Analyze="False" AnalyzeAllChildren="False" />
+ </Targets>
+ <Rules>
+  <RuleFiles>
+   <RuleFile Name="$(FxCopDir)\Rules\DesignRules.dll" Enabled="True" AllRulesEnabled="False">
+    <Rule Name="AbstractTypesShouldNotHaveConstructors" Enabled="True" />
+    <Rule Name="AssembliesShouldHaveValidStrongNames" Enabled="True" />
+    <Rule Name="AvoidEmptyInterfaces" Enabled="True" />
+    <Rule Name="AvoidExcessiveParametersOnGenericTypes" Enabled="True" />
+    <Rule Name="AvoidNamespacesWithFewTypes" Enabled="True" />
+    <Rule Name="AvoidOutParameters" Enabled="True" />
+    <Rule Name="CollectionsShouldImplementGenericInterface" Enabled="True" />
+    <Rule Name="ConsiderPassingBaseTypesAsParameters" Enabled="True" />
+    <Rule Name="DeclareEventHandlersCorrectly" Enabled="True" />
+    <Rule Name="DeclareTypesInNamespaces" Enabled="True" />
+    <Rule Name="DefaultParametersShouldNotBeUsed" Enabled="True" />
+    <Rule Name="DefineAccessorsForAttributeArguments" Enabled="True" />
+    <Rule Name="DoNotCatchGeneralExceptionTypes" Enabled="True" />
+    <Rule Name="DoNotDeclareProtectedMembersInSealedTypes" Enabled="True" />
+    <Rule Name="DoNotDeclareStaticMembersOnGenericTypes" Enabled="True" />
+    <Rule Name="DoNotDeclareVirtualMembersInSealedTypes" Enabled="True" />
+    <Rule Name="DoNotDeclareVisibleInstanceFields" Enabled="True" />
+    <Rule Name="DoNotExposeGenericLists" Enabled="True" />
+    <Rule Name="DoNotHideBaseClassMethods" Enabled="True" />
+    <Rule Name="DoNotNestGenericTypesInMemberSignatures" Enabled="True" />
+    <Rule Name="DoNotOverloadOperatorEqualsOnReferenceTypes" Enabled="True" />
+    <Rule Name="DoNotPassTypesByReference" Enabled="True" />
+    <Rule Name="EnumeratorsShouldBeStronglyTyped" Enabled="True" />
+    <Rule Name="EnumsShouldHaveZeroValue" Enabled="True" />
+    <Rule Name="EnumStorageShouldBeInt32" Enabled="True" />
+    <Rule Name="ExceptionsShouldBePublic" Enabled="True" />
+    <Rule Name="GenericMethodsShouldProvideTypeParameter" Enabled="True" />
+    <Rule Name="ICollectionImplementationsHaveStronglyTypedMembers" Enabled="True" />
+    <Rule Name="ImplementIDisposableCorrectly" Enabled="True" />
+    <Rule Name="ImplementStandardExceptionConstructors" Enabled="True" />
+    <Rule Name="IndexersShouldNotBeMultidimensional" Enabled="True" />
+    <Rule Name="InterfaceMethodsShouldBeCallableByChildTypes" Enabled="True" />
+    <Rule Name="ListsAreStronglyTyped" Enabled="True" />
+    <Rule Name="MarkAssembliesWithAssemblyVersion" Enabled="True" />
+    <Rule Name="MarkAssembliesWithClsCompliant" Enabled="True" />
+    <Rule Name="MarkAssembliesWithComVisible" Enabled="True" />
+    <Rule Name="MarkAttributesWithAttributeUsage" Enabled="True" />
+    <Rule Name="MarkEnumsWithFlags" Enabled="True" />
+    <Rule Name="MembersShouldNotExposeCertainConcreteTypes" Enabled="True" />
+    <Rule Name="MovePInvokesToNativeMethodsClass" Enabled="True" />
+    <Rule Name="NestedTypesShouldNotBeVisible" Enabled="True" />
+    <Rule Name="OverloadOperatorEqualsOnOverloadingAddAndSubtract" Enabled="True" />
+    <Rule Name="OverrideMethodsOnComparableTypes" Enabled="True" />
+    <Rule Name="PropertiesShouldNotBeWriteOnly" Enabled="True" />
+    <Rule Name="ProvideObsoleteAttributeMessage" Enabled="True" />
+    <Rule Name="ReplaceRepetitiveArgumentsWithParamsArray" Enabled="True" />
+    <Rule Name="StaticHolderTypesShouldBeSealed" Enabled="True" />
+    <Rule Name="StaticHolderTypesShouldNotHaveConstructors" Enabled="True" />
+    <Rule Name="StringUriOverloadsCallSystemUriOverloads" Enabled="True" />
+    <Rule Name="TypesShouldNotExtendCertainBaseTypes" Enabled="True" />
+    <Rule Name="TypesThatOwnDisposableFieldsShouldBeDisposable" Enabled="True" />
+    <Rule Name="TypesThatOwnNativeResourcesShouldBeDisposable" Enabled="True" />
+    <Rule Name="UseEventsWhereAppropriate" Enabled="True" />
+    <Rule Name="UseGenericEventHandlerInstances" Enabled="True" />
+    <Rule Name="UseGenericsWhereAppropriate" Enabled="True" />
+    <Rule Name="UseIntegralOrStringArgumentForIndexers" Enabled="True" />
+    <Rule Name="UsePropertiesWhereAppropriate" Enabled="True" />
+    <Rule Name="ValidateArgumentsOfPublicMethods" Enabled="True" />
+   </RuleFile>
+   <RuleFile Name="$(FxCopDir)\Rules\GlobalizationRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\InteroperabilityRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\MobilityRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\NamingRules.dll" Enabled="True" AllRulesEnabled="False">
+    <Rule Name="AvoidLanguageSpecificTypeNamesInParameters" Enabled="True" />
+    <Rule Name="AvoidTypeNamesInParameters" Enabled="True" />
+    <Rule Name="CompoundWordsShouldBeCasedCorrectly" Enabled="True" />
+    <Rule Name="DoNotNameEnumValuesReserved" Enabled="True" />
+    <Rule Name="DoNotPrefixEnumValuesWithTypeName" Enabled="True" />
+    <Rule Name="EventsShouldNotHaveBeforeOrAfterPrefix" Enabled="True" />
+    <Rule Name="FlagsEnumsShouldHavePluralNames" Enabled="True" />
+    <Rule Name="IdentifiersShouldBeCasedCorrectly" Enabled="True" />
+    <Rule Name="IdentifiersShouldBeSpelledCorrectly" Enabled="True" />
+    <Rule Name="IdentifiersShouldDifferByMoreThanCase" Enabled="True" />
+    <Rule Name="IdentifiersShouldHaveCorrectPrefix" Enabled="True" />
+    <Rule Name="IdentifiersShouldHaveCorrectSuffix" Enabled="True" />
+    <Rule Name="IdentifiersShouldNotHaveIncorrectPrefix" Enabled="True" />
+    <Rule Name="IdentifiersShouldNotHaveIncorrectSuffix" Enabled="True" />
+    <Rule Name="IdentifiersShouldNotMatchKeywords" Enabled="True" />
+    <Rule Name="OnlyFlagsEnumsShouldHavePluralNames" Enabled="True" />
+    <Rule Name="ParameterNamesShouldMatchBaseDeclaration" Enabled="True" />
+    <Rule Name="ParameterNamesShouldNotMatchMemberNames" Enabled="True" />
+    <Rule Name="PropertyNamesShouldNotMatchGetMethods" Enabled="True" />
+    <Rule Name="ResourceStringCompoundWordsShouldBeCasedCorrectly" Enabled="True" />
+    <Rule Name="ResourceStringsShouldBeSpelledCorrectly" Enabled="True" />
+    <Rule Name="ShortAcronymsShouldBeUppercase" Enabled="True" />
+    <Rule Name="TypeNamesShouldNotMatchNamespaces" Enabled="True" />
+    <Rule Name="UsePreferredTerms" Enabled="True" />
+   </RuleFile>
+   <RuleFile Name="$(FxCopDir)\Rules\PerformanceRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\PortabilityRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\SecurityRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\UsageRules.dll" Enabled="True" AllRulesEnabled="True" />
+  </RuleFiles>
+  <Groups />
+  <Settings />
+ </Rules>
+ <FxCopReport Version="1.35">
+  <Namespaces>
+   <Namespace Name="Google.GData.Extensions.AppControl">
+    <Messages>
+     <Message TypeName="AvoidNamespacesWithFewTypes" Category="Microsoft.Design" CheckId="CA1020" Created="2008-05-15 12:45:47Z">
+      <Issue>
+       <Item>Google.GData.Extensions.AppControl</Item>
+      </Issue>
+     </Message>
+    </Messages>
+   </Namespace>
+  </Namespaces>
+  <Targets>
+   <Target Name="$(ProjectDir)/../lib/Debug/Google.GData.Client.dll">
+    <Modules>
+     <Module Name="google.gdata.client.dll">
+      <Namespaces>
+       <Namespace Name="Google.GData.Client">
+        <Types>
+         <Type Name="AccountDeletedException">
+          <Messages>
+           <Message TypeName="ImplementStandardExceptionConstructors" Category="Microsoft.Design" CheckId="CA1032" Status="Excluded" Created="2008-05-15 10:27:29Z">
+            <Issue>
+             <Item>Google.GData.Client.AccountDeletedException</Item>
+             <Item>protected AccountDeletedException(SerializationInfo, StreamingContext)</Item>
+            </Issue>
+            <Notes>
+             <User Name="Frank">
+              <Note Id="7" />
+             </User>
+            </Notes>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name=".ctor(System.String,System.Exception)">
+            <Messages>
+             <Message Id="1#e" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue Name="ParameterOneLetter">
+               <Item>AccountDeletedException.AccountDeletedException(String, Exception)</Item>
+               <Item>e</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="15" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="AccountDisabledException">
+          <Messages>
+           <Message TypeName="ImplementStandardExceptionConstructors" Category="Microsoft.Design" CheckId="CA1032" Status="Excluded" Created="2008-05-15 10:27:29Z">
+            <Issue>
+             <Item>Google.GData.Client.AccountDisabledException</Item>
+             <Item>protected AccountDisabledException(SerializationInfo, StreamingContext)</Item>
+            </Issue>
+            <Notes>
+             <User Name="Frank">
+              <Note Id="7" />
+             </User>
+            </Notes>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name=".ctor(System.String,System.Exception)">
+            <Messages>
+             <Message Id="1#e" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue Name="ParameterOneLetter">
+               <Item>AccountDisabledException.AccountDisabledException(String, Exception)</Item>
+               <Item>e</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="15" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="AtomBase">
+          <Members>
+           <Member Name="CreateAtomSubElement(System.Xml.XmlReader,Google.GData.Client.AtomFeedParser):Google.GData.Client.AtomBase">
+            <Messages>
+             <Message Id="System.NotImplementedException.#ctor(System.String)" TypeName="DoNotPassLiteralsAsLocalizedParameters" Category="Microsoft.Globalization" CheckId="CA1303" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue>
+               <Item>AtomBase.CreateAtomSubElement(XmlReader, AtomFeedParser):AtomBase</Item>
+               <Item>1</Item>
+               <Item>NotImplementedException.NotImplementedException(String)</Item>
+               <Item>AtomBase CreateChild should NEVER be called for: __</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="5" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="WriteEncodedAttributeString(System.Xml.XmlWriter,System.String,Google.GData.Client.AtomUri):System.Void">
+            <Messages>
+             <Message Id="System.ArgumentNullException.#ctor(System.String,System.String)" TypeName="DoNotPassLiteralsAsLocalizedParameters" Category="Microsoft.Globalization" CheckId="CA1303" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue>
+               <Item>AtomBase.WriteEncodedAttributeString(XmlWriter, String, AtomUri):Void</Item>
+               <Item>2</Item>
+               <Item>ArgumentNullException.ArgumentNullException(String, String)</Item>
+               <Item>No valid attributename</Item>
+              </Issue>
+              <Issue>
+               <Item>AtomBase.WriteEncodedAttributeString(XmlWriter, String, AtomUri):Void</Item>
+               <Item>2</Item>
+               <Item>ArgumentNullException.ArgumentNullException(String, String)</Item>
+               <Item>No valid xmlWriter</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="5" />
+               </User>
+              </Notes>
+             </Message>
+             <Message TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue>
+               <Item>'content'</Item>
+               <Item>AtomBase.WriteEncodedAttributeString(XmlWriter, String, AtomUri):Void</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="22" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="WriteEncodedElementString(System.Xml.XmlWriter,System.String,Google.GData.Client.AtomUri):System.Void">
+            <Messages>
+             <Message TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue>
+               <Item>'content'</Item>
+               <Item>AtomBase.WriteEncodedElementString(XmlWriter, String, AtomUri):Void</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="22" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="WriteEncodedString(System.Xml.XmlWriter,Google.GData.Client.AtomUri):System.Void">
+            <Messages>
+             <Message Id="System.ArgumentNullException.#ctor(System.String,System.String)" TypeName="DoNotPassLiteralsAsLocalizedParameters" Category="Microsoft.Globalization" CheckId="CA1303" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue>
+               <Item>AtomBase.WriteEncodedString(XmlWriter, AtomUri):Void</Item>
+               <Item>2</Item>
+               <Item>ArgumentNullException.ArgumentNullException(String, String)</Item>
+               <Item>No valid xmlWriter</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="5" />
+               </User>
+              </Notes>
+             </Message>
+             <Message TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue>
+               <Item>'content'</Item>
+               <Item>AtomBase.WriteEncodedString(XmlWriter, AtomUri):Void</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="22" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="WriteEncodedString(System.Xml.XmlWriter,System.String):System.Void">
+            <Messages>
+             <Message Id="System.ArgumentNullException.#ctor(System.String,System.String)" TypeName="DoNotPassLiteralsAsLocalizedParameters" Category="Microsoft.Globalization" CheckId="CA1303" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue>
+               <Item>AtomBase.WriteEncodedString(XmlWriter, String):Void</Item>
+               <Item>2</Item>
+               <Item>ArgumentNullException.ArgumentNullException(String, String)</Item>
+               <Item>No valid xmlWriter</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="5" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="AtomCategoryCollection">
+          <Members>
+           <Member Name="OnValidate(System.Object):System.Void">
+            <Messages>
+             <Message Id="System.ArgumentException.#ctor(System.String,System.String)" TypeName="DoNotPassLiteralsAsLocalizedParameters" Category="Microsoft.Globalization" CheckId="CA1303" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue>
+               <Item>AtomCategoryCollection.OnValidate(Object):Void</Item>
+               <Item>1</Item>
+               <Item>ArgumentException.ArgumentException(String, String)</Item>
+               <Item>value must be of type Google.GData.Client.AtomCategory.</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="5" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="AtomEntryCollection">
+          <Members>
+           <Member Name="Add(Google.GData.Client.AtomEntry):System.Int32">
+            <Messages>
+             <Message Id="System.ArgumentException.#ctor(System.String)" TypeName="DoNotPassLiteralsAsLocalizedParameters" Category="Microsoft.Globalization" CheckId="CA1303" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue>
+               <Item>AtomEntryCollection.Add(AtomEntry):Int32</Item>
+               <Item>1</Item>
+               <Item>ArgumentException.ArgumentException(String)</Item>
+               <Item>The entry is already part of this collection</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="5" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="OnValidate(System.Object):System.Void">
+            <Messages>
+             <Message Id="System.ArgumentException.#ctor(System.String,System.String)" TypeName="DoNotPassLiteralsAsLocalizedParameters" Category="Microsoft.Globalization" CheckId="CA1303" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue>
+               <Item>AtomEntryCollection.OnValidate(Object):Void</Item>
+               <Item>1</Item>
+               <Item>ArgumentException.ArgumentException(String, String)</Item>
+               <Item>value must be of type Google.GData.Client.AtomEntry.</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="5" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="AtomFeed">
+          <Members>
+           <Member Name="Insert(Google.GData.Client.AtomEntry):Google.GData.Client.AtomEntry">
+            <Messages>
+             <Message Id="System.ArgumentException.#ctor(System.String)" TypeName="DoNotPassLiteralsAsLocalizedParameters" Category="Microsoft.Globalization" CheckId="CA1303" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue>
+               <Item>AtomFeed.Insert(AtomEntry):AtomEntry</Item>
+               <Item>1</Item>
+               <Item>ArgumentException.ArgumentException(String)</Item>
+               <Item>The entry is already part of this colleciton</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="5" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="IsFeedIdentical(Google.GData.Client.AtomFeed,Google.GData.Client.AtomFeed):System.Boolean">
+            <Messages>
+             <Message TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue>
+               <Item>'feedOne'</Item>
+               <Item>AtomFeed.IsFeedIdentical(AtomFeed, AtomFeed):Boolean</Item>
+              </Issue>
+              <Issue>
+               <Item>'feedTwo'</Item>
+               <Item>AtomFeed.IsFeedIdentical(AtomFeed, AtomFeed):Boolean</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="18" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="AtomFeedParser">
+          <Members>
+           <Member Name="ParseExtensionElements(System.Xml.XmlReader,Google.GData.Client.AtomBase):System.Void">
+            <Messages>
+             <Message Id="System.ArgumentNullException.#ctor(System.String,System.String)" TypeName="DoNotPassLiteralsAsLocalizedParameters" Category="Microsoft.Globalization" CheckId="CA1303" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue>
+               <Item>AtomFeedParser.ParseExtensionElements(XmlReader, AtomBase):Void</Item>
+               <Item>2</Item>
+               <Item>ArgumentNullException.ArgumentNullException(String, String)</Item>
+               <Item>No XmlReader supplied</Item>
+              </Issue>
+              <Issue>
+               <Item>AtomFeedParser.ParseExtensionElements(XmlReader, AtomBase):Void</Item>
+               <Item>2</Item>
+               <Item>ArgumentNullException.ArgumentNullException(String, String)</Item>
+               <Item>No baseObject supplied</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="5" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="AtomId">
+          <Members>
+           <Member Name="CompareTo(System.Object):System.Int32">
+            <Messages>
+             <Message Id="System.ArgumentException.#ctor(System.String,System.String)" TypeName="DoNotPassLiteralsAsLocalizedParameters" Category="Microsoft.Globalization" CheckId="CA1303" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue>
+               <Item>AtomId.CompareTo(Object):Int32</Item>
+               <Item>1</Item>
+               <Item>ArgumentException.ArgumentException(String, String)</Item>
+               <Item>obj is not the same type as this instance.</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="5" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="op_Equality(Google.GData.Client.AtomId,Google.GData.Client.AtomId):System.Boolean">
+            <Messages>
+             <Message Id="0#a" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue Name="ParameterOneLetter">
+               <Item>AtomId.op_Equality(AtomId, AtomId):Boolean</Item>
+               <Item>a</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="15" />
+               </User>
+              </Notes>
+             </Message>
+             <Message Id="1#b" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue Name="ParameterOneLetter">
+               <Item>AtomId.op_Equality(AtomId, AtomId):Boolean</Item>
+               <Item>b</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="15" />
+               </User>
+              </Notes>
+             </Message>
+             <Message TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue>
+               <Item>'a'</Item>
+               <Item>AtomId.op_Equality(AtomId, AtomId):Boolean</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="22" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="op_Inequality(Google.GData.Client.AtomId,Google.GData.Client.AtomId):System.Boolean">
+            <Messages>
+             <Message Id="0#a" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue Name="ParameterOneLetter">
+               <Item>AtomId.op_Inequality(AtomId, AtomId):Boolean</Item>
+               <Item>a</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="15" />
+               </User>
+              </Notes>
+             </Message>
+             <Message Id="1#b" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue Name="ParameterOneLetter">
+               <Item>AtomId.op_Inequality(AtomId, AtomId):Boolean</Item>
+               <Item>b</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="15" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="AtomLinkCollection">
+          <Members>
+           <Member Name="OnValidate(System.Object):System.Void">
+            <Messages>
+             <Message Id="System.ArgumentException.#ctor(System.String,System.String)" TypeName="DoNotPassLiteralsAsLocalizedParameters" Category="Microsoft.Globalization" CheckId="CA1303" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue>
+               <Item>AtomLinkCollection.OnValidate(Object):Void</Item>
+               <Item>1</Item>
+               <Item>ArgumentException.ArgumentException(String, String)</Item>
+               <Item>value must be of type Google.GData.Client.AtomLink.</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="5" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="AtomPersonCollection">
+          <Members>
+           <Member Name="OnValidate(System.Object):System.Void">
+            <Messages>
+             <Message Id="System.ArgumentException.#ctor(System.String,System.String)" TypeName="DoNotPassLiteralsAsLocalizedParameters" Category="Microsoft.Globalization" CheckId="CA1303" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue>
+               <Item>AtomPersonCollection.OnValidate(Object):Void</Item>
+               <Item>1</Item>
+               <Item>ArgumentException.ArgumentException(String, String)</Item>
+               <Item>value must be of type Google.GData.Client.AtomPerson.</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="5" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="AtomTextConstructType">
+          <Members>
+           <Member Name="html">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue Name="Member">
+               <Item>html</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="13" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="text">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue Name="Member">
+               <Item>text</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="13" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="xhtml">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue Name="Member">
+               <Item>xhtml</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="13" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="AtomUri">
+          <Members>
+           <Member Name="CompareTo(System.Object):System.Int32">
+            <Messages>
+             <Message Id="System.ArgumentException.#ctor(System.String,System.String)" TypeName="DoNotPassLiteralsAsLocalizedParameters" Category="Microsoft.Globalization" CheckId="CA1303" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue>
+               <Item>AtomUri.CompareTo(Object):Int32</Item>
+               <Item>1</Item>
+               <Item>ArgumentException.ArgumentException(String, String)</Item>
+               <Item>obj is not the same type as this instance.</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="5" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="op_Equality(Google.GData.Client.AtomUri,Google.GData.Client.AtomUri):System.Boolean">
+            <Messages>
+             <Message Id="0#a" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue Name="ParameterOneLetter">
+               <Item>AtomUri.op_Equality(AtomUri, AtomUri):Boolean</Item>
+               <Item>a</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="15" />
+               </User>
+              </Notes>
+             </Message>
+             <Message Id="1#b" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue Name="ParameterOneLetter">
+               <Item>AtomUri.op_Equality(AtomUri, AtomUri):Boolean</Item>
+               <Item>b</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="15" />
+               </User>
+              </Notes>
+             </Message>
+             <Message TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue>
+               <Item>'a'</Item>
+               <Item>AtomUri.op_Equality(AtomUri, AtomUri):Boolean</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="17" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="op_GreaterThan(Google.GData.Client.AtomUri,Google.GData.Client.AtomUri):System.Boolean">
+            <Messages>
+             <Message Id="0#a" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue Name="ParameterOneLetter">
+               <Item>AtomUri.op_GreaterThan(AtomUri, AtomUri):Boolean</Item>
+               <Item>a</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="15" />
+               </User>
+              </Notes>
+             </Message>
+             <Message Id="1#b" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue Name="ParameterOneLetter">
+               <Item>AtomUri.op_GreaterThan(AtomUri, AtomUri):Boolean</Item>
+               <Item>b</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="15" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="op_GreaterThanOrEqual(Google.GData.Client.AtomUri,Google.GData.Client.AtomUri):System.Boolean">
+            <Messages>
+             <Message Id="0#a" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue Name="ParameterOneLetter">
+               <Item>AtomUri.op_GreaterThanOrEqual(AtomUri, AtomUri):Boolean</Item>
+               <Item>a</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="15" />
+               </User>
+              </Notes>
+             </Message>
+             <Message Id="1#b" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue Name="ParameterOneLetter">
+               <Item>AtomUri.op_GreaterThanOrEqual(AtomUri, AtomUri):Boolean</Item>
+               <Item>b</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="15" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="op_Implicit(System.String):Google.GData.Client.AtomUri">
+            <Messages>
+             <Message Id="0#s" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue Name="ParameterOneLetter">
+               <Item>AtomUri.op_Implicit(String):AtomUri</Item>
+               <Item>s</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="15" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="op_Implicit(System.Uri):Google.GData.Client.AtomUri">
+            <Messages>
+             <Message Id="0#u" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue Name="ParameterOneLetter">
+               <Item>AtomUri.op_Implicit(Uri):AtomUri</Item>
+               <Item>u</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="15" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="op_Inequality(Google.GData.Client.AtomUri,Google.GData.Client.AtomUri):System.Boolean">
+            <Messages>
+             <Message Id="0#a" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue Name="ParameterOneLetter">
+               <Item>AtomUri.op_Inequality(AtomUri, AtomUri):Boolean</Item>
+               <Item>a</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="15" />
+               </User>
+              </Notes>
+             </Message>
+             <Message Id="1#b" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue Name="ParameterOneLetter">
+               <Item>AtomUri.op_Inequality(AtomUri, AtomUri):Boolean</Item>
+               <Item>b</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="15" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="op_LessThan(Google.GData.Client.AtomUri,Google.GData.Client.AtomUri):System.Boolean">
+            <Messages>
+             <Message Id="0#a" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue Name="ParameterOneLetter">
+               <Item>AtomUri.op_LessThan(AtomUri, AtomUri):Boolean</Item>
+               <Item>a</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="15" />
+               </User>
+              </Notes>
+             </Message>
+             <Message Id="1#b" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue Name="ParameterOneLetter">
+               <Item>AtomUri.op_LessThan(AtomUri, AtomUri):Boolean</Item>
+               <Item>b</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="15" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="op_LessThanOrEqual(Google.GData.Client.AtomUri,Google.GData.Client.AtomUri):System.Boolean">
+            <Messages>
+             <Message Id="0#a" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue Name="ParameterOneLetter">
+               <Item>AtomUri.op_LessThanOrEqual(AtomUri, AtomUri):Boolean</Item>
+               <Item>a</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="15" />
+               </User>
+              </Notes>
+             </Message>
+             <Message Id="1#b" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue Name="ParameterOneLetter">
+               <Item>AtomUri.op_LessThanOrEqual(AtomUri, AtomUri):Boolean</Item>
+               <Item>b</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="15" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="AuthenticationException">
+          <Messages>
+           <Message TypeName="ImplementStandardExceptionConstructors" Category="Microsoft.Design" CheckId="CA1032" Status="Excluded" Created="2008-05-15 10:27:29Z">
+            <Issue>
+             <Item>Google.GData.Client.AuthenticationException</Item>
+             <Item>protected AuthenticationException(SerializationInfo, StreamingContext)</Item>
+            </Issue>
+            <Notes>
+             <User Name="Frank">
+              <Note Id="7" />
+             </User>
+            </Notes>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name=".ctor(System.String,System.Exception)">
+            <Messages>
+             <Message Id="1#e" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue Name="ParameterOneLetter">
+               <Item>AuthenticationException.AuthenticationException(String, Exception)</Item>
+               <Item>e</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="15" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="AuthSubUtil">
+          <Members>
+           <Member Name="exchangeForSessionToken(System.String,System.Security.Cryptography.AsymmetricAlgorithm):System.String">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue Name="Member">
+               <Item>exchangeForSessionToken</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="11" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="exchangeForSessionToken(System.String,System.String,System.String,System.Security.Cryptography.AsymmetricAlgorithm):System.String">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue Name="Member">
+               <Item>exchangeForSessionToken</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="11" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="formAuthorizationHeader(System.String,System.Security.Cryptography.AsymmetricAlgorithm,System.Uri,System.String):System.String">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue Name="Member">
+               <Item>formAuthorizationHeader</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="11" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="getRequestUrl(System.String,System.String,System.Boolean,System.Boolean):System.String">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue Name="Member">
+               <Item>getRequestUrl</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="11" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="getRequestUrl(System.String,System.String,System.String,System.Boolean,System.Boolean):System.String">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue Name="Member">
+               <Item>getRequestUrl</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="11" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="getRequestUrl(System.String,System.String,System.String,System.String,System.Boolean,System.Boolean):System.String">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue Name="Member">
+               <Item>getRequestUrl</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="11" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="getRequestUrl(System.String,System.String,System.String,System.String,System.String,System.Boolean,System.Boolean):System.String">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue Name="Member">
+               <Item>getRequestUrl</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="11" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="getRequestUrl(System.String,System.String,System.String,System.String,System.String,System.String,System.Boolean,System.Boolean):System.String">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue Name="Member">
+               <Item>getRequestUrl</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="11" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="getRevokeTokenUrl():System.String">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue Name="Member">
+               <Item>getRevokeTokenUrl</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="11" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="getRevokeTokenUrl(System.String,System.String):System.String">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue Name="Member">
+               <Item>getRevokeTokenUrl</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="11" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="getSessionTokenUrl():System.String">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue Name="Member">
+               <Item>getSessionTokenUrl</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="11" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="getSessionTokenUrl(System.String,System.String):System.String">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue Name="Member">
+               <Item>getSessionTokenUrl</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="11" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="getTokenFromReply(System.Uri):System.String">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue Name="Member">
+               <Item>getTokenFromReply</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="11" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="revokeToken(System.String,System.Security.Cryptography.AsymmetricAlgorithm):System.Void">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue Name="Member">
+               <Item>revokeToken</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="11" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="revokeToken(System.String,System.String,System.String,System.Security.Cryptography.AsymmetricAlgorithm):System.Void">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue Name="Member">
+               <Item>revokeToken</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="11" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="BaseNameTable">
+          <Members>
+           <Member Name="gAppPublishingPrefix">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue Name="Member">
+               <Item>gAppPublishingPrefix</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="10" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="gBatchNamespace">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue Name="Member">
+               <Item>gBatchNamespace</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="10" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="gBatchPrefix">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue Name="Member">
+               <Item>gBatchPrefix</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="10" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="gDataPrefix">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue Name="Member">
+               <Item>gDataPrefix</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="10" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="gKind">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue Name="Member">
+               <Item>gKind</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="10" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="gLabels">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue Name="Member">
+               <Item>gLabels</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="10" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="gNamespace">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue Name="Member">
+               <Item>gNamespace</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="10" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="gNamespacePrefix">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue Name="Member">
+               <Item>gNamespacePrefix</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="10" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="CaptchaRequiredException">
+          <Messages>
+           <Message TypeName="ImplementISerializableCorrectly" Category="Microsoft.Usage" CheckId="CA2240" Status="Excluded" Created="2008-05-15 10:27:29Z">
+            <Issue>
+             <Item>CaptchaRequiredException</Item>
+            </Issue>
+            <Notes>
+             <User Name="Frank">
+              <Note Id="7" />
+             </User>
+            </Notes>
+           </Message>
+           <Message TypeName="ImplementStandardExceptionConstructors" Category="Microsoft.Design" CheckId="CA1032" Status="Excluded" Created="2008-05-15 10:27:29Z">
+            <Issue>
+             <Item>Google.GData.Client.CaptchaRequiredException</Item>
+             <Item>protected CaptchaRequiredException(SerializationInfo, StreamingContext)</Item>
+            </Issue>
+            <Issue>
+             <Item>Google.GData.Client.CaptchaRequiredException</Item>
+             <Item>public CaptchaRequiredException(String)</Item>
+            </Issue>
+            <Notes>
+             <User Name="Frank">
+              <Note Id="7" />
+             </User>
+            </Notes>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name=".ctor(System.String,System.Exception)">
+            <Messages>
+             <Message Id="1#e" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue Name="ParameterOneLetter">
+               <Item>CaptchaRequiredException.CaptchaRequiredException(String, Exception)</Item>
+               <Item>e</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="15" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="FeedQuery">
+          <Members>
+           <Member Name=".ctor(System.String)">
+            <Messages>
+             <Message TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue>
+               <Item>'baseUri'</Item>
+               <Item>FeedQuery.FeedQuery(String)</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="21" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="baseUri">
+            <Messages>
+             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue>
+               <Item>baseUri</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="14" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="GDataBatchErrorCollection">
+          <Members>
+           <Member Name="OnValidate(System.Object):System.Void">
+            <Messages>
+             <Message Id="System.ArgumentException.#ctor(System.String,System.String)" TypeName="DoNotPassLiteralsAsLocalizedParameters" Category="Microsoft.Globalization" CheckId="CA1303" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue>
+               <Item>GDataBatchErrorCollection.OnValidate(Object):Void</Item>
+               <Item>1</Item>
+               <Item>ArgumentException.ArgumentException(String, String)</Item>
+               <Item>value must be of type Google.GData.Client.GDataBatchError.</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="5" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="GDataBatchOperationType">
+          <Members>
+           <Member Name="delete">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue Name="Member">
+               <Item>delete</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="12" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="insert">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue Name="Member">
+               <Item>insert</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="12" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="query">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue Name="Member">
+               <Item>query</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="12" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="update">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue Name="Member">
+               <Item>update</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="12" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="GDataBatchRequestException">
+          <Messages>
+           <Message TypeName="ImplementISerializableCorrectly" Category="Microsoft.Usage" CheckId="CA2240" Status="Excluded" Created="2008-05-15 10:27:29Z">
+            <Issue>
+             <Item>GDataBatchRequestException</Item>
+            </Issue>
+            <Notes>
+             <User Name="Frank">
+              <Note Id="7" />
+             </User>
+            </Notes>
+           </Message>
+          </Messages>
+         </Type>
+         <Type Name="GDataCredentials">
+          <Members>
+           <Member Name="Password">
+            <Messages>
+             <Message TypeName="PropertiesShouldNotBeWriteOnly" Category="Microsoft.Design" CheckId="CA1044" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue>
+               <Item>Password</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="9" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="GDataForbiddenException">
+          <Messages>
+           <Message TypeName="ImplementStandardExceptionConstructors" Category="Microsoft.Design" CheckId="CA1032" Status="Excluded" Created="2008-05-15 10:27:29Z">
+            <Issue>
+             <Item>Google.GData.Client.GDataForbiddenException</Item>
+             <Item>protected GDataForbiddenException(SerializationInfo, StreamingContext)</Item>
+            </Issue>
+            <Issue>
+             <Item>Google.GData.Client.GDataForbiddenException</Item>
+             <Item>public GDataForbiddenException()</Item>
+            </Issue>
+            <Issue>
+             <Item>Google.GData.Client.GDataForbiddenException</Item>
+             <Item>public GDataForbiddenException(String)</Item>
+            </Issue>
+            <Issue>
+             <Item>Google.GData.Client.GDataForbiddenException</Item>
+             <Item>public GDataForbiddenException(String, Exception)</Item>
+            </Issue>
+            <Notes>
+             <User Name="Frank">
+              <Note Id="7" />
+             </User>
+            </Notes>
+           </Message>
+           <Message TypeName="MarkISerializableTypesWithSerializable" Category="Microsoft.Usage" CheckId="CA2237" Status="Excluded" Created="2008-05-15 10:27:29Z">
+            <Issue Level="Error">
+             <Item>GDataForbiddenException</Item>
+            </Issue>
+            <Notes>
+             <User Name="Frank">
+              <Note Id="8" />
+             </User>
+            </Notes>
+           </Message>
+          </Messages>
+         </Type>
+         <Type Name="GDataGAuthRequestFactory">
+          <Members>
+           <Member Name=".ctor(System.String,System.String)">
+            <Messages>
+             <Message TypeName="DoNotCallOverridableMethodsInConstructors" Category="Microsoft.Usage" CheckId="CA2214" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue>
+               <Item>GDataGAuthRequestFactory.GDataGAuthRequestFactory(String, String)</Item>
+               <Item>&#xD;&#xA;&#xD;&#xA;GDataGAuthRequestFactory.GDataGAuthRequestFactory(String, String)&#xD;&#xA;GDataRequestFactory.set_UserAgent(String):Void</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="3" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name=".ctor(System.String,System.String,System.String)">
+            <Messages>
+             <Message TypeName="DoNotCallOverridableMethodsInConstructors" Category="Microsoft.Usage" CheckId="CA2214" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue>
+               <Item>GDataGAuthRequestFactory.GDataGAuthRequestFactory(String, String, String)</Item>
+               <Item>&#xD;&#xA;&#xD;&#xA;GDataGAuthRequestFactory.GDataGAuthRequestFactory(String, String, String)&#xD;&#xA;GDataRequestFactory.get_UserAgent():String</Item>
+              </Issue>
+              <Issue>
+               <Item>GDataGAuthRequestFactory.GDataGAuthRequestFactory(String, String, String)</Item>
+               <Item>&#xD;&#xA;&#xD;&#xA;GDataGAuthRequestFactory.GDataGAuthRequestFactory(String, String, String)&#xD;&#xA;GDataRequestFactory.set_UserAgent(String):Void</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="3" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="GDataNotModifiedException">
+          <Messages>
+           <Message TypeName="ImplementStandardExceptionConstructors" Category="Microsoft.Design" CheckId="CA1032" Status="Excluded" Created="2008-05-15 10:27:29Z">
+            <Issue>
+             <Item>Google.GData.Client.GDataNotModifiedException</Item>
+             <Item>protected GDataNotModifiedException(SerializationInfo, StreamingContext)</Item>
+            </Issue>
+            <Issue>
+             <Item>Google.GData.Client.GDataNotModifiedException</Item>
+             <Item>public GDataNotModifiedException()</Item>
+            </Issue>
+            <Issue>
+             <Item>Google.GData.Client.GDataNotModifiedException</Item>
+             <Item>public GDataNotModifiedException(String)</Item>
+            </Issue>
+            <Issue>
+             <Item>Google.GData.Client.GDataNotModifiedException</Item>
+             <Item>public GDataNotModifiedException(String, Exception)</Item>
+            </Issue>
+            <Notes>
+             <User Name="Frank">
+              <Note Id="7" />
+             </User>
+            </Notes>
+           </Message>
+           <Message TypeName="MarkISerializableTypesWithSerializable" Category="Microsoft.Usage" CheckId="CA2237" Status="Excluded" Created="2008-05-15 10:27:29Z">
+            <Issue Level="Error">
+             <Item>GDataNotModifiedException</Item>
+            </Issue>
+            <Notes>
+             <User Name="Frank">
+              <Note Id="8" />
+             </User>
+            </Notes>
+           </Message>
+          </Messages>
+         </Type>
+         <Type Name="GDataRedirectException">
+          <Messages>
+           <Message TypeName="ImplementStandardExceptionConstructors" Category="Microsoft.Design" CheckId="CA1032" Status="Excluded" Created="2008-05-15 10:27:29Z">
+            <Issue>
+             <Item>Google.GData.Client.GDataRedirectException</Item>
+             <Item>protected GDataRedirectException(SerializationInfo, StreamingContext)</Item>
+            </Issue>
+            <Issue>
+             <Item>Google.GData.Client.GDataRedirectException</Item>
+             <Item>public GDataRedirectException()</Item>
+            </Issue>
+            <Issue>
+             <Item>Google.GData.Client.GDataRedirectException</Item>
+             <Item>public GDataRedirectException(String)</Item>
+            </Issue>
+            <Issue>
+             <Item>Google.GData.Client.GDataRedirectException</Item>
+             <Item>public GDataRedirectException(String, Exception)</Item>
+            </Issue>
+            <Notes>
+             <User Name="Frank">
+              <Note Id="7" />
+             </User>
+            </Notes>
+           </Message>
+           <Message TypeName="MarkISerializableTypesWithSerializable" Category="Microsoft.Usage" CheckId="CA2237" Status="Excluded" Created="2008-05-15 10:27:29Z">
+            <Issue Level="Error">
+             <Item>GDataRedirectException</Item>
+            </Issue>
+            <Notes>
+             <User Name="Frank">
+              <Note Id="8" />
+             </User>
+            </Notes>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name=".ctor(System.String,System.Net.WebResponse)">
+            <Messages>
+             <Message TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue>
+               <Item>'response'</Item>
+               <Item>GDataRedirectException.GDataRedirectException(String, WebResponse)</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="20" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="GDataRequest">
+          <Members>
+           <Member Name="Dispose():System.Void">
+            <Messages>
+             <Message TypeName="ImplementIDisposableCorrectly" Category="Microsoft.Design" CheckId="CA1063" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue Name="DisposeImplementation">
+               <Item>GDataRequest.Dispose():Void</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="6" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="Dispose(System.Boolean):System.Void">
+            <Messages>
+             <Message Id="responseStream" TypeName="DisposableFieldsShouldBeDisposed" Category="Microsoft.Usage" CheckId="CA2213" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue>
+               <Item>Google.GData.Client.GDataRequest</Item>
+               <Item>responseStream</Item>
+               <Item>System.IO.Stream</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="3" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="disposed">
+            <Messages>
+             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue>
+               <Item>disposed</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="14" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="EnsureWebRequest():System.Void">
+            <Messages>
+             <Message TypeName="DoNotRaiseReservedExceptionTypes" Category="Microsoft.Usage" CheckId="CA2201" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue Name="Reserved">
+               <Item>GDataRequest.EnsureWebRequest():Void</Item>
+               <Item>System.OutOfMemoryException</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="14" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="GDataRequestException">
+          <Members>
+           <Member Name="responseText">
+            <Messages>
+             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue>
+               <Item>responseText</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="14" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="webResponse">
+            <Messages>
+             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue>
+               <Item>webResponse</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="14" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="GDataVersionConflictException">
+          <Messages>
+           <Message TypeName="ImplementStandardExceptionConstructors" Category="Microsoft.Design" CheckId="CA1032" Status="Excluded" Created="2008-05-15 10:27:29Z">
+            <Issue>
+             <Item>Google.GData.Client.GDataVersionConflictException</Item>
+             <Item>protected GDataVersionConflictException(SerializationInfo, StreamingContext)</Item>
+            </Issue>
+            <Issue>
+             <Item>Google.GData.Client.GDataVersionConflictException</Item>
+             <Item>public GDataVersionConflictException()</Item>
+            </Issue>
+            <Issue>
+             <Item>Google.GData.Client.GDataVersionConflictException</Item>
+             <Item>public GDataVersionConflictException(String)</Item>
+            </Issue>
+            <Issue>
+             <Item>Google.GData.Client.GDataVersionConflictException</Item>
+             <Item>public GDataVersionConflictException(String, Exception)</Item>
+            </Issue>
+            <Notes>
+             <User Name="Frank">
+              <Note Id="7" />
+             </User>
+            </Notes>
+           </Message>
+           <Message TypeName="MarkISerializableTypesWithSerializable" Category="Microsoft.Usage" CheckId="CA2237" Status="Excluded" Created="2008-05-15 10:27:29Z">
+            <Issue Level="Error">
+             <Item>GDataVersionConflictException</Item>
+            </Issue>
+            <Notes>
+             <User Name="Frank">
+              <Note Id="8" />
+             </User>
+            </Notes>
+           </Message>
+          </Messages>
+         </Type>
+         <Type Name="GZipStream">
+          <Members>
+           <Member Name=".ctor(System.IO.Stream,Google.GData.Client.CompressionMode)">
+            <Messages>
+             <Message Id="System.ArgumentException.#ctor(System.String)" TypeName="DoNotPassLiteralsAsLocalizedParameters" Category="Microsoft.Globalization" CheckId="CA1303" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue>
+               <Item>GZipStream.GZipStream(Stream, CompressionMode)</Item>
+               <Item>1</Item>
+               <Item>ArgumentException.ArgumentException(String)</Item>
+               <Item>Unable to init ZLib. Return code: __</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="5" />
+               </User>
+              </Notes>
+             </Message>
+             <Message Id="System.NotImplementedException.#ctor(System.String)" TypeName="DoNotPassLiteralsAsLocalizedParameters" Category="Microsoft.Globalization" CheckId="CA1303" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue>
+               <Item>GZipStream.GZipStream(Stream, CompressionMode)</Item>
+               <Item>1</Item>
+               <Item>NotImplementedException.NotImplementedException(String)</Item>
+               <Item>Compression is not implemented.</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="5" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="Close():System.Void">
+            <Messages>
+             <Message TypeName="DisposeMethodsShouldCallBaseClassDispose" Category="Microsoft.Usage" CheckId="CA2215" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue>
+               <Item>GZipStream.Close():Void</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="3" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="Flush():System.Void">
+            <Messages>
+             <Message Id="System.NotSupportedException.#ctor(System.String)" TypeName="DoNotPassLiteralsAsLocalizedParameters" Category="Microsoft.Globalization" CheckId="CA1303" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue>
+               <Item>GZipStream.Flush():Void</Item>
+               <Item>1</Item>
+               <Item>NotSupportedException.NotSupportedException(String)</Item>
+               <Item>The method or operation is not implemented.</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="5" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="Read(System.Byte[],System.Int32,System.Int32):System.Int32">
+            <Messages>
+             <Message Id="System.Exception.#ctor(System.String)" TypeName="DoNotPassLiteralsAsLocalizedParameters" Category="Microsoft.Globalization" CheckId="CA1303" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue>
+               <Item>GZipStream.Read(Byte[], Int32, Int32):Int32</Item>
+               <Item>1</Item>
+               <Item>Exception.Exception(String)</Item>
+               <Item>ZLib return code: __</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="5" />
+               </User>
+              </Notes>
+             </Message>
+             <Message Id="System.NotSupportedException.#ctor(System.String)" TypeName="DoNotPassLiteralsAsLocalizedParameters" Category="Microsoft.Globalization" CheckId="CA1303" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue>
+               <Item>GZipStream.Read(Byte[], Int32, Int32):Int32</Item>
+               <Item>1</Item>
+               <Item>NotSupportedException.NotSupportedException(String)</Item>
+               <Item>Can't read on a compress stream!</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="5" />
+               </User>
+              </Notes>
+             </Message>
+             <Message Id="System.OutOfMemoryException.#ctor(System.String)" TypeName="DoNotPassLiteralsAsLocalizedParameters" Category="Microsoft.Globalization" CheckId="CA1303" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue>
+               <Item>GZipStream.Read(Byte[], Int32, Int32):Int32</Item>
+               <Item>1</Item>
+               <Item>OutOfMemoryException.OutOfMemoryException(String)</Item>
+               <Item>ZLib return code: __</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="5" />
+               </User>
+              </Notes>
+             </Message>
+             <Message TypeName="DoNotRaiseReservedExceptionTypes" Category="Microsoft.Usage" CheckId="CA2201" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue Name="Reserved">
+               <Item>GZipStream.Read(Byte[], Int32, Int32):Int32</Item>
+               <Item>System.OutOfMemoryException</Item>
+              </Issue>
+              <Issue Name="TooGeneric">
+               <Item>GZipStream.Read(Byte[], Int32, Int32):Int32</Item>
+               <Item>System.Exception</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="14" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="Write(System.Byte[],System.Int32,System.Int32):System.Void">
+            <Messages>
+             <Message Id="System.NotSupportedException.#ctor(System.String)" TypeName="DoNotPassLiteralsAsLocalizedParameters" Category="Microsoft.Globalization" CheckId="CA1303" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue>
+               <Item>GZipStream.Write(Byte[], Int32, Int32):Void</Item>
+               <Item>1</Item>
+               <Item>NotSupportedException.NotSupportedException(String)</Item>
+               <Item>Not yet supported!</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="5" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="IGDataRequest">
+          <Members>
+           <Member Name="GetRequestStream():System.IO.Stream">
+            <Messages>
+             <Message TypeName="UsePropertiesWhereAppropriate" Category="Microsoft.Design" CheckId="CA1024" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue Certainty="50">
+               <Item>GetRequestStream</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="16" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="GetResponseStream():System.IO.Stream">
+            <Messages>
+             <Message TypeName="UsePropertiesWhereAppropriate" Category="Microsoft.Design" CheckId="CA1024" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue Certainty="50">
+               <Item>GetResponseStream</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="16" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="InvalidCredentialsException">
+          <Messages>
+           <Message TypeName="ImplementStandardExceptionConstructors" Category="Microsoft.Design" CheckId="CA1032" Status="Excluded" Created="2008-05-15 10:27:29Z">
+            <Issue>
+             <Item>Google.GData.Client.InvalidCredentialsException</Item>
+             <Item>protected InvalidCredentialsException(SerializationInfo, StreamingContext)</Item>
+            </Issue>
+            <Notes>
+             <User Name="Frank">
+              <Note Id="7" />
+             </User>
+            </Notes>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name=".ctor(System.String,System.Exception)">
+            <Messages>
+             <Message Id="1#e" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue Name="ParameterOneLetter">
+               <Item>InvalidCredentialsException.InvalidCredentialsException(String, Exception)</Item>
+               <Item>e</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="15" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="NotVerifiedException">
+          <Messages>
+           <Message TypeName="ImplementStandardExceptionConstructors" Category="Microsoft.Design" CheckId="CA1032" Status="Excluded" Created="2008-05-15 10:27:29Z">
+            <Issue>
+             <Item>Google.GData.Client.NotVerifiedException</Item>
+             <Item>protected NotVerifiedException(SerializationInfo, StreamingContext)</Item>
+            </Issue>
+            <Notes>
+             <User Name="Frank">
+              <Note Id="7" />
+             </User>
+            </Notes>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name=".ctor(System.String,System.Exception)">
+            <Messages>
+             <Message Id="1#e" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue Name="ParameterOneLetter">
+               <Item>NotVerifiedException.NotVerifiedException(String, Exception)</Item>
+               <Item>e</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="15" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="QueryCategoryCollection">
+          <Members>
+           <Member Name="OnValidate(System.Object):System.Void">
+            <Messages>
+             <Message Id="System.ArgumentException.#ctor(System.String,System.String)" TypeName="DoNotPassLiteralsAsLocalizedParameters" Category="Microsoft.Globalization" CheckId="CA1303" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue>
+               <Item>QueryCategoryCollection.OnValidate(Object):Void</Item>
+               <Item>1</Item>
+               <Item>ArgumentException.ArgumentException(String, String)</Item>
+               <Item>value must be of type Google.GData.Client.QueryCategory.</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="5" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="Service">
+          <Members>
+           <Member Name="Insert(System.Uri,Google.GData.Client.AtomEntry):Google.GData.Client.AtomEntry">
+            <Messages>
+             <Message TypeName="ConsiderPassingBaseTypesAsParameters" Category="Microsoft.Design" CheckId="CA1011" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue>
+               <Item>newEntry</Item>
+               <Item>Service.Insert(Uri, AtomEntry):AtomEntry</Item>
+               <Item>Google.GData.Client.AtomEntry</Item>
+               <Item>Google.GData.Client.AtomBase</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="3" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="Query(Google.GData.Client.FeedQuery,System.DateTime):Google.GData.Client.AtomFeed">
+            <Messages>
+             <Message Id="System.ArgumentException.#ctor(System.String,System.String)" TypeName="DoNotPassLiteralsAsLocalizedParameters" Category="Microsoft.Globalization" CheckId="CA1303" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue>
+               <Item>Service.Query(FeedQuery, DateTime):AtomFeed</Item>
+               <Item>1</Item>
+               <Item>ArgumentException.ArgumentException(String, String)</Item>
+               <Item>The query argument MUST contain a valid Uri</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="5" />
+               </User>
+              </Notes>
+             </Message>
+             <Message Id="System.ArgumentNullException.#ctor(System.String,System.String)" TypeName="DoNotPassLiteralsAsLocalizedParameters" Category="Microsoft.Globalization" CheckId="CA1303" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue>
+               <Item>Service.Query(FeedQuery, DateTime):AtomFeed</Item>
+               <Item>2</Item>
+               <Item>ArgumentNullException.ArgumentNullException(String, String)</Item>
+               <Item>The query argument MUST not be null</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="5" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="setUserCredentials(System.String,System.String):System.Void">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue Name="Member">
+               <Item>setUserCredentials</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="13" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="ServiceUnavailableException">
+          <Messages>
+           <Message TypeName="ImplementStandardExceptionConstructors" Category="Microsoft.Design" CheckId="CA1032" Status="Excluded" Created="2008-05-15 10:27:29Z">
+            <Issue>
+             <Item>Google.GData.Client.ServiceUnavailableException</Item>
+             <Item>protected ServiceUnavailableException(SerializationInfo, StreamingContext)</Item>
+            </Issue>
+            <Notes>
+             <User Name="Frank">
+              <Note Id="7" />
+             </User>
+            </Notes>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name=".ctor(System.String,System.Exception)">
+            <Messages>
+             <Message Id="1#e" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue Name="ParameterOneLetter">
+               <Item>ServiceUnavailableException.ServiceUnavailableException(String, Exception)</Item>
+               <Item>e</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="15" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="TermsNotAgreedException">
+          <Messages>
+           <Message TypeName="ImplementStandardExceptionConstructors" Category="Microsoft.Design" CheckId="CA1032" Status="Excluded" Created="2008-05-15 10:27:29Z">
+            <Issue>
+             <Item>Google.GData.Client.TermsNotAgreedException</Item>
+             <Item>protected TermsNotAgreedException(SerializationInfo, StreamingContext)</Item>
+            </Issue>
+            <Notes>
+             <User Name="Frank">
+              <Note Id="7" />
+             </User>
+            </Notes>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name=".ctor(System.String,System.Exception)">
+            <Messages>
+             <Message Id="1#e" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue Name="ParameterOneLetter">
+               <Item>TermsNotAgreedException.TermsNotAgreedException(String, Exception)</Item>
+               <Item>e</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="15" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="Tracing">
+          <Members>
+           <Member Name="TraceCall(System.String,System.Diagnostics.StackFrame,System.Int32):System.Void">
+            <Messages>
+             <Message TypeName="DoNotCatchGeneralExceptionTypes" Category="Microsoft.Design" CheckId="CA1031" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue>
+               <Item>Tracing.TraceCall(String, StackFrame, Int32):Void</Item>
+               <Item>System.Object</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="4" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="TraceMsg(System.String):System.Void">
+            <Messages>
+             <Message TypeName="DoNotCatchGeneralExceptionTypes" Category="Microsoft.Design" CheckId="CA1031" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue>
+               <Item>Tracing.TraceMsg(String):Void</Item>
+               <Item>System.Object</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="4" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="Utilities">
+          <Members>
+           <Member Name="GetAttributeValue(System.String,System.Xml.XmlNode):System.String">
+            <Messages>
+             <Message TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062" Status="Excluded" Created="2008-05-15 10:27:29Z">
+              <Issue>
+               <Item>'xmlNode'</Item>
+               <Item>Utilities.GetAttributeValue(String, XmlNode):String</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="19" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+        </Types>
+       </Namespace>
+      </Namespaces>
+     </Module>
+    </Modules>
+   </Target>
+   <Target Name="$(ProjectDir)/../lib/Release/Google.GData.AccessControl.dll">
+    <Modules>
+     <Module Name="google.gdata.accesscontrol.dll">
+      <Namespaces>
+       <Namespace Name="Google.GData.AccessControl">
+        <Types>
+         <Type Name="AclNameTable">
+          <Members>
+           <Member Name="gAclAlias">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2008-03-19 17:05:38Z">
+              <Issue Name="Member">
+               <Item>gAclAlias</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="1" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="gAclCalPrefix">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2008-03-19 17:05:38Z">
+              <Issue Name="Member">
+               <Item>gAclCalPrefix</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="1" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="gAclNamespace">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2008-03-19 17:05:38Z">
+              <Issue Name="Member">
+               <Item>gAclNamespace</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="1" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="gAclPrefix">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2008-03-19 17:05:38Z">
+              <Issue Name="Member">
+               <Item>gAclPrefix</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="1" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="LINK_REL_ACCESS_CONTROL_LIST">
+            <Messages>
+             <Message Id="Member" TypeName="LongAcronymsShouldBePascalCased" Category="Microsoft.Naming" CheckId="CA1705" Status="Excluded" Created="2008-03-19 17:05:38Z">
+              <Issue Name="Member">
+               <Item>AclNameTable.LINK_REL_ACCESS_CONTROL_LIST</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="0" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+        </Types>
+       </Namespace>
+      </Namespaces>
+     </Module>
+    </Modules>
+   </Target>
+   <Target Name="$(ProjectDir)/../lib/Release/Google.GData.Extensions.dll">
+    <Modules>
+     <Module Name="google.gdata.extensions.dll">
+      <Namespaces>
+       <Namespace Name="Google.GData.Extensions">
+        <Types>
+         <Type Name="Comments">
+          <Members>
+           <Member Name="CreateInstance(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser):Google.GData.Client.IExtensionElement">
+            <Messages>
+             <Message Id="System.ArgumentException.#ctor(System.String)" TypeName="DoNotPassLiteralsAsLocalizedParameters" Category="Microsoft.Globalization" CheckId="CA1303" Status="Excluded" Created="2008-05-05 13:24:07Z">
+              <Issue>
+               <Item>Comments.CreateInstance(XmlNode, AtomFeedParser):IExtensionElement</Item>
+               <Item>1</Item>
+               <Item>ArgumentException.ArgumentException(String)</Item>
+               <Item>Only one feedLink is allowed inside the gd:comments</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="23" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="Save(System.Xml.XmlWriter):System.Void">
+            <Messages>
+             <Message TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062" Created="2008-03-19 17:05:38Z">
+              <Issue>
+               <Item>'writer'</Item>
+               <Item>Comments.Save(XmlWriter):Void</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="CommonAttributesElement">
+          <Members>
+           <Member Name="Label">
+            <Accessors>
+             <Accessor Name="set_Label(System.String):System.Void">
+              <Messages>
+               <Message Id="System.ArgumentException.#ctor(System.String)" TypeName="DoNotPassLiteralsAsLocalizedParameters" Category="Microsoft.Globalization" CheckId="CA1303" Status="Excluded" Created="2008-05-05 13:24:07Z">
+                <Issue>
+                 <Item>CommonAttributesElement.set_Label(String):Void</Item>
+                 <Item>1</Item>
+                 <Item>ArgumentException.ArgumentException(String)</Item>
+                 <Item>Rel already has a value. You can only set Label or Rel</Item>
+                </Issue>
+                <Notes>
+                 <User Name="Frank">
+                  <Note Id="23" />
+                 </User>
+                </Notes>
+               </Message>
+              </Messages>
+             </Accessor>
+            </Accessors>
+           </Member>
+           <Member Name="Rel">
+            <Accessors>
+             <Accessor Name="set_Rel(System.String):System.Void">
+              <Messages>
+               <Message Id="System.ArgumentException.#ctor(System.String)" TypeName="DoNotPassLiteralsAsLocalizedParameters" Category="Microsoft.Globalization" CheckId="CA1303" Status="Excluded" Created="2008-05-05 13:24:07Z">
+                <Issue>
+                 <Item>CommonAttributesElement.set_Rel(String):Void</Item>
+                 <Item>1</Item>
+                 <Item>ArgumentException.ArgumentException(String)</Item>
+                 <Item>Label already has a value. You can only set Label or Rel</Item>
+                </Issue>
+                <Notes>
+                 <User Name="Frank">
+                  <Note Id="23" />
+                 </User>
+                </Notes>
+               </Message>
+              </Messages>
+             </Accessor>
+            </Accessors>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="ContactsExtensions">
+          <Messages>
+           <Message TypeName="StaticHolderTypesShouldNotHaveConstructors" Category="Microsoft.Design" CheckId="CA1053" Created="2008-05-05 13:24:07Z">
+            <Issue>
+             <Item>ContactsExtensions</Item>
+            </Issue>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name="AddExtension(Google.GData.Client.AtomBase):System.Void">
+            <Messages>
+             <Message TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062" Created="2008-05-05 13:24:07Z">
+              <Issue>
+               <Item>'baseObject'</Item>
+               <Item>ContactsExtensions.AddExtension(AtomBase):Void</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="EMail">
+          <Members>
+           <Member Name="Label">
+            <Accessors>
+             <Accessor Name="set_Label(System.String):System.Void">
+              <Messages>
+               <Message Id="System.ArgumentException.#ctor(System.String)" TypeName="DoNotPassLiteralsAsLocalizedParameters" Category="Microsoft.Globalization" CheckId="CA1303" Status="Excluded" Created="2008-05-05 13:24:07Z">
+                <Issue>
+                 <Item>EMail.set_Label(String):Void</Item>
+                 <Item>1</Item>
+                 <Item>ArgumentException.ArgumentException(String)</Item>
+                 <Item>Rel already has a value. You can only set Label or Rel</Item>
+                </Issue>
+                <Notes>
+                 <User Name="Frank">
+                  <Note Id="23" />
+                 </User>
+                </Notes>
+               </Message>
+              </Messages>
+             </Accessor>
+            </Accessors>
+           </Member>
+           <Member Name="Rel">
+            <Accessors>
+             <Accessor Name="set_Rel(System.String):System.Void">
+              <Messages>
+               <Message Id="System.ArgumentException.#ctor(System.String)" TypeName="DoNotPassLiteralsAsLocalizedParameters" Category="Microsoft.Globalization" CheckId="CA1303" Status="Excluded" Created="2008-05-05 13:24:07Z">
+                <Issue>
+                 <Item>EMail.set_Rel(String):Void</Item>
+                 <Item>1</Item>
+                 <Item>ArgumentException.ArgumentException(String)</Item>
+                 <Item>Label already has a value. You can only set Label or Rel</Item>
+                </Issue>
+                <Notes>
+                 <User Name="Frank">
+                  <Note Id="23" />
+                 </User>
+                </Notes>
+               </Message>
+              </Messages>
+             </Accessor>
+            </Accessors>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="EMailCollection">
+          <Messages>
+           <Message TypeName="CollectionsShouldImplementGenericInterface" Category="Microsoft.Design" CheckId="CA1010" Created="2008-05-05 13:24:07Z">
+            <Issue>
+             <Item>EMailCollection</Item>
+             <Item>IList</Item>
+            </Issue>
+           </Message>
+           <Message TypeName="ICollectionImplementationsHaveStronglyTypedMembers" Category="Microsoft.Design" CheckId="CA1035" Created="2008-05-05 13:24:07Z">
+            <Issue>
+             <Item>EMailCollection</Item>
+            </Issue>
+           </Message>
+          </Messages>
+         </Type>
+         <Type Name="EntryLink">
+          <Members>
+           <Member Name="ParseEntryLink(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser):Google.GData.Extensions.EntryLink">
+            <Messages>
+             <Message Id="System.ArgumentException.#ctor(System.String)" TypeName="DoNotPassLiteralsAsLocalizedParameters" Category="Microsoft.Globalization" CheckId="CA1303" Status="Excluded" Created="2008-03-19 17:05:38Z">
+              <Issue>
+               <Item>EntryLink.ParseEntryLink(XmlNode, AtomFeedParser):EntryLink</Item>
+               <Item>1</Item>
+               <Item>ArgumentException.ArgumentException(String)</Item>
+               <Item>Only one entry is allowed inside the g:entryLink</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="23" />
+               </User>
+              </Notes>
+             </Message>
+             <Message Id="System.Xml.XmlNode" TypeName="MembersShouldNotExposeCertainConcreteTypes" Category="Microsoft.Design" CheckId="CA1059" Status="Excluded" Created="2008-03-19 17:05:38Z">
+              <Issue Name="System.Xml.XmlNode">
+               <Item>EntryLink.ParseEntryLink(XmlNode, AtomFeedParser):EntryLink</Item>
+               <Item>System.Xml.XmlNode</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="27" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="Save(System.Xml.XmlWriter):System.Void">
+            <Messages>
+             <Message TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062" Created="2008-03-19 17:05:38Z">
+              <Issue>
+               <Item>'writer'</Item>
+               <Item>EntryLink.Save(XmlWriter):Void</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="XmlName">
+            <Messages>
+             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2008-03-19 17:05:38Z" FixCategory="Breaking">
+              <Issue>
+               <Item>EntryLink.XmlName:String</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="EnumConstruct">
+          <Members>
+           <Member Name="Equals(System.Object):System.Boolean">
+            <Messages>
+             <Message Id="0#" TypeName="ParameterNamesShouldMatchBaseDeclaration" Category="Microsoft.Naming" CheckId="CA1725" Created="2008-03-19 17:05:38Z">
+              <Issue>
+               <Item>o</Item>
+               <Item>EnumConstruct.Equals(Object):Boolean</Item>
+               <Item>obj</Item>
+               <Item>Object.Equals(Object):Boolean</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="ExtensionBase">
+          <Members>
+           <Member Name="CreateInstance(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser):Google.GData.Client.IExtensionElement">
+            <Messages>
+             <Message TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062" Created="2008-03-19 17:05:38Z">
+              <Issue>
+               <Item>'node'</Item>
+               <Item>ExtensionBase.CreateInstance(XmlNode, AtomFeedParser):IExtensionElement</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="ProcessAttributes(System.Xml.XmlNode):System.Void">
+            <Messages>
+             <Message Id="System.Xml.XmlNode" TypeName="MembersShouldNotExposeCertainConcreteTypes" Category="Microsoft.Design" CheckId="CA1059" Status="Excluded" Created="2008-03-19 17:05:38Z">
+              <Issue Name="System.Xml.XmlNode">
+               <Item>ExtensionBase.ProcessAttributes(XmlNode):Void</Item>
+               <Item>System.Xml.XmlNode</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="27" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="Save(System.Xml.XmlWriter):System.Void">
+            <Messages>
+             <Message TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062" Created="2008-03-19 17:05:38Z">
+              <Issue>
+               <Item>'writer'</Item>
+               <Item>ExtensionBase.Save(XmlWriter):Void</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="ExtensionCollection`1">
+          <Messages>
+           <Message TypeName="CollectionsShouldImplementGenericInterface" Category="Microsoft.Design" CheckId="CA1010" Created="2008-05-05 13:24:07Z">
+            <Issue>
+             <Item>ExtensionCollection`1</Item>
+             <Item>IList</Item>
+            </Issue>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name="setItem(System.Int32,T):System.Void">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2008-05-05 13:24:07Z">
+              <Issue Name="Member">
+               <Item>setItem</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="FeedLink">
+          <Members>
+           <Member Name="ParseFeedLink(System.Xml.XmlNode):Google.GData.Extensions.FeedLink">
+            <Messages>
+             <Message Id="System.Int32.Parse(System.String)" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Created="2008-03-19 17:05:38Z">
+              <Issue>
+               <Item>FeedLink.ParseFeedLink(XmlNode):FeedLink</Item>
+               <Item>System.Int32.Parse(System.String)</Item>
+               <Item>System.Int32.Parse(System.String,System.IFormatProvider)</Item>
+              </Issue>
+             </Message>
+             <Message Id="System.ArgumentException.#ctor(System.String)" TypeName="DoNotPassLiteralsAsLocalizedParameters" Category="Microsoft.Globalization" CheckId="CA1303" Status="Excluded" Created="2008-03-19 17:05:38Z">
+              <Issue>
+               <Item>FeedLink.ParseFeedLink(XmlNode):FeedLink</Item>
+               <Item>1</Item>
+               <Item>ArgumentException.ArgumentException(String)</Item>
+               <Item>Only one feed is allowed inside the g:feedLink</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="23" />
+               </User>
+              </Notes>
+             </Message>
+             <Message Id="System.ArgumentException.#ctor(System.String,System.Exception)" TypeName="DoNotPassLiteralsAsLocalizedParameters" Category="Microsoft.Globalization" CheckId="CA1303" Status="Excluded" Created="2008-03-19 17:05:38Z">
+              <Issue>
+               <Item>FeedLink.ParseFeedLink(XmlNode):FeedLink</Item>
+               <Item>1</Item>
+               <Item>ArgumentException.ArgumentException(String, Exception)</Item>
+               <Item>Invalid g:feedLink/@countHint.</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="23" />
+               </User>
+              </Notes>
+             </Message>
+             <Message Id="System.Xml.XmlNode" TypeName="MembersShouldNotExposeCertainConcreteTypes" Category="Microsoft.Design" CheckId="CA1059" Status="Excluded" Created="2008-03-19 17:05:38Z">
+              <Issue Name="System.Xml.XmlNode">
+               <Item>FeedLink.ParseFeedLink(XmlNode):FeedLink</Item>
+               <Item>System.Xml.XmlNode</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="27" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="Save(System.Xml.XmlWriter):System.Void">
+            <Messages>
+             <Message Id="System.Int32.ToString" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Created="2008-03-19 17:05:38Z">
+              <Issue>
+               <Item>FeedLink.Save(XmlWriter):Void</Item>
+               <Item>System.Int32.ToString</Item>
+               <Item>System.Int32.ToString(System.IFormatProvider)</Item>
+              </Issue>
+             </Message>
+             <Message TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062" Created="2008-03-19 17:05:38Z">
+              <Issue>
+               <Item>'writer'</Item>
+               <Item>FeedLink.Save(XmlWriter):Void</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="XmlName">
+            <Messages>
+             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2008-03-19 17:05:38Z" FixCategory="Breaking">
+              <Issue>
+               <Item>FeedLink.XmlName:String</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="GDataParserNameTable">
+          <Members>
+           <Member Name="gCalPrefix">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2008-03-19 17:05:38Z">
+              <Issue Name="Member">
+               <Item>gCalPrefix</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="28" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="gContactsRel">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2008-05-05 13:24:07Z">
+              <Issue Name="Member">
+               <Item>gContactsRel</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="28" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="XmlAttributeNumRaters">
+            <Messages>
+             <Message Id="Num" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2008-05-15 12:45:47Z">
+              <Issue Name="Member">
+               <Item>Num</Item>
+               <Item>GDataParserNameTable.XmlAttributeNumRaters</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="29" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="IMCollection">
+          <Messages>
+           <Message TypeName="CollectionsShouldImplementGenericInterface" Category="Microsoft.Design" CheckId="CA1010" Created="2008-05-05 13:24:07Z">
+            <Issue>
+             <Item>IMCollection</Item>
+             <Item>IList</Item>
+            </Issue>
+           </Message>
+           <Message TypeName="ICollectionImplementationsHaveStronglyTypedMembers" Category="Microsoft.Design" CheckId="CA1035" Created="2008-05-05 13:24:07Z">
+            <Issue>
+             <Item>IMCollection</Item>
+            </Issue>
+           </Message>
+          </Messages>
+         </Type>
+         <Type Name="Organization">
+          <Members>
+           <Member Name="Label">
+            <Accessors>
+             <Accessor Name="set_Label(System.String):System.Void">
+              <Messages>
+               <Message Id="System.ArgumentException.#ctor(System.String)" TypeName="DoNotPassLiteralsAsLocalizedParameters" Category="Microsoft.Globalization" CheckId="CA1303" Status="Excluded" Created="2008-05-05 13:24:07Z">
+                <Issue>
+                 <Item>Organization.set_Label(String):Void</Item>
+                 <Item>1</Item>
+                 <Item>ArgumentException.ArgumentException(String)</Item>
+                 <Item>Rel already has a value. You can only set Label or Rel</Item>
+                </Issue>
+                <Notes>
+                 <User Name="Frank">
+                  <Note Id="23" />
+                 </User>
+                </Notes>
+               </Message>
+              </Messages>
+             </Accessor>
+            </Accessors>
+           </Member>
+           <Member Name="Rel">
+            <Accessors>
+             <Accessor Name="set_Rel(System.String):System.Void">
+              <Messages>
+               <Message Id="System.ArgumentException.#ctor(System.String)" TypeName="DoNotPassLiteralsAsLocalizedParameters" Category="Microsoft.Globalization" CheckId="CA1303" Status="Excluded" Created="2008-05-05 13:24:07Z">
+                <Issue>
+                 <Item>Organization.set_Rel(String):Void</Item>
+                 <Item>1</Item>
+                 <Item>ArgumentException.ArgumentException(String)</Item>
+                 <Item>Label already has a value. You can only set Label or Rel</Item>
+                </Issue>
+                <Notes>
+                 <User Name="Frank">
+                  <Note Id="23" />
+                 </User>
+                </Notes>
+               </Message>
+              </Messages>
+             </Accessor>
+            </Accessors>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="OrganizationCollection">
+          <Messages>
+           <Message TypeName="CollectionsShouldImplementGenericInterface" Category="Microsoft.Design" CheckId="CA1010" Created="2008-05-05 13:24:07Z">
+            <Issue>
+             <Item>OrganizationCollection</Item>
+             <Item>IList</Item>
+            </Issue>
+           </Message>
+           <Message TypeName="ICollectionImplementationsHaveStronglyTypedMembers" Category="Microsoft.Design" CheckId="CA1035" Created="2008-05-05 13:24:07Z">
+            <Issue>
+             <Item>OrganizationCollection</Item>
+            </Issue>
+           </Message>
+          </Messages>
+         </Type>
+         <Type Name="PhonenumberCollection">
+          <Messages>
+           <Message TypeName="CollectionsShouldImplementGenericInterface" Category="Microsoft.Design" CheckId="CA1010" Created="2008-05-05 13:24:07Z">
+            <Issue>
+             <Item>PhonenumberCollection</Item>
+             <Item>IList</Item>
+            </Issue>
+           </Message>
+           <Message TypeName="ICollectionImplementationsHaveStronglyTypedMembers" Category="Microsoft.Design" CheckId="CA1035" Created="2008-05-05 13:24:07Z">
+            <Issue>
+             <Item>PhonenumberCollection</Item>
+            </Issue>
+           </Message>
+          </Messages>
+         </Type>
+         <Type Name="PostalAddressCollection">
+          <Messages>
+           <Message TypeName="CollectionsShouldImplementGenericInterface" Category="Microsoft.Design" CheckId="CA1010" Created="2008-05-05 13:24:07Z">
+            <Issue>
+             <Item>PostalAddressCollection</Item>
+             <Item>IList</Item>
+            </Issue>
+           </Message>
+           <Message TypeName="ICollectionImplementationsHaveStronglyTypedMembers" Category="Microsoft.Design" CheckId="CA1035" Created="2008-05-05 13:24:07Z">
+            <Issue>
+             <Item>PostalAddressCollection</Item>
+            </Issue>
+           </Message>
+          </Messages>
+         </Type>
+         <Type Name="Rating">
+          <Members>
+           <Member Name="NumRaters">
+            <Messages>
+             <Message Id="Num" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2008-05-15 12:45:47Z">
+              <Issue Name="Member">
+               <Item>Num</Item>
+               <Item>Rating.NumRaters:String</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="30" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="Recurrence">
+          <Members>
+           <Member Name="Save(System.Xml.XmlWriter):System.Void">
+            <Messages>
+             <Message TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062" Created="2008-03-19 17:05:38Z">
+              <Issue>
+               <Item>'writer'</Item>
+               <Item>Recurrence.Save(XmlWriter):Void</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="RecurrenceException">
+          <Messages>
+           <Message TypeName="IdentifiersShouldNotHaveIncorrectSuffix" Category="Microsoft.Naming" CheckId="CA1711" Status="Excluded" Created="2008-03-19 17:05:38Z">
+            <Issue>
+             <Item>Google.GData.Extensions.RecurrenceException</Item>
+             <Item>Exception</Item>
+            </Issue>
+            <Notes>
+             <User Name="Frank">
+              <Note Id="24" />
+             </User>
+            </Notes>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name="Save(System.Xml.XmlWriter):System.Void">
+            <Messages>
+             <Message TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062" Created="2008-03-19 17:05:38Z">
+              <Issue>
+               <Item>'writer'</Item>
+               <Item>RecurrenceException.Save(XmlWriter):Void</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="Reminder">
+          <Members>
+           <Member Name="CreateInstance(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser):Google.GData.Client.IExtensionElement">
+            <Messages>
+             <Message Id="System.DateTime.Parse(System.String)" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Created="2008-03-19 17:05:38Z">
+              <Issue>
+               <Item>Reminder.CreateInstance(XmlNode, AtomFeedParser):IExtensionElement</Item>
+               <Item>System.DateTime.Parse(System.String)</Item>
+               <Item>System.DateTime.Parse(System.String,System.IFormatProvider)</Item>
+              </Issue>
+             </Message>
+             <Message Id="System.Int32.Parse(System.String)" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Created="2008-03-19 17:05:38Z">
+              <Issue>
+               <Item>Reminder.CreateInstance(XmlNode, AtomFeedParser):IExtensionElement</Item>
+               <Item>System.Int32.Parse(System.String)</Item>
+               <Item>System.Int32.Parse(System.String,System.IFormatProvider)</Item>
+              </Issue>
+              <Issue>
+               <Item>Reminder.CreateInstance(XmlNode, AtomFeedParser):IExtensionElement</Item>
+               <Item>System.Int32.Parse(System.String)</Item>
+               <Item>System.Int32.Parse(System.String,System.IFormatProvider)</Item>
+              </Issue>
+              <Issue>
+               <Item>Reminder.CreateInstance(XmlNode, AtomFeedParser):IExtensionElement</Item>
+               <Item>System.Int32.Parse(System.String)</Item>
+               <Item>System.Int32.Parse(System.String,System.IFormatProvider)</Item>
+              </Issue>
+             </Message>
+             <Message Id="System.ArgumentException.#ctor(System.String)" TypeName="DoNotPassLiteralsAsLocalizedParameters" Category="Microsoft.Globalization" CheckId="CA1303" Status="Excluded" Created="2008-03-19 17:05:38Z">
+              <Issue>
+               <Item>Reminder.CreateInstance(XmlNode, AtomFeedParser):IExtensionElement</Item>
+               <Item>1</Item>
+               <Item>ArgumentException.ArgumentException(String)</Item>
+               <Item>g:reminder must have exactly one attribute.</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="23" />
+               </User>
+              </Notes>
+             </Message>
+             <Message Id="System.ArgumentException.#ctor(System.String,System.Exception)" TypeName="DoNotPassLiteralsAsLocalizedParameters" Category="Microsoft.Globalization" CheckId="CA1303" Status="Excluded" Created="2008-03-19 17:05:38Z">
+              <Issue>
+               <Item>Reminder.CreateInstance(XmlNode, AtomFeedParser):IExtensionElement</Item>
+               <Item>1</Item>
+               <Item>ArgumentException.ArgumentException(String, Exception)</Item>
+               <Item>Invalid g:reminder/@absoluteTime.</Item>
+              </Issue>
+              <Issue>
+               <Item>Reminder.CreateInstance(XmlNode, AtomFeedParser):IExtensionElement</Item>
+               <Item>1</Item>
+               <Item>ArgumentException.ArgumentException(String, Exception)</Item>
+               <Item>Invalid g:reminder/@days.</Item>
+              </Issue>
+              <Issue>
+               <Item>Reminder.CreateInstance(XmlNode, AtomFeedParser):IExtensionElement</Item>
+               <Item>1</Item>
+               <Item>ArgumentException.ArgumentException(String, Exception)</Item>
+               <Item>Invalid g:reminder/@hours.</Item>
+              </Issue>
+              <Issue>
+               <Item>Reminder.CreateInstance(XmlNode, AtomFeedParser):IExtensionElement</Item>
+               <Item>1</Item>
+               <Item>ArgumentException.ArgumentException(String, Exception)</Item>
+               <Item>Invalid g:reminder/@method.</Item>
+              </Issue>
+              <Issue>
+               <Item>Reminder.CreateInstance(XmlNode, AtomFeedParser):IExtensionElement</Item>
+               <Item>1</Item>
+               <Item>ArgumentException.ArgumentException(String, Exception)</Item>
+               <Item>Invalid g:reminder/@minutes.</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="23" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="Save(System.Xml.XmlWriter):System.Void">
+            <Messages>
+             <Message Id="System.Int32.ToString" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Created="2008-03-19 17:05:38Z">
+              <Issue>
+               <Item>Reminder.Save(XmlWriter):Void</Item>
+               <Item>System.Int32.ToString</Item>
+               <Item>System.Int32.ToString(System.IFormatProvider)</Item>
+              </Issue>
+              <Issue>
+               <Item>Reminder.Save(XmlWriter):Void</Item>
+               <Item>System.Int32.ToString</Item>
+               <Item>System.Int32.ToString(System.IFormatProvider)</Item>
+              </Issue>
+              <Issue>
+               <Item>Reminder.Save(XmlWriter):Void</Item>
+               <Item>System.Int32.ToString</Item>
+               <Item>System.Int32.ToString(System.IFormatProvider)</Item>
+              </Issue>
+             </Message>
+             <Message TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062" Created="2008-03-19 17:05:38Z">
+              <Issue>
+               <Item>'writer'</Item>
+               <Item>Reminder.Save(XmlWriter):Void</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="Reminder+ReminderMethod">
+          <Members>
+           <Member Name="alert">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2008-03-19 17:05:38Z">
+              <Issue Name="Member">
+               <Item>alert</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="all">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2008-03-19 17:05:38Z">
+              <Issue Name="Member">
+               <Item>all</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="email">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2008-03-19 17:05:38Z">
+              <Issue Name="Member">
+               <Item>email</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="none">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2008-03-19 17:05:38Z">
+              <Issue Name="Member">
+               <Item>none</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="sms">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2008-03-19 17:05:38Z">
+              <Issue Name="Member">
+               <Item>sms</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="unspecified">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2008-03-19 17:05:38Z">
+              <Issue Name="Member">
+               <Item>unspecified</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="ReminderCollection">
+          <Messages>
+           <Message TypeName="CollectionsShouldImplementGenericInterface" Category="Microsoft.Design" CheckId="CA1010" Created="2008-05-05 13:24:07Z">
+            <Issue>
+             <Item>ReminderCollection</Item>
+             <Item>IList</Item>
+            </Issue>
+           </Message>
+           <Message TypeName="ICollectionImplementationsHaveStronglyTypedMembers" Category="Microsoft.Design" CheckId="CA1035" Created="2008-05-05 13:24:07Z">
+            <Issue>
+             <Item>ReminderCollection</Item>
+            </Issue>
+           </Message>
+          </Messages>
+         </Type>
+         <Type Name="SimpleAttribute">
+          <Messages>
+           <Message TypeName="IdentifiersShouldNotHaveIncorrectSuffix" Category="Microsoft.Naming" CheckId="CA1711" Status="Excluded" Created="2008-03-19 17:05:38Z">
+            <Issue>
+             <Item>Google.GData.Extensions.SimpleAttribute</Item>
+             <Item>Attribute</Item>
+            </Issue>
+            <Notes>
+             <User Name="Frank">
+              <Note Id="25" />
+             </User>
+            </Notes>
+           </Message>
+          </Messages>
+         </Type>
+         <Type Name="SimpleElement">
+          <Members>
+           <Member Name="SaveInnerXml(System.Xml.XmlWriter):System.Void">
+            <Messages>
+             <Message TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062" Created="2008-03-19 17:05:38Z">
+              <Issue>
+               <Item>'writer'</Item>
+               <Item>SimpleElement.SaveInnerXml(XmlWriter):Void</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="When">
+          <Messages>
+           <Message TypeName="IdentifiersShouldNotMatchKeywords" Category="Microsoft.Naming" CheckId="CA1716" Status="Excluded" Created="2008-03-19 17:05:38Z">
+            <Issue Name="Type">
+             <Item>When</Item>
+             <Item>When</Item>
+            </Issue>
+            <Notes>
+             <User Name="Frank">
+              <Note Id="26" />
+             </User>
+            </Notes>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name="CreateInstance(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser):Google.GData.Client.IExtensionElement">
+            <Messages>
+             <Message Id="System.String.Compare(System.String,System.String,System.Boolean)" TypeName="SpecifyCultureInfo" Category="Microsoft.Globalization" CheckId="CA1304" Created="2008-03-19 17:05:38Z">
+              <Issue>
+               <Item>When.CreateInstance(XmlNode, AtomFeedParser):IExtensionElement</Item>
+               <Item>System.String.Compare(System.String,System.String,System.Boolean)</Item>
+               <Item>System.String.Compare(System.String,System.String,System.Boolean,System.Globalization.CultureInfo)</Item>
+              </Issue>
+             </Message>
+             <Message Id="System.DateTime.Parse(System.String)" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Created="2008-03-19 17:05:38Z">
+              <Issue>
+               <Item>When.CreateInstance(XmlNode, AtomFeedParser):IExtensionElement</Item>
+               <Item>System.DateTime.Parse(System.String)</Item>
+               <Item>System.DateTime.Parse(System.String,System.IFormatProvider)</Item>
+              </Issue>
+              <Issue>
+               <Item>When.CreateInstance(XmlNode, AtomFeedParser):IExtensionElement</Item>
+               <Item>System.DateTime.Parse(System.String)</Item>
+               <Item>System.DateTime.Parse(System.String,System.IFormatProvider)</Item>
+              </Issue>
+             </Message>
+             <Message Id="System.ArgumentException.#ctor(System.String)" TypeName="DoNotPassLiteralsAsLocalizedParameters" Category="Microsoft.Globalization" CheckId="CA1303" Status="Excluded" Created="2008-03-19 17:05:38Z">
+              <Issue>
+               <Item>When.CreateInstance(XmlNode, AtomFeedParser):IExtensionElement</Item>
+               <Item>1</Item>
+               <Item>ArgumentException.ArgumentException(String)</Item>
+               <Item>g:when/@startTime must be less than or equal to g:when/@endTime.</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="23" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="Save(System.Xml.XmlWriter):System.Void">
+            <Messages>
+             <Message TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062" Created="2008-03-19 17:05:38Z">
+              <Issue>
+               <Item>'writer'</Item>
+               <Item>When.Save(XmlWriter):Void</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="WhenCollection">
+          <Messages>
+           <Message TypeName="CollectionsShouldImplementGenericInterface" Category="Microsoft.Design" CheckId="CA1010" Created="2008-03-19 17:05:38Z">
+            <Issue>
+             <Item>WhenCollection</Item>
+             <Item>IList</Item>
+            </Issue>
+           </Message>
+           <Message TypeName="ICollectionImplementationsHaveStronglyTypedMembers" Category="Microsoft.Design" CheckId="CA1035" Created="2008-03-19 17:05:38Z">
+            <Issue>
+             <Item>WhenCollection</Item>
+            </Issue>
+           </Message>
+          </Messages>
+         </Type>
+         <Type Name="Where">
+          <Members>
+           <Member Name="CreateInstance(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser):Google.GData.Client.IExtensionElement">
+            <Messages>
+             <Message Id="System.ArgumentException.#ctor(System.String)" TypeName="DoNotPassLiteralsAsLocalizedParameters" Category="Microsoft.Globalization" CheckId="CA1303" Status="Excluded" Created="2008-03-19 17:05:38Z">
+              <Issue>
+               <Item>Where.CreateInstance(XmlNode, AtomFeedParser):IExtensionElement</Item>
+               <Item>1</Item>
+               <Item>ArgumentException.ArgumentException(String)</Item>
+               <Item>Only one entryLink is allowed inside the g:where</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="23" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="Save(System.Xml.XmlWriter):System.Void">
+            <Messages>
+             <Message TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062" Created="2008-03-19 17:05:38Z">
+              <Issue>
+               <Item>'writer'</Item>
+               <Item>Where.Save(XmlWriter):Void</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="Where+RelType">
+          <Messages>
+           <Message TypeName="NestedTypesShouldNotBeVisible" Category="Microsoft.Design" CheckId="CA1034" Status="Excluded" Created="2008-03-19 17:05:38Z">
+            <Issue>
+             <Item>Google.GData.Extensions.Where+RelType</Item>
+            </Issue>
+            <Notes>
+             <User Name="Frank">
+              <Note Id="31" />
+             </User>
+            </Notes>
+           </Message>
+          </Messages>
+         </Type>
+         <Type Name="WhereCollection">
+          <Messages>
+           <Message TypeName="CollectionsShouldImplementGenericInterface" Category="Microsoft.Design" CheckId="CA1010" Created="2008-03-19 17:05:38Z">
+            <Issue>
+             <Item>WhereCollection</Item>
+             <Item>IList</Item>
+            </Issue>
+           </Message>
+           <Message TypeName="ICollectionImplementationsHaveStronglyTypedMembers" Category="Microsoft.Design" CheckId="CA1035" Created="2008-03-19 17:05:38Z">
+            <Issue>
+             <Item>WhereCollection</Item>
+            </Issue>
+           </Message>
+          </Messages>
+         </Type>
+         <Type Name="Who+AttendeeStatus">
+          <Messages>
+           <Message TypeName="NestedTypesShouldNotBeVisible" Category="Microsoft.Design" CheckId="CA1034" Status="Excluded" Created="2008-03-19 17:05:38Z">
+            <Issue>
+             <Item>Google.GData.Extensions.Who+AttendeeStatus</Item>
+            </Issue>
+            <Notes>
+             <User Name="Frank">
+              <Note Id="31" />
+             </User>
+            </Notes>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name="parse(System.Xml.XmlNode):Google.GData.Extensions.Who+AttendeeStatus">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2008-03-19 17:05:38Z">
+              <Issue Name="Member">
+               <Item>parse</Item>
+              </Issue>
+             </Message>
+             <Message Id="System.String.Compare(System.String,System.String,System.Boolean)" TypeName="SpecifyCultureInfo" Category="Microsoft.Globalization" CheckId="CA1304" Created="2008-03-19 17:05:38Z">
+              <Issue>
+               <Item>AttendeeStatus.parse(XmlNode):AttendeeStatus</Item>
+               <Item>System.String.Compare(System.String,System.String,System.Boolean)</Item>
+               <Item>System.String.Compare(System.String,System.String,System.Boolean,System.Globalization.CultureInfo)</Item>
+              </Issue>
+             </Message>
+             <Message TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062" Created="2008-03-19 17:05:38Z">
+              <Issue>
+               <Item>'node'</Item>
+               <Item>AttendeeStatus.parse(XmlNode):AttendeeStatus</Item>
+              </Issue>
+             </Message>
+             <Message Id="System.Xml.XmlNode" TypeName="MembersShouldNotExposeCertainConcreteTypes" Category="Microsoft.Design" CheckId="CA1059" Status="Excluded" Created="2008-03-19 17:05:38Z">
+              <Issue Name="System.Xml.XmlNode">
+               <Item>AttendeeStatus.parse(XmlNode):AttendeeStatus</Item>
+               <Item>System.Xml.XmlNode</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="27" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="Who+AttendeeType">
+          <Messages>
+           <Message TypeName="NestedTypesShouldNotBeVisible" Category="Microsoft.Design" CheckId="CA1034" Status="Excluded" Created="2008-03-19 17:05:38Z">
+            <Issue>
+             <Item>Google.GData.Extensions.Who+AttendeeType</Item>
+            </Issue>
+            <Notes>
+             <User Name="Frank">
+              <Note Id="31" />
+             </User>
+            </Notes>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name="parse(System.Xml.XmlNode):Google.GData.Extensions.Who+AttendeeType">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2008-03-19 17:05:38Z">
+              <Issue Name="Member">
+               <Item>parse</Item>
+              </Issue>
+             </Message>
+             <Message Id="System.String.Compare(System.String,System.String,System.Boolean)" TypeName="SpecifyCultureInfo" Category="Microsoft.Globalization" CheckId="CA1304" Created="2008-03-19 17:05:38Z">
+              <Issue>
+               <Item>AttendeeType.parse(XmlNode):AttendeeType</Item>
+               <Item>System.String.Compare(System.String,System.String,System.Boolean)</Item>
+               <Item>System.String.Compare(System.String,System.String,System.Boolean,System.Globalization.CultureInfo)</Item>
+              </Issue>
+             </Message>
+             <Message TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062" Created="2008-03-19 17:05:38Z">
+              <Issue>
+               <Item>'node'</Item>
+               <Item>AttendeeType.parse(XmlNode):AttendeeType</Item>
+              </Issue>
+             </Message>
+             <Message Id="System.Xml.XmlNode" TypeName="MembersShouldNotExposeCertainConcreteTypes" Category="Microsoft.Design" CheckId="CA1059" Status="Excluded" Created="2008-03-19 17:05:38Z">
+              <Issue Name="System.Xml.XmlNode">
+               <Item>AttendeeType.parse(XmlNode):AttendeeType</Item>
+               <Item>System.Xml.XmlNode</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="27" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="Who+RelType">
+          <Messages>
+           <Message TypeName="NestedTypesShouldNotBeVisible" Category="Microsoft.Design" CheckId="CA1034" Status="Excluded" Created="2008-03-19 17:05:38Z">
+            <Issue>
+             <Item>Google.GData.Extensions.Who+RelType</Item>
+            </Issue>
+            <Notes>
+             <User Name="Frank">
+              <Note Id="31" />
+             </User>
+            </Notes>
+           </Message>
+          </Messages>
+         </Type>
+         <Type Name="WhoCollection">
+          <Messages>
+           <Message TypeName="CollectionsShouldImplementGenericInterface" Category="Microsoft.Design" CheckId="CA1010" Created="2008-03-19 17:05:38Z">
+            <Issue>
+             <Item>WhoCollection</Item>
+             <Item>IList</Item>
+            </Issue>
+           </Message>
+           <Message TypeName="ICollectionImplementationsHaveStronglyTypedMembers" Category="Microsoft.Design" CheckId="CA1035" Created="2008-03-19 17:05:38Z">
+            <Issue>
+             <Item>WhoCollection</Item>
+            </Issue>
+           </Message>
+          </Messages>
+         </Type>
+        </Types>
+       </Namespace>
+       <Namespace Name="Google.GData.Extensions.AppControl">
+        <Types>
+         <Type Name="AppControl">
+          <Messages>
+           <Message TypeName="TypeNamesShouldNotMatchNamespaces" Category="Microsoft.Naming" CheckId="CA1724" Created="2008-05-15 12:45:47Z">
+            <Issue>
+             <Item>AppControl</Item>
+             <Item>Google.GData.Extensions.AppControl</Item>
+            </Issue>
+           </Message>
+          </Messages>
+         </Type>
+        </Types>
+       </Namespace>
+       <Namespace Name="Google.GData.Extensions.Apps">
+        <Types>
+         <Type Name="AppsNameTable">
+          <Members>
+           <Member Name="appsBaseFeedUri">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2008-03-19 17:05:38Z">
+              <Issue Name="Member">
+               <Item>appsBaseFeedUri</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="AppsLogin">
+            <Messages>
+             <Message Id="Login" TypeName="UsePreferredTerms" Category="Microsoft.Naming" CheckId="CA1726" Created="2008-03-19 17:05:38Z">
+              <Issue Name="Member">
+               <Item>Login</Item>
+               <Item>AppsLogin</Item>
+               <Item>LogOn</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="AppsLoginAdmin">
+            <Messages>
+             <Message Id="Login" TypeName="UsePreferredTerms" Category="Microsoft.Naming" CheckId="CA1726" Created="2008-03-19 17:05:38Z">
+              <Issue Name="Member">
+               <Item>Login</Item>
+               <Item>AppsLoginAdmin</Item>
+               <Item>LogOn</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="AppsLoginAgreedToTerms">
+            <Messages>
+             <Message Id="Login" TypeName="UsePreferredTerms" Category="Microsoft.Naming" CheckId="CA1726" Created="2008-03-19 17:05:38Z">
+              <Issue Name="Member">
+               <Item>Login</Item>
+               <Item>AppsLoginAgreedToTerms</Item>
+               <Item>LogOn</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="AppsLoginChangePasswordAtNextLogin">
+            <Messages>
+             <Message Id="Login" TypeName="UsePreferredTerms" Category="Microsoft.Naming" CheckId="CA1726" Created="2008-03-19 17:05:38Z">
+              <Issue Name="Member">
+               <Item>Login</Item>
+               <Item>AppsLoginChangePasswordAtNextLogin</Item>
+               <Item>LogOn</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="AppsLoginHashFunctionName">
+            <Messages>
+             <Message Id="Login" TypeName="UsePreferredTerms" Category="Microsoft.Naming" CheckId="CA1726" Created="2008-03-19 17:05:38Z">
+              <Issue Name="Member">
+               <Item>Login</Item>
+               <Item>AppsLoginHashFunctionName</Item>
+               <Item>LogOn</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="AppsLoginPassword">
+            <Messages>
+             <Message Id="Login" TypeName="UsePreferredTerms" Category="Microsoft.Naming" CheckId="CA1726" Created="2008-03-19 17:05:38Z">
+              <Issue Name="Member">
+               <Item>Login</Item>
+               <Item>AppsLoginPassword</Item>
+               <Item>LogOn</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="AppsLoginSuspended">
+            <Messages>
+             <Message Id="Login" TypeName="UsePreferredTerms" Category="Microsoft.Naming" CheckId="CA1726" Created="2008-03-19 17:05:38Z">
+              <Issue Name="Member">
+               <Item>Login</Item>
+               <Item>AppsLoginSuspended</Item>
+               <Item>LogOn</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="AppsLoginUserName">
+            <Messages>
+             <Message Id="Login" TypeName="UsePreferredTerms" Category="Microsoft.Naming" CheckId="CA1726" Created="2008-03-19 17:05:38Z">
+              <Issue Name="Member">
+               <Item>Login</Item>
+               <Item>AppsLoginUserName</Item>
+               <Item>LogOn</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="EmailListElement">
+          <Members>
+           <Member Name="Name">
+            <Accessors>
+             <Accessor Name="get_Name():System.String">
+              <Messages>
+               <Message Id="System.Convert.ToString(System.Object)" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Created="2008-03-19 17:05:38Z">
+                <Issue>
+                 <Item>EmailListElement.get_Name():String</Item>
+                 <Item>System.Convert.ToString(System.Object)</Item>
+                 <Item>System.Convert.ToString(System.Object,System.IFormatProvider)</Item>
+                </Issue>
+               </Message>
+              </Messages>
+             </Accessor>
+            </Accessors>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="GAppsExtensions">
+          <Messages>
+           <Message TypeName="StaticHolderTypesShouldNotHaveConstructors" Category="Microsoft.Design" CheckId="CA1053" Created="2008-03-19 17:05:38Z">
+            <Issue>
+             <Item>GAppsExtensions</Item>
+            </Issue>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name="AddMailItemExtensions(Google.GData.Client.AtomBase):System.Void">
+            <Messages>
+             <Message TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062" Created="2008-03-19 17:05:38Z">
+              <Issue>
+               <Item>'baseObject'</Item>
+               <Item>GAppsExtensions.AddMailItemExtensions(AtomBase):Void</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="AddProvisioningExtensions(Google.GData.Client.AtomBase):System.Void">
+            <Messages>
+             <Message TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062" Created="2008-03-19 17:05:38Z">
+              <Issue>
+               <Item>'baseObject'</Item>
+               <Item>GAppsExtensions.AddProvisioningExtensions(AtomBase):Void</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="LabelCollection">
+          <Messages>
+           <Message TypeName="CollectionsShouldImplementGenericInterface" Category="Microsoft.Design" CheckId="CA1010" Created="2008-03-19 17:05:38Z">
+            <Issue>
+             <Item>LabelCollection</Item>
+             <Item>IList</Item>
+            </Issue>
+           </Message>
+           <Message TypeName="ICollectionImplementationsHaveStronglyTypedMembers" Category="Microsoft.Design" CheckId="CA1035" Created="2008-03-19 17:05:38Z">
+            <Issue>
+             <Item>LabelCollection</Item>
+            </Issue>
+           </Message>
+          </Messages>
+         </Type>
+         <Type Name="LabelElement">
+          <Members>
+           <Member Name="LabelName">
+            <Accessors>
+             <Accessor Name="get_LabelName():System.String">
+              <Messages>
+               <Message Id="System.Convert.ToString(System.Object)" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Created="2008-03-19 17:05:38Z">
+                <Issue>
+                 <Item>LabelElement.get_LabelName():String</Item>
+                 <Item>System.Convert.ToString(System.Object)</Item>
+                 <Item>System.Convert.ToString(System.Object,System.IFormatProvider)</Item>
+                </Issue>
+               </Message>
+              </Messages>
+             </Accessor>
+            </Accessors>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="LoginElement">
+          <Messages>
+           <Message Id="Login" TypeName="UsePreferredTerms" Category="Microsoft.Naming" CheckId="CA1726" Created="2008-03-19 17:05:38Z">
+            <Issue Name="Type">
+             <Item>Login</Item>
+             <Item>LoginElement</Item>
+             <Item>LogOn</Item>
+            </Issue>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name="Admin">
+            <Accessors>
+             <Accessor Name="get_Admin():System.Boolean">
+              <Messages>
+               <Message Id="System.Convert.ToBoolean(System.Object)" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Created="2008-03-19 17:05:38Z">
+                <Issue>
+                 <Item>LoginElement.get_Admin():Boolean</Item>
+                 <Item>System.Convert.ToBoolean(System.Object)</Item>
+                 <Item>System.Convert.ToBoolean(System.Object,System.IFormatProvider)</Item>
+                </Issue>
+               </Message>
+              </Messages>
+             </Accessor>
+            </Accessors>
+           </Member>
+           <Member Name="AgreedToTerms">
+            <Accessors>
+             <Accessor Name="get_AgreedToTerms():System.Boolean">
+              <Messages>
+               <Message Id="System.Convert.ToBoolean(System.Object)" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Created="2008-03-19 17:05:38Z">
+                <Issue>
+                 <Item>LoginElement.get_AgreedToTerms():Boolean</Item>
+                 <Item>System.Convert.ToBoolean(System.Object)</Item>
+                 <Item>System.Convert.ToBoolean(System.Object,System.IFormatProvider)</Item>
+                </Issue>
+               </Message>
+              </Messages>
+             </Accessor>
+            </Accessors>
+           </Member>
+           <Member Name="ChangePasswordAtNextLogin">
+            <Messages>
+             <Message Id="Login" TypeName="UsePreferredTerms" Category="Microsoft.Naming" CheckId="CA1726" Created="2008-03-19 17:05:38Z">
+              <Issue Name="Member">
+               <Item>Login</Item>
+               <Item>ChangePasswordAtNextLogin</Item>
+               <Item>LogOn</Item>
+              </Issue>
+             </Message>
+            </Messages>
+            <Accessors>
+             <Accessor Name="get_ChangePasswordAtNextLogin():System.Boolean">
+              <Messages>
+               <Message Id="System.Convert.ToBoolean(System.Object)" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Created="2008-03-19 17:05:38Z">
+                <Issue>
+                 <Item>LoginElement.get_ChangePasswordAtNextLogin():Boolean</Item>
+                 <Item>System.Convert.ToBoolean(System.Object)</Item>
+                 <Item>System.Convert.ToBoolean(System.Object,System.IFormatProvider)</Item>
+                </Issue>
+               </Message>
+               <Message Id="Login" TypeName="UsePreferredTerms" Category="Microsoft.Naming" CheckId="CA1726" Created="2008-03-19 17:05:38Z">
+                <Issue Name="Member">
+                 <Item>Login</Item>
+                 <Item>get_ChangePasswordAtNextLogin</Item>
+                 <Item>LogOn</Item>
+                </Issue>
+               </Message>
+              </Messages>
+             </Accessor>
+             <Accessor Name="set_ChangePasswordAtNextLogin(System.Boolean):System.Void">
+              <Messages>
+               <Message Id="Login" TypeName="UsePreferredTerms" Category="Microsoft.Naming" CheckId="CA1726" Created="2008-03-19 17:05:38Z">
+                <Issue Name="Member">
+                 <Item>Login</Item>
+                 <Item>set_ChangePasswordAtNextLogin</Item>
+                 <Item>LogOn</Item>
+                </Issue>
+               </Message>
+              </Messages>
+             </Accessor>
+            </Accessors>
+           </Member>
+           <Member Name="HashFunctionName">
+            <Accessors>
+             <Accessor Name="get_HashFunctionName():System.String">
+              <Messages>
+               <Message Id="System.Convert.ToString(System.Object)" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Created="2008-03-19 17:05:38Z">
+                <Issue>
+                 <Item>LoginElement.get_HashFunctionName():String</Item>
+                 <Item>System.Convert.ToString(System.Object)</Item>
+                 <Item>System.Convert.ToString(System.Object,System.IFormatProvider)</Item>
+                </Issue>
+               </Message>
+              </Messages>
+             </Accessor>
+            </Accessors>
+           </Member>
+           <Member Name="Password">
+            <Accessors>
+             <Accessor Name="get_Password():System.String">
+              <Messages>
+               <Message Id="System.Convert.ToString(System.Object)" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Created="2008-03-19 17:05:38Z">
+                <Issue>
+                 <Item>LoginElement.get_Password():String</Item>
+                 <Item>System.Convert.ToString(System.Object)</Item>
+                 <Item>System.Convert.ToString(System.Object,System.IFormatProvider)</Item>
+                </Issue>
+               </Message>
+              </Messages>
+             </Accessor>
+            </Accessors>
+           </Member>
+           <Member Name="Suspended">
+            <Accessors>
+             <Accessor Name="get_Suspended():System.Boolean">
+              <Messages>
+               <Message Id="System.Convert.ToBoolean(System.Object)" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Created="2008-03-19 17:05:38Z">
+                <Issue>
+                 <Item>LoginElement.get_Suspended():Boolean</Item>
+                 <Item>System.Convert.ToBoolean(System.Object)</Item>
+                 <Item>System.Convert.ToBoolean(System.Object,System.IFormatProvider)</Item>
+                </Issue>
+               </Message>
+              </Messages>
+             </Accessor>
+            </Accessors>
+           </Member>
+           <Member Name="UserName">
+            <Accessors>
+             <Accessor Name="get_UserName():System.String">
+              <Messages>
+               <Message Id="System.Convert.ToString(System.Object)" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Created="2008-03-19 17:05:38Z">
+                <Issue>
+                 <Item>LoginElement.get_UserName():String</Item>
+                 <Item>System.Convert.ToString(System.Object)</Item>
+                 <Item>System.Convert.ToString(System.Object,System.IFormatProvider)</Item>
+                </Issue>
+               </Message>
+              </Messages>
+             </Accessor>
+            </Accessors>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="MailItemPropertyCollection">
+          <Messages>
+           <Message TypeName="CollectionsShouldImplementGenericInterface" Category="Microsoft.Design" CheckId="CA1010" Created="2008-03-19 17:05:38Z">
+            <Issue>
+             <Item>MailItemPropertyCollection</Item>
+             <Item>IList</Item>
+            </Issue>
+           </Message>
+           <Message TypeName="ICollectionImplementationsHaveStronglyTypedMembers" Category="Microsoft.Design" CheckId="CA1035" Created="2008-03-19 17:05:38Z">
+            <Issue>
+             <Item>MailItemPropertyCollection</Item>
+            </Issue>
+           </Message>
+          </Messages>
+         </Type>
+         <Type Name="MailItemPropertyElement">
+          <Members>
+           <Member Name="DRAFT">
+            <Messages>
+             <Message TypeName="NonConstantFieldsShouldNotBeVisible" Category="Microsoft.Usage" CheckId="CA2211" Created="2008-05-15 13:07:16Z">
+              <Issue>
+               <Item>DRAFT</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="INBOX">
+            <Messages>
+             <Message TypeName="NonConstantFieldsShouldNotBeVisible" Category="Microsoft.Usage" CheckId="CA2211" Created="2008-05-15 13:07:16Z">
+              <Issue>
+               <Item>INBOX</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="SENT">
+            <Messages>
+             <Message TypeName="NonConstantFieldsShouldNotBeVisible" Category="Microsoft.Usage" CheckId="CA2211" Created="2008-05-15 13:07:16Z">
+              <Issue>
+               <Item>SENT</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="STARRED">
+            <Messages>
+             <Message TypeName="NonConstantFieldsShouldNotBeVisible" Category="Microsoft.Usage" CheckId="CA2211" Created="2008-05-15 13:07:16Z">
+              <Issue>
+               <Item>STARRED</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="TRASH">
+            <Messages>
+             <Message TypeName="NonConstantFieldsShouldNotBeVisible" Category="Microsoft.Usage" CheckId="CA2211" Created="2008-05-15 13:07:16Z">
+              <Issue>
+               <Item>TRASH</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="UNREAD">
+            <Messages>
+             <Message TypeName="NonConstantFieldsShouldNotBeVisible" Category="Microsoft.Usage" CheckId="CA2211" Created="2008-05-15 13:07:16Z">
+              <Issue>
+               <Item>UNREAD</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="Value">
+            <Accessors>
+             <Accessor Name="get_Value():Google.GData.Extensions.Apps.MailItemPropertyElement+MailItemProperty">
+              <Messages>
+               <Message Id="System.Convert.ToString(System.Object)" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Created="2008-03-19 17:05:38Z">
+                <Issue>
+                 <Item>MailItemPropertyElement.get_Value():MailItemProperty</Item>
+                 <Item>System.Convert.ToString(System.Object)</Item>
+                 <Item>System.Convert.ToString(System.Object,System.IFormatProvider)</Item>
+                </Issue>
+               </Message>
+              </Messages>
+             </Accessor>
+            </Accessors>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="NameElement">
+          <Members>
+           <Member Name="FamilyName">
+            <Accessors>
+             <Accessor Name="get_FamilyName():System.String">
+              <Messages>
+               <Message Id="System.Convert.ToString(System.Object)" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Created="2008-03-19 17:05:38Z">
+                <Issue>
+                 <Item>NameElement.get_FamilyName():String</Item>
+                 <Item>System.Convert.ToString(System.Object)</Item>
+                 <Item>System.Convert.ToString(System.Object,System.IFormatProvider)</Item>
+                </Issue>
+               </Message>
+              </Messages>
+             </Accessor>
+            </Accessors>
+           </Member>
+           <Member Name="GivenName">
+            <Accessors>
+             <Accessor Name="get_GivenName():System.String">
+              <Messages>
+               <Message Id="System.Convert.ToString(System.Object)" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Created="2008-03-19 17:05:38Z">
+                <Issue>
+                 <Item>NameElement.get_GivenName():String</Item>
+                 <Item>System.Convert.ToString(System.Object)</Item>
+                 <Item>System.Convert.ToString(System.Object,System.IFormatProvider)</Item>
+                </Issue>
+               </Message>
+              </Messages>
+             </Accessor>
+            </Accessors>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="NicknameElement">
+          <Members>
+           <Member Name="Name">
+            <Accessors>
+             <Accessor Name="get_Name():System.String">
+              <Messages>
+               <Message Id="System.Convert.ToString(System.Object)" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Created="2008-03-19 17:05:38Z">
+                <Issue>
+                 <Item>NicknameElement.get_Name():String</Item>
+                 <Item>System.Convert.ToString(System.Object)</Item>
+                 <Item>System.Convert.ToString(System.Object,System.IFormatProvider)</Item>
+                </Issue>
+               </Message>
+              </Messages>
+             </Accessor>
+            </Accessors>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="QuotaElement">
+          <Members>
+           <Member Name="Limit">
+            <Accessors>
+             <Accessor Name="get_Limit():System.Int32">
+              <Messages>
+               <Message Id="System.Convert.ToInt32(System.Object)" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Created="2008-03-19 17:05:38Z">
+                <Issue>
+                 <Item>QuotaElement.get_Limit():Int32</Item>
+                 <Item>System.Convert.ToInt32(System.Object)</Item>
+                 <Item>System.Convert.ToInt32(System.Object,System.IFormatProvider)</Item>
+                </Issue>
+               </Message>
+              </Messages>
+             </Accessor>
+            </Accessors>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="Rfc822MsgElement">
+          <Members>
+           <Member Name=".ctor(System.String,Google.GData.Extensions.Apps.Rfc822MsgElement+EncodingMethod)">
+            <Messages>
+             <Message Id="messageEncoding" TypeName="ReviewUnusedParameters" Category="Microsoft.Usage" CheckId="CA1801" Created="2008-05-05 13:24:07Z" FixCategory="Breaking">
+              <Issue>
+               <Item>messageEncoding</Item>
+               <Item>Rfc822MsgElement.Rfc822MsgElement(String, EncodingMethod)</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="MessageEncoding">
+            <Accessors>
+             <Accessor Name="get_MessageEncoding():Google.GData.Extensions.Apps.Rfc822MsgElement+EncodingMethod">
+              <Messages>
+               <Message Id="System.Convert.ToString(System.Object)" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Created="2008-05-05 13:24:07Z">
+                <Issue>
+                 <Item>Rfc822MsgElement.get_MessageEncoding():EncodingMethod</Item>
+                 <Item>System.Convert.ToString(System.Object)</Item>
+                 <Item>System.Convert.ToString(System.Object,System.IFormatProvider)</Item>
+                </Issue>
+               </Message>
+              </Messages>
+             </Accessor>
+            </Accessors>
+           </Member>
+           <Member Name="SaveInnerXml(System.Xml.XmlWriter):System.Void">
+            <Messages>
+             <Message TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062" Created="2008-03-19 17:05:38Z">
+              <Issue>
+               <Item>'writer'</Item>
+               <Item>Rfc822MsgElement.SaveInnerXml(XmlWriter):Void</Item>
+              </Issue>
+              <Issue>
+               <Item>'writer'</Item>
+               <Item>Rfc822MsgElement.SaveInnerXml(XmlWriter):Void</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="Value">
+            <Messages>
+             <Message TypeName="PropertiesShouldNotReturnArrays" Category="Microsoft.Performance" CheckId="CA1819" Status="Excluded" Created="2008-03-19 17:05:38Z">
+              <Issue>
+               <Item>Rfc822MsgElement.Value:Byte[]</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="32" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+        </Types>
+       </Namespace>
+       <Namespace Name="Google.GData.Extensions.Exif">
+        <Types>
+         <Type Name="ExifExtensions">
+          <Messages>
+           <Message TypeName="StaticHolderTypesShouldNotHaveConstructors" Category="Microsoft.Design" CheckId="CA1053" Created="2008-03-19 17:05:38Z">
+            <Issue>
+             <Item>ExifExtensions</Item>
+            </Issue>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name="AddExtension(Google.GData.Client.AtomBase):System.Void">
+            <Messages>
+             <Message TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062" Created="2008-03-19 17:05:38Z">
+              <Issue>
+               <Item>'baseObject'</Item>
+               <Item>ExifExtensions.AddExtension(AtomBase):Void</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="ExifImageUniqueID">
+          <Messages>
+           <Message TypeName="ShortAcronymsShouldBeUppercase" Category="Microsoft.Naming" CheckId="CA1706" Status="Excluded" Created="2008-03-19 17:05:38Z">
+            <Issue Name="TypeId">
+             <Item>Google.GData.Extensions.Exif.ExifImageUniqueID</Item>
+            </Issue>
+            <Notes>
+             <User Name="Frank">
+              <Note Id="33" />
+             </User>
+            </Notes>
+           </Message>
+          </Messages>
+         </Type>
+         <Type Name="ExifNameTable">
+          <Members>
+           <Member Name="ExifImageUniqueID">
+            <Messages>
+             <Message Id="Member" TypeName="ShortAcronymsShouldBeUppercase" Category="Microsoft.Naming" CheckId="CA1706" Status="Excluded" Created="2008-03-19 17:05:38Z">
+              <Issue Name="MemberId">
+               <Item>ExifNameTable.ExifImageUniqueID</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="33" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="ExifTags">
+          <Members>
+           <Member Name="ImageUniqueID">
+            <Messages>
+             <Message Id="Member" TypeName="ShortAcronymsShouldBeUppercase" Category="Microsoft.Naming" CheckId="CA1706" Status="Excluded" Created="2008-03-19 17:05:38Z">
+              <Issue Name="MemberId">
+               <Item>ExifTags.ImageUniqueID:ExifImageUniqueID</Item>
+              </Issue>
+              <Notes>
+               <User Name="Frank">
+                <Note Id="33" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+        </Types>
+       </Namespace>
+       <Namespace Name="Google.GData.Extensions.Location">
+        <Types>
+         <Type Name="GeoNametable">
+          <Members>
+           <Member Name="geoKmlPrefix">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2008-03-19 17:05:38Z">
+              <Issue Name="Member">
+               <Item>geoKmlPrefix</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="geoRssPrefix">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2008-03-19 17:05:38Z">
+              <Issue Name="Member">
+               <Item>geoRssPrefix</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="GeoRssExtensions">
+          <Messages>
+           <Message TypeName="StaticHolderTypesShouldNotHaveConstructors" Category="Microsoft.Design" CheckId="CA1053" Created="2008-03-19 17:05:38Z">
+            <Issue>
+             <Item>GeoRssExtensions</Item>
+            </Issue>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name="AddExtension(Google.GData.Client.AtomBase):System.Void">
+            <Messages>
+             <Message TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062" Created="2008-03-19 17:05:38Z">
+              <Issue>
+               <Item>'baseObject'</Item>
+               <Item>GeoRssExtensions.AddExtension(AtomBase):Void</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="GeoRssWhere">
+          <Members>
+           <Member Name="GetPosition(System.Boolean):Google.GData.Extensions.Location.GeoKmlPosition">
+            <Messages>
+             <Message Id="0#f" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2008-03-19 17:05:38Z">
+              <Issue Name="Parameter">
+               <Item>GeoRssWhere.GetPosition(Boolean):GeoKmlPosition</Item>
+               <Item>f</Item>
+               <Item>fCreate</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+        </Types>
+       </Namespace>
+       <Namespace Name="Google.GData.Extensions.MediaRss">
+        <Types>
+         <Type Name="MediaContentCollection">
+          <Messages>
+           <Message TypeName="CollectionsShouldImplementGenericInterface" Category="Microsoft.Design" CheckId="CA1010" Created="2008-03-19 17:05:38Z">
+            <Issue>
+             <Item>MediaContentCollection</Item>
+             <Item>IList</Item>
+            </Issue>
+           </Message>
+           <Message TypeName="ICollectionImplementationsHaveStronglyTypedMembers" Category="Microsoft.Design" CheckId="CA1035" Created="2008-03-19 17:05:38Z">
+            <Issue>
+             <Item>MediaContentCollection</Item>
+            </Issue>
+           </Message>
+          </Messages>
+         </Type>
+         <Type Name="MediaRssExtensions">
+          <Messages>
+           <Message TypeName="StaticHolderTypesShouldNotHaveConstructors" Category="Microsoft.Design" CheckId="CA1053" Created="2008-03-19 17:05:38Z">
+            <Issue>
+             <Item>MediaRssExtensions</Item>
+            </Issue>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name="AddExtension(Google.GData.Client.AtomBase):System.Void">
+            <Messages>
+             <Message TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062" Created="2008-03-19 17:05:38Z">
+              <Issue>
+               <Item>'baseObject'</Item>
+               <Item>MediaRssExtensions.AddExtension(AtomBase):Void</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="MediaRssNameTable">
+          <Members>
+           <Member Name="mediaRssPrefix">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2008-03-19 17:05:38Z">
+              <Issue Name="Member">
+               <Item>mediaRssPrefix</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="ThumbnailCollection">
+          <Messages>
+           <Message TypeName="CollectionsShouldImplementGenericInterface" Category="Microsoft.Design" CheckId="CA1010" Created="2008-03-19 17:05:38Z">
+            <Issue>
+             <Item>ThumbnailCollection</Item>
+             <Item>IList</Item>
+            </Issue>
+           </Message>
+           <Message TypeName="ICollectionImplementationsHaveStronglyTypedMembers" Category="Microsoft.Design" CheckId="CA1035" Created="2008-03-19 17:05:38Z">
+            <Issue>
+             <Item>ThumbnailCollection</Item>
+            </Issue>
+           </Message>
+          </Messages>
+         </Type>
+        </Types>
+       </Namespace>
+      </Namespaces>
+     </Module>
+    </Modules>
+   </Target>
+  </Targets>
+  <Notes>
+   <User Name="Frank">
+    <Note Id="0" Modified="2008-03-19 17:16:43Z">Don't use that rule. breaks on constants and enums </Note>
+    <Note Id="1" Modified="2008-03-19 17:19:37Z">code is already shipped. </Note>
+    <Note Id="3" Modified="2008-05-15 10:29:37Z">Reviewed and marked ok.</Note>
+    <Note Id="4" Modified="2008-05-15 10:29:54Z">reviewed, fine for debugging</Note>
+    <Note Id="5" Modified="2008-05-15 10:30:06Z">We do not plan to localize this</Note>
+    <Note Id="6" Modified="2008-05-15 10:31:11Z">It Does that</Note>
+    <Note Id="7" Modified="2008-05-15 10:32:00Z">We are not xml serializable anyhow</Note>
+    <Note Id="8" Modified="2008-05-15 10:32:14Z">Do not care</Note>
+    <Note Id="9" Modified="2008-05-15 10:35:47Z">For Password, writeonly is fine</Note>
+    <Note Id="10" Modified="2008-05-15 11:14:04Z">They are shipped, they are not getting changed</Note>
+    <Note Id="11" Modified="2008-05-15 11:14:24Z">They were named like that to be on par with the JAVA lib implementation</Note>
+    <Note Id="12" Modified="2008-05-15 11:14:38Z">Shipped</Note>
+    <Note Id="13" Modified="2008-05-15 11:14:50Z">Shpped</Note>
+    <Note Id="14" Modified="2008-05-15 11:24:19Z">Reviewed and oked</Note>
+    <Note Id="15" Modified="2008-05-15 11:26:44Z">a, b, and e are fine in those cases</Note>
+    <Note Id="16" Modified="2008-05-15 11:32:30Z">Shipped</Note>
+    <Note Id="17" Modified="2008-05-15 11:34:14Z">covered</Note>
+    <Note Id="18" Modified="2008-05-15 11:34:46Z">Covered</Note>
+    <Note Id="19" Modified="2008-05-15 11:35:23Z">Covered</Note>
+    <Note Id="20" Modified="2008-05-15 11:35:51Z">Covered</Note>
+    <Note Id="21" Modified="2008-05-15 11:36:29Z">It's fine to be nothing</Note>
+    <Note Id="22" Modified="2008-05-15 11:37:07Z">Covered</Note>
+    <Note Id="23" Modified="2008-05-15 12:54:51Z">We do not localize this</Note>
+    <Note Id="24" Modified="2008-05-15 12:55:23Z">This is just the way it is called</Note>
+    <Note Id="25" Modified="2008-05-15 12:55:37Z">It is a simple xml attribute</Note>
+    <Note Id="26" Modified="2008-05-15 12:55:47Z">and again, xml element when</Note>
+    <Note Id="27" Modified="2008-05-15 13:03:31Z">but we do. We love the xmlNode</Note>
+    <Note Id="28" Modified="2008-05-15 13:06:05Z">done deal</Note>
+    <Note Id="29" Modified="2008-05-15 13:19:02Z">the xml element is spelled that way</Note>
+    <Note Id="30" Modified="2008-05-15 13:19:16Z">The element is spelled that way</Note>
+    <Note Id="31" Modified="2008-05-15 13:19:32Z">shipped for 2 years. </Note>
+    <Note Id="32" Modified="2008-05-15 13:20:43Z">done review. Design by property owner</Note>
+    <Note Id="33" Modified="2008-05-15 13:23:36Z">spelling per xml definition</Note>
+   </User>
+  </Notes>
+  <Rules>
+   <Rule TypeName="AvoidNamespacesWithFewTypes" Category="Microsoft.Design" CheckId="CA1020">
+    <Resolution Name="Default">Consider merging the types defined in '{0}' with another namespace.</Resolution>
+   </Rule>
+   <Rule TypeName="CollectionsShouldImplementGenericInterface" Category="Microsoft.Design" CheckId="CA1010">
+    <Resolution Name="Default">'{0}' appears to be a non-generic, strongly typed collection. Add an implementation to the instance of {1}&lt;T&gt; where T is {0}'s underlying element type.</Resolution>
+   </Rule>
+   <Rule TypeName="ConsiderPassingBaseTypesAsParameters" Category="Microsoft.Design" CheckId="CA1011">
+    <Resolution Name="Default">Consider changing the type of parameter '{0}' in {1} from {2} to its base type {3}. This method appears to only require base class members in its implementation. Suppress this violation if there is a compelling reason to require the more derived type in the method signature.</Resolution>
+   </Rule>
+   <Rule TypeName="DisposableFieldsShouldBeDisposed" Category="Microsoft.Usage" CheckId="CA2213">
+    <Resolution Name="Default">'{0}' contains field '{1}' that is of IDisposable type: {2}. Change {0}'s Dispose method to call Dispose or Close on this field.</Resolution>
+   </Rule>
+   <Rule TypeName="DisposeMethodsShouldCallBaseClassDispose" Category="Microsoft.Usage" CheckId="CA2215">
+    <Resolution Name="Default">Change {0} so that it calls its base class Dispose method for all code paths. Place the call in a finally block to ensure that resources are cleaned up when an exception is raised.</Resolution>
+   </Rule>
+   <Rule TypeName="DoNotCallOverridableMethodsInConstructors" Category="Microsoft.Usage" CheckId="CA2214">
+    <Resolution Name="Default">'{0}' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: {1}</Resolution>
+   </Rule>
+   <Rule TypeName="DoNotCatchGeneralExceptionTypes" Category="Microsoft.Design" CheckId="CA1031">
+    <Resolution Name="Default">Modify '{0}' to catch a more specific exception than '{1}' or rethrow the exception.</Resolution>
+   </Rule>
+   <Rule TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051">
+    <Resolution Name="Default">Make '{0}' private or internal (Friend in VB, public private in C++) and provide a public or protected property to access it.</Resolution>
+   </Rule>
+   <Rule TypeName="DoNotPassLiteralsAsLocalizedParameters" Category="Microsoft.Globalization" CheckId="CA1303">
+    <Resolution Name="Default">{0} passes a literal as parameter {1} of a call to {2}. Retrieve the following string argument from a resource table instead: '{3}'</Resolution>
+   </Rule>
+   <Rule TypeName="DoNotRaiseReservedExceptionTypes" Category="Microsoft.Usage" CheckId="CA2201" />
+   <Rule TypeName="ICollectionImplementationsHaveStronglyTypedMembers" Category="Microsoft.Design" CheckId="CA1035">
+    <Resolution Name="Default">'{0}' should provide a strongly typed implementation of ICollection.CopyTo.</Resolution>
+   </Rule>
+   <Rule TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709">
+    <Resolution Name="Member">Correct the casing of member name '{0}'.</Resolution>
+   </Rule>
+   <Rule TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704">
+    <Resolution Name="Member">Correct the spelling of the unrecognized token '{0}' in member name '{1}'.</Resolution>
+    <Resolution Name="Parameter">In method {0}, correct the spelling of the unrecognized token '{1}' in parameter name '{2}' or strip it entirely if it represents any sort of hungarian notation.</Resolution>
+   </Rule>
+   <Rule TypeName="IdentifiersShouldNotHaveIncorrectSuffix" Category="Microsoft.Naming" CheckId="CA1711">
+    <Resolution Name="Default">Rename '{0}' so that it does not end in '{1}'.</Resolution>
+   </Rule>
+   <Rule TypeName="IdentifiersShouldNotMatchKeywords" Category="Microsoft.Naming" CheckId="CA1716">
+    <Resolution Name="Type">Change type name '{0}' so that it does not conflict with reserved keyword:'{1}'.</Resolution>
+   </Rule>
+   <Rule TypeName="ImplementIDisposableCorrectly" Category="Microsoft.Design" CheckId="CA1063">
+    <Resolution Name="DisposeImplementation">Modify {0} so that it calls Dispose(true), then calls GC.SuppressFinalize on the current object instance ('this' or 'Me' in VB), and then returns.</Resolution>
+   </Rule>
+   <Rule TypeName="ImplementISerializableCorrectly" Category="Microsoft.Usage" CheckId="CA2240">
+    <Resolution Name="Default">Add an implementation of GetObjectData to type '{0}'.</Resolution>
+   </Rule>
+   <Rule TypeName="ImplementStandardExceptionConstructors" Category="Microsoft.Design" CheckId="CA1032">
+    <Resolution Name="Default">Add the following constructor to {0}: {1}.</Resolution>
+   </Rule>
+   <Rule TypeName="LongAcronymsShouldBePascalCased" Category="Microsoft.Naming" CheckId="CA1705">
+    <Resolution Name="Member" />
+   </Rule>
+   <Rule TypeName="MarkISerializableTypesWithSerializable" Category="Microsoft.Usage" CheckId="CA2237">
+    <Resolution Name="Default">Add [Serializable] to '{0}' as this type implements ISerializable.</Resolution>
+   </Rule>
+   <Rule TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822">
+    <Resolution Name="Default">The 'this' parameter (or 'Me' in VB) of {0} is never used. Mark the member as static (or Shared in VB) or use 'this'/'Me' in the method body or at least one property accessor, if appropriate.</Resolution>
+   </Rule>
+   <Rule TypeName="MembersShouldNotExposeCertainConcreteTypes" Category="Microsoft.Design" CheckId="CA1059">
+    <Resolution Name="System.Xml.XmlNode">Modify member '{0}' so that it no longer exposes the concrete type {1}. Use IXPathNavigable to represent Xml data sources.</Resolution>
+   </Rule>
+   <Rule TypeName="NestedTypesShouldNotBeVisible" Category="Microsoft.Design" CheckId="CA1034">
+    <Resolution Name="Default">Do not nest type '{0}'. Alternatively, change its accessibility so that it is not externally visible.</Resolution>
+   </Rule>
+   <Rule TypeName="NonConstantFieldsShouldNotBeVisible" Category="Microsoft.Usage" CheckId="CA2211">
+    <Resolution Name="Default">Consider making '{0}' non-public or a constant.</Resolution>
+   </Rule>
+   <Rule TypeName="ParameterNamesShouldMatchBaseDeclaration" Category="Microsoft.Naming" CheckId="CA1725">
+    <Resolution Name="Default">Change parameter name '{0}' of method {1} to '{2}' in order to match the identifier as it has been declared in {3}.</Resolution>
+   </Rule>
+   <Rule TypeName="PropertiesShouldNotBeWriteOnly" Category="Microsoft.Design" CheckId="CA1044">
+    <Resolution Name="Default">Add a property getter to '{0}'.</Resolution>
+   </Rule>
+   <Rule TypeName="PropertiesShouldNotReturnArrays" Category="Microsoft.Performance" CheckId="CA1819">
+    <Resolution Name="Default">Change {0} to return a collection or make it a method.</Resolution>
+   </Rule>
+   <Rule TypeName="ReviewUnusedParameters" Category="Microsoft.Usage" CheckId="CA1801">
+    <Resolution Name="Default">Parameter '{0}' of {1} is never used. Remove the parameter or use it in the method body.</Resolution>
+   </Rule>
+   <Rule TypeName="ShortAcronymsShouldBeUppercase" Category="Microsoft.Naming" CheckId="CA1706">
+    <Resolution Name="Member">Correct the capitalization of '{0}' in member name '{1}'.</Resolution>
+    <Resolution Name="MemberId">'Id' is an abbreviation and therefore is not subject to acronym casing guidelines. Correct the capitalization of 'ID' in member name '{0}' by changing it to 'Id'.</Resolution>
+    <Resolution Name="TypeId">'Id' is an abbreviation and therefore is not subject to acronym casing guidelines. Correct the capitalization of 'ID' in type name '{0}' by changing it to 'Id'.</Resolution>
+   </Rule>
+   <Rule TypeName="SpecifyCultureInfo" Category="Microsoft.Globalization" CheckId="CA1304">
+    <Resolution Name="Default">{0} makes a call to {1} that does not explicitly provide a CultureInfo. This should be replaced with a call to {2}.</Resolution>
+   </Rule>
+   <Rule TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305">
+    <Resolution Name="Default">{0} makes a call to {1} that does not explicitly provide an IFormatProvider. This should be replaced with a call to {2}.</Resolution>
+   </Rule>
+   <Rule TypeName="StaticHolderTypesShouldNotHaveConstructors" Category="Microsoft.Design" CheckId="CA1053">
+    <Resolution Name="Default">Remove the public constructors from '{0}'.</Resolution>
+   </Rule>
+   <Rule TypeName="TypeNamesShouldNotMatchNamespaces" Category="Microsoft.Naming" CheckId="CA1724">
+    <Resolution Name="Default">The type name '{0}' conflicts in whole or in part with the namespace name '{1}'. Change either name to eliminate the conflict.</Resolution>
+   </Rule>
+   <Rule TypeName="UsePreferredTerms" Category="Microsoft.Naming" CheckId="CA1726">
+    <Resolution Name="Member">Replace the term '{0}' in member name '{1}' with the preferred alternate '{2}'.</Resolution>
+    <Resolution Name="Type">Replace the term '{0}' in type name '{1}' with the preferred alternate '{2}'.</Resolution>
+   </Rule>
+   <Rule TypeName="UsePropertiesWhereAppropriate" Category="Microsoft.Design" CheckId="CA1024">
+    <Resolution Name="Default">Change '{0}' to a property if appropriate.</Resolution>
+   </Rule>
+   <Rule TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062">
+    <Resolution Name="Default">Validate parameter {0} passed to externally visible method {1}.</Resolution>
+   </Rule>
+  </Rules>
+ </FxCopReport>
+</FxCopProject>

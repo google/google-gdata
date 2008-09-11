@@ -1,0 +1,207 @@
+using System;
+using System.Text;
+using System.IO;
+using Google.GData.Apps;
+
+namespace GoogleAppsConsoleApplication
+{
+    class AppsDemo
+    {
+        private static string domain;
+        private static string adminEmail;
+        private static string adminPassword;
+
+        // If desired, you may replace these values of username, nickname
+        // and email list name with others that do not already exist on
+        // your domain.
+        private static string testUserName = "testUserName" + new Random().Next().ToString();
+        private const string testNickname = "testNickname";
+        private const string testEmailList = "testEmailList";
+
+        private static void UserOperations(AppsService service)
+        {
+            // Create a new user.
+            UserEntry insertedEntry = service.CreateUser(testUserName, "Jane",
+                "Doe", "testuser-password");
+            Console.WriteLine("Created new user '{0}'", insertedEntry.Login.UserName);
+
+            // Suspend the user.
+            UserEntry suspendedEntry = service.SuspendUser(testUserName);
+            Console.WriteLine("Suspended account for {0}", suspendedEntry.Login.UserName);
+
+            // Restore the user.
+            UserEntry restoredEntry = service.RestoreUser(testUserName);
+            Console.WriteLine("Restored user {0}", restoredEntry.Login.UserName);
+
+            // Query for a single user.
+            UserEntry entry = service.RetrieveUser(testUserName);
+            Console.WriteLine("Retrieved user {0}", entry.Login.UserName);
+
+            // Query for a page of users.
+            UserFeed feed = service.RetrievePageOfUsers(testUserName);
+            entry = feed.Entries[0] as UserEntry;
+            Console.WriteLine("Retrieved page of {0} users, beginning with '{1}'", feed.Entries.Count,
+                entry.Login.UserName);
+
+            // Query for all users.
+            feed = service.RetrieveAllUsers();
+            entry = feed.Entries[0] as UserEntry;
+            Console.WriteLine("Retrieved all {0} users in the domain, beginning with '{1}'",
+                feed.Entries.Count, entry.Login.UserName);
+
+            // Update the user's given name.
+            restoredEntry.Name.GivenName = "John";
+            UserEntry updatedEntry = service.UpdateUser(entry);
+            Console.WriteLine("Updated user with new given name '{0}'", updatedEntry.Name.GivenName);
+        }
+
+        private static void NicknameOperations(AppsService service)
+        {
+            // Create a new nickname.
+            NicknameEntry insertedEntry = service.CreateNickname(testUserName, testNickname);
+            Console.WriteLine("Created nickname '{0}' for user {1}", insertedEntry.Nickname.Name,
+                insertedEntry.Login.UserName);
+
+            // Retrieve the newly-created nickname.
+            NicknameEntry entry = service.RetrieveNickname(testNickname);
+            Console.WriteLine("Retrieved nickname {0}", entry.Nickname.Name);
+
+            // Retrieve all nicknames for testUserName (really, just this one).
+            NicknameFeed feed = service.RetrieveNicknames(testUserName);
+            entry = feed.Entries[0] as NicknameEntry;
+            Console.WriteLine("Retrieved nickname '{0}' for user {1}", entry.Nickname.Name,
+                entry.Login.UserName);
+
+            // Retrieve a page of nicknames.
+            feed = service.RetrievePageOfNicknames(testNickname);
+            entry = feed.Entries[0] as NicknameEntry;
+            Console.WriteLine("Retrieved page of {0} nicknames, beginning with '{1}'",
+                feed.Entries.Count, entry.Nickname.Name);
+
+            // Retrieve the feed of all nicknames.
+            feed = service.RetrieveAllNicknames();
+            entry = feed.Entries[0] as NicknameEntry;
+            Console.WriteLine("Retrieved all {0} nicknames in the domain, beginning with '{1}'",
+                feed.Entries.Count, entry.Nickname.Name);
+        }
+
+        private static void EmailListOperations(AppsService service)
+        {
+            // Create a new email list.
+            EmailListEntry insertedEntry = service.CreateEmailList(testEmailList);
+            Console.WriteLine("Created new email list '{0}'", insertedEntry.EmailList.Name);
+
+            // Retrieve the newly-created email list.
+            EmailListEntry entry = service.RetrieveEmailList(testEmailList);
+            Console.WriteLine("Retrieved email list '{0}'", entry.EmailList.Name);
+
+            // Retrieve a page of email lists.
+            EmailListFeed feed = service.RetrievePageOfEmailLists(testEmailList);
+            entry = feed.Entries[0] as EmailListEntry;
+            Console.WriteLine("Retrieved page of {0} email lists in the domain, beginning with '{1}'",
+                feed.Entries.Count, entry.EmailList.Name);
+
+            // Retrieve the feed of all email lists in the domain.
+            feed = service.RetrieveAllEmailLists();
+            entry = feed.Entries[0] as EmailListEntry;
+            Console.WriteLine("Retrieved all {0} email lists in the domain, beginning with '{1}'",
+                feed.Entries.Count, entry.EmailList.Name);
+        }
+
+        private static void EmailListRecipientOperations(AppsService service)
+        {
+            // Add a recipient to an email list.
+            EmailListRecipientEntry insertedEntry = service.AddRecipientToEmailList(testUserName +
+                "@" + domain, testEmailList);
+            Console.WriteLine("Added recipient {0} to email list {1}", insertedEntry.Recipient.Email,
+                testEmailList);
+
+            // Retrieve the list of recipients on the email list (since the list
+            // was just created, it will only have one entry).
+            EmailListRecipientFeed feed = service.RetrieveAllRecipients(testEmailList);
+            EmailListRecipientEntry entry = feed.Entries[0] as EmailListRecipientEntry;
+            Console.WriteLine("Retrieved recipient {0} on email list {1}", entry.Recipient.Email,
+                testEmailList);
+
+            // Remove this recipient from the email list.
+            service.RemoveRecipientFromEmailList(testUserName + "@" + domain, testEmailList);
+            Console.WriteLine("Removed recipient {0} from email list {1}", testUserName,
+                testEmailList);
+        }
+
+        private static void CleanUp(AppsService service)
+        {
+            // Delete the nickname that was created.
+            service.DeleteNickname(testNickname);
+            Console.WriteLine("Deleted nickname {0}", testNickname);
+
+            // Delete the email list that was created.
+            service.DeleteEmailList(testEmailList);
+            Console.WriteLine("Deleted email list {0}", testEmailList);
+
+            // Delete the user that was created.
+            service.DeleteUser(testUserName);
+            Console.WriteLine("Deleted user {0}", testUserName);
+        }
+
+        private static void RunSample(AppsService service)
+        {
+            try
+            {
+                // Demonstrate operations on user accounts.
+                UserOperations(service);
+
+                // Demonstrate operations on nicknames.
+                NicknameOperations(service);
+
+                // Demonstrate operations on email lists.
+                EmailListOperations(service);
+
+                // Demonstrate operations on email list recipients.
+                EmailListRecipientOperations(service);
+                
+                // Clean up (delete the username, nickname and email list
+                // that were created).
+                CleanUp(service);
+            }
+            catch (AppsException a)
+            {
+                Console.WriteLine("A Google Apps error occurred.");
+                Console.WriteLine();
+                Console.WriteLine("Error code: {0}", a.ErrorCode);
+                Console.WriteLine("Invalid input: {0}", a.InvalidInput);
+                Console.WriteLine("Reason: {0}", a.Reason);
+            }
+        }
+
+        /// <summary>
+        /// This console application demonstrates all the Google Apps
+        /// Provisioning API calls.  It accepts authentication information
+        /// from the command-line and performs a series of create/
+        /// retrieve/update/delete operations on user accounts, nicknames,
+        /// and email lists, as described in the comments of RunTests.
+        /// </summary>
+        /// <param name="args">Command-line arguments: args[0] is
+        /// the domain, args[1] is the admin email address, and args[2]
+        /// is the admin psasword.
+        /// 
+        /// Example: AppsDemo example.com admin@example.com my_password</param>
+        public static void Main(string[] args)
+        {
+            if (args.Length != 3)
+            {
+                Console.WriteLine("Syntax: AppsDemo <domain> <admin_email> <admin_password>");
+            }
+            else
+            {
+                domain = args[0];
+                adminEmail = args[1];
+                adminPassword = args[2];
+
+                AppsService service = new AppsService(domain, adminEmail, adminPassword);
+
+                RunSample(service);
+            }
+        }
+    }
+}
