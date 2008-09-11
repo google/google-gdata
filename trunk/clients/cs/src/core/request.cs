@@ -122,6 +122,8 @@ namespace Google.GData.Client
         /// <summary>Slug client header</summary>
         public const string SlugHeader = "Slug";
 
+        public const string EtagHeader = "Etag"; 
+
 
 
         //////////////////////////////////////////////////////////////////////
@@ -289,7 +291,7 @@ namespace Google.GData.Client
     //////////////////////////////////////////////////////////////////////
     /// <summary>base GDataRequest implmentation</summary> 
     //////////////////////////////////////////////////////////////////////
-    public class GDataRequest : IGDataRequest, IDisposable
+    public class GDataRequest : IGDataRequest, IDisposable, ISupportsEtag
     {
         /// <summary>holds the webRequest object</summary> 
         private WebRequest webRequest; 
@@ -318,6 +320,7 @@ namespace Google.GData.Client
         private string slugHeader;
         // holds the returned contentlength
         private long contentLength;
+        private string eTag;
 
 
 
@@ -427,6 +430,18 @@ namespace Google.GData.Client
             set {this.contentType = value;}
         }
         /////////////////////////////////////////////////////////////////////////////
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>set's and get's the etag header value, used for concurrency</summary> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        public string Etag
+        {
+            get { return this.eTag; }
+            set { this.eTag = value; }
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>set's and get's the slugHeader, used for binary transfers
@@ -548,6 +563,9 @@ namespace Google.GData.Client
                     if (this.useGZip == true)
                         web.Headers.Add("Accept-Encoding", "gzip");
 
+                    if (this.Etag != null)
+                        web.Headers.Add(GDataRequestFactory.EtagHeader, this.Etag);
+
                     if (this.IfModifiedSince != DateTime.MinValue)
                         web.IfModifiedSince = this.IfModifiedSince;
 
@@ -566,7 +584,6 @@ namespace Google.GData.Client
                             this.Request.Headers.Add(s); 
                         }
                     }
-
                     if (this.factory.Timeout != -1)
                     {
                         web.Timeout = this.factory.Timeout;

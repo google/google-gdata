@@ -96,14 +96,14 @@ namespace Google.GData.Client
     /// <summary>base Service implementation
     /// </summary> 
     //////////////////////////////////////////////////////////////////////
-    public partial class Service : IService
+    public partial class Service : IService, IVersionAware
     {
         /// <summary>this service's user-agent</summary> 
         public const string GServiceAgent = "GService-CS/1.0.0";
         /// <summary>holds the credential information</summary> 
         private GDataCredentials credentials; 
         /// <summary>the GDatarequest to use</summary> 
-        private IGDataRequestFactory GDataRequestFactory;
+        private IGDataRequestFactory factory;
         /// <summary>holds the hooks for the eventing in the feedparser</summary> 
         public event FeedParserEventHandler NewAtomEntry;
         /// <summary>eventhandler, when the parser finds a new extension element-> mirrored from underlying parser</summary> 
@@ -117,7 +117,7 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         public Service()
         {
-            this.GDataRequestFactory = new GDataRequestFactory(GServiceAgent);
+            this.RequestFactory = new GDataRequestFactory(GServiceAgent);
         }
         /////////////////////////////////////////////////////////////////////////////
  
@@ -127,7 +127,7 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         public Service(string applicationName)
         {
-            this.GDataRequestFactory = new GDataRequestFactory(applicationName + " " + GServiceAgent);
+            this.RequestFactory = new GDataRequestFactory(applicationName + " " + GServiceAgent);
         }
         /////////////////////////////////////////////////////////////////////////////
  
@@ -137,7 +137,7 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         public Service(string service, string applicationName)
         {
-            this.GDataRequestFactory = new GDataGAuthRequestFactory(service, applicationName, GServiceAgent);
+            this.RequestFactory = new GDataGAuthRequestFactory(service, applicationName, GServiceAgent);
         }
         /////////////////////////////////////////////////////////////////////////////
  
@@ -147,10 +147,49 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         public Service(string service, string applicationName, string library)
         {
-            this.GDataRequestFactory = new GDataGAuthRequestFactory(service, applicationName, library);
+            this.RequestFactory = new GDataGAuthRequestFactory(service, applicationName, library);
         }
         /////////////////////////////////////////////////////////////////////////////
- 
+
+
+        private VersionInformation versionInfo = new VersionInformation();
+        /// <summary>
+        /// returns the major protocol version number this element 
+        /// is working against. 
+        /// </summary>
+        /// <returns></returns>
+        public int ProtocolMajor
+        {
+            get
+            {
+                return this.versionInfo.ProtocolMajor;
+            }
+            set
+            {
+                this.versionInfo.ProtocolMajor  = value;
+                PropagateVersionInfo();
+            }
+        }
+
+        /// <summary>
+        /// returns the minor protocol version number this element 
+        /// is working against. 
+        /// </summary>
+        /// <returns></returns>
+        public int ProtocolMinor
+        {
+            get
+            {
+                return this.versionInfo.ProtocolMinor;
+            }
+            set
+            {
+                this.versionInfo.ProtocolMinor  = value;
+                PropagateVersionInfo();
+            }
+        }
+        
+        
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>accessor method public IGDataRequest Request</summary> 
@@ -158,15 +197,28 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         public IGDataRequestFactory RequestFactory
         {
-            get {return this.GDataRequestFactory;}
-            set {this.GDataRequestFactory = value; OnRequestFactoryChanged(); }
+            get { return this.factory; }
+            set { this.factory = value; OnRequestFactoryChanged(); }
         }
 
         /// <summary>
-        /// notifier if someone changes the requestfactory of the service
+        /// notifier if someone changes the requestfactory of the service. 
+        /// This will cause the service to set the versionnumber on the 
+        /// request factory to it's own
         /// </summary>
         public virtual void OnRequestFactoryChanged() 
         {
+            PropagateVersionInfo();
+        }
+
+        private void PropagateVersionInfo()
+        {
+            IVersionAware v = this.factory as IVersionAware;
+            if (v != null)
+            {
+                v.ProtocolMajor = this.ProtocolMajor;
+                v.ProtocolMinor = this.ProtocolMinor;
+            }
             return; 
         }
 
@@ -192,7 +244,7 @@ namespace Google.GData.Client
         {
             if (this.Credentials != null)
             {
-                GDataGAuthRequestFactory factory = this.GDataRequestFactory as GDataGAuthRequestFactory;
+                GDataGAuthRequestFactory factory = this.factory as GDataGAuthRequestFactory;
                 if (factory != null)
                 {
                     return factory.QueryAuthToken(this.Credentials);
@@ -208,7 +260,7 @@ namespace Google.GData.Client
         /// <returns>string</returns>
         public void SetAuthenticationToken(string token) 
         {
-            GDataGAuthRequestFactory factory = this.GDataRequestFactory as GDataGAuthRequestFactory;
+            GDataGAuthRequestFactory factory = this.factory as GDataGAuthRequestFactory;
             if (factory != null)
             {
                 factory.GAuthToken = token;
@@ -216,8 +268,8 @@ namespace Google.GData.Client
 #if WindowsCE || PocketPC
 #else
             else 
-            {  
-                GAuthSubRequestFactory f = this.GDataRequestFactory as GAuthSubRequestFactory;
+            {
+                GAuthSubRequestFactory f = this.factory as GAuthSubRequestFactory;
                 if (f != null)
                 {
                     f.Token = token;
@@ -380,13 +432,7 @@ namespace Google.GData.Client
           Tracing.TraceInfo("Service:Query - query done");
           if (responseStream != null)
           {
-            Tracing.TraceCall("Using Atom always.... ");
-            feed = CreateFeed(feedQuery.Uri);
-
-            feed.NewAtomEntry += new FeedParserEventHandler(this.OnParsedNewEntry);
-            feed.NewExtensionElement += new ExtensionElementEventHandler(this.OnNewExtensionElement);
-            feed.Parse(responseStream, AlternativeFormat.Atom);
-            responseStream.Close();
+            feed = CreateAndParseFeed(responseStream, feedQuery.Uri);
           }
           Tracing.TraceCall("Exit");
           return feed;
@@ -447,6 +493,7 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         /// <summary>WebResponse Update(Uri updateUri, Stream entryStream, ICredentials credentials)</summary> 
         /// <param name="entry">the old entry to update</param> 
+        /// <param name="data">the async data block used</param> 
         /// <returns> the new Entry, as returned from the server</returns>
         //////////////////////////////////////////////////////////////////////
         private AtomEntry Update(AtomEntry entry, AsyncSendData data)
@@ -466,23 +513,7 @@ namespace Google.GData.Client
             Uri target = new Uri(entry.EditUri.ToString());
 
             Stream returnStream = EntrySend(target, entry, GDataRequestType.Update, data);
-
-            if (returnStream != null)
-            {
-                AtomFeed returnFeed = CreateFeed(target);
-
-                returnFeed.NewAtomEntry += new FeedParserEventHandler(this.OnParsedNewEntry); 
-                returnFeed.NewExtensionElement += new ExtensionElementEventHandler(this.OnNewExtensionElement);
-
-
-                returnFeed.Parse(returnStream, AlternativeFormat.Atom);
-                // there should be ONE entry echoed back. 
-                returnStream.Close(); 
-
-                return returnFeed.Entries[0]; 
-            }
-
-            return null;
+            return CreateAndParseEntry(returnStream, target);
         }
         /////////////////////////////////////////////////////////////////////////////
 
@@ -523,11 +554,14 @@ namespace Google.GData.Client
 
      
         //////////////////////////////////////////////////////////////////////
-        /// <summary>templated type safe verion of the interface</summary> 
-        /// <param name="entry">the old entry to update</param> 
+        /// <summary>
+        /// templated type safe version of Insert
+        /// </summary>
+        /// <typeparam name="TEntry"></typeparam>
+        /// <param name="feed"></param>
+        /// <param name="entry"></param>
         /// <returns> the new Entry, as returned from the server</returns>
-        //////////////////////////////////////////////////////////////////////
-        public TEntry  Insert<TEntry>(AtomFeed feed, TEntry entry) where TEntry : AtomEntry
+        public TEntry Insert<TEntry>(AtomFeed feed, TEntry entry) where TEntry : AtomEntry
         {
             IService s = this as IService; 
             return s.Insert(feed, entry) as TEntry;
@@ -536,16 +570,22 @@ namespace Google.GData.Client
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>templated type safe verion of the interface</summary> 
+        /// <typeparam name="TEntry"></typeparam>
+        /// <param name="feedUri"></param>
         /// <param name="entry">the old entry to update</param> 
-        /// <returns> the new Entry, as returned from the server</returns>
-        //////////////////////////////////////////////////////////////////////
+        /// <returns> the new Entry, as returned from the server</returns> 
         public TEntry Insert<TEntry>(Uri feedUri, TEntry entry) where TEntry : AtomEntry
         {
             return this.Insert(feedUri, entry, null) as TEntry;
         }
         /////////////////////////////////////////////////////////////////////////////
 
-
+        /// <summary>
+        /// internal Insert version to avoid recursion in the template versions
+        /// </summary>
+        /// <param name="feedUri"></param>
+        /// <param name="newEntry"></param>
+        /// <returns></returns>
         protected AtomEntry internalInsert(Uri feedUri, AtomEntry newEntry)
         {
             return this.Insert(feedUri, newEntry, null);
@@ -572,29 +612,10 @@ namespace Google.GData.Client
             {
                 throw new ArgumentNullException("newEntry"); 
             }
+            this.versionInfo.ImprintVersion(newEntry);
 
             Stream returnStream = EntrySend(feedUri, newEntry, GDataRequestType.Insert, data);
-
-            AtomFeed returnFeed = CreateFeed(feedUri);
-
-            returnFeed.NewAtomEntry += new FeedParserEventHandler(this.OnParsedNewEntry); 
-            returnFeed.NewExtensionElement += new ExtensionElementEventHandler(this.OnNewExtensionElement);
-            returnFeed.Parse(returnStream, AlternativeFormat.Atom);
-            returnStream.Close();
-
-            AtomEntry entry=null; 
-            // there should be ONE entry echoed back. 
-            if (returnFeed.Entries.Count > 0)
-            {
-
-                entry = returnFeed.Entries[0];
-                if (entry != null)
-                {
-                    entry.Service = this;
-                    entry.setFeed(null);
-                }
-            }
-            return entry; 
+            return CreateAndParseEntry(returnStream, feedUri);
         }
         /////////////////////////////////////////////////////////////////////////////
 
@@ -611,11 +632,7 @@ namespace Google.GData.Client
         public AtomEntry Update(Uri uriTarget, Stream input, string contentType, string slugHeader)
         {
             Stream returnStream = StreamSend(uriTarget, input, GDataRequestType.Update, contentType, slugHeader);
-            AtomFeed returnFeed = CreateFeed(uriTarget);
-            returnFeed.Parse(returnStream, AlternativeFormat.Atom);
-            // there should be ONE entry echoed back. 
-            returnStream.Close(); 
-            return returnFeed.Entries[0]; 
+            return CreateAndParseEntry(returnStream, uriTarget);
         }   
 
         /// <summary>
@@ -629,11 +646,48 @@ namespace Google.GData.Client
         public AtomEntry Insert(Uri uriTarget, Stream input, string contentType, string slugHeader)
         {
             Stream returnStream = StreamSend(uriTarget, input, GDataRequestType.Insert, contentType, slugHeader);
-            AtomFeed returnFeed = CreateFeed(uriTarget);
-            returnFeed.Parse(returnStream, AlternativeFormat.Atom);
+            return CreateAndParseEntry(returnStream, uriTarget);
+        }
+
+
+        private AtomFeed CreateAndParseFeed(Stream inputStream, Uri uriToUse)
+        {
+            AtomFeed returnFeed = null;
+
+            if (inputStream != null)
+            {
+                returnFeed = CreateFeed(uriToUse);
+                this.versionInfo.ImprintVersion(returnFeed);
+                try
+                {
+                    returnFeed.NewAtomEntry += new FeedParserEventHandler(this.OnParsedNewEntry); 
+                    returnFeed.NewExtensionElement += new ExtensionElementEventHandler(this.OnNewExtensionElement);
+                    returnFeed.Parse(inputStream, AlternativeFormat.Atom);
+                }
+                finally
+                {
+                    inputStream.Close(); 
+                }
+            }
+
+            return returnFeed; 
+        }
+
+        private AtomEntry CreateAndParseEntry(Stream inputStream, Uri uriTarget)
+        {
+            AtomFeed returnFeed = CreateAndParseFeed(inputStream, uriTarget);
+            AtomEntry entry=null; 
             // there should be ONE entry echoed back. 
-            returnStream.Close(); 
-            return returnFeed.Entries[0]; 
+            if (returnFeed != null && returnFeed.Entries.Count > 0)
+            {
+                entry = returnFeed.Entries[0];
+                if (entry != null)
+                {
+                    entry.Service = this;
+                    entry.setFeed(null);
+                }
+            }
+            return entry; 
         }
    
 
@@ -645,7 +699,7 @@ namespace Google.GData.Client
         /// <param name="type">the type of request to create</param> 
         /// <returns> the response as a stream</returns>
         //////////////////////////////////////////////////////////////////////
-        public Stream EntrySend(Uri feedUri, AtomBase baseEntry, GDataRequestType type)
+        public Stream EntrySend(Uri feedUri, AtomEntry baseEntry, GDataRequestType type)
         {
             return this.EntrySend(feedUri, baseEntry, type, null); 
         }
@@ -656,6 +710,7 @@ namespace Google.GData.Client
         /// <param name="feedUri">the uri for the feed this object should be posted against</param> 
         /// <param name="baseEntry">the entry to be inserted</param> 
         /// <param name="type">the type of request to create</param> 
+        /// <param name="data">the async data payload</param>
         /// <returns> the response as a stream</returns>
         //////////////////////////////////////////////////////////////////////
         internal virtual Stream EntrySend(Uri feedUri, AtomBase baseEntry, GDataRequestType type, AsyncSendData data)
@@ -670,10 +725,17 @@ namespace Google.GData.Client
             {
                 throw new ArgumentNullException("baseEntry"); 
             }
+            this.versionInfo.ImprintVersion(baseEntry);
 
             IGDataRequest request = this.RequestFactory.CreateRequest(type,feedUri);
             request.Credentials = this.Credentials;
 
+            ISupportsEtag eTarget = request as ISupportsEtag;
+            ISupportsEtag eSource = baseEntry as ISupportsEtag;
+            if (eTarget != null && eSource != null)
+            {
+                eTarget.Etag = eSource.Etag;
+            }
             if (data != null)
             {
                 GDataGAuthRequest gr = request as GDataGAuthRequest;
@@ -766,7 +828,7 @@ namespace Google.GData.Client
         /// <param name="type"></param>
         /// <param name="contentType">the contenttype to use in the request, if NULL is passed, factory default is used</param>
         /// <param name="slugHeader">the slugHeader to use in the request, if NULL is passed, factory default is used</param>
-        /// <param name="data">The async data needed for notifications</data>
+        /// <param name="data">The async data needed for notifications</param>
         /// <returns>Stream from the server response. You should close this stream explicitly.</returns>
         private Stream StreamSend(Uri targetUri, 
                                  Stream inputStream, 
@@ -910,6 +972,7 @@ namespace Google.GData.Client
         /// </summary>
         /// <param name="feed">the feed to post</param>
         /// <param name="batchUri">the URI to user</param>
+        /// <param name="data">The async data payload</param>
         /// <returns>the returned AtomFeed</returns>
         private AtomFeed Batch(AtomFeed feed, Uri batchUri, AsyncSendData data) 
         {
@@ -939,25 +1002,12 @@ namespace Google.GData.Client
             {
                 // setting this will make the feed output the namespace, instead of each entry
                 feed.BatchData = new GDataBatchFeedData(); 
-            }
-
-
+            }  
             Stream returnStream = EntrySend(uriToUse, feed, GDataRequestType.Batch, data);
-
-            AtomFeed returnFeed = CreateFeed(uriToUse);
-
-
-            returnFeed.NewAtomEntry += new FeedParserEventHandler(this.OnParsedNewEntry); 
-            returnFeed.NewExtensionElement += new ExtensionElementEventHandler(this.OnNewExtensionElement);
-
-            returnFeed.Parse(returnStream, AlternativeFormat.Atom);
-
-            returnStream.Close(); 
-
-            return returnFeed;  
-
+            return CreateAndParseFeed(returnStream, uriToUse);;  
         }
         //////////////////////////////////////////////////////////////////////
+
 
 
     

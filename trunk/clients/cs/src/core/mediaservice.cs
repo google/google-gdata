@@ -78,6 +78,7 @@ namespace Google.GData.Client
         /// <param name="feedUri">the uri for the feed this object should be posted against</param> 
         /// <param name="baseEntry">the entry to be inserted</param> 
         /// <param name="type">the type of request to create</param> 
+        /// <param name="data">the async data payload</param>
         /// <returns> the response as a stream</returns>
         //////////////////////////////////////////////////////////////////////
         internal override Stream EntrySend(Uri feedUri, AtomBase baseEntry, GDataRequestType type, AsyncSendData data)

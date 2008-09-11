@@ -220,6 +220,9 @@
       <Link>documentquery.cs</Link>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="..\..\core\etag.cs">
+      <Link>etag.cs</Link>
+    </Compile>
     <Compile Include="..\..\core\exceptions.cs">
       <Link>exceptions.cs</Link>
       <SubType>Code</SubType>
@@ -289,6 +292,9 @@
     <Compile Include="..\..\core\utilities.cs">
       <Link>utilities.cs</Link>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\core\versioninterface.cs">
+      <Link>versioninterface.cs</Link>
     </Compile>
   </ItemGroup>
   <ItemGroup>

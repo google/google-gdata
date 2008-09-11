@@ -21,6 +21,7 @@ using System.Xml;
 using System.Collections;
 using System.Net;
 using System.Globalization;
+using Google.GData.Extensions;
 
 #endregion
 
@@ -36,7 +37,7 @@ namespace Google.GData.Client
     /// setting up extension element parsing
     /// </summary> 
     /////////////////////////////////////////////////////////////////////
-    public abstract class AbstractFeed : AtomFeed
+    public abstract class AbstractFeed : AtomFeed, ISupportsEtag
     {
 
         /// <summary>
@@ -47,6 +48,7 @@ namespace Google.GData.Client
         protected AbstractFeed(Uri uriBase, IService service) : base(uriBase, service)
         {
             NewAtomEntry += new FeedParserEventHandler(this.OnParsedNewAbstractEntry);
+            this.AddExtension(new Etag());
         }
 
 
@@ -103,7 +105,34 @@ namespace Google.GData.Client
         /// this needs to get implemented by subclasses
         /// </summary>
         /// <returns>AtomEntry</returns>
-        public abstract AtomEntry CreateFeedEntry(); 
+        public abstract AtomEntry CreateFeedEntry();
+
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>returns this feeds etag, if any</summary>
+        //////////////////////////////////////////////////////////////////////
+        public string Etag
+        {
+            get
+            {
+                Etag e = FindExtension(BaseNameTable.XmlEtagElement,
+                                     BaseNameTable.gNamespace) as Etag;
+
+                if (e != null)
+                    return e.Value;
+
+                return null;
+            }
+            set
+            {
+                Etag e = new Etag(value);
+                ReplaceExtension(BaseNameTable.XmlEtagElement,
+                                 BaseNameTable.gNamespace,
+                                 e);
+            }
+        }
+
+      
 
 
     }

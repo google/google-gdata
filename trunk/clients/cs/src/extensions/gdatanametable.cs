@@ -99,6 +99,7 @@ namespace Google.GData.Extensions
         /// <summary>static string for parsing the hidden element in a calendar</summary>
         public const string XmlHiddenElement = "hidden";
 
+
         /// <summary>static string for parsing the email element in a contact</summary>
         public const string XmlEmailElement = "email";
         /// <summary>static string for parsing the IM element in a contact</summary>

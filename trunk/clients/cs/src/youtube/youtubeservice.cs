@@ -89,7 +89,7 @@ namespace Google.GData.YouTube {
         /// <summary>
         ///  readonly constructor 
         /// </summary>
-        /// <param name="client">the client identifier</param>
+        /// <param name="applicationName">the application identifier</param>
         public YouTubeService(string applicationName) : base(YTService, applicationName, YTAgent)
         {
             this.NewFeed += new ServiceEventHandler(this.OnNewFeed); 

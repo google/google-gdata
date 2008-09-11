@@ -27,6 +27,9 @@ namespace Google.Spreadsheets
     //////////////////////////////////////////////////////////////////////
     public class Application
     {
+        /// <summary>
+        /// the name of this application
+        /// </summary>
         public static string Name = ".NETSDK Spreadsheets";
 
         private static SpreadsheetsService service;

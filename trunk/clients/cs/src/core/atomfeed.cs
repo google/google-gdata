@@ -607,7 +607,7 @@ namespace Google.GData.Client
             Tracing.TraceCall("parsing stream -> Start:" + format.ToString());
             BaseFeedParser feedParser= null; 
 
-            feedParser = new AtomFeedParser();
+            feedParser = new AtomFeedParser(this);
 
             // create a new delegate for the parser
             feedParser.NewAtomEntry += new FeedParserEventHandler(this.OnParsedNewEntry); 
@@ -651,14 +651,23 @@ namespace Google.GData.Client
                     if (e.Entry != null)
                     {
                         // add it to the collection
-                        Tracing.TraceMsg("\t new AtomEntry found, adding to collection"); 
+                        Tracing.TraceMsg("\t new AtomEntry found, adding to collection");
                         e.Entry.Service = this.Service;
-                        this.Entries.Add(e.Entry); 
+                        this.Entries.Add(e.Entry);
                     }
                     else if (e.Feed != null)
                     {
                         // parsed a feed, set ourselves to it...
-                        Tracing.TraceMsg("\t Feed parsed found, parsing is done..."); 
+                        Tracing.TraceMsg("\t Feed parsed found, parsing is done...");
+                    }
+                }
+                else
+                {
+                    IVersionAware v = e.Entry as IVersionAware;
+                    if (v != null)
+                    {
+                        v.ProtocolMajor = this.ProtocolMajor;
+                        v.ProtocolMinor = this.ProtocolMinor;
                     }
                 }
             }

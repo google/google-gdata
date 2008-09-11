@@ -149,7 +149,6 @@ namespace Google.GData.Client.LiveTests
                 }
 
                 GDataLoggingRequestFactory factory = (GDataLoggingRequestFactory) this.factory;
-                factory.MethodOverride = true;
                 service.RequestFactory = this.factory; 
 
                 query.Uri = new Uri(this.defaultCalendarUri);
@@ -221,9 +220,6 @@ namespace Google.GData.Client.LiveTests
 
                 Assert.AreEqual(iCount, calFeed.Entries.Count, "Feed should have the same count again, it has: " + calFeed.Entries.Count); 
                 service.Credentials = null; 
-
-                factory.MethodOverride = false;
-
             }
 
         }
@@ -249,7 +245,6 @@ namespace Google.GData.Client.LiveTests
                 }
 
                 GDataLoggingRequestFactory factory = (GDataLoggingRequestFactory) this.factory;
-                factory.MethodOverride = true;
                 service.RequestFactory = this.factory; 
 
                 query.Uri = new Uri(this.defaultCalendarUri);
@@ -285,9 +280,6 @@ namespace Google.GData.Client.LiveTests
                 }
 
                 service.Credentials = null; 
-
-                factory.MethodOverride = false;
-
             }
 
         }
@@ -314,7 +306,6 @@ namespace Google.GData.Client.LiveTests
                 }
 
                 GDataLoggingRequestFactory factory = (GDataLoggingRequestFactory) this.factory;
-                factory.MethodOverride = true;
                 service.RequestFactory = this.factory; 
 
                 query.Uri = new Uri(this.defaultCalendarUri);
@@ -442,9 +433,6 @@ namespace Google.GData.Client.LiveTests
                 Assert.AreEqual(iCount, calFeed.Entries.Count, "Feed should have the same count again, it has: " + calFeed.Entries.Count); 
 
                 service.Credentials = null; 
-
-                factory.MethodOverride = false;
-
             }
 
         }
@@ -469,7 +457,6 @@ namespace Google.GData.Client.LiveTests
                 }
 
                 GDataLoggingRequestFactory factory = (GDataLoggingRequestFactory) this.factory;
-                factory.MethodOverride = true;
                 service.RequestFactory = this.factory; 
 
                 query.Uri = new Uri(this.defaultCalendarUri);
@@ -490,9 +477,7 @@ namespace Google.GData.Client.LiveTests
 
                 }
                 service.Credentials = null; 
-                factory.MethodOverride = false;
             }
-
         }
         /////////////////////////////////////////////////////////////////////////////
 
@@ -514,7 +499,6 @@ namespace Google.GData.Client.LiveTests
                 }
 
                 GDataLoggingRequestFactory factory = (GDataLoggingRequestFactory)this.factory;
-                factory.MethodOverride = true;
                 service.RequestFactory = this.factory;
 
                 EventQuery query = new EventQuery(this.defaultCalendarUri);
@@ -621,9 +605,7 @@ namespace Google.GData.Client.LiveTests
                 }
 
                 service.Credentials = null;
-                factory.MethodOverride = false;
             }
-
         }
         /////////////////////////////////////////////////////////////////////////////
 
@@ -647,7 +629,6 @@ namespace Google.GData.Client.LiveTests
                 }
 
                 GDataLoggingRequestFactory factory = (GDataLoggingRequestFactory) this.factory;
-                factory.MethodOverride = true;
                 service.RequestFactory = this.factory; 
 
                 query.Uri = new Uri(this.defaultCalendarUri);
@@ -702,10 +683,7 @@ namespace Google.GData.Client.LiveTests
 
                 service.Credentials = null; 
 
-                factory.MethodOverride = false;
-
             }
-
         }
         /////////////////////////////////////////////////////////////////////////////
 
@@ -729,7 +707,6 @@ namespace Google.GData.Client.LiveTests
                 }
 
                 GDataLoggingRequestFactory factory = (GDataLoggingRequestFactory) this.factory;
-                factory.MethodOverride = true;
                 service.RequestFactory = this.factory; 
 
                 query.Uri = new Uri(this.aclFeedUri);
@@ -794,7 +771,6 @@ namespace Google.GData.Client.LiveTests
 
 
                 service.Credentials = null; 
-                factory.MethodOverride = false;
             }
         }
         /////////////////////////////////////////////////////////////////////////////
@@ -820,7 +796,6 @@ namespace Google.GData.Client.LiveTests
 
 
                 GDataLoggingRequestFactory factory = (GDataLoggingRequestFactory) this.factory;
-                factory.MethodOverride = true;
                 service.RequestFactory = this.factory;
 
                 query.Uri = new Uri(this.defaultOwnCalendarsUri);
@@ -872,7 +847,6 @@ namespace Google.GData.Client.LiveTests
                 }
 
                 GDataLoggingRequestFactory factory = (GDataLoggingRequestFactory) this.factory;
-                factory.MethodOverride = true;
                 service.RequestFactory = this.factory; 
 
                 query.Uri = new Uri(this.defaultCalendarUri);
@@ -979,9 +953,6 @@ namespace Google.GData.Client.LiveTests
                 }
 
                 service.Credentials = null; 
-
-                factory.MethodOverride = false;
-
             }
 
         }
@@ -1007,7 +978,6 @@ namespace Google.GData.Client.LiveTests
                 }
 
                 GDataLoggingRequestFactory factory = (GDataLoggingRequestFactory) this.factory;
-                factory.MethodOverride = true;
                 service.RequestFactory = this.factory; 
 
                 query.Uri = new Uri(this.defaultCalendarUri);
@@ -1074,7 +1044,6 @@ namespace Google.GData.Client.LiveTests
                     }
                 }
                 service.Credentials = null; 
-                factory.MethodOverride = false;
             }
 
         }
@@ -1100,7 +1069,6 @@ namespace Google.GData.Client.LiveTests
                 }
 
                 GDataLoggingRequestFactory factory = (GDataLoggingRequestFactory) this.factory;
-                // factory.MethodOverride = true;
                 service.RequestFactory = this.factory; 
 
                 query.Uri = new Uri(this.defaultCalendarUri);
@@ -1157,7 +1125,6 @@ namespace Google.GData.Client.LiveTests
                     }
                 }
                 service.Credentials = null; 
-                factory.MethodOverride = false;
             }
 
         }
@@ -1187,14 +1154,12 @@ namespace Google.GData.Client.LiveTests
                 }
 
                 GDataLoggingRequestFactory factory = (GDataLoggingRequestFactory) this.factory;
-                factory.MethodOverride = true;
                 service.RequestFactory = this.factory; 
 
                 query.Uri = new Uri(this.defaultCompositeUri); 
                 EventFeed calFeed = service.Query(query) as EventFeed;
                 Assert.IsTrue(calFeed!=null, "that's wrong, there should be a feed object" + calFeed); 
                 service.Credentials = null; 
-                factory.MethodOverride = false;
             }
         }
         /////////////////////////////////////////////////////////////////////////////
@@ -1217,7 +1182,6 @@ namespace Google.GData.Client.LiveTests
                 }
 
                 GDataLoggingRequestFactory factory = (GDataLoggingRequestFactory) this.factory;
-                factory.MethodOverride = true;
                 service.RequestFactory = this.factory;
 
                 CalendarEntry newCalendar = new CalendarEntry();
@@ -1259,7 +1223,6 @@ namespace Google.GData.Client.LiveTests
 
 
                 service.Credentials = null;
-                factory.MethodOverride = false;
             }
 
         }
@@ -1286,7 +1249,6 @@ namespace Google.GData.Client.LiveTests
                 }
 
                 GDataLoggingRequestFactory factory = (GDataLoggingRequestFactory) this.factory;
-                // factory.MethodOverride = true;
                 service.RequestFactory = this.factory; 
 
                 query.Uri = new Uri(this.defaultCalendarUri);
@@ -1345,7 +1307,6 @@ namespace Google.GData.Client.LiveTests
                     }
                 }
                 service.Credentials = null; 
-                factory.MethodOverride = false;
             }
 
         }
@@ -1371,7 +1332,6 @@ namespace Google.GData.Client.LiveTests
                 }
 
                 GDataLoggingRequestFactory factory = (GDataLoggingRequestFactory) this.factory;
-                factory.MethodOverride = true;
                 service.RequestFactory = this.factory; 
 
                 query.Uri = new Uri(this.defaultCalendarUri);
@@ -1413,7 +1373,6 @@ namespace Google.GData.Client.LiveTests
 
                 service.Credentials = null; 
 
-                factory.MethodOverride = false;
             }
         }
         /////////////////////////////////////////////////////////////////////////////
@@ -1492,7 +1451,6 @@ namespace Google.GData.Client.LiveTests
                 }
 
                 GDataLoggingRequestFactory factory = (GDataLoggingRequestFactory) this.factory;
-                factory.MethodOverride = true;
                 service.RequestFactory = this.factory; 
 
                 query.Uri = new Uri(this.defaultCalendarUri);
@@ -1570,7 +1528,6 @@ namespace Google.GData.Client.LiveTests
                 
                 service.Credentials = null; 
 
-                factory.MethodOverride = false;
             }
         }
         /////////////////////////////////////////////////////////////////////////////

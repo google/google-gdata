@@ -16,6 +16,7 @@
 using System;
 using System.Xml;
 using Google.GData.Client;
+using System.Globalization;
 
 namespace Google.GData.Extensions.AppControl {
 
@@ -30,7 +31,7 @@ namespace Google.GData.Extensions.AppControl {
         public AppControl() :
             base(BaseNameTable.XmlElementPubControl,
                  BaseNameTable.gAppPublishingPrefix,
-                 BaseNameTable.NSAppPublishing)
+                 BaseNameTable.AppPublishingNamespace(null))
         {
             this.ExtensionFactories.Add(new AppDraft());
         }
@@ -43,15 +44,25 @@ namespace Google.GData.Extensions.AppControl {
             get
             {
                 return FindExtension(BaseNameTable.XmlElementPubDraft,
-                                     BaseNameTable.NSAppPublishing) as AppDraft;
+                                     BaseNameTable.AppPublishingNamespace(this)) as AppDraft;
             }
             set
             {
                 ReplaceExtension(BaseNameTable.XmlElementPubDraft,
-                                BaseNameTable.NSAppPublishing,
+                                BaseNameTable.AppPublishingNamespace(this),
                                 value);
             }
         }
+
+        /// <summary>
+        /// need so setup the namespace based on the version information     
+        /// </summary>
+        protected override void VersionInfoChanged()
+        {
+            base.VersionInfoChanged();
+            this.SetXmlNamespace(BaseNameTable.AppPublishingNamespace(this));
+        }
+
    }
 
     /// <summary>
@@ -66,7 +77,7 @@ namespace Google.GData.Extensions.AppControl {
         public AppDraft()
         : base(BaseNameTable.XmlElementPubDraft, 
                BaseNameTable.gAppPublishingPrefix,
-               BaseNameTable.NSAppPublishing)
+               BaseNameTable.AppPublishingNamespace(null))
         {}
 
          /// <summary>
@@ -75,7 +86,7 @@ namespace Google.GData.Extensions.AppControl {
         public AppDraft(bool isDraft)
         : base(BaseNameTable.XmlElementPubDraft, 
                BaseNameTable.gAppPublishingPrefix,
-               BaseNameTable.NSAppPublishing,
+               BaseNameTable.AppPublishingNamespace(null),
                isDraft ? "yes" : "no")
         {}
 
@@ -87,5 +98,82 @@ namespace Google.GData.Extensions.AppControl {
             get { return this.Value == "yes" ? true : false; } 
             set { this.Value = (value == true) ? "yes" : "no"; }
         }
+
+        /// <summary>
+        /// need so setup the namespace based on the version information
+        /// changes
+        /// </summary>
+        protected override void VersionInfoChanged()
+        {
+            base.VersionInfoChanged();
+            this.SetXmlNamespace(BaseNameTable.AppPublishingNamespace(this));
+        }
     }
+
+    /// <summary>
+    /// The "app:edited" element is a Date construct (as defined by
+    /// [RFC4287]), whose content indicates the last time an Entry was
+    /// edited.  If the entry has not been edited yet, the content indicates
+    /// the time it was created.  Atom Entry elements in Collection Documents
+    /// SHOULD contain one app:edited element, and MUST NOT contain more than
+    /// one.
+    /// The server SHOULD change the value of this element every time an
+    /// Entry Resource or an associated Media Resource has been edited
+    /// </summary>
+    public class AppEdited : SimpleElement
+    {
+        /// <summary>
+        /// creates a default app:edited element
+        /// </summary>
+        public AppEdited()
+            : base(BaseNameTable.XmlElementPubEdited,
+               BaseNameTable.gAppPublishingPrefix,
+               BaseNameTable.NSAppPublishingFinal)
+        { }
+
+        /// <summary>
+        /// creates a default app:edited element with the given datetime value
+        /// </summary>
+        public AppEdited(DateTime dateValue)
+            : base(BaseNameTable.XmlElementPubEdited,
+               BaseNameTable.gAppPublishingPrefix,
+               BaseNameTable.NSAppPublishingFinal)
+
+        {
+            this.Value = Utilities.LocalDateTimeInUTC(dateValue);
+        }
+
+   
+        /// <summary>
+        /// creates an app:edited element with the string as it's
+        /// default value. The string has to conform to RFC4287
+        /// </summary>
+        /// <param name="dateInUtc"></param>
+        public AppEdited(string dateInUtc)
+            : base(BaseNameTable.XmlElementPubEdited,
+               BaseNameTable.gAppPublishingPrefix,
+               BaseNameTable.NSAppPublishingFinal,
+                dateInUtc)
+
+        {
+        }
+
+        /// <summary>
+        ///  Accessor Method for the value as a DateTime
+        /// </summary>
+        public DateTime DateValue
+        {
+            get 
+            {
+                return DateTime.Parse(this.Value, CultureInfo.InvariantCulture);
+            }
+
+            set 
+            {
+                this.Value = Utilities.LocalDateTimeInUTC(value); 
+            }
+        }
+
+    }
+
 }

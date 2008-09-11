@@ -58,10 +58,9 @@ namespace Google.GData.Client
 
 
        /// <summary>
-       /// constructor. Takes the URI and the service this event applies to
+       /// constructor. takes the async data blog
        /// </summary>
-       /// <param name="uri">URI executed</param>
-       /// <param name="service">service object doing the execution</param>
+       /// <param name="data">async data to constructor</param>
        internal AsyncOperationCompletedEventArgs(AsyncData data) : base(data.Exception, false, data.UserData)
        {
            AsyncQueryData qData = data as AsyncQueryData;
@@ -87,7 +86,7 @@ namespace Google.GData.Client
        
 
        //////////////////////////////////////////////////////////////////////
-       /// <summary>the feed that was created. If NULL, a stream or entry was returned/summary> 
+       /// <summary>the feed that was created. If NULL, a stream or entry was returned</summary> 
        /// <returns> </returns>
        //////////////////////////////////////////////////////////////////////
        public AtomFeed Feed
@@ -97,7 +96,7 @@ namespace Google.GData.Client
        ////////////////////////////////////////////////////////////////////////
        
        //////////////////////////////////////////////////////////////////////
-       /// <summary>the entry that was created. If NULL, a stream or feed was returned/summary> 
+       /// <summary>the entry that was created. If NULL, a stream or feed was returned</summary> 
        /// <returns> </returns>
        //////////////////////////////////////////////////////////////////////
        public AtomEntry Entry
@@ -108,7 +107,7 @@ namespace Google.GData.Client
  
 
        //////////////////////////////////////////////////////////////////////
-       /// <summary>the stream that was created. If NULL, a feed or entry was returned/summary> 
+       /// <summary>the stream that was created. If NULL, a feed or entry was returned</summary> 
        /// <returns> </returns>
        //////////////////////////////////////////////////////////////////////
        public Stream ResponseStream
@@ -143,8 +142,10 @@ namespace Google.GData.Client
        /// <summary>
        /// constructor. Takes the URI and the service this event applies to
        /// </summary>
-       /// <param name="uri">URI currently executed</param>
-       /// <param name="service">service object doing the execution</param>
+       /// <param name="completeSize">the completesize of the request</param>
+       /// <param name="currentPosition">the current position in the upload/download</param>
+       /// <param name="percentage">progress percentage</param>
+       /// <param name="userData">The userdata identifying the request</param>
        public AsyncOperationProgressEventArgs(long completeSize, long currentPosition, int percentage, 
                                     object userData) : base(percentage, userData)
        {
@@ -434,7 +435,7 @@ namespace Google.GData.Client
     /// <summary>async functionallity of the Service implementation
     /// </summary> 
     //////////////////////////////////////////////////////////////////////
-    public partial class Service : IService
+    public partial class Service : IService, IVersionAware
     {
         /// <summary>eventhandler, fired when an async operation is completed</summary> 
         public event AsyncOperationCompletedEventHandler AsyncOperationCompleted;
@@ -746,6 +747,7 @@ namespace Google.GData.Client
         /// </summary>
         /// <param name="feed">the feed to post</param>
         /// <param name="batchUri">the URI to user</param>
+        /// <param name="userData">the userdata identifying this request</param>
         /// <returns></returns>
         public void  BatchAsync(AtomFeed feed, Uri batchUri, Object userData) 
         {
@@ -784,6 +786,7 @@ namespace Google.GData.Client
         /// </summary>
         /// <param name="data"></param>
         /// <param name="userData"></param>
+        /// <param name="workerDelegate"></param>
         /// <returns></returns>
         private void AsyncStarter(AsyncSendData data, WorkerSendEventHandler workerDelegate, Object userData)
         {
