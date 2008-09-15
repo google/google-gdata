@@ -454,7 +454,7 @@ namespace Google.GData.Client
         private SendOrPostCallback onProgressReportDelegate;
         private SendOrPostCallback onCompletedDelegate;
         private SendOrPostCallback completionMethodDelegate;
-
+        
 
         private HybridDictionary userStateToLifetime = 
                                     new HybridDictionary();
@@ -506,20 +506,6 @@ namespace Google.GData.Client
         /// <returns>nothing</returns>
         private void QueryAsync(Uri queryUri, DateTime ifModifiedSince, bool doParse, Object userData)
         {
-            if (this.onCompletedDelegate == null)
-            {
-                this.onCompletedDelegate = new SendOrPostCallback(OnAsyncCompleted);
-            }
-            if (this.onProgressReportDelegate == null)
-            {
-                this.onProgressReportDelegate = new SendOrPostCallback(AsyncReportProgress);
-            }
-            if (this.completionMethodDelegate == null)
-            {
-                this.completionMethodDelegate = new SendOrPostCallback(AsyncCompletionMethod);
-            }
-
-
             AsyncOperation asyncOp = AsyncOperationManager.CreateOperation(userData);
             AsyncQueryData data = new AsyncQueryData(queryUri, ifModifiedSince, doParse, asyncOp, userData, this.onProgressReportDelegate);
 
@@ -790,19 +776,6 @@ namespace Google.GData.Client
         /// <returns></returns>
         private void AsyncStarter(AsyncSendData data, WorkerSendEventHandler workerDelegate, Object userData)
         {
-            if (this.onCompletedDelegate == null)
-            {
-                this.onCompletedDelegate = new SendOrPostCallback(OnAsyncCompleted);
-            }
-            if (this.onProgressReportDelegate == null)
-            {
-                this.onProgressReportDelegate = new SendOrPostCallback(AsyncReportProgress);
-            }
-            if (this.completionMethodDelegate == null)
-            {
-                this.completionMethodDelegate = new SendOrPostCallback(AsyncCompletionMethod);
-            }
-
             AsyncOperation asyncOp = AsyncOperationManager.CreateOperation(userData);
 
             data.Operation = asyncOp;
@@ -971,6 +944,13 @@ namespace Google.GData.Client
                     asyncOp.PostOperationCompleted(this.onCompletedDelegate, args);
                 }
             }
+        }
+        
+        private void InitDelegates()
+        {
+            this.onProgressReportDelegate = new SendOrPostCallback(AsyncReportProgress);
+            this.onCompletedDelegate = new SendOrPostCallback(OnAsyncCompleted);
+            this.completionMethodDelegate= new SendOrPostCallback(AsyncCompletionMethod);
         }
 
     }
