@@ -118,6 +118,7 @@ namespace Google.GData.Client
         public Service()
         {
             this.RequestFactory = new GDataRequestFactory(GServiceAgent);
+            InitDelegates();
         }
         /////////////////////////////////////////////////////////////////////////////
  
@@ -128,6 +129,7 @@ namespace Google.GData.Client
         public Service(string applicationName)
         {
             this.RequestFactory = new GDataRequestFactory(applicationName + " " + GServiceAgent);
+            InitDelegates();
         }
         /////////////////////////////////////////////////////////////////////////////
  
@@ -138,6 +140,7 @@ namespace Google.GData.Client
         public Service(string service, string applicationName)
         {
             this.RequestFactory = new GDataGAuthRequestFactory(service, applicationName, GServiceAgent);
+            InitDelegates();
         }
         /////////////////////////////////////////////////////////////////////////////
  
@@ -148,6 +151,7 @@ namespace Google.GData.Client
         public Service(string service, string applicationName, string library)
         {
             this.RequestFactory = new GDataGAuthRequestFactory(service, applicationName, library);
+            InitDelegates();
         }
         /////////////////////////////////////////////////////////////////////////////
 
