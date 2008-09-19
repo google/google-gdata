@@ -70,11 +70,13 @@ Hence to figure out if a certain attribute is set you can do something like this
 If also means that the following code:
 
 {{{
-     XmlNode node = new XmlNode(
-              "<app:control xmlns:app='http://purl.org/atom/app#>
+      XmlDocument doc = new XmlDocument();
+
+     doc. LoadXml( "<app:control xmlns:app='http://purl.org/atom/app#>
                 <app:draft>yes</app:draft>
-              </app:control>"
-              
+              </app:control>");
+
+     XmlNode node = doc.DocumentElement;
       AtomEntry entry = .... 
       entry.ExtensionElements.Add(node);
       
