@@ -135,8 +135,9 @@ namespace Google.GData.Extensions {
                                 XmlReader reader = new XmlNodeReader(entryChild);
                                 // move the reader to the first node
                                 reader.Read();
-                                parser.NewAtomEntry += new FeedParserEventHandler(link.OnParsedNewEntry); 
-                                parser.ParseEntry(reader); 
+                                AtomFeedParser p = new AtomFeedParser(); 
+                                p.NewAtomEntry += new FeedParserEventHandler(link.OnParsedNewEntry);
+                                p.ParseEntry(reader); 
                             }
                             else
                             {
