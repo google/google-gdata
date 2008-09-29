@@ -124,6 +124,11 @@ namespace Google.GData.Photos {
         /// picasa base URI 
         /// </summary>
         public static string picasaBaseUri = "http://picasaweb.google.com/data/feed/api/user/";
+
+        /// <summary>
+        /// picasa base URI for posting against the default album
+        /// </summary>
+        public static string picasaDefaultPostUri = "http://picasaweb.google.com/data/feed/api/user/default/albumid/default";
        
 
         /// <summary>
@@ -154,7 +159,7 @@ namespace Google.GData.Photos {
         /// <returns>string</returns>
         public static string CreatePicasaUri(string userID) 
         {
-            return PicasaQuery.picasaBaseUri + userID;
+            return PicasaQuery.picasaBaseUri +  Utilities.UriEncodeUnsafe(userID); 
         }
 
         /// <summary>
@@ -166,7 +171,7 @@ namespace Google.GData.Photos {
         /// <returns>string</returns>
         public static string CreatePicasaUri(string userID, string albumName) 
         {
-            return PicasaQuery.picasaBaseUri + userID +"/album/"+albumName  ;
+            return CreatePicasaUri(userID) +"/album/"+ Utilities.UriEncodeUnsafe(albumName);
         }
 
         /// <summary>
@@ -178,7 +183,7 @@ namespace Google.GData.Photos {
         /// <returns>A URI to a Picasa Web Albums feed</returns>
         public static string CreatePicasaUri(string userID, string albumName, string photoID)
         {
-            return CreatePicasaUri(userID, albumName) + "/photoid/" + photoID;
+            return CreatePicasaUri(userID, albumName) + "/photoid/" + Utilities.UriEncodeUnsafe(photoID);
         }
 
         //////////////////////////////////////////////////////////////////////
