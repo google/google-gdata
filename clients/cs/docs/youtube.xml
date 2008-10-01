@@ -45,7 +45,7 @@
             <summary>
              readonly constructor 
             </summary>
-            <param name="client">the client identifier</param>
+            <param name="applicationName">the application identifier</param>
         </member>
         <member name="M:Google.GData.YouTube.YouTubeService.Query(Google.GData.YouTube.YouTubeQuery)">
             <summary>
