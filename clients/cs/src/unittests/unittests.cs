@@ -165,18 +165,29 @@ namespace Google.GData.Client.UnitTests
         /// <param name="baseName">the basename</param>
         /// <returns>the complete Uri name for file access</returns>
         //////////////////////////////////////////////////////////////////////
-        protected string CreateUriFileName(string baseName)
+        protected string CreateUriLogFileName(string baseName)
+        {
+            return CreateUriFileName(baseName + BaseTestClass.defExt);
+        }
+        /////////////////////////////////////////////////////////////////////////////
+        // 
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>private string CreateUriFileName(string baseName)</summary> 
+        /// <param name="baseName">the basename</param>
+        /// <returns>the complete Uri name for file access</returns>
+        //////////////////////////////////////////////////////////////////////
+        protected string CreateUriFileName(string fileName)
         {
             string strUri= null;
 
             try
             {
-                UriBuilder temp = new UriBuilder("file", "localhost",0,  this.currentDir + "/"  + baseName + BaseTestClass.defExt);
+                UriBuilder temp = new UriBuilder("file", "localhost",0,  this.currentDir + "/"  + fileName);
                 strUri = temp.Uri.AbsoluteUri; 
             }
             catch (System.UriFormatException)
             {
-                UriBuilder temp = new UriBuilder("file", "",0,  this.currentDir + "/"  + baseName + BaseTestClass.defExt);
+                UriBuilder temp = new UriBuilder("file", "",0,  this.currentDir + "/"  + fileName);
                 strUri = temp.Uri.AbsoluteUri; 
 
             }

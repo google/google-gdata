@@ -524,6 +524,36 @@ namespace Google.GData.Client.LiveTests
         }
         /////////////////////////////////////////////////////////////////////////////
 
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Loads a test file with an error return</summary> 
+        //////////////////////////////////////////////////////////////////////
+        [Test] public void GoogleBaseErrorTest()
+        {
+            Tracing.TraceMsg("Entering GoogleBaseErrorTest");
+
+            FeedQuery query = new FeedQuery();
+
+            Uri uri = new Uri(CreateUriFileName("batcherror.xml"));
+            query.Uri = uri; 
+            Service service = new GBaseService(this.ApplicationName, this.gBaseKey);
+
+
+            AtomFeed errorFeed = service.Query(query);
+            foreach (AtomEntry errorEntry in errorFeed.Entries )
+            {
+                GDataBatchEntryData data = errorEntry.BatchData;
+                if (data.Status.Code == 400)
+                {
+                    Assert.IsTrue(data.Status.Errors.Count == 2);
+                    GDataBatchError error = data.Status.Errors[0];
+
+                    Assert.IsTrue(error.Type == "data");
+                    Assert.IsTrue(error.Field == "price_type");
+                    Assert.IsTrue(error.Reason == "Invalid price type");
+                }
+            }
+        }
+        /////////////////////////////////////////////////////////////////////////////
     } /////////////////////////////////////////////////////////////////////////////
 }
 
