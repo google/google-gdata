@@ -19,6 +19,7 @@
 using System;
 using System.Xml;
 using System.IO; 
+using System.Collections.Generic;
 using System.Globalization;
 
 #endregion
@@ -927,27 +928,19 @@ namespace Google.GData.Client
                     }
                 }
 
-                // FIX: THIS CODE SEEMS TO MAKE AN INFINITE LOOP WITH NextChildElement()
-                //reader.MoveToElement();
-                //status.Value = Utilities.DecodedValue(reader.ReadString());
-                ////////////////////////////////////////////////////////////////////////
-
-                // status can have one child element, errors
-                // for now disabled, as this is currently not supported on the server
-                // instead the errors come as encoded strings
-                /*
+                reader.MoveToElement();
+                
                 int lvl = -1;
+                // status can have one child element, errors
                 while(NextChildElement(reader, ref lvl))
                 {
                     localname = reader.LocalName;
 
                     if (localname.Equals(this.nameTable.BatchErrors))
                     {
-                        // author.Name = Utilities.DecodeString(Utilities.DecodedValue(reader.ReadString()));
-                        status.Errors = ParseBatchErrors(reader); 
+                        ParseBatchErrors(reader, status); 
                     }
                 }
-                */
             }
             return status;
         }
@@ -956,9 +949,8 @@ namespace Google.GData.Client
         ///  parses a list of errors
         /// </summary>
         /// <param name="reader">XmlReader positioned at the start of the status element</param>
-        /// <returns>GDataBatchErrorCollection</returns>
-
-        protected GDataBatchErrorCollection ParseBatchErrors(XmlReader reader)
+        /// <param name="status">the batch status element to add the errors tohe</param>
+        protected void ParseBatchErrors(XmlReader reader, GDataBatchStatus status)
         {
             if (reader == null)
             {
@@ -966,10 +958,10 @@ namespace Google.GData.Client
             }
 
             object localname = reader.LocalName;
-            GDataBatchErrorCollection collection = null;
+            List<GDataBatchError> collection = null;
             if (localname.Equals(this.nameTable.BatchErrors))
             {
-                collection = new GDataBatchErrorCollection(); 
+                collection = new List<GDataBatchError>();
 
                 int lvl = -1;
                 while (NextChildElement(reader, ref lvl))
@@ -977,13 +969,11 @@ namespace Google.GData.Client
                     localname = reader.LocalName;
                     if (localname.Equals(this.nameTable.BatchError))
                     {
-                        collection.Add(ParseBatchError(reader));
+                        status.Errors.Add(ParseBatchError(reader));
                     }
-
                 }
-
             }
-            return collection;
+            return;
         }
 
         /// <summary>

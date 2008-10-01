@@ -128,7 +128,7 @@ namespace Google.GData.Client.UnitTests
             service.RequestFactory = this.factory; 
 
             FeedQuery query = new FeedQuery();
-            query.Uri = new Uri(CreateUriFileName("CreateFeed"));
+            query.Uri = new Uri(CreateUriLogFileName("CreateFeed"));
 
             feed = service.Query(query);
 
@@ -164,7 +164,7 @@ namespace Google.GData.Client.UnitTests
             service.RequestFactory = this.factory; 
 
             FeedQuery query = new FeedQuery();
-            query.Uri = new Uri(CreateUriFileName("CreateEntrySaveAndLoad"));
+            query.Uri = new Uri(CreateUriLogFileName("CreateEntrySaveAndLoad"));
             AtomFeed feed = service.Query(query);
             Assert.IsTrue(feed.Entries != null, "Feed.Entries should not be null");
             Assert.AreEqual(1, feed.Entries.Count, "Feed.Entries should have ONE element");
@@ -236,7 +236,7 @@ namespace Google.GData.Client.UnitTests
             service.RequestFactory = this.factory; 
 
             FeedQuery query = new FeedQuery();
-            query.Uri = new Uri(CreateUriFileName("CreateHTMLEntrySaveAndLoad"));
+            query.Uri = new Uri(CreateUriLogFileName("CreateHTMLEntrySaveAndLoad"));
             AtomFeed feed = service.Query(query);
             Assert.IsTrue(feed.Entries != null, "Feed.Entries should not be null");
             Assert.AreEqual(1, feed.Entries.Count, "Feed.Entries should have ONE element");
@@ -277,7 +277,7 @@ namespace Google.GData.Client.UnitTests
             service.RequestFactory = this.factory; 
 
             FeedQuery query = new FeedQuery();
-            query.Uri = new Uri(CreateUriFileName("CreateXHTMLEntrySaveAndLoad"));
+            query.Uri = new Uri(CreateUriLogFileName("CreateXHTMLEntrySaveAndLoad"));
             AtomFeed feed = service.Query(query);
 
             Tracing.TraceMsg("loaded in... CreateXHTMLEntrySaveAndLoad");
@@ -328,7 +328,7 @@ namespace Google.GData.Client.UnitTests
             service.RequestFactory = this.factory; 
 
             FeedQuery query = new FeedQuery();
-            query.Uri = new Uri(CreateUriFileName("CreateFeedSaveAndLoad"));
+            query.Uri = new Uri(CreateUriLogFileName("CreateFeedSaveAndLoad"));
 
             feed = service.Query(query);
 
@@ -366,7 +366,7 @@ namespace Google.GData.Client.UnitTests
             service.RequestFactory = this.factory; 
 
             FeedQuery query = new FeedQuery();
-            query.Uri = new Uri(CreateUriFileName("CreateEmptyEntrySaveAndLoad"));
+            query.Uri = new Uri(CreateUriLogFileName("CreateEmptyEntrySaveAndLoad"));
             AtomFeed feed = service.Query(query);
             Assert.IsTrue(feed.Entries != null, "Feed.Entries should not be null");
             Assert.AreEqual(1, feed.Entries.Count, "Feed.Entries should have ONE element");
@@ -405,7 +405,7 @@ namespace Google.GData.Client.UnitTests
             // let's try loading this... 
             Service service2 = new Service();
             FeedQuery query2 = new FeedQuery();
-            query2.Uri = new Uri(CreateUriFileName("QueryRemoteHost"));
+            query2.Uri = new Uri(CreateUriLogFileName("QueryRemoteHost"));
 
             AtomFeed feed = service2.Query(query2);
             Assert.AreEqual(iCount, feed.Entries.Count, "loaded feed has different number of entries");

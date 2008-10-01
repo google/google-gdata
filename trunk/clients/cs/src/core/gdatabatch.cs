@@ -18,6 +18,7 @@
 
 using System;
 using System.Xml;
+using System.Collections.Generic;
 using System.Globalization;
 using System.ComponentModel;
 
@@ -53,7 +54,7 @@ namespace Google.GData.Client
         private int code;
         private string reason; 
         private string contentType; 
-        private string value;
+        private List<GDataBatchError> errorList;
         
         /// <summary>default value for the status code</summary>
         public const int CodeDefault = -1; 
@@ -99,31 +100,24 @@ namespace Google.GData.Client
         }
         // end of accessor public string ContentType
 
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>accessor method public string Value</summary> 
-        /// <returns> </returns>
-        //////////////////////////////////////////////////////////////////////
-        public string Value
-        {
-            get {return this.value;}
-            set {this.value = value;}
-        }
-        // end of accessor public string Value
 
-        /* disabled for now
         //////////////////////////////////////////////////////////////////////
         /// <summary>the error list</summary> 
         /// <returns> </returns>
         //////////////////////////////////////////////////////////////////////
-        public GDataBatchErrorCollection Errors
+        public List<GDataBatchError> Errors
         {
-            get {return this.errorList;}
-            set {this.errorList = value;}
+            get 
+            {
+                if (this.errorList == null)
+                {
+                    this.errorList = new List<GDataBatchError>();
+                }
+                return this.errorList;
+            }
         }
-        // end of accessor Errors
+        
 
-        */ 
-    
         #region Persistence overloads
         /// <summary>
         /// Persistence method for the GDataBatchStatus object
@@ -148,11 +142,6 @@ namespace Google.GData.Client
             if (Utilities.IsPersistable(this.Reason))
             {
                 writer.WriteAttributeString(BaseNameTable.XmlAttributeBatchReason, this.Reason); 
-            }
-            if (Utilities.IsPersistable(this.Value))
-            {
-                string encoded = Utilities.EncodeString(this.Value);
-                writer.WriteString(encoded);
             }
             writer.WriteEndElement();
         }

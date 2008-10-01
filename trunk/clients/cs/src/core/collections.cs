@@ -556,58 +556,6 @@ namespace Google.GData.Client
     /////////////////////////////////////////////////////////////////////////////
 
 
-    //////////////////////////////////////////////////////////////////////
-    /// <summary>standard typed collection based on 1.1 framework for BatchErrors
-    /// </summary> 
-    //////////////////////////////////////////////////////////////////////
-    public class GDataBatchErrorCollection : CollectionBase  
-    {
-        /// <summary>standard typed accessor method </summary> 
-        public GDataBatchError this[ int index ]  
-        {
-            get  
-            {
-                return( (GDataBatchError) List[index] );
-            }
-            set  
-            {
-                List[index] = value;
-            }
-        }
-        /// <summary>standard typed accessor method </summary> 
-        public int Add( GDataBatchError value )  
-        {
-            return( List.Add( value ) );
-        }
-        /// <summary>standard typed accessor method </summary> 
-        public int IndexOf( GDataBatchError value )  
-        {
-            return( List.IndexOf( value ) );
-        }
-        /// <summary>standard typed accessor method </summary> 
-        public void Insert( int index, GDataBatchError value )  
-        {
-            List.Insert( index, value );
-        }
-        /// <summary>standard typed accessor method </summary> 
-        public void Remove( GDataBatchError value )  
-        {
-            List.Remove( value );
-        }
-        /// <summary>standard typed accessor method </summary> 
-        public bool Contains( GDataBatchError value )  
-        {
-            // If value is not of type AtomPerson, this will return false.
-            return( List.Contains( value ) );
-        }
-        /// <summary>standard typed accessor method </summary> 
-        protected override void OnValidate( Object value )  
-        {
-            if ( value.GetType() != Type.GetType("Google.GData.Client.GDataBatchError") )
-                throw new ArgumentException( "value must be of type Google.GData.Client.GDataBatchError.", "value" );
-        }
-    }
-    /////////////////////////////////////////////////////////////////////////////
     
 
     /// <summary>

@@ -69,19 +69,6 @@ namespace Google.GData.Client.UnitTests.Core
         #endregion
 
 
-        /// <summary>
-        ///A test for Value
-        ///</summary>
-        [Test]
-        public void ValueTest()
-        {
-            GDataBatchStatus target = new GDataBatchStatus(); // TODO: Initialize to an appropriate value
-            string expected = "TestValue";            
-            string actual;
-            target.Value = expected;
-            actual = target.Value;
-            Assert.AreEqual(expected, actual);
-        }
 
         /// <summary>
         ///A test for Reason
