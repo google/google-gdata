@@ -2177,7 +2177,7 @@
         </member>
         <member name="T:Google.GData.Extensions.CommonAttributesElement">
             <summary>
-            gd:PostalAddress element
+            a base class used for PostalAddress and others. 
             </summary>
         </member>
         <member name="M:Google.GData.Extensions.CommonAttributesElement.#ctor(System.String,System.String,System.String)">

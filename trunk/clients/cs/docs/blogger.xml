@@ -9,6 +9,16 @@
             A subclass of FeedQuery, to create a Blogger query URI.
             </summary> 
         </member>
+        <member name="F:Google.GData.Blogger.BloggerQuery.OrderByUpdated">
+            <summary>
+            constant string for the order by updated query
+            </summary>
+        </member>
+        <member name="F:Google.GData.Blogger.BloggerQuery.OrderByPublished">
+            <summary>
+            constant string for the order by published query
+            </summary>
+        </member>
         <member name="M:Google.GData.Blogger.BloggerQuery.#ctor">
             <summary>
             default constructor, does nothing 

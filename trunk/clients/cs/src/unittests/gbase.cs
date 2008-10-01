@@ -548,6 +548,12 @@ namespace Google.GData.Client.LiveTests
                     GDataBatchError error = data.Status.Errors[0];
 
                     Assert.IsTrue(error.Type == "data");
+                    Assert.IsTrue(error.Field == "expiration_date");
+                    Assert.IsTrue(error.Reason == "Invalid type specified");
+
+                    error = data.Status.Errors[1];
+
+                    Assert.IsTrue(error.Type == "data");
                     Assert.IsTrue(error.Field == "price_type");
                     Assert.IsTrue(error.Reason == "Invalid price type");
                 }

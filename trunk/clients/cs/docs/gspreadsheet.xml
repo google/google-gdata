@@ -735,6 +735,11 @@
             
             </summary> 
         </member>
+        <member name="F:Google.Spreadsheets.Application.Name">
+            <summary>
+            the name of this application
+            </summary>
+        </member>
         <member name="M:Google.Spreadsheets.Application.#ctor(System.String,System.String)">
             <summary>
             default constructor for client login. 
