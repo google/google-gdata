@@ -296,6 +296,9 @@
     <Compile Include="..\..\core\versioninterface.cs">
       <Link>versioninterface.cs</Link>
     </Compile>
+    <Compile Include="..\..\core\xmlextension.cs">
+      <Link>xmlextension.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="clientkey.sn" />
