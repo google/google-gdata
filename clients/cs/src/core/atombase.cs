@@ -21,6 +21,8 @@ using System.Xml;
 using System.IO; 
 using System.Globalization;
 using System.Collections;
+using Google.GData.Extensions;
+
 
 
 #endregion
@@ -689,6 +691,7 @@ namespace Google.GData.Client
 
             foreach (object ob in this.ExtensionElements)
             {
+                // this code can be removed when the generics are introduced. 
                 XmlNode node = ob as XmlNode;
                 if (node != null)
                 {
@@ -702,6 +705,14 @@ namespace Google.GData.Client
                 else
                 {
                     IExtensionElement ele = ob as IExtensionElement;
+                    XmlExtension x = ele as XmlExtension;
+                    if (x != null)
+                    {
+                        if (SkipNode(x.Node))
+                        {
+                            continue;
+                        }
+                    }
                     if (ele != null)
                     {
                         ele.Save(writer);

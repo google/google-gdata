@@ -24,6 +24,7 @@ using System.IO;
 using System.Globalization;
 using System.ComponentModel;
 using System.Collections.Specialized;
+using Google.GData.Extensions;
 
 
 #endregion
@@ -709,9 +710,18 @@ namespace Google.GData.Client
             {
                 if (e.Base != null && e.ExtensionElement != null)
                 {
-                    // add it to the collection
-                    Tracing.TraceMsg("\t new AtomEntry found, adding to collection"); 
-                    e.Base.ExtensionElements.Add(e.ExtensionElement);
+                    XmlNode xmlNode = e.ExtensionElement as XmlNode;
+                    if (xmlNode != null)
+                    {
+                        Tracing.TraceMsg("\t new unknown entry found, adding as XmlExtension to collection"); 
+                        XmlExtension x = new XmlExtension(xmlNode);
+                        e.Base.ExtensionElements.Add(x);
+                    } 
+                    else 
+                    {
+                        // this should not happen anymore... 
+                        e.Base.ExtensionElements.Add(e.ExtensionElement);
+                    }
                 }
             }
         }

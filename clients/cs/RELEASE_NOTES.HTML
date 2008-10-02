@@ -32,6 +32,12 @@
         </li>
         <ul>
             <li>
+                Unknown extension elements are now stored in a Wrapper 
+                XmlExtension element, which implements the usual 
+                IExtensionElements interfaces to enable removing untyped lists 
+                internally. 
+            </li>
+            <li>
                 Moved the core of the extension functionallity, so just the base
                 classes, into the Google.GData.Client, so that the base 
                 AtomFeed/AtomEntry can be extended using this extension system. 
