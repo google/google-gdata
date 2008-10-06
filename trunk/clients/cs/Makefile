@@ -69,46 +69,46 @@ test_sources = $(wildcard src/unittests/*.cs) $(wildcard src/unittests/gbase/*.c
 				 $(wildcard src/unittests/core/*.cs)  $(wildcard src/unittests/picasa/*.cs)
 
 Google.GData.Client.dll: $(core_sources) src/VS2005/gdata/clientkey.sn
-	$(CSC) $(DEFINES) -target:library -out:$@ $(core_sources) $(FRAMEWORK_REFS)
+	$(CSC) $(DEFINES) -target:library -out:$@ $(core_sources) $(FRAMEWORK_REFS) -keyfile:src/VS2005/gdata/clientkey.sn
 
 Google.GData.Extensions.dll: Google.GData.Client.dll $(extension_sources) src/VS2005/gextension/extensionkey.sn
-	$(CSC) $(DEFINES) -target:library -out:$@ -r:Google.GData.Client.dll $(extensions_sources) $(FRAMEWORK_REFS)
+	$(CSC) $(DEFINES) -target:library -out:$@ -r:Google.GData.Client.dll $(extensions_sources) $(FRAMEWORK_REFS) -keyfile:src/VS2005/gextension/extensionkey.sn
 
 Google.GData.Calendar.dll: $(ACLLIBS) $(gcalendar_sources) src/VS2005/gcalendar/calendarkey.sn
-	$(CSC) -target:library -out:$@ $(ACLREFS) $(gcalendar_sources)
+	$(CSC) -target:library -out:$@ $(ACLREFS) $(gcalendar_sources) -keyfile:src/VS2005/gcalendar/calendarkey.sn
 
 Google.GData.CodeSearch.dll: $(CORELIBS) $(gcodesearch_sources) src/VS2005/gcodesearch/codesearch.sn
-	$(CSC) -target:library -out:$@ $(COREREFS) $(gcodesearch_sources)
+	$(CSC) -target:library -out:$@ $(COREREFS) $(gcodesearch_sources) -keyfile:src/VS2005/gcodesearch/codesearch.sn
 
 Google.GData.GoogleBase.dll: $(CORELIBS) $(gbase_sources) src/VS2005/gbase/gbase.sn
-	$(CSC) -target:library -out:$@ $(COREREFS) $(gbase_sources)
+	$(CSC) -target:library -out:$@ $(COREREFS) $(gbase_sources) -keyfile:src/VS2005/gbase/gbase.sn
 
 Google.GData.Spreadsheets.dll: $(CORELIBS) $(gspreadsheet_sources) src/VS2005/gspreadsheets/spreadsheets.sn
-	$(CSC) -target:library -out:$@ $(COREREFS) $(gspreadsheet_sources)
+	$(CSC) -target:library -out:$@ $(COREREFS) $(gspreadsheet_sources) -keyfile:src/VS2005/gspreadsheets/spreadsheets.sn
 
 Google.GData.AccessControl.dll: $(CORELIBS) $(gacl_sources) src/VS2005/gacl/gacl.sn
-	$(CSC) -target:library -out:$@ $(COREREFS) $(gacl_sources)
+	$(CSC) -target:library -out:$@ $(COREREFS) $(gacl_sources) -keyfile:src/VS2005/gacl/gacl.sn
 
 Google.GData.Apps.dll: $(CORELIBS) $(gapps_sources) src/VS2005/gapps/gapps.sn
-	$(CSC) -target:library -out:$@ $(COREREFS) $(gapps_sources)
+	$(CSC) -target:library -out:$@ $(COREREFS) $(gapps_sources) -keyfile:src/VS2005/gapps/gapps.sn
 
 Google.GData.Photos.dll: $(CORELIBS) $(gphotos_sources) src/VS2005/gphotos/picasa.sn
-	$(CSC) $(DEFINES) -target:library -out:$@ $(COREREFS) $(gphotos_sources)
+	$(CSC) $(DEFINES) -target:library -out:$@ $(COREREFS) $(gphotos_sources) -keyfile:src/VS2005/gphotos/picasa.sn
 
 Google.GData.Documents.dll: $(CORELIBS) $(gdocuments_sources) src/VS2005/gdoclist/documents.sn
-	$(CSC) $(DEFINES) -target:library -out:$@ $(COREREFS) $(gdocuments_sources)
+	$(CSC) $(DEFINES) -target:library -out:$@ $(COREREFS) $(gdocuments_sources) -keyfile:src/VS2005/gdoclist/documents.sn
 
 Google.GData.Contacts.dll: $(CORELIBS) $(gcontact_sources) src/VS2005/gcontacts/contacts.sn
-	$(CSC) $(DEFINES) -target:library -out:$@ $(COREREFS) $(gcontact_sources)
+	$(CSC) $(DEFINES) -target:library -out:$@ $(COREREFS) $(gcontact_sources) -keyfile:src/VS2005/gcontacts/contacts.sn
 
 Google.GData.YouTube.dll: $(CORELIBS) $(youtube_sources) src/VS2005/youtube/youtube.sn
-	$(CSC) $(DEFINES) -target:library -out:$@ $(COREREFS) $(youtube_sources)
+	$(CSC) $(DEFINES) -target:library -out:$@ $(COREREFS) $(youtube_sources) -keyfile:src/VS2005/youtube/youtube.sn
 
 Google.GData.Health.dll: $(CORELIBS) $(health_sources) src/VS2005/ghealth/ghealth.sn
-	$(CSC) $(DEFINES) -target:library -out:$@ $(COREREFS) $(health_sources)
+	$(CSC) $(DEFINES) -target:library -out:$@ $(COREREFS) $(health_sources) -keyfile:src/VS2005/ghealth/ghealth.sn
 
 Google.GData.Blogger.dll: $(CORELIBS) $(blogger_sources) src/VS2005/blogger/blogger.sn
-	$(CSC) $(DEFINES) -target:library -out:$@ $(COREREFS) $(blogger_sources) 
+	$(CSC) $(DEFINES) -target:library -out:$@ $(COREREFS) $(blogger_sources) -keyfile:src/VS2005/blogger/blogger.sn
 
 clean:
 	-rm *.sn *.dll *exe
