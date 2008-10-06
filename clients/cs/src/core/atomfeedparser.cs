@@ -958,11 +958,8 @@ namespace Google.GData.Client
             }
 
             object localname = reader.LocalName;
-            List<GDataBatchError> collection = null;
             if (localname.Equals(this.nameTable.BatchErrors))
             {
-                collection = new List<GDataBatchError>();
-
                 int lvl = -1;
                 while (NextChildElement(reader, ref lvl))
                 {

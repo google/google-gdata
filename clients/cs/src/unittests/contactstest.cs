@@ -179,9 +179,6 @@ namespace Google.GData.Client.LiveTests
             ContactsQuery query = new ContactsQuery(ContactsQuery.CreateContactsUri(this.userName + "@googlemail.com"));
             ContactsService service = new ContactsService("unittests");
 
-            GDataGAuthRequestFactory factory = service.RequestFactory  as GDataGAuthRequestFactory;
-            // factory.NumberOfRetries = 3;
-
 
             if (this.userName != null)
             {
@@ -195,7 +192,6 @@ namespace Google.GData.Client.LiveTests
 
             int originalCount = feed.Entries.Count;
 
-            PhoneNumber p = null;
             string email = Guid.NewGuid().ToString();
 
             List<ContactEntry> inserted = new List<ContactEntry>();
@@ -205,7 +201,6 @@ namespace Google.GData.Client.LiveTests
             {
                 ContactEntry entry = ObjectModelHelper.CreateContactEntry(i);
                 entry.PrimaryEmail.Address = email + i.ToString() + "@doe.com";
-                p = entry.PrimaryPhonenumber;
                 entry = feed.Insert(entry);
                 AddContactPhoto(entry, service);
                 inserted.Add(entry);
@@ -222,7 +217,6 @@ namespace Google.GData.Client.LiveTests
                         ContactEntry entry = ObjectModelHelper.CreateContactEntry(i);
                         entry.PrimaryEmail.Address = email + i.ToString() + "@doe.com";
 
-                        p = entry.PrimaryPhonenumber;
                         try
                         {
                             entry = feed.Insert(entry);

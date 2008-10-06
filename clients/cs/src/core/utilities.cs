@@ -827,10 +827,21 @@ namespace Google.GData.Client
                    {
                        this.elements[resultsPerLine-1] += delimiter + temp[i];
                    }
-             
-             
                } 
            }
+       }
+
+       public Dictionary<string, string> CreateDictionary()
+       {
+           Dictionary<string, string> dict = new Dictionary<string,string>(); 
+
+           for (int i=0; i< this.elements.Length; i+=2)
+           {
+               string key = this.elements[i];
+               string val = this.elements[i+1];
+               dict.Add(key, val);
+           }
+           return dict; 
        }
 
        /// <summary>IEnumerable Interface Implementation, for the noninterface</summary> 
