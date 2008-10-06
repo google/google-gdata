@@ -89,7 +89,6 @@ namespace Google.GData.Client.LiveTests
                     service.Credentials = new GDataCredentials(userName, pwd);
                 }
 
-                GDataLoggingRequestFactory factory = (GDataLoggingRequestFactory)this.factory;
                 service.RequestFactory = this.factory; 
 
                 query.Uri = new Uri(uriToClean);

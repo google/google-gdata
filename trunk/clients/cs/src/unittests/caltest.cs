@@ -148,7 +148,6 @@ namespace Google.GData.Client.LiveTests
                     service.Credentials = new GDataCredentials(this.userName, this.passWord);
                 }
 
-                GDataLoggingRequestFactory factory = (GDataLoggingRequestFactory) this.factory;
                 service.RequestFactory = this.factory; 
 
                 query.Uri = new Uri(this.defaultCalendarUri);
@@ -244,7 +243,6 @@ namespace Google.GData.Client.LiveTests
                     service.Credentials = new GDataCredentials(this.userName, this.passWord);
                 }
 
-                GDataLoggingRequestFactory factory = (GDataLoggingRequestFactory) this.factory;
                 service.RequestFactory = this.factory; 
 
                 query.Uri = new Uri(this.defaultCalendarUri);
@@ -305,7 +303,6 @@ namespace Google.GData.Client.LiveTests
                     service.Credentials = new GDataCredentials(this.userName, this.passWord);
                 }
 
-                GDataLoggingRequestFactory factory = (GDataLoggingRequestFactory) this.factory;
                 service.RequestFactory = this.factory; 
 
                 query.Uri = new Uri(this.defaultCalendarUri);
@@ -456,7 +453,6 @@ namespace Google.GData.Client.LiveTests
                     service.Credentials = new GDataCredentials(this.userName, this.passWord);
                 }
 
-                GDataLoggingRequestFactory factory = (GDataLoggingRequestFactory) this.factory;
                 service.RequestFactory = this.factory; 
 
                 query.Uri = new Uri(this.defaultCalendarUri);
@@ -498,7 +494,6 @@ namespace Google.GData.Client.LiveTests
                     service.Credentials = new GDataCredentials(this.userName, this.passWord);
                 }
 
-                GDataLoggingRequestFactory factory = (GDataLoggingRequestFactory)this.factory;
                 service.RequestFactory = this.factory;
 
                 EventQuery query = new EventQuery(this.defaultCalendarUri);
@@ -628,7 +623,6 @@ namespace Google.GData.Client.LiveTests
                     service.Credentials = new GDataCredentials(this.userName, this.passWord);
                 }
 
-                GDataLoggingRequestFactory factory = (GDataLoggingRequestFactory) this.factory;
                 service.RequestFactory = this.factory; 
 
                 query.Uri = new Uri(this.defaultCalendarUri);
@@ -706,7 +700,6 @@ namespace Google.GData.Client.LiveTests
                     service.Credentials = new GDataCredentials(this.userName, this.passWord);
                 }
 
-                GDataLoggingRequestFactory factory = (GDataLoggingRequestFactory) this.factory;
                 service.RequestFactory = this.factory; 
 
                 query.Uri = new Uri(this.aclFeedUri);
@@ -785,8 +778,6 @@ namespace Google.GData.Client.LiveTests
             CalendarQuery query = new CalendarQuery();
             CalendarService service = new CalendarService(this.ApplicationName);
 
-            int iCount; 
-
             if (this.defaultCalendarUri != null)
             {
                 if (this.userName != null)
@@ -795,7 +786,6 @@ namespace Google.GData.Client.LiveTests
                 }
 
 
-                GDataLoggingRequestFactory factory = (GDataLoggingRequestFactory) this.factory;
                 service.RequestFactory = this.factory;
 
                 query.Uri = new Uri(this.defaultOwnCalendarsUri);
@@ -846,7 +836,6 @@ namespace Google.GData.Client.LiveTests
                     service.Credentials = new GDataCredentials(this.userName, this.passWord);
                 }
 
-                GDataLoggingRequestFactory factory = (GDataLoggingRequestFactory) this.factory;
                 service.RequestFactory = this.factory; 
 
                 query.Uri = new Uri(this.defaultCalendarUri);
@@ -977,7 +966,6 @@ namespace Google.GData.Client.LiveTests
                     service.Credentials = new GDataCredentials(this.userName, this.passWord);
                 }
 
-                GDataLoggingRequestFactory factory = (GDataLoggingRequestFactory) this.factory;
                 service.RequestFactory = this.factory; 
 
                 query.Uri = new Uri(this.defaultCalendarUri);
@@ -1068,7 +1056,6 @@ namespace Google.GData.Client.LiveTests
                     service.Credentials = new GDataCredentials(this.userName, this.passWord);
                 }
 
-                GDataLoggingRequestFactory factory = (GDataLoggingRequestFactory) this.factory;
                 service.RequestFactory = this.factory; 
 
                 query.Uri = new Uri(this.defaultCalendarUri);
@@ -1153,7 +1140,6 @@ namespace Google.GData.Client.LiveTests
                     service.Credentials = new GDataCredentials(this.userName, this.passWord);
                 }
 
-                GDataLoggingRequestFactory factory = (GDataLoggingRequestFactory) this.factory;
                 service.RequestFactory = this.factory; 
 
                 query.Uri = new Uri(this.defaultCompositeUri); 
@@ -1181,7 +1167,6 @@ namespace Google.GData.Client.LiveTests
                     service.Credentials = new GDataCredentials(this.userName, this.passWord);
                 }
 
-                GDataLoggingRequestFactory factory = (GDataLoggingRequestFactory) this.factory;
                 service.RequestFactory = this.factory;
 
                 CalendarEntry newCalendar = new CalendarEntry();
@@ -1248,7 +1233,6 @@ namespace Google.GData.Client.LiveTests
                     service.Credentials = new GDataCredentials(this.userName, this.passWord);
                 }
 
-                GDataLoggingRequestFactory factory = (GDataLoggingRequestFactory) this.factory;
                 service.RequestFactory = this.factory; 
 
                 query.Uri = new Uri(this.defaultCalendarUri);
@@ -1331,7 +1315,6 @@ namespace Google.GData.Client.LiveTests
                     service.Credentials = new GDataCredentials(this.userName, this.passWord);
                 }
 
-                GDataLoggingRequestFactory factory = (GDataLoggingRequestFactory) this.factory;
                 service.RequestFactory = this.factory; 
 
                 query.Uri = new Uri(this.defaultCalendarUri);
@@ -1450,7 +1433,6 @@ namespace Google.GData.Client.LiveTests
                     service.Credentials = new GDataCredentials(this.userName, this.passWord);
                 }
 
-                GDataLoggingRequestFactory factory = (GDataLoggingRequestFactory) this.factory;
                 service.RequestFactory = this.factory; 
 
                 query.Uri = new Uri(this.defaultCalendarUri);

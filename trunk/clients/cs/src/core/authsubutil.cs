@@ -21,6 +21,7 @@ using System.Security.Cryptography;
 using System.Net;
 using System.Text;
 using System.Globalization;
+using System.Collections.Generic;
 
 
 
@@ -528,6 +529,81 @@ namespace Google.GData.Client
 
 
         //////////////////////////////////////////////////////////////////////
+        /// <summary>Retrieves information about the AuthSub token. 
+        /// If the <code>key</code> is non-null, the token will be used securely
+        /// and the request to revoke the token will be signed.
+        /// </summary> 
+        /// <param name="token">tthe AuthSub token for which to receive information </param>
+        /// <param name="key">the private key to sign the request</param>
+        /// <returns>the token information in the form of a Dictionary from the name of the
+        ///  attribute to the value of the attribute</returns>
+        //////////////////////////////////////////////////////////////////////
+        public static Dictionary<String, String> GetTokenInfo(String token,
+                                             AsymmetricAlgorithm key)
+        {
+            return GetTokenInfo(DEFAULT_PROTOCOL, DEFAULT_DOMAIN, token, key);
+        }
+
+
+       
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Retrieves information about the AuthSub token. 
+        /// If the <code>key</code> is non-null, the token will be used securely
+        /// and the request to revoke the token will be signed.
+        /// </summary> 
+        /// <param name="protocol">the protocol to use to communicate with the server</param>
+        /// <param name="domain">the domain at which the authentication server exists</param>
+        /// <param name="token">tthe AuthSub token for which to receive information </param>
+        /// <param name="key">the private key to sign the request</param>
+        /// <returns>the token information in the form of a Dictionary from the name of the
+        ///  attribute to the value of the attribute</returns>
+        //////////////////////////////////////////////////////////////////////
+        public static Dictionary<String, String> GetTokenInfo(String protocol,
+                                             String domain,
+                                             String token,
+                                             AsymmetricAlgorithm key)
+        {
+
+            HttpWebResponse response; 
+        
+            try
+            {
+                string tokenInfoUrl = GetTokenInfoUrl(protocol, domain);
+                Uri uri = new Uri(tokenInfoUrl);
+    
+                HttpWebRequest request = WebRequest.Create(uri) as HttpWebRequest;
+    
+    
+                string header = formAuthorizationHeader(token, key, uri, "GET");
+                request.Headers.Add(header); 
+    
+                response = request.GetResponse() as HttpWebResponse; 
+    
+            }        
+            catch (WebException e)
+            {
+                Tracing.TraceMsg("GetTokenInfo failed " + e.Status); 
+                throw new GDataRequestException("Execution of GetTokenInfo", e);
+            }
+
+            if (response != null)
+            {
+                int code= (int)response.StatusCode;
+                if (code != 200)
+                {
+                    throw new GDataRequestException("Execution of revokeToken request returned unexpected result: " +code,  response); 
+                }
+                TokenCollection tokens = Utilities.ParseStreamInTokenCollection(response.GetResponseStream());
+                if (tokens != null)
+                {
+                    return tokens.CreateDictionary();
+                }
+            }
+            return null; 
+        }
+
+
+        //////////////////////////////////////////////////////////////////////
         /// <summary>creates a max 20 character long string of random numbers</summary>
         /// <returns> the string containing random numbers</returns>
         //////////////////////////////////////////////////////////////////////
@@ -585,6 +661,21 @@ namespace Google.GData.Client
             }
             return null; 
         }
+
+
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Returns the URL that handles token information call.</summary>
+        /// <param name="protocol">the protocol to use to communicate with the server</param>
+        /// <param name="domain">the domain at which the authentication server exists</param>
+        /// <returns> the URL that handles token information call.</returns>
+        //////////////////////////////////////////////////////////////////////
+        private static String GetTokenInfoUrl(String protocol,
+                                    String domain) {
+            return protocol + "://" + domain + "/accounts/AuthSubTokenInfo";
+        }
+
+
     }
     //end of public class AuthSubUtil
 } 

@@ -226,7 +226,6 @@ namespace Google.GData.Client.LiveTests
                     service.Credentials = new GDataCredentials(this.userName, this.passWord);
                 }
 
-                GDataLoggingRequestFactory factory = (GDataLoggingRequestFactory) this.factory;
                 service.RequestFactory = this.factory; 
 
                 query.Uri = new Uri(this.bloggerURI);
@@ -283,7 +282,6 @@ namespace Google.GData.Client.LiveTests
                     service.Credentials = new GDataCredentials(this.userName, this.passWord);
                 }
 
-                GDataLoggingRequestFactory factory = (GDataLoggingRequestFactory) this.factory;
                 service.RequestFactory = this.factory; 
 
                 query.Uri = new Uri(this.bloggerURI);
