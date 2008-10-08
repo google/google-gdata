@@ -43,7 +43,8 @@ rm -r -f -d $EXPORTDIR/lib
 rm -r -f -d $EXPORTDIR/docs
 rm -r -f -d $EXPORTDIR/fxcop
 rm -r -f -d $EXPORTDIR/setup
-
+rm -r -f -d $EXPORTDIR/samples/YouTubeSample/Bin
+find $EXPORTDIR -iname *.dll -type f -delete
 
 tar czf "$OUTPUTDIR.tar.gz" "$OUTPUTDIR"
 
