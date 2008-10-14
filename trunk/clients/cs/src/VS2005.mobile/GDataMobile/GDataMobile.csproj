@@ -132,6 +132,9 @@
     <Compile Include="..\..\core\documentquery.cs">
       <Link>documentquery.cs</Link>
     </Compile>
+    <Compile Include="..\..\core\etag.cs">
+      <Link>etag.cs</Link>
+    </Compile>
     <Compile Include="..\..\core\exceptions.cs">
       <Link>exceptions.cs</Link>
     </Compile>
@@ -191,6 +194,12 @@
     </Compile>
     <Compile Include="..\..\core\utilities.cs">
       <Link>utilities.cs</Link>
+    </Compile>
+    <Compile Include="..\..\core\versioninterface.cs">
+      <Link>versioninterface.cs</Link>
+    </Compile>
+    <Compile Include="..\..\core\xmlextension.cs">
+      <Link>xmlextension.cs</Link>
     </Compile>
   </ItemGroup>
   <ItemGroup>
