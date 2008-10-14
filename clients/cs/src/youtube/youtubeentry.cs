@@ -300,6 +300,57 @@ namespace Google.GData.YouTube {
                 return link == null ? null : link.HRef;
             }
         }
+
+
+        /// <summary>
+        /// boolean property shortcut to set the mediagroup/yt:private element. Setting this to true 
+        /// adds the element, if not already there (otherwise nothing happens)
+        /// setting this to false, removes it
+        /// it returns if the mediagroup:yt:private element exists, or not
+        /// </summary>
+        /// <returns></returns>
+        public bool Private
+        {
+            get
+            {
+                Private p = null;
+                if (this.Media != null)
+                {
+                    p =  Media.FindExtension(YouTubeNameTable.Private,
+                                    YouTubeNameTable.NSYouTube) as Private;
+                }
+               return p != null;
+            }
+
+            set
+            {
+                Private p = null;
+                if (this.Media != null)
+                {
+                    p =  Media.FindExtension(YouTubeNameTable.Private,
+                                    YouTubeNameTable.NSYouTube) as Private;
+                }
+                if (value == true)
+                {
+                    if (p == null)
+                    {
+                        if (this.Media == null)
+                        {
+                            this.Media = new MediaGroup();
+                        }
+                        this.Media.ExtensionElements.Add(new Private());
+                    }
+                }
+                else 
+                {
+                    if (p != null)
+                    {
+                        this.Media.ReplaceExtension(p.XmlName, p.XmlNameSpace, null);
+                    }
+                }
+            }
+        }
+
     }
 }
 
