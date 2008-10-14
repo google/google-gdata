@@ -283,11 +283,11 @@ namespace Google.GData.Spreadsheets
 
             if (ReturnEmpty == ReturnEmtpyCells.yes)
             {
-                paramInsertion = AppendQueryPart("true", "return-emtpy", paramInsertion, newPath);
+                paramInsertion = AppendQueryPart("true", "return-empty", paramInsertion, newPath);
             } 
             else if (ReturnEmpty == ReturnEmtpyCells.no)
             { 
-                paramInsertion = AppendQueryPart("false", "return-emtpy", paramInsertion, newPath);
+                paramInsertion = AppendQueryPart("false", "return-empty", paramInsertion, newPath);
             }
 
             return newPath.ToString();
