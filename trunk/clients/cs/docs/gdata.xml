@@ -4,6 +4,87 @@
         <name>Google.GData.Client</name>
     </assembly>
     <members>
+        <member name="T:Google.GData.Extensions.XmlExtension">
+            <summary>
+            placeholder object for an unknown XML extension element
+            </summary>
+        </member>
+        <member name="T:Google.GData.Client.IExtensionElement">
+            <summary>if an extension element is created and wants to persist itself,
+            it needs to implement this interface
+            </summary> 
+        </member>
+        <member name="M:Google.GData.Client.IExtensionElement.Save(System.Xml.XmlWriter)">
+            <summary>the only relevant method here</summary> 
+        </member>
+        <member name="T:Google.GData.Client.IExtensionElementFactory">
+            <summary>if an extension element want's to use the new parsing method
+            it needs to implement this interface
+            </summary> 
+        </member>
+        <member name="M:Google.GData.Client.IExtensionElementFactory.CreateInstance(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
+            <summary>
+            instantiates the correct extensiohn element
+            </summary>
+            <param name="node">the xmlnode to parse</param>
+            <param name="parser">the atomfeedparser to use if deep parsing of subelements is required</param>
+            <returns></returns>
+        </member>
+        <member name="P:Google.GData.Client.IExtensionElementFactory.XmlName">
+            <summary>
+            returns the XML local name that is used
+            </summary>
+        </member>
+        <member name="P:Google.GData.Client.IExtensionElementFactory.XmlNameSpace">
+            <summary>
+            returns the XML namespace that is processed
+            </summary>
+        </member>
+        <member name="P:Google.GData.Client.IExtensionElementFactory.XmlPrefix">
+            <summary>
+            returns the xml prefix used 
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.XmlExtension.ToString">
+            <summary>
+            debugging helper
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Google.GData.Extensions.XmlExtension.op_Implicit(Google.GData.Extensions.XmlExtension)~System.Xml.XmlNode">
+            <summary>
+            Allows an XmlExtension to be cast directly into an xmlnode
+            this should avoid or at least ease code breakage for clients relying on XmlNodes
+            in the extensionelements
+            </summary>
+            <param name="x"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Google.GData.Extensions.XmlExtension.CreateInstance(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
+            <summary>Parses an xml node to create an instance of this  object.</summary> 
+            <param name="node">the xml parses node, can be NULL</param>
+            <param name="parser">the xml parser to use if we need to dive deeper</param>
+            <returns>the created IExtensionElement object</returns>
+        </member>
+        <member name="M:Google.GData.Extensions.XmlExtension.Save(System.Xml.XmlWriter)">
+            <summary>
+            Persistence method for the XmlExtension
+            </summary>
+            <param name="writer">the xmlwriter to write into</param>
+        </member>
+        <member name="P:Google.GData.Extensions.XmlExtension.Node">
+            <summary>accessor method public XmlNode Node</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Extensions.XmlExtension.XmlName">
+            <summary>Returns the constant representing this XML element.</summary> 
+        </member>
+        <member name="P:Google.GData.Extensions.XmlExtension.XmlNameSpace">
+            <summary>Returns the constant representing this XML element.</summary> 
+        </member>
+        <member name="P:Google.GData.Extensions.XmlExtension.XmlPrefix">
+            <summary>Returns the constant representing this XML element.</summary> 
+        </member>
         <member name="T:Google.GData.Client.AtomContentConverter">
             <summary>TypeConverter, so that AtomContentConverter shows up in the property pages
             </summary> 
@@ -714,42 +795,6 @@
         <member name="T:Google.GData.Extensions.ExtensionBase">
             <summary>
             Extensible type used in many places.
-            </summary>
-        </member>
-        <member name="T:Google.GData.Client.IExtensionElement">
-            <summary>if an extension element is created and wants to persist itself,
-            it needs to implement this interface
-            </summary> 
-        </member>
-        <member name="M:Google.GData.Client.IExtensionElement.Save(System.Xml.XmlWriter)">
-            <summary>the only relevant method here</summary> 
-        </member>
-        <member name="T:Google.GData.Client.IExtensionElementFactory">
-            <summary>if an extension element want's to use the new parsing method
-            it needs to implement this interface
-            </summary> 
-        </member>
-        <member name="M:Google.GData.Client.IExtensionElementFactory.CreateInstance(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
-            <summary>
-            instantiates the correct extensiohn element
-            </summary>
-            <param name="node">the xmlnode to parse</param>
-            <param name="parser">the atomfeedparser to use if deep parsing of subelements is required</param>
-            <returns></returns>
-        </member>
-        <member name="P:Google.GData.Client.IExtensionElementFactory.XmlName">
-            <summary>
-            returns the XML local name that is used
-            </summary>
-        </member>
-        <member name="P:Google.GData.Client.IExtensionElementFactory.XmlNameSpace">
-            <summary>
-            returns the XML namespace that is processed
-            </summary>
-        </member>
-        <member name="P:Google.GData.Client.IExtensionElementFactory.XmlPrefix">
-            <summary>
-            returns the xml prefix used 
             </summary>
         </member>
         <member name="F:Google.GData.Extensions.ExtensionBase.attributes">
@@ -5685,6 +5730,28 @@
             <param name="requestMethod">the HTTP method to use </param>
             <returns>the authorization header </returns>
         </member>
+        <member name="M:Google.GData.Client.AuthSubUtil.GetTokenInfo(System.String,System.Security.Cryptography.AsymmetricAlgorithm)">
+            <summary>Retrieves information about the AuthSub token. 
+            If the <code>key</code> is non-null, the token will be used securely
+            and the request to revoke the token will be signed.
+            </summary> 
+            <param name="token">tthe AuthSub token for which to receive information </param>
+            <param name="key">the private key to sign the request</param>
+            <returns>the token information in the form of a Dictionary from the name of the
+             attribute to the value of the attribute</returns>
+        </member>
+        <member name="M:Google.GData.Client.AuthSubUtil.GetTokenInfo(System.String,System.String,System.String,System.Security.Cryptography.AsymmetricAlgorithm)">
+            <summary>Retrieves information about the AuthSub token. 
+            If the <code>key</code> is non-null, the token will be used securely
+            and the request to revoke the token will be signed.
+            </summary> 
+            <param name="protocol">the protocol to use to communicate with the server</param>
+            <param name="domain">the domain at which the authentication server exists</param>
+            <param name="token">tthe AuthSub token for which to receive information </param>
+            <param name="key">the private key to sign the request</param>
+            <returns>the token information in the form of a Dictionary from the name of the
+             attribute to the value of the attribute</returns>
+        </member>
         <member name="M:Google.GData.Client.AuthSubUtil.generateULONGRnd">
             <summary>creates a max 20 character long string of random numbers</summary>
             <returns> the string containing random numbers</returns>
@@ -5694,6 +5761,12 @@
             <param name="dataToSign">the data to sign </param>
             <param name="key">the private key to used </param>
             <returns> the signed data</returns>
+        </member>
+        <member name="M:Google.GData.Client.AuthSubUtil.GetTokenInfoUrl(System.String,System.String)">
+            <summary>Returns the URL that handles token information call.</summary>
+            <param name="protocol">the protocol to use to communicate with the server</param>
+            <param name="domain">the domain at which the authentication server exists</param>
+            <returns> the URL that handles token information call.</returns>
         </member>
         <member name="T:Google.GData.Client.AuthenticationException">
             <summary>standard exception class to be used when authentication 
