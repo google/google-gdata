@@ -43,6 +43,17 @@ namespace Google.GData.Client
     {
     }
 
+    //////////////////////////////////////////////////////////////////////
+    /// <summary>async functionallity of the Service implementation
+    /// </summary> 
+    //////////////////////////////////////////////////////////////////////
+    public partial class Service : IService, IVersionAware
+    {
+        private void InitDelegates()
+        {
+        }
+    }
+
 #else
 
    /// <summary>
