@@ -1,4 +1,4 @@
-/* Copyright (c) 2006 Google Inc.
+/* Copyright (c) 2006-2008 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,6 +12,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 */
+/* Change history
+* Oct 13 2008  Joe Feser       joseph.feser@gmail.com
+* Converted ArrayLists and other .NET 1.1 collections to use Generics
+* Combined IExtensionElement and IExtensionElementFactory interfaces
+* 
+*/
+
 #region Using directives
 
 #define USE_TRACING
@@ -171,46 +178,43 @@ namespace Google.GData.Client
         bool Go(AtomBase atom);
     }
 
-
-    //////////////////////////////////////////////////////////////////////
-    /// <summary>if an extension element is created and wants to persist itself,
-    /// it needs to implement this interface
-    /// </summary> 
-    //////////////////////////////////////////////////////////////////////
-    public interface IExtensionElement
-    {
-        /// <summary>the only relevant method here</summary> 
-        void Save(XmlWriter writer);
-    }
-
-    //////////////////////////////////////////////////////////////////////
-    /// <summary>if an extension element want's to use the new parsing method
-    /// it needs to implement this interface
-    /// </summary> 
-    //////////////////////////////////////////////////////////////////////
+    /// <summary>
+    /// Wrapper interface used to replace the ExtensionList.
+    /// </summary>
     public interface IExtensionElementFactory
     {
         /// <summary>
         /// returns the XML local name that is used
         /// </summary>
-        string XmlName { get;}
+        string XmlName
+        {
+            get;
+        }
         /// <summary>
         /// returns the XML namespace that is processed
         /// </summary>
-        string XmlNameSpace { get;}
+        string XmlNameSpace
+        {
+            get;
+        }
         /// <summary>
         /// returns the xml prefix used 
         /// </summary>
-        string XmlPrefix { get;}
+        string XmlPrefix
+        {
+            get;
+        }
         /// <summary>
         /// instantiates the correct extensiohn element
         /// </summary>
         /// <param name="node">the xmlnode to parse</param>
         /// <param name="parser">the atomfeedparser to use if deep parsing of subelements is required</param>
         /// <returns></returns>
-        IExtensionElement CreateInstance(XmlNode node, AtomFeedParser parser); 
-    }
+        IExtensionElementFactory CreateInstance(XmlNode node, AtomFeedParser parser); 
 
+        /// <summary>the only relevant method here</summary> 
+        void Save(XmlWriter writer);
+    }
 
     //////////////////////////////////////////////////////////////////////
     /// <summary>interface for commone extension container functionallity
@@ -225,7 +229,10 @@ namespace Google.GData.Client
         /// and IExtensionElement</summary> 
         /// <returns> </returns>
         //////////////////////////////////////////////////////////////////////
-        ArrayList ExtensionElements { get; }
+        ExtensionList ExtensionElements
+        {
+            get;
+        }
       
         /// <summary>
         /// Finds a specific ExtensionElement based on it's local name
@@ -236,7 +243,7 @@ namespace Google.GData.Client
         /// <param name="localName">the xml local name of the element to find</param>
         /// <param name="ns">the namespace of the elementToPersist</param>
         /// <returns>Object</returns>
-        Object FindExtension(string localName, string ns);
+        IExtensionElementFactory FindExtension(string localName, string ns);
       
         /// <summary>
         /// all extension elements that match a namespace/localname
@@ -245,7 +252,7 @@ namespace Google.GData.Client
         /// <param name="localName">the local name to find</param>
         /// <param name="ns">the namespace to match, if null, ns is ignored</param>
         /// <param name="obj">the new element to put in</param>
-        void ReplaceExtension(string localName, string ns, Object obj);
+        void ReplaceExtension(string localName, string ns, IExtensionElementFactory obj);
         
         /// <summary>
         /// Finds all ExtensionElement based on it's local name
@@ -257,7 +264,7 @@ namespace Google.GData.Client
         /// <param name="localName">the xml local name of the element to find</param>
         /// <param name="ns">the namespace of the elementToPersist</param>
         /// <returns>none</returns>
-        ArrayList FindExtensions(string localName, string ns);
+        ExtensionList FindExtensions(string localName, string ns);
         
         /// <summary>
         /// Delete's all Extensions from the Extension list that match
@@ -274,7 +281,10 @@ namespace Google.GData.Client
         /// and IExtensionElement</summary> 
         /// <returns> </returns>
         //////////////////////////////////////////////////////////////////////
-        ArrayList ExtensionFactories { get; }
+        ExtensionList ExtensionFactories
+        {
+            get;
+        }
     }
 } 
 /////////////////////////////////////////////////////////////////////////////

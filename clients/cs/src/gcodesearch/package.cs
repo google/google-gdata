@@ -1,4 +1,4 @@
-/* Copyright (c) 2006 Google Inc.
+/* Copyright (c) 2006-2008 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,7 +12,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 */
-
+/* Change history
+* Oct 13 2008  Joe Feser       joseph.feser@gmail.com
+* Converted ArrayLists and other .NET 1.1 collections to use Generics
+* Combined IExtensionElement and IExtensionElementFactory interfaces
+* 
+*/
 using System;
 using System.Xml;
 using System.Collections;
@@ -27,7 +32,7 @@ namespace Google.GData.CodeSearch
     /// Contains a filename extension with the number of the package
     /// and the packageuri extension with the its procedence.
     /// </summary>
-    public class Package : IExtensionElement 
+    public class Package : IExtensionElementFactory 
     {
         /// <summary>
         /// holds the name fo the package
@@ -125,8 +130,8 @@ namespace Google.GData.CodeSearch
             if (Utilities.IsPersistable(name) &&
                 Utilities.IsPersistable(uri))
             {
-                writer.WriteStartElement(GCodeSearchParserNameTable.CSPrefix,
-                    XmlName, GCodeSearchParserNameTable.CSNamespace);
+                writer.WriteStartElement(XmlPrefix,
+                    XmlName, XmlNameSpace);
                 writer.WriteAttributeString(GCodeSearchParserNameTable.ATTRIBUTE_NAME,
                                             name);
                 writer.WriteAttributeString(GCodeSearchParserNameTable.ATTRIBUTE_URI,
@@ -140,6 +145,55 @@ namespace Google.GData.CodeSearch
                     ":" + XmlName + " is required.");
             }
         }
+        #endregion
+
+        #region IExtensionElementFactory Members
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Returns the constant representing this XML element.
+        /// </summary> 
+        //////////////////////////////////////////////////////////////////////
+        string IExtensionElementFactory.XmlName
+        {
+            get
+            {
+                return XmlName;
+            }
+        }
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Returns the constant representing this XML element.</summary> 
+        //////////////////////////////////////////////////////////////////////
+        public string XmlNameSpace
+        {
+            get
+            {
+                return GCodeSearchParserNameTable.CSNamespace;
+            }
+        }
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Returns the constant representing this XML element.</summary> 
+        //////////////////////////////////////////////////////////////////////
+        public string XmlPrefix
+        {
+            get
+            {
+                return GCodeSearchParserNameTable.CSPrefix;
+            }
+        }
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Parses an xml node to create a Package object.</summary> 
+        /// <param name="node">xml node</param>
+        /// <param name="parser">the atomfeedparser to use for deep dive parsing</param>
+        /// <returns>the created IExtensionElementFactory object</returns>
+        //////////////////////////////////////////////////////////////////////
+        public IExtensionElementFactory CreateInstance(XmlNode node, AtomFeedParser parser)
+        {
+            return ParsePackage(node, parser);
+        }
+
         #endregion
     }
 }

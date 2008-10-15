@@ -12,11 +12,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 */
-
+/* Change history
+* Oct 13 2008  Joe Feser       joseph.feser@gmail.com
+* Converted ArrayLists and other .NET 1.1 collections to use Generics
+* Combined IExtensionElement and IExtensionElementFactory interfaces
+* 
+*/
 using System;
 using NUnit.Framework;
 using Google.GData.Client;
 using Google.GData.Extensions.Apps;
+using Google.GData.Extensions;
 
 namespace Google.GData.Apps.UnitTests
 {
@@ -24,12 +30,12 @@ namespace Google.GData.Apps.UnitTests
     [Category("GoogleApps")]
     public class LabelCollectionTest
     {
-        private LabelCollection labels;
+        private ExtensionCollection<LabelElement> labels;
 
         [SetUp]
         public void Init()
         {
-            labels = new LabelCollection(new AtomEntry());
+            labels = new ExtensionCollection<LabelElement>(new AtomEntry());
         }
 
         [TearDown]

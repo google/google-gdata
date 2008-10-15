@@ -1,4 +1,4 @@
-/* Copyright (c) 2006 Google Inc.
+/* Copyright (c) 2006-2008 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -11,6 +11,12 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+*/
+/* Change history
+* Oct 13 2008  Joe Feser       joseph.feser@gmail.com
+* Converted ArrayLists and other .NET 1.1 collections to use Generics
+* Combined IExtensionElement and IExtensionElementFactory interfaces
+* 
 */
 #region Using directives
 
@@ -35,52 +41,8 @@ namespace Google.GData.Client
     /// <summary>standard typed collection based on 1.1 framework for FeedEntries
     /// </summary> 
     //////////////////////////////////////////////////////////////////////
-    public class StringCollection : CollectionBase
+    public class StringCollection : AtomCollectionBase<string>
     {
-     /// <summary>standard typed accessor method </summary> 
-        public String this[ int index ]  
-        {
-            get  
-            {
-                return ((String)List[index]);
-            }
-            set  
-            {
-                List[index] = value;
-            }
-        }
-        /// <summary>standard typed accessor method </summary> 
-        public int Add(String value)  
-        {
-            return( List.Add( value ) );
-        }
-        /// <summary>standard typed accessor method </summary> 
-        public int IndexOf(String value)  
-        {
-            return( List.IndexOf( value ) );
-        }
-        /// <summary>standard typed accessor method </summary> 
-        public void Insert(int index, String value)  
-        {
-            List.Insert( index, value );
-        }
-        /// <summary>standard typed accessor method </summary> 
-        public void Remove(String value)  
-        {
-            List.Remove( value );
-        }
-        /// <summary>standard typed accessor method </summary> 
-        public bool Contains(String value)  
-        {
-            // If value is not of type AtomCategory, this will return false.
-            return( List.Contains( value ) );
-        }
-        /// <summary>standard typed accessor method </summary> 
-        protected override void OnValidate( Object value )  
-        {
-            if ( value.GetType() != Type.GetType("System.String") )
-                throw new ArgumentException( "value must be of type System.String", "value" );
-        }
     	/// <summary>retrieves the first category with the matching value</summary>
     	protected virtual AtomCategory FindCategory(string term)
     	{
@@ -98,13 +60,11 @@ namespace Google.GData.Client
 
 #endif
 
-  
-
     //////////////////////////////////////////////////////////////////////
     /// <summary>standard typed collection based on 1.1 framework for FeedEntries
     /// </summary> 
     //////////////////////////////////////////////////////////////////////
-    public class AtomEntryCollection : CollectionBase  
+    public class AtomEntryCollection : AtomCollectionBase<AtomEntry>
     {
         /// <summary>holds the owning feed</summary> 
         private AtomFeed feed;
@@ -114,16 +74,17 @@ namespace Google.GData.Client
         {
         }
         /// <summary>constructor</summary> 
-        public AtomEntryCollection(AtomFeed feed) : base()
+        public AtomEntryCollection(AtomFeed feed)
+            : base()
         {
-            this.feed = feed; 
+            this.feed = feed;
         }
 
         /// <summary>Fins an atomEntry in the collection 
         /// based on it's ID. </summary> 
         /// <param name="value">The atomId to look for</param> 
         /// <returns>Null if not found, otherwise the entry</returns>
-        public AtomEntry FindById( AtomId value )  
+        public AtomEntry FindById(AtomId value)
         {
             if (value == null)
             {
@@ -141,13 +102,13 @@ namespace Google.GData.Client
 
 
         /// <summary>standard typed accessor method </summary> 
-        public AtomEntry this[ int index ]  
+        public override AtomEntry this[int index]
         {
-            get  
+            get
             {
-                return( (AtomEntry) List[index] );
+                return ((AtomEntry)List[index]);
             }
-            set  
+            set
             {
                 if (value != null)
                 {
@@ -161,7 +122,7 @@ namespace Google.GData.Client
         }
 
         /// <summary>standard typed add method </summary> 
-        public int Add( AtomEntry value )  
+        public override int Add(AtomEntry value)
         {
             if (value != null)
             {
@@ -179,47 +140,15 @@ namespace Google.GData.Client
                     // now we need to see if this is the same feed. If not, copy
                     if (AtomFeed.IsFeedIdentical(value.Feed, this.feed) == false)
                     {
-                        AtomEntry newEntry = AtomEntry.ImportFromFeed(value); 
+                        AtomEntry newEntry = AtomEntry.ImportFromFeed(value);
                         newEntry.setFeed(this.feed);
-                        value = newEntry; 
+                        value = newEntry;
                     }
                 }
                 value.ProtocolMajor = this.feed.ProtocolMajor;
                 value.ProtocolMinor = this.feed.ProtocolMinor;
             }
-            return( List.Add( value ) );
-        }
-
-        /// <summary>standard typed indexOf method </summary> 
-        public int IndexOf( AtomEntry value )  
-        {
-            return( List.IndexOf( value ) );
-        }
-    
-        /// <summary>standard typed insert method </summary> 
-        public void Insert( int index, AtomEntry value )  
-        {
-            List.Insert( index, value );
-        }
-
-        /// <summary>standard typed remove method </summary> 
-        public void Remove( AtomEntry value )  
-        {
-            List.Remove( value );
-        }
-
-        /// <summary>standard typed Contains method </summary> 
-        public bool Contains( AtomEntry value )  
-        {
-            // If value is not of type AtomEntry, this will return false.
-            return( List.Contains( value ) );
-        }
-
-        /// <summary>standard typed OnValidate Override </summary> 
-        protected override void OnValidate( Object value )  
-        {
-            if ( value as AtomEntry == null)
-                throw new ArgumentException( "value must be of type Google.GData.Client.AtomEntry.", "value" );
+            return (List.Add(value));
         }
     }
     /////////////////////////////////////////////////////////////////////////////
@@ -228,58 +157,24 @@ namespace Google.GData.Client
     /// <summary>standard typed collection based on 1.1 framework for AtomLinks
     /// </summary> 
     //////////////////////////////////////////////////////////////////////
-    public class AtomLinkCollection : CollectionBase  
+    public class AtomLinkCollection : AtomCollectionBase<AtomLink>
     {
         /// <summary>standard typed accessor method </summary> 
-        public AtomLink this[ int index ]  
-        {
-            get  
-            {
-                return( (AtomLink) List[index] );
-            }
-            set  
-            {
-                List[index] = value;
-            }
-        }
-
-        /// <summary>standard typed accessor method </summary> 
-        public int Add( AtomLink value )  
+        public override int Add(AtomLink value)
         {
             if (value == null)
             {
                 throw new ArgumentNullException("value");
             }
-    	    // Remove link with same relation to avoid duplication.
-    	    AtomLink oldLink = FindService(value.Rel, value.Type);
-    	    if (oldLink != null)
-    	    {
-    	        List.Remove(oldLink);
-    	    }
-            return( List.Add( value ) );
+            // Remove link with same relation to avoid duplication.
+            AtomLink oldLink = FindService(value.Rel, value.Type);
+            if (oldLink != null)
+            {
+                List.Remove(oldLink);
+            }
+            return (List.Add(value));
         }
-        /// <summary>standard typed accessor method </summary> 
-        public int IndexOf( AtomLink value )  
-        {
-            return( List.IndexOf( value ) );
-        }
-        /// <summary>standard typed accessor method </summary> 
-        public void Insert( int index, AtomLink value )  
-        {
-            List.Insert( index, value );
-        }
-        /// <summary>standard typed accessor method </summary> 
-        public void Remove( AtomLink value )  
-        {
-            List.Remove( value );
-        }
-        /// <summary>standard typed accessor method </summary> 
-        public bool Contains( AtomLink value )  
-        {
-            // If value is not of type AtomLink, this will return false.
-            return( List.Contains( value ) );
-        }
-
+       
         //////////////////////////////////////////////////////////////////////
         /// <summary>public AtomLink FindService(string service,string type)
         ///   Retrieves the first link with the supplied 'rel' and/or 'type' value.
@@ -291,22 +186,23 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         public AtomLink FindService(string service, string type)
         {
-            foreach (AtomLink link in List )
+            foreach (AtomLink link in List)
             {
                 string linkRel = link.Rel;
                 string linkType = link.Type;
 
-                if ((service == null || (linkRel != null && linkRel == service )) &&
-                    (type == null || (linkType != null && linkType == type))) {
+                if ((service == null || (linkRel != null && linkRel == service)) &&
+                    (type == null || (linkType != null && linkType == type)))
+                {
 
-                  return link;
+                    return link;
                 }
             }
             return null;
         }
         /////////////////////////////////////////////////////////////////////////////
 
-          //////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////
         /// <summary>public AtomLink FindService(string service,string type)
         ///   Retrieves the first link with the supplied 'rel' and/or 'type' value.
         ///   If either parameter is null, the corresponding match isn't needed.
@@ -319,27 +215,22 @@ namespace Google.GData.Client
         {
             List<AtomLink> foundLinks = new List<AtomLink>();
 
-            foreach (AtomLink link in List )
+            foreach (AtomLink link in List)
             {
                 string linkRel = link.Rel;
                 string linkType = link.Type;
 
-                if ((service == null || (linkRel != null && linkRel == service )) &&
-                    (type == null || (linkType != null && linkType == type))) {
+                if ((service == null || (linkRel != null && linkRel == service)) &&
+                    (type == null || (linkType != null && linkType == type)))
+                {
 
-                  foundLinks.Add(link);;
+                    foundLinks.Add(link);
+                    ;
                 }
             }
             return foundLinks;
         }
         /////////////////////////////////////////////////////////////////////////////
-
-        /// <summary>standard typed accessor method </summary> 
-        protected override void OnValidate( Object value )  
-        {
-            if ( ! typeof(AtomLink).IsInstanceOfType(value) )
-                throw new ArgumentException( "value must be of type Google.GData.Client.AtomLink.", "value" );
-        }
     }
     /////////////////////////////////////////////////////////////////////////////
 
@@ -347,49 +238,22 @@ namespace Google.GData.Client
     /// <summary>standard typed collection based on 1.1 framework for AtomCategory
     /// </summary> 
     //////////////////////////////////////////////////////////////////////
-    public class AtomCategoryCollection : CollectionBase  
+    public class AtomCategoryCollection : AtomCollectionBase<AtomCategory>
     {
         /// <summary>standard typed accessor method </summary> 
-        public AtomCategory this[ int index ]  
-        {
-            get  
-            {
-                return( (AtomCategory) List[index] );
-            }
-            set  
-            {
-                List[index] = value;
-            }
-        }
-        /// <summary>standard typed accessor method </summary> 
-        public int Add( AtomCategory value )  
+        public override int Add(AtomCategory value)
         {
             if (value == null)
             {
                 throw new ArgumentNullException("value");
             }
-    	    // Remove category with the same term to avoid duplication.
-    	    AtomCategory oldCategory = Find(value.Term, value.Scheme);
-    	    if (oldCategory != null)
-    	    {
-    	        List.Remove(oldCategory);
-    	    }
-            return( List.Add( value ) );
-        }
-        /// <summary>standard typed accessor method </summary> 
-        public int IndexOf( AtomCategory value )  
-        {
-            return( List.IndexOf( value ) );
-        }
-        /// <summary>standard typed accessor method </summary> 
-        public void Insert( int index, AtomCategory value )  
-        {
-            List.Insert( index, value );
-        }
-        /// <summary>standard typed accessor method </summary> 
-        public void Remove( AtomCategory value )  
-        {
-            List.Remove( value );
+            // Remove category with the same term to avoid duplication.
+            AtomCategory oldCategory = Find(value.Term, value.Scheme);
+            if (oldCategory != null)
+            {
+                List.Remove(oldCategory);
+            }
+            return (List.Add(value));
         }
 
         /// <summary>
@@ -425,11 +289,11 @@ namespace Google.GData.Client
         }
 
         /// <summary>standard typed accessor method </summary> 
-        public bool Contains( AtomCategory value )  
+        public override bool Contains(AtomCategory value)
         {
             if (value == null)
             {
-                 return( List.Contains( value ) );
+                return (List.Contains(value));
             }
             // If value is not of type AtomCategory, this will return false.
             if (Find(value.Term, value.Scheme) != null)
@@ -439,12 +303,6 @@ namespace Google.GData.Client
             return false;
 
         }
-        /// <summary>standard typed accessor method </summary> 
-        protected override void OnValidate( Object value )  
-        {
-            if ( value.GetType() != Type.GetType("Google.GData.Client.AtomCategory") )
-                throw new ArgumentException( "value must be of type Google.GData.Client.AtomCategory.", "value" );
-        }
     }
     /////////////////////////////////////////////////////////////////////////////
 
@@ -452,52 +310,9 @@ namespace Google.GData.Client
     /// <summary>standard typed collection based on 1.1 framework for AtomPerson
     /// </summary> 
     //////////////////////////////////////////////////////////////////////
-    public class QueryCategoryCollection : CollectionBase  
+    public class QueryCategoryCollection : AtomCollectionBase<QueryCategory>
     {
-        /// <summary>standard typed accessor method </summary> 
-        public QueryCategory this[ int index ]  
-        {
-            get  
-            {
-                return( (QueryCategory) List[index] );
-            }
-            set  
-            {
-                List[index] = value;
-            }
-        }
-        /// <summary>standard typed accessor method </summary> 
-        public int Add( QueryCategory value )  
-        {
-            return( List.Add( value ) );
-        }
-        /// <summary>standard typed accessor method </summary> 
-        public int IndexOf( QueryCategory value )  
-        {
-            return( List.IndexOf( value ) );
-        }
-        /// <summary>standard typed accessor method </summary> 
-        public void Insert( int index, QueryCategory value )  
-        {
-            List.Insert( index, value );
-        }
-        /// <summary>standard typed accessor method </summary> 
-        public void Remove( QueryCategory value )  
-        {
-            List.Remove( value );
-        }
-        /// <summary>standard typed accessor method </summary> 
-        public bool Contains( QueryCategory value )  
-        {
-            // If value is not of type AtomPerson, this will return false.
-            return( List.Contains( value ) );
-        }
-        /// <summary>standard typed accessor method </summary> 
-        protected override void OnValidate( Object value )  
-        {
-            if ( value.GetType() != Type.GetType("Google.GData.Client.QueryCategory") )
-                throw new ArgumentException( "value must be of type Google.GData.Client.QueryCategory.", "value" );
-        }
+
     }
     /////////////////////////////////////////////////////////////////////////////
 
@@ -506,71 +321,88 @@ namespace Google.GData.Client
     /// <summary>standard typed collection based on 1.1 framework for AtomPerson
     /// </summary> 
     //////////////////////////////////////////////////////////////////////
-    public class AtomPersonCollection : CollectionBase  
+    public class AtomPersonCollection : AtomCollectionBase<AtomPerson>
+    {        
+
+    }
+    /////////////////////////////////////////////////////////////////////////////
+
+    public class AtomCollectionBase<T> : CollectionBase
     {
         /// <summary>standard typed accessor method </summary> 
-        public AtomPerson this[ int index ]  
+        public virtual T this[int index]
         {
-            get  
+            get
             {
-                return( (AtomPerson) List[index] );
+                return (T)List[index];
             }
-            set  
+            set
             {
                 List[index] = value;
             }
         }
+        
         /// <summary>standard typed accessor method </summary> 
-        public int Add( AtomPerson value )  
+        public virtual int Add(T value)
         {
-            return( List.Add( value ) );
+            return (List.Add(value));
         }
         /// <summary>standard typed accessor method </summary> 
-        public int IndexOf( AtomPerson value )  
+        public virtual int IndexOf(T value)
         {
-            return( List.IndexOf( value ) );
+            return (List.IndexOf(value));
         }
         /// <summary>standard typed accessor method </summary> 
-        public void Insert( int index, AtomPerson value )  
+        public virtual void Insert(int index, T value)
         {
-            List.Insert( index, value );
+            List.Insert(index, value);
         }
         /// <summary>standard typed accessor method </summary> 
-        public void Remove( AtomPerson value )  
+        public virtual void Remove(T value)
         {
-            List.Remove( value );
+            List.Remove(value);
         }
         /// <summary>standard typed accessor method </summary> 
-        public bool Contains( AtomPerson value )  
+        public virtual bool Contains(T value)
         {
             // If value is not of type AtomPerson, this will return false.
-            return( List.Contains( value ) );
+            return (List.Contains(value));
         }
+
         /// <summary>standard typed accessor method </summary> 
-        protected override void OnValidate( Object value )  
+        protected override void OnValidate(Object value)
         {
-            if ( value.GetType() != Type.GetType("Google.GData.Client.AtomPerson") )
-                throw new ArgumentException( "value must be of type Google.GData.Client.AtomPerson.", "value" );
+            if (value.GetType() != typeof(T) && !typeof(T).IsAssignableFrom(value.GetType()))
+                throw new ArgumentException("value must be of type " + typeof(T).FullName + ".", "value");
         }
+
     }
-    /////////////////////////////////////////////////////////////////////////////
-
-
-    
 
     /// <summary>
     ///  internal list to override the add and the constructor
     /// </summary>
     /// <returns></returns>
-    internal class ExtensionList : ArrayList
+    public class ExtensionList : IList<IExtensionElementFactory>
     {
-        IVersionAware container; 
+        //TODO Convert from ArrayList.
+        IVersionAware container;
+
+        List<IExtensionElementFactory> _list = new List<IExtensionElementFactory>();
+
+        /// <summary>
+        /// Return a new collection that is not version aware.
+        /// </summary>
+        public static ExtensionList NotVersionAware()
+        {
+            return new ExtensionList(NullVersionAware.Instance);
+        }
 
         public ExtensionList(IVersionAware container)
         {
             this.container = container;
         }
-        public override int Add (Object value)
+
+        public int Add(IExtensionElementFactory value)
         {
             IVersionAware target = value as IVersionAware;
 
@@ -579,8 +411,88 @@ namespace Google.GData.Client
                 target.ProtocolMajor = this.container.ProtocolMajor;
                 target.ProtocolMinor = this.container.ProtocolMinor;
             }
-            return base.Add(value);
+
+            _list.Add(value);
+            return _list.Count - 1;
+            //return _list.IndexOf(value);
+        }
+
+        public int IndexOf(IExtensionElementFactory item)
+        {
+            return _list.IndexOf(item);
+        }
+
+        public void Insert(int index, IExtensionElementFactory item)
+        {
+            _list.Insert(index, item);
+        }
+
+        public void RemoveAt(int index)
+        {
+            _list.RemoveAt(index);
+        }
+
+        public IExtensionElementFactory this[int index]
+        {
+            get
+            {
+                return _list[index];
+            }
+            set
+            {
+                _list[index] = value;
+            }
+        }
+
+        void ICollection<IExtensionElementFactory>.Add(IExtensionElementFactory item)
+        {
+            Add(item);
+        }
+
+        public void Clear()
+        {
+            _list.Clear();
+        }
+
+        public bool Contains(IExtensionElementFactory item)
+        {
+            return _list.Contains(item);
+        }
+
+        public void CopyTo(IExtensionElementFactory[] array, int arrayIndex)
+        {
+            _list.CopyTo(array, arrayIndex);
+        }
+
+        public int Count
+        {
+            get
+            {
+                return _list.Count;
+            }
+        }
+
+        public bool IsReadOnly
+        {
+            get
+            {
+                return false;
+            }
+        }
+
+        public bool Remove(IExtensionElementFactory item)
+        {
+            return _list.Remove(item);
+        }
+
+        public IEnumerator<IExtensionElementFactory> GetEnumerator()
+        {
+            return _list.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return _list.GetEnumerator();
         }
     }
-
-} 
+}

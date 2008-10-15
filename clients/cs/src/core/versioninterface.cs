@@ -1,4 +1,4 @@
-/* Copyright (c) 2006 Google Inc.
+/* Copyright (c) 2006-2008 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -11,6 +11,12 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+*/
+/* Change history
+* Oct 13 2008  Joe Feser       joseph.feser@gmail.com
+* Converted ArrayLists and other .NET 1.1 collections to use Generics
+* Combined IExtensionElement and IExtensionElementFactory interfaces
+* 
 */
 #region Using directives
 
@@ -32,13 +38,64 @@ using System.Globalization;
 //////////////////////////////////////////////////////////////////////
 namespace Google.GData.Client
 {
-    
+
     static class VersionDefaults
     {
-        public const int Major = 1; 
-        public const int Minor = 0; 
+        public const int Major = 1;
+        public const int Minor = 0;
     }
-    
+
+    //TODO determine if this is the correct approach.
+    /// <summary>
+    /// Class used as a null version aware seed for the collections
+    /// </summary>
+    public class NullVersionAware : IVersionAware
+    {
+        private static object synclock = new object();
+        private static IVersionAware _instance;
+        public static IVersionAware Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    lock (synclock)
+                    {
+                        if (_instance == null)
+                        {
+                            _instance = new NullVersionAware();
+                        }
+                    }
+                }
+                return _instance;
+            }
+        }
+
+        public int ProtocolMajor
+        {
+            get
+            {
+                return 0;
+            }
+            set
+            {
+                //throw new Exception("The method or operation is not implemented.");
+            }
+        }
+
+        public int ProtocolMinor
+        {
+            get
+            {
+                return 0;
+            }
+            set
+            {
+                //throw new Exception("The method or operation is not implemented.");
+            }
+        }
+
+    }
 
     /// <summary>
     /// this interface indicates that an element is aware of Core and Service
@@ -50,11 +107,19 @@ namespace Google.GData.Client
         /// <summary>
         /// returns the major version of the protocol this element is using
         /// </summary>
-         int ProtocolMajor {  set; get;}
-         /// <summary>
-         /// returns the minor version of the protocol this element is using
-         /// </summary>
-         int ProtocolMinor { set; get;}
+        int ProtocolMajor
+        {
+            set;
+            get;
+        }
+        /// <summary>
+        /// returns the minor version of the protocol this element is using
+        /// </summary>
+        int ProtocolMinor
+        {
+            set;
+            get;
+        }
     }
 
 
@@ -86,7 +151,7 @@ namespace Google.GData.Client
         {
             if (headerValue != null)
             {
-                string []arr = headerValue.Split('.');
+                string[] arr = headerValue.Split('.');
                 if (arr.Length == 2)
                 {
                     this.majorVersion = int.Parse(arr[0], CultureInfo.InvariantCulture);
@@ -95,7 +160,9 @@ namespace Google.GData.Client
             }
         }
 
-        public VersionInformation() { }
+        public VersionInformation()
+        {
+        }
 
         /// <summary>
         /// returns the major protocol version number this element 
@@ -110,7 +177,7 @@ namespace Google.GData.Client
             }
             set
             {
-                this.majorVersion  = value;
+                this.majorVersion = value;
             }
         }
 
@@ -127,7 +194,7 @@ namespace Google.GData.Client
             }
             set
             {
-                this.minorVersion  = value;
+                this.minorVersion = value;
             }
         }
 
@@ -140,7 +207,7 @@ namespace Google.GData.Client
         public void ImprintVersion(IVersionAware v)
         {
             v.ProtocolMajor = this.majorVersion;
-            v.ProtocolMinor = this.minorVersion; 
+            v.ProtocolMinor = this.minorVersion;
         }
 
         /// <summary>
@@ -148,7 +215,7 @@ namespace Google.GData.Client
         /// same as this instance
         /// </summary>
         /// <param name="arr">The array of objects the version should be applied to</param>
-        public void ImprintVersion(ArrayList arr)
+        public void ImprintVersion(ExtensionList arr)
         {
             if (arr == null)
                 return;
@@ -163,5 +230,5 @@ namespace Google.GData.Client
         }
 
     }
-} 
+}
 /////////////////////////////////////////////////////////////////////////////

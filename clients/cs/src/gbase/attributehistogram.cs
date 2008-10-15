@@ -1,4 +1,4 @@
-/* Copyright (c) 2006 Google Inc.
+/* Copyright (c) 2006-2008 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,6 +12,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+/* Change history
+* Oct 13 2008  Joe Feser       joseph.feser@gmail.com
+* Converted ArrayLists and other .NET 1.1 collections to use Generics
+* Combined IExtensionElement and IExtensionElementFactory interfaces
+* 
+*/
 #region Using directives
 
 using System;
@@ -21,6 +27,7 @@ using System.Text;
 using System.Net;
 using System.Xml;
 using Google.GData.Client;
+using System.Collections.Generic;
 
 #endregion
 
@@ -37,12 +44,12 @@ namespace Google.GData.GoogleBase
     /// an histogram feed using: GoogleBaseEntry.AttributeHistogram
     /// </summary>
     ///////////////////////////////////////////////////////////////////////
-    public class AttributeHistogram : IExtensionElement
+    public class AttributeHistogram : IExtensionElementFactory
     {
         private readonly string name;
         private readonly GBaseAttributeType type;
         private readonly int count;
-        private readonly HistogramValue[] values;
+        private readonly List<HistogramValue> values;
 
         ///////////////////////////////////////////////////////////////////////
         /// <summary>Creates an AttributeHistogram with no example values.
@@ -72,12 +79,12 @@ namespace Google.GData.GoogleBase
         public AttributeHistogram(string name,
                                   GBaseAttributeType type,
                                   int count,
-                                  HistogramValue[] values)
+                                  List<HistogramValue> values)
         {
             this.name = name;
             this.type = type;
             this.count = count;
-            this.values = values == null ? new HistogramValue[0] : values;
+            this.values = values == null ? new List<HistogramValue>() : values;
         }
 
         ///////////////////////////////////////////////////////////////////////
@@ -126,7 +133,7 @@ namespace Google.GData.GoogleBase
         /// <summary>The most common values found for this attribute in
         /// the histogram query results. It might be empty.</summary>
         ///////////////////////////////////////////////////////////////////////
-        public HistogramValue[] Values
+        public List<HistogramValue> Values
         {
             get
             {
@@ -160,7 +167,8 @@ namespace Google.GData.GoogleBase
 
                 if (name != null && type != null)
                 {
-                    ArrayList values = new ArrayList();
+                    //TODO determine if this is correct.
+                    List<HistogramValue> values = new List<HistogramValue>();
                     for (XmlNode child = node.FirstChild;
                             child != null;
                             child = child.NextSibling)
@@ -176,8 +184,7 @@ namespace Google.GData.GoogleBase
                             }
                         }
                     }
-                    return new AttributeHistogram(name, type, count,
-                                              (HistogramValue[])values.ToArray(typeof(HistogramValue)));
+                    return new AttributeHistogram(name, type, count, values);
                 }
             }
             return null;
@@ -188,9 +195,9 @@ namespace Google.GData.GoogleBase
         ///////////////////////////////////////////////////////////////////////
         public void Save(XmlWriter writer)
         {
-            writer.WriteStartElement(GBaseNameTable.GBaseMetaPrefix,
+            writer.WriteStartElement(XmlPrefix,
                                      "attribute",
-                                     GBaseNameTable.NSGBaseMeta);
+                                     XmlNameSpace);
             writer.WriteAttributeString("name", name);
             writer.WriteAttributeString("type", type.Name);
             writer.WriteAttributeString("count", NumberFormat.ToString(count));
@@ -208,6 +215,40 @@ namespace Google.GData.GoogleBase
             writer.WriteEndElement();
         }
 
+
+        #region IExtensionElementFactory Members
+
+        public string XmlName
+        {
+            get
+            {
+                //TODO determine if this is correct
+                return name;
+            }
+        }
+
+        public string XmlNameSpace
+        {
+            get
+            {
+                return GBaseNameTable.NSGBaseMeta;
+            }
+        }
+
+        public string XmlPrefix
+        {
+            get
+            {
+                return GBaseNameTable.GBaseMetaPrefix;
+            }
+        }
+
+        public IExtensionElementFactory CreateInstance(XmlNode node, AtomFeedParser parser)
+        {
+            return Parse(node);
+        }
+
+        #endregion
     }
 
     ///////////////////////////////////////////////////////////////////////

@@ -1,4 +1,4 @@
-/* Copyright (c) 2006 Google Inc.
+/* Copyright (c) 2006-2008 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,6 +12,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 */
+/* Change history
+ * Oct 13 2008  Joe Feser       joseph.feser@gmail.com
+ * Converted ArrayLists and other .NET 1.1 collections to use Generics
+ * Combined IExtensionElement and IExtensionElementFactory interfaces
+ * 
+ */
 using System;
 using System.IO;
 using System.Xml;
@@ -32,24 +38,25 @@ namespace Google.GData.GoogleBase.UnitTests
     {
 
         [Test]
+        [Ignore("We no longer allow items to be added that are not an extension.")]
         public void GetSetExtensionTest()
         {
-            Dummy x = new Dummy("x");
-            Dummy y = new Dummy("y");
-            ArrayList list = new ArrayList();
-            list.Add("hello");
-            list.Add("world");
+            //Dummy x = new Dummy("x");
+            //Dummy y = new Dummy("y");
+            //ExtensionList list = ExtensionList.NotVersionAware();
+            ////list.Add("hello");
+            ////list.Add("world");
 
-            Assert.IsNull(GBaseUtilities.GetExtension(list, typeof(Dummy)));
+            //Assert.IsNull(GBaseUtilities.GetExtension(list, typeof(Dummy)));
 
-            GBaseUtilities.SetExtension(list, typeof(Dummy), x);
-            Assert.AreEqual(x, GBaseUtilities.GetExtension(list, typeof(Dummy)));
+            //GBaseUtilities.SetExtension(list, typeof(Dummy), x);
+            //Assert.AreEqual(x, GBaseUtilities.GetExtension(list, typeof(Dummy)));
 
-            GBaseUtilities.SetExtension(list, typeof(Dummy), y);
-            Assert.AreEqual(y, GBaseUtilities.GetExtension(list, typeof(Dummy)));
+            //GBaseUtilities.SetExtension(list, typeof(Dummy), y);
+            //Assert.AreEqual(y, GBaseUtilities.GetExtension(list, typeof(Dummy)));
 
-            GBaseUtilities.SetExtension(list, typeof(Dummy), null);
-            Assert.IsNull(GBaseUtilities.GetExtension(list, typeof(Dummy)));
+            //GBaseUtilities.SetExtension(list, typeof(Dummy), null);
+            //Assert.IsNull(GBaseUtilities.GetExtension(list, typeof(Dummy)));
         }
 
         struct Dummy

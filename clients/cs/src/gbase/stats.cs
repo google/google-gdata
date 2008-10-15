@@ -1,4 +1,4 @@
-/* Copyright (c) 2007 Google Inc.
+/* Copyright (c) 2007-2008 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -11,6 +11,12 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ */
+/* Change history
+ * Oct 13 2008  Joe Feser       joseph.feser@gmail.com
+ * Converted ArrayLists and other .NET 1.1 collections to use Generics
+ * Combined IExtensionElement and IExtensionElementFactory interfaces
+ * 
  */
 #region Using directives
 using System;
@@ -159,7 +165,7 @@ namespace Google.GData.GoogleBase
     /// <summary>Object representation for the gm:stats tags in
     /// the customer item feed.</summary>
     //////////////////////////////////////////////////////////////////////
-    public class Stats : IExtensionElement
+    public class Stats : IExtensionElementFactory
     {
         private Statistic impressions = new Statistic();
         private Statistic clicks = new Statistic();
@@ -235,9 +241,9 @@ namespace Google.GData.GoogleBase
         {
             if (impressions.Total > 0 || clicks.Total > 0 || pageViews.Total > 0)
             {
-                writer.WriteStartElement(GBaseNameTable.GBaseMetaPrefix,
+                writer.WriteStartElement(XmlPrefix,
                                          "stats",
-                                         GBaseNameTable.NSGBaseMeta);
+                                         XmlNameSpace);
                 impressions.Save("impressions", writer);
                 clicks.Save("clicks", writer);
                 pageViews.Save("page_views", writer);
@@ -245,6 +251,39 @@ namespace Google.GData.GoogleBase
                 writer.WriteEndElement();
             }
         }
+
+        #region IExtensionElementFactory Members
+
+        public string XmlName
+        {
+            get
+            {
+                return "stats";
+            }
+        }
+
+        public string XmlNameSpace
+        {
+            get
+            {
+                return GBaseNameTable.NSGBaseMeta;
+            }
+        }
+
+        public string XmlPrefix
+        {
+            get
+            {
+                return GBaseNameTable.GBaseMetaPrefix;
+            }
+        }
+
+        public IExtensionElementFactory CreateInstance(XmlNode node, AtomFeedParser parser)
+        {
+            return Parse(node);
+        }
+
+        #endregion
     }
 
 }

@@ -1,4 +1,4 @@
-/* Copyright (c) 2006 Google Inc.
+/* Copyright (c) 2006-2008 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,7 +12,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 */
-
+/* Change history
+* Oct 13 2008  Joe Feser       joseph.feser@gmail.com
+* Converted ArrayLists and other .NET 1.1 collections to use Generics
+* Combined IExtensionElement and IExtensionElementFactory interfaces
+* 
+*/
 using System;
 using System.IO;
 using System.Collections;
@@ -22,28 +27,10 @@ using Google.GData.Client;
 
 namespace Google.GData.Extensions {
 
-
-    //////////////////////////////////////////////////////////////////////
-    /// <summary>Typed collection for Thumbnails Extensions.</summary>
-    //////////////////////////////////////////////////////////////////////
-    public class FeedLinkCollection : ExtensionCollection<FeedLink>
-    {
-        private FeedLinkCollection() : base()
-        {
-        }
-
-        /// <summary>constructor</summary> 
-        public FeedLinkCollection(IExtensionContainer atomElement) 
-            : base(atomElement, GDataParserNameTable.XmlFeedLinkElement, BaseNameTable.gNamespace)
-        {
-        }
-    }
-    /////////////////////////////////////////////////////////////////////////////
-
     /// <summary>
     /// GData schema extension describing a nested feed link.
     /// </summary>
-    public class FeedLink : IExtensionElement, IExtensionElementFactory
+    public class FeedLink : IExtensionElementFactory
     {
 
         /// <summary>holds the href property</summary>
@@ -203,7 +190,7 @@ namespace Google.GData.Extensions {
         /// <param name="parser">the xml parser to use if we need to dive deeper</param>
         /// <returns>the created Where  object</returns>
         //////////////////////////////////////////////////////////////////////
-        public IExtensionElement CreateInstance(XmlNode node, AtomFeedParser parser)
+        public IExtensionElementFactory CreateInstance(XmlNode node, AtomFeedParser parser)
         {
             return FeedLink.ParseFeedLink(node);
         }

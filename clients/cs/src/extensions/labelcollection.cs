@@ -12,27 +12,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 */
-
+/* Change history
+* Oct 13 2008  Joe Feser       joseph.feser@gmail.com
+* Converted ArrayLists and other .NET 1.1 collections to use Generics
+* Combined IExtensionElement and IExtensionElementFactory interfaces
+* 
+*/
 using System;
 using System.Collections;
 using Google.GData.Client;
 
 namespace Google.GData.Extensions.Apps
 {
-    /// <summary>
-    /// Standard typed collection of labels.
-    /// </summary>
-    public class LabelCollection : ExtensionCollection<LabelElement>
-    {
-        private LabelCollection()
-            : base()
-        {
-        }
+    ///// <summary>
+    ///// Standard typed collection of labels.
+    ///// </summary>
+    //public class LabelCollection : ExtensionCollection<LabelElement>
+    //{
+    //    private LabelCollection()
+    //        : base()
+    //    {
+    //    }
 
-        /// <summary>constructor</summary>
-        public LabelCollection(AtomBase atomElement)
-            : base(atomElement, AppsMigrationNameTable.AppsLabel, AppsMigrationNameTable.AppsNamespace)
-        {
-        }
-    }
+    //    /// <summary>constructor</summary>
+    //    public LabelCollection(AtomBase atomElement)
+    //        : base(atomElement) //, AppsMigrationNameTable.AppsLabel, AppsMigrationNameTable.AppsNamespace
+    //    {
+    //    }
+    //}
 }

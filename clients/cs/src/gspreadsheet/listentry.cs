@@ -1,4 +1,4 @@
-/* Copyright (c) 2006 Google Inc.
+/* Copyright (c) 2006-2008 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,7 +12,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
+/* Change history
+* Oct 13 2008  Joe Feser       joseph.feser@gmail.com
+* Converted ArrayLists and other .NET 1.1 collections to use Generics
+* Combined IExtensionElement and IExtensionElementFactory interfaces
+* 
+*/
 using System;
 using System.Xml;
 using System.IO;
@@ -39,7 +44,7 @@ namespace Google.GData.Spreadsheets
         /// <summary>
         /// GData schema extension describing a custom element in a spreadsheet.
         /// </summary>
-        public class Custom : IExtensionElement
+        public class Custom : IExtensionElementFactory
         {
             private string localName;
             private string value;
@@ -169,13 +174,39 @@ namespace Google.GData.Spreadsheets
             {
                 if (LocalName != null && Value != null)
                 {
-                    writer.WriteStartElement(GDataSpreadsheetsNameTable.ExtendedPrefix,
-                                             XmlName, GDataSpreadsheetsNameTable.NSGSpreadsheetsExtended);
+                    writer.WriteStartElement(XmlPrefix,
+                                             XmlName, XmlNameSpace);
                     writer.WriteString(Value);
                     writer.WriteEndElement();
                 }
             }
 #endregion
+
+            #region IExtensionElementFactory Members
+
+
+            public string XmlNameSpace
+            {
+                get
+                {
+                    return GDataSpreadsheetsNameTable.NSGSpreadsheetsExtended;
+                }
+            }
+
+            public string XmlPrefix
+            {
+                get
+                {
+                    return GDataSpreadsheetsNameTable.ExtendedPrefix;
+                }
+            }
+
+            public IExtensionElementFactory CreateInstance(XmlNode node, AtomFeedParser parser)
+            {
+                return ParseCustom(node, parser);
+            }
+
+            #endregion
         } // class Custom
 
 #endregion

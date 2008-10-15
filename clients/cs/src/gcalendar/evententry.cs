@@ -1,4 +1,4 @@
-/* Copyright (c) 2006 Google Inc.
+/* Copyright (c) 2006-2008 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,7 +12,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 */
-
+/* Change history
+* Oct 13 2008  Joe Feser       joseph.feser@gmail.com
+* Converted ArrayLists and other .NET 1.1 collections to use Generics
+* Combined IExtensionElement and IExtensionElementFactory interfaces
+* 
+*/
 using System;
 using System.Xml;
 using System.IO; 
@@ -376,22 +381,22 @@ namespace Google.GData.Calendar {
 
 #region EventEntry Attributes
 
-        private WhenCollection times;
-        private WhereCollection locations;
-        private WhoCollection participants;
+        private ExtensionCollection<When> times;
+        private ExtensionCollection<Where> locations;
+        private ExtensionCollection<Who> participants;
 #endregion
 
 #region Public Methods
         /// <summary>
         ///  property accessor for the WhenCollection
         /// </summary>
-        public WhenCollection Times
+        public ExtensionCollection<When> Times
         {
             get 
             {
                 if (this.times == null)
                 {
-                    this.times =  new WhenCollection(this);
+                    this.times = new ExtensionCollection<When>(this);
                 }
                 return this.times;
             }
@@ -400,13 +405,13 @@ namespace Google.GData.Calendar {
         /// <summary>
         ///  property accessor for the WhereCollection
         /// </summary>
-        public WhereCollection Locations
+        public ExtensionCollection<Where> Locations
         {
             get 
             {
                 if (this.locations == null)
                 {
-                    this.locations =  new WhereCollection(this);
+                    this.locations = new ExtensionCollection<Where>(this);
                 }
                 return this.locations;
             }
@@ -415,13 +420,13 @@ namespace Google.GData.Calendar {
         /// <summary>
         ///  property accessor for the whos in the event
         /// </summary>
-        public WhoCollection Participants
+        public ExtensionCollection<Who> Participants
         {
             get 
             {
                 if (this.participants == null)
                 {
-                    this.participants =  new WhoCollection(this); 
+                    this.participants = new ExtensionCollection<Who>(this); 
                 }
                 return this.participants;
             }
@@ -673,19 +678,26 @@ namespace Google.GData.Calendar {
         /// <summary>
         /// property accessor for the Reminder
         /// </summary>
-        public ReminderCollection Reminders
+        public ExtensionCollection<Reminder> Reminders
         {
             get 
             { 
                 // if we are a recurrent event, reminder is on the entry/toplevel
                 if (this.Recurrence != null)
                 {
-                    ReminderCollection collection = new ReminderCollection(this);
+                    //TODO could not get the generic overload to work. we for now just copy the list a few times.
+                    ExtensionList list = new ExtensionList(this);
+
                     FindExtensions(GDataParserNameTable.XmlReminderElement,
-                                      BaseNameTable.gNamespace, collection);
+                                      BaseNameTable.gNamespace, list);
+
+                    ExtensionCollection<Reminder> collection = new ExtensionCollection<Reminder>(this);
+                    foreach (Reminder var in list)
+                    {
+                        collection.Add(var);
+                    }
 
                     return collection;
-                 
                 } 
                 else
                 {

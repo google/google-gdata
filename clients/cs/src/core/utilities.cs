@@ -1,4 +1,4 @@
-/* Copyright (c) 2006 Google Inc.
+/* Copyright (c) 2006-2008 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -11,6 +11,12 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+*/
+/* Change history
+* Oct 13 2008  Joe Feser       joseph.feser@gmail.com
+* Converted ArrayLists and other .NET 1.1 collections to use Generics
+* Combined IExtensionElement and IExtensionElementFactory interfaces
+* 
 */
 #region Using directives
 
@@ -25,6 +31,7 @@ using System.IO;
 using System.Net;
 using System.Text;
 using System.Xml;
+using Google.GData.Extensions;
 
 #endregion
 
@@ -109,8 +116,6 @@ namespace Google.GData.Client
             }
             return Convert.ToString(obj, CultureInfo.InvariantCulture);
         }
-
-
 
 
 
@@ -325,6 +330,55 @@ namespace Google.GData.Client
             // Add "time-offset"
             return strOutput + FormatTimeOffset(diffFromUtc);
         }
+
+
+        public static bool NextChildElement(XmlReader reader, ref int depth)
+        {
+            Tracing.Assert(reader != null, "reader should not be null");
+            if (reader == null)
+            {
+                throw new ArgumentNullException("reader");
+            }
+
+            if (reader.Depth == depth)
+            {
+                // assume we gone around circle, a child read and moved to the next element of the same KIND
+                return false;
+            }
+
+            if (reader.NodeType == XmlNodeType.Element && depth >= 0 && reader.Depth > depth)
+            {
+                // assume we gone around circle, a child read and moved to the next element of the same KIND
+                // but now we are in the parent/containing element, hence we return TRUE without reading further
+                return true;
+            }
+
+            if (depth == -1)
+            {
+                depth = reader.Depth;
+            }
+
+
+            while (reader.Read())
+            {
+                if (reader.NodeType == XmlNodeType.EndElement && reader.Depth == depth)
+                {
+                    return false;
+                }
+                else if (reader.NodeType == XmlNodeType.Element && reader.Depth > depth)
+                {
+                    return true;
+                }
+                else if (reader.NodeType == XmlNodeType.Element && reader.Depth == depth)
+                {
+                    // assume that we had no children. We read once and we are at the 
+                    // next element, same level as the previous one.
+                    return false;
+                }
+            }
+            return !reader.EOF;
+        }
+
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>Helper method to format a TimeSpan as a string compliant with the "time-offset" format defined in RFC-3339</summary>
@@ -587,7 +641,7 @@ namespace Google.GData.Client
         /// <param name="localName">the xml local name of the element to find</param>
         /// <param name="ns">the namespace of the elementToPersist</param>
         /// <returns>Object</returns>
-        public static Object FindExtension(ArrayList arrList, string localName, string ns) 
+        public static IExtensionElementFactory FindExtension(ExtensionList arrList, string localName, string ns) 
         {
             if (arrList == null)
             {
@@ -600,7 +654,7 @@ namespace Google.GData.Client
                 {
                     if (compareXmlNess(node.LocalName, localName, node.NamespaceURI, ns))
                     {
-                        return ob;
+                        return new XmlExtension(node);
                     }
                 }
                 else
@@ -612,7 +666,7 @@ namespace Google.GData.Client
                     {
                         if (compareXmlNess(ele.XmlName, localName, ele.XmlNameSpace, ns))
                         {
-                            return ob;
+                            return ele;
                         }
                     }
                 }
@@ -632,7 +686,7 @@ namespace Google.GData.Client
         /// <param name="ns">the namespace of the elementToPersist</param>
         /// <param name="arr">the array to fill</param>
         /// <returns>none</returns>
-        public static ArrayList FindExtensions(ArrayList arrList, string localName, string ns, ArrayList arr) 
+        public static ExtensionList FindExtensions(ExtensionList arrList, string localName, string ns, ExtensionList arr) 
         {
            if (arrList == null)
            {
@@ -643,7 +697,7 @@ namespace Google.GData.Client
                throw new ArgumentNullException("arr");
            }
 
-           foreach (object ob in arrList)
+           foreach (IExtensionElementFactory ob in arrList)
            {
                XmlNode node = ob as XmlNode;
                if (node != null)
@@ -682,7 +736,7 @@ namespace Google.GData.Client
         /// <param name="ns">the namespace of the elementToPersist</param>
         /// <param name="collection">the collection to fill</param>
         /// <returns>none</returns>
-        public static T FindExtensions<T>(ArrayList arrList, string localName, string ns, T collection) where T : IList
+        public static T FindExtensions<T>(ExtensionList arrList, string localName, string ns, T collection) where T : IList<IExtensionElementFactory>
         {
             if (arrList == null)
             {
@@ -693,7 +747,7 @@ namespace Google.GData.Client
                 throw new ArgumentNullException("collection");
             }
 
-            foreach (object ob in arrList)
+            foreach (IExtensionElementFactory ob in arrList)
             {
                 XmlNode node = ob as XmlNode;
                 if (node != null)
@@ -712,7 +766,7 @@ namespace Google.GData.Client
                     {
                         if (compareXmlNess(ele.XmlName, localName, ele.XmlNameSpace, ns))
                         {
-                            collection.Add(ob);
+                            collection.Add(ele);
                         }
                     }
                 }

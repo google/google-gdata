@@ -1,4 +1,4 @@
-/* Copyright (c) 2006 Google Inc.
+/* Copyright (c) 2006-2008 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,7 +12,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 */
-
+/* Change history
+* Oct 13 2008  Joe Feser       joseph.feser@gmail.com
+* Converted ArrayLists and other .NET 1.1 collections to use Generics
+* Combined IExtensionElement and IExtensionElementFactory interfaces
+* 
+*/
 using System;
 using System.Xml;
 using System.Collections;
@@ -26,7 +31,7 @@ namespace Google.GData.Extensions
     /// <summary>
     /// GData schema extension describing a webcontent for the calendar
     /// </summary>
-    public class WebContent : IExtensionElement, IExtensionElementFactory
+    public class WebContent : IExtensionElementFactory
     {
         private string url;
         private uint width; 
@@ -93,7 +98,7 @@ namespace Google.GData.Extensions
         /// <param name="parser">the atomfeedparser to use for deep dive parsing</param>
         /// <returns>the created SimpleElement object</returns>
         //////////////////////////////////////////////////////////////////////
-        public IExtensionElement CreateInstance(XmlNode node, AtomFeedParser parser) 
+        public IExtensionElementFactory CreateInstance(XmlNode node, AtomFeedParser parser) 
         {
             Tracing.TraceCall();
 

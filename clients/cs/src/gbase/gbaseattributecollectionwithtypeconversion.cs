@@ -1,4 +1,4 @@
-/* Copyright (c) 2006 Google Inc.
+/* Copyright (c) 2006-2008 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,12 +12,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+/* Change history
+* Oct 13 2008  Joe Feser       joseph.feser@gmail.com
+* Converted ArrayLists and other .NET 1.1 collections to use Generics
+* Combined IExtensionElement and IExtensionElementFactory interfaces
+* 
+*/
 #region Using directives
 using System;
 using System.Collections;
 using System.Text;
 using System.Xml;
 using Google.GData.Client;
+using System.Collections.Generic;
 #endregion
 
 namespace Google.GData.GoogleBase {
@@ -45,7 +52,7 @@ namespace Google.GData.GoogleBase {
         /// <param name="baseList">a list that contains GBaseAttribute object,
         /// among others</param>
         ///////////////////////////////////////////////////////////////////////
-        public GBaseAttributeCollectionWithTypeConversion(ArrayList baseList)
+        public GBaseAttributeCollectionWithTypeConversion(ExtensionList baseList)
                 : base(baseList)
         {
         }
@@ -206,11 +213,11 @@ namespace Google.GData.GoogleBase {
         /// <summary>Returns all the object representations for attributes
         /// of type location with this name.</summary>
         //////////////////////////////////////////////////////////////////////
-        public Location[] GetLocationAttributesAsObjects(string name)
+        public List<Location> GetLocationAttributesAsObjects(string name)
         {
-            GBaseAttribute[] attributes = GetAttributes(name, GBaseAttributeType.Location);
-            Location[] retval = new Location[attributes.Length];
-            for (int i = 0; i < retval.Length; i++)
+            List<GBaseAttribute> attributes = GetAttributes(name, GBaseAttributeType.Location);
+            List<Location> retval = new List<Location>(attributes.Count);
+            for (int i = 0; i < retval.Count; i++)
             {
                 retval[i] = new Location(attributes[i]);
             }
@@ -565,19 +572,19 @@ namespace Google.GData.GoogleBase {
         /// <param name="name">attribute name</param>
         /// <returns>all the values found, never nul</returns>
         ///////////////////////////////////////////////////////////////////////
-        public int[] GetIntAttributes(string name)
+        public List<int> GetIntAttributes(string name)
         {
-            ArrayList list = new ArrayList();
+            List<int> retval = new List<int>();
             foreach (GBaseAttribute attribute
                      in GetAttributes(name, GBaseAttributeType.Int))
             {
                 String content = attribute.Content;
                 if (content != null)
                 {
-                    list.Add(NumberFormat.ToInt(content));
+                    retval.Add(NumberFormat.ToInt(content));
                 }
             }
-            return (int[])list.ToArray(typeof(int));
+            return retval;
         }
 
         ///////////////////////////////////////////////////////////////////////
@@ -657,7 +664,7 @@ namespace Google.GData.GoogleBase {
         /// <param name="name">attribute name</param>
         /// <returns>all the values found, never nul</returns>
         ///////////////////////////////////////////////////////////////////////
-        public float[] GetFloatAttributes(string name)
+        public List<float> GetFloatAttributes(string name)
         {
             return GetAttributesAsFloat(name, GBaseAttributeType.Float);
         }
@@ -668,23 +675,23 @@ namespace Google.GData.GoogleBase {
         /// <param name="name">attribute name</param>
         /// <returns>all the values found, never nul</returns>
         ///////////////////////////////////////////////////////////////////////
-        public float[] GetNumberAttributes(string name)
+        public List<float> GetNumberAttributes(string name)
         {
             return GetAttributesAsFloat(name, GBaseAttributeType.Number);
         }
 
-        private float[] GetAttributesAsFloat(string name, GBaseAttributeType type)
+        private List<float> GetAttributesAsFloat(string name, GBaseAttributeType type)
         {
-            ArrayList list = new ArrayList();
+            List<float> retval = new List<float>();
             foreach (GBaseAttribute attribute in GetAttributes(name, type))
             {
                 String content = attribute.Content;
                 if (content != null)
                 {
-                    list.Add(NumberFormat.ToFloat(content));
+                    retval.Add(NumberFormat.ToFloat(content));
                 }
             }
-            return (float[])list.ToArray(typeof(float));
+            return retval;
         }
 
         ///////////////////////////////////////////////////////////////////////
@@ -719,9 +726,9 @@ namespace Google.GData.GoogleBase {
         /// <param name="name">attribute name</param>
         /// <returns>all the values found, never nul</returns>
         ///////////////////////////////////////////////////////////////////////
-        public NumberUnit[] GetNumberUnitAttributes(string name)
+        public List<NumberUnit> GetNumberUnitAttributes(string name)
         {
-            ArrayList retval = new ArrayList();
+            List<NumberUnit> retval = new List<NumberUnit>();
             foreach (GBaseAttribute attribute
                      in GetAttributes(name, GBaseAttributeType.NumberUnit))
             {
@@ -731,7 +738,7 @@ namespace Google.GData.GoogleBase {
                     retval.Add(value);
                 }
             }
-            return (NumberUnit[])retval.ToArray(typeof(NumberUnit));
+            return retval;
         }
 
         ///////////////////////////////////////////////////////////////////////
@@ -757,11 +764,11 @@ namespace Google.GData.GoogleBase {
         /// <param name="name">attribute name</param>
         /// <returns>all the values found, never nul</returns>
         ///////////////////////////////////////////////////////////////////////
-        public FloatUnit[] GetFloatUnitAttributes(string name)
+        public List<FloatUnit> GetFloatUnitAttributes(string name)
         {
             String[] stringValues = GetAttributesAsString(name,
                                     GBaseAttributeType.FloatUnit);
-            ArrayList retval = new ArrayList();
+            List<FloatUnit> retval = new List<FloatUnit>();
             foreach (String stringValue in stringValues)
             {
                 if (stringValue != null)
@@ -769,7 +776,7 @@ namespace Google.GData.GoogleBase {
                     retval.Add(new FloatUnit(stringValue));
                 }
             }
-            return (FloatUnit[])retval.ToArray(typeof(FloatUnit));
+            return retval;
         }
 
         ///////////////////////////////////////////////////////////////////////
@@ -794,11 +801,11 @@ namespace Google.GData.GoogleBase {
         /// <param name="name">attribute name</param>
         /// <returns>all the values found, never nul</returns>
         ///////////////////////////////////////////////////////////////////////
-        public IntUnit[] GetIntUnitAttributes(string name)
+        public List<IntUnit> GetIntUnitAttributes(string name)
         {
             String[] stringValues = GetAttributesAsString(name,
                                     GBaseAttributeType.IntUnit);
-            ArrayList retval = new ArrayList();
+            List<IntUnit> retval = new List<IntUnit>();
             foreach (String stringValue in stringValues)
             {
                 if (stringValue != null)
@@ -806,7 +813,7 @@ namespace Google.GData.GoogleBase {
                     retval.Add(new IntUnit(stringValue));
                 }
             }
-            return (IntUnit[])retval.ToArray(typeof(IntUnit));
+            return retval;
         }
 
         private NumberUnit toNumberUnit(GBaseAttribute attribute)
@@ -936,7 +943,7 @@ namespace Google.GData.GoogleBase {
         /// <param name="name">attribute name</param>
         /// <returns>all the values found, never nul</returns>
         ///////////////////////////////////////////////////////////////////////
-        public DateTime[] GetDateAttributes(string name)
+        public List<DateTime> GetDateAttributes(string name)
         {
             return GetAttributesAsDateTime(name, GBaseAttributeType.Date);
         }
@@ -947,15 +954,15 @@ namespace Google.GData.GoogleBase {
         /// <param name="name">attribute name</param>
         /// <returns>all the values found, never nul</returns>
         ///////////////////////////////////////////////////////////////////////
-        public DateTime[] GetDateTimeAttributes(string name)
+        public List<DateTime> GetDateTimeAttributes(string name)
         {
             return GetAttributesAsDateTime(name, GBaseAttributeType.DateTime);
         }
 
-        private DateTime[] GetAttributesAsDateTime(string name,
+        private List<DateTime> GetAttributesAsDateTime(string name,
                 GBaseAttributeType type)
         {
-            ArrayList retval = new ArrayList();
+            List<DateTime> retval = new List<DateTime>();
             foreach (GBaseAttribute attribute in GetAttributes(name, type))
             {
                 if (attribute.Content != null)
@@ -963,7 +970,7 @@ namespace Google.GData.GoogleBase {
                     retval.Add(DateTime.Parse(attribute.Content));
                 }
             }
-            return (DateTime[])retval.ToArray(typeof(DateTime));
+            return retval;
         }
 
         ///////////////////////////////////////////////////////////////////////
@@ -972,9 +979,9 @@ namespace Google.GData.GoogleBase {
         /// <param name="name">attribute name</param>
         /// <returns>all the values found, never nul</returns>
         ///////////////////////////////////////////////////////////////////////
-        public DateTimeRange[] GetDateTimeRangeAttributes(string name)
+        public List<DateTimeRange> GetDateTimeRangeAttributes(string name)
         {
-            ArrayList retval = new ArrayList();
+            List<DateTimeRange> retval = new List<DateTimeRange>();
             foreach (GBaseAttribute attribute
                      in GetAttributes(name, GBaseAttributeType.DateTimeRange))
             {
@@ -983,7 +990,7 @@ namespace Google.GData.GoogleBase {
                     retval.Add(new DateTimeRange(attribute.Content));
                 }
             }
-            return (DateTimeRange[])retval.ToArray(typeof(DateTimeRange));
+            return retval;
         }
 
         private String ExtractContent(GBaseAttribute attribute)
@@ -995,9 +1002,9 @@ namespace Google.GData.GoogleBase {
             return attribute.Content;
         }
 
-        private String[] ExtractContent(GBaseAttribute[] attributes)
+        private String[] ExtractContent(List<GBaseAttribute> attributes)
         {
-            String[] retval = new String[attributes.Length];
+            String[] retval = new String[attributes.Count];
             for (int i = 0; i < retval.Length; i++)
             {
                 retval[i] = ExtractContent(attributes[i]);

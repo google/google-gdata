@@ -12,6 +12,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 */
+/* Change history
+* Oct 13 2008  Joe Feser       joseph.feser@gmail.com
+* Removed warnings
+* 
+*/
+
 #define USE_TRACING
 #define DEBUG
 
@@ -546,11 +552,11 @@ namespace Google.GData.Client.UnitTests
                 Uri u = query.Uri;
 
             }
-            catch (UriFormatException u)
+            catch (UriFormatException)
             {
                 // ignore this.
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 Assert.Fail("That should not have crashed");
             }

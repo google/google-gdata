@@ -1,4 +1,4 @@
-/* Copyright (c) 2006 Google Inc.
+/* Copyright (c) 2006-2008 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,6 +12,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 */
+/* Change history
+* Oct 13 2008  Joe Feser       joseph.feser@gmail.com
+* Converted ArrayLists and other .NET 1.1 collections to use Generics
+* Combined IExtensionElement and IExtensionElementFactory interfaces
+* 
+*/
+
 #define USE_TRACING
 #define DEBUG
 
@@ -308,8 +315,8 @@ namespace Google.GData.Client.LiveTests
         {
             foreach (Object o in obj.ExtensionElements)
             {
-                
-                IExtensionElement e = o as IExtensionElement;
+
+                IExtensionElementFactory e = o as IExtensionElementFactory;
                 SimpleElement s = o as SimpleElement;
                 XmlElement x = o as XmlElement;
                 if (s != null)

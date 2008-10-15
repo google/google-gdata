@@ -1,4 +1,4 @@
-/* Copyright (c) 2006 Google Inc.
+/* Copyright (c) 2006-2008 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,7 +12,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
+/* Change history
+* Oct 13 2008  Joe Feser       joseph.feser@gmail.com
+* Converted ArrayLists and other .NET 1.1 collections to use Generics
+* Combined IExtensionElement and IExtensionElementFactory interfaces
+* 
+*/
 #region Using directives
 using System;
 using System.Collections;
@@ -367,7 +372,7 @@ namespace Google.GData.GoogleBase {
     /// <see href="GBaseAttributes">GBaseAttributes</see>.
     /// </summary>
     ///////////////////////////////////////////////////////////////////////
-    public class GBaseAttribute : IExtensionElement
+    public class GBaseAttribute : IExtensionElementFactory
     {
         private static readonly char[] kXmlWhitespaces = { ' ', '\t', '\n', '\r' };
         private string name;
@@ -675,9 +680,9 @@ namespace Google.GData.GoogleBase {
         ///////////////////////////////////////////////////////////////////////
         public void Save(XmlWriter writer)
         {
-            writer.WriteStartElement(GBaseNameTable.GBasePrefix,
+            writer.WriteStartElement(XmlPrefix,
                                      ToXmlTagName(name),
-                                     GBaseNameTable.NSGBase);
+                                     XmlNameSpace);
             if (type != null)
             {
                 writer.WriteAttributeString("type", type.Name);
@@ -855,6 +860,39 @@ namespace Google.GData.GoogleBase {
         {
             return name.Replace('_', ' ');
         }
+
+        #region IExtensionElementFactory Members
+
+        public string XmlName
+        {
+            get
+            {
+                return ToXmlTagName(Name);
+            }
+        }
+
+        public string XmlNameSpace
+        {
+            get
+            {
+                return GBaseNameTable.NSGBase;
+            }
+        }
+
+        public string XmlPrefix
+        {
+            get
+            {
+                return GBaseNameTable.GBasePrefix;
+            }
+        }
+
+        public IExtensionElementFactory CreateInstance(XmlNode node, AtomFeedParser parser)
+        {
+            return ParseGBaseAttribute(node);
+        }
+
+        #endregion
     }
 
 }

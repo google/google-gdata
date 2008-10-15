@@ -12,6 +12,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 */
+/* Change history
+* Oct 13 2008  Joe Feser       joseph.feser@gmail.com
+* Converted ArrayLists and other .NET 1.1 collections to use Generics
+* Combined IExtensionElement and IExtensionElementFactory interfaces
+* 
+*/
 #define USE_TRACING
 
 using System;
@@ -39,7 +45,7 @@ namespace Google.GData.YouTube {
         public static AtomCategory PROFILE_CATEGORY =
         new AtomCategory(YouTubeNameTable.KIND_USER_PROFILE, new AtomUri(BaseNameTable.gKind));
 
-        private FeedLinkCollection links;
+        private ExtensionCollection<FeedLink> links;
         /// <summary>
         /// Constructs a new ProfileEntry instance
         /// </summary>
@@ -319,13 +325,13 @@ namespace Google.GData.YouTube {
         /// <summary>
         ///  property accessor for the Thumbnails 
         /// </summary>
-        public FeedLinkCollection FeedLinks
+        public ExtensionCollection<FeedLink> FeedLinks
         {
             get 
             {
                 if (this.links == null)
                 {
-                    this.links =  new FeedLinkCollection(this); 
+                    this.links = new ExtensionCollection<FeedLink>(this); 
                 }
                 return this.links;
             }
