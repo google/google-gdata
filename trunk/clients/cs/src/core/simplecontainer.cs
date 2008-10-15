@@ -1,4 +1,4 @@
-/* Copyright (c) 2006 Google Inc.
+/* Copyright (c) 2006-2008 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,7 +12,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 */
-
+/* Change history
+* Oct 13 2008  Joe Feser       joseph.feser@gmail.com
+* Converted ArrayLists and other .NET 1.1 collections to use Generics
+* Combined IExtensionElement and IExtensionElementFactory interfaces
+* 
+*/
 using System;
 using System.Collections;
 using System.Text;
@@ -52,7 +57,7 @@ namespace Google.GData.Extensions {
         /// and IExtensionElement</summary> 
         /// <returns> </returns>
         //////////////////////////////////////////////////////////////////////
-        public ArrayList ExtensionElements
+        public ExtensionList ExtensionElements
         {
             get 
             {
@@ -74,7 +79,7 @@ namespace Google.GData.Extensions {
         /// <param name="localName">the xml local name of the element to find</param>
         /// <param name="ns">the namespace of the elementToPersist</param>
         /// <returns>Object</returns>
-        public Object FindExtension(string localName, string ns) 
+        public IExtensionElementFactory FindExtension(string localName, string ns) 
         {
             return Utilities.FindExtension(this.ExtensionElements, localName, ns);
         }
@@ -86,7 +91,7 @@ namespace Google.GData.Extensions {
         /// <param name="localName">the local name to find</param>
         /// <param name="ns">the namespace to match, if null, ns is ignored</param>
         /// <param name="obj">the new element to put in</param>
-        public void ReplaceExtension(string localName, string ns, Object obj)
+        public void ReplaceExtension(string localName, string ns, IExtensionElementFactory obj)
         {
 
             DeleteExtensions(localName, ns);
@@ -103,10 +108,10 @@ namespace Google.GData.Extensions {
         /// <param name="localName">the xml local name of the element to find</param>
         /// <param name="ns">the namespace of the elementToPersist</param>
         /// <returns>none</returns>
-        public ArrayList FindExtensions(string localName, string ns) 
+        public ExtensionList FindExtensions(string localName, string ns) 
         {
-            return Utilities.FindExtensions(this.ExtensionElements, 
-                                            localName, ns, new ArrayList());
+            return Utilities.FindExtensions(this.ExtensionElements,
+                                            localName, ns, new ExtensionList(this));
 
         }
 
@@ -120,8 +125,8 @@ namespace Google.GData.Extensions {
         public int DeleteExtensions(string localName, string ns) 
         {
             // Find them first
-            ArrayList arr = FindExtensions(localName, ns);
-            foreach (object ob in arr)
+            ExtensionList arr = FindExtensions(localName, ns);
+            foreach (IExtensionElementFactory ob in arr)
             {
                 this.extensions.Remove(ob);
             }
@@ -135,7 +140,7 @@ namespace Google.GData.Extensions {
         /// and IExtensionElement</summary> 
         /// <returns> </returns>
         //////////////////////////////////////////////////////////////////////
-        public ArrayList ExtensionFactories
+        public ExtensionList ExtensionFactories
         {
             get 
             {
@@ -147,7 +152,7 @@ namespace Google.GData.Extensions {
             }
         }
 
-        // end of accessor public ArrayList Extensions
+        // end of accessor public ExtensionList Extensions
 
 
         //////////////////////////////////////////////////////////////////////
@@ -156,7 +161,7 @@ namespace Google.GData.Extensions {
         /// <param name="parser">the xml parser to use if we need to dive deeper</param>
         /// <returns>the created SimpleElement object</returns>
         //////////////////////////////////////////////////////////////////////
-        public override IExtensionElement CreateInstance(XmlNode node, AtomFeedParser parser) 
+        public override IExtensionElementFactory CreateInstance(XmlNode node, AtomFeedParser parser) 
         {
             Tracing.TraceCall("for: " + XmlName);
 
@@ -237,7 +242,7 @@ namespace Google.GData.Extensions {
         {
            if (this.extensions != null)
             {
-                foreach (IExtensionElement e in this.ExtensionElements)
+                foreach (IExtensionElementFactory e in this.ExtensionElements)
                 {
                     e.Save(writer);
                 }

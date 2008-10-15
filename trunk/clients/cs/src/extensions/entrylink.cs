@@ -1,4 +1,4 @@
-/* Copyright (c) 2006 Google Inc.
+/* Copyright (c) 2006-2008 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,7 +12,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 */
-
+/* Change history
+* Oct 13 2008  Joe Feser       joseph.feser@gmail.com
+* Converted ArrayLists and other .NET 1.1 collections to use Generics
+* Combined IExtensionElement and IExtensionElementFactory interfaces
+* 
+*/
 
 using System;
 using System.IO;
@@ -26,7 +31,7 @@ namespace Google.GData.Extensions {
     /// <summary>
     /// GData schema extension describing a nested entry link.
     /// </summary>
-    public class EntryLink : IExtensionElement
+    public class EntryLink : IExtensionElementFactory
     {
 
         /// <summary>holds the href property of the EntryLink element</summary>
@@ -209,7 +214,7 @@ namespace Google.GData.Extensions {
                 this.readOnlySet ||
                 this.entry != null) 
             {
-                writer.WriteStartElement(BaseNameTable.gDataPrefix, XmlName, BaseNameTable.gNamespace);
+                writer.WriteStartElement(XmlPrefix, XmlName, XmlNameSpace);
                 if (Utilities.IsPersistable(this.Href))
                 {
                     writer.WriteAttributeString(GDataParserNameTable.XmlAttributeHref, this.Href);
@@ -231,6 +236,40 @@ namespace Google.GData.Extensions {
                 writer.WriteEndElement();
             }
         }
+        #endregion
+
+        #region IExtensionElementFactory Members
+
+
+        string IExtensionElementFactory.XmlName
+        {
+            get
+            {
+                return XmlName;
+            }
+        }
+
+        public string XmlNameSpace
+        {
+            get
+            {
+                return BaseNameTable.gNamespace;
+            }
+        }
+
+        public string XmlPrefix
+        {
+            get
+            {
+                return BaseNameTable.gDataPrefix;
+            }
+        }
+
+        public IExtensionElementFactory CreateInstance(XmlNode node, AtomFeedParser parser)
+        {
+            return EntryLink.ParseEntryLink(node, parser);
+        }
+
         #endregion
     }
 }

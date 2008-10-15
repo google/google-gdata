@@ -1,4 +1,4 @@
-/* Copyright (c) 2006 Google Inc.
+/* Copyright (c) 2006-2008 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -11,6 +11,12 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+*/
+/* Change history
+* Oct 13 2008  Joe Feser       joseph.feser@gmail.com
+* Converted ArrayLists and other .NET 1.1 collections to use Generics
+* Combined IExtensionElement and IExtensionElementFactory interfaces
+* 
 */
 #region Using directives
 
@@ -366,49 +372,7 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         static protected bool NextChildElement(XmlReader reader, ref int depth)
         {
-            Tracing.Assert(reader != null, "reader should not be null");
-            if (reader == null)
-            {
-                throw new ArgumentNullException("reader"); 
-            }
-
-            if (reader.Depth == depth)
-            {
-                // assume we gone around circle, a child read and moved to the next element of the same KIND
-                return false;
-            }
-
-            if (reader.NodeType == XmlNodeType.Element && depth >= 0 && reader.Depth > depth)
-            {
-                // assume we gone around circle, a child read and moved to the next element of the same KIND
-                // but now we are in the parent/containing element, hence we return TRUE without reading further
-                return true;
-            }
-
-            if (depth == -1)
-            {
-                depth = reader.Depth; 
-            }
-
-
-            while (reader.Read())
-            {
-                if (reader.NodeType == XmlNodeType.EndElement && reader.Depth == depth)
-                {
-                    return false;
-                }
-                else if (reader.NodeType == XmlNodeType.Element && reader.Depth > depth)
-                {
-                    return true;
-                }
-                else if (reader.NodeType == XmlNodeType.Element && reader.Depth == depth)
-                {
-                    // assume that we had no children. We read once and we are at the 
-                    // next element, same level as the previous one.
-                    return false;
-                }
-            }
-            return !reader.EOF;
+            return Utilities.NextChildElement(reader, ref depth);
         }
         /////////////////////////////////////////////////////////////////////////////
 

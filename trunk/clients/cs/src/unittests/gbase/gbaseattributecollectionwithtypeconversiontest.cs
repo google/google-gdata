@@ -1,4 +1,4 @@
-/* Copyright (c) 2006 Google Inc.
+/* Copyright (c) 2006-2008 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,6 +12,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 */
+/* Change history
+ * Oct 13 2008  Joe Feser       joseph.feser@gmail.com
+ * Converted ArrayLists and other .NET 1.1 collections to use Generics
+ * Combined IExtensionElement and IExtensionElementFactory interfaces
+ * 
+ */
 using System;
 using System.IO;
 using System.Xml;
@@ -21,20 +27,19 @@ using System.Net;
 using NUnit.Framework;
 using Google.GData.Client;
 using Google.GData.GoogleBase;
-
+using System.Collections.Generic;
 
 namespace Google.GData.GoogleBase.UnitTests
 {
-
     public abstract class TypeConversionTestBase
     {
-        protected ArrayList list;
+        protected ExtensionList list;
         protected GBaseAttributeCollectionWithTypeConversion attrs;
 
         [SetUp]
         public virtual void SetUp()
         {
-            list = new ArrayList();
+            list = ExtensionList.NotVersionAware();
             attrs = new GBaseAttributeCollectionWithTypeConversion(list);
         }
     }
@@ -114,8 +119,8 @@ namespace Google.GData.GoogleBase.UnitTests
         [Test]
         public void GetNumberAttributes()
         {
-            float[] values = attrs.GetNumberAttributes("a");
-            Assert.AreEqual(3, values.Length);
+            List<float> values = attrs.GetNumberAttributes("a");
+            Assert.AreEqual(3, values.Count);
             Assert.AreEqual(12, values[0]);
             Assert.AreEqual(3.14f, values[1]);
             Assert.AreEqual(2.7f, values[2]);
@@ -124,16 +129,16 @@ namespace Google.GData.GoogleBase.UnitTests
         [Test]
         public void GetFloatAttributes()
         {
-            float[] values = attrs.GetFloatAttributes("a");
-            Assert.AreEqual(1, values.Length);
+            List<float> values = attrs.GetFloatAttributes("a");
+            Assert.AreEqual(1, values.Count);
             Assert.AreEqual(3.14f, values[0]);
         }
 
         [Test]
         public void GetIntAttributes()
         {
-            int[] values = attrs.GetIntAttributes("a");
-            Assert.AreEqual(1, values.Length);
+            List<int> values = attrs.GetIntAttributes("a");
+            Assert.AreEqual(1, values.Count);
             Assert.AreEqual(12, values[0]);
         }
     }
@@ -196,24 +201,24 @@ namespace Google.GData.GoogleBase.UnitTests
         [Test]
         public void GetIntUnitAttributes()
         {
-            IntUnit[] values = attrs.GetIntUnitAttributes("a");
-            Assert.AreEqual(1, values.Length);
+            List<IntUnit> values = attrs.GetIntUnitAttributes("a");
+            Assert.AreEqual(1, values.Count);
             Assert.AreEqual(aIntUnitValue, values[0]);
         }
 
         [Test]
         public void GetFloatUnitAttributes()
         {
-            FloatUnit[] values = attrs.GetFloatUnitAttributes("a");
-            Assert.AreEqual(1, values.Length);
+            List<FloatUnit> values = attrs.GetFloatUnitAttributes("a");
+            Assert.AreEqual(1, values.Count);
             Assert.AreEqual(aFloatUnitValue, values[0]);
         }
 
         [Test]
         public void GetNumberUnitAttributes()
         {
-            NumberUnit[] values = attrs.GetNumberUnitAttributes("a");
-            Assert.AreEqual(3, values.Length);
+            List<NumberUnit> values = attrs.GetNumberUnitAttributes("a");
+            Assert.AreEqual(3, values.Count);
             Assert.AreEqual(aFloatUnitValue, values[0]);
             Assert.AreEqual(aIntUnitValue, values[1]);
             Assert.AreEqual(aNumberUnitValue, values[2]);

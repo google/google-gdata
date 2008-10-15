@@ -1,4 +1,4 @@
-/* Copyright (c) 2006 Google Inc.
+/* Copyright (c) 2006-2008 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,6 +12,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 */
+/* Change history
+ * Oct 13 2008  Joe Feser       joseph.feser@gmail.com
+ * Converted ArrayLists and other .NET 1.1 collections to use Generics
+ * Combined IExtensionElement and IExtensionElementFactory interfaces
+ * 
+ */
 using System;
 using System.IO;
 using System.Xml;
@@ -21,6 +27,7 @@ using System.Net;
 using NUnit.Framework;
 using Google.GData.Client;
 using Google.GData.GoogleBase;
+using System.Collections.Generic;
 
 
 namespace Google.GData.GoogleBase.UnitTests
@@ -36,25 +43,25 @@ namespace Google.GData.GoogleBase.UnitTests
             new GBaseAttribute("attr3", GBaseAttributeType.Int);
 
 
-        protected ArrayList extList;
+        protected ExtensionList extList;
         protected GBaseAttributeCollection attrs;
 
         [SetUp]
         public virtual void setUp()
         {
-            extList = new ArrayList();
+            extList = ExtensionList.NotVersionAware();
             attrs = new GBaseAttributeCollection(extList);
         }
 
         protected void AddThreeAttributes()
         {
-            extList.Add("a");
+            //extList.Add("a");
             extList.Add(attr1);
-            extList.Add("b");
-            extList.Add("c");
+            //extList.Add("b");
+            //extList.Add("c");
             extList.Add(attr2);
             extList.Add(attr3);
-            extList.Add("d");
+            //extList.Add("d");
         }
     }
 
@@ -121,6 +128,7 @@ namespace Google.GData.GoogleBase.UnitTests
         }
 
         [Test]
+        [Ignore("This test is no longer valid since we can't put an item in the list unless it is the correct type.")]
         public void ClearTest()
         {
             attrs.Clear();
@@ -138,8 +146,8 @@ namespace Google.GData.GoogleBase.UnitTests
             attrs.Add(aInt);
             attrs.Add(aBool);
 
-            GBaseAttribute[] got = attrs.GetAttributes("a");
-            Assert.AreEqual(2, got.Length, "count");
+            List<GBaseAttribute> got = attrs.GetAttributes("a");
+            Assert.AreEqual(2, got.Count, "count");
             Assert.AreEqual(aInt, got[0]);
             Assert.AreEqual(aBool, got[1]);
         }
@@ -151,8 +159,8 @@ namespace Google.GData.GoogleBase.UnitTests
             attrs.Add(aInt2);
             attrs.Add(aBool);
 
-            GBaseAttribute[] got = attrs.GetAttributes("a", GBaseAttributeType.Int);
-            Assert.AreEqual(2, got.Length, "count");
+            List<GBaseAttribute> got = attrs.GetAttributes("a", GBaseAttributeType.Int);
+            Assert.AreEqual(2, got.Count, "count");
             Assert.AreEqual(aInt, got[0]);
             Assert.AreEqual(aInt2, got[1]);
         }
@@ -223,12 +231,12 @@ namespace Google.GData.GoogleBase.UnitTests
             attrs.Add(aFloat);
             attrs.Add(aNumber);
 
-            Assert.AreEqual(3, attrs.GetAttributes("a").Length, "by name");
-            Assert.AreEqual(3, attrs.GetAttributes("a", GBaseAttributeType.Number).Length,
+            Assert.AreEqual(3, attrs.GetAttributes("a").Count, "by name");
+            Assert.AreEqual(3, attrs.GetAttributes("a", GBaseAttributeType.Number).Count,
                             "type=number");
-            Assert.AreEqual(1, attrs.GetAttributes("a", GBaseAttributeType.Float).Length,
+            Assert.AreEqual(1, attrs.GetAttributes("a", GBaseAttributeType.Float).Count,
                             "type=float");
-            Assert.AreEqual(1, attrs.GetAttributes("a", GBaseAttributeType.Int).Length,
+            Assert.AreEqual(1, attrs.GetAttributes("a", GBaseAttributeType.Int).Count,
                             "type=int");
 
             Assert.AreEqual(aInt, attrs.GetAttribute("a", GBaseAttributeType.Int));

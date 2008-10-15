@@ -36,7 +36,7 @@ namespace Google.Spreadsheets
         private static SpreadsheetEntry se;
         private static WorksheetEntry we;
         private static SpreadsheetFeed sf; 
-        private static string currentSpreadsheet;
+        //private static string currentSpreadsheet; //not used //TODO determine if this is a bug
 
         /// <summary>
         /// default constructor for client login. 

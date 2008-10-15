@@ -1,4 +1,4 @@
-/* Copyright (c) 2006 Google Inc.
+/* Copyright (c) 2006-2008 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,15 +12,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+/* Change history
+* Oct 13 2008  Joe Feser       joseph.feser@gmail.com
+* Converted ArrayLists and other .NET 1.1 collections to use Generics
+* Combined IExtensionElement and IExtensionElementFactory interfaces
+* 
+*/
 #region Using directives
 using System;
 using System.Collections;
 using System.Text;
 using System.Xml;
 using Google.GData.Client;
+using System.Collections.Generic;
 #endregion
 
-namespace Google.GData.GoogleBase {
+namespace Google.GData.GoogleBase
+{
 
     ///////////////////////////////////////////////////////////////////////
     /// <summary>A convenience class for accessing GBaseAttribute
@@ -38,7 +46,7 @@ namespace Google.GData.GoogleBase {
     ///////////////////////////////////////////////////////////////////////
     public class GBaseAttributeCollection : IEnumerable
     {
-        private ArrayList extensionElements;
+        private ExtensionList extensionElements;
 
         ///////////////////////////////////////////////////////////////////////
         /// <summary>Creates an attribute collection and link it to an
@@ -46,7 +54,8 @@ namespace Google.GData.GoogleBase {
         /// <param name="atomElement">atom element, usually a feed or
         /// an entry.</param>
         ///////////////////////////////////////////////////////////////////////
-        public GBaseAttributeCollection(AtomBase atomElement) :
+        public GBaseAttributeCollection(AtomBase atomElement)
+            :
                 this(atomElement.ExtensionElements)
         {
         }
@@ -57,8 +66,8 @@ namespace Google.GData.GoogleBase {
         /// <param name="extensionElements">extension list to be queried and
         /// modified</param>
         ///////////////////////////////////////////////////////////////////////
-        public GBaseAttributeCollection(ArrayList extensionElements)
-                : base()
+        public GBaseAttributeCollection(ExtensionList extensionElements)
+            : base()
         {
             this.extensionElements = extensionElements;
         }
@@ -70,10 +79,14 @@ namespace Google.GData.GoogleBase {
         /// <returns>all attributes on the list that have this name, in order
         /// </returns>
         ///////////////////////////////////////////////////////////////////////
-        public GBaseAttribute[] GetAttributes(string name)
+        public List<GBaseAttribute> GetAttributes(string name)
         {
-            return (GBaseAttribute[])GetAttributeList(name)
-                   .ToArray(typeof(GBaseAttribute));
+            List<GBaseAttribute> retVal = new List<GBaseAttribute>();
+            foreach (GBaseAttribute var in GetAttributeList(name))
+            {
+                retVal.Add(var);
+            }
+            return retVal;
         }
 
         ///////////////////////////////////////////////////////////////////////
@@ -84,10 +97,14 @@ namespace Google.GData.GoogleBase {
         /// <returns>all attributes on the list that have this name and
         /// type (or one of its subtypes), in order</returns>
         ///////////////////////////////////////////////////////////////////////
-        public GBaseAttribute[] GetAttributes(string name, GBaseAttributeType type)
+        public List<GBaseAttribute> GetAttributes(string name, GBaseAttributeType type)
         {
-            return (GBaseAttribute[])GetAttributeList(name, type)
-                   .ToArray(typeof(GBaseAttribute));
+            List<GBaseAttribute> retVal = new List<GBaseAttribute>();
+            foreach (GBaseAttribute var in GetAttributeList(name, type))
+            {
+                retVal.Add(var);
+            }
+            return retVal;
         }
 
         ///////////////////////////////////////////////////////////////////////
@@ -130,13 +147,14 @@ namespace Google.GData.GoogleBase {
 
         private bool HasNameAndType(GBaseAttribute attr,
                                     String name,
-                                    GBaseAttributeType type) {
+                                    GBaseAttributeType type)
+        {
             return name == attr.Name && (type == null || type.IsSupertypeOf(attr.Type));
         }
 
-        private ArrayList GetAttributeList(string name)
+        private ExtensionList GetAttributeList(string name)
         {
-            ArrayList retval = new ArrayList();
+            ExtensionList retval = ExtensionList.NotVersionAware();
             foreach (GBaseAttribute attribute in this)
             {
                 if (name == attribute.Name)
@@ -147,9 +165,9 @@ namespace Google.GData.GoogleBase {
             return retval;
         }
 
-        private ArrayList GetAttributeList(string name, GBaseAttributeType type)
+        private ExtensionList GetAttributeList(string name, GBaseAttributeType type)
         {
-            ArrayList retval = new ArrayList();
+            ExtensionList retval = ExtensionList.NotVersionAware();
             foreach (GBaseAttribute attribute in this)
             {
                 if (HasNameAndType(attribute, name, type))
@@ -212,7 +230,7 @@ namespace Google.GData.GoogleBase {
             RemoveAll(GetAttributeList(name, type));
         }
 
-        private void RemoveAll(IList list)
+        private void RemoveAll(IList<IExtensionElementFactory> list)
         {
             foreach (GBaseAttribute attribute in list)
             {
@@ -245,7 +263,7 @@ namespace Google.GData.GoogleBase {
         ///////////////////////////////////////////////////////////////////////
         public void Clear()
         {
-            ArrayList toRemove = new ArrayList();
+            ExtensionList toRemove = ExtensionList.NotVersionAware();
             foreach (GBaseAttribute attribute in this)
             {
                 toRemove.Add(attribute);
@@ -280,7 +298,7 @@ namespace Google.GData.GoogleBase {
         private readonly IEnumerator orig;
 
         public GBaseAttributeFilterEnumerator(IEnumerable collection)
-                : this(collection.GetEnumerator())
+            : this(collection.GetEnumerator())
         {
         }
 
@@ -291,7 +309,7 @@ namespace Google.GData.GoogleBase {
 
         public bool MoveNext()
         {
-            while(orig.MoveNext())
+            while (orig.MoveNext())
             {
                 if (orig.Current is GBaseAttribute)
                 {

@@ -12,6 +12,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 */
+/* Change history
+* Oct 13 2008  Joe Feser       joseph.feser@gmail.com
+* Removed warnings
+* 
+*/
 #region Using directives
 
 #define USE_TRACING
@@ -149,7 +154,7 @@ namespace Google.GData.Client
                 outputStream = null;
                 return request.GetResponseStream();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 throw; 
             }

@@ -1,4 +1,4 @@
-/* Copyright (c) 2006 Google Inc.7
+/* Copyright (c) 2006-2008 Google Inc.7
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -11,6 +11,12 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+*/
+/* Change history
+* Oct 13 2008  Joe Feser       joseph.feser@gmail.com
+* Converted ArrayLists and other .NET 1.1 collections to use Generics
+* Combined IExtensionElement and IExtensionElementFactory interfaces
+* 
 */
 #region Using directives
 
@@ -499,7 +505,7 @@ namespace Google.GData.Client
 
 
         //////////////////////////////////////////////////////////////////////
-        /// <summary>accessor method public ArrayList Entries</summary> 
+        /// <summary>accessor method public ExtensionList Entries</summary> 
         /// <returns> </returns>
         //////////////////////////////////////////////////////////////////////
         public AtomEntryCollection Entries
@@ -720,7 +726,7 @@ namespace Google.GData.Client
                     else 
                     {
                         // this should not happen anymore... 
-                        e.Base.ExtensionElements.Add(e.ExtensionElement);
+                        e.Base.ExtensionElements.Add(new XmlExtension(e.ExtensionElement));
                     }
                 }
             }
@@ -875,7 +881,8 @@ namespace Google.GData.Client
         /// <summary>
         /// event on the Feed to handle extension elements during parsing
         /// </summary>
-        /// <param name="e">the event arguments</param>        /// <param name="parser">the parser that caused this</param>
+        /// <param name="e">the event arguments</param>
+        /// <param name="parser">the parser that caused this</param>
         protected virtual void HandleExtensionElements(ExtensionElementEventArgs e, AtomFeedParser parser) 
         {
             Tracing.TraceMsg("Entering HandleExtensionElements on AbstractFeed");

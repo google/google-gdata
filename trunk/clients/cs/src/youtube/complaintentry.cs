@@ -12,6 +12,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 */
+/* Change history
+* Oct 13 2008  Joe Feser       joseph.feser@gmail.com
+* Removed warnings
+* 
+*/
 #define USE_TRACING
 
 using System;
@@ -111,7 +116,7 @@ namespace Google.GData.YouTube {
                         {
                             t = (ComplaintType) Enum.Parse(typeof(ComplaintType), category.Term, true);
                         }
-                        catch (ArgumentException e)
+                        catch (ArgumentException)
                         {
                             t = ComplaintType.UNKNOWN;
                         }

@@ -1,4 +1,4 @@
-/* Copyright (c) 2006 Google Inc.
+/* Copyright (c) 2006-2008 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,6 +12,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 */
+/* Change history
+ * Oct 13 2008  Joe Feser       joseph.feser@gmail.com
+ * Converted ArrayLists and other .NET 1.1 collections to use Generics
+ * Combined IExtensionElement and IExtensionElementFactory interfaces
+ * 
+ */
 using System;
 using System.IO;
 using System.Xml;
@@ -21,6 +27,7 @@ using System.Net;
 using NUnit.Framework;
 using Google.GData.Client;
 using Google.GData.GoogleBase;
+using System.Collections.Generic;
 
 
 namespace Google.GData.GoogleBase.UnitTests
@@ -46,8 +53,8 @@ namespace Google.GData.GoogleBase.UnitTests
             Assert.AreEqual(GBaseAttributeType.Text, histogram.Type);
             Assert.AreEqual(200, histogram.Count);
 
-            HistogramValue[] values = histogram.Values;
-            Assert.AreEqual(2, values.Length, "values.Length");
+            List<HistogramValue> values = histogram.Values;
+            Assert.AreEqual(2, values.Count, "values.Length");
             Assert.AreEqual("hello", values[0].Content, "values[0]");
             Assert.AreEqual(12, values[0].Count, "values[0].Count");
             Assert.AreEqual("world", values[1].Content, "values[1]");
@@ -60,7 +67,7 @@ namespace Google.GData.GoogleBase.UnitTests
             HistogramValue[] values = { new HistogramValue("a", 10),
                                         new HistogramValue("b", 12) };
             AttributeHistogram original =
-                new AttributeHistogram("xxx", GBaseAttributeType.Text, 1000, values);
+                new AttributeHistogram("xxx", GBaseAttributeType.Text, 1000, new List<HistogramValue>(values));
 
             StringWriter sWriter = new StringWriter();
             XmlWriter xmlWriter = new XmlTextWriter(sWriter);
@@ -73,7 +80,7 @@ namespace Google.GData.GoogleBase.UnitTests
             Assert.AreEqual(1000, parsed.Count, "count");
             Assert.AreEqual(GBaseAttributeType.Text, parsed.Type, "type");
 
-            HistogramValue[] parsedValues = parsed.Values;
+            List<HistogramValue> parsedValues = parsed.Values;
             Assert.AreEqual("a", parsedValues[0].Content, "values[0].Name");
             Assert.AreEqual(10, parsedValues[0].Count, "values[0].Count");
             Assert.AreEqual("b", parsedValues[1].Content, "values[1].Name");

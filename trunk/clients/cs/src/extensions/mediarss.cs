@@ -74,9 +74,9 @@ namespace Google.GData.Extensions.MediaRss {
     /// </summary>
     public class MediaGroup : SimpleContainer
     {
-        private ThumbnailCollection thumbnails;
-        private MediaContentCollection contents;
-        private MediaCategoryCollection categories;
+        private ExtensionCollection<MediaThumbnail> thumbnails;
+        private ExtensionCollection<MediaContent> contents;
+        private ExtensionCollection<MediaCategory> categories;
         /// <summary>
         /// default constructor for media:group
         /// </summary>
@@ -186,13 +186,13 @@ namespace Google.GData.Extensions.MediaRss {
         /// <summary>
         ///  property accessor for the Thumbnails 
         /// </summary>
-        public ThumbnailCollection Thumbnails
+        public ExtensionCollection<MediaThumbnail> Thumbnails
         {
             get 
             {
                 if (this.thumbnails == null)
                 {
-                    this.thumbnails =  new ThumbnailCollection(this); 
+                    this.thumbnails = new ExtensionCollection<MediaThumbnail>(this); 
                 }
                 return this.thumbnails;
             }
@@ -220,13 +220,13 @@ namespace Google.GData.Extensions.MediaRss {
         /// <summary>
         ///  property accessor for the Contents Collection 
         /// </summary>
-        public MediaContentCollection Contents
+        public ExtensionCollection<MediaContent> Contents
         {
             get 
             {
                 if (this.contents == null)
                 {
-                    this.contents =  new MediaContentCollection(this); 
+                    this.contents = new ExtensionCollection<MediaContent>(this); 
                 }
                 return this.contents;
             }
@@ -235,13 +235,13 @@ namespace Google.GData.Extensions.MediaRss {
         /// <summary>
         ///  property accessor for the Category Collection 
         /// </summary>
-        public MediaCategoryCollection Categories
+        public ExtensionCollection<MediaCategory> Categories
         {
             get 
             {
                 if (this.categories == null)
                 {
-                    this.categories =  new MediaCategoryCollection(this); 
+                    this.categories = new ExtensionCollection<MediaCategory>(this); 
                 }
                 return this.categories;
             }
@@ -557,60 +557,4 @@ namespace Google.GData.Extensions.MediaRss {
         }
 
     }
-
-
-    //////////////////////////////////////////////////////////////////////
-    /// <summary>Typed collection for Thumbnails Extensions.</summary>
-    //////////////////////////////////////////////////////////////////////
-    public class ThumbnailCollection : ExtensionCollection<MediaThumbnail>
-    {
-        private ThumbnailCollection() : base()
-        {
-        }
-
-        /// <summary>constructor</summary> 
-        public ThumbnailCollection(IExtensionContainer atomElement) 
-            : base(atomElement, MediaRssNameTable.MediaRssThumbnail, MediaRssNameTable.NSMediaRss)
-        {
-        }
-    }
-    /////////////////////////////////////////////////////////////////////////////
-
-
-    //////////////////////////////////////////////////////////////////////
-    /// <summary>Typed collection for Thumbnails Extensions.</summary>
-    //////////////////////////////////////////////////////////////////////
-    public class MediaContentCollection : ExtensionCollection<MediaContent>
-    {
-        private MediaContentCollection() : base()
-        {
-        }
-
-        /// <summary>constructor</summary> 
-        public MediaContentCollection(IExtensionContainer atomElement) 
-            : base(atomElement, MediaRssNameTable.MediaRssContent, MediaRssNameTable.NSMediaRss)
-        {
-        }
-
-    }
-    /////////////////////////////////////////////////////////////////////////////
-
-    //////////////////////////////////////////////////////////////////////
-    /// <summary>Typed collection for Thumbnails Extensions.</summary>
-    //////////////////////////////////////////////////////////////////////
-    public class MediaCategoryCollection : ExtensionCollection<MediaCategory>
-    {
-        private MediaCategoryCollection() : base()
-        {
-        }
-
-        /// <summary>constructor</summary> 
-        public MediaCategoryCollection(IExtensionContainer atomElement) 
-            : base(atomElement, MediaRssNameTable.MediaRssCategory, MediaRssNameTable.NSMediaRss)
-        {
-        }
-
-    }
-    /////////////////////////////////////////////////////////////////////////////
-
 }

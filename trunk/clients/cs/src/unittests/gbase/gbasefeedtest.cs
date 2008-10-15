@@ -1,4 +1,4 @@
-/* Copyright (c) 2006 Google Inc.
+/* Copyright (c) 2006-2008 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,6 +12,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 */
+/* Change history
+ * Oct 13 2008  Joe Feser       joseph.feser@gmail.com
+ * Converted ArrayLists and other .NET 1.1 collections to use Generics
+ * Combined IExtensionElement and IExtensionElementFactory interfaces
+ * 
+ */
 #define USE_TRACING
 
 using System;
@@ -24,6 +30,7 @@ using System.Text;
 using NUnit.Framework;
 using Google.GData.Client;
 using Google.GData.GoogleBase;
+using System.Collections.Generic;
 
 
 namespace Google.GData.GoogleBase.UnitTests
@@ -144,8 +151,8 @@ namespace Google.GData.GoogleBase.UnitTests
             Assert.AreEqual(GBaseAttributeType.Text, hist.Type, "type");
             Assert.AreEqual(158778, hist.Count, "count");
 
-            HistogramValue[] values = hist.Values;
-            Assert.AreEqual(2, values.Length, "values.Length");
+            List<HistogramValue> values = hist.Values;
+            Assert.AreEqual(2, values.Count, "values.Length");
             Assert.AreEqual("housing", values[0].Content);
             Assert.AreEqual(47544, values[0].Count);
             Assert.AreEqual("reviews", values[1].Content);
@@ -191,7 +198,7 @@ namespace Google.GData.GoogleBase.UnitTests
             ItemTypeDefinition def = entry.ItemTypeDefinition;
             Assert.IsNotNull(def, "ItemTypeDefinition");
             Assert.AreEqual("products", def.ItemType);
-            Assert.AreEqual(3, def.Attributes.Length);
+            Assert.AreEqual(3, def.Attributes.Count);
             Assert.AreEqual("product type", def.Attributes[0].Name);
             Assert.AreEqual(GBaseAttributeType.Text, def.Attributes[0].Type);
             Assert.AreEqual("condition", def.Attributes[1].Name);

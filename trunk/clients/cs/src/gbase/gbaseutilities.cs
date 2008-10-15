@@ -1,4 +1,4 @@
-/* Copyright (c) 2006 Google Inc.
+/* Copyright (c) 2006-2008 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,12 +12,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 */
-
+/* Change history
+* Oct 13 2008  Joe Feser       joseph.feser@gmail.com
+* Converted ArrayLists and other .NET 1.1 collections to use Generics
+* Combined IExtensionElement and IExtensionElementFactory interfaces
+* 
+*/
 using System;
 using System.Xml;
 using System.IO;
 using System.Collections;
 using Google.GData.Client;
+using System.Collections.Generic;
 
 namespace Google.GData.GoogleBase
 {
@@ -35,9 +41,9 @@ namespace Google.GData.GoogleBase
         /// <param name="type">type of the extension</param>
         /// <returns>an extension of the correct type or null</returns>
         ///////////////////////////////////////////////////////////////////////
-        public static object GetExtension(IList extensionElements, Type type)
+        public static object GetExtension(IList<IExtensionElementFactory> extensionElements, Type type)
         {
-            foreach (object element in extensionElements)
+            foreach (IExtensionElementFactory element in extensionElements)
             {
                 if (type.IsInstanceOfType(element))
                 {
@@ -62,9 +68,9 @@ namespace Google.GData.GoogleBase
         /// <param name="newValue">new value for this element, null to
         /// remove it</param>
         ///////////////////////////////////////////////////////////////////////
-        public static void SetExtension(IList extensionElements,
+        public static void SetExtension(IList<IExtensionElementFactory> extensionElements,
                                         Type type,
-                                        object newValue)
+                                        IExtensionElementFactory newValue)
         {
             int count = extensionElements.Count;
             for (int i = 0; i < count; i++)
