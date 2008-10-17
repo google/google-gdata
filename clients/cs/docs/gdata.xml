@@ -9,18 +9,10 @@
             placeholder object for an unknown XML extension element
             </summary>
         </member>
-        <member name="T:Google.GData.Client.IExtensionElement">
-            <summary>if an extension element is created and wants to persist itself,
-            it needs to implement this interface
-            </summary> 
-        </member>
-        <member name="M:Google.GData.Client.IExtensionElement.Save(System.Xml.XmlWriter)">
-            <summary>the only relevant method here</summary> 
-        </member>
         <member name="T:Google.GData.Client.IExtensionElementFactory">
-            <summary>if an extension element want's to use the new parsing method
-            it needs to implement this interface
-            </summary> 
+            <summary>
+            Wrapper interface used to replace the ExtensionList.
+            </summary>
         </member>
         <member name="M:Google.GData.Client.IExtensionElementFactory.CreateInstance(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
             <summary>
@@ -29,6 +21,9 @@
             <param name="node">the xmlnode to parse</param>
             <param name="parser">the atomfeedparser to use if deep parsing of subelements is required</param>
             <returns></returns>
+        </member>
+        <member name="M:Google.GData.Client.IExtensionElementFactory.Save(System.Xml.XmlWriter)">
+            <summary>the only relevant method here</summary> 
         </member>
         <member name="P:Google.GData.Client.IExtensionElementFactory.XmlName">
             <summary>
@@ -119,7 +114,7 @@
             <param name="ns">the namespace of the elementToPersist</param>
             <returns>Object</returns>
         </member>
-        <member name="M:Google.GData.Client.IExtensionContainer.ReplaceExtension(System.String,System.String,System.Object)">
+        <member name="M:Google.GData.Client.IExtensionContainer.ReplaceExtension(System.String,System.String,Google.GData.Client.IExtensionElementFactory)">
             <summary>
             all extension elements that match a namespace/localname
             given will be removed and the new one will be inserted
@@ -219,7 +214,7 @@
             URI changes.</summary> 
             <param name="uriValue">the baseuri calculated so far</param>
         </member>
-        <member name="M:Google.GData.Client.AtomBase.AddExtension(System.Object)">
+        <member name="M:Google.GData.Client.AtomBase.AddExtension(Google.GData.Client.IExtensionElementFactory)">
             <summary>
             adding an extension factory for extension elements
             </summary>
@@ -271,7 +266,7 @@
             <param name="ns">the namespace of the elementToPersist</param>
             <returns>Object</returns>
         </member>
-        <member name="M:Google.GData.Client.AtomBase.FindExtensions(System.String,System.String,System.Collections.ArrayList)">
+        <member name="M:Google.GData.Client.AtomBase.FindExtensions(System.String,System.String,Google.GData.Client.ExtensionList)">
             <summary>
             Finds all ExtensionElement based on it's local name
             and it's namespace. If namespace is NULL, allwhere
@@ -306,7 +301,7 @@
             <param name="ns">the namespace to match, if null, ns is ignored</param>
             <returns>int - the number of deleted extensions</returns>
         </member>
-        <member name="M:Google.GData.Client.AtomBase.ReplaceExtensions(System.Collections.ArrayList)">
+        <member name="M:Google.GData.Client.AtomBase.ReplaceExtensions(Google.GData.Client.ExtensionList)">
             <summary>
             all extension elements that match a namespace/localname
             given will be removed and replaced with the new ones.
@@ -318,7 +313,7 @@
             <param name="newList">a list of xmlnodes or IExtensionElementFactory objects</param>
             <returns>int - the number of deleted extensions</returns>
         </member>
-        <member name="M:Google.GData.Client.AtomBase.ReplaceExtension(System.String,System.String,System.Object)">
+        <member name="M:Google.GData.Client.AtomBase.ReplaceExtension(System.String,System.String,Google.GData.Client.IExtensionElementFactory)">
             <summary>
             all extension elements that match a namespace/localname
             given will be removed and the new one will be inserted
@@ -458,7 +453,7 @@
         </member>
         <member name="P:Google.GData.Client.AtomBase.ExtensionElements">
             <summary>read only accessor for the ExtensionsElements Collections</summary> 
-            <returns> an ArrayList of ExtensionElements</returns>
+            <returns> an ExtensionList of ExtensionElements</returns>
         </member>
         <member name="P:Google.GData.Client.AtomBase.ProtocolMajor">
             <summary>
@@ -1028,6 +1023,11 @@
             <param name="atom">object to set the property on </param>
             <returns>returns the value of the ShouldBePersisted() of the object</returns>
         </member>
+        <member name="T:Google.GData.Client.NullVersionAware">
+            <summary>
+            Class used as a null version aware seed for the collections
+            </summary>
+        </member>
         <member name="M:Google.GData.Client.VersionInformation.#ctor(Google.GData.Client.IVersionAware)">
             <summary>
             construct a versioninformation object based
@@ -1052,7 +1052,7 @@
             </summary>
             <param name="v"></param>
         </member>
-        <member name="M:Google.GData.Client.VersionInformation.ImprintVersion(System.Collections.ArrayList)">
+        <member name="M:Google.GData.Client.VersionInformation.ImprintVersion(Google.GData.Client.ExtensionList)">
             <summary>
             takes an object and set's the version number to the 
             same as this instance
@@ -1077,6 +1077,27 @@
             <summary>standard typed collection based on 1.1 framework for FeedEntries
             </summary> 
         </member>
+        <member name="M:Google.GData.Client.AtomCollectionBase`1.Add(`0)">
+            <summary>standard typed accessor method </summary> 
+        </member>
+        <member name="M:Google.GData.Client.AtomCollectionBase`1.IndexOf(`0)">
+            <summary>standard typed accessor method </summary> 
+        </member>
+        <member name="M:Google.GData.Client.AtomCollectionBase`1.Insert(System.Int32,`0)">
+            <summary>standard typed accessor method </summary> 
+        </member>
+        <member name="M:Google.GData.Client.AtomCollectionBase`1.Remove(`0)">
+            <summary>standard typed accessor method </summary> 
+        </member>
+        <member name="M:Google.GData.Client.AtomCollectionBase`1.Contains(`0)">
+            <summary>standard typed accessor method </summary> 
+        </member>
+        <member name="M:Google.GData.Client.AtomCollectionBase`1.OnValidate(System.Object)">
+            <summary>standard typed accessor method </summary> 
+        </member>
+        <member name="P:Google.GData.Client.AtomCollectionBase`1.Item(System.Int32)">
+            <summary>standard typed accessor method </summary> 
+        </member>
         <member name="F:Google.GData.Client.AtomEntryCollection.feed">
             <summary>holds the owning feed</summary> 
         </member>
@@ -1095,21 +1116,6 @@
         <member name="M:Google.GData.Client.AtomEntryCollection.Add(Google.GData.Client.AtomEntry)">
             <summary>standard typed add method </summary> 
         </member>
-        <member name="M:Google.GData.Client.AtomEntryCollection.IndexOf(Google.GData.Client.AtomEntry)">
-            <summary>standard typed indexOf method </summary> 
-        </member>
-        <member name="M:Google.GData.Client.AtomEntryCollection.Insert(System.Int32,Google.GData.Client.AtomEntry)">
-            <summary>standard typed insert method </summary> 
-        </member>
-        <member name="M:Google.GData.Client.AtomEntryCollection.Remove(Google.GData.Client.AtomEntry)">
-            <summary>standard typed remove method </summary> 
-        </member>
-        <member name="M:Google.GData.Client.AtomEntryCollection.Contains(Google.GData.Client.AtomEntry)">
-            <summary>standard typed Contains method </summary> 
-        </member>
-        <member name="M:Google.GData.Client.AtomEntryCollection.OnValidate(System.Object)">
-            <summary>standard typed OnValidate Override </summary> 
-        </member>
         <member name="P:Google.GData.Client.AtomEntryCollection.Item(System.Int32)">
             <summary>standard typed accessor method </summary> 
         </member>
@@ -1118,18 +1124,6 @@
             </summary> 
         </member>
         <member name="M:Google.GData.Client.AtomLinkCollection.Add(Google.GData.Client.AtomLink)">
-            <summary>standard typed accessor method </summary> 
-        </member>
-        <member name="M:Google.GData.Client.AtomLinkCollection.IndexOf(Google.GData.Client.AtomLink)">
-            <summary>standard typed accessor method </summary> 
-        </member>
-        <member name="M:Google.GData.Client.AtomLinkCollection.Insert(System.Int32,Google.GData.Client.AtomLink)">
-            <summary>standard typed accessor method </summary> 
-        </member>
-        <member name="M:Google.GData.Client.AtomLinkCollection.Remove(Google.GData.Client.AtomLink)">
-            <summary>standard typed accessor method </summary> 
-        </member>
-        <member name="M:Google.GData.Client.AtomLinkCollection.Contains(Google.GData.Client.AtomLink)">
             <summary>standard typed accessor method </summary> 
         </member>
         <member name="M:Google.GData.Client.AtomLinkCollection.FindService(System.String,System.String)">
@@ -1150,26 +1144,11 @@
             <param name="type">the link type to find</param>
             <returns>the found link or NULL </returns>
         </member>
-        <member name="M:Google.GData.Client.AtomLinkCollection.OnValidate(System.Object)">
-            <summary>standard typed accessor method </summary> 
-        </member>
-        <member name="P:Google.GData.Client.AtomLinkCollection.Item(System.Int32)">
-            <summary>standard typed accessor method </summary> 
-        </member>
         <member name="T:Google.GData.Client.AtomCategoryCollection">
             <summary>standard typed collection based on 1.1 framework for AtomCategory
             </summary> 
         </member>
         <member name="M:Google.GData.Client.AtomCategoryCollection.Add(Google.GData.Client.AtomCategory)">
-            <summary>standard typed accessor method </summary> 
-        </member>
-        <member name="M:Google.GData.Client.AtomCategoryCollection.IndexOf(Google.GData.Client.AtomCategory)">
-            <summary>standard typed accessor method </summary> 
-        </member>
-        <member name="M:Google.GData.Client.AtomCategoryCollection.Insert(System.Int32,Google.GData.Client.AtomCategory)">
-            <summary>standard typed accessor method </summary> 
-        </member>
-        <member name="M:Google.GData.Client.AtomCategoryCollection.Remove(Google.GData.Client.AtomCategory)">
             <summary>standard typed accessor method </summary> 
         </member>
         <member name="M:Google.GData.Client.AtomCategoryCollection.Find(System.String)">
@@ -1191,67 +1170,24 @@
         <member name="M:Google.GData.Client.AtomCategoryCollection.Contains(Google.GData.Client.AtomCategory)">
             <summary>standard typed accessor method </summary> 
         </member>
-        <member name="M:Google.GData.Client.AtomCategoryCollection.OnValidate(System.Object)">
-            <summary>standard typed accessor method </summary> 
-        </member>
-        <member name="P:Google.GData.Client.AtomCategoryCollection.Item(System.Int32)">
-            <summary>standard typed accessor method </summary> 
-        </member>
         <member name="T:Google.GData.Client.QueryCategoryCollection">
             <summary>standard typed collection based on 1.1 framework for AtomPerson
             </summary> 
         </member>
-        <member name="M:Google.GData.Client.QueryCategoryCollection.Add(Google.GData.Client.QueryCategory)">
-            <summary>standard typed accessor method </summary> 
-        </member>
-        <member name="M:Google.GData.Client.QueryCategoryCollection.IndexOf(Google.GData.Client.QueryCategory)">
-            <summary>standard typed accessor method </summary> 
-        </member>
-        <member name="M:Google.GData.Client.QueryCategoryCollection.Insert(System.Int32,Google.GData.Client.QueryCategory)">
-            <summary>standard typed accessor method </summary> 
-        </member>
-        <member name="M:Google.GData.Client.QueryCategoryCollection.Remove(Google.GData.Client.QueryCategory)">
-            <summary>standard typed accessor method </summary> 
-        </member>
-        <member name="M:Google.GData.Client.QueryCategoryCollection.Contains(Google.GData.Client.QueryCategory)">
-            <summary>standard typed accessor method </summary> 
-        </member>
-        <member name="M:Google.GData.Client.QueryCategoryCollection.OnValidate(System.Object)">
-            <summary>standard typed accessor method </summary> 
-        </member>
-        <member name="P:Google.GData.Client.QueryCategoryCollection.Item(System.Int32)">
-            <summary>standard typed accessor method </summary> 
-        </member>
         <member name="T:Google.GData.Client.AtomPersonCollection">
             <summary>standard typed collection based on 1.1 framework for AtomPerson
             </summary> 
-        </member>
-        <member name="M:Google.GData.Client.AtomPersonCollection.Add(Google.GData.Client.AtomPerson)">
-            <summary>standard typed accessor method </summary> 
-        </member>
-        <member name="M:Google.GData.Client.AtomPersonCollection.IndexOf(Google.GData.Client.AtomPerson)">
-            <summary>standard typed accessor method </summary> 
-        </member>
-        <member name="M:Google.GData.Client.AtomPersonCollection.Insert(System.Int32,Google.GData.Client.AtomPerson)">
-            <summary>standard typed accessor method </summary> 
-        </member>
-        <member name="M:Google.GData.Client.AtomPersonCollection.Remove(Google.GData.Client.AtomPerson)">
-            <summary>standard typed accessor method </summary> 
-        </member>
-        <member name="M:Google.GData.Client.AtomPersonCollection.Contains(Google.GData.Client.AtomPerson)">
-            <summary>standard typed accessor method </summary> 
-        </member>
-        <member name="M:Google.GData.Client.AtomPersonCollection.OnValidate(System.Object)">
-            <summary>standard typed accessor method </summary> 
-        </member>
-        <member name="P:Google.GData.Client.AtomPersonCollection.Item(System.Int32)">
-            <summary>standard typed accessor method </summary> 
         </member>
         <member name="T:Google.GData.Client.ExtensionList">
             <summary>
              internal list to override the add and the constructor
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:Google.GData.Client.ExtensionList.NotVersionAware">
+            <summary>
+            Return a new collection that is not version aware.
+            </summary>
         </member>
         <member name="T:Google.GData.Client.AtomUri">
             <summary>AtomUri object representation
@@ -1469,7 +1405,7 @@
             <param name="ns">the namespace of the elementToPersist</param>
             <returns>Object</returns>
         </member>
-        <member name="M:Google.GData.Extensions.SimpleContainer.ReplaceExtension(System.String,System.String,System.Object)">
+        <member name="M:Google.GData.Extensions.SimpleContainer.ReplaceExtension(System.String,System.String,Google.GData.Client.IExtensionElementFactory)">
             <summary>
             all extension elements that match a namespace/localname
             given will be removed and the new one will be inserted
@@ -3410,7 +3346,7 @@
             <returns> </returns>
         </member>
         <member name="P:Google.GData.Client.AtomFeed.Entries">
-            <summary>accessor method public ArrayList Entries</summary> 
+            <summary>accessor method public ExtensionList Entries</summary> 
             <returns> </returns>
         </member>
         <member name="P:Google.GData.Client.AtomFeed.XmlName">
@@ -3797,34 +3733,6 @@
             <param name="reader">the xmlreader positioned at a batch element</param>
             <param name="feed">the atomfeed object to fill in</param>
         </member>
-        <member name="M:Google.GData.Client.AtomFeedParser.ParseBatchStatus(System.Xml.XmlReader)">
-            <summary>
-            reads the current positioned reader and creates a batchstatus element
-            </summary>
-            <param name="reader">XmlReader positioned at the start of the status element</param>
-            <returns>GDataBatchStatus</returns>
-        </member>
-        <member name="M:Google.GData.Client.AtomFeedParser.ParseBatchErrors(System.Xml.XmlReader,Google.GData.Client.GDataBatchStatus)">
-            <summary>
-             parses a list of errors
-            </summary>
-            <param name="reader">XmlReader positioned at the start of the status element</param>
-            <param name="status">the batch status element to add the errors tohe</param>
-        </member>
-        <member name="M:Google.GData.Client.AtomFeedParser.ParseBatchError(System.Xml.XmlReader)">
-            <summary>
-            parses a single error element
-            </summary>
-            <param name="reader">XmlReader positioned at the start of the status element</param>
-            <returns>GDataBatchError</returns>
-        </member>
-        <member name="M:Google.GData.Client.AtomFeedParser.ParseBatchInterrupt(System.Xml.XmlReader)">
-            <summary>
-            parses a batchinterrupt element from a correctly positioned reader
-            </summary>
-            <param name="reader">XmlReader at the start of the element</param>
-            <returns>GDataBatchInterrupt</returns>
-        </member>
         <member name="M:Google.GData.Client.AtomFeedParser.ParseTextConstruct(System.Xml.XmlReader,Google.GData.Client.AtomBase)">
             <summary>parses an AtomTextConstruct</summary> 
             <param name="reader">the xmlreader correctly positioned at the construct </param>
@@ -4134,7 +4042,7 @@
             <param name="key">the key to search for</param>
             <returns> the string in the tokenized stream </returns>
         </member>
-        <member name="M:Google.GData.Client.Utilities.FindExtension(System.Collections.ArrayList,System.String,System.String)">
+        <member name="M:Google.GData.Client.Utilities.FindExtension(Google.GData.Client.ExtensionList,System.String,System.String)">
             <summary>
             Finds a specific ExtensionElement based on it's local name
             and it's namespace. If namespace is NULL, the first one where
@@ -4147,7 +4055,7 @@
             <param name="ns">the namespace of the elementToPersist</param>
             <returns>Object</returns>
         </member>
-        <member name="M:Google.GData.Client.Utilities.FindExtensions(System.Collections.ArrayList,System.String,System.String,System.Collections.ArrayList)">
+        <member name="M:Google.GData.Client.Utilities.FindExtensions(Google.GData.Client.ExtensionList,System.String,System.String,Google.GData.Client.ExtensionList)">
             <summary>
             Finds all ExtensionElement based on it's local name
             and it's namespace. If namespace is NULL, allwhere
@@ -4161,7 +4069,7 @@
             <param name="arr">the array to fill</param>
             <returns>none</returns>
         </member>
-        <member name="M:Google.GData.Client.Utilities.FindExtensions``1(System.Collections.ArrayList,System.String,System.String,``0)">
+        <member name="M:Google.GData.Client.Utilities.FindExtensions``1(Google.GData.Client.ExtensionList,System.String,System.String,``0)">
             <summary>
             Finds all ExtensionElement based on it's local name
             and it's namespace. If namespace is NULL, allwhere
@@ -5396,6 +5304,13 @@
             </summary>
             <param name="writer">the xmlwriter to write into</param>
         </member>
+        <member name="M:Google.GData.Client.GDataBatchStatus.ParseBatchStatus(System.Xml.XmlReader,Google.GData.Client.AtomFeedParser)">
+            <summary>
+            reads the current positioned reader and creates a batchstatus element
+            </summary>
+            <param name="reader">XmlReader positioned at the start of the status element</param>
+            <returns>GDataBatchStatus</returns>
+        </member>
         <member name="P:Google.GData.Client.GDataBatchStatus.Code">
             <summary>returns the status code of the operation</summary> 
             <returns> </returns>
@@ -5423,6 +5338,20 @@
             </summary>
             <param name="writer">the xmlwriter to write into</param>
         </member>
+        <member name="M:Google.GData.Client.GDataBatchError.ParseBatchErrors(System.Xml.XmlReader,Google.GData.Client.AtomFeedParser,Google.GData.Client.GDataBatchStatus)">
+            <summary>
+             parses a list of errors
+            </summary>
+            <param name="reader">XmlReader positioned at the start of the status element</param>
+            <param name="status">the batch status element to add the errors tohe</param>
+        </member>
+        <member name="M:Google.GData.Client.GDataBatchError.ParseBatchError(System.Xml.XmlReader,Google.GData.Client.AtomFeedParser)">
+            <summary>
+            parses a single error element
+            </summary>
+            <param name="reader">XmlReader positioned at the start of the status element</param>
+            <returns>GDataBatchError</returns>
+        </member>
         <member name="P:Google.GData.Client.GDataBatchError.Type">
             <summary>accessor method Type</summary> 
             <returns> </returns>
@@ -5445,6 +5374,13 @@
             Persistence method for the GDataBatchInterrupt object
             </summary>
             <param name="writer">the xmlwriter to write into</param>
+        </member>
+        <member name="M:Google.GData.Client.GDataBatchInterrupt.ParseBatchInterrupt(System.Xml.XmlReader,Google.GData.Client.AtomFeedParser)">
+            <summary>
+            parses a batchinterrupt element from a correctly positioned reader
+            </summary>
+            <param name="reader">XmlReader at the start of the element</param>
+            <returns>GDataBatchInterrupt</returns>
         </member>
         <member name="P:Google.GData.Client.GDataBatchInterrupt.Reason">
             <summary>accessor method public string Reason</summary> 

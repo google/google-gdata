@@ -199,13 +199,13 @@
             <summary>Utilities for getting/setting IExtensionElement in a list,
             used by <see cref="T:Google.GData.GoogleBase.GBaseEntry"/></summary>
         </member>
-        <member name="M:Google.GData.GoogleBase.GBaseUtilities.GetExtension(System.Collections.IList,System.Type)">
+        <member name="M:Google.GData.GoogleBase.GBaseUtilities.GetExtension(System.Collections.Generic.IList{Google.GData.Client.IExtensionElementFactory},System.Type)">
             <summary>Gets the first extension of the givent type.</summary>
             <param name="extensionElements">list of IExtensionElement</param>
             <param name="type">type of the extension</param>
             <returns>an extension of the correct type or null</returns>
         </member>
-        <member name="M:Google.GData.GoogleBase.GBaseUtilities.SetExtension(System.Collections.IList,System.Type,System.Object)">
+        <member name="M:Google.GData.GoogleBase.GBaseUtilities.SetExtension(System.Collections.Generic.IList{Google.GData.Client.IExtensionElementFactory},System.Type,Google.GData.Client.IExtensionElementFactory)">
              <summary>Replaces or adds an extension of the given type
              to the list.
             
@@ -240,7 +240,7 @@
             <param name="atomElement">atom element, usually a feed or
             an entry.</param>
         </member>
-        <member name="M:Google.GData.GoogleBase.GBaseAttributeCollection.#ctor(System.Collections.ArrayList)">
+        <member name="M:Google.GData.GoogleBase.GBaseAttributeCollection.#ctor(Google.GData.Client.ExtensionList)">
             <summary>Creates an attribute collection and link it to an
             extension list.</summary>
             <param name="extensionElements">extension list to be queried and
@@ -635,7 +635,7 @@
             <param name="count">number of times this attribute appeared
             in the histogram query results</param>
         </member>
-        <member name="M:Google.GData.GoogleBase.AttributeHistogram.#ctor(System.String,Google.GData.GoogleBase.GBaseAttributeType,System.Int32,Google.GData.GoogleBase.HistogramValue[])">
+        <member name="M:Google.GData.GoogleBase.AttributeHistogram.#ctor(System.String,Google.GData.GoogleBase.GBaseAttributeType,System.Int32,System.Collections.Generic.List{Google.GData.GoogleBase.HistogramValue})">
             <summary>Creates an AttributeHistogram.</summary>
             <param name="name">attribute name</param>
             <param name="type">attribute type</param>
@@ -712,7 +712,7 @@
              ItemTypeAttributes and MetadataItemType
              </summary>
         </member>
-        <member name="M:Google.GData.GoogleBase.ItemTypeDefinition.#ctor(System.Collections.ArrayList)">
+        <member name="M:Google.GData.GoogleBase.ItemTypeDefinition.#ctor(Google.GData.Client.ExtensionList)">
             <summary>Creates an ItemTypeDefinition based
             on a list of extensions.</summary>
             <param name="extensions">list of extensions to query and modify
@@ -731,7 +731,7 @@
              This object is usually used only through
              <see cref="T:Google.GData.GoogleBase.ItemTypeDefinition"/>.</summary>
         </member>
-        <member name="M:Google.GData.GoogleBase.ItemTypeAttributes.#ctor(Google.GData.GoogleBase.AttributeId[])">
+        <member name="M:Google.GData.GoogleBase.ItemTypeAttributes.#ctor(System.Collections.Generic.List{Google.GData.GoogleBase.AttributeId})">
             <summary>Creates an new gm:attributes tag with gm:attributes</summary>
             <param name="attributes">attributes defined for the item type</param>
         </member>
@@ -951,7 +951,7 @@
              <seealso cref="T:Google.GData.GoogleBase.GBaseAttributeCollection"/>
              <seealso cref="T:Google.GData.GoogleBase.GBaseEntry"/>
         </member>
-        <member name="M:Google.GData.GoogleBase.GBaseAttributeCollectionWithTypeConversion.#ctor(System.Collections.ArrayList)">
+        <member name="M:Google.GData.GoogleBase.GBaseAttributeCollectionWithTypeConversion.#ctor(Google.GData.Client.ExtensionList)">
             <summary>Creates a GBaseAttributeCollectionWithTypeConversion
             object that will access and modify the given extension list.
             </summary>
@@ -1338,7 +1338,7 @@
             <param name="name">attribute name</param>
             <returns>all the values found, never nul</returns>
         </member>
-        <member name="M:Google.GData.GoogleBase.GBaseAttributes.#ctor(System.Collections.ArrayList)">
+        <member name="M:Google.GData.GoogleBase.GBaseAttributes.#ctor(Google.GData.Client.ExtensionList)">
             <summary>Creates a GBaseAttributes object that will access and
             modify the given extension list.</summary>
             <param name="baseList">a list that contains GBaseAttribute object,

@@ -27,6 +27,12 @@
             </summary>
             <param name="writer">the xmlwriter to write into</param>
         </member>
+        <member name="M:Google.GData.CodeSearch.File.CreateInstance(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
+            <summary>Parses an xml node to create a File object.</summary> 
+            <param name="node">xml node</param>
+            <param name="parser">the atomfeedparser to use for deep dive parsing</param>
+            <returns>the created IExtensionElementFactory object</returns>
+        </member>
         <member name="P:Google.GData.CodeSearch.File.Name">
             <summary>
             public available attribute for the name of the file
@@ -35,6 +41,16 @@
         <member name="P:Google.GData.CodeSearch.File.XmlName">
             <summary>Returns the constant representing
              this XML element.</summary> 
+        </member>
+        <member name="P:Google.GData.CodeSearch.File.Google#GData#Client#IExtensionElementFactory#XmlName">
+            <summary>Returns the constant representing this XML element.
+            </summary> 
+        </member>
+        <member name="P:Google.GData.CodeSearch.File.XmlNameSpace">
+            <summary>Returns the constant representing this XML element.</summary> 
+        </member>
+        <member name="P:Google.GData.CodeSearch.File.XmlPrefix">
+            <summary>Returns the constant representing this XML element.</summary> 
         </member>
         <member name="T:Google.GData.CodeSearch.CodeSearchService">
             <summary>
@@ -126,6 +142,12 @@
             <param name="writer">the xmlwriter to write into</param>
             
         </member>
+        <member name="M:Google.GData.CodeSearch.Match.CreateInstance(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
+            <summary>Parses an xml node to create a Match object.</summary> 
+            <param name="node">xml node</param>
+            <param name="parser">the atomfeedparser to use for deep dive parsing</param>
+            <returns>the created IExtensionElementFactory object</returns>
+        </member>
         <member name="P:Google.GData.CodeSearch.Match.LineNumber">
             <summary>
             public available attribute with the actual line in which the match happens
@@ -139,6 +161,16 @@
         <member name="P:Google.GData.CodeSearch.Match.XmlName">
             <summary>Returns the constant representing
              this XML element.</summary> 
+        </member>
+        <member name="P:Google.GData.CodeSearch.Match.Google#GData#Client#IExtensionElementFactory#XmlName">
+            <summary>Returns the constant representing this XML element.
+            </summary> 
+        </member>
+        <member name="P:Google.GData.CodeSearch.Match.XmlNameSpace">
+            <summary>Returns the constant representing this XML element.</summary> 
+        </member>
+        <member name="P:Google.GData.CodeSearch.Match.XmlPrefix">
+            <summary>Returns the constant representing this XML element.</summary> 
         </member>
         <member name="T:Google.GData.CodeSearch.CodeSearchEntry">
             <summary>
@@ -207,6 +239,12 @@
             <param name="writer">the xmlwriter to write into</param>
             
         </member>
+        <member name="M:Google.GData.CodeSearch.Package.CreateInstance(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
+            <summary>Parses an xml node to create a Package object.</summary> 
+            <param name="node">xml node</param>
+            <param name="parser">the atomfeedparser to use for deep dive parsing</param>
+            <returns>the created IExtensionElementFactory object</returns>
+        </member>
         <member name="P:Google.GData.CodeSearch.Package.Name">
             <summary>
             public available attribute to hold the name of the package
@@ -218,6 +256,16 @@
             </summary>
         </member>
         <member name="P:Google.GData.CodeSearch.Package.XmlName">
+            <summary>Returns the constant representing this XML element.</summary> 
+        </member>
+        <member name="P:Google.GData.CodeSearch.Package.Google#GData#Client#IExtensionElementFactory#XmlName">
+            <summary>Returns the constant representing this XML element.
+            </summary> 
+        </member>
+        <member name="P:Google.GData.CodeSearch.Package.XmlNameSpace">
+            <summary>Returns the constant representing this XML element.</summary> 
+        </member>
+        <member name="P:Google.GData.CodeSearch.Package.XmlPrefix">
             <summary>Returns the constant representing this XML element.</summary> 
         </member>
         <member name="T:Google.GData.CodeSearch.GCodeSearchParserNameTable">
