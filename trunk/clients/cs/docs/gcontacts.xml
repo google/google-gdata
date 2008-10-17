@@ -130,12 +130,6 @@
             as query parameter, otherwise groupMembershipInfo for groups a contact 
             does not belong to anymore is simply not returned.</summary>
         </member>
-        <member name="T:Google.GData.Contacts.GroupMembershipCollection">
-            <summary>Typed collection for GroupMembershipCollection Extensions.</summary> 
-        </member>
-        <member name="M:Google.GData.Contacts.GroupMembershipCollection.#ctor(Google.GData.Client.IExtensionContainer)">
-            <summary>constructor</summary> 
-        </member>
         <member name="T:Google.GData.Contacts.BaseContactEntry">
             <summary>
             abstract class for a basecontactentry, used for contacts and groups

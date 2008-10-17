@@ -131,7 +131,7 @@ namespace Google.GData.Extensions
     /// <summary>
     /// gd:email schema extension describing an email address in contacts
     /// </summary>
-    public class EMail : ExtensionBase
+    public class EMail : CommonAttributesElement
     {
 
         /// <summary>
@@ -190,9 +190,6 @@ namespace Google.GData.Extensions
         private void addAttributes()
         {
             this.Attributes.Add(GDataParserNameTable.XmlAttributeAddress, null);
-            this.Attributes.Add(GDataParserNameTable.XmlAttributeLabel, null);
-            this.Attributes.Add(GDataParserNameTable.XmlAttributePrimary, null);
-            this.Attributes.Add(GDataParserNameTable.XmlAttributeRel, null);
         }
 
 
@@ -207,95 +204,6 @@ namespace Google.GData.Extensions
         }
         // end of accessor public string Address
 
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>accessor method for the Label value. Note you can only set this or
-        /// Rel, not both
-        /// </summary> 
-        public string Label
-        {
-            get {return this.Attributes[GDataParserNameTable.XmlAttributeLabel] as string;}
-            set 
-            {
-                if (this.Rel != null)
-                {
-                    throw new System.ArgumentException("Rel already has a value. You can only set Label or Rel");
-                } 
-                this.Attributes[GDataParserNameTable.XmlAttributeLabel] = value;
-            }
-        }
-
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>accessor method public string Primary</summary> 
-        /// <returns> </returns>
-        //////////////////////////////////////////////////////////////////////
-        public bool Primary
-        {
-            get {return ("true" == (this.Attributes[GDataParserNameTable.XmlAttributePrimary] as string));}
-            set {this.Attributes[GDataParserNameTable.XmlAttributePrimary] = value == true? Utilities.XSDTrue : Utilities.XSDFalse;}
-        }
-        // end of accessor public string Address
-
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>accessor method for the Rel Value. Note you can only set this
-        /// or Label, not both</summary> 
-        /// <returns> </returns>
-        //////////////////////////////////////////////////////////////////////
-        public string Rel
-        {
-            get {return this.Attributes[GDataParserNameTable.XmlAttributeRel] as string;}
-            set 
-            {
-                if (this.Label != null)
-                {
-                    throw new System.ArgumentException("Label already has a value. You can only set Label or Rel");
-                } 
-                this.Attributes[GDataParserNameTable.XmlAttributeRel] = value;
-            }
-        }
-
-        /// <summary>
-        /// returns if the email is the home email address
-        /// </summary>
-        public bool Home
-        {
-            get 
-            {
-                if (this.Rel == ContactsRelationships.IsHome)
-                {
-                    return true;
-                }
-                return false;
-            }
-        }
-
-        /// <summary>
-        /// returns if the email is the home email address
-        /// </summary>
-        public bool Work
-        {
-            get 
-            {
-                if (this.Rel == ContactsRelationships.IsWork)
-                {
-                    return true;
-                }
-                return false;
-            }
-        }
-        /// <summary>
-        /// returns if the email is the home email address
-        /// </summary>
-        public bool Other
-        {
-            get 
-            {
-                if (this.Rel == ContactsRelationships.IsOther)
-                {
-                    return true;
-                }
-                return false;
-            }
-        }
 
     }
 
@@ -357,10 +265,37 @@ namespace Google.GData.Extensions
 
     }
 
+
+    /// <summary>
+    ///  this interface defines a common set of properties found on classes derived
+    /// from CommonAttributesElement (like EMail) and Organization.
+    /// </summary>
+    interface ICommonAttributes
+    {
+        string Rel
+        {
+            get;
+            set;
+        }
+        string Label
+        {
+            get;
+            set;
+        }
+        bool Primary
+        {
+            get;
+            set;
+        }
+    }
+
+
+
+
     /// <summary>
     /// a base class used for PostalAddress and others. 
     /// </summary>
-    public class CommonAttributesElement : SimpleElement
+    public class CommonAttributesElement : SimpleElement, ICommonAttributes
     {
 
         /// <summary>
@@ -555,7 +490,7 @@ namespace Google.GData.Extensions
    /// <summary>
     /// GData schema extension describing an organization
     /// </summary>
-    public class Organization : SimpleContainer
+    public class Organization : SimpleContainer, ICommonAttributes
     {
         /// <summary>
         /// default constructor for media:group

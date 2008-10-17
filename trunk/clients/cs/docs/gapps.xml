@@ -340,6 +340,18 @@
             <returns>a <code>MailItemFeed</code> containing the results of the
             batch insertion</returns>
         </member>
+        <member name="M:Google.GData.Apps.Migration.MailItemService.Batch(System.String,System.String,System.Collections.Generic.List{Google.GData.Apps.Migration.MailItemEntry})">
+            <summary>
+            Inserts one or more mail item entries in a single batched request.
+            Use this method to reduce HTTP overhead when inserting many emails
+            in a single transfer.
+            </summary>
+            <param name="domain">the domain into which to migrate mail</param>
+            <param name="entries">the mail messages to batch insert</param>
+            <param name="userName">the user for whom this should be done</param>
+            <returns>a <code>MailItemFeed</code> containing the results of the
+            batch insertion</returns>
+        </member>
         <member name="M:Google.GData.Apps.Migration.MailItemService.OnParsedNewMailItemEntry(System.Object,Google.GData.Client.FeedParserEventArgs)">
             <summary>
             Event handler. Called when a new migration entry is parsed.
