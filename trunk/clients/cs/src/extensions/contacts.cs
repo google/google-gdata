@@ -270,7 +270,7 @@ namespace Google.GData.Extensions
     ///  this interface defines a common set of properties found on classes derived
     /// from CommonAttributesElement (like EMail) and Organization.
     /// </summary>
-    interface ICommonAttributes
+    public interface ICommonAttributes
     {
         string Rel
         {
