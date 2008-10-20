@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using Google.GData.Photos;
 using Google.GData.Client;
 using Google.GData.Extensions.MediaRss;
+using Google.GData.Extensions;
 using System.IO;
 
 namespace PhotoBrowser
@@ -297,7 +298,7 @@ namespace PhotoBrowser
             }
         }
 
-        private string findLargestThumbnail(ThumbnailCollection collection)
+        private string findLargestThumbnail(ExtensionCollection<MediaThumbnail> collection)
         {
             MediaThumbnail largest = null;
             int width = 0; 
