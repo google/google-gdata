@@ -140,6 +140,7 @@ namespace Google.GData.YouTube {
           /// <summary>
         /// getter/setter for the feedlink subelement
         /// </summary>
+        [Obsolete("replaced with Content.Href")] 
         public FeedLink FeedLink 
         {
             get

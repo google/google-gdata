@@ -38,5 +38,33 @@ namespace Google.GData.Blogger
         public BloggerEntry() : base()
         {
         }
+
+
+         //////////////////////////////////////////////////////////////////////
+        /// <summary>Allows you to retrieve the Post Uri value for a blogger entry. 
+        /// This is relevant in the "feeds of blogs"</summary> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        public AtomUri PostUri
+        {
+            get 
+            {
+                AtomLink link = this.Links.FindService(BaseNameTable.ServicePost, AtomLink.ATOM_TYPE);
+                // scan the link collection
+                return link == null ? null : link.HRef;
+            }
+            set
+            {
+                AtomLink link = this.Links.FindService(BaseNameTable.ServicePost, AtomLink.ATOM_TYPE);
+                if (link == null)
+                {
+                    link = new AtomLink(AtomLink.ATOM_TYPE, BaseNameTable.ServicePost);
+                    this.Links.Add(link);
+                }
+                link.HRef = value;
+            }
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
     }
 }

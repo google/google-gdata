@@ -98,6 +98,24 @@ namespace Google.GData.Extensions {
             this.ExtensionElements.Add(obj);
         }
 
+         /// <summary>
+        /// all extension element factories that match a namespace/localname
+        /// given will be removed and the new one will be inserted
+        /// </summary> 
+        /// <param name="localName">the local name to find</param>
+        /// <param name="ns">the namespace to match, if null, ns is ignored</param>
+        /// <param name="obj">the new element to put in</param>
+        public void ReplaceFactory(string localName, string ns, IExtensionElementFactory obj)
+        {
+            ExtensionList arr = Utilities.FindExtensions(this.ExtensionFactories, localName, ns, new ExtensionList(this)); 
+            foreach (IExtensionElementFactory ob in arr)
+            {
+                this.ExtensionFactories.Remove(ob);
+            }
+            this.ExtensionFactories.Add(obj);
+        }
+
+       
         /// <summary>
         /// Finds all ExtensionElement based on it's local name
         /// and it's namespace. If namespace is NULL, allwhere

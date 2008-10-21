@@ -555,7 +555,7 @@ namespace Google.GData.Client
             HttpWebRequest web = authRequest as HttpWebRequest;
             if (web != null)
             {
-                web.KeepAlive = this.factory.KeepAlive; 
+                web.KeepAlive = this.factory.KeepAlive;     
             }
             WebResponse authResponse = null; 
 
@@ -570,17 +570,17 @@ namespace Google.GData.Client
                 string pwd = gc.getPassword() == null ? "" : gc.getPassword();
 
                 // now enter the data in the stream
-                string postData = GoogleAuthentication.Email + "=" + Utilities.UriEncodeReserved(user) + "&"; 
-                postData += GoogleAuthentication.Password + "=" + Utilities.UriEncodeReserved(pwd) + "&";  
-                postData += GoogleAuthentication.Source + "=" + Utilities.UriEncodeReserved(this.factory.ApplicationName) + "&"; 
-                postData += GoogleAuthentication.Service + "=" + Utilities.UriEncodeReserved(this.factory.Service) + "&"; 
+                string postData = GoogleAuthentication.Email + "=" + Utilities.UriEncodeUnsafe(user) + "&"; 
+                postData += GoogleAuthentication.Password + "=" + Utilities.UriEncodeUnsafe(pwd) + "&";  
+                postData += GoogleAuthentication.Source + "=" + Utilities.UriEncodeUnsafe(this.factory.ApplicationName) + "&"; 
+                postData += GoogleAuthentication.Service + "=" + Utilities.UriEncodeUnsafe(this.factory.Service) + "&"; 
                 if (this.factory.CaptchaAnswer != null)
                 {
-                    postData += GoogleAuthentication.CaptchaAnswer + "=" + Utilities.UriEncodeReserved(this.factory.CaptchaAnswer) + "&"; 
+                    postData += GoogleAuthentication.CaptchaAnswer + "=" + Utilities.UriEncodeUnsafe(this.factory.CaptchaAnswer) + "&"; 
                 }
                 if (this.factory.CaptchaToken != null)
                 {
-                    postData += GoogleAuthentication.CaptchaToken + "=" + Utilities.UriEncodeReserved(this.factory.CaptchaToken) + "&"; 
+                    postData += GoogleAuthentication.CaptchaToken + "=" + Utilities.UriEncodeUnsafe(this.factory.CaptchaToken) + "&"; 
                 }
                 postData += accountType; 
 

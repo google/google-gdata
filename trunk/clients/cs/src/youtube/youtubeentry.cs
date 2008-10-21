@@ -29,7 +29,7 @@ namespace Google.GData.YouTube {
 
     //////////////////////////////////////////////////////////////////////
     /// <summary>
-    /// Entry API customization class for defining entries in an Event feed.
+    /// Entry API customization class for defining entries in a YouTubeFeed feed.
     /// </summary>
     //////////////////////////////////////////////////////////////////////
     public class YouTubeEntry : YouTubeBaseEntry
@@ -57,11 +57,15 @@ namespace Google.GData.YouTube {
             mg.ExtensionFactories.Add(new Duration());
             mg.ExtensionFactories.Add(new Private());
 
+            // replace the media group default media credit with a new one. 
+            MediaCredit c = new MediaCredit();
+            c.Attributes.Add("type", null);
+            c.AttributeNamespaces.Add("type", YouTubeNameTable.NSYouTube);
+            mg.ReplaceExtension(c.XmlName, c.XmlNameSpace, c);
             // now add it to us
             this.AddExtension(mg);
 
             GeoRssExtensions.AddExtension(this);
-
 
             AppControl app = new AppControl();
             AppControl acf = FindExtensionFactory(app.XmlName, app.XmlNameSpace) as AppControl;
@@ -73,7 +77,6 @@ namespace Google.GData.YouTube {
             }
             // add the youtube state element
             acf.ExtensionFactories.Add(new State());
-            
 
             // things from the gd namespce
             this.AddExtension(new Comments());
@@ -83,6 +86,8 @@ namespace Google.GData.YouTube {
             this.AddExtension(new Statistics());
             this.AddExtension(new Location());
             this.AddExtension(new Recorded());
+            this.AddExtension(new Uploaded());
+            this.AddExtension(new VideoId());
 
         }
 
@@ -271,6 +276,37 @@ namespace Google.GData.YouTube {
             }
         }
 
+        /// <summary>
+        ///  property accessor for the VideoID, if applicable
+        /// </summary>
+        public string VideoId
+        {
+            get
+            {
+                return GetExtensionValue(YouTubeNameTable.VideoID, YouTubeNameTable.NSYouTube);
+            }
+            set
+            {
+                SetExtensionValue(YouTubeNameTable.VideoID, YouTubeNameTable.NSYouTube, value);
+            }
+        }
+
+        /// <summary>
+        ///  property accessor for the Uploaded element, if applicable
+        /// returns the date the video was uplaoded
+        /// </summary>
+        public string Uploaded
+        {
+            get
+            {
+                return GetExtensionValue(YouTubeNameTable.Uploaded, YouTubeNameTable.NSYouTube);
+            }
+            set
+            {
+                SetExtensionValue(YouTubeNameTable.Uploaded, YouTubeNameTable.NSYouTube, value);
+            }
+        }
+
       
 
         //////////////////////////////////////////////////////////////////////
@@ -350,7 +386,6 @@ namespace Google.GData.YouTube {
                 }
             }
         }
-
     }
 }
 

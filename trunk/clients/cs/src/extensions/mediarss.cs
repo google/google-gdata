@@ -261,7 +261,10 @@ namespace Google.GData.Extensions.MediaRss {
         : base(MediaRssNameTable.MediaRssCredit, 
                MediaRssNameTable.mediaRssPrefix,
                MediaRssNameTable.NSMediaRss)
-        {}
+        {
+            this.Attributes.Add("role", null);
+            this.Attributes.Add("scheme", null);
+        }
 
         /// <summary>
         /// default constructor for media:credit with an initial value
@@ -271,7 +274,41 @@ namespace Google.GData.Extensions.MediaRss {
         : base(MediaRssNameTable.MediaRssCredit, 
                MediaRssNameTable.mediaRssPrefix,
                MediaRssNameTable.NSMediaRss, initValue)
-        {}
+        {
+            this.Attributes.Add("role", null);
+            this.Attributes.Add("scheme", null);
+        }
+
+        /// <summary>
+        ///  returns the schem of the credit element
+        /// </summary>
+        /// <returns></returns>
+        public string Scheme
+        {
+            get
+            {
+                return this.Attributes["scheme"] as string;
+            }
+            set
+            {
+                this.Attributes["scheme"] = value;
+            }
+        }
+        /// <summary>
+        ///  returns the role of the credit element
+        /// </summary>
+        /// <returns></returns>
+        public string Role
+        {
+            get
+            {
+                return this.Attributes["role"] as string;
+            }
+            set
+            {
+                this.Attributes["role"] = value;
+            }
+        }
     }
 
     /// <summary>
@@ -530,6 +567,7 @@ namespace Google.GData.Extensions.MediaRss {
                    MediaRssNameTable.NSMediaRss)
         {
             this.Attributes.Add("scheme", null);
+            this.Attributes.Add("country", null);
         }
 
         /// <summary>
@@ -542,6 +580,7 @@ namespace Google.GData.Extensions.MediaRss {
                    MediaRssNameTable.NSMediaRss, initValue)
         {
             this.Attributes.Add("scheme", null);
+            this.Attributes.Add("country", null);
         }
 
         /// <summary>
@@ -556,5 +595,36 @@ namespace Google.GData.Extensions.MediaRss {
             this.Attributes["scheme"] = scheme;
         }
 
+        /// <summary>
+        ///  returns the schem for the media rating
+        /// </summary>
+        /// <returns></returns>
+        public string Scheme
+        {
+            get
+            {
+                return this.Attributes["scheme"] as string;
+            }
+            set
+            {
+                this.Attributes["scheme"] = value;
+            }
+        }
+
+        /// <summary>
+        ///  returns the country for this rating
+        /// </summary>
+        /// <returns></returns>
+        public string Country
+        {
+            get
+            {
+                return this.Attributes["country"] as string;
+            }
+            set
+            {
+                this.Attributes["country"] = value;
+            }
+        }
     }
 }

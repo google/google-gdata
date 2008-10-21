@@ -360,15 +360,16 @@ namespace Google.GData.YouTube {
         /// <summary>
         /// getter/setter for Description subelement
         /// </summary>
-        public string Description
+        [Obsolete("replaced with Summary.Text")] 
+        public string Description 
         {
             get
             {
-                return getYouTubeExtensionValue(YouTubeNameTable.Description);
+                return getDescription();
             }
             set
             {
-                setYouTubeExtension(YouTubeNameTable.Description, value);
+                setDescription(value);
             }
         }
     }

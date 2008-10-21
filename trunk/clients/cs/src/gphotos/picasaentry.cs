@@ -134,7 +134,7 @@ namespace Google.GData.Photos {
         /// </summary>
         /// <param name="extension">the name of the extension to look for</param>
         /// <returns>SimpleElement, or NULL if the extension was not found</returns>
-        public SimpleElement getPhotoExtension(string extension) 
+        public SimpleElement GetPhotoExtension(string extension) 
         {
             return FindExtension(extension, GPhotoNameTable.NSGPhotos) as SimpleElement;
         }
@@ -142,18 +142,13 @@ namespace Google.GData.Photos {
         /// <summary>
         /// instead of having 20 extension elements
         /// we have one string based getter
-        /// usage is: entry.getPhotoExtensionValue("albumid") to get the elements value
+        /// usage is: entry.GetPhotoExtensionValue("albumid") to get the elements value
         /// </summary>
         /// <param name="extension">the name of the extension to look for</param>
         /// <returns>value as string, or NULL if the extension was not found</returns>
-        public string getPhotoExtensionValue(string extension) 
+        public string GetPhotoExtensionValue(string extension) 
         {
-            SimpleElement e = getPhotoExtension(extension);
-            if (e != null)
-            {
-                return e.Value;
-            }
-            return null;
+            return GetExtensionValue(extension, GPhotoNameTable.NSGPhotos);
         }
 
 
@@ -162,7 +157,7 @@ namespace Google.GData.Photos {
         /// <summary>
         /// instead of having 20 extension elements
         /// we have one string based setter
-        /// usage is: entry.setPhotoExtension("albumid") to set the element
+        /// usage is: entry.SetPhotoExtensionValue("albumid") to set the element
         /// this will create the extension if it's not there
         /// note, you can ofcourse, just get an existing one and work with that 
         /// object: 
@@ -170,28 +165,15 @@ namespace Google.GData.Photos {
         ///     e.Value = "new value";  
         /// 
         /// or 
-        ///    entry.setPhotoExtension("albumid", "new Value");
+        ///    entry.SetPhotoExtensionValue("albumid", "new Value");
         /// </summary>
         /// <param name="extension">the name of the extension to look for</param>
         /// <param name="newValue">the new value for this extension element</param>
         /// <returns>SimpleElement, either a brand new one, or the one
         /// returned by the service</returns>
-        public SimpleElement setPhotoExtension(string extension, string newValue) 
+        public SimpleElement SetPhotoExtensionValue(string extension, string newValue) 
         {
-            if (extension == null)
-            {
-                throw new System.ArgumentNullException("extension");
-            }
-            
-            SimpleElement ele = getPhotoExtension(extension);
-            if (ele == null)
-            {
-                ele = CreateExtension(extension, GPhotoNameTable.NSGPhotos) as SimpleElement;
-                this.ExtensionElements.Add(ele);
-            }
-            ele.Value = newValue;
-
-            return ele;
+            return SetExtensionValue(extension, GPhotoNameTable.NSGPhotos, newValue);
         }
 
         /// <summary>

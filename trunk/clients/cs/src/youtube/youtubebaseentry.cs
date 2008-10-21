@@ -112,6 +112,38 @@ namespace Google.GData.YouTube {
 
             return ele;
         }
+
+        /// <summary>
+        /// description is used in several subclasses. with the version switch it makes sense to move this here to have the same code while it 
+        /// is still supported
+        /// </summary>
+        /// <returns></returns>
+        internal string getDescription ()
+        {
+            if (this.ProtocolMajor == 1)
+            {
+                 return getYouTubeExtensionValue(YouTubeNameTable.Description);
+            }
+            return this.Summary.Text;
+        }
+
+        /// <summary>
+        /// description is used in several subclasses. with the version switch it makes sense to move this here to have the same code while it 
+        /// is still supported
+        /// </summary>
+        /// <returns></returns>
+        internal void setDescription(string value)
+        {
+            if (this.ProtocolMajor == 1)
+            {
+                setYouTubeExtension(YouTubeNameTable.Description,value);
+            }
+            else 
+            {
+                this.Summary.Text = value;
+            }
+        }
+
     }
 }
 
