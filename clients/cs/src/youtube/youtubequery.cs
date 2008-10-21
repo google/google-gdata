@@ -57,18 +57,6 @@ namespace Google.GData.YouTube {
     /// the following API-specific query parameters. These parameters are only available on video
     /// and playlist feeds.
     /// Name	    Definition
-    /// vq	        The vq parameter specifies a search query term. YouTube will search all video 
-    ///             metadata for videos matching the term. Video metadata includes titles, keywords, 
-    ///             descriptions, authors' usernames, and categories.
-    ///             Note that any spaces, quotes or other punctuation in the parameter value must be 
-    ///             URL-escaped. To search for an exact phrase, enclose the phrase in quotation marks. 
-    ///             For example, to search for videos matching the phrase "spy plane", set the 
-    ///             vq parameter to %22spy+plane%22.
-    ///             Your request can also use the Boolean NOT (-) and OR (|) operators to exclude 
-    ///             videos or to find videos that are associated with one of several search terms. 
-    ///             For example, to search for videos matching either "boating" or "sailing", 
-    ///             set the vq parameter to boating%7Csailing. (Note that the pipe character must 
-    ///             be URL-escaped.) 
     /// orderby	    The orderby parameter specifies the value that will be used to sort videos in the
     ///             search result set. Valid values for this parameter are relevance, published, viewCount 
     ///             and rating. In addition, you can request results that are most relevant to a specific 
@@ -97,10 +85,6 @@ namespace Google.GData.YouTube {
     ///         specific language. Valid values for the lr parameter are ISO 639-1 two-letter language codes. 
     ///         You can also use the values zh-Hans for simplified Chinese and zh-Hant for traditional Chinese. This
     ///         parameter can be used when requesting any video feeds other than standard feeds.
-    /// racy	The racy parameter allows a search result set to include restricted content as well as standard 
-    ///         content. Valid values for this parameter are include and exclude. By default, restricted content 
-    ///         is excluded. Feed entries for videos that contain restricted content will contain an additional 
-    ///         yt:racy element.
     /// restriction	The restriction parameter identifies the IP address that should be used to filter videos 
     ///         that can only be played in specific countries. By default, the API filters out videos that cannot 
     ///         be played in the country from which you send API requests. This restriction is based on your 
@@ -170,6 +154,23 @@ namespace Google.GData.YouTube {
             AllTime
         }
 
+        
+        /// <summary>
+        /// describing the possible safe search values
+        /// <seealso cref="YouTubeQuery.SeeAlso"/>
+        /// </summary>
+        public enum SafeSearchValues
+        {
+            /// <summary>no restriction</summary>
+            None,
+            /// <summary>moderate restriction</summary>
+            Moderate,
+            /// <summary>strict restriction</summary>
+            Strict
+        }
+        private SafeSearchValues safeSearch;
+
+
 
         private List<VideoFormat> formats;
         private string videoQuery;
@@ -179,6 +180,10 @@ namespace Google.GData.YouTube {
         private string racy;
         private string restriction;
         private UploadTime uploadTime = UploadTime.UploadTimeUndefined;
+
+        private string location;
+        private string locationRadius;
+        private string uploader;
         
 
         /// <summary>
@@ -264,6 +269,7 @@ namespace Google.GData.YouTube {
         : base()
         {
             this.CategoryQueriesAsParameter = true;
+            this.SafeSearch = SafeSearchValues.Moderate;
         }
 
 
@@ -276,6 +282,7 @@ namespace Google.GData.YouTube {
         : base(queryUri)
         {
             this.CategoryQueriesAsParameter = true;
+            this.SafeSearch = SafeSearchValues.Moderate;
         }
 
         //////////////////////////////////////////////////////////////////////
@@ -321,6 +328,7 @@ namespace Google.GData.YouTube {
         /// categories</summary> 
         /// <returns> </returns>
         //////////////////////////////////////////////////////////////////////
+        [Obsolete("replaced with the standard query parameter")] 
         public string VQ
         {
             get {return this.videoQuery;}
@@ -402,12 +410,104 @@ namespace Google.GData.YouTube {
         /// </summary> 
         /// <returns> </returns>
         //////////////////////////////////////////////////////////////////////
+        [Obsolete("replaced with safeSearch")] 
         public string Racy
         {
             get {return this.racy;}
             set {this.racy = value;}
         }
         // end of accessor public string Racy
+
+
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// <para>
+        /// The safeSearch parameter indicates whether the search results should include 
+        /// restricted content as well as standard content. YouTube will determine whether 
+        /// content is restricted based on the user's IP address or location, which you specify
+        ///  in your API request using the restriction parameter. If you do request restricted
+        ///  content, then feed entries for videos that contain restricted content will 
+        /// contain the &gt;media:rating&lt; element.
+        /// </para>
+        ///  The following values are valid for this parameter:
+        /// </para>
+        /// <list>
+        /// <listheader><term>Value</term><description>Description</description></listheader>
+        /// <item><term>none</term><description>YouTube will not perform any filtering on the search result set.</description></iterm>
+        /// <item><term>moderate</term><description>YouTube should try to exclude the most explicit content from the search result set. Based on their 
+        ///   content, search results could be removed from search results or demoted in search results.</description></iterm>
+        /// <item><term>strict</term><description>YouTube should try to exclude all restricted content from the search result set. Based on their content, search 
+        /// results could be removed from search results or demoted in search results</description></iterm>
+        ///<para>The default value for this parameter is moderate.</para>
+        ///<para>SafeSearch filtering for the YouTube Data API is designed to function similarly to SafeSearch Filtering for Google WebSearch results. 
+        /// Please note that YouTube makes every effort to remove restricted content from search results in accordance with the SafeSearch setting that you specify. 
+        /// However, filters may not be 100% accurate and restricted videos may occasionally appear in search results even if you have specified strict SafeSearch filtering. 
+        /// If this happens, please flag the video by filing a complaint, which will help us to better identify restricted content.</para>
+        ///<para>Note: The safeSearch parameter was introduced in version 2.0 of the YouTube Data API and replaced the racy parameter, which was used in version 1.0.</para>
+        /// </summary>
+        //////////////////////////////////////////////////////////////////////
+        public SafeSearchValues SafeSearch
+        {
+            get {return this.safeSearch;}
+            set {this.safeSearch = value;}
+        }
+        // end of accessor public string Racy
+
+
+        /// <summary>
+        /// The location parameter restricts the search to videos that have a geographical location specified in their metadata. The parameter can be used in either of the following contexts:
+        /// <para>The parameter value can specify geographic coordinates (latitude,longitude) that identify a particular location. In this context, the location parameter 
+        /// operates in conjunction with the location-radius parameter to define a geographic area. The API response will then contain videos that are associated with a 
+        /// geographical location within that area.</para>
+        /// <para>Note that when a user uploads a video to YouTube, the user can associate a location with the video by either specifying geographic coordinates (-122.08427,37.42307) 
+        /// or by providing a descriptive address (Munich, Germany). As such, some videos may be associated with a location within the area specified in a search query
+        ///  even though those videos are not associated with specific coordinates that can be plotted on a map.</para>
+        /// <para>To exclude videos from the API response if those videos are associated with a descriptive address but not with specific geographic coordinates, append 
+        /// an exclamation point ("!") to the end of the parameter value. This practice effectively ensures that all videos in the API response can be plotted on a map.</para>
+        /// <para>The following examples show sample uses of this parameter:</para>
+        /// <para>location=37.42307,-122.08427&location-radius=100km</para>
+        /// <para>location=37.42307,-122.08427!&location-radius=100km</para>
+        /// <para>location=37.42307,-122.08427&location-radius=100km</para>
+        /// <para>In an API response, feed entries that are associated with specific coordinates will contain the georss:where tag and may also contain the yt:location tag. 
+        /// Feed entries that are associated with a descriptive address but not with specific geographic cooordinates specify the address using the yt:location tag.
+        /// <para>The parameter value can be  a single exclamation point. In this context, the parameter does not require a value and its presence serves to
+        ///  restrict the search results to videos that have a geographical location, but it does not enable you to find videos with a specific geographical location. 
+        /// This parameter can be used with all video feeds. A video that has a geographical location will have a georss:where tag in its metadata.<para>
+        /// </summary>
+        public string Location
+        {
+            get 
+            {
+                return this.location;
+            }
+            set
+            {
+                this.location = value;
+            }
+        }
+
+        /// <summary>
+        ///  The location-radius parameter, in conjunction with the location parameter, defines a geographic area. If the geographic coordinates associated with a video fall 
+        /// within that area, then the video may be included in search results.
+        /// <para>The location-radius parameter value must be a floating point number followed by a measurement unit. Valid measurement units are m, km, ft and mi. 
+        /// For example, valid parameter values include "1500m", "5km", "10000ft" and "0.75mi". The API will return an error if the radius is greater than 1000 kilometers.</para>
+        ///  <seealso cref="YouTubeQuery.Location"/>
+        /// </summary>
+        /// <returns></returns>
+        public string LocationRadius
+        {
+            get
+            {
+                return this.locationRadius;
+            }
+            set
+            {
+                this.locationRadius = value;
+            }
+        }
+
+
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>
@@ -435,6 +535,28 @@ namespace Google.GData.YouTube {
             set {this.restriction = value;}
         }
         // end of accessor public string Restriction
+
+
+        /// <summary>
+        /// The uploader parameter, which is only supported for search requests, lets you restrict a query to YouTube 
+        /// partner videos. A YouTube partner is a person or organization that has been accepted into and participates 
+        /// in the YouTube Partner Program.
+        /// <para>In an API response, a feed entry contains a partner video if the entry contains a media:credit tag for 
+        /// which the value of the yt:type attribute is partner.</para>
+        /// </summary>
+        /// <returns></returns>
+        public string Uploader
+        {
+            get 
+            {
+                return this.uploader;
+            }
+            set
+            {
+                this.uploader = value;
+            }
+
+        }
 
 
         /// <summary>
@@ -563,6 +685,31 @@ namespace Google.GData.YouTube {
                             case "racy":
                                 this.Racy = parameters[1];
                                 break;
+                            case "location":
+                                this.Location = parameters[1];
+                                break;
+                            case "location-radius":
+                                this.LocationRadius = parameters[1];
+                                break;
+                            case "uploader":
+                                this.Uploader = parameters[1];
+                                break;
+                            case "safeSearch":
+                                if ("none"==parameters[1])
+                                {
+                                    this.SafeSearch = SafeSearchValues.None;
+                                } 
+                                else if ("moderate"==parameters[1])
+                                {
+                                    this.SafeSearch = SafeSearchValues.Moderate;
+                                }
+                                else if ("strict"==parameters[1])
+                                {
+                                    this.SafeSearch = SafeSearchValues.Strict;
+                                }
+                                break;
+
+
                             case "restriction":
                                 this.Restriction = parameters[1];
                                 break;
@@ -676,7 +823,27 @@ namespace Google.GData.YouTube {
                 paramInsertion = AppendQueryPart(res, "time", paramInsertion, newPath);
             }
 
+            if (this.SafeSearch != SafeSearchValues.Moderate)
+            {
+                string res = ""; 
+                switch (this.SafeSearch)
+                {
+                    case SafeSearchValues.None:
+                        res = "none";
+                        break;
+                    case SafeSearchValues.Strict:
+                        res = "strict";
+                        break;
+                }
+                paramInsertion = AppendQueryPart(res, "safeSearch", paramInsertion, newPath);
+            }
+
+
+
             paramInsertion = AppendQueryPart(this.VQ, "vq", paramInsertion, newPath);
+            paramInsertion = AppendQueryPart(this.Location, "location", paramInsertion, newPath);
+            paramInsertion = AppendQueryPart(this.LocationRadius, "location-radius", paramInsertion, newPath);
+            paramInsertion = AppendQueryPart(this.Uploader, "uploader", paramInsertion, newPath);
             paramInsertion = AppendQueryPart(this.OrderBy, "orderby", paramInsertion, newPath);
             paramInsertion = AppendQueryPart(this.Client, "client", paramInsertion, newPath);
             paramInsertion = AppendQueryPart(this.LR, "lr", paramInsertion, newPath);

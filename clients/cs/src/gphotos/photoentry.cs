@@ -132,11 +132,11 @@ namespace Google.GData.Photos
         {
             get 
             {
-                return this.entry.getPhotoExtensionValue(GPhotoNameTable.Checksum);
+                return this.entry.GetPhotoExtensionValue(GPhotoNameTable.Checksum);
             }
             set 
             {
-                this.entry.setPhotoExtension(GPhotoNameTable.Checksum, value);
+                this.entry.SetPhotoExtensionValue(GPhotoNameTable.Checksum, value);
             }
         }
 
@@ -152,11 +152,11 @@ namespace Google.GData.Photos
         {
             get 
             {
-                return this.entry.getPhotoExtensionValue(GPhotoNameTable.Client);
+                return this.entry.GetPhotoExtensionValue(GPhotoNameTable.Client);
             }
             set 
             {
-                this.entry.setPhotoExtension(GPhotoNameTable.Client, value);
+                this.entry.SetPhotoExtensionValue(GPhotoNameTable.Client, value);
             }
         }
 
@@ -172,11 +172,11 @@ namespace Google.GData.Photos
         {
             get 
             {
-                return Convert.ToInt32(this.entry.getPhotoExtensionValue(GPhotoNameTable.Height));
+                return Convert.ToInt32(this.entry.GetPhotoExtensionValue(GPhotoNameTable.Height));
             }
             set 
             {
-                this.entry.setPhotoExtension(GPhotoNameTable.Height, Convert.ToString(value));
+                this.entry.SetPhotoExtensionValue(GPhotoNameTable.Height, Convert.ToString(value));
             }
         }
 
@@ -192,11 +192,11 @@ namespace Google.GData.Photos
         {
             get 
             {
-                return Convert.ToInt32(this.entry.getPhotoExtensionValue(GPhotoNameTable.Width));
+                return Convert.ToInt32(this.entry.GetPhotoExtensionValue(GPhotoNameTable.Width));
             }
             set 
             {
-                this.entry.setPhotoExtension(GPhotoNameTable.Width, Convert.ToString(value));
+                this.entry.SetPhotoExtensionValue(GPhotoNameTable.Width, Convert.ToString(value));
             }
         }
 
@@ -213,11 +213,11 @@ namespace Google.GData.Photos
         {
             get 
             {
-                return Convert.ToDouble(this.entry.getPhotoExtensionValue(GPhotoNameTable.Position));
+                return Convert.ToDouble(this.entry.GetPhotoExtensionValue(GPhotoNameTable.Position));
             }
             set 
             {
-                this.entry.setPhotoExtension(GPhotoNameTable.Position, Convert.ToString(value));
+                this.entry.SetPhotoExtensionValue(GPhotoNameTable.Position, Convert.ToString(value));
             }
         }
 
@@ -234,11 +234,11 @@ namespace Google.GData.Photos
         {
             get 
             {
-                return Convert.ToInt32(this.entry.getPhotoExtensionValue(GPhotoNameTable.Rotation));
+                return Convert.ToInt32(this.entry.GetPhotoExtensionValue(GPhotoNameTable.Rotation));
             }
             set 
             {
-                this.entry.setPhotoExtension(GPhotoNameTable.Rotation, Convert.ToString(value));
+                this.entry.SetPhotoExtensionValue(GPhotoNameTable.Rotation, Convert.ToString(value));
             }
         }
 
@@ -254,11 +254,11 @@ namespace Google.GData.Photos
         {
             get 
             {
-                return Convert.ToInt32(this.entry.getPhotoExtensionValue(GPhotoNameTable.Size));
+                return Convert.ToInt32(this.entry.GetPhotoExtensionValue(GPhotoNameTable.Size));
             }
             set 
             {
-                this.entry.setPhotoExtension(GPhotoNameTable.Size, Convert.ToString(value));
+                this.entry.SetPhotoExtensionValue(GPhotoNameTable.Size, Convert.ToString(value));
             }
         }
 
@@ -278,11 +278,11 @@ namespace Google.GData.Photos
         {
             get 
             {
-                return Convert.ToUInt64(this.entry.getPhotoExtensionValue(GPhotoNameTable.Timestamp));
+                return Convert.ToUInt64(this.entry.GetPhotoExtensionValue(GPhotoNameTable.Timestamp));
             }
             set 
             {
-                this.entry.setPhotoExtension(GPhotoNameTable.Timestamp, Convert.ToString(value));
+                this.entry.SetPhotoExtensionValue(GPhotoNameTable.Timestamp, Convert.ToString(value));
             }
         }
 
@@ -302,11 +302,11 @@ namespace Google.GData.Photos
         {
             get 
             {
-                return this.entry.getPhotoExtensionValue(GPhotoNameTable.Version);
+                return this.entry.GetPhotoExtensionValue(GPhotoNameTable.Version);
             }
             set 
             {
-                this.entry.setPhotoExtension(GPhotoNameTable.Version, value);
+                this.entry.SetPhotoExtensionValue(GPhotoNameTable.Version, value);
             }
         }
 
@@ -322,11 +322,11 @@ namespace Google.GData.Photos
         {
             get 
             {
-                return this.entry.getPhotoExtensionValue(GPhotoNameTable.AlbumId);
+                return this.entry.GetPhotoExtensionValue(GPhotoNameTable.AlbumId);
             }
             set 
             {
-                this.entry.setPhotoExtension(GPhotoNameTable.AlbumId, value);
+                this.entry.SetPhotoExtensionValue(GPhotoNameTable.AlbumId, value);
             }
         }
 
@@ -343,11 +343,11 @@ namespace Google.GData.Photos
         {
             get 
             {
-                return Convert.ToUInt32(this.entry.getPhotoExtensionValue(GPhotoNameTable.CommentCount));
+                return Convert.ToUInt32(this.entry.GetPhotoExtensionValue(GPhotoNameTable.CommentCount));
             }
             set 
             {
-                this.entry.setPhotoExtension(GPhotoNameTable.CommentCount, Convert.ToString(value));
+                this.entry.SetPhotoExtensionValue(GPhotoNameTable.CommentCount, Convert.ToString(value));
             }
         }
 
@@ -363,11 +363,11 @@ namespace Google.GData.Photos
         {
             get 
             {
-                return Convert.ToBoolean(this.entry.getPhotoExtensionValue(GPhotoNameTable.CommentingEnabled));
+                return Convert.ToBoolean(this.entry.GetPhotoExtensionValue(GPhotoNameTable.CommentingEnabled));
             }
             set 
             {
-                this.entry.setPhotoExtension(GPhotoNameTable.CommentingEnabled, Utilities.ConvertBooleanToXSDString(value));
+                this.entry.SetPhotoExtensionValue(GPhotoNameTable.CommentingEnabled, Utilities.ConvertBooleanToXSDString(value));
             }
         }
 
@@ -384,11 +384,11 @@ namespace Google.GData.Photos
         {
             get 
             {
-                return this.entry.getPhotoExtensionValue(GPhotoNameTable.Id);
+                return this.entry.GetPhotoExtensionValue(GPhotoNameTable.Id);
             }
             set 
             {
-                this.entry.setPhotoExtension(GPhotoNameTable.Id, value);
+                this.entry.SetPhotoExtensionValue(GPhotoNameTable.Id, value);
             }
         }
 

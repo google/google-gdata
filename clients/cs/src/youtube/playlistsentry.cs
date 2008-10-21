@@ -46,34 +46,46 @@ namespace Google.GData.YouTube {
         : base()
         {
             Tracing.TraceMsg("Created PlaylistsEntry");
-            Description d = new Description();
-            FeedLink f = new FeedLink();
 
-            this.AddExtension(d);
-            this.AddExtension(f);
+            if (this.ProtocolMajor == 1)
+            {
+                Description d = new Description();
+                FeedLink f = new FeedLink();
+
+                this.AddExtension(d);
+                this.AddExtension(f);
+            } 
+            else 
+            {
+                CountHint c = new CountHint();
+                this.AddExtension(c);
+            }
 
             Categories.Add(PLAYLISTS_CATEGORY);
         }
 
 
+
         /// <summary>
         /// getter/setter for Description subelement
         /// </summary>
+        [Obsolete("replaced with Summary.Text")] 
         public string Description 
         {
             get
             {
-                return getYouTubeExtensionValue(YouTubeNameTable.Description);
+                return getDescription();
             }
             set
             {
-                setYouTubeExtension(YouTubeNameTable.Description,value);
+                setDescription(value);
             }
         }
 
         /// <summary>
         /// getter/setter for the feedlink subelement
         /// </summary>
+        [Obsolete("replaced with Content.Href")] 
         public FeedLink FeedLink 
         {
             get
@@ -90,8 +102,35 @@ namespace Google.GData.YouTube {
             }
         }
 
-      
-
+        /// <summary>
+        /// returns the int value of the countHint tag
+        /// <para>
+        /// yt:countHint specifies the number of entries in a playlist feed. The yt:countHint tag appears in the entries in a playlists feed, 
+        /// where each entry contains information about a single playlist.</para>
+        /// </summary>
+        /// <returns>-1 if no counthint was present, else the value</returns>
+        public int CountHint
+        {
+            get
+            {
+                CountHint c =  getYouTubeExtension(YouTubeNameTable.CountHint) as CountHint;
+                if (c != null)
+                {
+                    return c.IntegerValue;
+                }
+                return -1; 
+            }
+            set
+            {
+                CountHint c =  getYouTubeExtension(YouTubeNameTable.CountHint) as CountHint;
+                if (c == null)
+                {
+                    c = new CountHint();
+                    this.ExtensionElements.Add(c);
+                }
+                c.IntegerValue = value;
+            }
+        }
     }
 }
 

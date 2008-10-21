@@ -17,6 +17,7 @@ using System;
 using System.Xml;
 using Google.GData.Client;
 using Google.GData.Extensions;
+using Google.GData.Extensions.MediaRss;
 using System.Globalization;
 using System.IO;
 
@@ -205,6 +206,83 @@ namespace Google.GData.YouTube {
         /// UserName element string
         /// </summary>
         public const string UserName = "username";
+        /// <summary>
+        /// counthint element string for playlist feeds
+        /// </summary>
+        public const string CountHint = "countHint";
+        /// <summary>
+        /// videoid element string for playlist feeds
+        /// </summary>
+        public const string VideoID = "videoId";
+        /// <summary>
+        /// uploaded element string for playlist feeds
+        /// </summary>
+        public const string Uploaded = "uploaded";
+
+    }
+
+    public class MediaGroupYT : MediaGroup
+    {
+        public MediaGroupYT() :
+            base()
+        {
+            this.ExtensionFactories.Add(new Duration());
+            this.ExtensionFactories.Add(new Private());
+
+            // replace the media group default media credit with a new one. 
+            MediaCreditYT c = new MediaCreditYT();
+            this.ReplaceFactory(c.XmlName, c.XmlNameSpace, c);
+        }
+
+
+        /// <summary>
+        /// returns the media:credit element
+        /// </summary>
+        public new MediaCreditYT Credit
+        {
+            get
+            {
+                return FindExtension(MediaRssNameTable.MediaRssCredit,
+                                     MediaRssNameTable.NSMediaRss) as MediaCreditYT;
+            }
+            set
+            {
+                ReplaceExtension(MediaRssNameTable.MediaRssCredit,
+                                MediaRssNameTable.NSMediaRss,
+                                value);
+            }
+        }
+    }
+
+    public class MediaCreditYT : MediaCredit
+    {
+
+            /// <summary>
+        /// default constructor for media:credit
+        /// </summary>
+        public MediaCreditYT()
+        : base()
+        {
+            this.AttributeNamespaces.Add("type", YouTubeNameTable.NSYouTube);
+            this.Attributes.Add("type", null);
+        }
+
+          /// <summary>
+        ///  returns the type of the credit element
+        /// </summary>
+        /// <returns></returns>
+        public string Type
+        {
+            get
+            {
+                return this.Attributes["type"] as string;
+            }
+            set
+            {
+                this.Attributes["type"] = value;
+            }
+        }
+
     }
 
 
@@ -617,6 +695,7 @@ namespace Google.GData.YouTube {
     /// <summary>
     /// Racy schema extension describing a YouTube Racy
     /// </summary>
+    [Obsolete("replaced media:rating")] 
     public class Racy : SimpleElement
     {
         /// <summary>
@@ -855,6 +934,29 @@ namespace Google.GData.YouTube {
 
     }
 
+     /// <summary>
+    /// The :countHint element  specifies the number of entries in a playlist feed. 
+    /// The countHint tag appears in the entries in a playlists feed, where each entry contains 
+    /// information about a single playlist
+    /// </summary>
+    public class CountHint : SimpleElement
+    {
+        /// <summary>
+        /// default constructor
+        /// </summary>
+        public CountHint()
+        : base(YouTubeNameTable.CountHint, YouTubeNameTable.ytPrefix, YouTubeNameTable.NSYouTube)
+        {}
+        /// <summary>
+        /// constructor taking the initial value
+        /// </summary>
+        /// <param name="initValue"></param>
+        public CountHint(string initValue)
+        : base(YouTubeNameTable.CountHint, YouTubeNameTable.ytPrefix, YouTubeNameTable.NSYouTube, initValue)
+        {}
+    }
+
+
     /// <summary>
     /// Status schema extension describing a YouTube Status
     /// </summary>
@@ -892,6 +994,48 @@ namespace Google.GData.YouTube {
         /// <param name="initValue"></param>
         public UserName(string initValue)
         : base(YouTubeNameTable.UserName, YouTubeNameTable.ytPrefix, YouTubeNameTable.NSYouTube, initValue)
+        {}
+    }
+
+
+      /// <summary>
+    /// Uploaded schema extension describing a YouTube uploaded date
+    /// </summary>
+    public class Uploaded : SimpleElement
+    {
+        /// <summary>
+        /// default constructor
+        /// </summary>
+        public Uploaded()
+        : base(YouTubeNameTable.Uploaded, YouTubeNameTable.ytPrefix, YouTubeNameTable.NSYouTube)
+        {}
+        /// <summary>
+        /// constructor with an init value
+        /// </summary>
+        /// <param name="initValue"></param>
+        public Uploaded(string initValue)
+        : base(YouTubeNameTable.Uploaded, YouTubeNameTable.ytPrefix, YouTubeNameTable.NSYouTube, initValue)
+        {}
+    }
+
+
+      /// <summary>
+    /// VideoId schema extension describing a YouTube video identifier
+    /// </summary>
+    public class VideoId : SimpleElement
+    {
+        /// <summary>
+        /// default constructor
+        /// </summary>
+        public VideoId()
+        : base(YouTubeNameTable.VideoID, YouTubeNameTable.ytPrefix, YouTubeNameTable.NSYouTube)
+        {}
+        /// <summary>
+        /// constructor with an init value
+        /// </summary>
+        /// <param name="initValue"></param>
+        public VideoId(string initValue)
+        : base(YouTubeNameTable.VideoID, YouTubeNameTable.ytPrefix, YouTubeNameTable.NSYouTube, initValue)
         {}
     }
 

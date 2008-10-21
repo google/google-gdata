@@ -70,11 +70,11 @@ namespace Google.GData.Photos {
         {
             get 
             {
-                return this.entry.getPhotoExtensionValue(GPhotoNameTable.Photoid);
+                return this.entry.GetPhotoExtensionValue(GPhotoNameTable.Photoid);
             }
             set 
             {
-                this.entry.setPhotoExtension(GPhotoNameTable.Photoid, value);
+                this.entry.SetPhotoExtensionValue(GPhotoNameTable.Photoid, value);
             }
         }
 
@@ -85,11 +85,11 @@ namespace Google.GData.Photos {
         {
             get 
             {
-                return this.entry.getPhotoExtensionValue(GPhotoNameTable.AlbumId);
+                return this.entry.GetPhotoExtensionValue(GPhotoNameTable.AlbumId);
             }
             set 
             {
-                this.entry.setPhotoExtension(GPhotoNameTable.AlbumId, value);
+                this.entry.SetPhotoExtensionValue(GPhotoNameTable.AlbumId, value);
             }
         }
 
@@ -100,11 +100,11 @@ namespace Google.GData.Photos {
         {
             get 
             {
-                return this.entry.getPhotoExtensionValue(GPhotoNameTable.Id);
+                return this.entry.GetPhotoExtensionValue(GPhotoNameTable.Id);
             }
             set 
             {
-                this.entry.setPhotoExtension(GPhotoNameTable.Id, value);
+                this.entry.SetPhotoExtensionValue(GPhotoNameTable.Id, value);
             }
         }
       

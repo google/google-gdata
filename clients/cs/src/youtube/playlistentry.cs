@@ -46,10 +46,14 @@ namespace Google.GData.YouTube {
         : base()
         {
             Tracing.TraceMsg("Created PlaylistEntry");
-            Description d = new Description();
+
+            if (this.ProtocolMajor == 1)
+            {
+                Description d = new Description();
+                this.AddExtension(d);
+            }
             Position p = new Position();
 
-            this.AddExtension(d);
             this.AddExtension(p);
 
             Categories.Add(PLAYLIST_CATEGORY);
@@ -59,15 +63,16 @@ namespace Google.GData.YouTube {
         /// <summary>
         /// getter/setter for Description subelement
         /// </summary>
+        [Obsolete("replaced with Summary.Text")] 
         public string Description 
         {
             get
             {
-                return getYouTubeExtensionValue(YouTubeNameTable.Description);
+                return getDescription();
             }
             set
             {
-                setYouTubeExtension(YouTubeNameTable.Description,value);
+                setDescription(value);
             }
         }
 

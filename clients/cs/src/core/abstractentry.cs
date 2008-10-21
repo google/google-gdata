@@ -159,6 +159,62 @@ namespace Google.GData.Client
                                  value);
             }
         }
+
+
+        /// <summary>
+        /// we have one string based getter
+        /// usage is: entry.getExtensionValue("namespace", "tagname") to get the elements value
+        /// </summary>
+        /// <param name="extension">the name of the extension to look for</param>
+        /// <param name="ns">the namespace of the extension to look for</param>
+        /// <returns>value as string, or NULL if the extension was not found</returns>
+        public string GetExtensionValue(string extension, string ns) 
+        {
+            SimpleElement e = FindExtension(extension, ns) as SimpleElement;
+            if (e != null)
+            {
+                return e.Value;
+            }
+            return null;
+        }
+
+
+
+
+        /// <summary>
+        /// we have one string based setter
+        /// usage is: entry.setExtensionValue("tagname", "ns", "value") to set the element
+        /// this will create the extension if it's not there
+        /// note, you can ofcourse, just get an existing one and work with that 
+        /// object: 
+        /// </summary>
+        /// <param name="extension">the name of the extension to look for</param>
+        /// <param name="ns">the namespace of the extension to look for</param>
+        /// <param name="newValue">the new value for this extension element</param>
+        /// <returns>SimpleElement, either a brand new one, or the one
+        /// returned by the service</returns>
+        public SimpleElement SetExtensionValue(string extension, string ns, string newValue) 
+        {
+            if (extension == null)
+            {
+                throw new System.ArgumentNullException("extension");
+            }
+            
+            SimpleElement ele = FindExtension(extension, ns) as SimpleElement;
+            if (ele == null)
+            {
+                ele = CreateExtension(extension, ns) as SimpleElement;
+                if (ele == null)
+                {
+                    throw new System.ArgumentException("The namespace or tagname was invalid");
+                }
+                this.ExtensionElements.Add(ele);
+            }
+            ele.Value = newValue;
+            return ele;
+        }
+
+
     }
 }
 /////////////////////////////////////////////////////////////////////////////

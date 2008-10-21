@@ -43,6 +43,7 @@ namespace Google.GData.Extensions {
         /// this holds the attribute list for an extension element
         /// </summary>
         private SortedList attributes;
+        private SortedList attributeNamespaces;
 
 
 
@@ -140,6 +141,19 @@ namespace Google.GData.Extensions {
         }
         // end of accessor public SortedList Attributes
  
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>accesses the Attribute list. The keys are the attribute names
+        /// the values the attribute values</summary> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        public SortedList AttributeNamespaces
+        {
+            get 
+            {
+                return getAttributeNamespaces();
+            }
+        }
+        // end of accessor public SortedList Attributes
 
 
         /// <summary>
@@ -153,6 +167,19 @@ namespace Google.GData.Extensions {
                 this.attributes = new SortedList();
             }
             return this.attributes;
+        }
+
+        /// <summary>
+        /// returns the attribute namespace list
+        /// </summary>
+        /// <returns>SortedList</returns>
+        internal SortedList getAttributeNamespaces()
+        {
+            if (this.attributeNamespaces == null)
+            {
+                this.attributeNamespaces = new SortedList();
+            }
+            return this.attributeNamespaces;
         }
 
         
@@ -307,9 +334,17 @@ namespace Google.GData.Extensions {
                     {
                         string name = this.getAttributes().GetKey(i) as string;
                         string value = Utilities.ConvertToXSDString(this.getAttributes().GetByIndex(i));
+                        string ns = this.getAttributeNamespaces()[name] as string; 
                         if (Utilities.IsPersistable(name) && Utilities.IsPersistable(value))
                         {
-                            writer.WriteAttributeString(name, value);
+                            if (ns == null)
+                            {
+                                writer.WriteAttributeString(name, value);
+                            } 
+                            else
+                            {
+                                writer.WriteAttributeString(name, ns, value);
+                            }
                         }
                     }
                 }

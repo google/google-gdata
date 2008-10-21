@@ -251,7 +251,7 @@ namespace PhotoBrowser
                 foreach (PicasaEntry entry in this.picasaFeed.Entries)
                 {
                     ListViewItem item = new ListViewItem(entry.Title.Text + 
-                                    " (" + entry.getPhotoExtensionValue(GPhotoNameTable.NumPhotos) + " )");
+                                    " (" + entry.GetPhotoExtensionValue(GPhotoNameTable.NumPhotos) + " )");
                     item.Tag = entry;
                     this.AlbumList.Items.Add(item);
                 }
@@ -291,7 +291,7 @@ namespace PhotoBrowser
             if (entry != null) 
             {
                 ListViewItem item = new ListViewItem(entry.Title.Text + 
-                    " (" + entry.getPhotoExtensionValue(GPhotoNameTable.NumPhotos) + " )");
+                    " (" + entry.GetPhotoExtensionValue(GPhotoNameTable.NumPhotos) + " )");
                 item.Tag = entry;
                 this.AlbumList.Items.Add(item);
             }

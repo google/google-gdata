@@ -180,7 +180,7 @@ namespace Google.GData.Client.UnitTests.Picasa
             string extension = GPhotoNameTable.Photoid;
             string newValue = "theid";
             SimpleElement actual;
-            actual = target.setPhotoExtension(extension, newValue);
+            actual = target.SetPhotoExtensionValue(extension, newValue);
             Assert.IsTrue(actual is GPhotoPhotoId);
             Assert.AreEqual(newValue, actual.Value);
         }
@@ -195,8 +195,8 @@ namespace Google.GData.Client.UnitTests.Picasa
             string extension = GPhotoNameTable.Photoid;
             string newValue = "theid";
             string actual = null; 
-            target.setPhotoExtension(extension, newValue);
-            actual = target.getPhotoExtensionValue(extension);
+            target.SetPhotoExtensionValue(extension, newValue);
+            actual = target.GetPhotoExtensionValue(extension);
             Assert.AreEqual(newValue, actual);
         }
     }

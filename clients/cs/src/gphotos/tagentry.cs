@@ -72,11 +72,11 @@ namespace Google.GData.Photos {
         {
             get 
              {
-                return Convert.ToUInt32(this.entry.getPhotoExtensionValue(GPhotoNameTable.Weight));
+                return Convert.ToUInt32(this.entry.GetPhotoExtensionValue(GPhotoNameTable.Weight));
             }
             set 
             {
-                this.entry.setPhotoExtension(GPhotoNameTable.Weight, Convert.ToString(value));
+                this.entry.SetPhotoExtensionValue(GPhotoNameTable.Weight, Convert.ToString(value));
             }
         }
     }
