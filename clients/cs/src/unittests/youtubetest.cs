@@ -188,6 +188,9 @@ namespace Google.GData.Client.LiveTests
                 service.Credentials = new GDataCredentials(this.ytUser, this.ytPwd);
             }
 
+            GDataRequestFactory factory = service.RequestFactory as GDataRequestFactory;
+            factory.Timeout = 1000000; 
+
             YouTubeEntry entry = new YouTubeEntry();
 
             entry.MediaSource = new MediaFileSource("test_movie.mov", "video/quicktime");
