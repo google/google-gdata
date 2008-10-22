@@ -83,7 +83,7 @@ namespace Google.GData.Contacts {
                 throw new ArgumentNullException("e"); 
             }
             // do not use string.contains, does not exist on CF framework
-            if (e.Uri.ToString().IndexOf(ContactsQuery.groupsBaseUri) != -1)
+            if (e.Uri.ToString().IndexOf("/m8/feeds/groups/") != -1)
             {
                 e.Feed = new GroupsFeed(e.Uri, e.Service);
             }
