@@ -15,6 +15,7 @@
             Features
         </li>
         <ul>
+            <li>Added support for the version 2 of the YouTube feed.</li>
             <li>
                 Created a blogger service, feed, entry and query class. The 
                 query class allows the OrderBy parameter. This also fixes issue 
@@ -25,6 +26,14 @@
                 Added the Error subelement collection to GDataBatchStatus. 
                 Removed the Value element as it was not used.                 
             </li>
+            <li>Issue 166: Added a GetTokenInfo helper method that returns 
+                a Dictionary with the Information returned about the 
+                authentication token.</li>
+            <li>Added a bool property Private to the YouTubeEntry 
+                identifying if a video is private</li>
+            <li>Added a script to create a linux friendly tarball</li>
+            <li>Issue 165: Added the ability to access the error collection 
+                from inside the batch error.  </li>
         </ul>
         <li>
         
@@ -32,6 +41,17 @@
             Bugfixes/changes
         </li>
         <ul>
+            <li>Fixed issue 176: onProgress events were potentially not 
+                being raised in the Async Methods. </li>
+            <li>Fixed issue 178: Groups feeds on the contacts service did 
+                not work when using https. </li>
+            <li>Fixed issue 180: Passwords with some special characters 
+                were incorrectly encoded, leading to a failure in 
+                authentication.</li>
+            <li>Removed the version dependency for the NUNIT tests, so that the 
+                tests can now be used with different installed versions of the 
+                NUNIT framework.
+                </li>
             <li>Some typographical changes. getExtensionValue and 
                 setExtension are now named GetExtensionValue and
                 SetExtensionValue</li>

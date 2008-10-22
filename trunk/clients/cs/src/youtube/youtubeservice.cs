@@ -209,6 +209,7 @@ namespace Google.GData.YouTube {
         /// </summary>
         public override void OnRequestFactoryChanged() 
         {
+            base.OnRequestFactoryChanged();
             GDataGAuthRequestFactory factory = this.RequestFactory as GDataGAuthRequestFactory;
             if (factory != null && this.developerID != null && this.clientID != null)
             {
