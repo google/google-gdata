@@ -125,7 +125,7 @@
         </member>
         <member name="T:Google.GData.YouTube.YouTubeEntry">
             <summary>
-            Entry API customization class for defining entries in an Event feed.
+            Entry API customization class for defining entries in a YouTubeFeed feed.
             </summary>
         </member>
         <member name="T:Google.GData.YouTube.YouTubeBaseEntry">
@@ -169,6 +169,20 @@
             <param name="newValue">the new value for this extension element</param>
             <returns>SimpleElement, either a brand new one, or the one
             returned by the service</returns>
+        </member>
+        <member name="M:Google.GData.YouTube.YouTubeBaseEntry.getDescription">
+            <summary>
+            description is used in several subclasses. with the version switch it makes sense to move this here to have the same code while it 
+            is still supported
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Google.GData.YouTube.YouTubeBaseEntry.setDescription(System.String)">
+            <summary>
+            description is used in several subclasses. with the version switch it makes sense to move this here to have the same code while it 
+            is still supported
+            </summary>
+            <returns></returns>
         </member>
         <member name="M:Google.GData.YouTube.YouTubeEntry.#ctor">
             <summary>
@@ -227,6 +241,17 @@
         <member name="P:Google.GData.YouTube.YouTubeEntry.State">
             <summary>
             Returns the yt:state tag inside of app:control
+            </summary>
+        </member>
+        <member name="P:Google.GData.YouTube.YouTubeEntry.VideoId">
+            <summary>
+             property accessor for the VideoID, if applicable
+            </summary>
+        </member>
+        <member name="P:Google.GData.YouTube.YouTubeEntry.Uploaded">
+            <summary>
+             property accessor for the Uploaded element, if applicable
+            returns the date the video was uplaoded
             </summary>
         </member>
         <member name="P:Google.GData.YouTube.YouTubeEntry.RelatedVideosUri">
@@ -662,6 +687,37 @@
             <summary>
             UserName element string
             </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YouTubeNameTable.CountHint">
+            <summary>
+            counthint element string for playlist feeds
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YouTubeNameTable.VideoID">
+            <summary>
+            videoid element string for playlist feeds
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YouTubeNameTable.Uploaded">
+            <summary>
+            uploaded element string for playlist feeds
+            </summary>
+        </member>
+        <member name="P:Google.GData.YouTube.MediaGroupYT.Credit">
+            <summary>
+            returns the media:credit element
+            </summary>
+        </member>
+        <member name="M:Google.GData.YouTube.MediaCreditYT.#ctor">
+            <summary>
+            default constructor for media:credit
+            </summary>
+        </member>
+        <member name="P:Google.GData.YouTube.MediaCreditYT.Type">
+            <summary>
+             returns the type of the credit element
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:Google.GData.YouTube.Age">
             <summary>
@@ -1111,6 +1167,24 @@
             <summary>convienience accessor for the Favorite</summary> 
             <returns> </returns>
         </member>
+        <member name="T:Google.GData.YouTube.CountHint">
+            <summary>
+            The :countHint element  specifies the number of entries in a playlist feed. 
+            The countHint tag appears in the entries in a playlists feed, where each entry contains 
+            information about a single playlist
+            </summary>
+        </member>
+        <member name="M:Google.GData.YouTube.CountHint.#ctor">
+            <summary>
+            default constructor
+            </summary>
+        </member>
+        <member name="M:Google.GData.YouTube.CountHint.#ctor(System.String)">
+            <summary>
+            constructor taking the initial value
+            </summary>
+            <param name="initValue"></param>
+        </member>
         <member name="T:Google.GData.YouTube.Status">
             <summary>
             Status schema extension describing a YouTube Status
@@ -1140,6 +1214,38 @@
         <member name="M:Google.GData.YouTube.UserName.#ctor(System.String)">
             <summary>
             constructor taking the initial value
+            </summary>
+            <param name="initValue"></param>
+        </member>
+        <member name="T:Google.GData.YouTube.Uploaded">
+            <summary>
+            Uploaded schema extension describing a YouTube uploaded date
+            </summary>
+        </member>
+        <member name="M:Google.GData.YouTube.Uploaded.#ctor">
+            <summary>
+            default constructor
+            </summary>
+        </member>
+        <member name="M:Google.GData.YouTube.Uploaded.#ctor(System.String)">
+            <summary>
+            constructor with an init value
+            </summary>
+            <param name="initValue"></param>
+        </member>
+        <member name="T:Google.GData.YouTube.VideoId">
+            <summary>
+            VideoId schema extension describing a YouTube video identifier
+            </summary>
+        </member>
+        <member name="M:Google.GData.YouTube.VideoId.#ctor">
+            <summary>
+            default constructor
+            </summary>
+        </member>
+        <member name="M:Google.GData.YouTube.VideoId.#ctor(System.String)">
+            <summary>
+            constructor with an init value
             </summary>
             <param name="initValue"></param>
         </member>
@@ -1260,18 +1366,6 @@
             the following API-specific query parameters. These parameters are only available on video
             and playlist feeds.
             Name	    Definition
-            vq	        The vq parameter specifies a search query term. YouTube will search all video 
-                        metadata for videos matching the term. Video metadata includes titles, keywords, 
-                        descriptions, authors' usernames, and categories.
-                        Note that any spaces, quotes or other punctuation in the parameter value must be 
-                        URL-escaped. To search for an exact phrase, enclose the phrase in quotation marks. 
-                        For example, to search for videos matching the phrase "spy plane", set the 
-                        vq parameter to %22spy+plane%22.
-                        Your request can also use the Boolean NOT (-) and OR (|) operators to exclude 
-                        videos or to find videos that are associated with one of several search terms. 
-                        For example, to search for videos matching either "boating" or "sailing", 
-                        set the vq parameter to boating%7Csailing. (Note that the pipe character must 
-                        be URL-escaped.) 
             orderby	    The orderby parameter specifies the value that will be used to sort videos in the
                         search result set. Valid values for this parameter are relevance, published, viewCount 
                         and rating. In addition, you can request results that are most relevant to a specific 
@@ -1300,10 +1394,6 @@
                     specific language. Valid values for the lr parameter are ISO 639-1 two-letter language codes. 
                     You can also use the values zh-Hans for simplified Chinese and zh-Hant for traditional Chinese. This
                     parameter can be used when requesting any video feeds other than standard feeds.
-            racy	The racy parameter allows a search result set to include restricted content as well as standard 
-                    content. Valid values for this parameter are include and exclude. By default, restricted content 
-                    is excluded. Feed entries for videos that contain restricted content will contain an additional 
-                    yt:racy element.
             restriction	The restriction parameter identifies the IP address that should be used to filter videos 
                     that can only be played in specific countries. By default, the API filters out videos that cannot 
                     be played in the country from which you send API requests. This restriction is based on your 
@@ -1537,6 +1627,18 @@
             </summary> 
             <returns> </returns>
         </member>
+        <!-- Badly formed XML comment ignored for member "P:Google.GData.YouTube.YouTubeQuery.SafeSearch" -->
+        <!-- Badly formed XML comment ignored for member "P:Google.GData.YouTube.YouTubeQuery.Location" -->
+        <member name="P:Google.GData.YouTube.YouTubeQuery.LocationRadius">
+            <summary>
+             The location-radius parameter, in conjunction with the location parameter, defines a geographic area. If the geographic coordinates associated with a video fall 
+            within that area, then the video may be included in search results.
+            <para>The location-radius parameter value must be a floating point number followed by a measurement unit. Valid measurement units are m, km, ft and mi. 
+            For example, valid parameter values include "1500m", "5km", "10000ft" and "0.75mi". The API will return an error if the radius is greater than 1000 kilometers.</para>
+             <seealso cref="P:Google.GData.YouTube.YouTubeQuery.Location"/>
+            </summary>
+            <returns></returns>
+        </member>
         <member name="P:Google.GData.YouTube.YouTubeQuery.Restriction">
             <summary>
             The restriction parameter identifies the IP address that should be 
@@ -1556,6 +1658,16 @@
              Ð e.g. restriction=DE.
             </summary> 
             <returns> </returns>
+        </member>
+        <member name="P:Google.GData.YouTube.YouTubeQuery.Uploader">
+            <summary>
+            The uploader parameter, which is only supported for search requests, lets you restrict a query to YouTube 
+            partner videos. A YouTube partner is a person or organization that has been accepted into and participates 
+            in the YouTube Partner Program.
+            <para>In an API response, a feed entry contains a partner video if the entry contains a media:credit tag for 
+            which the value of the yt:type attribute is partner.</para>
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:Google.GData.YouTube.YouTubeQuery.VideoFormat">
             <summary>
@@ -1611,6 +1723,21 @@
         <member name="F:Google.GData.YouTube.YouTubeQuery.UploadTime.AllTime">
             <summary>all time</summary>
         </member>
+        <member name="T:Google.GData.YouTube.YouTubeQuery.SafeSearchValues">
+            <summary>
+            describing the possible safe search values
+            <seealso cref="!:YouTubeQuery.SeeAlso"/>
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YouTubeQuery.SafeSearchValues.None">
+            <summary>no restriction</summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YouTubeQuery.SafeSearchValues.Moderate">
+            <summary>moderate restriction</summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YouTubeQuery.SafeSearchValues.Strict">
+            <summary>strict restriction</summary>
+        </member>
         <member name="T:Google.GData.YouTube.PlaylistsEntry">
             <summary>
             Entry API customization class for defining entries in an Playlist feed.
@@ -1635,6 +1762,15 @@
             <summary>
             getter/setter for the feedlink subelement
             </summary>
+        </member>
+        <member name="P:Google.GData.YouTube.PlaylistsEntry.CountHint">
+            <summary>
+            returns the int value of the countHint tag
+            <para>
+            yt:countHint specifies the number of entries in a playlist feed. The yt:countHint tag appears in the entries in a playlists feed, 
+            where each entry contains information about a single playlist.</para>
+            </summary>
+            <returns>-1 if no counthint was present, else the value</returns>
         </member>
         <member name="T:Google.GData.YouTube.FriendsEntry">
             <summary>

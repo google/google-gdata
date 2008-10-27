@@ -36,7 +36,7 @@ public static class ListVideos
         YouTubeQuery query = new YouTubeQuery(YouTubeQuery.TopRatedVideo);
         if (String.IsNullOrEmpty(videoQuery) != true)
         {
-            query.VQ = videoQuery;
+            query.Query = videoQuery;
         }
         if (String.IsNullOrEmpty(author) != true)
         {
@@ -48,7 +48,7 @@ public static class ListVideos
         }
         if (racy == true)
         {
-            query.Racy = "include";
+            query.SafeSearch = YouTubeQuery.SafeSearchValues.None;
         }
         if (String.IsNullOrEmpty(time) != true)
         {

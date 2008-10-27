@@ -173,6 +173,157 @@
             </summary>
             <returns>the new <code>NicknameEntry</code></returns>
         </member>
+        <member name="T:Google.GData.Apps.GoogleMailSettings.GoogleMailSettingsService">
+            <summary>
+            Base service for accessing Google Mail Settings item feeds from the
+            Google Apps Google Mail Settings API.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Apps.GoogleMailSettings.GoogleMailSettingsService.labelFeedUriSuffix">
+            <summary>
+            URL suffixes for the Google Mail Settings tasks
+            </summary>
+        </member>
+        <member name="M:Google.GData.Apps.GoogleMailSettings.GoogleMailSettingsService.#ctor(System.String,System.String)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="domain">The hosted domain in which the Google Mail Settings are
+            being set up</param>
+            <param name="applicationName">The name of the client application 
+            using this service.</param>
+        </member>
+        <member name="M:Google.GData.Apps.GoogleMailSettings.GoogleMailSettingsService.CreateLabel(System.String,System.String)">
+            <summary>
+            Creates a new Google Mail label for the given userName
+            </summary>
+            <param name="userName">The user for whom this should be done</param>
+            <param name="label">the new Google Mail label</param>
+            <returns>a <code>GoogleMailSettingsEntry</code> containing the results of the
+            creation</returns>
+        </member>
+        <member name="M:Google.GData.Apps.GoogleMailSettings.GoogleMailSettingsService.CreateFilter(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Creates a new Google Mail filter for the given userName
+            </summary>
+            <param name="userName">The user for whom this should be done</param>
+            <param name="from">come-from email address to be filtered</param>
+            <param name="to">send-to email address to be filtered</param>
+            <param name="subject">a string the email must have on the subject line to be filtered</param>
+            <param name="hasTheWords">a string the email can have anywhere in its subject or body</param>
+            <param name="doesNotHaveTheWords">a string the email cannot have anywhere in its subject or body</param>
+            <param name="hasAttachment">a boolean representing whether or not the emails contains an attachment</param>
+            <param name="label">the name of the label to apply if the message matches the filter criteria</param>
+            <param name="shouldMarkAsRead">Whether to automatically mark the message as read
+            if the message matches the filter criteria</param>
+            <param name="shouldArchive">Whether to automatically move the message to Archived state
+            if the message matches the filter criteria</param>
+            <returns>a <code>GoogleMailSettingsEntry</code> containing the results of the
+            creation</returns>
+        </member>
+        <member name="M:Google.GData.Apps.GoogleMailSettings.GoogleMailSettingsService.CreateSendAs(System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Creates a new Google Mail senda-as alias for the given userName
+            </summary>
+            <param name="userName">The user for whom this should be done</param>
+            <param name="name">The name which emails sent using the alias are from</param>
+            <param name="address">The email address which emails sent using the alias are from</param>
+            <param name="replyTo">If set, this address will be included as the reply-to addres for the alias</param>
+            <param name="makeDefault">Whether the new alias would be the default email address</param>
+            <returns>a <code>GoogleMailSettingsEntry</code> containing the results of the
+            creation</returns>
+        </member>
+        <member name="M:Google.GData.Apps.GoogleMailSettings.GoogleMailSettingsService.UpdateForwarding(System.String,System.String,System.String,System.String)">
+            <summary>
+            Updates Google Mail's forwarding rule for the given userName
+            </summary>
+            <param name="userName">The user for whom this should be done</param>
+            <param name="enable">Whether to enable forwarding of incoming mail</param>
+            <param name="forwardTo">The email will be forwarded to this address</param>
+            <param name="action">What Google Mail should do with its copy of the email after forwarding it on</param>
+            <returns>a <code>GoogleMailSettingsEntry</code> containing the results of the
+            creation</returns>
+        </member>
+        <member name="M:Google.GData.Apps.GoogleMailSettings.GoogleMailSettingsService.UpdatePop(System.String,System.String,System.String,System.String)">
+            <summary>
+            Updates Google Mail's POP settings for the given userName
+            </summary>
+            <param name="userName">The user for whom this should be done</param>
+            <param name="enable">Whether to enable POP3 access</param>
+            <param name="enableFor">Whether to enable POP3 for all mail or mail from now on</param>
+            <param name="action">What Google Mail should do with its copy of the email after 
+            it is retrieved using POP3</param>
+            <returns>a <code>GoogleMailSettingsEntry</code> containing the results of the
+            creation</returns>
+        </member>
+        <member name="M:Google.GData.Apps.GoogleMailSettings.GoogleMailSettingsService.UpdateImap(System.String,System.String)">
+            <summary>
+            Updates Google Mail's IMAP settings for the given userName
+            </summary>
+            <param name="userName">The user for whom this should be done</param>
+            <param name="enable">Whether to enable IMAP access</param>
+            <returns>a <code>GoogleMailSettingsEntry</code> containing the results of the
+            creation</returns>
+        </member>
+        <member name="M:Google.GData.Apps.GoogleMailSettings.GoogleMailSettingsService.UpdateVacation(System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Updates Google Mail's vacation-responder settings for the given userName
+            </summary>
+            <param name="userName">The user for whom this should</param>
+            <param name="enable">Wheter to enable the vacation responder</param>
+            <param name="subject">The subject line of the vacacion responder autoresponse</param>
+            <param name="message">The message body of the vacation responder autoresponse</param>
+            <param name="contactsOnly">Wheter to only send the autoresponse to known contacts</param>
+            <returns>a <code>GoogleMailSettingsEntry</code> containing the results of the
+            creation</returns>
+        </member>
+        <member name="M:Google.GData.Apps.GoogleMailSettings.GoogleMailSettingsService.UpdateSignature(System.String,System.String)">
+            <summary>
+            Updates Google Mail's signature for the given userName
+            </summary>
+            <param name="userName">The user for whom this should be done</param>
+            <param name="signature">The signature to be appended to outgoing messages</param>
+            <returns>a <code>GoogleMailSettingsEntry</code> containing the results of the
+            creation</returns>
+        </member>
+        <member name="M:Google.GData.Apps.GoogleMailSettings.GoogleMailSettingsService.UpdateLanguage(System.String,System.String)">
+            <summary>
+            Updates Google Mail's display language for the given userName
+            </summary>
+            <param name="userName">The user for whom this should be done</param>
+            <param name="language">Google Mail's display language</param>
+            <returns>a <code>GoogleMailSettingsEntry</code> containing the results of the
+            creation</returns>
+        </member>
+        <member name="M:Google.GData.Apps.GoogleMailSettings.GoogleMailSettingsService.UpdateGeneralSettings(System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Updates Google Mail's general settings for the given userName
+            </summary>
+            <param name="userName">The user for whom this should be done</param>
+            <param name="label">the new Google Mail label</param>
+            <returns>a <code>GoogleMailSettingsEntry</code> containing the results of the
+            creation</returns>
+        </member>
+        <member name="M:Google.GData.Apps.GoogleMailSettings.GoogleMailSettingsService.OnParsedNewGoogleMailSettingsItemEntry(System.Object,Google.GData.Client.FeedParserEventArgs)">
+            <summary>
+            Event handler. Called when a new Google Mail Settings entry is parsed.
+            </summary>
+            <param name="sender">the object that's sending the evet</param>
+            <param name="e">FeedParserEventArguments, holds the feedentry</param>
+        </member>
+        <member name="M:Google.GData.Apps.GoogleMailSettings.GoogleMailSettingsService.OnNewFeed(System.Object,Google.GData.Client.ServiceEventArgs)">
+            <summary>
+            Overridden so that new feeds are returned as <code>GoogleMailSettingsFeed</code>s
+            instead of base <code>AtomFeed</code>s.
+            </summary>
+            <param name="sender"> the object which sent the event</param>
+            <param name="e">FeedParserEventArguments, holds the FeedEntry</param> 
+        </member>
+        <member name="P:Google.GData.Apps.GoogleMailSettings.GoogleMailSettingsService.Domain">
+            <summary>
+            Accessor for Domain property.
+            </summary>
+        </member>
         <member name="T:Google.GData.Apps.EmailListService">
             <summary>
             The EmailListService class extends the AppsService abstraction
@@ -721,6 +872,33 @@
             Domain property accessor
             </summary>
         </member>
+        <member name="T:Google.GData.Apps.GoogleMailSettings.GoogleMailSettingsFeed">
+            <summary>
+            Feed API customization class for defining the Google Apps
+            Google Mail Settings API's feed.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Apps.GoogleMailSettings.GoogleMailSettingsFeed.#ctor(System.Uri,Google.GData.Client.IService)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="uriBase">The uri for the migration feed.</param>
+            <param name="iService">The GoogleMailSettings service.</param>
+        </member>
+        <member name="M:Google.GData.Apps.GoogleMailSettings.GoogleMailSettingsFeed.CreateFeedEntry">
+            <summary>
+            Overridden.  Creates a new <code>GoogleMailSettingsEntry</code>.
+            </summary>
+            <returns>the new <code>GoogleMailSettingsEntry</code>.</returns>
+        </member>
+        <member name="M:Google.GData.Apps.GoogleMailSettings.GoogleMailSettingsFeed.HandleExtensionElements(Google.GData.Client.ExtensionElementEventArgs,Google.GData.Client.AtomFeedParser)">
+            <summary>
+            Gets called after we handled the custom entry, to handle other
+            potential parsing tasks
+            </summary>
+            <param name="e"></param>
+            <param name="parser"></param>
+        </member>
         <member name="T:Google.GData.Apps.EmailListRecipientFeed">
             <summary>
             Feed API customization class for defining email list recipient feed.
@@ -1122,6 +1300,40 @@
             <summary>
             Accessor for Reason.  This property contains a short
             explanation of the error that occurred.
+            </summary>
+        </member>
+        <member name="T:Google.GData.Apps.GoogleMailSettings.GoogleMailSettingsEntry">
+            <summary>
+            A Google Apps Google Mail Settings entry.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Apps.GoogleMailSettings.GoogleMailSettingsEntry.#ctor">
+            <summary>
+            Constructs a new <code>GoogleMailSettingsEntry</code> object.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Apps.GoogleMailSettings.GoogleMailSettingsEntry.getPropertyByName(System.String)">
+            <summary>
+            Gets a PropertyElement by its Name
+            </summary>
+            <returns>a <code>PropertyElement</code> containing the results of the
+            execution</returns>         
+        </member>
+        <member name="M:Google.GData.Apps.GoogleMailSettings.GoogleMailSettingsEntry.getPropetyValueByName(System.String)">
+            <summary>
+            Gets a the Value of a PropertyElement by its Name
+            </summary>
+            <returns>a string containing the results of the execution</returns>
+        </member>
+        <member name="M:Google.GData.Apps.GoogleMailSettings.GoogleMailSettingsEntry.Update">
+            <summary>
+            Updates this GoogleMailSettingsEntry.
+            </summary>
+            <returns>the updated GoogleMailSettingsEntry</returns>
+        </member>
+        <member name="P:Google.GData.Apps.GoogleMailSettings.GoogleMailSettingsEntry.Properties">
+            <summary>
+            Properties accessor
             </summary>
         </member>
         <member name="T:Google.GData.Apps.NicknameService">

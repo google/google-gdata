@@ -265,6 +265,12 @@ namespace Google.GData.Extensions {
             }
         }
 
+        /// <summary>
+        /// factory method to create an instance of a batchinterrupt during parsing
+        /// </summary>
+        /// <param name="node">the xmlnode that is going to be parsed</param>
+        /// <param name="parser">the feedparser that is used right now</param>
+        /// <returns></returns>
         public IExtensionElementFactory CreateInstance(XmlNode node, AtomFeedParser parser)
         {
             return EntryLink.ParseEntryLink(node, parser);

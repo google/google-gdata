@@ -37,6 +37,11 @@ namespace Google.GData.Extensions {
         
         #region overloaded for persistence
 
+        /// <summary>
+        /// Default constructor for an XmlExtension, just takes
+        /// the xmlnode that should be used in the extension element
+        /// </summary>
+        /// <param name="node"></param>
         public XmlExtension(XmlNode node)
         {
             this.unknownChild = node; 
