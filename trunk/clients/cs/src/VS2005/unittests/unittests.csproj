@@ -305,6 +305,12 @@
       <Link>GoogleApps\emaillisttest.cs</Link>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="..\..\unittests\gapps\googleemailsettingsservicetest.cs">
+      <Link>GoogleApps\googleemailsettingsservicetest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\gapps\googlemailsettingsentrytest.cs">
+      <Link>GoogleApps\googlemailsettingsentrytest.cs</Link>
+    </Compile>
     <Compile Include="..\..\unittests\gapps\labelcollectiontest.cs">
       <Link>GoogleApps\labelcollectiontest.cs</Link>
       <SubType>Code</SubType>

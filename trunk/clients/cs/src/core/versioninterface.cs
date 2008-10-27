@@ -53,6 +53,9 @@ namespace Google.GData.Client
     {
         private static object synclock = new object();
         private static IVersionAware _instance;
+        /// <summary>
+        /// IVersionAware instance property
+        /// </summary>
         public static IVersionAware Instance
         {
             get
@@ -71,6 +74,9 @@ namespace Google.GData.Client
             }
         }
 
+        /// <summary>
+        /// returns the major version of the protocol used
+        /// </summary>
         public int ProtocolMajor
         {
             get
@@ -83,6 +89,9 @@ namespace Google.GData.Client
             }
         }
 
+        /// <summary>
+        /// returns the minor version of the protocol used
+        /// </summary>
         public int ProtocolMinor
         {
             get

@@ -326,7 +326,11 @@ namespace Google.GData.Client
 
     }
     /////////////////////////////////////////////////////////////////////////////
-
+    
+    /// <summary>
+    /// Generic collection base class
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class AtomCollectionBase<T> : CollectionBase
     {
         /// <summary>standard typed accessor method </summary> 
@@ -384,7 +388,6 @@ namespace Google.GData.Client
     /// <returns></returns>
     public class ExtensionList : IList<IExtensionElementFactory>
     {
-        //TODO Convert from ArrayList.
         IVersionAware container;
 
         List<IExtensionElementFactory> _list = new List<IExtensionElementFactory>();
@@ -397,6 +400,11 @@ namespace Google.GData.Client
             return new ExtensionList(NullVersionAware.Instance);
         }
 
+        /// <summary>
+        /// returns an extensionlist that belongs to a version aware
+        /// container
+        /// </summary>
+        /// <param name="container"></param>
         public ExtensionList(IVersionAware container)
         {
             this.container = container;

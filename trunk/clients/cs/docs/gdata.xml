@@ -40,6 +40,13 @@
             returns the xml prefix used 
             </summary>
         </member>
+        <member name="M:Google.GData.Extensions.XmlExtension.#ctor(System.Xml.XmlNode)">
+            <summary>
+            Default constructor for an XmlExtension, just takes
+            the xmlnode that should be used in the extension element
+            </summary>
+            <param name="node"></param>
+        </member>
         <member name="M:Google.GData.Extensions.XmlExtension.ToString">
             <summary>
             debugging helper
@@ -823,6 +830,12 @@
             </summary>
             <returns>SortedList</returns>
         </member>
+        <member name="M:Google.GData.Extensions.ExtensionBase.getAttributeNamespaces">
+            <summary>
+            returns the attribute namespace list
+            </summary>
+            <returns>SortedList</returns>
+        </member>
         <member name="M:Google.GData.Extensions.ExtensionBase.ToString">
             <summary>
             debugging helper
@@ -882,6 +895,11 @@
             <returns></returns>
         </member>
         <member name="P:Google.GData.Extensions.ExtensionBase.Attributes">
+            <summary>accesses the Attribute list. The keys are the attribute names
+            the values the attribute values</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Extensions.ExtensionBase.AttributeNamespaces">
             <summary>accesses the Attribute list. The keys are the attribute names
             the values the attribute values</summary> 
             <returns> </returns>
@@ -1028,6 +1046,21 @@
             Class used as a null version aware seed for the collections
             </summary>
         </member>
+        <member name="P:Google.GData.Client.NullVersionAware.Instance">
+            <summary>
+            IVersionAware instance property
+            </summary>
+        </member>
+        <member name="P:Google.GData.Client.NullVersionAware.ProtocolMajor">
+            <summary>
+            returns the major version of the protocol used
+            </summary>
+        </member>
+        <member name="P:Google.GData.Client.NullVersionAware.ProtocolMinor">
+            <summary>
+            returns the minor version of the protocol used
+            </summary>
+        </member>
         <member name="M:Google.GData.Client.VersionInformation.#ctor(Google.GData.Client.IVersionAware)">
             <summary>
             construct a versioninformation object based
@@ -1076,6 +1109,12 @@
         <member name="T:Google.GData.Client.AtomEntryCollection">
             <summary>standard typed collection based on 1.1 framework for FeedEntries
             </summary> 
+        </member>
+        <member name="T:Google.GData.Client.AtomCollectionBase`1">
+            <summary>
+            Generic collection base class
+            </summary>
+            <typeparam name="T"></typeparam>
         </member>
         <member name="M:Google.GData.Client.AtomCollectionBase`1.Add(`0)">
             <summary>standard typed accessor method </summary> 
@@ -1188,6 +1227,13 @@
             <summary>
             Return a new collection that is not version aware.
             </summary>
+        </member>
+        <member name="M:Google.GData.Client.ExtensionList.#ctor(Google.GData.Client.IVersionAware)">
+            <summary>
+            returns an extensionlist that belongs to a version aware
+            container
+            </summary>
+            <param name="container"></param>
         </member>
         <member name="T:Google.GData.Client.AtomUri">
             <summary>AtomUri object representation
@@ -1408,6 +1454,15 @@
         <member name="M:Google.GData.Extensions.SimpleContainer.ReplaceExtension(System.String,System.String,Google.GData.Client.IExtensionElementFactory)">
             <summary>
             all extension elements that match a namespace/localname
+            given will be removed and the new one will be inserted
+            </summary> 
+            <param name="localName">the local name to find</param>
+            <param name="ns">the namespace to match, if null, ns is ignored</param>
+            <param name="obj">the new element to put in</param>
+        </member>
+        <member name="M:Google.GData.Extensions.SimpleContainer.ReplaceFactory(System.String,System.String,Google.GData.Client.IExtensionElementFactory)">
+            <summary>
+            all extension element factories that match a namespace/localname
             given will be removed and the new one will be inserted
             </summary> 
             <param name="localName">the local name to find</param>
@@ -4900,6 +4955,29 @@
             <param name="cat"></param>
             <param name="value"></param>
         </member>
+        <member name="M:Google.GData.Client.AbstractEntry.GetExtensionValue(System.String,System.String)">
+            <summary>
+            we have one string based getter
+            usage is: entry.getExtensionValue("namespace", "tagname") to get the elements value
+            </summary>
+            <param name="extension">the name of the extension to look for</param>
+            <param name="ns">the namespace of the extension to look for</param>
+            <returns>value as string, or NULL if the extension was not found</returns>
+        </member>
+        <member name="M:Google.GData.Client.AbstractEntry.SetExtensionValue(System.String,System.String,System.String)">
+            <summary>
+            we have one string based setter
+            usage is: entry.setExtensionValue("tagname", "ns", "value") to set the element
+            this will create the extension if it's not there
+            note, you can ofcourse, just get an existing one and work with that 
+            object: 
+            </summary>
+            <param name="extension">the name of the extension to look for</param>
+            <param name="ns">the namespace of the extension to look for</param>
+            <param name="newValue">the new value for this extension element</param>
+            <returns>SimpleElement, either a brand new one, or the one
+            returned by the service</returns>
+        </member>
         <member name="P:Google.GData.Client.AbstractEntry.MediaSource">
             <summary>access the associated media element. Note, that setting this
             WILL cause subsequent updates to be done using MIME multipart posts
@@ -5309,6 +5387,7 @@
             reads the current positioned reader and creates a batchstatus element
             </summary>
             <param name="reader">XmlReader positioned at the start of the status element</param>
+            <param name="parser">The Feedparser to be used</param>
             <returns>GDataBatchStatus</returns>
         </member>
         <member name="P:Google.GData.Client.GDataBatchStatus.Code">
@@ -5344,12 +5423,14 @@
             </summary>
             <param name="reader">XmlReader positioned at the start of the status element</param>
             <param name="status">the batch status element to add the errors tohe</param>
+            <param name="parser">the feedparser to be used</param>
         </member>
         <member name="M:Google.GData.Client.GDataBatchError.ParseBatchError(System.Xml.XmlReader,Google.GData.Client.AtomFeedParser)">
             <summary>
             parses a single error element
             </summary>
             <param name="reader">XmlReader positioned at the start of the status element</param>
+            <param name="parser">the feedparser to be used</param>
             <returns>GDataBatchError</returns>
         </member>
         <member name="P:Google.GData.Client.GDataBatchError.Type">
@@ -5380,7 +5461,16 @@
             parses a batchinterrupt element from a correctly positioned reader
             </summary>
             <param name="reader">XmlReader at the start of the element</param>
+            <param name="parser">the feedparser to be used</param>
             <returns>GDataBatchInterrupt</returns>
+        </member>
+        <member name="M:Google.GData.Client.GDataBatchInterrupt.CreateInstance(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
+            <summary>
+            factory method to create an instance of a batchinterrupt during parsing
+            </summary>
+            <param name="node">the xmlnode that is going to be parsed</param>
+            <param name="parser">the feedparser that is used right now</param>
+            <returns></returns>
         </member>
         <member name="P:Google.GData.Client.GDataBatchInterrupt.Reason">
             <summary>accessor method public string Reason</summary> 
@@ -5417,6 +5507,14 @@
             Persistence method for the GDataBatch object
             </summary>
             <param name="writer">the xmlwriter to write into</param>
+        </member>
+        <member name="M:Google.GData.Client.GDataBatchFeedData.CreateInstance(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
+            <summary>
+            factory method to create an instance of a batchinterrupt during parsing
+            </summary>
+            <param name="node">the xmlnode that is going to be parsed</param>
+            <param name="parser">the feedparser that is used right now</param>
+            <returns></returns>
         </member>
         <member name="P:Google.GData.Client.GDataBatchFeedData.Type">
             <summary>accessor method public GDataBatchOperationType Type</summary> 

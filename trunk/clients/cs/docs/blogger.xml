@@ -114,5 +114,10 @@
             Constructs a new CalenderEntry instance
             </summary>
         </member>
+        <member name="P:Google.GData.Blogger.BloggerEntry.PostUri">
+            <summary>Allows you to retrieve the Post Uri value for a blogger entry. 
+            This is relevant in the "feeds of blogs"</summary> 
+            <returns> </returns>
+        </member>
     </members>
 </doc>

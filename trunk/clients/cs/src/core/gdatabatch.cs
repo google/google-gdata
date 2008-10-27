@@ -178,6 +178,7 @@ namespace Google.GData.Client
         /// reads the current positioned reader and creates a batchstatus element
         /// </summary>
         /// <param name="reader">XmlReader positioned at the start of the status element</param>
+        /// <param name="parser">The Feedparser to be used</param>
         /// <returns>GDataBatchStatus</returns>
         public static GDataBatchStatus ParseBatchStatus(XmlReader reader, AtomFeedParser parser)
         {
@@ -341,6 +342,7 @@ namespace Google.GData.Client
         /// </summary>
         /// <param name="reader">XmlReader positioned at the start of the status element</param>
         /// <param name="status">the batch status element to add the errors tohe</param>
+        /// <param name="parser">the feedparser to be used</param>
         public static void ParseBatchErrors(XmlReader reader, AtomFeedParser parser, GDataBatchStatus status)
         {
             if (reader == null)
@@ -368,6 +370,7 @@ namespace Google.GData.Client
         /// parses a single error element
         /// </summary>
         /// <param name="reader">XmlReader positioned at the start of the status element</param>
+        /// <param name="parser">the feedparser to be used</param>
         /// <returns>GDataBatchError</returns>
         public static GDataBatchError ParseBatchError(XmlReader reader, AtomFeedParser parser)
         {
@@ -551,6 +554,7 @@ namespace Google.GData.Client
         /// parses a batchinterrupt element from a correctly positioned reader
         /// </summary>
         /// <param name="reader">XmlReader at the start of the element</param>
+        /// <param name="parser">the feedparser to be used</param>
         /// <returns>GDataBatchInterrupt</returns>
         public static GDataBatchInterrupt ParseBatchInterrupt(XmlReader reader, AtomFeedParser parser)
         {
@@ -623,6 +627,12 @@ namespace Google.GData.Client
             }
         }
 
+        /// <summary>
+        /// factory method to create an instance of a batchinterrupt during parsing
+        /// </summary>
+        /// <param name="node">the xmlnode that is going to be parsed</param>
+        /// <param name="parser">the feedparser that is used right now</param>
+        /// <returns></returns>
         public IExtensionElementFactory CreateInstance(XmlNode node, AtomFeedParser parser)
         {
             return ParseBatchInterrupt(new XmlNodeReader(node), parser);
@@ -710,6 +720,12 @@ namespace Google.GData.Client
             }
         }
 
+        /// <summary>
+        /// factory method to create an instance of a batchinterrupt during parsing
+        /// </summary>
+        /// <param name="node">the xmlnode that is going to be parsed</param>
+        /// <param name="parser">the feedparser that is used right now</param>
+        /// <returns></returns>
         public IExtensionElementFactory CreateInstance(XmlNode node, AtomFeedParser parser)
         {
             throw new Exception("The method or operation is not implemented.");

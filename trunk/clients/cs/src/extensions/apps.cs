@@ -56,6 +56,16 @@ namespace Google.GData.Extensions.Apps
             baseObject.AddExtension(new MailItemPropertyElement());
             baseObject.AddExtension(new Rfc822MsgElement());
         }
+
+        /// <summary>
+        /// Declares Google Mail Settings item extension elements for an atom base object.
+        /// </summary>
+        /// <param name="baseObject">the <code>AtomBase</code> object,
+        /// e.g. <code>MailItemEntry</code> or <code>MailItemFeed</code></param>
+        public static void AddGoogleMailSettingsItemExtensions(AtomBase baseObject)
+        {
+            baseObject.AddExtension(new PropertyElement());
+        }
     }
 
     /// <summary>
@@ -213,6 +223,21 @@ namespace Google.GData.Extensions.Apps
         /// XML attribute for the "reason" value of an error.
         /// </summary>
         public const string AppsErrorReason = "reason";
+
+        /// <summary>
+        /// XML attribute for Apps generic properties
+        /// </summary>
+        public const string AppsPropery = "property";
+
+        /// <summary>
+        /// XML attribute for Apps generic properties names
+        /// </summary>
+        public const string AppsProperyName = "name";
+
+        /// <summary>
+        /// XML attribute for Apps generic properties values
+        /// </summary>
+        public const string AppsProperyValue = "value";
     }
 
     /// <summary>
@@ -247,6 +272,39 @@ namespace Google.GData.Extensions.Apps
         public const string MailItem = AppsNameTable.AppsNamespace + "#mailItem";    
     }
 
+    /// <summary>
+    /// Name table for Google Apps extensions specific to the Google Mail Settings API.
+    /// </summary>
+    public class AppsGoogleMailSettingsNameTable : AppsNameTable
+    {
+        public const string AppsGoogleMailSettingsBaseFeedUri = "https://apps-apis.google.com/a/feeds/emailsettings/2.0";
+        public const string label = "label";
+        public const string from = "from";
+        public const string to = "to";
+        public const string subject = "subject";
+        public const string hasTheWord = "hasTheWord";
+        public const string doesNotHaveTheWord = "doesNotHaveTheWord";
+        public const string hasAttachment = "hasAttachment";
+        public const string shouldMarkAsRead = "shouldMarkAsRead";
+        public const string shouldArchive = "shouldArchive";
+        public const string name = "name";
+        public const string address = "address";
+        public const string replyTo = "replyTo";
+        public const string makeDefault = "makeDefault";
+        public const string enable = "enable";
+        public const string forwardTo = "forwardTo";
+        public const string action = "action";
+        public const string enableFor = "enableFor";
+        public const string message = "message";
+        public const string contactsOnly = "contactsOnly";
+        public const string signature = "signature";
+        public const string language = "language";
+        public const string pageSize = "pageSize";
+        public const string shortcuts = "shortcuts";
+        public const string arrows = "arrows";
+        public const string snippets = "snippets";
+        public const string unicode = "unicode";
+    }
 
     /// <summary>
     /// Extension element sed to model a Google Apps email list.
@@ -885,6 +943,104 @@ namespace Google.GData.Extensions.Apps
             {
                 Attributes[BaseNameTable.XmlValue] = value.ToString();
             }
+        }
+    }
+    /// <summary>
+    /// Google Apps Data Property API element describing a generic Name and Value
+    /// with the AppsPrefix.
+    /// </summary>
+    public class PropertyElement : ExtensionBase
+    {
+        /// <summary>
+        /// Constructs an empty PropertyElement instance.
+        /// </summary>
+        public PropertyElement()
+            : base(AppsNameTable.AppsPropery,
+                   AppsNameTable.AppsPrefix,
+                   AppsNameTable.AppsNamespace)
+        {
+            this.Attributes.Add(AppsNameTable.AppsProperyName, null);
+            this.Attributes.Add(AppsNameTable.AppsProperyValue, null);
+        }
+
+        /// <summary>
+        /// Constructs a new PropertyElement instance with the specified name and value.
+        /// </summary>
+        /// <param name="userName">The account's username.</param>
+        public PropertyElement(string name, string value)
+            : base(AppsNameTable.AppsPropery,
+                   AppsNameTable.AppsPrefix,
+                   AppsNameTable.AppsNamespace)
+        {
+            this.Attributes.Add(AppsNameTable.AppsProperyName, name);
+            this.Attributes.Add(AppsNameTable.AppsProperyValue, value);
+        }
+
+        public string Name
+        {
+            get { return this.Attributes[AppsNameTable.AppsProperyName] as string; }
+            set { this.Attributes[AppsNameTable.AppsProperyName] = value; }
+        }
+
+        /// <summary>
+        /// Value property accessor
+        /// </summary>
+        public string Value
+        {
+            get { return this.Attributes[AppsNameTable.AppsProperyValue] as string; }
+            set { this.Attributes[AppsNameTable.AppsProperyValue] = value; }
+        }
+
+        /// <summary>
+        /// Persistence method for the EnumConstruct object
+        /// overrides to allow empty strings for Value.
+        /// </summary>
+        /// <param name="writer">the xmlwriter to write into</param>
+        public override void Save(XmlWriter writer)
+        {
+            writer.WriteStartElement(XmlPrefix, XmlName, XmlNameSpace);
+            if (this.Attributes != null)
+            {
+                for (int i = 0; i < this.Attributes.Count; i++)
+                {
+                    if (this.Attributes.GetByIndex(i) != null)
+                    {
+                        string name = this.Attributes.GetKey(i) as string;
+                        string value = Utilities.ConvertToXSDString(this.Attributes.GetByIndex(i));
+                        if (Utilities.IsPersistable(name) && value != null)
+                        {
+                            writer.WriteAttributeString(name, value);
+                        }
+                    }
+                }
+            }
+            SaveInnerXml(writer);
+
+            foreach (XmlNode node in this.ChildNodes)
+            {
+                if (node != null)
+                {
+                    node.WriteTo(writer);
+                }
+            }
+            writer.WriteEndElement();
+        }
+    }
+
+    /// <summary>
+    /// Typed collection for Properties Extensions.
+    /// </summary>        
+    public class PropertyCollection : ExtensionCollection<PropertyElement>
+    {
+        private PropertyCollection()
+            : base()
+        {
+        }
+
+        /// <summary>constructor</summary>
+        public PropertyCollection(IExtensionContainer atomElement)
+            : base(atomElement, AppsMigrationNameTable.AppsPropery, AppsMigrationNameTable.AppsNamespace)
+        {
         }
     }
 }

@@ -393,6 +393,14 @@
             </summary>
             <param name="writer">the XmlWriter to write into</param>
         </member>
+        <member name="M:Google.GData.Extensions.EntryLink.CreateInstance(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
+            <summary>
+            factory method to create an instance of a batchinterrupt during parsing
+            </summary>
+            <param name="node">the xmlnode that is going to be parsed</param>
+            <param name="parser">the feedparser that is used right now</param>
+            <returns></returns>
+        </member>
         <member name="P:Google.GData.Extensions.EntryLink.Href">
             <summary>
             Entry  URI
@@ -430,6 +438,13 @@
         <member name="M:Google.GData.Extensions.Apps.GAppsExtensions.AddMailItemExtensions(Google.GData.Client.AtomBase)">
             <summary>
             Declares mail item extension elements for an atom base object.
+            </summary>
+            <param name="baseObject">the <code>AtomBase</code> object,
+            e.g. <code>MailItemEntry</code> or <code>MailItemFeed</code></param>
+        </member>
+        <member name="M:Google.GData.Extensions.Apps.GAppsExtensions.AddGoogleMailSettingsItemExtensions(Google.GData.Client.AtomBase)">
+            <summary>
+            Declares Google Mail Settings item extension elements for an atom base object.
             </summary>
             <param name="baseObject">the <code>AtomBase</code> object,
             e.g. <code>MailItemEntry</code> or <code>MailItemFeed</code></param>
@@ -590,6 +605,21 @@
             XML attribute for the "reason" value of an error.
             </summary>
         </member>
+        <member name="F:Google.GData.Extensions.Apps.AppsNameTable.AppsPropery">
+            <summary>
+            XML attribute for Apps generic properties
+            </summary>
+        </member>
+        <member name="F:Google.GData.Extensions.Apps.AppsNameTable.AppsProperyName">
+            <summary>
+            XML attribute for Apps generic properties names
+            </summary>
+        </member>
+        <member name="F:Google.GData.Extensions.Apps.AppsNameTable.AppsProperyValue">
+            <summary>
+            XML attribute for Apps generic properties values
+            </summary>
+        </member>
         <member name="T:Google.GData.Extensions.Apps.AppsMigrationNameTable">
             <summary>
             Name table for Google Apps extensions specific to the Email Migration
@@ -619,6 +649,11 @@
         <member name="F:Google.GData.Extensions.Apps.AppsMigrationNameTable.MailItem">
             <summary>
             Category term for a mail item entry.
+            </summary>
+        </member>
+        <member name="T:Google.GData.Extensions.Apps.AppsGoogleMailSettingsNameTable">
+            <summary>
+            Name table for Google Apps extensions specific to the Google Mail Settings API.
             </summary>
         </member>
         <member name="T:Google.GData.Extensions.Apps.EmailListElement">
@@ -977,6 +1012,128 @@
         </member>
         <member name="F:Google.GData.Extensions.Apps.MailItemPropertyElement.MailItemProperty.IS_UNREAD">
             <summary>Mark as unread</summary>
+        </member>
+        <member name="T:Google.GData.Extensions.Apps.PropertyElement">
+            <summary>
+            Google Apps Data Property API element describing a generic Name and Value
+            with the AppsPrefix.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.Apps.PropertyElement.#ctor">
+            <summary>
+            Constructs an empty PropertyElement instance.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.Apps.PropertyElement.#ctor(System.String,System.String)">
+            <summary>
+            Constructs a new PropertyElement instance with the specified name and value.
+            </summary>
+            <param name="userName">The account's username.</param>
+        </member>
+        <member name="M:Google.GData.Extensions.Apps.PropertyElement.Save(System.Xml.XmlWriter)">
+            <summary>
+            Persistence method for the EnumConstruct object
+            overrides to allow empty strings for Value.
+            </summary>
+            <param name="writer">the xmlwriter to write into</param>
+        </member>
+        <member name="P:Google.GData.Extensions.Apps.PropertyElement.Value">
+            <summary>
+            Value property accessor
+            </summary>
+        </member>
+        <member name="T:Google.GData.Extensions.Apps.PropertyCollection">
+            <summary>
+            Typed collection for Properties Extensions.
+            </summary>        
+        </member>
+        <member name="T:Google.GData.Extensions.ExtensionCollection`1">
+            <summary>
+            base class to take an object pointer with extension information
+            and expose a localname/namespace subset as a collection
+            that still works on the original
+            </summary>
+        </member>
+        <member name="F:Google.GData.Extensions.ExtensionCollection`1.container">
+            <summary>holds the owning feed</summary>
+        </member>
+        <member name="M:Google.GData.Extensions.ExtensionCollection`1.CtorXmlName">
+            <summary>
+            Get the XmlName for the Type
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Google.GData.Extensions.ExtensionCollection`1.CtorXmlNS">
+            <summary>
+            Get the Xml Namespace for the Type
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Google.GData.Extensions.ExtensionCollection`1.#ctor">
+            <summary>
+            protected default constructor, not usable by outside
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.ExtensionCollection`1.#ctor(Google.GData.Client.IExtensionContainer)">
+            <summary>
+            takes the base object, and the localname/ns combo to look for
+            will copy objects to an internal array for caching. Note that when the external 
+            ExtensionList is modified, this will have no effect on this copy
+            </summary>
+            <param name="containerElement">the base element holding the extension list</param>
+        </member>
+        <member name="M:Google.GData.Extensions.ExtensionCollection`1.#ctor(Google.GData.Client.IExtensionContainer,System.String,System.String)">
+            <summary>
+            takes the base object, and the localname/ns combo to look for
+            will copy objects to an internal array for caching. Note that when the external 
+            ExtensionList is modified, this will have no effect on this copy
+            </summary>
+            <param name="containerElement">the base element holding the extension list</param>
+            <param name="localName">the local name of the extension</param>
+            <param name="ns">the namespace</param>
+        </member>
+        <member name="M:Google.GData.Extensions.ExtensionCollection`1.setItem(System.Int32,`0)">
+            <summary>
+            useful for subclasses that want to overload the set method
+            </summary>
+            <param name="index">the index in the array</param>
+            <param name="item">the item to set </param>
+        </member>
+        <member name="M:Google.GData.Extensions.ExtensionCollection`1.Add(`0)">
+            <summary>
+            default untyped add implementation. Adds the object as well to the parent
+            object ExtensionList
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Google.GData.Extensions.ExtensionCollection`1.Insert(System.Int32,`0)">
+            <summary>
+            inserts an element into the collection by index
+            </summary>
+            <param name="index"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Google.GData.Extensions.ExtensionCollection`1.Remove(`0)">
+            <summary>
+            removes an element at a given index
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:Google.GData.Extensions.ExtensionCollection`1.IndexOf(`0)">
+            <summary>standard typed indexOf method </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.ExtensionCollection`1.Contains(`0)">
+            <summary>standard typed Contains method </summary> 
+        </member>
+        <member name="M:Google.GData.Extensions.ExtensionCollection`1.OnClear">
+            <summary>standard override OnClear, to remove the objects from the extension list</summary> 
+        </member>
+        <member name="P:Google.GData.Extensions.ExtensionCollection`1.Item(System.Int32)">
+            <summary>standard typed accessor method </summary> 
+        </member>
+        <member name="M:Google.GData.Extensions.Apps.PropertyCollection.#ctor(Google.GData.Client.IExtensionContainer)">
+            <summary>constructor</summary>
         </member>
         <member name="T:Google.GData.Extensions.ExtendedProperty">
             <summary>
@@ -1428,6 +1585,18 @@
             </summary>
             <param name="initValue"/>
         </member>
+        <member name="P:Google.GData.Extensions.MediaRss.MediaCredit.Scheme">
+            <summary>
+             returns the schem of the credit element
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.GData.Extensions.MediaRss.MediaCredit.Role">
+            <summary>
+             returns the role of the credit element
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:Google.GData.Extensions.MediaRss.MediaDescription">
             <summary>
             media:description schema extension describing an description given to media
@@ -1580,90 +1749,17 @@
             <param name="initValue">The value of the tag</param>
             <param name="scheme">The scheme of the tag</param>
         </member>
-        <member name="T:Google.GData.Extensions.ExtensionCollection`1">
+        <member name="P:Google.GData.Extensions.MediaRss.MediaRating.Scheme">
             <summary>
-            base class to take an object pointer with extension information
-            and expose a localname/namespace subset as a collection
-            that still works on the original
-            </summary>
-        </member>
-        <member name="F:Google.GData.Extensions.ExtensionCollection`1.container">
-            <summary>holds the owning feed</summary>
-        </member>
-        <member name="M:Google.GData.Extensions.ExtensionCollection`1.CtorXmlName">
-            <summary>
-            Get the XmlName for the Type
+             returns the schem for the media rating
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Google.GData.Extensions.ExtensionCollection`1.CtorXmlNS">
+        <member name="P:Google.GData.Extensions.MediaRss.MediaRating.Country">
             <summary>
-            Get the Xml Namespace for the Type
+             returns the country for this rating
             </summary>
             <returns></returns>
-        </member>
-        <member name="M:Google.GData.Extensions.ExtensionCollection`1.#ctor">
-            <summary>
-            protected default constructor, not usable by outside
-            </summary>
-        </member>
-        <member name="M:Google.GData.Extensions.ExtensionCollection`1.#ctor(Google.GData.Client.IExtensionContainer)">
-            <summary>
-            takes the base object, and the localname/ns combo to look for
-            will copy objects to an internal array for caching. Note that when the external 
-            ExtensionList is modified, this will have no effect on this copy
-            </summary>
-            <param name="containerElement">the base element holding the extension list</param>
-        </member>
-        <member name="M:Google.GData.Extensions.ExtensionCollection`1.#ctor(Google.GData.Client.IExtensionContainer,System.String,System.String)">
-            <summary>
-            takes the base object, and the localname/ns combo to look for
-            will copy objects to an internal array for caching. Note that when the external 
-            ExtensionList is modified, this will have no effect on this copy
-            </summary>
-            <param name="containerElement">the base element holding the extension list</param>
-            <param name="localName">the local name of the extension</param>
-            <param name="ns">the namespace</param>
-        </member>
-        <member name="M:Google.GData.Extensions.ExtensionCollection`1.setItem(System.Int32,`0)">
-            <summary>
-            useful for subclasses that want to overload the set method
-            </summary>
-            <param name="index">the index in the array</param>
-            <param name="item">the item to set </param>
-        </member>
-        <member name="M:Google.GData.Extensions.ExtensionCollection`1.Add(`0)">
-            <summary>
-            default untyped add implementation. Adds the object as well to the parent
-            object ExtensionList
-            </summary>
-            <param name="value"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Google.GData.Extensions.ExtensionCollection`1.Insert(System.Int32,`0)">
-            <summary>
-            inserts an element into the collection by index
-            </summary>
-            <param name="index"></param>
-            <param name="value"></param>
-        </member>
-        <member name="M:Google.GData.Extensions.ExtensionCollection`1.Remove(`0)">
-            <summary>
-            removes an element at a given index
-            </summary>
-            <param name="value"></param>
-        </member>
-        <member name="M:Google.GData.Extensions.ExtensionCollection`1.IndexOf(`0)">
-            <summary>standard typed indexOf method </summary>
-        </member>
-        <member name="M:Google.GData.Extensions.ExtensionCollection`1.Contains(`0)">
-            <summary>standard typed Contains method </summary> 
-        </member>
-        <member name="M:Google.GData.Extensions.ExtensionCollection`1.OnClear">
-            <summary>standard override OnClear, to remove the objects from the extension list</summary> 
-        </member>
-        <member name="P:Google.GData.Extensions.ExtensionCollection`1.Item(System.Int32)">
-            <summary>standard typed accessor method </summary> 
         </member>
         <member name="T:Google.GData.Extensions.Who">
             <summary>
