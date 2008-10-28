@@ -122,6 +122,38 @@ namespace Google.GData.Client.LiveTests
         /////////////////////////////////////////////////////////////////////////////
 
 
+       //////////////////////////////////////////////////////////////////////
+        /// <summary>runs a test on the YouTube feed, trying to find private videos</summary> 
+        //////////////////////////////////////////////////////////////////////
+        [Test] public void YouTubeQueryPrivateTest()
+        {
+            Tracing.TraceMsg("Entering YouTubeQueryPrivateTest");
+
+            YouTubeQuery query = new YouTubeQuery(YouTubeQuery.DefaultVideoUri);
+            YouTubeService service = new YouTubeService("NETUnittests", this.ytClient, this.ytDevKey);
+
+            query.Query = "electronics"; 
+            query.NumberToRetrieve = 50; 
+            if (this.userName != null)
+            {
+                service.Credentials = new GDataCredentials(this.ytUser, this.ytPwd);
+            }
+
+            YouTubeFeed feed = service.Query(query);
+
+            int counter = 0; 
+            foreach (YouTubeEntry e in feed.Entries )
+            {
+                Assert.IsTrue(e.Media.Title.Value != null, "There should be a title");
+                if (e.Private == true)
+                {
+                    counter++;
+                }
+            }
+            Assert.IsTrue(counter == 0, "counter was " + counter);
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
 
 
         //////////////////////////////////////////////////////////////////////

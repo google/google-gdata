@@ -33,5 +33,9 @@ namespace Google.GData.GoogleBase
 
         /// <summary>Google Base meta namespace prefix.</summary>
         public const string GBaseMetaPrefix = "gm";
+
+        /// <summary>Google Base publishing priority element.</summary>
+        public const string PublishingPriority = "publishing_priority";
+
     }
 }

@@ -141,9 +141,17 @@ namespace Google.GData.Client.LiveTests
 
                     entry = ObjectModelHelper.CreateGoogleBaseEntry(1); 
                     entry.Title.Text = strTitle;
-                    AtomEntry newEntry = baseFeed.Insert(entry); 
+
+                    GBaseEntry newEntry = baseFeed.Insert(entry) as GBaseEntry; 
+
+                    newEntry.PublishingPriority = new PublishingPriority("high");
+
+                    GBaseEntry updatedEntry = newEntry.Update() as GBaseEntry;
+
+                    //  publishing priority does not seem to be echoed back
+                    // Assert.IsTrue(updatedEntry.PublishingPriority.Value == "high");
                     iCount++; 
-                    Tracing.TraceMsg("Created calendar entry");
+                    Tracing.TraceMsg("Created google base  entry");
 
                     // try to get just that guy.....
                     FeedQuery singleQuery = new FeedQuery();
@@ -192,8 +200,6 @@ namespace Google.GData.Client.LiveTests
                         }
                     }
                 }
-
-
                 baseFeed = service.Query(query);
                 service.Credentials = null; 
             }

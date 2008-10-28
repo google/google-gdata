@@ -18,12 +18,44 @@ using System.Xml;
 using System.IO;
 using System.Collections;
 using Google.GData.Client;
+using Google.GData.Extensions;
+using Google.GData.Extensions.AppControl;
+
 #endregion
 
 
 namespace Google.GData.GoogleBase
 {
 
+
+     /// <summary>
+    ///  publishing_priorty for Google Base entries. Can be 
+    /// </summary>
+    public class PublishingPriority : SimpleElement
+    {
+        /// <summary>
+        /// indicates a low  priority, the item should be searchable within 12 hours
+        /// </summary>
+        public const string LowPriority  = "low";
+        /// <summary>
+        /// indicates a high priority, the item should be searchable in a few minutes
+        /// </summary>
+        public const string HighPriority = "high";
+
+        /// <summary>
+        /// default constructor
+        /// </summary>
+        public PublishingPriority()
+        : base(GBaseNameTable.PublishingPriority, GBaseNameTable.GBasePrefix, GBaseNameTable.NSGBase)
+        {}
+        /// <summary>
+        /// constructor with an init value
+        /// </summary>
+        /// <param name="initValue"></param>
+        public PublishingPriority(string initValue)
+        : base(GBaseNameTable.PublishingPriority, GBaseNameTable.GBasePrefix, GBaseNameTable.NSGBase, initValue)
+        {}
+    }
     ///////////////////////////////////////////////////////////////////////
     /// <summary>A Google Base entry.
     ///
@@ -50,6 +82,20 @@ namespace Google.GData.GoogleBase
         {
             attributes = new GBaseAttributes(ExtensionElements);
             itemTypeDefinition = new ItemTypeDefinition(ExtensionElements);
+
+            // now add appcontrol
+            AppControl app = new AppControl();
+
+            AppControl acf = FindExtensionFactory(app.XmlName, app.XmlNameSpace) as AppControl;
+            if (acf == null)
+            {
+                // create a default appControl element
+                acf = new AppControl();
+                this.AddExtension(acf);
+            }
+            // add the publishing priority element factory
+            acf.ExtensionFactories.Add(new PublishingPriority());
+
         }
 
         ///////////////////////////////////////////////////////////////////////
@@ -112,6 +158,31 @@ namespace Google.GData.GoogleBase
             {
                 GBaseUtilities.SetExtension(ExtensionElements,
                                             typeof(Stats), value);
+            }
+        }
+
+
+        public PublishingPriority  PublishingPriority
+        {
+            get
+            {
+                if (this.AppControl != null)
+                {
+                    return this.AppControl.FindExtension(GBaseNameTable.PublishingPriority, 
+                        GBaseNameTable.NSGBase) as PublishingPriority;
+                }
+            
+                return null;
+            }
+            set
+            {
+                this.Dirty = true;
+                if (this.AppControl == null)
+                {
+                    this.AppControl = new AppControl();
+                }
+                this.AppControl.ReplaceExtension(GBaseNameTable.PublishingPriority, 
+                        GBaseNameTable.NSGBase, value);
             }
         }
 
