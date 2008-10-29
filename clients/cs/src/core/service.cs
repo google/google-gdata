@@ -124,6 +124,7 @@ namespace Google.GData.Client
         {
             this.RequestFactory = new GDataRequestFactory(GServiceAgent);
             InitDelegates();
+            InitVersionInformation();
         }
         /////////////////////////////////////////////////////////////////////////////
  
@@ -135,6 +136,7 @@ namespace Google.GData.Client
         {
             this.RequestFactory = new GDataRequestFactory(applicationName + " " + GServiceAgent);
             InitDelegates();
+            InitVersionInformation();
         }
         /////////////////////////////////////////////////////////////////////////////
  
@@ -146,6 +148,7 @@ namespace Google.GData.Client
         {
             this.RequestFactory = new GDataGAuthRequestFactory(service, applicationName, GServiceAgent);
             InitDelegates();
+            InitVersionInformation();
         }
         /////////////////////////////////////////////////////////////////////////////
  
@@ -157,6 +160,7 @@ namespace Google.GData.Client
         {
             this.RequestFactory = new GDataGAuthRequestFactory(service, applicationName, library);
             InitDelegates();
+            InitVersionInformation();
         }
         /////////////////////////////////////////////////////////////////////////////
 
@@ -198,7 +202,14 @@ namespace Google.GData.Client
             }
         }
         
-        
+        /// <summary>
+        /// by default all services now use version 2 for the protocol.
+        /// this needs to be overridden by a service to specify otherwise. 
+        /// </summary>
+        /// <returns></returns>
+        protected virtual void InitVersionInformation()
+        {
+        }
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>accessor method public IGDataRequest Request</summary> 
@@ -1027,6 +1038,8 @@ namespace Google.GData.Client
         public void Delete(AtomEntry entry)
         {
             Tracing.Assert(entry != null, "entry should not be null");
+            string eTag = null;
+
             if (entry == null)
             {
                 throw new ArgumentNullException("entry"); 
@@ -1038,10 +1051,17 @@ namespace Google.GData.Client
             }
 
             Tracing.Assert(entry.EditUri != null, "Entry should have a valid edit URI"); 
-            if (entry.EditUri != null)
-                
+
+            ISupportsEtag eSource = entry as ISupportsEtag;
+
+            if (eSource != null)
             {
-                Delete(new Uri(entry.EditUri.ToString()));
+                eTag = eSource.Etag;
+            }
+
+            if (entry.EditUri != null)
+            {
+                Delete(new Uri(entry.EditUri.ToString()), eTag);
             }
             else
             {
@@ -1056,6 +1076,19 @@ namespace Google.GData.Client
         /////////////////////////////////////////////////////////////////////
         public void Delete(Uri uriTarget)
         {
+            Delete(uriTarget, null);
+        }   
+        //////////////////////////////////////////////////////////////////////
+
+
+        //////////////////////////////////////////////////////////////////////
+        ///<summary>Deletes an Atom entry when given a Uri</summary>
+        ///<param name="uriTarget">The target Uri to call http delete against</param>
+        ///<param name="eTag">The eTag of the item to delete. This parameter is used for strong
+        /// concurrency support in protocol version 2 and up</param>
+        /////////////////////////////////////////////////////////////////////
+        public void Delete(Uri uriTarget, string eTag)
+        {
             Tracing.Assert(uriTarget != null, "uri should not be null");
             if (uriTarget == null)
             {
@@ -1064,12 +1097,20 @@ namespace Google.GData.Client
 
             Tracing.TraceMsg("Deleting entry: " + uriTarget.ToString());
             IGDataRequest request = RequestFactory.CreateRequest(GDataRequestType.Delete, uriTarget);
+
+            ISupportsEtag eTarget = request as ISupportsEtag;
+            if (eTarget != null && eTag != null)
+            {
+                eTarget.Etag = eTag;
+            }
+
             request.Credentials = Credentials;
             request.Execute();
             IDisposable disp = request as IDisposable;
             disp.Dispose();
         }   
         //////////////////////////////////////////////////////////////////////
+
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>eventchaining. We catch this by the baseFeedParsers, which 

@@ -48,7 +48,7 @@ namespace Google.GData.Client
         protected AbstractFeed(Uri uriBase, IService service) : base(uriBase, service)
         {
             NewAtomEntry += new FeedParserEventHandler(this.OnParsedNewAbstractEntry);
-            this.AddExtension(new Etag());
+            // this.AddExtension(new Etag());
         }
 
 
@@ -107,6 +107,7 @@ namespace Google.GData.Client
         /// <returns>AtomEntry</returns>
         public abstract AtomEntry CreateFeedEntry();
 
+        /*
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>returns this feeds etag, if any</summary>
@@ -131,7 +132,25 @@ namespace Google.GData.Client
                                  e);
             }
         }
+        */
 
+        private string eTag; 
+        /////////////////////////////////////////////////////////////////////
+        /// <summary>returns this entries etag, if any
+        /// This is a protocol version 2 feature
+        /// </summary>
+        //////////////////////////////////////////////////////////////////////
+        public string Etag
+        {
+            get
+            {
+                return eTag;
+            }
+            set
+            {
+                eTag = value;
+            }
+        }
       
 
 

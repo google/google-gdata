@@ -357,7 +357,20 @@ namespace Google.GData.Client
                     baseObject.Language = Utilities.DecodedValue(reader.Value);
                     fRet = false;
                 }
+            } else if (IsCurrentNameSpace(reader, BaseNameTable.gNamespace))
+            {
+                ISupportsEtag se = baseObject as ISupportsEtag;
+                if (se != null)
+                {
+                    if (localName.Equals(this.nameTable.ETag))
+                    {
+                        se.Etag = reader.Value;
+                        fRet = false;
+                    }
+                }
             }
+
+
             if (fRet==true)
             {
                 Tracing.TraceInfo("Found an unknown attribute");

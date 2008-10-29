@@ -58,7 +58,7 @@ namespace Google.GData.Client.LiveTests
             {
                 authFactory.Handler = this.strAuthHandler; 
             }
-            FeedCleanup(this.bloggerURI, this.userName, this.passWord);
+            FeedCleanup(this.bloggerURI, this.userName, this.passWord, VersionDefaults.Major);
         }
         /////////////////////////////////////////////////////////////////////////////
 
@@ -68,7 +68,7 @@ namespace Google.GData.Client.LiveTests
         [TearDown] public override void EndTest()
         {
             Tracing.ExitTracing();
-            FeedCleanup(this.bloggerURI, this.userName, this.passWord);
+            FeedCleanup(this.bloggerURI, this.userName, this.passWord, VersionDefaults.Major);
         }
         /////////////////////////////////////////////////////////////////////////////
 
