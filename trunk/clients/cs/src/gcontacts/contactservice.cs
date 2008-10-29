@@ -68,6 +68,21 @@ namespace Google.GData.Contacts {
         {
             return base.Query(feedQuery) as GroupsFeed;
         }
+
+
+        /// <summary>
+        /// by default all services now use version 2 for the protocol.
+        /// this needs to be overridden by a service to specify otherwise. 
+        /// the contacts service is on version 1
+        /// </summary>
+        /// <returns></returns>
+        protected override void InitVersionInformation()
+        {
+            this.ProtocolMajor = VersionDefaults.MajorPrevious;
+        }
+
+
+
         //////////////////////////////////////////////////////////////////////
         /// <summary>eventchaining. We catch this by from the base service, which 
         /// would not by default create an atomFeed</summary> 

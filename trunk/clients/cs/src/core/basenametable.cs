@@ -72,6 +72,7 @@ namespace Google.GData.Client
         private object type;
         private object value;
         private object name;
+        private object eTagAttribute;
 
 
         /// <summary>
@@ -143,10 +144,10 @@ namespace Google.GData.Client
         public const string XmlElementPubEdited = "edited";
 
         /// <summary>
-        /// static string for parsing the etag element
+        /// static string for parsing the etag attribute
         /// </summary>
         /// <returns></returns>
-        public const string XmlEtagElement = "etag";
+        public const string XmlEtagAttribute = "etag";
 
 
 
@@ -221,6 +222,7 @@ namespace Google.GData.Client
             this.type              = this.atomNameTable.Add(BaseNameTable.XmlAttributeType); 
             this.value             = this.atomNameTable.Add(BaseNameTable.XmlValue); 
             this.name              = this.atomNameTable.Add(BaseNameTable.XmlName); 
+            this.eTagAttribute = this.atomNameTable.Add(BaseNameTable.XmlEtagAttribute);
         }
         /////////////////////////////////////////////////////////////////////////////
 
@@ -443,6 +445,15 @@ namespace Google.GData.Client
         public object Name
         {
             get {return this.name;}
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Read only accessor for etag</summary> 
+        //////////////////////////////////////////////////////////////////////
+        public object ETag
+        {
+            get {return this.eTagAttribute;}
         }
         /////////////////////////////////////////////////////////////////////////////
         #endregion end of Read only accessors

@@ -122,7 +122,21 @@ namespace Google.GData.Client
         /// <summary>Slug client header</summary>
         public const string SlugHeader = "Slug";
 
+        /// <summary>
+        /// constant for the Etag header
+        /// </summary>
         public const string EtagHeader = "Etag"; 
+
+        /// <summary>
+        /// constant for the If-Match header
+        /// </summary>
+        public const string IfMatch = "If-Match"; 
+
+        /// <summary>
+        /// constant for the if-None-match header
+        /// </summary>
+        public const string IfNoneMatch = "If-None-Match"; 
+        
 
 
 
@@ -564,7 +578,23 @@ namespace Google.GData.Client
                         web.Headers.Add("Accept-Encoding", "gzip");
 
                     if (this.Etag != null)
-                        web.Headers.Add(GDataRequestFactory.EtagHeader, this.Etag);
+                    {
+                            web.Headers.Add(GDataRequestFactory.EtagHeader, this.Etag);
+                            if (Utilities.IsWeakETag(this) == false)
+                            {
+                                // for a strong etag, add another header
+                                switch (this.type) 
+                                {
+                                    case GDataRequestType.Update:
+                                    case GDataRequestType.Delete:
+                                        web.Headers.Add(GDataRequestFactory.IfMatch, this.Etag);
+                                        break;
+                                    case GDataRequestType.Query:
+                                        web.Headers.Add(GDataRequestFactory.IfNoneMatch, this.Etag);
+                                        break;
+                                }
+                            }
+                    }
 
                     if (this.IfModifiedSince != DateTime.MinValue)
                         web.IfModifiedSince = this.IfModifiedSince;

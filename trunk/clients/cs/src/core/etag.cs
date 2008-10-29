@@ -21,6 +21,7 @@ using Google.GData.Client;
 
 namespace Google.GData.Extensions 
 {
+    /*
     /// <summary>
     /// gd:etag schema extension describing an etag value for updates
     /// </summary>
@@ -45,4 +46,5 @@ namespace Google.GData.Extensions
                BaseNameTable.gNamespace, initValue)
         {}
     }
+    */
 }

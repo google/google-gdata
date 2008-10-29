@@ -257,6 +257,40 @@ namespace Google.GData.Client
             
         }
 
+        /// <summary>
+        ///  tests an etag for weakness. returns TRUE for weak etags and for null strings
+        /// </summary>
+        /// <param name="eTag"></param>
+        /// <returns></returns>
+        public static bool IsWeakETag(string eTag)
+        {
+            if (eTag == null)
+            {
+                return true;
+            }
+            if (eTag.StartsWith("W/") == true)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        ///  tests an etag for weakness. returns TRUE for weak etags and for null strings
+        /// </summary>
+        /// <param name="eTag"></param>
+        /// <returns></returns>
+        public static bool IsWeakETag(ISupportsEtag ise)
+        {
+            string eTag = null; 
+
+            if (ise != null)
+            {
+                eTag = ise.Etag;
+            }
+            return IsWeakETag(eTag);
+        }
+
 
          //////////////////////////////////////////////////////////////////////
         /// <summary>helper to read in a string and replace the reserved URI 

@@ -82,7 +82,6 @@ namespace Google.GData.YouTube {
             this.NewFeed += new ServiceEventHandler(this.OnNewFeed); 
             clientID = client;
             developerID = developerKey;
-            this.ProtocolMajor = 2; 
             OnRequestFactoryChanged();
         }
 
@@ -94,7 +93,6 @@ namespace Google.GData.YouTube {
         public YouTubeService(string applicationName) : base(YTService, applicationName, YTAgent)
         {
             this.NewFeed += new ServiceEventHandler(this.OnNewFeed); 
-            this.ProtocolMajor = 2; 
             OnRequestFactoryChanged();
         }
         /// <summary>

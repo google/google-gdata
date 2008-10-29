@@ -82,7 +82,7 @@ namespace Google.GData.Client.LiveTests
         //////////////////////////////////////////////////////////////////////
         /// <summary>empty a feed</summary> 
         //////////////////////////////////////////////////////////////////////
-        protected void FeedCleanup(String uriToClean, String userName, String pwd)
+        protected void FeedCleanup(String uriToClean, String userName, String pwd, int protocolMajor)
         {
             Tracing.TraceCall();
             Tracing.TraceCall("Cleaning URI: " + uriToClean);
@@ -95,6 +95,7 @@ namespace Google.GData.Client.LiveTests
 
             FeedQuery query = new FeedQuery();
             Service service = new Service();
+            service.ProtocolMajor = protocolMajor;
 
             if (uriToClean != null)
             {

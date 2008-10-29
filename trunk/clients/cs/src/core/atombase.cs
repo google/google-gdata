@@ -691,6 +691,13 @@ namespace Google.GData.Client
                 writer.WriteAttributeString("xml", "lang", BaseNameTable.NSXml, this.Language);
             }
 
+            ISupportsEtag se = this as ISupportsEtag;
+
+            if (se != null && se.Etag != null)
+            {
+                writer.WriteAttributeString(BaseNameTable.gDataPrefix, BaseNameTable.XmlEtagAttribute, BaseNameTable.gNamespace, se.Etag);
+            }
+
             foreach (object ob in this.ExtensionElements)
             {
                 // this code can be removed when the generics are introduced. 

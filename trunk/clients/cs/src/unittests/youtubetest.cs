@@ -132,7 +132,7 @@ namespace Google.GData.Client.LiveTests
             YouTubeQuery query = new YouTubeQuery(YouTubeQuery.DefaultVideoUri);
             YouTubeService service = new YouTubeService("NETUnittests", this.ytClient, this.ytDevKey);
 
-            query.Query = "electronics"; 
+            query.Query = "Education expertvillage"; 
             query.NumberToRetrieve = 50; 
             if (this.userName != null)
             {

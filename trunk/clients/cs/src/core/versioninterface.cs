@@ -39,10 +39,11 @@ using System.Globalization;
 namespace Google.GData.Client
 {
 
-    static class VersionDefaults
+    public static class VersionDefaults
     {
-        public const int Major = 1;
+        public const int Major = 2;
         public const int Minor = 0;
+        public const int MajorPrevious = 1; 
     }
 
     //TODO determine if this is the correct approach.

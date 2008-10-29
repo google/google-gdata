@@ -38,14 +38,14 @@ namespace Google.GData.Client
     /// </summary>
     public abstract class AbstractEntry : AtomEntry, ISupportsEtag
     {
-
+        private string eTag;
         /// <summary>
         /// default constructor, adding app:edited and etag extensions
         /// </summary>
         public AbstractEntry()
         {
             this.AddExtension(new AppEdited());
-            this.AddExtension(new Etag());
+            // this.AddExtension(new Etag());
         }
 
         private MediaSource mediaSource;
@@ -113,8 +113,9 @@ namespace Google.GData.Client
         }
         // end of accessor public MediaSource Media
 
+        /*
         //////////////////////////////////////////////////////////////////////
-        /// <summary>returns this feeds etag, if any
+        /// <summary>returns this entries etag, if any
         /// This is a protocol version 2 feature
         /// </summary>
         //////////////////////////////////////////////////////////////////////
@@ -138,6 +139,25 @@ namespace Google.GData.Client
                                  e);
             }
         }
+        */
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>returns this entries etag, if any
+        /// This is a protocol version 2 feature
+        /// </summary>
+        //////////////////////////////////////////////////////////////////////
+        public string Etag
+        {
+            get
+            {
+                return eTag;
+            }
+            set
+            {
+                eTag = value;
+            }
+        }
+        
+
 
 
         /// <summary>
