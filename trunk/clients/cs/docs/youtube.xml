@@ -104,6 +104,14 @@
             <param name="entry">the youtube entry</param>
             <returns></returns>
         </member>
+        <member name="M:Google.GData.YouTube.YouTubeService.InitVersionInformation">
+            <summary>
+            by default all services now use version 1 for the protocol.
+            this needs to be overridden by a service to specify otherwise. 
+            YouTube uses version 2
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Google.GData.YouTube.YouTubeService.FormUpload(Google.GData.YouTube.YouTubeEntry)">
             <summary>
             Method for browser-based upload, gets back a non-Atom response
