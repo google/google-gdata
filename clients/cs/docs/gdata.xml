@@ -782,215 +782,6 @@
             </summary> 
             <returns> </returns>
         </member>
-        <member name="T:Google.GData.Extensions.Etag">
-            <summary>
-            gd:etag schema extension describing an etag value for updates
-            </summary>
-        </member>
-        <member name="T:Google.GData.Extensions.SimpleElement">
-            <summary>
-            Extensible enum type used in many places.
-            compared to the base class, this one
-            adds a default values
-            </summary>
-        </member>
-        <member name="T:Google.GData.Extensions.ExtensionBase">
-            <summary>
-            Extensible type used in many places.
-            </summary>
-        </member>
-        <member name="F:Google.GData.Extensions.ExtensionBase.attributes">
-            <summary>
-            this holds the attribute list for an extension element
-            </summary>
-        </member>
-        <member name="M:Google.GData.Extensions.ExtensionBase.#ctor(System.String,System.String,System.String)">
-            <summary>
-            constructor
-            </summary>
-            <param name="name">the xml name</param>
-            <param name="prefix">the xml prefix</param>
-            <param name="ns">the xml namespace</param>
-        </member>
-        <member name="M:Google.GData.Extensions.ExtensionBase.VersionInfoChanged">
-            <summary>
-            virtual to be overloaded by subclasses which are interested in reacting on versioninformation
-            changes
-            </summary>
-        </member>
-        <member name="M:Google.GData.Extensions.ExtensionBase.SetXmlNamespace(System.String)">
-            <summary>
-            method for subclasses who need to change a namespace for parsing/persistence during runtime
-            </summary>
-            <param name="ns"></param>
-        </member>
-        <member name="M:Google.GData.Extensions.ExtensionBase.getAttributes">
-            <summary>
-            returns the attributes list
-            </summary>
-            <returns>SortedList</returns>
-        </member>
-        <member name="M:Google.GData.Extensions.ExtensionBase.getAttributeNamespaces">
-            <summary>
-            returns the attribute namespace list
-            </summary>
-            <returns>SortedList</returns>
-        </member>
-        <member name="M:Google.GData.Extensions.ExtensionBase.ToString">
-            <summary>
-            debugging helper
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Google.GData.Extensions.ExtensionBase.CreateInstance(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
-            <summary>Parses an xml node to create an instance of this  object.</summary> 
-            <param name="node">the xml parses node, can be NULL</param>
-            <param name="parser">the xml parser to use if we need to dive deeper</param>
-            <returns>the created IExtensionElement object</returns>
-        </member>
-        <member name="M:Google.GData.Extensions.ExtensionBase.ProcessChildNodes(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
-            <summary>
-            used to copy the unknown childnodes for later saving
-            </summary>
-        </member>
-        <member name="M:Google.GData.Extensions.ExtensionBase.InitInstance(Google.GData.Extensions.ExtensionBase)">
-            <summary>
-            used to copy the attribute lists over
-            </summary>
-            <param name="factory"></param>
-        </member>
-        <member name="M:Google.GData.Extensions.ExtensionBase.ProcessAttributes(System.Xml.XmlNode)">
-            <summary>
-            default method override to handle attribute processing
-            the base implementation does process the attributes list
-            and reads all that are in there.
-            </summary>
-            <param name="node">XmlNode with attributes</param>
-        </member>
-        <member name="M:Google.GData.Extensions.ExtensionBase.Save(System.Xml.XmlWriter)">
-            <summary>
-            Persistence method for the EnumConstruct object
-            </summary>
-            <param name="writer">the xmlwriter to write into</param>
-        </member>
-        <member name="M:Google.GData.Extensions.ExtensionBase.SaveInnerXml(System.Xml.XmlWriter)">
-            <summary>
-            a subclass that want's to save addtional XML would need to overload this
-            the default implementation does nothing
-            </summary>
-            <param name="writer"></param>
-        </member>
-        <member name="P:Google.GData.Extensions.ExtensionBase.ProtocolMajor">
-            <summary>
-            returns the major protocol version number this element 
-            is working against. 
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="P:Google.GData.Extensions.ExtensionBase.Google#GData#Client#IVersionAware#ProtocolMinor">
-            <summary>
-            returns the minor protocol version number this element 
-            is working against. 
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="P:Google.GData.Extensions.ExtensionBase.Attributes">
-            <summary>accesses the Attribute list. The keys are the attribute names
-            the values the attribute values</summary> 
-            <returns> </returns>
-        </member>
-        <member name="P:Google.GData.Extensions.ExtensionBase.AttributeNamespaces">
-            <summary>accesses the Attribute list. The keys are the attribute names
-            the values the attribute values</summary> 
-            <returns> </returns>
-        </member>
-        <member name="P:Google.GData.Extensions.ExtensionBase.XmlName">
-            <summary>Returns the constant representing this XML element.</summary> 
-        </member>
-        <member name="P:Google.GData.Extensions.ExtensionBase.XmlNameSpace">
-            <summary>Returns the constant representing this XML element.</summary> 
-        </member>
-        <member name="P:Google.GData.Extensions.ExtensionBase.XmlPrefix">
-            <summary>Returns the constant representing this XML element.</summary> 
-        </member>
-        <member name="P:Google.GData.Extensions.ExtensionBase.ChildNodes">
-            <summary>
-             returns the list of childnodes that are unknown to the extension
-             used for example for the GD:ExtendedProperty
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Google.GData.Extensions.SimpleElement.#ctor(System.String,System.String,System.String)">
-            <summary>
-            constructor
-            </summary>
-            <param name="name">the xml name</param>
-            <param name="prefix">the xml prefix</param>
-            <param name="ns">the xml namespace</param>
-        </member>
-        <member name="M:Google.GData.Extensions.SimpleElement.#ctor(System.String,System.String,System.String,System.String)">
-            <summary>
-            constructor
-            </summary>
-            <param name="name">the xml name</param>
-            <param name="prefix">the xml prefix</param>
-            <param name="ns">the xml namespace</param>
-            <param name="value">the intial value</param>
-        </member>
-        <member name="M:Google.GData.Extensions.SimpleElement.ToString">
-            <summary>
-            debugging helper
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Google.GData.Extensions.SimpleElement.CreateInstance(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
-            <summary>Parses an xml node to create a Who object.</summary> 
-            <param name="node">the xml parses node, can be NULL</param>
-            <param name="parser">the xml parser to use if we need to dive deeper</param>
-            <returns>the created SimpleElement object</returns>
-        </member>
-        <member name="M:Google.GData.Extensions.SimpleElement.SaveInnerXml(System.Xml.XmlWriter)">
-            <summary>
-            saves out the value, get's called from Save
-            </summary>
-            <param name="writer"></param>
-        </member>
-        <member name="P:Google.GData.Extensions.SimpleElement.Value">
-            <summary>
-             Accessor Method for the value
-            </summary>
-        </member>
-        <member name="P:Google.GData.Extensions.SimpleElement.IntegerValue">
-            <summary>
-             Accessor Method for the value as integer
-            </summary>
-        </member>
-        <member name="P:Google.GData.Extensions.SimpleElement.UnsignedIntegerValue">
-            <summary>
-             Accessor Method for the value as integer
-            </summary>
-        </member>
-        <member name="P:Google.GData.Extensions.SimpleElement.FloatValue">
-            <summary>
-             Accessor Method for the value as float
-            </summary>
-        </member>
-        <member name="P:Google.GData.Extensions.SimpleElement.BooleanValue">
-            <summary>
-             Accessor Method for the value as boolean
-            </summary>
-        </member>
-        <member name="M:Google.GData.Extensions.Etag.#ctor">
-            <summary>
-            default constructor for gd:Etag 
-            </summary>
-        </member>
-        <member name="M:Google.GData.Extensions.Etag.#ctor(System.String)">
-            <summary>
-            default constructor for gd:Etag  with an initial value
-            </summary>
-            <param name="initValue"/>
-        </member>
         <member name="T:Google.GData.Client.BaseIsDirty">
             <summary>Helper object to walk the tree for the dirty flag.</summary> 
         </member>
@@ -1431,6 +1222,132 @@
             TODO: at one point think about using this as the base for atom:base
             as there is some utility overlap between the 2 of them
             </summary>
+        </member>
+        <member name="T:Google.GData.Extensions.ExtensionBase">
+            <summary>
+            Extensible type used in many places.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Extensions.ExtensionBase.attributes">
+            <summary>
+            this holds the attribute list for an extension element
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.ExtensionBase.#ctor(System.String,System.String,System.String)">
+            <summary>
+            constructor
+            </summary>
+            <param name="name">the xml name</param>
+            <param name="prefix">the xml prefix</param>
+            <param name="ns">the xml namespace</param>
+        </member>
+        <member name="M:Google.GData.Extensions.ExtensionBase.VersionInfoChanged">
+            <summary>
+            virtual to be overloaded by subclasses which are interested in reacting on versioninformation
+            changes
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.ExtensionBase.SetXmlNamespace(System.String)">
+            <summary>
+            method for subclasses who need to change a namespace for parsing/persistence during runtime
+            </summary>
+            <param name="ns"></param>
+        </member>
+        <member name="M:Google.GData.Extensions.ExtensionBase.getAttributes">
+            <summary>
+            returns the attributes list
+            </summary>
+            <returns>SortedList</returns>
+        </member>
+        <member name="M:Google.GData.Extensions.ExtensionBase.getAttributeNamespaces">
+            <summary>
+            returns the attribute namespace list
+            </summary>
+            <returns>SortedList</returns>
+        </member>
+        <member name="M:Google.GData.Extensions.ExtensionBase.ToString">
+            <summary>
+            debugging helper
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Google.GData.Extensions.ExtensionBase.CreateInstance(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
+            <summary>Parses an xml node to create an instance of this  object.</summary> 
+            <param name="node">the xml parses node, can be NULL</param>
+            <param name="parser">the xml parser to use if we need to dive deeper</param>
+            <returns>the created IExtensionElement object</returns>
+        </member>
+        <member name="M:Google.GData.Extensions.ExtensionBase.ProcessChildNodes(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
+            <summary>
+            used to copy the unknown childnodes for later saving
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.ExtensionBase.InitInstance(Google.GData.Extensions.ExtensionBase)">
+            <summary>
+            used to copy the attribute lists over
+            </summary>
+            <param name="factory"></param>
+        </member>
+        <member name="M:Google.GData.Extensions.ExtensionBase.ProcessAttributes(System.Xml.XmlNode)">
+            <summary>
+            default method override to handle attribute processing
+            the base implementation does process the attributes list
+            and reads all that are in there.
+            </summary>
+            <param name="node">XmlNode with attributes</param>
+        </member>
+        <member name="M:Google.GData.Extensions.ExtensionBase.Save(System.Xml.XmlWriter)">
+            <summary>
+            Persistence method for the EnumConstruct object
+            </summary>
+            <param name="writer">the xmlwriter to write into</param>
+        </member>
+        <member name="M:Google.GData.Extensions.ExtensionBase.SaveInnerXml(System.Xml.XmlWriter)">
+            <summary>
+            a subclass that want's to save addtional XML would need to overload this
+            the default implementation does nothing
+            </summary>
+            <param name="writer"></param>
+        </member>
+        <member name="P:Google.GData.Extensions.ExtensionBase.ProtocolMajor">
+            <summary>
+            returns the major protocol version number this element 
+            is working against. 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.GData.Extensions.ExtensionBase.Google#GData#Client#IVersionAware#ProtocolMinor">
+            <summary>
+            returns the minor protocol version number this element 
+            is working against. 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.GData.Extensions.ExtensionBase.Attributes">
+            <summary>accesses the Attribute list. The keys are the attribute names
+            the values the attribute values</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Extensions.ExtensionBase.AttributeNamespaces">
+            <summary>accesses the Attribute list. The keys are the attribute names
+            the values the attribute values</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Extensions.ExtensionBase.XmlName">
+            <summary>Returns the constant representing this XML element.</summary> 
+        </member>
+        <member name="P:Google.GData.Extensions.ExtensionBase.XmlNameSpace">
+            <summary>Returns the constant representing this XML element.</summary> 
+        </member>
+        <member name="P:Google.GData.Extensions.ExtensionBase.XmlPrefix">
+            <summary>Returns the constant representing this XML element.</summary> 
+        </member>
+        <member name="P:Google.GData.Extensions.ExtensionBase.ChildNodes">
+            <summary>
+             returns the list of childnodes that are unknown to the extension
+             used for example for the GD:ExtendedProperty
+            </summary>
+            <returns></returns>
         </member>
         <member name="M:Google.GData.Extensions.SimpleContainer.#ctor(System.String,System.String,System.String)">
             <summary>
@@ -1992,6 +1909,73 @@
             it's a child of app:control
             </summary>
         </member>
+        <member name="T:Google.GData.Extensions.SimpleElement">
+            <summary>
+            Extensible enum type used in many places.
+            compared to the base class, this one
+            adds a default values
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.SimpleElement.#ctor(System.String,System.String,System.String)">
+            <summary>
+            constructor
+            </summary>
+            <param name="name">the xml name</param>
+            <param name="prefix">the xml prefix</param>
+            <param name="ns">the xml namespace</param>
+        </member>
+        <member name="M:Google.GData.Extensions.SimpleElement.#ctor(System.String,System.String,System.String,System.String)">
+            <summary>
+            constructor
+            </summary>
+            <param name="name">the xml name</param>
+            <param name="prefix">the xml prefix</param>
+            <param name="ns">the xml namespace</param>
+            <param name="value">the intial value</param>
+        </member>
+        <member name="M:Google.GData.Extensions.SimpleElement.ToString">
+            <summary>
+            debugging helper
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Google.GData.Extensions.SimpleElement.CreateInstance(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
+            <summary>Parses an xml node to create a Who object.</summary> 
+            <param name="node">the xml parses node, can be NULL</param>
+            <param name="parser">the xml parser to use if we need to dive deeper</param>
+            <returns>the created SimpleElement object</returns>
+        </member>
+        <member name="M:Google.GData.Extensions.SimpleElement.SaveInnerXml(System.Xml.XmlWriter)">
+            <summary>
+            saves out the value, get's called from Save
+            </summary>
+            <param name="writer"></param>
+        </member>
+        <member name="P:Google.GData.Extensions.SimpleElement.Value">
+            <summary>
+             Accessor Method for the value
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.SimpleElement.IntegerValue">
+            <summary>
+             Accessor Method for the value as integer
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.SimpleElement.UnsignedIntegerValue">
+            <summary>
+             Accessor Method for the value as integer
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.SimpleElement.FloatValue">
+            <summary>
+             Accessor Method for the value as float
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.SimpleElement.BooleanValue">
+            <summary>
+             Accessor Method for the value as boolean
+            </summary>
+        </member>
         <member name="M:Google.GData.Extensions.AppControl.AppDraft.#ctor">
             <summary>
             default constructor for media:credit
@@ -2258,6 +2242,13 @@
         <member name="M:Google.GData.Client.Service.#ctor(System.String,System.String,System.String)">
             <summary>this will trigger the creation of an authenticating servicea</summary> 
         </member>
+        <member name="M:Google.GData.Client.Service.InitVersionInformation">
+            <summary>
+            by default all services now use version 2 for the protocol.
+            this needs to be overridden by a service to specify otherwise. 
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Google.GData.Client.Service.OnRequestFactoryChanged">
             <summary>
             notifier if someone changes the requestfactory of the service. 
@@ -2510,6 +2501,12 @@
             <summary>Deletes an Atom entry when given a Uri</summary>
             <param name="uriTarget">The target Uri to call http delete against</param>
         </member>
+        <member name="M:Google.GData.Client.Service.Delete(System.Uri,System.String)">
+            <summary>Deletes an Atom entry when given a Uri</summary>
+            <param name="uriTarget">The target Uri to call http delete against</param>
+            <param name="eTag">The eTag of the item to delete. This parameter is used for strong
+             concurrency support in protocol version 2 and up</param>
+        </member>
         <member name="M:Google.GData.Client.Service.OnParsedNewEntry(System.Object,Google.GData.Client.FeedParserEventArgs)">
             <summary>eventchaining. We catch this by the baseFeedParsers, which 
             would not do anything with the gathered data. We pass the event up
@@ -2691,6 +2688,21 @@
         </member>
         <member name="F:Google.GData.Client.GDataRequestFactory.SlugHeader">
             <summary>Slug client header</summary>
+        </member>
+        <member name="F:Google.GData.Client.GDataRequestFactory.EtagHeader">
+            <summary>
+            constant for the Etag header
+            </summary>
+        </member>
+        <member name="F:Google.GData.Client.GDataRequestFactory.IfMatch">
+            <summary>
+            constant for the If-Match header
+            </summary>
+        </member>
+        <member name="F:Google.GData.Client.GDataRequestFactory.IfNoneMatch">
+            <summary>
+            constant for the if-None-match header
+            </summary>
         </member>
         <member name="F:Google.GData.Client.GDataRequestFactory.userAgent">
             <summary>holds the user-agent</summary> 
@@ -3934,7 +3946,9 @@
             <returns>AtomEntry</returns>
         </member>
         <member name="P:Google.GData.Client.AbstractFeed.Etag">
-            <summary>returns this feeds etag, if any</summary>
+            <summary>returns this entries etag, if any
+            This is a protocol version 2 feature
+            </summary>
         </member>
         <member name="T:Google.GData.Client.Utilities">
             <summary>String utilities
@@ -4021,6 +4035,20 @@
             characters with hex encoding</summary> 
             <param name="content">the parameter string</param>
             <returns>hex encoded string</returns>
+        </member>
+        <member name="M:Google.GData.Client.Utilities.IsWeakETag(System.String)">
+            <summary>
+             tests an etag for weakness. returns TRUE for weak etags and for null strings
+            </summary>
+            <param name="eTag"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Google.GData.Client.Utilities.IsWeakETag(Google.GData.Client.ISupportsEtag)">
+            <summary>
+             tests an etag for weakness. returns TRUE for weak etags and for null strings
+            </summary>
+            <param name="eTag"></param>
+            <returns></returns>
         </member>
         <member name="M:Google.GData.Client.Utilities.UriEncodeUnsafe(System.String)">
             <summary>helper to read in a string and replace the reserved URI 
@@ -4480,9 +4508,9 @@
         <member name="F:Google.GData.Client.BaseNameTable.XmlElementPubEdited">
             <summary>xmlelement for app:draft</summary> 
         </member>
-        <member name="F:Google.GData.Client.BaseNameTable.XmlEtagElement">
+        <member name="F:Google.GData.Client.BaseNameTable.XmlEtagAttribute">
             <summary>
-            static string for parsing the etag element
+            static string for parsing the etag attribute
             </summary>
             <returns></returns>
         </member>
@@ -4647,6 +4675,9 @@
         </member>
         <member name="P:Google.GData.Client.BaseNameTable.Name">
             <summary>Read only accessor for name</summary> 
+        </member>
+        <member name="P:Google.GData.Client.BaseNameTable.ETag">
+            <summary>Read only accessor for etag</summary> 
         </member>
         <member name="F:Google.GData.Client.AtomParserNameTable.XmlCategoryElement">
             <summary>static string for parsing</summary> 
@@ -4985,7 +5016,7 @@
             <returns> </returns>
         </member>
         <member name="P:Google.GData.Client.AbstractEntry.Etag">
-            <summary>returns this feeds etag, if any
+            <summary>returns this entries etag, if any
             This is a protocol version 2 feature
             </summary>
         </member>

@@ -2,7 +2,7 @@ cd ./..
 rd /S /Q exporttree
 rd /S /Q setuptree
 
-svn export . exporttree\
+svn export http://google-gdata.googlecode.com/svn/trunk/clients/cs/ exporttree\
 mkdir setuptree
 xcopy /E exporttree\src\*.* setuptree\Sources\Library\*.* 
 xcopy /E exporttree\samples\*.* setuptree\Sources\Samples\*.*

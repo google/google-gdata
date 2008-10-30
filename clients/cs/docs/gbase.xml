@@ -776,6 +776,32 @@
         <member name="P:Google.GData.GoogleBase.MetadataItemType.Name">
             <summary>Item type name</summary>
         </member>
+        <member name="T:Google.GData.GoogleBase.PublishingPriority">
+            <summary>
+             publishing_priorty for Google Base entries. Can be 
+            </summary>
+        </member>
+        <member name="F:Google.GData.GoogleBase.PublishingPriority.LowPriority">
+            <summary>
+            indicates a low  priority, the item should be searchable within 12 hours
+            </summary>
+        </member>
+        <member name="F:Google.GData.GoogleBase.PublishingPriority.HighPriority">
+            <summary>
+            indicates a high priority, the item should be searchable in a few minutes
+            </summary>
+        </member>
+        <member name="M:Google.GData.GoogleBase.PublishingPriority.#ctor">
+            <summary>
+            default constructor
+            </summary>
+        </member>
+        <member name="M:Google.GData.GoogleBase.PublishingPriority.#ctor(System.String)">
+            <summary>
+            constructor with an init value
+            </summary>
+            <param name="initValue"></param>
+        </member>
         <member name="T:Google.GData.GoogleBase.GBaseEntry">
              <summary>A Google Base entry.
             
@@ -928,6 +954,9 @@
         </member>
         <member name="F:Google.GData.GoogleBase.GBaseNameTable.GBaseMetaPrefix">
             <summary>Google Base meta namespace prefix.</summary>
+        </member>
+        <member name="F:Google.GData.GoogleBase.GBaseNameTable.PublishingPriority">
+            <summary>Google Base publishing priority element.</summary>
         </member>
         <member name="T:Google.GData.GoogleBase.GBaseAttributes">
              <summary>Queries, adds and removes google base attributes (Level 3)
