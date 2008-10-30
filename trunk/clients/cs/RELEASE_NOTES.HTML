@@ -6,7 +6,6 @@
     
     
 <h1>This document lists the changes in the different releases</h1>
-
     <h2>
         1.2.3.0
     </h2>
@@ -16,7 +15,16 @@
         </li>
         <ul>
             <li>Added support for EMail Settings in Google Apps</li>
-            <li>Added support for the version 2 of the YouTube feed.</li>
+            
+            <li>Added support for the protocol version 2</li>
+            <ul>
+                <li>YouTube will work against version 2 of the protocol by 
+                    default. Added support for the version 2 of the YouTube 
+                    feed. Old methods are marked as obsolete and will be removed
+                    in future releases.</li>
+                <li>Bloogger will work against version 2 of the protocol by 
+                    default. </li> 
+            </ul>
             <li>
                 Created a blogger service, feed, entry and query class. The 
                 query class allows the OrderBy parameter. This also fixes issue 
