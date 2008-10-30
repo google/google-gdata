@@ -78,7 +78,7 @@ namespace Google.GData.Client.LiveTests
                 authFactory.Handler = this.strAuthHandler; 
             }
 
-            FeedCleanup(this.defaultCalendarUri, this.userName, this.passWord, VersionDefaults.MajorPrevious);
+            FeedCleanup(this.defaultCalendarUri, this.userName, this.passWord, VersionDefaults.Major);
 
         }
         /////////////////////////////////////////////////////////////////////////////
@@ -89,7 +89,7 @@ namespace Google.GData.Client.LiveTests
         [TearDown] public override void EndTest()
         {
             Tracing.TraceCall();
-            FeedCleanup(this.defaultCalendarUri, this.userName, this.passWord, VersionDefaults.MajorPrevious);
+            FeedCleanup(this.defaultCalendarUri, this.userName, this.passWord, VersionDefaults.Major);
             Tracing.ExitTracing();
         }
         /////////////////////////////////////////////////////////////////////////////

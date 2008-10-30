@@ -217,7 +217,7 @@ namespace Google.GData.Client.LiveTests
             Tracing.TraceMsg("Entering BloggerXHTMLTest");
 
             FeedQuery query = new FeedQuery();
-            Service service = new Service(this.ServiceName, this.ApplicationName);
+            BloggerService service = new BloggerService(this.ApplicationName);
 
             if (this.bloggerURI != null)
             {
@@ -273,7 +273,7 @@ namespace Google.GData.Client.LiveTests
             Tracing.TraceMsg("Entering BloggerHTMLTest");
 
             FeedQuery query = new FeedQuery();
-            Service service = new Service(this.ServiceName, this.ApplicationName);
+            BloggerService service = new BloggerService(this.ApplicationName);
 
             if (this.bloggerURI != null)
             {
@@ -330,7 +330,7 @@ namespace Google.GData.Client.LiveTests
             Tracing.TraceMsg("Entering BloggerPublicFeedTest");
 
             FeedQuery query = new FeedQuery();
-            Service service = new Service(this.ServiceName, this.ApplicationName);
+            BloggerService service = new BloggerService(this.ApplicationName);
 
             String publicURI = (String) this.externalHosts[0];
 
@@ -472,7 +472,7 @@ namespace Google.GData.Client.LiveTests
             Tracing.TraceMsg("Entering Blogger GoogleStressTest");
 
             FeedQuery query = new FeedQuery();
-            Service service = new Service(this.ServiceName, this.ApplicationName);
+            BloggerService service = new BloggerService(this.ApplicationName);
 
             if (this.bloggerURI != null)
             {
