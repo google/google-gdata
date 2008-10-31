@@ -5,9 +5,9 @@
 # globals 
 
 declare -rx SCRIPT=${O##*/}
-declare -rx SVNLOCATION="/users/frank/googlegdata/clients"
+declare -rx SVNLOCATION="http://google-gdata.googlecode.com/svn/trunk/clients/cs/"
 declare -rx SVN="/usr/local/bin/svn"
-declare -rx OUTPUTDIR="libgoogle-data-mono-1.2.2.0"
+declare -rx OUTPUTDIR="libgoogle-data-mono-1.2.3.0"
 declare -rx EXPORTDIR="$OUTPUTDIR"
 
 # sanity checks
@@ -17,10 +17,6 @@ if test -z "$BASH" ; then
   exit 192
 fi 
 
-if test ! -x "$SVNLOCATION" ; then
-  printf "$SCRIPT:$LINENO: the location $SVNLOCATION could not be found\n" >&2
-  exit 192
-fi 
 
 if test ! -x "$SVN" ; then
   printf "$SCRIPT:$LINENO: the $SVN command to run subversion could not be found\n" >&2
@@ -35,7 +31,7 @@ fi
 
 
 printf "Starting to export to: $EXPORTDIR\n" >&1
-svn export $SVNLOCATION/cs/ $EXPORTDIR
+svn export $SVNLOCATION $EXPORTDIR
 
 # now remove all NON unix related dlls etc
 
