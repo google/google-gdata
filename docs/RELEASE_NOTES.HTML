@@ -6,6 +6,81 @@
     
     
 <h1>This document lists the changes in the different releases</h1>
+    <h2>
+        1.2.3.0
+    </h2>
+    <ul>
+        <li>
+            Features
+        </li>
+        <ul>
+            <li>Added support for EMail Settings in Google Apps</li>
+            
+            <li>Added support for the protocol version 2</li>
+            <ul>
+                <li>YouTube will work against version 2 of the protocol by 
+                    default. Added support for the version 2 of the YouTube 
+                    feed. Old methods are marked as obsolete and will be removed
+                    in future releases.</li>
+                <li>Bloogger will work against version 2 of the protocol by 
+                    default. </li> 
+            </ul>
+            <li>
+                Created a blogger service, feed, entry and query class. The 
+                query class allows the OrderBy parameter. This also fixes issue 
+                151 on the public issue list. Added a PostUri method to the 
+                blogger entry. 
+            </li>
+            <li>
+                Added the Error subelement collection to GDataBatchStatus. 
+                Removed the Value element as it was not used.                 
+            </li>
+            <li>Issue 166: Added a GetTokenInfo helper method that returns 
+                a Dictionary with the Information returned about the 
+                authentication token.</li>
+            <li>Added a bool property Private to the YouTubeEntry 
+                identifying if a video is private</li>
+            <li>Added a script to create a linux friendly tarball</li>
+            <li>Issue 165: Added the ability to access the error collection 
+                from inside the batch error.  </li>
+        </ul>
+        <li>
+        
+        </ul>
+            Bugfixes/changes
+        </li>
+        <ul>
+            <li>Fixed issue 154: you can now access the publishing priority 
+                element on a GBaseEntry directly.</li>
+            <li>Fixed issue 176: onProgress events were potentially not 
+                being raised in the Async Methods. </li>
+            <li>Fixed issue 178: Groups feeds on the contacts service did 
+                not work when using https. </li>
+            <li>Fixed issue 180: Passwords with some special characters 
+                were incorrectly encoded, leading to a failure in 
+                authentication.</li>
+            <li>Removed the version dependency for the NUNIT tests, so that the 
+                tests can now be used with different installed versions of the 
+                NUNIT framework.
+                </li>
+            <li>Some typographical changes. getExtensionValue and 
+                setExtension are now named GetExtensionValue and
+                SetExtensionValue</li>
+            <li>
+                Unknown extension elements are now stored in a Wrapper 
+                XmlExtension element, which implements the usual 
+                IExtensionElements interfaces to enable removing untyped lists 
+                internally. 
+            </li>
+            <li>
+                Moved the core of the extension functionallity, so just the base
+                classes, into the Google.GData.Client, so that the base 
+                AtomFeed/AtomEntry can be extended using this extension system. 
+                Otherwise there would be a circular reference between client.dll 
+                and extension.dll
+            </li>
+        </ul>
+    </ul>
 
 <h2>1.2.2.0</h2>
    <ul>

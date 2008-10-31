@@ -38,18 +38,6 @@
             the following API-specific query parameters. These parameters are only available on video
             and playlist feeds.
             Name	    Definition
-            vq	        The vq parameter specifies a search query term. YouTube will search all video 
-                        metadata for videos matching the term. Video metadata includes titles, keywords, 
-                        descriptions, authors' usernames, and categories.
-                        Note that any spaces, quotes or other punctuation in the parameter value must be 
-                        URL-escaped. To search for an exact phrase, enclose the phrase in quotation marks. 
-                        For example, to search for videos matching the phrase "spy plane", set the 
-                        vq parameter to %22spy+plane%22.
-                        Your request can also use the Boolean NOT (-) and OR (|) operators to exclude 
-                        videos or to find videos that are associated with one of several search terms. 
-                        For example, to search for videos matching either "boating" or "sailing", 
-                        set the vq parameter to boating%7Csailing. (Note that the pipe character must 
-                        be URL-escaped.) 
             orderby	    The orderby parameter specifies the value that will be used to sort videos in the
                         search result set. Valid values for this parameter are relevance, published, viewCount 
                         and rating. In addition, you can request results that are most relevant to a specific 
@@ -78,10 +66,6 @@
                     specific language. Valid values for the lr parameter are ISO 639-1 two-letter language codes. 
                     You can also use the values zh-Hans for simplified Chinese and zh-Hant for traditional Chinese. This
                     parameter can be used when requesting any video feeds other than standard feeds.
-            racy	The racy parameter allows a search result set to include restricted content as well as standard 
-                    content. Valid values for this parameter are include and exclude. By default, restricted content 
-                    is excluded. Feed entries for videos that contain restricted content will contain an additional 
-                    yt:racy element.
             restriction	The restriction parameter identifies the IP address that should be used to filter videos 
                     that can only be played in specific countries. By default, the API filters out videos that cannot 
                     be played in the country from which you send API requests. This restriction is based on your 
@@ -100,6 +84,6 @@
     <b>Namespace:</b> 
    <a  href="../folder43/N_Google_GData_YouTube.htm">Google.GData.YouTube</a><br>
     <b>Assembly:</b>
-   <span data="assembly">Google.GData.YouTube</span> (in Google.GData.YouTube.dll)<br><b>Version:</b> 1.2.1.0<h1 class="heading"><span onclick="ExpandCollapse(syntaxToggle)" style="cursor:default;" onkeypress="ExpandCollapse_CheckKey(syntaxToggle, event)" tabindex="0"><img id="syntaxToggle" class="toggle" name="toggleSwitch" src="../icons/collapse_all.gif">Syntax</span></h1><div id="syntaxSection" class="section" name="collapseableSection" style=""><div id="syntaxCodeBlocks" class="code"><span codelanguage="CSharp"><table><tr><th>C#</th></tr><tr><td><pre xml:space="preserve"><span class="keyword">public</span> <span class="keyword">class</span> <span class="identifier">YouTubeQuery</span> : <a  href="../folder14/T_Google_GData_Client_FeedQuery.htm">FeedQuery</a></pre></td></tr></table></span><span codelanguage="VisualBasicDeclaration"><table><tr><th>Visual Basic (Declaration)</th></tr><tr><td><pre xml:space="preserve"><span class="keyword">Public</span> <span class="keyword">Class</span> <span class="identifier">YouTubeQuery</span> _
+   <span data="assembly">Google.GData.YouTube</span> (in Google.GData.YouTube.dll)<br><b>Version:</b> 1.2.3.0<h1 class="heading"><span onclick="ExpandCollapse(syntaxToggle)" style="cursor:default;" onkeypress="ExpandCollapse_CheckKey(syntaxToggle, event)" tabindex="0"><img id="syntaxToggle" class="toggle" name="toggleSwitch" src="../icons/collapse_all.gif">Syntax</span></h1><div id="syntaxSection" class="section" name="collapseableSection" style=""><div id="syntaxCodeBlocks" class="code"><span codelanguage="CSharp"><table><tr><th>C#</th></tr><tr><td><pre xml:space="preserve"><span class="keyword">public</span> <span class="keyword">class</span> <span class="identifier">YouTubeQuery</span> : <a  href="../folder14/T_Google_GData_Client_FeedQuery.htm">FeedQuery</a></pre></td></tr></table></span><span codelanguage="VisualBasicDeclaration"><table><tr><th>Visual Basic (Declaration)</th></tr><tr><td><pre xml:space="preserve"><span class="keyword">Public</span> <span class="keyword">Class</span> <span class="identifier">YouTubeQuery</span> _
 	<span class="keyword">Inherits</span> <a  href="../folder14/T_Google_GData_Client_FeedQuery.htm">FeedQuery</a></pre></td></tr></table></span><span codelanguage="ManagedCPlusPlus"><table><tr><th>Visual C++</th></tr><tr><td><pre xml:space="preserve"><span class="keyword">public</span> <span class="keyword">ref class</span> <span class="identifier">YouTubeQuery</span> : <span class="keyword">public</span> <a  href="../folder14/T_Google_GData_Client_FeedQuery.htm">FeedQuery</a></pre></td></tr></table></span></div></div><h1 class="heading"><span onclick="ExpandCollapse(familyToggle)" style="cursor:default;" onkeypress="ExpandCollapse_CheckKey(familyToggle, event)" tabindex="0"><img id="familyToggle" class="toggle" name="toggleSwitch" src="../icons/collapse_all.gif">Inheritance Hierarchy</span></h1><div id="familySection" class="section" name="collapseableSection" style=""><a  href="http://msdn2.microsoft.com/en-us/e5kfa45b" target="_blank">System<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span></span>Object</a><br>  <a  href="../folder14/T_Google_GData_Client_FeedQuery.htm">Google.GData.Client<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span></span>FeedQuery</a><br>    <span class="selflink">Google.GData.YouTube<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span></span>YouTubeQuery</span><br></div><h1 class="heading"><span onclick="ExpandCollapse(seeAlsoToggle)" style="cursor:default;" onkeypress="ExpandCollapse_CheckKey(seeAlsoToggle, event)" tabindex="0"><img id="seeAlsoToggle" class="toggle" name="toggleSwitch" src="../icons/collapse_all.gif">See Also</span></h1><div id="seeAlsoSection" class="section" name="collapseableSection" style=""><div class="seeAlsoStyle"><a  href="../folder46/AllMembers_T_Google_GData_YouTube_YouTubeQuery.htm">YouTubeQuery Members</a></div><div class="seeAlsoStyle"><a  href="../folder43/N_Google_GData_YouTube.htm">Google.GData.YouTube Namespace</a></div></div></div><div id="footer"><div class="footerLine"><img width="100%" height="3px" src="../icons/footer.gif" title="Footer image"></div><a  name="feedback"></a><span id="fb" class="feedbackcss" style="display: none;"> </span>
 Google Data API for .Net (http://code.google.com/apis/gdata) <p>Google Inc.</div></div></body></html>
