@@ -402,7 +402,7 @@ namespace Google.GData.Photos
             }
             set 
             {
-                this.entry.SetPhotoExtensionValue(GPhotoNameTable.CommentCount, Utilities.ConvertBooleanToXSDString(value));
+                this.entry.SetPhotoExtensionValue(GPhotoNameTable.CommentingEnabled, Utilities.ConvertBooleanToXSDString(value));
             }
         }
 
