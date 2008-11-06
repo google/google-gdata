@@ -48,7 +48,7 @@ namespace Google.GData.Apps.GoogleMailSettings
         /// <param name="applicationName">The name of the client application 
         /// using this service.</param>
         public GoogleMailSettingsService(string domain, string applicationName)
-            : base(AppsNameTable.GAppsService, applicationName, AppsNameTable.GAppsAgent)
+            : base(AppsNameTable.GAppsService, applicationName)
         {
             this.domain = domain;
             this.NewAtomEntry += new FeedParserEventHandler(this.OnParsedNewGoogleMailSettingsItemEntry);

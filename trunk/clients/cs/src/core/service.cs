@@ -30,6 +30,7 @@ using System.ComponentModel;
 using System.Collections.Specialized;
 
 
+
 #endregion
 
 /////////////////////////////////////////////////////////////////////
@@ -154,7 +155,7 @@ namespace Google.GData.Client
  
 
         //////////////////////////////////////////////////////////////////////
-        /// <summary>this will trigger the creation of an authenticating servicea</summary> 
+        /// <summary>this will trigger the creation of an authenticating service</summary> 
         //////////////////////////////////////////////////////////////////////
         public Service(string service, string applicationName, string library)
         {
@@ -163,6 +164,17 @@ namespace Google.GData.Client
             InitVersionInformation();
         }
         /////////////////////////////////////////////////////////////////////////////
+        
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>returns the service class name as the serviceAgent</summary> 
+        //////////////////////////////////////////////////////////////////////
+        internal string ServiceAgent
+        {
+            get
+            {
+                return Utilities.VersionedString(this);
+            }
+        }
 
 
         private VersionInformation versionInfo = new VersionInformation();

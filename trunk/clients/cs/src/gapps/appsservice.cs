@@ -270,7 +270,7 @@ namespace Google.GData.Apps
         /// <returns></returns>
         public IGDataRequestFactory CreateRequestFactory()
         {
-            return  new GDataGAuthRequestFactory(AppsNameTable.GAppsService, this.applicationName, AppsNameTable.GAppsAgent);
+            return  new GDataGAuthRequestFactory(AppsNameTable.GAppsService, this.applicationName, Utilities.VersionedString(this));
         }
 
         /// <summary>

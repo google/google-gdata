@@ -28,7 +28,6 @@ namespace Google.GData.Blogger {
     public class BloggerService : Service
     {
         /// <summary>This service's User-Agent string</summary> 
-        public const string Agent = "GBlogger.NET/1.0.0";
         /// <summary>The Calendar service's name</summary> 
         public const string Service = "blogger";
 
@@ -36,7 +35,7 @@ namespace Google.GData.Blogger {
         ///  default constructor
         /// </summary>
         /// <param name="applicationName">the applicationname</param>
-        public BloggerService(string applicationName) : base(BloggerService.Service, applicationName, BloggerService.Agent)
+        public BloggerService(string applicationName) : base(BloggerService.Service, applicationName)
         {
             this.NewFeed += new ServiceEventHandler(this.OnNewFeed); 
         }

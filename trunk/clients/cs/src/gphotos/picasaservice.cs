@@ -52,8 +52,6 @@ namespace Google.GData.Photos {
     public class PicasaService : MediaService
     {
        
-        /// <summary>This service's User-Agent string</summary> 
-        public const string GPicasaAgent = "GPicasa-CS/1.0.0";
         /// <summary>The Calendar service's name</summary> 
         public const string GPicasaService = "lh2";
 
@@ -61,7 +59,7 @@ namespace Google.GData.Photos {
         ///  default constructor
         /// </summary>
         /// <param name="applicationName">the applicationname</param>
-        public PicasaService(string applicationName) : base(GPicasaService, applicationName, GPicasaAgent)
+        public PicasaService(string applicationName) : base(GPicasaService, applicationName)
         {
             this.NewFeed += new ServiceEventHandler(this.OnNewFeed); 
         }

@@ -35,8 +35,6 @@ namespace Google.GData.Contacts {
     public class ContactsService : Service
     {
        
-        /// <summary>This service's User-Agent string</summary> 
-        public const string GContactAgent = "GContacts-CS/1.0.0";
         /// <summary>The Calendar service's name</summary> 
         public const string GContactService = "cp";
 
@@ -44,7 +42,7 @@ namespace Google.GData.Contacts {
         ///  default constructor
         /// </summary>
         /// <param name="applicationName">the applicationname</param>
-        public ContactsService(string applicationName) : base(GContactService, applicationName, GContactAgent)
+        public ContactsService(string applicationName) : base(GContactService, applicationName)
         {
             this.NewFeed += new ServiceEventHandler(this.OnNewFeed); 
         }

@@ -37,7 +37,7 @@ namespace Google.GData.Apps
         /// <param name="applicationName">The name of the client application 
         /// using this service.</param>
         public EmailListRecipientService(string applicationName)
-            : base(AppsNameTable.GAppsService, applicationName, AppsNameTable.GAppsAgent)
+            : base(AppsNameTable.GAppsService, applicationName)
         {
             this.NewFeed += new ServiceEventHandler(this.OnParsedNewFeed);
         }
