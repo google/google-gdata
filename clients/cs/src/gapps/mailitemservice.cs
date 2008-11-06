@@ -50,7 +50,7 @@ namespace Google.GData.Apps.Migration
         /// <param name="applicationName">The name of the client application 
         /// using this service.</param>
         public MailItemService(string domain, string applicationName)
-            : base(AppsNameTable.GAppsService, applicationName, AppsNameTable.GAppsAgent)
+            : base(AppsNameTable.GAppsService, applicationName)
         {
             this.domain = domain;
 

@@ -37,8 +37,6 @@ namespace Google.GData.GoogleBase
     ///////////////////////////////////////////////////////////////////////
     public class GBaseService : Service
     {
-        /// <summary>UserAgent for the service.</summary>
-        public const string GBaseAgent = "GBase-CS/1.0.0";
         /// <summary>Service name identifying Google Base.</summary>
         public const string GBaseServiceName = "gbase";
         private readonly string applicationName;
@@ -59,7 +57,7 @@ namespace Google.GData.GoogleBase
         /// http://code.google.com/apis/base/signup.html</param>
         ///////////////////////////////////////////////////////////////////////
         public GBaseService(string applicationName, string developerKey)
-                : base(GBaseServiceName, applicationName, GBaseAgent)
+                : base(GBaseServiceName, applicationName)
         {
             if (developerKey == null)
             {
@@ -128,6 +126,7 @@ namespace Google.GData.GoogleBase
         /// </summary>
         public override void OnRequestFactoryChanged() 
         {
+
             base.OnRequestFactoryChanged();
             GDataGAuthRequestFactory factory = this.RequestFactory as GDataGAuthRequestFactory;
             if (factory != null && this.devKey != null)

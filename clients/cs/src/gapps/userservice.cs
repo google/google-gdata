@@ -20,6 +20,7 @@ using System.Collections;
 using System.Net;
 using System.IO;
 using Google.GData.Client;
+
 using Google.GData.Extensions.Apps;
 
 namespace Google.GData.Apps
@@ -37,9 +38,10 @@ namespace Google.GData.Apps
         /// <param name="applicationName">The name of the client application 
         /// using this service.</param>
         public UserService(string applicationName)
-            : base(AppsNameTable.GAppsService, applicationName, AppsNameTable.GAppsAgent)
+            : base(AppsNameTable.GAppsService, applicationName)
         {
             this.NewAtomEntry += new FeedParserEventHandler(this.OnParsedNewUserEntry);
+
             this.NewFeed += new ServiceEventHandler(this.OnParsedNewFeed);
 
             // You can set factory.methodOverride = true if you are behind a 
@@ -172,19 +174,34 @@ namespace Google.GData.Apps
             }
         }
 
+
+
         /// <summary>
+
         /// Feed handler.  Instantiates a new <code>UserFeed</code>.
+
         /// </summary>
+
         /// <param name="sender">the object that's sending the evet</param>
+
         /// <param name="e"><code>ServiceEventArgs</code>, holds the feed</param>
+
         protected void OnParsedNewFeed(object sender, ServiceEventArgs e)
+
         {
+
             Tracing.TraceMsg("Created new user feed");
+
             if (e == null)
+
             {
+
                 throw new ArgumentNullException("e");
+
             }
+
             e.Feed = new UserFeed(e.Uri, e.Service);
+
         }
     }
 }

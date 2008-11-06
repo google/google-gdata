@@ -32,8 +32,6 @@ namespace Google.GData.Spreadsheets
     /// </summary>
     public class SpreadsheetsService : Service 
     {
-        /// <summary>This service's User-Agent string</summary>
-        public const string GSpreadsheetsAgent = "GSpreadsheets-CS/1.0.0";
         /// <summary>The Spreadsheets service's name</summary>
         public const string GSpreadsheetsService = "wise";
 
@@ -45,7 +43,7 @@ namespace Google.GData.Spreadsheets
         /// <param name="applicationName">The name of the client application 
         /// using this service.</param>
         public SpreadsheetsService(string applicationName)
-        : base(GSpreadsheetsService, applicationName, GSpreadsheetsAgent)
+        : base(GSpreadsheetsService, applicationName)
         {
             this.NewFeed += new ServiceEventHandler(this.OnNewFeed); 
         }

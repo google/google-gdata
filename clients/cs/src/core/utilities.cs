@@ -31,6 +31,7 @@ using System.IO;
 using System.Net;
 using System.Text;
 using System.Xml;
+using System.Reflection;
 using Google.GData.Extensions;
 
 #endregion
@@ -827,6 +828,44 @@ namespace Google.GData.Client
             
             return null;
         }
+        
+        /// <summary>
+        /// returns the current assembly version using split() instead of the version 
+        /// attribute to avoid security issues
+        /// </summary>
+        /// <returns>the current assembly version as a string</returns>
+        public static string GetAssemblyVersion()
+        {
+            Assembly asm = Assembly.GetExecutingAssembly();
+            if (asm != null) 
+            {
+                string[] parts = asm.FullName.Split(',');
+                if (parts != null && parts.Length > 1)
+                    return parts[1]; 
+            }     
+            return "1.0.0";
+        }
+        
+        
+        /// <summary>
+        /// returns the current assembly version and the object class name combined
+        /// attribute to avoid security issues
+        /// </summary>
+        /// <returns>the current assembly version as a string</returns>
+        public static string VersionedString(Object obj)
+        {
+            return obj.GetType().Name + Utilities.GetAssemblyVersion();
+        }
+        
+        
+        /// <summary>
+        /// returns the useragent string, including a version number
+        /// </summary>
+        /// <returns>the constructed userAgend in a standard form</returns>
+        public static string ConstructUserAgent(string applicationName, string serviceName)
+        {
+            return applicationName + "/" + serviceName + "/CS." + GetAssemblyVersion();
+        }
 
         private static bool compareXmlNess(string l1, string l2, string ns1, string ns2) 
         {
@@ -843,11 +882,6 @@ namespace Google.GData.Client
             }
             return false;
         }
-
-
- 
-        
-        
     }
     /////////////////////////////////////////////////////////////////////////////
 

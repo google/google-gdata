@@ -42,8 +42,6 @@ namespace Google.GData.YouTube {
     public class YouTubeService : MediaService
     {
        
-        /// <summary>This service's User-Agent string</summary> 
-        public const string YTAgent = "GYouTube-CS/1.0.0";
         /// <summary>The Calendar service's name</summary> 
         public const string YTService = "youtube";
 
@@ -68,7 +66,7 @@ namespace Google.GData.YouTube {
         /// <param name="applicationName">the applicationname</param>
         /// <param name="client">the client identifier</param>
         /// <param name="developerKey">the developerKey</param>/// 
-        public YouTubeService(string applicationName, string client, string developerKey) : base(YTService, applicationName, YTAgent)
+        public YouTubeService(string applicationName, string client, string developerKey) : base(YTService, applicationName)
         {
             if (client == null)
             {
@@ -90,7 +88,7 @@ namespace Google.GData.YouTube {
         ///  readonly constructor 
         /// </summary>
         /// <param name="applicationName">the application identifier</param>
-        public YouTubeService(string applicationName) : base(YTService, applicationName, YTAgent)
+        public YouTubeService(string applicationName) : base(YTService, applicationName)
         {
             this.NewFeed += new ServiceEventHandler(this.OnNewFeed); 
             OnRequestFactoryChanged();

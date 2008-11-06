@@ -33,8 +33,6 @@ namespace Google.GData.CodeSearch
     /// </summary>
     public class CodeSearchService : Service
     {
-        /// <summary>This service's User-Agent string</summary> 
-        public const string GCodeSearchAgent = "GCodeSearch-CS/1.0.0";
         /// <summary>The service's name</summary> 
         public const string GCodeSearchService = "codesearch";
 
@@ -44,7 +42,7 @@ namespace Google.GData.CodeSearch
         /// <param name="applicationName">the applicationname</param>
         public CodeSearchService(string applicationName) :
             base(GCodeSearchService,
-            applicationName, GCodeSearchAgent) 
+            applicationName) 
         {
         }
 

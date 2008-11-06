@@ -79,10 +79,6 @@ namespace Google.GData.Extensions.Apps
         /// <summary>Prefix of Google Apps extension elements.</summary>
         public const string AppsPrefix = "apps";
 
-        /// <summary>
-        /// Google Apps user agent.
-        /// </summary>
-        public const string GAppsAgent = "GApps-CS/1.0.0";
 
         /// <summary>
         /// Identifier for Google Apps services.

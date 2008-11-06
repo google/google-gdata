@@ -42,8 +42,6 @@ namespace Google.GData.Health {
     public class HealthService : Service
     {
        
-        /// <summary>This service's User-Agent string</summary> 
-        public const string Agent = "GHealth-CS/1.0.0";
         /// <summary>The Calendar service's name</summary> 
         public const string ServiceName = "health";
 
@@ -52,7 +50,7 @@ namespace Google.GData.Health {
         /// </summary>
         /// <param name="applicationName"></param>
         /// <returns></returns>
-        public HealthService(string applicationName) : base(ServiceName, applicationName, Agent)
+        public HealthService(string applicationName) : base(ServiceName, applicationName)
         {
             this.NewFeed += new ServiceEventHandler(this.OnNewFeed); 
         }

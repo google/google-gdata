@@ -96,7 +96,7 @@ namespace Google.GData.Client
     public class GDataRequestFactory : IGDataRequestFactory  
     {
         /// <summary>this factory's agent</summary> 
-        public const string GDataAgent = "GData-CS/1.0.0";
+        public const string GDataAgent = "GData-CS";
         
         /// <summary>
         /// the default content type for the atom envelope
@@ -145,14 +145,7 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         public GDataRequestFactory(string userAgent)
         {
-            if (userAgent != null) 
-            {
-              this.userAgent = userAgent + " " + GDataAgent;
-            } 
-            else 
-            {
-              this.userAgent = GDataAgent;
-            }
+            this.userAgent = Utilities.ConstructUserAgent(userAgent, GDataAgent);
             this.keepAlive = true;
         }
         /////////////////////////////////////////////////////////////////////////////

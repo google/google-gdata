@@ -33,8 +33,6 @@ namespace Google.GData.Calendar {
     /// </summary>
     public class CalendarService : Service
     {
-        /// <summary>This service's User-Agent string</summary> 
-        public const string GCalendarAgent = "GCalendar-CS/1.0.0";
         /// <summary>The Calendar service's name</summary> 
         public const string GCalendarService = "cl";
 
@@ -42,7 +40,7 @@ namespace Google.GData.Calendar {
         ///  default constructor
         /// </summary>
         /// <param name="applicationName">the applicationname</param>
-        public CalendarService(string applicationName) : base(GCalendarService, applicationName, GCalendarAgent)
+        public CalendarService(string applicationName) : base(GCalendarService, applicationName)
         {
             this.NewFeed += new ServiceEventHandler(this.OnNewFeed); 
         }
