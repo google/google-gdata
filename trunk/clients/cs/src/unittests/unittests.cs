@@ -69,7 +69,7 @@ namespace Google.GData.Client.UnitTests
         public virtual string ApplicationName
         {
             get {
-                return "UnitTests-CS/1.0.0"; 
+                return "UnitTests"; 
             }
         }
 

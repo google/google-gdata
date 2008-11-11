@@ -98,8 +98,6 @@ namespace Google.GData.Client
     //////////////////////////////////////////////////////////////////////
     public class GDataGAuthRequestFactory : GDataRequestFactory, IVersionAware
     {
-        /// <summary>this factory's agent</summary> 
-        public const string GDataGAuthAgent = "GDataGAuth-CS";
         /// <summary>
         ///  the header used to indicate version requests
         /// </summary>
@@ -126,18 +124,6 @@ namespace Google.GData.Client
         {
     	    this.Service = service;
     	    this.ApplicationName = applicationName;
-            this.UserAgent = Utilities.ConstructUserAgent(applicationName, GDataGAuthAgent);
-        }
-        /////////////////////////////////////////////////////////////////////////////
-
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>default constructor</summary> 
-        //////////////////////////////////////////////////////////////////////
-        public GDataGAuthRequestFactory(string service, string applicationName, string library) : this(service, applicationName)
-        {
-    	    if (library != null) {
-    	        this.UserAgent = library + " " + this.UserAgent;
-            }
         }
         /////////////////////////////////////////////////////////////////////////////
 

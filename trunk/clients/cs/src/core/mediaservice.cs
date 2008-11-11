@@ -68,15 +68,6 @@ namespace Google.GData.Client
  
 
         //////////////////////////////////////////////////////////////////////
-        /// <summary>this will trigger the creation of an authenticating servicea</summary> 
-        //////////////////////////////////////////////////////////////////////
-        public MediaService(string service, string applicationName, string library) : base(service, applicationName, library)
-        {
-        }
-        /////////////////////////////////////////////////////////////////////////////
- 
-
-        //////////////////////////////////////////////////////////////////////
         /// <summary>Inserts an AtomBase entry against a Uri. The overloaded
         /// version here will check if this is an AbstractEntry and if it has
         /// a media property set. If so, it will create a mime multipart envelope</summary> 

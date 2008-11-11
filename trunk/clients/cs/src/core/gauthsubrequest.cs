@@ -34,8 +34,6 @@ namespace Google.GData.Client
     //////////////////////////////////////////////////////////////////////
     public class GAuthSubRequestFactory : GDataGAuthRequestFactory
     {
-        /// <summary>this factory's agent</summary> 
-        public const string GDataGAuthSubAgent = "GDataGAuthSubRequestFactory-CS/1.0.0";
 
         /// holds the private key that is used to sign the requests
         private AsymmetricAlgorithm privateKey;
@@ -48,13 +46,6 @@ namespace Google.GData.Client
         }
         /////////////////////////////////////////////////////////////////////////////
 
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>default constructor</summary> 
-        //////////////////////////////////////////////////////////////////////
-        public GAuthSubRequestFactory(string service, string applicationName, string library) : base(service, applicationName, library)
-        {
-        }
-        /////////////////////////////////////////////////////////////////////////////
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>default constructor</summary> 
