@@ -841,21 +841,11 @@ namespace Google.GData.Client
             {
                 string[] parts = asm.FullName.Split(',');
                 if (parts != null && parts.Length > 1)
-                    return parts[1]; 
+                    return parts[1].Trim();
             }     
             return "1.0.0";
         }
         
-        
-        /// <summary>
-        /// returns the current assembly version and the object class name combined
-        /// attribute to avoid security issues
-        /// </summary>
-        /// <returns>the current assembly version as a string</returns>
-        public static string VersionedString(Object obj)
-        {
-            return obj.GetType().Name + Utilities.GetAssemblyVersion();
-        }
         
         
         /// <summary>
@@ -864,7 +854,7 @@ namespace Google.GData.Client
         /// <returns>the constructed userAgend in a standard form</returns>
         public static string ConstructUserAgent(string applicationName, string serviceName)
         {
-            return applicationName + "/" + serviceName + "/CS." + GetAssemblyVersion();
+            return "G-" + applicationName + "/" + serviceName + "-CS-" + GetAssemblyVersion();
         }
 
         private static bool compareXmlNess(string l1, string l2, string ns1, string ns2) 

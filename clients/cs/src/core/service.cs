@@ -123,7 +123,7 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         public Service()
         {
-            this.RequestFactory = new GDataRequestFactory(GServiceAgent);
+            this.RequestFactory = new GDataRequestFactory(this.GetType().Name);
             InitDelegates();
             InitVersionInformation();
         }
@@ -135,7 +135,7 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         public Service(string applicationName)
         {
-            this.RequestFactory = new GDataRequestFactory(applicationName + " " + GServiceAgent);
+            this.RequestFactory = new GDataRequestFactory(applicationName);
             InitDelegates();
             InitVersionInformation();
         }
@@ -147,36 +147,14 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         public Service(string service, string applicationName)
         {
-            this.RequestFactory = new GDataGAuthRequestFactory(service, applicationName, GServiceAgent);
+            this.RequestFactory = new GDataGAuthRequestFactory(service, applicationName);
             InitDelegates();
             InitVersionInformation();
         }
         /////////////////////////////////////////////////////////////////////////////
  
 
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>this will trigger the creation of an authenticating service</summary> 
-        //////////////////////////////////////////////////////////////////////
-        public Service(string service, string applicationName, string library)
-        {
-            this.RequestFactory = new GDataGAuthRequestFactory(service, applicationName, library);
-            InitDelegates();
-            InitVersionInformation();
-        }
-        /////////////////////////////////////////////////////////////////////////////
-        
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>returns the service class name as the serviceAgent</summary> 
-        //////////////////////////////////////////////////////////////////////
-        internal string ServiceAgent
-        {
-            get
-            {
-                return Utilities.VersionedString(this);
-            }
-        }
-
-
+  
         private VersionInformation versionInfo = new VersionInformation();
         /// <summary>
         /// returns the major protocol version number this element 

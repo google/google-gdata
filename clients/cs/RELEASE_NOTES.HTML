@@ -23,6 +23,11 @@
         <ul>
             <li>Fixed an issue in AlbumEntry Accessor for Picasa, where ComentingEnabled accidently 
             set the wrong element in the xml</li>
+            <li>
+                Removed the Service(service, application, library) constructor 
+                as this variation did not use the passsed in information. If you 
+                used this, just remove the 3rd parameter.
+            </li>
         </ul>
     </ul>
 
