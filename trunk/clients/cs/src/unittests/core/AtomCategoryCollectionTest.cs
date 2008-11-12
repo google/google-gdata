@@ -181,7 +181,8 @@ namespace Google.GData.Client.UnitTests.Core
         {
             AtomCategoryCollection target = new AtomCategoryCollection(); // TODO: Initialize to an appropriate value
             AtomCategory value = new AtomCategory("test");
-            Assert.IsTrue(target.Add(value) == 0); 
+            target.Add(value);
+            Assert.IsTrue(target.Contains(value)); 
         }
     }
 }

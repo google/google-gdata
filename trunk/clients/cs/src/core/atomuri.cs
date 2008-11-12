@@ -110,8 +110,8 @@ namespace Google.GData.Client
 			if (obj == null)
 				return -1;
 
-			if (obj is AtomUri == false)
-				throw new ArgumentException("obj is not the same type as this instance.", "obj");
+            if (obj is AtomUri == false)
+                return -1; 
 
 			return String.Compare(this.ToString(), obj.ToString());
 		}

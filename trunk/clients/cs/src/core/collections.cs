@@ -23,8 +23,8 @@
 #define USE_TRACING
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.Collections;
 
 #endregion
 
@@ -122,7 +122,7 @@ namespace Google.GData.Client
         }
 
         /// <summary>standard typed add method </summary> 
-        public override int Add(AtomEntry value)
+        public override void Add(AtomEntry value)
         {
             if (value != null)
             {
@@ -148,7 +148,37 @@ namespace Google.GData.Client
                 value.ProtocolMajor = this.feed.ProtocolMajor;
                 value.ProtocolMinor = this.feed.ProtocolMinor;
             }
-            return (List.Add(value));
+            base.Add(value);
+        }
+
+        public AtomEntry CopyOrMove(AtomEntry value)
+        {
+            if (value != null)
+            {
+                if (value.Feed == null)
+                {
+                    value.setFeed(this.feed);
+                }
+                else
+                {
+                    if (this.feed != null && value.Feed == this.feed)
+                    {
+                        // same object, already in here. 
+                        throw new ArgumentException("The entry is already part of this collection");
+                    }
+                    // now we need to see if this is the same feed. If not, copy
+                    if (AtomFeed.IsFeedIdentical(value.Feed, this.feed) == false)
+                    {
+                        AtomEntry newEntry = AtomEntry.ImportFromFeed(value);
+                        newEntry.setFeed(this.feed);
+                        value = newEntry;
+                    }
+                }
+                value.ProtocolMajor = this.feed.ProtocolMajor;
+                value.ProtocolMinor = this.feed.ProtocolMinor;
+            }
+            base.Add(value);
+            return value; 
         }
     }
     /////////////////////////////////////////////////////////////////////////////
@@ -160,7 +190,7 @@ namespace Google.GData.Client
     public class AtomLinkCollection : AtomCollectionBase<AtomLink>
     {
         /// <summary>standard typed accessor method </summary> 
-        public override int Add(AtomLink value)
+        public override void Add(AtomLink value)
         {
             if (value == null)
             {
@@ -170,9 +200,9 @@ namespace Google.GData.Client
             AtomLink oldLink = FindService(value.Rel, value.Type);
             if (oldLink != null)
             {
-                List.Remove(oldLink);
+                Remove(oldLink);
             }
-            return (List.Add(value));
+            base.Add(value);
         }
        
         //////////////////////////////////////////////////////////////////////
@@ -241,7 +271,7 @@ namespace Google.GData.Client
     public class AtomCategoryCollection : AtomCollectionBase<AtomCategory>
     {
         /// <summary>standard typed accessor method </summary> 
-        public override int Add(AtomCategory value)
+        public override void Add(AtomCategory value)
         {
             if (value == null)
             {
@@ -251,9 +281,9 @@ namespace Google.GData.Client
             AtomCategory oldCategory = Find(value.Term, value.Scheme);
             if (oldCategory != null)
             {
-                List.Remove(oldCategory);
+                Remove(oldCategory);
             }
-            return (List.Add(value));
+            base.Add(value);
         }
 
         /// <summary>
@@ -331,8 +361,9 @@ namespace Google.GData.Client
     /// Generic collection base class
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class AtomCollectionBase<T> : CollectionBase
+    public class AtomCollectionBase<T> : IList<T>
     {
+        protected List<T> List = new List<T>();
         /// <summary>standard typed accessor method </summary> 
         public virtual T this[int index]
         {
@@ -347,10 +378,26 @@ namespace Google.GData.Client
         }
         
         /// <summary>standard typed accessor method </summary> 
-        public virtual int Add(T value)
+        public virtual void Add(T value)
         {
-            return (List.Add(value));
+            List.Add(value);
         }
+
+        public virtual void RemoveAt(int index)
+        {
+            List.RemoveAt(index);
+        }
+
+        public virtual void Clear()
+        {
+            List.Clear();
+        }
+
+        public virtual void CopyTo(T[] arr, int index)
+        {
+            List.CopyTo(arr, index);
+        }
+
         /// <summary>standard typed accessor method </summary> 
         public virtual int IndexOf(T value)
         {
@@ -362,9 +409,9 @@ namespace Google.GData.Client
             List.Insert(index, value);
         }
         /// <summary>standard typed accessor method </summary> 
-        public virtual void Remove(T value)
+        public virtual bool Remove(T value)
         {
-            List.Remove(value);
+            return List.Remove(value);
         }
         /// <summary>standard typed accessor method </summary> 
         public virtual bool Contains(T value)
@@ -373,12 +420,33 @@ namespace Google.GData.Client
             return (List.Contains(value));
         }
 
-        /// <summary>standard typed accessor method </summary> 
-        protected override void OnValidate(Object value)
+        public virtual int Count
         {
-            if (value.GetType() != typeof(T) && !typeof(T).IsAssignableFrom(value.GetType()))
-                throw new ArgumentException("value must be of type " + typeof(T).FullName + ".", "value");
+            get 
+            {
+                return List.Count;
+            }
         }
+
+        public virtual bool IsReadOnly
+        {
+            get
+            {
+                return false;
+            }
+        }
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            return List.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return List.GetEnumerator();
+        }
+
+
 
     }
 

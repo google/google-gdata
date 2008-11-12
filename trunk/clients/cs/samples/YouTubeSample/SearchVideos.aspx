@@ -10,6 +10,7 @@
     <form id="form1" runat="server">
     <a href="default.aspx">Your Videos</a>
     <a href="MostPopular.aspx">Most Popular</a>
+    <a href="YourPlaylists.aspx">Your Playlists</a>
     <a href="MostCommented.aspx">Most Commented</a>
     <b>Search YouTube</b>
     <div>

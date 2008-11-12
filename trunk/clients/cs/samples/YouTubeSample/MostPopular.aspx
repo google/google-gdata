@@ -11,6 +11,7 @@
     <a href="default.aspx">Your Videos</a>
     <b>Most Popular</b>
     <a href="MostCommented.aspx">Most Commented</a>
+    <a href="YourPlaylists.aspx">Your Playlists</a>
     <a href="SearchVideos.aspx">Search YouTube</a>
     <div>
         &nbsp;&nbsp;
@@ -26,6 +27,8 @@
                 <asp:BoundField DataField="NumberOfViews" HeaderText="NumberOfViews" ReadOnly="True"
                     SortExpression="NumberOfViews" />
                 <asp:BoundField DataField="Rating" HeaderText="Rating" SortExpression="Rating" />
+                <asp:BoundField DataField="Restricted" HeaderText="Restricted" SortExpression="Restricted" />
+                <asp:BoundField DataField="Country" HeaderText="Country" SortExpression="Country" />
             </Columns>
         </asp:GridView>
         &nbsp;&nbsp;&nbsp;&nbsp;

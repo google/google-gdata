@@ -294,6 +294,7 @@ namespace PhotoBrowser
                     " (" + entry.GetPhotoExtensionValue(GPhotoNameTable.NumPhotos) + " )");
                 item.Tag = entry;
                 this.AlbumList.Items.Add(item);
+                this.AlbumList.Refresh();
             }
         }
 

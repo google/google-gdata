@@ -11,9 +11,6 @@
              care of setting Google Base-specific headers (X-Google-Key).
              and handles authentication.</summary>
         </member>
-        <member name="F:Google.GData.GoogleBase.GBaseService.GBaseAgent">
-            <summary>UserAgent for the service.</summary>
-        </member>
         <member name="F:Google.GData.GoogleBase.GBaseService.GBaseServiceName">
             <summary>Service name identifying Google Base.</summary>
         </member>

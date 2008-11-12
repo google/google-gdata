@@ -29,7 +29,8 @@ using System.Net;
 using System.IO; 
 using System.Globalization;
 using System.ComponentModel;
-using System.Collections.Specialized;
+// using System.Collections.Specialized;
+using System.Collections.Generic;
 using Google.GData.Extensions;
 
 
@@ -328,8 +329,7 @@ namespace Google.GData.Client
                 {
                     if (entry.Dirty == true)
                     {
-                        int i = batchFeed.Entries.Add(entry); 
-                        AtomEntry batchEntry = batchFeed.Entries[i]; 
+                        AtomEntry batchEntry = batchFeed.Entries.CopyOrMove(entry); 
                         batchEntry.BatchData = new GDataBatchEntryData();
                         batchEntry.BatchData.Id = id.ToString(CultureInfo.InvariantCulture); 
                         id++;

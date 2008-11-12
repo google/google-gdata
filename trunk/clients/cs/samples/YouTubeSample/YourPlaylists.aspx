@@ -1,37 +1,38 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="MostCommented.aspx.cs" Inherits="MostPopular" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="YourPlaylists.aspx.cs" Inherits="YourPlayLists" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml" >
 <head runat="server">
-    <title>Most Commented YouTube Videos</title>
+    <title>Your Playlists</title>
 </head>
 <body>
     <form id="form1" runat="server">
+    <b>Your Playlists</b>
     <a href="default.aspx">Your Videos</a>
     <a href="MostPopular.aspx">Most Popular</a>
-    <b>Most Commented</b>
-    <a href="YourPlaylists.aspx">Your Playlists</a>
+    <a href="MostCommented.aspx">Most Commented</a>
     <a href="SearchVideos.aspx">Search YouTube</a>
+        <br />
+        <br />
+    
     <div>
+        <br /> <br />
         <asp:GridView ID="GridView1" runat="server" DataSourceID="ObjectDataMostPopular" AutoGenerateColumns="False" OnInit="Page_Load">
             <Columns>
                 <asp:ImageField DataImageUrlField="VideoThumbnailUrl">
                 </asp:ImageField>
-                <asp:BoundField DataField="NumberOfComments" HeaderText="NumberOfComments" ReadOnly="True"
-                    SortExpression="NumberOfComments" />
-                <asp:BoundField DataField="VideoTitle" HeaderText="VideoTitle" ReadOnly="True" SortExpression="VideoTitle" />
+                <asp:BoundField DataField="VideoTitle" HeaderText="Playlist Title" ReadOnly="True" SortExpression="VideoTitle" />
                 <asp:BoundField DataField="Description" HeaderText="Description" ReadOnly="True"
                     SortExpression="Description" />
                 <asp:BoundField DataField="Published" HeaderText="Published" ReadOnly="True" SortExpression="Published" />
                 <asp:BoundField DataField="Author" HeaderText="Author" ReadOnly="True" SortExpression="Author" />
-                <asp:BoundField DataField="NumberOfViews" HeaderText="NumberOfViews" ReadOnly="True"
-                    SortExpression="NumberOfViews" />
+                <asp:BoundField DataField="CountHint" HeaderText="CountHint" ReadOnly="True"
+                    SortExpression="CountHint" />
             </Columns>
         </asp:GridView>
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        <asp:ObjectDataSource ID="ObjectDataMostPopular" runat="server" OnLoad="Page_Load" SelectMethod="MostCommented" TypeName="ListVideos"></asp:ObjectDataSource>
-    
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <asp:ObjectDataSource ID="ObjectDataMostPopular" runat="server" OnLoad="Page_Load" SelectMethod="PlayLists" TypeName="ListVideos"></asp:ObjectDataSource>
     </div>
     </form>
 </body>

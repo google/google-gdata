@@ -289,9 +289,6 @@
             match particular criteria.
             </summary>
         </member>
-        <member name="F:Google.GData.Contacts.ContactsService.GContactAgent">
-            <summary>This service's User-Agent string</summary> 
-        </member>
         <member name="F:Google.GData.Contacts.ContactsService.GContactService">
             <summary>The Calendar service's name</summary> 
         </member>

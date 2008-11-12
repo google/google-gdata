@@ -86,6 +86,20 @@ namespace Google.GData.Photos {
         }
         /////////////////////////////////////////////////////////////////////////////
 
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>templated type safe verion of the interface</summary> 
+        /// <typeparam name="TEntry"></typeparam>
+        /// <param name="entry">the old entry to update</param> 
+        /// <param name="feedUri"></param>
+        /// <returns> the new Entry, as returned from the server</returns>
+        public new PicasaEntry Insert<TEntry>(AtomFeed feed, TEntry entry) where TEntry : AtomEntry
+        {
+            IService s = this as IService;
+            return s.Insert(feed, entry) as PicasaEntry;
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>eventchaining. We catch this by from the base service, which 

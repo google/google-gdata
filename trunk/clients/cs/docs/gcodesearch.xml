@@ -59,9 +59,6 @@
             Google Code Search data API.
             </summary>
         </member>
-        <member name="F:Google.GData.CodeSearch.CodeSearchService.GCodeSearchAgent">
-            <summary>This service's User-Agent string</summary> 
-        </member>
         <member name="F:Google.GData.CodeSearch.CodeSearchService.GCodeSearchService">
             <summary>The service's name</summary> 
         </member>
