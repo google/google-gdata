@@ -83,9 +83,6 @@
             Google Spreadsheets data API.
             </summary>
         </member>
-        <member name="F:Google.GData.Spreadsheets.SpreadsheetsService.GSpreadsheetsAgent">
-            <summary>This service's User-Agent string</summary>
-        </member>
         <member name="F:Google.GData.Spreadsheets.SpreadsheetsService.GSpreadsheetsService">
             <summary>The Spreadsheets service's name</summary>
         </member>

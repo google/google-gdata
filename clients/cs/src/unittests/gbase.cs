@@ -364,9 +364,7 @@ namespace Google.GData.Client.LiveTests
                 int i = 1; 
                 foreach (AtomEntry entry in baseFeed.Entries)
                 {
-                    i = batchFeed.Entries.Add(entry); 
-                    
-                    AtomEntry batchEntry = batchFeed.Entries[i]; 
+                    AtomEntry batchEntry = batchFeed.Entries.CopyOrMove(entry); 
 
                     batchEntry.BatchData = new GDataBatchEntryData();
                     batchEntry.BatchData.Id = i.ToString(); 
@@ -478,8 +476,7 @@ namespace Google.GData.Client.LiveTests
                 bool fUpdate = true; 
                 foreach (AtomEntry entry in baseFeed.Entries)
                 {
-                    int i = batchFeed.Entries.Add(entry); 
-                    AtomEntry batchEntry = batchFeed.Entries[i]; 
+                    AtomEntry batchEntry = batchFeed.Entries.CopyOrMove(entry); 
 
                     if (fUpdate==true)
                     {
@@ -502,7 +499,7 @@ namespace Google.GData.Client.LiveTests
 
                     // insert one
                     id++; 
-                    batchEntry = ObjectModelHelper.CreateGoogleBaseEntry(i);
+                    batchEntry = ObjectModelHelper.CreateGoogleBaseEntry(1);
                     batchEntry.BatchData = new GDataBatchEntryData();
                     batchEntry.BatchData.Type = GDataBatchOperationType.insert; 
                     batchEntry.BatchData.Id = id.ToString();

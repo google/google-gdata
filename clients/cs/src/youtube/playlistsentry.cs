@@ -55,11 +55,8 @@ namespace Google.GData.YouTube {
                 this.AddExtension(d);
                 this.AddExtension(f);
             } 
-            else 
-            {
-                CountHint c = new CountHint();
-                this.AddExtension(c);
-            }
+            CountHint c = new CountHint();
+            this.AddExtension(c);
 
             Categories.Add(PLAYLISTS_CATEGORY);
         }
@@ -114,7 +111,7 @@ namespace Google.GData.YouTube {
             get
             {
                 CountHint c =  getYouTubeExtension(YouTubeNameTable.CountHint) as CountHint;
-                if (c != null)
+                if (c != null) 
                 {
                     return c.IntegerValue;
                 }

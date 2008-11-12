@@ -17,9 +17,6 @@
             subscriptions, contacts and other account-specific entities.
             </summary>
         </member>
-        <member name="F:Google.GData.Health.HealthService.Agent">
-            <summary>This service's User-Agent string</summary> 
-        </member>
         <member name="F:Google.GData.Health.HealthService.ServiceName">
             <summary>The Calendar service's name</summary> 
         </member>

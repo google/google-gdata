@@ -18,9 +18,6 @@
                 Get a list of spreadsheets which can be accessed through the Google Spreadsheets data API. 
             </summary>
         </member>
-        <member name="F:Google.GData.Documents.DocumentsService.GDocumentsAgent">
-            <summary>This service's User-Agent string</summary> 
-        </member>
         <member name="F:Google.GData.Documents.DocumentsService.GDocumentsService">
             <summary>The Calendar service's name</summary> 
         </member>

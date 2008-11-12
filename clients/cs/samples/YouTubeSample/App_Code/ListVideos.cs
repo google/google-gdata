@@ -31,6 +31,14 @@ public static class ListVideos
         return GetVideos(YouTubeQuery.MostDiscussedVideo);
     }
 
+
+    public static List<YouTubeWrapper> PlayLists()
+    {
+        return GetVideos(YouTubeQuery.CreatePlaylistsUri(null));
+    }
+
+
+
     public static List<YouTubeWrapper> Search(string videoQuery, string author, string orderby, bool racy, string time, string category )
     {
         YouTubeQuery query = new YouTubeQuery(YouTubeQuery.TopRatedVideo);
@@ -94,7 +102,7 @@ public static class ListVideos
         {
             YouTubeFeed f = service.Query(q);
 
-            foreach (YouTubeEntry entry in f.Entries)
+            foreach (YouTubeBaseEntry entry in f.Entries)
             {
                 list.Add(new YouTubeWrapper(entry));
             }

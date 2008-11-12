@@ -16,21 +16,25 @@ using Google.GData.YouTube;
 public class YouTubeWrapper
 {
     private YouTubeEntry ytEntry;
+    private PlaylistsEntry plEntry;
+    private YouTubeBaseEntry baseEntry; 
 
     public YouTubeWrapper()
     {
     }
 
-    public YouTubeWrapper(YouTubeEntry entry)
+    public YouTubeWrapper(YouTubeBaseEntry entry)
     {
-        this.ytEntry = entry;
+        this.ytEntry = entry as YouTubeEntry;
+        this.plEntry = entry as PlaylistsEntry;
+        this.baseEntry = entry as YouTubeBaseEntry;
     }
 
      public string VideoTitle
     {
         get
         {
-            return this.ytEntry.Title.Text;
+            return this.baseEntry.Title.Text;
         }
     }
 
@@ -38,7 +42,8 @@ public class YouTubeWrapper
     {
         get
         {
-            if (this.ytEntry.Media.Thumbnails.Count > 0)
+            if (this.ytEntry != null && this.ytEntry.Media != null && 
+                this.ytEntry.Media.Thumbnails.Count > 0)
                 return this.ytEntry.Media.Thumbnails[0].Url;
             return "";
         }
@@ -49,7 +54,7 @@ public class YouTubeWrapper
     {
         get
         {
-            return this.ytEntry.Media.Description.Value;
+            return this.baseEntry.Summary.Text;
         }
     }
 
@@ -57,7 +62,7 @@ public class YouTubeWrapper
     {
         get
         {
-            return this.ytEntry.Published.ToShortDateString();
+            return this.baseEntry.Published.ToShortDateString();
         }
     }
 
@@ -65,7 +70,7 @@ public class YouTubeWrapper
     {
         get
         {
-            return this.ytEntry.Authors[0].Name;
+            return this.baseEntry.Authors[0].Name;
         }
     }
 
@@ -73,7 +78,7 @@ public class YouTubeWrapper
     {
         get
         {
-            if (this.ytEntry.Statistics != null)
+            if (this.ytEntry != null && this.ytEntry.Statistics != null)
                 return this.ytEntry.Statistics.ViewCount;
             return "";
         }
@@ -103,6 +108,44 @@ public class YouTubeWrapper
                 return this.ytEntry.Rating.Average.ToString();
             }
             return "not rated";
+        }
+    }
+
+    public string Restricted
+    {
+        get
+        {
+            if (this.ytEntry != null && 
+                this.ytEntry.Media != null &&
+                this.ytEntry.Media.Rating != null)
+            {
+                return this.ytEntry.Media.Rating.Value;
+            }
+            return "not restricted";
+        }
+    }
+
+    public string Country
+    {
+        get
+        {
+            if (this.ytEntry != null && 
+                this.ytEntry.Media != null &&
+                this.ytEntry.Media.Rating != null)
+            {
+                return this.ytEntry.Media.Rating.Country;
+            }
+            return "";
+        }
+    }
+
+    public int CountHint
+    {
+        get
+        {
+            if (this.plEntry != null)
+                return this.plEntry.CountHint;
+            return -1;
         }
     }
 

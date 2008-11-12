@@ -11,6 +11,7 @@
     <b>Your Videos</b>
     <a href="MostPopular.aspx">Most Popular</a>
     <a href="MostCommented.aspx">Most Commented</a>
+    <a href="YourPlaylists.aspx">Your Playlists</a>
     <a href="SearchVideos.aspx">Search YouTube</a>
         <br />
         <br />

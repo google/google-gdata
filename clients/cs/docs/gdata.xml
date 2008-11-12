@@ -922,9 +922,6 @@
         <member name="M:Google.GData.Client.AtomCollectionBase`1.Contains(`0)">
             <summary>standard typed accessor method </summary> 
         </member>
-        <member name="M:Google.GData.Client.AtomCollectionBase`1.OnValidate(System.Object)">
-            <summary>standard typed accessor method </summary> 
-        </member>
         <member name="P:Google.GData.Client.AtomCollectionBase`1.Item(System.Int32)">
             <summary>standard typed accessor method </summary> 
         </member>
@@ -2239,9 +2236,6 @@
         <member name="M:Google.GData.Client.Service.#ctor(System.String,System.String)">
             <summary>this will trigger the creation of an authenticating service</summary> 
         </member>
-        <member name="M:Google.GData.Client.Service.#ctor(System.String,System.String,System.String)">
-            <summary>this will trigger the creation of an authenticating servicea</summary> 
-        </member>
         <member name="M:Google.GData.Client.Service.InitVersionInformation">
             <summary>
             by default all services now use version 2 for the protocol.
@@ -2567,9 +2561,6 @@
         <member name="M:Google.GData.Client.MediaService.#ctor(System.String,System.String)">
             <summary>this will trigger the creation of an authenticating service</summary> 
         </member>
-        <member name="M:Google.GData.Client.MediaService.#ctor(System.String,System.String,System.String)">
-            <summary>this will trigger the creation of an authenticating servicea</summary> 
-        </member>
         <member name="M:Google.GData.Client.MediaService.EntrySend(System.Uri,Google.GData.Client.AtomBase,Google.GData.Client.GDataRequestType,Google.GData.Client.AsyncSendData)">
             <summary>Inserts an AtomBase entry against a Uri. The overloaded
             version here will check if this is an AbstractEntry and if it has
@@ -2756,18 +2747,12 @@
             <summary>accessor method public StringArray CustomHeaders</summary> 
             <returns> </returns>
         </member>
-        <member name="F:Google.GData.Client.GDataGAuthRequestFactory.GDataGAuthAgent">
-            <summary>this factory's agent</summary> 
-        </member>
         <member name="F:Google.GData.Client.GDataGAuthRequestFactory.GDataVersion">
             <summary>
              the header used to indicate version requests
             </summary>
         </member>
         <member name="M:Google.GData.Client.GDataGAuthRequestFactory.#ctor(System.String,System.String)">
-            <summary>default constructor</summary> 
-        </member>
-        <member name="M:Google.GData.Client.GDataGAuthRequestFactory.#ctor(System.String,System.String,System.String)">
             <summary>default constructor</summary> 
         </member>
         <member name="M:Google.GData.Client.GDataGAuthRequestFactory.CreateRequest(Google.GData.Client.GDataRequestType,System.Uri)">
@@ -4174,6 +4159,19 @@
             <param name="xmlNode"></param>
             <returns></returns>
         </member>
+        <member name="M:Google.GData.Client.Utilities.GetAssemblyVersion">
+            <summary>
+            returns the current assembly version using split() instead of the version 
+            attribute to avoid security issues
+            </summary>
+            <returns>the current assembly version as a string</returns>
+        </member>
+        <member name="M:Google.GData.Client.Utilities.ConstructUserAgent(System.String,System.String)">
+            <summary>
+            returns the useragent string, including a version number
+            </summary>
+            <returns>the constructed userAgend in a standard form</returns>
+        </member>
         <member name="P:Google.GData.Client.Utilities.EmptyDate">
             <summary>returns a blank emptyDate. That's the default for an empty string date</summary> 
         </member>
@@ -4261,9 +4259,6 @@
             <summary>holds the filename for the combined logger</summary> 
         </member>
         <member name="M:Google.GData.Client.GDataLoggingRequestFactory.#ctor(System.String,System.String)">
-            <summary>default constructor</summary> 
-        </member>
-        <member name="M:Google.GData.Client.GDataLoggingRequestFactory.#ctor(System.String,System.String,System.String)">
             <summary>default constructor</summary> 
         </member>
         <member name="M:Google.GData.Client.GDataLoggingRequestFactory.CreateRequest(Google.GData.Client.GDataRequestType,System.Uri)">
@@ -6019,16 +6014,10 @@
         <member name="T:Google.GData.Client.GAuthSubRequestFactory">
             <summary> GDataAuthSubRequestFactory implementation</summary> 
         </member>
-        <member name="F:Google.GData.Client.GAuthSubRequestFactory.GDataGAuthSubAgent">
-            <summary>this factory's agent</summary> 
-        </member>
         <member name="F:Google.GData.Client.GAuthSubRequestFactory.privateKey">
             holds the private key that is used to sign the requests
         </member>
         <member name="M:Google.GData.Client.GAuthSubRequestFactory.#ctor(System.String,System.String)">
-            <summary>default constructor</summary> 
-        </member>
-        <member name="M:Google.GData.Client.GAuthSubRequestFactory.#ctor(System.String,System.String,System.String)">
             <summary>default constructor</summary> 
         </member>
         <member name="M:Google.GData.Client.GAuthSubRequestFactory.CreateRequest(Google.GData.Client.GDataRequestType,System.Uri)">

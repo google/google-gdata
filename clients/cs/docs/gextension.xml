@@ -460,11 +460,6 @@
         <member name="F:Google.GData.Extensions.Apps.AppsNameTable.AppsPrefix">
             <summary>Prefix of Google Apps extension elements.</summary>
         </member>
-        <member name="F:Google.GData.Extensions.Apps.AppsNameTable.GAppsAgent">
-            <summary>
-            Google Apps user agent.
-            </summary>
-        </member>
         <member name="F:Google.GData.Extensions.Apps.AppsNameTable.GAppsService">
             <summary>
             Identifier for Google Apps services.

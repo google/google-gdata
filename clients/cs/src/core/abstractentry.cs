@@ -113,33 +113,6 @@ namespace Google.GData.Client
         }
         // end of accessor public MediaSource Media
 
-        /*
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>returns this entries etag, if any
-        /// This is a protocol version 2 feature
-        /// </summary>
-        //////////////////////////////////////////////////////////////////////
-        public string Etag
-        {
-            get
-            {
-                Etag e = FindExtension(BaseNameTable.XmlEtagElement,
-                                     BaseNameTable.gNamespace) as Etag;
-
-                if (e != null)
-                    return e.Value;
-
-                return null;
-            }
-            set
-            {
-                Etag e = new Etag(value);
-                ReplaceExtension(BaseNameTable.XmlEtagElement,
-                                 BaseNameTable.gNamespace,
-                                 e);
-            }
-        }
-        */
         //////////////////////////////////////////////////////////////////////
         /// <summary>returns this entries etag, if any
         /// This is a protocol version 2 feature

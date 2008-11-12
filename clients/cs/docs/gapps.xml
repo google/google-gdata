@@ -390,10 +390,6 @@
             <param name="e">FeedParserEventArguments, holds the feedentry</param>
         </member>
         <member name="M:Google.GData.Apps.EmailListService.OnParsedNewFeed(System.Object,Google.GData.Client.ServiceEventArgs)">
-            <summary>
-            Feed handler.  Instantiates a new <code>EmailListFeed</code>.
-            </summary>
-            <param name="sender">the object that's sending the evet</param>
             <param name="e"><code>ServiceEventArgs</code>, holds the feed</param>
         </member>
         <member name="T:Google.GData.Apps.EmailListQuery">
@@ -976,10 +972,6 @@
             <param name="e">FeedParserEventArguments, holds the feedentry</param>
         </member>
         <member name="M:Google.GData.Apps.UserService.OnParsedNewFeed(System.Object,Google.GData.Client.ServiceEventArgs)">
-            <summary>
-            Feed handler.  Instantiates a new <code>UserFeed</code>.
-            </summary>
-            <param name="sender">the object that's sending the evet</param>
             <param name="e"><code>ServiceEventArgs</code>, holds the feed</param>
         </member>
         <member name="T:Google.GData.Apps.UserQuery">
@@ -1402,10 +1394,6 @@
             <param name="e">FeedParserEventArguments, holds the feedentry</param>
         </member>
         <member name="M:Google.GData.Apps.NicknameService.OnParsedNewFeed(System.Object,Google.GData.Client.ServiceEventArgs)">
-            <summary>
-            Feed handler.  Instantiates a new <code>NicknameFeed</code>.
-            </summary>
-            <param name="sender">the object that's sending the evet</param>
             <param name="e"><code>ServiceEventArgs</code>, holds the feed</param>
         </member>
         <member name="T:Google.GData.Apps.UserFeed">

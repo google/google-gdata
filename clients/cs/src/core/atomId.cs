@@ -92,13 +92,10 @@ namespace Google.GData.Client
         /// <returns>int</returns>
 		public int CompareTo(object obj)
 		{
-			if (obj == null)
-				return -1;
+		    AtomId other = obj as AtomId;
 
-            AtomId other = obj as AtomId; 
-
-			if (other == null)
-				throw new ArgumentException("obj is not the same type as this instance.", "obj");
+            if (other == null)
+                return -1;
 
             if (this.Uri != null) 
                 return this.Uri.CompareTo(other.Uri);

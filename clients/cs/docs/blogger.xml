@@ -78,10 +78,8 @@
             Google Calendar data API.
             </summary>
         </member>
-        <member name="F:Google.GData.Blogger.BloggerService.Agent">
-            <summary>This service's User-Agent string</summary> 
-        </member>
         <member name="F:Google.GData.Blogger.BloggerService.Service">
+            <summary>This service's User-Agent string</summary> 
             <summary>The Calendar service's name</summary> 
         </member>
         <member name="M:Google.GData.Blogger.BloggerService.#ctor(System.String)">
