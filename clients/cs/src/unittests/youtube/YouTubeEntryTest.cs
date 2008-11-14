@@ -77,8 +77,8 @@ namespace Google.GData.Client.UnitTests.YouTube
         public void MediaTest()
         {
             YouTubeEntry target = new YouTubeEntry(); // TODO: Initialize to an appropriate value
-            MediaGroup expected = new MediaGroup();
-            MediaGroup actual;
+            GData.YouTube.MediaGroup expected = new GData.YouTube.MediaGroup();
+            GData.YouTube.MediaGroup actual;
             target.Media = expected;
             actual = target.Media;
             Assert.AreEqual(expected, actual);

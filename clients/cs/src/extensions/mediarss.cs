@@ -66,6 +66,9 @@ namespace Google.GData.Extensions.MediaRss {
         public const string MediaRssTitle    = "title";
         /// <summary>static string to specify the media:rating element</summary>
         public const string MediaRssRating = "rating";
+        /// <summary>static string to specify the media:restriction element</summary>
+        public const string MediaRssRestriction = "restriction";
+
 
     }
 
@@ -93,6 +96,7 @@ namespace Google.GData.Extensions.MediaRss {
             this.ExtensionFactories.Add(new MediaTitle());
             this.ExtensionFactories.Add(new MediaCategory());
             this.ExtensionFactories.Add(new MediaRating());
+            this.ExtensionFactories.Add(new MediaRestriction());
         }
 
         /// <summary>
@@ -113,7 +117,26 @@ namespace Google.GData.Extensions.MediaRss {
             }
         }
 
-             /// <summary>
+        /// <summary>
+        /// returns the media:credit element
+        /// </summary>
+        public MediaRestriction Restriction
+        {
+            get
+            {
+                return FindExtension(MediaRssNameTable.MediaRssRestriction,
+                                     MediaRssNameTable.NSMediaRss) as MediaRestriction;
+            }
+            set
+            {
+                ReplaceExtension(MediaRssNameTable.MediaRssRestriction,
+                                MediaRssNameTable.NSMediaRss,
+                                value);
+            }
+        }
+
+
+        /// <summary>
         /// returns the media:credit element
         /// </summary>
         public MediaDescription Description
@@ -310,6 +333,75 @@ namespace Google.GData.Extensions.MediaRss {
             }
         }
     }
+
+
+    /// <summary>
+    /// media:restriction schema extension identifies the country or countries where a
+    ///  video may or may not be played. The attribute value is a space-delimited 
+    /// list of ISO 3166 two-letter country codes. 
+    /// </summary>
+    public class MediaRestriction : SimpleElement
+    {
+        const string AttributeType = "type";
+        const string AttributeRel = "relationship";
+        /// <summary>
+        /// default constructor for media:credit
+        /// </summary>
+        public MediaRestriction()
+        : base(MediaRssNameTable.MediaRssRestriction,
+               MediaRssNameTable.mediaRssPrefix,
+               MediaRssNameTable.NSMediaRss)
+        {
+            this.Attributes.Add(AttributeType, null);
+            this.Attributes.Add(AttributeRel, null);
+        }
+
+        /// <summary>
+        /// default constructor for media:credit with an initial value
+        /// </summary>
+        /// <param name="initValue"/>
+        public MediaRestriction(string initValue)
+        : base(MediaRssNameTable.MediaRssRestriction, 
+               MediaRssNameTable.mediaRssPrefix,
+               MediaRssNameTable.NSMediaRss, initValue)
+        {
+            this.Attributes.Add(AttributeType, null);
+            this.Attributes.Add(AttributeRel, null);
+        }
+
+        /// <summary>
+        ///  returns the schem of the credit element
+        /// </summary>
+        /// <returns></returns>
+        public string Type
+        {
+            get
+            {
+                return this.Attributes[AttributeType] as string;
+            }
+            set
+            {
+                this.Attributes[AttributeType] = value;
+            }
+        }
+        /// <summary>
+        ///  returns the role of the credit element
+        /// </summary>
+        /// <returns></returns>
+        public string Relationship
+        {
+            get
+            {
+                return this.Attributes[AttributeRel] as string;
+            }
+            set
+            {
+                this.Attributes[AttributeRel] = value;
+            }
+        }
+    }
+
+
 
     /// <summary>
     /// media:description schema extension describing an description given to media

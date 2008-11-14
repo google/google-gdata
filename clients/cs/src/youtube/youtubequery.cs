@@ -614,6 +614,16 @@ namespace Google.GData.YouTube {
             return CreateCustomUri(userID, "contacts");
         }
 
+        /// <summary>
+        /// convienience method to create an URI based on a userID
+        /// for the uploaded videos of an user
+        /// </summary>
+        /// <param name="userID"></param>
+        /// <returns>string</returns>
+        public static string CreateUserUri(string userID) 
+        {
+            return CreateCustomUri(userID, "uploads");
+        }
 
 
         private static string CreateCustomUri(string userID, string path) 
