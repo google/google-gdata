@@ -221,16 +221,22 @@ namespace Google.GData.YouTube {
 
     }
 
-    public class MediaGroupYT : MediaGroup
+
+    /// <summary>
+    /// YouTube specific MediaGroup element. It adds Duration and Private 
+    /// subelements as well as using a different version of MediaCredit
+    /// </summary>
+    /// <returns></returns>
+    public class MediaGroup : Google.GData.Extensions.MediaRss.MediaGroup
     {
-        public MediaGroupYT() :
+        public MediaGroup() :
             base()
         {
             this.ExtensionFactories.Add(new Duration());
             this.ExtensionFactories.Add(new Private());
 
             // replace the media group default media credit with a new one. 
-            MediaCreditYT c = new MediaCreditYT();
+            MediaCredit c = new Google.GData.YouTube.MediaCredit();
             this.ReplaceFactory(c.XmlName, c.XmlNameSpace, c);
         }
 
@@ -238,12 +244,12 @@ namespace Google.GData.YouTube {
         /// <summary>
         /// returns the media:credit element
         /// </summary>
-        public new MediaCreditYT Credit
+        public new MediaCredit Credit
         {
             get
             {
                 return FindExtension(MediaRssNameTable.MediaRssCredit,
-                                     MediaRssNameTable.NSMediaRss) as MediaCreditYT;
+                                     MediaRssNameTable.NSMediaRss) as Google.GData.YouTube.MediaCredit;
             }
             set
             {
@@ -252,15 +258,53 @@ namespace Google.GData.YouTube {
                                 value);
             }
         }
+
+        /// <summary>
+        /// returns the yt:duration element
+        /// </summary>
+        public Duration Duration
+        {
+            get
+            {
+                return FindExtension(YouTubeNameTable.Duration,
+                                     YouTubeNameTable.NSYouTube) as Duration;
+            }
+            set
+            {
+                ReplaceExtension(YouTubeNameTable.Duration,
+                                YouTubeNameTable.NSYouTube,
+                                value);
+            }
+        }
+
+         /// <summary>
+        /// returns the yt:duration element
+        /// </summary>
+        public Private Private
+        {
+            get
+            {
+                return FindExtension(YouTubeNameTable.Private,
+                                     YouTubeNameTable.NSYouTube) as Private;
+            }
+            set
+            {
+                ReplaceExtension(YouTubeNameTable.Private,
+                                YouTubeNameTable.NSYouTube,
+                                value);
+            }
+        }
+
+
     }
 
-    public class MediaCreditYT : MediaCredit
+    public class MediaCredit : Google.GData.Extensions.MediaRss.MediaCredit
     {
 
             /// <summary>
         /// default constructor for media:credit
         /// </summary>
-        public MediaCreditYT()
+        public MediaCredit()
         : base()
         {
             this.AttributeNamespaces.Add("type", YouTubeNameTable.NSYouTube);

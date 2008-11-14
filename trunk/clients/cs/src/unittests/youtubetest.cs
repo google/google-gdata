@@ -34,10 +34,9 @@ using Google.GData.Extensions;
 using Google.GData.YouTube;
 using Google.GData.Extensions.Location;
 using Google.GData.Extensions.MediaRss;
+using Google.YouTube;
 
-
-
-namespace Google.GData.Client.LiveTests
+ namespace Google.GData.Client.LiveTests
 {
     [TestFixture] 
     [Category("LiveTest")]
@@ -185,6 +184,30 @@ namespace Google.GData.Client.LiveTests
 
 
         //////////////////////////////////////////////////////////////////////
+        /// <summary>runs a test on the YouTube Feed object</summary> 
+        //////////////////////////////////////////////////////////////////////
+        [Test] public void YouTubeUploaderTest()
+        {
+            Tracing.TraceMsg("Entering YouTubeUploaderTest");
+
+            YouTubeQuery query = new YouTubeQuery("http://gdata.youtube.com/feeds/api/videos/ADos_xW4_J0");
+            YouTubeService service = new YouTubeService("NETUnittests", this.ytClient, this.ytDevKey);
+            if (this.userName != null)
+            {
+                service.Credentials = new GDataCredentials(this.ytUser, this.ytPwd);
+            }
+            YouTubeFeed feed = service.Query(query);
+            foreach (YouTubeEntry e in feed.Entries )
+            {
+                Assert.IsTrue(e.Media.Title.Value != null, "There should be a title");
+            }
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+
+
+
+        //////////////////////////////////////////////////////////////////////
         /// <summary>runs a test on the YouTube Feed object using the read only service</summary> 
         //////////////////////////////////////////////////////////////////////
         [Test] public void YouTubeReadOnlyTest()
@@ -226,7 +249,7 @@ namespace Google.GData.Client.LiveTests
             YouTubeEntry entry = new YouTubeEntry();
 
             entry.MediaSource = new MediaFileSource("test_movie.mov", "video/quicktime");
-            entry.Media = new MediaGroup();
+            entry.Media = new YouTube.MediaGroup();
             entry.Media.Description = new MediaDescription("This is a test with and & in it");
             entry.Media.Title = new MediaTitle("Sample upload");
             entry.Media.Keywords = new MediaKeywords("math");
@@ -294,7 +317,7 @@ namespace Google.GData.Client.LiveTests
             YouTubeEntry entry = new YouTubeEntry();
 
             entry.MediaSource = new MediaFileSource("test_movie.mov", "video/quicktime");
-            entry.Media = new MediaGroup();
+            entry.Media = new YouTube.MediaGroup();
             entry.Media.Description = new MediaDescription("This is a test");
             entry.Media.Title = new MediaTitle("Sample upload");
             entry.Media.Keywords = new MediaKeywords("math");
@@ -311,7 +334,6 @@ namespace Google.GData.Client.LiveTests
             Assert.AreEqual(newEntry.Media.Description.Value, entry.Media.Description.Value, "Description should be equal");
             Assert.AreEqual(newEntry.Media.Keywords.Value, entry.Media.Keywords.Value, "Keywords should be equal");
 
-            AtomUri ratingsLink = newEntry.RatingsLink;
 
             Rating rating = new Rating();
             rating.Value = 1;
@@ -321,6 +343,30 @@ namespace Google.GData.Client.LiveTests
             ratedEntry.Delete();
         }
         /////////////////////////////////////////////////////////////////////////////
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>runs a test on the YouTube factory object</summary> 
+        //////////////////////////////////////////////////////////////////////
+        [Test] public void YouTubeFactoryTest()
+        {
+            Tracing.TraceMsg("Entering YouTubeFactoryTest");
+
+            YouTubeFactory f = new YouTubeFactory("NETUnittests", this.ytClient, this.ytDevKey, this.ytUser, this.ytPwd);
+
+            Feed<Video> feed = f.GetVideoFeed(null);
+
+            foreach (Video v in feed.Entries)
+            {
+                Assert.IsTrue(v.AtomEntry != null);
+                Assert.IsTrue(v.Title != null);
+                Assert.IsTrue(v.Id != null); 
+
+            }
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+
+
 
 
     } /////////////////////////////////////////////////////////////////////////////

@@ -42,7 +42,7 @@ namespace Google.GData.YouTube {
     public class YouTubeService : MediaService
     {
        
-        /// <summary>The Calendar service's name</summary> 
+        /// <summary>The YouTubes service's name</summary> 
         public const string YTService = "youtube";
 
         /// <summary>

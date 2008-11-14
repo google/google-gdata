@@ -20,7 +20,7 @@ using System.IO;
 using System.Collections;
 using Google.GData.Client;
 using Google.GData.Extensions;
-using Google.GData.Extensions.MediaRss;
+/// using Google.GData.Extensions.MediaRss;
 using Google.GData.Extensions.Exif;
 using Google.GData.Extensions.Location;
 using Google.GData.Extensions.AppControl;
@@ -52,17 +52,6 @@ namespace Google.GData.YouTube {
         private void addYouTubeEntryExtensions()
         {
             MediaGroup mg = new MediaGroup();
-            // extend the MediaGroup to accept a Duration 
-            // and Private element()
-            mg.ExtensionFactories.Add(new Duration());
-            mg.ExtensionFactories.Add(new Private());
-
-            // replace the media group default media credit with a new one. 
-            MediaCredit c = new MediaCredit();
-            c.Attributes.Add("type", null);
-            c.AttributeNamespaces.Add("type", YouTubeNameTable.NSYouTube);
-            mg.ReplaceExtension(c.XmlName, c.XmlNameSpace, c);
-            // now add it to us
             this.AddExtension(mg);
 
             GeoRssExtensions.AddExtension(this);
@@ -116,13 +105,13 @@ namespace Google.GData.YouTube {
         {
             get
             {
-                return FindExtension(MediaRssNameTable.MediaRssGroup,
-                                     MediaRssNameTable.NSMediaRss) as MediaGroup;
+                return FindExtension(Google.GData.Extensions.MediaRss.MediaRssNameTable.MediaRssGroup,
+                                     Google.GData.Extensions.MediaRss.MediaRssNameTable.NSMediaRss) as MediaGroup;
             }
             set
             {
-                ReplaceExtension(MediaRssNameTable.MediaRssGroup,
-                                MediaRssNameTable.NSMediaRss,
+                ReplaceExtension(Google.GData.Extensions.MediaRss.MediaRssNameTable.MediaRssGroup,
+                                Google.GData.Extensions.MediaRss.MediaRssNameTable.NSMediaRss,
                                 value);
             }
         }
