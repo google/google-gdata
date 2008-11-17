@@ -1557,6 +1557,34 @@ namespace Google.GData.Client.LiveTests
         }
         /////////////////////////////////////////////////////////////////////////////
        
+        /// 
+        /// tests the reminder object
+        ///
+        [Test] public void ReminderTest()
+        {
+            String xml = "<reminder xmlns=\"http://schemas.google.com/g/2005\" minutes=\"0\" method=\"email\"/>";
+            XmlDocument doc = new XmlDocument();
+            doc.LoadXml(xml);
+            XmlNode reminderNode = doc.FirstChild;
+            Reminder f = new Reminder();
+            Reminder r; 
+            r = f.CreateInstance(reminderNode, new AtomFeedParser()) as Reminder;
+
+            Assert.IsTrue(r.Method == Reminder.ReminderMethod.email);
+            Assert.IsTrue(r.Minutes == 0);
+
+
+            xml = "<reminder xmlns=\"http://schemas.google.com/g/2005\" minutes=\"5\" method=\"sms\"/>";
+            doc = new XmlDocument();
+            doc.LoadXml(xml);
+            reminderNode = doc.FirstChild;
+            r = new Reminder();
+            r = f.CreateInstance(reminderNode, new AtomFeedParser()) as Reminder;
+
+            Assert.IsTrue(r.Method == Reminder.ReminderMethod.sms);
+            Assert.IsTrue(r.Minutes == 5);
+        }
+               
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>tests the original event </summary> 
