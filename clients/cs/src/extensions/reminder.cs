@@ -304,15 +304,6 @@ namespace Google.GData.Extensions {
                     }
                 }
             }
-            if ((reminder.Days == 0 ? 0 : 1) +
-                (reminder.Hours == 0 ? 0 : 1) +
-                (reminder.Minutes == 0 ? 0 : 1) +
-                (!absoluteFlag ? 0 : 1) != 1)
-            {
-
-                throw new ArgumentException("g:reminder must have exactly one attribute.");
-            }
-
             return reminder;
         }
         //////////////////////////////////////////////////////////////////////
