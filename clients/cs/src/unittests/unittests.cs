@@ -51,6 +51,9 @@ namespace Google.GData.Client.UnitTests
         protected IGDataRequestFactory factory; 
         /// <summary>holds the configuration of the test found in the dll.config file</summary>
         protected IDictionary   unitTestConfiguration;
+        /// <summary>holds path to ressources (xml files, jpgs) that are used during the unittests</summary>
+        protected string resourcePath;
+
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>default empty constructor</summary> 
@@ -123,6 +126,11 @@ namespace Google.GData.Client.UnitTests
             {
                 this.iIterations = int.Parse((string)unitTestConfiguration["iteration"]);
             }
+            if (unitTestConfiguration.Contains("resourcePath") == true)
+            {
+                this.resourcePath =(string) unitTestConfiguration["resourcePath"];
+            }
+
             if (unitTestConfiguration.Contains("requestlogging") == true)
             {
                 bool flag = bool.Parse((string) unitTestConfiguration["requestlogging"]);
@@ -170,7 +178,7 @@ namespace Google.GData.Client.UnitTests
             return CreateUriFileName(baseName + BaseTestClass.defExt);
         }
         /////////////////////////////////////////////////////////////////////////////
-        // 
+         
         //////////////////////////////////////////////////////////////////////
         /// <summary>private string CreateUriFileName(string baseName)</summary> 
         /// <param name="baseName">the basename</param>
@@ -178,22 +186,36 @@ namespace Google.GData.Client.UnitTests
         //////////////////////////////////////////////////////////////////////
         protected string CreateUriFileName(string fileName)
         {
+            string fileAndPath = this.currentDir + "/"  + fileName;
+            return CreateUri(fileAndPath);
+        }
+        /////////////////////////////////////////////////////////////////////////////
+         
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>private string CreateUriFileName(string baseName)</summary> 
+        /// <param name="baseName">the basename</param>
+        /// <returns>the complete Uri name for file access</returns>
+        //////////////////////////////////////////////////////////////////////
+        protected string CreateUri(string fileAndPathName)
+        {
             string strUri= null;
 
             try
             {
-                UriBuilder temp = new UriBuilder("file", "localhost",0,  this.currentDir + "/"  + fileName);
+                UriBuilder temp = new UriBuilder("file", "localhost",0,  fileAndPathName);
                 strUri = temp.Uri.AbsoluteUri; 
             }
             catch (System.UriFormatException)
             {
-                UriBuilder temp = new UriBuilder("file", "",0,  this.currentDir + "/"  + fileName);
+                UriBuilder temp = new UriBuilder("file", "",0,  fileAndPathName);
                 strUri = temp.Uri.AbsoluteUri; 
 
             }
             return(strUri);
         }
         /////////////////////////////////////////////////////////////////////////////
+
 
 
         //////////////////////////////////////////////////////////////////////
