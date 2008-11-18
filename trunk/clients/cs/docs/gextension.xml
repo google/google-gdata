@@ -1508,6 +1508,9 @@
         <member name="F:Google.GData.Extensions.MediaRss.MediaRssNameTable.MediaRssRating">
             <summary>static string to specify the media:rating element</summary>
         </member>
+        <member name="F:Google.GData.Extensions.MediaRss.MediaRssNameTable.MediaRssRestriction">
+            <summary>static string to specify the media:restriction element</summary>
+        </member>
         <member name="T:Google.GData.Extensions.MediaRss.MediaGroup">
             <summary>
             MediaGroup container element for the MediaRss namespace
@@ -1519,6 +1522,11 @@
             </summary>
         </member>
         <member name="P:Google.GData.Extensions.MediaRss.MediaGroup.Credit">
+            <summary>
+            returns the media:credit element
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.MediaRss.MediaGroup.Restriction">
             <summary>
             returns the media:credit element
             </summary>
@@ -1587,6 +1595,36 @@
             <returns></returns>
         </member>
         <member name="P:Google.GData.Extensions.MediaRss.MediaCredit.Role">
+            <summary>
+             returns the role of the credit element
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Google.GData.Extensions.MediaRss.MediaRestriction">
+            <summary>
+            media:restriction schema extension identifies the country or countries where a
+             video may or may not be played. The attribute value is a space-delimited 
+            list of ISO 3166 two-letter country codes. 
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.MediaRss.MediaRestriction.#ctor">
+            <summary>
+            default constructor for media:credit
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.MediaRss.MediaRestriction.#ctor(System.String)">
+            <summary>
+            default constructor for media:credit with an initial value
+            </summary>
+            <param name="initValue"/>
+        </member>
+        <member name="P:Google.GData.Extensions.MediaRss.MediaRestriction.Type">
+            <summary>
+             returns the schem of the credit element
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.GData.Extensions.MediaRss.MediaRestriction.Relationship">
             <summary>
              returns the role of the credit element
             </summary>

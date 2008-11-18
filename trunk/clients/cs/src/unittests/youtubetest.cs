@@ -340,7 +340,6 @@ using Google.YouTube;
                 Assert.IsTrue(v.AtomEntry != null);
                 Assert.IsTrue(v.Title != null);
                 Assert.IsTrue(v.Id != null); 
-
             }
         }
         /////////////////////////////////////////////////////////////////////////////
