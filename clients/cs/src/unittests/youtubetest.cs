@@ -36,7 +36,7 @@ using Google.GData.Extensions.Location;
 using Google.GData.Extensions.MediaRss;
 using Google.YouTube;
 
- namespace Google.GData.Client.LiveTests
+namespace Google.GData.Client.LiveTests
 {
     [TestFixture] 
     [Category("LiveTest")]
@@ -334,6 +334,17 @@ using Google.YouTube;
             YouTubeFactory f = new YouTubeFactory("NETUnittests", this.ytClient, this.ytDevKey, this.ytUser, this.ytPwd);
 
             Feed<Video> feed = f.GetVideoFeed(null);
+            
+            
+            foreach (Video v in feed.Entries)
+            {
+                Assert.IsTrue(v.AtomEntry != null);
+                Assert.IsTrue(v.Title != null);
+                Assert.IsTrue(v.Id != null); 
+            }
+
+            Feed<Video> sfeed = f.GetStandardFeed(YouTubeQuery.MostPopular);
+            sfeed.AutoPaging = true; 
 
             foreach (Video v in feed.Entries)
             {
@@ -341,6 +352,7 @@ using Google.YouTube;
                 Assert.IsTrue(v.Title != null);
                 Assert.IsTrue(v.Id != null); 
             }
+
         }
         /////////////////////////////////////////////////////////////////////////////
 
@@ -367,11 +379,94 @@ using Google.YouTube;
             Assert.IsTrue(uploader.Value == "GoogleDevelopers");
 
         }
-            
-
-
-
     } /////////////////////////////////////////////////////////////////////////////
+
+
+    [TestFixture] 
+    [Category("LiveTest")]
+    public class YouTubeTestSuite2 : BaseLiveTestClass
+    {
+
+        private string ytClient;
+        private string ytDevKey;
+        private string ytUser;
+        private string ytPwd;
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>default empty constructor</summary> 
+        //////////////////////////////////////////////////////////////////////
+        public YouTubeTestSuite2()
+        {
+        }
+
+        public override string ServiceName
+        {
+            get {
+                return YouTubeService.YTService; 
+            }
+        }
+
+
+                //////////////////////////////////////////////////////////////////////
+        /// <summary>private void ReadConfigFile()</summary> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        protected override void ReadConfigFile()
+        {
+            base.ReadConfigFile();
+
+            if (unitTestConfiguration.Contains("youTubeClientID") == true)
+            {
+                this.ytClient = (string) unitTestConfiguration["youTubeClientID"];
+            }
+            if (unitTestConfiguration.Contains("youTubeDevKey") == true)
+            {
+                this.ytDevKey = (string) unitTestConfiguration["youTubeDevKey"];
+            }
+            if (unitTestConfiguration.Contains("youTubeUser") == true)
+            {
+                this.ytUser = (string) unitTestConfiguration["youTubeUser"];
+            }
+            if (unitTestConfiguration.Contains("youTubePwd") == true)
+            {
+                this.ytPwd = (string) unitTestConfiguration["youTubePwd"];
+            }
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>runs a test on the YouTube factory object</summary> 
+        //////////////////////////////////////////////////////////////////////
+        [Test] public void YouTubeFactoryTest()
+        {
+            Tracing.TraceMsg("Entering YouTubeFactoryTest");
+
+            YouTubeFactory f = new YouTubeFactory("NETUnittests", this.ytClient, this.ytDevKey, this.ytUser, this.ytPwd);
+            // GetVideoFeed get's you a users video feed
+            Feed<Video> feed = f.GetVideoFeed(null);
+            // this will get you just the first 25 videos. 
+            foreach (Video v in feed.Entries)
+            {
+                Assert.IsTrue(v.AtomEntry != null);
+                Assert.IsTrue(v.Title != null);
+                Assert.IsTrue(v.Id != null); 
+            }
+
+            Feed<Video> sfeed = f.GetStandardFeed(YouTubeQuery.MostPopular);
+            sfeed.AutoPaging = true; 
+
+            // this loop get's you all videos in the mostpopular video feeed
+            foreach (Video v in sfeed.Entries)
+            {
+                Assert.IsTrue(v.AtomEntry != null);
+                Assert.IsTrue(v.Title != null);
+                Assert.IsTrue(v.Id != null); 
+            }
+        }
+        /////////////////////////////////////////////////////////////////////////////
+    }
+
 }
 
 
