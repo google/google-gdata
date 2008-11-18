@@ -296,6 +296,36 @@ namespace Google.GData.YouTube {
             }
         }
 
+
+
+
+        /// <summary>
+        ///  property accessor for the media:credit element, if applicable
+        ///  The media:credit element identifies who uploaded the video
+        /// returns the date the video was uplaoded
+        /// </summary>
+        public MediaCredit Uploader
+        {
+            get
+            {
+                MediaGroup media  = this.Media;
+
+                if (media != null)
+                {
+                    return media.Credit;
+                }
+                return null; 
+            }
+            set
+            {
+                if (this.Media == null)
+                {
+                    this.Media = new MediaGroup();
+                }
+                this.Media.Credit = value;
+            }
+        }
+
       
 
         //////////////////////////////////////////////////////////////////////

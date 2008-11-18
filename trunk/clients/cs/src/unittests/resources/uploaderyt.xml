@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='utf-8'?>
+<entry xmlns='http://www.w3.org/2005/Atom' xmlns:gml='http://www.opengis.net/gml' xmlns:georss='http://www.georss.org/georss' xmlns:media='http://search.yahoo.com/mrss/' xmlns:batch='http://schemas.google.com/gdata/batch' xmlns:yt='http://gdata.youtube.com/schemas/2007' xmlns:gd='http://schemas.google.com/g/2005' gd:etag='W/"DEMHQX47eCp7ImA9WxRVGUg."'>
+  <id>tag:youtube.com,2008:video:ADos_xW4_J0</id>
+  <published>2007-12-21T10:13:44.000Z</published>
+  <updated>2008-11-17T21:13:50.000Z</updated>
+  <category scheme='http://gdata.youtube.com/schemas/2007/categories.cat' term='Education' label='Education' />
+  <category scheme='http://gdata.youtube.com/schemas/2007/keywords.cat' term='data' />
+  <category scheme='http://gdata.youtube.com/schemas/2007/keywords.cat' term='courses' />
+  <category scheme='http://schemas.google.com/g/2005#kind' term='http://gdata.youtube.com/schemas/2007#video' />
+  <category scheme='http://gdata.youtube.com/schemas/2007/keywords.cat' term='engineering' />
+  <category scheme='http://gdata.youtube.com/schemas/2007/keywords.cat' term='introduction' />
+  <category scheme='http://gdata.youtube.com/schemas/2007/keywords.cat' term='google' />
+  <category scheme='http://gdata.youtube.com/schemas/2007/keywords.cat' term='gdata' />
+  <title>Introduction to Google Data</title>
+  <content type='application/x-shockwave-flash' src='http://www.youtube.com/v/ADos_xW4_J0&amp;f=gdata_videos' />
+  <link rel='alternate' type='text/html' href='http://www.youtube.com/watch?v=ADos_xW4_J0' />
+  <link rel='http://gdata.youtube.com/schemas/2007#video.responses' type='application/atom+xml' href='http://gdata.youtube.com/feeds/api/videos/ADos_xW4_J0/responses?v=2' />
+  <link rel='http://gdata.youtube.com/schemas/2007#video.related' type='application/atom+xml' href='http://gdata.youtube.com/feeds/api/videos/ADos_xW4_J0/related?v=2' />
+  <link rel='http://gdata.youtube.com/schemas/2007#mobile' type='text/html' href='http://m.youtube.com/details?v=ADos_xW4_J0' />
+  <link rel='self' type='application/atom+xml' href='http://gdata.youtube.com/feeds/api/videos/ADos_xW4_J0?v=2' />
+  <author>
+    <name>GoogleDevelopers</name>
+    <uri>http://gdata.youtube.com/feeds/api/users/googledevelopers</uri>
+  </author>
+  <media:group>
+    <media:title type='plain'>Introduction to Google Data</media:title>
+    <media:description type='plain'>Jeff Fisher walks through basic history and concepts behind the Google Data protocol. Visit the documentation for more information and list of available APIs: http://code.google.com/apis/gdata/</media:description>
+    <media:keywords>courses, data, engineering, gdata, google, introduction</media:keywords>
+    <yt:duration seconds='739' />
+    <yt:videoid>ADos_xW4_J0</yt:videoid>
+    <yt:uploaded>2007-12-21T10:13:44.000Z</yt:uploaded>
+    <media:player url='http://www.youtube.com/watch?v=ADos_xW4_J0' />
+    <media:credit role='uploader' scheme='urn:youtube'>GoogleDevelopers</media:credit>
+    <media:category label='Education' scheme='http://gdata.youtube.com/schemas/2007/categories.cat'>Education</media:category>
+    <media:content url='http://www.youtube.com/v/ADos_xW4_J0&amp;f=gdata_videos' type='application/x-shockwave-flash' medium='video' isDefault='true' expression='full' duration='739' yt:format='5' />
+    <media:content url='rtsp://rtsp2.youtube.com/CigLENy73wIaHwmd_LgV_yw6ABMYDSANFEgGUgxnZGF0YV92aWRlb3MM/0/0/0/video.3gp' type='video/3gpp' medium='video' expression='full' duration='739' yt:format='1' />
+    <media:content url='rtsp://rtsp2.youtube.com/CigLENy73wIaHwmd_LgV_yw6ABMYESARFEgGUgxnZGF0YV92aWRlb3MM/0/0/0/video.3gp' type='video/3gpp' medium='video' expression='full' duration='739' yt:format='6' />
+    <media:thumbnail url='http://i.ytimg.com/vi/ADos_xW4_J0/2.jpg' height='97' width='130' time='00:06:09.500' />
+    <media:thumbnail url='http://i.ytimg.com/vi/ADos_xW4_J0/1.jpg' height='97' width='130' time='00:03:04.750' />
+    <media:thumbnail url='http://i.ytimg.com/vi/ADos_xW4_J0/3.jpg' height='97' width='130' time='00:09:14.250' />
+    <media:thumbnail url='http://i.ytimg.com/vi/ADos_xW4_J0/0.jpg' height='240' width='320' time='00:06:09.500' />
+  </media:group>
+  <yt:statistics viewCount='23803' favoriteCount='47' />
+  <gd:rating min='1' max='5' numRaters='15' average='4.13' />
+  <yt:location>undefined</yt:location>
+  <gd:comments>
+    <gd:feedLink href='http://gdata.youtube.com/feeds/api/videos/ADos_xW4_J0/comments?v=2' countHint='9' />
+  </gd:comments>
+</entry>

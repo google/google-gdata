@@ -183,27 +183,7 @@ using Google.YouTube;
         /////////////////////////////////////////////////////////////////////////////
 
 
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>runs a test on the YouTube Feed object</summary> 
-        //////////////////////////////////////////////////////////////////////
-        [Test] public void YouTubeUploaderTest()
-        {
-            Tracing.TraceMsg("Entering YouTubeUploaderTest");
-
-            YouTubeQuery query = new YouTubeQuery("http://gdata.youtube.com/feeds/api/videos/ADos_xW4_J0");
-            YouTubeService service = new YouTubeService("NETUnittests", this.ytClient, this.ytDevKey);
-            if (this.userName != null)
-            {
-                service.Credentials = new GDataCredentials(this.ytUser, this.ytPwd);
-            }
-            YouTubeFeed feed = service.Query(query);
-            foreach (YouTubeEntry e in feed.Entries )
-            {
-                Assert.IsTrue(e.Media.Title.Value != null, "There should be a title");
-            }
-        }
-        /////////////////////////////////////////////////////////////////////////////
-
+     
 
 
 
@@ -248,7 +228,7 @@ using Google.YouTube;
 
             YouTubeEntry entry = new YouTubeEntry();
 
-            entry.MediaSource = new MediaFileSource("test_movie.mov", "video/quicktime");
+            entry.MediaSource = new MediaFileSource(this.resourcePath + "test_movie.mov", "video/quicktime");
             entry.Media = new YouTube.MediaGroup();
             entry.Media.Description = new MediaDescription("This is a test with and & in it");
             entry.Media.Title = new MediaTitle("Sample upload");
@@ -316,7 +296,7 @@ using Google.YouTube;
 
             YouTubeEntry entry = new YouTubeEntry();
 
-            entry.MediaSource = new MediaFileSource("test_movie.mov", "video/quicktime");
+            entry.MediaSource = new MediaFileSource(this.resourcePath + "test_movie.mov", "video/quicktime");
             entry.Media = new YouTube.MediaGroup();
             entry.Media.Description = new MediaDescription("This is a test");
             entry.Media.Title = new MediaTitle("Sample upload");
@@ -366,6 +346,29 @@ using Google.YouTube;
         /////////////////////////////////////////////////////////////////////////////
 
 
+
+        [Test] public void YouTubeUploaderTest()
+        {
+            YouTubeQuery query = new YouTubeQuery();
+            query.Uri = new Uri(CreateUri(this.resourcePath + "uploaderyt.xml"));
+
+            YouTubeService service = new YouTubeService("NETUnittests", this.ytClient, this.ytDevKey);
+            if (this.userName != null)
+            {
+                service.Credentials = new GDataCredentials(this.ytUser, this.ytPwd);
+            }
+
+            YouTubeFeed feed = service.Query(query);
+            YouTubeEntry entry = feed.Entries[0] as YouTubeEntry;
+
+            YouTube.MediaCredit uploader = entry.Uploader;
+            Assert.IsTrue(uploader != null); 
+            Assert.IsTrue(uploader.Role == "uploader");
+            Assert.IsTrue(uploader.Scheme == "urn:youtube");
+            Assert.IsTrue(uploader.Value == "GoogleDevelopers");
+
+        }
+            
 
 
 
