@@ -4,6 +4,48 @@
         <name>Google.GData.YouTube</name>
     </assembly>
     <members>
+        <member name="T:Google.YouTube.Feed`1">
+            <summary>a generic Feed class
+            </summary> 
+        </member>
+        <member name="M:Google.YouTube.Feed`1.Load(System.Int32,System.Int32)">
+            <summary>
+            loads data from the underlying server. This will append the new data to the end of the list
+            </summary>
+            <param name="limit">the maximum number of entries to load. if -1, loads all</param>
+            <param name="offset">the offset to start with</param>
+            <returns>the number or entries added</returns>
+        </member>
+        <member name="M:Google.YouTube.Entry.Update">
+            <summary>
+             sends the data back to the server. 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Google.YouTube.Video">
+            <summary>a generic Feed class
+            </summary> 
+        </member>
+        <member name="T:Google.YouTube.YouTubeFactory">
+            <summary>
+            The YouTube Data API allows applications to perform functions normally 
+            executed on the YouTube website. The API enables your application to search 
+            for YouTube videos and to retrieve standard video feeds, comments and video
+            responses. 
+            In addition, the API lets your application upload videos to YouTube or 
+            update existing videos. Your can also retrieve playlists, subscriptions, 
+            user profiles and more. Finally, your application can submit 
+            authenticated requests to enable users to create playlists, 
+            subscriptions, contacts and other account-specific entities.
+            </summary>
+        </member>
+        <member name="M:Google.YouTube.YouTubeFactory.GetVideoFeed(System.String)">
+            <summary>
+            returns a Feed of vidoes for a given username
+            </summary>
+            <param name="user">the username</param>
+            <returns>a feed of Videos</returns>
+        </member>
         <member name="T:Google.GData.YouTube.YouTubeService">
             <summary>
             The YouTube Data API allows applications to perform functions normally 
@@ -18,7 +60,7 @@
             </summary>
         </member>
         <member name="F:Google.GData.YouTube.YouTubeService.YTService">
-            <summary>The Calendar service's name</summary> 
+            <summary>The YouTubes service's name</summary> 
         </member>
         <member name="F:Google.GData.YouTube.YouTubeService.DefaultCategory">
             <summary>
@@ -256,6 +298,13 @@
         <member name="P:Google.GData.YouTube.YouTubeEntry.Uploaded">
             <summary>
              property accessor for the Uploaded element, if applicable
+            returns the date the video was uplaoded
+            </summary>
+        </member>
+        <member name="P:Google.GData.YouTube.YouTubeEntry.Uploader">
+            <summary>
+             property accessor for the media:credit element, if applicable
+             The media:credit element identifies who uploaded the video
             returns the date the video was uplaoded
             </summary>
         </member>
@@ -708,17 +757,39 @@
             uploaded element string for playlist feeds
             </summary>
         </member>
-        <member name="P:Google.GData.YouTube.MediaGroupYT.Credit">
+        <member name="T:Google.GData.YouTube.MediaGroup">
+            <summary>
+            YouTube specific MediaGroup element. It adds Duration and Private 
+            subelements as well as using a different version of MediaCredit
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.GData.YouTube.MediaGroup.Credit">
             <summary>
             returns the media:credit element
             </summary>
         </member>
-        <member name="M:Google.GData.YouTube.MediaCreditYT.#ctor">
+        <member name="P:Google.GData.YouTube.MediaGroup.Duration">
+            <summary>
+            returns the yt:duration element
+            </summary>
+        </member>
+        <member name="P:Google.GData.YouTube.MediaGroup.Private">
+            <summary>
+            returns the yt:duration element
+            </summary>
+        </member>
+        <member name="P:Google.GData.YouTube.MediaGroup.VideoId">
+            <summary>
+             property accessor for the VideoID, if applicable
+            </summary>
+        </member>
+        <member name="M:Google.GData.YouTube.MediaCredit.#ctor">
             <summary>
             default constructor for media:credit
             </summary>
         </member>
-        <member name="P:Google.GData.YouTube.MediaCreditYT.Type">
+        <member name="P:Google.GData.YouTube.MediaCredit.Type">
             <summary>
              returns the type of the credit element
             </summary>
@@ -1537,6 +1608,14 @@
             <summary>
             convienience method to create an URI based on a userID
             for the contacts of an user
+            </summary>
+            <param name="userID"></param>
+            <returns>string</returns>
+        </member>
+        <member name="M:Google.GData.YouTube.YouTubeQuery.CreateUserUri(System.String)">
+            <summary>
+            convienience method to create an URI based on a userID
+            for the uploaded videos of an user
             </summary>
             <param name="userID"></param>
             <returns>string</returns>

@@ -20,7 +20,6 @@ using System.IO;
 using System.Collections;
 using Google.GData.Client;
 using Google.GData.Extensions;
-/// using Google.GData.Extensions.MediaRss;
 using Google.GData.Extensions.Exif;
 using Google.GData.Extensions.Location;
 using Google.GData.Extensions.AppControl;
@@ -76,8 +75,6 @@ namespace Google.GData.YouTube {
             this.AddExtension(new Location());
             this.AddExtension(new Recorded());
             this.AddExtension(new Uploaded());
-            this.AddExtension(new VideoId());
-
         }
 
         /// <summary>
@@ -219,8 +216,7 @@ namespace Google.GData.YouTube {
            {
                if (this.Media != null)
                {
-                   return Media.FindExtension(YouTubeNameTable.Duration,
-                                        YouTubeNameTable.NSYouTube) as Duration;
+                   return Media.Duration; 
                }
                return null;
            }
@@ -230,9 +226,11 @@ namespace Google.GData.YouTube {
                {
                    this.Media = new MediaGroup();
                }
-               this.Media.ReplaceExtension(YouTubeNameTable.Duration,
-                               YouTubeNameTable.NSYouTube,
-                               value);
+               if (this.Media.Duration == null)
+               {
+                   this.Media.Duration = new Duration();
+               }
+               this.Media.Duration = value; 
            }
        }
 
@@ -270,14 +268,26 @@ namespace Google.GData.YouTube {
         /// </summary>
         public string VideoId
         {
-            get
-            {
-                return GetExtensionValue(YouTubeNameTable.VideoID, YouTubeNameTable.NSYouTube);
-            }
-            set
-            {
-                SetExtensionValue(YouTubeNameTable.VideoID, YouTubeNameTable.NSYouTube, value);
-            }
+           get
+           {
+               if (this.Media != null && this.Media.VideoId != null)
+               {
+                   return this.Media.VideoId.Value;
+               }
+               return null;
+           }
+           set
+           {
+               if (this.Media == null)
+               {
+                   this.Media = new MediaGroup();
+               }
+               if (this.Media.VideoId == null)
+               {
+                   this.Media.VideoId = new VideoId();
+               }
+               this.Media.VideoId.Value = value; 
+           }
         }
 
         /// <summary>

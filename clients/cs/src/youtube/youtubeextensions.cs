@@ -213,12 +213,11 @@ namespace Google.GData.YouTube {
         /// <summary>
         /// videoid element string for playlist feeds
         /// </summary>
-        public const string VideoID = "videoId";
+        public const string VideoID = "videoid";
         /// <summary>
         /// uploaded element string for playlist feeds
         /// </summary>
         public const string Uploaded = "uploaded";
-
     }
 
 
@@ -234,6 +233,7 @@ namespace Google.GData.YouTube {
         {
             this.ExtensionFactories.Add(new Duration());
             this.ExtensionFactories.Add(new Private());
+            this.ExtensionFactories.Add(new VideoId());
 
             // replace the media group default media credit with a new one. 
             MediaCredit c = new Google.GData.YouTube.MediaCredit();
@@ -294,6 +294,26 @@ namespace Google.GData.YouTube {
                                 value);
             }
         }
+
+
+        /// <summary>
+        ///  property accessor for the VideoID, if applicable
+        /// </summary>
+        public VideoId VideoId
+        {
+            get
+            {
+                return FindExtension(YouTubeNameTable.VideoID,
+                                     YouTubeNameTable.NSYouTube) as VideoId;
+            }
+            set
+            {
+                ReplaceExtension(YouTubeNameTable.VideoID,
+                                YouTubeNameTable.NSYouTube,
+                                value);
+            }
+        }
+
 
 
     }
