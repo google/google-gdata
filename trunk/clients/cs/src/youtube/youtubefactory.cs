@@ -35,13 +35,17 @@ namespace Google.YouTube
     public class Feed<T> where T: Entry, new()
     {
         AtomFeed af;
-        List<T> list; 
+        bool paging = false; 
 
         public Feed(AtomFeed af)
         {
             this.af = af; 
         }
 
+        /// <summary>
+        /// returns the used feed object
+        /// </summary>
+        /// <returns></returns>
         public AtomFeed AtomFeed
         {
             get
@@ -50,70 +54,79 @@ namespace Google.YouTube
             }
         }
 
+       /// <summary>
+       /// if set to true will cause the feed to add more data when you iterate over it's entries
+       /// </summary>
+       /// <returns></returns>
+       public bool AutoPaging
+       {
+           get 
+           {
+               return this.paging;
+           }
+           set
+           {
+               this.paging = value;
+           }
+       }
 
-        /// <summary>
-        /// loads data from the underlying server. This will append the new data to the end of the list
-        /// </summary>
-        /// <param name="limit">the maximum number of entries to load. if -1, loads all</param>
-        /// <param name="offset">the offset to start with</param>
-        /// <returns>the number or entries added</returns>
-        public int Load(int limit, int offset)
-        {
-            bool fDone = false; 
-            int  added = 0; 
+       /// <summary>
+       /// returns the position in the real feed of the first entry in this feed
+       /// </summary>
+       /// <returns>an int indicating the start in the feed</returns>
+       public int StartIndex
+       {
+           get
+           {
+               if (this.af)
+               {
+                   return this.af.StartIndex;
+               }
+               return -1; 
+           }
+       }
 
-            YouTubeQuery q = new YouTubeQuery(this.af.Self);
-            q.StartIndex = offset;
-            if (limit > 0)
-            {
-                q.NumberToRetrieve = limit; 
-            }
-            while (fDone == false)
-            {
-                fDone = true;
-                AtomFeed f = this.af.Service.Query(q);
-                foreach (AtomEntry e in af.Entries)
-                {
-                    T t = new T();
-                    if (t != null)
-                    {
-                        t.AtomEntry = e; 
-                        this.list.Add(t);
-                    }
-                    added++; 
-                }
-                if (limit <= 0 || added < limit)
-                {
-                    if (f.NextChunk != null)
-                    {
-                        q = new YouTubeQuery(f.NextChunk); 
-                        fDone= false; 
-                    }
-                }
-            }
-            return added; 
-        }
+       /// <summary>
+       /// returns the setup paging size of this feed. If you set AutoPaging to true
+       /// this is the size that is used to get more results
+       /// </summary>
+       /// <returns></returns>
+       public int PageSize
+       {
+           get
+           {
+               if (this.af)
+               {
+                   return this.af.ItemsPerPage;
+               }
+               return -1; 
+           }
+       }
 
-        public List<T> Entries
+        public IEnumerable<T> Entries
         {
             get
             {
-                if (this.list == null)
+                bool looping;
+
+                do
                 {
-                    this.list = new List<T>(); 
-    
+                    looping = af.NextChunk != null && this.paging == true;
                     foreach (AtomEntry e in af.Entries)
                     {
                         T t = new T();
                         if (t != null)
                         {
                             t.AtomEntry = e; 
-                            this.list.Add(t);
+                            yield return t; 
                         }
                     }
-    
-                }
-                return this.list;
+                    if (looping)
+                    {
+                        FeedQuery q = new FeedQuery(this.af.NextChunk);
+                        this.af = this.af.Service.Query(q);
+                    }
+                } while (looping);
             }
         }
     }
@@ -351,6 +364,18 @@ namespace Google.YouTube
         public Feed<Video> GetVideoFeed(string user)
         {
             YouTubeQuery q = new YouTubeQuery(YouTubeQuery.CreateUserUri(user));
+            YouTubeFeed f = this.service.Query(q);
+            return new Feed<Video>(f);
+        }
+
+         /// <summary>
+        ///  returns one of the youtube default feeds. 
+        /// </summary>
+        /// <param name="user">the username</param>
+        /// <returns>a feed of Videos</returns>
+        public Feed<Video> GetStandardFeed(string feedspec)
+        {
+            YouTubeQuery q = new YouTubeQuery(feedspec);
             YouTubeFeed f = this.service.Query(q);
             return new Feed<Video>(f);
         }
