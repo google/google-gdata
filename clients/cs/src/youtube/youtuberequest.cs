@@ -309,15 +309,9 @@ namespace Google.YouTube
             {
                 if (this.YT!= null  && 
                     this.YT.Media != null  && 
-                    this.YT.Media.Contents != null )
+                    this.YT.Media.Player != null )
                 {
-                    foreach (Google.GData.YouTube.MediaContent m in this.YT.Media.Contents )
-                    {
-                        if (m.Format=="5")
-                        {
-                            return new Uri(m.Url); 
-                        }
-                    }
+                    return new Uri(this.YT.Media.Player.Url);
                 }
                 return null; 
             }

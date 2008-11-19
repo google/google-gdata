@@ -68,6 +68,8 @@ namespace Google.GData.Extensions.MediaRss {
         public const string MediaRssRating = "rating";
         /// <summary>static string to specify the media:restriction element</summary>
         public const string MediaRssRestriction = "restriction";
+        /// <summary>static string to specify the media:player element</summary>
+        public const string MediaRssPlayer    = "player";
 
         /// <summary>
         /// the attribute string for the URL attribute
@@ -128,6 +130,7 @@ namespace Google.GData.Extensions.MediaRss {
             this.ExtensionFactories.Add(new MediaCategory());
             this.ExtensionFactories.Add(new MediaRating());
             this.ExtensionFactories.Add(new MediaRestriction());
+            this.ExtensionFactories.Add(new MediaPlayer());
         }
 
         /// <summary>
@@ -300,6 +303,26 @@ namespace Google.GData.Extensions.MediaRss {
                 return this.categories;
             }
         }
+
+
+        /// <summary>
+        /// returns the media:player element
+        /// </summary>
+        public MediaPlayer Player
+        {
+            get
+            {
+                return FindExtension(MediaRssNameTable.MediaRssPlayer,
+                                     MediaRssNameTable.NSMediaRss) as MediaPlayer;
+            }
+            set
+            {
+                ReplaceExtension(MediaRssNameTable.MediaRssPlayer,
+                                MediaRssNameTable.NSMediaRss,
+                                value);
+            }
+        }
+
    }
 
     /// <summary>
@@ -464,6 +487,40 @@ namespace Google.GData.Extensions.MediaRss {
         }
     }
 
+    /// <summary>
+    /// media:player schema extension describing the player URL
+    /// it's a child of media:group
+    /// </summary>
+    public class MediaPlayer : SimpleElement
+    {
+        /// <summary>
+        /// default constructor for media:content
+        /// </summary>
+        public MediaPlayer()
+        : base(MediaRssNameTable.MediaRssPlayer, 
+               MediaRssNameTable.mediaRssPrefix,
+               MediaRssNameTable.NSMediaRss)
+        {
+            this.Attributes.Add(MediaRssNameTable.AttributeUrl, null);
+        }
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>convienience accessor for the Url</summary> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        public string Url
+        {
+           get 
+            {
+                return this.Attributes[MediaRssNameTable.AttributeUrl] as string;
+            }
+            set
+            {
+                this.Attributes[MediaRssNameTable.AttributeUrl] = value;
+            }
+        }
+        // end of accessor public string Url
+    }
 
     /// <summary>
     /// media:content schema extension describing the content URL
