@@ -69,6 +69,37 @@ namespace Google.GData.Extensions.MediaRss {
         /// <summary>static string to specify the media:restriction element</summary>
         public const string MediaRssRestriction = "restriction";
 
+        /// <summary>
+        /// the attribute string for the URL attribute
+        /// </summary>
+        public const string AttributeUrl = "url";
+        /// <summary>
+        /// the attribute string for the height attribute
+        /// </summary>
+        public const string AttributeHeight = "height";
+        /// <summary>
+        /// the attribute string for the width attribute
+        /// </summary>
+        public const string AttributeWidth = "width";
+        /// <summary>
+        /// the attribute string for the type attribute
+        /// </summary>
+        public const string AttributeType = "type";
+        /// <summary>
+        /// the attribute string for the isDefault attribute
+        /// </summary>
+        public const string AttributeDefault = "isDefault";
+        /// <summary>
+        /// the attribute string for the expression attribute
+        /// </summary>
+        public const string AttributeExpression = "expression";
+        /// <summary>
+        /// the attribute string for the duration attribute
+        /// </summary>
+        public const string AttributeDuration = "duration";
+
+
+
 
     }
 
@@ -448,13 +479,81 @@ namespace Google.GData.Extensions.MediaRss {
                MediaRssNameTable.mediaRssPrefix,
                MediaRssNameTable.NSMediaRss)
         {
-            this.Attributes.Add("url", null);
-            this.Attributes.Add("type", null);
-            this.Attributes.Add("medium", null);
-            this.Attributes.Add("height", null);
-            this.Attributes.Add("width", null);
-            this.Attributes.Add("fileSize", null);
+            this.Attributes.Add(MediaRssNameTable.AttributeUrl, null);
+            this.Attributes.Add(MediaRssNameTable.AttributeType, null);
+            this.Attributes.Add(MediaRssNameTable.AttributeDefault, null);
+            this.Attributes.Add(MediaRssNameTable.AttributeExpression, null);
+            this.Attributes.Add(MediaRssNameTable.AttributeDuration, null);
         }
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>convienience accessor for the Url</summary> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        public string Url
+        {
+           get 
+            {
+                return this.Attributes[MediaRssNameTable.AttributeUrl] as string;
+            }
+            set
+            {
+                this.Attributes[MediaRssNameTable.AttributeUrl] = value;
+            }
+        }
+        // end of accessor public string Url
+
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>convienience accessor for the Height</summary> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        public string Height
+        {
+           get 
+            {
+                return this.Attributes[MediaRssNameTable.AttributeHeight] as string;
+            }
+            set
+            {
+                this.Attributes[MediaRssNameTable.AttributeHeight] = value;
+            }
+        }
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>convienience accessor for the Width</summary> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        public string Width
+        {
+           get 
+            {
+                return this.Attributes[MediaRssNameTable.AttributeWidth] as string;
+            }
+            set
+            {
+                this.Attributes[MediaRssNameTable.AttributeWidth] = value;
+            }
+        }
+        // end of accessor public string Url
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>convienience accessor for the Width</summary> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        public string Type
+        {
+           get 
+            {
+                return this.Attributes[MediaRssNameTable.AttributeType] as string;
+            }
+            set
+            {
+                this.Attributes[MediaRssNameTable.AttributeType] = value;
+            }
+        }
+
+
     }
 
      /// <summary>
@@ -536,20 +635,6 @@ namespace Google.GData.Extensions.MediaRss {
     public class MediaThumbnail : SimpleElement
     {
         /// <summary>
-        /// the attribute string for the URL attribute
-        /// </summary>
-        public const string AttributeUrl = "url";
-        /// <summary>
-        /// the attribute string for the height attribute
-        /// </summary>
-        public const string AttributeHeight = "height";
-        /// <summary>
-        /// the attribute string for the width attribute
-        /// </summary>
-        public const string AttributeWidth = "width";
-
-
-        /// <summary>
         /// default constructor for media:thumbnail
         /// </summary>
         public MediaThumbnail()
@@ -557,9 +642,9 @@ namespace Google.GData.Extensions.MediaRss {
                MediaRssNameTable.mediaRssPrefix,
                MediaRssNameTable.NSMediaRss)
         {
-            this.Attributes.Add(AttributeUrl, null);
-            this.Attributes.Add("height", null);
-            this.Attributes.Add("width", null);
+            this.Attributes.Add(MediaRssNameTable.AttributeUrl, null);
+            this.Attributes.Add(MediaRssNameTable.AttributeHeight, null);
+            this.Attributes.Add(MediaRssNameTable.AttributeWidth, null);
         }
 
         //////////////////////////////////////////////////////////////////////
@@ -570,11 +655,11 @@ namespace Google.GData.Extensions.MediaRss {
         {
            get 
             {
-                return this.Attributes[AttributeUrl] as string;
+                return this.Attributes[MediaRssNameTable.AttributeUrl] as string;
             }
             set
             {
-                this.Attributes[AttributeUrl] = value;
+                this.Attributes[MediaRssNameTable.AttributeUrl] = value;
             }
         }
         // end of accessor public string Url
@@ -588,11 +673,11 @@ namespace Google.GData.Extensions.MediaRss {
         {
            get 
             {
-                return this.Attributes["height"] as string;
+                return this.Attributes[MediaRssNameTable.AttributeHeight] as string;
             }
             set
             {
-                this.Attributes["height"] = value;
+                this.Attributes[MediaRssNameTable.AttributeHeight] = value;
             }
         }
 
@@ -604,11 +689,11 @@ namespace Google.GData.Extensions.MediaRss {
         {
            get 
             {
-                return this.Attributes["width"] as string;
+                return this.Attributes[MediaRssNameTable.AttributeWidth] as string;
             }
             set
             {
-                this.Attributes["width"] = value;
+                this.Attributes[MediaRssNameTable.AttributeWidth] = value;
             }
         }
         // end of accessor public string Url

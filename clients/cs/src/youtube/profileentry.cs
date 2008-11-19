@@ -70,7 +70,6 @@ namespace Google.GData.YouTube {
             this.AddExtension(new UserName());
             this.AddExtension(new Statistics());
             this.AddExtension(new FeedLink());
-            this.AddExtension(new MediaThumbnail());
             this.AddExtension(new Description());
             this.AddExtension(new Relationship());
             this.AddExtension(new HomeTown());
@@ -334,26 +333,6 @@ namespace Google.GData.YouTube {
                     this.links = new ExtensionCollection<FeedLink>(this); 
                 }
                 return this.links;
-            }
-        }
-
-
-        /// <summary>
-        /// getter/setter for the media thumbnail subelement
-        /// </summary>
-        public MediaThumbnail MediaThumbnail 
-        {
-            get
-            {
-                return FindExtension(MediaRssNameTable.MediaRssThumbnail, 
-                                      MediaRssNameTable.NSMediaRss) as MediaThumbnail;
-
-            }
-            set
-            {
-                ReplaceExtension(MediaRssNameTable.MediaRssThumbnail, 
-                                      MediaRssNameTable.NSMediaRss,
-                                        value);
             }
         }
 

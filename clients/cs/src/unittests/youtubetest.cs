@@ -442,6 +442,7 @@ namespace Google.GData.Client.LiveTests
                 Assert.IsTrue(v.AtomEntry != null);
                 Assert.IsTrue(v.Title != null);
                 Assert.IsTrue(v.Id != null); 
+                Assert.IsTrue(v.WatchPage != null);
                 iCountTwo++; 
             }
             Assert.IsTrue(iCountTwo > iCountOne); 

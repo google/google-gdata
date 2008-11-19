@@ -169,19 +169,6 @@ namespace Google.GData.Client.UnitTests.YouTube
             Assert.AreEqual(expected, actual);
         }
 
-        /// <summary>
-        ///A test for MediaThumbnail
-        ///</summary>
-        [Test]
-        public void MediaThumbnailTest()
-        {
-            ProfileEntry target = new ProfileEntry(); // TODO: Initialize to an appropriate value
-            MediaThumbnail expected = new MediaThumbnail();
-            MediaThumbnail actual;
-            target.MediaThumbnail = expected;
-            actual = target.MediaThumbnail;
-            Assert.AreEqual(expected, actual);
-        }
 
         /// <summary>
         ///A test for Location
@@ -322,7 +309,6 @@ namespace Google.GData.Client.UnitTests.YouTube
             Assert.IsNull(target.Occupation);
             Assert.IsNull(target.Music);
             Assert.IsNull(target.Movies);
-            Assert.IsNull(target.MediaThumbnail);
             Assert.IsNull(target.Location);
             Assert.IsNull(target.Lastname);
             Assert.IsNull(target.Hobbies);
