@@ -70,6 +70,8 @@ namespace Google.YouTube
            }
        }
 
+
+   
        /// <summary>
        /// returns the position in the real feed of the first entry in this feed
        /// </summary>
@@ -78,11 +80,11 @@ namespace Google.YouTube
        {
            get
            {
-               if (this.af)
+               if (this.af != null)
                {
                    return this.af.StartIndex;
                }
-               return -1; 
+               return -1;  
            }
        }
 
@@ -95,7 +97,7 @@ namespace Google.YouTube
        {
            get
            {
-               if (this.af)
+               if (this.af != null)
                {
                    return this.af.ItemsPerPage;
                }
@@ -103,6 +105,18 @@ namespace Google.YouTube
            }
        }
 
+
+       /// <summary>
+       ///  returns the initial list of entries.This page is the data
+       ///  you got from the Requestobject and will remain constant.
+       ///  Unless you set AutoPaging to true, in that case:
+       ///  This will go back to the server and fetch data again if
+        /// needed. Example. If you pagesize is 30, you get an initial set of 
+        /// 30 entries. While enumerating, when reaching 30, the code will go 
+        /// to the server and get the next 30 rows. It will continue to do so
+        /// until the server reports no more rows available. 
+       /// </summary>
+       /// <returns></returns>
         public IEnumerable<T> Entries
         {
             get
@@ -129,13 +143,24 @@ namespace Google.YouTube
                 } while (looping);
             }
         }
+
     }
     //end of public class Feed
 
 
+    /// <summary>
+    /// the Entry class is the base class for all Feed<t> type feeds
+    /// it encapsulates the AtomEntry
+    /// </summary>
+    /// <returns></returns>
     public class Entry
     {
         private AtomEntry e; 
+
+        public Entry()
+        {
+
+        }
 
         public AtomEntry AtomEntry
         {
@@ -162,9 +187,16 @@ namespace Google.YouTube
         }
     }
 
+    /// <summary>
+    /// the Playlist entry for a Playlist Feed, a feed<Playlist> for YouTube
+    /// </summary>
+    public class Playlist : Entry
+    {
+    }
+
 
     //////////////////////////////////////////////////////////////////////
-    /// <summary>a generic Feed class
+    /// <summary>the Video Entry in feed<Videos> for YouTube
     /// </summary> 
     //////////////////////////////////////////////////////////////////////
     public class Video : Entry
@@ -284,6 +316,144 @@ namespace Google.YouTube
     //end of public class Feed
 
 
+    public class RequestSettings
+    {
+        private string applicationName;
+        private GDataCredentials credentials; 
+        private string passWord;
+        private int pageSize = -1;
+        private bool autoPage;
+
+        public RequestSettings(string applicationName)
+        {
+            this.applicationName = applicationName;
+        }
+
+        public RequestSettings(string applicationName, string userName, string passWord)
+        {
+            this.applicationName = applicationName;
+            this.credentials = new GDataCredentials(userName, passWord);
+        }
+
+        public GDataCredentials Credentials
+        {
+            get
+            {
+                return this.credentials;
+            }
+        }
+
+        public string Application
+        {
+            get
+            {
+                return this.applicationName;
+            }
+        }
+
+        public int PageSize
+        {
+            get
+            {
+                return this.pageSize;
+            }
+            set
+            {
+                this.pageSize = value;
+            }
+        }
+
+        public bool AutoPaging
+        {
+            get
+            {
+                return this.autoPage;
+            }
+            set
+            {
+                this.autoPage = value; 
+            }
+        }
+
+    }
+
+    public class YouTubeRequestSettings : RequestSettings
+    {
+        private string clientID;
+        private string developerKey;
+
+        public YouTubeRequestSettings(string applicationName, string client, string developerKey) : base(applicationName)
+        {
+            this.clientID = client;
+            this.developerKey = developerKey;
+        }
+
+        public YouTubeRequestSettings(string applicationName, string client, string developerKey, string userName, string passWord)  
+                    : base(applicationName, userName, passWord)
+        {
+            this.clientID = client;
+            this.developerKey = developerKey;
+        }
+
+        public string Client
+        {
+            get
+            {
+                return this.Client;
+            }
+        }
+
+        public string DeveloperKey
+        {
+            get
+            {
+                return this.developerKey;
+            }
+        }
+    }
+
+    public abstract class FeedRequest<T> where T : Service
+    {
+        private RequestSettings settings;
+        protected T service; 
+        public FeedRequest(RequestSettings settings)
+        {
+            this.settings = settings; 
+
+        }
+
+
+        protected void PrepareService()
+        {
+            if (settings.Credentials != null)
+            {
+                this.service.Credentials = settings.Credentials;
+            }
+        }
+
+        protected T PrepareQuery<T>(string uri) where T: FeedQuery, new()
+        {
+            T query = new T(); 
+            query.BaseAddress = uri; 
+
+            if (this.settings.PageSize != -1)
+            {
+                query.NumberToRetrieve = this.settings.PageSize; 
+            }
+            return query; 
+        }
+
+        protected Feed<T> PrepareFeed<T>(FeedQuery q) where T : Entry, new()
+        {
+             AtomFeed feed = this.service.Query(q);
+             Feed<T> f = new Feed<T>(feed);
+             f.AutoPaging = this.settings.AutoPaging;
+             return f;
+        }
+
+
+    }
+
 
 
     //////////////////////////////////////////////////////////////////////
@@ -299,62 +469,27 @@ namespace Google.YouTube
     /// subscriptions, contacts and other account-specific entities.
     /// </summary>
     //////////////////////////////////////////////////////////////////////
-    public class YouTubeFactory
+    public class YouTubeRequest : FeedRequest<YouTubeService>
     {
-        private YouTubeService service;
+        private YouTubeRequestSettings settings; 
 
-        public YouTubeFactory(string applicationName)
+        public YouTubeRequest(YouTubeRequestSettings settings) : base(settings)
         {
-            if (applicationName == null)
-            {
-                throw new ArgumentNullException("applicationName");
-            }
-            this.service = new YouTubeService(applicationName);
-        }
+            this.settings = settings;
 
-        public YouTubeFactory(string applicationName, string clientID, string developerKey)
-        {
-            if (applicationName == null)
+            if (settings.Client != null && settings.DeveloperKey != null)
             {
-                throw new ArgumentNullException("applicationName");
+                this.service = new YouTubeService(settings.Application, settings.Client, settings.DeveloperKey);
             }
-            if (developerKey == null)
+            else
             {
-                throw new ArgumentNullException("developerKey");
+                this.service = new YouTubeService(settings.Application);
             }
-            if (clientID == null)
-            {
-                throw new ArgumentNullException("clientID");
-            }
-            this.service = new YouTubeService(applicationName, clientID, developerKey);
-        }
 
-        public YouTubeFactory(string applicationName, string clientID, string developerKey, string userName, string passWord)
-        {
-            if (applicationName == null)
-            {
-                throw new ArgumentNullException("applicationName");
-            }
-            if (developerKey == null)
-            {
-                throw new ArgumentNullException("developerKey");
-            }
-            if (clientID == null)
-            {
-                throw new ArgumentNullException("clientID");
-            }
-            if (userName == null)
-            {
-                throw new ArgumentNullException("userName");
-            }
-            if (passWord == null)
-            {
-                throw new ArgumentNullException("passWord");
-            }
-            this.service = new YouTubeService(applicationName, clientID, developerKey);
-            this.service.Credentials = new GDataCredentials(userName, passWord);
-        }
+            PrepareService();
 
+
+        }
 
         /// <summary>
         /// returns a Feed of vidoes for a given username
@@ -363,9 +498,8 @@ namespace Google.YouTube
         /// <returns>a feed of Videos</returns>
         public Feed<Video> GetVideoFeed(string user)
         {
-            YouTubeQuery q = new YouTubeQuery(YouTubeQuery.CreateUserUri(user));
-            YouTubeFeed f = this.service.Query(q);
-            return new Feed<Video>(f);
+            YouTubeQuery q = PrepareQuery<YouTubeQuery>(YouTubeQuery.CreateUserUri(user));
+            return PrepareFeed<Video>(q); 
         }
 
          /// <summary>
@@ -376,8 +510,41 @@ namespace Google.YouTube
         public Feed<Video> GetStandardFeed(string feedspec)
         {
             YouTubeQuery q = new YouTubeQuery(feedspec);
-            YouTubeFeed f = this.service.Query(q);
-            return new Feed<Video>(f);
+            return PrepareFeed<Video>(q); 
         }
+
+        /// <summary>
+        /// returns a Feed of favorite videos for a given username
+        /// </summary>
+        /// <param name="user">the username</param>
+        /// <returns>a feed of Videos</returns>
+        public Feed<Video> GetFavoriteFeed(string user)
+        {
+            YouTubeQuery q = new YouTubeQuery(YouTubeQuery.CreateFavoritesUri(user));
+            return PrepareFeed<Video>(q); 
+        }
+
+        /// <summary>
+        /// returns a Feed of playlists  for a given username
+        /// </summary>
+        /// <param name="user">the username</param>
+        /// <returns>a feed of Videos</returns>
+        public Feed<Playlist> GetPlaylistsFeed(string user)
+        {
+            YouTubeQuery q = new YouTubeQuery(YouTubeQuery.CreatePlaylistsUri(user));
+            return PrepareFeed<Playlist>(q);             
+        }
+
+        /// <summary>
+        /// uses a preset YouTubeQuery object to retrieve videos. 
+        /// </summary>
+        /// <param name="q">the query object to use</param>
+        /// <returns></returns>
+        public Feed<Video> GetFeed(YouTubeQuery q)
+        {
+            YouTubeFeed f = this.service.Query(q);
+            return PrepareFeed<Video>(q); 
+        }
+
     }
 }

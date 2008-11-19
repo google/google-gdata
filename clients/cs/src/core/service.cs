@@ -135,7 +135,9 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         public Service(string applicationName)
         {
-            this.RequestFactory = new GDataRequestFactory(applicationName);
+            this.RequestFactory = new GDataRequestFactory(applicationName == null ? 
+                                                            this.GetType().Name : 
+                                                            applicationName);
             InitDelegates();
             InitVersionInformation();
         }
