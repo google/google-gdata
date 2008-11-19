@@ -177,14 +177,14 @@
     <Compile Include="..\..\youtube\youtubeextensions.cs">
       <Link>youtubeextensions.cs</Link>
     </Compile>
-    <Compile Include="..\..\youtube\youtubefactory.cs">
-      <Link>youtubefactory.cs</Link>
-    </Compile>
     <Compile Include="..\..\youtube\youtubefeed.cs">
       <Link>youtubefeed.cs</Link>
     </Compile>
     <Compile Include="..\..\youtube\youtubequery.cs">
       <Link>youtubequery.cs</Link>
+    </Compile>
+    <Compile Include="..\..\youtube\youtuberequest.cs">
+      <Link>youtuberequest.cs</Link>
     </Compile>
     <Compile Include="..\..\youtube\youtubeservice.cs">
       <Link>youtubeservice.cs</Link>

@@ -399,7 +399,7 @@ namespace Google.YouTube
         {
             get
             {
-                return this.Client;
+                return this.clientID;
             }
         }
 
