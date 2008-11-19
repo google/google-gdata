@@ -324,39 +324,7 @@ namespace Google.GData.Client.LiveTests
         }
         /////////////////////////////////////////////////////////////////////////////
 
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>runs a test on the YouTube factory object</summary> 
-        //////////////////////////////////////////////////////////////////////
-        [Test] public void YouTubeFactoryTest()
-        {
-            Tracing.TraceMsg("Entering YouTubeFactoryTest");
-
-            YouTubeFactory f = new YouTubeFactory("NETUnittests", this.ytClient, this.ytDevKey, this.ytUser, this.ytPwd);
-
-            Feed<Video> feed = f.GetVideoFeed(null);
-            
-            
-            foreach (Video v in feed.Entries)
-            {
-                Assert.IsTrue(v.AtomEntry != null);
-                Assert.IsTrue(v.Title != null);
-                Assert.IsTrue(v.Id != null); 
-            }
-
-            Feed<Video> sfeed = f.GetStandardFeed(YouTubeQuery.MostPopular);
-            sfeed.AutoPaging = true; 
-
-            foreach (Video v in feed.Entries)
-            {
-                Assert.IsTrue(v.AtomEntry != null);
-                Assert.IsTrue(v.Title != null);
-                Assert.IsTrue(v.Id != null); 
-            }
-
-        }
-        /////////////////////////////////////////////////////////////////////////////
-
-
+      
 
         [Test] public void YouTubeUploaderTest()
         {
@@ -438,11 +406,14 @@ namespace Google.GData.Client.LiveTests
         //////////////////////////////////////////////////////////////////////
         /// <summary>runs a test on the YouTube factory object</summary> 
         //////////////////////////////////////////////////////////////////////
-        [Test] public void YouTubeFactoryTest()
+        [Test] public void YouTubeRequestTest()
         {
-            Tracing.TraceMsg("Entering YouTubeFactoryTest");
+            Tracing.TraceMsg("Entering YouTubeRequestTest");
 
-            YouTubeFactory f = new YouTubeFactory("NETUnittests", this.ytClient, this.ytDevKey, this.ytUser, this.ytPwd);
+
+            YouTubeRequestSettings settings = new YouTubeRequestSettings("NETUnittests", this.ytClient, this.ytDevKey, this.ytUser, this.ytPwd);
+
+            YouTubeRequest f = new YouTubeRequest(settings);
             // GetVideoFeed get's you a users video feed
             Feed<Video> feed = f.GetVideoFeed(null);
             // this will get you just the first 25 videos. 
@@ -454,19 +425,29 @@ namespace Google.GData.Client.LiveTests
             }
 
             Feed<Video> sfeed = f.GetStandardFeed(YouTubeQuery.MostPopular);
-            sfeed.AutoPaging = true; 
 
+            int iCountOne=0; 
             // this loop get's you all videos in the mostpopular video feeed
             foreach (Video v in sfeed.Entries)
             {
                 Assert.IsTrue(v.AtomEntry != null);
                 Assert.IsTrue(v.Title != null);
                 Assert.IsTrue(v.Id != null); 
+                iCountOne++; 
             }
+            int iCountTwo = 0; 
+            sfeed.AutoPaging = true; 
+            foreach (Video v in sfeed.Entries)
+            {
+                Assert.IsTrue(v.AtomEntry != null);
+                Assert.IsTrue(v.Title != null);
+                Assert.IsTrue(v.Id != null); 
+                iCountTwo++; 
+            }
+            Assert.IsTrue(iCountTwo > iCountOne); 
         }
         /////////////////////////////////////////////////////////////////////////////
     }
-
 }
 
 

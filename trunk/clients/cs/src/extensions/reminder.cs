@@ -236,7 +236,6 @@ namespace Google.GData.Extensions {
                 }
             }
 
-            bool absoluteFlag = false;
             reminder = new Reminder();
             if (node != null && node.Attributes != null)
             {
@@ -244,7 +243,6 @@ namespace Google.GData.Extensions {
                 {
                     try
                     {
-                        absoluteFlag = true;
                         reminder.AbsoluteTime =
                         DateTime.Parse(node.Attributes[GDataParserNameTable.XmlAttributeAbsoluteTime].Value);
                     }

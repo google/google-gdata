@@ -212,6 +212,27 @@ namespace Google.GData.Client
             this.UseSSL = this.baseUri.StartsWith("https://");
         }
         /////////////////////////////////////////////////////////////////////////////
+        
+        
+        /// <summary>
+        ///  this will simply return/set the baseUri without any parsing as a string
+        ///  this is the same as using the constructor for most cases, it is here to allow the creation
+        /// of template methods.
+        /// </summary>
+        /// <returns></returns>
+        public string BaseAddress
+        {
+            get
+            {
+                return this.baseUri;
+            }
+            set
+            {
+                this.baseUri = value;
+                this.UseSSL = this.baseUri.StartsWith("https://");
+            }
+        }
+
 
 
      
