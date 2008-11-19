@@ -238,6 +238,9 @@ namespace Google.GData.YouTube {
             // replace the media group default media credit with a new one. 
             MediaCredit c = new Google.GData.YouTube.MediaCredit();
             this.ReplaceFactory(c.XmlName, c.XmlNameSpace, c);
+            // replace the media group default media content with a new one. 
+            MediaContent m = new Google.GData.YouTube.MediaContent();
+            this.ReplaceFactory(m.XmlName, m.XmlNameSpace, m);
         }
 
 
@@ -331,7 +334,7 @@ namespace Google.GData.YouTube {
             this.Attributes.Add("type", null);
         }
 
-          /// <summary>
+        /// <summary>
         ///  returns the type of the credit element
         /// </summary>
         /// <returns></returns>
@@ -344,6 +347,37 @@ namespace Google.GData.YouTube {
             set
             {
                 this.Attributes["type"] = value;
+            }
+        }
+
+    }
+
+    public class MediaContent : Google.GData.Extensions.MediaRss.MediaContent
+    {
+
+            /// <summary>
+        /// default constructor for media:credit
+        /// </summary>
+        public MediaContent()
+        : base()
+        {
+            this.AttributeNamespaces.Add("format", YouTubeNameTable.NSYouTube);
+            this.Attributes.Add("format", null);
+        }
+
+          /// <summary>
+        ///  returns the type of the credit element
+        /// </summary>
+        /// <returns></returns>
+        public string Format
+        {
+            get
+            {
+                return this.Attributes["format"] as string;
+            }
+            set
+            {
+                this.Attributes["format"] = value;
             }
         }
 

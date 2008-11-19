@@ -275,11 +275,51 @@ namespace Google.YouTube
         {
             get
             {
-                if (this.YT != null && this.YT.Media != null)
+                if (this.YT != null)
                 {
+                    if (this.YT.Media == null)
+                    {
+                        this.YT.Media = new Google.GData.YouTube.MediaGroup();
+                    }
                     return this.YT.Media.Categories; 
                 }
                 return null;
+            }
+        }
+
+        public ExtensionCollection<MediaThumbnail> Thumbnails
+        {
+            get
+            {
+                if (this.YT != null)
+                {
+                    if (this.YT.Media == null)
+                    {
+                        this.YT.Media = new Google.GData.YouTube.MediaGroup();
+                    }
+                    return this.YT.Media.Thumbnails; 
+                }
+                return null;
+            }
+        }
+
+        public Uri WatchPage
+        {
+            get
+            {
+                if (this.YT!= null  && 
+                    this.YT.Media != null  && 
+                    this.YT.Media.Contents != null )
+                {
+                    foreach (Google.GData.YouTube.MediaContent m in this.YT.Media.Contents )
+                    {
+                        if (m.Format=="5")
+                        {
+                            return new Uri(m.Url); 
+                        }
+                    }
+                }
+                return null; 
             }
         }
 
@@ -310,17 +350,22 @@ namespace Google.YouTube
                     this.YT.Media.Description.Value = value; 
                 }
             }
-
         }
+
+
     }
     //end of public class Feed
 
 
+    /// <summary>
+    /// base requestsettings class. Takes credentials, applicaitonsnames
+    /// and supports pagesizes and autopaging
+    /// </summary>
+    /// <returns></returns>
     public class RequestSettings
     {
         private string applicationName;
         private GDataCredentials credentials; 
-        private string passWord;
         private int pageSize = -1;
         private bool autoPage;
 
@@ -377,6 +422,11 @@ namespace Google.YouTube
 
     }
 
+    /// <summary>
+    /// YouTube specific class for request settings,
+    /// adds support for developer key and clientid
+    /// </summary>
+    /// <returns></returns>
     public class YouTubeRequestSettings : RequestSettings
     {
         private string clientID;
@@ -412,6 +462,10 @@ namespace Google.YouTube
         }
     }
 
+    /// <summary>
+    /// base class for Request objects.
+    /// </summary>
+    /// <returns></returns>
     public abstract class FeedRequest<T> where T : Service
     {
         private RequestSettings settings;
@@ -471,12 +525,8 @@ namespace Google.YouTube
     //////////////////////////////////////////////////////////////////////
     public class YouTubeRequest : FeedRequest<YouTubeService>
     {
-        private YouTubeRequestSettings settings; 
-
         public YouTubeRequest(YouTubeRequestSettings settings) : base(settings)
         {
-            this.settings = settings;
-
             if (settings.Client != null && settings.DeveloperKey != null)
             {
                 this.service = new YouTubeService(settings.Application, settings.Client, settings.DeveloperKey);
@@ -487,8 +537,6 @@ namespace Google.YouTube
             }
 
             PrepareService();
-
-
         }
 
         /// <summary>
