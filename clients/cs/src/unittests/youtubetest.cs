@@ -469,7 +469,7 @@ namespace Google.GData.Client.LiveTests
                 Assert.IsTrue(p.AtomEntry != null);
                 Assert.IsTrue(p.Title != null);
                 Feed<Video> list = f.GetPlaylist(p);
-                foreach (Video v in list )
+                foreach (Video v in list.Entries )
                 {
                     Assert.IsTrue(v.AtomEntry != null);
                     Assert.IsTrue(v.Title != null);
