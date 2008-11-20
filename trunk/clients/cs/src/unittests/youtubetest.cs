@@ -457,7 +457,6 @@ namespace Google.GData.Client.LiveTests
         {
             Tracing.TraceMsg("Entering YouTubePlaylistRequestTest");
 
-
             YouTubeRequestSettings settings = new YouTubeRequestSettings("NETUnittests", this.ytClient, this.ytDevKey, this.ytUser, this.ytPwd);
 
             YouTubeRequest f = new YouTubeRequest(settings);
@@ -475,11 +474,71 @@ namespace Google.GData.Client.LiveTests
                     Assert.IsTrue(v.Title != null);
                     Assert.IsTrue(v.Id != null); 
                     Assert.IsTrue(v.WatchPage != null);
+                }
+            }
+
+         
+        }
+        /////////////////////////////////////////////////////////////////////////////
+        
+
+         //////////////////////////////////////////////////////////////////////
+        /// <summary>runs a test on the YouTube factory object</summary> 
+        //////////////////////////////////////////////////////////////////////
+        [Test] public void YouTubeCommentRequestTest()
+        {
+            Tracing.TraceMsg("Entering YouTubeCommentRequestTest");
+
+            YouTubeRequestSettings settings = new YouTubeRequestSettings("NETUnittests", this.ytClient, this.ytDevKey, this.ytUser, this.ytPwd);
+
+            YouTubeRequest f = new YouTubeRequest(settings);
+        
+            Feed<Video> feed = f.GetStandardFeed(YouTubeQuery.MostPopular);
+            // this will get you just the first 25 videos. 
+            foreach (Video v in feed.Entries)
+            {
+                Feed<Comment> list= f.GetComments(v);
+                foreach (Comment c in list.Entries )
+                {
+                    Assert.IsTrue(v.AtomEntry != null);
+                    Assert.IsTrue(v.Title != null);
+                }
+            }
+            
+        }
+        /////////////////////////////////////////////////////////////////////////////
+         
+
+
+          //////////////////////////////////////////////////////////////////////
+        /// <summary>runs a test on the YouTube factory object</summary> 
+        //////////////////////////////////////////////////////////////////////
+        [Test] public void YouTubeUnAuthenticatedRequestTest()
+        {
+            Tracing.TraceMsg("Entering YouTubeUnAuthenticatedRequestTest");
+
+            YouTubeRequestSettings settings = new YouTubeRequestSettings("NETUnittests", this.ytClient, this.ytDevKey);
+
+            YouTubeRequest f = new YouTubeRequest(settings);
+
+            Feed<Video> feed = f.GetStandardFeed(YouTubeQuery.MostPopular);
+            // this will get you just the first 25 videos. 
+            foreach (Video v in feed.Entries)
+            {
+                Feed<Comment> list= f.GetComments(v);
+                foreach (Comment c in list.Entries )
+                {
+                    Assert.IsTrue(c.AtomEntry != null);
+                    Assert.IsTrue(c.Title != null);
+                    Console.WriteLine(c.Title + " " + c.Author + c.Content);
 
                 }
             }
         }
         /////////////////////////////////////////////////////////////////////////////
+         
+
+
     }
 }
 
