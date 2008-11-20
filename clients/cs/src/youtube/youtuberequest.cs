@@ -35,11 +35,14 @@ namespace Google.YouTube
     public class Feed<T> where T: Entry, new()
     {
         AtomFeed af;
-        bool paging = false; 
+        bool paging; 
+        FeedRequest<Service> request; 
+
 
         public Feed(AtomFeed af)
         {
             this.af = af; 
+            this.request = request; 
         }
 
         /// <summary>
@@ -174,6 +177,29 @@ namespace Google.YouTube
             }
         }
 
+
+        /// <summary>
+        /// the title of the element
+        /// </summary>
+        /// <returns></returns>
+        public string Title
+        {
+            get 
+            {
+                if (this.e != null)
+                {
+                    return this.e.Title.Text;
+                }
+                return null;
+            }
+            set 
+            {
+                this.e.Title.Text = value; 
+            }
+        }
+
+
+
         /// <summary>
         ///  sends the data back to the server. 
         /// </summary>
@@ -194,6 +220,13 @@ namespace Google.YouTube
     {
     }
 
+  /// <summary>
+    /// the Comment entry for a Comments Feed, a feed<Comment> for YouTube
+    /// </summary>
+    public class Comment : Entry
+    {
+    }
+
 
     //////////////////////////////////////////////////////////////////////
     /// <summary>the Video Entry in feed<Videos> for YouTube
@@ -201,7 +234,7 @@ namespace Google.YouTube
     //////////////////////////////////////////////////////////////////////
     public class Video : Entry
     {
-        private YouTubeEntry YT
+        public  YouTubeEntry YouTubeEntry
         {
             get
             {
@@ -213,143 +246,143 @@ namespace Google.YouTube
         {
             get
             {
-                if (this.YT != null)
+                if (this.YouTubeEntry != null)
                 {
-                    return this.YT.VideoId;
+                    return this.YouTubeEntry.VideoId;
                 }
                 return null; 
             }
             set
             {
-                this.YT.VideoId = value; 
+                this.YouTubeEntry.VideoId = value; 
             }
         }
-
-        public string Title
-        {
-            get 
-            {
-                if (this.YT != null)
-                {
-                    return this.YT.Title.Text;
-                }
-                return null;
-            }
-            set 
-            {
-                this.YT.Title.Text = value; 
-            }
-        }
-
+     /// <summary>
+        /// the Media Description element
+        /// </summary>
+        /// <returns></returns>
         public string Description
         {
             get
             {
-                if (this.YT != null && 
-                    this.YT.Media != null &&
-                    this.YT.Media.Description != null)
+                if (this.YouTubeEntry != null && 
+                    this.YouTubeEntry.Media != null &&
+                    this.YouTubeEntry.Media.Description != null)
                 {
-                    return this.YT.Media.Description.Value;
+                    return this.YouTubeEntry.Media.Description.Value;
                 }
                 return null; 
             }
             set
             {
-                if (this.YT != null)
+                if (this.YouTubeEntry != null)
                 {
-                    if (this.YT.Media == null)
+                    if (this.YouTubeEntry.Media == null)
                     {
-                        this.YT.Media = new Google.GData.YouTube.MediaGroup();
+                        this.YouTubeEntry.Media = new Google.GData.YouTube.MediaGroup();
                     }
-                    if (this.YT.Media.Description == null)
+                    if (this.YouTubeEntry.Media.Description == null)
                     {
-                        this.YT.Media.Description = new MediaDescription();
+                        this.YouTubeEntry.Media.Description = new MediaDescription();
                     }
-                    this.YT.Media.Credit.Value = value; 
+                    this.YouTubeEntry.Media.Description.Value = value; 
                 }
             }
         }
 
 
+        /// <summary>
+        /// returns the categories for the video
+        /// </summary>
+        /// <returns></returns>
         public ExtensionCollection<MediaCategory> Tags
         {
             get
             {
-                if (this.YT != null)
+                if (this.YouTubeEntry != null)
                 {
-                    if (this.YT.Media == null)
+                    if (this.YouTubeEntry.Media == null)
                     {
-                        this.YT.Media = new Google.GData.YouTube.MediaGroup();
+                        this.YouTubeEntry.Media = new Google.GData.YouTube.MediaGroup();
                     }
-                    return this.YT.Media.Categories; 
+                    return this.YouTubeEntry.Media.Categories; 
                 }
                 return null;
             }
         }
 
+        /// <summary>
+        /// returns the collection of thumbnails for the vido
+        /// </summary>
+        /// <returns></returns>
         public ExtensionCollection<MediaThumbnail> Thumbnails
         {
             get
             {
-                if (this.YT != null)
+                if (this.YouTubeEntry != null)
                 {
-                    if (this.YT.Media == null)
+                    if (this.YouTubeEntry.Media == null)
                     {
-                        this.YT.Media = new Google.GData.YouTube.MediaGroup();
+                        this.YouTubeEntry.Media = new Google.GData.YouTube.MediaGroup();
                     }
-                    return this.YT.Media.Thumbnails; 
+                    return this.YouTubeEntry.Media.Thumbnails; 
                 }
                 return null;
             }
         }
 
+        /// <summary>
+        /// returns the url attribute of media:player as a Uri
+        /// </summary>
+        /// <returns></returns>
         public Uri WatchPage
         {
             get
             {
-                if (this.YT!= null  && 
-                    this.YT.Media != null  && 
-                    this.YT.Media.Player != null )
+                if (this.YouTubeEntry!= null  && 
+                    this.YouTubeEntry.Media != null  && 
+                    this.YouTubeEntry.Media.Player != null )
                 {
-                    return new Uri(this.YT.Media.Player.Url);
+                    return new Uri(this.YouTubeEntry.Media.Player.Url);
                 }
                 return null; 
             }
         }
 
+        /// <summary>
+        /// get's sets the uploader of the video
+        /// </summary>
+        /// <returns></returns>
         public string Uploader
         {
             get
             {
-                if (this.YT!= null  && 
-                    this.YT.Media != null  && 
-                    this.YT.Media.Credit != null )
+                if (this.YouTubeEntry!= null  && 
+                    this.YouTubeEntry.Media != null  && 
+                    this.YouTubeEntry.Media.Credit != null )
                 {
-                    return this.YT.Media.Credit.Value;
+                    return this.YouTubeEntry.Media.Credit.Value;
                 }
                 return null; 
             }
             set
             {
-                if (this.YT != null)
+                if (this.YouTubeEntry != null)
                 {
-                    if (this.YT.Media == null)
+                    if (this.YouTubeEntry.Media == null)
                     {
-                        this.YT.Media = new Google.GData.YouTube.MediaGroup();
+                        this.YouTubeEntry.Media = new Google.GData.YouTube.MediaGroup();
                     }
-                    if (this.YT.Media.Credit == null)
+                    if (this.YouTubeEntry.Media.Credit == null)
                     {
-                        this.YT.Media.Credit = new Google.GData.YouTube.MediaCredit();
+                        this.YouTubeEntry.Media.Credit = new Google.GData.YouTube.MediaCredit();
                     }
-                    this.YT.Media.Description.Value = value; 
+                    this.YouTubeEntry.Media.Credit.Value = value; 
                 }
             }
         }
-
-
     }
-    //end of public class Feed
-
+    
 
     /// <summary>
     /// base requestsettings class. Takes credentials, applicaitonsnames
@@ -470,7 +503,6 @@ namespace Google.YouTube
 
         }
 
-
         protected void PrepareService()
         {
             if (settings.Credentials != null)
@@ -491,7 +523,7 @@ namespace Google.YouTube
             return query; 
         }
 
-        protected Feed<T> PrepareFeed<T>(FeedQuery q) where T : Entry, new()
+        protected virtual Feed<T> PrepareFeed<T>(FeedQuery q) where T : Entry, new()
         {
              AtomFeed feed = this.service.Query(q);
              Feed<T> f = new Feed<T>(feed);
@@ -499,7 +531,10 @@ namespace Google.YouTube
              return f;
         }
 
-
+        public Feed<T> GetFeed<T>(FeedQuery q) where T: Entry, new()
+        {
+            return PrepareFeed<T>(q);  
+        }
     }
 
 
@@ -529,7 +564,6 @@ namespace Google.YouTube
             {
                 this.service = new YouTubeService(settings.Application);
             }
-
             PrepareService();
         }
 
@@ -578,15 +612,75 @@ namespace Google.YouTube
         }
 
         /// <summary>
-        /// uses a preset YouTubeQuery object to retrieve videos. 
+        /// returns the related videos for a given video
         /// </summary>
-        /// <param name="q">the query object to use</param>
+        /// <param name="v"></param>
         /// <returns></returns>
-        public Feed<Video> GetFeed(YouTubeQuery q)
+        public Feed<Video> GetRelatedVideos(Video v)
         {
-            YouTubeFeed f = this.service.Query(q);
-            return PrepareFeed<Video>(q); 
+            if (v.YouTubeEntry != null)
+            {
+                if (v.YouTubeEntry.RelatedVideosUri != null)
+                {
+                    YouTubeQuery q = new YouTubeQuery(v.YouTubeEntry.RelatedVideosUri.ToString());
+                    return PrepareFeed<Video>(q); 
+                }
+            }
+            return null;
         }
 
+        /// <summary>
+        ///  gets the response videos for a given video
+        /// </summary>
+        /// <param name="v"></param>
+        /// <returns></returns>
+        public Feed<Video> GetResponseVideos(Video v)
+        {
+            if (v.YouTubeEntry != null)
+            {
+                if (v.YouTubeEntry.VideoResponsesUri != null)
+                {
+                    YouTubeQuery q = new YouTubeQuery(v.YouTubeEntry.VideoResponsesUri.ToString());
+                    return PrepareFeed<Video>(q); 
+                }
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// get's the comments for a given video
+        /// </summary>
+        /// <param name="v"></param>
+        /// <returns></returns>
+        public Feed<Comment> GetComments(Video v)
+        {
+             if (v.YouTubeEntry != null && 
+                    v.YouTubeEntry.Comments != null && 
+                    v.YouTubeEntry.Comments.FeedLink != null && 
+                    v.YouTubeEntry.Comments.FeedLink.Href != null
+                    )
+             {
+                    YouTubeQuery q = new YouTubeQuery(v.YouTubeEntry.Comments.FeedLink.Href);
+                    return PrepareFeed<Comment>(q); 
+             }
+            return null;
+        }
+
+        /// <summary>
+        /// retuns the feed of videos for a given playlist
+        /// </summary>
+        /// <param name="p">the playlist to get the videos for</param>
+        /// <returns></returns>
+        public Feed<Video> GetPlaylist(Playlist p)
+        {
+            if (p.AtomEntry != null && 
+                p.AtomEntry.Content != null && 
+                p.AtomEntry.Content.AbsoluteUri != null)
+            {
+                   YouTubeQuery q = new YouTubeQuery(p.AtomEntry.Content.AbsoluteUri);
+                   return PrepareFeed<Video>(q); 
+            }
+           return null;
+        }
     }
 }
