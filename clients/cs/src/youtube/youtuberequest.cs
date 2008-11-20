@@ -36,13 +36,11 @@ namespace Google.YouTube
     {
         AtomFeed af;
         bool paging; 
-        FeedRequest<Service> request; 
 
 
         public Feed(AtomFeed af)
         {
             this.af = af; 
-            this.request = request; 
         }
 
         /// <summary>
@@ -114,10 +112,10 @@ namespace Google.YouTube
        ///  you got from the Requestobject and will remain constant.
        ///  Unless you set AutoPaging to true, in that case:
        ///  This will go back to the server and fetch data again if
-        /// needed. Example. If you pagesize is 30, you get an initial set of 
-        /// 30 entries. While enumerating, when reaching 30, the code will go 
-        /// to the server and get the next 30 rows. It will continue to do so
-        /// until the server reports no more rows available. 
+       /// needed. Example. If you pagesize is 30, you get an initial set of 
+       /// 30 entries. While enumerating, when reaching 30, the code will go 
+       /// to the server and get the next 30 rows. It will continue to do so
+       /// until the server reports no more rows available. 
        /// </summary>
        /// <returns></returns>
         public IEnumerable<T> Entries
@@ -160,11 +158,19 @@ namespace Google.YouTube
     {
         private AtomEntry e; 
 
+        /// <summary>
+        ///  default public constructor, needed for generics.
+        /// </summary>
+        /// <returns></returns>
         public Entry()
         {
 
         }
 
+        /// <summary>
+        ///  the original AtomEntry object that this object is standing in for
+        /// </summary>
+        /// <returns></returns>
         public AtomEntry AtomEntry
         {
             get
@@ -179,7 +185,7 @@ namespace Google.YouTube
 
 
         /// <summary>
-        /// the title of the element
+        /// the title of the Entry. 
         /// </summary>
         /// <returns></returns>
         public string Title
@@ -198,7 +204,61 @@ namespace Google.YouTube
             }
         }
 
+        /// <summary>
+        ///  returns the first author name in the atom.entry.authors collection
+        /// </summary>
+        /// <returns></returns>
+        public string Author
+        {
+            get
+            {
+                if (this.e != null && this.e.Authors.Count > 0 && this.e.Authors[0] != null)
+                {
+                    return this.e.Authors[0].Name;
+                }
+                return null;
+            }
+            set
+            {
+                if (this.e != null)
+                {
+                    AtomPerson p = null; 
+                    if (this.e.Authors.Count == 0)
+                    {
+                        p = new AtomPerson(AtomPersonType.Author);
+                        this.e.Authors.Add(p);
+                    }
+                    else
+                    {
+                        p = this.e.Authors[0];
+                    }
+                    p.Name = value; 
+                }
+            }
+        }
 
+        /// <summary>
+        /// returns the string representation of the atom.content element
+        /// </summary>
+        /// <returns></returns>
+        public string Content
+        {
+            get
+            {
+                if (this.e != null)
+                {
+                    return this.e.Content.Content;
+                }
+                return null;
+            }
+            set
+            {
+                if (this.e != null)
+                {
+                    this.e.Content.Content = value;
+                }
+            }
+        }
 
         /// <summary>
         ///  sends the data back to the server. 
@@ -208,7 +268,20 @@ namespace Google.YouTube
         {
             if (this.e != null)
             {
-                e.Update();
+                this.e = this.e.Update();
+            }
+        }
+
+        /// <summary>
+        ///  deletes the underlying entry and makes this object invalid
+        /// </summary>
+        /// <returns></returns>
+        public void Delete()
+        {
+            if (this.e != null)
+            {
+                this.e.Delete();
+                this.e = null; 
             }
         }
     }
