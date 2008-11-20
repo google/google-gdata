@@ -448,6 +448,38 @@ namespace Google.GData.Client.LiveTests
             Assert.IsTrue(iCountTwo > iCountOne); 
         }
         /////////////////////////////////////////////////////////////////////////////
+        // 
+
+         //////////////////////////////////////////////////////////////////////
+        /// <summary>runs a test on the YouTube factory object</summary> 
+        //////////////////////////////////////////////////////////////////////
+        [Test] public void YouTubePlaylistRequestTest()
+        {
+            Tracing.TraceMsg("Entering YouTubePlaylistRequestTest");
+
+
+            YouTubeRequestSettings settings = new YouTubeRequestSettings("NETUnittests", this.ytClient, this.ytDevKey, this.ytUser, this.ytPwd);
+
+            YouTubeRequest f = new YouTubeRequest(settings);
+            // GetVideoFeed get's you a users video feed
+            Feed<Playlist> feed = f.GetPlaylistsFeed(null);
+            // this will get you just the first 25 videos. 
+            foreach (Playlist p in feed.Entries)
+            {
+                Assert.IsTrue(p.AtomEntry != null);
+                Assert.IsTrue(p.Title != null);
+                Feed<Video> list = f.GetPlaylist(p);
+                foreach (Video v in list )
+                {
+                    Assert.IsTrue(v.AtomEntry != null);
+                    Assert.IsTrue(v.Title != null);
+                    Assert.IsTrue(v.Id != null); 
+                    Assert.IsTrue(v.WatchPage != null);
+
+                }
+            }
+        }
+        /////////////////////////////////////////////////////////////////////////////
     }
 }
 
