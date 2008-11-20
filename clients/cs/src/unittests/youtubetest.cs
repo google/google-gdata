@@ -518,6 +518,7 @@ namespace Google.GData.Client.LiveTests
             Tracing.TraceMsg("Entering YouTubeUnAuthenticatedRequestTest");
 
             YouTubeRequestSettings settings = new YouTubeRequestSettings("NETUnittests", this.ytClient, this.ytDevKey);
+            settings.AutoPaging = true;
 
             YouTubeRequest f = new YouTubeRequest(settings);
 
