@@ -160,6 +160,10 @@ namespace Google.GData.YouTube {
         /// <returns></returns>
         public YouTubeEntry Upload(string userName, YouTubeEntry entry)
         {
+            if (String.IsNullOrEmpty(userName))
+            {
+                userName = "default";
+            }
             Uri uri = new Uri("http://uploads.gdata.youtube.com/feeds/api/users/" + userName + "/uploads");
             return base.Insert(uri, entry); 
         }
@@ -171,8 +175,7 @@ namespace Google.GData.YouTube {
         /// <returns></returns>
         public YouTubeEntry Upload(YouTubeEntry entry)
         {
-            Uri uri = new Uri("http://uploads.gdata.youtube.com/feeds/api/users/default/uploads");
-            return base.Insert(uri, entry); 
+            return Upload(null, entry);
         }
 
         /// <summary>
