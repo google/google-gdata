@@ -56,6 +56,12 @@ namespace Google.GData.Client
             get;
             set;
         }
+
+        string ServiceIdentifier
+        {
+            get;
+        }
+
         /// <summary>the minimal Get OpenSearchRssDescription function</summary> 
         Stream QueryOpenSearchRssDescription(Uri serviceUri);
 

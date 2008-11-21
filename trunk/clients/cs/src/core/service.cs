@@ -104,8 +104,6 @@ namespace Google.GData.Client
     //////////////////////////////////////////////////////////////////////
     public partial class Service : IService, IVersionAware
     {
-        /// <summary>this service's user-agent</summary> 
-        public const string GServiceAgent = "GService-CS/1.0.0";
         /// <summary>holds the credential information</summary> 
         private GDataCredentials credentials; 
         /// <summary>the GDatarequest to use</summary> 
@@ -116,6 +114,8 @@ namespace Google.GData.Client
         public event ExtensionElementEventHandler NewExtensionElement;
         /// <summary>eventhandler, when the service needs to create a new feed</summary> 
         public event ServiceEventHandler NewFeed;
+
+        private string serviceID;
 
 
         //////////////////////////////////////////////////////////////////////
@@ -150,12 +150,25 @@ namespace Google.GData.Client
         public Service(string service, string applicationName)
         {
             this.RequestFactory = new GDataGAuthRequestFactory(service, applicationName);
+            this.serviceID = service; 
             InitDelegates();
             InitVersionInformation();
         }
         /////////////////////////////////////////////////////////////////////////////
  
 
+        /// <summary>
+        /// this returns the string that the services uses to identify the google service to use
+        /// when authentication with Google is required. Examples are "cl" for calendar, e.g. 
+        /// </summary>
+        /// <returns></returns>
+        public string ServiceIdentifier
+        {
+            get
+            {
+                return this.serviceID;
+            }
+        }
   
         private VersionInformation versionInfo = new VersionInformation();
         /// <summary>

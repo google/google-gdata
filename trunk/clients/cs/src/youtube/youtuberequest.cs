@@ -154,17 +154,17 @@ namespace Google.YouTube
     /// it encapsulates the AtomEntry
     /// </summary>
     /// <returns></returns>
-    public class Entry
+    public abstract class Entry
     {
         private AtomEntry e; 
 
         /// <summary>
-        ///  default public constructor, needed for generics.
+        ///  default public constructor, needed for generics. You should not use that one, but use the
+        /// CreateInstance method for the entry you want to create
         /// </summary>
         /// <returns></returns>
-        public Entry()
+        public  Entry()
         {
-
         }
 
         /// <summary>
@@ -307,6 +307,18 @@ namespace Google.YouTube
     //////////////////////////////////////////////////////////////////////
     public class Video : Entry
     {
+        /// <summary>
+        /// creates a new video and set's up the internal Atom object for representation
+        /// </summary>
+        /// <returns></returns>
+        public static Video CreateInstance()
+        {
+            Video v = new Video();
+            v.AtomEntry = new YouTubeEntry();
+            return v;
+        }
+
+
         public  YouTubeEntry YouTubeEntry
         {
             get
@@ -466,6 +478,7 @@ namespace Google.YouTube
     {
         private string applicationName;
         private GDataCredentials credentials; 
+        private string authSubToken; 
         private int pageSize = -1;
         private bool autoPage;
 
@@ -480,11 +493,26 @@ namespace Google.YouTube
             this.credentials = new GDataCredentials(userName, passWord);
         }
 
+        public RequestSettings(string applicationName, string authSubToken)
+        {
+            this.applicationName = applicationName;
+            this.authSubToken = authSubToken; 
+        }
+
+
         public GDataCredentials Credentials
         {
             get
             {
                 return this.credentials;
+            }
+        }
+
+        public string AuthSubToken
+        {
+            get
+            {
+                return this.authSubToken;
             }
         }
 
@@ -545,6 +573,13 @@ namespace Google.YouTube
             this.developerKey = developerKey;
         }
 
+        public YouTubeRequestSettings(string applicationName, string authSubToken, string client, string developerKey, string userName, string passWord)  
+                    : base(applicationName, authSubToken)
+        {
+            this.clientID = client;
+            this.developerKey = developerKey;
+        }
+
         public string Client
         {
             get
@@ -569,7 +604,7 @@ namespace Google.YouTube
     public abstract class FeedRequest<T> where T : Service
     {
         private RequestSettings settings;
-        protected T service; 
+        private T atomService; 
         public FeedRequest(RequestSettings settings)
         {
             this.settings = settings; 
@@ -580,7 +615,14 @@ namespace Google.YouTube
         {
             if (settings.Credentials != null)
             {
-                this.service.Credentials = settings.Credentials;
+                this.atomService.Credentials = settings.Credentials;
+            }
+
+            if (settings.AuthSubToken != null)
+            {
+                GAuthSubRequestFactory authFactory = new GAuthSubRequestFactory(atomService.ServiceIdentifier, settings.Application);
+                authFactory.Token = settings.AuthSubToken; 
+                atomService.RequestFactory = authFactory;
             }
         }
 
@@ -598,7 +640,7 @@ namespace Google.YouTube
 
         protected virtual Feed<T> PrepareFeed<T>(FeedQuery q) where T : Entry, new()
         {
-             AtomFeed feed = this.service.Query(q);
+             AtomFeed feed = this.atomService.Query(q);
              Feed<T> f = new Feed<T>(feed);
              f.AutoPaging = this.settings.AutoPaging;
              return f;
@@ -607,6 +649,18 @@ namespace Google.YouTube
         public Feed<T> GetFeed<T>(FeedQuery q) where T: Entry, new()
         {
             return PrepareFeed<T>(q);  
+        }
+
+        public T Service
+        {
+            get
+            {
+                return this.atomService;
+            }
+            set
+            {
+                this.atomService = value;
+            }
         }
     }
 
@@ -631,11 +685,16 @@ namespace Google.YouTube
         {
             if (settings.Client != null && settings.DeveloperKey != null)
             {
-                this.service = new YouTubeService(settings.Application, settings.Client, settings.DeveloperKey);
+                this.Service = new YouTubeService(settings.Application, settings.Client, settings.DeveloperKey);
             }
             else
             {
-                this.service = new YouTubeService(settings.Application);
+                this.Service = new YouTubeService(settings.Application);
+            }
+
+            if (settings.AuthSubToken != null)
+            {
+
             }
             PrepareService();
         }
@@ -754,6 +813,18 @@ namespace Google.YouTube
                    return PrepareFeed<Video>(q); 
             }
            return null;
+        }
+
+        public Video Upload(string userName, Video v)
+        {
+            Video rv = null;
+            YouTubeEntry e = this.Service.Upload(v.YouTubeEntry);
+            if (e != null)
+            {
+                rv= new Video();
+                rv.AtomEntry = e; 
+            }
+            return rv; 
         }
     }
 }
