@@ -1,12 +1,8 @@
 ﻿using Google.GData.Client;
 using NUnit.Framework;
 using Google.GData.Client.UnitTests;
-
-    
-    
-
 using System;
-using System.Collections.Specialized;
+using System.Collections.Generic;
 using System.Net;
 
 namespace Google.GData.Client.UnitTests.Core
@@ -169,7 +165,7 @@ namespace Google.GData.Client.UnitTests.Core
         {
             string userAgent = "TestValue"; // TODO: Initialize to an appropriate value
             GDataRequestFactory target = new GDataRequestFactory(userAgent); // TODO: Initialize to an appropriate value
-            StringCollection actual;
+            List<string> actual;
             actual = target.CustomHeaders;
             Assert.IsNotNull(actual);
             Assert.IsTrue(actual.Count == 0); 

@@ -18,7 +18,7 @@
 using System;
 using System.IO;
 using System.Collections;
-using System.Collections.Specialized;
+using System.Collections.Generic;
 using System.Text;
 using System.Net;
 using Google.GData.Client;
@@ -141,7 +141,7 @@ namespace Google.GData.GoogleBase
             }
         }
 
-        private static void RemoveWebKey(StringCollection headers)
+        private static void RemoveWebKey(List<string> headers)
         {
             foreach (string header in headers)
             {
