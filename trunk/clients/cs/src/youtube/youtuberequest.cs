@@ -295,6 +295,10 @@ namespace Google.YouTube
     /// </summary>
     public class Playlist : Entry
     {
+        /// <summary>
+        /// returns the internal atomentry as a PlayListsEntry
+        /// </summary>
+        /// <returns></returns>
         public PlaylistsEntry PlaylistsEntry
         {
             get
@@ -303,6 +307,11 @@ namespace Google.YouTube
             }
         }
 
+        /// <summary>
+        /// specifies the number of entries in a playlist feed. This tag appears in the entries in a 
+        /// playlists feed, where each entry contains information about a single playlist.
+        /// </summary>
+        /// <returns></returns>
         public int CountHint
         {
             get 
@@ -316,8 +325,8 @@ namespace Google.YouTube
         }
     }
 
-  /// <summary>
-    /// the Comment entry for a Comments Feed, a feed<Comment> for YouTube
+    /// <summary>
+    /// the Comment entry for a Comments Feed, a feed of Comment for YouTube
     /// </summary>
     public class Comment : Entry
     {
@@ -325,7 +334,7 @@ namespace Google.YouTube
 
 
     //////////////////////////////////////////////////////////////////////
-    /// <summary>the Video Entry in feed<Videos> for YouTube
+    /// <summary>the Video Entry in feed&lt;Videos&gt; for YouTube
     /// </summary> 
     //////////////////////////////////////////////////////////////////////
     public class Video : Entry
@@ -342,6 +351,10 @@ namespace Google.YouTube
         }
 
 
+        /// <summary>
+        /// readonly accessor for the YouTubeEntry that is underneath this object.
+        /// </summary>
+        /// <returns></returns>
         public  YouTubeEntry YouTubeEntry
         {
             get
@@ -350,6 +363,10 @@ namespace Google.YouTube
             }
         }
 
+        /// <summary>
+        /// specifies a unique ID that YouTube uses to identify a video.
+        /// </summary>
+        /// <returns></returns>
         public string Id
         {
             get
@@ -360,16 +377,13 @@ namespace Google.YouTube
                 }
                 return null; 
             }
-            set
-            {
-                if (this.YouTubeEntry != null)
-                {
-                    this.YouTubeEntry.VideoId = value; 
-                }
-            }
         }
-     /// <summary>
-        /// the Media Description element
+
+        /// <summary>
+        /// contains a summary or description of a video. This field is required in requests to 
+        /// upload or update a video's metadata. The description should be sentence-based, 
+        /// rather than a list of keywords, and may be displayed in search results. The description has a 
+        /// maximum length of 5000 characters and may contain all valid UTF-8 characters except &lt; and &gt; 
         /// </summary>
         /// <returns></returns>
         public string Description
@@ -416,7 +430,7 @@ namespace Google.YouTube
             set
             {
                 base.Title = value;
-                /// now set the media title element as well
+                // now set the media title element as well
                 if (this.YouTubeEntry != null)
                 {
                     if (this.YouTubeEntry.Media == null)
@@ -512,7 +526,9 @@ namespace Google.YouTube
         }
 
         /// <summary>
-        /// returns the url attribute of media:player as a Uri
+        /// specifies a URL where the full-length video is available through a media player that runs 
+        /// inside a web browser. In a YouTube Data API response, this specifies the URL for the page 
+        /// on YouTube's website that plays the video
         /// </summary>
         /// <returns></returns>
         public Uri WatchPage
@@ -530,7 +546,7 @@ namespace Google.YouTube
         }
 
         /// <summary>
-        /// get's sets the uploader of the video
+        /// identifies the owner of a video.
         /// </summary>
         /// <returns></returns>
         public string Uploader
@@ -595,6 +611,10 @@ namespace Google.YouTube
             }
         }
 
+        /// <summary>
+        /// returns the rating average for a video
+        /// </summary>
+        /// <returns></returns>
         public double Rating
         {
             get
@@ -622,17 +642,35 @@ namespace Google.YouTube
         private int pageSize = -1;
         private bool autoPage;
 
+        /// <summary>
+        /// an unauthenticated use case
+        /// </summary>
+        /// <param name="applicationName"></param>
+        /// <returns></returns>
         public RequestSettings(string applicationName)
         {
             this.applicationName = applicationName;
         }
 
+        /// <summary>
+        ///  a constructor for client login use cases
+        /// </summary>
+        /// <param name="applicationName">The name of the application</param>
+        /// <param name="userName">the user name</param>
+        /// <param name="passWord">the password</param>
+        /// <returns></returns>
         public RequestSettings(string applicationName, string userName, string passWord)
         {
             this.applicationName = applicationName;
             this.credentials = new GDataCredentials(userName, passWord);
         }
 
+        /// <summary>
+        /// a constructor for a web application authentication scenario
+        /// </summary>
+        /// <param name="applicationName"></param>
+        /// <param name="authSubToken"></param>
+        /// <returns></returns>
         public RequestSettings(string applicationName, string authSubToken)
         {
             this.applicationName = applicationName;
@@ -640,6 +678,10 @@ namespace Google.YouTube
         }
 
 
+        /// <summary>
+        /// returns the Credentials in case of a client login scenario
+        /// </summary>
+        /// <returns></returns>
         public GDataCredentials Credentials
         {
             get
@@ -648,6 +690,10 @@ namespace Google.YouTube
             }
         }
 
+        /// <summary>
+        /// returns the authsub token to use for a webapplication scenario
+        /// </summary>
+        /// <returns></returns>
         public string AuthSubToken
         {
             get
@@ -656,6 +702,10 @@ namespace Google.YouTube
             }
         }
 
+        /// <summary>
+        /// returns the application name
+        /// </summary>
+        /// <returns></returns>
         public string Application
         {
             get
@@ -664,6 +714,11 @@ namespace Google.YouTube
             }
         }
 
+        /// <summary>
+        /// the pagesize specifies how many entries should be retrieved per call. If not set, 
+        /// the server default will be used
+        /// </summary>
+        /// <returns></returns>
         public int PageSize
         {
             get
@@ -676,6 +731,12 @@ namespace Google.YouTube
             }
         }
 
+        /// <summary>
+        /// AutoPaging specifies if a feed iterator should return to the server to fetch more data 
+        /// automatically. If set to false, a loop over feed.Entries will stop when the currently 
+        /// fetched set of data reaches it's end. 
+        /// </summary>
+        /// <returns></returns>
         public bool AutoPaging
         {
             get
@@ -700,12 +761,28 @@ namespace Google.YouTube
         private string clientID;
         private string developerKey;
 
+        /// <summary>
+        /// A constructor for a readonly scenario.
+        /// </summary>
+        /// <param name="applicationName">The name of the application</param>
+        /// <param name="client">the client ID to use</param>
+        /// <param name="developerKey">the developer key to use</param>
+        /// <returns></returns>
         public YouTubeRequestSettings(string applicationName, string client, string developerKey) : base(applicationName)
         {
             this.clientID = client;
             this.developerKey = developerKey;
         }
 
+        /// <summary>
+        /// A constructor for a client login scenario
+        /// </summary>
+        /// <param name="applicationName">The name of the application</param>
+        /// <param name="client">the client ID to use</param>
+        /// <param name="developerKey">the developer key to use</param>
+        /// <param name="userName">the username</param>
+        /// <param name="passWord">the password</param>
+        /// <returns></returns>
         public YouTubeRequestSettings(string applicationName, string client, string developerKey, string userName, string passWord)  
                     : base(applicationName, userName, passWord)
         {
@@ -713,13 +790,25 @@ namespace Google.YouTube
             this.developerKey = developerKey;
         }
 
-        public YouTubeRequestSettings(string applicationName, string authSubToken, string client, string developerKey)  
+        /// <summary>
+        /// a constructor for a web application authentication scenario        
+        /// </summary>
+        /// <param name="applicationName">The name of the application</param>
+        /// <param name="client">the client ID to use</param>
+        /// <param name="developerKey">the developer key to use</param>
+        /// <param name="authSubToken">the authentication token</param>
+        /// <returns></returns>
+        public YouTubeRequestSettings(string applicationName, string client, string developerKey, string authSubToken)  
                     : base(applicationName, authSubToken)
         {
             this.clientID = client;
             this.developerKey = developerKey;
         }
 
+        /// <summary>
+        /// returns the client ID
+        /// </summary>
+        /// <returns></returns>
         public string Client
         {
             get
@@ -728,6 +817,10 @@ namespace Google.YouTube
             }
         }
 
+        /// <summary>
+        /// returns the developer key
+        /// </summary>
+        /// <returns></returns>
         public string DeveloperKey
         {
             get
@@ -939,6 +1032,10 @@ namespace Google.YouTube
     //////////////////////////////////////////////////////////////////////
     public class YouTubeRequest : FeedRequest<YouTubeService>
     {
+        /// <summary>
+        /// default constructor for a YouTubeRequest
+        /// </summary>
+        /// <param name="settings"></param>
         public YouTubeRequest(YouTubeRequestSettings settings) : base(settings)
         {
             if (settings.Client != null && settings.DeveloperKey != null)
@@ -1056,11 +1153,22 @@ namespace Google.YouTube
              return new Feed<Comment>(null);
         }
 
-        /// <summary>
-        /// retuns the feed of videos for a given playlist
-        /// </summary>
-        /// <param name="p">the playlist to get the videos for</param>
-        /// <returns></returns>
+        /** 
+           <summary>
+            returns the feed of videos for a given playlist
+           </summary>
+            <example>
+                The following code illustrates a possible use of   
+                the <c>GetPlaylist</c> method:  
+                <code>    
+                  YouTubeRequestSettings settings = new YouTubeRequestSettings("yourApp", "yourClient", "yourKey", "username", "pwd");
+                  YouTubeRequest f = new YouTubeRequest(settings);
+                  Feed&lt;Playlist&gt; feed = f.GetPlaylistsFeed(null);
+                </code>
+            </example>
+            <param name="p">the playlist to get the videos for</param>
+            <returns></returns>
+        */
         public Feed<Video> GetPlaylist(Playlist p)
         {
             if (p.AtomEntry != null && 
@@ -1073,6 +1181,12 @@ namespace Google.YouTube
             return new Feed<Video>(null);
         }
 
+        /// <summary>
+        /// uploads or inserts a new video for a given user.
+        /// </summary>
+        /// <param name="userName">if this is null the default authenticated user will be used</param>
+        /// <param name="v">the created video to be used</param>
+        /// <returns></returns>
         public Video Upload(string userName, Video v)
         {
             Video rv = null;
