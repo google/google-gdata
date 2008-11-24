@@ -352,7 +352,7 @@ namespace Google.GData.Client.LiveTests
 
     [TestFixture] 
     [Category("LiveTest")]
-    public class YouTubeTestSuite2 : BaseLiveTestClass
+    public class YouTubeVerticalTestSuite : BaseLiveTestClass
     {
 
         private string ytClient;
@@ -363,7 +363,7 @@ namespace Google.GData.Client.LiveTests
         //////////////////////////////////////////////////////////////////////
         /// <summary>default empty constructor</summary> 
         //////////////////////////////////////////////////////////////////////
-        public YouTubeTestSuite2()
+        public YouTubeVerticalTestSuite()
         {
         }
 
@@ -450,7 +450,7 @@ namespace Google.GData.Client.LiveTests
         /////////////////////////////////////////////////////////////////////////////
         // 
 
-         //////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////
         /// <summary>runs a test on the YouTube factory object</summary> 
         //////////////////////////////////////////////////////////////////////
         [Test] public void YouTubePlaylistRequestTest()
@@ -476,8 +476,6 @@ namespace Google.GData.Client.LiveTests
                     Assert.IsTrue(v.WatchPage != null);
                 }
             }
-
-         
         }
         /////////////////////////////////////////////////////////////////////////////
         
@@ -490,7 +488,6 @@ namespace Google.GData.Client.LiveTests
             Tracing.TraceMsg("Entering YouTubeCommentRequestTest");
 
             YouTubeRequestSettings settings = new YouTubeRequestSettings("NETUnittests", this.ytClient, this.ytDevKey, this.ytUser, this.ytPwd);
-
             YouTubeRequest f = new YouTubeRequest(settings);
         
             Feed<Video> feed = f.GetStandardFeed(YouTubeQuery.MostPopular);
@@ -538,6 +535,56 @@ namespace Google.GData.Client.LiveTests
         }
         /////////////////////////////////////////////////////////////////////////////
          
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>runs a test on the YouTube Feed object</summary> 
+        //////////////////////////////////////////////////////////////////////
+        [Test] public void YouTubeInsertTest()
+        {
+            Tracing.TraceMsg("Entering YouTubeFeedTest");
+            YouTubeRequestSettings settings = new YouTubeRequestSettings("NETUnittests", this.ytClient, this.ytDevKey, this.ytUser, this.ytPwd);
+            YouTubeRequest f = new YouTubeRequest(settings);
+
+            Video v = Video.CreateInstance();
+            v.Title = "Sample upload";
+            v.Description = "This is a test with and & in it";
+
+            MediaCategory category = new MediaCategory("Nonprofit");
+            category.Attributes["scheme"] = YouTubeService.DefaultCategory;
+            v.Tags.Add(category);
+            v.Keywords = "math"; 
+            v.YouTubeEntry.MediaSource = new MediaFileSource(this.resourcePath + "test_movie.mov", "video/quicktime");
+
+            Video newVideo = f.Upload(this.ytUser, v); 
+
+            newVideo.Title = "This test upload will soon be deleted";
+            newVideo.Update();
+
+            // bugbug in YouTube server. Returns empty category that the service DOES not like on reuse. so remove
+            ExtensionList a = ExtensionList.NotVersionAware();
+            foreach (MediaCategory m in newVideo.Tags)
+            {
+                if (String.IsNullOrEmpty(m.Value))
+                {
+                    a.Add(m);
+                }
+            }
+
+            foreach (MediaCategory m in a)
+            {
+                newVideo.Tags.Remove(m);
+            }
+
+            Assert.AreEqual(v.Description, newVideo.Description, "Description should be equal");
+            Assert.AreEqual(v.Keywords, newVideo.Keywords, "Keywords should be equal");
+
+            v.YouTubeEntry.MediaSource = new MediaFileSource("test.mp4", "video/mp4");
+            v.Update();
+            v.Delete();
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+
 
 
     }
