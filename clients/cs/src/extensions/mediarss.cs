@@ -188,7 +188,11 @@ namespace Google.GData.Extensions.MediaRss {
             }
         }
         /// <summary>
-        /// returns the media:content element
+        /// The media:keywords tag contains a comma-separated list of words associated with a video. 
+        /// You must provide at least one keyword for each video in your feed. This field has a 
+        /// maximum length of 120 characters, including commas, and may contain all valid UTF-8 
+        /// characters except &gt; and &lt;  In addition, each keyword must be at least two characters 
+        /// long and may not be longer than 25 characters.
         /// </summary>
         public MediaKeywords Keywords
         {

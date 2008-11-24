@@ -263,13 +263,21 @@ namespace Google.YouTube
         /// <summary>
         ///  sends the data back to the server. 
         /// </summary>
-        /// <returns></returns>
-        public void Update()
+        /// <returns>true, in that case the inner state has changed
+        /// to the new, server returned object. If the server returned no
+        /// reflection, it returns false</returns>
+        public bool Update()
         {
+            bool ret = false; 
             if (this.e != null)
             {
-                this.e = this.e.Update();
+                AtomEntry ae = this.e.Update();
+                if (ae != null)
+                {
+                    this.e = ae; 
+                }
             }
+            return ret; 
         }
 
         /// <summary>
@@ -395,6 +403,44 @@ namespace Google.YouTube
                 return null;
             }
         }
+
+        /// <summary>
+        /// returns the keywords for the video, see MediaKeywords for more
+        /// </summary>
+        /// <returns></returns>
+        public string Keywords
+        {
+            get
+            {
+                if (this.YouTubeEntry != null)
+                {
+                    if (this.YouTubeEntry.Media != null)
+                    {
+                        if (this.YouTubeEntry.Media.Keywords != null)
+                        {
+                            return this.YouTubeEntry.Media.Keywords.Value;
+                        }
+                    }
+                }
+                return null;
+            }
+            set
+            {
+                if (this.YouTubeEntry != null)
+                {
+                    if (this.YouTubeEntry.Media == null)
+                    {
+                        this.YouTubeEntry.Media = new Google.GData.YouTube.MediaGroup();
+                    }
+                    if (this.YouTubeEntry.Media.Keywords == null)
+                    {
+                        this.YouTubeEntry.Media.Keywords = new MediaKeywords();
+                    }
+                    this.YouTubeEntry.Media.Keywords.Value = value; 
+                }
+            }
+        }
+
 
         /// <summary>
         /// returns the collection of thumbnails for the vido
