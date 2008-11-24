@@ -1779,7 +1779,7 @@
         <member name="T:Google.GData.YouTube.YouTubeQuery.SafeSearchValues">
             <summary>
             describing the possible safe search values
-            <seealso cref="!:YouTubeQuery.SeeAlso"/>
+            <seealso cref="P:Google.GData.YouTube.YouTubeQuery.SafeSearch"/>
             </summary>
         </member>
         <member name="F:Google.GData.YouTube.YouTubeQuery.SafeSearchValues.None">
@@ -1854,6 +1854,12 @@
             <summary>a generic Feed class
             </summary> 
         </member>
+        <member name="M:Google.YouTube.Feed`1.#ctor(Google.GData.Client.AtomFeed)">
+            <summary>
+            default constructor that takes the underlying atomfeed
+            </summary>
+            <param name="af"></param>
+        </member>
         <member name="P:Google.YouTube.Feed`1.AtomFeed">
             <summary>
             returns the used feed object
@@ -1881,10 +1887,10 @@
         </member>
         <member name="P:Google.YouTube.Feed`1.Entries">
             <summary>
-             returns the initial list of entries.This page is the data
-             you got from the Requestobject and will remain constant.
-             Unless you set AutoPaging to true, in that case:
-             This will go back to the server and fetch data again if
+            returns the initial list of entries.This page is the data
+            you got from the Requestobject and will remain constant.
+            Unless you set AutoPaging to true, in that case:
+            This will go back to the server and fetch data again if
             needed. Example. If you pagesize is 30, you get an initial set of 
             30 entries. While enumerating, when reaching 30, the code will go 
             to the server and get the next 30 rows. It will continue to do so
@@ -1892,23 +1898,17 @@
             </summary>
             <returns></returns>
         </member>
-        <!-- Badly formed XML comment ignored for member "T:Google.YouTube.Entry" -->
+        <member name="T:Google.YouTube.Entry">
+            <summary>
+            the Entry class is the base class for all Feed of T type feeds
+            it encapsulates the AtomEntry
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Google.YouTube.Entry.#ctor">
             <summary>
              default public constructor, needed for generics. You should not use that one, but use the
             CreateInstance method for the entry you want to create
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Google.YouTube.Entry.Update">
-            <summary>
-             sends the data back to the server. 
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Google.YouTube.Entry.Delete">
-            <summary>
-             deletes the underlying entry and makes this object invalid
             </summary>
             <returns></returns>
         </member>
@@ -1942,7 +1942,11 @@
             </summary>
             <returns></returns>
         </member>
-        <!-- Badly formed XML comment ignored for member "T:Google.YouTube.Playlist" -->
+        <member name="T:Google.YouTube.Playlist">
+            <summary>
+            the Playlist entry for a Playlist Feed, a feed of Playlist for YouTube
+            </summary>
+        </member>
         <!-- Badly formed XML comment ignored for member "T:Google.YouTube.Comment" -->
         <!-- Badly formed XML comment ignored for member "T:Google.YouTube.Video" -->
         <member name="M:Google.YouTube.Video.CreateInstance">
@@ -1957,9 +1961,22 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="P:Google.YouTube.Video.Title">
+            <summary>
+            the title of the Video. Overloaded to keep entry.title and the media.title 
+             in sync. 
+            </summary>
+            <returns></returns>
+        </member>
         <member name="P:Google.YouTube.Video.Tags">
             <summary>
             returns the categories for the video
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.YouTube.Video.Keywords">
+            <summary>
+            returns the keywords for the video, see MediaKeywords for more
             </summary>
             <returns></returns>
         </member>
@@ -2013,6 +2030,69 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Google.YouTube.FeedRequest`1.#ctor(Google.YouTube.RequestSettings)">
+            <summary>
+            default constructor based on a RequestSettings object
+            </summary>
+            <param name="settings"></param>
+        </member>
+        <member name="M:Google.YouTube.FeedRequest`1.PrepareService">
+            <summary>
+            prepares the created service based on the settings 
+            </summary>
+        </member>
+        <member name="M:Google.YouTube.FeedRequest`1.PrepareQuery``1(System.String)">
+            <summary>
+            creates a query object and set's it up based on the settings object.
+            </summary>
+            <typeparam name="Y"></typeparam>
+            <param name="uri"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Google.YouTube.FeedRequest`1.PrepareFeed``1(Google.GData.Client.FeedQuery)">
+            <summary>
+            creates a feed of Y object based on the query and the settings
+            </summary>
+            <typeparam name="Y"></typeparam>
+            <param name="q"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Google.YouTube.FeedRequest`1.GetFeed``1(Google.GData.Client.FeedQuery)">
+            <summary>
+            gets a feed object of type T
+            </summary>
+            <typeparam name="Y"></typeparam>
+            <param name="q"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Google.YouTube.FeedRequest`1.Update``1(``0)">
+            <summary>
+             sends the data back to the server. 
+            </summary>
+            <returns>the reflected entry from the server if any given</returns>
+        </member>
+        <member name="M:Google.YouTube.FeedRequest`1.Delete``1(``0)">
+            <summary>
+             deletes the Entry from the Server
+            </summary>
+        </member>
+        <member name="M:Google.YouTube.FeedRequest`1.Insert``1(System.Uri,``0)">
+            <summary>
+            takes the given Entry and inserts its into the server
+            </summary>
+            <returns>the reflected entry from the server if any given</returns>
+        </member>
+        <member name="M:Google.YouTube.FeedRequest`1.Insert``1(Google.YouTube.Feed{``0},``0)">
+            <summary>
+            takes the given Entry and inserts its into the server
+            </summary>
+            <returns>the reflected entry from the server if any given</returns>
+        </member>
+        <member name="P:Google.YouTube.FeedRequest`1.Service">
+            <summary>
+            returns the service instance that is used
+            </summary>
+        </member>
         <member name="T:Google.YouTube.YouTubeRequest">
             <summary>
             The YouTube Data API allows applications to perform functions normally 
@@ -2037,7 +2117,7 @@
             <summary>
              returns one of the youtube default feeds. 
             </summary>
-            <param name="user">the username</param>
+            <param name="feedspec">the string representation of the URI to use</param>
             <returns>a feed of Videos</returns>
         </member>
         <member name="M:Google.YouTube.YouTubeRequest.GetFavoriteFeed(System.String)">

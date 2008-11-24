@@ -38,6 +38,10 @@ namespace Google.YouTube
         bool paging; 
 
 
+        /// <summary>
+        /// default constructor that takes the underlying atomfeed
+        /// </summary>
+        /// <param name="af"></param>
         public Feed(AtomFeed af)
         {
             this.af = af; 
@@ -152,7 +156,7 @@ namespace Google.YouTube
 
 
     /// <summary>
-    /// the Entry class is the base class for all Feed<t> type feeds
+    /// the Entry class is the base class for all Feed of T type feeds
     /// it encapsulates the AtomEntry
     /// </summary>
     /// <returns></returns>
@@ -287,7 +291,7 @@ namespace Google.YouTube
     }
 
     /// <summary>
-    /// the Playlist entry for a Playlist Feed, a feed<Playlist> for YouTube
+    /// the Playlist entry for a Playlist Feed, a feed of Playlist for YouTube
     /// </summary>
     public class Playlist : Entry
     {
@@ -741,12 +745,20 @@ namespace Google.YouTube
     {
         private RequestSettings settings;
         private T atomService; 
+
+        /// <summary>
+        /// default constructor based on a RequestSettings object
+        /// </summary>
+        /// <param name="settings"></param>
         public FeedRequest(RequestSettings settings)
         {
             this.settings = settings; 
 
         }
 
+        /// <summary>
+        /// prepares the created service based on the settings 
+        /// </summary>
         protected void PrepareService()
         {
             if (settings.Credentials != null)
@@ -764,9 +776,15 @@ namespace Google.YouTube
 #endif
         }
 
-        protected T PrepareQuery<T>(string uri) where T: FeedQuery, new()
+        /// <summary>
+        /// creates a query object and set's it up based on the settings object.
+        /// </summary>
+        /// <typeparam name="Y"></typeparam>
+        /// <param name="uri"></param>
+        /// <returns></returns>
+        protected Y PrepareQuery<Y>(string uri) where Y: FeedQuery, new()
         {
-            T query = new T(); 
+            Y query = new Y(); 
             query.BaseAddress = uri; 
 
             if (this.settings.PageSize != -1)
@@ -776,19 +794,34 @@ namespace Google.YouTube
             return query; 
         }
 
-        protected virtual Feed<T> PrepareFeed<T>(FeedQuery q) where T : Entry, new()
+        /// <summary>
+        /// creates a feed of Y object based on the query and the settings
+        /// </summary>
+        /// <typeparam name="Y"></typeparam>
+        /// <param name="q"></param>
+        /// <returns></returns>
+        protected virtual Feed<Y> PrepareFeed<Y>(FeedQuery q) where Y : Entry, new()
         {
              AtomFeed feed = this.atomService.Query(q);
-             Feed<T> f = new Feed<T>(feed);
+             Feed<Y> f = new Feed<Y>(feed);
              f.AutoPaging = this.settings.AutoPaging;
              return f;
         }
 
-        public Feed<T> GetFeed<T>(FeedQuery q) where T: Entry, new()
+        /// <summary>
+        /// gets a feed object of type T
+        /// </summary>
+        /// <typeparam name="Y"></typeparam>
+        /// <param name="q"></param>
+        /// <returns></returns>
+        public Feed<Y> GetFeed<Y>(FeedQuery q) where Y: Entry, new()
         {
-            return PrepareFeed<T>(q);  
+            return PrepareFeed<Y>(q);  
         }
 
+        /// <summary>
+        /// returns the service instance that is used
+        /// </summary>
         public T Service
         {
             get
@@ -804,8 +837,8 @@ namespace Google.YouTube
         /// <summary>
         ///  sends the data back to the server. 
         /// </summary>
-        /// <returns>the reflected entry from the server if any given/returns>
-        public T Update<T>(T entry) where T: Entry, new()
+        /// <returns>the reflected entry from the server if any given</returns>
+        public Y Update<Y>(Y entry) where Y: Entry, new()
         {
             if (entry == null)
                 throw new ArgumentNullException("Entry was null");
@@ -813,12 +846,12 @@ namespace Google.YouTube
             if (entry.AtomEntry == null)
                 throw new ArgumentNullException("Entry.AtomEntry was null");
 
-            T r = null;
+            Y r = null;
             AtomEntry ae = this.Service.Update(entry.AtomEntry);
            
             if (ae != null)
             {
-                r = new T();
+                r = new Y();
                 r.AtomEntry = ae;
             }
             return r; 
@@ -827,7 +860,7 @@ namespace Google.YouTube
         /// <summary>
         ///  deletes the Entry from the Server
         /// </summary>
-        public void Delete<T>(T entry) where T : Entry, new()
+        public void Delete<Y>(Y entry) where Y : Entry, new()
         {
             if (entry == null)
                 throw new ArgumentNullException("Entry was null");
@@ -842,7 +875,7 @@ namespace Google.YouTube
         /// takes the given Entry and inserts its into the server
         /// </summary>
         /// <returns>the reflected entry from the server if any given</returns>
-        public T Insert<T>(Uri address, T entry) where T : Entry, new()
+        public Y Insert<Y>(Uri address, Y entry) where Y : Entry, new()
         {
             if (entry == null)
                 throw new ArgumentNullException("Entry was null");
@@ -853,11 +886,11 @@ namespace Google.YouTube
             if (address == null)
                 throw new ArgumentNullException("Entry was null");
           
-            T r = null;
+            Y r = null;
             AtomEntry ae = this.Service.Insert(address, entry.AtomEntry);
             if (ae != null)
             {
-                r = new T();
+                r = new Y();
                 r.AtomEntry = ae;
             }
             return r;
@@ -867,7 +900,7 @@ namespace Google.YouTube
         /// takes the given Entry and inserts its into the server
         /// </summary>
         /// <returns>the reflected entry from the server if any given</returns>
-        public T Insert<T>(Feed<T> feed, T entry) where T : Entry, new()
+        public Y Insert<Y>(Feed<Y> feed, Y entry) where Y : Entry, new()
         {
             if (entry == null)
                 throw new ArgumentNullException("Entry was null");
@@ -878,11 +911,11 @@ namespace Google.YouTube
             if (feed == null)
                 throw new ArgumentNullException("Feed was null");
 
-            T r = null;
+            Y r = null;
             AtomEntry ae = this.Service.Insert(feed.AtomFeed, entry.AtomEntry);
             if (ae != null)
             {
-                r = new T();
+                r = new Y();
                 r.AtomEntry = ae;
             }
             return r;
@@ -938,7 +971,7 @@ namespace Google.YouTube
          /// <summary>
         ///  returns one of the youtube default feeds. 
         /// </summary>
-        /// <param name="user">the username</param>
+        /// <param name="feedspec">the string representation of the URI to use</param>
         /// <returns>a feed of Videos</returns>
         public Feed<Video> GetStandardFeed(string feedspec)
         {

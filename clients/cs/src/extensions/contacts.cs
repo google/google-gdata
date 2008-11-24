@@ -272,16 +272,25 @@ namespace Google.GData.Extensions
     /// </summary>
     public interface ICommonAttributes
     {
+        /// <summary>
+        /// presents the Rel attribute in the xml element
+        /// </summary>
         string Rel
         {
             get;
             set;
         }
+        /// <summary>
+        /// presents the Label attribute in the xml element
+        /// </summary>
         string Label
         {
             get;
             set;
         }
+        /// <summary>
+        /// presents the Primary attribute in the xml element
+        /// </summary>
         bool Primary
         {
             get;
