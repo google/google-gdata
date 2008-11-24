@@ -1047,10 +1047,6 @@ namespace Google.YouTube
                 this.Service = new YouTubeService(settings.Application);
             }
 
-            if (settings.AuthSubToken != null)
-            {
-
-            }
             PrepareService();
         }
 
