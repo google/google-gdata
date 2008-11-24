@@ -157,7 +157,7 @@ namespace Google.GData.YouTube {
         
         /// <summary>
         /// describing the possible safe search values
-        /// <seealso cref="YouTubeQuery.SeeAlso"/>
+        /// <seealso cref="YouTubeQuery.SafeSearch"/>
         /// </summary>
         public enum SafeSearchValues
         {

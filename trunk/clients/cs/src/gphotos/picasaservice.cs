@@ -89,8 +89,8 @@ namespace Google.GData.Photos {
         //////////////////////////////////////////////////////////////////////
         /// <summary>templated type safe verion of the interface</summary> 
         /// <typeparam name="TEntry"></typeparam>
-        /// <param name="entry">the old entry to update</param> 
-        /// <param name="feedUri"></param>
+        /// <param name="entry">the entry to insert</param> 
+        /// <param name="feed">the feed that entry is getting inserted</param>
         /// <returns> the new Entry, as returned from the server</returns>
         public new PicasaEntry Insert<TEntry>(AtomFeed feed, TEntry entry) where TEntry : AtomEntry
         {

@@ -1576,7 +1576,11 @@
         </member>
         <member name="P:Google.GData.Extensions.MediaRss.MediaGroup.Keywords">
             <summary>
-            returns the media:content element
+            The media:keywords tag contains a comma-separated list of words associated with a video. 
+            You must provide at least one keyword for each video in your feed. This field has a 
+            maximum length of 120 characters, including commas, and may contain all valid UTF-8 
+            characters except &gt; and &lt;  In addition, each keyword must be at least two characters 
+            long and may not be longer than 25 characters.
             </summary>
         </member>
         <member name="P:Google.GData.Extensions.MediaRss.MediaGroup.Title">
@@ -2199,6 +2203,21 @@
             <summary>
              this interface defines a common set of properties found on classes derived
             from CommonAttributesElement (like EMail) and Organization.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.ICommonAttributes.Rel">
+            <summary>
+            presents the Rel attribute in the xml element
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.ICommonAttributes.Label">
+            <summary>
+            presents the Label attribute in the xml element
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.ICommonAttributes.Primary">
+            <summary>
+            presents the Primary attribute in the xml element
             </summary>
         </member>
         <member name="M:Google.GData.Extensions.CommonAttributesElement.#ctor(System.String,System.String,System.String)">
