@@ -1511,6 +1511,44 @@
         <member name="F:Google.GData.Extensions.MediaRss.MediaRssNameTable.MediaRssRestriction">
             <summary>static string to specify the media:restriction element</summary>
         </member>
+        <member name="F:Google.GData.Extensions.MediaRss.MediaRssNameTable.MediaRssPlayer">
+            <summary>static string to specify the media:player element</summary>
+        </member>
+        <member name="F:Google.GData.Extensions.MediaRss.MediaRssNameTable.AttributeUrl">
+            <summary>
+            the attribute string for the URL attribute
+            </summary>
+        </member>
+        <member name="F:Google.GData.Extensions.MediaRss.MediaRssNameTable.AttributeHeight">
+            <summary>
+            the attribute string for the height attribute
+            </summary>
+        </member>
+        <member name="F:Google.GData.Extensions.MediaRss.MediaRssNameTable.AttributeWidth">
+            <summary>
+            the attribute string for the width attribute
+            </summary>
+        </member>
+        <member name="F:Google.GData.Extensions.MediaRss.MediaRssNameTable.AttributeType">
+            <summary>
+            the attribute string for the type attribute
+            </summary>
+        </member>
+        <member name="F:Google.GData.Extensions.MediaRss.MediaRssNameTable.AttributeDefault">
+            <summary>
+            the attribute string for the isDefault attribute
+            </summary>
+        </member>
+        <member name="F:Google.GData.Extensions.MediaRss.MediaRssNameTable.AttributeExpression">
+            <summary>
+            the attribute string for the expression attribute
+            </summary>
+        </member>
+        <member name="F:Google.GData.Extensions.MediaRss.MediaRssNameTable.AttributeDuration">
+            <summary>
+            the attribute string for the duration attribute
+            </summary>
+        </member>
         <member name="T:Google.GData.Extensions.MediaRss.MediaGroup">
             <summary>
             MediaGroup container element for the MediaRss namespace
@@ -1569,6 +1607,11 @@
         <member name="P:Google.GData.Extensions.MediaRss.MediaGroup.Categories">
             <summary>
              property accessor for the Category Collection 
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.MediaRss.MediaGroup.Player">
+            <summary>
+            returns the media:player element
             </summary>
         </member>
         <member name="T:Google.GData.Extensions.MediaRss.MediaCredit">
@@ -1647,6 +1690,21 @@
             </summary>
             <param name="initValue"/>
         </member>
+        <member name="T:Google.GData.Extensions.MediaRss.MediaPlayer">
+            <summary>
+            media:player schema extension describing the player URL
+            it's a child of media:group
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.MediaRss.MediaPlayer.#ctor">
+            <summary>
+            default constructor for media:content
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.MediaRss.MediaPlayer.Url">
+            <summary>convienience accessor for the Url</summary> 
+            <returns> </returns>
+        </member>
         <member name="T:Google.GData.Extensions.MediaRss.MediaContent">
             <summary>
             media:content schema extension describing the content URL
@@ -1657,6 +1715,22 @@
             <summary>
             default constructor for media:content
             </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.MediaRss.MediaContent.Url">
+            <summary>convienience accessor for the Url</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Extensions.MediaRss.MediaContent.Height">
+            <summary>convienience accessor for the Height</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Extensions.MediaRss.MediaContent.Width">
+            <summary>convienience accessor for the Width</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Extensions.MediaRss.MediaContent.Type">
+            <summary>convienience accessor for the Width</summary> 
+            <returns> </returns>
         </member>
         <member name="T:Google.GData.Extensions.MediaRss.MediaCategory">
             <summary>
@@ -1706,21 +1780,6 @@
             media:thumbnail schema extension describing a 
             thumbnail URL with height/width
             it's a child of media:group
-            </summary>
-        </member>
-        <member name="F:Google.GData.Extensions.MediaRss.MediaThumbnail.AttributeUrl">
-            <summary>
-            the attribute string for the URL attribute
-            </summary>
-        </member>
-        <member name="F:Google.GData.Extensions.MediaRss.MediaThumbnail.AttributeHeight">
-            <summary>
-            the attribute string for the height attribute
-            </summary>
-        </member>
-        <member name="F:Google.GData.Extensions.MediaRss.MediaThumbnail.AttributeWidth">
-            <summary>
-            the attribute string for the width attribute
             </summary>
         </member>
         <member name="M:Google.GData.Extensions.MediaRss.MediaThumbnail.#ctor">

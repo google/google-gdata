@@ -494,8 +494,8 @@ namespace Google.GData.Client.LiveTests
             // this will get you just the first 25 videos. 
             foreach (Video v in feed.Entries)
             {
-                Feed<Comment> list= f.GetComments(v);
-                foreach (Comment c in list.Entries )
+                Feed<Comment> list = f.GetComments(v);
+                foreach (Comment c in list.Entries)
                 {
                     Assert.IsTrue(v.AtomEntry != null);
                     Assert.IsTrue(v.Title != null);
@@ -524,12 +524,10 @@ namespace Google.GData.Client.LiveTests
             foreach (Video v in feed.Entries)
             {
                 Feed<Comment> list= f.GetComments(v);
-                foreach (Comment c in list.Entries )
+                foreach (Comment c in list.Entries)
                 {
                     Assert.IsTrue(c.AtomEntry != null);
                     Assert.IsTrue(c.Title != null);
-                    Console.WriteLine(c.Title + " " + c.Author + c.Content);
-
                 }
             }
         }
@@ -558,29 +556,14 @@ namespace Google.GData.Client.LiveTests
             Video newVideo = f.Upload(this.ytUser, v); 
 
             newVideo.Title = "This test upload will soon be deleted";
-            newVideo.Update();
+            Video updatedVideo = f.Update(newVideo);
 
-            // bugbug in YouTube server. Returns empty category that the service DOES not like on reuse. so remove
-            ExtensionList a = ExtensionList.NotVersionAware();
-            foreach (MediaCategory m in newVideo.Tags)
-            {
-                if (String.IsNullOrEmpty(m.Value))
-                {
-                    a.Add(m);
-                }
-            }
+            Assert.AreEqual(updatedVideo.Description, newVideo.Description, "Description should be equal");
+            Assert.AreEqual(updatedVideo.Keywords, newVideo.Keywords, "Keywords should be equal");
 
-            foreach (MediaCategory m in a)
-            {
-                newVideo.Tags.Remove(m);
-            }
-
-            Assert.AreEqual(v.Description, newVideo.Description, "Description should be equal");
-            Assert.AreEqual(v.Keywords, newVideo.Keywords, "Keywords should be equal");
-
-            v.YouTubeEntry.MediaSource = new MediaFileSource("test.mp4", "video/mp4");
-            v.Update();
-            v.Delete();
+            newVideo.YouTubeEntry.MediaSource = new MediaFileSource("test.mp4", "video/mp4");
+            Video last = f.Update(updatedVideo);
+            f.Delete(last);
         }
         /////////////////////////////////////////////////////////////////////////////
 

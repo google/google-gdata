@@ -711,6 +711,14 @@
             <param name="format">the format that we want to be converted to string </param>
             <returns>string version of the format</returns>
         </member>
+        <member name="P:Google.GData.Client.FeedQuery.BaseAddress">
+            <summary>
+             this will simply return/set the baseUri without any parsing as a string
+             this is the same as using the constructor for most cases, it is here to allow the creation
+            of template methods.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="P:Google.GData.Client.FeedQuery.Uri">
             <summary>We do not hold on to the precalculated Uri.
             It's safer and cheaper to calculate this on the fly.
@@ -2079,9 +2087,6 @@
         <member name="P:Google.GData.Client.IService.RequestFactory">
             <summary>get/set for the GDataRequestFactory object to use</summary> 
         </member>
-        <member name="F:Google.GData.Client.Service.GServiceAgent">
-            <summary>this service's user-agent</summary> 
-        </member>
         <member name="M:Google.GData.Client.Service.QueryFeedAync(System.Uri,System.DateTime,System.Object)">
             <summary>
             the basic interface as an async version. This call will return directly
@@ -2532,6 +2537,13 @@
         </member>
         <member name="E:Google.GData.Client.Service.NewFeed">
             <summary>eventhandler, when the service needs to create a new feed</summary> 
+        </member>
+        <member name="P:Google.GData.Client.Service.ServiceIdentifier">
+            <summary>
+            this returns the string that the services uses to identify the google service to use
+            when authentication with Google is required. Examples are "cl" for calendar, e.g. 
+            </summary>
+            <returns></returns>
         </member>
         <member name="P:Google.GData.Client.Service.ProtocolMajor">
             <summary>

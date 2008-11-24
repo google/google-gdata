@@ -17,18 +17,12 @@
         &nbsp;&nbsp;
         <asp:GridView ID="GridView1" runat="server" DataSourceID="ObjectDataMostPopular" AutoGenerateColumns="False" OnInit="Page_Load">
             <Columns>
-                <asp:ImageField DataImageUrlField="VideoThumbnailUrl">
-                </asp:ImageField>
-                <asp:BoundField DataField="VideoTitle" HeaderText="VideoTitle" ReadOnly="True" SortExpression="VideoTitle" />
-                <asp:BoundField DataField="Description" HeaderText="Description" ReadOnly="True"
-                    SortExpression="Description" />
-                <asp:BoundField DataField="Published" HeaderText="Published" ReadOnly="True" SortExpression="Published" />
-                <asp:BoundField DataField="Author" HeaderText="Author" ReadOnly="True" SortExpression="Author" />
-                <asp:BoundField DataField="NumberOfViews" HeaderText="NumberOfViews" ReadOnly="True"
-                    SortExpression="NumberOfViews" />
-                <asp:BoundField DataField="Rating" HeaderText="Rating" SortExpression="Rating" />
-                <asp:BoundField DataField="Restricted" HeaderText="Restricted" SortExpression="Restricted" />
-                <asp:BoundField DataField="Country" HeaderText="Country" SortExpression="Country" />
+                <asp:BoundField DataField="Id" HeaderText="Id" SortExpression="Id" />
+                <asp:BoundField DataField="Description" HeaderText="Description" SortExpression="Description" />
+                <asp:BoundField DataField="Uploader" HeaderText="Uploader" SortExpression="Uploader" />
+                <asp:BoundField DataField="Title" HeaderText="Title" SortExpression="Title" />
+                <asp:BoundField DataField="Author" HeaderText="Author" SortExpression="Author" />
+                <asp:BoundField DataField="Content" HeaderText="Content" SortExpression="Content" />
             </Columns>
         </asp:GridView>
         &nbsp;&nbsp;&nbsp;&nbsp;
