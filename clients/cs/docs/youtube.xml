@@ -4,48 +4,6 @@
         <name>Google.GData.YouTube</name>
     </assembly>
     <members>
-        <member name="T:Google.YouTube.Feed`1">
-            <summary>a generic Feed class
-            </summary> 
-        </member>
-        <member name="M:Google.YouTube.Feed`1.Load(System.Int32,System.Int32)">
-            <summary>
-            loads data from the underlying server. This will append the new data to the end of the list
-            </summary>
-            <param name="limit">the maximum number of entries to load. if -1, loads all</param>
-            <param name="offset">the offset to start with</param>
-            <returns>the number or entries added</returns>
-        </member>
-        <member name="M:Google.YouTube.Entry.Update">
-            <summary>
-             sends the data back to the server. 
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="T:Google.YouTube.Video">
-            <summary>a generic Feed class
-            </summary> 
-        </member>
-        <member name="T:Google.YouTube.YouTubeFactory">
-            <summary>
-            The YouTube Data API allows applications to perform functions normally 
-            executed on the YouTube website. The API enables your application to search 
-            for YouTube videos and to retrieve standard video feeds, comments and video
-            responses. 
-            In addition, the API lets your application upload videos to YouTube or 
-            update existing videos. Your can also retrieve playlists, subscriptions, 
-            user profiles and more. Finally, your application can submit 
-            authenticated requests to enable users to create playlists, 
-            subscriptions, contacts and other account-specific entities.
-            </summary>
-        </member>
-        <member name="M:Google.YouTube.YouTubeFactory.GetVideoFeed(System.String)">
-            <summary>
-            returns a Feed of vidoes for a given username
-            </summary>
-            <param name="user">the username</param>
-            <returns>a feed of Videos</returns>
-        </member>
         <member name="T:Google.GData.YouTube.YouTubeService">
             <summary>
             The YouTube Data API allows applications to perform functions normally 
@@ -790,6 +748,17 @@
             </summary>
         </member>
         <member name="P:Google.GData.YouTube.MediaCredit.Type">
+            <summary>
+             returns the type of the credit element
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Google.GData.YouTube.MediaContent.#ctor">
+            <summary>
+            default constructor for media:credit
+            </summary>
+        </member>
+        <member name="P:Google.GData.YouTube.MediaContent.Format">
             <summary>
              returns the type of the credit element
             </summary>
@@ -1881,6 +1850,238 @@
             getter/setter for UserName subelement
             </summary>
         </member>
+        <member name="T:Google.YouTube.Feed`1">
+            <summary>a generic Feed class
+            </summary> 
+        </member>
+        <member name="P:Google.YouTube.Feed`1.AtomFeed">
+            <summary>
+            returns the used feed object
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.YouTube.Feed`1.AutoPaging">
+            <summary>
+            if set to true will cause the feed to add more data when you iterate over it's entries
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.YouTube.Feed`1.StartIndex">
+            <summary>
+            returns the position in the real feed of the first entry in this feed
+            </summary>
+            <returns>an int indicating the start in the feed</returns>
+        </member>
+        <member name="P:Google.YouTube.Feed`1.PageSize">
+            <summary>
+            returns the setup paging size of this feed. If you set AutoPaging to true
+            this is the size that is used to get more results
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.YouTube.Feed`1.Entries">
+            <summary>
+             returns the initial list of entries.This page is the data
+             you got from the Requestobject and will remain constant.
+             Unless you set AutoPaging to true, in that case:
+             This will go back to the server and fetch data again if
+            needed. Example. If you pagesize is 30, you get an initial set of 
+            30 entries. While enumerating, when reaching 30, the code will go 
+            to the server and get the next 30 rows. It will continue to do so
+            until the server reports no more rows available. 
+            </summary>
+            <returns></returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "T:Google.YouTube.Entry" -->
+        <member name="M:Google.YouTube.Entry.#ctor">
+            <summary>
+             default public constructor, needed for generics. You should not use that one, but use the
+            CreateInstance method for the entry you want to create
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Google.YouTube.Entry.Update">
+            <summary>
+             sends the data back to the server. 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Google.YouTube.Entry.Delete">
+            <summary>
+             deletes the underlying entry and makes this object invalid
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.YouTube.Entry.AtomEntry">
+            <summary>
+             the original AtomEntry object that this object is standing in for
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.YouTube.Entry.Title">
+            <summary>
+            the title of the Entry. 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.YouTube.Entry.Author">
+            <summary>
+             returns the first author name in the atom.entry.authors collection
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.YouTube.Entry.Content">
+            <summary>
+            returns the string representation of the atom.content element
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.YouTube.Entry.Summary">
+            <summary>
+            returns the string representation of the atom.Summary element
+            </summary>
+            <returns></returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "T:Google.YouTube.Playlist" -->
+        <!-- Badly formed XML comment ignored for member "T:Google.YouTube.Comment" -->
+        <!-- Badly formed XML comment ignored for member "T:Google.YouTube.Video" -->
+        <member name="M:Google.YouTube.Video.CreateInstance">
+            <summary>
+            creates a new video and set's up the internal Atom object for representation
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.YouTube.Video.Description">
+            <summary>
+            the Media Description element
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.YouTube.Video.Tags">
+            <summary>
+            returns the categories for the video
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.YouTube.Video.Thumbnails">
+            <summary>
+            returns the collection of thumbnails for the vido
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.YouTube.Video.WatchPage">
+            <summary>
+            returns the url attribute of media:player as a Uri
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.YouTube.Video.Uploader">
+            <summary>
+            get's sets the uploader of the video
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.YouTube.Video.ViewCount">
+            <summary>
+            returns the viewcount for the video
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.YouTube.Video.CommmentCount">
+            <summary>
+            returns the number of comments for the video
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Google.YouTube.RequestSettings">
+            <summary>
+            base requestsettings class. Takes credentials, applicaitonsnames
+            and supports pagesizes and autopaging
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Google.YouTube.YouTubeRequestSettings">
+            <summary>
+            YouTube specific class for request settings,
+            adds support for developer key and clientid
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Google.YouTube.FeedRequest`1">
+            <summary>
+            base class for Request objects.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Google.YouTube.YouTubeRequest">
+            <summary>
+            The YouTube Data API allows applications to perform functions normally 
+            executed on the YouTube website. The API enables your application to search 
+            for YouTube videos and to retrieve standard video feeds, comments and video
+            responses. 
+            In addition, the API lets your application upload videos to YouTube or 
+            update existing videos. Your can also retrieve playlists, subscriptions, 
+            user profiles and more. Finally, your application can submit 
+            authenticated requests to enable users to create playlists, 
+            subscriptions, contacts and other account-specific entities.
+            </summary>
+        </member>
+        <member name="M:Google.YouTube.YouTubeRequest.GetVideoFeed(System.String)">
+            <summary>
+            returns a Feed of vidoes for a given username
+            </summary>
+            <param name="user">the username</param>
+            <returns>a feed of Videos</returns>
+        </member>
+        <member name="M:Google.YouTube.YouTubeRequest.GetStandardFeed(System.String)">
+            <summary>
+             returns one of the youtube default feeds. 
+            </summary>
+            <param name="user">the username</param>
+            <returns>a feed of Videos</returns>
+        </member>
+        <member name="M:Google.YouTube.YouTubeRequest.GetFavoriteFeed(System.String)">
+            <summary>
+            returns a Feed of favorite videos for a given username
+            </summary>
+            <param name="user">the username</param>
+            <returns>a feed of Videos</returns>
+        </member>
+        <member name="M:Google.YouTube.YouTubeRequest.GetPlaylistsFeed(System.String)">
+            <summary>
+            returns a Feed of playlists  for a given username
+            </summary>
+            <param name="user">the username</param>
+            <returns>a feed of Videos</returns>
+        </member>
+        <member name="M:Google.YouTube.YouTubeRequest.GetRelatedVideos(Google.YouTube.Video)">
+            <summary>
+            returns the related videos for a given video
+            </summary>
+            <param name="v"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Google.YouTube.YouTubeRequest.GetResponseVideos(Google.YouTube.Video)">
+            <summary>
+             gets the response videos for a given video
+            </summary>
+            <param name="v"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Google.YouTube.YouTubeRequest.GetComments(Google.YouTube.Video)">
+            <summary>
+            get's the comments for a given video
+            </summary>
+            <param name="v"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Google.YouTube.YouTubeRequest.GetPlaylist(Google.YouTube.Playlist)">
+            <summary>
+            retuns the feed of videos for a given playlist
+            </summary>
+            <param name="p">the playlist to get the videos for</param>
+            <returns></returns>
+        </member>
         <member name="T:Google.GData.YouTube.ProfileEntry">
             <summary>
             A user profile contains information that the user lists on his YouTube profile page.
@@ -1982,11 +2183,6 @@
         <member name="P:Google.GData.YouTube.ProfileEntry.FeedLinks">
             <summary>
              property accessor for the Thumbnails 
-            </summary>
-        </member>
-        <member name="P:Google.GData.YouTube.ProfileEntry.MediaThumbnail">
-            <summary>
-            getter/setter for the media thumbnail subelement
             </summary>
         </member>
         <member name="P:Google.GData.YouTube.ProfileEntry.Description">

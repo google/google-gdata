@@ -20,15 +20,11 @@
         <br /> <br />
         <asp:GridView ID="GridView1" runat="server" DataSourceID="ObjectDataMostPopular" AutoGenerateColumns="False" OnInit="Page_Load">
             <Columns>
-                <asp:ImageField DataImageUrlField="VideoThumbnailUrl">
-                </asp:ImageField>
-                <asp:BoundField DataField="VideoTitle" HeaderText="Playlist Title" ReadOnly="True" SortExpression="VideoTitle" />
-                <asp:BoundField DataField="Description" HeaderText="Description" ReadOnly="True"
-                    SortExpression="Description" />
-                <asp:BoundField DataField="Published" HeaderText="Published" ReadOnly="True" SortExpression="Published" />
-                <asp:BoundField DataField="Author" HeaderText="Author" ReadOnly="True" SortExpression="Author" />
-                <asp:BoundField DataField="CountHint" HeaderText="CountHint" ReadOnly="True"
-                    SortExpression="CountHint" />
+                <asp:BoundField DataField="CountHint" HeaderText="CountHint" ReadOnly="True" SortExpression="CountHint" />
+                <asp:BoundField DataField="Title" HeaderText="Title" SortExpression="Title" />
+                <asp:BoundField DataField="Author" HeaderText="Author" SortExpression="Author" />
+                <asp:BoundField DataField="Content" HeaderText="Content" SortExpression="Content" />
+                <asp:BoundField DataField="Summary" HeaderText="Summary" SortExpression="Summary" />
             </Columns>
         </asp:GridView>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

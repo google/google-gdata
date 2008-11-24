@@ -755,15 +755,15 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         public AtomEntry Update()
         {
-            if (this.Service != null)
+            if (this.Service == null)
+                throw new InvalidOperationException("No Service object set"); 
+
+            AtomEntry updatedEntry = Service.Update(this);
+            if (updatedEntry != null)
             {
-                AtomEntry updatedEntry = Service.Update(this);
-                if (updatedEntry != null)
-                {
-                    this.CopyEntry(updatedEntry);
-                    this.MarkElementDirty(false);
-                    return updatedEntry;
-                }
+                this.CopyEntry(updatedEntry);
+                this.MarkElementDirty(false);
+                return updatedEntry;
             }
             return null;
         }
@@ -775,10 +775,9 @@ namespace Google.GData.Client
         /////////////////////////////////////////////////////////////////////
         public void Delete()
         {
-            if (this.Service != null)
-            {
-                Service.Delete(this);
-            }
+            if (this.Service == null)
+                throw new InvalidOperationException("No Service object set"); 
+            Service.Delete(this);
         }
         /////////////////////////////////////////////////////////////////////////////
 

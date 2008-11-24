@@ -108,10 +108,10 @@ namespace Google.YouTube
 
 
        /// <summary>
-       ///  returns the initial list of entries.This page is the data
-       ///  you got from the Requestobject and will remain constant.
-       ///  Unless you set AutoPaging to true, in that case:
-       ///  This will go back to the server and fetch data again if
+       /// returns the initial list of entries.This page is the data
+       /// you got from the Requestobject and will remain constant.
+       /// Unless you set AutoPaging to true, in that case:
+       /// This will go back to the server and fetch data again if
        /// needed. Example. If you pagesize is 30, you get an initial set of 
        /// 30 entries. While enumerating, when reaching 30, the code will go 
        /// to the server and get the next 30 rows. It will continue to do so
@@ -123,6 +123,8 @@ namespace Google.YouTube
             get
             {
                 bool looping;
+                if (this.af == null)
+                    yield break;
 
                 do
                 {
@@ -188,7 +190,7 @@ namespace Google.YouTube
         /// the title of the Entry. 
         /// </summary>
         /// <returns></returns>
-        public string Title
+        public virtual string Title
         {
             get 
             {
@@ -261,35 +263,25 @@ namespace Google.YouTube
         }
 
         /// <summary>
-        ///  sends the data back to the server. 
-        /// </summary>
-        /// <returns>true, in that case the inner state has changed
-        /// to the new, server returned object. If the server returned no
-        /// reflection, it returns false</returns>
-        public bool Update()
-        {
-            bool ret = false; 
-            if (this.e != null)
-            {
-                AtomEntry ae = this.e.Update();
-                if (ae != null)
-                {
-                    this.e = ae; 
-                }
-            }
-            return ret; 
-        }
-
-        /// <summary>
-        ///  deletes the underlying entry and makes this object invalid
+        /// returns the string representation of the atom.Summary element
         /// </summary>
         /// <returns></returns>
-        public void Delete()
+        public string Summary
         {
-            if (this.e != null)
+            get
             {
-                this.e.Delete();
-                this.e = null; 
+                if (this.e != null)
+                {
+                    return this.e.Summary.Text;
+                }
+                return null;
+            }
+            set
+            {
+                if (this.e != null)
+                {
+                    this.e.Summary.Text = value;
+                }
             }
         }
     }
@@ -299,6 +291,25 @@ namespace Google.YouTube
     /// </summary>
     public class Playlist : Entry
     {
+        public PlaylistsEntry PlaylistsEntry
+        {
+            get
+            {
+                return this.AtomEntry as PlaylistsEntry;
+            }
+        }
+
+        public int CountHint
+        {
+            get 
+            {
+                if (this.PlaylistsEntry != null)
+                {
+                    return this.PlaylistsEntry.CountHint;
+                }
+                return 0; 
+            }
+        }
     }
 
   /// <summary>
@@ -347,7 +358,10 @@ namespace Google.YouTube
             }
             set
             {
-                this.YouTubeEntry.VideoId = value; 
+                if (this.YouTubeEntry != null)
+                {
+                    this.YouTubeEntry.VideoId = value; 
+                }
             }
         }
      /// <summary>
@@ -380,6 +394,37 @@ namespace Google.YouTube
                     }
                     this.YouTubeEntry.Media.Description.Value = value; 
                 }
+            }
+        }
+
+
+        /// <summary>
+        /// the title of the Video. Overloaded to keep entry.title and the media.title 
+        ///  in sync. 
+        /// </summary>
+        /// <returns></returns>
+        public override string Title
+        {
+            get
+            {
+                return base.Title;
+            }
+            set
+            {
+                base.Title = value;
+                /// now set the media title element as well
+                if (this.YouTubeEntry != null)
+                {
+                    if (this.YouTubeEntry.Media == null)
+                    {
+                        this.YouTubeEntry.Media = new Google.GData.YouTube.MediaGroup();
+                    }
+                }
+                if (this.YouTubeEntry.Media.Title == null)
+                {
+                    this.YouTubeEntry.Media.Title = new MediaTitle();
+                }
+                this.YouTubeEntry.Media.Title.Value = value; 
             }
         }
 
@@ -512,8 +557,53 @@ namespace Google.YouTube
                 }
             }
         }
+
+
+        /// <summary>
+        /// returns the viewcount for the video
+        /// </summary>
+        /// <returns></returns>
+        public int ViewCount
+        {
+            get
+            {
+                if (this.YouTubeEntry != null && this.YouTubeEntry.Statistics != null)
+                    return Int32.Parse(this.YouTubeEntry.Statistics.ViewCount);
+                return 0;
+            }
+        }
+
+        /// <summary>
+        /// returns the number of comments for the video
+        /// </summary>
+        /// <returns></returns>
+        public int CommmentCount
+        {
+            get
+            {
+                if (this.YouTubeEntry != null && 
+                    this.YouTubeEntry.Comments != null &&
+                    this.YouTubeEntry.Comments.FeedLink != null)
+                {
+                        return this.YouTubeEntry.Comments.FeedLink.CountHint;
+                }
+                return 0;
+            }
+        }
+
+        public double Rating
+        {
+            get
+            {
+                if (this.YouTubeEntry != null &&
+                    this.YouTubeEntry.Rating != null)
+                {
+                    return this.YouTubeEntry.Rating.Average;
+                }
+                return 0;
+            }
+        }
     }
-    
 
     /// <summary>
     /// base requestsettings class. Takes credentials, applicaitonsnames
@@ -619,7 +709,7 @@ namespace Google.YouTube
             this.developerKey = developerKey;
         }
 
-        public YouTubeRequestSettings(string applicationName, string authSubToken, string client, string developerKey, string userName, string passWord)  
+        public YouTubeRequestSettings(string applicationName, string authSubToken, string client, string developerKey)  
                     : base(applicationName, authSubToken)
         {
             this.clientID = client;
@@ -707,6 +797,93 @@ namespace Google.YouTube
             {
                 this.atomService = value;
             }
+        }
+
+        /// <summary>
+        ///  sends the data back to the server. 
+        /// </summary>
+        /// <returns>the reflected entry from the server if any given/returns>
+        public T Update<T>(T entry) where T: Entry, new()
+        {
+            if (entry == null)
+                throw new ArgumentNullException("Entry was null");
+
+            if (entry.AtomEntry == null)
+                throw new ArgumentNullException("Entry.AtomEntry was null");
+
+            T r = null;
+            AtomEntry ae = this.Service.Update(entry.AtomEntry);
+           
+            if (ae != null)
+            {
+                r = new T();
+                r.AtomEntry = ae;
+            }
+            return r; 
+        }
+
+        /// <summary>
+        ///  deletes the Entry from the Server
+        /// </summary>
+        public void Delete<T>(T entry) where T : Entry, new()
+        {
+            if (entry == null)
+                throw new ArgumentNullException("Entry was null");
+
+            if (entry.AtomEntry == null)
+                throw new ArgumentNullException("Entry.AtomEntry was null");
+
+            entry.AtomEntry.Delete();
+        }
+
+        /// <summary>
+        /// takes the given Entry and inserts its into the server
+        /// </summary>
+        /// <returns>the reflected entry from the server if any given</returns>
+        public T Insert<T>(Uri address, T entry) where T : Entry, new()
+        {
+            if (entry == null)
+                throw new ArgumentNullException("Entry was null");
+
+            if (entry.AtomEntry == null)
+                throw new ArgumentNullException("Entry.AtomEntry was null");
+
+            if (address == null)
+                throw new ArgumentNullException("Entry was null");
+          
+            T r = null;
+            AtomEntry ae = this.Service.Insert(address, entry.AtomEntry);
+            if (ae != null)
+            {
+                r = new T();
+                r.AtomEntry = ae;
+            }
+            return r;
+        }
+
+        /// <summary>
+        /// takes the given Entry and inserts its into the server
+        /// </summary>
+        /// <returns>the reflected entry from the server if any given</returns>
+        public T Insert<T>(Feed<T> feed, T entry) where T : Entry, new()
+        {
+            if (entry == null)
+                throw new ArgumentNullException("Entry was null");
+
+            if (entry.AtomEntry == null)
+                throw new ArgumentNullException("Entry.AtomEntry was null");
+
+            if (feed == null)
+                throw new ArgumentNullException("Feed was null");
+
+            T r = null;
+            AtomEntry ae = this.Service.Insert(feed.AtomFeed, entry.AtomEntry);
+            if (ae != null)
+            {
+                r = new T();
+                r.AtomEntry = ae;
+            }
+            return r;
         }
     }
 
@@ -841,7 +1018,7 @@ namespace Google.YouTube
                     YouTubeQuery q = new YouTubeQuery(v.YouTubeEntry.Comments.FeedLink.Href);
                     return PrepareFeed<Comment>(q); 
              }
-            return null;
+             return new Feed<Comment>(null);
         }
 
         /// <summary>
@@ -858,7 +1035,7 @@ namespace Google.YouTube
                    YouTubeQuery q = new YouTubeQuery(p.AtomEntry.Content.AbsoluteUri);
                    return PrepareFeed<Video>(q); 
             }
-           return null;
+            return new Feed<Video>(null);
         }
 
         public Video Upload(string userName, Video v)
@@ -872,5 +1049,6 @@ namespace Google.YouTube
             }
             return rv; 
         }
+
     }
 }

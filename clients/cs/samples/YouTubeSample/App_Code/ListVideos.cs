@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using Google.GData.Client;
 using Google.GData.Extensions;
 using Google.GData.YouTube;
+using Google.YouTube; 
 using System.Net;
 
 
@@ -16,30 +17,54 @@ using System.Net;
 /// </summary>
 public static class ListVideos
 {
-    public static List<YouTubeWrapper> MostPopular()
+    public static IEnumerable<Video> MostPopular()
     {
         return GetVideos(YouTubeQuery.MostViewedVideo);
     }
 
-    public static List<YouTubeWrapper> YourVideos()
+    public static IEnumerable<Video> YourVideos()
     {
         return GetVideos(YouTubeQuery.DefaultUploads);
     }
 
-    public static List<YouTubeWrapper> MostCommented()
+    public static IEnumerable<Video> MostCommented()
     {
         return GetVideos(YouTubeQuery.MostDiscussedVideo);
     }
 
-
-    public static List<YouTubeWrapper> PlayLists()
+    public static void Update(Video v)
     {
-        return GetVideos(YouTubeQuery.CreatePlaylistsUri(null));
+        v.Update();
     }
 
 
 
-    public static List<YouTubeWrapper> Search(string videoQuery, string author, string orderby, bool racy, string time, string category )
+    public static IEnumerable<Playlist> PlayLists()
+    {
+        YouTubeRequestSettings settings = new YouTubeRequestSettings("YouTubeAspSample",
+                                            HttpContext.Current.Session["token"] as string,
+                                            "ytapi-FrankMantek-TestaccountforGD-sjgv537n-0",
+                                            "AI39si4v3E6oIYiI60ndCNDqnPP5lCqO28DSvvDPnQt-Mqia5uPz2e4E-gMSBVwHXwyn_LF1tWox4LyM-0YQd2o4i_3GcXxa2Q"
+                                            );
+        settings.AutoPaging = true;
+        YouTubeRequest request = new YouTubeRequest(settings);
+        Feed<Playlist> feed = null;
+
+
+        try
+        {
+            feed = request.GetPlaylistsFeed(null);
+        }
+        catch (GDataRequestException gdre)
+        {
+            HttpWebResponse response = (HttpWebResponse)gdre.Response;
+        }
+        return feed != null ? feed.Entries : null;
+    }
+
+
+
+    public static IEnumerable<Video> Search(string videoQuery, string author, string orderby, bool racy, string time, string category)
     {
         YouTubeQuery query = new YouTubeQuery(YouTubeQuery.TopRatedVideo);
         if (String.IsNullOrEmpty(videoQuery) != true)
@@ -79,46 +104,33 @@ public static class ListVideos
 
 
 
-    private static List<YouTubeWrapper> GetVideos(string videofeed)
+    private static IEnumerable<Video> GetVideos(string videofeed)
     {
         YouTubeQuery query = new YouTubeQuery(videofeed);
         return ListVideos.GetVideos(query);
     }
 
-    private static List<YouTubeWrapper> GetVideos(YouTubeQuery q)
+    private static IEnumerable<Video> GetVideos(YouTubeQuery q)
     {
-        List<YouTubeWrapper> list = new List<YouTubeWrapper>();
+        YouTubeRequestSettings settings = new YouTubeRequestSettings("YouTubeAspSample", 
+                                            HttpContext.Current.Session["token"] as string,
+                                            "ytapi-FrankMantek-TestaccountforGD-sjgv537n-0",
+                                            "AI39si4v3E6oIYiI60ndCNDqnPP5lCqO28DSvvDPnQt-Mqia5uPz2e4E-gMSBVwHXwyn_LF1tWox4LyM-0YQd2o4i_3GcXxa2Q"
+                                            );
+        settings.AutoPaging = true;
+        YouTubeRequest request = new YouTubeRequest(settings);
+        Feed<Video> feed = null; 
 
-        GAuthSubRequestFactory authFactory = new GAuthSubRequestFactory(YouTubeService.YTService, "TesterApp");
-
-        YouTubeService service = new YouTubeService(authFactory.ApplicationName,
-            "ytapi-FrankMantek-TestaccountforGD-sjgv537n-0",
-            "AI39si4v3E6oIYiI60ndCNDqnPP5lCqO28DSvvDPnQt-Mqia5uPz2e4E-gMSBVwHXwyn_LF1tWox4LyM-0YQd2o4i_3GcXxa2Q"
-            );
-        authFactory.Token = HttpContext.Current.Session["token"] as string;
-        service.RequestFactory = authFactory;
 
         try
         {
-            YouTubeFeed f = service.Query(q);
-
-            foreach (YouTubeBaseEntry entry in f.Entries)
-            {
-                list.Add(new YouTubeWrapper(entry));
-            }
-            if (list.Count == 0) 
-            {
-                list.Add(new YouTubeErrorWrapper("Nothing to see here, no results found"));
-            }
+            feed = request.GetFeed<Video>(q);
         }
         catch (GDataRequestException gdre)
         {
             HttpWebResponse response = (HttpWebResponse)gdre.Response;
-            list.Add(new YouTubeErrorWrapper("An Error happened during the request"));
         }
-        
-        return list;
+        return feed != null ? feed.Entries : null;
     }
-
 
 }

@@ -52,24 +52,23 @@
     <div>
         <br /> <br />
         <asp:Button ID="Refresh" runat="server" OnClick="Refresh_Click" Text="Refresh" /><br />
-        <asp:GridView ID="GridView1" runat="server" DataSourceID="ObjectDataMostPopular" AutoGenerateColumns="False" OnInit="Page_Load">
+        <asp:GridView ID="GridView1" runat="server" DataSourceID="ObjectDataMostPopular" AutoGenerateColumns="False" OnInit="Page_Load" AutoGenerateEditButton="True" DataKeyNames="Description,Summary,Uploader,Title">
             <Columns>
-                <asp:ImageField DataImageUrlField="VideoThumbnailUrl">
-                </asp:ImageField>
-                <asp:BoundField DataField="VideoTitle" HeaderText="VideoTitle" ReadOnly="True" SortExpression="VideoTitle" />
-                <asp:BoundField DataField="Description" HeaderText="Description" ReadOnly="True"
-                    SortExpression="Description" />
-                <asp:BoundField DataField="Published" HeaderText="Published" ReadOnly="True" SortExpression="Published" />
-                <asp:BoundField DataField="Author" HeaderText="Author" ReadOnly="True" SortExpression="Author" />
-                <asp:BoundField DataField="NumberOfViews" HeaderText="NumberOfViews" ReadOnly="True"
-                    SortExpression="NumberOfViews" />
-                <asp:BoundField DataField="NumberOfComments" HeaderText="NumberOfComments" ReadOnly="True"
-                    SortExpression="NumberOfComments" />
-                <asp:HyperLinkField DataNavigateUrlFields="YouTubePage" DataTextField="VideoTitle" DataTextFormatString="&quot;Watch the video&quot;"/>
+                <asp:BoundField DataField="Title" HeaderText="Title" SortExpression="Title" />
+                <asp:BoundField DataField="Description" HeaderText="Description" SortExpression="Description" />
+                <asp:BoundField DataField="Uploader" HeaderText="Uploader" SortExpression="Uploader" />
+                <asp:BoundField DataField="ViewCount" HeaderText="ViewCount" ReadOnly="True" SortExpression="ViewCount" />
+                <asp:BoundField DataField="CommmentCount" HeaderText="CommmentCount" ReadOnly="True"
+                    SortExpression="CommmentCount" />
+                <asp:BoundField DataField="Rating" HeaderText="Rating" ReadOnly="True" SortExpression="Rating" />
+                <asp:BoundField DataField="Author" HeaderText="Author" SortExpression="Author" />
+                <asp:BoundField DataField="Content" HeaderText="Content" SortExpression="Content" />
+                <asp:BoundField DataField="Summary" HeaderText="Summary" SortExpression="Summary" />
+                <asp:BoundField DataField="Id" HeaderText="Id" ReadOnly="True" SortExpression="Id" />
             </Columns>
         </asp:GridView>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <asp:ObjectDataSource ID="ObjectDataMostPopular" runat="server" OnLoad="Page_Load" SelectMethod="YourVideos" TypeName="ListVideos"></asp:ObjectDataSource>
+        <asp:ObjectDataSource ID="ObjectDataMostPopular" runat="server" OnLoad="Page_Load" SelectMethod="YourVideos" TypeName="ListVideos" DataObjectTypeName="Google.YouTube.Video" UpdateMethod="Update"></asp:ObjectDataSource>
     
     </div>
     </form>

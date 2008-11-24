@@ -60,7 +60,7 @@ public partial class YourVideo : System.Web.UI.Page
             {
                 YouTubeEntry entry = new YouTubeEntry();
                 
-                entry.Media = new MediaGroup();
+                entry.Media = new Google.GData.YouTube.MediaGroup();
                 entry.Media.Description = new MediaDescription(this.Description.Text);
                 entry.Media.Title = new MediaTitle(this.Title.Text);
                 entry.Media.Keywords = new MediaKeywords(this.Keyword.Text);
