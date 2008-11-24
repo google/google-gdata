@@ -36,30 +36,6 @@ using System.Collections;
 //////////////////////////////////////////////////////////////////////
 namespace Google.GData.Client
 {
-#if WindowsCE || PocketPC
-    //////////////////////////////////////////////////////////////////////
-    /// <summary>standard typed collection based on 1.1 framework for FeedEntries
-    /// </summary> 
-    //////////////////////////////////////////////////////////////////////
-    public class StringCollection : AtomCollectionBase<string>
-    {
-    	/// <summary>retrieves the first category with the matching value</summary>
-    	protected virtual AtomCategory FindCategory(string term)
-    	{
-    	    foreach (AtomCategory category in List)
-    	    {
-    	        if (term == category.Term)
-                {
-                    return category;
-                }
-    	    }
-            return null;
-        }
-    }
-    /////////////////////////////////////////////////////////////////////////////
-
-#endif
-
     //////////////////////////////////////////////////////////////////////
     /// <summary>standard typed collection based on 1.1 framework for FeedEntries
     /// </summary> 

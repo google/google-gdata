@@ -19,7 +19,7 @@
 using System;
 using System.IO;
 using System.Net;
-using System.Collections.Specialized;
+using System.Collections.Generic;
 using System.Globalization;
 using System.ComponentModel;
 
@@ -104,7 +104,7 @@ namespace Google.GData.Client
         public const string DefaultContentType = "application/atom+xml; charset=UTF-8";
         /// <summary>holds the user-agent</summary> 
         private string userAgent;
-        private StringCollection customHeaders;     // holds any custom headers to set
+        private List<string> customHeaders;     // holds any custom headers to set
         private IWebProxy webProxy;                  // holds an iwebproxy interface
         private bool keepAlive;                     // indicates wether or not to keep the connection alive
         private bool useGZip;
@@ -280,12 +280,12 @@ namespace Google.GData.Client
         /// <summary>accessor method public StringArray CustomHeaders</summary> 
         /// <returns> </returns>
         //////////////////////////////////////////////////////////////////////
-        public StringCollection CustomHeaders
+        public List<string> CustomHeaders
         {
             get {
                 if (this.customHeaders == null) 
                 {
-                    this.customHeaders = new StringCollection(); 
+                    this.customHeaders = new List<string>(); 
                 }
                 return this.customHeaders;
                 }

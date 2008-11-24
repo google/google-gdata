@@ -21,7 +21,7 @@ using System.Text;
 using System.Net; 
 using Google.GData.Client;
 using Google.GData.Extensions;
-using System.Collections.Specialized;
+using System.Collections.Generic;
 
 
 namespace Google.GData.YouTube {
@@ -231,7 +231,7 @@ namespace Google.GData.YouTube {
             }
         }
 
-        private static void RemoveOldKeys(StringCollection headers)
+        private static void RemoveOldKeys(List<string> headers)
         {
             foreach (string header in headers)
             {

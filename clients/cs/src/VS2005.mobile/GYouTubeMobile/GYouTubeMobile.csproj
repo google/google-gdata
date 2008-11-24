@@ -123,6 +123,9 @@
     <Compile Include="..\..\youtube\youtubequery.cs">
       <Link>youtubequery.cs</Link>
     </Compile>
+    <Compile Include="..\..\youtube\youtuberequest.cs">
+      <Link>youtuberequest.cs</Link>
+    </Compile>
     <Compile Include="..\..\youtube\youtubeservice.cs">
       <Link>youtubeservice.cs</Link>
     </Compile>

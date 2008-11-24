@@ -753,13 +753,15 @@ namespace Google.YouTube
             {
                 this.atomService.Credentials = settings.Credentials;
             }
-
+#if WindowsCE || PocketPC
+#else
             if (settings.AuthSubToken != null)
             {
                 GAuthSubRequestFactory authFactory = new GAuthSubRequestFactory(atomService.ServiceIdentifier, settings.Application);
                 authFactory.Token = settings.AuthSubToken; 
                 atomService.RequestFactory = authFactory;
             }
+#endif
         }
 
         protected T PrepareQuery<T>(string uri) where T: FeedQuery, new()
