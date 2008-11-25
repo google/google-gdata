@@ -801,7 +801,7 @@ namespace Google.GData.Client
             {
                 return '&';
             }
-            return '?';
+            return connect;
 
         }
 
