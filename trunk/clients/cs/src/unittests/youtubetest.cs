@@ -350,6 +350,10 @@ namespace Google.GData.Client.LiveTests
 
 
 
+        ///////////////////////// START OF REQUEST TESTS 
+
+
+
         //////////////////////////////////////////////////////////////////////
         /// <summary>runs a test on the YouTube factory object</summary> 
         //////////////////////////////////////////////////////////////////////
@@ -537,6 +541,73 @@ namespace Google.GData.Client.LiveTests
             f.Delete(last);
         }
         /////////////////////////////////////////////////////////////////////////////
+        // 
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>runs a test on the YouTube factory object</summary> 
+        //////////////////////////////////////////////////////////////////////
+        [Test] public void YouTubePageSizeTest()
+        {
+            Tracing.TraceMsg("Entering YouTubePageSizeTest");
+
+            YouTubeRequestSettings settings = new YouTubeRequestSettings("NETUnittests", this.ytClient, this.ytDevKey, this.ytUser, this.ytPwd);
+            settings.PageSize = 15;
+            YouTubeRequest f = new YouTubeRequest(settings);
+
+            Feed<Video> feed = f.GetStandardFeed(YouTubeQuery.MostPopular);
+            int iCount = 0; 
+            // this will get you just the first 15 videos. 
+            foreach (Video v in feed.Entries)
+            {
+                iCount++;
+                f.Settings.PageSize = 5; 
+                Feed<Comment> list = f.GetComments(v);
+                int i = 0; 
+                foreach (Comment c in list.Entries)
+                {
+                    i++;
+                }
+                Assert.IsTrue(i <= 5, "the count should be smaller/equal 5"); 
+                Assert.IsTrue(list.PageSize == -1 || list.PageSize == 5, "the returned pagesize should be 5 or -1 as well"); 
+            }
+
+            Assert.AreEqual(iCount, 15, "the outer feed should count 15");
+            Assert.AreEqual(feed.PageSize, 15, "outer feed pagesize should be 15"); 
+
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>runs a test on the YouTube factory object</summary> 
+        //////////////////////////////////////////////////////////////////////
+        [Test] public void YouTubePagingTest()
+        {
+            Tracing.TraceMsg("Entering YouTubePagingTest");
+
+            YouTubeRequestSettings settings = new YouTubeRequestSettings("NETUnittests", this.ytClient, this.ytDevKey, this.ytUser, this.ytPwd);
+            settings.PageSize = 15;
+            YouTubeRequest f = new YouTubeRequest(settings);
+
+            Feed<Video> feed = f.GetStandardFeed(YouTubeQuery.MostPopular);
+            int iCount = 0; 
+
+            Feed<Video> prev = f.Get<Video>(feed, FeedRequestType.Prev);
+
+            Assert.IsTrue(prev == null, "the first chunk should not have a prev"); 
+            Feed<Video> next = f.Get<Video>(feed, FeedRequestType.Next); 
+
+            Assert.IsTrue(next != null, "the next chunk should exist"); 
+
+            prev = f.Get<Video>(next, FeedRequestType.Prev);
+
+            Assert.IsTrue(prev != null, "the prev chunk should exist now"); 
+
+            prev = f.Get<Video>(prev, FeedRequestType.Refresh); 
+
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+
 
 
     } /////////////////////////////////////////////////////////////////////////////
@@ -595,40 +666,28 @@ namespace Google.GData.Client.LiveTests
         /////////////////////////////////////////////////////////////////////////////
 
 
-
         //////////////////////////////////////////////////////////////////////
         /// <summary>runs a test on the YouTube factory object</summary> 
         //////////////////////////////////////////////////////////////////////
-        [Test] public void YouTubePageSizeTest()
+        [Test] public void YouTubeGetTest()
         {
-            Tracing.TraceMsg("Entering YouTubePageSizeTest");
+            Tracing.TraceMsg("Entering YouTubeGetTest");
 
             YouTubeRequestSettings settings = new YouTubeRequestSettings("NETUnittests", this.ytClient, this.ytDevKey, this.ytUser, this.ytPwd);
             settings.PageSize = 15;
             YouTubeRequest f = new YouTubeRequest(settings);
 
             Feed<Video> feed = f.GetStandardFeed(YouTubeQuery.MostPopular);
-            int iCount = 0; 
-            // this will get you just the first 15 videos. 
+
             foreach (Video v in feed.Entries)
             {
-                iCount++;
-                f.Settings.PageSize = 5; 
-                Feed<Comment> list = f.GetComments(v);
-                int i = 0; 
-                foreach (Comment c in list.Entries)
-                {
-                    i++;
-                }
-                Assert.IsTrue(i <= 5, "the count should be smaller/equal 5"); 
-                Assert.IsTrue(list.PageSize == -1 || list.PageSize == 5, "the returned pagesize should be 5 or -1 as well"); 
+                Video refresh = f.Get<Video>(v);
+
+                Assert.AreEqual(refresh.Id, v.Id, "The ID values should be equal");
             }
-
-            Assert.AreEqual(iCount, 15, "the outer feed should count 15");
-            Assert.AreEqual(feed.PageSize, 15, "outer feed pagesize should be 15"); 
-
         }
         /////////////////////////////////////////////////////////////////////////////
+
 
 
 
