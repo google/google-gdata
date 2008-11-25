@@ -250,7 +250,7 @@ namespace Google.GData.Client
         {
             get {
                 String uriToUse = this.baseUri == null ? String.Empty : this.baseUri.Replace(this.UnusedProtocol, this.DefaultProtocol);
-                return new Uri(uriToUse + CalculateQuery());
+                return new Uri(CalculateQuery(uriToUse));
                 }
             
 #if WindowsCE || PocketPC
@@ -694,16 +694,17 @@ namespace Google.GData.Client
         /////////////////////////////////////////////////////////////////////////////
 
         //////////////////////////////////////////////////////////////////////
-        /// <summary>Creates the partial URI query string based on all set properties.</summary> 
+        /// <summary>Creates the complete URI query string based on all set properties.</summary> 
         /// <returns> string => the query part of the URI</returns>
         //////////////////////////////////////////////////////////////////////
-        protected virtual string CalculateQuery()
+        protected virtual string CalculateQuery(string basePath)
         {
             Tracing.TraceCall("creating target Uri");
 
+            StringBuilder newPath = new StringBuilder(basePath, 2048);  
+            char paramInsertion = InsertionParameter(basePath);
 
-            StringBuilder newPath = new StringBuilder("", 2048);  
-            char paramInsertion = CreateCategoryString(newPath);
+            paramInsertion = CreateCategoryString(newPath, paramInsertion);
 
             if (this.FeedFormat != AlternativeFormat.Atom)
             {
@@ -728,18 +729,33 @@ namespace Google.GData.Client
             }
 
             return newPath.ToString();
-
         }
         /////////////////////////////////////////////////////////////////////////////
+        
+        /// <summary>
+        /// checks if the passed in string contains a "?" and if so returns the &amp; as the insertion char
+        /// </summary>
+        /// <param name="basePath"></param>
+        /// <returns></returns>
+        protected char InsertionParameter(string basePath)
+        {
+            char r = '?'; 
+            if (basePath.IndexOf('?') != -1)
+            {
+                r = '&';
+            }
+            return r; 
+        }
+       
 
 
-        private char CreateCategoryString(StringBuilder builder)
+        private char CreateCategoryString(StringBuilder builder, char connect)
         {
             bool firstTime = true;
 
             int iLen = builder.Length;
 
-            string prePendString = this.CategoryQueriesAsParameter == true ? "?category=" : "/-/";
+            string prePendString = this.CategoryQueriesAsParameter == true ? connect + "category=" : "/-/";
             string seperator =  this.CategoryQueriesAsParameter == true ? "," : "/";
 
             foreach (QueryCategory category in this.Categories )

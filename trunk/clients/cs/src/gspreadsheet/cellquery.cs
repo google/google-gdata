@@ -258,22 +258,11 @@ namespace Google.GData.Spreadsheets
         /// Creates the partial URI query string based on all set properties.
         /// </summary>
         /// <returns> string => the query part of the URI </returns>
-        protected override string CalculateQuery()
+        protected override string CalculateQuery(string basePath)
         {
-            string path = base.CalculateQuery();
-
+            string path = base.CalculateQuery(basePath);
             StringBuilder newPath = new StringBuilder(path, 2048);
-
-            char paramInsertion;
-
-            if (path.IndexOf('?') == -1)
-            {
-                paramInsertion = '?';
-            }
-            else
-            {
-                paramInsertion = '&';
-            }
+            char paramInsertion = InsertionParameter(path); 
 
             paramInsertion = AppendQueryPart(this.MinimumRow, 0, "min-row", paramInsertion, newPath);
             paramInsertion = AppendQueryPart(this.MaximumRow, uint.MaxValue, "max-row", paramInsertion, newPath);

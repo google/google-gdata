@@ -218,21 +218,11 @@ namespace Google.GData.Documents {
         ///  set properties.</summary> 
         /// <returns> A string representing the query part of the URI.</returns>
         //////////////////////////////////////////////////////////////////////
-        protected override string CalculateQuery()
+        protected override string CalculateQuery(string basePath)
         {
-            string path = base.CalculateQuery();
+            string path = base.CalculateQuery(basePath);
             StringBuilder newPath = new StringBuilder(path, 2048);
-
-            char paramInsertion;
-
-            if (path.IndexOf('?') == -1)
-            {
-                paramInsertion = '?';
-            }
-            else
-            {
-                paramInsertion = '&';
-            }
+            char paramInsertion = InsertionParameter(path); 
 
             if (Utilities.IsPersistable(this.Title))
             {
