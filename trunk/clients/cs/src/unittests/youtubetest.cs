@@ -347,60 +347,7 @@ namespace Google.GData.Client.LiveTests
             Assert.IsTrue(uploader.Value == "GoogleDevelopers");
 
         }
-    } /////////////////////////////////////////////////////////////////////////////
 
-
-    [TestFixture] 
-    [Category("LiveTest")]
-    public class YouTubeVerticalTestSuite : BaseLiveTestClass
-    {
-
-        private string ytClient;
-        private string ytDevKey;
-        private string ytUser;
-        private string ytPwd;
-
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>default empty constructor</summary> 
-        //////////////////////////////////////////////////////////////////////
-        public YouTubeVerticalTestSuite()
-        {
-        }
-
-        public override string ServiceName
-        {
-            get {
-                return YouTubeService.YTService; 
-            }
-        }
-
-
-                //////////////////////////////////////////////////////////////////////
-        /// <summary>private void ReadConfigFile()</summary> 
-        /// <returns> </returns>
-        //////////////////////////////////////////////////////////////////////
-        protected override void ReadConfigFile()
-        {
-            base.ReadConfigFile();
-
-            if (unitTestConfiguration.Contains("youTubeClientID") == true)
-            {
-                this.ytClient = (string) unitTestConfiguration["youTubeClientID"];
-            }
-            if (unitTestConfiguration.Contains("youTubeDevKey") == true)
-            {
-                this.ytDevKey = (string) unitTestConfiguration["youTubeDevKey"];
-            }
-            if (unitTestConfiguration.Contains("youTubeUser") == true)
-            {
-                this.ytUser = (string) unitTestConfiguration["youTubeUser"];
-            }
-            if (unitTestConfiguration.Contains("youTubePwd") == true)
-            {
-                this.ytPwd = (string) unitTestConfiguration["youTubePwd"];
-            }
-        }
-        /////////////////////////////////////////////////////////////////////////////
 
 
         //////////////////////////////////////////////////////////////////////
@@ -478,7 +425,7 @@ namespace Google.GData.Client.LiveTests
             }
         }
         /////////////////////////////////////////////////////////////////////////////
-        
+
 
          //////////////////////////////////////////////////////////////////////
         /// <summary>runs a test on the YouTube factory object</summary> 
@@ -489,7 +436,7 @@ namespace Google.GData.Client.LiveTests
 
             YouTubeRequestSettings settings = new YouTubeRequestSettings("NETUnittests", this.ytClient, this.ytDevKey, this.ytUser, this.ytPwd);
             YouTubeRequest f = new YouTubeRequest(settings);
-        
+
             Feed<Video> feed = f.GetStandardFeed(YouTubeQuery.MostPopular);
             // this will get you just the first 25 videos. 
             foreach (Video v in feed.Entries)
@@ -501,10 +448,34 @@ namespace Google.GData.Client.LiveTests
                     Assert.IsTrue(v.Title != null);
                 }
             }
-            
+
+        }
+
+        /////////////////////////////////////////////////////////////////////////////
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>runs a test on the YouTube factory object</summary> 
+        //////////////////////////////////////////////////////////////////////
+        [Test] public void YouTubeMaximumTest()
+        {
+            Tracing.TraceMsg("Entering YouTubeMaximumTest");
+
+            YouTubeRequestSettings settings = new YouTubeRequestSettings("NETUnittests", this.ytClient, this.ytDevKey, this.ytUser, this.ytPwd);
+            settings.Maximum = 15;
+            YouTubeRequest f = new YouTubeRequest(settings);
+
+            Feed<Video> feed = f.GetStandardFeed(YouTubeQuery.MostPopular);
+            int iCount = 0; 
+            // this will get you just the first 15 videos. 
+            foreach (Video v in feed.Entries)
+            {
+                iCount++;
+            }
+
+            Assert.AreEqual(iCount, 15);
+
         }
         /////////////////////////////////////////////////////////////////////////////
-         
 
 
           //////////////////////////////////////////////////////////////////////
@@ -532,14 +503,14 @@ namespace Google.GData.Client.LiveTests
             }
         }
         /////////////////////////////////////////////////////////////////////////////
-         
+
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>runs a test on the YouTube Feed object</summary> 
         //////////////////////////////////////////////////////////////////////
-        [Test] public void YouTubeInsertTest()
+        [Test] public void YouTubeRequestInsertTest()
         {
-            Tracing.TraceMsg("Entering YouTubeFeedTest");
+            Tracing.TraceMsg("Entering YouTubeRequestInsertTest");
             YouTubeRequestSettings settings = new YouTubeRequestSettings("NETUnittests", this.ytClient, this.ytDevKey, this.ytUser, this.ytPwd);
             YouTubeRequest f = new YouTubeRequest(settings);
 
@@ -567,6 +538,97 @@ namespace Google.GData.Client.LiveTests
         }
         /////////////////////////////////////////////////////////////////////////////
 
+
+    } /////////////////////////////////////////////////////////////////////////////
+
+
+    [TestFixture] 
+    [Category("LiveTest")]
+    public class YouTubeVerticalTestSuite : BaseLiveTestClass
+    {
+
+        private string ytClient;
+        private string ytDevKey;
+        private string ytUser;
+        private string ytPwd;
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>default empty constructor</summary> 
+        //////////////////////////////////////////////////////////////////////
+        public YouTubeVerticalTestSuite()
+        {
+        }
+
+        public override string ServiceName
+        {
+            get {
+                return YouTubeService.YTService; 
+            }
+        }
+
+
+                //////////////////////////////////////////////////////////////////////
+        /// <summary>private void ReadConfigFile()</summary> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        protected override void ReadConfigFile()
+        {
+            base.ReadConfigFile();
+
+            if (unitTestConfiguration.Contains("youTubeClientID") == true)
+            {
+                this.ytClient = (string) unitTestConfiguration["youTubeClientID"];
+            }
+            if (unitTestConfiguration.Contains("youTubeDevKey") == true)
+            {
+                this.ytDevKey = (string) unitTestConfiguration["youTubeDevKey"];
+            }
+            if (unitTestConfiguration.Contains("youTubeUser") == true)
+            {
+                this.ytUser = (string) unitTestConfiguration["youTubeUser"];
+            }
+            if (unitTestConfiguration.Contains("youTubePwd") == true)
+            {
+                this.ytPwd = (string) unitTestConfiguration["youTubePwd"];
+            }
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>runs a test on the YouTube factory object</summary> 
+        //////////////////////////////////////////////////////////////////////
+        [Test] public void YouTubePageSizeTest()
+        {
+            Tracing.TraceMsg("Entering YouTubePageSizeTest");
+
+            YouTubeRequestSettings settings = new YouTubeRequestSettings("NETUnittests", this.ytClient, this.ytDevKey, this.ytUser, this.ytPwd);
+            settings.PageSize = 15;
+            YouTubeRequest f = new YouTubeRequest(settings);
+
+            Feed<Video> feed = f.GetStandardFeed(YouTubeQuery.MostPopular);
+            int iCount = 0; 
+            // this will get you just the first 15 videos. 
+            foreach (Video v in feed.Entries)
+            {
+                iCount++;
+                f.Settings.PageSize = 5; 
+                Feed<Comment> list = f.GetComments(v);
+                int i = 0; 
+                foreach (Comment c in list.Entries)
+                {
+                    i++;
+                }
+                Assert.AreEqual(5, i, "the count should be 5"); 
+                Assert.AreEqual(list.PageSize, 5, "the returned pagesize should be 5 as well"); 
+            }
+
+            Assert.AreEqual(iCount, 15, "the outer feed should count 15");
+            Assert.AreEqual(feed.PageSize, 15, "outer feed pagesize should be 15"); 
+
+        }
+        /////////////////////////////////////////////////////////////////////////////
 
 
 
