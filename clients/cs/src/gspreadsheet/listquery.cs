@@ -149,8 +149,8 @@ namespace Google.GData.Spreadsheets
                 }
             }
         }
-#if WindowsCE || PocketPC
-#else
+#if WindowsCE || PocketPC
+#else
 
         /// <summary>
         /// Parses an incoming URI string and sets the instance variables
@@ -217,21 +217,11 @@ namespace Google.GData.Spreadsheets
         /// Creates the partial URI query string based on all set properties.
         /// </summary>
         /// <returns> string => the query part of the URI </returns>
-        protected override string CalculateQuery()
+        protected override string CalculateQuery(string basePath)
         {
-            string path = base.CalculateQuery();
+            string path = base.CalculateQuery(basePath);
             StringBuilder newPath = new StringBuilder(path, 2048);
-
-            char paramInsertion;
-
-            if (path.IndexOf('?') == -1)
-            {
-                paramInsertion = '?';
-            }
-            else
-            {
-                paramInsertion = '&';
-            }
+            char paramInsertion = InsertionParameter(path); 
 
             if (OrderByPosition)
             {
@@ -241,21 +231,21 @@ namespace Google.GData.Spreadsheets
             }
             else if (OrderByColumn != null && OrderByColumn.Length > 0)
             {
-                newPath.Append(paramInsertion);
+                newPath.Append(paramInsertion);
                 newPath.AppendFormat(CultureInfo.InvariantCulture, "orderby=column:{0}", Utilities.UriEncodeReserved(OrderByColumn));
                 paramInsertion = '&';
             }
 
             if (Reverse)
             {
-                newPath.Append(paramInsertion);
+                newPath.Append(paramInsertion);
                 newPath.AppendFormat(CultureInfo.InvariantCulture, "reverse={0}", Utilities.UriEncodeReserved(true.ToString()));
                 paramInsertion = '&';
             }
 
             if (SpreadsheetQuery != null && SpreadsheetQuery.Length > 0)
             {
-                newPath.Append(paramInsertion);
+                newPath.Append(paramInsertion);
                 newPath.AppendFormat(CultureInfo.InvariantCulture, "sq={0}", Utilities.UriEncodeReserved(SpreadsheetQuery));
                 paramInsertion = '&';
             }

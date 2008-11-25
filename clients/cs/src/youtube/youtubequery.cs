@@ -769,9 +769,9 @@ namespace Google.GData.YouTube {
         ///  set properties.</summary> 
         /// <returns> string => the query part of the URI </returns>
         //////////////////////////////////////////////////////////////////////
-        protected override string CalculateQuery()
+        protected override string CalculateQuery(string basePath)
         {
-            string path = base.CalculateQuery();
+            string path = base.CalculateQuery(basePath);
             StringBuilder newPath = new StringBuilder(path, 2048);
 
             char paramInsertion;

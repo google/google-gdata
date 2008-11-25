@@ -237,12 +237,11 @@ namespace Google.GData.GoogleBase
         ///////////////////////////////////////////////////////////////////////
         /// <summary>Generates the Google Base specific parameters</summary>
         ///////////////////////////////////////////////////////////////////////
-        protected override string CalculateQuery()
+        protected override string CalculateQuery(string basePath)
         {
-            string path = base.CalculateQuery();
+            string path = base.CalculateQuery(basePath);
             StringBuilder newPath = new StringBuilder(path, 2048);
-
-            char paramInsertion = (path.IndexOf('?') == -1) ? '?' : '&';
+            char paramInsertion = InsertionParameter(path); 
 
             if (this.bq != null)
             {

@@ -18,17 +18,17 @@ using System.Text;
 using System.Xml;
 using System.IO;
 using System.Collections;
-using Google.GData.Client;
+using Google.GData.Client;
 using Google.GData.Extensions.Apps;
 
 namespace Google.GData.Apps
-{
-    /// <summary>
-    /// A subclass of FeedQuery to query a Google Apps user
-    /// accounts feed URI.
-    /// 
-    /// Provides public properties that describe the different
-    /// aspects of the URI, as well as a composite URI.
+{
+    /// <summary>
+    /// A subclass of FeedQuery to query a Google Apps user
+    /// accounts feed URI.
+    /// 
+    /// Provides public properties that describe the different
+    /// aspects of the URI, as well as a composite URI.
     /// </summary>
     public class UserQuery : FeedQuery
     {
@@ -134,7 +134,7 @@ namespace Google.GData.Apps
         /// Creates the URI query string based on all set properties.
         /// </summary>
         /// <returns>the URI query string</returns>
-        protected override string CalculateQuery()
+        protected override string CalculateQuery(string basePath)
         {
             StringBuilder path = new StringBuilder(AppsNameTable.appsBaseFeedUri, 2048);
 

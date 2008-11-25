@@ -130,7 +130,7 @@ namespace Google.GData.Apps
         /// Creates the URI query string based on all set properties.
         /// </summary>
         /// <returns>the URI query string</returns>
-        protected override string CalculateQuery()
+        protected override string CalculateQuery(string basePath)
         {
             StringBuilder path = new StringBuilder(AppsNameTable.appsBaseFeedUri, 2048);
 
