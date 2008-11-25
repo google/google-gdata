@@ -620,8 +620,8 @@ namespace Google.GData.Client.LiveTests
                 {
                     i++;
                 }
-                Assert.AreEqual(5, i, "the count should be 5"); 
-                Assert.AreEqual(list.PageSize, 5, "the returned pagesize should be 5 as well"); 
+                Assert.IsTrue(i <= 5, "the count should be smaller/equal 5"); 
+                Assert.IsTrue(list.PageSize == -1 || list.PageSize == 5, "the returned pagesize should be 5 or -1 as well"); 
             }
 
             Assert.AreEqual(iCount, 15, "the outer feed should count 15");

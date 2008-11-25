@@ -234,6 +234,9 @@
       <Link>feedconstants.cs</Link>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="..\..\core\feedmodel.cs">
+      <Link>feedmodel.cs</Link>
+    </Compile>
     <Compile Include="..\..\core\feedquery.cs">
       <Link>feedquery.cs</Link>
       <SubType>Code</SubType>
