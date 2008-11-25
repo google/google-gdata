@@ -184,7 +184,6 @@ namespace Google.GData.Client
                 } while (looping);
             }
         }
-
     }
     //end of public class Feed
 
@@ -502,6 +501,18 @@ namespace Google.GData.Client
 
     }
 
+
+    /// <summary>
+    /// the enum used for Get of T requests
+    /// </summary>
+    public enum FeedRequestType
+    {
+        Next,
+        Prev,
+        Refresh
+    }
+
+
     /// <summary>
     /// base class for Request objects.
     /// </summary>
@@ -510,6 +521,9 @@ namespace Google.GData.Client
     {
         private RequestSettings settings;
         private T atomService; 
+
+
+       
 
         /// <summary>
         /// default constructor based on a RequestSettings object
@@ -579,10 +593,116 @@ namespace Google.GData.Client
         /// <typeparam name="Y"></typeparam>
         /// <param name="q"></param>
         /// <returns></returns>
-        public Feed<Y> GetFeed<Y>(FeedQuery q) where Y: Entry, new()
+        public Feed<Y> Get<Y>(FeedQuery q) where Y: Entry, new()
         {
             return PrepareFeed<Y>(q);  
         }
+
+        /// <summary>
+        /// returns a new feed based on the operation passed in.  This is useful if you either do not use
+        /// autopaging, or want to move to previous parts of the feed, or get a refresh of the current feed
+        /// </summary>
+        ///  <example>
+        ///         The following code illustrates a possible use of   
+        ///          the <c>Get</c> method:  
+        ///          <code>    
+        ///           YouTubeRequestSettings settings = new YouTubeRequestSettings("yourApp", "yourClient", "yourKey", "username", "pwd");
+        ///            YouTubeRequest f = new YouTubeRequest(settings);
+        ///             Feed&lt;Playlist&gt; feed = f.GetPlaylistsFeed(null);
+        ///             Feed&lt;Playlist&gt; next = f.Get&lt;Playlist&gt;(feed, FeedRequestType.Next);
+        ///  </code>
+        ///  </example>
+        /// <param name="feed">the original feed</param>
+        /// <param name="operation">an requesttype to indicate what to retrieve</param>
+        /// <returns></returns>
+        public Feed<Y> Get<Y>(Feed<Y> feed, FeedRequestType operation) where Y: Entry, new()
+        {
+            Feed<Y> f = null; 
+            string spec = null; 
+
+            if (feed == null)
+            {
+                throw new ArgumentNullException("feed was null");
+            }
+
+            if (feed.AtomFeed == null)
+            {
+                throw new ArgumentNullException("feed.AtomFeed was null");
+            }
+
+            switch (operation)
+            {
+                case FeedRequestType.Next:
+                    spec = feed.AtomFeed.NextChunk; 
+                    break;
+                case FeedRequestType.Prev:
+                    spec = feed.AtomFeed.PrevChunk;
+                    break;
+                case FeedRequestType.Refresh:
+                    spec = feed.AtomFeed.Self; 
+                    break;
+            }
+            if (String.IsNullOrEmpty(spec) == false)
+            {
+                FeedQuery q =  new FeedQuery(spec);
+                f = PrepareFeed<Y>(q); 
+            }
+
+            return f; 
+        }
+
+
+         /// <summary>
+        /// returns a refreshed version of the entry you passed in, by going back to the server and
+        /// requesting this resource again
+        /// </summary>
+        ///  <example>
+        ///         The following code illustrates a possible use of   
+        ///          the <c>Get</c> method:  
+        ///          <code>    
+        ///           YouTubeRequestSettings settings = new YouTubeRequestSettings("yourApp", "yourClient", "yourKey", "username", "pwd");
+        ///            YouTubeRequest f = new YouTubeRequest(settings);
+        ///             Feed&lt;Playlist&gt; feed = f.GetPlaylistsFeed(null);
+        ///             Feed&lt;Playlist&gt; next = f.Get&lt;Playlist&gt;(feed, FeedRequestType.Next);
+        ///  </code>
+        ///  </example>
+        /// <param name="feed">the original feed</param>
+        /// <param name="operation">an requesttype to indicate what to retrieve</param>
+        /// <returns></returns>
+        public Y Get<Y>(Y entry) where Y: Entry, new()
+        {
+
+            Feed<Y> f = null;
+            Y r = null; 
+
+            if (entry == null)
+            {
+                throw new ArgumentNullException("entry was null");
+            }
+
+            if (entry.AtomEntry == null)
+            {
+                throw new ArgumentNullException("entry.AtomEntry was null");
+            }
+
+            string spec =entry.AtomEntry.SelfUri.ToString();
+
+            if (String.IsNullOrEmpty(spec) == false)
+            {
+                FeedQuery q = new FeedQuery(spec);
+                f = PrepareFeed<Y>(q); 
+            }
+            // this should be a feed of one... 
+
+            foreach (Y y in f.Entries)
+            {
+                r =y; 
+            }
+
+            return r; 
+
+        }
+
 
         /// <summary>
         /// returns the service instance that is used
@@ -660,6 +780,8 @@ namespace Google.GData.Client
             }
             return r;
         }
+
+        
 
         /// <summary>
         /// takes the given Entry and inserts its into the server

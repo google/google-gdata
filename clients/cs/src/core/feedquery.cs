@@ -818,11 +818,14 @@ namespace Google.GData.Client
             if (builder == null)
                 throw new ArgumentNullException("builder");
 
-            if (Utilities.IsPersistable(value))
+            if (builder.ToString().IndexOf(connect+parameterName) == -1)
             {
-                builder.Append(connect);
-                builder.AppendFormat(CultureInfo.InvariantCulture, parameterName+"={0}", Utilities.UriEncodeReserved(value)); 
-                connect = '&'; 
+                if (Utilities.IsPersistable(value))
+                {
+                    builder.Append(connect);
+                    builder.AppendFormat(CultureInfo.InvariantCulture, parameterName+"={0}", Utilities.UriEncodeReserved(value)); 
+                    connect = '&'; 
+                }
             }
             return connect;
         }
@@ -841,11 +844,14 @@ namespace Google.GData.Client
             if (builder == null)
                 throw new ArgumentNullException("builder");
 
-            if (value != defValue)
+            if (builder.ToString().IndexOf(connect+parameterName) == -1)
             {
-                builder.Append(connect);
-                builder.AppendFormat(CultureInfo.InvariantCulture, parameterName+"={0:d}", value); 
-                connect = '&'; 
+                if (value != defValue)
+                {
+                    builder.Append(connect);
+                    builder.AppendFormat(CultureInfo.InvariantCulture, parameterName+"={0:d}", value); 
+                    connect = '&'; 
+                }
             }
             return connect;
         }
@@ -865,11 +871,14 @@ namespace Google.GData.Client
             if (builder == null)
                 throw new ArgumentNullException("builder");
 
-            if (value != defValue)
+            if (builder.ToString().IndexOf(connect+parameterName) == -1)
             {
-                builder.Append(connect);
-                builder.AppendFormat(CultureInfo.InvariantCulture, parameterName+"={0:d}", value); 
-                connect = '&'; 
+                if (value != defValue)
+                {
+                    builder.Append(connect);
+                    builder.AppendFormat(CultureInfo.InvariantCulture, parameterName+"={0:d}", value); 
+                    connect = '&'; 
+                }
             }
             return connect;
         }
@@ -887,9 +896,12 @@ namespace Google.GData.Client
             if (builder == null)
                 throw new ArgumentNullException("builder");
 
-            if (Utilities.IsPersistable(value))
+            if (builder.ToString().IndexOf(connect+parameterName) == -1)
             {
-                return FeedQuery.AppendQueryPart(Utilities.LocalDateTimeInUTC(value), parameterName, connect, builder);
+                if (Utilities.IsPersistable(value))
+                {
+                    return FeedQuery.AppendQueryPart(Utilities.LocalDateTimeInUTC(value), parameterName, connect, builder);
+                }
             }
             return connect;
         }
