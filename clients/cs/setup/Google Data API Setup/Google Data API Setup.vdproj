@@ -489,6 +489,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_22D29166CE7F4A4885BB2F34A32692DF"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_22E3A8B21E7D4B94B9B58CF7FAE8F0AD"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -982,6 +988,12 @@
         "Entry"
         {
         "MsmKey" = "8:_416DE2637260469EA55BA6BF3B4396A9"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_41999217FE3C45B68B353E60F048DCE3"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -1527,6 +1539,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_6106D8527C9E42959E6F1CF962B9EC9D"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_61267DDE2FE0452398E49C5C971C5712"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -1630,6 +1648,12 @@
         "Entry"
         {
         "MsmKey" = "8:_68939E8F90CB4B00B7E3A802879E85D5"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_6996079C169D4B66A4E46070C2BA8DFE"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -3705,6 +3729,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_C71578E1CE944791B785F7F745FBBFF6"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_C77CE5ACB3A44E73BAECD53541549127"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -3880,12 +3910,6 @@
         "Entry"
         {
         "MsmKey" = "8:_D323597EC1DC452C9BAB288E8C4748EA"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_D32631B135AC432FAD2E1FF38198A5F3"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -4420,6 +4444,12 @@
         "Entry"
         {
         "MsmKey" = "8:_F1676AB79E1444E2AAF5F98EB6CEA47E"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_F1CE8C3BAD5F4693A591069BD3D6EC64"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -6909,6 +6939,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_22D29166CE7F4A4885BB2F34A32692DF"
+            {
+            "SourcePath" = "8:..\\..\\setuptree\\Sources\\Library\\core\\goauthrequest.cs"
+            "TargetName" = "8:goauthrequest.cs"
+            "Tag" = "8:"
+            "Folder" = "8:_A3041FB904F248A996B60C8A9F0CD9B0"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_22E3A8B21E7D4B94B9B58CF7FAE8F0AD"
             {
             "SourcePath" = "8:..\\..\\setuptree\\Sources\\Library\\gacl\\aclnamespace.cs"
@@ -8654,6 +8704,26 @@
             "TargetName" = "8:documentslive.cs"
             "Tag" = "8:"
             "Folder" = "8:_E79CC2904CAB4D129A77E98A20891E73"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_41999217FE3C45B68B353E60F048DCE3"
+            {
+            "SourcePath" = "8:..\\..\\setuptree\\Sources\\Library\\core\\feedmodel.cs"
+            "TargetName" = "8:feedmodel.cs"
+            "Tag" = "8:"
+            "Folder" = "8:_A3041FB904F248A996B60C8A9F0CD9B0"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -10556,6 +10626,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_6106D8527C9E42959E6F1CF962B9EC9D"
+            {
+            "SourcePath" = "8:..\\..\\setuptree\\Sources\\Samples\\OAuth\\Program.cs"
+            "TargetName" = "8:Program.cs"
+            "Tag" = "8:"
+            "Folder" = "8:_6FE4546C576F4EB292B06238B079D1ED"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_61267DDE2FE0452398E49C5C971C5712"
             {
             "SourcePath" = "8:..\\..\\setuptree\\Sources\\Samples\\execrequest\\App.ico"
@@ -10913,6 +11003,26 @@
             "TargetName" = "8:ExecRequest.csproj"
             "Tag" = "8:"
             "Folder" = "8:_38C10B18AD174D1382DC09CB6BC25774"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_6996079C169D4B66A4E46070C2BA8DFE"
+            {
+            "SourcePath" = "8:..\\..\\setuptree\\Sources\\Library\\core\\oauthutil.cs"
+            "TargetName" = "8:oauthutil.cs"
+            "Tag" = "8:"
+            "Folder" = "8:_A3041FB904F248A996B60C8A9F0CD9B0"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -16241,6 +16351,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C71578E1CE944791B785F7F745FBBFF6"
+            {
+            "SourcePath" = "8:..\\..\\setuptree\\Sources\\Library\\core\\oauthbase.cs"
+            "TargetName" = "8:oauthbase.cs"
+            "Tag" = "8:"
+            "Folder" = "8:_A3041FB904F248A996B60C8A9F0CD9B0"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C77CE5ACB3A44E73BAECD53541549127"
             {
             "SourcePath" = "8:..\\..\\setuptree\\Sources\\Library\\gapps\\emaillistrecipientfeed.cs"
@@ -16893,26 +17023,6 @@
             "TargetName" = "8:GPhotoBytesUsedTest.cs"
             "Tag" = "8:"
             "Folder" = "8:_026BFB3028A742FD840119FE08AD0741"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_D32631B135AC432FAD2E1FF38198A5F3"
-            {
-            "SourcePath" = "8:..\\..\\setuptree\\Sources\\Samples\\YouTubeSample\\App_Code\\YouTubeWrapper.cs"
-            "TargetName" = "8:YouTubeWrapper.cs"
-            "Tag" = "8:"
-            "Folder" = "8:_B654174BAC094C8EBDD1301C297B9BD3"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -18539,6 +18649,26 @@
             "TargetName" = "8:GPhotoVersionTest.cs"
             "Tag" = "8:"
             "Folder" = "8:_026BFB3028A742FD840119FE08AD0741"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_F1CE8C3BAD5F4693A591069BD3D6EC64"
+            {
+            "SourcePath" = "8:..\\..\\setuptree\\Sources\\Library\\core\\oauthuri.cs"
+            "TargetName" = "8:oauthuri.cs"
+            "Tag" = "8:"
+            "Folder" = "8:_A3041FB904F248A996B60C8A9F0CD9B0"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -20259,6 +20389,17 @@
                                         {
                                         }
                                     }
+                                    "{9EF0B969-E518-4E46-987F-47570745A589}:_6FE4546C576F4EB292B06238B079D1ED"
+                                    {
+                                    "Name" = "8:OAuth"
+                                    "AlwaysCreate" = "11:FALSE"
+                                    "Condition" = "8:"
+                                    "Transitive" = "11:FALSE"
+                                    "Property" = "8:_AF7D62ED33AE45C8A949CF2D608F2885"
+                                        "Folders"
+                                        {
+                                        }
+                                    }
                                     "{9EF0B969-E518-4E46-987F-47570745A589}:_8F777A51557B4263B0E60441FB2AE7F2"
                                     {
                                     "Name" = "8:PhotoBrowser"
@@ -20501,7 +20642,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Google Data API SDK"
         "ProductCode" = "8:{3981BDCE-FD5E-4466-BD71-B607D0BDF17C}"
-        "PackageCode" = "8:{269544F6-95BF-4DC2-9C33-5D1729AD54F6}"
+        "PackageCode" = "8:{C74727AB-7D6C-4553-BD8A-456E3D42AE55}"
         "UpgradeCode" = "8:{A59A79D3-A51E-441F-AF3E-7DB21460BB1B}"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
