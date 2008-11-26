@@ -182,6 +182,9 @@ namespace Google.GData.Client
 
         private bool useCategoryQueriesAsParameter;
 
+        /// <summary>the oauth requestor id</summary>
+        private string oauthRequestorId;
+
         /// <summary>the base URI</summary> 
         protected string baseUri;
         #endregion
@@ -335,6 +338,19 @@ namespace Google.GData.Client
             set {this.query = value; }
         }
         /////////////////////////////////////////////////////////////////////////////
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>set's the OAuth Requestor Identifier. Only useful if 
+        /// you are using the OAuthFactory as well. 
+        /// </summary> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        public string OAuthRequestorId
+        {
+            get { return this.oauthRequestorId; }
+            set { this.oauthRequestorId = value; }
+        }
+        /////////////////////////////////////////////////////////////////////////////        
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>Accessor method public string Category.</summary> 
@@ -684,7 +700,7 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         protected virtual void Reset()
         {
-            this.query = this.author = String.Empty; 
+            this.query = this.author = this.oauthRequestorId = String.Empty; 
             this.categories = null; 
             this.datetimeMax = this.datetimeMin = Utilities.EmptyDate; 
             this.MinPublication = this.MaxPublication = Utilities.EmptyDate; 
@@ -721,6 +737,7 @@ namespace Google.GData.Client
             paramInsertion = AppendQueryPart(this.MaxPublication, "published-max", paramInsertion, newPath);
             paramInsertion = AppendQueryPart(this.StartIndex, 0,  "start-index", paramInsertion, newPath);
             paramInsertion = AppendQueryPart(this.NumberToRetrieve, 0,  "max-results", paramInsertion, newPath);
+            paramInsertion = AppendQueryPart(this.OAuthRequestorId, "xoauth_requestor_id", paramInsertion, newPath);    
 
             if (Utilities.IsPersistable(this.ExtraParameters))
             {
