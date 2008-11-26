@@ -460,6 +460,26 @@ namespace Google.YouTube
     /// user profiles and more. Finally, your application can submit 
     /// authenticated requests to enable users to create playlists, 
     /// subscriptions, contacts and other account-specific entities.
+     ///  <example>
+    ///         The following code illustrates a possible use of   
+    ///          the <c>YouTubeRequest</c> object:  
+    ///          <code>    
+    ///           YouTubeRequestSettings settings = new YouTubeRequestSettings("yourApp", "yourClient", "yourKey");
+    ///            settings.PageSize = 50; 
+    ///            settings.AutoPaging = true;
+    ///             YouTubeRequest f = new YouTubeRequest(settings);
+    ///         Feed<Video> feed = f.GetStandardFeed(YouTubeQuery.MostPopular);
+    ///     
+    ///         foreach (Video v in feed.Entries)
+    ///         {
+    ///             Feed<Comment> list= f.GetComments(v);
+    ///             foreach (Comment c in list.Entries)
+    ///             {
+    ///                 Console.WriteLine(c.Title);
+    ///             }
+    ///         }
+    ///  </code>
+    ///  </example>
     /// </summary>
     //////////////////////////////////////////////////////////////////////
     public class YouTubeRequest : FeedRequest<YouTubeService>
