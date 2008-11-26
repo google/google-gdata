@@ -548,8 +548,17 @@ namespace Google.GData.Client
             if (settings.AuthSubToken != null)
             {
                 GAuthSubRequestFactory authFactory = new GAuthSubRequestFactory(atomService.ServiceIdentifier, settings.Application);
+                authFactory.UserAgent = authFactory.UserAgent + "--IEnumerable";
                 authFactory.Token = settings.AuthSubToken; 
                 atomService.RequestFactory = authFactory;
+            }
+            else 
+            {
+                GDataGAuthRequestFactory authFactory = this.atomService.RequestFactory as GDataGAuthRequestFactory;
+                if (authFactory != null)
+                {
+                    authFactory.UserAgent = authFactory.UserAgent + "--IEnumerable";
+                }
             }
 #endif
         }
