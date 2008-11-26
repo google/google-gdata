@@ -52,7 +52,7 @@
     <div>
         <br /> <br />
         <asp:Button ID="Refresh" runat="server" OnClick="Refresh_Click" Text="Refresh" /><br />
-        <asp:GridView ID="GridView1" runat="server" DataSourceID="ObjectDataMostPopular" AutoGenerateColumns="False" OnInit="Page_Load" AutoGenerateEditButton="True" DataKeyNames="Description,Summary,Uploader,Title">
+        <asp:GridView ID="GridView1" runat="server" DataSourceID="ObjectDataMostPopular" AutoGenerateColumns="False" OnInit="Page_Load" DataKeyNames="Description,Summary,Uploader,Title">
             <Columns>
                 <asp:BoundField DataField="Title" HeaderText="Title" SortExpression="Title" />
                 <asp:BoundField DataField="Description" HeaderText="Description" SortExpression="Description" />

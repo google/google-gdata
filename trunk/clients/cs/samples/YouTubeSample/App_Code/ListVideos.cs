@@ -34,22 +34,16 @@ public static class ListVideos
 
     public static void Update(Video v)
     {
-        v.Update();
+        GetRequest().Update(v);
     }
 
 
 
     public static IEnumerable<Playlist> PlayLists()
     {
-        YouTubeRequestSettings settings = new YouTubeRequestSettings("YouTubeAspSample",
-                                            HttpContext.Current.Session["token"] as string,
-                                            "ytapi-FrankMantek-TestaccountforGD-sjgv537n-0",
-                                            "AI39si4v3E6oIYiI60ndCNDqnPP5lCqO28DSvvDPnQt-Mqia5uPz2e4E-gMSBVwHXwyn_LF1tWox4LyM-0YQd2o4i_3GcXxa2Q"
-                                            );
-        settings.AutoPaging = true;
-        YouTubeRequest request = new YouTubeRequest(settings);
         Feed<Playlist> feed = null;
-
+        YouTubeRequest request = GetRequest();
+        
 
         try
         {
@@ -62,7 +56,23 @@ public static class ListVideos
         return feed != null ? feed.Entries : null;
     }
 
-
+    
+    public static YouTubeRequest GetRequest()
+    {
+        YouTubeRequest request = HttpContext.Current.Session["YTRequest"] as YouTubeRequest;
+        if (request == null)
+        {
+            YouTubeRequestSettings settings = new YouTubeRequestSettings("YouTubeAspSample",
+                                            HttpContext.Current.Session["token"] as string,
+                                            "ytapi-FrankMantek-TestaccountforGD-sjgv537n-0",
+                                            "AI39si4v3E6oIYiI60ndCNDqnPP5lCqO28DSvvDPnQt-Mqia5uPz2e4E-gMSBVwHXwyn_LF1tWox4LyM-0YQd2o4i_3GcXxa2Q"
+                                            );
+            settings.AutoPaging = true;
+            request = new YouTubeRequest(settings);
+            HttpContext.Current.Session["YTRequest"] = request;
+        }
+        return request;
+    }
 
     public static IEnumerable<Video> Search(string videoQuery, string author, string orderby, bool racy, string time, string category)
     {
@@ -112,13 +122,7 @@ public static class ListVideos
 
     private static IEnumerable<Video> GetVideos(YouTubeQuery q)
     {
-        YouTubeRequestSettings settings = new YouTubeRequestSettings("YouTubeAspSample", 
-                                            HttpContext.Current.Session["token"] as string,
-                                            "ytapi-FrankMantek-TestaccountforGD-sjgv537n-0",
-                                            "AI39si4v3E6oIYiI60ndCNDqnPP5lCqO28DSvvDPnQt-Mqia5uPz2e4E-gMSBVwHXwyn_LF1tWox4LyM-0YQd2o4i_3GcXxa2Q"
-                                            );
-        settings.AutoPaging = true;
-        YouTubeRequest request = new YouTubeRequest(settings);
+        YouTubeRequest request = GetRequest();
         Feed<Video> feed = null; 
 
 
