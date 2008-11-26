@@ -253,6 +253,9 @@
       <Link>gdatabatch.cs</Link>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="..\..\core\goauthrequest.cs">
+      <Link>goauthrequest.cs</Link>
+    </Compile>
     <Compile Include="..\..\core\gzipstream.cs">
       <Link>gzipstream.cs</Link>
       <SubType>Code</SubType>
@@ -266,6 +269,15 @@
     </Compile>
     <Compile Include="..\..\core\mediasource.cs">
       <Link>mediasource.cs</Link>
+    </Compile>
+    <Compile Include="..\..\core\oauthbase.cs">
+      <Link>oauthbase.cs</Link>
+    </Compile>
+    <Compile Include="..\..\core\oauthuri.cs">
+      <Link>oauthuri.cs</Link>
+    </Compile>
+    <Compile Include="..\..\core\oauthutil.cs">
+      <Link>oauthutil.cs</Link>
     </Compile>
     <Compile Include="..\..\core\request.cs">
       <Link>request.cs</Link>

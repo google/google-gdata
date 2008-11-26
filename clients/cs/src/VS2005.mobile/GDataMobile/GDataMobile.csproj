@@ -144,6 +144,9 @@
     <Compile Include="..\..\core\feedconstants.cs">
       <Link>feedconstants.cs</Link>
     </Compile>
+    <Compile Include="..\..\core\feedmodel.cs">
+      <Link>feedmodel.cs</Link>
+    </Compile>
     <Compile Include="..\..\core\feedquery.cs">
       <Link>feedquery.cs</Link>
     </Compile>
