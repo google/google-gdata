@@ -460,7 +460,8 @@ namespace Google.YouTube
     /// user profiles and more. Finally, your application can submit 
     /// authenticated requests to enable users to create playlists, 
     /// subscriptions, contacts and other account-specific entities.
-     ///  <example>
+    /// </summary>
+    ///  <example>
     ///         The following code illustrates a possible use of   
     ///          the <c>YouTubeRequest</c> object:  
     ///          <code>    
@@ -480,7 +481,6 @@ namespace Google.YouTube
     ///         }
     ///  </code>
     ///  </example>
-    /// </summary>
     //////////////////////////////////////////////////////////////////////
     public class YouTubeRequest : FeedRequest<YouTubeService>
     {
