@@ -589,20 +589,14 @@ namespace Google.GData.Client.LiveTests
             YouTubeRequest f = new YouTubeRequest(settings);
 
             Feed<Video> feed = f.GetStandardFeed(YouTubeQuery.MostPopular);
-            int iCount = 0; 
-
             Feed<Video> prev = f.Get<Video>(feed, FeedRequestType.Prev);
-
             Assert.IsTrue(prev == null, "the first chunk should not have a prev"); 
-            Feed<Video> next = f.Get<Video>(feed, FeedRequestType.Next); 
 
+            Feed<Video> next = f.Get<Video>(feed, FeedRequestType.Next); 
             Assert.IsTrue(next != null, "the next chunk should exist"); 
 
             prev = f.Get<Video>(next, FeedRequestType.Prev);
-
             Assert.IsTrue(prev != null, "the prev chunk should exist now"); 
-
-            prev = f.Get<Video>(prev, FeedRequestType.Refresh); 
 
         }
         /////////////////////////////////////////////////////////////////////////////
