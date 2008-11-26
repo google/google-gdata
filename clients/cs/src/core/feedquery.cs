@@ -559,6 +559,9 @@ namespace Google.GData.Client
                             case "category":
                                 ParseCategoryQueryString(parameters[1]);
                                 break;
+                            case "xoauth_requestor_id":
+                            	this.OAuthRequestorId = Utilities.UrlDecodedValue(parameters[1]);
+                            	break;
                             default:
                                 break;
                         }
