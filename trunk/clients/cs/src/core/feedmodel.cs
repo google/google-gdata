@@ -325,8 +325,9 @@ namespace Google.GData.Client
 
    
     /// <summary>
-    /// base requestsettings class. Takes credentials, applicaitonsnames
-    /// and supports pagesizes and autopaging
+    /// Base requestsettings class. Takes credentials, applicationsname
+    /// and supports pagesizes and autopaging. This class is used to initialize a 
+    /// <seealso cref="FeedRequest<T>"/> object.
     /// </summary>
     /// <returns></returns>
     public class RequestSettings
@@ -468,7 +469,7 @@ namespace Google.GData.Client
         /// <summary>
         /// the Maximum specifies how many entries should be retrieved in total. This works together with 
         /// <seealso cref="RequestSettings.AutoPaging"/>. If set, AutoPaging of a feed will stop when the 
-        /// specified amount of entries was iterated over. If Maximum is smaller than <seealso cref="RequestSettings.PageSize"/>, 
+        /// specified amount of entries was iterated over. If Maximum is smaller than  PageSize (<seealso cref="RequestSettings.PageSize"/>), 
         ///  an exception is thrown. The default is -1 (ignored). 
         /// </summary>
         ///  <example>
