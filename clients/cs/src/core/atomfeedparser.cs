@@ -103,6 +103,54 @@ namespace Google.GData.Client
 
 
         //////////////////////////////////////////////////////////////////////
+        /// <summary>tries to parse a category collection document</summary> 
+        /// <param name="reader"> xmlReader positioned at the start element</param>
+        /// <returns></returns>
+        //////////////////////////////////////////////////////////////////////
+        public AtomCategoryCollection ParseCategories(XmlReader reader, AtomBase owner)
+        {
+            Tracing.Assert(reader != null, "reader should not be null");
+            if (reader == null)
+            {
+                throw new ArgumentNullException("reader"); 
+            }
+            AtomCategoryCollection ret = new AtomCategoryCollection();
+            MoveToStartElement(reader);
+
+            Tracing.TraceCall("entering Categories Parser");
+            object localname = reader.LocalName;
+            Tracing.TraceInfo("localname is: " + reader.LocalName); 
+
+            if (IsCurrentNameSpace(reader, BaseNameTable.AppPublishingNamespace(null)) && 
+                localname.Equals(this.nameTable.Categories))
+            {
+                Tracing.TraceInfo("Found categories  document");
+                int depth = -1;
+                while (NextChildElement(reader, ref depth))
+                {
+                    localname = reader.LocalName;
+                    if (IsCurrentNameSpace(reader, BaseNameTable.NSAtom))
+                    {
+                        if (localname.Equals(this.nameTable.Category))
+                        {
+                            AtomCategory category = ParseCategory(reader, owner);
+                            ret.Add(category);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                Tracing.TraceInfo("ParseCategories called and nothing was parsed" + localname);
+                throw new ClientFeedException("An invalid Atom Document was passed to the parser. This was not an app:categories document: " + localname); 
+            }
+
+            return ret;
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+
+        //////////////////////////////////////////////////////////////////////
         /// <summary>reads in the feed properties, updates the feed object, then starts
         /// working on the entries...</summary> 
         /// <param name="reader"> xmlReader positioned at the Feed element</param>
@@ -145,7 +193,6 @@ namespace Google.GData.Client
             {
                 Tracing.TraceInfo("ParseFeed called and nothing was parsed" + localname.ToString()); 
                 // throw new ClientFeedException("An invalid Atom Document was passed to the parser. Neither Feed nor Entry started the document"); 
-
             }
             OnParsingDone(); 
             feed.MarkElementDirty(false);

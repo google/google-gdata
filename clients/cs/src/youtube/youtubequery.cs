@@ -626,6 +626,8 @@ namespace Google.GData.YouTube {
         }
 
 
+
+        // helper method for the above publics
         private static string CreateCustomUri(string userID, string path) 
         {
            if (String.IsNullOrEmpty(userID))
@@ -633,6 +635,35 @@ namespace Google.GData.YouTube {
                return YouTubeQuery.BaseUserUri + "default/" + path;
            }
            return YouTubeQuery.BaseUserUri + userID + "/" + path;
+        }
+
+        /// <summary>
+        /// retrieves the youtubecategories collection from the default
+        /// location at http://gdata.youtube.com/schemas/2007/categories.cat
+        /// </summary>
+        /// <returns></returns>
+        public static AtomCategoryCollection GetYouTubeCategories()
+        {
+            return GetCategories(new Uri("http://gdata.youtube.com/schemas/2007/categories.cat"));
+        }
+
+        /// <summary>
+        /// retrieves the category collection from the given Uri. Note that this will throw exceptions 
+        /// on networking errors of if you pass a Uri to a non xml document etc.
+        /// </summary>
+        /// <param name="uri"></param>
+        /// <returns></returns>
+        public static AtomCategoryCollection GetCategories(Uri uri)
+        {
+            // first order is to get the document into an xml dom
+            XmlTextReader textReader = new XmlTextReader(uri.AbsoluteUri);
+
+            AtomFeedParser parser = new AtomFeedParser();
+
+            AtomEntry entry = new AtomEntry();
+            AtomCategoryCollection collection = parser.ParseCategories(textReader, entry);
+
+            return collection;
         }
 
    
@@ -847,8 +878,6 @@ namespace Google.GData.YouTube {
                 }
                 paramInsertion = AppendQueryPart(res, "safeSearch", paramInsertion, newPath);
             }
-
-
 
             paramInsertion = AppendQueryPart(this.VQ, "vq", paramInsertion, newPath);
             paramInsertion = AppendQueryPart(this.Location, "location", paramInsertion, newPath);

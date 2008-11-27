@@ -601,10 +601,29 @@ namespace Google.GData.Client.LiveTests
         }
         /////////////////////////////////////////////////////////////////////////////
 
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>runs a test on the YouTube factory object</summary> 
+        //////////////////////////////////////////////////////////////////////
+        [Test] public void YouTubeGetTest()
+        {
+            Tracing.TraceMsg("Entering YouTubeGetTest");
 
+            YouTubeRequestSettings settings = new YouTubeRequestSettings("NETUnittests", this.ytClient, this.ytDevKey, this.ytUser, this.ytPwd);
+            settings.PageSize = 15;
+            YouTubeRequest f = new YouTubeRequest(settings);
 
+            Feed<Video> feed = f.GetStandardFeed(YouTubeQuery.MostPopular);
 
-    } /////////////////////////////////////////////////////////////////////////////
+            foreach (Video v in feed.Entries)
+            {
+                Video refresh = f.Get<Video>(v);
+
+                Assert.AreEqual(refresh.Id, v.Id, "The ID values should be equal");
+            }
+        }
+        /////////////////////////////////////////////////////////////////////////////
+    }
+
 
 
     [TestFixture] 
@@ -663,22 +682,17 @@ namespace Google.GData.Client.LiveTests
         //////////////////////////////////////////////////////////////////////
         /// <summary>runs a test on the YouTube factory object</summary> 
         //////////////////////////////////////////////////////////////////////
-        [Test] public void YouTubeGetTest()
+        [Test] public void YouTubeGetCategoriesTest()
         {
-            Tracing.TraceMsg("Entering YouTubeGetTest");
+            Tracing.TraceMsg("Entering YouTubeGetCategoriesTest");
 
-            YouTubeRequestSettings settings = new YouTubeRequestSettings("NETUnittests", this.ytClient, this.ytDevKey, this.ytUser, this.ytPwd);
-            settings.PageSize = 15;
-            YouTubeRequest f = new YouTubeRequest(settings);
+            AtomCategoryCollection collection = YouTubeQuery.GetYouTubeCategories();
 
-            Feed<Video> feed = f.GetStandardFeed(YouTubeQuery.MostPopular);
-
-            foreach (Video v in feed.Entries)
+            foreach (AtomCategory cat in collection)
             {
-                Video refresh = f.Get<Video>(v);
-
-                Assert.AreEqual(refresh.Id, v.Id, "The ID values should be equal");
+                Assert.IsTrue(cat.Term != null);
             }
+
         }
         /////////////////////////////////////////////////////////////////////////////
     }

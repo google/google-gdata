@@ -159,6 +159,8 @@ namespace Google.GData.Client
         /// <summary>holds the logo</summary> 
         private object logo;
 
+        private object categories; 
+
         /// <summary>static string for parsing</summary> 
         public const string XmlCategoryElement = "category"; 
         /// <summary>static string for parsing</summary> 
@@ -225,6 +227,10 @@ namespace Google.GData.Client
         /// <summary>static string for parsing</summary>    
         public const string XmlAttributeSrc = "src";
 
+
+        /// <summary>static string for parsing the App:categories element</summary>    
+        public const string XmlCategoriesElement = "categories"; 
+
         
 
 
@@ -270,6 +276,8 @@ namespace Google.GData.Client
             this.icon = this.Nametable.Add(AtomParserNameTable.XmlIconElement);
             this.logo = this.Nametable.Add(AtomParserNameTable.XmlLogoElement);
             this.subTitle = this.Nametable.Add(AtomParserNameTable.XmlSubtitleElement);
+
+            this.categories = this.Nametable.Add(AtomParserNameTable.XmlCategoriesElement);
         }
         /////////////////////////////////////////////////////////////////////////////
 
@@ -280,6 +288,15 @@ namespace Google.GData.Client
         public object Feed
         {
             get {return this.feed;}
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Read only accessor for Categories</summary> 
+        //////////////////////////////////////////////////////////////////////
+        public object Categories
+        {
+            get {return this.categories;}
         }
         /////////////////////////////////////////////////////////////////////////////
 
