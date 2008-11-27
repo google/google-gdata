@@ -682,28 +682,11 @@ namespace Google.GData.Client
             {
                 return null;
             }
-            foreach (object ob in arrList)
+            foreach (IExtensionElementFactory ele in arrList)
             {
-                XmlNode node = ob as XmlNode;
-                if (node != null)
+                if (compareXmlNess(ele.XmlName, localName, ele.XmlNameSpace, ns))
                 {
-                    if (compareXmlNess(node.LocalName, localName, node.NamespaceURI, ns))
-                    {
-                        return new XmlExtension(node);
-                    }
-                }
-                else
-                {
-                    // only if the elements do implement the ExtensionElementFactory
-                    // do we know if it's xml name/namespace
-                    IExtensionElementFactory ele = ob as IExtensionElementFactory;
-                    if (ele != null)
-                    {
-                        if (compareXmlNess(ele.XmlName, localName, ele.XmlNameSpace, ns))
-                        {
-                            return ele;
-                        }
-                    }
+                    return ele;
                 }
             }
             return null;

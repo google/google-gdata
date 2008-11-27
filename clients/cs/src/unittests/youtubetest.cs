@@ -688,9 +688,15 @@ namespace Google.GData.Client.LiveTests
 
             AtomCategoryCollection collection = YouTubeQuery.GetYouTubeCategories();
 
-            foreach (AtomCategory cat in collection)
+            foreach (YouTubeCategory cat in collection)
             {
                 Assert.IsTrue(cat.Term != null);
+                Assert.IsTrue(cat.Assignable || cat.Deprecated || cat.Browsable != null);
+                if (cat.Assignable == true)
+                {
+                    Assert.IsTrue(cat.Browsable != null, "Assumption, if its assignable, it's browsable");
+                }
+
             }
 
         }

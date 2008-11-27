@@ -26,6 +26,56 @@ using Google.GData.Extensions.AppControl;
 
 namespace Google.GData.YouTube {
 
+
+    /// <summary>
+    ///  this is a helper class just for parsing the category document
+    /// </summary>
+    internal class YouTubeCategoryCollection : AtomBase
+    {
+        public YouTubeCategoryCollection()
+        {
+            this.ProtocolMajor = VersionDefaults.VersionTwo;
+        }
+
+        /// <summary>
+        /// this is the subclassing method for AtomBase derived 
+        /// classes to overload what childelements should be created
+        /// needed to create CustomLink type objects, like WebContentLink etc
+        /// </summary>
+        /// <param name="reader">The XmlReader that tells us what we are working with</param>
+        /// <param name="parser">the parser is primarily used for nametable comparisons</param>
+        /// <returns>AtomBase</returns>
+        public override AtomBase CreateAtomSubElement(XmlReader reader, AtomFeedParser parser)
+        {
+            if (reader == null)
+            {
+                throw new ArgumentNullException("reader");
+            }
+            if (parser == null)
+            {
+                throw new ArgumentNullException("parser");
+            }
+
+            Object localname = reader.LocalName;
+            if (localname.Equals(parser.Nametable.Category))
+            {
+                return new YouTubeCategory();
+            }
+            return base.CreateAtomSubElement(reader, parser);
+        }
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Returns the constant representing this XML element.</summary> 
+        //////////////////////////////////////////////////////////////////////
+        public override string XmlName
+        {
+            get { return null; }
+        }
+        /////////////////////////////////////////////////////////////////////////////
+    }
+
+    
+
     //////////////////////////////////////////////////////////////////////
     /// <summary>
     /// Entry API customization class for defining entries in a YouTubeFeed feed.
@@ -39,11 +89,10 @@ namespace Google.GData.YouTube {
         public YouTubeEntry()
         : base()
         {
+            this.ProtocolMajor = VersionDefaults.VersionTwo;
             Tracing.TraceMsg("Created YouTubeEntry");
             addYouTubeEntryExtensions();
-        
         }
-
 
          /// <summary>
         ///  helper method to add extensions to the evententry

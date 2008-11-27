@@ -46,6 +46,7 @@ namespace Google.GData.YouTube {
         /// <param name="iService">the Service to use</param>
         public YouTubeFeed(Uri uriBase, IService iService) : base(uriBase, iService)
         {
+            this.ProtocolMajor = VersionDefaults.VersionTwo;
         }
 
         /// <summary>

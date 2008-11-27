@@ -24,7 +24,8 @@
 
 using System;
 using System.Xml;
-using System.IO; 
+using System.IO;
+using Google.GData.Extensions;
 
 #endregion
 
@@ -293,6 +294,10 @@ namespace Google.GData.Client
             if (this.NewExtensionElement != null)
             {
                 this.NewExtensionElement(this, args);
+            }
+            if (args.DiscardEntry == false)
+            {
+                baseObject.ExtensionElements.Add(new XmlExtension(node));
             }
         }
         /////////////////////////////////////////////////////////////////////////////
