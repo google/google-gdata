@@ -977,7 +977,7 @@ namespace Google.GData.Client
         /////////////////////////////////////////////////////////////////////////////
         #endregion
 
-
+         
         /// <summary>
         /// Parses the inner state of the element
         /// </summary>

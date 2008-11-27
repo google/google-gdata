@@ -644,27 +644,20 @@ namespace Google.GData.YouTube {
         /// <returns></returns>
         public static AtomCategoryCollection GetYouTubeCategories()
         {
-            return GetCategories(new Uri("http://gdata.youtube.com/schemas/2007/categories.cat"));
+            return GetCategories(new Uri("http://gdata.youtube.com/schemas/2007/categories.cat"), new YouTubeCategoryCollection());
         }
 
-        /// <summary>
-        /// retrieves the category collection from the given Uri. Note that this will throw exceptions 
-        /// on networking errors of if you pass a Uri to a non xml document etc.
-        /// </summary>
-        /// <param name="uri"></param>
-        /// <returns></returns>
-        public static AtomCategoryCollection GetCategories(Uri uri)
+
+        public static AtomCategoryCollection GetCategories(Uri uri, AtomBase owner)
         {
             // first order is to get the document into an xml dom
             XmlTextReader textReader = new XmlTextReader(uri.AbsoluteUri);
 
             AtomFeedParser parser = new AtomFeedParser();
-
-            AtomEntry entry = new AtomEntry();
-            AtomCategoryCollection collection = parser.ParseCategories(textReader, entry);
-
+            AtomCategoryCollection collection = parser.ParseCategories(textReader, owner);
             return collection;
         }
+
 
    
 #if WindowsCE || PocketPC

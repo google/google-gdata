@@ -101,7 +101,7 @@ namespace Google.GData.Extensions {
         }
 
 
-          /// <summary>
+        /// <summary>
         /// Allows an XmlExtension to be cast directly into an xmlnode
         /// this should avoid or at least ease code breakage for clients relying on XmlNodes
         /// in the extensionelements

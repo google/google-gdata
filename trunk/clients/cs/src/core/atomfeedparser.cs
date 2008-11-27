@@ -121,7 +121,7 @@ namespace Google.GData.Client
             object localname = reader.LocalName;
             Tracing.TraceInfo("localname is: " + reader.LocalName); 
 
-            if (IsCurrentNameSpace(reader, BaseNameTable.AppPublishingNamespace(null)) && 
+            if (IsCurrentNameSpace(reader, BaseNameTable.AppPublishingNamespace(owner)) && 
                 localname.Equals(this.nameTable.Categories))
             {
                 Tracing.TraceInfo("Found categories  document");
@@ -606,7 +606,7 @@ namespace Google.GData.Client
 
             if (category != null) 
             {
-                category = new AtomCategory();
+                bool noChildren = reader.IsEmptyElement;
                 if (reader.HasAttributes)
                 {
                     while (reader.MoveToNextAttribute())
@@ -630,6 +630,16 @@ namespace Google.GData.Client
                         }
                     }
                 }
+                if (noChildren == false)
+                {
+                    reader.MoveToElement();
+                    int lvl = -1;
+                    while (NextChildElement(reader, ref lvl))
+                    {
+                        ParseExtensionElements(reader, category);
+                    }
+                }
+
             }
             return category;
         }

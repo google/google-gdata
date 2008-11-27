@@ -222,6 +222,61 @@ namespace Google.GData.YouTube {
 
 
     /// <summary>
+    ///  this Category entry will be returned for the list of official YouTubeCategories, 
+    /// using the <seealso cref="YouTubeQuery.GetYouTubeCategories"/> method
+    /// </summary>
+    public class YouTubeCategory : Google.GData.Client.AtomCategory
+    {
+
+        /// <summary>
+        /// Indicates that new videos may be assigned to that category. New videos 
+        /// cannot be assigned to categories that are not marked as assignable
+        /// </summary>
+        /// 
+        public bool Assignable
+        {
+            get
+            {
+                return (this.FindExtension("assignable", YouTubeNameTable.NSYouTube) != null); 
+            }
+        }
+
+        /// <summary>
+        /// The presence of the &lt;yt:browsable&gt; tag indicates that the corresponding 
+        /// category is browsable on YouTube in one or more countries. The tag's regions 
+        /// attribute contains a space-delimited list of two-letter regionIDs that 
+        /// identifies the particular countries where the category is browsable. 
+        /// </summary>
+        public string Browsable
+        {
+            get
+            {
+                XmlExtension x = this.FindExtension("browsable", YouTubeNameTable.NSYouTube) as XmlExtension;
+                if (x != null && x.Node != null)
+                {
+                    return x.Node.Attributes["regions"].Value;
+                }
+                return null; 
+            }
+        }
+
+        /// <summary>
+        /// Categories that are neither assignable or browsable are deprecated and are identified as such
+        /// </summary>
+        public bool Deprecated
+        {
+            get
+            {
+                return (this.FindExtension("deprecated", YouTubeNameTable.NSYouTube) != null); 
+            }
+        }
+        
+
+
+    }
+   
+
+    /// <summary>
     /// YouTube specific MediaGroup element. It adds Duration and Private 
     /// subelements as well as using a different version of MediaCredit
     /// </summary>
