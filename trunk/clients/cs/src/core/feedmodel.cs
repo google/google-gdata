@@ -338,6 +338,7 @@ namespace Google.GData.Client
         private int pageSize = -1;
         private int max = -1; 
         private bool autoPage;
+        private int timeout; 
 
         /// <summary>
         /// an unauthenticated use case
@@ -500,6 +501,31 @@ namespace Google.GData.Client
         }
 
 
+        /// <summary>get's and set's the Timeout property used for the created
+        /// HTTPRequestObject in milliseconds. if you set it to -1 it will stick 
+        /// with the default of the HTPPRequestObject. From MSDN:
+        /// The number of milliseconds to wait before the request times out. 
+        /// The default is 100,000 milliseconds (100 seconds).</summary>   
+        ///  <example>
+        ///         The following code illustrates a possible use of   
+        ///          the <c>Timeout</c> property:  
+        ///          <code>    
+        ///           YouTubeRequestSettings settings = new YouTubeRequestSettings("yourApp", "yourClient", "yourKey", "username", "pwd");
+        ///            settings.Timout = 10000000;
+        ///  </code>
+        ///  </example>
+        /// <returns></returns>
+        public int Timeout
+        {
+            get
+            {
+                return this.timeout;
+            }
+            set
+            {
+                this.timeout = value;
+            }
+        }
     }
 
 
@@ -559,6 +585,15 @@ namespace Google.GData.Client
                 if (authFactory != null)
                 {
                     authFactory.UserAgent = authFactory.UserAgent + "--IEnumerable";
+                }
+            }
+
+            if (settings.Timeout != -1)
+            {
+                GDataRequestFactory f  = this.atomService.RequestFactory as GDataRequestFactory;
+                if (f != null)
+                {
+                    f.Timeout = settings.Timeout;
                 }
             }
 #endif

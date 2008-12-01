@@ -448,8 +448,8 @@ namespace Google.GData.Client.LiveTests
                 Feed<Comment> list = f.GetComments(v);
                 foreach (Comment c in list.Entries)
                 {
-                    Assert.IsTrue(v.AtomEntry != null);
-                    Assert.IsTrue(v.Title != null);
+                    Assert.IsTrue(c.AtomEntry != null);
+                    Assert.IsTrue(c.Title != null);
                 }
             }
 

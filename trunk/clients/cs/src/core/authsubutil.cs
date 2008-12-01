@@ -95,7 +95,7 @@ namespace Google.GData.Client
                                            bool session)
         {
 
-            return getRequestUrl(hostedDomain, DEFAULT_PROTOCOL, DEFAULT_DOMAIN, continueUrl, scope,
+            return getRequestUrl(DEFAULT_PROTOCOL, hostedDomain, continueUrl, scope,
                                  secure, session);
         }
 
