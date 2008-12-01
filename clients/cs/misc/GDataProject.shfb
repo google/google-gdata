@@ -22,6 +22,7 @@
 This version of the Provisioning API follows the principles of the Google Data (GData) APIs. GData APIs are based on both the Atom 1.0 and RSS 2.0 syndication formats in addition to the Atom Publishing Protocol. Learn more about GData APIs.
 
 Note: The Provisioning API is only available to Google Apps Premier Edition and Google Apps Education Edition partners. To enable the API, log in to your admin account, and click the User accounts tab. Then click the Settings subtab to enable the API, select the checkbox to enable the Provisioning API and save your changes. (You will need to complete the steps for setting up Google Apps before you can log in to your admin account.)</namespaceSummaryItem>
+        <namespaceSummaryItem name="Google.GData.Apps.GoogleMailSettings" isDocumented="True" />
         <namespaceSummaryItem name="Google.GData.Apps.Migration" isDocumented="True">The Google Apps Email Migration API allows administrators and users of Google Apps to migrate mail from legacy email systems into their domain's hosted Gmail accounts. Your client application can upload email messages into these accounts using standard Google data API feeds.</namespaceSummaryItem>
         <namespaceSummaryItem name="Google.GData.Calendar" isDocumented="True">Google Calendar allows client applications to view and update calendar events in the form of Google data API ("GData") feeds. Your client application can use the Google Calendar data API to create new events, edit or delete existing events, and query for events that match particular criteria.</namespaceSummaryItem>
         <namespaceSummaryItem name="Google.GData.Client" isDocumented="True">This is the core namespace that contains most base classes to deal with feed authentication and general Atom based parsing. You can use classes from this namespace to deal with all kind of Google properties, you just won't get special data access objects to handle custom attributes.</namespaceSummaryItem>
@@ -105,6 +106,8 @@ Here are some of the things you can do with the Spreadsheets data API:
     * Use an external graphing library with the Spreadsheets data API to add nice looking graphs to your site.
     * Implement auto-filtering and other spreadsheet functionality in an application you build for your users.</namespaceSummaryItem>
         <namespaceSummaryItem name="Google.GData.YouTube" isDocumented="True">YouTube offers open access to key parts of the YouTube video repository and user community, via an open API interface and RSS feeds. Using our APIs, you can easily integrate online videos from YouTube's rapidly growing repository of videos into your application.</namespaceSummaryItem>
+        <namespaceSummaryItem name="Google.Spreadsheets" isDocumented="False" />
+        <namespaceSummaryItem name="Google.YouTube" isDocumented="True">This namespace contains helper classes to ease the development of YouTube based applications. They are used in the samples and the project templates. You can find usage scenarios of those helper clasess in the unittests for youtube, as well as in the project template for it.</namespaceSummaryItem>
     </namespaceSummaries>
     <additionalContent>
         <contentItem sourcePath="..\docs\AdditionalContent\*.html" destPath="AdditionalContent\" excludeItems="False" />
