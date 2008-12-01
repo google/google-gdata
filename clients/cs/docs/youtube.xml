@@ -128,6 +128,24 @@
             <param name="e">FeedParserEventArguments, holds the feedentry</param> 
             <returns> </returns>
         </member>
+        <member name="T:Google.GData.YouTube.YouTubeCategoryCollection">
+            <summary>
+             this is a helper class just for parsing the category document
+            </summary>
+        </member>
+        <member name="M:Google.GData.YouTube.YouTubeCategoryCollection.CreateAtomSubElement(System.Xml.XmlReader,Google.GData.Client.AtomFeedParser)">
+            <summary>
+            this is the subclassing method for AtomBase derived 
+            classes to overload what childelements should be created
+            needed to create CustomLink type objects, like WebContentLink etc
+            </summary>
+            <param name="reader">The XmlReader that tells us what we are working with</param>
+            <param name="parser">the parser is primarily used for nametable comparisons</param>
+            <returns>AtomBase</returns>
+        </member>
+        <member name="P:Google.GData.YouTube.YouTubeCategoryCollection.XmlName">
+            <summary>Returns the constant representing this XML element.</summary> 
+        </member>
         <member name="T:Google.GData.YouTube.YouTubeEntry">
             <summary>
             Entry API customization class for defining entries in a YouTubeFeed feed.
@@ -713,6 +731,32 @@
         <member name="F:Google.GData.YouTube.YouTubeNameTable.Uploaded">
             <summary>
             uploaded element string for playlist feeds
+            </summary>
+        </member>
+        <member name="T:Google.GData.YouTube.YouTubeCategory">
+            <summary>
+             this Category entry will be returned for the list of official YouTubeCategories, 
+            using the <seealso cref="M:Google.GData.YouTube.YouTubeQuery.GetYouTubeCategories"/> method
+            </summary>
+        </member>
+        <member name="P:Google.GData.YouTube.YouTubeCategory.Assignable">
+            <summary>
+            Indicates that new videos may be assigned to that category. New videos 
+            cannot be assigned to categories that are not marked as assignable
+            </summary>
+            
+        </member>
+        <member name="P:Google.GData.YouTube.YouTubeCategory.Browsable">
+            <summary>
+            The presence of the &lt;yt:browsable&gt; tag indicates that the corresponding 
+            category is browsable on YouTube in one or more countries. The tag's regions 
+            attribute contains a space-delimited list of two-letter regionIDs that 
+            identifies the particular countries where the category is browsable. 
+            </summary>
+        </member>
+        <member name="P:Google.GData.YouTube.YouTubeCategory.Deprecated">
+            <summary>
+            Categories that are neither assignable or browsable are deprecated and are identified as such
             </summary>
         </member>
         <member name="T:Google.GData.YouTube.MediaGroup">
@@ -1589,6 +1633,13 @@
             <param name="userID"></param>
             <returns>string</returns>
         </member>
+        <member name="M:Google.GData.YouTube.YouTubeQuery.GetYouTubeCategories">
+            <summary>
+            retrieves the youtubecategories collection from the default
+            location at http://gdata.youtube.com/schemas/2007/categories.cat
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Google.GData.YouTube.YouTubeQuery.ParseUri(System.Uri)">
             <summary>protected void ParseUri</summary> 
             <param name="targetUri">takes an incoming Uri string and parses all the properties out of it</param>
@@ -1598,7 +1649,7 @@
             <summary>Resets object state to default, as if newly created.
             </summary> 
         </member>
-        <member name="M:Google.GData.YouTube.YouTubeQuery.CalculateQuery">
+        <member name="M:Google.GData.YouTube.YouTubeQuery.CalculateQuery(System.String)">
             <summary>Creates the partial URI query string based on all
              set properties.</summary> 
             <returns> string => the query part of the URI </returns>
@@ -1850,114 +1901,57 @@
             getter/setter for UserName subelement
             </summary>
         </member>
-        <member name="T:Google.YouTube.Feed`1">
-            <summary>a generic Feed class
-            </summary> 
-        </member>
-        <member name="M:Google.YouTube.Feed`1.#ctor(Google.GData.Client.AtomFeed)">
+        <member name="T:Google.YouTube.Comment">
             <summary>
-            default constructor that takes the underlying atomfeed
+            the Comment entry for a Comments Feed, a feed of Comment for YouTube
             </summary>
-            <param name="af"></param>
-        </member>
-        <member name="P:Google.YouTube.Feed`1.AtomFeed">
-            <summary>
-            returns the used feed object
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="P:Google.YouTube.Feed`1.AutoPaging">
-            <summary>
-            if set to true will cause the feed to add more data when you iterate over it's entries
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="P:Google.YouTube.Feed`1.StartIndex">
-            <summary>
-            returns the position in the real feed of the first entry in this feed
-            </summary>
-            <returns>an int indicating the start in the feed</returns>
-        </member>
-        <member name="P:Google.YouTube.Feed`1.PageSize">
-            <summary>
-            returns the setup paging size of this feed. If you set AutoPaging to true
-            this is the size that is used to get more results
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="P:Google.YouTube.Feed`1.Entries">
-            <summary>
-            returns the initial list of entries.This page is the data
-            you got from the Requestobject and will remain constant.
-            Unless you set AutoPaging to true, in that case:
-            This will go back to the server and fetch data again if
-            needed. Example. If you pagesize is 30, you get an initial set of 
-            30 entries. While enumerating, when reaching 30, the code will go 
-            to the server and get the next 30 rows. It will continue to do so
-            until the server reports no more rows available. 
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="T:Google.YouTube.Entry">
-            <summary>
-            the Entry class is the base class for all Feed of T type feeds
-            it encapsulates the AtomEntry
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Google.YouTube.Entry.#ctor">
-            <summary>
-             default public constructor, needed for generics. You should not use that one, but use the
-            CreateInstance method for the entry you want to create
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="P:Google.YouTube.Entry.AtomEntry">
-            <summary>
-             the original AtomEntry object that this object is standing in for
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="P:Google.YouTube.Entry.Title">
-            <summary>
-            the title of the Entry. 
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="P:Google.YouTube.Entry.Author">
-            <summary>
-             returns the first author name in the atom.entry.authors collection
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="P:Google.YouTube.Entry.Content">
-            <summary>
-            returns the string representation of the atom.content element
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="P:Google.YouTube.Entry.Summary">
-            <summary>
-            returns the string representation of the atom.Summary element
-            </summary>
-            <returns></returns>
         </member>
         <member name="T:Google.YouTube.Playlist">
             <summary>
             the Playlist entry for a Playlist Feed, a feed of Playlist for YouTube
             </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "T:Google.YouTube.Comment" -->
-        <!-- Badly formed XML comment ignored for member "T:Google.YouTube.Video" -->
+        <member name="P:Google.YouTube.Playlist.PlaylistsEntry">
+            <summary>
+            returns the internal atomentry as a PlayListsEntry
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.YouTube.Playlist.CountHint">
+            <summary>
+            specifies the number of entries in a playlist feed. This tag appears in the entries in a 
+            playlists feed, where each entry contains information about a single playlist.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Google.YouTube.Video">
+            <summary>the Video Entry in feed&lt;Videos&gt; for YouTube
+            </summary> 
+        </member>
         <member name="M:Google.YouTube.Video.CreateInstance">
             <summary>
             creates a new video and set's up the internal Atom object for representation
             </summary>
             <returns></returns>
         </member>
+        <member name="P:Google.YouTube.Video.YouTubeEntry">
+            <summary>
+            readonly accessor for the YouTubeEntry that is underneath this object.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.YouTube.Video.Id">
+            <summary>
+            specifies a unique ID that YouTube uses to identify a video.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="P:Google.YouTube.Video.Description">
             <summary>
-            the Media Description element
+            contains a summary or description of a video. This field is required in requests to 
+            upload or update a video's metadata. The description should be sentence-based, 
+            rather than a list of keywords, and may be displayed in search results. The description has a 
+            maximum length of 5000 characters and may contain all valid UTF-8 characters except &lt; and &gt; 
             </summary>
             <returns></returns>
         </member>
@@ -1988,13 +1982,15 @@
         </member>
         <member name="P:Google.YouTube.Video.WatchPage">
             <summary>
-            returns the url attribute of media:player as a Uri
+            specifies a URL where the full-length video is available through a media player that runs 
+            inside a web browser. In a YouTube Data API response, this specifies the URL for the page 
+            on YouTube's website that plays the video
             </summary>
             <returns></returns>
         </member>
         <member name="P:Google.YouTube.Video.Uploader">
             <summary>
-            get's sets the uploader of the video
+            identifies the owner of a video.
             </summary>
             <returns></returns>
         </member>
@@ -2010,10 +2006,9 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="T:Google.YouTube.RequestSettings">
+        <member name="P:Google.YouTube.Video.Rating">
             <summary>
-            base requestsettings class. Takes credentials, applicaitonsnames
-            and supports pagesizes and autopaging
+            returns the rating average for a video
             </summary>
             <returns></returns>
         </member>
@@ -2024,87 +2019,54 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="T:Google.YouTube.FeedRequest`1">
+        <member name="M:Google.YouTube.YouTubeRequestSettings.#ctor(System.String,System.String,System.String)">
             <summary>
-            base class for Request objects.
+            A constructor for a readonly scenario.
+            </summary>
+            <param name="applicationName">The name of the application</param>
+            <param name="client">the client ID to use</param>
+            <param name="developerKey">the developer key to use</param>
+            <returns></returns>
+        </member>
+        <member name="M:Google.YouTube.YouTubeRequestSettings.#ctor(System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            A constructor for a client login scenario
+            </summary>
+            <param name="applicationName">The name of the application</param>
+            <param name="client">the client ID to use</param>
+            <param name="developerKey">the developer key to use</param>
+            <param name="userName">the username</param>
+            <param name="passWord">the password</param>
+            <returns></returns>
+        </member>
+        <member name="M:Google.YouTube.YouTubeRequestSettings.#ctor(System.String,System.String,System.String,System.String)">
+            <summary>
+            a constructor for a web application authentication scenario        
+            </summary>
+            <param name="applicationName">The name of the application</param>
+            <param name="client">the client ID to use</param>
+            <param name="developerKey">the developer key to use</param>
+            <param name="authSubToken">the authentication token</param>
+            <returns></returns>
+        </member>
+        <member name="P:Google.YouTube.YouTubeRequestSettings.Client">
+            <summary>
+            returns the client ID
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Google.YouTube.FeedRequest`1.#ctor(Google.YouTube.RequestSettings)">
+        <member name="P:Google.YouTube.YouTubeRequestSettings.DeveloperKey">
             <summary>
-            default constructor based on a RequestSettings object
+            returns the developer key
+            </summary>
+            <returns></returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "T:Google.YouTube.YouTubeRequest" -->
+        <member name="M:Google.YouTube.YouTubeRequest.#ctor(Google.YouTube.YouTubeRequestSettings)">
+            <summary>
+            default constructor for a YouTubeRequest
             </summary>
             <param name="settings"></param>
-        </member>
-        <member name="M:Google.YouTube.FeedRequest`1.PrepareService">
-            <summary>
-            prepares the created service based on the settings 
-            </summary>
-        </member>
-        <member name="M:Google.YouTube.FeedRequest`1.PrepareQuery``1(System.String)">
-            <summary>
-            creates a query object and set's it up based on the settings object.
-            </summary>
-            <typeparam name="Y"></typeparam>
-            <param name="uri"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Google.YouTube.FeedRequest`1.PrepareFeed``1(Google.GData.Client.FeedQuery)">
-            <summary>
-            creates a feed of Y object based on the query and the settings
-            </summary>
-            <typeparam name="Y"></typeparam>
-            <param name="q"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Google.YouTube.FeedRequest`1.GetFeed``1(Google.GData.Client.FeedQuery)">
-            <summary>
-            gets a feed object of type T
-            </summary>
-            <typeparam name="Y"></typeparam>
-            <param name="q"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Google.YouTube.FeedRequest`1.Update``1(``0)">
-            <summary>
-             sends the data back to the server. 
-            </summary>
-            <returns>the reflected entry from the server if any given</returns>
-        </member>
-        <member name="M:Google.YouTube.FeedRequest`1.Delete``1(``0)">
-            <summary>
-             deletes the Entry from the Server
-            </summary>
-        </member>
-        <member name="M:Google.YouTube.FeedRequest`1.Insert``1(System.Uri,``0)">
-            <summary>
-            takes the given Entry and inserts its into the server
-            </summary>
-            <returns>the reflected entry from the server if any given</returns>
-        </member>
-        <member name="M:Google.YouTube.FeedRequest`1.Insert``1(Google.YouTube.Feed{``0},``0)">
-            <summary>
-            takes the given Entry and inserts its into the server
-            </summary>
-            <returns>the reflected entry from the server if any given</returns>
-        </member>
-        <member name="P:Google.YouTube.FeedRequest`1.Service">
-            <summary>
-            returns the service instance that is used
-            </summary>
-        </member>
-        <member name="T:Google.YouTube.YouTubeRequest">
-            <summary>
-            The YouTube Data API allows applications to perform functions normally 
-            executed on the YouTube website. The API enables your application to search 
-            for YouTube videos and to retrieve standard video feeds, comments and video
-            responses. 
-            In addition, the API lets your application upload videos to YouTube or 
-            update existing videos. Your can also retrieve playlists, subscriptions, 
-            user profiles and more. Finally, your application can submit 
-            authenticated requests to enable users to create playlists, 
-            subscriptions, contacts and other account-specific entities.
-            </summary>
         </member>
         <member name="M:Google.YouTube.YouTubeRequest.GetVideoFeed(System.String)">
             <summary>
@@ -2156,10 +2118,27 @@
             <returns></returns>
         </member>
         <member name="M:Google.YouTube.YouTubeRequest.GetPlaylist(Google.YouTube.Playlist)">
+                       <summary>
+                        returns the feed of videos for a given playlist
+                       </summary>
+                        <example>
+                            The following code illustrates a possible use of   
+                            the <c>GetPlaylist</c> method:  
+                            <code>    
+                              YouTubeRequestSettings settings = new YouTubeRequestSettings("yourApp", "yourClient", "yourKey", "username", "pwd");
+                              YouTubeRequest f = new YouTubeRequest(settings);
+                              Feed&lt;Playlist&gt; feed = f.GetPlaylistsFeed(null);
+                            </code>
+                        </example>
+                        <param name="p">the playlist to get the videos for</param>
+                        <returns></returns>
+        </member>
+        <member name="M:Google.YouTube.YouTubeRequest.Upload(System.String,Google.YouTube.Video)">
             <summary>
-            retuns the feed of videos for a given playlist
+            uploads or inserts a new video for a given user.
             </summary>
-            <param name="p">the playlist to get the videos for</param>
+            <param name="userName">if this is null the default authenticated user will be used</param>
+            <param name="v">the created video to be used</param>
             <returns></returns>
         </member>
         <member name="T:Google.GData.YouTube.ProfileEntry">

@@ -119,7 +119,7 @@
         <member name="M:Google.GData.GoogleBase.GBaseQuery.Reset">
             <summary>Resets the bq and max-values field state</summary>
         </member>
-        <member name="M:Google.GData.GoogleBase.GBaseQuery.CalculateQuery">
+        <member name="M:Google.GData.GoogleBase.GBaseQuery.CalculateQuery(System.String)">
             <summary>Generates the Google Base specific parameters</summary>
         </member>
         <member name="P:Google.GData.GoogleBase.GBaseQuery.MaxValues">

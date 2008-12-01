@@ -35,7 +35,7 @@
             <param name="targetUri">takes an incoming Uri string and parses all the properties out of it</param>
             <returns>throws a query exception when it finds something wrong with the input, otherwise returns a baseuri</returns>
         </member>
-        <member name="M:Google.GData.Blogger.BloggerQuery.CalculateQuery">
+        <member name="M:Google.GData.Blogger.BloggerQuery.CalculateQuery(System.String)">
             <summary>Creates the partial URI query string based on all
              set properties.</summary> 
             <returns> string => the query part of the URI </returns>

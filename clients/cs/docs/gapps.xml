@@ -24,7 +24,7 @@
             </summary>
             <param name="domain">the domain to query</param>
         </member>
-        <member name="M:Google.GData.Apps.NicknameQuery.CalculateQuery">
+        <member name="M:Google.GData.Apps.NicknameQuery.CalculateQuery(System.String)">
             <summary>
             Creates the URI query string based on all set properties.
             </summary>
@@ -121,7 +121,7 @@
             <param name="emailListName">the email list whose recipients
             we wish to retrieve</param>
         </member>
-        <member name="M:Google.GData.Apps.EmailListRecipientQuery.CalculateQuery">
+        <member name="M:Google.GData.Apps.EmailListRecipientQuery.CalculateQuery(System.String)">
             <summary>
             Creates the URI query string based on all set properties.
             </summary>
@@ -411,7 +411,7 @@
             </summary>
             <param name="domain">the domain to query</param>
         </member>
-        <member name="M:Google.GData.Apps.EmailListQuery.CalculateQuery">
+        <member name="M:Google.GData.Apps.EmailListQuery.CalculateQuery(System.String)">
             <summary>
             Creates the URI query string based on all set properties.
             </summary>
@@ -974,15 +974,7 @@
         <member name="M:Google.GData.Apps.UserService.OnParsedNewFeed(System.Object,Google.GData.Client.ServiceEventArgs)">
             <param name="e"><code>ServiceEventArgs</code>, holds the feed</param>
         </member>
-        <member name="T:Google.GData.Apps.UserQuery">
-            <summary>
-            A subclass of FeedQuery to query a Google Apps user
-            accounts feed URI.
-            
-            Provides public properties that describe the different
-            aspects of the URI, as well as a composite URI.
-            </summary>
-        </member>
+        <!-- Badly formed XML comment ignored for member "T:Google.GData.Apps.UserQuery" -->
         <member name="M:Google.GData.Apps.UserQuery.#ctor(System.String)">
             <summary>
             Constructs a new UserQuery to retrieve all users
@@ -1001,7 +993,7 @@
             <param name="retrieveAllUsers">true to retrieve all matches,
             false to return a maximum of 100 users</param>
         </member>
-        <member name="M:Google.GData.Apps.UserQuery.CalculateQuery">
+        <member name="M:Google.GData.Apps.UserQuery.CalculateQuery(System.String)">
             <summary>
             Creates the URI query string based on all set properties.
             </summary>

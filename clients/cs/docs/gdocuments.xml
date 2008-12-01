@@ -147,7 +147,7 @@
             <param name="targetUri">A URI representing a query on a feed</param>
             <returns>returns the base uri</returns>
         </member>
-        <member name="M:Google.GData.Documents.DocumentsListQuery.CalculateQuery">
+        <member name="M:Google.GData.Documents.DocumentsListQuery.CalculateQuery(System.String)">
             <summary>Creates the partial URI query string based on all
              set properties.</summary> 
             <returns> A string representing the query part of the URI.</returns>

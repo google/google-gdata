@@ -87,7 +87,7 @@
             <summary>Resets object state to default, as if newly created.
             </summary> 
         </member>
-        <member name="M:Google.GData.Calendar.EventQuery.CalculateQuery">
+        <member name="M:Google.GData.Calendar.EventQuery.CalculateQuery(System.String)">
             <summary>Creates the partial URI query string based on all
              set properties.</summary> 
             <returns> string => the query part of the URI </returns>
