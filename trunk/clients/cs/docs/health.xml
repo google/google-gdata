@@ -183,7 +183,7 @@
             <param name="profileId"></param>
             <returns></returns>
         </member>
-        <member name="M:Google.GData.Health.HealthQuery.CalculateQuery">
+        <member name="M:Google.GData.Health.HealthQuery.CalculateQuery(System.String)">
             <summary>Creates the partial URI query string based on all
              set properties.</summary> 
             <returns> string => the query part of the URI </returns>

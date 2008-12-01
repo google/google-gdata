@@ -238,7 +238,7 @@
             Resets object state to default, as if newly created.
             </summary>
         </member>
-        <member name="M:Google.GData.Spreadsheets.ListQuery.CalculateQuery">
+        <member name="M:Google.GData.Spreadsheets.ListQuery.CalculateQuery(System.String)">
             <summary>
             Creates the partial URI query string based on all set properties.
             </summary>
@@ -397,7 +397,7 @@
             Resets object state to default, as if newly created.
             </summary>
         </member>
-        <member name="M:Google.GData.Spreadsheets.CellQuery.CalculateQuery">
+        <member name="M:Google.GData.Spreadsheets.CellQuery.CalculateQuery(System.String)">
             <summary>
             Creates the partial URI query string based on all set properties.
             </summary>
