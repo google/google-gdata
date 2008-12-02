@@ -622,6 +622,55 @@ namespace Google.GData.Client.LiveTests
             }
         }
         /////////////////////////////////////////////////////////////////////////////
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>runs a test on the YouTube factory object</summary> 
+        //////////////////////////////////////////////////////////////////////
+        [Test] public void YouTubeGetCategoriesTest()
+        {
+            Tracing.TraceMsg("Entering YouTubeGetCategoriesTest");
+
+            AtomCategoryCollection collection = YouTubeQuery.GetYouTubeCategories();
+
+            foreach (YouTubeCategory cat in collection)
+            {
+                Assert.IsTrue(cat.Term != null);
+                Assert.IsTrue(cat.Assignable || cat.Deprecated || cat.Browsable != null);
+                if (cat.Assignable == true)
+                {
+                    Assert.IsTrue(cat.Browsable != null, "Assumption, if its assignable, it's browsable");
+                }
+
+            }
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>runs a test on the YouTube factory object</summary> 
+        //////////////////////////////////////////////////////////////////////
+        [Test] public void YouTubeGetActivitiesTest()
+        {
+            ActivitiesQuery query = new ActivitiesQuery();
+            query.User = this.ytUser;
+            YouTubeService service = new YouTubeService("NETUnittests", this.ytClient, this.ytDevKey);
+
+            if (this.userName != null)
+            {
+                service.Credentials = new GDataCredentials(this.ytUser, this.ytPwd);
+            }
+            ActivitiesFeed feed = service.Query(query, new DateTime(1980, 12, 1)) as ActivitiesFeed;
+
+            foreach (ActivityEntry e in feed.Entries )
+            {
+                Assert.IsTrue(e.VideoId != null, "There should be a videoid");
+            }
+            service = null;
+           
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+
     }
 
 
@@ -679,28 +728,29 @@ namespace Google.GData.Client.LiveTests
         /////////////////////////////////////////////////////////////////////////////
 
 
+             // 
+
         //////////////////////////////////////////////////////////////////////
         /// <summary>runs a test on the YouTube factory object</summary> 
         //////////////////////////////////////////////////////////////////////
-        [Test] public void YouTubeGetCategoriesTest()
+        [Test] public void YouTubeRequestActivitiesTest()
         {
-            Tracing.TraceMsg("Entering YouTubeGetCategoriesTest");
+            Tracing.TraceMsg("Entering YouTubeRequestActivitiesTest");
 
-            AtomCategoryCollection collection = YouTubeQuery.GetYouTubeCategories();
+            YouTubeRequestSettings settings = new YouTubeRequestSettings("NETUnittests", this.ytClient, this.ytDevKey, this.ytUser, this.ytPwd);
+            // settings.PageSize = 15;
+            YouTubeRequest f = new YouTubeRequest(settings);
 
-            foreach (YouTubeCategory cat in collection)
+            Feed<Activity> feed = f.GetActivities();
+
+            foreach (Activity a in feed.Entries)
             {
-                Assert.IsTrue(cat.Term != null);
-                Assert.IsTrue(cat.Assignable || cat.Deprecated || cat.Browsable != null);
-                if (cat.Assignable == true)
-                {
-                    Assert.IsTrue(cat.Browsable != null, "Assumption, if its assignable, it's browsable");
-                }
-
+                Assert.IsTrue(a.Id != null, "There should be a VideoId");
             }
-
         }
         /////////////////////////////////////////////////////////////////////////////
+
+
     }
 }
 

@@ -34,6 +34,46 @@ namespace Google.YouTube
     {
     }
 
+    /// <summary>
+    /// the Activity entry for an Activities Feed, a feed of activities for the friends/contacts
+    /// of the logged in user
+    /// </summary>
+    /// <returns></returns>
+    public class Activity : Entry
+    {
+
+        /// <summary>
+        /// readonly accessor for the YouTubeEntry that is underneath this object.
+        /// </summary>
+        /// <returns></returns>
+        public  ActivityEntry ActivityEntry
+        {
+            get
+            {
+                return this.AtomEntry as ActivityEntry;
+            }
+        }
+
+
+        /// <summary>
+        /// specifies a unique ID that YouTube uses to identify a video.
+        /// </summary>
+        /// <returns></returns>
+        public string Id
+        {
+            get
+            {
+                if (this.ActivityEntry != null && this.ActivityEntry.VideoId != null)
+                {
+                    return this.ActivityEntry.VideoId.Value;
+                }
+                return null; 
+            }
+        }
+
+
+    }
+
      /// <summary>
     /// the Playlist entry for a Playlist Feed, a feed of Playlist for YouTube
     /// </summary>
@@ -601,6 +641,24 @@ namespace Google.YouTube
              }
              return new Feed<Comment>(null);
         }
+
+
+        /// <summary>
+        /// get's the activities that your contacts/friends did recently 
+        /// </summary>
+        /// <returns></returns>
+        public Feed<Activity> GetActivities()
+        {
+            if (this.Settings != null && this.Settings.Credentials != null)
+            {
+                ActivitiesQuery q = new ActivitiesQuery(this.Settings.Credentials.Username);
+                PrepareQuery(q);
+                return PrepareFeed<Activity>(q);             
+            }
+             return new Feed<Activity>(null);
+        }
+
+
 
         /** 
            <summary>
