@@ -195,7 +195,7 @@ namespace Google.GData.YouTube {
         /// </summary>
         public const string DefaultVideoUri = "http://gdata.youtube.com/feeds/api/videos";
 
-
+        
         /// <summary>
         /// youTube base mobile video URI 
         /// </summary>
@@ -780,15 +780,6 @@ namespace Google.GData.YouTube {
 #endif
 
         //////////////////////////////////////////////////////////////////////
-        /// <summary>Resets object state to default, as if newly created.
-        /// </summary> 
-        //////////////////////////////////////////////////////////////////////
-        protected override void Reset()
-        {
-            base.Reset();
-        }
-
-        //////////////////////////////////////////////////////////////////////
         /// <summary>Creates the partial URI query string based on all
         ///  set properties.</summary> 
         /// <returns> string => the query part of the URI </returns>
@@ -797,18 +788,7 @@ namespace Google.GData.YouTube {
         {
             string path = base.CalculateQuery(basePath);
             StringBuilder newPath = new StringBuilder(path, 2048);
-
-            char paramInsertion;
-
-            if (path.IndexOf('?') == -1)
-            {
-                paramInsertion = '?';
-            }
-            else
-            {
-                paramInsertion = '&';
-            }
-
+            char paramInsertion = InsertionParameter(path); 
             if (this.formats != null)
             {
                 string res = ""; 
@@ -885,4 +865,116 @@ namespace Google.GData.YouTube {
             return newPath.ToString();
         }
     }
+
+
+    //////////////////////////////////////////////////////////////////////
+    /// <summary>
+    /// A subclass of FeedQuery, to create an Activities Query for YouTube. 
+    /// A user activity feed contains information about actions that an authenticated user's 
+    /// friends have recently taken on the YouTube site. 
+    //////////////////////////////////////////////////////////////////////
+    public class ActivitiesQuery : FeedQuery
+    {
+
+        private string userName;
+        
+        /// <summary>
+        /// youTube events feed for friends activities  
+        /// </summary>
+        public const string ActivityFeedUri = "http://gdata.youtube.com/feeds/api/events";
+
+
+        /// <summary>
+        /// base constructor
+        /// </summary>
+        public ActivitiesQuery()
+        : base(ActivitiesQuery.ActivityFeedUri)
+        {
+        }
+
+
+
+        /// <summary>
+        /// base constructor, with initial user name who's friends activities we want to retrieve
+        /// </summary>
+        /// <param name="userName">the  youtube user to use</param>
+        public ActivitiesQuery(string userName)
+        : base(ActivitiesQuery.ActivityFeedUri)
+        {
+            this.userName = userName;
+        }
+
+
+        /// <summary>
+        /// The use parameter specifies what user's friends to retrieve events for
+        /// </summary>
+        /// <returns></returns>
+        public string User
+        {
+            get 
+            {
+                return this.userName;
+            }
+            set
+            {
+                this.userName = value;
+            }
+
+        }
+
+
+
+   
+#if WindowsCE || PocketPC
+#else
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>protected void ParseUri</summary> 
+        /// <param name="targetUri">takes an incoming Uri string and parses all the properties out of it</param>
+        /// <returns>throws a query exception when it finds something wrong with the input, otherwise returns a baseuri</returns>
+        //////////////////////////////////////////////////////////////////////
+        protected override Uri ParseUri(Uri targetUri)
+        {
+            base.ParseUri(targetUri);
+            if (targetUri != null)
+            {
+                char[] deli = { '?', '&' };
+
+                TokenCollection tokens = new TokenCollection(targetUri.Query, deli);
+                foreach (string token in tokens)
+                {
+                    if (token.Length > 0)
+                    {
+                        char[] otherDeli = { '=' };
+                        string[] parameters = token.Split(otherDeli, 2);
+                        switch (parameters[0])
+                        {
+                            case "friends-of":
+                                this.User = parameters[1];
+                                break;
+                        }
+                    }
+                }
+
+        
+            }
+            return this.Uri;
+        }
+#endif
+
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Creates the partial URI query string based on all
+        ///  set properties.</summary> 
+        /// <returns> string => the query part of the URI </returns>
+        //////////////////////////////////////////////////////////////////////
+        protected override string CalculateQuery(string basePath)
+        {
+            string path = base.CalculateQuery(basePath);
+            StringBuilder newPath = new StringBuilder(path, 2048);
+            char paramInsertion = InsertionParameter(path); 
+            paramInsertion = AppendQueryPart(this.User, "friends-of", paramInsertion, newPath);
+            return newPath.ToString();
+        }
+    }
+
 }

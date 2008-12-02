@@ -152,6 +152,19 @@ namespace Google.GData.YouTube {
         {
             return base.Query(feedQuery) as MessageFeed;
         }
+
+        /// <summary>
+        /// overloaded to create typed version of Query. Returns an 
+        /// Activities feed
+        /// </summary>
+        /// <param name="feedQuery"></param>
+        /// <returns>ActivitiesFeed</returns>
+        public ActivitiesFeed Query(ActivitiesQuery feedQuery) 
+        {
+            return base.Query(feedQuery) as ActivitiesFeed;
+        }
+
+
         /// <summary>
         /// upload a new video to this users youtube account
         /// </summary>
@@ -302,7 +315,11 @@ namespace Google.GData.YouTube {
                 // user based upload service are http://gdata.youtube.com/feeds/api/users/videoid/uploads
                 e.Feed = new YouTubeFeed(e.Uri, e.Service);
             }
-
+            else if (e.Uri.AbsolutePath.IndexOf("feeds/api/events") != -1)
+            {
+                // event feeds  http://gdata.youtube.com/feeds/api/events
+                e.Feed = new ActivitiesFeed(e.Uri, e.Service);
+            }
             else if(IsProfileUri(e.Uri))
             {
                 // user based list of playlists are http://gdata.youtube.com/feeds/api/users/username/playlists

@@ -610,11 +610,16 @@ namespace Google.GData.Client
             Y query = new Y(); 
             query.BaseAddress = uri; 
 
+            PrepareQuery(query);
+            return query; 
+        }
+
+        protected void PrepareQuery(FeedQuery q)
+        {
             if (this.settings.PageSize != -1)
             {
-                query.NumberToRetrieve = this.settings.PageSize; 
+                q.NumberToRetrieve = this.settings.PageSize; 
             }
-            return query; 
         }
 
         /// <summary>

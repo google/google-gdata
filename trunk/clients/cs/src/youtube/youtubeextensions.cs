@@ -74,6 +74,32 @@ namespace Google.GData.YouTube {
         /// </summary>
         public const string ComplaintCategorySchema = NSYouTube + "/complaint-reasons.cat";
 
+         /// <summary>
+        /// The schema used for user events  entries
+        /// </summary>
+        public const string EventsCategorySchema = NSYouTube + "/userevents.cat";
+
+        /// <summary>
+        /// string for the user rated category term
+        /// </summary>
+        public const string UserRatedCategory = "user_rated";
+
+        /// <summary>
+        /// string for the user shared category term
+        /// </summary>
+        public const string UserSharedCategory = "user_shared";
+
+        /// <summary>
+        /// string for the user uploaded category term
+        /// </summary>
+        public const string UserUploadedCategory = "user_uploaded";
+
+        /// <summary>
+        /// string for the user favorited category term
+        /// </summary>
+        public const string UserFavoritedCategory = "user_favorited";
+
+
         /// <summary>
         /// age element string
         /// </summary>
