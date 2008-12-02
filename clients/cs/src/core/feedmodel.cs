@@ -338,7 +338,7 @@ namespace Google.GData.Client
         private int pageSize = -1;
         private int max = -1; 
         private bool autoPage;
-        private int timeout; 
+        private int timeout = -1; 
 
         /// <summary>
         /// an unauthenticated use case
