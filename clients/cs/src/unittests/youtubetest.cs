@@ -741,12 +741,41 @@ namespace Google.GData.Client.LiveTests
             // settings.PageSize = 15;
             YouTubeRequest f = new YouTubeRequest(settings);
 
+            // this returns the server default answer
             Feed<Activity> feed = f.GetActivities();
 
             foreach (Activity a in feed.Entries)
             {
                 Assert.IsTrue(a.Id != null, "There should be a VideoId");
             }
+
+            // now let's find all that happened in the last 24 hours
+
+            DateTime t = DateTime.Now.AddDays(-1);
+
+            // this returns the all activities for the last 24 hours  default answer
+            Feed<Activity> yesterday = f.GetActivities(t);
+
+            foreach (Activity a in yesterday.Entries)
+            {
+                Assert.IsTrue(a.Id != null, "There should be a VideoId");
+            }
+
+            t = DateTime.Now.AddMinutes(-1);
+
+
+            // this returns the all activities for the last 1 minute, should be empty
+            Feed<Activity> lastmin = f.GetActivities(t);
+            int iCount = 0; 
+
+            foreach (Activity a in lastmin.Entries)
+            {
+                iCount++;
+            }
+            Assert.IsTrue(iCount==0, "There should be no activity for the last minute");
+
+            
+
         }
         /////////////////////////////////////////////////////////////////////////////
 

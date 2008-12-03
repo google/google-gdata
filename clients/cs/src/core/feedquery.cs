@@ -178,6 +178,8 @@ namespace Google.GData.Client
         /// <summary>alternative format as AlternativeFormat</summary> 
         private AlternativeFormat altFormat;
 
+        private DateTime ifModifiedSince;
+
         private bool defaultSSL; 
 
         private bool useCategoryQueriesAsParameter;
@@ -440,6 +442,25 @@ namespace Google.GData.Client
             set {this.publishedMax = value; }
         }
         /////////////////////////////////////////////////////////////////////////////
+
+        /// <summary>
+        /// set's the ModifiedSince date. If this is set to something different than
+        /// DateTime.MinValue, and the FeedQuery object is used for a Service.Query
+        /// call, this will cause an ifmodified Since header to be created.
+        /// </summary>
+        /// <returns></returns>
+        public DateTime ModifiedSince
+        {
+            get
+            {
+                return this.ifModifiedSince;
+            }
+            set
+            {
+                this.ifModifiedSince = value;
+            }
+        }
+
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>Accessor method public int StartIndex.</summary> 
@@ -707,6 +728,7 @@ namespace Google.GData.Client
             this.categories = null; 
             this.datetimeMax = this.datetimeMin = Utilities.EmptyDate; 
             this.MinPublication = this.MaxPublication = Utilities.EmptyDate; 
+            this.ifModifiedSince = DateTime.MinValue; 
             this.startIndex = this.numToRetrieve = 0; 
             this.altFormat = AlternativeFormat.Atom;
         }
