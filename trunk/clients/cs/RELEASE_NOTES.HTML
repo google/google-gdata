@@ -26,6 +26,12 @@
                 Sample application, the template above, and the youtubetest.cs 
                 file in the unittests. 
             </li>
+            <li>
+                Added a ModifiedSince property on the FeedQuery object. If set 
+                to something different than DateTime.MinValue this results in an 
+                if-modified-since HTTP header produced if the FeedQuery is used 
+                in a Service.Query call.
+            </li>
             <li>OAuth support for two-legged authentication. Look in samples/OAuth for a usage example. Code for this
             graciously provided by Andrew Smith and Eran Sandler. Note that due to different support on the Compact Framework,
             this is not available in the Windows Mobile build. </li>
