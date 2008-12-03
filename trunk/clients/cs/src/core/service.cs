@@ -414,7 +414,7 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         public AtomFeed Query(FeedQuery feedQuery)
         {
-            return Query(feedQuery, DateTime.MinValue);
+            return Query(feedQuery, feedQuery.ModifiedSince);
         }
         /////////////////////////////////////////////////////////////////////////////
 

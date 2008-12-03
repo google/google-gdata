@@ -649,9 +649,20 @@ namespace Google.YouTube
         /// <returns></returns>
         public Feed<Activity> GetActivities()
         {
+            return GetActivities(DateTime.MinValue);
+        }
+
+        /// <summary>
+        /// get's the activities that your contacts/friends did recently, from the 
+        /// given datetime point
+        /// </summary>
+        /// <returns></returns>
+        public Feed<Activity> GetActivities(DateTime since)
+        {
             if (this.Settings != null && this.Settings.Credentials != null)
             {
                 ActivitiesQuery q = new ActivitiesQuery(this.Settings.Credentials.Username);
+                q.ModifiedSince = since; 
                 PrepareQuery(q);
                 return PrepareFeed<Activity>(q);             
             }
