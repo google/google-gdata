@@ -59,7 +59,7 @@ namespace Google.YouTube
         /// specifies a unique ID that YouTube uses to identify a video.
         /// </summary>
         /// <returns></returns>
-        public string Id
+        public string VideoId
         {
             get
             {
@@ -71,7 +71,17 @@ namespace Google.YouTube
             }
         }
 
-
+        public ActivityType Type
+        {
+            get
+            {
+                if (this.ActivityEntry != null)
+                {
+                    return this.ActivityEntry.Type;
+                }
+                return ActivityType.Undefined; 
+            }
+        }
     }
 
      /// <summary>
@@ -144,7 +154,7 @@ namespace Google.YouTube
         /// specifies a unique ID that YouTube uses to identify a video.
         /// </summary>
         /// <returns></returns>
-        public string Id
+        public string VideoId
         {
             get
             {
@@ -659,7 +669,7 @@ namespace Google.YouTube
         /// <returns></returns>
         public Feed<Activity> GetActivities(DateTime since)
         {
-            if (this.Settings != null && this.Settings.Credentials != null)
+            if (this.Settings != null)
             {
                 ActivitiesQuery q = new ActivitiesQuery(this.Settings.Credentials.Username);
                 q.ModifiedSince = since; 
@@ -715,6 +725,32 @@ namespace Google.YouTube
                 rv.AtomEntry = e; 
             }
             return rv; 
+        }
+
+
+        /// <summary>
+        /// returns the video this activity was related to
+        /// </summary>
+        /// <param name="activity"></param>
+        /// <returns></returns>
+        public Video GetVideoForActivity(Activity activity)
+        {
+            Video rv = null;
+
+            if (activity.ActivityEntry != null)
+            {
+                AtomUri address = activity.ActivityEntry.VideoLink;
+                YouTubeQuery q = PrepareQuery<YouTubeQuery>(address.ToString());
+                YouTubeFeed f = this.Service.Query(q);
+
+                if (f != null && f.Entries.Count > 0)
+                {
+                    rv = new Video();
+                    rv.AtomEntry = f.Entries[0];
+                }
+            }
+
+            return rv;
         }
 
     }

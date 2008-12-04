@@ -19,6 +19,33 @@ using System.Collections.Generic;
 using Google.GData.Client;
 
 namespace Google.GData.YouTube {
+    
+    /// <summary>
+    /// enum to define different activities. 
+    /// </summary>
+    public enum ActivityType
+    {
+        /// <summary>
+        /// a user rated an entry
+        /// </summary>
+        Rated,
+        /// <summary>
+        /// a user shared a video
+        /// </summary>
+        Shared,
+        /// <summary>
+        /// a user uploaded a video
+        /// </summary>
+        Uploaded,
+        /// <summary>
+        /// a user added something to his favorites
+        /// </summary>
+        Favorited,
+        /// <summary>
+        /// undfined -> there was no Type for this entry
+        /// </summary>
+        Undefined
+    }
 
 
     //////////////////////////////////////////////////////////////////////
@@ -29,14 +56,6 @@ namespace Google.GData.YouTube {
     public class ActivityEntry : AbstractEntry
     {
 
-        public enum ActivityType 
-        {
-            Rated,
-            Shared,
-            Uploaded,
-            Favorited,
-            Undefined
-        }
 
          /// <summary>
         /// Category used to label entries that indicate a user marking a video as a favorite
