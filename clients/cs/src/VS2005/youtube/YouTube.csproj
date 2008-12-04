@@ -120,6 +120,12 @@
     <Compile Include="..\..\..\version\AssemblyVersion.cs">
       <Link>AssemblyVersion.cs</Link>
     </Compile>
+    <Compile Include="..\..\youtube\activitiesfeed.cs">
+      <Link>activitiesfeed.cs</Link>
+    </Compile>
+    <Compile Include="..\..\youtube\activityentry.cs">
+      <Link>activityentry.cs</Link>
+    </Compile>
     <Compile Include="..\..\youtube\AssemblyInfo.cs">
       <Link>AssemblyInfo.cs</Link>
     </Compile>
