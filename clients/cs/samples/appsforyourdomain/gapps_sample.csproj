@@ -97,15 +97,15 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Google.GData.Apps, Version=1.1.3.0, Culture=neutral, PublicKeyToken=e6feebfe441b89cb">
+    <Reference Include="Google.GData.Apps, Version=1.3.0.25162, Culture=neutral, PublicKeyToken=e6feebfe441b89cb, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\Release\Google.GData.Apps.dll</HintPath>
     </Reference>
-    <Reference Include="Google.GData.Client, Version=1.1.3.0, Culture=neutral, PublicKeyToken=04a59ca9b0273830">
+    <Reference Include="Google.GData.Client, Version=1.3.0.25160, Culture=neutral, PublicKeyToken=04a59ca9b0273830, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\Release\Google.GData.Client.dll</HintPath>
     </Reference>
-    <Reference Include="Google.GData.Extensions, Version=1.1.3.0, Culture=neutral, PublicKeyToken=0b4c5df2ebf20876">
+    <Reference Include="Google.GData.Extensions, Version=1.3.0.25161, Culture=neutral, PublicKeyToken=0b4c5df2ebf20876, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\Release\Google.GData.Extensions.dll</HintPath>
     </Reference>

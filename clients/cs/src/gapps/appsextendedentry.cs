@@ -20,19 +20,19 @@ using System.Text;
 using Google.GData.Client;
 using Google.GData.Extensions.Apps;
 
-namespace Google.GData.Apps.GoogleMailSettings
+namespace Google.GData.Apps
 {
     /// <summary>
-    /// A Google Apps Google Mail Settings entry.
+    /// A Google Apps extended entry for extended properties.
     /// </summary>
-    public class GoogleMailSettingsEntry : AtomEntry
+    public class AppsExtendedEntry : AbstractEntry
     {
         private PropertyCollection properties;
 
         /// <summary>
-        /// Constructs a new <code>GoogleMailSettingsEntry</code> object.
+        /// Constructs a new <code>AppsExtendedEntry</code> object.
         /// </summary>
-        public GoogleMailSettingsEntry()
+        public AppsExtendedEntry()
             : base()
         {
             GAppsExtensions.AddPropertyElementExtensions(this);
@@ -88,14 +88,14 @@ namespace Google.GData.Apps.GoogleMailSettings
         }
 
         /// <summary>
-        /// Updates this GoogleMailSettingsEntry.
+        /// Updates this AppsExtendedEntry.
         /// </summary>
-        /// <returns>the updated GoogleMailSettingsEntry</returns>
-        public new GoogleMailSettingsEntry Update()
+        /// <returns>the updated GroupsEntry</returns>
+        public new AppsExtendedEntry Update()
         {
             try
             {
-                return base.Update() as GoogleMailSettingsEntry;
+                return base.Update() as AppsExtendedEntry;
             }
             catch (GDataRequestException e)
             {

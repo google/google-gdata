@@ -14,7 +14,9 @@
 */
 
 using System;
+using Google.GData.Apps.Groups;
 using Google.GData.Client;
+using Google.GData.Extensions;
 using Google.GData.Extensions.Apps;
 
 namespace Google.GData.Apps
@@ -30,6 +32,7 @@ namespace Google.GData.Apps
         private EmailListService emailListService;
         private NicknameService nicknameService;
         private UserService userAccountService;
+        private GroupsService groupsService;
 
         private string applicationName;
         private string domain;
@@ -48,19 +51,73 @@ namespace Google.GData.Apps
 
             emailListRecipientService = new EmailListRecipientService(applicationName);
             emailListRecipientService.setUserCredentials(adminEmailAddress, adminPassword);
-            ((GDataRequestFactory)emailListRecipientService.RequestFactory).KeepAlive = false;
 
             emailListService = new EmailListService(applicationName);
             emailListService.setUserCredentials(adminEmailAddress, adminPassword);
-            ((GDataRequestFactory)emailListService.RequestFactory).KeepAlive = false;
 
             nicknameService = new NicknameService(applicationName);
             nicknameService.setUserCredentials(adminEmailAddress, adminPassword);
-            ((GDataRequestFactory)nicknameService.RequestFactory).KeepAlive = false;
 
             userAccountService = new UserService(applicationName);
             userAccountService.setUserCredentials(adminEmailAddress, adminPassword);
-            ((GDataRequestFactory)userAccountService.RequestFactory).KeepAlive = false;
+
+            groupsService = new GroupsService(domain, applicationName);
+            groupsService.setUserCredentials(adminEmailAddress, adminPassword);
+        }
+
+        /// <summary>
+        /// Constructs an AppsService with the specified Authentication Token
+        /// for accessing provisioning feeds on the specified domain.
+        /// </summary>
+        /// <param name="domain">the domain to access</param>
+        /// <param name="authenticationToken">the administrator's Authentication Token</param>
+        public AppsService(string domain, string authenticationToken)
+        {
+            this.domain = domain;
+            this.applicationName = "apps-" + domain;
+
+            emailListRecipientService = new EmailListRecipientService(applicationName);
+            emailListRecipientService.SetAuthenticationToken(authenticationToken);
+
+            emailListService = new EmailListService(applicationName);
+            emailListService.SetAuthenticationToken(authenticationToken);
+
+            nicknameService = new NicknameService(applicationName);
+            nicknameService.SetAuthenticationToken(authenticationToken);
+
+            userAccountService = new UserService(applicationName);
+            userAccountService.SetAuthenticationToken(authenticationToken);
+
+            groupsService = new GroupsService(domain, applicationName);
+            groupsService.SetAuthenticationToken(authenticationToken);
+        }
+
+        /// <summary>indicates if the connection should be kept alive, 
+        /// default is true
+        /// </summary>
+        /// <param name="keepAlive">bool to set if the connection should be keptalive</param>
+        public void KeepAlive(bool keepAlive)
+        {
+            ((GDataRequestFactory)emailListRecipientService.RequestFactory).KeepAlive = keepAlive;
+            ((GDataRequestFactory)emailListService.RequestFactory).KeepAlive = keepAlive;
+            ((GDataRequestFactory)nicknameService.RequestFactory).KeepAlive = keepAlive;
+            ((GDataRequestFactory)userAccountService.RequestFactory).KeepAlive = keepAlive;
+            ((GDataRequestFactory)groupsService.RequestFactory).KeepAlive = keepAlive;
+        }
+
+        /// <summary>
+        /// Generates a new Authentication Toklen for AppsService 
+        /// with the specified credentials for accessing provisioning feeds on the specified domain.
+        /// </summary>
+        /// <param name="domain">the domain to access</param>
+        /// <param name="adminEmailAddress">the administrator's email address</param>
+        /// <param name="adminPassword">the administrator's password</param>
+        /// <returns>the newly generated authentication token</returns>
+        public static String GetNewAuthenticationToken(string domain, string adminEmailAddress, string adminPassword)
+        {
+            Service service = new Service(AppsNameTable.GAppsService,"apps-"+domain);
+            service.setUserCredentials(adminEmailAddress, adminPassword);
+            return service.QueryAuthenticationToken();
         }
 
         /// <summary>
@@ -79,6 +136,14 @@ namespace Google.GData.Apps
         {
             get { return domain; }
             set { domain = value; }
+        }
+
+        /// <summary>
+        /// GroupsService accessor
+        /// </summary>
+        public GroupsService Groups
+        {
+            get { return groupsService; }
         }
 
         /// <summary>

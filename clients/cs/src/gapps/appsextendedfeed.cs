@@ -20,32 +20,32 @@ using Google.GData.Client;
 using Google.GData.Extensions;
 using Google.GData.Extensions.Apps;
 
-namespace Google.GData.Apps.GoogleMailSettings
+namespace Google.GData.Apps
 {
     /// <summary>
     /// Feed API customization class for defining the Google Apps
-    /// Google Mail Settings API's feed.
+    /// Exteded feed.
     /// </summary>
-    public class GoogleMailSettingsFeed : AbstractFeed
+    public class AppsExtendedFeed : AbstractFeed
     {
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="uriBase">The uri for the migration feed.</param>
         /// <param name="iService">The GoogleMailSettings service.</param>
-        public GoogleMailSettingsFeed(Uri uriBase, IService iService)
+        public AppsExtendedFeed(Uri uriBase, IService iService)
             : base(uriBase, iService)
         {
             GAppsExtensions.AddPropertyElementExtensions(this);
         }
 
         /// <summary>
-        /// Overridden.  Creates a new <code>GoogleMailSettingsEntry</code>.
+        /// Overridden. Creates a new <code>AppsExtendedEntry</code>.
         /// </summary>
-        /// <returns>the new <code>GoogleMailSettingsEntry</code>.</returns>
+        /// <returns>the new <code>AppsExtendedEntry</code>.</returns>
         public override AtomEntry CreateFeedEntry()
         {
-            return new GoogleMailSettingsEntry();
+            return new AppsExtendedEntry();
         }
 
         /// <summary>

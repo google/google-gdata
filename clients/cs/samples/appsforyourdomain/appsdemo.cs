@@ -2,6 +2,8 @@ using System;
 using System.Text;
 using System.IO;
 using Google.GData.Apps;
+using Google.GData.Apps.Groups;
+using Google.GData.Extensions;
 
 namespace GoogleAppsConsoleApplication
 {
@@ -17,6 +19,7 @@ namespace GoogleAppsConsoleApplication
         private static string testUserName = "testUserName" + new Random().Next().ToString();
         private const string testNickname = "testNickname";
         private const string testEmailList = "testEmailList";
+        private static string testGroup = "testGroup" + new Random().Next().ToString();
 
         private static void UserOperations(AppsService service)
         {
@@ -85,6 +88,7 @@ namespace GoogleAppsConsoleApplication
                 feed.Entries.Count, entry.Nickname.Name);
         }
 
+        /* Deprecated: EmailList
         private static void EmailListOperations(AppsService service)
         {
             // Create a new email list.
@@ -107,7 +111,9 @@ namespace GoogleAppsConsoleApplication
             Console.WriteLine("Retrieved all {0} email lists in the domain, beginning with '{1}'",
                 feed.Entries.Count, entry.EmailList.Name);
         }
+         */ 
 
+        /* Deprecated: EmailList
         private static void EmailListRecipientOperations(AppsService service)
         {
             // Add a recipient to an email list.
@@ -128,20 +134,69 @@ namespace GoogleAppsConsoleApplication
             Console.WriteLine("Removed recipient {0} from email list {1}", testUserName,
                 testEmailList);
         }
+         */
+
+        private static void GroupOperations(AppsService service)
+        {
+            // Create a new group.
+            AppsExtendedEntry insertedEntry = service.Groups.CreateGroup(testGroup, testGroup, testGroup,null);
+            Console.WriteLine("Created new group '{0}'", insertedEntry.getPropertyByName("groupId" ).Value);            
+
+            // Retrieve the newly-created group.
+            AppsExtendedEntry entry = service.Groups.RetrieveGroup(testGroup);
+            Console.WriteLine("Retrieved group '{0}'", entry.getPropertyByName("groupId").Value);
+
+            // Add Member To Group
+            AppsExtendedEntry newMemberEntry = service.Groups.AddMemberToGroup(testUserName, testGroup);
+            Console.WriteLine("User '{0}' was added as member to group '{1}'", 
+                newMemberEntry.getPropertyByName("memberId").Value, testGroup);
+
+            // Add Owner to Group
+            AppsExtendedEntry newOwnerEntry = service.Groups.AddOwnerToGroup(testUserName, testGroup);
+            Console.WriteLine("User '{0}' was added as ownter to group '{1}'",
+                newOwnerEntry.getPropertyByName("email").Value, testGroup);
+
+            // Check if a User is a Group Member
+            Console.WriteLine("Is User '{0}' member of group '{1}'? '{2}'",
+                 testUserName, testGroup, service.Groups.IsMember(testUserName, testGroup));
+
+            // Check if a User is a Group Member
+            Console.WriteLine("Is User '{0}' owner of group '{1}'? '{2}'",
+                 testUserName, testGroup, service.Groups.IsOwner(testUserName, testGroup));
+
+            // Remove Member from Group
+            service.Groups.RemoveMemberFromGroup(testUserName, testGroup);
+            Console.WriteLine("User '{0}' was removed as member to group '{1}'",
+               testUserName, testGroup);
+
+            // Remove Owner from Group
+            service.Groups.RemoveOwnerFromGroup(testUserName, testGroup);
+            Console.WriteLine("User '{0}' was removed as ownter to group '{1}'", 
+                testUserName, testGroup);
+
+            // Retreive all groups
+            AppsExtendedFeed groupsFeed = service.Groups.RetrieveAllGroups();
+            Console.WriteLine("First Group from All groups: '{0}'",
+                (groupsFeed.Entries[0] as AppsExtendedEntry).getPropertyByName("groupId").Value);            
+        }
 
         private static void CleanUp(AppsService service)
         {
+            // Delete the group that was created
+            service.Groups.DeleteGroup(testGroup);
+            Console.WriteLine("Deleted group {0}", testGroup);
+
             // Delete the nickname that was created.
             service.DeleteNickname(testNickname);
             Console.WriteLine("Deleted nickname {0}", testNickname);
 
             // Delete the email list that was created.
-            service.DeleteEmailList(testEmailList);
+            //service.DeleteEmailList(testEmailList);
             Console.WriteLine("Deleted email list {0}", testEmailList);
 
             // Delete the user that was created.
             service.DeleteUser(testUserName);
-            Console.WriteLine("Deleted user {0}", testUserName);
+            Console.WriteLine("Deleted user {0}", testUserName);            
         }
 
         private static void RunSample(AppsService service)
@@ -154,11 +209,8 @@ namespace GoogleAppsConsoleApplication
                 // Demonstrate operations on nicknames.
                 NicknameOperations(service);
 
-                // Demonstrate operations on email lists.
-                EmailListOperations(service);
-
-                // Demonstrate operations on email list recipients.
-                EmailListRecipientOperations(service);
+                // Demostrate operations on groups
+                GroupOperations(service);
                 
                 // Clean up (delete the username, nickname and email list
                 // that were created).
