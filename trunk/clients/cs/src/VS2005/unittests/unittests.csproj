@@ -281,6 +281,9 @@
       <Link>GoogleApps\appsexceptiontest.cs</Link>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="..\..\unittests\gapps\appsextendedentrytest.cs">
+      <Link>GoogleApps\appsextendedentrytest.cs</Link>
+    </Compile>
     <Compile Include="..\..\unittests\gapps\appsservicetest.cs">
       <Link>GoogleApps\appsservicetest.cs</Link>
       <SubType>Code</SubType>
@@ -310,6 +313,9 @@
     </Compile>
     <Compile Include="..\..\unittests\gapps\googlemailsettingsentrytest.cs">
       <Link>GoogleApps\googlemailsettingsentrytest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\unittests\gapps\groupsservicetest.cs">
+      <Link>GoogleApps\groupsservicetest.cs</Link>
     </Compile>
     <Compile Include="..\..\unittests\gapps\labelcollectiontest.cs">
       <Link>GoogleApps\labelcollectiontest.cs</Link>

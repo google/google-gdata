@@ -124,6 +124,12 @@
       <Link>appsexception.cs</Link>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="..\..\gapps\appsextendedentry.cs">
+      <Link>appsextendedentry.cs</Link>
+    </Compile>
+    <Compile Include="..\..\gapps\appsextendedfeed.cs">
+      <Link>appsextendedfeed.cs</Link>
+    </Compile>
     <Compile Include="..\..\gapps\appsservice.cs">
       <Link>appsservice.cs</Link>
       <SubType>Code</SubType>
@@ -164,6 +170,12 @@
       <Link>emaillistservice.cs</Link>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="..\..\gapps\genericentry.cs">
+      <Link>genericentry.cs</Link>
+    </Compile>
+    <Compile Include="..\..\gapps\genericfeed.cs">
+      <Link>genericfeed.cs</Link>
+    </Compile>
     <Compile Include="..\..\gapps\googlemailsettingsentry.cs">
       <Link>googlemailsettingsentry.cs</Link>
     </Compile>
@@ -172,6 +184,9 @@
     </Compile>
     <Compile Include="..\..\gapps\googlemailsettingsservice.cs">
       <Link>googlemailsettingsservice.cs</Link>
+    </Compile>
+    <Compile Include="..\..\gapps\groupsservice.cs">
+      <Link>groupsservice.cs</Link>
     </Compile>
     <Compile Include="..\..\gapps\mailitementry.cs">
       <Link>mailitementry.cs</Link>

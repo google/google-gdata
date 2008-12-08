@@ -372,7 +372,7 @@ namespace Google.GData.Client.LiveTests
             {
                 Assert.IsTrue(v.AtomEntry != null);
                 Assert.IsTrue(v.Title != null);
-                Assert.IsTrue(v.Id != null); 
+                Assert.IsTrue(v.VideoId != null); 
             }
 
             Feed<Video> sfeed = f.GetStandardFeed(YouTubeQuery.MostPopular);
@@ -383,7 +383,7 @@ namespace Google.GData.Client.LiveTests
             {
                 Assert.IsTrue(v.AtomEntry != null);
                 Assert.IsTrue(v.Title != null);
-                Assert.IsTrue(v.Id != null); 
+                Assert.IsTrue(v.VideoId != null); 
                 iCountOne++; 
             }
             int iCountTwo = 0; 
@@ -392,7 +392,7 @@ namespace Google.GData.Client.LiveTests
             {
                 Assert.IsTrue(v.AtomEntry != null);
                 Assert.IsTrue(v.Title != null);
-                Assert.IsTrue(v.Id != null); 
+                Assert.IsTrue(v.VideoId != null); 
                 Assert.IsTrue(v.WatchPage != null);
                 iCountTwo++; 
             }
@@ -423,7 +423,7 @@ namespace Google.GData.Client.LiveTests
                 {
                     Assert.IsTrue(v.AtomEntry != null);
                     Assert.IsTrue(v.Title != null);
-                    Assert.IsTrue(v.Id != null); 
+                    Assert.IsTrue(v.VideoId != null); 
                     Assert.IsTrue(v.WatchPage != null);
                 }
             }
@@ -618,7 +618,7 @@ namespace Google.GData.Client.LiveTests
             {
                 Video refresh = f.Get<Video>(v);
 
-                Assert.AreEqual(refresh.Id, v.Id, "The ID values should be equal");
+                Assert.AreEqual(refresh.VideoId, v.VideoId, "The ID values should be equal");
             }
         }
         /////////////////////////////////////////////////////////////////////////////
@@ -746,7 +746,7 @@ namespace Google.GData.Client.LiveTests
 
             foreach (Activity a in feed.Entries)
             {
-                Assert.IsTrue(a.Id != null, "There should be a VideoId");
+                Assert.IsTrue(a.VideoId != null, "There should be a VideoId");
             }
 
             // now let's find all that happened in the last 24 hours
@@ -758,7 +758,7 @@ namespace Google.GData.Client.LiveTests
 
             foreach (Activity a in yesterday.Entries)
             {
-                Assert.IsTrue(a.Id != null, "There should be a VideoId");
+                Assert.IsTrue(a.VideoId != null, "There should be a VideoId");
             }
 
             t = DateTime.Now.AddMinutes(-1);

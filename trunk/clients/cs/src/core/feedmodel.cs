@@ -206,6 +206,13 @@ namespace Google.GData.Client
         {
         }
 
+        /// <summary>override for ToString, returns the Entries Title</summary> 
+        public override string ToString()
+        {
+            return this.Title;
+        }
+
+
         /// <summary>
         ///  the original AtomEntry object that this object is standing in for
         /// </summary>
@@ -219,6 +226,21 @@ namespace Google.GData.Client
             set 
             {
                 this.e = value; 
+            }
+        }
+
+        /// <summary>
+        /// returns the ID of an entry
+        /// </summary>
+        public string ID
+        {
+            get
+            {
+                if (this.e != null)
+                {
+                    return this.e.Id.AbsoluteUri;
+                }
+                return null; 
             }
         }
 
@@ -321,6 +343,30 @@ namespace Google.GData.Client
                 }
             }
         }
+
+        /// <summary>
+        /// just a thin layer on top of the existing updated of the 
+        /// underlying atomentry
+        /// </summary>
+        public DateTime Updated
+        {
+            get
+            {
+                if (this.e != null)
+                {
+                    return this.e.Updated;
+                }
+                return DateTime.MinValue;
+            }
+            set
+            {
+                if (this.e != null)
+                {
+                    this.e.Updated = value;
+                }
+            }
+        }
+
     }
 
    

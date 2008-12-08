@@ -625,6 +625,16 @@ namespace Google.GData.YouTube {
             return CreateCustomUri(userID, "uploads");
         }
 
+        
+        /// <summary>
+        /// assuming you have a video ID, returns the watch uri as a string
+        /// </summary>
+        /// <param name="videoID"></param>
+        /// <returns></returns>
+        public static string CreateVideoWatchUri(string videoID)
+        {
+            return "http://www.youtube.com/watch?v=" + Google.GData.Client.Utilities.UriEncodeUnsafe(videoID);
+        }
 
 
         // helper method for the above publics

@@ -58,14 +58,14 @@ namespace Google.GData.Extensions.Apps
         }
 
         /// <summary>
-        /// Declares Google Mail Settings item extension elements for an atom base object.
+        /// Declares Google item extension elements for an atom base object.
         /// </summary>
         /// <param name="baseObject">the <code>AtomBase</code> object,
         /// e.g. <code>MailItemEntry</code> or <code>MailItemFeed</code></param>
-        public static void AddGoogleMailSettingsItemExtensions(AtomBase baseObject)
+        public static void AddPropertyElementExtensions(AtomBase baseObject)
         {
             baseObject.AddExtension(new PropertyElement());
-        }
+        }  
     }
 
     /// <summary>
@@ -78,7 +78,6 @@ namespace Google.GData.Extensions.Apps
 
         /// <summary>Prefix of Google Apps extension elements.</summary>
         public const string AppsPrefix = "apps";
-
 
         /// <summary>
         /// Identifier for Google Apps services.
@@ -300,6 +299,24 @@ namespace Google.GData.Extensions.Apps
         public const string arrows = "arrows";
         public const string snippets = "snippets";
         public const string unicode = "unicode";
+    }
+
+    /// <summary>
+    /// Name table for Google Apps extensions specific to the Groups Provisioning
+    /// </summary>
+    public class AppsGroupsNameTable : AppsNameTable
+    {
+        public const string AppsGoogleGroupsBaseFeedUri = "https://apps-apis.google.com/a/feeds/group/2.0";
+        public const string groupId = "groupId";
+        public const string groupName = "groupName";
+        public const string description = "description";
+        public const string emailPermission = "emailPermissionc";
+        public const string directMember = "directMember";
+        public const string role = "rolec";
+        public const string memberId = "memberId";
+        public const string memberType = "memberType";
+        public const string email = "email";
+        public const string type = "type";
     }
 
     /// <summary>
@@ -941,6 +958,7 @@ namespace Google.GData.Extensions.Apps
             }
         }
     }
+
     /// <summary>
     /// Google Apps Data Property API element describing a generic Name and Value
     /// with the AppsPrefix.
