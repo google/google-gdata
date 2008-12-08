@@ -170,12 +170,6 @@
       <Link>emaillistservice.cs</Link>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="..\..\gapps\genericentry.cs">
-      <Link>genericentry.cs</Link>
-    </Compile>
-    <Compile Include="..\..\gapps\genericfeed.cs">
-      <Link>genericfeed.cs</Link>
-    </Compile>
     <Compile Include="..\..\gapps\googlemailsettingsentry.cs">
       <Link>googlemailsettingsentry.cs</Link>
     </Compile>
