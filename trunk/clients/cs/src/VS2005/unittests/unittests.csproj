@@ -281,6 +281,9 @@
       <Link>GoogleApps\appsexceptiontest.cs</Link>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="..\..\unittests\gapps\appsextendedentrytest.cs">
+      <Link>GoogleApps\appsextendedentrytest.cs</Link>
+    </Compile>
     <Compile Include="..\..\unittests\gapps\appsservicetest.cs">
       <Link>GoogleApps\appsservicetest.cs</Link>
       <SubType>Code</SubType>
