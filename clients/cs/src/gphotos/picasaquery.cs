@@ -164,26 +164,26 @@ namespace Google.GData.Photos {
 
         /// <summary>
         /// convienience method to create an URI based on a userID
-        /// and an album name for a picasafeed
+        /// and an album ID for a picasafeed
         /// </summary>
         /// <param name="userID"></param>
-        /// <param name="albumName"></param>
+        /// <param name="albumID"></param>
         /// <returns>string</returns>
-        public static string CreatePicasaUri(string userID, string albumName) 
+        public static string CreatePicasaUri(string userID, string albumID) 
         {
-            return CreatePicasaUri(userID) +"/album/"+ Utilities.UriEncodeUnsafe(albumName);
+            return CreatePicasaUri(userID) +"/albumid/"+ Utilities.UriEncodeUnsafe(albumID);
         }
 
         /// <summary>
-        /// Convenience method to create a URI based on a user id, albumname, and photoid
+        /// Convenience method to create a URI based on a user id, albumID, and photoid
         /// </summary>
         /// <param name="userID">The username that owns the content</param>
-        /// <param name="albumName">The name of the album that contains the content</param>
+        /// <param name="albumID"></param>
         /// <param name="photoID">The ID of the photo that contains the content</param>
         /// <returns>A URI to a Picasa Web Albums feed</returns>
-        public static string CreatePicasaUri(string userID, string albumName, string photoID)
+        public static string CreatePicasaUri(string userID, string albumID, string photoID)
         {
-            return CreatePicasaUri(userID, albumName) + "/photoid/" + Utilities.UriEncodeUnsafe(photoID);
+            return CreatePicasaUri(userID, albumID) + "/photoid/" + Utilities.UriEncodeUnsafe(photoID);
         }
 
         //////////////////////////////////////////////////////////////////////

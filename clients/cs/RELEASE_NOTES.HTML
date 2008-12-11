@@ -41,6 +41,15 @@
         </li>
         <ul>
             <li>
+                Fixed bug 194. CreatePicasaUri was confusing because it used the 
+                albumname as a parameter compared to an albumid. Changed to now 
+                use an AlbumID.
+                </li>
+            <li>
+                Removed the ASP build and marked the standard release assemblies 
+                as Partially Trusted.
+            </li>
+            <li>
                 Fixed issue 191, Overloaded AuthSubUtil.getRequestUrl(hostedDomain, nextUrl, scope, secure, session) is broken
             </li>
             <li>
