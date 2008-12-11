@@ -3,7 +3,6 @@
 echo "Run this inside the Visual Studio Development Prompt"
 devenv /rebuild Release "..\src\VS2005\Google Data API SDK.sln"
 devenv /rebuild Debug "..\src\VS2005\Google Data API SDK.sln"
-devenv /rebuild ASP "..\src\VS2005\Google Data API SDK.sln"
 devenv /rebuild Release ..\src\VS2005.mobile\gdatamobile.sln
 
 # copy the DLLS
@@ -39,21 +38,6 @@ xcopy /y ..\src\VS2005\ghealth\bin\Debug\*.dll ..\lib\Debug\*.*
 xcopy /y ..\src\VS2005\unittests\bin\Debug\*.dll ..\lib\Debug\*.*
 xcopy /y ..\src\VS2005\blogger\bin\Debug\*.dll ..\lib\Debug\*.*
 
-# copy the ASP DLLS
-xcopy /y ..\src\VS2005\gdata\bin\asp\*.dll ..\lib\ASP.NET\*.*
-xcopy /y ..\src\VS2005\gbase\bin\asp\*.dll ..\lib\ASP.NET\*.*
-xcopy /y ..\src\VS2005\gextension\bin\asp\*.dll ..\lib\ASP.NET\*.*
-xcopy /y ..\src\VS2005\gspreadsheets\bin\asp\*.dll ..\lib\ASP.NET\*.*
-xcopy /y ..\src\VS2005\gcalendar\bin\asp\*.dll ..\lib\ASP.NET\*.*
-xcopy /y ..\src\VS2005\gcodesearch\bin\asp\*.dll ..\lib\ASP.NET\*.*
-xcopy /y ..\src\VS2005\gapps\bin\asp\*.dll ..\lib\ASP.NET\*.*
-xcopy /y ..\src\VS2005\gacl\bin\asp\*.dll ..\lib\ASP.NET\*.*
-xcopy /y ..\src\VS2005\gphotos\bin\asp\*.dll ..\lib\ASP.NET\*.*
-xcopy /y ..\src\VS2005\gdoclist\bin\asp\*.dll ..\lib\ASP.NET\*.*
-xcopy /y ..\src\VS2005\gcontacts\bin\asp\*.dll ..\lib\ASP.NET\*.*
-xcopy /y ..\src\VS2005\youtube\bin\asp\*.dll ..\lib\ASP.NET\*.*
-xcopy /y ..\src\VS2005\ghealth\bin\asp\*.dll ..\lib\ASP.NET\*.*
-xcopy /y ..\src\VS2005\blogger\bin\asp\*.dll ..\lib\ASP.NET\*.*
 
 # copy asp dlls for the youtube sample
 xcopy /y ..\src\VS2005\gdata\bin\asp\*.dll ..\samples\YouTubeSample\bin\*.*

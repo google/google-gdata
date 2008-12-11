@@ -806,6 +806,14 @@
             <summary>set's the maximum daterange value for the publication element</summary> 
             <returns>the max (exclusive) date/time</returns>
         </member>
+        <member name="P:Google.GData.Client.FeedQuery.ModifiedSince">
+            <summary>
+            set's the ModifiedSince date. If this is set to something different than
+            DateTime.MinValue, and the FeedQuery object is used for a Service.Query
+            call, this will cause an ifmodified Since header to be created.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="P:Google.GData.Client.FeedQuery.StartIndex">
             <summary>Accessor method public int StartIndex.</summary> 
             <returns>the start-index query parameter, a 1-based index
@@ -4450,11 +4458,19 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Google.GData.Client.Entry.ToString">
+            <summary>override for ToString, returns the Entries Title</summary> 
+        </member>
         <member name="P:Google.GData.Client.Entry.AtomEntry">
             <summary>
              the original AtomEntry object that this object is standing in for
             </summary>
             <returns></returns>
+        </member>
+        <member name="P:Google.GData.Client.Entry.ID">
+            <summary>
+            returns the ID of an entry
+            </summary>
         </member>
         <member name="P:Google.GData.Client.Entry.Title">
             <summary>
@@ -4479,6 +4495,12 @@
             returns the string representation of the atom.Summary element
             </summary>
             <returns></returns>
+        </member>
+        <member name="P:Google.GData.Client.Entry.Updated">
+            <summary>
+            just a thin layer on top of the existing updated of the 
+            underlying atomentry
+            </summary>
         </member>
         <!-- Badly formed XML comment ignored for member "T:Google.GData.Client.RequestSettings" -->
         <member name="M:Google.GData.Client.RequestSettings.#ctor(System.String)">

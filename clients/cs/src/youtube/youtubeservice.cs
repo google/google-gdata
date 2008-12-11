@@ -315,9 +315,10 @@ namespace Google.GData.YouTube {
                 // user based upload service are http://gdata.youtube.com/feeds/api/users/videoid/uploads
                 e.Feed = new YouTubeFeed(e.Uri, e.Service);
             }
-            else if (e.Uri.AbsolutePath.IndexOf("feeds/api/events") != -1)
+            else if(e.Uri.AbsolutePath.IndexOf("feeds/api/users") != -1 && 
+                e.Uri.AbsolutePath.IndexOf("friendsactivity") != -1)
             {
-                // event feeds  http://gdata.youtube.com/feeds/api/events
+                // event feeds  "http://gdata.youtube.com/feeds/api/users/default/friendsactivity";
                 e.Feed = new ActivitiesFeed(e.Uri, e.Service);
             }
             else if(IsProfileUri(e.Uri))

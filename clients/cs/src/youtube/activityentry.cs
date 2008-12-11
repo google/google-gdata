@@ -60,26 +60,26 @@ namespace Google.GData.YouTube {
          /// <summary>
         /// Category used to label entries that indicate a user marking a video as a favorite
         /// </summary>
-        public static AtomCategory USERRATED_CATEGORY =
-        new AtomCategory(YouTubeNameTable.UserRatedCategory, new AtomUri(YouTubeNameTable.EventsCategorySchema));
+        public static AtomCategory VIDEORATED_CATEGORY =
+        new AtomCategory(YouTubeNameTable.VideoRatedCategory, new AtomUri(YouTubeNameTable.EventsCategorySchema));
 
                  /// <summary>
         /// Category used to label entries that indicate a user marking a video as a favorite
         /// </summary>
-        public static AtomCategory USERSHARED_CATEGORY =
-        new AtomCategory(YouTubeNameTable.UserSharedCategory, new AtomUri(YouTubeNameTable.EventsCategorySchema));
+        public static AtomCategory VIDEOSHARED_CATEGORY =
+        new AtomCategory(YouTubeNameTable.VideoSharedCategory, new AtomUri(YouTubeNameTable.EventsCategorySchema));
 
                  /// <summary>
         /// Category used to label entries that indicate a user marking a video as a favorite
         /// </summary>
-        public static AtomCategory USERUPLOADED_CATEGORY =
-        new AtomCategory(YouTubeNameTable.UserUploadedCategory, new AtomUri(YouTubeNameTable.EventsCategorySchema));
+        public static AtomCategory VIDEOUPLOADED_CATEGORY =
+        new AtomCategory(YouTubeNameTable.VideoUploadedCategory, new AtomUri(YouTubeNameTable.EventsCategorySchema));
 
                  /// <summary>
         /// Category used to label entries that indicate a user marking a video as a favorite
         /// </summary>
-        public static AtomCategory USERFAVORITED_CATEGORY =
-        new AtomCategory(YouTubeNameTable.UserFavoritedCategory, new AtomUri(YouTubeNameTable.EventsCategorySchema));
+        public static AtomCategory VIDEOFAVORITED_CATEGORY =
+        new AtomCategory(YouTubeNameTable.VideoFavoritedCategory, new AtomUri(YouTubeNameTable.EventsCategorySchema));
 
 
         /// <summary>
@@ -99,19 +99,19 @@ namespace Google.GData.YouTube {
         {
             get 
             {
-                if (this.Categories.Contains(USERRATED_CATEGORY))
+                if (this.Categories.Contains(VIDEORATED_CATEGORY))
                 {
                     return ActivityType.Rated;
                 } 
-                else if (this.Categories.Contains(USERSHARED_CATEGORY))
+                else if (this.Categories.Contains(VIDEOSHARED_CATEGORY))
                 {
                     return ActivityType.Shared;
                 }
-                else if (this.Categories.Contains(USERUPLOADED_CATEGORY))
+                else if (this.Categories.Contains(VIDEOUPLOADED_CATEGORY))
                 {
                     return ActivityType.Uploaded;
                 }
-                else if (this.Categories.Contains(USERFAVORITED_CATEGORY))
+                else if (this.Categories.Contains(VIDEOFAVORITED_CATEGORY))
                 {
                     return ActivityType.Favorited;
                 }

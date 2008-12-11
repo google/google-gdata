@@ -595,6 +595,30 @@
             <param name="adminEmailAddress">the administrator's email address</param>
             <param name="adminPassword">the administrator's password</param>
         </member>
+        <member name="M:Google.GData.Apps.AppsService.#ctor(System.String,System.String)">
+            <summary>
+            Constructs an AppsService with the specified Authentication Token
+            for accessing provisioning feeds on the specified domain.
+            </summary>
+            <param name="domain">the domain to access</param>
+            <param name="authenticationToken">the administrator's Authentication Token</param>
+        </member>
+        <member name="M:Google.GData.Apps.AppsService.KeepAlive(System.Boolean)">
+            <summary>indicates if the connection should be kept alive, 
+            default is true
+            </summary>
+            <param name="keepAlive">bool to set if the connection should be keptalive</param>
+        </member>
+        <member name="M:Google.GData.Apps.AppsService.GetNewAuthenticationToken(System.String,System.String,System.String)">
+            <summary>
+            Generates a new Authentication Toklen for AppsService 
+            with the specified credentials for accessing provisioning feeds on the specified domain.
+            </summary>
+            <param name="domain">the domain to access</param>
+            <param name="adminEmailAddress">the administrator's email address</param>
+            <param name="adminPassword">the administrator's password</param>
+            <returns>the newly generated authentication token</returns>
+        </member>
         <member name="M:Google.GData.Apps.AppsService.CreateUser(System.String,System.String,System.String,System.String)">
             <summary>
             Creates a new user account.
@@ -868,6 +892,45 @@
             Domain property accessor
             </summary>
         </member>
+        <member name="P:Google.GData.Apps.AppsService.Groups">
+            <summary>
+            GroupsService accessor
+            </summary>
+        </member>
+        <member name="T:Google.GData.Apps.AppsExtendedEntry">
+            <summary>
+            A Google Apps extended entry for extended properties.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Apps.AppsExtendedEntry.#ctor">
+            <summary>
+            Constructs a new <code>AppsExtendedEntry</code> object.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Apps.AppsExtendedEntry.getPropertyByName(System.String)">
+            <summary>
+            Gets a PropertyElement by its Name
+            </summary>
+            <returns>a <code>PropertyElement</code> containing the results of the
+            execution</returns>         
+        </member>
+        <member name="M:Google.GData.Apps.AppsExtendedEntry.getPropetyValueByName(System.String)">
+            <summary>
+            Gets a the Value of a PropertyElement by its Name
+            </summary>
+            <returns>a string containing the results of the execution</returns>
+        </member>
+        <member name="M:Google.GData.Apps.AppsExtendedEntry.Update">
+            <summary>
+            Updates this AppsExtendedEntry.
+            </summary>
+            <returns>the updated GroupsEntry</returns>
+        </member>
+        <member name="P:Google.GData.Apps.AppsExtendedEntry.Properties">
+            <summary>
+            Properties accessor
+            </summary>
+        </member>
         <member name="T:Google.GData.Apps.GoogleMailSettings.GoogleMailSettingsFeed">
             <summary>
             Feed API customization class for defining the Google Apps
@@ -1061,6 +1124,33 @@
             <summary>
             The nickname element in this entry.
             </summary>
+        </member>
+        <member name="T:Google.GData.Apps.AppsExtendedFeed">
+            <summary>
+            Feed API customization class for defining the Google Apps
+            Exteded feed.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Apps.AppsExtendedFeed.#ctor(System.Uri,Google.GData.Client.IService)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="uriBase">The uri for the migration feed.</param>
+            <param name="iService">The GoogleMailSettings service.</param>
+        </member>
+        <member name="M:Google.GData.Apps.AppsExtendedFeed.CreateFeedEntry">
+            <summary>
+            Overridden. Creates a new <code>AppsExtendedEntry</code>.
+            </summary>
+            <returns>the new <code>AppsExtendedEntry</code>.</returns>
+        </member>
+        <member name="M:Google.GData.Apps.AppsExtendedFeed.HandleExtensionElements(Google.GData.Client.ExtensionElementEventArgs,Google.GData.Client.AtomFeedParser)">
+            <summary>
+            Gets called after we handled the custom entry, to handle other
+            potential parsing tasks
+            </summary>
+            <param name="e"></param>
+            <param name="parser"></param>
         </member>
         <member name="T:Google.GData.Apps.EmailListRecipientEntry">
             <summary>
@@ -1284,6 +1374,181 @@
             <summary>
             Accessor for Reason.  This property contains a short
             explanation of the error that occurred.
+            </summary>
+        </member>
+        <member name="T:Google.GData.Apps.Groups.GroupsService">
+            <summary>
+            Base service for accessing Google Groups item feeds from the
+            Google Apps Google Groups API.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Apps.Groups.GroupsService.memberUriSuffix">
+            <summary>
+            URL suffixes for the Google Groups tasks
+            </summary>
+        </member>
+        <member name="M:Google.GData.Apps.Groups.GroupsService.#ctor(System.String,System.String)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="domain">The hosted domain in which the Google Groups are
+            being set up</param>
+            <param name="applicationName">The name of the client application 
+            using this service.</param>
+        </member>
+        <member name="M:Google.GData.Apps.Groups.GroupsService.QueryGroups(System.Uri)">
+            <summary>
+            overwritten Query method
+            </summary>
+            <param name="uri">The URI for the query</param>
+            <returns>the retrieved AppsExtendedFeed</returns>
+        </member>
+        <member name="M:Google.GData.Apps.Groups.GroupsService.CreateGroup(System.String,System.String,System.String,System.String)">
+            <summary>
+            Creates a new group
+            </summary>
+            <param name="groupId">The groupId (required) argument identifies the ID of the new group.</param>
+            <param name="groupName">The groupName (required) argument identifies the name of the group to 
+            which the address is being added.</param>
+            <param name="description">The description argument provides a general description of the group.</param>
+            <param name="emailPermission">The emailPermission argument sets the permissions level of the group.</param>
+            <returns>a <code>AppsExtendedEntry</code> containing the results of the
+            creation</returns>
+        </member>
+        <member name="M:Google.GData.Apps.Groups.GroupsService.UpdateGroup(System.String,System.String,System.String,System.String)">
+            <summary>
+            Updates a group
+            </summary>
+            <param name="groupId">The groupId (required) argument identifies the ID of the new group.</param>
+            <param name="groupName">The groupName (required) argument identifies the name of the group to 
+            which the address is being added.</param>
+            <param name="description">The description argument provides a general description of the group.</param>
+            <param name="emailPermission">The emailPermission argument sets the permissions level of the group.</param>
+            <returns>a <code>AppsExtendedEntry</code> containing the results of the
+            update</returns>
+        </member>
+        <member name="M:Google.GData.Apps.Groups.GroupsService.RetrieveGroup(System.String)">
+            <summary>
+            Retrieves a group by its groupId
+            </summary>
+            <param name="groupId">The groupId argument identifies the group</param>       
+            <returns>a <code>AppsExtendedEntry</code> containing the results of the
+            query</returns>
+        </member>
+        <member name="M:Google.GData.Apps.Groups.GroupsService.RetrieveAllGroups">
+            <summary>
+            Retrieves all the groups
+            </summary>      
+            <returns>a <code>AppsExtendedFeed</code> containing all the <code>AppsExtendedEntry</code>
+            from the Domain</returns>
+        </member>
+        <member name="M:Google.GData.Apps.Groups.GroupsService.RetrievePageOfGroups(System.String)">
+            <summary>
+            Retrieves a page from all the groups
+            </summary>
+            <param name="startKey">resume key from the previous response (used for pagination)</param>
+            <returns>a <code>AppsExtendedFeed</code> containing all the <code>AppsExtendedEntry</code>
+            from the Domain</returns>
+        </member>
+        <member name="M:Google.GData.Apps.Groups.GroupsService.RetrieveGroups(System.String,System.Boolean)">
+            <summary>
+            Retrieves groups of a member or groups of another group.
+            </summary>
+            <param name="memberId">username or groupId to retrieve the groups</param>
+            <param name="directOnly">retrieve groups where the memberId is direct member or not</param>
+            <returns>a <code>AppsExtendedFeed</code> containing all the <code>AppsExtendedEntry</code>
+            from the Domain</returns>
+        </member>
+        <member name="M:Google.GData.Apps.Groups.GroupsService.DeleteGroup(System.String)">
+            <summary>
+            Deletes a group using its Id.
+            </summary>
+            <param name="groupId">Groups's id</param>
+        </member>
+        <member name="M:Google.GData.Apps.Groups.GroupsService.AddMemberToGroup(System.String,System.String)">
+            <summary>
+            Adds a member to a group
+            </summary>
+            <param name="memberId">username or groupId to retrieve the groups</param>
+            <param name="groupId">Groups's id</param>
+            <returns>a <code>AppsExtendedEntry</code> containing the results of the
+            creation</returns>
+        </member>
+        <member name="M:Google.GData.Apps.Groups.GroupsService.RetrieveAllMembers(System.String)">
+            <summary>
+            Retrieves all members of the group
+            </summary>
+            <param name="groupId">Groups's id</param>
+            <param name="expandSubgroups">When set to false, will return only direct/immediate
+            members, as opposed to all transitive members.</param>
+            <returns>a <code>AppsExtendedFeed</code> containing all the <code>AppsExtendedEntry</code>
+            from the Domain</returns>
+        </member>
+        <member name="M:Google.GData.Apps.Groups.GroupsService.IsMember(System.String,System.String)">
+            <summary>
+            Checks if a user or a group is member of a group
+            </summary>
+            <param name="memberId">username or groupId to check</param>
+            <param name="groupId">Groups's id</param>
+            <returns>a <code>Boolean</code></returns>
+        </member>
+        <member name="M:Google.GData.Apps.Groups.GroupsService.RemoveMemberFromGroup(System.String,System.String)">
+            <summary>
+            Remove a member from a group
+            </summary>
+            <param name="memberId">username or groupId to remove</param>
+            <param name="groupId">Groups's id</param>
+        </member>
+        <member name="M:Google.GData.Apps.Groups.GroupsService.AddOwnerToGroup(System.String,System.String)">
+            <summary>
+            Adds an owner to a group
+            </summary>
+            <param name="email">owner's Email to add to the group</param>
+            <param name="groupId">Groups's id</param>
+            <returns>a <code>AppsExtendedEntry</code> containing the results of the
+            creation</returns>
+        </member>
+        <member name="M:Google.GData.Apps.Groups.GroupsService.RetrieveGroupOwners(System.String)">
+            <summary>
+            Retrieves all owners of the group
+            </summary>
+            <param name="groupId">Groups's id</param>
+            <returns>a <code>AppsExtendedFeed</code> containing all the <code>AppsExtendedEntry</code>
+            from the Domain</returns>
+        </member>
+        <member name="M:Google.GData.Apps.Groups.GroupsService.IsOwner(System.String,System.String)">
+            <summary>
+            Checks if a user or a group is owner of a group.
+            </summary>
+            <param name="email">owner's Email to check</param>
+            <param name="groupId">Groups's id</param>
+            <returns>a <code>Boolean</code></returns>
+        </member>
+        <member name="M:Google.GData.Apps.Groups.GroupsService.RemoveOwnerFromGroup(System.String,System.String)">
+            <summary>
+            Remove a owner from a group.
+            </summary>
+            <param name="email">owner's Email to remove</param>
+            <param name="groupId">Groups's id</param>
+        </member>
+        <member name="M:Google.GData.Apps.Groups.GroupsService.OnParsedNewGroupsItemEntry(System.Object,Google.GData.Client.FeedParserEventArgs)">
+            <summary>
+            Event handler. Called when a new Google Groups entry is parsed.
+            </summary>
+            <param name="sender">the object that's sending the evet</param>
+            <param name="e">FeedParserEventArguments, holds the feedentry</param>
+        </member>
+        <member name="M:Google.GData.Apps.Groups.GroupsService.OnNewFeed(System.Object,Google.GData.Client.ServiceEventArgs)">
+            <summary>
+            Overridden so that new feeds are returned as <code>GoogleMailSettingsFeed</code>s
+            instead of base <code>AtomFeed</code>s.
+            </summary>
+            <param name="sender"> the object which sent the event</param>
+            <param name="e">FeedParserEventArguments, holds the FeedEntry</param> 
+        </member>
+        <member name="P:Google.GData.Apps.Groups.GroupsService.Domain">
+            <summary>
+            Accessor for Domain property.
             </summary>
         </member>
         <member name="T:Google.GData.Apps.GoogleMailSettings.GoogleMailSettingsEntry">

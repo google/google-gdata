@@ -671,7 +671,7 @@ namespace Google.YouTube
         {
             if (this.Settings != null)
             {
-                ActivitiesQuery q = new ActivitiesQuery(this.Settings.Credentials.Username);
+                ActivitiesQuery q = new ActivitiesQuery();
                 q.ModifiedSince = since; 
                 PrepareQuery(q);
                 return PrepareFeed<Activity>(q);             
