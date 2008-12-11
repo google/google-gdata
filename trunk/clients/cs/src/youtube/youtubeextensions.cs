@@ -82,22 +82,22 @@ namespace Google.GData.YouTube {
         /// <summary>
         /// string for the user rated category term
         /// </summary>
-        public const string UserRatedCategory = "user_rated";
+        public const string VideoRatedCategory = "video_rated";
 
         /// <summary>
         /// string for the user shared category term
         /// </summary>
-        public const string UserSharedCategory = "user_shared";
+        public const string VideoSharedCategory = "video_shared";
 
         /// <summary>
         /// string for the user uploaded category term
         /// </summary>
-        public const string UserUploadedCategory = "user_uploaded";
+        public const string VideoUploadedCategory = "video_uploaded";
 
         /// <summary>
         /// string for the user favorited category term
         /// </summary>
-        public const string UserFavoritedCategory = "user_favorited";
+        public const string VideoFavoritedCategory = "video_favorited";
 
 
         /// <summary>

@@ -442,9 +442,9 @@
             <param name="baseObject">the <code>AtomBase</code> object,
             e.g. <code>MailItemEntry</code> or <code>MailItemFeed</code></param>
         </member>
-        <member name="M:Google.GData.Extensions.Apps.GAppsExtensions.AddGoogleMailSettingsItemExtensions(Google.GData.Client.AtomBase)">
+        <member name="M:Google.GData.Extensions.Apps.GAppsExtensions.AddPropertyElementExtensions(Google.GData.Client.AtomBase)">
             <summary>
-            Declares Google Mail Settings item extension elements for an atom base object.
+            Declares Google item extension elements for an atom base object.
             </summary>
             <param name="baseObject">the <code>AtomBase</code> object,
             e.g. <code>MailItemEntry</code> or <code>MailItemFeed</code></param>
@@ -649,6 +649,11 @@
         <member name="T:Google.GData.Extensions.Apps.AppsGoogleMailSettingsNameTable">
             <summary>
             Name table for Google Apps extensions specific to the Google Mail Settings API.
+            </summary>
+        </member>
+        <member name="T:Google.GData.Extensions.Apps.AppsGroupsNameTable">
+            <summary>
+            Name table for Google Apps extensions specific to the Groups Provisioning
             </summary>
         </member>
         <member name="T:Google.GData.Extensions.Apps.EmailListElement">

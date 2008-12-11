@@ -652,7 +652,6 @@ namespace Google.GData.Client.LiveTests
         [Test] public void YouTubeGetActivitiesTest()
         {
             ActivitiesQuery query = new ActivitiesQuery();
-            query.User = this.ytUser;
             YouTubeService service = new YouTubeService("NETUnittests", this.ytClient, this.ytDevKey);
 
             if (this.userName != null)
