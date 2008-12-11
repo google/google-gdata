@@ -37,15 +37,8 @@ using System.Runtime.InteropServices;
 
 [assembly: ComVisible(false)]
 [assembly: CLSCompliant(true)]
-
-
-
-#if PARTIALLY_TRUSTED
 [assembly:AllowPartiallyTrustedCallers]
 [assembly: AssemblyDescription("Release Build: This assembly is marked as partially trustable. Use on your webserver at your own risk")]
-#endif 
-
-
 
 
 //
