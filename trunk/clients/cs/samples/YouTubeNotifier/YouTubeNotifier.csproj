@@ -9,6 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>YouTubeNotifier</RootNamespace>
     <AssemblyName>YouTubeNotifier</AssemblyName>
+    <ApplicationIcon>ytfavicon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -82,6 +83,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Properties\gdata-youtube.png" />
+    <Content Include="ytfavicon.ico" />
     <None Include="Resources\ytfavicon.ico" />
     <None Include="Resources\gdata-youtube.png" />
   </ItemGroup>

@@ -28,7 +28,7 @@ namespace YouTubeNotifier
         private bool closeThis=false;
         private DateTime lastUpdate; 
 
-        private const string YTNOTIFIERKEY = "GoogleYouTubeNotifier";
+        private const string YTNOTIFIERKEY = "Software\\GoogleYouTubeNotifier";
         private const string YTCLIENTID = "ytapi-FrankMantek-TestaccountforGD-sjgv537n-0";
         private const string YTDEVKEY = "AI39si4v3E6oIYiI60ndCNDqnPP5lCqO28DSvvDPnQt-Mqia5uPz2e4E-gMSBVwHXwyn_LF1tWox4LyM-0YQd2o4i_3GcXxa2Q";
 
@@ -45,9 +45,12 @@ namespace YouTubeNotifier
             }
             else
             {
-                this.ButtonSaveSettings.Enabled = true;
-                this.isAuthenticated.Checked = true;
-                UpdateActivities();
+                if (this.authToken != null)
+                {
+                    this.ButtonSaveSettings.Enabled = true;
+                    this.isAuthenticated.Checked = true;
+                    UpdateActivities();
+                }
             }
             this.Text = AppTitle;
             this.refreshTimer.Interval = 10000; 
@@ -167,8 +170,6 @@ namespace YouTubeNotifier
                 ButtonSaveSettings.Enabled = true;
             else
                 ButtonSaveSettings.Enabled = false;
-
-            this.isAuthenticated.Checked = !ButtonSaveSettings.Enabled;
         }
 
         private void passWord_TextChanged(object sender, EventArgs e)
@@ -177,8 +178,6 @@ namespace YouTubeNotifier
                 ButtonSaveSettings.Enabled = true;
             else
                 ButtonSaveSettings.Enabled = false;
-            this.isAuthenticated.Checked = !ButtonSaveSettings.Enabled;
-
         }
 
         private void ButtonIgnore_Click(object sender, EventArgs e)
