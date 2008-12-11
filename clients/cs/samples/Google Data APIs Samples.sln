@@ -30,7 +30,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HealthTool", "health\Health
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gapps_google_mail_settings_sample", "gapps_google_mail_settings_sample\gapps_google_mail_settings_sample.csproj", "{9E0D8646-537A-4899-92F2-56A919F83C5E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YouTubeNofifier", "YouTubeNofifier\YouTubeNofifier.csproj", "{91B3DC78-1120-4803-A2D6-88753174F819}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YouTubeNotifier", "YouTubeNotifier\YouTubeNotifier.csproj", "{91B3DC78-1120-4803-A2D6-88753174F819}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

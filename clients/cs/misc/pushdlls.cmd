@@ -77,6 +77,7 @@ xcopy /y ..\samples\ExecRequest\bin\Release\*.exe ..\lib\Release\*.*
 xcopy /y ..\samples\PhotoBrowser\bin\Release\*.exe ..\lib\Release\*.*
 xcopy /y ..\samples\DocListUploader\bin\Release\*.exe ..\lib\Release\*.*
 xcopy /y ..\samples\health\bin\Release\*.exe ..\lib\Release\*.*
+xcopy /y ..\samples\YouTubeNotifier\bin\Release\*.exe ..\lib\Release\*.*
 
 
 
@@ -107,6 +108,12 @@ cd ..\lib\release\
 ilmerge Photobrowser.exe Google.GData.Client.Dll Google.GData.Extensions.Dll Google.GData.Photos.Dll /out:PhotoTool.exe
 del Photobrowser.exe
 del Phototool.pdb
+
+rem run ILMerge on YouTubeNotifier.exe
+ilmerge YouTubeNotifier.exe Google.GData.Client.Dll Google.GData.Extensions.Dll Google.GData.YouTube.Dll /out:Ytn.exe
+del YouTubeNotifier.exe
+del YouTubeNotifier.pdb
+
 cd .\..\..\misc
 
 
