@@ -128,7 +128,7 @@ public static class ListVideos
 
         try
         {
-            feed = request.GetFeed<Video>(q);
+            feed = request.Get<Video>(q);
         }
         catch (GDataRequestException gdre)
         {
