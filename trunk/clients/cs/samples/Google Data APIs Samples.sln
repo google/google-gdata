@@ -30,6 +30,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HealthTool", "health\Health
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gapps_google_mail_settings_sample", "gapps_google_mail_settings_sample\gapps_google_mail_settings_sample.csproj", "{9E0D8646-537A-4899-92F2-56A919F83C5E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YouTubeNofifier", "YouTubeNofifier\YouTubeNofifier.csproj", "{91B3DC78-1120-4803-A2D6-88753174F819}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		ASP|Any CPU = ASP|Any CPU
@@ -158,6 +160,14 @@ Global
 		{9E0D8646-537A-4899-92F2-56A919F83C5E}.DocListUploader - Release|Any CPU.Build.0 = Release|Any CPU
 		{9E0D8646-537A-4899-92F2-56A919F83C5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9E0D8646-537A-4899-92F2-56A919F83C5E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91B3DC78-1120-4803-A2D6-88753174F819}.ASP|Any CPU.ActiveCfg = Release|Any CPU
+		{91B3DC78-1120-4803-A2D6-88753174F819}.ASP|Any CPU.Build.0 = Release|Any CPU
+		{91B3DC78-1120-4803-A2D6-88753174F819}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91B3DC78-1120-4803-A2D6-88753174F819}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91B3DC78-1120-4803-A2D6-88753174F819}.DocListUploader - Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91B3DC78-1120-4803-A2D6-88753174F819}.DocListUploader - Release|Any CPU.Build.0 = Release|Any CPU
+		{91B3DC78-1120-4803-A2D6-88753174F819}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91B3DC78-1120-4803-A2D6-88753174F819}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -96,6 +96,12 @@ xcopy /y ..\src\VS2005\youtube\bin\*.xml ..\docs\*.*
 xcopy /y ..\src\VS2005\ghealth\bin\*.xml ..\docs\*.*
 xcopy /y ..\src\VS2005\blogger\bin\*.xml ..\docs\*.*
 
+#copy the Merge module files
+
+xcopy /y ..\src\VS2005\CoreMergeModule\Release\*.msm ..\lib\MergeModules\*.*
+xcopy /y ..\src\VS2005\YouTubeMergeModule\Release\*.msm ..\lib\MergeModules\*.*
+
+
 rem run ILMerge on PhotoBrowser.exe
 cd ..\lib\release\
 ilmerge Photobrowser.exe Google.GData.Client.Dll Google.GData.Extensions.Dll Google.GData.Photos.Dll /out:PhotoTool.exe
