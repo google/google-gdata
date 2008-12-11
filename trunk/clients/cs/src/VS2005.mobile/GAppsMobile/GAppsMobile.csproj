@@ -56,6 +56,12 @@
     <Compile Include="..\..\gapps\appsexception.cs">
       <Link>appsexception.cs</Link>
     </Compile>
+    <Compile Include="..\..\gapps\appsextendedentry.cs">
+      <Link>appsextendedentry.cs</Link>
+    </Compile>
+    <Compile Include="..\..\gapps\appsextendedfeed.cs">
+      <Link>appsextendedfeed.cs</Link>
+    </Compile>
     <Compile Include="..\..\gapps\appsservice.cs">
       <Link>appsservice.cs</Link>
     </Compile>
@@ -85,6 +91,9 @@
     </Compile>
     <Compile Include="..\..\gapps\emaillistservice.cs">
       <Link>emaillistservice.cs</Link>
+    </Compile>
+    <Compile Include="..\..\gapps\groupsservice.cs">
+      <Link>groupsservice.cs</Link>
     </Compile>
     <Compile Include="..\..\gapps\mailitementry.cs">
       <Link>mailitementry.cs</Link>

@@ -885,8 +885,6 @@ namespace Google.GData.YouTube {
     //////////////////////////////////////////////////////////////////////
     public class ActivitiesQuery : FeedQuery
     {
-
-        private string userName;
         
         /// <summary>
         /// youTube events feed for friends activities  
