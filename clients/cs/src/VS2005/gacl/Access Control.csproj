@@ -105,12 +105,11 @@
     <Reference Include="System.Xml">
       <Name>System.XML</Name>
     </Reference>
-    <ProjectReference Include="..\gdata\Core Client.csproj">
-      <Name>Core Client</Name>
+    <ProjectReference Include="..\..\core\Core Client.csproj">
       <Project>{B6F6D938-0D45-42BA-8A67-55D92EF03995}</Project>
-      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+      <Name>Core Client</Name>
     </ProjectReference>
-    <ProjectReference Include="..\gextension\Common Data Extensions.csproj">
+    <ProjectReference Include="..\..\extensions\Common Data Extensions.csproj">
       <Name>Common Data Extensions</Name>
       <Project>{21BCB644-F9C3-4ADC-8BE1-4E55C6565011}</Project>
       <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>

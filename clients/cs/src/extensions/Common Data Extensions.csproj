@@ -3,21 +3,21 @@
     <ProjectType>Local</ProjectType>
     <ProductVersion>8.0.50727</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{2C497F73-7C10-4DC6-A680-CAA9DF442E91}</ProjectGuid>
+    <ProjectGuid>{21BCB644-F9C3-4ADC-8BE1-4E55C6565011}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ApplicationIcon>
     </ApplicationIcon>
     <AssemblyKeyContainerName>
     </AssemblyKeyContainerName>
-    <AssemblyName>Google.GData.YouTube</AssemblyName>
-    <AssemblyOriginatorKeyFile>youtube.sn</AssemblyOriginatorKeyFile>
+    <AssemblyName>Google.GData.Extensions</AssemblyName>
+    <AssemblyOriginatorKeyFile>extensionkey.sn</AssemblyOriginatorKeyFile>
     <DefaultClientScript>JScript</DefaultClientScript>
     <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
     <DefaultTargetSchema>IE50</DefaultTargetSchema>
     <DelaySign>false</DelaySign>
     <OutputType>Library</OutputType>
-    <RootNamespace>Google.GData.YouTube</RootNamespace>
+    <RootNamespace>Google.GData.Extensions</RootNamespace>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
     <StartupObject>
     </StartupObject>
@@ -57,8 +57,9 @@
     <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
     <ConfigurationOverrideFile>
     </ConfigurationOverrideFile>
-    <DefineConstants>TRACE</DefineConstants>
-    <DocumentationFile>bin\youtube.xml</DocumentationFile>
+    <DefineConstants>
+    </DefineConstants>
+    <DocumentationFile>bin\gextension.xml</DocumentationFile>
     <DebugSymbols>false</DebugSymbols>
     <FileAlignment>4096</FileAlignment>
     <NoStdLib>false</NoStdLib>
@@ -73,16 +74,15 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ASP|AnyCPU' ">
-    <OutputPath>bin\ASP\</OutputPath>
+    <OutputPath>bin\asp\</OutputPath>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <BaseAddress>285212672</BaseAddress>
     <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
     <ConfigurationOverrideFile>
     </ConfigurationOverrideFile>
     <DefineConstants>PARTIALLY_TRUSTED</DefineConstants>
-    <DocumentationFile>
-    </DocumentationFile>
-    <DebugSymbols>true</DebugSymbols>
+    <DocumentationFile>bin\gextension.xml</DocumentationFile>
+    <DebugSymbols>false</DebugSymbols>
     <FileAlignment>4096</FileAlignment>
     <NoStdLib>false</NoStdLib>
     <NoWarn>
@@ -91,8 +91,8 @@
     <RegisterForComInterop>false</RegisterForComInterop>
     <RemoveIntegerChecks>false</RemoveIntegerChecks>
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
-    <WarningLevel>1</WarningLevel>
-    <DebugType>full</DebugType>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>none</DebugType>
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
@@ -105,99 +105,43 @@
     <Reference Include="System.Xml">
       <Name>System.XML</Name>
     </Reference>
-    <ProjectReference Include="..\gdata\Core Client.csproj">
-      <Name>Core Client</Name>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="extensionkey.sn" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\core\Core Client.csproj">
       <Project>{B6F6D938-0D45-42BA-8A67-55D92EF03995}</Project>
-      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
-    </ProjectReference>
-    <ProjectReference Include="..\gextension\Common Data Extensions.csproj">
-      <Name>Common Data Extensions</Name>
-      <Project>{21BCB644-F9C3-4ADC-8BE1-4E55C6565011}</Project>
-      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+      <Name>Core Client</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\..\version\AssemblyVersion.cs">
+    <Compile Include="..\..\version\AssemblyVersion.cs">
       <Link>AssemblyVersion.cs</Link>
     </Compile>
-    <Compile Include="..\..\youtube\activitiesfeed.cs">
-      <Link>activitiesfeed.cs</Link>
-    </Compile>
-    <Compile Include="..\..\youtube\activityentry.cs">
-      <Link>activityentry.cs</Link>
-    </Compile>
-    <Compile Include="..\..\youtube\AssemblyInfo.cs">
-      <Link>AssemblyInfo.cs</Link>
-    </Compile>
-    <Compile Include="..\..\youtube\commententry.cs">
-      <Link>commententry.cs</Link>
-    </Compile>
-    <Compile Include="..\..\youtube\commentsfeed.cs">
-      <Link>commentsfeed.cs</Link>
-    </Compile>
-    <Compile Include="..\..\youtube\complaintentry.cs">
-      <Link>complaintentry.cs</Link>
-    </Compile>
-    <Compile Include="..\..\youtube\friendsentry.cs">
-      <Link>friendsentry.cs</Link>
-    </Compile>
-    <Compile Include="..\..\youtube\friendsfeed.cs">
-      <Link>friendsfeed.cs</Link>
-    </Compile>
-    <Compile Include="..\..\youtube\messageentry.cs">
-      <Link>messageentry.cs</Link>
-    </Compile>
-    <Compile Include="..\..\youtube\messagefeed.cs">
-      <Link>messagefeed.cs</Link>
-    </Compile>
-    <Compile Include="..\..\youtube\playlistentry.cs">
-      <Link>playlistentry.cs</Link>
-    </Compile>
-    <Compile Include="..\..\youtube\playlistfeed.cs">
-      <Link>playlistfeed.cs</Link>
-    </Compile>
-    <Compile Include="..\..\youtube\playlistsentry.cs">
-      <Link>playlistsentry.cs</Link>
-    </Compile>
-    <Compile Include="..\..\youtube\playlistsfeed.cs">
-      <Link>playlistsfeed.cs</Link>
-    </Compile>
-    <Compile Include="..\..\youtube\profileentry.cs">
-      <Link>profileentry.cs</Link>
-    </Compile>
-    <Compile Include="..\..\youtube\profilefeed.cs">
-      <Link>profilefeed.cs</Link>
-    </Compile>
-    <Compile Include="..\..\youtube\subscriptionentry.cs">
-      <Link>subscriptionentry.cs</Link>
-    </Compile>
-    <Compile Include="..\..\youtube\subscriptionfeed.cs">
-      <Link>subscriptionfeed.cs</Link>
-    </Compile>
-    <Compile Include="..\..\youtube\youtubebaseentry.cs">
-      <Link>youtubebaseentry.cs</Link>
-    </Compile>
-    <Compile Include="..\..\youtube\youtubeentry.cs">
-      <Link>youtubeentry.cs</Link>
-    </Compile>
-    <Compile Include="..\..\youtube\youtubeextensions.cs">
-      <Link>youtubeextensions.cs</Link>
-    </Compile>
-    <Compile Include="..\..\youtube\youtubefeed.cs">
-      <Link>youtubefeed.cs</Link>
-    </Compile>
-    <Compile Include="..\..\youtube\youtubequery.cs">
-      <Link>youtubequery.cs</Link>
-    </Compile>
-    <Compile Include="..\..\youtube\youtuberequest.cs">
-      <Link>youtuberequest.cs</Link>
-    </Compile>
-    <Compile Include="..\..\youtube\youtubeservice.cs">
-      <Link>youtubeservice.cs</Link>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="youtube.sn" />
+    <Compile Include="apps.cs" />
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="comments.cs" />
+    <Compile Include="contacts.cs" />
+    <Compile Include="entrylink.cs" />
+    <Compile Include="enumconstruct.cs" />
+    <Compile Include="exif.cs" />
+    <Compile Include="extcollections.cs" />
+    <Compile Include="extended.cs" />
+    <Compile Include="feedlink.cs" />
+    <Compile Include="gdatanametable.cs" />
+    <Compile Include="georsswhere.cs" />
+    <Compile Include="labelcollection.cs" />
+    <Compile Include="mailitempropertycollection.cs" />
+    <Compile Include="mediarss.cs" />
+    <Compile Include="originalevent.cs" />
+    <Compile Include="ratings.cs" />
+    <Compile Include="recurexception.cs" />
+    <Compile Include="recurrence.cs" />
+    <Compile Include="reminder.cs" />
+    <Compile Include="when.cs" />
+    <Compile Include="where.cs" />
+    <Compile Include="who.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
