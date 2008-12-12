@@ -105,47 +105,29 @@
     <Reference Include="System.Xml">
       <Name>System.XML</Name>
     </Reference>
-    <ProjectReference Include="..\..\core\Core Client.csproj">
+    <ProjectReference Include="..\core\Core Client.csproj">
       <Project>{B6F6D938-0D45-42BA-8A67-55D92EF03995}</Project>
       <Name>Core Client</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\extensions\Common Data Extensions.csproj">
+    <ProjectReference Include="..\extensions\Common Data Extensions.csproj">
       <Name>Common Data Extensions</Name>
       <Project>{21BCB644-F9C3-4ADC-8BE1-4E55C6565011}</Project>
       <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\..\version\AssemblyVersion.cs">
-      <Link>AssemblyVersion.cs</Link>
-    </Compile>
-    <Compile Include="..\..\gacl\aclentry.cs">
-      <Link>aclentry.cs</Link>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="..\..\gacl\aclfeed.cs">
-      <Link>aclfeed.cs</Link>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="..\..\gacl\aclnamespace.cs">
-      <Link>aclnamespace.cs</Link>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="..\..\gacl\aclrole.cs">
-      <Link>aclrole.cs</Link>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="..\..\gacl\aclscope.cs">
-      <Link>aclscope.cs</Link>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="..\..\gacl\AssemblyInfo.cs">
-      <Link>AssemblyInfo.cs</Link>
-      <SubType>Code</SubType>
-    </Compile>
+    <None Include="gacl.sn" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="gacl.sn" />
+    <Compile Include="..\..\version\AssemblyVersion.cs">
+      <Link>AssemblyVersion.cs</Link>
+    </Compile>
+    <Compile Include="aclentry.cs" />
+    <Compile Include="aclfeed.cs" />
+    <Compile Include="aclnamespace.cs" />
+    <Compile Include="aclrole.cs" />
+    <Compile Include="aclscope.cs" />
+    <Compile Include="AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

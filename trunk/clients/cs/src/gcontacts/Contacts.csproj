@@ -49,37 +49,25 @@
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\core\Core Client.csproj">
+    <ProjectReference Include="..\core\Core Client.csproj">
       <Project>{B6F6D938-0D45-42BA-8A67-55D92EF03995}</Project>
       <Name>Core Client</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\extensions\Common Data Extensions.csproj">
+    <ProjectReference Include="..\extensions\Common Data Extensions.csproj">
       <Project>{21BCB644-F9C3-4ADC-8BE1-4E55C6565011}</Project>
       <Name>Common Data Extensions</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\..\version\AssemblyVersion.cs">
-      <Link>AssemblyVersion.cs</Link>
-    </Compile>
-    <Compile Include="..\..\gcontacts\AssemblyInfo.cs">
-      <Link>AssemblyInfo.cs</Link>
-    </Compile>
-    <Compile Include="..\..\gcontacts\contactentry.cs">
-      <Link>contactentry.cs</Link>
-    </Compile>
-    <Compile Include="..\..\gcontacts\contactfeed.cs">
-      <Link>contactfeed.cs</Link>
-    </Compile>
-    <Compile Include="..\..\gcontacts\contactquery.cs">
-      <Link>contactquery.cs</Link>
-    </Compile>
-    <Compile Include="..\..\gcontacts\contactservice.cs">
-      <Link>contactservice.cs</Link>
-    </Compile>
+    <None Include="contacts.sn" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="contacts.sn" />
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="AssemblyVersion.cs" />
+    <Compile Include="contactentry.cs" />
+    <Compile Include="contactfeed.cs" />
+    <Compile Include="contactquery.cs" />
+    <Compile Include="contactservice.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
