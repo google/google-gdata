@@ -3,21 +3,21 @@
     <ProjectType>Local</ProjectType>
     <ProductVersion>8.0.50727</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{6781DF3C-A44F-418B-989B-771D17937F91}</ProjectGuid>
+    <ProjectGuid>{EB301864-5CE6-4C63-A541-FE647F682D75}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ApplicationIcon>
     </ApplicationIcon>
     <AssemblyKeyContainerName>
     </AssemblyKeyContainerName>
-    <AssemblyName>Google.GData.Photos</AssemblyName>
-    <AssemblyOriginatorKeyFile>picasa.sn</AssemblyOriginatorKeyFile>
+    <AssemblyName>Google.GData.Health</AssemblyName>
+    <AssemblyOriginatorKeyFile>ghealth.sn</AssemblyOriginatorKeyFile>
     <DefaultClientScript>JScript</DefaultClientScript>
     <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
     <DefaultTargetSchema>IE50</DefaultTargetSchema>
     <DelaySign>false</DelaySign>
     <OutputType>Library</OutputType>
-    <RootNamespace>Google.GData.Photos</RootNamespace>
+    <RootNamespace>Google.GData.Health</RootNamespace>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
     <StartupObject>
     </StartupObject>
@@ -58,7 +58,7 @@
     <ConfigurationOverrideFile>
     </ConfigurationOverrideFile>
     <DefineConstants>TRACE</DefineConstants>
-    <DocumentationFile>bin\gphotos.xml</DocumentationFile>
+    <DocumentationFile>bin\health.xml</DocumentationFile>
     <DebugSymbols>false</DebugSymbols>
     <FileAlignment>4096</FileAlignment>
     <NoStdLib>false</NoStdLib>
@@ -105,67 +105,28 @@
     <Reference Include="System.Xml">
       <Name>System.XML</Name>
     </Reference>
-    <ProjectReference Include="..\..\core\Core Client.csproj">
+    <ProjectReference Include="..\core\Core Client.csproj">
       <Project>{B6F6D938-0D45-42BA-8A67-55D92EF03995}</Project>
       <Name>Core Client</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\extensions\Common Data Extensions.csproj">
+    <ProjectReference Include="..\extensions\Common Data Extensions.csproj">
       <Name>Common Data Extensions</Name>
       <Project>{21BCB644-F9C3-4ADC-8BE1-4E55C6565011}</Project>
       <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\..\version\AssemblyVersion.cs">
-      <Link>AssemblyVersion.cs</Link>
-    </Compile>
-    <Compile Include="..\..\gphotos\albumentry.cs">
-      <Link>albumentry.cs</Link>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="..\..\gphotos\AssemblyInfo.cs">
-      <Link>AssemblyInfo.cs</Link>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="..\..\gphotos\commententry.cs">
-      <Link>commententry.cs</Link>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="..\..\gphotos\gextphotos.cs">
-      <Link>gextphotos.cs</Link>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="..\..\gphotos\kindsquery.cs">
-      <Link>kindsquery.cs</Link>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="..\..\gphotos\photoentry.cs">
-      <Link>photoentry.cs</Link>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="..\..\gphotos\picasaentry.cs">
-      <Link>picasaentry.cs</Link>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="..\..\gphotos\picasafeed.cs">
-      <Link>picasafeed.cs</Link>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="..\..\gphotos\picasaquery.cs">
-      <Link>picasaquery.cs</Link>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="..\..\gphotos\picasaservice.cs">
-      <Link>picasaservice.cs</Link>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="..\..\gphotos\tagentry.cs">
-      <Link>tagentry.cs</Link>
-      <SubType>Code</SubType>
-    </Compile>
+    <None Include="ghealth.sn" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="picasa.sn" />
+    <Compile Include="..\..\version\AssemblyVersion.cs">
+      <Link>AssemblyVersion.cs</Link>
+    </Compile>
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="healthentry.cs" />
+    <Compile Include="healthfeed.cs" />
+    <Compile Include="healthquery.cs" />
+    <Compile Include="healthservice.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
