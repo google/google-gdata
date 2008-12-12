@@ -60,13 +60,6 @@ namespace YouTubeNotifier.Properties {
             }
         }
         
-        internal static System.Drawing.Bitmap gdata_youtube {
-            get {
-                object obj = ResourceManager.GetObject("gdata_youtube", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
         internal static System.Drawing.Icon ytfavicon {
             get {
                 object obj = ResourceManager.GetObject("ytfavicon", resourceCulture);

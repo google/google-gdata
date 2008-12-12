@@ -85,7 +85,6 @@
     <Content Include="Properties\gdata-youtube.png" />
     <Content Include="ytfavicon.ico" />
     <None Include="Resources\ytfavicon.ico" />
-    <None Include="Resources\gdata-youtube.png" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
