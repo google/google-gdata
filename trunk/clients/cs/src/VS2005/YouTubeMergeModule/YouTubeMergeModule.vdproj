@@ -15,44 +15,44 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_37910C580E354033AD467283330508C6"
+        "MsmKey" = "8:_5A943AD2E32AEED95F3BF29D99D4FC0E"
+        "OwnerKey" = "8:_E05AF71925AA4B81BBD9C00C1109B6DE"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_E05AF71925AA4B81BBD9C00C1109B6DE"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_753ECBAB031AB8FEF1FFF13DF2BCEB03"
-        "OwnerKey" = "8:_37910C580E354033AD467283330508C6"
+        "MsmKey" = "8:_F591B1BDB2015F4239F7C4C6175CE115"
+        "OwnerKey" = "8:_E05AF71925AA4B81BBD9C00C1109B6DE"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_8472148E278FB176DDFD8856C205633D"
-        "OwnerKey" = "8:_37910C580E354033AD467283330508C6"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_8472148E278FB176DDFD8856C205633D"
-        "OwnerKey" = "8:_753ECBAB031AB8FEF1FFF13DF2BCEB03"
+        "MsmKey" = "8:_F591B1BDB2015F4239F7C4C6175CE115"
+        "OwnerKey" = "8:_5A943AD2E32AEED95F3BF29D99D4FC0E"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_753ECBAB031AB8FEF1FFF13DF2BCEB03"
+        "OwnerKey" = "8:_F591B1BDB2015F4239F7C4C6175CE115"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_8472148E278FB176DDFD8856C205633D"
+        "OwnerKey" = "8:_E05AF71925AA4B81BBD9C00C1109B6DE"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_37910C580E354033AD467283330508C6"
+        "OwnerKey" = "8:_5A943AD2E32AEED95F3BF29D99D4FC0E"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -73,6 +73,17 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:1"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:FALSE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                }
+            }
         }
         "Release"
         {
@@ -89,6 +100,17 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:1"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:FALSE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                }
+            }
         }
     }
     "Deployable"
@@ -104,14 +126,14 @@
         }
         "File"
         {
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_753ECBAB031AB8FEF1FFF13DF2BCEB03"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_5A943AD2E32AEED95F3BF29D99D4FC0E"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Google.GData.Extensions, Version=1.3.0.25951, Culture=neutral, PublicKeyToken=0b4c5df2ebf20876, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Google.GData.Extensions, Version=1.3.0.27084, Culture=neutral, PublicKeyToken=0b4c5df2ebf20876, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_753ECBAB031AB8FEF1FFF13DF2BCEB03"
+                    "_5A943AD2E32AEED95F3BF29D99D4FC0E"
                     {
                     "Name" = "8:Google.GData.Extensions.dll"
                     "Attributes" = "3:512"
@@ -135,14 +157,14 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_8472148E278FB176DDFD8856C205633D"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_F591B1BDB2015F4239F7C4C6175CE115"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Google.GData.Client, Version=1.3.0.25950, Culture=neutral, PublicKeyToken=04a59ca9b0273830, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Google.GData.Client, Version=1.3.0.27084, Culture=neutral, PublicKeyToken=04a59ca9b0273830, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_8472148E278FB176DDFD8856C205633D"
+                    "_F591B1BDB2015F4239F7C4C6175CE115"
                     {
                     "Name" = "8:Google.GData.Client.dll"
                     "Attributes" = "3:512"
@@ -211,7 +233,7 @@
         }
         "ProjectOutput"
         {
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_37910C580E354033AD467283330508C6"
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_E05AF71925AA4B81BBD9C00C1109B6DE"
             {
             "SourcePath" = "8:..\\youtube\\obj\\Release\\Google.GData.YouTube.dll"
             "TargetName" = "8:"
@@ -231,7 +253,7 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             "ProjectOutputGroupRegister" = "3:1"
-            "OutputConfiguration" = "8:Release|Any CPU"
+            "OutputConfiguration" = "8:"
             "OutputGroupCanonicalName" = "8:Built"
             "OutputProjectGuid" = "8:{2C497F73-7C10-4DC6-A680-CAA9DF442E91}"
             "ShowKeyOutput" = "11:FALSE"
