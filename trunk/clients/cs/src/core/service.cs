@@ -510,7 +510,7 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         public TEntry  Update<TEntry>(TEntry entry) where TEntry : AtomEntry
         {
-            return this.Update(entry) as TEntry;
+            return this.Update(entry, null) as TEntry;
         }
         /////////////////////////////////////////////////////////////////////////////
 
