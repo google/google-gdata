@@ -141,7 +141,6 @@
     <Compile Include="basenametable.cs" />
     <Compile Include="collections.cs" />
     <Compile Include="documentquery.cs" />
-    <Compile Include="etag.cs" />
     <Compile Include="exceptions.cs" />
     <Compile Include="extensionbase.cs" />
     <Compile Include="feedconstants.cs" />
