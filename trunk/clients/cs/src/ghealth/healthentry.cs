@@ -168,15 +168,23 @@ namespace Google.GData.Health {
         {
             get
             {
-                Object obj = FindExtension(HealthNameTable.ContinuityOfCareElement, HealthNameTable.CCR);
-                return obj as XmlNode;
+                IExtensionElementFactory factory = FindExtension(HealthNameTable.ContinuityOfCareElement, HealthNameTable.CCR);
+                if (factory != null)
+                {
+                    XmlExtension extension = factory as XmlExtension;
+                    if (extension != null) 
+                    {
+                        return extension.Node;
+                    }
+                    
+                }
+                return null;
             }
 
             set 
             {
                 ReplaceExtension(HealthNameTable.ContinuityOfCareElement, HealthNameTable.CCR, new XmlExtension(value));
             }
-
         }
     }
 

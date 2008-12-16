@@ -62,8 +62,10 @@
     <None Include="contacts.sn" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\version\AssemblyVersion.cs">
+      <Link>AssemblyVersion.cs</Link>
+    </Compile>
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="AssemblyVersion.cs" />
     <Compile Include="contactentry.cs" />
     <Compile Include="contactfeed.cs" />
     <Compile Include="contactquery.cs" />

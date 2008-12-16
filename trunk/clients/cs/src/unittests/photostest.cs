@@ -238,7 +238,7 @@ namespace Google.GData.Client.LiveTests
                     Assert.IsTrue(album != null, "should be an album there");
                     Assert.IsTrue(album.FeedUri != null, "the albumfeed needs a feed URI, no photo post on that one");
                     Uri postUri = new Uri(album.FeedUri.ToString());
-                    FileStream fs = File.OpenRead("testnet.jpg");
+                    FileStream fs = File.OpenRead(this.resourcePath + "testnet.jpg");
                     PicasaEntry entry = service.Insert(postUri, fs, "image/jpeg", "testnet.jpg") as PicasaEntry;
                     Assert.IsTrue(entry.IsPhoto, "the new entry should be a photo entry");
 
@@ -287,7 +287,7 @@ namespace Google.GData.Client.LiveTests
                     newPhoto.Title.Text = "this is a title";
                     newPhoto.Summary.Text = "A lovely shot in the ocean";
 
-                    newPhoto.MediaSource = new MediaFileSource("testnet.jpg", "image/jpeg");
+                    newPhoto.MediaSource = new MediaFileSource(this.resourcePath + "testnet.jpg", "image/jpeg");
 
                     Uri postUri = new Uri(album.FeedUri.ToString());
 
@@ -297,7 +297,7 @@ namespace Google.GData.Client.LiveTests
 
                     entry.Title.Text = "This is a new Title";
                     entry.Summary.Text = "A lovely shot in the shade";
-                    entry.MediaSource = new MediaFileSource("testnet.jpg", "image/jpeg");
+                    entry.MediaSource = new MediaFileSource(this.resourcePath + "testnet.jpg", "image/jpeg");
                     PicasaEntry updatedEntry = entry.Update() as PicasaEntry;
                     Assert.IsTrue(updatedEntry.IsPhoto, "the new entry should be a photo entry");
                     Assert.IsTrue(updatedEntry.Title.Text == "This is a new Title", "The titles should be identical");

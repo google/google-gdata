@@ -44,6 +44,16 @@
         </li>
         <ul>
             <li>
+                Fixed issue 198. HealthEntry.CCR returned null, as a wrong cast 
+                after the recent refactory that happened to the extensions 
+                returned always null. 
+                
+            </li>
+            <li>
+                Fixed issue 195. Service.Update could call itself, resulting in 
+                recursion.
+            </li>
+            <li>
                 Fixed bug 194. CreatePicasaUri was confusing because it used the 
                 albumname as a parameter compared to an albumid. Changed to now 
                 use an AlbumID.

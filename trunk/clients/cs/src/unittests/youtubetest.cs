@@ -270,7 +270,7 @@ namespace Google.GData.Client.LiveTests
             Assert.AreEqual(newEntry.Media.Keywords.Value, anotherEntry.Media.Keywords.Value, "Keywords should be equal");
 
             // now update the video
-            anotherEntry.MediaSource = new MediaFileSource("test.mp4", "video/mp4");
+            anotherEntry.MediaSource = new MediaFileSource(this.resourcePath + "test.mp4", "video/mp4");
             anotherEntry.Update();
 
 
@@ -370,9 +370,9 @@ namespace Google.GData.Client.LiveTests
             // this will get you just the first 25 videos. 
             foreach (Video v in feed.Entries)
             {
-                Assert.IsTrue(v.AtomEntry != null);
-                Assert.IsTrue(v.Title != null);
-                Assert.IsTrue(v.VideoId != null); 
+                Assert.IsTrue(v.AtomEntry != null, "There should be an atomentry");
+                Assert.IsTrue(v.Title != null, "There should be a title");
+                Assert.IsTrue(v.VideoId != null, "There should be a videoID");
             }
 
             Feed<Video> sfeed = f.GetStandardFeed(YouTubeQuery.MostPopular);
@@ -381,19 +381,20 @@ namespace Google.GData.Client.LiveTests
             // this loop get's you all videos in the mostpopular video feeed
             foreach (Video v in sfeed.Entries)
             {
-                Assert.IsTrue(v.AtomEntry != null);
-                Assert.IsTrue(v.Title != null);
-                Assert.IsTrue(v.VideoId != null); 
+                Assert.IsTrue(v.AtomEntry != null, "There should be an atomentry");
+                Assert.IsTrue(v.Title != null, "There should be a title");
+                Assert.IsTrue(v.VideoId != null, "There should be a videoID");
                 iCountOne++; 
             }
             int iCountTwo = 0; 
-            sfeed.AutoPaging = true; 
+            sfeed.AutoPaging = true;
+            sfeed.Maximum = 50; 
+
             foreach (Video v in sfeed.Entries)
             {
-                Assert.IsTrue(v.AtomEntry != null);
-                Assert.IsTrue(v.Title != null);
-                Assert.IsTrue(v.VideoId != null); 
-                Assert.IsTrue(v.WatchPage != null);
+                Assert.IsTrue(v.AtomEntry != null, "There should be an atomentry");
+                Assert.IsTrue(v.Title != null, "There should be a title");
+                Assert.IsTrue(v.VideoId != null, "There should be a videoID");
                 iCountTwo++; 
             }
             Assert.IsTrue(iCountTwo > iCountOne); 
@@ -421,10 +422,11 @@ namespace Google.GData.Client.LiveTests
                 Feed<Video> list = f.GetPlaylist(p);
                 foreach (Video v in list.Entries )
                 {
-                    Assert.IsTrue(v.AtomEntry != null);
-                    Assert.IsTrue(v.Title != null);
-                    Assert.IsTrue(v.VideoId != null); 
-                    Assert.IsTrue(v.WatchPage != null);
+                    Assert.IsTrue(v.AtomEntry != null, "There should be an atomentry");
+                    Assert.IsTrue(v.Title != null, "There should be a title");
+                    Assert.IsTrue(v.VideoId != null, "There should be a videoID"); 
+                    // there might be no watchpage (not published yet)
+                    // Assert.IsTrue(v.WatchPage != null, "There should be a watchpage");
                 }
             }
         }
@@ -491,6 +493,7 @@ namespace Google.GData.Client.LiveTests
 
             YouTubeRequestSettings settings = new YouTubeRequestSettings("NETUnittests", this.ytClient, this.ytDevKey);
             settings.AutoPaging = true;
+            settings.Maximum = 50; 
 
             YouTubeRequest f = new YouTubeRequest(settings);
 
@@ -536,7 +539,7 @@ namespace Google.GData.Client.LiveTests
             Assert.AreEqual(updatedVideo.Description, newVideo.Description, "Description should be equal");
             Assert.AreEqual(updatedVideo.Keywords, newVideo.Keywords, "Keywords should be equal");
 
-            newVideo.YouTubeEntry.MediaSource = new MediaFileSource("test.mp4", "video/mp4");
+            newVideo.YouTubeEntry.MediaSource = new MediaFileSource(this.resourcePath + "test.mp4", "video/mp4");
             Video last = f.Update(updatedVideo);
             f.Delete(last);
         }
@@ -764,17 +767,23 @@ namespace Google.GData.Client.LiveTests
 
 
             // this returns the all activities for the last 1 minute, should be empty
-            Feed<Activity> lastmin = f.GetActivities(t);
-            int iCount = 0; 
 
-            foreach (Activity a in lastmin.Entries)
+            try
             {
-                iCount++;
+
+                Feed<Activity> lastmin = f.GetActivities(t);
+                int iCount = 0;
+
+                foreach (Activity a in lastmin.Entries)
+                {
+                    iCount++;
+                }
+                Assert.IsTrue(iCount == 0, "There should be no activity for the last minute");
             }
-            Assert.IsTrue(iCount==0, "There should be no activity for the last minute");
-
-            
-
+            catch (GDataNotModifiedException e)
+            {
+                Assert.IsTrue(e != null);
+            }
         }
         /////////////////////////////////////////////////////////////////////////////
 

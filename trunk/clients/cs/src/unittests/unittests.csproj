@@ -368,7 +368,6 @@
     <Compile Include="youtube\YouTubeQueryTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="batcherror.xml" />
     <Content Include="picasa\PicasaTests.csproj" />
   </ItemGroup>
   <ItemGroup>

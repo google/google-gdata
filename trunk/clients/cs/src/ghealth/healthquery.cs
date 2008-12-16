@@ -27,52 +27,35 @@ namespace Google.GData.Health {
 
     //////////////////////////////////////////////////////////////////////
     /// <summary>
-    /// Google Health supports the following subset of Google Data API query parameters:
-    /// q (only supported for the register feed)
-    /// start-index
-    /// max-results
-    /// published-min
-    /// published-max
-    /// updated-min
-    /// updated-max
+    /// <para>Google Health supports the following subset of Google Data API query parameters:</para>
+    /// <list type="bullet">
+    /// <item><description>q (only supported for the register feed)</description></item>
+    /// <item><description>start-index</description></item>
+    /// <item><description>max-results</description></item>
+    /// <item><description>published-min</description></item>
+    /// <item><description>published-max</description></item>
+    /// <item><description>updated-min</description></item>
+    /// <item><description>updated-max</description></item>
+    /// </list>
+    /// <para>
     /// Google Health also supports the following additional parameters:
-    /// Parameter	Meaning	             Notes
-    /// /category	Category filter.     Refer to the Google Data documentation for usage 
-    ///                                 information and category queries for specifics about the
-    ///                                 Google Health implementation of this parameter.
-    ///                                 For example:
-    ///         -/medication/{http://schemas.google.com/health/item}Lipitor max-results=10 will return the first 10 entries for the medication Lipitor.
-    /// digest=true May only be used on the profile feed. Returns content as an aggregation of all entries into a single CCR entry, 
-    ///             which contains the collection of enclosed entries.
-    ///             Refer to Digest parameter for usage information.
-    ///             The default value is digest=false. You may set this to true or false.
-    ///             For example: http://www.google.com/health/feeds/profile/default?digest=true will return a digest version of the profile feed.
-    /// grouped=true    Returns a count of results per group. The default value is grouped=false. You may set this to true or false.
-    ///                 For example: ?grouped=true&amp;max-results-in-group=50 will return the first 50 records for each group.
-    ///                 ?grouped=true&amp;max-results-in-group=1 will return the top record for each group (which, incidentally, would be the profile summary query.)
-    /// max-results-group   Specifies the maximum number of groups to be retrieved. Must be an integer value greater than zero.
-    ///                     This parameter is only valid if grouped=true.
-    /// For example: 
-    ///     /feeds/profile/default/-medications?grouped=true&amp;max-results-in-group=2&amp;max-results-group=10 will return the top 10 medications with up to 2 items each.
-    ///     /feeds/profile/default/-medications?grouped=true&amp;max-results-in-group=2&amp;max-results-group=10&amp;max-results=3 will 
-    ///         return the top 10 medications with up to 2 items each, but no more than 3 total results.
-    /// max-results-in-group    Specifies the maximum number of records to be retrieved from each group. 
-    ///                         The limits that you specify with this parameter apply to all groups.
-    ///                         Must be an integer value greater than zero.
-    ///                         This parameter is only valid if grouped=true.
-    ///                         For example:
-    ///     /feeds/profile/default/-medications?grouped=true&amp;max-results-in-group=2&amp;max-results-group=10 will return the top 10 medications with up to 2 items each.
-    ///     /feeds/profile/default/-medications?grouped=true&amp;max-results-in-group=2&amp;max-results-group=10&amp;max-results=3 will return the top 10 medications with up to 2 items each, but no more than 3 total results.
-    /// start-index-group   Retrieves only items whose group ranking is at least start-index-group. 
-    ///                     This should be set to a 1-based index of the first group to be retrieved. The range is applied per category.
-    ///                     This parameter is only valid if grouped=false.
-    /// For example:
-    ///         ?grouped=true&amp;start-index-group=43 will return items from groups 44 and higher.
-    /// start-index-in-group     Is a 1-based index of the records to be retrieved from each group
-    ///                             This parameter is only valid if grouped=false.
-    /// For example:
-    ///         ?grouped=true&amp;start-index-in-group=2 will skip the first item of each group.
-    /// 
+    /// </para>
+    ///  <list type="bullet">
+    /// <item><description>/category - Category Filter</description>
+    /// <para>
+    /// Refer to the Google Data documentation for usage information and category queries 
+    /// for specifics about the Google Health implementation of this parameter.
+    /// <exampleFor example: -/medication/{http://schemas.google.com/health/item}Lipitor max-results=10 will return the first 10 entries for the medication Lipitor
+    /// </para>
+    /// </item>
+    /// <item><description>digest - May only be used on the profile feed. Returns content as an aggregation of all entries into a single CCR entry, 
+    /// which contains the collection of enclosed entries. </description></item>
+    /// <item><description>grouped - Returns a count of results per group. </description></item>
+    /// <item><description>max-results-group   Specifies the maximum number of groups to be retrieved.</description></item>
+    /// <item><description>max-results-in-group    Specifies the maximum number of records to be retrieved from each group.</description></item>
+    /// <item><description>start-index-group   Retrieves only items whose group ranking is at least start-index-group. </description></item>
+    /// <item><description>tart-index-in-group     Is a 1-based index of the records to be retrieved from each group</description></item>
+    /// </list>
     /// </summary>
     //////////////////////////////////////////////////////////////////////
     public class HealthQuery : FeedQuery
@@ -152,7 +135,10 @@ namespace Google.GData.Health {
         //////////////////////////////////////////////////////////////////////
         /// <summary>May only be used on the profile feed.
         /// Returns content as an aggregation of all entries into a single CCR entry, 
-        /// which contains the collection of enclosed entries. Default is false</summary> 
+        /// which contains the collection of enclosed entries. Default is false. 
+        /// For example: http://www.google.com/health/feeds/profile/default?digest=true will 
+        /// return a digest version of the profile feed.
+        /// </summary> 
         /// <returns> </returns>
         //////////////////////////////////////////////////////////////////////
         public bool Digest
@@ -165,8 +151,14 @@ namespace Google.GData.Health {
         private bool grouped;
 
         //////////////////////////////////////////////////////////////////////
-        /// <summary>Returns a count of results per group.
-        /// The default value false</summary> 
+        /// <summary>
+        /// Returns a count of results per group.
+        /// The default value is grouped=false. You may set this to true or false.
+        /// <para>
+        /// For example: ?grouped=true&amp;max-results-in-group=50 will return the first 50 records for each group.
+        /// </para>
+        /// ?grouped=true&amp;max-results-in-group=1 will return the top record for each 
+        /// group (which, incidentally, would be the profile summary query.)
         /// <returns> </returns>
         //////////////////////////////////////////////////////////////////////
         public bool Grouped
@@ -178,9 +170,18 @@ namespace Google.GData.Health {
         private int numberOfGroups;
 
         //////////////////////////////////////////////////////////////////////
-        /// <summary>Specifies the maximum number of groups to be retrieved.
+        /// <summary>
+        /// Specifies the maximum number of groups to be retrieved.
         /// Must be an integer value greater than zero.
-        /// This parameter is only valid if Grouped is true</summary> 
+        /// This parameter is only valid if Grouped is true
+        /// <para>
+        /// For example: 
+        ///     /feeds/profile/default/-medications?grouped=true&amp;max-results-in-group=2&amp;max-results-group=10 will return the top 10 medications with up to 2 items each.
+        ///     /feeds/profile/default/-medications?grouped=true&amp;max-results-in-group=2&amp;max-results-group=10&amp;max-results=3 will 
+        ///         return the top 10 medications with up to 2 items each, but no more than 3 total results.
+        /// </para>
+        /// </summary> 
+        /// 
         /// <returns> </returns>
         //////////////////////////////////////////////////////////////////////
         public int NumberOfGroups
@@ -195,7 +196,18 @@ namespace Google.GData.Health {
         /// <summary>Specifies the maximum number of records to be retrieved from each group.
         /// The limits that you specify with this parameter apply to all groups.
         /// Must be an integer value greater than zero.
-        /// This parameter is only valid if grouped=true</summary> 
+        /// This parameter is only valid if grouped=true
+        /// 
+        /// <para>
+        /// For example:
+        /// </para>
+        /// <para>
+        ///     /feeds/profile/default/-medications?grouped=true&amp;max-results-in-group=2&amp;max-results-group=10 will return the top 10 medications with up to 2 items each.
+        /// </para>
+        /// <para>
+        ///      /feeds/profile/default/-medications?grouped=true&amp;max-results-in-group=2&amp;max-results-group=10&amp;max-results=3 will return the top 10 medications with up to 2 items each, but no more than 3 total results.
+        /// </para>
+        /// </summary> 
         /// <returns> </returns>
         //////////////////////////////////////////////////////////////////////
         public int GroupSize

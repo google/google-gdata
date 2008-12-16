@@ -536,7 +536,7 @@ namespace Google.GData.Client.LiveTests
 
             FeedQuery query = new FeedQuery();
 
-            Uri uri = new Uri(CreateUriFileName("batcherror.xml"));
+            Uri uri = new Uri(CreateUri(this.resourcePath + "batcherror.xml"));
             query.Uri = uri; 
             Service service = new GBaseService(this.ApplicationName, this.gBaseKey);
 
@@ -552,7 +552,8 @@ namespace Google.GData.Client.LiveTests
 
                     Assert.IsTrue(error.Type == "data");
                     Assert.IsTrue(error.Field == "expiration_date");
-                    Assert.IsTrue(error.Reason == "Invalid type specified");
+                    Assert.IsTrue(error.Reason != null);
+                    Assert.IsTrue(error.Reason.StartsWith("Invalid type specified"));
 
                     error = data.Status.Errors[1];
 
