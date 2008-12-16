@@ -292,7 +292,7 @@ namespace Google.GData.Client
         /// stream send back from the server.
         /// </summary>
         /// <returns>the error message</returns>
-        protected string    ReadResponseString()
+        protected string ReadResponseString()
         {
             if (this.webResponse == null)
                 return (null);

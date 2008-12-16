@@ -25,15 +25,7 @@ namespace Google.GData.Health {
  
     //////////////////////////////////////////////////////////////////////
     /// <summary>
-    /// The YouTube Data API allows applications to perform functions normally 
-    /// executed on the YouTube website. The API enables your application to search 
-    /// for YouTube videos and to retrieve standard video feeds, comments and video
-    /// responses. 
-    /// In addition, the API lets your application upload videos to YouTube or 
-    /// update existing videos. Your can also retrieve playlists, subscriptions, 
-    /// user profiles and more. Finally, your application can submit 
-    /// authenticated requests to enable users to create playlists, 
-    /// subscriptions, contacts and other account-specific entities.
+    /// The Google Health Data API allows applications to view and send health data in the form of Google Data feeds. 
     /// </summary>
     //////////////////////////////////////////////////////////////////////
     public class HealthFeed : AbstractFeed

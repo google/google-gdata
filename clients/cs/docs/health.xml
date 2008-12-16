@@ -6,15 +6,8 @@
     <members>
         <member name="T:Google.GData.Health.HealthService">
             <summary>
-            The YouTube Data API allows applications to perform functions normally 
-            executed on the YouTube website. The API enables your application to search 
-            for YouTube videos and to retrieve standard video feeds, comments and video
-            responses. 
-            In addition, the API lets your application upload videos to YouTube or 
-            update existing videos. Your can also retrieve playlists, subscriptions, 
-            user profiles and more. Finally, your application can submit 
-            authenticated requests to enable users to create playlists, 
-            subscriptions, contacts and other account-specific entities.
+            The Google Health Data API allows applications to view and send health data in the form of Google Data feeds. 
+            The HealthService class encapsulates authentication to the Google HealthService.
             </summary>
         </member>
         <member name="F:Google.GData.Health.HealthService.ServiceName">
@@ -43,15 +36,7 @@
         </member>
         <member name="T:Google.GData.Health.HealthFeed">
             <summary>
-            The YouTube Data API allows applications to perform functions normally 
-            executed on the YouTube website. The API enables your application to search 
-            for YouTube videos and to retrieve standard video feeds, comments and video
-            responses. 
-            In addition, the API lets your application upload videos to YouTube or 
-            update existing videos. Your can also retrieve playlists, subscriptions, 
-            user profiles and more. Finally, your application can submit 
-            authenticated requests to enable users to create playlists, 
-            subscriptions, contacts and other account-specific entities.
+            The Google Health Data API allows applications to view and send health data in the form of Google Data feeds. 
             </summary>
         </member>
         <member name="M:Google.GData.Health.HealthFeed.#ctor(System.Uri,Google.GData.Client.IService)">
@@ -75,56 +60,7 @@
             <param name="e"></param>
             <param name="parser">the atom feed parser used</param>
         </member>
-        <member name="T:Google.GData.Health.HealthQuery">
-            <summary>
-            Google Health supports the following subset of Google Data API query parameters:
-            q (only supported for the register feed)
-            start-index
-            max-results
-            published-min
-            published-max
-            updated-min
-            updated-max
-            Google Health also supports the following additional parameters:
-            Parameter	Meaning	             Notes
-            /category	Category filter.     Refer to the Google Data documentation for usage 
-                                            information and category queries for specifics about the
-                                            Google Health implementation of this parameter.
-                                            For example:
-                    -/medication/{http://schemas.google.com/health/item}Lipitor max-results=10 will return the first 10 entries for the medication Lipitor.
-            digest=true May only be used on the profile feed. Returns content as an aggregation of all entries into a single CCR entry, 
-                        which contains the collection of enclosed entries.
-                        Refer to Digest parameter for usage information.
-                        The default value is digest=false. You may set this to true or false.
-                        For example: http://www.google.com/health/feeds/profile/default?digest=true will return a digest version of the profile feed.
-            grouped=true    Returns a count of results per group. The default value is grouped=false. You may set this to true or false.
-                            For example: ?grouped=true&amp;max-results-in-group=50 will return the first 50 records for each group.
-                            ?grouped=true&amp;max-results-in-group=1 will return the top record for each group (which, incidentally, would be the profile summary query.)
-            max-results-group   Specifies the maximum number of groups to be retrieved. Must be an integer value greater than zero.
-                                This parameter is only valid if grouped=true.
-            For example: 
-                /feeds/profile/default/-medications?grouped=true&amp;max-results-in-group=2&amp;max-results-group=10 will return the top 10 medications with up to 2 items each.
-                /feeds/profile/default/-medications?grouped=true&amp;max-results-in-group=2&amp;max-results-group=10&amp;max-results=3 will 
-                    return the top 10 medications with up to 2 items each, but no more than 3 total results.
-            max-results-in-group    Specifies the maximum number of records to be retrieved from each group. 
-                                    The limits that you specify with this parameter apply to all groups.
-                                    Must be an integer value greater than zero.
-                                    This parameter is only valid if grouped=true.
-                                    For example:
-                /feeds/profile/default/-medications?grouped=true&amp;max-results-in-group=2&amp;max-results-group=10 will return the top 10 medications with up to 2 items each.
-                /feeds/profile/default/-medications?grouped=true&amp;max-results-in-group=2&amp;max-results-group=10&amp;max-results=3 will return the top 10 medications with up to 2 items each, but no more than 3 total results.
-            start-index-group   Retrieves only items whose group ranking is at least start-index-group. 
-                                This should be set to a 1-based index of the first group to be retrieved. The range is applied per category.
-                                This parameter is only valid if grouped=false.
-            For example:
-                    ?grouped=true&amp;start-index-group=43 will return items from groups 44 and higher.
-            start-index-in-group     Is a 1-based index of the records to be retrieved from each group
-                                        This parameter is only valid if grouped=false.
-            For example:
-                    ?grouped=true&amp;start-index-in-group=2 will skip the first item of each group.
-            
-            </summary>
-        </member>
+        <!-- Badly formed XML comment ignored for member "T:Google.GData.Health.HealthQuery" -->
         <member name="F:Google.GData.Health.HealthQuery.HealthFeeds">
             <summary>
             starting url template for health feeds
@@ -191,25 +127,44 @@
         <member name="P:Google.GData.Health.HealthQuery.Digest">
             <summary>May only be used on the profile feed.
             Returns content as an aggregation of all entries into a single CCR entry, 
-            which contains the collection of enclosed entries. Default is false</summary> 
+            which contains the collection of enclosed entries. Default is false. 
+            For example: http://www.google.com/health/feeds/profile/default?digest=true will 
+            return a digest version of the profile feed.
+            </summary> 
             <returns> </returns>
         </member>
-        <member name="P:Google.GData.Health.HealthQuery.Grouped">
-            <summary>Returns a count of results per group.
-            The default value false</summary> 
-            <returns> </returns>
-        </member>
+        <!-- Badly formed XML comment ignored for member "P:Google.GData.Health.HealthQuery.Grouped" -->
         <member name="P:Google.GData.Health.HealthQuery.NumberOfGroups">
-            <summary>Specifies the maximum number of groups to be retrieved.
+            <summary>
+            Specifies the maximum number of groups to be retrieved.
             Must be an integer value greater than zero.
-            This parameter is only valid if Grouped is true</summary> 
+            This parameter is only valid if Grouped is true
+            <para>
+            For example: 
+                /feeds/profile/default/-medications?grouped=true&amp;max-results-in-group=2&amp;max-results-group=10 will return the top 10 medications with up to 2 items each.
+                /feeds/profile/default/-medications?grouped=true&amp;max-results-in-group=2&amp;max-results-group=10&amp;max-results=3 will 
+                    return the top 10 medications with up to 2 items each, but no more than 3 total results.
+            </para>
+            </summary> 
+            
             <returns> </returns>
         </member>
         <member name="P:Google.GData.Health.HealthQuery.GroupSize">
             <summary>Specifies the maximum number of records to be retrieved from each group.
             The limits that you specify with this parameter apply to all groups.
             Must be an integer value greater than zero.
-            This parameter is only valid if grouped=true</summary> 
+            This parameter is only valid if grouped=true
+            
+            <para>
+            For example:
+            </para>
+            <para>
+                /feeds/profile/default/-medications?grouped=true&amp;max-results-in-group=2&amp;max-results-group=10 will return the top 10 medications with up to 2 items each.
+            </para>
+            <para>
+                 /feeds/profile/default/-medications?grouped=true&amp;max-results-in-group=2&amp;max-results-group=10&amp;max-results=3 will return the top 10 medications with up to 2 items each, but no more than 3 total results.
+            </para>
+            </summary> 
             <returns> </returns>
         </member>
         <member name="P:Google.GData.Health.HealthQuery.GroupStart">

@@ -159,6 +159,8 @@ namespace Google.GData.Client
                 if (this.af == null)
                     yield break;
 
+                this.numberRetrieved = 0; 
+
                 do
                 {
                     looping = af.NextChunk != null && this.paging == true;

@@ -313,7 +313,11 @@ namespace YouTubeNotifier
                     MessageBox.Show("Your accesstoken has expired.", "Please reauthenticate by providing your password again");
                     OnAuthenticationModified(null);
                     ShowSettings();
-                } 
+                }
+                else if (r != null && r.StatusCode == HttpStatusCode.NotModified)
+                {
+                    // nothing new there, so ignore the exception.
+                }
                 else
                     MessageBox.Show(e.ResponseString, "There was a problem getting the data from YouTube");
             }

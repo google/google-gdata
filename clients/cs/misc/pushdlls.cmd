@@ -99,8 +99,8 @@ xcopy /y ..\src\blogger\bin\*.xml ..\docs\*.*
 
 #copy the Merge module files
 
-xcopy /y ..\src\CoreMergeModule\Release\*.msm ..\lib\MergeModules\*.*
-xcopy /y ..\src\YouTubeMergeModule\Release\*.msm ..\lib\MergeModules\*.*
+xcopy /y ..\src\MergeModules\CoreMergeModule\Release\*.msm ..\lib\MergeModules\*.*
+xcopy /y ..\src\MergeModules\YouTubeMergeModule\Release\*.msm ..\lib\MergeModules\*.*
 
 
 rem run ILMerge on PhotoBrowser.exe
