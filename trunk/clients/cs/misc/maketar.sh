@@ -7,7 +7,7 @@
 declare -rx SCRIPT=${O##*/}
 declare -rx SVNLOCATION="http://google-gdata.googlecode.com/svn/trunk/clients/cs/"
 declare -rx SVN="/usr/local/bin/svn"
-declare -rx OUTPUTDIR="libgoogle-data-mono-1.2.3.0"
+declare -rx OUTPUTDIR="libgoogle-data-mono-1.3.1.0"
 declare -rx EXPORTDIR="$OUTPUTDIR"
 
 # sanity checks
