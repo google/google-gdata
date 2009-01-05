@@ -2362,6 +2362,12 @@
         "Entry"
         {
         "MsmKey" = "8:_794DECBA9408D7001D12CDDFCD7D0644"
+        "OwnerKey" = "8:_FB1BDE40A78340F3BDC524151313C23E"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_794DECBA9408D7001D12CDDFCD7D0644"
         "OwnerKey" = "8:_E0EBD14236974DF3841DF8D6908F04C8"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -3970,6 +3976,12 @@
         "Entry"
         {
         "MsmKey" = "8:_D4072A9EB15178D8229ECF2C41858E37"
+        "OwnerKey" = "8:_FB1BDE40A78340F3BDC524151313C23E"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_D4072A9EB15178D8229ECF2C41858E37"
         "OwnerKey" = "8:_E0EBD14236974DF3841DF8D6908F04C8"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -4671,6 +4683,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_FB1BDE40A78340F3BDC524151313C23E"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_FC09FBCDC90745B1AEC56404B4CBE20A"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -4745,6 +4763,12 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_A96E9FA74579406CBADCBA7C8560DDA0"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_FB1BDE40A78340F3BDC524151313C23E"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -19656,6 +19680,37 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_FB1BDE40A78340F3BDC524151313C23E"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:Google.GData.Contacts, Version=1.3.1.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_FB1BDE40A78340F3BDC524151313C23E"
+                    {
+                    "Name" = "8:Google.GData.Contacts.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:..\\..\\setuptree\\Redist\\Mobile\\WindowsMobile\\Google.GData.Contacts.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_1896C85D36DA465CAF690696D5A45C04"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_FC09FBCDC90745B1AEC56404B4CBE20A"
             {
             "SourcePath" = "8:..\\..\\setuptree\\Sources\\Library\\unittests\\picasa\\GPhotoWidthTest.cs"
@@ -20853,14 +20908,14 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Google Data API SDK"
-        "ProductCode" = "8:{3981BDCE-FD5E-4466-BD71-B607D0BDF17C}"
-        "PackageCode" = "8:{DE0EF070-B291-46F0-B091-F8FFF7196E33}"
+        "ProductCode" = "8:{087AEA78-2CED-4B24-B657-D37FDF664FA4}"
+        "PackageCode" = "8:{EC517025-B9BB-423C-B39E-8916CBC56EB1}"
         "UpgradeCode" = "8:{A59A79D3-A51E-441F-AF3E-7DB21460BB1B}"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.2.3"
+        "ProductVersion" = "8:1.3.1"
         "Manufacturer" = "8:Google"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:http://code.google.com/p/google-gdata/"
