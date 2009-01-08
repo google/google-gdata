@@ -14,74 +14,12 @@ Get patient medical data and provide personalized functionality based on that da
        </th><th class="nameColumn">Class</th><th class="descriptionColumn">Description</th></tr><tr data="class; public"><td><img src="../icons/pubclass.gif" title="Public class"></td><td><a  href="../folder36/T_Google_GData_Health_HealthEntry.htm">HealthEntry</a></td><td><div class="summary">
             Entry API customization class for defining entries in an Event feed.
             </div></td></tr><tr data="class; public"><td><img src="../icons/pubclass.gif" title="Public class"></td><td><a  href="../folder36/T_Google_GData_Health_HealthFeed.htm">HealthFeed</a></td><td><div class="summary">
-            The YouTube Data API allows applications to perform functions normally 
-            executed on the YouTube website. The API enables your application to search 
-            for YouTube videos and to retrieve standard video feeds, comments and video
-            responses. 
-            In addition, the API lets your application upload videos to YouTube or 
-            update existing videos. Your can also retrieve playlists, subscriptions, 
-            user profiles and more. Finally, your application can submit 
-            authenticated requests to enable users to create playlists, 
-            subscriptions, contacts and other account-specific entities.
+            The Google Health Data API allows applications to view and send health data in the form of Google Data feeds. 
             </div></td></tr><tr data="class; public"><td><img src="../icons/pubclass.gif" title="Public class"></td><td><a  href="../folder36/T_Google_GData_Health_HealthNameTable.htm">HealthNameTable</a></td><td><div class="summary">
              contains the static strings for the health namespace
-            </div></td></tr><tr data="class; public"><td><img src="../icons/pubclass.gif" title="Public class"></td><td><a  href="../folder37/T_Google_GData_Health_HealthQuery.htm">HealthQuery</a></td><td><div class="summary">
-            Google Health supports the following subset of Google Data API query parameters:
-            q (only supported for the register feed)
-            start-index
-            max-results
-            published-min
-            published-max
-            updated-min
-            updated-max
-            Google Health also supports the following additional parameters:
-            Parameter	Meaning	             Notes
-            /category	Category filter.     Refer to the Google Data documentation for usage 
-                                            information and category queries for specifics about the
-                                            Google Health implementation of this parameter.
-                                            For example:
-                    -/medication/{http://schemas.google.com/health/item}Lipitor max-results=10 will return the first 10 entries for the medication Lipitor.
-            digest=true May only be used on the profile feed. Returns content as an aggregation of all entries into a single CCR entry, 
-                        which contains the collection of enclosed entries.
-                        Refer to Digest parameter for usage information.
-                        The default value is digest=false. You may set this to true or false.
-                        For example: http://www.google.com/health/feeds/profile/default?digest=true will return a digest version of the profile feed.
-            grouped=true    Returns a count of results per group. The default value is grouped=false. You may set this to true or false.
-                            For example: ?grouped=true&amp;max-results-in-group=50 will return the first 50 records for each group.
-                            ?grouped=true&amp;max-results-in-group=1 will return the top record for each group (which, incidentally, would be the profile summary query.)
-            max-results-group   Specifies the maximum number of groups to be retrieved. Must be an integer value greater than zero.
-                                This parameter is only valid if grouped=true.
-            For example: 
-                /feeds/profile/default/-medications?grouped=true&amp;max-results-in-group=2&amp;max-results-group=10 will return the top 10 medications with up to 2 items each.
-                /feeds/profile/default/-medications?grouped=true&amp;max-results-in-group=2&amp;max-results-group=10&amp;max-results=3 will 
-                    return the top 10 medications with up to 2 items each, but no more than 3 total results.
-            max-results-in-group    Specifies the maximum number of records to be retrieved from each group. 
-                                    The limits that you specify with this parameter apply to all groups.
-                                    Must be an integer value greater than zero.
-                                    This parameter is only valid if grouped=true.
-                                    For example:
-                /feeds/profile/default/-medications?grouped=true&amp;max-results-in-group=2&amp;max-results-group=10 will return the top 10 medications with up to 2 items each.
-                /feeds/profile/default/-medications?grouped=true&amp;max-results-in-group=2&amp;max-results-group=10&amp;max-results=3 will return the top 10 medications with up to 2 items each, but no more than 3 total results.
-            start-index-group   Retrieves only items whose group ranking is at least start-index-group. 
-                                This should be set to a 1-based index of the first group to be retrieved. The range is applied per category.
-                                This parameter is only valid if grouped=false.
-            For example:
-                    ?grouped=true&amp;start-index-group=43 will return items from groups 44 and higher.
-            start-index-in-group     Is a 1-based index of the records to be retrieved from each group
-                                        This parameter is only valid if grouped=false.
-            For example:
-                    ?grouped=true&amp;start-index-in-group=2 will skip the first item of each group.
-            
-            </div></td></tr><tr data="class; public"><td><img src="../icons/pubclass.gif" title="Public class"></td><td><a  href="../folder37/T_Google_GData_Health_HealthService.htm">HealthService</a></td><td><div class="summary">
-            The YouTube Data API allows applications to perform functions normally 
-            executed on the YouTube website. The API enables your application to search 
-            for YouTube videos and to retrieve standard video feeds, comments and video
-            responses. 
-            In addition, the API lets your application upload videos to YouTube or 
-            update existing videos. Your can also retrieve playlists, subscriptions, 
-            user profiles and more. Finally, your application can submit 
-            authenticated requests to enable users to create playlists, 
-            subscriptions, contacts and other account-specific entities.
+            </div></td></tr><tr data="class; public"><td><img src="../icons/pubclass.gif" title="Public class"></td><td><a  href="../folder37/T_Google_GData_Health_HealthQuery.htm">HealthQuery</a></td><td></tr><tr data="class; public"><td><img src="../icons/pubclass.gif" title="Public class"></td><td><a  href="../folder37/T_Google_GData_Health_HealthService.htm">HealthService</a></td><td><div class="summary">
+            The Google Health Data API allows applications to view and send health data in the form of Google Data feeds. 
+            The HealthService class encapsulates authentication to the Google HealthService.
             </div></td></tr><tr data="class; public"><td><img src="../icons/pubclass.gif" title="Public class"></td><td><a  href="../folder37/T_Google_GData_Health_ProfileEntry.htm">ProfileEntry</a></td><td><div class="summary">
             shallow subclass to add the appropriate category for construction
             </div></td></tr><tr data="class; public"><td><img src="../icons/pubclass.gif" title="Public class"></td><td><a  href="../folder37/T_Google_GData_Health_RegisterEntry.htm">RegisterEntry</a></td><td><div class="summary">
