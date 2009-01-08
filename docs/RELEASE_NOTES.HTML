@@ -1,11 +1,110 @@
 <html>
     <head>
         <title>Release Notes</title>
-        <link rel="stylesheet" href="styles/presentation.css"> 
     </head>
     
     
 <h1>This document lists the changes in the different releases</h1>
+
+    <h2>
+        1.3.1.0
+    </h2>
+    <ul>
+        <li>
+            Features
+        </li>
+        <ul>
+            <li>Added a mergemodule for the Core libraries. </li>
+            <li>Added a mergemodule for the YouTube libraries. </li>
+            <li>Added a new sample application for YouTube, the YouTube Notifier</li>
+            <li>
+                Added a YouTubeQuery.GetYouTubeCategories method that returns a 
+                collection of category objects based on parsing the youtube 
+                category file hosted on the web.
+            </li>
+            <li>YouTube project template.</li>
+            <li>
+                New, simpler, YouTube object model. Look at the items in the new 
+                Google.YouTube namespace. This new code is used in the YouTube 
+                Sample application, the template above, and the youtubetest.cs 
+                file in the unittests. 
+            </li>
+            <li>
+                Added a ModifiedSince property on the FeedQuery object. If set 
+                to something different than DateTime.MinValue this results in an 
+                if-modified-since HTTP header produced if the FeedQuery is used 
+                in a Service.Query call.
+            </li>
+            <li>OAuth support for two-legged authentication. Look in samples/OAuth for a usage example. Code for this
+            graciously provided by Andrew Smith and Eran Sandler. Note that due to different support on the Compact Framework,
+            this is not available in the Windows Mobile build. </li>
+        </ul>
+        <li>
+            Bugfixes/changes
+        </li>
+        <ul>
+            <li>
+                Fixed issue 198. HealthEntry.CCR returned null, as a wrong cast 
+                after the recent refactory that happened to the extensions 
+                returned always null. 
+                
+            </li>
+            <li>
+                Fixed issue 195. Service.Update could call itself, resulting in 
+                recursion.
+            </li>
+            <li>
+                Fixed bug 194. CreatePicasaUri was confusing because it used the 
+                albumname as a parameter compared to an albumid. Changed to now 
+                use an AlbumID.
+                </li>
+            <li>
+                Removed the ASP build and marked the standard release assemblies 
+                as Partially Trusted.
+            </li>
+            <li>
+                Fixed issue 191, Overloaded AuthSubUtil.getRequestUrl(hostedDomain, nextUrl, scope, secure, session) is broken
+            </li>
+            <li>
+                Fixed issue 189, Cannot select Contacts by group
+            </li>
+            <li>Fixed an issue in AlbumEntry Accessor for Picasa, where ComentingEnabled accidently 
+            set the wrong element in the xml</li>
+            <li>
+                Removed the Service(service, application, library) constructor 
+                as this variation did not use the passsed in information. If you 
+                used this, just remove the 3rd parameter.
+            </li>
+            <li>
+                Entry.Update and Entry.Delete will now thow an 
+                InvalidOperationException when they are called without a valid 
+                service object being set, instead of not doing anything 
+                silently.
+            </li>
+            <li>
+                 Removed the usage of StringCollection and replaced it with a 
+                 generic  List
+            </li>
+            <li>
+                CommentingEnabled was accidently setting the CommentCount 
+                element. 
+            </li>
+            <li>
+                Made the created useragent string more uniform and meaningful
+            </li>
+            <li>
+                AtomFeed.Entries are not an ILIst<> an no longer an arraylist.
+            </li>
+            <li>
+                Fixed several v2 related YouTube issues
+            </li>
+            <li>
+                Fixed issue 186 by removing the verification check at the end of the reminder parser
+            </li>
+        </ul>
+    </ul>
+
+
     <h2>
         1.2.3.0
     </h2>
