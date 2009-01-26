@@ -36,6 +36,8 @@ namespace Google.GData.Client
         bool paging;
         int  maximum = -1; 
         int  numberRetrieved=0; 
+        Service service; 
+        FeedQuery query; 
 
 
         /// <summary>
@@ -47,6 +49,12 @@ namespace Google.GData.Client
             this.af = af; 
         }
 
+        public Feed(Service service, FeedQuery q)
+        {
+            this.service = service;
+            this.query = q; 
+        }
+
         /// <summary>
         /// returns the used feed object
         /// </summary>
@@ -55,6 +63,13 @@ namespace Google.GData.Client
         {
             get
             {
+                if (this.af == null)
+                {
+                    if (this.service != null && this.query != null)
+                    {
+                        this.af = this.service.Query(query);
+                    }
+                }
                 return this.af;
             }
         }
@@ -85,9 +100,9 @@ namespace Google.GData.Client
        {
            get
            {
-               if (this.af != null)
+               if (this.AtomFeed != null)
                {
-                   return this.af.StartIndex;
+                   return this.AtomFeed.StartIndex;
                }
                return -1;  
            }
@@ -102,9 +117,9 @@ namespace Google.GData.Client
        {
            get
            {
-               if (this.af != null)
+               if (this.AtomFeed != null)
                {
-                   return this.af.ItemsPerPage;
+                   return this.AtomFeed.ItemsPerPage;
                }
                return -1; 
            }
@@ -156,7 +171,7 @@ namespace Google.GData.Client
             get
             {
                 bool looping;
-                if (this.af == null)
+                if (this.AtomFeed == null)
                     yield break;
 
                 this.numberRetrieved = 0; 
@@ -180,8 +195,8 @@ namespace Google.GData.Client
                     }
                     if (looping)
                     {
-                        FeedQuery q = new FeedQuery(this.af.NextChunk);
-                        this.af = this.af.Service.Query(q);
+                        FeedQuery q = new FeedQuery(this.AtomFeed.NextChunk);
+                        this.af = this.AtomFeed.Service.Query(q);
                     }
                 } while (looping);
             }
@@ -678,8 +693,9 @@ namespace Google.GData.Client
         /// <returns></returns>
         protected virtual Feed<Y> PrepareFeed<Y>(FeedQuery q) where Y : Entry, new()
         {
-             AtomFeed feed = this.atomService.Query(q);
-             Feed<Y> f = new Feed<Y>(feed);
+             // AtomFeed feed = this.atomService.Query(q);
+             // Feed<Y> f = new Feed<Y>(feed);
+             Feed<Y> f = new Feed<Y>(this.atomService, q);
              f.AutoPaging = this.settings.AutoPaging;
              f.Maximum   = this.settings.Maximum;
              return f;
