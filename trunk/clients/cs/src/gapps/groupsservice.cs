@@ -207,7 +207,7 @@ namespace Google.GData.Apps.Groups
         public AppsExtendedFeed RetrieveGroups(String memberId, Boolean directOnly)
         {
             Uri getGroupUri = new Uri(AppsGroupsNameTable.AppsGoogleGroupsBaseFeedUri + "/"
-               + domain + "?memberId=" + memberId + "&directOnly=" + directOnly.ToString());
+               + domain + "?member=" + memberId + "&directOnly=" + directOnly.ToString());
             return QueryGroups(getGroupUri);
         }
 
@@ -252,6 +252,24 @@ namespace Google.GData.Apps.Groups
             Uri getGroupMembersUri = new Uri(AppsGroupsNameTable.AppsGoogleGroupsBaseFeedUri + "/"
                + domain + "/" + groupId + "/" + memberUriSuffix);
             return QueryGroups(getGroupMembersUri);
+        }
+
+        /// <summary>
+        /// Retrieves the members of the group
+        /// </summary>
+        /// <param name="memberId">username or groupId to retrieve</param>
+        /// <param name="groupId">Groups's id</param>
+        /// <returns>a <code>AppsExtendedEntry</code> containing the results of the
+        /// query</returns>
+        public AppsExtendedEntry RetrieveMember(String memberId, String groupId)
+        {
+            Uri memberUri = new Uri(AppsGroupsNameTable.AppsGoogleGroupsBaseFeedUri + "/"
+                    + domain + "/" + groupId + "/" + memberUriSuffix + "/" + memberId);
+            AppsExtendedFeed AppsExtendedFeed = QueryGroups(memberUri);
+            if (AppsExtendedFeed.Entries.Count == 0)
+                return null;
+            else
+                return AppsExtendedFeed.Entries[0] as AppsExtendedEntry;
         }
 
         /// <summary>
@@ -318,6 +336,24 @@ namespace Google.GData.Apps.Groups
             Uri getGroupOwnersUri = new Uri(AppsGroupsNameTable.AppsGoogleGroupsBaseFeedUri + "/"
                + domain + "/" + groupId + "/" + ownerUriSuffix);
             return QueryGroups(getGroupOwnersUri);
+        }
+
+        /// <summary>
+        /// Retrieves the owner of the group
+        /// </summary>
+        /// <param name="email">email of the owner to retrieve</param>
+        /// <param name="groupId">Groups's id</param>
+        /// <returns>a <code>AppsExtendedEntry</code> containing the results of the
+        /// query</returns>
+        public AppsExtendedEntry RetrieveOwner(String email, String groupId)
+        {
+            Uri ownerUri = new Uri(AppsGroupsNameTable.AppsGoogleGroupsBaseFeedUri + "/"
+                    + domain + "/" + groupId + "/" + ownerUriSuffix + "/" + email);
+            AppsExtendedFeed AppsExtendedFeed = QueryGroups(ownerUri);
+            if (AppsExtendedFeed.Entries.Count == 0)
+                return null;
+            else
+                return AppsExtendedFeed.Entries[0] as AppsExtendedEntry;
         }
 
         /// <summary>

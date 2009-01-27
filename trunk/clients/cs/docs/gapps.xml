@@ -1484,6 +1484,15 @@
             <returns>a <code>AppsExtendedFeed</code> containing all the <code>AppsExtendedEntry</code>
             from the Domain</returns>
         </member>
+        <member name="M:Google.GData.Apps.Groups.GroupsService.RetrieveMember(System.String,System.String)">
+            <summary>
+            Retrieves the members of the group
+            </summary>
+            <param name="memberId">username or groupId to retrieve</param>
+            <param name="groupId">Groups's id</param>
+            <returns>a <code>AppsExtendedEntry</code> containing the results of the
+            query</returns>
+        </member>
         <member name="M:Google.GData.Apps.Groups.GroupsService.IsMember(System.String,System.String)">
             <summary>
             Checks if a user or a group is member of a group
@@ -1515,6 +1524,15 @@
             <param name="groupId">Groups's id</param>
             <returns>a <code>AppsExtendedFeed</code> containing all the <code>AppsExtendedEntry</code>
             from the Domain</returns>
+        </member>
+        <member name="M:Google.GData.Apps.Groups.GroupsService.RetrieveOwner(System.String,System.String)">
+            <summary>
+            Retrieves the owner of the group
+            </summary>
+            <param name="email">email of the owner to retrieve</param>
+            <param name="groupId">Groups's id</param>
+            <returns>a <code>AppsExtendedEntry</code> containing the results of the
+            query</returns>
         </member>
         <member name="M:Google.GData.Apps.Groups.GroupsService.IsOwner(System.String,System.String)">
             <summary>
