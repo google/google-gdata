@@ -310,9 +310,9 @@ namespace Google.GData.Extensions.Apps
         public const string groupId = "groupId";
         public const string groupName = "groupName";
         public const string description = "description";
-        public const string emailPermission = "emailPermissionc";
+        public const string emailPermission = "emailPermission";
         public const string directMember = "directMember";
-        public const string role = "rolec";
+        public const string role = "role";
         public const string memberId = "memberId";
         public const string memberType = "memberType";
         public const string email = "email";
