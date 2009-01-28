@@ -219,7 +219,7 @@ namespace Google.GData.Client
         /// CreateInstance method for the entry you want to create
         /// </summary>
         /// <returns></returns>
-        public  Entry()
+        public Entry()
         {
         }
 

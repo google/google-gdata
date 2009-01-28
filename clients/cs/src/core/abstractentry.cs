@@ -45,7 +45,6 @@ namespace Google.GData.Client
         public AbstractEntry()
         {
             this.AddExtension(new AppEdited());
-            // this.AddExtension(new Etag());
         }
 
         private MediaSource mediaSource;
