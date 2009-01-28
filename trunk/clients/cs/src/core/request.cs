@@ -736,13 +736,6 @@ namespace Google.GData.Client
                     throw new GDataRedirectException("Execution resulted in a redirect from " + this.targetUri.ToString(), this.webResponse);
                 }
 
-                if (request.Method == HttpMethods.Delete && response.StatusCode != HttpStatusCode.OK)
-                {
-                    Tracing.TraceCall("GDataRequest::Deletion returned unxepected result: " + response.StatusCode.ToString()); 
-                    throw new GDataRequestException("Execution of DELETE returned unexpected result: " + this.targetUri.ToString(), this.webResponse); 
-                }
-
-
                 if (code > 299)
                 {
                     // treat everything else over 300 as errors
