@@ -47,12 +47,6 @@ namespace Google.GData.Extensions
         /// </summary>
         public const string ServicePhoto = gContactsRel + "#photo";
 
-        /// <summary>
-        /// the relationship to edit the photo
-        /// </summary>
-        public const string ServicePhotoEdit = gContactsRel + "#edit-photo";
-
-
 
         /// <summary>the event prefix </summary>
         public const string Event = gNamespacePrefix + "event";

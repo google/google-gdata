@@ -42,6 +42,11 @@ namespace Google.GData.Contacts {
         /// Group Member ship info element string
         /// </summary>
         public const string GroupMembershipInfo = "groupMembershipInfo";
+
+        /// <summary>
+        /// SystemGroup element, indicating that this entry is a system group
+        /// </summary>
+        public const string SystemGroupElement = "systemGroup";
     }
 
 
@@ -52,9 +57,9 @@ namespace Google.GData.Contacts {
     public class GroupMembership: SimpleElement
     {
         /// <summary>the  href attribute </summary>
-        public const string AttributeHRef = "href";
+        public const string XmlAttributeHRef = "href";
         /// <summary>the deleted attribute </summary>
-        public const string AttributeDeleted = "deleted";
+        public const string XmlAttributeDeleted = "deleted";
 
         /// <summary>
         /// default constructor 
@@ -62,8 +67,8 @@ namespace Google.GData.Contacts {
         public GroupMembership()
         : base(ContactsNameTable.GroupMembershipInfo, ContactsNameTable.contactsPrefix, ContactsNameTable.NSContacts)
         {
-            this.Attributes.Add(AttributeHRef, null);
-            this.Attributes.Add(AttributeDeleted, null);
+            this.Attributes.Add(XmlAttributeHRef, null);
+            this.Attributes.Add(XmlAttributeDeleted, null);
         }
 
        /////////////////////////////////////////////////////////////////////
@@ -74,11 +79,11 @@ namespace Google.GData.Contacts {
        {
            get
            {
-               return this.Attributes[AttributeHRef] as string;
+               return this.Attributes[XmlAttributeHRef] as string;
            }
            set
            {
-               this.Attributes[AttributeHRef] = value;
+               this.Attributes[XmlAttributeHRef] = value;
            }
        }
 
@@ -92,7 +97,39 @@ namespace Google.GData.Contacts {
        {
            get
            {
-               return this.Attributes[AttributeDeleted] as string;
+               return this.Attributes[XmlAttributeDeleted] as string;
+           }
+       }
+    }
+
+
+    public class SystemGroup : SimpleElement
+    {
+        /// <summary>
+        /// id attribute for the system group element
+        /// </summary>
+        /// <returns></returns>
+        public const string XmlAttributeId = "id";
+
+        /// <summary>
+        /// default constructor 
+        /// </summary>
+        public SystemGroup()
+        : base(ContactsNameTable.SystemGroupElement, ContactsNameTable.contactsPrefix, ContactsNameTable.NSContacts)
+        {
+            this.Attributes.Add(XmlAttributeId, null);
+        }
+
+       /////////////////////////////////////////////////////////////////////
+       /// <summary>Identifies the system group. Note that you still need 
+       /// to use the group entries href membership to retrieve the group
+       /// </summary>
+       //////////////////////////////////////////////////////////////////////
+       public string Id
+       {
+           get
+           {
+               return this.Attributes[XmlAttributeId] as string;
            }
        }
     }
@@ -179,6 +216,7 @@ namespace Google.GData.Contacts {
         : base()
         {
             Tracing.TraceMsg("Created Group Entry");
+            this.AddExtension(new SystemGroup());
             Categories.Add(GROUP_CATEGORY);
         }
 
@@ -189,6 +227,28 @@ namespace Google.GData.Contacts {
         public new GroupEntry Update()
         {
             return base.Update() as GroupEntry;
+        }
+
+        /// <summary>
+        /// returns the systemgroup id, if this groupentry represents 
+        /// a system group. 
+        /// The values of the system group ids corresponding to these 
+        /// groups can be found in the Reference Guide for the Contacts Data API.
+        /// Currently the values can be Contacts, Friends, Family and Coworkers
+        /// </summary>
+        /// <returns></returns>
+        public string SystemGroup
+        {
+            get
+            {
+                SystemGroup sg = FindExtension(ContactsNameTable.SystemGroupElement, 
+                                  ContactsNameTable.NSContacts) as SystemGroup;
+                if (sg != null)
+                {
+                    return sg.Id;
+                }
+                return null;
+            }
         }
 
 
@@ -435,16 +495,35 @@ namespace Google.GData.Contacts {
         }
 
         /// <summary>
-        /// retrieves the Uri of the Photo Edit Link. To set this, you need to create an AtomLink object
-        /// and add/replace it in the atomlinks colleciton. 
+        /// if a photo is present on this contact, it will have an etag associated with it,
+        /// that needs to be used when you want to delete or update that picture.
         /// </summary>
-        /// <returns></returns>
-        public Uri PhotoEditUri
+        /// <returns>the etag value as a string</returns>
+        public string PhotoEtag
+        {
+            get
+            {
+                AtomLink link = this.PhotoLink;
+                if (link != null)
+                {
+                    foreach (XmlExtension x in link.ExtensionElements)
+                    {
+                        if (x.XmlNameSpace == GDataParserNameTable.gNamespace && x.XmlName == GDataParserNameTable.XmlEtagAttribute)
+                        {
+                            return x.Node.Value;
+                        }
+                    }
+                }
+                return null;
+            }
+        }
+
+        private AtomLink PhotoLink
         {
             get 
             {
-                AtomLink link = this.Links.FindService(GDataParserNameTable.ServicePhotoEdit, null);
-                return link == null ? null : new Uri(link.HRef.ToString());
+                AtomLink link = this.Links.FindService(GDataParserNameTable.ServicePhoto, null);
+                return link;
             }
         }
     }

@@ -102,25 +102,24 @@ namespace Google.GData.Client
         {
             if (value != null)
             {
-                if (value.Feed == null)
+                if (this.feed != null && value.Feed == this.feed)
                 {
-                    value.setFeed(this.feed);
+                    // same object, already in here. 
+                    throw new ArgumentException("The entry is already part of this collection");
                 }
-                else
+                value.setFeed(this.feed);
+                // old code
+                /*
+                // now we need to see if this is the same feed. If not, copy
+                if (AtomFeed.IsFeedIdentical(value.Feed, this.feed) == false)
                 {
-                    if (this.feed != null && value.Feed == this.feed)
-                    {
-                        // same object, already in here. 
-                        throw new ArgumentException("The entry is already part of this collection");
-                    }
-                    // now we need to see if this is the same feed. If not, copy
-                    if (AtomFeed.IsFeedIdentical(value.Feed, this.feed) == false)
-                    {
-                        AtomEntry newEntry = AtomEntry.ImportFromFeed(value);
-                        newEntry.setFeed(this.feed);
-                        value = newEntry;
-                    }
+                    AtomEntry newEntry = AtomEntry.ImportFromFeed(value);
+                    newEntry.setFeed(this.feed);
+                    value = newEntry;
                 }
+                */
+                // from now on, we will only ADD the entry to this collection and change it's 
+                // ownership. No more auto-souce creation. There is an explicit method for this
                 value.ProtocolMajor = this.feed.ProtocolMajor;
                 value.ProtocolMinor = this.feed.ProtocolMinor;
             }

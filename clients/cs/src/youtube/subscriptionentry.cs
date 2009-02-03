@@ -65,6 +65,10 @@ namespace Google.GData.YouTube {
             /// </summary>
             query,
             /// <summary>
+            /// indicates a playlist based subscription
+            /// </summary>
+            playlist, 
+            /// <summary>
             /// indicates an unknown state
             /// </summary>
             unknown
@@ -84,9 +88,9 @@ namespace Google.GData.YouTube {
         {
             Tracing.TraceMsg("Created SubscriptionEntry");
             this.AddExtension(new UserName());
-            this.AddExtension(new FeedLink());
             this.AddExtension(new QueryString());
-
+            this.AddExtension(new PlaylistId());
+            this.AddExtension(new PlaylistTitle());
             Categories.Add(SUBSCRIPTION_CATEGORY);
         }
 
@@ -137,25 +141,6 @@ namespace Google.GData.YouTube {
             }
         }
 
-          /// <summary>
-        /// getter/setter for the feedlink subelement
-        /// </summary>
-        [Obsolete("replaced with Content.Src.Content")] 
-        public FeedLink FeedLink 
-        {
-            get
-            {
-                return FindExtension(GDataParserNameTable.XmlFeedLinkElement, 
-                                      BaseNameTable.gNamespace) as FeedLink;
-
-            }
-            set
-            {
-                ReplaceExtension(GDataParserNameTable.XmlFeedLinkElement,
-                                BaseNameTable.gNamespace,
-                                value);
-            }
-        }
 
         /// <summary>
         /// getter/setter for UserName subelement
@@ -187,7 +172,35 @@ namespace Google.GData.YouTube {
             }
         }
 
+        /// <summary>
+        /// getter/setter for PlaylistId subelement
+        /// </summary>
+        public string PlaylistId 
+        {
+            get
+            {
+                return getYouTubeExtensionValue(YouTubeNameTable.PlaylistId);
+            }
+            set
+            {
+                setYouTubeExtension(YouTubeNameTable.PlaylistId,value);
+            }
+        }
 
+        /// <summary>
+        /// getter/setter for PlaylistTitle subelement
+        /// </summary>
+        public string PlaylistTitle
+        {
+            get
+            {
+                return getYouTubeExtensionValue(YouTubeNameTable.PlaylistTitle);
+            }
+            set
+            {
+                setYouTubeExtension(YouTubeNameTable.PlaylistTitle,value);
+            }
+        }
     }
 }
 

@@ -244,6 +244,17 @@ namespace Google.GData.YouTube {
         /// uploaded element string for playlist feeds
         /// </summary>
         public const string Uploaded = "uploaded";
+
+        /// <summary>
+        /// title for a playlist
+        /// </summary>
+        public const string PlaylistTitle = "playlistTitle";
+
+        /// <summary>
+        /// id for a playlist
+        /// </summary>
+        public const string PlaylistId = "playlistId";
+
     }
 
 
@@ -1198,7 +1209,7 @@ namespace Google.GData.YouTube {
     }
 
 
-      /// <summary>
+    /// <summary>
     /// VideoId schema extension describing a YouTube video identifier
     /// </summary>
     public class VideoId : SimpleElement
@@ -1217,6 +1228,49 @@ namespace Google.GData.YouTube {
         : base(YouTubeNameTable.VideoID, YouTubeNameTable.ytPrefix, YouTubeNameTable.NSYouTube, initValue)
         {}
     }
+
+
+    /// <summary>
+    /// PlaylistId schema extension describing a YouTube playlist identifier
+    /// </summary>
+    public class PlaylistId : SimpleElement
+    {
+        /// <summary>
+        /// default constructor
+        /// </summary>
+        public PlaylistId()
+        : base(YouTubeNameTable.PlaylistId, YouTubeNameTable.ytPrefix, YouTubeNameTable.NSYouTube)
+        {}
+        /// <summary>
+        /// constructor with an init value
+        /// </summary>
+        /// <param name="initValue"></param>
+        public PlaylistId(string initValue)
+        : base(YouTubeNameTable.PlaylistId, YouTubeNameTable.ytPrefix, YouTubeNameTable.NSYouTube, initValue)
+        {}
+    }
+
+
+    /// <summary>
+    /// PlaylistTitle schema extension describing a YouTube playlist title
+    /// </summary>
+    public class PlaylistTitle : SimpleElement
+    {
+        /// <summary>
+        /// default constructor
+        /// </summary>
+        public PlaylistTitle()
+        : base(YouTubeNameTable.PlaylistTitle, YouTubeNameTable.ytPrefix, YouTubeNameTable.NSYouTube)
+        {}
+        /// <summary>
+        /// constructor with an init value
+        /// </summary>
+        /// <param name="initValue"></param>
+        public PlaylistTitle(string initValue)
+        : base(YouTubeNameTable.PlaylistTitle, YouTubeNameTable.ytPrefix, YouTubeNameTable.NSYouTube, initValue)
+        {}
+    }
+
 
     /// <summary>
     /// Simple class to hold the response of a browser-based upload request

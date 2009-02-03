@@ -33,6 +33,7 @@ using Google.GData.Client.UnitTests;
 using Google.GData.Extensions;
 using Google.GData.Contacts;
 using System.Collections.Generic;
+using Google.Contacts;
 
 
 
@@ -98,8 +99,7 @@ namespace Google.GData.Client.LiveTests
 
                 foreach (ContactEntry entry in feed.Entries)
                 {
-                    Tracing.TraceMsg("Found an entry " + entry.ToString());
-                    Tracing.TraceMsg("Found a photoUri " + entry.PhotoUri);
+                    Assert.IsTrue(entry.Etag != null, "contact entries should have etags");
                 }
             }
         }
@@ -122,6 +122,7 @@ namespace Google.GData.Client.LiveTests
             }
 
             GroupsFeed feed = service.Query(query);
+
 
             ObjectModelHelper.DumpAtomObject(feed,CreateDumpFileName("GroupsAuthTest"));
 
@@ -152,7 +153,86 @@ namespace Google.GData.Client.LiveTests
             Assert.IsTrue(currentEntry.GroupMembership.Count == 2, "The entry should be in 2 groups");
 
             currentEntry.GroupMembership.Clear();
-            currentEntry.Update();
+            currentEntry = currentEntry.Update();
+            // now we should have 2 new groups and one new entry with no groups anymore
+
+
+            int oldCountGroups = feed.Entries.Count;
+            int oldCountContacts = cf.Entries.Count;
+
+            currentEntry.Delete();
+
+            insertedGroup.Delete();
+            insertedGroup2.Delete();
+
+            feed = service.Query(query);
+            cf = service.Query(q);
+
+            Assert.AreEqual(oldCountContacts, cf.Entries.Count, "Contacts count should be the same");
+            Assert.AreEqual(oldCountGroups, feed.Entries.Count, "Groups count should be the same");
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+
+        /////////////////////////////////////////////////////////////////////
+        /// <summary>runs an basic auth test against the groups feed test</summary> 
+        //////////////////////////////////////////////////////////////////////
+        [Test] public void GroupsSystemTest()
+        {
+            Tracing.TraceMsg("Entering GroupsSystemTest");
+
+            GroupsQuery query = new GroupsQuery(ContactsQuery.CreateGroupsUri(this.userName + "@googlemail.com"));
+            ContactsService service = new ContactsService("unittests");
+
+            if (this.userName != null)
+            {
+                service.Credentials = new GDataCredentials(this.userName, this.passWord);
+            }
+
+            GroupsFeed feed = service.Query(query);
+
+            int i = 0; 
+            foreach (GroupEntry g in feed.Entries )
+            {
+               if (g.SystemGroup != null)
+               {
+                   i++;
+               }
+            }
+
+            Assert.IsTrue(i==4, "There should be 4 system groups in the groups feed");
+
+
+            ObjectModelHelper.DumpAtomObject(feed,CreateDumpFileName("GroupsAuthTest"));
+
+            GroupEntry newGroup = new GroupEntry();
+            newGroup.Title.Text = "Private Data";
+
+            GroupEntry insertedGroup = feed.Insert(newGroup);
+
+            GroupEntry g2 = new GroupEntry();
+            g2.Title.Text = "Another Private Group";
+            GroupEntry insertedGroup2 = feed.Insert(g2);
+
+            // now insert a new contact that belongs to that group
+            ContactsQuery q = new ContactsQuery(ContactsQuery.CreateContactsUri(this.userName + "@googlemail.com"));
+            ContactsFeed cf = service.Query(q);
+            ContactEntry entry = ObjectModelHelper.CreateContactEntry(1);
+            GroupMembership member = new GroupMembership();
+            member.HRef = insertedGroup.Id.Uri.ToString();
+            GroupMembership member2 = new GroupMembership();
+            member2.HRef = insertedGroup2.Id.Uri.ToString();
+
+            ContactEntry insertedEntry = cf.Insert(entry);
+            // now change the group membership
+            insertedEntry.GroupMembership.Add(member);
+            insertedEntry.GroupMembership.Add(member2);
+            ContactEntry currentEntry = insertedEntry.Update();
+
+            Assert.IsTrue(currentEntry.GroupMembership.Count == 2, "The entry should be in 2 groups");
+
+            currentEntry.GroupMembership.Clear();
+            currentEntry = currentEntry.Update();
             // now we should have 2 new groups and one new entry with no groups anymore
 
 
@@ -176,6 +256,7 @@ namespace Google.GData.Client.LiveTests
         /// <summary>runs an authentication test, inserts a new contact</summary> 
         //////////////////////////////////////////////////////////////////////
         [Test]
+        [Ignore("with v2, it is not clear anymore how to force a conflict")]
         public void ConflictContactsTest()
         {
             const int numberOfInserts = 50;
@@ -268,7 +349,7 @@ namespace Google.GData.Client.LiveTests
             {
                 using (FileStream fs = new FileStream("contactphoto.jpg", System.IO.FileMode.Open))
                 {
-                    Stream res = contactService.StreamSend(entry.PhotoEditUri, fs, GDataRequestType.Update, "image/jpg", null);
+                    Stream res = contactService.StreamSend(entry.PhotoUri, fs, GDataRequestType.Update, "image/jpg", null);
                     res.Close();
                 }
             } finally   
@@ -489,6 +570,73 @@ namespace Google.GData.Client.LiveTests
             entry.IMs.Remove(i);
             Assert.IsTrue(entry.PrimaryIMAddress == null, "Entry should have no primary IM");
         }
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Tests the primary Accessors</summary> 
+        //////////////////////////////////////////////////////////////////////
+        [Test]
+        public void TestModelPrimaryContactsProperties()
+        {
+            Tracing.TraceMsg("Entering TestModelPrimaryContactsProperties");
+
+            Contact c = new Contact();
+
+            EMail e = new EMail();
+            e.Primary = true;
+            e.Address = "joe@smith.com";
+
+            Assert.IsTrue(c.PrimaryEmail == null, "Contact should have no primary Email");
+            c.Emails.Add(e);
+            Assert.IsTrue(c.PrimaryEmail == e, "Contact should have one primary Email");
+
+            c.Emails.Remove(e);
+            Assert.IsTrue(c.PrimaryEmail == null, "Contact should have no primary Email");
+
+            c.Emails.Add(e);
+            Assert.IsTrue(c.PrimaryEmail == e, "Contact should have one primary Email");
+
+            c.Emails.RemoveAt(0);
+            Assert.IsTrue(c.PrimaryEmail == null, "Contact should have no primary Email");
+
+            foreach (Object o in c.ContactEntry.ExtensionElements)
+            {
+                if (o is EMail)
+                {
+                    Assert.IsTrue(o == null, "There should be no email in the collection");
+                }
+            }
+
+
+            PostalAddress p = new PostalAddress("Testaddress");
+            p.Primary = true;
+            Assert.IsTrue(c.PrimaryPostalAddress == null, "Contact should have no primary Postal");
+            c.PostalAddresses.Add(p);
+            Assert.IsTrue(c.PrimaryPostalAddress == p, "Contact should have one primary Postal");
+            c.PostalAddresses.Remove(p);
+            Assert.IsTrue(c.PrimaryPostalAddress == null, "Contact should have no primary Postal");
+
+            PhoneNumber n = new PhoneNumber("123345");
+            n.Primary = true;
+
+            Assert.IsTrue(c.PrimaryPhonenumber == null, "Contact should have no primary Phonenumber");
+            c.Phonenumbers.Add(n);
+            Assert.IsTrue(c.PrimaryPhonenumber == n, "Contact should have one primary Phonenumber");
+
+            c.Phonenumbers.Remove(n);
+            Assert.IsTrue(c.PrimaryPhonenumber == null, "Contact should have no primary Phonenumber");
+
+            IMAddress i = new IMAddress("joe@smight.com");
+            i.Primary = true;
+
+            Assert.IsTrue(c.PrimaryIMAddress == null, "Contact should have no primary IM");
+            c.IMs.Add(new IMAddress());
+            c.IMs.Add(i);
+            Assert.IsTrue(c.PrimaryIMAddress == i, "Contact should have one primary IMAddress");
+
+            c.IMs.Remove(i);
+            Assert.IsTrue(c.PrimaryIMAddress == null, "Contact should have no primary IM");
+        }
+
 
     }
 }

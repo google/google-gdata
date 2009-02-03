@@ -70,6 +70,7 @@
     <Compile Include="contactfeed.cs" />
     <Compile Include="contactquery.cs" />
     <Compile Include="contactservice.cs" />
+    <Compile Include="contactrequest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
