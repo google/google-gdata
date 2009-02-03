@@ -106,19 +106,7 @@ namespace Google.GData.Client.UnitTests.YouTube
             Assert.AreEqual(expected, actual);
         }
 
-        /// <summary>
-        ///A test for FeedLink
-        ///</summary>
-        [Test]
-        public void FeedLinkTest()
-        {
-            SubscriptionEntry target = new SubscriptionEntry(); // TODO: Initialize to an appropriate value
-            FeedLink expected =new FeedLink();
-            FeedLink actual;
-            target.FeedLink = expected;
-            actual = target.FeedLink;
-            Assert.AreEqual(expected, actual);
-        }
+       
 
         /// <summary>
         ///A test for SubscriptionEntry Constructor
@@ -131,7 +119,6 @@ namespace Google.GData.Client.UnitTests.YouTube
             Assert.IsNull(target.UserName);
             Assert.AreEqual(target.Type, SubscriptionEntry.SubscriptionType.unknown);
             Assert.IsNull(target.QueryString);
-            Assert.IsNull(target.FeedLink);
         }
     }
 }

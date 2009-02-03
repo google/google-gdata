@@ -34,6 +34,156 @@ namespace Google.YouTube
     {
     }
 
+
+    /// <summary>
+    /// the subscription entry for a subscriptionfeed Feed
+    /// </summary>
+    public class Subscription : Entry
+    {
+         /// <summary>
+        /// readonly accessor for the SubscriptionEntry that is underneath this object.
+        /// </summary>
+        /// <returns></returns>
+        public  SubscriptionEntry SubscriptionEntry
+        {
+            get
+            {
+                return this.AtomEntry as SubscriptionEntry;
+            }
+        }
+
+        /// <summary>
+        /// creates a new subscription and set's up the internal Atom object for representation
+        /// </summary>
+        /// <returns></returns>
+        public static Subscription CreateInstance()
+        {
+            Subscription s = new Subscription();
+            s.AtomEntry = new SubscriptionEntry();
+            return s;
+        }
+
+
+
+        /// <summary>
+        ///  returns the subscription type
+        /// </summary>
+        /// <returns></returns>
+        public SubscriptionEntry.SubscriptionType Type
+        {
+            get
+            {
+                if (this.SubscriptionEntry != null)
+                {
+                    return this.SubscriptionEntry.Type;
+                }
+                return SubscriptionEntry.SubscriptionType.unknown;
+            }
+
+            set
+            {
+                if (this.SubscriptionEntry != null)
+                {
+                    this.SubscriptionEntry.Type = value;
+                }
+            }
+        }
+
+
+        /// <summary>
+        /// The user who is the owner of this subscription
+        /// </summary>
+        public string UserName 
+        {
+            get
+            {
+                if (this.SubscriptionEntry != null)
+                {
+                    return this.SubscriptionEntry.UserName;
+                }
+                return null;
+            }
+            set
+            {
+                if (this.SubscriptionEntry != null)
+                {
+                    this.SubscriptionEntry.UserName = value;
+                }
+            }
+        }
+
+        /// <summary>
+        /// if the subscripiton is a keyword query, this will be the 
+        /// subscripted to query term
+        /// </summary>
+        public string QueryString 
+        {
+            get
+            {
+                if (this.SubscriptionEntry != null)
+                {
+                    return this.SubscriptionEntry.QueryString;
+                }
+                return null;
+
+            }
+            set
+            {
+                if (this.SubscriptionEntry != null)
+                {
+                    this.SubscriptionEntry.QueryString = value;
+                }
+            }
+        }
+
+        /// <summary>
+        /// the id of the playlist you are subscriped to
+        /// </summary>
+        public string PlaylistId 
+        {
+            get
+            {
+                if (this.SubscriptionEntry != null)
+                {
+                    return this.SubscriptionEntry.PlaylistId;
+                }
+                return null;
+
+            }
+            set
+            {
+                if (this.SubscriptionEntry != null)
+                {
+                    this.SubscriptionEntry.PlaylistId = value;
+                }
+            }
+        }
+
+        /// <summary>
+        /// the human readable name of the playlist you are subscribed to
+        /// </summary>
+        public string PlaylistTitle
+        {
+            get
+            {
+                if (this.SubscriptionEntry != null)
+                {
+                    return this.SubscriptionEntry.PlaylistTitle;
+                }
+                return null;
+
+            }
+            set
+            {
+                if (this.SubscriptionEntry != null)
+                {
+                    this.SubscriptionEntry.PlaylistTitle = value;
+                }
+            }
+        }
+
+    }
+
     /// <summary>
     /// the Activity entry for an Activities Feed, a feed of activities for the friends/contacts
     /// of the logged in user
@@ -587,6 +737,17 @@ namespace Google.YouTube
         }
 
         /// <summary>
+        /// returns a Feed of subscriptions for a given username
+        /// </summary>
+        /// <param name="user">the username</param>
+        /// <returns>a feed of Videos</returns>
+        public Feed<Subscription> GetSubscriptionsFeed(string user)
+        {
+            YouTubeQuery q = PrepareQuery<YouTubeQuery>(YouTubeQuery.CreateSubscriptionUri(user));
+            return PrepareFeed<Subscription>(q); 
+        }
+
+        /// <summary>
         /// returns a Feed of playlists  for a given username
         /// </summary>
         /// <param name="user">the username</param>
@@ -708,6 +869,8 @@ namespace Google.YouTube
             }
             return new Feed<Video>(null);
         }
+
+
 
         /// <summary>
         /// uploads or inserts a new video for a given user.

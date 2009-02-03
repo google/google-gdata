@@ -5,6 +5,39 @@
     
     
 <h1>This document lists the changes in the different releases</h1>
+    <h2>
+        1.4.0.0
+    </h2>
+    <ul>
+        <li>
+            Features
+        </li>
+        <ul>
+            <li>Added PlaylistID and PlaylistTitle support to the 
+                subscription entries in youtube feeds, added support for 
+                subscriptions to the Google.YouTube namespace</li>
+        </ul>
+        <li>
+            Bugfixes/changes
+        </li>
+        <ul>
+            <li>Added the missing contacts DLL to the setup program.</li>
+            <li>Changed the new Feed model code to lazily load the feed on 
+                construction.</li>
+            <li>Removed an incorrect check for HTTP.StatusOK (200) as the 
+                result for an HTTP.Delete operation. Delete can return any 2xx 
+                code in theory. 
+                </li>
+            <li>
+                Fixed issue 209, an feed.Entries.Add(entryOfAnotherFeed) did 
+                create a source element automatically. That was too smart for 
+                it's own good. There is an explict method 
+                Entries.MoveOrCopy(entry) that does that, add will just change 
+                the ownership to the new collection.
+            </li>
+        </ul>
+    </ul>
+
 
     <h2>
         1.3.1.0

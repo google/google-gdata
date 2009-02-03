@@ -1,0 +1,450 @@
+/* Copyright (c) 2006 Google Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+*/
+
+
+using System;
+using System.IO;
+using System.Collections;
+using System.Text;
+using System.Net; 
+using Google.GData.Client;
+using Google.GData.Extensions;
+using Google.GData.Contacts;
+using System.Collections.Generic;
+
+namespace Google.Contacts
+{
+
+    public abstract class ContactBase : Entry
+    {
+
+        /// <summary>
+        /// returns if the Contact or Group is deleted
+        /// </summary>
+        /// <returns>the deleted status of the underlying object or false if no object set yet</returns>
+        public bool Deleted
+        {
+            get
+            {
+                BaseContactEntry b = this.AtomEntry as BaseContactEntry;
+                if (b != null)
+                {
+                    return b.Deleted;
+                }
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// returns the extended properties on this object
+        /// </summary>
+        /// <returns>the properties on the underlying object, or null if no 
+        /// object set yet</returns>
+        public ExtensionCollection<ExtendedProperty> ExtendedProperties
+        {
+            get
+            {
+                BaseContactEntry b = this.AtomEntry as BaseContactEntry;
+                if (b != null)
+                {
+                    return b.ExtendedProperties;
+                }
+                return null;
+            }
+        }
+    }
+
+
+    /// <summary>
+    /// the Comment entry for a Comments Feed, a feed of Comment for YouTube
+    /// </summary>
+    public class Contact : ContactBase
+    {
+        /// <summary>
+        /// creates a new contact and set's up the internal Atom object for representation
+        /// </summary>
+        /// <returns></returns>
+        public static Contact CreateInstance()
+        {
+            Contact c = new Contact();
+            c.AtomEntry = new ContactEntry();
+            return c;
+        }
+
+
+        /// <summary>
+        /// readonly accessor for the YouTubeEntry that is underneath this object.
+        /// </summary>
+        /// <returns></returns>
+        public  ContactEntry ContactEntry
+        {
+            get
+            {
+                return this.AtomEntry as ContactEntry;
+            }
+        }
+
+
+        /// <summary>
+        /// convienience accessor to find the primary Email
+        /// there is no setter, to change this use the Primary Flag on 
+        /// an individual object
+        /// </summary>
+        public EMail PrimaryEmail
+        {
+            get
+            {
+                if (this.ContactEntry != null)
+                {
+                    return this.ContactEntry.PrimaryEmail;
+                }
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// convienience accessor to find the primary Phonenumber
+        /// there is no setter, to change this use the Primary Flag on 
+        /// an individual object
+        /// </summary>
+        public PhoneNumber PrimaryPhonenumber
+        {
+            get
+            {
+                if (this.ContactEntry != null)
+                {
+                    return this.ContactEntry.PrimaryPhonenumber;
+                }
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// convienience accessor to find the primary PostalAddress
+        /// there is no setter, to change this use the Primary Flag on 
+        /// an individual object
+        /// </summary>
+        public PostalAddress PrimaryPostalAddress
+        {
+            get
+            {
+                if (this.ContactEntry != null)
+                {
+                    return this.ContactEntry.PrimaryPostalAddress;
+                }
+                return null;
+            }
+        }
+        
+        /// <summary>
+        /// convienience accessor to find the primary IMAddress
+        /// there is no setter, to change this use the Primary Flag on 
+        /// an individual object
+        /// </summary>
+        public IMAddress PrimaryIMAddress
+        {
+            get
+            {
+                if (this.ContactEntry != null)
+                {
+                    return this.ContactEntry.PrimaryIMAddress;
+                }
+                return null; 
+            }
+        }
+
+
+
+
+        /// <summary>
+        /// returns the groupmembership info on this object
+        /// </summary>
+        /// <returns></returns>
+        public ExtensionCollection<GroupMembership> GroupMembership
+        {
+            get 
+            {
+                if (this.ContactEntry != null)
+                {
+                    return this.ContactEntry.GroupMembership;
+                }
+                return null; 
+            }
+        }
+
+
+
+        /// <summary>
+        /// getter/setter for the email extension element
+        /// </summary>
+        public ExtensionCollection<EMail> Emails
+        {
+            get 
+            {
+               if (this.ContactEntry != null)
+                {
+                    return this.ContactEntry.Emails;
+                }
+                return null; 
+            }
+        }
+
+        /// <summary>
+        /// getter/setter for the IM extension element
+        /// </summary>
+        public ExtensionCollection<IMAddress> IMs
+        {
+            get 
+            {
+                if (this.ContactEntry != null)
+                {
+                    return this.ContactEntry.IMs;
+                }
+                return null; 
+            }
+        }
+
+        /// <summary>
+        /// returns the phonenumber collection
+        /// </summary>
+        public ExtensionCollection<PhoneNumber> Phonenumbers
+        {
+            get 
+            {
+                if (this.ContactEntry != null)
+                {
+                    return this.ContactEntry.Phonenumbers;
+                }
+                return null; 
+            }
+        }
+
+        /// <summary>
+        /// returns the phonenumber collection
+        /// </summary>
+        public ExtensionCollection<PostalAddress> PostalAddresses
+        {
+            get 
+            {
+                if (this.ContactEntry != null)
+                {
+                    return this.ContactEntry.PostalAddresses;
+                }
+                return null; 
+            }
+        }
+
+        /// <summary>
+        /// returns the phonenumber collection
+        /// </summary>
+        public ExtensionCollection<Organization> Organizations
+        {
+            get 
+            {
+                if (this.ContactEntry != null)
+                {
+                    return this.ContactEntry.Organizations;
+                }
+                return null; 
+            }
+        }
+
+        /// <summary>
+        /// retrieves the Uri of the Photo Link. To set this, you need to create an AtomLink object
+        /// and add/replace it in the atomlinks colleciton. 
+        /// </summary>
+        /// <returns></returns>
+        public Uri PhotoUri
+        {
+            get 
+            {
+                if (this.ContactEntry != null)
+                {
+                    return this.ContactEntry.PhotoUri;
+                }
+                return null; 
+            }
+        }
+
+        /// <summary>
+        /// if a photo is present on this contact, it will have an etag associated with it,
+        /// that needs to be used when you want to delete or update that picture.
+        /// </summary>
+        /// <returns>the etag value as a string</returns>
+        public string PhotoEtag
+        {
+            get
+            {
+                if (this.ContactEntry != null)
+                {
+                    return this.ContactEntry.PhotoEtag;
+                }
+                return null; 
+            }
+        }
+
+
+    }
+
+
+    /// <summary>
+    /// the group entry for a contacts groups Feed
+    /// </summary>
+    public class Group : ContactBase
+    {
+        /// <summary>
+        /// creates a new contactgroup and set's up the internal Atom object for representation
+        /// </summary>
+        /// <returns></returns>
+        public static Group CreateInstance()
+        {
+            Group g = new Group();
+            g.AtomEntry = new GroupEntry();
+            return g;
+        }
+
+
+        /// <summary>
+        /// readonly accessor for the YouTubeEntry that is underneath this object.
+        /// </summary>
+        /// <returns></returns>
+        public  GroupEntry GroupEntry
+        {
+            get
+            {
+                return this.AtomEntry as GroupEntry;
+            }
+        }
+
+        /// <summary>
+        /// returns the systemgroup id, if this groupentry represents 
+        /// a system group. 
+        /// The values of the system group ids corresponding to these 
+        /// groups can be found in the Reference Guide for the Contacts Data API.
+        /// Currently the values can be Contacts, Friends, Family and Coworkers
+        /// </summary>
+        /// <returns>the system group or null</returns>
+        public string SystemGroup
+        {
+            get
+            {
+                if (this.GroupEntry != null)
+                {
+                    return this.GroupEntry.SystemGroup;
+                }
+                return null;
+            }
+        }
+
+    }
+
+
+
+    //////////////////////////////////////////////////////////////////////
+    /// <summary>
+    /// The Contacts Data API provides two types of feed: contacts feed and 
+    /// contact groups feed.
+    /// The feeds are private read/write feeds that can be used to view and
+    /// manage a user's contacts/groups. Since they are private, a programmer 
+    /// can access them only by using an authenticated request. That is, the
+    ///  request must contain an authentication token for the user whose 
+    /// contacts you want to retrieve.
+    /// </summary>
+    ///  <example>
+    ///         The following code illustrates a possible use of   
+    ///          the <c>ContactsRequest</c> object:  
+    ///          <code>    
+    ///            RequestSettings settings = new RequestSettings("yourApp");
+    ///            settings.PageSize = 50; 
+    ///            settings.AutoPaging = true;
+    ///            ContactsRequest c = new ContactsRequest(settings);
+    ///            Feed<Contacts> feed = c.GetContacts();
+    ///     
+    ///         foreach (Contact contact in feed.Entries)
+    ///         {
+    ///              Console.WriteLine(contact.Title);
+    ///         }
+    ///  </code>
+    ///  </example>
+    //////////////////////////////////////////////////////////////////////
+    public class ContactsRequest : FeedRequest<ContactsService>
+    {
+
+        /// <summary>
+        /// default constructor for a YouTubeRequest
+        /// </summary>
+        /// <param name="settings"></param>
+        public ContactsRequest(RequestSettings settings) : base(settings)
+        {
+            this.Service = new ContactsService(settings.Application);
+            PrepareService();
+        }
+
+        /// <summary>
+        /// returns a Feed of contacts for the default user
+        /// </summary>
+        /// <param name="user">the username</param>
+        /// <returns>a feed of Videos</returns>
+        public Feed<Contact> GetContacts()
+        {
+            return GetContacts(null);
+        }
+
+        /// <summary>
+        /// returns a Feed of contacts for the given user
+        /// </summary>
+        /// <param name="user">the username</param>
+        /// <returns>a feed of Videos</returns>
+        public Feed<Contact> GetContacts(string user)
+        {
+            ContactsQuery q = PrepareQuery<ContactsQuery>(ContactsQuery.CreateContactsUri(user));
+            return PrepareFeed<Contact>(q); 
+        }
+
+
+        /// <summary>
+        ///  returns one of the youtube default feeds. 
+        /// </summary>
+        /// <param name="feedspec">the string representation of the URI to use</param>
+        /// <returns>a feed of Videos</returns>
+        public Feed<Group> GetGroups()
+        {
+            return GetGroups(null);
+        }
+
+        /// <summary>
+        ///  returns one of the youtube default feeds. 
+        /// </summary>
+        /// <param name="feedspec">the string representation of the URI to use</param>
+        /// <returns>a feed of Videos</returns>
+        public Feed<Group> GetGroups(string user)
+        {
+            GroupsQuery q = PrepareQuery<GroupsQuery>(GroupsQuery.CreateGroupsUri(user));
+            return PrepareFeed<Group>(q); 
+        }
+
+
+
+        /// <summary>
+        /// returns the photo stream for a given contact
+        /// </summary>
+        /// <param name="c">the contact that you want to get the photo off</param>
+        /// <returns></returns>
+        public Stream GetPhoto(Contact c)
+        {
+            return null;
+        }
+    }
+}
