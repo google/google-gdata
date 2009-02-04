@@ -24,6 +24,12 @@
             <li>Added the missing contacts DLL to the setup program.</li>
             <li>Changed the new Feed model code to lazily load the feed on 
                 construction.</li>
+            <li>
+                Removed the CreateInstance methods from the new feedmodel and 
+                changed the internals to lazyily create the inner objects on 
+                demand. That means, no more Video v = Vidoe.CreateInstance() 
+                in your code, but Video v = new Video() is now fine. 
+            </li>
             <li>Removed an incorrect check for HTTP.StatusOK (200) as the 
                 result for an HTTP.Delete operation. Delete can return any 2xx 
                 code in theory. 
