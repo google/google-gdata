@@ -521,7 +521,7 @@ namespace Google.GData.Client.LiveTests
             YouTubeRequestSettings settings = new YouTubeRequestSettings("NETUnittests", this.ytClient, this.ytDevKey, this.ytUser, this.ytPwd);
             YouTubeRequest f = new YouTubeRequest(settings);
 
-            Video v = Video.CreateInstance();
+            Video v = new Video(); 
             v.Title = "Sample upload";
             v.Description = "This is a test with and & in it";
 
@@ -808,7 +808,7 @@ namespace Google.GData.Client.LiveTests
                 Assert.IsTrue(s.PlaylistTitle != null, "There should be a PlaylistTitle");
             }
 
-            Subscription sub = Subscription.CreateInstance();
+            Subscription sub = new Subscription();
             sub.Type = SubscriptionEntry.SubscriptionType.channel;
             sub.PlaylistId = "dXNzb2NjZXJkb3Rjb20";
             sub.UserName = this.ytUser;

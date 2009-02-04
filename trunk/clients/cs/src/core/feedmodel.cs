@@ -229,6 +229,7 @@ namespace Google.GData.Client
             return this.Title;
         }
 
+        protected abstract void EnsureInnerObject();
 
         /// <summary>
         ///  the original AtomEntry object that this object is standing in for
@@ -253,11 +254,8 @@ namespace Google.GData.Client
         {
             get
             {
-                if (this.e != null)
-                {
-                    return this.e.Id.AbsoluteUri;
-                }
-                return null; 
+                EnsureInnerObject();
+                return this.e.Id.AbsoluteUri;
             }
         }
 
@@ -270,11 +268,8 @@ namespace Google.GData.Client
         {
             get 
             {
-                if (this.e != null)
-                {
-                    return this.e.Title.Text;
-                }
-                return null;
+                EnsureInnerObject();
+                return this.e.Title.Text;
             }
             set 
             {
@@ -290,7 +285,8 @@ namespace Google.GData.Client
         {
             get
             {
-                if (this.e != null && this.e.Authors.Count > 0 && this.e.Authors[0] != null)
+                EnsureInnerObject();
+                if (this.e.Authors.Count > 0 && this.e.Authors[0] != null)
                 {
                     return this.e.Authors[0].Name;
                 }
@@ -298,20 +294,18 @@ namespace Google.GData.Client
             }
             set
             {
-                if (this.e != null)
+                EnsureInnerObject();
+                AtomPerson p = null; 
+                if (this.e.Authors.Count == 0)
                 {
-                    AtomPerson p = null; 
-                    if (this.e.Authors.Count == 0)
-                    {
-                        p = new AtomPerson(AtomPersonType.Author);
-                        this.e.Authors.Add(p);
-                    }
-                    else
-                    {
-                        p = this.e.Authors[0];
-                    }
-                    p.Name = value; 
+                    p = new AtomPerson(AtomPersonType.Author);
+                    this.e.Authors.Add(p);
                 }
+                else
+                {
+                    p = this.e.Authors[0];
+                }
+                p.Name = value; 
             }
         }
 
@@ -323,18 +317,13 @@ namespace Google.GData.Client
         {
             get
             {
-                if (this.e != null)
-                {
-                    return this.e.Content.Content;
-                }
-                return null;
+                EnsureInnerObject();
+                return this.e.Content.Content;
             }
             set
             {
-                if (this.e != null)
-                {
-                    this.e.Content.Content = value;
-                }
+                EnsureInnerObject();
+                this.e.Content.Content = value;
             }
         }
 
@@ -346,18 +335,13 @@ namespace Google.GData.Client
         {
             get
             {
-                if (this.e != null)
-                {
-                    return this.e.Summary.Text;
-                }
-                return null;
+                EnsureInnerObject();
+                return this.e.Summary.Text;
             }
             set
             {
-                if (this.e != null)
-                {
-                    this.e.Summary.Text = value;
-                }
+                EnsureInnerObject();
+                this.e.Summary.Text = value;
             }
         }
 
@@ -369,18 +353,13 @@ namespace Google.GData.Client
         {
             get
             {
-                if (this.e != null)
-                {
-                    return this.e.Updated;
-                }
-                return DateTime.MinValue;
+                EnsureInnerObject();
+                return this.e.Updated;
             }
             set
             {
-                if (this.e != null)
-                {
-                    this.e.Updated = value;
-                }
+                EnsureInnerObject();
+                this.e.Updated = value;
             }
         }
 

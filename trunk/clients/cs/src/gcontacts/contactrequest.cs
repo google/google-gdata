@@ -73,15 +73,17 @@ namespace Google.Contacts
     public class Contact : ContactBase
     {
         /// <summary>
-        /// creates a new contact and set's up the internal Atom object for representation
+        /// creates the inner contact object when needed
         /// </summary>
         /// <returns></returns>
-        public static Contact CreateInstance()
+        protected override void EnsureInnerObject()
         {
-            Contact c = new Contact();
-            c.AtomEntry = new ContactEntry();
-            return c;
+            if (this.AtomEntry == null)
+            {
+                this.AtomEntry = new ContactEntry();
+            }
         }
+
 
 
         /// <summary>
@@ -106,11 +108,8 @@ namespace Google.Contacts
         {
             get
             {
-                if (this.ContactEntry != null)
-                {
-                    return this.ContactEntry.PrimaryEmail;
-                }
-                return null;
+                EnsureInnerObject();
+                return this.ContactEntry.PrimaryEmail;
             }
         }
 
@@ -139,12 +138,9 @@ namespace Google.Contacts
         public PostalAddress PrimaryPostalAddress
         {
             get
-            {
-                if (this.ContactEntry != null)
-                {
-                    return this.ContactEntry.PrimaryPostalAddress;
-                }
-                return null;
+            {   
+                EnsureInnerObject();
+                return this.ContactEntry.PrimaryPostalAddress;
             }
         }
         
@@ -157,11 +153,8 @@ namespace Google.Contacts
         {
             get
             {
-                if (this.ContactEntry != null)
-                {
-                    return this.ContactEntry.PrimaryIMAddress;
-                }
-                return null; 
+                EnsureInnerObject();
+                return this.ContactEntry.PrimaryIMAddress;
             }
         }
 
@@ -176,11 +169,8 @@ namespace Google.Contacts
         {
             get 
             {
-                if (this.ContactEntry != null)
-                {
-                    return this.ContactEntry.GroupMembership;
-                }
-                return null; 
+                EnsureInnerObject();
+                return this.ContactEntry.GroupMembership;
             }
         }
 
@@ -193,11 +183,8 @@ namespace Google.Contacts
         {
             get 
             {
-               if (this.ContactEntry != null)
-                {
-                    return this.ContactEntry.Emails;
-                }
-                return null; 
+                EnsureInnerObject();
+                return this.ContactEntry.Emails;
             }
         }
 
@@ -208,11 +195,8 @@ namespace Google.Contacts
         {
             get 
             {
-                if (this.ContactEntry != null)
-                {
-                    return this.ContactEntry.IMs;
-                }
-                return null; 
+                EnsureInnerObject();
+                return this.ContactEntry.IMs;
             }
         }
 
@@ -223,11 +207,8 @@ namespace Google.Contacts
         {
             get 
             {
-                if (this.ContactEntry != null)
-                {
-                    return this.ContactEntry.Phonenumbers;
-                }
-                return null; 
+                EnsureInnerObject();
+                return this.ContactEntry.Phonenumbers;
             }
         }
 
@@ -238,11 +219,8 @@ namespace Google.Contacts
         {
             get 
             {
-                if (this.ContactEntry != null)
-                {
-                    return this.ContactEntry.PostalAddresses;
-                }
-                return null; 
+                EnsureInnerObject();
+                return this.ContactEntry.PostalAddresses;
             }
         }
 
@@ -253,11 +231,8 @@ namespace Google.Contacts
         {
             get 
             {
-                if (this.ContactEntry != null)
-                {
-                    return this.ContactEntry.Organizations;
-                }
-                return null; 
+                EnsureInnerObject();
+                return this.ContactEntry.Organizations;
             }
         }
 
@@ -270,11 +245,8 @@ namespace Google.Contacts
         {
             get 
             {
-                if (this.ContactEntry != null)
-                {
-                    return this.ContactEntry.PhotoUri;
-                }
-                return null; 
+                EnsureInnerObject();
+                return this.ContactEntry.PhotoUri;
             }
         }
 
@@ -287,11 +259,8 @@ namespace Google.Contacts
         {
             get
             {
-                if (this.ContactEntry != null)
-                {
-                    return this.ContactEntry.PhotoEtag;
-                }
-                return null; 
+                EnsureInnerObject();
+                return this.ContactEntry.PhotoEtag;
             }
         }
 
@@ -304,15 +273,17 @@ namespace Google.Contacts
     /// </summary>
     public class Group : ContactBase
     {
+       
         /// <summary>
-        /// creates a new contactgroup and set's up the internal Atom object for representation
+        /// creates the inner contact object when needed
         /// </summary>
         /// <returns></returns>
-        public static Group CreateInstance()
+        protected override void EnsureInnerObject()
         {
-            Group g = new Group();
-            g.AtomEntry = new GroupEntry();
-            return g;
+            if (this.AtomEntry == null)
+            {
+                this.AtomEntry = new GroupEntry();
+            }
         }
 
 
@@ -340,11 +311,8 @@ namespace Google.Contacts
         {
             get
             {
-                if (this.GroupEntry != null)
-                {
-                    return this.GroupEntry.SystemGroup;
-                }
-                return null;
+                EnsureInnerObject();
+                return this.GroupEntry.SystemGroup;
             }
         }
 

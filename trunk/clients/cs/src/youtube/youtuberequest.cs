@@ -32,6 +32,19 @@ namespace Google.YouTube
     /// </summary>
     public class Comment : Entry
     {
+        /// <summary>
+        /// creates the inner contact object when needed
+        /// </summary>
+        /// <returns></returns>
+        protected override void EnsureInnerObject()
+        {
+            if (this.AtomEntry == null)
+            {
+                this.AtomEntry = new CommentEntry();
+            }
+        }
+
+
     }
 
 
@@ -52,16 +65,19 @@ namespace Google.YouTube
             }
         }
 
+        
         /// <summary>
-        /// creates a new subscription and set's up the internal Atom object for representation
+        /// creates the inner contact object when needed
         /// </summary>
         /// <returns></returns>
-        public static Subscription CreateInstance()
+        protected override void EnsureInnerObject()
         {
-            Subscription s = new Subscription();
-            s.AtomEntry = new SubscriptionEntry();
-            return s;
+            if (this.AtomEntry == null)
+            {
+                this.AtomEntry = new SubscriptionEntry();
+            }
         }
+
 
 
 
@@ -73,19 +89,14 @@ namespace Google.YouTube
         {
             get
             {
-                if (this.SubscriptionEntry != null)
-                {
-                    return this.SubscriptionEntry.Type;
-                }
-                return SubscriptionEntry.SubscriptionType.unknown;
+                EnsureInnerObject();
+                return this.SubscriptionEntry.Type;
             }
 
             set
             {
-                if (this.SubscriptionEntry != null)
-                {
-                    this.SubscriptionEntry.Type = value;
-                }
+                EnsureInnerObject();
+                this.SubscriptionEntry.Type = value;
             }
         }
 
@@ -97,18 +108,13 @@ namespace Google.YouTube
         {
             get
             {
-                if (this.SubscriptionEntry != null)
-                {
-                    return this.SubscriptionEntry.UserName;
-                }
-                return null;
+                EnsureInnerObject();
+                return this.SubscriptionEntry.UserName;
             }
             set
             {
-                if (this.SubscriptionEntry != null)
-                {
-                    this.SubscriptionEntry.UserName = value;
-                }
+                EnsureInnerObject();
+                this.SubscriptionEntry.UserName = value;
             }
         }
 
@@ -120,19 +126,14 @@ namespace Google.YouTube
         {
             get
             {
-                if (this.SubscriptionEntry != null)
-                {
-                    return this.SubscriptionEntry.QueryString;
-                }
-                return null;
+                EnsureInnerObject();
+                return this.SubscriptionEntry.QueryString;
 
             }
             set
             {
-                if (this.SubscriptionEntry != null)
-                {
-                    this.SubscriptionEntry.QueryString = value;
-                }
+                EnsureInnerObject();
+                this.SubscriptionEntry.QueryString = value;
             }
         }
 
@@ -143,19 +144,14 @@ namespace Google.YouTube
         {
             get
             {
-                if (this.SubscriptionEntry != null)
-                {
-                    return this.SubscriptionEntry.PlaylistId;
-                }
-                return null;
+                EnsureInnerObject();
+                return this.SubscriptionEntry.PlaylistId;
 
             }
             set
             {
-                if (this.SubscriptionEntry != null)
-                {
-                    this.SubscriptionEntry.PlaylistId = value;
-                }
+                EnsureInnerObject();
+                this.SubscriptionEntry.PlaylistId = value;
             }
         }
 
@@ -166,19 +162,14 @@ namespace Google.YouTube
         {
             get
             {
-                if (this.SubscriptionEntry != null)
-                {
-                    return this.SubscriptionEntry.PlaylistTitle;
-                }
-                return null;
+                EnsureInnerObject();
+                return this.SubscriptionEntry.PlaylistTitle;
 
             }
             set
             {
-                if (this.SubscriptionEntry != null)
-                {
-                    this.SubscriptionEntry.PlaylistTitle = value;
-                }
+                EnsureInnerObject();
+                this.SubscriptionEntry.PlaylistTitle = value;
             }
         }
 
@@ -191,6 +182,19 @@ namespace Google.YouTube
     /// <returns></returns>
     public class Activity : Entry
     {
+
+
+        /// <summary>
+        /// creates the inner contact object when needed
+        /// </summary>
+        /// <returns></returns>
+        protected override void EnsureInnerObject()
+        {
+            if (this.AtomEntry == null)
+            {
+                this.AtomEntry = new ActivityEntry();
+            }
+        }
 
         /// <summary>
         /// readonly accessor for the YouTubeEntry that is underneath this object.
@@ -213,7 +217,8 @@ namespace Google.YouTube
         {
             get
             {
-                if (this.ActivityEntry != null && this.ActivityEntry.VideoId != null)
+                EnsureInnerObject();
+                if (this.ActivityEntry.VideoId != null)
                 {
                     return this.ActivityEntry.VideoId.Value;
                 }
@@ -225,11 +230,8 @@ namespace Google.YouTube
         {
             get
             {
-                if (this.ActivityEntry != null)
-                {
-                    return this.ActivityEntry.Type;
-                }
-                return ActivityType.Undefined; 
+                EnsureInnerObject();
+                return this.ActivityEntry.Type;
             }
         }
     }
@@ -239,6 +241,19 @@ namespace Google.YouTube
     /// </summary>
     public class Playlist : Entry
     {
+
+        /// <summary>
+        /// creates the inner contact object when needed
+        /// </summary>
+        /// <returns></returns>
+        protected override void EnsureInnerObject()
+        {
+            if (this.AtomEntry == null)
+            {
+                this.AtomEntry = new PlaylistsEntry();
+            }
+        }
+
         /// <summary>
         /// returns the internal atomentry as a PlayListsEntry
         /// </summary>
@@ -260,11 +275,8 @@ namespace Google.YouTube
         {
             get 
             {
-                if (this.PlaylistsEntry != null)
-                {
-                    return this.PlaylistsEntry.CountHint;
-                }
-                return 0; 
+                EnsureInnerObject();
+                return this.PlaylistsEntry.CountHint;
             }
         }
     }
@@ -276,15 +288,18 @@ namespace Google.YouTube
     //////////////////////////////////////////////////////////////////////
     public class Video : Entry
     {
+        
+
         /// <summary>
-        /// creates a new video and set's up the internal Atom object for representation
+        /// creates the inner contact object when needed
         /// </summary>
         /// <returns></returns>
-        public static Video CreateInstance()
+        protected override void EnsureInnerObject()
         {
-            Video v = new Video();
-            v.AtomEntry = new YouTubeEntry();
-            return v;
+            if (this.AtomEntry == null)
+            {
+                this.AtomEntry = new YouTubeEntry();
+            }
         }
 
 
@@ -308,11 +323,8 @@ namespace Google.YouTube
         {
             get
             {
-                if (this.YouTubeEntry != null)
-                {
-                    return this.YouTubeEntry.VideoId;
-                }
-                return null; 
+                EnsureInnerObject();
+                return this.YouTubeEntry.VideoId;
             }
         }
 
@@ -337,18 +349,16 @@ namespace Google.YouTube
             }
             set
             {
-                if (this.YouTubeEntry != null)
+                EnsureInnerObject();
+                if (this.YouTubeEntry.Media == null)
                 {
-                    if (this.YouTubeEntry.Media == null)
-                    {
-                        this.YouTubeEntry.Media = new Google.GData.YouTube.MediaGroup();
-                    }
-                    if (this.YouTubeEntry.Media.Description == null)
-                    {
-                        this.YouTubeEntry.Media.Description = new MediaDescription();
-                    }
-                    this.YouTubeEntry.Media.Description.Value = value; 
+                    this.YouTubeEntry.Media = new Google.GData.YouTube.MediaGroup();
                 }
+                if (this.YouTubeEntry.Media.Description == null)
+                {
+                    this.YouTubeEntry.Media.Description = new MediaDescription();
+                }
+                this.YouTubeEntry.Media.Description.Value = value; 
             }
         }
 
@@ -367,13 +377,10 @@ namespace Google.YouTube
             set
             {
                 base.Title = value;
-                // now set the media title element as well
-                if (this.YouTubeEntry != null)
+                EnsureInnerObject();
+                if (this.YouTubeEntry.Media == null)
                 {
-                    if (this.YouTubeEntry.Media == null)
-                    {
-                        this.YouTubeEntry.Media = new Google.GData.YouTube.MediaGroup();
-                    }
+                    this.YouTubeEntry.Media = new Google.GData.YouTube.MediaGroup();
                 }
                 if (this.YouTubeEntry.Media.Title == null)
                 {
@@ -392,15 +399,12 @@ namespace Google.YouTube
         {
             get
             {
-                if (this.YouTubeEntry != null)
+                EnsureInnerObject();
+                if (this.YouTubeEntry.Media == null)
                 {
-                    if (this.YouTubeEntry.Media == null)
-                    {
-                        this.YouTubeEntry.Media = new Google.GData.YouTube.MediaGroup();
-                    }
-                    return this.YouTubeEntry.Media.Categories; 
+                    this.YouTubeEntry.Media = new Google.GData.YouTube.MediaGroup();
                 }
-                return null;
+                return this.YouTubeEntry.Media.Categories; 
             }
         }
 
@@ -426,18 +430,16 @@ namespace Google.YouTube
             }
             set
             {
-                if (this.YouTubeEntry != null)
+                EnsureInnerObject();
+                if (this.YouTubeEntry.Media == null)
                 {
-                    if (this.YouTubeEntry.Media == null)
-                    {
-                        this.YouTubeEntry.Media = new Google.GData.YouTube.MediaGroup();
-                    }
-                    if (this.YouTubeEntry.Media.Keywords == null)
-                    {
-                        this.YouTubeEntry.Media.Keywords = new MediaKeywords();
-                    }
-                    this.YouTubeEntry.Media.Keywords.Value = value; 
+                    this.YouTubeEntry.Media = new Google.GData.YouTube.MediaGroup();
                 }
+                if (this.YouTubeEntry.Media.Keywords == null)
+                {
+                    this.YouTubeEntry.Media.Keywords = new MediaKeywords();
+                }
+                this.YouTubeEntry.Media.Keywords.Value = value; 
             }
         }
 
@@ -500,18 +502,16 @@ namespace Google.YouTube
             }
             set
             {
-                if (this.YouTubeEntry != null)
+                EnsureInnerObject();
+                if (this.YouTubeEntry.Media == null)
                 {
-                    if (this.YouTubeEntry.Media == null)
-                    {
-                        this.YouTubeEntry.Media = new Google.GData.YouTube.MediaGroup();
-                    }
-                    if (this.YouTubeEntry.Media.Credit == null)
-                    {
-                        this.YouTubeEntry.Media.Credit = new Google.GData.YouTube.MediaCredit();
-                    }
-                    this.YouTubeEntry.Media.Credit.Value = value; 
+                    this.YouTubeEntry.Media = new Google.GData.YouTube.MediaGroup();
                 }
+                if (this.YouTubeEntry.Media.Credit == null)
+                {
+                    this.YouTubeEntry.Media.Credit = new Google.GData.YouTube.MediaCredit();
+                }
+                this.YouTubeEntry.Media.Credit.Value = value; 
             }
         }
 
