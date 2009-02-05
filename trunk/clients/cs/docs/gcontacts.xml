@@ -104,15 +104,20 @@
             Group Member ship info element string
             </summary>
         </member>
+        <member name="F:Google.GData.Contacts.ContactsNameTable.SystemGroupElement">
+            <summary>
+            SystemGroup element, indicating that this entry is a system group
+            </summary>
+        </member>
         <member name="T:Google.GData.Contacts.GroupMembership">
             <summary>
             an element is defined that represents a group to which the contact belongs   
             </summary>
         </member>
-        <member name="F:Google.GData.Contacts.GroupMembership.AttributeHRef">
+        <member name="F:Google.GData.Contacts.GroupMembership.XmlAttributeHRef">
             <summary>the  href attribute </summary>
         </member>
-        <member name="F:Google.GData.Contacts.GroupMembership.AttributeDeleted">
+        <member name="F:Google.GData.Contacts.GroupMembership.XmlAttributeDeleted">
             <summary>the deleted attribute </summary>
         </member>
         <member name="M:Google.GData.Contacts.GroupMembership.#ctor">
@@ -129,6 +134,22 @@
             This attribute will only be included if showdeleted is specified 
             as query parameter, otherwise groupMembershipInfo for groups a contact 
             does not belong to anymore is simply not returned.</summary>
+        </member>
+        <member name="F:Google.GData.Contacts.SystemGroup.XmlAttributeId">
+            <summary>
+            id attribute for the system group element
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Google.GData.Contacts.SystemGroup.#ctor">
+            <summary>
+            default constructor 
+            </summary>
+        </member>
+        <member name="P:Google.GData.Contacts.SystemGroup.Id">
+            <summary>Identifies the system group. Note that you still need 
+            to use the group entries href membership to retrieve the group
+            </summary>
         </member>
         <member name="T:Google.GData.Contacts.BaseContactEntry">
             <summary>
@@ -177,6 +198,16 @@
         <member name="M:Google.GData.Contacts.GroupEntry.Update">
             <summary>
             typed override of the Update method
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.GData.Contacts.GroupEntry.SystemGroup">
+            <summary>
+            returns the systemgroup id, if this groupentry represents 
+            a system group. 
+            The values of the system group ids corresponding to these 
+            groups can be found in the Reference Guide for the Contacts Data API.
+            Currently the values can be Contacts, Friends, Family and Coworkers
             </summary>
             <returns></returns>
         </member>
@@ -273,12 +304,12 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="P:Google.GData.Contacts.ContactEntry.PhotoEditUri">
+        <member name="P:Google.GData.Contacts.ContactEntry.PhotoEtag">
             <summary>
-            retrieves the Uri of the Photo Edit Link. To set this, you need to create an AtomLink object
-            and add/replace it in the atomlinks colleciton. 
+            if a photo is present on this contact, it will have an etag associated with it,
+            that needs to be used when you want to delete or update that picture.
             </summary>
-            <returns></returns>
+            <returns>the etag value as a string</returns>
         </member>
         <member name="T:Google.GData.Contacts.ContactsService">
             <summary>
@@ -311,6 +342,14 @@
             </summary>
             <param name="feedQuery"></param>
             <returns>EventFeed</returns>
+        </member>
+        <member name="M:Google.GData.Contacts.ContactsService.InitVersionInformation">
+            <summary>
+            by default all services now use version 1 for the protocol.
+            this needs to be overridden by a service to specify otherwise. 
+            YouTube uses version 2
+            </summary>
+            <returns></returns>
         </member>
         <member name="M:Google.GData.Contacts.ContactsService.OnNewFeed(System.Object,Google.GData.Client.ServiceEventArgs)">
             <summary>eventchaining. We catch this by from the base service, which 
@@ -528,6 +567,178 @@
             <summary>Constrains the results to only the contacts belonging to the 
             group specified. Value of this parameter specifies group ID</summary> 
             <returns> </returns>
+        </member>
+        <member name="P:Google.Contacts.ContactBase.Deleted">
+            <summary>
+            returns if the Contact or Group is deleted
+            </summary>
+            <returns>the deleted status of the underlying object or false if no object set yet</returns>
+        </member>
+        <member name="P:Google.Contacts.ContactBase.ExtendedProperties">
+            <summary>
+            returns the extended properties on this object
+            </summary>
+            <returns>the properties on the underlying object, or null if no 
+            object set yet</returns>
+        </member>
+        <member name="T:Google.Contacts.Contact">
+            <summary>
+            the Comment entry for a Comments Feed, a feed of Comment for YouTube
+            </summary>
+        </member>
+        <member name="M:Google.Contacts.Contact.EnsureInnerObject">
+            <summary>
+            creates the inner contact object when needed
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.Contacts.Contact.ContactEntry">
+            <summary>
+            readonly accessor for the YouTubeEntry that is underneath this object.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.Contacts.Contact.PrimaryEmail">
+            <summary>
+            convienience accessor to find the primary Email
+            there is no setter, to change this use the Primary Flag on 
+            an individual object
+            </summary>
+        </member>
+        <member name="P:Google.Contacts.Contact.PrimaryPhonenumber">
+            <summary>
+            convienience accessor to find the primary Phonenumber
+            there is no setter, to change this use the Primary Flag on 
+            an individual object
+            </summary>
+        </member>
+        <member name="P:Google.Contacts.Contact.PrimaryPostalAddress">
+            <summary>
+            convienience accessor to find the primary PostalAddress
+            there is no setter, to change this use the Primary Flag on 
+            an individual object
+            </summary>
+        </member>
+        <member name="P:Google.Contacts.Contact.PrimaryIMAddress">
+            <summary>
+            convienience accessor to find the primary IMAddress
+            there is no setter, to change this use the Primary Flag on 
+            an individual object
+            </summary>
+        </member>
+        <member name="P:Google.Contacts.Contact.GroupMembership">
+            <summary>
+            returns the groupmembership info on this object
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.Contacts.Contact.Emails">
+            <summary>
+            getter/setter for the email extension element
+            </summary>
+        </member>
+        <member name="P:Google.Contacts.Contact.IMs">
+            <summary>
+            getter/setter for the IM extension element
+            </summary>
+        </member>
+        <member name="P:Google.Contacts.Contact.Phonenumbers">
+            <summary>
+            returns the phonenumber collection
+            </summary>
+        </member>
+        <member name="P:Google.Contacts.Contact.PostalAddresses">
+            <summary>
+            returns the phonenumber collection
+            </summary>
+        </member>
+        <member name="P:Google.Contacts.Contact.Organizations">
+            <summary>
+            returns the phonenumber collection
+            </summary>
+        </member>
+        <member name="P:Google.Contacts.Contact.PhotoUri">
+            <summary>
+            retrieves the Uri of the Photo Link. To set this, you need to create an AtomLink object
+            and add/replace it in the atomlinks colleciton. 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.Contacts.Contact.PhotoEtag">
+            <summary>
+            if a photo is present on this contact, it will have an etag associated with it,
+            that needs to be used when you want to delete or update that picture.
+            </summary>
+            <returns>the etag value as a string</returns>
+        </member>
+        <member name="T:Google.Contacts.Group">
+            <summary>
+            the group entry for a contacts groups Feed
+            </summary>
+        </member>
+        <member name="M:Google.Contacts.Group.EnsureInnerObject">
+            <summary>
+            creates the inner contact object when needed
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.Contacts.Group.GroupEntry">
+            <summary>
+            readonly accessor for the YouTubeEntry that is underneath this object.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.Contacts.Group.SystemGroup">
+            <summary>
+            returns the systemgroup id, if this groupentry represents 
+            a system group. 
+            The values of the system group ids corresponding to these 
+            groups can be found in the Reference Guide for the Contacts Data API.
+            Currently the values can be Contacts, Friends, Family and Coworkers
+            </summary>
+            <returns>the system group or null</returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "T:Google.Contacts.ContactsRequest" -->
+        <member name="M:Google.Contacts.ContactsRequest.#ctor(Google.GData.Client.RequestSettings)">
+            <summary>
+            default constructor for a YouTubeRequest
+            </summary>
+            <param name="settings"></param>
+        </member>
+        <member name="M:Google.Contacts.ContactsRequest.GetContacts">
+            <summary>
+            returns a Feed of contacts for the default user
+            </summary>
+            <param name="user">the username</param>
+            <returns>a feed of Videos</returns>
+        </member>
+        <member name="M:Google.Contacts.ContactsRequest.GetContacts(System.String)">
+            <summary>
+            returns a Feed of contacts for the given user
+            </summary>
+            <param name="user">the username</param>
+            <returns>a feed of Videos</returns>
+        </member>
+        <member name="M:Google.Contacts.ContactsRequest.GetGroups">
+            <summary>
+             returns one of the youtube default feeds. 
+            </summary>
+            <param name="feedspec">the string representation of the URI to use</param>
+            <returns>a feed of Videos</returns>
+        </member>
+        <member name="M:Google.Contacts.ContactsRequest.GetGroups(System.String)">
+            <summary>
+             returns one of the youtube default feeds. 
+            </summary>
+            <param name="feedspec">the string representation of the URI to use</param>
+            <returns>a feed of Videos</returns>
+        </member>
+        <member name="M:Google.Contacts.ContactsRequest.GetPhoto(Google.Contacts.Contact)">
+            <summary>
+            returns the photo stream for a given contact
+            </summary>
+            <param name="c">the contact that you want to get the photo off</param>
+            <returns></returns>
         </member>
     </members>
 </doc>
