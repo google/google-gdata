@@ -3,6 +3,9 @@ CSC=gmcs
 
 DEFINES=/d:TRACE
 
+VERSION=$(shell egrep AssemblyVersion version/AssemblyVersion.cs | egrep -o \([[:digit:]]\.\)+[[:digit:]]+)
+PREFIX=/usr/local
+
 CORELIBS=\
 	Google.GData.Client.dll		\
 	Google.GData.Extensions.dll 	
@@ -31,6 +34,8 @@ ALLLIBS = \
 
 FRAMEWORK_REFS = -r:System.dll -r:System.Xml.dll -r:System.Web.dll -r:System.Configuration.dll
 
+PKGCONFIG_FILES = $(patsubst %.pc.in,%.pc,$(wildcard misc/*.pc.in))
+
 COREREFS = $(addprefix -r:,$(CORELIBS)) $(FRAMEWORK_REFS) 
 ALLREFS = $(addprefix -r:,$(ALLLIBS)) $(FRAMEWORK_REFS)
 ACLREFS = $(addprefix -r:,$(ACLLIBS)) $(FRAMEWORK_REFS)
@@ -48,7 +53,7 @@ samples =	\
 	PhotoTool.exe \
 	HealthTool.exe \
 
-all: $(ALLLIBS) tests $(samples)
+all: $(ALLLIBS) tests $(samples) $(PKGCONFIG_FILES)
 
 core_sources = $(wildcard src/core/*.cs) $(wildcard version/*.cs)
 extensions_sources = $(wildcard src/extensions/*.cs) $(wildcard version/*.cs)
@@ -111,13 +116,16 @@ Google.GData.Blogger.dll: $(CORELIBS) $(blogger_sources) src/blogger/blogger.sn
 	$(CSC) $(DEFINES) -target:library -out:$@ $(COREREFS) $(blogger_sources) -keyfile:src/blogger/blogger.sn
 
 clean:
-	-rm *.sn *.dll *exe
+	-rm *.sn *.dll *exe $(PKGCONFIG_FILES)
 
 install: all
-	for i in $(ALLLIBS); do gacutil -i $$i; done
+	for i in $(ALLLIBS); do gacutil -i $$i -package GData-Sharp -root "$(DESTDIR)$(PREFIX)/lib"; done
+	install -d "$(DESTDIR)$(PREFIX)/lib/pkgconfig"
+	install -m 644 -t "$(DESTDIR)$(PREFIX)/lib/pkgconfig" $(PKGCONFIG_FILES) 
 
 uninstall:
-	for i in $(ALLLIBS); do gacutil -u $$i; done
+	for i in $(ALLLIBS); do gacutil -u $$i -package GData-Sharp -root "$(DESTDIR)$(PREFIX)/lib"; done
+	for i in $(PKGCONFIG_FILES) ; do rm "$(DESTDIR)$(PREFIX)/lib/pkgconfig/$$i" ; done
 
 tests: $(ALLLIBS)
 	$(CSC) $(DEFINES) -target:library -out:unittests.dll $(ALLREFS) -r:nunit.framework.dll $(test_sources)
@@ -169,3 +177,6 @@ HealthTool.exe: $(ALLLIBS) $(healthtool_sources)
 
 test:
 	nunit-console2 unittests.dll
+
+%.pc : %.pc.in
+	sed "s,\@VERSION\@,$(VERSION),g; s,\@prefix\@,$(PREFIX),g" < $< > $@

@@ -1,0 +1,9 @@
+prefix=@prefix@
+libdir=${prefix}/lib
+
+Name: Google.GData.YouTube
+Description: CLI bindings to Google's YouTube service
+Version: @VERSION@
+
+Requires: gdata-sharp-core
+Libs: -r:${libdir}/mono/GData-Sharp/Google.GData.YouTube.dll

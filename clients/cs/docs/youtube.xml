@@ -766,6 +766,16 @@
             uploaded element string for playlist feeds
             </summary>
         </member>
+        <member name="F:Google.GData.YouTube.YouTubeNameTable.PlaylistTitle">
+            <summary>
+            title for a playlist
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YouTubeNameTable.PlaylistId">
+            <summary>
+            id for a playlist
+            </summary>
+        </member>
         <member name="T:Google.GData.YouTube.YouTubeCategory">
             <summary>
              this Category entry will be returned for the list of official YouTubeCategories, 
@@ -1366,6 +1376,38 @@
             </summary>
         </member>
         <member name="M:Google.GData.YouTube.VideoId.#ctor(System.String)">
+            <summary>
+            constructor with an init value
+            </summary>
+            <param name="initValue"></param>
+        </member>
+        <member name="T:Google.GData.YouTube.PlaylistId">
+            <summary>
+            PlaylistId schema extension describing a YouTube playlist identifier
+            </summary>
+        </member>
+        <member name="M:Google.GData.YouTube.PlaylistId.#ctor">
+            <summary>
+            default constructor
+            </summary>
+        </member>
+        <member name="M:Google.GData.YouTube.PlaylistId.#ctor(System.String)">
+            <summary>
+            constructor with an init value
+            </summary>
+            <param name="initValue"></param>
+        </member>
+        <member name="T:Google.GData.YouTube.PlaylistTitle">
+            <summary>
+            PlaylistTitle schema extension describing a YouTube playlist title
+            </summary>
+        </member>
+        <member name="M:Google.GData.YouTube.PlaylistTitle.#ctor">
+            <summary>
+            default constructor
+            </summary>
+        </member>
+        <member name="M:Google.GData.YouTube.PlaylistTitle.#ctor(System.String)">
             <summary>
             constructor with an init value
             </summary>
@@ -2029,10 +2071,66 @@
             the Comment entry for a Comments Feed, a feed of Comment for YouTube
             </summary>
         </member>
+        <member name="M:Google.YouTube.Comment.EnsureInnerObject">
+            <summary>
+            creates the inner contact object when needed
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Google.YouTube.Subscription">
+            <summary>
+            the subscription entry for a subscriptionfeed Feed
+            </summary>
+        </member>
+        <member name="M:Google.YouTube.Subscription.EnsureInnerObject">
+            <summary>
+            creates the inner contact object when needed
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.YouTube.Subscription.SubscriptionEntry">
+            <summary>
+            readonly accessor for the SubscriptionEntry that is underneath this object.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.YouTube.Subscription.Type">
+            <summary>
+             returns the subscription type
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.YouTube.Subscription.UserName">
+            <summary>
+            The user who is the owner of this subscription
+            </summary>
+        </member>
+        <member name="P:Google.YouTube.Subscription.QueryString">
+            <summary>
+            if the subscripiton is a keyword query, this will be the 
+            subscripted to query term
+            </summary>
+        </member>
+        <member name="P:Google.YouTube.Subscription.PlaylistId">
+            <summary>
+            the id of the playlist you are subscriped to
+            </summary>
+        </member>
+        <member name="P:Google.YouTube.Subscription.PlaylistTitle">
+            <summary>
+            the human readable name of the playlist you are subscribed to
+            </summary>
+        </member>
         <member name="T:Google.YouTube.Activity">
             <summary>
             the Activity entry for an Activities Feed, a feed of activities for the friends/contacts
             of the logged in user
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Google.YouTube.Activity.EnsureInnerObject">
+            <summary>
+            creates the inner contact object when needed
             </summary>
             <returns></returns>
         </member>
@@ -2053,6 +2151,12 @@
             the Playlist entry for a Playlist Feed, a feed of Playlist for YouTube
             </summary>
         </member>
+        <member name="M:Google.YouTube.Playlist.EnsureInnerObject">
+            <summary>
+            creates the inner contact object when needed
+            </summary>
+            <returns></returns>
+        </member>
         <member name="P:Google.YouTube.Playlist.PlaylistsEntry">
             <summary>
             returns the internal atomentry as a PlayListsEntry
@@ -2070,9 +2174,9 @@
             <summary>the Video Entry in feed&lt;Videos&gt; for YouTube
             </summary> 
         </member>
-        <member name="M:Google.YouTube.Video.CreateInstance">
+        <member name="M:Google.YouTube.Video.EnsureInnerObject">
             <summary>
-            creates a new video and set's up the internal Atom object for representation
+            creates the inner contact object when needed
             </summary>
             <returns></returns>
         </member>
@@ -2227,6 +2331,13 @@
         <member name="M:Google.YouTube.YouTubeRequest.GetFavoriteFeed(System.String)">
             <summary>
             returns a Feed of favorite videos for a given username
+            </summary>
+            <param name="user">the username</param>
+            <returns>a feed of Videos</returns>
+        </member>
+        <member name="M:Google.YouTube.YouTubeRequest.GetSubscriptionsFeed(System.String)">
+            <summary>
+            returns a Feed of subscriptions for a given username
             </summary>
             <param name="user">the username</param>
             <returns>a feed of Videos</returns>
@@ -2443,11 +2554,6 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="P:Google.GData.YouTube.SubscriptionEntry.FeedLink">
-            <summary>
-            getter/setter for the feedlink subelement
-            </summary>
-        </member>
         <member name="P:Google.GData.YouTube.SubscriptionEntry.UserName">
             <summary>
             getter/setter for UserName subelement
@@ -2456,6 +2562,16 @@
         <member name="P:Google.GData.YouTube.SubscriptionEntry.QueryString">
             <summary>
             getter/setter for QueryString subelement
+            </summary>
+        </member>
+        <member name="P:Google.GData.YouTube.SubscriptionEntry.PlaylistId">
+            <summary>
+            getter/setter for PlaylistId subelement
+            </summary>
+        </member>
+        <member name="P:Google.GData.YouTube.SubscriptionEntry.PlaylistTitle">
+            <summary>
+            getter/setter for PlaylistTitle subelement
             </summary>
         </member>
         <member name="T:Google.GData.YouTube.SubscriptionEntry.SubscriptionType">
@@ -2476,6 +2592,11 @@
         <member name="F:Google.GData.YouTube.SubscriptionEntry.SubscriptionType.query">
             <summary>
             indicates a query based subscription
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.SubscriptionEntry.SubscriptionType.playlist">
+            <summary>
+            indicates a playlist based subscription
             </summary>
         </member>
         <member name="F:Google.GData.YouTube.SubscriptionEntry.SubscriptionType.unknown">
