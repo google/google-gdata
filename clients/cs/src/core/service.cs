@@ -339,7 +339,22 @@ namespace Google.GData.Client
         public Stream Query(Uri queryUri, DateTime ifModifiedSince)
         {
             long l;
-            return this.Query(queryUri, ifModifiedSince, out l);
+            return this.Query(queryUri, ifModifiedSince, null, out l);
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>the basic interface. Take a URI and just get it</summary> 
+        /// <param name="queryUri">the URI to execute</param>
+        /// <param name="etag">used to set a precondition etag that 
+        /// indicates the feed should be returned only if it has been modified </param>
+        /// <returns> a webresponse object</returns>
+        //////////////////////////////////////////////////////////////////////
+        public Stream Query(Uri queryUri, string etag)
+        {
+            long l;
+            return this.Query(queryUri, DateTime.MinValue, etag, out l);
         }
         /////////////////////////////////////////////////////////////////////////////
 
@@ -350,10 +365,12 @@ namespace Google.GData.Client
         /// indicates the feed should be returned only if it has been modified 
         /// after the specified date. A value of DateTime.MinValue indicates no 
         /// precondition.</param>
+        /// <param name="etag">used to set a precondition etag that 
+        /// indicates the feed should be returned only if it has been modified </param>
         /// <param name="contentLength">returns the content length of the response</param>
         /// <returns> a webresponse object</returns>
         //////////////////////////////////////////////////////////////////////
-        private Stream Query(Uri queryUri, DateTime ifModifiedSince, out long contentLength)
+        private Stream Query(Uri queryUri, DateTime ifModifiedSince, string etag, out long contentLength)
         {
             Tracing.TraceCall("Enter");
             if (queryUri == null)
@@ -366,6 +383,15 @@ namespace Google.GData.Client
             IGDataRequest request = this.RequestFactory.CreateRequest(GDataRequestType.Query, queryUri);
             request.Credentials = this.Credentials;
             request.IfModifiedSince = ifModifiedSince;
+
+            if (etag != null)
+            {
+                ISupportsEtag ise = request as ISupportsEtag;
+                if (ise != null)
+                {
+                    ise.Etag = etag; 
+                }
+            }
 
             try
             {
@@ -388,7 +414,7 @@ namespace Google.GData.Client
             }
             
             Tracing.TraceCall("Exit");
-            return request.GetResponseStream();
+            return new GDataReturnStream(request);
         }
         /////////////////////////////////////////////////////////////////////////////
 
@@ -839,7 +865,30 @@ namespace Google.GData.Client
                                  string slugHeader)
         {
 
-            return StreamSend(targetUri, inputStream, type, contentType, slugHeader, null);
+            return StreamSend(targetUri, inputStream, type, contentType, slugHeader, null, null);
+        }
+
+        /// <summary>
+        /// this is a helper function for to send binary data to a resource
+        /// it is not worth running the other insert/saves through here, as this would involve
+        /// double buffering/copying of the bytes
+        /// </summary>
+        /// <param name="targetUri"></param>
+        /// <param name="inputStream"></param>
+        /// <param name="type"></param>
+        /// <param name="contentType">the contenttype to use in the request, if NULL is passed, factory default is used</param>
+        /// <param name="slugHeader">the slugHeader to use in the request, if NULL is passed, factory default is used</param>
+        /// <param name="etag">The http etag to pass into the request</param>
+        /// <returns>Stream</returns>
+        public Stream StreamSend(Uri targetUri, 
+                                 Stream inputStream, 
+                                 GDataRequestType type, 
+                                 string contentType,
+                                 string slugHeader,
+                                 string etag)
+        {
+
+            return StreamSend(targetUri, inputStream, type, contentType, slugHeader, etag, null);
         }
 
 
@@ -853,6 +902,7 @@ namespace Google.GData.Client
         /// <param name="type"></param>
         /// <param name="contentType">the contenttype to use in the request, if NULL is passed, factory default is used</param>
         /// <param name="slugHeader">the slugHeader to use in the request, if NULL is passed, factory default is used</param>
+        /// <param name="etag">The http etag to pass into the request</param>
         /// <param name="data">The async data needed for notifications</param>
         /// <returns>Stream from the server response. You should close this stream explicitly.</returns>
         private Stream StreamSend(Uri targetUri, 
@@ -860,6 +910,7 @@ namespace Google.GData.Client
                                  GDataRequestType type, 
                                  string contentType,
                                  string slugHeader,
+                                 string etag,
                                  AsyncSendData data)
         {
             Tracing.Assert(targetUri != null, "targetUri should not be null");
@@ -910,13 +961,22 @@ namespace Google.GData.Client
                 }
             }
 
+            if (etag != null)
+            {
+                ISupportsEtag ise = request as ISupportsEtag;
+                if (ise != null)
+                {
+                    ise.Etag = etag;
+                }
+            }
+
             Stream outputStream = request.GetRequestStream();
 
             WriteInputStreamToRequest(inputStream, outputStream);
 
             request.Execute();
             outputStream.Close();
-            return request.GetResponseStream();
+            return new GDataReturnStream(request);
         }
 
         /// <summary>
@@ -1170,5 +1230,97 @@ namespace Google.GData.Client
 
     }
     /////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    /// used to cover a return stream and add some additional data to it. 
+    /// </summary>
+    public class GDataReturnStream : Stream, ISupportsEtag
+    {
+        private string etag;
+        private Stream innerStream;
+
+        public GDataReturnStream(IGDataRequest r)
+        {
+            this.innerStream = r.GetResponseStream();
+            ISupportsEtag ise = r as ISupportsEtag;
+            if (ise != null)
+            {
+                this.etag = ise.Etag;
+            }
+        }
+
+        public override bool CanRead
+        {
+            get { return this.innerStream.CanRead; }
+        }
+
+        public override bool CanSeek
+        {
+            get { return this.innerStream.CanSeek; }
+        }
+
+        public override bool CanTimeout
+        {
+            get { return this.innerStream.CanTimeout;}
+        }
+
+        public override void Close()
+        {
+            this.innerStream.Close();
+        }
+
+        public override bool CanWrite
+        {
+            get { return this.innerStream.CanWrite; }
+        }
+
+        public override long Length
+        {
+            get { return this.innerStream.Length; }
+        }
+
+        public override long Position
+        {
+            get
+            {
+                return this.innerStream.Position;
+            }
+            set
+            {
+                this.innerStream.Position = value;
+            }
+        }
+
+        public override void Flush()
+        {
+            this.innerStream.Flush();
+        }
+
+        public override long Seek(long offset, SeekOrigin origin)
+        {
+            return this.innerStream.Seek(offset, origin);
+        }
+
+        public override void SetLength(long value)
+        {
+            this.innerStream.SetLength(value);
+        }
+
+        public override int Read(byte[] buffer, int offset, int count)
+        {
+            return this.innerStream.Read(buffer, offset, count);           
+        }
+
+        public override void Write(byte[] buffer, int offset, int count)
+        {
+            this.innerStream.Write(buffer, offset, count);
+        }
+
+        public string Etag
+        {
+            get { return this.etag; }
+            set { this.etag = value; }
+        }
+    }
 } 
 /////////////////////////////////////////////////////////////////////////////

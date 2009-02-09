@@ -795,7 +795,7 @@ namespace Google.GData.Client.LiveTests
         {
             Tracing.TraceMsg("Entering YouTubeSubscriptionsTest");
 
-            YouTubeRequestSettings settings = new YouTubeRequestSettings("NETUnittests", this.ytClient, this.ytDevKey, this.ytUser, this.ytPwd);
+            YouTubeRequestSettings settings = new YouTubeRequestSettings(this.ApplicationName, this.ytClient, this.ytDevKey, this.ytUser, this.ytPwd);
             // settings.PageSize = 15;
             YouTubeRequest f = new YouTubeRequest(settings);
 

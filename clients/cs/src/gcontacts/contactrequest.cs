@@ -262,6 +262,11 @@ namespace Google.Contacts
                 EnsureInnerObject();
                 return this.ContactEntry.PhotoEtag;
             }
+            set
+            {
+                EnsureInnerObject();
+                this.ContactEntry.PhotoEtag = value;
+            }
         }
 
 
@@ -406,13 +411,60 @@ namespace Google.Contacts
 
 
         /// <summary>
-        /// returns the photo stream for a given contact
+        /// returns the photo stream for a given contact. If there is no photo,
+        /// the 404 is catched and null is returned.
         /// </summary>
         /// <param name="c">the contact that you want to get the photo off</param>
         /// <returns></returns>
         public Stream GetPhoto(Contact c)
         {
-            return null;
+            Stream retStream = null; 
+            try
+            {
+                if (c.PhotoUri != null)
+                {
+                    retStream = this.Service.Query(c.PhotoUri, c.PhotoEtag);
+                }
+            }
+            catch (GDataRequestException e)
+            {
+                HttpWebResponse r = e.Response as HttpWebResponse;
+                if (r != null && r.StatusCode != HttpStatusCode.NotFound)
+                {
+                    throw; 
+                }
+            }
+            return retStream;
+        }
+
+        /// <summary>
+        /// set's the photo of a given contact entry
+        /// </summary>
+        /// <param name="c">the contact that should be modified</param>
+        /// <param name="photoStream">a stream to an JPG image</param>
+        /// <returns></returns>
+        public void SetPhoto(Contact c, Stream photoStream)
+        {
+            Stream res = this.Service.StreamSend(c.PhotoUri, photoStream, GDataRequestType.Update, "image/jpg", null, c.PhotoEtag);
+            GDataReturnStream r = res as GDataReturnStream;
+            if (r != null)
+            {
+                c.PhotoEtag = r.Etag;
+            }
+            res.Close();
+        }
+
+        /// <summary>
+        /// set's the photo of a given contact entry
+        /// </summary>
+        /// <param name="c">the contact that should be modified</param>
+        /// <param name="photoStream">a stream to an JPG image</param>
+        /// <param name="mimeType">specifies the type of the image, like image/jpg</param>
+        /// <returns></returns>
+        public void SetPhoto(Contact c, Stream photoStream, string mimeType)
+        {
+            Stream res = this.Service.StreamSend(c.PhotoUri, photoStream, GDataRequestType.Update, mimeType, null, c.PhotoEtag);
+            res.Close();
         }
     }
 }

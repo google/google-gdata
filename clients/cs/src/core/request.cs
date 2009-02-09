@@ -745,6 +745,11 @@ namespace Google.GData.Client
 
                 this.contentLength = response.ContentLength;
 
+                // if we got an etag back, remember it
+
+
+                this.eTag = response.Headers[GDataRequestFactory.EtagHeader];
+
                 response = null;
                 request = null; 
             }
