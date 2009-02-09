@@ -516,6 +516,20 @@ namespace Google.GData.Contacts {
                 }
                 return null;
             }
+            set 
+            {
+                AtomLink link = this.PhotoLink;
+                if (link != null)
+                {
+                    foreach (XmlExtension x in link.ExtensionElements)
+                    {
+                        if (x.XmlNameSpace == GDataParserNameTable.gNamespace && x.XmlName == GDataParserNameTable.XmlEtagAttribute)
+                        {
+                            x.Node.Value = value;
+                        }
+                    }
+                }
+            }
         }
 
         private AtomLink PhotoLink

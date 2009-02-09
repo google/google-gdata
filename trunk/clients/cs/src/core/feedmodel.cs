@@ -126,6 +126,23 @@ namespace Google.GData.Client
        }
 
        /// <summary>
+       /// returns the number of entries the server believes the feed holds
+       /// </summary>
+       /// <returns></returns>
+       public int TotalResults
+       {
+           get
+           {
+               if (this.AtomFeed != null)
+               {
+                   return this.AtomFeed.TotalResults;
+               }
+               return -1; 
+           }
+       }
+
+
+       /// <summary>
        /// the maxium number of entries to be retrieved. This is normally 
        /// setup using the RequestSettings when the feed is constructed.
        /// </summary>
@@ -152,7 +169,9 @@ namespace Google.GData.Client
         needed. Example. If you pagesize is 30, you get an initial set of 
         30 entries. While enumerating, when reaching 30, the code will go 
         to the server and get the next 30 rows. It will continue to do so
-        until the server reports no more rows available. 
+        until the server reports no more rows available.
+        Note that you should cache the entries returned in a list of your own
+        if you want to access them more than once... 
         </summary>
          <example>
                 The following code illustrates a possible use of   
@@ -171,6 +190,12 @@ namespace Google.GData.Client
             get
             {
                 bool looping;
+
+                // if we have iterated once before, we need to reset
+                if (this.numberRetrieved > 0 && this.paging == false && this.service != null)
+                {
+                    this.af = null; 
+                }
                 if (this.AtomFeed == null)
                     yield break;
 
@@ -248,9 +273,9 @@ namespace Google.GData.Client
         }
 
         /// <summary>
-        /// returns the ID of an entry
+        /// returns the Id of an entry
         /// </summary>
-        public string ID
+        public string Id
         {
             get
             {
@@ -273,6 +298,7 @@ namespace Google.GData.Client
             }
             set 
             {
+                EnsureInnerObject();
                 this.e.Title.Text = value; 
             }
         }
@@ -360,6 +386,25 @@ namespace Google.GData.Client
             {
                 EnsureInnerObject();
                 this.e.Updated = value;
+            }
+        }
+
+
+        /// <summary>
+        /// this returns the batch data for the inner atom object
+        /// </summary>
+        /// <returns></returns>
+        public GDataBatchEntryData BatchData
+        {
+            get
+            {
+                EnsureInnerObject();
+                return this.e.BatchData;
+            }
+            set
+            {
+                EnsureInnerObject();
+                this.e.BatchData = value;
             }
         }
 
@@ -745,7 +790,47 @@ namespace Google.GData.Client
         }
 
 
-         /// <summary>
+        /// <summary>
+        /// performs a batch operation. 
+        /// </summary>
+        /// <param name="batchUri">the batch endpoint of the service</param>
+        /// <param name="entries">List of entries of type Y, that are to be batched</param>
+        /// <returns></returns>
+        public Feed<Y> Batch<Y>(List<Y> entries, Uri batchUri) where Y: Entry, new()
+        {
+            if (entries.Count > 0)
+            {
+                AtomFeed batchFeed = new AtomFeed(batchUri, null);
+                foreach (Y e in entries)
+                {
+                    batchFeed.Entries.Add(e.AtomEntry);
+                }
+                AtomFeed resultFeed = this.Service.Batch(batchFeed, batchUri);
+                Feed<Y> f = new Feed<Y>(resultFeed);
+                return f;
+            }
+            return null;
+        }
+
+
+
+        /// <summary>
+        /// returns the service instance that is used
+        /// </summary>
+        public T Service
+        {
+            get
+            {
+                return this.atomService;
+            }
+            set
+            {
+                this.atomService = value;
+            }
+        }
+
+
+        /// <summary>
         /// returns a refreshed version of the entry you passed in, by going back to the server and
         /// requesting this resource again
         /// </summary>
@@ -791,26 +876,10 @@ namespace Google.GData.Client
             {
                 r =y; 
             }
-
             return r; 
-
         }
 
 
-        /// <summary>
-        /// returns the service instance that is used
-        /// </summary>
-        public T Service
-        {
-            get
-            {
-                return this.atomService;
-            }
-            set
-            {
-                this.atomService = value;
-            }
-        }
 
         /// <summary>
         ///  sends the data back to the server. 

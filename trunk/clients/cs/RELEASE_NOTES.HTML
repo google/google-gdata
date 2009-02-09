@@ -16,6 +16,14 @@
             <li>Added PlaylistID and PlaylistTitle support to the 
                 subscription entries in youtube feeds, added support for 
                 subscriptions to the Google.YouTube namespace</li>
+            <li>
+                Added Google Contacts v2 support, including a new, vertical 
+                model like the YouTube programming model. You can find this 
+                in the Google.Contacts namespace. 
+            </li>
+            <li>
+                Added Batch access to the new generics model. 
+            </li>
         </ul>
         <li>
             Bugfixes/changes
@@ -40,6 +48,14 @@
                 it's own good. There is an explict method 
                 Entries.MoveOrCopy(entry) that does that, add will just change 
                 the ownership to the new collection.
+            </li>
+            <li>
+                Changed Google.Client.Entry.ID to Google.Client.Entry.Id
+            </li>
+            <li>
+                 fixed the feed.Entries iterator to restart from the beginning 
+                 when you want to use it again. Note that you should cache the 
+                 output of the iterator is you want to use that in a loop. 
             </li>
         </ul>
     </ul>

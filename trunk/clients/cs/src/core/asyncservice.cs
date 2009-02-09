@@ -568,7 +568,7 @@ namespace Google.GData.Client
             try
             {
                 long contentLength;
-                responseStream = this.Query(data.UriToUse, data.Modified, out contentLength);
+                responseStream = this.Query(data.UriToUse, data.Modified, null, out contentLength);
                 AtomFeed feed = null;
                 MemoryStream memStream = null;
 
@@ -897,7 +897,7 @@ namespace Google.GData.Client
             try
             {
                 data.DataStream = this.StreamSend(data.UriToUse, data.DataStream, data.Type,
-                                            data.ContentType, data.SlugHeader, data);
+                                            data.ContentType, data.SlugHeader, null, data);
 
             } catch (Exception e)
             {
