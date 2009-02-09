@@ -735,9 +735,27 @@
         </member>
         <member name="M:Google.Contacts.ContactsRequest.GetPhoto(Google.Contacts.Contact)">
             <summary>
-            returns the photo stream for a given contact
+            returns the photo stream for a given contact. If there is no photo,
+            the 404 is catched and null is returned.
             </summary>
             <param name="c">the contact that you want to get the photo off</param>
+            <returns></returns>
+        </member>
+        <member name="M:Google.Contacts.ContactsRequest.SetPhoto(Google.Contacts.Contact,System.IO.Stream)">
+            <summary>
+            set's the photo of a given contact entry
+            </summary>
+            <param name="c">the contact that should be modified</param>
+            <param name="photoStream">a stream to an JPG image</param>
+            <returns></returns>
+        </member>
+        <member name="M:Google.Contacts.ContactsRequest.SetPhoto(Google.Contacts.Contact,System.IO.Stream,System.String)">
+            <summary>
+            set's the photo of a given contact entry
+            </summary>
+            <param name="c">the contact that should be modified</param>
+            <param name="photoStream">a stream to an JPG image</param>
+            <param name="mimeType">specifies the type of the image, like image/jpg</param>
             <returns></returns>
         </member>
     </members>
