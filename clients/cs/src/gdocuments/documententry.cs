@@ -17,12 +17,10 @@
 using System;
 using System.Xml;
 using System.IO; 
-using System.Collections;
+using System.Collections.Generic;
 using Google.GData.Client;
 using Google.GData.Extensions;
-using Google.GData.Extensions.MediaRss;
-using Google.GData.Extensions.Exif;
-using Google.GData.Extensions.Location;
+using Google.GData.AccessControl;
 
 
 namespace Google.GData.Documents {
@@ -80,6 +78,7 @@ namespace Google.GData.Documents {
         : base()
         {
             Tracing.TraceMsg("Created DocumentEntry");
+            this.AddExtension(new FeedLink());
         }
 
         /// <summary>
@@ -157,6 +156,27 @@ namespace Google.GData.Documents {
             }
         }
 
+        /// <summary>
+        /// returns the string that should represent the Uri to the access control list
+        /// </summary>
+        /// <returns>the value of the hret attribute for the acl feedlink, or null if not found</returns>
+        public string AccessControlList
+        {
+            get
+            {
+                List<FeedLink> list = FindExtensions<FeedLink>(GDataParserNameTable.XmlFeedLinkElement, 
+                             BaseNameTable.gNamespace);
+
+                foreach (FeedLink fl in list) 
+                {
+                    if (fl.Rel == AclNameTable.LINK_REL_ACCESS_CONTROL_LIST)
+                    {
+                        return fl.Href;
+                    }
+                }
+                return null;
+            }
+        }
 
     }
 }

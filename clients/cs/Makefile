@@ -100,8 +100,8 @@ Google.GData.Apps.dll: $(CORELIBS) $(gapps_sources) src/gapps/gapps.sn
 Google.GData.Photos.dll: $(CORELIBS) $(gphotos_sources) src/gphotos/picasa.sn
 	$(CSC) $(DEFINES) -target:library -out:$@ $(COREREFS) $(gphotos_sources) -keyfile:src/gphotos/picasa.sn
 
-Google.GData.Documents.dll: $(CORELIBS) $(gdocuments_sources) src/gdocuments/documents.sn
-	$(CSC) $(DEFINES) -target:library -out:$@ $(COREREFS) $(gdocuments_sources) -keyfile:src/gdocuments/documents.sn
+Google.GData.Documents.dll: $(ACLLIBS) $(gdocuments_sources) src/gdocuments/documents.sn
+	$(CSC) $(DEFINES) -target:library -out:$@ $(ACLREFS) $(gdocuments_sources) -keyfile:src/gdocuments/documents.sn
 
 Google.GData.Contacts.dll: $(CORELIBS) $(gcontact_sources) src/gcontacts/contacts.sn
 	$(CSC) $(DEFINES) -target:library -out:$@ $(COREREFS) $(gcontact_sources) -keyfile:src/gcontacts/contacts.sn
