@@ -132,9 +132,6 @@
     <Compile Include="..\..\core\documentquery.cs">
       <Link>documentquery.cs</Link>
     </Compile>
-    <Compile Include="..\..\core\etag.cs">
-      <Link>etag.cs</Link>
-    </Compile>
     <Compile Include="..\..\core\exceptions.cs">
       <Link>exceptions.cs</Link>
     </Compile>
