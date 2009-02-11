@@ -87,7 +87,7 @@ namespace Google.Contacts
 
 
         /// <summary>
-        /// readonly accessor for the YouTubeEntry that is underneath this object.
+        /// readonly accessor for the ContactEntry that is underneath this object.
         /// </summary>
         /// <returns></returns>
         public  ContactEntry ContactEntry

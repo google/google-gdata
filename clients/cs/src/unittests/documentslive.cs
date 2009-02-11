@@ -20,6 +20,7 @@ using System.IO;
 using NUnit.Framework;
 using Google.GData.Client.UnitTests;
 using Google.GData.Documents;
+using Google.Documents;
 
 
 namespace Google.GData.Client.LiveTests
@@ -168,6 +169,133 @@ namespace Google.GData.Client.LiveTests
 
             //clean up the file we created
             File.Delete(tempFile);
+        }
+
+
+        /// <summary>
+        /// tests etag refresh on a feed level
+        /// </summary>
+        [Ignore("Doclist updates timestamps on feeds based on access, so etags are useless here")]
+        [Test] public void ModelTestFeedETagRefresh()
+        {
+            RequestSettings settings = new RequestSettings(this.ApplicationName, this.userName, this.passWord);
+            // settings.PageSize = 15;
+            DocumentsRequest r = new DocumentsRequest(settings);
+
+            // this returns the server default answer
+            Feed<Document> feed = r.GetDocuments();
+
+            foreach (Document d in feed.Entries )
+            {
+                Assert.IsTrue(d != null, "We should have something");
+            }
+
+            Feed<Document> reload = r.Get(feed, FeedRequestType.Refresh);
+
+            // now this should result in a notmodified
+            try
+            {
+                foreach (Document d in reload.Entries )
+                {
+                    Assert.IsTrue(d == null, "We should not get here");
+                }
+            }
+            catch (GDataNotModifiedException g)
+            {
+                Assert.IsTrue(g!=null);
+            }
+        }
+
+        /// <summary>
+        /// tests etag refresh on an entry level
+        /// </summary>
+        [Test] public void ModelTestEntryETagRefresh()
+        {
+            RequestSettings settings = new RequestSettings(this.ApplicationName, this.userName, this.passWord);
+            // settings.PageSize = 15;
+            DocumentsRequest r = new DocumentsRequest(settings);
+
+            // this returns the server default answer
+            Feed<Document> feed = r.GetDocuments();
+
+            Document d = null; 
+
+            foreach (Document x in feed.Entries )
+            {
+                Assert.IsTrue(x != null, "We should have something");
+                d = x;
+            }
+
+            Assert.IsTrue(d != null, "We should have something");
+            
+            // now this should result in a notmodified
+            try
+            {
+                Document refresh = r.Get(d);
+                Assert.IsTrue(refresh == null, "we should not be here");
+            }
+            catch (GDataNotModifiedException g)
+            {
+                Assert.IsTrue(g!=null);
+            }
+        }
+
+
+        /// <summary>
+        /// tests etag refresh on an entry level
+        /// </summary>
+        [Test] public void ModelTestFolders()
+        {
+            const string testTitle = "That is a new & weird folder";
+            const string parentTitle = "Granddaddy folder";
+
+            RequestSettings settings = new RequestSettings(this.ApplicationName, this.userName, this.passWord);
+            // settings.PageSize = 15;
+            DocumentsRequest r = new DocumentsRequest(settings);
+
+            Document folder = new Document();
+            folder.Type = Document.DocumentType.Folder;
+            folder.Title = testTitle;
+
+            /// first create the folder
+            folder = r.CreateDocument(folder);
+
+            Assert.IsTrue(folder.Title == testTitle);
+
+            r.Delete(folder);
+
+            // let's create a hierarchy
+
+            Document parent = new Document();
+            parent.Type = Document.DocumentType.Folder;
+            parent.Title = parentTitle;
+
+            parent = r.CreateDocument(parent);
+
+            // create the child
+
+            folder = new Document();
+            folder.Type = Document.DocumentType.Folder;
+            folder.Title = testTitle;
+
+            /// first create the folder
+            folder = r.CreateDocument(folder);
+
+            // now move the folder into the parent
+
+            r.MoveDocumentTo(parent, folder);
+
+
+
+
+
+
+
+
+
+
+
+            
         }
 
     
