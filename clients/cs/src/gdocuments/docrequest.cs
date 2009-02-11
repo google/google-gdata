@@ -66,6 +66,7 @@ namespace Google.Documents
         {
             get
             {
+                EnsureInnerObject();
                 return this.AtomEntry as DocumentEntry;
             }
         }
@@ -213,7 +214,7 @@ namespace Google.Documents
             }
 
             Document payload = new Document();
-            payload.AtomEntry.Id = new AtomId(child.Id);
+            payload.DocumentEntry.Id = new AtomId(child.Id);
             payload.Type = child.Type;
 
             // to do that, we just need to post the CHILD 
