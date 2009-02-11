@@ -460,10 +460,10 @@ namespace Google.GData.Client
         /// <param name="ns">the namespace of the elementToPersist</param>
         /// <param name="collection">the collection to fill</param>
         /// <returns>none</returns>
-        public T FindExtensions<T>(string localName, string ns, T collection) where T : IList<IExtensionElementFactory>
+        public List<T> FindExtensions<T>(string localName, string ns) where T : IExtensionElementFactory
         {
-            return Utilities.FindExtensions(this.ExtensionElements,
-                                            localName, ns, collection);
+            return Utilities.FindExtensions<T>(this.ExtensionElements,
+                                            localName, ns);
 
         }
 

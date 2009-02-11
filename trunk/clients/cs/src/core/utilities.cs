@@ -754,42 +754,31 @@ namespace Google.GData.Client
         /// <param name="ns">the namespace of the elementToPersist</param>
         /// <param name="collection">the collection to fill</param>
         /// <returns>none</returns>
-        public static T FindExtensions<T>(ExtensionList arrList, string localName, string ns, T collection) where T : IList<IExtensionElementFactory>
+        public static List<T> FindExtensions<T>(ExtensionList arrList, string localName, string ns) where T : IExtensionElementFactory
         {
+            List<T> list = new List<T>(); 
             if (arrList == null)
             {
                 throw new ArgumentNullException("arrList");
             }
-            if (collection == null)
-            {
-                throw new ArgumentNullException("collection");
-            }
 
-            foreach (IExtensionElementFactory ob in arrList)
+            foreach (IExtensionElementFactory obj in arrList)
             {
-                XmlNode node = ob as XmlNode;
-                if (node != null)
+                if (obj is T)
                 {
-                    if (compareXmlNess(node.LocalName, localName, node.NamespaceURI, ns))
-                    {
-                        collection.Add(ob);
-                    }
-                }
-                else
-                {
+                    T ele = (T) obj;
                     // only if the elements do implement the ExtensionElementFactory
                     // do we know if it's xml name/namespace
-                    IExtensionElementFactory ele = ob as IExtensionElementFactory;
                     if (ele != null)
                     {
                         if (compareXmlNess(ele.XmlName, localName, ele.XmlNameSpace, ns))
                         {
-                            collection.Add(ele);
+                            list.Add(ele);
                         }
                     }
                 }
             }
-            return collection;
+            return list;
         }
 
         /// <summary>
