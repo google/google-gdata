@@ -783,6 +783,14 @@ namespace Google.GData.Client
             if (String.IsNullOrEmpty(spec) == false)
             {
                 FeedQuery q =  new FeedQuery(spec);
+                if (operation == FeedRequestType.Refresh)
+                {
+                    ISupportsEtag ise = feed.AtomFeed as ISupportsEtag;
+                    if (ise != null && ise.Etag != null)
+                    {
+                        q.Etag = ise.Etag;
+                    }
+                }
                 f = PrepareFeed<Y>(q); 
             }
 
@@ -868,6 +876,11 @@ namespace Google.GData.Client
             if (String.IsNullOrEmpty(spec) == false)
             {
                 FeedQuery q = new FeedQuery(spec);
+                ISupportsEtag ise = entry.AtomEntry as ISupportsEtag;
+                if (ise != null && ise.Etag != null)
+                {
+                    q.Etag = ise.Etag;
+                }
                 f = PrepareFeed<Y>(q); 
             }
             // this should be a feed of one... 

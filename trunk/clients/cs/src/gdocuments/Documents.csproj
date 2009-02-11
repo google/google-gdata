@@ -127,6 +127,7 @@
     <Compile Include="documentfeed.cs" />
     <Compile Include="documentquery.cs" />
     <Compile Include="documentservice.cs" />
+    <Compile Include="docrequest.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

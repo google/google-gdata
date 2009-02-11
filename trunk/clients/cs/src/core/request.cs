@@ -721,7 +721,8 @@ namespace Google.GData.Client
                                                     this.targetUri.ToString() + response.StatusCode.ToString(), this.webResponse); 
                 }
 
-                if (this.IfModifiedSince != DateTime.MinValue && response.StatusCode == HttpStatusCode.NotModified)
+                if ((this.IfModifiedSince != DateTime.MinValue 
+                     || this.Etag != null) && response.StatusCode == HttpStatusCode.NotModified)
                 {
                     // Throw an exception for conditional GET
                     throw new GDataNotModifiedException("Content not modified: " + this.targetUri.ToString(), this.webResponse);

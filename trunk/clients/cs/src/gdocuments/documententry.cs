@@ -39,6 +39,7 @@ namespace Google.GData.Documents {
         static string SPREADSHEET_KIND = "http://schemas.google.com/docs/2007#spreadsheet";
         static string PDF_KIND = "http://schemas.google.com/docs/2007#pdf";
         static string STARRED_KIND = "http://schemas.google.com/g/2005/labels#starred";
+        static string FOLDER_KIND = "http://schemas.google.com/docs/2007#folder";
 
         /// <summary>
         /// a predefined atom category for Documents
@@ -68,6 +69,12 @@ namespace Google.GData.Documents {
         /// </summary>        
         public static AtomCategory STARRED_CATEGORY =
             new AtomCategory(STARRED_KIND, new AtomUri(BaseNameTable.gLabels));
+        /// <summary>
+        /// a predefined atom category for folders
+        /// </summary>        
+        public static AtomCategory  FOLDER_CATEGORY =
+            new AtomCategory(FOLDER_KIND, new AtomUri(BaseNameTable.gKind));
+
 
 
         /// <summary>
@@ -153,6 +160,18 @@ namespace Google.GData.Documents {
             set 
             {
                 this.ToggleCategory(DocumentEntry.STARRED_CATEGORY, value);
+            }
+        }
+
+        public bool IsFolder
+        {
+            get
+            {
+                return this.Categories.Contains(DocumentEntry.FOLDER_CATEGORY);
+            }
+            set 
+            {
+                this.ToggleCategory(DocumentEntry.FOLDER_CATEGORY, value);
             }
         }
 
