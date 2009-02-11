@@ -57,6 +57,12 @@
                  when you want to use it again. Note that you should cache the 
                  output of the iterator is you want to use that in a loop. 
             </li>
+            <li>Fixed issue 217, a call to setUserCredentials now automatically invalidates
+                a stored authtoken.</li>
+            <li>Fixed issue 200. A feedQuery now supports an etag property, and several new 
+            service method overloads for query and send support an etag as a parameter.</li>
+            <li>Service.Query(FeedQuery, ifModifiedSince) is now marked obsolete. You can use the ModifiedSince
+            property on the FeedQuery object and Query(FeedQuery) instead.</li>
         </ul>
     </ul>
 

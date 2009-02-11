@@ -26,6 +26,7 @@ using System.IO;
 using System.Xml; 
 using System.Collections;
 using System.Configuration;
+using System.Collections.Generic;
 using System.Net; 
 using NUnit.Framework;
 using Google.GData.Client;
@@ -697,17 +698,24 @@ namespace Google.GData.Client.LiveTests
             DateTime t = DateTime.Now.AddDays(-1);
 
             // this returns the all activities for the last 24 hours  default answer
-            Feed<Activity> yesterday = f.GetActivities(t);
-
-            foreach (Activity a in yesterday.Entries)
+            try
             {
-                Assert.IsTrue(a.VideoId != null, "There should be a VideoId");
+                Feed<Activity> yesterday = f.GetActivities(t);
+
+                foreach (Activity a in yesterday.Entries)
+                {
+                    Assert.IsTrue(a.VideoId != null, "There should be a VideoId");
+                }
+            }
+            catch (GDataNotModifiedException e)
+            {
+                Assert.IsTrue(e != null);
             }
 
             t = DateTime.Now.AddMinutes(-1);
 
 
-            // this returns the all activities for the last 1 minute, should be empty
+            // this returns the all activities for the last 1 minute, should be empty or throw a not modified
 
             try
             {
@@ -724,6 +732,70 @@ namespace Google.GData.Client.LiveTests
             catch (GDataNotModifiedException e)
             {
                 Assert.IsTrue(e != null);
+            }
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>runs a test on the YouTube factory object</summary> 
+        //////////////////////////////////////////////////////////////////////
+        [Test]
+        public void YouTubeSubscriptionsTest()
+        {
+            Tracing.TraceMsg("Entering YouTubeSubscriptionsTest");
+            string playlistID = "4A3A73D5172EB90A";
+
+            YouTubeRequestSettings settings = new YouTubeRequestSettings(this.ApplicationName, this.ytClient, this.ytDevKey, this.ytUser, this.ytPwd);
+            // settings.PageSize = 15;
+            YouTubeRequest f = new YouTubeRequest(settings);
+
+            // this returns the server default answer
+            Feed<Subscription> feed = f.GetSubscriptionsFeed(null);
+
+            foreach (Subscription s in feed.Entries)
+            {
+                Assert.IsTrue(s.PlaylistId != null, "There should be a PlaylistId");
+                Assert.IsTrue(s.PlaylistTitle != null, "There should be a PlaylistTitle");
+                if (s.PlaylistId == playlistID)
+                {
+                    f.Delete(s);
+                }
+            }
+
+            Subscription sub = new Subscription();
+            sub.Type = SubscriptionEntry.SubscriptionType.playlist;
+            sub.PlaylistId = playlistID;
+
+            f.Insert(feed, sub);
+
+
+            // this returns the server default answer
+            feed = f.GetSubscriptionsFeed(null);
+            List<Subscription> list = new List<Subscription>();
+
+            foreach (Subscription s in feed.Entries)
+            {
+                Assert.IsTrue(s.PlaylistId != null, "There should be a PlaylistId");
+                Assert.IsTrue(s.PlaylistTitle != null, "There should be a PlaylistTitle");
+
+                if (s.PlaylistId == playlistID)
+                {
+                    list.Add(s);
+                }
+            }
+
+            Assert.IsTrue(list.Count > 0, "There should be one subscription matching");
+
+            foreach (Subscription s in list)
+            {
+                f.Delete(s);
+            }
+
+            foreach (Subscription s in feed.Entries)
+            {
+                Assert.IsTrue(s.PlaylistId != null, "There should be a PlaylistId");
+                Assert.IsTrue(s.PlaylistTitle != null, "There should be a PlaylistTitle");
+                Assert.IsFalse(s.PlaylistId == playlistID, "They should be gone");
             }
         }
         /////////////////////////////////////////////////////////////////////////////
@@ -787,36 +859,6 @@ namespace Google.GData.Client.LiveTests
         }
         /////////////////////////////////////////////////////////////////////////////
 
-
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>runs a test on the YouTube factory object</summary> 
-        //////////////////////////////////////////////////////////////////////
-        [Test] public void YouTubeSubscriptionsTest()
-        {
-            Tracing.TraceMsg("Entering YouTubeSubscriptionsTest");
-
-            YouTubeRequestSettings settings = new YouTubeRequestSettings(this.ApplicationName, this.ytClient, this.ytDevKey, this.ytUser, this.ytPwd);
-            // settings.PageSize = 15;
-            YouTubeRequest f = new YouTubeRequest(settings);
-
-            // this returns the server default answer
-            Feed<Subscription> feed = f.GetSubscriptionsFeed(null);
-
-            foreach (Subscription s in feed.Entries)
-            {
-                Assert.IsTrue(s.PlaylistId != null, "There should be a PlaylistId");
-                Assert.IsTrue(s.PlaylistTitle != null, "There should be a PlaylistTitle");
-            }
-
-            Subscription sub = new Subscription();
-            sub.Type = SubscriptionEntry.SubscriptionType.channel;
-            sub.PlaylistId = "dXNzb2NjZXJkb3Rjb20";
-            sub.UserName = this.ytUser;
-
-            f.Insert(feed, sub);
-
-        }
-        /////////////////////////////////////////////////////////////////////////////
 
 
 

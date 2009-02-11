@@ -152,7 +152,7 @@ namespace Google.GData.Client
     /// as well as a composite URI.
     /// </summary> 
     //////////////////////////////////////////////////////////////////////
-    public class FeedQuery
+    public class FeedQuery : ISupportsEtag
     {
         #region member variables
         /// <summary>baseUri property holder</summary> 
@@ -370,6 +370,24 @@ namespace Google.GData.Client
             }
         }
         /////////////////////////////////////////////////////////////////////////////
+
+
+        /// <summary>
+        /// supports the etag for a query. Setting this etag here will create an if-notmatch
+        /// query with the etag given. 
+        /// </summary>
+        private string etag=null;
+        public string Etag
+        {
+            get
+            {
+                return this.etag;
+            }
+            set
+            {
+                this.etag = value;
+            }
+        }
 
 
         //////////////////////////////////////////////////////////////////////

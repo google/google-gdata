@@ -312,6 +312,8 @@ namespace Google.GData.Client
         public void setUserCredentials(String username, String password)
         {
             this.Credentials = new GDataCredentials(username, password);
+            // if we get new credentials, make sure we invalidate the old authtoken
+            SetAuthenticationToken(null);
         }
 
 
@@ -440,7 +442,47 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         public AtomFeed Query(FeedQuery feedQuery)
         {
-            return Query(feedQuery, feedQuery.ModifiedSince);
+            AtomFeed feed = null;
+            Tracing.TraceCall("Enter");
+
+            if (feedQuery == null)
+            {
+                throw new System.ArgumentNullException("feedQuery", "The query argument MUST not be null");
+            }
+            // Create a new request to the Uri in the query object...    
+            Uri targetUri = null;
+
+            try
+            {
+                targetUri = feedQuery.Uri;
+
+            }
+            catch (System.UriFormatException)
+            {
+                throw new System.ArgumentException("The query argument MUST contain a valid Uri", "feedQuery");
+            }
+
+            Tracing.TraceInfo("Service:Query - about to query");
+
+            Stream responseStream = null;
+
+            if (feedQuery.Etag != null)
+            {
+                responseStream = Query(targetUri, feedQuery.Etag);
+            }
+            else
+            {
+                responseStream = Query(targetUri, feedQuery.ModifiedSince);
+            }
+
+            Tracing.TraceInfo("Service:Query - query done");
+            if (responseStream != null)
+            {
+                feed = CreateAndParseFeed(responseStream, feedQuery.Uri);
+            }
+            Tracing.TraceCall("Exit");
+            return feed;
+ 
         }
         /////////////////////////////////////////////////////////////////////////////
 
@@ -454,39 +496,11 @@ namespace Google.GData.Client
         /// precondition.</param>
         /// <returns>AtomFeed object tree</returns>
         //////////////////////////////////////////////////////////////////////
+        [Obsolete("FeedQuery has a modifiedSince property, use that instead")] 
         public AtomFeed Query(FeedQuery feedQuery, DateTime ifModifiedSince)
         {
-          AtomFeed feed = null;
-          Tracing.TraceCall("Enter");
-
-          if (feedQuery == null)
-          {
-            throw new System.ArgumentNullException("feedQuery", "The query argument MUST not be null");
-          }
-          // Create a new request to the Uri in the query object...    
-          Uri targetUri = null;
-
-          try
-          {
-            targetUri = feedQuery.Uri;
-
-          }
-          catch (System.UriFormatException)
-          {
-            throw new System.ArgumentException("The query argument MUST contain a valid Uri", "feedQuery");
-          }
-
-          Tracing.TraceInfo("Service:Query - about to query");
-
-          Stream responseStream = Query(targetUri, ifModifiedSince);
-
-          Tracing.TraceInfo("Service:Query - query done");
-          if (responseStream != null)
-          {
-            feed = CreateAndParseFeed(responseStream, feedQuery.Uri);
-          }
-          Tracing.TraceCall("Exit");
-          return feed;
+            feedQuery.ModifiedSince = ifModifiedSince;
+            return Query(feedQuery);
         }
         /////////////////////////////////////////////////////////////////////////////
 

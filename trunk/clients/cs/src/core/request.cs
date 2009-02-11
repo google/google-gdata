@@ -573,19 +573,18 @@ namespace Google.GData.Client
                     if (this.Etag != null)
                     {
                             web.Headers.Add(GDataRequestFactory.EtagHeader, this.Etag);
-                            if (Utilities.IsWeakETag(this) == false)
+                            switch (this.type) 
                             {
-                                // for a strong etag, add another header
-                                switch (this.type) 
-                                {
-                                    case GDataRequestType.Update:
-                                    case GDataRequestType.Delete:
+                                case GDataRequestType.Update:
+                                case GDataRequestType.Delete:
+                                    if (Utilities.IsWeakETag(this) == false)
+                                    {
                                         web.Headers.Add(GDataRequestFactory.IfMatch, this.Etag);
-                                        break;
-                                    case GDataRequestType.Query:
-                                        web.Headers.Add(GDataRequestFactory.IfNoneMatch, this.Etag);
-                                        break;
-                                }
+                                    }
+                                    break;
+                                case GDataRequestType.Query:
+                                    web.Headers.Add(GDataRequestFactory.IfNoneMatch, this.Etag);
+                                    break;
                             }
                     }
 

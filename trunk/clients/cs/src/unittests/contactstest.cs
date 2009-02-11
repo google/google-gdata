@@ -846,6 +846,42 @@ namespace Google.GData.Client.LiveTests
 
 
         //////////////////////////////////////////////////////////////////////
+        /// <summary>tests querying contacts with an etag</summary> 
+        //////////////////////////////////////////////////////////////////////
+        [Test]
+        public void ModelTestETagQuery()
+        {
+            const int numberOfInserts = 5;
+            Tracing.TraceMsg("Entering ModelTestETagQuery");
+
+            RequestSettings rs = new RequestSettings(this.ApplicationName, this.userName, this.passWord);
+            rs.AutoPaging = true;
+
+            ContactsRequest cr = new ContactsRequest(rs);
+
+            Feed<Contact> f = cr.GetContacts();
+
+            ContactsQuery q = new ContactsQuery(ContactsQuery.CreateContactsUri(null));
+
+            q.Etag = ((ISupportsEtag)f.AtomFeed).Etag;
+
+            try
+            {
+                f = cr.Get<Contact>(q);
+                foreach (Contact c in f.Entries)
+                {
+                }
+            }
+            catch (GDataNotModifiedException g)
+            {
+                Assert.IsTrue(g != null);
+            }
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+
+
+        //////////////////////////////////////////////////////////////////////
         /// <summary>runs an authentication test, inserts a new contact</summary> 
         //////////////////////////////////////////////////////////////////////
         [Test] public void ModelPhotoTest()
