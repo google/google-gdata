@@ -114,6 +114,10 @@
       <Project>{21BCB644-F9C3-4ADC-8BE1-4E55C6565011}</Project>
       <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
     </ProjectReference>
+    <ProjectReference Include="..\gacl\Access Control.csproj">
+      <Project>{279D35CE-871A-4C76-B823-A73675EDF191}</Project>
+      <Name>Access Control</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="documents.sn" />
