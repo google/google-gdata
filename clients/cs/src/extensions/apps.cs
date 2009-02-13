@@ -87,7 +87,7 @@ namespace Google.GData.Extensions.Apps
         /// <summary>
         /// Base feed URI for all Google Apps requests.
         /// </summary>
-        public const string appsBaseFeedUri = "https://www.google.com/a/feeds/";
+        public const string appsBaseFeedUri = "https://apps-apis.google.com/a/feeds/";
 
         /// <summary>
         /// Category term for a user account entry.
