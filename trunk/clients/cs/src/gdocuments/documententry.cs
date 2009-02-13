@@ -40,6 +40,7 @@ namespace Google.GData.Documents {
         static string PDF_KIND = "http://schemas.google.com/docs/2007#pdf";
         static string STARRED_KIND = "http://schemas.google.com/g/2005/labels#starred";
         static string FOLDER_KIND = "http://schemas.google.com/docs/2007#folder";
+        static string PARENT_FOLDER_REL = "http://schemas.google.com/docs/2007#parent";
 
         /// <summary>
         /// a predefined atom category for Documents
@@ -194,6 +195,19 @@ namespace Google.GData.Documents {
                     }
                 }
                 return null;
+            }
+        }
+
+        /// <summary>
+        /// returns the href value of the parent link releationship
+        /// </summary>
+        /// <returns></returns>
+        public string ParentFolder
+        {
+            get
+            {
+                 AtomLink link = this.Links.FindService(PARENT_FOLDER_REL, AtomLink.ATOM_TYPE);
+                 return link == null ? null : link.HRef.ToString();
             }
         }
 

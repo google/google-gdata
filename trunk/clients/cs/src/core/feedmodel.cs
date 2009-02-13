@@ -171,7 +171,8 @@ namespace Google.GData.Client
         to the server and get the next 30 rows. It will continue to do so
         until the server reports no more rows available.
         Note that you should cache the entries returned in a list of your own
-        if you want to access them more than once... 
+        if you want to access them more than once, as this one does no caching on
+        it's own.
         </summary>
          <example>
                 The following code illustrates a possible use of   
@@ -281,6 +282,23 @@ namespace Google.GData.Client
             {
                 EnsureInnerObject();
                 return this.e.Id.AbsoluteUri;
+            }
+        }
+
+        /// <summary>
+        /// returns the value of the self uri as a string
+        /// </summary>
+        /// <returns></returns>
+        public string Self
+        {
+            get
+            {
+                EnsureInnerObject();
+                if (this.e.SelfUri != null)
+                {
+                    return this.e.SelfUri.ToString();
+                }
+                return null;
             }
         }
 

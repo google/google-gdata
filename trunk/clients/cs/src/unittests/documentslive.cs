@@ -17,6 +17,7 @@
 
 using System;
 using System.IO;
+using System.Collections.Generic;
 using NUnit.Framework;
 using Google.GData.Client.UnitTests;
 using Google.GData.Documents;
@@ -246,7 +247,7 @@ namespace Google.GData.Client.LiveTests
         /// </summary>
         [Test] public void ModelTestFolders()
         {
-            const string testTitle = "That is a new & weird folder";
+            const string testTitle = "That is a new & weird subfolder";
             const string parentTitle = "Granddaddy folder";
 
             RequestSettings settings = new RequestSettings(this.ApplicationName, this.userName, this.passWord);
@@ -282,20 +283,84 @@ namespace Google.GData.Client.LiveTests
             folder = r.CreateDocument(folder);
 
             // now move the folder into the parent
-
             r.MoveDocumentTo(parent, folder);
 
+                        // now get the folder list
+            Feed<Document> folders = r.GetFolders();
 
+            int iVerify = 2; 
 
-
-
-
-
-
-
-
+            List<Document> list = new List<Document>();
+            foreach (Document f in folders.Entries )
+            {
+                list.Add(f);
+            }
 
             
+            
+            bool found = false; 
+
+            foreach (Document f in list )
+            {
+                Assert.IsTrue(f.Type == Document.DocumentType.Folder, "this should be a folder");
+                if (Utilities.DecodedValue(f.Title) == parentTitle)
+                {
+                    iVerify--;
+                }
+                if (Utilities.DecodedValue(f.Title) == testTitle)
+                {
+                    iVerify--;
+                    
+                    // let's find the guy again.
+                    foreach (Document d in list)
+                    {
+                        if (d.Self == f.ParentFolder)
+                        {
+                            found = true;
+                            break;
+                        }
+                    }
+                }
+            }
+            Assert.IsTrue(found, "we did not find the parent folder");
+
+            Assert.IsTrue(iVerify==0, "We should have found both folders"); 
+        }
+
+
+
+        /// <summary>
+        /// tests moving a document in and out of folders
+        /// </summary>
+        [Test] public void ModelTestMoveDocuments()
+        {
+            const string folderTitle = "That is a new & weird folder";
+            const string docTitle = "that's the doc";
+
+            RequestSettings settings = new RequestSettings(this.ApplicationName, this.userName, this.passWord);
+            // settings.PageSize = 15;
+            DocumentsRequest r = new DocumentsRequest(settings);
+
+            Document folder = new Document();
+            folder.Type = Document.DocumentType.Folder;
+            folder.Title = folderTitle;
+
+            /// first create the folder
+            folder = r.CreateDocument(folder);
+
+            Assert.IsTrue(folder.Title == folderTitle);
+
+            // let's create a document
+
+            Document doc = new Document();
+            doc.Type = Document.DocumentType.Document;
+            doc.Title = docTitle;
+
+            doc = r.CreateDocument(doc);
+
+            // create the child
+            r.MoveDocumentTo(folder, doc);
+
         }
 
     
