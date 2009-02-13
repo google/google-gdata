@@ -129,16 +129,21 @@ namespace Google.Documents
         }
 
         /// <summary>
-        /// returns the href value of the parent link releationship
+        /// returns the href values of the parent link releationships
         /// can be used to retrieve the parent folder
         /// </summary>
         /// <returns></returns>
-        public string ParentFolder
+        public List<string> ParentFolders
         {
             get
             {
                 EnsureInnerObject();
-                return this.DocumentEntry.ParentFolder;
+                List<string> strings = new List<string>();
+                foreach (AtomLink l in this.DocumentEntry.ParentFolders)
+                {
+                    strings.Add(l.HRef.ToString());
+                }
+                return strings;
             }
         }
     }

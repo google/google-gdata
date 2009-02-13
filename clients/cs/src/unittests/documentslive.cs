@@ -319,7 +319,7 @@ namespace Google.GData.Client.LiveTests
                     // let's find the guy again.
                     foreach (Document d in list)
                     {
-                        if (d.Self == f.ParentFolder)
+                        if (f.ParentFolders.Contains(d.Self))
                         {
                             found = true;
                             break;
