@@ -50,6 +50,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\GAclMobile\GAclMobile.csproj">
+      <Project>{ECE4BF85-3341-4EC8-B09C-2FCA27B6E1F8}</Project>
+      <Name>GAclMobile</Name>
+    </ProjectReference>
     <ProjectReference Include="..\GDataMobile\GDataMobile.csproj">
       <Project>{75D1F7AF-7DBC-4897-88EF-614F1B62A528}</Project>
       <Name>GDataMobile</Name>

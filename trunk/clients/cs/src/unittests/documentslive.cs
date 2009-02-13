@@ -250,6 +250,9 @@ namespace Google.GData.Client.LiveTests
             const string testTitle = "That is a new & weird subfolder";
             const string parentTitle = "Granddaddy folder";
 
+            string parentID;
+            string folderID;
+
             RequestSettings settings = new RequestSettings(this.ApplicationName, this.userName, this.passWord);
             // settings.PageSize = 15;
             DocumentsRequest r = new DocumentsRequest(settings);
@@ -272,6 +275,7 @@ namespace Google.GData.Client.LiveTests
             parent.Title = parentTitle;
 
             parent = r.CreateDocument(parent);
+            parentID = parent.Id;
 
             // create the child
 
@@ -281,6 +285,7 @@ namespace Google.GData.Client.LiveTests
 
             /// first create the folder
             folder = r.CreateDocument(folder);
+            folderID = folder.Id;
 
             // now move the folder into the parent
             r.MoveDocumentTo(parent, folder);
@@ -303,11 +308,11 @@ namespace Google.GData.Client.LiveTests
             foreach (Document f in list )
             {
                 Assert.IsTrue(f.Type == Document.DocumentType.Folder, "this should be a folder");
-                if (Utilities.DecodedValue(f.Title) == parentTitle)
+                if (f.Id == parentID)
                 {
                     iVerify--;
                 }
-                if (Utilities.DecodedValue(f.Title) == testTitle)
+                if (f.Id == folderID)
                 {
                     iVerify--;
                     
