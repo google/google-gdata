@@ -128,7 +128,19 @@ namespace Google.Documents
             }
         }
 
-
+        /// <summary>
+        /// returns the href value of the parent link releationship
+        /// can be used to retrieve the parent folder
+        /// </summary>
+        /// <returns></returns>
+        public string ParentFolder
+        {
+            get
+            {
+                EnsureInnerObject();
+                return this.DocumentEntry.ParentFolder;
+            }
+        }
     }
 
 
@@ -160,6 +172,7 @@ namespace Google.Documents
     public class DocumentsRequest : FeedRequest<DocumentsService>
     {
 
+        private string baseUri = DocumentsListQuery.documentsBaseUri;
         /// <summary>
         /// default constructor for a DocumentsRequest
         /// </summary>
@@ -171,15 +184,95 @@ namespace Google.Documents
         }
 
         /// <summary>
-        /// returns a Feed of contacts for the default user
+        /// the base string to use for queries. Defaults to 
+        /// DocumentsListQuery.documentsBaseUri
         /// </summary>
-        /// <param name="user">the username</param>
-        /// <returns>a feed of Videos</returns>
-        public Feed<Document> GetDocuments()
+        /// <returns></returns>
+        public string BaseUri
         {
-            DocumentsListQuery q = PrepareQuery<DocumentsListQuery>(DocumentsListQuery.documentsBaseUri);
+            get
+            {
+                return this.baseUri;
+            }
+            set
+            {
+                this.BaseUri = value;
+            }
+        }
+
+        /// <summary>
+        /// returns a Feed of all documents and folders for the authorized user
+        /// </summary>
+        /// <returns>a feed of everyting</returns>
+        public Feed<Document> GetEverything()
+        {
+            DocumentsListQuery q = PrepareQuery<DocumentsListQuery>(this.BaseUri);
+            q.ShowFolders = true; 
             return PrepareFeed<Document>(q); 
         }
+
+        /// <summary>
+        /// returns a Feed of all documents for the authorized user
+        /// </summary>
+        /// <returns>a feed of Documents</returns>
+        public Feed<Document> GetDocuments()
+        {
+            TextDocumentQuery q = PrepareQuery<TextDocumentQuery>(this.BaseUri);
+            return PrepareFeed<Document>(q); 
+        }
+
+        /// <summary>
+        /// returns a Feed of all presentations for the authorized user
+        /// </summary>
+        /// <returns>a feed of Documents</returns>
+        public Feed<Document> GetPresentations()
+        {
+            PresentationsQuery q = PrepareQuery<PresentationsQuery>(this.BaseUri);
+            return PrepareFeed<Document>(q); 
+        }
+
+        /// <summary>
+        /// returns a Feed of all spreadsheets for the authorized user
+        /// </summary>
+        /// <returns>a feed of Documents</returns>
+        public Feed<Document> GetSpreadsheets()
+        {
+            SpreadsheetQuery q = PrepareQuery<SpreadsheetQuery>(this.BaseUri);
+            return PrepareFeed<Document>(q); 
+        }
+
+        /// <summary>
+        /// returns a Feed of all pdf files for the authorized user
+        /// </summary>
+        /// <returns>a feed of Documents</returns>
+        public Feed<Document> GetPDFs()
+        {
+            PDFsQuery q = PrepareQuery<PDFsQuery>(this.BaseUri);
+            return PrepareFeed<Document>(q); 
+        }
+
+        /// <summary>
+        /// returns a Feed of all folders for the authorized user
+        /// </summary>
+        /// <returns>a feed of Documents</returns>
+        public Feed<Document> GetFolders()
+        {
+            FolderQuery q = PrepareQuery<FolderQuery>(this.BaseUri);
+            return PrepareFeed<Document>(q); 
+        }
+
+        public Feed<Document> GetFolderContent(Document folder)
+        {
+            if (folder.Type != Document.DocumentType.Folder)
+            {
+                throw new ArgumentException("The parameter folder is not a folder");
+            }
+
+            
+            return null; 
+        }
+
+
 
         /// <summary>
         /// this will create an empty document or folder, pending
@@ -204,9 +297,9 @@ namespace Google.Documents
             {
                 throw new ArgumentNullException("parent or child can not be null");
             }
-            if (parent.AtomEntry.EditUri == null)
+            if (parent.AtomEntry.Content == null || parent.AtomEntry.Content.AbsoluteUri == null)
             {
-                throw new ArgumentException("parent has no edit uri");
+                throw new ArgumentException("parent has no content uri");
             }
             if (parent.Type != Document.DocumentType.Folder)
             {
@@ -219,7 +312,7 @@ namespace Google.Documents
 
             // to do that, we just need to post the CHILD 
             // against the URI of the parent
-            return Insert(new Uri(parent.AtomEntry.EditUri.ToString()), payload);
+            return Insert(new Uri(parent.AtomEntry.Content.AbsoluteUri), payload);
 
         }
     }

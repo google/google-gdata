@@ -101,6 +101,16 @@ namespace Google.GData.Documents {
         /// </summary>
         public static QueryCategory STARRED = new QueryCategory(ATOMCATEGORY_STARRED);
 
+
+        /// <summary>
+        /// predefined query category for starred documents
+        /// </summary>
+        public static AtomCategory ATOMCATEGORY_FOLDER = new AtomCategory("folder");
+        /// <summary>
+        /// predefined query category for starred documents
+        /// </summary>
+        public static QueryCategory FOLDER = new QueryCategory(ATOMCATEGORY_FOLDER);
+
         //Local variable to hold the contents of a title query
         private string title;
         //Local variable to hold if the title query we are doing should be exact.
@@ -112,6 +122,7 @@ namespace Google.GData.Documents {
         public DocumentsListQuery()
         : base(documentsBaseUri)
         {
+            this.CategoryQueriesAsParameter = true;
         }
 
         /// <summary>
@@ -121,6 +132,7 @@ namespace Google.GData.Documents {
         public DocumentsListQuery(string queryUri)
         : base(queryUri)
         {
+            this.CategoryQueriesAsParameter = true;
         }
 
         /// <summary>
@@ -143,6 +155,23 @@ namespace Google.GData.Documents {
                 {
                     this.Categories.Remove(DocumentsListQuery.STARRED);
                 }
+            }
+        }
+
+        /// <summary>
+        /// shows folders if true in the result
+        /// </summary>
+        private bool showFolders;
+        [CLSCompliant(false)]
+        public bool ShowFolders
+        {
+            get
+            {
+                return this.showFolders;
+            }
+            set
+            {
+                this.showFolders = value;
             }
         }
 
@@ -206,6 +235,9 @@ namespace Google.GData.Documents {
                             case "title":
                                 this.Title = parameters[1];
                                 break;
+                            case "showfolders":
+                                this.ShowFolders = bool.Parse(parameters[1]);
+                                break;
                         }
                     }
                 }
@@ -224,20 +256,16 @@ namespace Google.GData.Documents {
             StringBuilder newPath = new StringBuilder(path, 2048);
             char paramInsertion = InsertionParameter(path); 
 
-            if (Utilities.IsPersistable(this.Title))
-            {
-                newPath.Append(paramInsertion);
-                newPath.AppendFormat(CultureInfo.InvariantCulture, "title={0}", Utilities.UriEncodeReserved(this.Title));
-                paramInsertion = '&';
-            }
+            paramInsertion = AppendQueryPart(this.Title, "title", paramInsertion, newPath);            
+
             if (this.TitleExact == true)
             {
-                newPath.Append(paramInsertion);
-                newPath.AppendFormat(CultureInfo.InvariantCulture, "title-exact=true");
-                paramInsertion = '&';
+                paramInsertion = AppendQueryPart("true", "title-exact", paramInsertion, newPath);            
             }
-
-
+            if (this.ShowFolders == true)
+            {
+                paramInsertion = AppendQueryPart("true", "showfolders", paramInsertion, newPath);            
+            }
             return newPath.ToString();
         }
     }
@@ -306,6 +334,24 @@ namespace Google.GData.Documents {
         : base()
         {
             this.Categories.Add(DocumentsListQuery.PDFS);
+        }
+   }    
+
+
+    /// <summary>
+    /// a subclass setup to just retrieve all Folders
+    /// </summary>
+    public class FolderQuery : DocumentsListQuery
+    {
+
+        /// <summary>
+        /// base constructor
+        /// </summary>
+        public FolderQuery()
+        : base()
+        {
+            this.Categories.Add(DocumentsListQuery.FOLDER);
+            this.ShowFolders = true;
         }
    }    
     
