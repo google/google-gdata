@@ -469,6 +469,19 @@ namespace Google.GData.Client
         }
 
         /// <summary>
+        ///  a constructor for client login use cases
+        /// </summary>
+        /// <param name="applicationName">The name of the application</param>
+        /// <param name="credentials">the user credentials</param>
+        /// <returns></returns>
+        public RequestSettings(string applicationName, GDataCredentials credentials)
+        {
+            this.applicationName = applicationName;
+            this.credentials = credentials;
+        }
+
+
+        /// <summary>
         /// a constructor for a web application authentication scenario
         /// </summary>
         /// <param name="applicationName"></param>

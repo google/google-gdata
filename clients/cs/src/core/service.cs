@@ -254,7 +254,12 @@ namespace Google.GData.Client
         public GDataCredentials Credentials
         {
             get {return this.credentials;}
-            set {this.credentials = value;}
+            set 
+            {
+                this.credentials = value; 
+                // if we get new credentials, make sure we invalidate the old authtoken
+                SetAuthenticationToken(value.ClientToken);
+            }
         }
         /////////////////////////////////////////////////////////////////////////////
 
@@ -312,8 +317,6 @@ namespace Google.GData.Client
         public void setUserCredentials(String username, String password)
         {
             this.Credentials = new GDataCredentials(username, password);
-            // if we get new credentials, make sure we invalidate the old authtoken
-            SetAuthenticationToken(null);
         }
 
 

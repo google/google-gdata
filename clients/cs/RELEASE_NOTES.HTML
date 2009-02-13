@@ -66,6 +66,9 @@
             service method overloads for query and send support an etag as a parameter.</li>
             <li>Service.Query(FeedQuery, ifModifiedSince) is now marked obsolete. You can use the ModifiedSince
             property on the FeedQuery object and Query(FeedQuery) instead.</li>
+            <li>Added the ability to store a client token to 
+                GDataCredentials. Setting the credentials property will take
+                this into account.</li>
         </ul>
     </ul>
 
