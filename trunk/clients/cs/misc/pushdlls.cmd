@@ -2,8 +2,11 @@
 
 echo "Run this inside the Visual Studio Development Prompt"
 devenv /rebuild Release "..\src\Google Data API SDK.sln"
+if errorlevel 1 goto buildError
 devenv /rebuild Debug "..\src\Google Data API SDK.sln"
+if errorlevel 1 goto buildError
 devenv /rebuild Release ..\src\VS2005.mobile\gdatamobile.sln
+if errorlevel 1 goto buildError
 
 # copy the DLLS
 xcopy /y ..\src\core\bin\Release\*.dll ..\lib\Release\*.*
@@ -113,7 +116,12 @@ rem run ILMerge on YouTubeNotifier.exe
 ilmerge YouTubeNotifier.exe Google.GData.Client.Dll Google.GData.Extensions.Dll Google.GData.YouTube.Dll /out:Ytn.exe
 del YouTubeNotifier.exe
 del YouTubeNotifier.pdb
+goto doneBuilding
 
+:buildError
+echo "Error in building"
+
+:doneBuilding
 cd .\..\..\misc
 
 
