@@ -594,7 +594,7 @@
         </member>
         <member name="P:Google.Contacts.Contact.ContactEntry">
             <summary>
-            readonly accessor for the YouTubeEntry that is underneath this object.
+            readonly accessor for the ContactEntry that is underneath this object.
             </summary>
             <returns></returns>
         </member>

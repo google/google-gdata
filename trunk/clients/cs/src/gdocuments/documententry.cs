@@ -202,12 +202,12 @@ namespace Google.GData.Documents {
         /// returns the href value of the parent link releationship
         /// </summary>
         /// <returns></returns>
-        public string ParentFolder
+        public List<AtomLink> ParentFolders
         {
             get
             {
-                 AtomLink link = this.Links.FindService(PARENT_FOLDER_REL, AtomLink.ATOM_TYPE);
-                 return link == null ? null : link.HRef.ToString();
+                 List<AtomLink> links = this.Links.FindServiceList(PARENT_FOLDER_REL, AtomLink.ATOM_TYPE);
+                 return links; 
             }
         }
 
