@@ -39,6 +39,7 @@ namespace Google.GData.Client
     {
         private string passWord;
         private string userName;
+        private string clientToken;
   
         /// <summary>
         /// default constructor
@@ -50,6 +51,17 @@ namespace Google.GData.Client
             this.userName = username;
             this.passWord = password;
         }
+
+        /// <summary>
+        /// default constructor
+        /// </summary>
+        /// <param name="clientToken">the client login token to use</param>
+        public GDataCredentials(string clientToken)
+        {
+            this.clientToken = clientToken;
+        }
+
+
         //////////////////////////////////////////////////////////////////////
         /// <summary>accessor method public string Username</summary> 
         /// <returns> </returns>
@@ -76,6 +88,18 @@ namespace Google.GData.Client
             return this.passWord;
         }
         // end of accessor Password
+
+        /// <summary>
+        /// returns the stored clienttoken
+        /// </summary>
+        /// <returns></returns>
+        public string ClientToken
+        {
+            get
+            {
+                return this.clientToken;
+            }
+        }
 
         /// <summary>
         /// returns a windows conforming NetworkCredential 
