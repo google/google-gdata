@@ -44,6 +44,23 @@ namespace Google.Documents
             Unknown
         }
 
+        public enum DownloadType
+        {
+            txt,
+            odt,
+            pdf,
+            html,
+            rtf,
+            doc,
+            png,
+            swf,
+            ppt,
+            xls,
+            csv,
+            ods,
+            tsv
+        }
+
         /// <summary>
         /// creates the inner contact object when needed
         /// </summary>
@@ -144,6 +161,19 @@ namespace Google.Documents
                     strings.Add(l.HRef.ToString());
                 }
                 return strings;
+            }
+        }
+
+        /// <summary>
+        /// returns the document id of the object
+        /// </summary>
+        /// <returns></returns>
+        public string DocumentId
+        {
+            get
+            {
+                EnsureInnerObject();
+                return DocumentsListQuery.DocumentId(this.Id);
             }
         }
     }
@@ -318,7 +348,113 @@ namespace Google.Documents
             // to do that, we just need to post the CHILD 
             // against the URI of the parent
             return Insert(new Uri(parent.AtomEntry.Content.AbsoluteUri), payload);
+        }
 
+
+        /// <summary>
+        /// downloads a document. 
+        /// </summary>
+        /// <param name="document">The document to download. It needs to have the document type set, as well as the id link</param>
+        /// <param name="type">The output format of the document you want to download</param>
+        /// <returns></returns>
+        public Stream Download(Document document, Document.DownloadType type)
+        {
+            return this.Download(document, type, null, 0);
+        }
+        
+
+        /// <summary>
+        /// downloads a document. 
+        /// </summary>
+        /// <param name="document">The document to download. It needs to have the document type set, as well as the id link</param>
+        /// <param name="type">The output format of the document you want to download</param>
+        /// <param name="sheetNumer">When requesting a CSV or TSV file you must specify an additional parameter called 
+        /// gid which indicates which grid, or sheet, you wish to get (the index is 0 based, so gid 1 
+        /// actually refers to the second sheet sheet on a given spreadsheet).</param>
+        /// <param name="baseDomain">if null, default is used. Otherwise needs to specify the domain to download from, ending with a slash</param>
+        /// <returns></returns>
+        public Stream Download(Document document, Document.DownloadType type, string baseDomain, int sheetNumber)
+        {
+            if (document.Type == Document.DocumentType.Unknown)
+            {
+                throw new ArgumentException("Document has an unknown type");
+            }
+
+            // now figure out the parameters
+            string queryUri = "";
+
+            switch (document.Type)
+            {
+    
+                case Document.DocumentType.Spreadsheet:
+                    // spreadsheet has a different parameter
+                    if (baseDomain == null)
+                    {
+                        baseDomain = "http://spredsheets.google.com/";
+                    }
+                    queryUri = baseDomain + "feeds/download/spreadsheets/Export?key=" + document.DocumentId + "&fncmd="; 
+                    switch (type)
+                    {
+                        case Document.DownloadType.xls:
+                            queryUri+="4";
+                            break;
+                        case Document.DownloadType.csv:
+                            queryUri+="5";
+                            break;
+                        case Document.DownloadType.pdf:
+                            queryUri+="12";
+                            break;
+                        case Document.DownloadType.ods:
+                            queryUri+="13";
+                            break;
+                        case Document.DownloadType.tsv:
+                            queryUri+="23";
+                            break;
+                        case Document.DownloadType.html:
+                            queryUri+="102";
+                            break;
+                        default:
+                            throw new ArgumentException("type is invalid for a spreadsheet");
+
+                    }
+                    break;
+
+                case Document.DocumentType.Presentation:
+                    if (baseDomain == null)
+                    {
+                        baseDomain = "http://docs.google.com/";
+                    }
+
+                    queryUri = baseDomain + "feeds/download/presentations/Export?docID=" + document.DocumentId + "&exportFormat="; 
+                    switch (type)
+                    {
+                        case Document.DownloadType.swf:
+                            queryUri+="swf";
+                            break;
+                        case Document.DownloadType.pdf:
+                            queryUri+="pdf";
+                            break;
+                        case Document.DownloadType.ppt:
+                            queryUri+="ppt";
+                            break;
+                        default:
+                            throw new ArgumentException("type is invalid for a presentation");
+                    }
+                    break;
+                default:
+                    if (baseDomain == null)
+                    {
+                        baseDomain = "http://docs.google.com/";
+                    }
+
+                    queryUri = baseDomain + "feeds/download/documents/Export?docID=" + document.DocumentId + "&exportFormat=" + type.ToString(); 
+                    break;
+
+            }
+
+            Uri target = new Uri(queryUri);
+
+            return this.Service.Query(target);
         }
     }
 }
