@@ -684,22 +684,27 @@ namespace Google.GData.Client
         /// </summary>
         protected void PrepareService()
         {
+            PrepareService(this.atomService);
+        }
+
+        protected void PrepareService(Service s)
+        {
             if (settings.Credentials != null)
             {
-                this.atomService.Credentials = settings.Credentials;
+                s.Credentials = settings.Credentials;
             }
 #if WindowsCE || PocketPC
 #else
             if (settings.AuthSubToken != null)
             {
-                GAuthSubRequestFactory authFactory = new GAuthSubRequestFactory(atomService.ServiceIdentifier, settings.Application);
+                GAuthSubRequestFactory authFactory = new GAuthSubRequestFactory(s.ServiceIdentifier, settings.Application);
                 authFactory.UserAgent = authFactory.UserAgent + "--IEnumerable";
                 authFactory.Token = settings.AuthSubToken; 
-                atomService.RequestFactory = authFactory;
+                s.RequestFactory = authFactory;
             }
             else 
             {
-                GDataGAuthRequestFactory authFactory = this.atomService.RequestFactory as GDataGAuthRequestFactory;
+                GDataGAuthRequestFactory authFactory = s.RequestFactory as GDataGAuthRequestFactory;
                 if (authFactory != null)
                 {
                     authFactory.UserAgent = authFactory.UserAgent + "--IEnumerable";
@@ -708,7 +713,7 @@ namespace Google.GData.Client
 
             if (settings.Timeout != -1)
             {
-                GDataRequestFactory f  = this.atomService.RequestFactory as GDataRequestFactory;
+                GDataRequestFactory f  = s.RequestFactory as GDataRequestFactory;
                 if (f != null)
                 {
                     f.Timeout = settings.Timeout;

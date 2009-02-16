@@ -208,6 +208,7 @@ namespace Google.Documents
     {
 
         private string baseUri = DocumentsListQuery.documentsBaseUri;
+        private Service spreadsheetsService; 
         /// <summary>
         /// default constructor for a DocumentsRequest
         /// </summary>
@@ -215,7 +216,11 @@ namespace Google.Documents
         public DocumentsRequest(RequestSettings settings) : base(settings)
         {
             this.Service = new DocumentsService(settings.Application);
+            // we hardcode the service name here to avoid having a dependency 
+            // on the spreadsheet dll for now.
+            this.spreadsheetsService = new Service("wise", settings.Application);
             PrepareService();
+            PrepareService(this.spreadsheetsService);
         }
 
         /// <summary>
@@ -383,6 +388,8 @@ namespace Google.Documents
             // now figure out the parameters
             string queryUri = "";
 
+            Service s = this.Service; 
+
             switch (document.Type)
             {
     
@@ -393,6 +400,7 @@ namespace Google.Documents
                         baseDomain = "http://spredsheets.google.com/";
                     }
                     queryUri = baseDomain + "feeds/download/spreadsheets/Export?key=" + document.DocumentId + "&fncmd="; 
+                    s = this.spreadsheetsService;
                     switch (type)
                     {
                         case Document.DownloadType.xls:
@@ -453,8 +461,7 @@ namespace Google.Documents
             }
 
             Uri target = new Uri(queryUri);
-
-            return this.Service.Query(target);
+            return s.Query(target);
         }
     }
 }
