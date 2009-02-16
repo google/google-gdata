@@ -206,6 +206,33 @@ namespace Google.GData.Documents {
             }
         }
 
+
+        /// <summary>
+        /// tries to parse a document id iri and return just the 
+        /// ID portion of it
+        /// </summary>
+        /// <param name="documentUri">the document id link as a string</param>
+        /// <returns>the document id or null if failed</returns>
+        public static string DocumentId(string documentUri)
+        {
+            const string token="%3A"; 
+            if (documentUri == null)
+
+            {
+                throw new ArgumentNullException("documentUri");
+            }
+            int pos = documentUri.LastIndexOf(token);
+            if (pos > 0)
+            {
+                pos += 3;
+                if (pos < documentUri.Length)
+                {
+                    return documentUri.Substring(pos);
+                }
+            }
+            return null;
+        }
+
 #if WindowsCE || PocketPC
 #else
         //////////////////////////////////////////////////////////////////////
