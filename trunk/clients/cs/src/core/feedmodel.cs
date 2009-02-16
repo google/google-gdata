@@ -49,6 +49,11 @@ namespace Google.GData.Client
             this.af = af; 
         }
 
+        /// <summary>
+        /// constructs a new feed object based on a service and a query
+        /// </summary>
+        /// <param name="service"></param>
+        /// <param name="q"></param>
         public Feed(Service service, FeedQuery q)
         {
             this.service = service;
@@ -160,7 +165,7 @@ namespace Google.GData.Client
        }
 
 
-       /*
+       /**
        <summary>
         returns the initial list of entries.This page is the data
         you got from the Requestobject and will remain constant.
@@ -184,8 +189,8 @@ namespace Google.GData.Client
                   foreach (Vidoe v in feed.Entries)
                 </code>
             </example>
-        <returns></returns>
-       */
+        <returns></returns> 
+        */
         public IEnumerable<T> Entries
         {
             get
@@ -255,6 +260,10 @@ namespace Google.GData.Client
             return this.Title;
         }
 
+        /// <summary>
+        /// needs to be subclassed to ensure the creation of the corrent AtomEntry based
+        /// object
+        /// </summary>
         protected abstract void EnsureInnerObject();
 
         /// <summary>
@@ -432,7 +441,7 @@ namespace Google.GData.Client
     /// <summary>
     /// Base requestsettings class. Takes credentials, applicationsname
     /// and supports pagesizes and autopaging. This class is used to initialize a 
-    /// <seealso cref="FeedRequest<T>"/> object.
+    /// <seealso cref="FeedRequest&lt;T&gt;"/> object.
     /// </summary>
     /// <returns></returns>
     public class RequestSettings
@@ -652,8 +661,17 @@ namespace Google.GData.Client
     /// </summary>
     public enum FeedRequestType
     {
+        /// <summary>
+        /// returns the next feed chunk if there is more data
+        /// </summary>
         Next,
+        /// <summary>
+        /// returns the previous feed chunk if there is data before
+        /// </summary>
         Prev,
+        /// <summary>
+        /// refreshes the actual feed chunk by going to the server and retrieving it again
+        /// </summary>
         Refresh
     }
 
@@ -687,6 +705,10 @@ namespace Google.GData.Client
             PrepareService(this.atomService);
         }
 
+        /// <summary>
+        /// prepares the passed in service by setting the authentication credentials and the timeout settings
+        /// </summary>
+        /// <param name="s"></param>
         protected void PrepareService(Service s)
         {
             if (settings.Credentials != null)
@@ -737,6 +759,10 @@ namespace Google.GData.Client
             return query; 
         }
 
+        /// <summary>
+        /// prepares the passed in query objects properties based on the settings
+        /// </summary>
+        /// <param name="q"></param>
         protected void PrepareQuery(FeedQuery q)
         {
             if (this.settings.PageSize != -1)
@@ -888,8 +914,7 @@ namespace Google.GData.Client
         ///             Feed&lt;Playlist&gt; next = f.Get&lt;Playlist&gt;(feed, FeedRequestType.Next);
         ///  </code>
         ///  </example>
-        /// <param name="feed">the original feed</param>
-        /// <param name="operation">an requesttype to indicate what to retrieve</param>
+        /// <param name="entry">the entry to get again</param>
         /// <returns></returns>
         public Y Get<Y>(Y entry) where Y: Entry, new()
         {
@@ -1029,12 +1054,12 @@ namespace Google.GData.Client
         ///          <code>   
         ///         YouTubeRequestSettings settings = new YouTubeRequestSettings("NETUnittests", this.ytClient, this.ytDevKey, this.ytUser, this.ytPwd);
         ///         YouTubeRequest f = new YouTubeRequest(settings);
-        ///         Feed<Video> feed = f.GetStandardFeed(YouTubeQuery.MostPopular);
+        ///         Feed&lt;Video&gt; feed = f.GetStandardFeed(YouTubeQuery.MostPopular);
         ///         foreach (Video v in feed.Entries)
         ///         {
         ///             f.Settings.PageSize = 50;
         ///             f.Settings.AutoPaging = true;
-        ///             Feed<Comment> list = f.GetComments(v);
+        ///             Feed&lt;Comment&gt; list = f.GetComments(v);
         ///             foreach (Comment c in list.Entries)
         ///              {
         ///                 Assert.IsTrue(v.AtomEntry != null);

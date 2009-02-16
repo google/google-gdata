@@ -57,6 +57,9 @@ namespace Google.GData.Client
             set;
         }
 
+        /// <summary>
+        /// returns the name of the service identifier, like wise for spreadsheets services
+        /// </summary>
         string ServiceIdentifier
         {
             get;

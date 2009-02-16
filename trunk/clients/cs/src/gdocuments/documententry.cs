@@ -164,6 +164,9 @@ namespace Google.GData.Documents {
             }
         }
 
+        /// <summary>
+        /// returns true if this is a folder
+        /// </summary>
         public bool IsFolder
         {
             get

@@ -458,7 +458,6 @@ namespace Google.GData.Client
         /// </summary>
         /// <param name="localName">the xml local name of the element to find</param>
         /// <param name="ns">the namespace of the elementToPersist</param>
-        /// <param name="collection">the collection to fill</param>
         /// <returns>none</returns>
         public List<T> FindExtensions<T>(string localName, string ns) where T : IExtensionElementFactory
         {

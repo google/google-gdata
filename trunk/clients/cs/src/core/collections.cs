@@ -126,6 +126,13 @@ namespace Google.GData.Client
             base.Add(value);
         }
 
+        /// <summary>
+        /// takes an existing atomentry object and either copies it into this feed collection,
+        /// or moves it by creating a source element and copying it in here if the value is actually
+        /// already part of a collection
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public AtomEntry CopyOrMove(AtomEntry value)
         {
             if (value != null)
@@ -338,6 +345,9 @@ namespace Google.GData.Client
     /// <typeparam name="T"></typeparam>
     public class AtomCollectionBase<T> : IList<T>
     {
+        /// <summary>
+        /// the internal list object that is used
+        /// </summary>
         protected List<T> List = new List<T>();
         /// <summary>standard typed accessor method </summary> 
         public virtual T this[int index]
@@ -358,43 +368,63 @@ namespace Google.GData.Client
             List.Add(value);
         }
 
+        /// <summary>
+        /// default overload, see base class
+        /// </summary>
+        /// <param name="index"></param>
         public virtual void RemoveAt(int index)
         {
             List.RemoveAt(index);
         }
 
+        /// <summary>
+        /// default overload, see base class
+        /// </summary>
         public virtual void Clear()
         {
             List.Clear();
         }
 
+        /// <summary>
+        /// default overload, see base class
+        /// </summary>
+        /// <param name="arr"></param>
+        /// <param name="index"></param>
         public virtual void CopyTo(T[] arr, int index)
         {
             List.CopyTo(arr, index);
         }
 
         /// <summary>standard typed accessor method </summary> 
+        /// <param name="value"></param>
         public virtual int IndexOf(T value)
         {
             return (List.IndexOf(value));
         }
         /// <summary>standard typed accessor method </summary> 
+        /// <param name="index"></param>
+        /// <param name="value"></param>
         public virtual void Insert(int index, T value)
         {
             List.Insert(index, value);
         }
         /// <summary>standard typed accessor method </summary> 
+        /// <param name="value"></param>
         public virtual bool Remove(T value)
         {
             return List.Remove(value);
         }
         /// <summary>standard typed accessor method </summary> 
+        /// <param name="value"></param>
         public virtual bool Contains(T value)
         {
             // If value is not of type AtomPerson, this will return false.
             return (List.Contains(value));
         }
 
+        /// <summary>
+        /// default overload, see base class
+        /// </summary>
         public virtual int Count
         {
             get 
@@ -403,6 +433,9 @@ namespace Google.GData.Client
             }
         }
 
+        /// <summary>
+        /// default overload, see base class
+        /// </summary>
         public virtual bool IsReadOnly
         {
             get
@@ -411,11 +444,17 @@ namespace Google.GData.Client
             }
         }
 
+        /// <summary>
+        /// default overload, see base class
+        /// </summary>
         public IEnumerator<T> GetEnumerator()
         {
             return List.GetEnumerator();
         }
 
+        /// <summary>
+        /// default overload, see base class
+        /// </summary>
         IEnumerator IEnumerable.GetEnumerator()
         {
             return List.GetEnumerator();
@@ -453,6 +492,11 @@ namespace Google.GData.Client
             this.container = container;
         }
 
+        /// <summary>
+        /// adds value to the extensionlist.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns>returns the positin in the list after the add</returns>
         public int Add(IExtensionElementFactory value)
         {
             IVersionAware target = value as IVersionAware;
@@ -468,21 +512,38 @@ namespace Google.GData.Client
             //return _list.IndexOf(value);
         }
 
+        /// <summary>
+        /// default overload, see base class
+        /// </summary>
+        /// <param name="item"></param>
         public int IndexOf(IExtensionElementFactory item)
         {
             return _list.IndexOf(item);
         }
 
+        /// <summary>
+        /// default overload, see base class
+        /// </summary>
+        /// <param name="index"></param>
+        /// <param name="item"></param>
         public void Insert(int index, IExtensionElementFactory item)
         {
             _list.Insert(index, item);
         }
 
+        /// <summary>
+        /// default overload, see base class
+        /// </summary>
+        /// <param name="index"></param>
         public void RemoveAt(int index)
         {
             _list.RemoveAt(index);
         }
 
+        /// <summary>
+        /// default overload, see base class
+        /// </summary>
+        /// <param name="index"></param>
         public IExtensionElementFactory this[int index]
         {
             get
@@ -495,26 +556,45 @@ namespace Google.GData.Client
             }
         }
 
+        /// <summary>
+        /// default overload, see base class
+        /// </summary>
+        /// <param name="item"></param>
         void ICollection<IExtensionElementFactory>.Add(IExtensionElementFactory item)
         {
             Add(item);
         }
 
+        /// <summary>
+        /// default overload, see base class
+        /// </summary>
         public void Clear()
         {
             _list.Clear();
         }
 
+        /// <summary>
+        /// default overload, see base class
+        /// </summary>
+        /// <param name="item"></param>
         public bool Contains(IExtensionElementFactory item)
         {
             return _list.Contains(item);
         }
 
+        /// <summary>
+        /// default overload, see base class
+        /// </summary>
+        /// <param name="array"></param>
+        /// <param name="arrayIndex"></param>
         public void CopyTo(IExtensionElementFactory[] array, int arrayIndex)
         {
             _list.CopyTo(array, arrayIndex);
         }
 
+        /// <summary>
+        /// default overload, see base class
+        /// </summary>
         public int Count
         {
             get
@@ -523,6 +603,9 @@ namespace Google.GData.Client
             }
         }
 
+        /// <summary>
+        /// default overload, see base class
+        /// </summary>
         public bool IsReadOnly
         {
             get
@@ -531,16 +614,26 @@ namespace Google.GData.Client
             }
         }
 
+        /// <summary>
+        /// default overload, see base class
+        /// </summary>
+        /// <param name="item"></param>
         public bool Remove(IExtensionElementFactory item)
         {
             return _list.Remove(item);
         }
 
+        /// <summary>
+        /// default overload, see base class
+        /// </summary>
         public IEnumerator<IExtensionElementFactory> GetEnumerator()
         {
             return _list.GetEnumerator();
         }
 
+        /// <summary>
+        /// default overload, see base class
+        /// </summary>
         IEnumerator IEnumerable.GetEnumerator()
         {
             return _list.GetEnumerator();

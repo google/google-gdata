@@ -158,10 +158,10 @@ namespace Google.GData.Documents {
             }
         }
 
+        private bool showFolders;
         /// <summary>
         /// shows folders if true in the result
         /// </summary>
-        private bool showFolders;
         [CLSCompliant(false)]
         public bool ShowFolders
         {

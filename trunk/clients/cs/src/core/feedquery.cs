@@ -377,6 +377,10 @@ namespace Google.GData.Client
         /// query with the etag given. 
         /// </summary>
         private string etag=null;
+        /// <summary>
+        /// the Etag value that should be used in the query. Setting this will create an if-match or if-not match
+        /// header
+        /// </summary>
         public string Etag
         {
             get

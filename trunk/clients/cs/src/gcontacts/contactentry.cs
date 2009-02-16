@@ -103,6 +103,9 @@ namespace Google.GData.Contacts {
     }
 
 
+    /// <summary>
+    /// extension element to represent a system group
+    /// </summary>
     public class SystemGroup : SimpleElement
     {
         /// <summary>
