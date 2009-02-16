@@ -385,6 +385,11 @@ namespace Google.Documents
                 throw new ArgumentException("Document has an unknown type");
             }
 
+            if (document.Type == Document.DocumentType.Folder)
+            {
+                throw new ArgumentException("Document is a folder, can not be downloaded");
+            }
+
             // now figure out the parameters
             string queryUri = "";
 
