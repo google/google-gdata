@@ -28,6 +28,9 @@ using System.Collections.Generic;
 namespace Google.Documents
 {
 
+    /// <summary>
+    ///  the base class for all documents in the document service. A document can represent folders, documents, spreadsheets etc. 
+    /// </summary>
     public class Document : Entry
     {
 
@@ -36,28 +39,88 @@ namespace Google.Documents
         /// </summary>
         public enum DocumentType
         {
+            /// <summary>
+            /// a docuemtn
+            /// </summary>
             Document,
+            /// <summary>
+            /// a spreadsheet
+            /// </summary>
             Spreadsheet,
+            /// <summary>
+            /// a pdf file
+            /// </summary>
             PDF,
+            /// <summary>
+            /// a presentation
+            /// </summary>
             Presentation,
+            /// <summary>
+            /// a folder
+            /// </summary>
             Folder,
+            /// <summary>
+            /// something unknown to us
+            /// </summary>
             Unknown
         }
 
+        /// <summary>
+        /// describes the download type, in what format you want to download the document
+        /// </summary>
         public enum DownloadType
         {
+            /// <summary>
+            /// text file
+            /// </summary>
             txt,
+            /// <summary>
+            /// open document format
+            /// </summary>
             odt,
+            /// <summary>
+            /// portable document format PFDF
+            /// </summary>
             pdf,
+            /// <summary>
+            /// html format
+            /// </summary>
             html,
+            /// <summary>
+            /// rich text format
+            /// </summary>
             rtf,
+            /// <summary>
+            /// microsoft word format
+            /// </summary>
             doc,
+            /// <summary>
+            /// portable network graphics format
+            /// </summary>
             png,
+            /// <summary>
+            /// flash format
+            /// </summary>
             swf,
+            /// <summary>
+            /// Microsoft Powerpoint format
+            /// </summary>
             ppt,
+            /// <summary>
+            /// Microsoft Excel format
+            /// </summary>
             xls,
+            /// <summary>
+            /// commma seperated value format
+            /// </summary>
             csv,
+            /// <summary>
+            /// open document spreadsheet format
+            /// </summary>
             ods,
+            /// <summary>
+            /// tab seperated values format
+            /// </summary>
             tsv
         }
 
@@ -195,7 +258,7 @@ namespace Google.Documents
     ///            settings.PageSize = 50; 
     ///            settings.AutoPaging = true;
     ///            DocumentsRequest c = new DocumentsRequest(settings);
-    ///            Feed<Dcouments> feed = c.GetDocuments();
+    ///            Feed&lt;Dcouments&gt; feed = c.GetDocuments();
     ///     
     ///         foreach (Document d in feed.Entries)
     ///         {
@@ -219,6 +282,7 @@ namespace Google.Documents
             // we hardcode the service name here to avoid having a dependency 
             // on the spreadsheet dll for now.
             this.spreadsheetsService = new Service("wise", settings.Application);
+            this.spreadsheetsService.ProtocolMajor = 2;
             PrepareService();
             PrepareService(this.spreadsheetsService);
         }
@@ -301,12 +365,19 @@ namespace Google.Documents
             return PrepareFeed<Document>(q); 
         }
 
+        /// <summary>
+        /// returns a feed of documents for the specified folder
+        /// </summary>
+        /// <param name="folder"></param>
+        /// <returns></returns>
         public Feed<Document> GetFolderContent(Document folder)
         {
             if (folder.Type != Document.DocumentType.Folder)
             {
                 throw new ArgumentException("The parameter folder is not a folder");
             }
+
+
 
             
             return null; 
@@ -373,7 +444,7 @@ namespace Google.Documents
         /// </summary>
         /// <param name="document">The document to download. It needs to have the document type set, as well as the id link</param>
         /// <param name="type">The output format of the document you want to download</param>
-        /// <param name="sheetNumer">When requesting a CSV or TSV file you must specify an additional parameter called 
+        /// <param name="sheetNumber">When requesting a CSV or TSV file you must specify an additional parameter called 
         /// gid which indicates which grid, or sheet, you wish to get (the index is 0 based, so gid 1 
         /// actually refers to the second sheet sheet on a given spreadsheet).</param>
         /// <param name="baseDomain">if null, default is used. Otherwise needs to specify the domain to download from, ending with a slash</param>
@@ -402,7 +473,7 @@ namespace Google.Documents
                     // spreadsheet has a different parameter
                     if (baseDomain == null)
                     {
-                        baseDomain = "http://spredsheets.google.com/";
+                        baseDomain = "http://spreadsheets.google.com/";
                     }
                     queryUri = baseDomain + "feeds/download/spreadsheets/Export?key=" + document.DocumentId + "&fncmd="; 
                     s = this.spreadsheetsService;

@@ -27,6 +27,9 @@ using System.Collections.Generic;
 namespace Google.Contacts
 {
 
+    /// <summary>
+    /// the base class for contacts elements
+    /// </summary>
     public abstract class ContactBase : Entry
     {
 
@@ -343,7 +346,7 @@ namespace Google.Contacts
     ///            settings.PageSize = 50; 
     ///            settings.AutoPaging = true;
     ///            ContactsRequest c = new ContactsRequest(settings);
-    ///            Feed<Contacts> feed = c.GetContacts();
+    ///            Feed&lt;Contacts&gt; feed = c.GetContacts();
     ///     
     ///         foreach (Contact contact in feed.Entries)
     ///         {
@@ -368,7 +371,6 @@ namespace Google.Contacts
         /// <summary>
         /// returns a Feed of contacts for the default user
         /// </summary>
-        /// <param name="user">the username</param>
         /// <returns>a feed of Videos</returns>
         public Feed<Contact> GetContacts()
         {
@@ -390,7 +392,6 @@ namespace Google.Contacts
         /// <summary>
         ///  returns one of the youtube default feeds. 
         /// </summary>
-        /// <param name="feedspec">the string representation of the URI to use</param>
         /// <returns>a feed of Videos</returns>
         public Feed<Group> GetGroups()
         {
@@ -400,7 +401,7 @@ namespace Google.Contacts
         /// <summary>
         ///  returns one of the youtube default feeds. 
         /// </summary>
-        /// <param name="feedspec">the string representation of the URI to use</param>
+        /// <param name="user">the user for whom to retrieve the feed</param>
         /// <returns>a feed of Videos</returns>
         public Feed<Group> GetGroups(string user)
         {

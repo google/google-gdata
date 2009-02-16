@@ -232,6 +232,9 @@ namespace Google.GData.Client
             return status;
         }
 
+        /// <summary>
+        /// the xmlname of the element
+        /// </summary>
         public string XmlName
         {
             get
@@ -240,14 +243,20 @@ namespace Google.GData.Client
             }
         }
 
+        /// <summary>
+        ///  the xmlnamespace for a batchstatus
+        /// </summary>
         public string XmlNameSpace
         {
             get
             {
-                return BaseNameTable.gBatchPrefix;
+                return BaseNameTable.gBatchNamespace;
             }
         }
 
+        /// <summary>
+        /// the prefered xmlprefix to use
+        /// </summary>
         public string XmlPrefix
         {
             get
@@ -256,6 +265,12 @@ namespace Google.GData.Client
             }
         }
 
+        /// <summary>
+        /// creates a new batchstatus element
+        /// </summary>
+        /// <param name="node"></param>
+        /// <param name="parser"></param>
+        /// <returns></returns>
         public IExtensionElementFactory CreateInstance(XmlNode node, AtomFeedParser parser)
         {
             return ParseBatchStatus(new XmlNodeReader(node), parser);
@@ -407,6 +422,9 @@ namespace Google.GData.Client
             return error;
         }
 
+        /// <summary>
+        ///  the name to use
+        /// </summary>
         public string XmlName
         {
             get
@@ -415,24 +433,34 @@ namespace Google.GData.Client
             }
         }
 
+        /// <summary>
+        /// the namespace to use
+        /// </summary>
         public string XmlNameSpace
         {
             get
             {
-                //TODO Determine XmlNameSpace
-                return string.Empty;
+                return BaseNameTable.gBatchNamespace;
             }
         }
 
+        /// <summary>
+        /// the prefered prefix
+        /// </summary>
         public string XmlPrefix
         {
             get
             {
-                //TODO Determine XmlPrefix
-                return string.Empty;
+                return BaseNameTable.gBatchPrefix;
             }
         }
 
+        /// <summary>
+        /// creates a GDataBatchError element 
+        /// </summary>
+        /// <param name="node"></param>
+        /// <param name="parser"></param>
+        /// <returns></returns>
         public IExtensionElementFactory CreateInstance(XmlNode node, AtomFeedParser parser)
         {
             return ParseBatchError(new XmlNodeReader(node), parser);
@@ -601,6 +629,9 @@ namespace Google.GData.Client
 
         }
 
+        /// <summary>
+        /// returns the xmlname to sue
+        /// </summary>
         public string XmlName
         {
             get
@@ -609,21 +640,25 @@ namespace Google.GData.Client
             }
         }
 
+        /// <summary>
+        /// returns the xmlnamespace
+        /// </summary>
         public string XmlNameSpace
         {
             get
             {
-                //TODO Determine XmlNameSpace
-                return string.Empty;
+                return BaseNameTable.gBatchNamespace;
             }
         }
 
+        /// <summary>
+        /// the xmlprefix
+        /// </summary>
         public string XmlPrefix
         {
             get
             {
-                //TODO Determine XmlPrefix
-                return string.Empty;
+                return BaseNameTable.gBatchPrefix;
             }
         }
 
@@ -696,6 +731,9 @@ namespace Google.GData.Client
         #endregion
         #region IExtensionElementFactory Members
 
+        /// <summary>
+        /// the xmlname to use
+        /// </summary>
         public string XmlName
         {
             get
@@ -704,6 +742,9 @@ namespace Google.GData.Client
             }
         }
 
+        /// <summary>
+        /// the xml namespace to use
+        /// </summary>
         public string XmlNameSpace
         {
             get
@@ -712,6 +753,9 @@ namespace Google.GData.Client
             }
         }
 
+        /// <summary>
+        /// the xmlprefix to use
+        /// </summary>
         public string XmlPrefix
         {
             get
@@ -884,6 +928,9 @@ namespace Google.GData.Client
 
         #region IExtensionElementFactory Members
 
+        /// <summary>
+        /// xml local name to use
+        /// </summary>
         public string XmlName
         {
             get
@@ -893,6 +940,9 @@ namespace Google.GData.Client
             }
         }
 
+        /// <summary>
+        /// xml namespace to use
+        /// </summary>
         public string XmlNameSpace
         {
             get
@@ -901,6 +951,9 @@ namespace Google.GData.Client
             }
         }
 
+        /// <summary>
+        /// xml prefix to use
+        /// </summary>
         public string XmlPrefix
         {
             get
@@ -909,6 +962,12 @@ namespace Google.GData.Client
             }
         }
 
+        /// <summary>
+        /// creates a new GDataBatchEntryData
+        /// </summary>
+        /// <param name="node"></param>
+        /// <param name="parser"></param>
+        /// <returns></returns>
         public IExtensionElementFactory CreateInstance(XmlNode node, AtomFeedParser parser)
         {
             //we really don't know how to create an instance of ourself.

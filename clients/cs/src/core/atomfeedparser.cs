@@ -105,6 +105,7 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         /// <summary>tries to parse a category collection document</summary> 
         /// <param name="reader"> xmlReader positioned at the start element</param>
+        /// <param name="owner">the base object that the collection belongs to</param>
         /// <returns></returns>
         //////////////////////////////////////////////////////////////////////
         public AtomCategoryCollection ParseCategories(XmlReader reader, AtomBase owner)

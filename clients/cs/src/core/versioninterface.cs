@@ -39,11 +39,27 @@ using System.Globalization;
 namespace Google.GData.Client
 {
 
+    /// <summary>
+    /// the default versions that are used. Currently, the default is still
+    /// version 1 for most services implemented in this sdk.
+    /// </summary>
     public static class VersionDefaults
     {
+        /// <summary>
+        /// version One is 1
+        /// </summary>
         public const int VersionOne = 1; 
+        /// <summary>
+        /// the default major is VersionOne
+        /// </summary>
         public const int Major = VersionOne;
+        /// <summary>
+        /// the default Minor is 0
+        /// </summary>
         public const int Minor = 0;
+        /// <summary>
+        /// and versionTwo is a 2
+        /// </summary>
         public const int VersionTwo = 2;
         
     }

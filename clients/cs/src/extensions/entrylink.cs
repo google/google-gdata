@@ -241,6 +241,9 @@ namespace Google.GData.Extensions {
         #region IExtensionElementFactory Members
 
 
+        /// <summary>
+        ///  returns the xml local name for this element
+        /// </summary>
         string IExtensionElementFactory.XmlName
         {
             get
@@ -249,6 +252,9 @@ namespace Google.GData.Extensions {
             }
         }
 
+        /// <summary>
+        /// returns the xml namespace for this element
+        /// </summary>
         public string XmlNameSpace
         {
             get
@@ -257,6 +263,9 @@ namespace Google.GData.Extensions {
             }
         }
 
+        /// <summary>
+        /// returns the xml prefix to be used for this element
+        /// </summary>
         public string XmlPrefix
         {
             get

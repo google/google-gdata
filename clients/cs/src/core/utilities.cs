@@ -279,7 +279,7 @@ namespace Google.GData.Client
         /// <summary>
         ///  tests an etag for weakness. returns TRUE for weak etags and for null strings
         /// </summary>
-        /// <param name="eTag"></param>
+        /// <param name="ise">the element that supports an etag</param>
         /// <returns></returns>
         public static bool IsWeakETag(ISupportsEtag ise)
         {
@@ -367,6 +367,14 @@ namespace Google.GData.Client
         }
 
 
+
+        /// <summary>
+        /// returns the next child element of the xml reader, based on the
+        /// depth passed in.
+        /// </summary>
+        /// <param name="reader">the xml reader to use</param>
+        /// <param name="depth">the depth to start with</param>
+        /// <returns></returns>
         public static bool NextChildElement(XmlReader reader, ref int depth)
         {
             Tracing.Assert(reader != null, "reader should not be null");
@@ -752,7 +760,6 @@ namespace Google.GData.Client
         /// <param name="arrList">the array to search through</param>
         /// <param name="localName">the xml local name of the element to find</param>
         /// <param name="ns">the namespace of the elementToPersist</param>
-        /// <param name="collection">the collection to fill</param>
         /// <returns>none</returns>
         public static List<T> FindExtensions<T>(ExtensionList arrList, string localName, string ns) where T : IExtensionElementFactory
         {
@@ -915,8 +922,12 @@ namespace Google.GData.Client
            }
        }
 
-       public Dictionary<string, string> CreateDictionary()
-       {
+        /// <summary>
+        /// creates a dictionary of tokens based on this tokencollection
+        /// </summary>
+        /// <returns></returns>
+        public Dictionary<string, string> CreateDictionary()
+        {
            Dictionary<string, string> dict = new Dictionary<string,string>(); 
 
            for (int i=0; i< this.elements.Length; i+=2)
@@ -926,7 +937,7 @@ namespace Google.GData.Client
                dict.Add(key, val);
            }
            return dict; 
-       }
+}
 
        /// <summary>IEnumerable Interface Implementation, for the noninterface</summary> 
        public TokenEnumerator GetEnumerator() // non-IEnumerable version
