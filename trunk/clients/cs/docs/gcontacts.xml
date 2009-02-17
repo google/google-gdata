@@ -135,6 +135,11 @@
             as query parameter, otherwise groupMembershipInfo for groups a contact 
             does not belong to anymore is simply not returned.</summary>
         </member>
+        <member name="T:Google.GData.Contacts.SystemGroup">
+            <summary>
+            extension element to represent a system group
+            </summary>
+        </member>
         <member name="F:Google.GData.Contacts.SystemGroup.XmlAttributeId">
             <summary>
             id attribute for the system group element
@@ -568,6 +573,11 @@
             group specified. Value of this parameter specifies group ID</summary> 
             <returns> </returns>
         </member>
+        <member name="T:Google.Contacts.ContactBase">
+            <summary>
+            the base class for contacts elements
+            </summary>
+        </member>
         <member name="P:Google.Contacts.ContactBase.Deleted">
             <summary>
             returns if the Contact or Group is deleted
@@ -698,7 +708,33 @@
             </summary>
             <returns>the system group or null</returns>
         </member>
-        <!-- Badly formed XML comment ignored for member "T:Google.Contacts.ContactsRequest" -->
+        <member name="T:Google.Contacts.ContactsRequest">
+            <summary>
+            The Contacts Data API provides two types of feed: contacts feed and 
+            contact groups feed.
+            The feeds are private read/write feeds that can be used to view and
+            manage a user's contacts/groups. Since they are private, a programmer 
+            can access them only by using an authenticated request. That is, the
+             request must contain an authentication token for the user whose 
+            contacts you want to retrieve.
+            </summary>
+             <example>
+                    The following code illustrates a possible use of   
+                     the <c>ContactsRequest</c> object:  
+                     <code>    
+                       RequestSettings settings = new RequestSettings("yourApp");
+                       settings.PageSize = 50; 
+                       settings.AutoPaging = true;
+                       ContactsRequest c = new ContactsRequest(settings);
+                       Feed&lt;Contacts&gt; feed = c.GetContacts();
+                
+                    foreach (Contact contact in feed.Entries)
+                    {
+                         Console.WriteLine(contact.Title);
+                    }
+             </code>
+             </example>
+        </member>
         <member name="M:Google.Contacts.ContactsRequest.#ctor(Google.GData.Client.RequestSettings)">
             <summary>
             default constructor for a YouTubeRequest
@@ -709,7 +745,6 @@
             <summary>
             returns a Feed of contacts for the default user
             </summary>
-            <param name="user">the username</param>
             <returns>a feed of Videos</returns>
         </member>
         <member name="M:Google.Contacts.ContactsRequest.GetContacts(System.String)">
@@ -723,14 +758,13 @@
             <summary>
              returns one of the youtube default feeds. 
             </summary>
-            <param name="feedspec">the string representation of the URI to use</param>
             <returns>a feed of Videos</returns>
         </member>
         <member name="M:Google.Contacts.ContactsRequest.GetGroups(System.String)">
             <summary>
              returns one of the youtube default feeds. 
             </summary>
-            <param name="feedspec">the string representation of the URI to use</param>
+            <param name="user">the user for whom to retrieve the feed</param>
             <returns>a feed of Videos</returns>
         </member>
         <member name="M:Google.Contacts.ContactsRequest.GetPhoto(Google.Contacts.Contact)">

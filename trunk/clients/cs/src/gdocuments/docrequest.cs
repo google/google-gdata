@@ -475,7 +475,7 @@ namespace Google.Documents
                     {
                         baseDomain = "http://spreadsheets.google.com/";
                     }
-                    queryUri = baseDomain + "feeds/download/spreadsheets/Export?key=" + document.DocumentId + "&fncmd="; 
+                    queryUri = baseDomain + "feeds/download/spreadsheets/Export?key=" + document.DocumentId + "&fmcmd="; 
                     s = this.spreadsheetsService;
                     switch (type)
                     {
