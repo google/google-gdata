@@ -67,6 +67,12 @@ namespace Google.GData.Documents {
         /// </summary>
         public static string documentsBaseUri = "http://docs.google.com/feeds/documents/private/full";
 
+        /// <summary>
+        /// folder base uri
+        /// </summary>
+        /// <returns></returns>
+        public static string folderBaseUri = "http://docs.google.com/feeds/folders/private/full/folder%3A";
+
         private static AtomCategory ATOMCATEGORY_DOCUMENTS = new AtomCategory("document");
         /// <summary>
         /// predefined query category for documents
