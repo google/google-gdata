@@ -314,7 +314,8 @@ namespace Google.GData.Client.LiveTests
             // now move the folder into the parent
             r.MoveDocumentTo(parent, folder);
 
-                        // now get the folder list
+
+            // now get the folder list
             Feed<Document> folders = r.GetFolders();
 
             int iVerify = 2; 
@@ -389,6 +390,22 @@ namespace Google.GData.Client.LiveTests
 
             // create the child
             r.MoveDocumentTo(folder, doc);
+
+            // get the folder content list
+
+            Feed<Document> children = r.GetFolderContent(folder);
+
+            bool fFound = false;
+            foreach (Document child in children.Entries )
+            {
+                if (child.DocumentId == doc.DocumentId)
+                {
+                    fFound = true;
+                    break;
+                }
+            }
+            Assert.IsTrue(fFound, "should have found the document in the folder");
+
 
         }
 

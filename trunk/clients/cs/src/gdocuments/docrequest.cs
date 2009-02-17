@@ -271,6 +271,7 @@ namespace Google.Documents
     {
 
         private string baseUri = DocumentsListQuery.documentsBaseUri;
+        private string folderUri = DocumentsListQuery.folderBaseUri;
         private Service spreadsheetsService; 
         /// <summary>
         /// default constructor for a DocumentsRequest
@@ -301,6 +302,23 @@ namespace Google.Documents
             set
             {
                 this.BaseUri = value;
+            }
+        }
+
+        /// <summary>
+        /// the base string to use for folder queries. Defaults to 
+        /// DocumentsListQuery.folderBaseUri
+        /// </summary>
+        /// <returns></returns>
+        public string FolderUri
+        {
+            get
+            {
+                return this.folderUri;
+            }
+            set
+            {
+                this.folderUri = value;
             }
         }
 
@@ -377,10 +395,10 @@ namespace Google.Documents
                 throw new ArgumentException("The parameter folder is not a folder");
             }
 
+            string uri = this.FolderUri + folder.DocumentId;
 
-
-            
-            return null; 
+            DocumentsListQuery q = PrepareQuery<DocumentsListQuery>(uri);
+            return PrepareFeed<Document>(q); 
         }
 
 
