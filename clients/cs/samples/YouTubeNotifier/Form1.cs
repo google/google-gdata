@@ -356,7 +356,7 @@ namespace YouTubeNotifier
         {
             foreach (Activity act in this.allActivities)
             {
-                if (act.ID == a.ID)
+                if (act.Id == a.Id)
                     return true;
             }
             return false;
