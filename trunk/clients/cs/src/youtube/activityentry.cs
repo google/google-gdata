@@ -42,6 +42,18 @@ namespace Google.GData.YouTube {
         /// </summary>
         Favorited,
         /// <summary>
+        /// a user added a friend
+        /// </summary>
+        FriendAdded,
+        /// <summary>
+        /// a user added something to his subscriptions
+        /// </summary>
+        SubscriptionAdded,
+        /// <summary>
+        /// a user commented on something
+        /// </summary>
+        Commented,
+        /// <summary>
         /// undfined -> there was no Type for this entry
         /// </summary>
         Undefined
@@ -75,12 +87,27 @@ namespace Google.GData.YouTube {
         public static AtomCategory VIDEOUPLOADED_CATEGORY =
         new AtomCategory(YouTubeNameTable.VideoUploadedCategory, new AtomUri(YouTubeNameTable.EventsCategorySchema));
 
-                 /// <summary>
+        /// <summary>
         /// Category used to label entries that indicate a user marking a video as a favorite
         /// </summary>
         public static AtomCategory VIDEOFAVORITED_CATEGORY =
         new AtomCategory(YouTubeNameTable.VideoFavoritedCategory, new AtomUri(YouTubeNameTable.EventsCategorySchema));
 
+        /// <summary>
+        /// Category used to label entries that indicate a user commenting on a video
+        /// </summary>
+        public static AtomCategory VIDEOCOMMENTED_CATEGORY =
+        new AtomCategory(YouTubeNameTable.VideoCommentedCategory, new AtomUri(YouTubeNameTable.EventsCategorySchema));
+        /// <summary>
+        /// Category used to label entries that indicate a user added a friend
+        /// </summary>
+        public static AtomCategory FRIENDADDED_CATEGORY =
+        new AtomCategory(YouTubeNameTable.FriendAddedCategory, new AtomUri(YouTubeNameTable.EventsCategorySchema));
+        /// <summary>
+        /// Category used to label entries that indicate a user added a subscripton
+        /// </summary>
+        public static AtomCategory USERSUBSCRIPTIONADDED_CATEGORY =
+        new AtomCategory(YouTubeNameTable.UserSubscriptionAddedCategory, new AtomUri(YouTubeNameTable.EventsCategorySchema));
 
         /// <summary>
         /// Constructs a new EventEmtry instance
@@ -89,6 +116,7 @@ namespace Google.GData.YouTube {
         : base()
         {
             this.AddExtension(new VideoId());
+            this.AddExtension(new UserName());
         }
 
         /// <summary>
@@ -107,14 +135,28 @@ namespace Google.GData.YouTube {
                 {
                     return ActivityType.Shared;
                 }
-                else if (this.Categories.Contains(VIDEOUPLOADED_CATEGORY))
-                {
-                    return ActivityType.Uploaded;
-                }
                 else if (this.Categories.Contains(VIDEOFAVORITED_CATEGORY))
                 {
                     return ActivityType.Favorited;
                 }
+                else if (this.Categories.Contains(VIDEOCOMMENTED_CATEGORY))
+                {
+                    return ActivityType.Commented;
+                }
+                else if (this.Categories.Contains(VIDEOUPLOADED_CATEGORY))
+                {
+                    return ActivityType.Uploaded;
+                }
+                else if (this.Categories.Contains(FRIENDADDED_CATEGORY))
+                {
+                    return ActivityType.FriendAdded;
+                }
+                else if (this.Categories.Contains(USERSUBSCRIPTIONADDED_CATEGORY))
+                {
+                    return ActivityType.SubscriptionAdded;
+                }
+          
+
                 return ActivityType.Undefined;
             }
         } 
@@ -128,6 +170,18 @@ namespace Google.GData.YouTube {
             {
                 return FindExtension(YouTubeNameTable.VideoID,
                                      YouTubeNameTable.NSYouTube) as VideoId;
+            }
+        }
+
+        /// <summary>
+        ///  property accessor for the UseName, if applicable
+        /// </summary>
+        public UserName Username
+        {
+            get
+            {
+                return FindExtension(YouTubeNameTable.UserName,
+                                     YouTubeNameTable.NSYouTube) as UserName;
             }
         }
 

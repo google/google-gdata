@@ -98,6 +98,18 @@ namespace Google.GData.YouTube {
         /// string for the user favorited category term
         /// </summary>
         public const string VideoFavoritedCategory = "video_favorited";
+        /// <summary>
+        /// string for the user commented category term
+        /// </summary>
+        public const string VideoCommentedCategory = "video_commented";
+        /// <summary>
+        /// string for the user friend added category term
+        /// </summary>
+        public const string FriendAddedCategory = "friend_added";
+        /// <summary>
+        /// string for the user subscriptoin added category term
+        /// </summary>
+        public const string UserSubscriptionAddedCategory = "user_subscription_added";
 
 
         /// <summary>

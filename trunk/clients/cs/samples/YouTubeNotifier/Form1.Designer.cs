@@ -58,6 +58,12 @@ namespace YouTubeNotifier
             this.tabPageActivities = new System.Windows.Forms.TabPage();
             this.linkList = new System.Windows.Forms.FlowLayoutPanel();
             this.tabControl = new System.Windows.Forms.TabControl();
+            this.tabPageUsers = new System.Windows.Forms.TabPage();
+            this.usernameGrid = new System.Windows.Forms.DataGridView();
+            this.YTUser = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.button1 = new System.Windows.Forms.Button();
+            this.label9 = new System.Windows.Forms.Label();
+            this.usersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.defaultMenu.SuspendLayout();
             this.tabPageSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.UpdateFrequency)).BeginInit();
@@ -65,6 +71,8 @@ namespace YouTubeNotifier
             ((System.ComponentModel.ISupportInitialize)(this.InitialDataPullTime)).BeginInit();
             this.tabPageActivities.SuspendLayout();
             this.tabControl.SuspendLayout();
+            this.tabPageUsers.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.usernameGrid)).BeginInit();
             this.SuspendLayout();
             // 
             // defaultMenu
@@ -72,10 +80,11 @@ namespace YouTubeNotifier
             this.defaultMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.activitiesToolStripMenuItem,
             this.clearActivitiesToolStripMenuItem,
+            this.usersToolStripMenuItem,
             this.settingsToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.defaultMenu.Name = "defaultMenu";
-            this.defaultMenu.Size = new System.Drawing.Size(183, 92);
+            this.defaultMenu.Size = new System.Drawing.Size(183, 114);
             // 
             // activitiesToolStripMenuItem
             // 
@@ -223,7 +232,6 @@ namespace YouTubeNotifier
             // ButtonSaveSettings
             // 
             this.ButtonSaveSettings.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.ButtonSaveSettings.Enabled = false;
             this.ButtonSaveSettings.Location = new System.Drawing.Point(266, 292);
             this.ButtonSaveSettings.Name = "ButtonSaveSettings";
             this.ButtonSaveSettings.Size = new System.Drawing.Size(110, 29);
@@ -341,6 +349,7 @@ namespace YouTubeNotifier
             // tabControl
             // 
             this.tabControl.Controls.Add(this.tabPageActivities);
+            this.tabControl.Controls.Add(this.tabPageUsers);
             this.tabControl.Controls.Add(this.tabPageSettings);
             this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl.Location = new System.Drawing.Point(0, 0);
@@ -348,6 +357,65 @@ namespace YouTubeNotifier
             this.tabControl.SelectedIndex = 0;
             this.tabControl.Size = new System.Drawing.Size(400, 368);
             this.tabControl.TabIndex = 0;
+            // 
+            // tabPageUsers
+            // 
+            this.tabPageUsers.Controls.Add(this.label9);
+            this.tabPageUsers.Controls.Add(this.button1);
+            this.tabPageUsers.Controls.Add(this.usernameGrid);
+            this.tabPageUsers.Location = new System.Drawing.Point(4, 25);
+            this.tabPageUsers.Name = "tabPageUsers";
+            this.tabPageUsers.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageUsers.Size = new System.Drawing.Size(392, 339);
+            this.tabPageUsers.TabIndex = 2;
+            this.tabPageUsers.Text = "Users";
+            this.tabPageUsers.UseVisualStyleBackColor = true;
+            // 
+            // usernameGrid
+            // 
+            this.usernameGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.usernameGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.YTUser});
+            this.usernameGrid.Location = new System.Drawing.Point(8, 15);
+            this.usernameGrid.Name = "usernameGrid";
+            this.usernameGrid.RowTemplate.Height = 24;
+            this.usernameGrid.Size = new System.Drawing.Size(376, 276);
+            this.usernameGrid.TabIndex = 0;
+            this.usernameGrid.UserAddedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.usernameGrid_UserAddedRow);
+            // 
+            // YTUser
+            // 
+            this.YTUser.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.YTUser.HeaderText = "YouTube Username";
+            this.YTUser.MaxInputLength = 255;
+            this.YTUser.Name = "YTUser";
+            // 
+            // button1
+            // 
+            this.button1.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.button1.Location = new System.Drawing.Point(265, 297);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(110, 29);
+            this.button1.TabIndex = 11;
+            this.button1.Text = "&Save";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(26, 303);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(234, 17);
+            this.label9.TabIndex = 12;
+            this.label9.Text = "Enter a list of max 20 youtube users";
+            // 
+            // usersToolStripMenuItem
+            // 
+            this.usersToolStripMenuItem.Name = "usersToolStripMenuItem";
+            this.usersToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.usersToolStripMenuItem.Text = "&Users";
+            this.usersToolStripMenuItem.Click += new System.EventHandler(this.usersToolStripMenuItem_Click);
             // 
             // YouTubeNotifier
             // 
@@ -373,6 +441,9 @@ namespace YouTubeNotifier
             ((System.ComponentModel.ISupportInitialize)(this.InitialDataPullTime)).EndInit();
             this.tabPageActivities.ResumeLayout(false);
             this.tabControl.ResumeLayout(false);
+            this.tabPageUsers.ResumeLayout(false);
+            this.tabPageUsers.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.usernameGrid)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -405,6 +476,65 @@ namespace YouTubeNotifier
         private System.Windows.Forms.FlowLayoutPanel linkList;
         private System.Windows.Forms.TabControl tabControl;
         private System.Windows.Forms.NumericUpDown UpdateFrequency;
+        private System.Windows.Forms.TabPage tabPageUsers;
+        private System.Windows.Forms.DataGridView usernameGrid;
+        private System.Windows.Forms.DataGridViewTextBoxColumn YTUser;
+        private System.Windows.Forms.DataGridViewTextBoxColumn acceptButtonDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn autoScrollDataGridViewCheckBoxColumn;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn autoSizeDataGridViewCheckBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn autoSizeModeDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn autoValidateDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn backColorDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn formBorderStyleDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cancelButtonDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn controlBoxDataGridViewCheckBoxColumn;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn helpButtonDataGridViewCheckBoxColumn;
+        private System.Windows.Forms.DataGridViewImageColumn iconDataGridViewImageColumn;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn isMdiContainerDataGridViewCheckBoxColumn;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn keyPreviewDataGridViewCheckBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn locationDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn maximumSizeDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn mainMenuStripDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn minimumSizeDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn maximizeBoxDataGridViewCheckBoxColumn;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn minimizeBoxDataGridViewCheckBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn opacityDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn rightToLeftLayoutDataGridViewCheckBoxColumn;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn showInTaskbarDataGridViewCheckBoxColumn;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn showIconDataGridViewCheckBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn sizeDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn sizeGripStyleDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn startPositionDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn textDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn topMostDataGridViewCheckBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn transparencyKeyDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn windowStateDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn autoScrollMarginDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn autoScrollMinSizeDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn accessibleDescriptionDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn accessibleNameDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn accessibleRoleDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn allowDropDataGridViewCheckBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn anchorDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewImageColumn backgroundImageDataGridViewImageColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn backgroundImageLayoutDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn causesValidationDataGridViewCheckBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn contextMenuStripDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cursorDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataBindingsDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dockDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn enabledDataGridViewCheckBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn fontDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn foreColorDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn rightToLeftDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn tagDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn useWaitCursorDataGridViewCheckBoxColumn;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn visibleDataGridViewCheckBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn paddingDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn imeModeDataGridViewTextBoxColumn;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.ToolStripMenuItem usersToolStripMenuItem;
 
 
     }

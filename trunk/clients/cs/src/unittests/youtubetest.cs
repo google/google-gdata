@@ -948,7 +948,7 @@ namespace Google.GData.Client.LiveTests
 
             foreach (Activity a in feed.Entries)
             {
-                Assert.IsTrue(a.VideoId != null, "There should be a VideoId");
+                VerifyActivity(a);
             }
 
             // now let's find all that happened in the last 24 hours
@@ -962,7 +962,7 @@ namespace Google.GData.Client.LiveTests
 
                 foreach (Activity a in yesterday.Entries)
                 {
-                    Assert.IsTrue(a.VideoId != null, "There should be a VideoId");
+                    VerifyActivity(a);
                 }
             }
             catch (GDataNotModifiedException e)
@@ -995,6 +995,23 @@ namespace Google.GData.Client.LiveTests
         /////////////////////////////////////////////////////////////////////////////
 
 
+        private void VerifyActivity(Activity a)
+        {
+            switch (a.Type)
+            {
+                case ActivityType.Favorited:
+                case ActivityType.Rated:
+                case ActivityType.Shared:
+                case ActivityType.Commented:
+                case ActivityType.Uploaded:
+                    Assert.IsTrue(a.VideoId != null, "There should be a VideoId");
+                    break;
+                case ActivityType.FriendAdded:
+                case ActivityType.SubscriptionAdded:
+                    Assert.IsTrue(a.Username != null, "There should be a username");
+                    break;
+            }
+        }
 
     }
 }
