@@ -26,7 +26,7 @@ namespace YouTubeNotifier
         private int updateFrequency;
         private int notificationDuration;
         private bool closeThis=false;
-        private DateTime lastUpdate; 
+        private DateTime lastUpdate;
 
         private const string YTNOTIFIERKEY = "Software\\GoogleYouTubeNotifier";
         private const string YTCLIENTID = "ytapi-FrankMantek-TestaccountforGD-sjgv537n-0";
@@ -47,7 +47,6 @@ namespace YouTubeNotifier
             {
                 if (this.authToken != null)
                 {
-                    this.ButtonSaveSettings.Enabled = true;
                     this.isAuthenticated.Checked = true;
                     UpdateActivities();
                 }
@@ -96,6 +95,16 @@ namespace YouTubeNotifier
             this.UpdateFrequency.Value = this.updateFrequency = (int)ytNotifier.GetValue("updateFrequency", 15);
             this.notifcationBalloons.Value = this.notificationDuration = (int)ytNotifier.GetValue("notificationDuration", 10);
 
+            string s = ytNotifier.GetValue("userList") as string;
+            if (s != null)
+            {
+                string[] users = s.Split(',');
+                foreach (string u in users)
+                {
+                    this.usernameGrid.Rows.Add(u);
+                }
+            }
+
 
             YouTubeRequestSettings settings = new YouTubeRequestSettings("YouTubeNotifier", 
                     YTCLIENTID, 
@@ -119,7 +128,7 @@ namespace YouTubeNotifier
 
         private void ButtonSaveSettings_Click(object sender, EventArgs e)
         {
-            if (this.isAuthenticated.Checked == false)
+            if (this.isAuthenticated.Checked == false && this.userName.Text.Length > 0)
             {
                 // let's see if we get a valid authtoken back for the passed in credentials....
                 YouTubeRequestSettings settings = new YouTubeRequestSettings("YouTubeNotifier",
@@ -140,44 +149,44 @@ namespace YouTubeNotifier
                 }
                 OnAuthenticationModified(this.authToken);
             }
+
+            // let's save the username to the registry, but not the password
+            RegistryKey ytNotifier = Registry.CurrentUser.OpenSubKey(YTNOTIFIERKEY, true);
+
+            if (ytNotifier == null)
+            {
+                ytNotifier = Registry.CurrentUser.CreateSubKey(YTNOTIFIERKEY);
+            }
+
+
+            ytNotifier.SetValue("initialDataPullTime", this.InitialDataPullTime.Value, RegistryValueKind.DWord);
+            ytNotifier.SetValue("updateFrequency", this.UpdateFrequency.Value, RegistryValueKind.DWord);
+            ytNotifier.SetValue("notificationDuration", this.notifcationBalloons.Value, RegistryValueKind.DWord);
+            ytNotifier.SetValue("userList", GetUserNamesToSave());
+
+            this.initialPullinHours = (int)this.InitialDataPullTime.Value;
+            this.updateFrequency = (int)this.UpdateFrequency.Value;
+            this.notificationDuration = (int)this.notifcationBalloons.Value;
+
             if (this.authToken != null)
             {
-                // let's save the username to the registry, but not the password
-                RegistryKey ytNotifier = Registry.CurrentUser.OpenSubKey(YTNOTIFIERKEY, true);
-                if (ytNotifier == null)
-                {
-                    ytNotifier = Registry.CurrentUser.CreateSubKey(YTNOTIFIERKEY);
-                }
                 ytNotifier.SetValue("userName", this.userName.Text);
                 ytNotifier.SetValue("token", this.authToken);
-                ytNotifier.SetValue("initialDataPullTime", this.InitialDataPullTime.Value, RegistryValueKind.DWord);
-                ytNotifier.SetValue("updateFrequency", this.UpdateFrequency.Value, RegistryValueKind.DWord);
-                ytNotifier.SetValue("notificationDuration", this.notifcationBalloons.Value, RegistryValueKind.DWord);
 
                 this.user = this.userName.Text;
-                this.initialPullinHours = (int) this.InitialDataPullTime.Value;
-                this.updateFrequency = (int) this.UpdateFrequency.Value;
-                this.notificationDuration = (int)this.notifcationBalloons.Value;
-                HideMe();
-                UpdateActivities();
             }
+            HideMe();
+            UpdateActivities();
+
         }
 
 
         private void userName_TextChanged(object sender, EventArgs e)
         {
-            if (userName.Text.Length > 0 && passWord.Text.Length > 0)
-                ButtonSaveSettings.Enabled = true;
-            else
-                ButtonSaveSettings.Enabled = false;
         }
 
         private void passWord_TextChanged(object sender, EventArgs e)
         {
-            if (userName.Text.Length > 0 && passWord.Text.Length > 0)
-                ButtonSaveSettings.Enabled = true;
-            else
-                ButtonSaveSettings.Enabled = false;
         }
 
         private void ButtonIgnore_Click(object sender, EventArgs e)
@@ -205,27 +214,178 @@ namespace YouTubeNotifier
         }
 
 
+        private List<string> GetUserNames()
+        {
+            // first update the not authenticated case. 
+            List<string> users = new List<string>();
+
+            foreach (DataGridViewRow r in this.usernameGrid.Rows)
+            {
+                if (r.Cells[0].Value != null)
+                    users.Add(r.Cells[0].Value as string);
+            }
+            return users;
+        }
+
+        private string GetUserNamesToSave()
+        {
+            string ret = ""; 
+            List<string> users = GetUserNames();
+            foreach (string s in users)
+            {
+                if (String.IsNullOrEmpty(s) != true)
+                {
+                    if (ret.Length > 0)
+                    {
+                        ret += ",";
+                    }
+                    ret += s;
+                }
+            }
+            return ret;
+        }
+
+
         private void UpdateActivities()
         {
-            if (this.authToken == null)
-                return;
 
             this.refreshTimer.Enabled = false;
 
-            try
-            {
-                DateTime since = DateTime.MinValue;
+            DateTime since = DateTime.MinValue;
 
-                if (this.allActivities.Count == 0)
-                {
-                    // first call, do a modified-since query
-                    since = DateTime.Now.AddHours(-1 * this.initialPullinHours);
-                }
+            if (this.allActivities.Count == 0)
+            {
+                // first call, do a modified-since query
+                since = DateTime.Now.AddHours(-1 * this.initialPullinHours);
+            
+            }
+
+
+            int iCounter = 0;
+            this.nIcon.BalloonTipText = "";
+          
+            List<string> users = GetUserNames();
+
+            if (users.Count > 0 && String.IsNullOrEmpty(users[0]) != true)
+            {
+
+                // let's see if we get a valid authtoken back for the passed in credentials....
+                YouTubeRequestSettings settings = new YouTubeRequestSettings("YouTubeNotifier",
+                                    YTCLIENTID,
+                                    YTDEVKEY);
+                // settings.PageSize = 15;
+                YouTubeRequest r = new YouTubeRequest(settings);
+                Feed<Activity> pf = r.GetActivities(users, since);
+                iCounter += ProcessFeed(pf, since); 
+            }
+
+
+
+            if (this.authToken != null)
+            {
                 Feed<Activity> f = this.ytRequest.GetActivities(since);
 
-                int iCounter = 0;
-                this.nIcon.BalloonTipText = "";
-                foreach (Activity a in f.Entries)
+                iCounter += ProcessFeed(f, since);
+            }
+
+
+            // now redo the layout in the right order of controls:
+            this.linkList.SuspendLayout();
+            this.linkList.Controls.Clear();
+            foreach (Activity act in this.allActivities)
+            {
+                LinkLabel l = new LinkLabel();
+                string when = act.Updated.ToShortDateString();
+
+                if (act.Updated.Date == DateTime.Now.Date)
+                {
+                    // it happened today
+                    when = act.Updated.ToShortTimeString();
+                }
+
+                if (act.Updated.Date == DateTime.Now.AddDays(-1).Date)
+                {
+                    when = "yesterday, at " + act.Updated.ToShortTimeString();
+                }
+
+                l.Text = act.Author + " has ";
+
+                bool noLink = false; 
+
+                switch (act.Type)
+                {
+                    case ActivityType.Commented:
+                        l.Text += "commented on a video";
+                        break;
+                    case ActivityType.Favorited:
+                        l.Text += "created a new favorite video";
+                        break;
+
+                    case ActivityType.FriendAdded:
+                        l.Text += "added a friend - " + act.Username ;
+                        noLink = true;
+                        break;
+                    case ActivityType.Rated:
+                        l.Text += "rated a video";
+                        break;
+                    case ActivityType.Shared:
+                        l.Text += "shared a video";
+                        break;
+                    case ActivityType.SubscriptionAdded:
+                        l.Text += "subscriped to " + act.Username;
+                        noLink = true;
+                        break;
+                    case ActivityType.Uploaded:
+                        l.Text += "uploaded a video";
+                        break;
+                }
+
+                l.AutoSize = true;
+                if (noLink == false)
+                {
+                    l.Links[0].Start = l.Text.Length - 5;
+                    l.Links[0].Length = 5;
+                    l.Links[0].LinkData = YouTubeQuery.CreateVideoWatchUri(act.VideoId);
+                    l.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.Label_LinkClicked);
+                }
+                else
+                {
+                    // create a link for the user
+                    l.Links[0].Start = l.Text.Length - act.Username.Length;
+                    l.Links[0].Length = act.Username.Length;
+                    l.Links[0].LinkData = "http://www.youtube.com/user/" + act.Username;
+                    l.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.Label_LinkClicked);
+
+                }
+                l.Text += " (" + when + ")";
+
+                this.linkList.Controls.Add(l);
+
+            }
+            this.linkList.ResumeLayout();
+
+            if (iCounter > 0)
+            {
+                this.nIcon.BalloonTipTitle = "YouTube activities for " + this.userName.Text + " friends";
+                this.nIcon.ShowBalloonTip(this.notificationDuration * 1000);
+            }
+            UpdateTitle();
+            this.refreshTimer.Enabled = true;
+            this.lastUpdate = DateTime.Now;
+        }
+
+        private void UpdateTitle()
+        {
+            this.nIcon.Text = AppTitle + " " + this.UnreadCount + " unread activities";
+        }
+
+
+        private int ProcessFeed(Feed<Activity> feed, DateTime since)
+        {
+            int iCounter = 0; 
+            try
+            {
+                foreach (Activity a in feed.Entries)
                 {
                     // first check if the activity is inside our maximum timeframe
                     // substract the max number of hours to pull
@@ -250,48 +410,6 @@ namespace YouTubeNotifier
                         }
                     }
                 }
-
-                // now redo the layout in the right order of controls:
-                this.linkList.SuspendLayout();
-                this.linkList.Controls.Clear();
-                foreach (Activity act in this.allActivities)
-                {
-                    LinkLabel l = new LinkLabel();
-                    string when = act.Updated.ToShortDateString();
-
-                    if (act.Updated.Date == DateTime.Now.Date)
-                    {
-                        // it happened today
-                        when = act.Updated.ToShortTimeString();
-                    }
-
-                    if (act.Updated.Date == DateTime.Now.AddDays(-1).Date)
-                    {
-                        when = "yesterday, at " + act.Updated.ToShortTimeString();
-                    }
-
-                    l.Text = act.Author + " has " + act.Type.ToString().ToLower() + " a video";
-                    l.AutoSize = true;
-                    l.Links[0].Start = l.Text.Length - 5;
-                    l.Links[0].Length = 5;
-                    l.Text += " (" + when + ")";
-                    l.Links[0].LinkData = YouTubeQuery.CreateVideoWatchUri(act.VideoId);
-                    l.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.Label_LinkClicked);
-                    this.linkList.Controls.Add(l);
-
-                }
-                this.linkList.ResumeLayout();
-
-                if (iCounter > 0)
-                {
-                    this.nIcon.BalloonTipTitle = "YouTube activities for " + this.userName.Text + " friends";
-                    this.nIcon.ShowBalloonTip(this.notificationDuration * 1000);
-                }
-                UpdateTitle();
-                this.refreshTimer.Enabled = true;
-                this.lastUpdate = DateTime.Now;
-
-
             }
             catch (GDataForbiddenException e)
             {
@@ -321,11 +439,11 @@ namespace YouTubeNotifier
                 else
                     MessageBox.Show(e.ResponseString, "There was a problem getting the data from YouTube");
             }
-        }
 
-        private void UpdateTitle()
-        {
-            this.nIcon.Text = AppTitle + " " + this.UnreadCount + " unread activities";
+
+
+            return iCounter; 
+
         }
 
         private int UnreadCount
@@ -458,6 +576,32 @@ namespace YouTubeNotifier
             UpdateTitle();
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            // let's save the username to the registry, but not the password
+            RegistryKey ytNotifier = Registry.CurrentUser.OpenSubKey(YTNOTIFIERKEY, true);
+            if (ytNotifier == null)
+            {
+                ytNotifier = Registry.CurrentUser.CreateSubKey(YTNOTIFIERKEY);
+            }
 
+            ytNotifier.SetValue("userList", GetUserNamesToSave());
+            HideMe();
+            UpdateActivities();
+        }
+
+        private void usersToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ShowMe(this.tabPageUsers);
+        }
+
+        private void usernameGrid_UserAddedRow(object sender, DataGridViewRowEventArgs e)
+        {
+            this.usernameGrid.AllowUserToAddRows = true; 
+            if (this.usernameGrid.Rows.Count >= 20)
+            {
+                this.usernameGrid.AllowUserToAddRows = false; 
+            }
+        }
     }
 }

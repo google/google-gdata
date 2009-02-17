@@ -315,13 +315,19 @@ namespace Google.GData.YouTube {
                 // user based upload service are http://gdata.youtube.com/feeds/api/users/videoid/uploads
                 e.Feed = new YouTubeFeed(e.Uri, e.Service);
             }
-            else if(e.Uri.AbsolutePath.IndexOf("feeds/api/users") != -1 && 
+            else if(e.Uri.AbsolutePath.IndexOf("feeds/api/events") != -1 && 
+                e.Uri.PathAndQuery.IndexOf("author") != -1)
+            {
+                // event feeds  http://gdata.youtube.com/feeds/api/events?author=usernames
+                e.Feed = new ActivitiesFeed(e.Uri, e.Service);
+            }
+            else if (e.Uri.AbsolutePath.IndexOf("feeds/api/users") != -1 &&
                 e.Uri.AbsolutePath.IndexOf("friendsactivity") != -1)
             {
                 // event feeds  "http://gdata.youtube.com/feeds/api/users/default/friendsactivity";
                 e.Feed = new ActivitiesFeed(e.Uri, e.Service);
             }
-            else if(IsProfileUri(e.Uri))
+            else if (IsProfileUri(e.Uri))
             {
                 // user based list of playlists are http://gdata.youtube.com/feeds/api/users/username/playlists
                 e.Feed = new ProfileFeed(e.Uri, e.Service);

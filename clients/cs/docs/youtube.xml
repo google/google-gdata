@@ -586,6 +586,21 @@
             string for the user favorited category term
             </summary>
         </member>
+        <member name="F:Google.GData.YouTube.YouTubeNameTable.VideoCommentedCategory">
+            <summary>
+            string for the user commented category term
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YouTubeNameTable.FriendAddedCategory">
+            <summary>
+            string for the user friend added category term
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YouTubeNameTable.UserSubscriptionAddedCategory">
+            <summary>
+            string for the user subscriptoin added category term
+            </summary>
+        </member>
         <member name="F:Google.GData.YouTube.YouTubeNameTable.Age">
             <summary>
             age element string
@@ -1521,6 +1536,21 @@
             a user added something to his favorites
             </summary>
         </member>
+        <member name="F:Google.GData.YouTube.ActivityType.FriendAdded">
+            <summary>
+            a user added a friend
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.ActivityType.SubscriptionAdded">
+            <summary>
+            a user added something to his subscriptions
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.ActivityType.Commented">
+            <summary>
+            a user commented on something
+            </summary>
+        </member>
         <member name="F:Google.GData.YouTube.ActivityType.Undefined">
             <summary>
             undfined -> there was no Type for this entry
@@ -1551,6 +1581,21 @@
             Category used to label entries that indicate a user marking a video as a favorite
             </summary>
         </member>
+        <member name="F:Google.GData.YouTube.ActivityEntry.VIDEOCOMMENTED_CATEGORY">
+            <summary>
+            Category used to label entries that indicate a user commenting on a video
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.ActivityEntry.FRIENDADDED_CATEGORY">
+            <summary>
+            Category used to label entries that indicate a user added a friend
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.ActivityEntry.USERSUBSCRIPTIONADDED_CATEGORY">
+            <summary>
+            Category used to label entries that indicate a user added a subscripton
+            </summary>
+        </member>
         <member name="M:Google.GData.YouTube.ActivityEntry.#ctor">
             <summary>
             Constructs a new EventEmtry instance
@@ -1565,6 +1610,11 @@
         <member name="P:Google.GData.YouTube.ActivityEntry.VideoId">
             <summary>
              property accessor for the VideoID, if applicable
+            </summary>
+        </member>
+        <member name="P:Google.GData.YouTube.ActivityEntry.Username">
+            <summary>
+             property accessor for the UseName, if applicable
             </summary>
         </member>
         <member name="P:Google.GData.YouTube.ActivityEntry.VideoLink">
@@ -2007,6 +2057,25 @@
             base constructor
             </summary>
         </member>
+        <!-- Badly formed XML comment ignored for member "T:Google.GData.YouTube.UserActivitiesQuery" -->
+        <member name="F:Google.GData.YouTube.UserActivitiesQuery.ActivityFeedUri">
+            <summary>
+            youTube events feed for friends activities  
+            </summary>
+        </member>
+        <member name="M:Google.GData.YouTube.UserActivitiesQuery.#ctor">
+            <summary>
+            base constructor
+            </summary>
+        </member>
+        <member name="M:Google.GData.YouTube.UserActivitiesQuery.CalculateQuery(System.String)">
+            <summary>Creates the partial URI query string based on all
+             set properties.</summary> 
+            <returns> string => the query part of the URI </returns>
+        </member>
+        <member name="P:Google.GData.YouTube.UserActivitiesQuery.Authors">
+            <summary>holds the list of authors we want to search for</summary> 
+        </member>
         <member name="T:Google.GData.YouTube.PlaylistsEntry">
             <summary>
             Entry API customization class for defining entries in an Playlist feed.
@@ -2145,6 +2214,17 @@
             specifies a unique ID that YouTube uses to identify a video.
             </summary>
             <returns></returns>
+        </member>
+        <member name="P:Google.YouTube.Activity.Type">
+            <summary>
+            the type of the activity
+            </summary>
+        </member>
+        <member name="P:Google.YouTube.Activity.Username">
+            <summary>
+            the username of the friend who was added,
+            or the user whom was subscribed to
+            </summary>
         </member>
         <member name="T:Google.YouTube.Playlist">
             <summary>
@@ -2374,6 +2454,20 @@
             <summary>
             get's the activities that your contacts/friends did recently 
             </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Google.YouTube.YouTubeRequest.GetActivities(System.Collections.Generic.List{System.String})">
+            <summary>
+            get's the activities for the set of users you pass in
+            </summary>
+            <param name="youTubeUsers">The list of youtube user ids to use</param>
+            <returns></returns>
+        </member>
+        <member name="M:Google.YouTube.YouTubeRequest.GetActivities(System.Collections.Generic.List{System.String},System.DateTime)">
+            <summary>
+            get's the activities for the set of users you pass in
+            </summary>
+            <param name="youTubeUsers">The list of youtube user ids to use</param>
             <returns></returns>
         </member>
         <member name="M:Google.YouTube.YouTubeRequest.GetActivities(System.DateTime)">

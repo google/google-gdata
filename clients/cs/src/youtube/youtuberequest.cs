@@ -226,12 +226,32 @@ namespace Google.YouTube
             }
         }
 
+        /// <summary>
+        /// the type of the activity
+        /// </summary>
         public ActivityType Type
         {
             get
             {
                 EnsureInnerObject();
                 return this.ActivityEntry.Type;
+            }
+        }
+
+        /// <summary>
+        /// the username of the friend who was added,
+        /// or the user whom was subscribed to
+        /// </summary>
+        public string Username
+        {
+            get
+            {
+                EnsureInnerObject();
+                if (this.ActivityEntry.Username != null)
+                {
+                    return this.ActivityEntry.Username.Value;
+                }
+                return null;
             }
         }
     }
