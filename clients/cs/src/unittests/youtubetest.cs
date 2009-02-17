@@ -672,9 +672,9 @@ namespace Google.GData.Client.LiveTests
            
         }
         /////////////////////////////////////////////////////////////////////////////
-        // 
+         
 
-                //////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////
         /// <summary>runs a test on the YouTube factory object</summary> 
         //////////////////////////////////////////////////////////////////////
         [Test] public void YouTubeRequestActivitiesTest()
@@ -721,6 +721,74 @@ namespace Google.GData.Client.LiveTests
             {
 
                 Feed<Activity> lastmin = f.GetActivities(t);
+                int iCount = 0;
+
+                foreach (Activity a in lastmin.Entries)
+                {
+                    iCount++;
+                }
+                Assert.IsTrue(iCount == 0, "There should be no activity for the last minute");
+            }
+            catch (GDataNotModifiedException e)
+            {
+                Assert.IsTrue(e != null);
+            }
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>runs a test on the YouTube user activities</summary> 
+        //////////////////////////////////////////////////////////////////////
+        [Test] public void YouTubeUserActivitiesTest()
+        {
+            Tracing.TraceMsg("Entering YouTubeUserActivitiesTest");
+
+            YouTubeRequestSettings settings = new YouTubeRequestSettings("NETUnittests", this.ytClient, this.ytDevKey);
+            // settings.PageSize = 15;
+            YouTubeRequest f = new YouTubeRequest(settings);
+
+            List<string> users = new List<string>();
+
+            users.Add("whiskeytonsils");
+            users.Add("joelandberry");
+
+            // this returns the server default answer
+            Feed<Activity> feed = f.GetActivities(users);
+
+            foreach (Activity a in feed.Entries)
+            {
+                Assert.IsTrue(a.VideoId != null, "There should be a VideoId");
+            }
+
+            // now let's find all that happened in the last 24 hours
+
+            DateTime t = DateTime.Now.AddDays(-1);
+
+            // this returns the all activities for the last 24 hours  default answer
+            try
+            {
+                Feed<Activity> yesterday = f.GetActivities(users, t);
+
+                foreach (Activity a in yesterday.Entries)
+                {
+                    Assert.IsTrue(a.VideoId != null, "There should be a VideoId");
+                }
+            }
+            catch (GDataNotModifiedException e)
+            {
+                Assert.IsTrue(e != null);
+            }
+
+            t = DateTime.Now.AddMinutes(-1);
+
+
+            // this returns the all activities for the last 1 minute, should be empty or throw a not modified
+
+            try
+            {
+
+                Feed<Activity> lastmin = f.GetActivities(users, t);
                 int iCount = 0;
 
                 foreach (Activity a in lastmin.Entries)
@@ -859,6 +927,72 @@ namespace Google.GData.Client.LiveTests
         }
         /////////////////////////////////////////////////////////////////////////////
 
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>runs a test on the YouTube user activities</summary> 
+        //////////////////////////////////////////////////////////////////////
+        [Test] public void YouTubeUserActivitiesTest()
+        {
+            Tracing.TraceMsg("Entering YouTubeUserActivitiesTest");
+
+            YouTubeRequestSettings settings = new YouTubeRequestSettings("NETUnittests", this.ytClient, this.ytDevKey);
+            // settings.PageSize = 15;
+            YouTubeRequest f = new YouTubeRequest(settings);
+
+            List<string> users = new List<string>();
+
+            users.Add("whiskeytonsils");
+            users.Add("joelandberry");
+
+            // this returns the server default answer
+            Feed<Activity> feed = f.GetActivities(users);
+
+            foreach (Activity a in feed.Entries)
+            {
+                Assert.IsTrue(a.VideoId != null, "There should be a VideoId");
+            }
+
+            // now let's find all that happened in the last 24 hours
+
+            DateTime t = DateTime.Now.AddDays(-1);
+
+            // this returns the all activities for the last 24 hours  default answer
+            try
+            {
+                Feed<Activity> yesterday = f.GetActivities(users, t);
+
+                foreach (Activity a in yesterday.Entries)
+                {
+                    Assert.IsTrue(a.VideoId != null, "There should be a VideoId");
+                }
+            }
+            catch (GDataNotModifiedException e)
+            {
+                Assert.IsTrue(e != null);
+            }
+
+            t = DateTime.Now.AddMinutes(-1);
+
+
+            // this returns the all activities for the last 1 minute, should be empty or throw a not modified
+
+            try
+            {
+
+                Feed<Activity> lastmin = f.GetActivities(users, t);
+                int iCount = 0;
+
+                foreach (Activity a in lastmin.Entries)
+                {
+                    iCount++;
+                }
+                Assert.IsTrue(iCount == 0, "There should be no activity for the last minute");
+            }
+            catch (GDataNotModifiedException e)
+            {
+                Assert.IsTrue(e != null);
+            }
+        }
+        /////////////////////////////////////////////////////////////////////////////
 
 
 
