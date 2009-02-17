@@ -823,6 +823,35 @@ namespace Google.YouTube
             return GetActivities(DateTime.MinValue);
         }
 
+        
+        /// <summary>
+        /// get's the activities for the set of users you pass in
+        /// </summary>
+        /// <param name="youTubeUsers">The list of youtube user ids to use</param>
+        /// <returns></returns>
+        public Feed<Activity> GetActivities(List<string> youTubeUsers)
+        {
+            return GetActivities(youTubeUsers, DateTime.MinValue);
+        }
+
+        /// <summary>
+        /// get's the activities for the set of users you pass in
+        /// </summary>
+        /// <param name="youTubeUsers">The list of youtube user ids to use</param>
+        /// <returns></returns>
+        public Feed<Activity> GetActivities(List<string> youTubeUsers, DateTime since)
+        {
+            if (this.Settings != null)
+            {
+                UserActivitiesQuery q = new UserActivitiesQuery();
+                q.ModifiedSince = since;
+                q.Authors = youTubeUsers;
+                PrepareQuery(q);
+                return PrepareFeed<Activity>(q);             
+            }
+            return new Feed<Activity>(null);
+        }
+
         /// <summary>
         /// get's the activities that your contacts/friends did recently, from the 
         /// given datetime point
@@ -837,7 +866,7 @@ namespace Google.YouTube
                 PrepareQuery(q);
                 return PrepareFeed<Activity>(q);             
             }
-             return new Feed<Activity>(null);
+            return new Feed<Activity>(null);
         }
 
 

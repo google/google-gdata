@@ -900,4 +900,75 @@ namespace Google.GData.YouTube {
         {
         }
     }
+
+
+    //////////////////////////////////////////////////////////////////////
+    /// <summary>
+    /// A subclass of FeedQuery, to create an Activities Query for YouTube. 
+    /// A user activity feed contains information about actions that an authenticated user's 
+    /// friends have recently taken on the YouTube site. 
+    //////////////////////////////////////////////////////////////////////
+    public class UserActivitiesQuery : FeedQuery
+    {
+        
+        /// <summary>
+        /// youTube events feed for friends activities  
+        /// </summary>
+        public const string ActivityFeedUri = "http://gdata.youtube.com/feeds/api/events";
+
+
+        /// <summary>
+        /// base constructor
+        /// </summary>
+        public UserActivitiesQuery()
+        : base(UserActivitiesQuery.ActivityFeedUri)
+        {
+        }
+
+
+
+        private List<string> authors = new List<string>();
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>holds the list of authors we want to search for</summary> 
+        //////////////////////////////////////////////////////////////////////
+        public List<string> Authors
+        {
+            get { return this.authors;}
+            set { this.authors = value;}
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Creates the partial URI query string based on all
+        ///  set properties.</summary> 
+        /// <returns> string => the query part of the URI </returns>
+        //////////////////////////////////////////////////////////////////////
+        protected override string CalculateQuery(string basePath)
+        {
+            string path = base.CalculateQuery(basePath);
+            StringBuilder newPath = new StringBuilder(path, 2048);
+            char paramInsertion = InsertionParameter(path); 
+
+
+            string allAuthors="";
+
+            foreach (string s in this.authors )
+            {
+                if (allAuthors.Length > 0)
+                {
+                    allAuthors += ",";
+                }
+                allAuthors += s; 
+            }
+
+            paramInsertion = AppendQueryPart(allAuthors, "author", paramInsertion, newPath);
+            return newPath.ToString();
+        }
+
+
+
+    }
+
+
+
 }
