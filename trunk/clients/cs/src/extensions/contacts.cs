@@ -570,11 +570,16 @@ namespace Google.GData.Extensions
             }
             set
             {
-                OrgName name = new OrgName(value);
+                OrgName name = null;
+
+                if (String.IsNullOrEmpty(value) == false)
+                {
+                    name = new OrgName(value);
+                }
+               
                 ReplaceExtension(GDataParserNameTable.XmlOrgNameElement,
                                         BaseNameTable.gNamespace,
                                         name);
-
             }
         }
 
@@ -596,7 +601,13 @@ namespace Google.GData.Extensions
             }
             set
             {
-                OrgTitle title = new OrgTitle(value);
+                OrgTitle title = null;
+               
+                if (String.IsNullOrEmpty(value) == false)
+                {
+                    title = new OrgTitle(value);
+                }
+               
                 ReplaceExtension(GDataParserNameTable.XmlOrgTitleElement,
                                         BaseNameTable.gNamespace,
                                         title);
