@@ -930,7 +930,7 @@ namespace Google.YouTube
         public Video Upload(string userName, Video v)
         {
             Video rv = null;
-            YouTubeEntry e = this.Service.Upload(v.YouTubeEntry);
+            YouTubeEntry e = this.Service.Upload(userName, v.YouTubeEntry);
             if (e != null)
             {
                 rv= new Video();
