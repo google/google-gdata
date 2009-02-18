@@ -182,14 +182,20 @@ namespace Google_DocumentsList
             if (d != null && d.Type != Document.DocumentType.Folder)
             {
                 this.propertyGrid1.SelectedObject = d;
-                this.Export.Enabled = true;
+                if (d.DocumentType == Document.DocumentType.PDF)
+                {
+                    this.Export.Enabled = false;
+                }
+                else
+                {
+                    this.Export.Enabled = true;
+                }
             }
             else
             {
                 this.propertyGrid1.SelectedObject = null;
                 this.Export.Enabled = false;
             }
-
         }
 
         private void Export_Click(object sender, EventArgs e)
@@ -208,6 +214,8 @@ namespace Google_DocumentsList
                 case Document.DocumentType.Spreadsheet:
                     this.exportDialog.Filter = "PDF|*.pdf|HTML|*.html|Excel|*.xls|Comma seperated|*.csv|Open Document Spreadsheet|*.ods|Tab seperated|*.tsv";
                     break;
+                case Document.DocumentType.PDF:
+                    return;
                 default:
                     this.exportDialog.Filter = "PDF|*.pdf|HTML|*.html|Text|*.txt|Open Document|*.ods|Rich Text|*.rtf|Microsoft Word|*.doc|Portable Networks Graphics|*.png";
                     break;

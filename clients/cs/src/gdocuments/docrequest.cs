@@ -464,7 +464,7 @@ namespace Google.Documents
         /// <param name="type">The output format of the document you want to download</param>
         /// <param name="sheetNumber">When requesting a CSV or TSV file you must specify an additional parameter called 
         /// gid which indicates which grid, or sheet, you wish to get (the index is 0 based, so gid 1 
-        /// actually refers to the second sheet sheet on a given spreadsheet).</param>
+        /// actually refers to the second sheet sheet on a given spreadsheet). </param>
         /// <param name="baseDomain">if null, default is used. Otherwise needs to specify the domain to download from, ending with a slash</param>
         /// <returns></returns>
         public Stream Download(Document document, Document.DownloadType type, string baseDomain, int sheetNumber)
@@ -501,7 +501,7 @@ namespace Google.Documents
                             queryUri+="4";
                             break;
                         case Document.DownloadType.csv:
-                            queryUri+="5";
+                            queryUri+="5&gid="+sheetNumber.ToString();
                             break;
                         case Document.DownloadType.pdf:
                             queryUri+="12";
@@ -510,7 +510,7 @@ namespace Google.Documents
                             queryUri+="13";
                             break;
                         case Document.DownloadType.tsv:
-                            queryUri+="23";
+                            queryUri+="23&gid="+sheetNumber.ToString();;
                             break;
                         case Document.DownloadType.html:
                             queryUri+="102";
