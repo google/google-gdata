@@ -182,7 +182,7 @@ namespace Google_DocumentsList
             if (d != null && d.Type != Document.DocumentType.Folder)
             {
                 this.propertyGrid1.SelectedObject = d;
-                if (d.DocumentType == Document.DocumentType.PDF)
+                if (d.Type == Document.DocumentType.PDF)
                 {
                     this.Export.Enabled = false;
                 }
