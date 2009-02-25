@@ -506,8 +506,10 @@ namespace Google.GData.Client
                 target.ProtocolMajor = this.container.ProtocolMajor;
                 target.ProtocolMinor = this.container.ProtocolMinor;
             }
-
-            _list.Add(value);
+            if (value != null)
+            {
+                _list.Add(value);
+            }
             return _list.Count - 1;
             //return _list.IndexOf(value);
         }
