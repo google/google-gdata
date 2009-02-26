@@ -7,9 +7,10 @@
     <ProjectGuid>{91B3DC78-1120-4803-A2D6-88753174F819}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>YouTubeNotifier</RootNamespace>
-    <AssemblyName>YouTubeNotifier</AssemblyName>
-    <ApplicationIcon>ytfavicon.ico</ApplicationIcon>
+    <RootNamespace>NotifierForYT</RootNamespace>
+    <AssemblyName>NotifierForYT</AssemblyName>
+    <ApplicationIcon>
+    </ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -85,9 +86,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Properties\gdata-youtube.png" />
-    <Content Include="ytfavicon.ico" />
-    <None Include="Resources\ytfavicon.ico" />
+    <Content Include="Resources\NotifierForYT.png" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

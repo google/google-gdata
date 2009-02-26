@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace YouTubeNotifier.Properties {
+namespace NotifierForYT.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace YouTubeNotifier.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("YouTubeNotifier.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("NotifierForYT.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -60,10 +60,10 @@ namespace YouTubeNotifier.Properties {
             }
         }
         
-        internal static System.Drawing.Icon ytfavicon {
+        internal static System.Drawing.Bitmap ytfavicon {
             get {
                 object obj = ResourceManager.GetObject("ytfavicon", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }

@@ -195,7 +195,11 @@ namespace Google.GData.YouTube {
         /// </summary>
         public const string DefaultVideoUri = "http://gdata.youtube.com/feeds/api/videos";
 
-        
+        /// <summary>
+        /// youTube base video URI for batch operations 
+        /// </summary>
+        public const string BatchVideoUri = "http://gdata.youtube.com/feeds/api/videos/batch";
+
         /// <summary>
         /// youTube base mobile video URI 
         /// </summary>
@@ -634,6 +638,16 @@ namespace Google.GData.YouTube {
         public static string CreateVideoWatchUri(string videoID)
         {
             return "http://www.youtube.com/watch?v=" + Google.GData.Client.Utilities.UriEncodeUnsafe(videoID);
+        }
+    
+        /// <summary>
+        /// assuming you have a video ID, returns the video feed uri as a string
+        /// </summary>
+        /// <param name="videoID"></param>
+        /// <returns></returns>
+        public static string CreateVideoUri(string videoID)
+        {
+            return DefaultVideoUri + "/" +  Google.GData.Client.Utilities.UriEncodeUnsafe(videoID);
         }
 
 

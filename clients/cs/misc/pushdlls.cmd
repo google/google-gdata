@@ -117,14 +117,14 @@ rem run ILMerge on DocListExport.exe
 cd ..\lib\release\
 ilmerge DocListExport.exe Google.GData.Client.Dll Google.GData.Extensions.Dll Google.GData.AccessControl.Dll Google.GData.Documents.dll /out:DocListExporter.exe
 del DocListExport.exe
-del DocListExport.pdb
 
 
 rem run ILMerge on YouTubeNotifier.exe
-ilmerge YouTubeNotifier.exe Google.GData.Client.Dll Google.GData.Extensions.Dll Google.GData.YouTube.Dll /out:Ytn.exe
-del YouTubeNotifier.exe
-del YouTubeNotifier.pdb
+ilmerge NotifierForYT.exe Google.GData.Client.Dll Google.GData.Extensions.Dll Google.GData.YouTube.Dll /out:nfyt.exe
+del NotifierForYT.exe
 goto doneBuilding
+
+del *.pdb
 
 :buildError
 echo "Error in building"

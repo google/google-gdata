@@ -909,7 +909,6 @@ namespace Google.GData.Client
             return f; 
         }
 
-
         /// <summary>
         /// performs a batch operation. 
         /// </summary>
@@ -917,6 +916,20 @@ namespace Google.GData.Client
         /// <param name="entries">List of entries of type Y, that are to be batched</param>
         /// <returns></returns>
         public Feed<Y> Batch<Y>(List<Y> entries, Feed<Y> feed) where Y : Entry, new()
+        {
+            return this.Batch(entries, feed, GDataBatchOperationType.Default);
+        }
+
+
+
+        /// <summary>
+        /// performs a batch operation. 
+        /// </summary>
+        /// <param name="feed">the original feed, used to find the batch endpoing </param>
+        /// <param name="entries">List of entries of type Y, that are to be batched</param>
+        /// <param name="defaultOperation">indicates the default batch operationtype</param>
+        /// <returns></returns>
+        public Feed<Y> Batch<Y>(List<Y> entries, Feed<Y> feed, GDataBatchOperationType defaultOperation) where Y : Entry, new()
         {
             if (feed == null ||
                 feed.AtomFeed == null)
@@ -928,7 +941,7 @@ namespace Google.GData.Client
             {
                 throw new ArgumentException("Feed has no valid batch endpoint");
             }
-            return this.Batch(entries, new Uri(feed.AtomFeed.Batch));
+            return this.Batch(entries, new Uri(feed.AtomFeed.Batch), defaultOperation);
 
         }
 
@@ -939,11 +952,13 @@ namespace Google.GData.Client
         /// <param name="batchUri">the batch endpoint of the service</param>
         /// <param name="entries">List of entries of type Y, that are to be batched</param>
         /// <returns></returns>
-        public Feed<Y> Batch<Y>(List<Y> entries, Uri batchUri) where Y: Entry, new()
+        public Feed<Y> Batch<Y>(List<Y> entries, Uri batchUri, GDataBatchOperationType defaultOperation) where Y: Entry, new()
         {
             if (entries.Count > 0)
             {
                 AtomFeed batchFeed = new AtomFeed(batchUri, null);
+                batchFeed.BatchData = new GDataBatchFeedData();
+                batchFeed.BatchData.Type = defaultOperation;
                 foreach (Y e in entries)
                 {
                     batchFeed.Entries.Add(e.AtomEntry);

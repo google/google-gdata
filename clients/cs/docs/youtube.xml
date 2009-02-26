@@ -1255,6 +1255,15 @@
             insight into the reason for the upload problem.
             </summary>
         </member>
+        <member name="F:Google.GData.YouTube.State.AttributeName">
+            <summary>the name xml attribute </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.State.AttributeReason">
+            <summary>the reasonCode xml attribute </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.State.AttributeHelp">
+            <summary>the help xml attribute </summary>
+        </member>
         <member name="M:Google.GData.YouTube.State.#ctor">
             <summary>
             default constructor
@@ -1265,6 +1274,24 @@
             constructor taking the initial value
             </summary>
             <param name="initValue"></param>
+        </member>
+        <member name="P:Google.GData.YouTube.State.Name">
+            <summary>The name attribute identifies the status of an unpublished video. 
+            Valid values for this tag are processing, deleted, rejected and failed.</summary>
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.YouTube.State.Reason">
+            <summary>The reasonCode attribute provides information about why a video failed 
+            to upload or was rejected after the uploading process. The yt:state tag will not 
+            include a reasonCode attribute if the value of the name 
+            attribute is processing. </summary>
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.YouTube.State.Help">
+            <summary>The helpUrl parameter contains a link to a YouTube Help 
+            Center page that may help the developer or the video owner to 
+            diagnose the reason that an upload failed or was rejected..</summary>
+            <returns> </returns>
         </member>
         <member name="T:Google.GData.YouTube.Statistics">
             <summary>
@@ -1715,6 +1742,11 @@
             youTube base video URI 
             </summary>
         </member>
+        <member name="F:Google.GData.YouTube.YouTubeQuery.BatchVideoUri">
+            <summary>
+            youTube base video URI for batch operations 
+            </summary>
+        </member>
         <member name="F:Google.GData.YouTube.YouTubeQuery.MobileVideoUri">
             <summary>
             youTube base mobile video URI 
@@ -1842,6 +1874,13 @@
         <member name="M:Google.GData.YouTube.YouTubeQuery.CreateVideoWatchUri(System.String)">
             <summary>
             assuming you have a video ID, returns the watch uri as a string
+            </summary>
+            <param name="videoID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Google.GData.YouTube.YouTubeQuery.CreateVideoUri(System.String)">
+            <summary>
+            assuming you have a video ID, returns the video feed uri as a string
             </summary>
             <param name="videoID"></param>
             <returns></returns>
@@ -2355,6 +2394,16 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="P:Google.YouTube.Video.Status">
+            <summary>
+            The yt:state tag contains information that describes the status of a video. 
+            Video entries that contain a yt:state tag are not playable. 
+            For videos that failed to upload or were rejected after the upload process, the reasonCode 
+            attribute and the tag value provide insight into the reason for the upload problem. 
+            Deleted entries only appear in playlist and inbox feeds and are only visible to the playlist 
+            or inbox owner.
+            </summary>
+        </member>
         <member name="T:Google.YouTube.YouTubeRequestSettings">
             <summary>
             YouTube specific class for request settings,
@@ -2532,6 +2581,14 @@
             <param name="v">the video you want to comment on</param>
             <param name="c">the comment you want to post</param>
             <returns></returns>
+        </member>
+        <member name="M:Google.YouTube.YouTubeRequest.GetVideoMetaData(System.Collections.Generic.List{Google.YouTube.Activity})">
+            <summary>
+            Takes a list of activities, and get's the video meta data from youtube 
+            for those activites that identify a video
+            </summary>
+            <param name="list">a list of activities</param>
+            <returns>a video feed, with no entries, if there were no video related activities</returns>
         </member>
         <member name="T:Google.GData.YouTube.ProfileEntry">
             <summary>

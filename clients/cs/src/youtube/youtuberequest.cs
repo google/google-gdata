@@ -1047,6 +1047,36 @@ namespace Google.YouTube
 
 
 
+        /// <summary>
+        /// Takes a list of activities, and get's the video meta data from youtube 
+        /// for those activites that identify a video
+        /// </summary>
+        /// <param name="list">a list of activities</param>
+        /// <returns>a video feed, with no entries, if there were no video related activities</returns>
+        public Feed<Video> GetVideoMetaData(List<Activity> list)
+        {
+            Feed<Video> meta = null;
+            if (list.Count > 0)
+            {
+                List<Video> videos = new List<Video>();
 
+                foreach (Activity a in list)
+                {
+                    if (a.VideoId != null)
+                    {
+                        Video v = new Video();
+                        v.Id = YouTubeQuery.CreateVideoUri(a.VideoId);
+                        videos.Add(v);
+                    }
+                }
+
+                if (videos.Count > 0)
+                {
+                    meta = this.Batch(videos, new Uri(YouTubeQuery.BatchVideoUri), GDataBatchOperationType.query);
+                }
+            }
+
+            return meta == null? new Feed<Video>(null) : meta ; 
+        }
     }
 }

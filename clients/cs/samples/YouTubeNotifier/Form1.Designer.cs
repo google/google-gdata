@@ -1,4 +1,4 @@
-namespace YouTubeNotifier
+namespace NotifierForYT
 {
     partial class YouTubeNotifier
     {
@@ -6,7 +6,7 @@ namespace YouTubeNotifier
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
-        private const string AppTitle = "YouTube Notifier";
+        private const string AppTitle = "Notifier for YouTube";
 
 
         /// <summary>
@@ -31,10 +31,10 @@ namespace YouTubeNotifier
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(YouTubeNotifier));
             this.defaultMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.activitiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearActivitiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.usersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.refreshTimer = new System.Windows.Forms.Timer(this.components);
@@ -59,11 +59,10 @@ namespace YouTubeNotifier
             this.linkList = new System.Windows.Forms.FlowLayoutPanel();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPageUsers = new System.Windows.Forms.TabPage();
+            this.label9 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.usernameGrid = new System.Windows.Forms.DataGridView();
             this.YTUser = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.button1 = new System.Windows.Forms.Button();
-            this.label9 = new System.Windows.Forms.Label();
-            this.usersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.defaultMenu.SuspendLayout();
             this.tabPageSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.UpdateFrequency)).BeginInit();
@@ -99,6 +98,13 @@ namespace YouTubeNotifier
             this.clearActivitiesToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
             this.clearActivitiesToolStripMenuItem.Text = "&Clear activities";
             this.clearActivitiesToolStripMenuItem.Click += new System.EventHandler(this.clearActivitiesToolStripMenuItem_Click);
+            // 
+            // usersToolStripMenuItem
+            // 
+            this.usersToolStripMenuItem.Name = "usersToolStripMenuItem";
+            this.usersToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.usersToolStripMenuItem.Text = "&Users";
+            this.usersToolStripMenuItem.Click += new System.EventHandler(this.usersToolStripMenuItem_Click);
             // 
             // settingsToolStripMenuItem
             // 
@@ -371,6 +377,26 @@ namespace YouTubeNotifier
             this.tabPageUsers.Text = "Users";
             this.tabPageUsers.UseVisualStyleBackColor = true;
             // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(26, 303);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(234, 17);
+            this.label9.TabIndex = 12;
+            this.label9.Text = "Enter a list of max 20 youtube users";
+            // 
+            // button1
+            // 
+            this.button1.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.button1.Location = new System.Drawing.Point(265, 297);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(110, 29);
+            this.button1.TabIndex = 11;
+            this.button1.Text = "&Save";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // usernameGrid
             // 
             this.usernameGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -390,33 +416,6 @@ namespace YouTubeNotifier
             this.YTUser.MaxInputLength = 255;
             this.YTUser.Name = "YTUser";
             // 
-            // button1
-            // 
-            this.button1.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.button1.Location = new System.Drawing.Point(265, 297);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(110, 29);
-            this.button1.TabIndex = 11;
-            this.button1.Text = "&Save";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(26, 303);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(234, 17);
-            this.label9.TabIndex = 12;
-            this.label9.Text = "Enter a list of max 20 youtube users";
-            // 
-            // usersToolStripMenuItem
-            // 
-            this.usersToolStripMenuItem.Name = "usersToolStripMenuItem";
-            this.usersToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
-            this.usersToolStripMenuItem.Text = "&Users";
-            this.usersToolStripMenuItem.Click += new System.EventHandler(this.usersToolStripMenuItem_Click);
-            // 
             // YouTubeNotifier
             // 
             this.AcceptButton = this.ButtonSaveSettings;
@@ -425,12 +424,11 @@ namespace YouTubeNotifier
             this.CancelButton = this.ButtonIgnore;
             this.ClientSize = new System.Drawing.Size(400, 368);
             this.Controls.Add(this.tabControl);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "YouTubeNotifier";
             this.ShowInTaskbar = false;
-            this.Text = "YouTube Notifier";
+            this.Text = "Notifier for YouTube";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.YouTubeNotifier_FormClosing);
             this.Resize += new System.EventHandler(this.YouTubeNotifier_Resize);
             this.defaultMenu.ResumeLayout(false);

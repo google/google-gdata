@@ -8,13 +8,13 @@ using System.Windows.Forms;
 using System.IO;
 using System.Net;
 using Microsoft.Win32;
-using YouTubeNotifier.Properties;
 using Google.GData.YouTube;
 using Google.GData.Client;
 using Google.YouTube;
+using NotifierForYT.Properties;
 
 
-namespace YouTubeNotifier
+namespace NotifierForYT
 {
     public partial class YouTubeNotifier : Form
     {
@@ -27,17 +27,20 @@ namespace YouTubeNotifier
         private int notificationDuration;
         private bool closeThis=false;
         private DateTime lastUpdate;
+        private const string AppKey = "NotifierYT"; 
 
         private const string YTNOTIFIERKEY = "Software\\GoogleYouTubeNotifier";
         private const string YTCLIENTID = "ytapi-FrankMantek-TestaccountforGD-sjgv537n-0";
         private const string YTDEVKEY = "AI39si4v3E6oIYiI60ndCNDqnPP5lCqO28DSvvDPnQt-Mqia5uPz2e4E-gMSBVwHXwyn_LF1tWox4LyM-0YQd2o4i_3GcXxa2Q";
 
         private List<Activity> allActivities = new List<Activity>();
+        private List<Video> allVideos = new List<Video>(); 
 
         public YouTubeNotifier()
         {
             InitializeComponent();
             CreateNotifyIcon();
+            this.Icon = this.nIcon.Icon;
 
             if (CheckForFirstStartup() == true)
             {
@@ -68,7 +71,10 @@ namespace YouTubeNotifier
             // Displays a TV Icon
             // Bitmap b = Resources.gdata_youtube;
             // this.nIcon.Icon = Icon.FromHandle(b.GetHicon());
-            this.nIcon.Icon = Resources.ytfavicon;
+            Bitmap b = Resources.ytfavicon;
+            IntPtr Hicon = b.GetHicon();
+
+            this.nIcon.Icon = Icon.FromHandle(Hicon);
 
             this.nIcon.Text = AppTitle + " - double click to restore it";
             this.nIcon.Visible = true;
@@ -106,7 +112,7 @@ namespace YouTubeNotifier
             }
 
 
-            YouTubeRequestSettings settings = new YouTubeRequestSettings("YouTubeNotifier", 
+            YouTubeRequestSettings settings = new YouTubeRequestSettings(AppKey, 
                     YTCLIENTID, 
                     YTDEVKEY,
                     this.userName.Text,
@@ -128,10 +134,11 @@ namespace YouTubeNotifier
 
         private void ButtonSaveSettings_Click(object sender, EventArgs e)
         {
+            bool fHide = true; 
             if (this.isAuthenticated.Checked == false && this.userName.Text.Length > 0)
             {
                 // let's see if we get a valid authtoken back for the passed in credentials....
-                YouTubeRequestSettings settings = new YouTubeRequestSettings("YouTubeNotifier",
+                YouTubeRequestSettings settings = new YouTubeRequestSettings(AppKey,
                                     YTCLIENTID,
                                     YTDEVKEY,
                                     this.userName.Text,
@@ -141,11 +148,13 @@ namespace YouTubeNotifier
                 try
                 {
                     this.authToken = this.ytRequest.Service.QueryAuthenticationToken();
+                    this.passWord.Text = ""; 
                 }
                 catch
                 {
                     MessageBox.Show("There was a problem with your credentials");
                     this.authToken = null;
+                    fHide = false; 
                 }
                 OnAuthenticationModified(this.authToken);
             }
@@ -175,18 +184,24 @@ namespace YouTubeNotifier
 
                 this.user = this.userName.Text;
             }
-            HideMe();
-            UpdateActivities();
+
+            if (fHide == true)
+            {
+                HideMe();
+                UpdateActivities();
+            }
 
         }
 
 
         private void userName_TextChanged(object sender, EventArgs e)
         {
+            this.isAuthenticated.Checked = false;
         }
 
         private void passWord_TextChanged(object sender, EventArgs e)
         {
+            this.isAuthenticated.Checked = false; 
         }
 
         private void ButtonIgnore_Click(object sender, EventArgs e)
@@ -310,15 +325,17 @@ namespace YouTubeNotifier
 
                 l.Text = act.Author + " has ";
 
-                bool noLink = false; 
-
+                bool noLink = false;
+                int len = 5; 
                 switch (act.Type)
                 {
                     case ActivityType.Commented:
-                        l.Text += "commented on a video";
+                        l.Text += "commented on ";
+                        len = AddVideoText(l, act.VideoId);
                         break;
                     case ActivityType.Favorited:
-                        l.Text += "created a new favorite video";
+                        l.Text += "favorited ";
+                        len = AddVideoText(l, act.VideoId);
                         break;
 
                     case ActivityType.FriendAdded:
@@ -326,25 +343,28 @@ namespace YouTubeNotifier
                         noLink = true;
                         break;
                     case ActivityType.Rated:
-                        l.Text += "rated a video";
+                        l.Text += "rated ";
+                        len = AddVideoText(l, act.VideoId);
                         break;
                     case ActivityType.Shared:
-                        l.Text += "shared a video";
+                        l.Text += "shared ";
+                        len = AddVideoText(l, act.VideoId);
                         break;
                     case ActivityType.SubscriptionAdded:
                         l.Text += "subscriped to " + act.Username;
                         noLink = true;
                         break;
                     case ActivityType.Uploaded:
-                        l.Text += "uploaded a video";
+                        l.Text += "uploaded ";
+                        len = AddVideoText(l, act.VideoId);
                         break;
                 }
 
                 l.AutoSize = true;
                 if (noLink == false)
                 {
-                    l.Links[0].Start = l.Text.Length - 5;
-                    l.Links[0].Length = 5;
+                    l.Links[0].Start = l.Text.Length - len;
+                    l.Links[0].Length = len;
                     l.Links[0].LinkData = YouTubeQuery.CreateVideoWatchUri(act.VideoId);
                     l.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.Label_LinkClicked);
                 }
@@ -374,6 +394,24 @@ namespace YouTubeNotifier
             this.lastUpdate = DateTime.Now;
         }
 
+
+        private int AddVideoText(LinkLabel l, string videoId)
+        {
+            int len = 5; 
+            Video v = FindVideo(videoId);
+            if (v != null)
+            {
+                l.Text += v.Title;
+                len = v.Title.Length;
+            }
+            else
+            {
+                l.Text += " a video";
+            }
+            return len; 
+        }
+
+
         private void UpdateTitle()
         {
             this.nIcon.Text = AppTitle + " " + this.UnreadCount + " unread activities";
@@ -382,7 +420,8 @@ namespace YouTubeNotifier
 
         private int ProcessFeed(Feed<Activity> feed, DateTime since)
         {
-            int iCounter = 0; 
+            List<Activity> newGuys = new List<Activity>(); 
+
             try
             {
                 foreach (Activity a in feed.Entries)
@@ -397,7 +436,7 @@ namespace YouTubeNotifier
 
                         if (IsContained(a) == false)
                         {
-                            AddBallonText(iCounter, a.ToString());
+                            AddBallonText(newGuys.Count, a.ToString());
                             if (since == DateTime.MinValue)
                             {
                                 this.allActivities.Insert(0, a);
@@ -406,7 +445,7 @@ namespace YouTubeNotifier
                             {
                                 this.allActivities.Add(a);
                             }
-                            iCounter++;
+                            newGuys.Add(a);
                         }
                     }
                 }
@@ -439,12 +478,30 @@ namespace YouTubeNotifier
                 else
                     MessageBox.Show(e.ResponseString, "There was a problem getting the data from YouTube");
             }
+            // now get the metadata for the new guys
+
+            GetMetaData(newGuys);
 
 
-
-            return iCounter; 
+            return newGuys.Count; 
 
         }
+
+
+        private void GetMetaData(List<Activity> list)
+        {
+            Feed<Video> meta = this.ytRequest.GetVideoMetaData(list);
+
+            foreach (Video v in meta.Entries)
+            {
+                if (IsContained(v) == false)
+                {
+                    this.allVideos.Add(v);
+                }
+            }
+        }
+
+
 
         private int UnreadCount
         {
@@ -478,6 +535,26 @@ namespace YouTubeNotifier
                     return true;
             }
             return false;
+        }
+
+        private bool IsContained(Video v)
+        {
+            foreach (Video video in this.allVideos)
+            {
+                if (video.Id == v.Id)
+                    return true;
+            }
+            return false;
+        }
+
+        private Video FindVideo(string videoId)
+        {
+            foreach (Video video in this.allVideos)
+            {
+                if (video.VideoId == videoId)
+                    return video;
+            }
+            return null;
         }
 
 
