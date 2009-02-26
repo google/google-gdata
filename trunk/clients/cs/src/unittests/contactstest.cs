@@ -1037,7 +1037,7 @@ namespace Google.GData.Client.LiveTests
 
             GroupMembership member2 = new GroupMembership();
             member2.HRef = insertedGroup2.Id; 
-
+            
             Contact insertedEntry = cr.Insert(fc, c);
 
             // now change the group membership
@@ -1049,6 +1049,7 @@ namespace Google.GData.Client.LiveTests
 
             currentEntry.GroupMembership.Clear();
             currentEntry = cr.Update(currentEntry);
+            Assert.IsTrue(currentEntry.GroupMembership.Count == 0, "The entry should not be in a group");
 
             cr.Delete(currentEntry);
             cr.Delete(insertedGroup);
