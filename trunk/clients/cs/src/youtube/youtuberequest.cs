@@ -44,6 +44,37 @@ namespace Google.YouTube
             }
         }
 
+        /// <summary>
+        /// readonly accessor to the underlying CommentEntry object.
+        /// </summary>
+        public CommentEntry CommentEntry
+        {
+            get
+            {
+                return this.AtomEntry as CommentEntry;
+            }
+        }
+
+        /// <summary>
+        /// adds the replyToLinks to this comment
+        /// 
+        /// </summary>
+        /// <param name="c">The comment this comment is replying to</param>
+        public void ReplyTo(Comment c)
+        {
+            if (c == null ||
+                c.CommentEntry == null)
+            {
+                throw new ArgumentNullException("c can not be null or c.CommentEntry can not be null");
+            }
+            EnsureInnerObject();
+            if (this.CommentEntry != null)
+            {
+                this.CommentEntry.ReplyTo(c.CommentEntry);
+            }
+        }
+
+
 
     }
 
@@ -346,6 +377,12 @@ namespace Google.YouTube
                 EnsureInnerObject();
                 return this.YouTubeEntry.VideoId;
             }
+            set
+            {
+                EnsureInnerObject();
+                this.YouTubeEntry.VideoId = value;
+            }
+
         }
 
         /// <summary>
@@ -963,6 +1000,30 @@ namespace Google.YouTube
             }
 
             return rv;
+        }
+
+
+        /// <summary>
+        /// adds a comment to a video
+        /// </summary>
+        /// <param name="v">the video you want to comment on</param>
+        /// <param name="c">the comment you want to post</param>
+        /// <returns></returns>
+        public Comment AddComment(Video v, Comment c)
+        {
+            Comment rc = null; 
+
+            if (v.YouTubeEntry != null &&
+                v.YouTubeEntry.Comments != null &&
+                v.YouTubeEntry.Comments.FeedLink != null)
+            {
+                Uri target = new Uri(v.YouTubeEntry.Comments.FeedLink.Href);
+                rc = new Comment();
+                rc.AtomEntry = this.Service.Insert(target, c.AtomEntry);
+            }
+
+
+            return rc;
         }
 
 

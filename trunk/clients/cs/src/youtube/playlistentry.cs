@@ -22,7 +22,6 @@ using Google.GData.Client;
 using Google.GData.Extensions;
 using System.Globalization;
 
-
 namespace Google.GData.YouTube {
 
 
@@ -52,10 +51,7 @@ namespace Google.GData.YouTube {
                 Description d = new Description();
                 this.AddExtension(d);
             }
-            Position p = new Position();
-
-            this.AddExtension(p);
-
+            this.AddExtension(new Private());
             Categories.Add(PLAYLIST_CATEGORY);
         }
 
@@ -77,17 +73,17 @@ namespace Google.GData.YouTube {
         }
 
         /// <summary>
-        /// getter/setter for Position subelement
+        /// getter/setter for the private subelement. Indicates if the playlist is private
         /// </summary>
-        public int Position 
+        public bool Private
         {
             get
             {
-                return Convert.ToInt32(getYouTubeExtensionValue(YouTubeNameTable.Position), CultureInfo.InvariantCulture);
+                return Convert.ToBoolean(getYouTubeExtensionValue(YouTubeNameTable.Private), CultureInfo.InvariantCulture);
             }
             set
             {
-                setYouTubeExtension(YouTubeNameTable.Position,value.ToString(CultureInfo.InvariantCulture));
+                setYouTubeExtension(YouTubeNameTable.Private, value == false ? null : "");
             }
         }
 

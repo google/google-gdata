@@ -300,6 +300,11 @@
             <summary>accessor for the video responses feed URI</summary> 
             <returns> </returns>
         </member>
+        <member name="P:Google.GData.YouTube.YouTubeEntry.Position">
+            <summary>
+            getter/setter for Position subelement
+            </summary>
+        </member>
         <member name="P:Google.GData.YouTube.YouTubeEntry.Private">
             <summary>
             boolean property shortcut to set the mediagroup/yt:private element. Setting this to true 
@@ -2146,6 +2151,18 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Google.YouTube.Comment.ReplyTo(Google.YouTube.Comment)">
+            <summary>
+            adds the replyToLinks to this comment
+            
+            </summary>
+            <param name="c">The comment this comment is replying to</param>
+        </member>
+        <member name="P:Google.YouTube.Comment.CommentEntry">
+            <summary>
+            readonly accessor to the underlying CommentEntry object.
+            </summary>
+        </member>
         <member name="T:Google.YouTube.Subscription">
             <summary>
             the subscription entry for a subscriptionfeed Feed
@@ -2508,6 +2525,14 @@
             <param name="activity"></param>
             <returns></returns>
         </member>
+        <member name="M:Google.YouTube.YouTubeRequest.AddComment(Google.YouTube.Video,Google.YouTube.Comment)">
+            <summary>
+            adds a comment to a video
+            </summary>
+            <param name="v">the video you want to comment on</param>
+            <param name="c">the comment you want to post</param>
+            <returns></returns>
+        </member>
         <member name="T:Google.GData.YouTube.ProfileEntry">
             <summary>
             A user profile contains information that the user lists on his YouTube profile page.
@@ -2809,9 +2834,9 @@
             getter/setter for Description subelement
             </summary>
         </member>
-        <member name="P:Google.GData.YouTube.PlaylistEntry.Position">
+        <member name="P:Google.GData.YouTube.PlaylistEntry.Private">
             <summary>
-            getter/setter for Position subelement
+            getter/setter for the private subelement. Indicates if the playlist is private
             </summary>
         </member>
     </members>

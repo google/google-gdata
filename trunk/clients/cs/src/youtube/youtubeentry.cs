@@ -23,6 +23,7 @@ using Google.GData.Extensions;
 using Google.GData.Extensions.Exif;
 using Google.GData.Extensions.Location;
 using Google.GData.Extensions.AppControl;
+using System.Globalization;
 
 namespace Google.GData.YouTube {
 
@@ -124,6 +125,7 @@ namespace Google.GData.YouTube {
             this.AddExtension(new Location());
             this.AddExtension(new Recorded());
             this.AddExtension(new Uploaded());
+            this.AddExtension(new Position());
         }
 
         /// <summary>
@@ -415,6 +417,22 @@ namespace Google.GData.YouTube {
             }
         }
 
+        /// <summary>
+        /// getter/setter for Position subelement
+        /// </summary>
+        public int Position
+        {
+            get
+            {
+                return Convert.ToInt32(getYouTubeExtensionValue(YouTubeNameTable.Position), CultureInfo.InvariantCulture);
+            }
+            set
+            {
+                setYouTubeExtension(YouTubeNameTable.Position, value.ToString(CultureInfo.InvariantCulture));
+            }
+        }
+
+
 
         /// <summary>
         /// boolean property shortcut to set the mediagroup/yt:private element. Setting this to true 
@@ -457,9 +475,10 @@ namespace Google.GData.YouTube {
                 }
                 else 
                 {
+                    // if we set it to false, we just going to remove the extension
                     if (p != null)
                     {
-                        this.Media.ReplaceExtension(p.XmlName, p.XmlNameSpace, null);
+                        this.Media.DeleteExtensions(p.XmlName, p.XmlNameSpace);
                     }
                 }
             }

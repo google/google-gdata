@@ -434,7 +434,74 @@ namespace Google.GData.Client.LiveTests
         /////////////////////////////////////////////////////////////////////////////
 
 
-         //////////////////////////////////////////////////////////////////////
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>runs a test on the YouTube factory object</summary> 
+        //////////////////////////////////////////////////////////////////////
+        [Ignore("not clear what is needed for new entry")]  
+        [Test]
+        public void YouTubePlaylistBatchTest()
+        {
+            Tracing.TraceMsg("Entering YouTubePlaylistBatchTest");
+
+            YouTubeRequestSettings settings = new YouTubeRequestSettings("NETUnittests", this.ytClient, this.ytDevKey, this.ytUser, this.ytPwd);
+
+            YouTubeRequest f = new YouTubeRequest(settings);
+            // GetVideoFeed get's you a users video feed
+            Feed<Playlist> feed = f.GetPlaylistsFeed(null);
+            // this will get you just the first 25 playlists. 
+
+            List<Playlist> list = new List<Playlist>();
+            int i = 0; 
+            foreach (Playlist p in feed.Entries)
+            {
+                list.Add(p);        // add everything you want to do here... 
+            }
+
+            Feed<Video> videos = f.GetPlaylist(list[0]);
+
+            List<Video> lvideo = new List<Video>();
+
+            foreach (Video v in videos.Entries)
+            {
+                lvideo.Add(v);        // add everything you want to do here... 
+            }
+    
+            List<Video> batch = new List<Video>();
+
+            Video toBatch = new Video();
+            toBatch.Id = lvideo[1].Id;
+            toBatch.VideoId = lvideo[1].VideoId;
+            toBatch.BatchData = new GDataBatchEntryData();
+            toBatch.BatchData.Id = "NEWGUY";
+            toBatch.BatchData.Type = GDataBatchOperationType.insert;
+            batch.Add(toBatch);
+
+            toBatch = lvideo[1];
+            toBatch.BatchData = new GDataBatchEntryData();
+            toBatch.BatchData.Id = "DELETEGUY";
+            toBatch.BatchData.Type = GDataBatchOperationType.delete;
+            batch.Add(toBatch);
+
+            toBatch = lvideo[0];
+            toBatch.YouTubeEntry.Position = 1; 
+            toBatch.BatchData = new GDataBatchEntryData();
+            toBatch.BatchData.Id = "UPDATEGUY";
+            toBatch.BatchData.Type = GDataBatchOperationType.update;
+            batch.Add(toBatch);
+
+
+            Feed<Video> updatedVideos = f.Batch(batch, videos);
+
+            foreach (Video v in updatedVideos.Entries)
+            {
+                Assert.IsTrue(v.BatchData.Status.Code < 300, "one batch operation failed: " + v.BatchData.Status.Reason);
+            }
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+
+        //////////////////////////////////////////////////////////////////////
         /// <summary>runs a test on the YouTube factory object</summary> 
         //////////////////////////////////////////////////////////////////////
         [Test] public void YouTubeCommentRequestTest()
@@ -627,6 +694,45 @@ namespace Google.GData.Client.LiveTests
         }
         /////////////////////////////////////////////////////////////////////////////
 
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>tests setting a video public/private</summary> 
+        //////////////////////////////////////////////////////////////////////
+        [Test]
+        public void YouTubePrivateTest()
+        {
+            Tracing.TraceMsg("Entering YouTubePrivateTest");
+
+            YouTubeRequestSettings settings = new YouTubeRequestSettings("NETUnittests", this.ytClient, this.ytDevKey, this.ytUser, this.ytPwd);
+            settings.PageSize = 15;
+            settings.AutoPaging = true;
+            YouTubeRequest f = new YouTubeRequest(settings);
+
+            Feed<Video> feed = f.GetVideoFeed(null);
+            Video privateVideo = null; 
+
+            foreach (Video v in feed.Entries)
+            {
+                if (v.YouTubeEntry.IsDraft == false)
+                {
+                    v.YouTubeEntry.Private = true;
+                    privateVideo =  f.Update(v);
+                }
+            }
+
+            Assert.IsTrue(privateVideo != null, "we should have one private video");
+            Assert.IsTrue(privateVideo.YouTubeEntry.Private == true, "that video should be private");
+            privateVideo.YouTubeEntry.Private = false;
+
+            Video ret = f.Update(privateVideo);
+            Assert.IsTrue(ret != null, "we should have one private video");
+            Assert.IsTrue(ret.YouTubeEntry.Private == false, "that video should be not private");
+            
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+
+
         //////////////////////////////////////////////////////////////////////
         /// <summary>runs a test on the YouTube factory object</summary> 
         //////////////////////////////////////////////////////////////////////
@@ -656,13 +762,14 @@ namespace Google.GData.Client.LiveTests
         [Test] public void YouTubeGetActivitiesTest()
         {
             ActivitiesQuery query = new ActivitiesQuery();
+            query.ModifiedSince = new DateTime(1980, 12, 1);
             YouTubeService service = new YouTubeService("NETUnittests", this.ytClient, this.ytDevKey);
 
             if (this.userName != null)
             {
                 service.Credentials = new GDataCredentials(this.ytUser, this.ytPwd);
             }
-            ActivitiesFeed feed = service.Query(query, new DateTime(1980, 12, 1)) as ActivitiesFeed;
+            ActivitiesFeed feed = service.Query(query) as ActivitiesFeed;
 
             foreach (ActivityEntry e in feed.Entries )
             {
@@ -737,72 +844,6 @@ namespace Google.GData.Client.LiveTests
         /////////////////////////////////////////////////////////////////////////////
 
 
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>runs a test on the YouTube user activities</summary> 
-        //////////////////////////////////////////////////////////////////////
-        [Test] public void YouTubeUserActivitiesTest()
-        {
-            Tracing.TraceMsg("Entering YouTubeUserActivitiesTest");
-
-            YouTubeRequestSettings settings = new YouTubeRequestSettings("NETUnittests", this.ytClient, this.ytDevKey);
-            // settings.PageSize = 15;
-            YouTubeRequest f = new YouTubeRequest(settings);
-
-            List<string> users = new List<string>();
-
-            users.Add("whiskeytonsils");
-            users.Add("joelandberry");
-
-            // this returns the server default answer
-            Feed<Activity> feed = f.GetActivities(users);
-
-            foreach (Activity a in feed.Entries)
-            {
-                Assert.IsTrue(a.VideoId != null, "There should be a VideoId");
-            }
-
-            // now let's find all that happened in the last 24 hours
-
-            DateTime t = DateTime.Now.AddDays(-1);
-
-            // this returns the all activities for the last 24 hours  default answer
-            try
-            {
-                Feed<Activity> yesterday = f.GetActivities(users, t);
-
-                foreach (Activity a in yesterday.Entries)
-                {
-                    Assert.IsTrue(a.VideoId != null, "There should be a VideoId");
-                }
-            }
-            catch (GDataNotModifiedException e)
-            {
-                Assert.IsTrue(e != null);
-            }
-
-            t = DateTime.Now.AddMinutes(-1);
-
-
-            // this returns the all activities for the last 1 minute, should be empty or throw a not modified
-
-            try
-            {
-
-                Feed<Activity> lastmin = f.GetActivities(users, t);
-                int iCount = 0;
-
-                foreach (Activity a in lastmin.Entries)
-                {
-                    iCount++;
-                }
-                Assert.IsTrue(iCount == 0, "There should be no activity for the last minute");
-            }
-            catch (GDataNotModifiedException e)
-            {
-                Assert.IsTrue(e != null);
-            }
-        }
-        /////////////////////////////////////////////////////////////////////////////
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>runs a test on the YouTube factory object</summary> 
@@ -868,69 +909,11 @@ namespace Google.GData.Client.LiveTests
         }
         /////////////////////////////////////////////////////////////////////////////
 
-
-
-
-    }
-
-
-
-    [TestFixture] 
-    [Category("LiveTest")]
-    public class YouTubeVerticalTestSuite : BaseLiveTestClass
-    {
-
-        private string ytClient;
-        private string ytDevKey;
-        private string ytUser;
-        private string ytPwd;
-
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>default empty constructor</summary> 
-        //////////////////////////////////////////////////////////////////////
-        public YouTubeVerticalTestSuite()
-        {
-        }
-
-        public override string ServiceName
-        {
-            get {
-                return YouTubeService.YTService; 
-            }
-        }
-
-
-                //////////////////////////////////////////////////////////////////////
-        /// <summary>private void ReadConfigFile()</summary> 
-        /// <returns> </returns>
-        //////////////////////////////////////////////////////////////////////
-        protected override void ReadConfigFile()
-        {
-            base.ReadConfigFile();
-
-            if (unitTestConfiguration.Contains("youTubeClientID") == true)
-            {
-                this.ytClient = (string) unitTestConfiguration["youTubeClientID"];
-            }
-            if (unitTestConfiguration.Contains("youTubeDevKey") == true)
-            {
-                this.ytDevKey = (string) unitTestConfiguration["youTubeDevKey"];
-            }
-            if (unitTestConfiguration.Contains("youTubeUser") == true)
-            {
-                this.ytUser = (string) unitTestConfiguration["youTubeUser"];
-            }
-            if (unitTestConfiguration.Contains("youTubePwd") == true)
-            {
-                this.ytPwd = (string) unitTestConfiguration["youTubePwd"];
-            }
-        }
-        /////////////////////////////////////////////////////////////////////////////
-
         //////////////////////////////////////////////////////////////////////
         /// <summary>runs a test on the YouTube user activities</summary> 
         //////////////////////////////////////////////////////////////////////
-        [Test] public void YouTubeUserActivitiesTest()
+        [Test]
+        public void YouTubeUserActivitiesTest()
         {
             Tracing.TraceMsg("Entering YouTubeUserActivitiesTest");
 
@@ -1012,6 +995,66 @@ namespace Google.GData.Client.LiveTests
                     break;
             }
         }
+
+
+
+
+    }
+
+
+
+    [TestFixture] 
+    [Category("LiveTest")]
+    public class YouTubeVerticalTestSuite : BaseLiveTestClass
+    {
+
+        private string ytClient;
+        private string ytDevKey;
+        private string ytUser;
+        private string ytPwd;
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>default empty constructor</summary> 
+        //////////////////////////////////////////////////////////////////////
+        public YouTubeVerticalTestSuite()
+        {
+        }
+
+        public override string ServiceName
+        {
+            get {
+                return YouTubeService.YTService; 
+            }
+        }
+
+
+                //////////////////////////////////////////////////////////////////////
+        /// <summary>private void ReadConfigFile()</summary> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        protected override void ReadConfigFile()
+        {
+            base.ReadConfigFile();
+
+            if (unitTestConfiguration.Contains("youTubeClientID") == true)
+            {
+                this.ytClient = (string) unitTestConfiguration["youTubeClientID"];
+            }
+            if (unitTestConfiguration.Contains("youTubeDevKey") == true)
+            {
+                this.ytDevKey = (string) unitTestConfiguration["youTubeDevKey"];
+            }
+            if (unitTestConfiguration.Contains("youTubeUser") == true)
+            {
+                this.ytUser = (string) unitTestConfiguration["youTubeUser"];
+            }
+            if (unitTestConfiguration.Contains("youTubePwd") == true)
+            {
+                this.ytPwd = (string) unitTestConfiguration["youTubePwd"];
+            }
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
 
     }
 }

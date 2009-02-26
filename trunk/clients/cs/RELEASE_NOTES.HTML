@@ -96,6 +96,21 @@
                 fixed issue 200, feedquery now has an etag property to create 
                 if-match queries.
             </li>
+            <li>
+                Fixed issue 221, setting private to false in an YouTubeEntry
+                resulted in failure to persist that entr. 
+                </li>
+
+            <li>Added a setter for Entry.Id</li>
+            <li>Added a batch method for Feed</li>
+            <li>PlaylistEntries had a position element, but no private 
+                element. Reversed this. </li>
+
+            <li>YouTubeEntry had no position property, now it has one.</li>
+
+            <li>YouTube.Comment now has a ReplyTo method</li>
+            <li>YouTube.Video.VideoId now has a setter</li>
+            <li>YouTube.YouTubeRequest has an AddComment method.</li>
 
         </ul>
     </ul>
