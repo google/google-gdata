@@ -377,6 +377,7 @@ namespace Google.GData.Client.LiveTests
                 c.BatchData = new GDataBatchEntryData();
                 c.BatchData.Id = i.ToString();
                 c.BatchData.Type = GDataBatchOperationType.delete;
+                i++;
                 list.Add(c);
             }
 

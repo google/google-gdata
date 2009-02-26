@@ -372,7 +372,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="unittests.dll.config" />
-    <None Include="youtube\t.t" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

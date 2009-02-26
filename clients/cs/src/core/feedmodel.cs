@@ -292,6 +292,11 @@ namespace Google.GData.Client
                 EnsureInnerObject();
                 return this.e.Id.AbsoluteUri;
             }
+            set
+            {
+                EnsureInnerObject();
+                this.e.Id = new AtomId(value);
+            }
         }
 
         /// <summary>
@@ -857,6 +862,29 @@ namespace Google.GData.Client
             }
 
             return f; 
+        }
+
+
+        /// <summary>
+        /// performs a batch operation. 
+        /// </summary>
+        /// <param name="feed">the original feed, used to find the batch endpoing </param>
+        /// <param name="entries">List of entries of type Y, that are to be batched</param>
+        /// <returns></returns>
+        public Feed<Y> Batch<Y>(List<Y> entries, Feed<Y> feed) where Y : Entry, new()
+        {
+            if (feed == null ||
+                feed.AtomFeed == null)
+            {
+                throw new ArgumentNullException("Invalid feed passed in");
+            }
+
+            if (feed.AtomFeed.Batch == null)
+            {
+                throw new ArgumentException("Feed has no valid batch endpoint");
+            }
+            return this.Batch(entries, new Uri(feed.AtomFeed.Batch));
+
         }
 
 
