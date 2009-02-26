@@ -621,6 +621,25 @@ namespace Google.YouTube
                 return 0;
             }
         }
+
+
+        /// <summary>
+        /// The yt:state tag contains information that describes the status of a video. 
+        /// Video entries that contain a yt:state tag are not playable. 
+        /// For videos that failed to upload or were rejected after the upload process, the reasonCode 
+        /// attribute and the tag value provide insight into the reason for the upload problem. 
+        /// Deleted entries only appear in playlist and inbox feeds and are only visible to the playlist 
+        /// or inbox owner.
+        /// </summary>
+        public State Status
+        {
+            get
+            {
+                EnsureInnerObject();
+                return this.YouTubeEntry.State;
+            }
+            
+        }
     }
 
 

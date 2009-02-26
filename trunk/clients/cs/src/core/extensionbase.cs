@@ -95,7 +95,7 @@ namespace Google.GData.Extensions {
         /// is working against. 
         /// </summary>
         /// <returns></returns>
-        int IVersionAware.ProtocolMinor
+        public int ProtocolMinor
         {
             get
             {

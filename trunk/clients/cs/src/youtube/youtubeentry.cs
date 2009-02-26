@@ -104,8 +104,11 @@ namespace Google.GData.YouTube {
             this.AddExtension(mg);
 
             GeoRssExtensions.AddExtension(this);
-
             AppControl app = new AppControl();
+            app.ProtocolMajor = this.ProtocolMajor;
+            app.ProtocolMinor = this.ProtocolMinor;
+
+                 
             AppControl acf = FindExtensionFactory(app.XmlName, app.XmlNameSpace) as AppControl;
             if (acf == null)
             {

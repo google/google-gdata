@@ -22,6 +22,7 @@ using System.Net;
 using Google.GData.Client;
 using Google.GData.Extensions;
 using System.Collections.Generic;
+using Google.GData.Extensions.AppControl;
 
 
 namespace Google.GData.Client
@@ -334,6 +335,37 @@ namespace Google.GData.Client
                 this.e.Title.Text = value; 
             }
         }
+
+        /// <summary>
+        /// returns the appControl sublement
+        /// </summary>
+        public AppControl AppControl
+        {
+            get
+            {
+                EnsureInnerObject();
+                return this.e.AppControl;
+            }
+            set
+            {
+                EnsureInnerObject();
+                this.e.AppControl = value;
+            }
+        }
+
+
+        /// <summary>
+        /// returns the appControl sublement
+        /// </summary>
+        public bool IsDraft
+        {
+            get
+            {
+                EnsureInnerObject(); 
+                return this.e.IsDraft; 
+            }
+        }
+
 
         /// <summary>
         ///  returns the first author name in the atom.entry.authors collection
@@ -802,6 +834,19 @@ namespace Google.GData.Client
         {
             return PrepareFeed<Y>(q);  
         }
+
+        /// <summary>
+        /// gets a feed object of type T
+        /// </summary>
+        /// <typeparam name="Y"></typeparam>
+        /// <param name="uri">The Uri to retrieve</param>
+        /// <returns></returns>
+        public Feed<Y> Get<Y>(Uri uri) where Y : Entry, new()
+        {
+            FeedQuery q = new FeedQuery(uri.AbsoluteUri);
+            return PrepareFeed<Y>(q);
+        }
+
 
         /// <summary>
         /// returns a new feed based on the operation passed in.  This is useful if you either do not use
