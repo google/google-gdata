@@ -713,10 +713,18 @@ namespace Google.GData.Client.LiveTests
 
             foreach (Video v in feed.Entries)
             {
-                if (v.YouTubeEntry.IsDraft == false)
+                // only testing v.AppControl to verify, this is not required.
+                if (v.AppControl==null && v.AppControl.Draft == null && v.IsDraft==false)
                 {
                     v.YouTubeEntry.Private = true;
-                    privateVideo =  f.Update(v);
+                    privateVideo = f.Update(v);
+                }
+                else
+                {
+                    // there should be a state as well
+                    State s = v.YouTubeEntry.State;
+                    Assert.IsNotNull(s, "state should not be null");
+                    Assert.IsNotNull(s.Reason, "State.Reason should not be null");
                 }
             }
 

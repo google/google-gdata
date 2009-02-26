@@ -985,16 +985,22 @@ namespace Google.GData.YouTube {
     /// </summary>
     public class State : SimpleElement
     {
+        /// <summary>the name xml attribute </summary>
+        public const string AttributeName = "name";
+        /// <summary>the reasonCode xml attribute </summary>
+        public const string AttributeReason = "reasonCode";
+        /// <summary>the help xml attribute </summary>
+        public const string AttributeHelp = "helpUrl";
+
         /// <summary>
         /// default constructor
         /// </summary>
         public State()
         : base(YouTubeNameTable.State, YouTubeNameTable.ytPrefix, YouTubeNameTable.NSYouTube)
         {
-
-            this.Attributes.Add("name", null);
-            this.Attributes.Add("reasonCode", null);
-            this.Attributes.Add("helpUrl", null);
+            this.Attributes.Add(AttributeName, null);
+            this.Attributes.Add(AttributeReason, null);
+            this.Attributes.Add(AttributeHelp, null);
         }
         /// <summary>
         /// constructor taking the initial value
@@ -1003,9 +1009,63 @@ namespace Google.GData.YouTube {
         public State(string initValue)
         : base(YouTubeNameTable.State, YouTubeNameTable.ytPrefix, YouTubeNameTable.NSYouTube, initValue)
         {
-            this.Attributes.Add("name", null);
-            this.Attributes.Add("reasonCode", null);
-            this.Attributes.Add("helpUrl", null);
+            this.Attributes.Add(AttributeName, null);
+            this.Attributes.Add(AttributeReason, null);
+            this.Attributes.Add(AttributeHelp, null);
+        }
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>The name attribute identifies the status of an unpublished video. 
+        /// Valid values for this tag are processing, deleted, rejected and failed.</summary>
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        public string Name
+        {
+            get
+            {
+                return this.Attributes[AttributeName] as string;
+            }
+            set
+            {
+                this.Attributes[AttributeName] = value;
+            }
+        }
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>The reasonCode attribute provides information about why a video failed 
+        /// to upload or was rejected after the uploading process. The yt:state tag will not 
+        /// include a reasonCode attribute if the value of the name 
+        /// attribute is processing. </summary>
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        public string Reason
+        {
+            get
+            {
+                return this.Attributes[AttributeReason] as string;
+            }
+            set
+            {
+                this.Attributes[AttributeReason] = value;
+            }
+        }
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>The helpUrl parameter contains a link to a YouTube Help 
+        /// Center page that may help the developer or the video owner to 
+        /// diagnose the reason that an upload failed or was rejected..</summary>
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        public string Help
+        {
+            get
+            {
+                return this.Attributes[AttributeHelp] as string;
+            }
+            set
+            {
+                this.Attributes[AttributeHelp] = value;
+            }
         }
     }
 
