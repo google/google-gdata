@@ -75,6 +75,9 @@
     <Compile Include="..\..\gcontacts\contactquery.cs">
       <Link>contactquery.cs</Link>
     </Compile>
+    <Compile Include="..\..\gcontacts\contactrequest.cs">
+      <Link>contactrequest.cs</Link>
+    </Compile>
     <Compile Include="..\..\gcontacts\contactservice.cs">
       <Link>contactservice.cs</Link>
     </Compile>

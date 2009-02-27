@@ -70,6 +70,9 @@
     <Compile Include="..\..\gdocuments\AssemblyInfo.cs">
       <Link>AssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="..\..\gdocuments\docrequest.cs">
+      <Link>docrequest.cs</Link>
+    </Compile>
     <Compile Include="..\..\gdocuments\documententry.cs">
       <Link>documententry.cs</Link>
     </Compile>
