@@ -167,7 +167,7 @@ namespace NotifierForYT
                 ytNotifier = Registry.CurrentUser.CreateSubKey(YTNOTIFIERKEY);
             }
 
-
+           
             ytNotifier.SetValue("initialDataPullTime", this.InitialDataPullTime.Value, RegistryValueKind.DWord);
             ytNotifier.SetValue("updateFrequency", this.UpdateFrequency.Value, RegistryValueKind.DWord);
             ytNotifier.SetValue("notificationDuration", this.notifcationBalloons.Value, RegistryValueKind.DWord);

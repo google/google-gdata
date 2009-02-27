@@ -127,7 +127,13 @@
                  to Google.YouTube.YouTubeRequest</li>
              <li>Added a 
                  GetVideoMetaData method to YouTubeRequest</li>
-    
+             <li>Changed Get on the FeedRequest to Retrieve for single 
+                 entries. This was required for the new overloads introduced. 
+                 Also, as Retrieve directly accesses the service, compared to 
+                 Get wich is defered, a name change is a good distinction.
+                 </li>
+             <li>Video.Rating, ViewCount and CommentCount returns -1 as default 
+                 if no value was found.</li>
     
 
         </ul>

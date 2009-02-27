@@ -300,10 +300,9 @@
             <summary>accessor for the video responses feed URI</summary> 
             <returns> </returns>
         </member>
-        <member name="P:Google.GData.YouTube.YouTubeEntry.Position">
-            <summary>
-            getter/setter for Position subelement
-            </summary>
+        <member name="P:Google.GData.YouTube.YouTubeEntry.ComplaintUri">
+            <summary>accessor for the video responses feed URI</summary> 
+            <returns> </returns>
         </member>
         <member name="P:Google.GData.YouTube.YouTubeEntry.Private">
             <summary>
@@ -828,6 +827,11 @@
             subelements as well as using a different version of MediaCredit
             </summary>
             <returns></returns>
+        </member>
+        <member name="P:Google.GData.YouTube.MediaGroup.Contents">
+            <summary>
+             property accessor for the Contents Collection 
+            </summary>
         </member>
         <member name="P:Google.GData.YouTube.MediaGroup.Credit">
             <summary>
@@ -2154,6 +2158,11 @@
             </summary>
             <returns>-1 if no counthint was present, else the value</returns>
         </member>
+        <member name="P:Google.GData.YouTube.PlaylistsEntry.Private">
+            <summary>
+            getter/setter for the private subelement. Indicates if the playlist is private
+            </summary>
+        </member>
         <member name="T:Google.GData.YouTube.FriendsEntry">
             <summary>
             An individual entry inside the FriendsFeed. It represents a contact of the user
@@ -2177,6 +2186,27 @@
         <member name="P:Google.GData.YouTube.FriendsEntry.UserName">
             <summary>
             getter/setter for UserName subelement
+            </summary>
+        </member>
+        <member name="M:Google.YouTube.Complaint.EnsureInnerObject">
+            <summary>
+            creates the inner contact object when needed
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.YouTube.Complaint.ComplaintEntry">
+            <summary>
+            readonly accessor to the typed underlying atom object
+            </summary>
+        </member>
+        <member name="P:Google.YouTube.Complaint.Type">
+            <summary>
+            set's the type of the complaint
+            </summary>
+        </member>
+        <member name="P:Google.YouTube.Complaint.ComplaintDescription">
+            <summary>
+            sets the verbose part of the complain, stored in the yt:content element
             </summary>
         </member>
         <member name="T:Google.YouTube.Comment">
@@ -2362,6 +2392,12 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="P:Google.YouTube.Video.Contents">
+            <summary>
+            returns the collection of thumbnails for the vido
+            </summary>
+            <returns></returns>
+        </member>
         <member name="P:Google.YouTube.Video.WatchPage">
             <summary>
             specifies a URL where the full-length video is available through a media player that runs 
@@ -2375,6 +2411,11 @@
             identifies the owner of a video.
             </summary>
             <returns></returns>
+        </member>
+        <member name="P:Google.YouTube.Video.Media">
+            <summary>
+            access to the Media group subelement
+            </summary>
         </member>
         <member name="P:Google.YouTube.Video.ViewCount">
             <summary>
@@ -2390,9 +2431,30 @@
         </member>
         <member name="P:Google.YouTube.Video.Rating">
             <summary>
-            returns the rating average for a video
+            returns the rating for a video
             </summary>
             <returns></returns>
+        </member>
+        <member name="P:Google.YouTube.Video.RatingAverage">
+            <summary>
+            returns the average rating for a video
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.YouTube.Video.RatingsUri">
+            <summary>
+            returns the ratings Uri, to post a rating to.
+            </summary>
+        </member>
+        <member name="P:Google.YouTube.Video.ResponseUri">
+            <summary>
+            returns the response Uri, to post a video response to.
+            </summary>
+        </member>
+        <member name="P:Google.YouTube.Video.ComplaintUri">
+            <summary>
+            returns the complaint Uri, to post a comlaint to.
+            </summary>
         </member>
         <member name="P:Google.YouTube.Video.Status">
             <summary>
@@ -2402,6 +2464,28 @@
             attribute and the tag value provide insight into the reason for the upload problem. 
             Deleted entries only appear in playlist and inbox feeds and are only visible to the playlist 
             or inbox owner.
+            </summary>
+        </member>
+        <member name="T:Google.YouTube.PlayListMember">
+            <summary>
+            subclass of a video to represent a video that is part of a playlist
+            </summary>
+        </member>
+        <member name="M:Google.YouTube.PlayListMember.EnsureInnerObject">
+            <summary>
+            creates the inner contact object when needed
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.YouTube.PlayListMember.PlaylistEntry">
+            <summary>
+            readonly accessor for the YouTubeEntry that is underneath this object.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.YouTube.PlayListMember.Position">
+            <summary>
+            if the video is a playlist reference, get's and set's it's position in the playlist
             </summary>
         </member>
         <member name="T:Google.YouTube.YouTubeRequestSettings">
@@ -2559,11 +2643,25 @@
                         <param name="p">the playlist to get the videos for</param>
                         <returns></returns>
         </member>
+        <member name="M:Google.YouTube.YouTubeRequest.Upload(Google.YouTube.Video)">
+            <summary>
+            uploads or inserts a new video for the default authenticated user.
+            </summary>
+            <param name="v">the created video to be used</param>
+            <returns></returns>
+        </member>
         <member name="M:Google.YouTube.YouTubeRequest.Upload(System.String,Google.YouTube.Video)">
             <summary>
             uploads or inserts a new video for a given user.
             </summary>
             <param name="userName">if this is null the default authenticated user will be used</param>
+            <param name="v">the created video to be used</param>
+            <returns></returns>
+        </member>
+        <member name="M:Google.YouTube.YouTubeRequest.CreateFormUploadToken(Google.YouTube.Video)">
+            <summary>
+            creates the form upload token for the passed in video
+            </summary>
             <param name="v">the created video to be used</param>
             <returns></returns>
         </member>
@@ -2580,6 +2678,14 @@
             </summary>
             <param name="v">the video you want to comment on</param>
             <param name="c">the comment you want to post</param>
+            <returns></returns>
+        </member>
+        <member name="M:Google.YouTube.YouTubeRequest.AddToPlaylist(Google.YouTube.Playlist,Google.YouTube.PlayListMember)">
+            <summary>
+            adds a video to an existing playlist
+            </summary>
+            <param name="m">the new playlistmember</param>
+            <param name="p">the playlist to add tot</param>
             <returns></returns>
         </member>
         <member name="M:Google.YouTube.YouTubeRequest.GetVideoMetaData(System.Collections.Generic.List{Google.YouTube.Activity})">
@@ -2886,14 +2992,9 @@
             Constructs a new PlayListEntry instance
             </summary>
         </member>
-        <member name="P:Google.GData.YouTube.PlaylistEntry.Description">
+        <member name="P:Google.GData.YouTube.PlaylistEntry.Position">
             <summary>
-            getter/setter for Description subelement
-            </summary>
-        </member>
-        <member name="P:Google.GData.YouTube.PlaylistEntry.Private">
-            <summary>
-            getter/setter for the private subelement. Indicates if the playlist is private
+            getter/setter for Position subelement
             </summary>
         </member>
     </members>

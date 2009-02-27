@@ -366,6 +366,18 @@ namespace Google.GData.Client
             }
         }
 
+        /// <summary>
+        /// returns true, if the entry has an edit link
+        /// </summary>
+        public bool ReadOnly
+        {
+            get
+            {
+                EnsureInnerObject();
+                return this.e.EditUri == null; 
+            }
+        }
+
 
         /// <summary>
         ///  returns the first author name in the atom.entry.authors collection
@@ -1004,12 +1016,8 @@ namespace Google.GData.Client
         ///  </example>
         /// <param name="entry">the entry to get again</param>
         /// <returns></returns>
-        public Y Get<Y>(Y entry) where Y: Entry, new()
+        public Y Retrieve<Y>(Y entry) where Y: Entry, new()
         {
-
-            Feed<Y> f = null;
-            Y r = null; 
-
             if (entry == null)
             {
                 throw new ArgumentNullException("entry was null");
@@ -1030,17 +1038,46 @@ namespace Google.GData.Client
                 {
                     q.Etag = ise.Etag;
                 }
-                f = PrepareFeed<Y>(q); 
+                return Retrieve<Y>(q); 
             }
-            // this should be a feed of one... 
-
-            foreach (Y y in f.Entries)
-            {
-                r =y; 
-            }
-            return r; 
+            return null; 
         }
 
+        /// <summary>
+        /// returns a the entry the Uri pointed to
+        /// </summary>
+        ///  <example>
+        /// <param name="entryUri">the Uri of the entry</param>
+        /// <returns></returns>
+        public Y Retrieve<Y>(Uri entryUri) where Y : Entry, new()
+        {
+            string spec = entryUri.AbsoluteUri;
+            if (String.IsNullOrEmpty(spec) == false)
+            {
+                FeedQuery q = new FeedQuery(spec);
+                return Retrieve<Y>(q); 
+            }
+            return null; 
+        }
+
+        /// <summary>
+        /// returns a the entry the Uri pointed to
+        /// </summary>
+        ///  <example>
+        /// <param name="entryUri">the Uri of the entry</param>
+        /// <returns></returns>
+        public Y Retrieve<Y>(FeedQuery query) where Y : Entry, new()
+        {
+            Feed<Y> f = null;
+            Y r = null;
+            f = PrepareFeed<Y>(query);
+            // this should be a feed of one... 
+            foreach (Y y in f.Entries)
+            {
+                r = y;
+            }
+            return r;
+        }
 
 
         /// <summary>

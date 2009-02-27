@@ -57,6 +57,8 @@ namespace Google.GData.YouTube {
             } 
             CountHint c = new CountHint();
             this.AddExtension(c);
+            this.AddExtension(new Private());
+
 
             Categories.Add(PLAYLISTS_CATEGORY);
         }
@@ -128,6 +130,22 @@ namespace Google.GData.YouTube {
                 c.IntegerValue = value;
             }
         }
+
+        /// <summary>
+        /// getter/setter for the private subelement. Indicates if the playlist is private
+        /// </summary>
+        public bool Private
+        {
+            get
+            {
+                return Convert.ToBoolean(getYouTubeExtensionValue(YouTubeNameTable.Private), CultureInfo.InvariantCulture);
+            }
+            set
+            {
+                setYouTubeExtension(YouTubeNameTable.Private, value == false ? null : "");
+            }
+        }
+
     }
 }
 
