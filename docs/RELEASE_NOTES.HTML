@@ -5,6 +5,136 @@
     
     
 <h1>This document lists the changes in the different releases</h1>
+    <h2>
+        1.4.0.2
+    </h2>
+    <ul>
+        <li>
+            Features
+        </li>
+        <ul>
+            <li>Added PlaylistID and PlaylistTitle support to the 
+                subscription entries in youtube feeds, added support for 
+                subscriptions to the Google.YouTube namespace</li>
+            <li>
+                Added Google Contacts v2 support, including a new, vertical 
+                model like the YouTube programming model. You can find this 
+                in the Google.Contacts namespace. 
+            </li>
+            <li>
+                Added Batch access to the new generics model. You can now
+                create a FeedRequest object, and use it's Batch method to send a 
+                List of entry objects to the server. Entry and Feed expose 
+                access to the batch data. 
+            </li>
+            <li>Added Google Documents v2 support including the new 
+                download functionallity</li>
+            <li>
+                Added a new Google Documents exporter sample. It allows you to 
+                populate a treeview with your Google Documents and then export 
+                each individual file in a variety of formats. 
+            </li>
+            <li>
+                Extended the YouTube Notifier sample to use the User Events feed
+                as well. 
+            </li>
+        </ul>
+        <li>
+            Bugfixes/changes
+        </li>
+        <ul>
+            <li>Added the missing contacts DLL to the setup program.</li>
+            <li>Changed the new Feed model code to lazily load the feed on 
+                construction.</li>
+            <li>
+                Removed the CreateInstance methods from the new feedmodel and 
+                changed the internals to lazyily create the inner objects on 
+                demand. That means, no more Video v = Vidoe.CreateInstance() 
+                in your code, but Video v = new Video() is now fine. 
+            </li>
+            <li>Removed an incorrect check for HTTP.StatusOK (200) as the 
+                result for an HTTP.Delete operation. Delete can return any 2xx 
+                code in theory. 
+                </li>
+            <li>
+                Fixed issue 209, an feed.Entries.Add(entryOfAnotherFeed) did 
+                create a source element automatically. That was too smart for 
+                it's own good. There is an explict method 
+                Entries.MoveOrCopy(entry) that does that, add will just change 
+                the ownership to the new collection.
+            </li>
+            <li>
+                Changed Google.Client.Entry.ID to Google.Client.Entry.Id
+            </li>
+            <li>
+                 fixed the feed.Entries iterator to restart from the beginning 
+                 when you want to use it again. Note that you should cache the 
+                 output of the iterator is you want to use that in a loop. 
+            </li>
+            <li>Fixed issue 217, a call to setUserCredentials now automatically invalidates
+                a stored authtoken.</li>
+            <li>Fixed issue 200. A feedQuery now supports an etag property, and several new 
+            service method overloads for query and send support an etag as a parameter.</li>
+            <li>Service.Query(FeedQuery, ifModifiedSince) is now marked obsolete. You can use the ModifiedSince
+            property on the FeedQuery object and Query(FeedQuery) instead.</li>
+            <li>Added the ability to store a client token to 
+                GDataCredentials. Setting the credentials property will take
+                this into account.</li>
+            <li>Changed the base apps feed uri for Google Apps</li>
+            <li>
+                Changed GBatchStatus and GBatchError to use the correct 
+                namespace, it was incorrectly using the prefix instead.
+            </li>
+            <li> fixed issue 218, setting org.Title or org.name in a 
+                contact to null or an empty string did not remove the 
+                element.</li>
+            <li>
+                fixed issue 203, you can now retrieve the ACL feed for a 
+                document
+            </li>
+            <li>
+                fixed issue 200, feedquery now has an etag property to create 
+                if-match queries.
+            </li>
+            <li>
+                Fixed issue 221, setting private to false in an YouTubeEntry
+                resulted in failure to persist that entr. 
+                </li>
+
+            <li>Added a setter for Entry.Id</li>
+            <li>Added a batch method for Feed</li>
+            <li>YouTube.Video.VideoId now has a setter</li>
+            <li>YouTube.YouTubeRequest has an AddComment method.</li>
+            <li>Google.Client.FeedRequest has a new Get(Uri uri) method</li>
+
+            <li>Added AppControl and IsDraft accessors to 
+                Google.Client.Entry</li>
+            <li>Added  a Get(uri) method to the 
+            Google.Client.FeedRequest</li>
+
+            <li> Fixed YouTubeEntry.State to actually parse and return the 
+                yt:state element</li>
+
+            <li>Added property accessors to YouTube.State<li>
+
+             <li>Added a State property accessor 
+                 to Google.YouTube.YouTubeRequest</li>
+             <li>Added a 
+                 GetVideoMetaData method to YouTubeRequest</li>
+             <li>Changed Get on the FeedRequest to Retrieve for single 
+                 entries. This was required for the new overloads introduced. 
+                 Also, as Retrieve directly accesses the service, compared to 
+                 Get wich is defered, a name change is a good distinction.
+                 </li>
+             <li>Video.Rating, ViewCount and CommentCount returns -1 as default 
+                 if no value was found.</li>
+
+             <li>Lot's of addtions to the Entry Model and it's subclasses. Check
+                 the documentation for details</li>
+
+        </ul>
+    </ul>
+
 
     <h2>
         1.3.1.0
