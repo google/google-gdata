@@ -84,6 +84,10 @@ namespace Google.GData.Extensions.MediaRss {
         /// </summary>
         public const string AttributeWidth = "width";
         /// <summary>
+        /// the attribute string for the time attribute
+        /// </summary>
+        public const string AttributeTime = "time";
+        /// <summary>
         /// the attribute string for the type attribute
         /// </summary>
         public const string AttributeType = "type";
@@ -259,25 +263,7 @@ namespace Google.GData.Extensions.MediaRss {
             }
         }
 
-        /// <summary>
-        /// returns the media:content element
-        /// </summary>
-        public MediaContent Content
-        {
-            get
-            {
-                return FindExtension(MediaRssNameTable.MediaRssContent,
-                                     MediaRssNameTable.NSMediaRss) as MediaContent;
-            }
-            set
-            {
-                ReplaceExtension(MediaRssNameTable.MediaRssContent,
-                                MediaRssNameTable.NSMediaRss,
-                                value);
-            }
-        }
-
-
+        
         /// <summary>
         ///  property accessor for the Contents Collection 
         /// </summary>
@@ -606,6 +592,22 @@ namespace Google.GData.Extensions.MediaRss {
         {
            get 
             {
+                return this.Attributes[MediaRssNameTable.AttributeDuration] as string;
+            }
+            set
+            {
+                this.Attributes[MediaRssNameTable.AttributeDuration] = value;
+            }
+        }
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>convienience accessor for the Duration</summary> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        public string Duration
+        {
+            get
+            {
                 return this.Attributes[MediaRssNameTable.AttributeType] as string;
             }
             set
@@ -613,6 +615,7 @@ namespace Google.GData.Extensions.MediaRss {
                 this.Attributes[MediaRssNameTable.AttributeType] = value;
             }
         }
+
 
 
     }
@@ -706,6 +709,7 @@ namespace Google.GData.Extensions.MediaRss {
             this.Attributes.Add(MediaRssNameTable.AttributeUrl, null);
             this.Attributes.Add(MediaRssNameTable.AttributeHeight, null);
             this.Attributes.Add(MediaRssNameTable.AttributeWidth, null);
+            this.Attributes.Add(MediaRssNameTable.AttributeTime, null);
         }
 
         //////////////////////////////////////////////////////////////////////
@@ -755,6 +759,22 @@ namespace Google.GData.Extensions.MediaRss {
             set
             {
                 this.Attributes[MediaRssNameTable.AttributeWidth] = value;
+            }
+        }
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>convienience accessor for the time attribute</summary> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        public string Time
+        {
+            get
+            {
+                return this.Attributes[MediaRssNameTable.AttributeTime] as string;
+            }
+            set
+            {
+                this.Attributes[MediaRssNameTable.AttributeTime] = value;
             }
         }
         // end of accessor public string Url

@@ -51,39 +51,25 @@ namespace Google.GData.YouTube {
                 Description d = new Description();
                 this.AddExtension(d);
             }
-            this.AddExtension(new Private());
+
+            this.AddExtension(new Position());
+
             Categories.Add(PLAYLIST_CATEGORY);
         }
 
 
         /// <summary>
-        /// getter/setter for Description subelement
+        /// getter/setter for Position subelement
         /// </summary>
-        [Obsolete("replaced with Summary.Text")] 
-        public string Description 
+        public int Position
         {
             get
             {
-                return getDescription();
+                return Convert.ToInt32(getYouTubeExtensionValue(YouTubeNameTable.Position), CultureInfo.InvariantCulture);
             }
             set
             {
-                setDescription(value);
-            }
-        }
-
-        /// <summary>
-        /// getter/setter for the private subelement. Indicates if the playlist is private
-        /// </summary>
-        public bool Private
-        {
-            get
-            {
-                return Convert.ToBoolean(getYouTubeExtensionValue(YouTubeNameTable.Private), CultureInfo.InvariantCulture);
-            }
-            set
-            {
-                setYouTubeExtension(YouTubeNameTable.Private, value == false ? null : "");
+                setYouTubeExtension(YouTubeNameTable.Position, value.ToString(CultureInfo.InvariantCulture));
             }
         }
 

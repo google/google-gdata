@@ -79,19 +79,6 @@ namespace Google.GData.Client.UnitTests.YouTube
             Assert.AreEqual(expected, actual);
         }
 
-        /// <summary>
-        ///A test for Description
-        ///</summary>
-        [Test]
-        public void DescriptionTest()
-        {
-            PlaylistEntry target = new PlaylistEntry(); // TODO: Initialize to an appropriate value
-            string expected = "secret text string"; // TODO: Initialize to an appropriate value
-            string actual;
-            target.Description = expected;
-            actual = target.Description;
-            Assert.AreEqual(expected, actual);
-        }
 
         /// <summary>
         ///A test for PlaylistEntry Constructor
@@ -102,7 +89,6 @@ namespace Google.GData.Client.UnitTests.YouTube
             PlaylistEntry target = new PlaylistEntry();
             Assert.IsNotNull(target);
             Assert.AreEqual(target.Position, 0);
-            Assert.IsNull(target.Description);
 
         }
     }

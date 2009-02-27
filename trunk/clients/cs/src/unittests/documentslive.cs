@@ -256,7 +256,7 @@ namespace Google.GData.Client.LiveTests
             // now this should result in a notmodified
             try
             {
-                Document refresh = r.Get(d);
+                Document refresh = r.Retrieve(d);
                 Assert.IsTrue(refresh == null, "we should not be here");
             }
             catch (GDataNotModifiedException g)

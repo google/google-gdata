@@ -27,6 +27,74 @@ using System.Collections.Generic;
 
 namespace Google.YouTube 
 {
+    public class Complaint : Entry
+    {
+        /// <summary>
+        /// creates the inner contact object when needed
+        /// </summary>
+        /// <returns></returns>
+        protected override void EnsureInnerObject()
+        {
+            if (this.AtomEntry == null)
+            {
+                this.AtomEntry = new ComplaintEntry();
+            }
+        }
+        /// <summary>
+        /// readonly accessor to the typed underlying atom object
+        /// </summary>
+        public ComplaintEntry ComplaintEntry
+        {
+            get
+            {
+                return this.AtomEntry as ComplaintEntry;
+            }
+        }
+
+        /// <summary>
+        /// set's the type of the complaint
+        /// </summary>
+        public ComplaintEntry.ComplaintType Type
+        {
+            get
+            {
+                if (this.ComplaintEntry != null)
+                {
+                    return this.ComplaintEntry.Type;
+                }
+                return ComplaintEntry.ComplaintType.UNKNOWN;
+            }
+            set
+            {
+                EnsureInnerObject();
+                this.ComplaintEntry.Type = value;
+            }
+        }
+
+        /// <summary>
+        /// sets the verbose part of the complain, stored in the yt:content element
+        /// </summary>
+        public string ComplaintDescription
+        {
+            get
+            {
+                if (this.ComplaintEntry != null)
+                {
+                    return this.ComplaintEntry.Complaint;
+                }
+                return null;
+            }
+            set
+            {
+                EnsureInnerObject();
+                this.ComplaintEntry.Complaint = value;
+            }
+        }
+
+
+
+    }
+
     /// <summary>
     /// the Comment entry for a Comments Feed, a feed of Comment for YouTube
     /// </summary>
@@ -522,6 +590,26 @@ namespace Google.YouTube
         }
 
         /// <summary>
+        /// returns the collection of thumbnails for the vido
+        /// </summary>
+        /// <returns></returns>
+        public ExtensionCollection<Google.GData.YouTube.MediaContent> Contents
+        {
+            get
+            {
+                if (this.YouTubeEntry != null)
+                {
+                    if (this.YouTubeEntry.Media == null)
+                    {
+                        this.YouTubeEntry.Media = new Google.GData.YouTube.MediaGroup();
+                    }
+                    return this.YouTubeEntry.Media.Contents;
+                }
+                return null;
+            }
+        }
+
+        /// <summary>
         /// specifies a URL where the full-length video is available through a media player that runs 
         /// inside a web browser. In a YouTube Data API response, this specifies the URL for the page 
         /// on YouTube's website that plays the video
@@ -574,6 +662,28 @@ namespace Google.YouTube
 
 
         /// <summary>
+        /// access to the Media group subelement
+        /// </summary>
+        public Google.GData.YouTube.MediaGroup Media
+        {
+            get
+            {
+                if (this.YouTubeEntry != null)
+                {                    
+                    return this.YouTubeEntry.Media; 
+                }
+                return null;
+            }
+            set
+            {
+                EnsureInnerObject();
+                this.YouTubeEntry.Media = value; 
+            }
+        }
+
+
+
+        /// <summary>
         /// returns the viewcount for the video
         /// </summary>
         /// <returns></returns>
@@ -583,7 +693,7 @@ namespace Google.YouTube
             {
                 if (this.YouTubeEntry != null && this.YouTubeEntry.Statistics != null)
                     return Int32.Parse(this.YouTubeEntry.Statistics.ViewCount);
-                return 0;
+                return -1;
             }
         }
 
@@ -601,15 +711,42 @@ namespace Google.YouTube
                 {
                         return this.YouTubeEntry.Comments.FeedLink.CountHint;
                 }
-                return 0;
+                return -1;
             }
         }
 
         /// <summary>
-        /// returns the rating average for a video
+        /// returns the rating for a video
         /// </summary>
         /// <returns></returns>
-        public double Rating
+        public int Rating
+        {
+            get
+            {
+                if (this.YouTubeEntry != null &&
+                    this.YouTubeEntry.Rating != null)
+                {
+                    return this.YouTubeEntry.Rating.Value;
+                }
+                return -1;
+            }
+
+            set
+            {
+                EnsureInnerObject();
+                if (this.YouTubeEntry.Rating == null)
+                {
+                    this.YouTubeEntry.Rating = new Rating();
+                }
+                this.YouTubeEntry.Rating.Value= (int) value;
+            }
+        }
+
+        /// <summary>
+        /// returns the average rating for a video
+        /// </summary>
+        /// <returns></returns>
+        public double RatingAverage
         {
             get
             {
@@ -618,9 +755,65 @@ namespace Google.YouTube
                 {
                     return this.YouTubeEntry.Rating.Average;
                 }
-                return 0;
+                return -1;
             }
         }
+
+
+        /// <summary>
+        /// returns the ratings Uri, to post a rating to.
+        /// </summary>
+        public Uri RatingsUri
+        {
+            get
+            {
+                Uri ratings = null; 
+                if (this.YouTubeEntry != null)
+                {
+                    AtomUri r = this.YouTubeEntry.RatingsLink;
+                    if (r != null)
+                        ratings = new Uri(r.ToString());
+                }
+                return ratings; 
+            }
+        }
+
+        /// <summary>
+        /// returns the response Uri, to post a video response to.
+        /// </summary>
+        public Uri ResponseUri
+        {
+            get
+            {
+                Uri response = null;
+                if (this.YouTubeEntry != null)
+                {
+                    AtomUri r = this.YouTubeEntry.VideoResponsesUri.ToString();
+                    if (r != null)
+                        response = new Uri(r.ToString());
+                }
+                return response;
+            }
+        }
+
+        /// <summary>
+        /// returns the complaint Uri, to post a comlaint to.
+        /// </summary>
+        public Uri ComplaintUri
+        {
+            get
+            {
+                Uri uri = null;
+                if (this.YouTubeEntry != null)
+                {
+                    AtomUri r = this.YouTubeEntry.ComplaintUri;
+                    if (r != null)
+                        uri = new Uri(r.ToString());
+                }
+                return uri;
+            }
+        }
+
 
 
         /// <summary>
@@ -638,7 +831,56 @@ namespace Google.YouTube
                 EnsureInnerObject();
                 return this.YouTubeEntry.State;
             }
-            
+        }
+    }
+
+
+    /// <summary>
+    /// subclass of a video to represent a video that is part of a playlist
+    /// </summary>
+    public class PlayListMember : Video
+    {
+        /// <summary>
+        /// creates the inner contact object when needed
+        /// </summary>
+        /// <returns></returns>
+        protected override void EnsureInnerObject()
+        {
+            if (this.AtomEntry == null)
+            {
+                this.AtomEntry = new PlaylistEntry();
+            }
+        }
+
+
+        /// <summary>
+        /// readonly accessor for the YouTubeEntry that is underneath this object.
+        /// </summary>
+        /// <returns></returns>
+        public  PlaylistEntry PlaylistEntry
+        {
+            get
+            {
+                return this.AtomEntry as PlaylistEntry;
+            }
+        }
+
+         /// <summary>
+        /// if the video is a playlist reference, get's and set's it's position in the playlist
+        /// </summary>
+        public int Position
+        {
+            get
+            {
+                if (this.PlaylistEntry != null)
+                    return this.PlaylistEntry.Position;
+                return -1;
+            }
+            set
+            {
+                EnsureInnerObject();
+                this.PlaylistEntry.Position = value;
+            }
         }
     }
 
@@ -963,19 +1205,28 @@ namespace Google.YouTube
             <param name="p">the playlist to get the videos for</param>
             <returns></returns>
         */
-        public Feed<Video> GetPlaylist(Playlist p)
+        public Feed<PlayListMember> GetPlaylist(Playlist p)
         {
             if (p.AtomEntry != null && 
                 p.AtomEntry.Content != null && 
                 p.AtomEntry.Content.AbsoluteUri != null)
             {
                    YouTubeQuery q = PrepareQuery<YouTubeQuery>(p.AtomEntry.Content.AbsoluteUri);
-                   return PrepareFeed<Video>(q); 
+                   return PrepareFeed<PlayListMember>(q); 
             }
-            return new Feed<Video>(null);
+            return new Feed<PlayListMember>(null);
         }
 
 
+        /// <summary>
+        /// uploads or inserts a new video for the default authenticated user.
+        /// </summary>
+        /// <param name="v">the created video to be used</param>
+        /// <returns></returns>
+        public Video Upload(Video v)
+        {
+            return Upload(null, v);
+        }
 
         /// <summary>
         /// uploads or inserts a new video for a given user.
@@ -994,6 +1245,22 @@ namespace Google.YouTube
             }
             return rv; 
         }
+
+        /// <summary>
+        /// creates the form upload token for the passed in video
+        /// </summary>
+        /// <param name="v">the created video to be used</param>
+        /// <returns></returns>
+        public FormUploadToken CreateFormUploadToken(Video v)
+        {
+            if (v.YouTubeEntry.MediaSource != null)
+            {
+                throw new ArgumentException("The Video should not have a media file attached to it");
+            }
+            return this.Service.FormUpload(v.YouTubeEntry);
+        }
+
+
 
 
         /// <summary>
@@ -1045,6 +1312,26 @@ namespace Google.YouTube
             return rc;
         }
 
+        /// <summary>
+        /// adds a video to an existing playlist
+        /// </summary>
+        /// <param name="m">the new playlistmember</param>
+        /// <param name="p">the playlist to add tot</param>
+        /// <returns></returns>
+        public PlayListMember AddToPlaylist( Playlist p, PlayListMember m)
+        {
+            PlayListMember newMember = null;
+
+            if (p.PlaylistsEntry!= null &&
+                p.PlaylistsEntry.Content != null &&
+                p.PlaylistsEntry.Content.Src != null)
+            {
+                Uri target = new Uri(p.PlaylistsEntry.Content.Src.Content);
+                newMember = new PlayListMember();
+                newMember.AtomEntry = this.Service.Insert(target, m.AtomEntry);
+            }
+            return newMember;
+        }
 
 
         /// <summary>

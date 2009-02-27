@@ -332,6 +332,8 @@ namespace Google.GData.YouTube {
     /// <returns></returns>
     public class MediaGroup : Google.GData.Extensions.MediaRss.MediaGroup
     {
+        private ExtensionCollection<MediaContent> contents;
+      
         public MediaGroup() :
             base()
         {
@@ -347,6 +349,21 @@ namespace Google.GData.YouTube {
             this.ReplaceFactory(m.XmlName, m.XmlNameSpace, m);
         }
 
+
+        /// <summary>
+        ///  property accessor for the Contents Collection 
+        /// </summary>
+        public ExtensionCollection<MediaContent> Contents
+        {
+            get
+            {
+                if (this.contents == null)
+                {
+                    this.contents = new ExtensionCollection<MediaContent>(this);
+                }
+                return this.contents;
+            }
+        }
 
         /// <summary>
         /// returns the media:credit element

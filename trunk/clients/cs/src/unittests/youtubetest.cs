@@ -347,6 +347,8 @@ namespace Google.GData.Client.LiveTests
             Assert.IsTrue(uploader.Scheme == "urn:youtube");
             Assert.IsTrue(uploader.Value == "GoogleDevelopers");
 
+
+
         }
 
 
@@ -415,21 +417,28 @@ namespace Google.GData.Client.LiveTests
             YouTubeRequest f = new YouTubeRequest(settings);
             // GetVideoFeed get's you a users video feed
             Feed<Playlist> feed = f.GetPlaylistsFeed(null);
-            // this will get you just the first 25 videos. 
+
+              // this will get you just the first 25 videos. 
             foreach (Playlist p in feed.Entries)
             {
                 Assert.IsTrue(p.AtomEntry != null);
                 Assert.IsTrue(p.Title != null);
-                Feed<Video> list = f.GetPlaylist(p);
-                foreach (Video v in list.Entries )
+                Feed<PlayListMember> list = f.GetPlaylist(p);
+                foreach (PlayListMember v in list.Entries)
                 {
                     Assert.IsTrue(v.AtomEntry != null, "There should be an atomentry");
                     Assert.IsTrue(v.Title != null, "There should be a title");
                     Assert.IsTrue(v.VideoId != null, "There should be a videoID"); 
                     // there might be no watchpage (not published yet)
                     // Assert.IsTrue(v.WatchPage != null, "There should be a watchpage");
+
+        
                 }
             }
+
+           
+	
+
         }
         /////////////////////////////////////////////////////////////////////////////
 
@@ -458,18 +467,18 @@ namespace Google.GData.Client.LiveTests
                 list.Add(p);        // add everything you want to do here... 
             }
 
-            Feed<Video> videos = f.GetPlaylist(list[0]);
+            Feed<PlayListMember> videos = f.GetPlaylist(list[0]);
 
-            List<Video> lvideo = new List<Video>();
+            List<PlayListMember> lvideo = new List<PlayListMember>();
 
-            foreach (Video v in videos.Entries)
+            foreach (PlayListMember v in videos.Entries)
             {
                 lvideo.Add(v);        // add everything you want to do here... 
             }
-    
-            List<Video> batch = new List<Video>();
 
-            Video toBatch = new Video();
+            List<PlayListMember> batch = new List<PlayListMember>();
+
+            PlayListMember toBatch = new PlayListMember();
             toBatch.Id = lvideo[1].Id;
             toBatch.VideoId = lvideo[1].VideoId;
             toBatch.BatchData = new GDataBatchEntryData();
@@ -484,14 +493,14 @@ namespace Google.GData.Client.LiveTests
             batch.Add(toBatch);
 
             toBatch = lvideo[0];
-            toBatch.YouTubeEntry.Position = 1; 
+            toBatch.Position = 1; 
             toBatch.BatchData = new GDataBatchEntryData();
             toBatch.BatchData.Id = "UPDATEGUY";
             toBatch.BatchData.Type = GDataBatchOperationType.update;
             batch.Add(toBatch);
 
 
-            Feed<Video> updatedVideos = f.Batch(batch, videos);
+            Feed<PlayListMember> updatedVideos = f.Batch(batch, videos);
 
             foreach (Video v in updatedVideos.Entries)
             {
@@ -687,7 +696,9 @@ namespace Google.GData.Client.LiveTests
 
             foreach (Video v in feed.Entries)
             {
-                Video refresh = f.Get<Video>(v);
+                // remove the etag to force a refresh
+                v.YouTubeEntry.Etag = null;
+                Video refresh = f.Retrieve(v);
 
                 Assert.AreEqual(refresh.VideoId, v.VideoId, "The ID values should be equal");
             }
@@ -713,8 +724,7 @@ namespace Google.GData.Client.LiveTests
 
             foreach (Video v in feed.Entries)
             {
-                // only testing v.AppControl to verify, this is not required.
-                if (v.AppControl==null && v.AppControl.Draft == null && v.IsDraft==false)
+                if (v.IsDraft==false)
                 {
                     v.YouTubeEntry.Private = true;
                     privateVideo = f.Update(v);
@@ -1002,6 +1012,82 @@ namespace Google.GData.Client.LiveTests
                     Assert.IsTrue(a.Username != null, "There should be a username");
                     break;
             }
+        }
+
+        static void printVideoEntry(Video video)
+        {
+          Console.WriteLine("Title: " + video.Title);
+          Console.WriteLine(video.Description); 
+          Console.WriteLine("Keywords: " + video.Keywords); 
+          Console.WriteLine("Uploaded by: " + video.Uploader); 
+
+          if (video.YouTubeEntry.Location != null)
+          {
+              Console.WriteLine("Latitude: " + video.YouTubeEntry.Location.Latitude);
+              Console.WriteLine("Longitude: " + video.YouTubeEntry.Location.Longitude);
+          }
+
+        
+          if (video.Media != null && video.Media.Rating != null)
+          {
+              Console.WriteLine("Restricted in: " + video.Media.Rating.Country);
+          }
+
+          if (video.IsDraft)
+          {
+            Console.WriteLine("Video is not live.");
+
+            string stateName = video.Status.Name;
+            if (stateName == "processing")
+            {
+              Console.WriteLine("Video is still being processed.");
+            }
+            else if (stateName == "rejected")
+            {
+              Console.Write("Video has been rejected because: ");
+              Console.WriteLine(video.Status.Value);
+              Console.Write("For help visit: ");
+              Console.WriteLine(video.Status.Help);
+            }
+            else if (stateName == "failed")
+            {
+              Console.Write("Video failed uploading because:");
+              Console.WriteLine(video.Status.Value);
+              Console.Write("For help visit: ");
+              Console.WriteLine(video.Status.Help);
+          }
+          }
+
+          if (video.AtomEntry.EditUri != null)
+          {
+            Console.WriteLine("Video is editable by the current user.");
+          }
+
+          if(video.Rating != -1) 
+          {
+              Console.WriteLine("Average rating: " + video.Rating);
+          }
+
+          if (video.ViewCount != -1)
+          {
+            Console.WriteLine("View count: " + video.ViewCount);
+          }
+
+          Console.WriteLine("Thumbnails:");
+          foreach (MediaThumbnail thumbnail in video.Thumbnails)
+          {
+            Console.WriteLine("\tThumbnail URL: " + thumbnail.Url);
+            Console.WriteLine("\tThumbnail time index: " + thumbnail.Time);
+          }
+
+          Console.WriteLine("Media:");
+          foreach (Google.GData.YouTube.MediaContent mediaContent in video.Contents)
+          {
+            Console.WriteLine("\tMedia Location: " + mediaContent.Url);
+            Console.WriteLine("\tMedia Type: " + mediaContent.Format);
+            Console.WriteLine("\tDuration: " + mediaContent.Duration);
+          }
+
         }
 
 

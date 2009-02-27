@@ -919,7 +919,7 @@ namespace Google.GData.Client.LiveTests
 
             // now delete the guy, which requires us to reload him from the server first, as the photo change operation
             // changes the etag off the entry
-            e = cr.Get(e);
+            e = cr.Retrieve(e);
             cr.Delete(e);
         }
         /////////////////////////////////////////////////////////////////////////////

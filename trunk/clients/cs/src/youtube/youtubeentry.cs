@@ -128,7 +128,6 @@ namespace Google.GData.YouTube {
             this.AddExtension(new Location());
             this.AddExtension(new Recorded());
             this.AddExtension(new Uploaded());
-            this.AddExtension(new Position());
         }
 
         /// <summary>
@@ -420,21 +419,21 @@ namespace Google.GData.YouTube {
             }
         }
 
-        /// <summary>
-        /// getter/setter for Position subelement
-        /// </summary>
-        public int Position
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>accessor for the video responses feed URI</summary> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        public AtomUri ComplaintUri
         {
             get
             {
-                return Convert.ToInt32(getYouTubeExtensionValue(YouTubeNameTable.Position), CultureInfo.InvariantCulture);
-            }
-            set
-            {
-                setYouTubeExtension(YouTubeNameTable.Position, value.ToString(CultureInfo.InvariantCulture));
+                AtomLink link = this.Links.FindService(YouTubeNameTable.Complaint, AtomLink.ATOM_TYPE);
+                // scan the link collection
+                return link == null ? null : link.HRef;
             }
         }
-
+        
 
 
         /// <summary>
