@@ -6,7 +6,7 @@
     
 <h1>This document lists the changes in the different releases</h1>
     <h2>
-        1.4.0.1
+        1.4.0.2
     </h2>
     <ul>
         <li>
@@ -103,12 +103,6 @@
 
             <li>Added a setter for Entry.Id</li>
             <li>Added a batch method for Feed</li>
-            <li>PlaylistEntries had a position element, but no private 
-                element. Reversed this. </li>
-
-            <li>YouTubeEntry had no position property, now it has one.</li>
-
-            <li>YouTube.Comment now has a ReplyTo method</li>
             <li>YouTube.Video.VideoId now has a setter</li>
             <li>YouTube.YouTubeRequest has an AddComment method.</li>
             <li>Google.Client.FeedRequest has a new Get(Uri uri) method</li>
@@ -134,7 +128,9 @@
                  </li>
              <li>Video.Rating, ViewCount and CommentCount returns -1 as default 
                  if no value was found.</li>
-    
+
+             <li>Lot's of addtions to the Entry Model and it's subclasses. Check
+                 the documentation for details</li>
 
         </ul>
     </ul>
