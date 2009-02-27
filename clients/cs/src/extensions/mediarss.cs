@@ -173,6 +173,24 @@ namespace Google.GData.Extensions.MediaRss {
             }
         }
 
+        /// <summary>
+        /// returns the media:content element
+        /// </summary>
+        public MediaContent Content
+        {
+            get
+            {
+                return FindExtension(MediaRssNameTable.MediaRssContent,
+                                     MediaRssNameTable.NSMediaRss) as MediaContent;
+            }
+            set
+            {
+                ReplaceExtension(MediaRssNameTable.MediaRssContent,
+                                MediaRssNameTable.NSMediaRss,
+                                value);
+            }
+        }
+
 
         /// <summary>
         /// returns the media:credit element
