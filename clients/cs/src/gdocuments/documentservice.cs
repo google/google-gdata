@@ -102,29 +102,36 @@ namespace Google.GData.Documents {
         /// <returns>A DocumentEntry describing the created document.</returns>
         public DocumentEntry UploadDocument(string fileName, string documentName)
         {
+            DocumentEntry entry = null;
 
             FileInfo fileInfo = new FileInfo(fileName);
             FileStream stream = fileInfo.Open(FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-            Uri postUri = new Uri(DocumentsListQuery.documentsBaseUri);
 
-            if (documentName == null)
+            try
             {
-                documentName = fileInfo.Name;
+                Uri postUri = new Uri(DocumentsListQuery.documentsBaseUri);
+    
+                if (documentName == null)
+                {
+                    documentName = fileInfo.Name;
+                }
+    
+                //convert the extension to caps and strip the "." off the front
+                string ext = fileInfo.Extension.ToUpper().Substring(1);
+    
+                String contentType = (String) GDocumentsAllowedTypes[ext];
+    
+                if (contentType == null)
+                {
+                    throw new ArgumentException("File extension '"+ext+"' is not recognized as valid.");
+                }
+    
+                entry = this.Insert(postUri, stream, contentType, documentName) as DocumentEntry;
             }
-
-            //convert the extension to caps and strip the "." off the front
-            string ext = fileInfo.Extension.ToUpper().Substring(1);
-
-            String contentType = (String) GDocumentsAllowedTypes[ext];
-
-            if (contentType == null)
+            finally
             {
-                throw new ArgumentException("File extension '"+ext+"' is not recognized as valid.");
+                stream.Close();
             }
-
-            DocumentEntry entry = this.Insert(postUri, stream, contentType, documentName) as DocumentEntry;
-
-            stream.Close();
 
             return entry;
         }
