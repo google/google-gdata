@@ -171,21 +171,6 @@ namespace Google.GData.Client
     //////////////////////////////////////////////////////////////////////
     public class AtomLinkCollection : AtomCollectionBase<AtomLink>
     {
-        /// <summary>standard typed accessor method </summary> 
-        public override void Add(AtomLink value)
-        {
-            if (value == null)
-            {
-                throw new ArgumentNullException("value");
-            }
-            // Remove link with same relation to avoid duplication.
-            AtomLink oldLink = FindService(value.Rel, value.Type);
-            if (oldLink != null)
-            {
-                Remove(oldLink);
-            }
-            base.Add(value);
-        }
        
         //////////////////////////////////////////////////////////////////////
         /// <summary>public AtomLink FindService(string service,string type)
@@ -235,9 +220,7 @@ namespace Google.GData.Client
                 if ((service == null || (linkRel != null && linkRel == service)) &&
                     (type == null || (linkType != null && linkType == type)))
                 {
-
                     foundLinks.Add(link);
-                    ;
                 }
             }
             return foundLinks;
