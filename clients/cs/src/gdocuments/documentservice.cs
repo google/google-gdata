@@ -63,10 +63,12 @@ namespace Google.GData.Documents {
             GDocumentsAllowedTypes.Add("HTML", "text/html");
             GDocumentsAllowedTypes.Add("HTM", "text/html");
             GDocumentsAllowedTypes.Add("DOC", "application/msword");
+            GDocumentsAllowedTypes.Add("DOCX", "application/msword");
             GDocumentsAllowedTypes.Add("ODS", "application/x-vnd.oasis.opendocument.spreadsheet");
             GDocumentsAllowedTypes.Add("ODT", "application/vnd.oasis.opendocument.text");
             GDocumentsAllowedTypes.Add("RTF", "application/rtf");
             GDocumentsAllowedTypes.Add("SXW", "application/vnd.sun.xml.writer");
+            GDocumentsAllowedTypes.Add("XLSX", "application/vnd.ms-excel");
             GDocumentsAllowedTypes.Add("XLS", "application/vnd.ms-excel");
             GDocumentsAllowedTypes.Add("PPT", "application/vnd.ms-powerpoint");
             GDocumentsAllowedTypes.Add("PPS", "application/vnd.ms-powerpoint");
