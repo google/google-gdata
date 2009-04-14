@@ -304,6 +304,24 @@ namespace Google.Documents
                 this.BaseUri = value;
             }
         }
+        /// <summary>
+        /// called to set additonal proxies if required. Overloaded on the document service
+        /// </summary>
+        /// <param name="proxy"></param>
+        /// <returns></returns>
+        protected override void OnSetOtherProxies(IWebProxy proxy)
+        {
+            base.OnSetOtherProxies(proxy);
+            GDataRequestFactory x= this.spreadsheetsService.RequestFactory as GDataRequestFactory;
+            if (x != null)
+            {
+                x.Proxy = proxy;
+            }
+            else
+            {
+                throw new ArgumentException("Can not set a proxy on the spreadsheet service");
+            }
+        }
 
         /// <summary>
         /// the base string to use for folder queries. Defaults to 

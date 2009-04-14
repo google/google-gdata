@@ -502,6 +502,7 @@ namespace Google.GData.Client
         private int max = -1; 
         private bool autoPage;
         private int timeout = -1; 
+      
 
         /// <summary>
         /// an unauthenticated use case
@@ -857,6 +858,47 @@ namespace Google.GData.Client
         {
             FeedQuery q = new FeedQuery(uri.AbsoluteUri);
             return PrepareFeed<Y>(q);
+        }
+
+
+        /// <summary>
+        /// sets the proxy on the service to be used. 
+        /// </summary>
+        /// <returns></returns>
+        public IWebProxy Proxy
+        {
+            get
+            {
+                GDataRequestFactory x= this.atomService.RequestFactory as GDataRequestFactory;
+                if (x != null)
+                {
+                    return x.Proxy;
+                }
+                return null;
+            }
+            set
+            {
+                GDataRequestFactory x= this.atomService.RequestFactory as GDataRequestFactory;
+                if (x != null)
+                {
+                    x.Proxy = value;
+                    OnSetOtherProxies(value);
+                }
+                else
+                {
+                    throw new ArgumentException("Can not set a proxy on this service");
+                }
+            }
+        }
+
+        /// <summary>
+        /// called to set additonal proxies if required. Overloaded on the document service
+        /// </summary>
+        /// <param name="proxy"></param>
+        /// <returns></returns>
+        protected virtual void OnSetOtherProxies(IWebProxy proxy)
+        {
+
         }
 
 
