@@ -610,11 +610,11 @@ namespace Google.GData.Extensions.MediaRss {
         {
            get 
             {
-                return this.Attributes[MediaRssNameTable.AttributeDuration] as string;
+                return this.Attributes[MediaRssNameTable.AttributeType] as string;
             }
             set
             {
-                this.Attributes[MediaRssNameTable.AttributeDuration] = value;
+                this.Attributes[MediaRssNameTable.AttributeType] = value;
             }
         }
 
@@ -626,11 +626,11 @@ namespace Google.GData.Extensions.MediaRss {
         {
             get
             {
-                return this.Attributes[MediaRssNameTable.AttributeType] as string;
+                return this.Attributes[MediaRssNameTable.AttributeDuration] as string;
             }
             set
             {
-                this.Attributes[MediaRssNameTable.AttributeType] = value;
+                this.Attributes[MediaRssNameTable.AttributeDuration] = value;
             }
         }
 
