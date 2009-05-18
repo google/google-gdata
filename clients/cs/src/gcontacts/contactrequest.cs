@@ -390,7 +390,7 @@ namespace Google.Contacts
 
 
         /// <summary>
-        ///  returns one of the youtube default feeds. 
+        ///  returns a feed of Groups for the default user
         /// </summary>
         /// <returns>a feed of Videos</returns>
         public Feed<Group> GetGroups()
@@ -399,7 +399,7 @@ namespace Google.Contacts
         }
 
         /// <summary>
-        ///  returns one of the youtube default feeds. 
+        ///  returns a feed of Groups for the given user
         /// </summary>
         /// <param name="user">the user for whom to retrieve the feed</param>
         /// <returns>a feed of Videos</returns>
