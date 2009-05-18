@@ -728,9 +728,6 @@ namespace Google.GData.YouTube {
                                     }
                                 }
                                 break;
-                            case "vq":
-                                this.VQ = parameters[1];
-                                break;
                             case "orderby":
                                 this.OrderBy = parameters[1];
                                 break;
@@ -739,9 +736,6 @@ namespace Google.GData.YouTube {
                                 break;
                             case "lr":
                                 this.LR = parameters[1];
-                                break;
-                            case "racy":
-                                this.Racy = parameters[1];
                                 break;
                             case "location":
                                 this.Location = parameters[1];
@@ -876,14 +870,12 @@ namespace Google.GData.YouTube {
                 paramInsertion = AppendQueryPart(res, "safeSearch", paramInsertion, newPath);
             }
 
-            paramInsertion = AppendQueryPart(this.VQ, "vq", paramInsertion, newPath);
             paramInsertion = AppendQueryPart(this.Location, "location", paramInsertion, newPath);
             paramInsertion = AppendQueryPart(this.LocationRadius, "location-radius", paramInsertion, newPath);
             paramInsertion = AppendQueryPart(this.Uploader, "uploader", paramInsertion, newPath);
             paramInsertion = AppendQueryPart(this.OrderBy, "orderby", paramInsertion, newPath);
             paramInsertion = AppendQueryPart(this.Client, "client", paramInsertion, newPath);
             paramInsertion = AppendQueryPart(this.LR, "lr", paramInsertion, newPath);
-            paramInsertion = AppendQueryPart(this.Racy, "racy", paramInsertion, newPath);
             paramInsertion = AppendQueryPart(this.Restriction, "restriction", paramInsertion, newPath);
 
             return newPath.ToString();
