@@ -53,7 +53,6 @@ samples =	\
 	gspreadsheet_demo.exe \
 	PhotoTool.exe \
 	HealthTool.exe \
-	Analytics.exe \
 
 all: $(ALLLIBS) tests $(samples) $(PKGCONFIG_FILES)
 
@@ -71,7 +70,7 @@ gcontact_sources = $(wildcard src/gcontacts/*.cs) $(wildcard version/*.cs)
 youtube_sources = $(wildcard src/youtube/*.cs) $(wildcard version/*.cs)
 health_sources = $(wildcard src/ghealth/*.cs) $(wildcard version/*.cs)
 blogger_sources = $(wildcard src/blogger/*.cs) $(wildcard version/*.cs)
-analytics_source = $(wildcard src/analytics/*.cs) $(wildcard version/*.cs)
+analytics_sources = $(wildcard src/analytics/*.cs) $(wildcard version/*.cs)
 test_sources = $(wildcard src/unittests/*.cs) $(wildcard src/unittests/gbase/*.cs) $(wildcard src/unittests/gapps/*.cs)\
 				 $(wildcard src/unittests/spreadsheets/*.cs) $(wildcard src/unittests/youtube/*.cs)  $(wildcard src/version/*cs)\
 				 $(wildcard src/unittests/core/*.cs)  $(wildcard src/unittests/picasa/*.cs)
@@ -117,6 +116,10 @@ Google.GData.Health.dll: $(CORELIBS) $(health_sources) src/ghealth/ghealth.sn
 
 Google.GData.Blogger.dll: $(CORELIBS) $(blogger_sources) src/blogger/blogger.sn
 	$(CSC) $(DEFINES) -target:library -out:$@ $(COREREFS) $(blogger_sources) -keyfile:src/blogger/blogger.sn
+
+Google.GData.Analytics.dll: $(CORELIBS) $(analytics_sources) src/analytics/analytics.sn
+	$(CSC) $(DEFINES) -target:library -out:$@ $(COREREFS) $(analytics_sources) -keyfile:src/analytics/analytics.sn
+
 
 clean:
 	-rm *.sn *.dll *exe $(PKGCONFIG_FILES)
@@ -175,8 +178,6 @@ PhotoTool.exe: $(ALLLIBS) $(PhotoTool_sources)
 healthtool_sources = $(wildcard samples/health/*.cs)
 HealthTool.exe: $(ALLLIBS) $(healthtool_sources)
 	$(CSC) -out:$@ $(ALLREFS) $(healthtool_sources)
-
-
 
 test:
 	nunit-console2 unittests.dll
