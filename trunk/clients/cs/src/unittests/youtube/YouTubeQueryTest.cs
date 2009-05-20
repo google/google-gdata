@@ -111,19 +111,6 @@ namespace Google.GData.Client.UnitTests.YouTube
             Assert.AreEqual(expected, actual);
         }
 
-        /// <summary>
-        ///A test for Racy
-        ///</summary>
-        [Test]
-        public void RacyTest()
-        {
-            YouTubeQuery target = new YouTubeQuery(); // TODO: Initialize to an appropriate value
-            string expected = "secret text string"; // TODO: Initialize to an appropriate value
-            string actual;
-            target.Racy = expected;
-            actual = target.Racy;
-            Assert.AreEqual(expected, actual);
-        }
 
         /// <summary>
         ///A test for OrderBy
