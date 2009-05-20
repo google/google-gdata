@@ -22,6 +22,11 @@
         <ul>
             <li>Fixed issue 230: MediaContent.Type and 
                 MediaContent.Duration were reversed.</li>
+            <li>
+                Changed AllowWriteStreamBuffering to FALSE as a default
+                for requests using the GAuthRequest base classes, as data 
+                was already buffered anyhow. 
+            </li>
         </ul>
     </ul>
 
