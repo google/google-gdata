@@ -115,8 +115,6 @@ namespace Google.GData.Client.LiveTests
 
             Assert.AreEqual(query.Time, YouTubeQuery.UploadTime.ThisWeek, "Should be this week");
             Assert.AreEqual(query.Formats[0], YouTubeQuery.VideoFormat.RTSP, "Should be RTSP");
-            Assert.AreEqual(query.Racy, "included", "Racy should be included");
-
 
         }
         /////////////////////////////////////////////////////////////////////////////

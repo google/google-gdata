@@ -1973,16 +1973,6 @@
             any video feeds other than standard feeds.
             </summary> 
         </member>
-        <member name="P:Google.GData.YouTube.YouTubeQuery.Racy">
-            <summary>
-            The racy parameter allows a search result set to include restricted
-            content as well as standard content. Valid values for this parameter
-             are include and exclude. By default, restricted content is excluded. 
-            Feed entries for videos that contain restricted content will contain
-            the media:rating element.
-            </summary> 
-            <returns> </returns>
-        </member>
         <!-- Badly formed XML comment ignored for member "P:Google.GData.YouTube.YouTubeQuery.SafeSearch" -->
         <!-- Badly formed XML comment ignored for member "P:Google.GData.YouTube.YouTubeQuery.Location" -->
         <member name="P:Google.GData.YouTube.YouTubeQuery.LocationRadius">

@@ -919,7 +919,12 @@ namespace Google.GData.Client
         /// <returns></returns>
         protected Uri CreateUri(string location)
         {
+            #if WindowsCE || PocketPC
+                return new Uri(location);
+            #else 
+
             Uri retUri = null; 
+
             if (this.settings.OAuthUser != null && location.IndexOf(OAuthUri.OAuthParameter) != 0)
             {
                 retUri = new OAuthUri(location, this.settings.OAuthUser, this.settings.OAuthDomain);
@@ -929,6 +934,7 @@ namespace Google.GData.Client
                 retUri = new Uri(location);
             }
             return retUri; 
+            #endif
         }
 
         /// <summary>

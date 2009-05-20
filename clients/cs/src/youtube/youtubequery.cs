@@ -404,23 +404,7 @@ namespace Google.GData.YouTube {
         // end of accessor public string LR
 
 
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>
-        /// The racy parameter allows a search result set to include restricted
-        /// content as well as standard content. Valid values for this parameter
-        ///  are include and exclude. By default, restricted content is excluded. 
-        /// Feed entries for videos that contain restricted content will contain
-        /// the media:rating element.
-        /// </summary> 
-        /// <returns> </returns>
-        //////////////////////////////////////////////////////////////////////
-        [Obsolete("replaced with safeSearch")] 
-        public string Racy
-        {
-            get {return this.racy;}
-            set {this.racy = value;}
-        }
-        // end of accessor public string Racy
+       
 
 
 
