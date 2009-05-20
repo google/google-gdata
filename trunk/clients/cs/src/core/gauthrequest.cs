@@ -461,6 +461,10 @@ namespace Google.GData.Client
                 http.Headers.Remove(GDataGAuthRequestFactory.GDataVersion);
                 http.Headers.Remove(GoogleAuthentication.Override);
 
+                // as we are doublebuffering due to redirect issues anyhow, 
+                // disallow the default buffering
+                http.AllowWriteStreamBuffering = false; 
+
                 IVersionAware v = this.factory as IVersionAware;
                 if (v != null)
                 {
