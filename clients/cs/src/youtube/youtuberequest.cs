@@ -1303,7 +1303,7 @@ namespace Google.YouTube
                 v.YouTubeEntry.Comments != null &&
                 v.YouTubeEntry.Comments.FeedLink != null)
             {
-                Uri target = new Uri(v.YouTubeEntry.Comments.FeedLink.Href);
+                Uri target = CreateUri(v.YouTubeEntry.Comments.FeedLink.Href);
                 rc = new Comment();
                 rc.AtomEntry = this.Service.Insert(target, c.AtomEntry);
             }
@@ -1326,7 +1326,7 @@ namespace Google.YouTube
                 p.PlaylistsEntry.Content != null &&
                 p.PlaylistsEntry.Content.Src != null)
             {
-                Uri target = new Uri(p.PlaylistsEntry.Content.Src.Content);
+                Uri target = CreateUri(p.PlaylistsEntry.Content.Src.Content);
                 newMember = new PlayListMember();
                 newMember.AtomEntry = this.Service.Insert(target, m.AtomEntry);
             }
@@ -1359,7 +1359,7 @@ namespace Google.YouTube
 
                 if (videos.Count > 0)
                 {
-                    meta = this.Batch(videos, new Uri(YouTubeQuery.BatchVideoUri), GDataBatchOperationType.query);
+                    meta = this.Batch(videos, CreateUri(YouTubeQuery.BatchVideoUri), GDataBatchOperationType.query);
                 }
             }
 
