@@ -1,6 +1,7 @@
 ﻿<project schemaVersion="1.6.0.2">
     <assemblies>
         <assembly assemblyPath="..\lib\Release\Google.GData.AccessControl.dll" xmlCommentsPath="..\docs\gacl.xml" commentsOnly="False" />
+        <assembly assemblyPath="..\..\..\..\..\googlegdata\clients\cs\lib\Release\Google.GData.Analytics.dll" xmlCommentsPath="..\docs\analytics.xml" commentsOnly="False" />
         <assembly assemblyPath="..\lib\Release\Google.GData.Apps.dll" xmlCommentsPath="..\docs\gapps.xml" commentsOnly="False" />
         <assembly assemblyPath="..\lib\Release\Google.GData.Calendar.dll" xmlCommentsPath="..\docs\gcal.xml" commentsOnly="False" />
         <assembly assemblyPath="..\lib\Release\Google.GData.Client.dll" xmlCommentsPath="..\docs\gdata.xml" commentsOnly="False" />
@@ -19,6 +20,12 @@
         <namespaceSummaryItem name="Google.Contacts" isDocumented="True">This namespace contains helper classes to ease the development of Google Contacts based applications. They are used in the samples and the project templates. You can find usage scenarios of those helper clasess in the unittests for contacts as well as in the project template for it.</namespaceSummaryItem>
         <namespaceSummaryItem name="Google.Documents" isDocumented="True">This namespace contains helper classes to ease the development of Google Documents based applications. They are used in the samples and the project templates. You can find usage scenarios of those helper clasess in the unittests for documents as well as in the project template for it.</namespaceSummaryItem>
         <namespaceSummaryItem name="Google.GData.AccessControl" isDocumented="True">This namespace contains elements and methods to deal with AccessControl lists. AccessControl lists are used, for example, in the Google Calendar to enable authorization and security on a per calendar level</namespaceSummaryItem>
+        <namespaceSummaryItem name="Google.GData.Analytics" isDocumented="True">With the Google Analytics Data Export API, you can develop client applications that download Analytics data in the form of Google Data API feeds. Your client application can use the Data Export API to request data from an existing Analytics profile for an authorized user, and refine the results of the request using query parameters. Currently, the Data Export API supports read-only access to your Google Analytics data. The current feeds in the Data Export API contain two general categories of Analytics data:
+
+    * Analytics accounts and website profiles
+    * Analytics report data from a single profile
+
+As a developer, you can use this API for a number of use cases. For example, you might create a customized dashboard to integrate your most commonly viewed or requested page statistics, thus allowing other team members to view reports without having to access the Google Analytics reporting interface.</namespaceSummaryItem>
         <namespaceSummaryItem name="Google.GData.Apps" isDocumented="True">Google Apps allows website administrators to offer their users cobranded versions of a variety of personalized Google applications, such as Gmail. This document describes the Google Apps Provisioning API, which enables Google partners to programmatically enable access to these applications. Specifically, the API provides functions for creating, retrieving, updating and deleting user accounts, nicknames and email lists.
 
 This version of the Provisioning API follows the principles of the Google Data (GData) APIs. GData APIs are based on both the Atom 1.0 and RSS 2.0 syndication formats in addition to the Atom Publishing Protocol. Learn more about GData APIs.
