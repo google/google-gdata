@@ -31,6 +31,7 @@ ALLLIBS = \
 	Google.GData.YouTube.dll	\
 	Google.GData.Health.dll \
 	Google.GData.Blogger.dll \
+	Google.GData.Analytics.dll \
 
 FRAMEWORK_REFS = -r:System.dll -r:System.Xml.dll -r:System.Web.dll -r:System.Configuration.dll
 
@@ -52,6 +53,7 @@ samples =	\
 	gspreadsheet_demo.exe \
 	PhotoTool.exe \
 	HealthTool.exe \
+	Analytics.exe \
 
 all: $(ALLLIBS) tests $(samples) $(PKGCONFIG_FILES)
 
@@ -69,6 +71,7 @@ gcontact_sources = $(wildcard src/gcontacts/*.cs) $(wildcard version/*.cs)
 youtube_sources = $(wildcard src/youtube/*.cs) $(wildcard version/*.cs)
 health_sources = $(wildcard src/ghealth/*.cs) $(wildcard version/*.cs)
 blogger_sources = $(wildcard src/blogger/*.cs) $(wildcard version/*.cs)
+analytics_source = $(wildcard src/analytics/*.cs) $(wildcard version/*.cs)
 test_sources = $(wildcard src/unittests/*.cs) $(wildcard src/unittests/gbase/*.cs) $(wildcard src/unittests/gapps/*.cs)\
 				 $(wildcard src/unittests/spreadsheets/*.cs) $(wildcard src/unittests/youtube/*.cs)  $(wildcard src/version/*cs)\
 				 $(wildcard src/unittests/core/*.cs)  $(wildcard src/unittests/picasa/*.cs)

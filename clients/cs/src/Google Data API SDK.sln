@@ -34,6 +34,8 @@ Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "YouTubeMergeModule", "Merge
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core Client", "core\Core Client.csproj", "{B6F6D938-0D45-42BA-8A67-55D92EF03995}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Analytics", "analytics\Analytics.csproj", "{A7BA16A4-7636-46CA-AAAD-3CB3361ECD40}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		ASP|Any CPU = ASP|Any CPU
@@ -143,6 +145,12 @@ Global
 		{B6F6D938-0D45-42BA-8A67-55D92EF03995}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B6F6D938-0D45-42BA-8A67-55D92EF03995}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B6F6D938-0D45-42BA-8A67-55D92EF03995}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7BA16A4-7636-46CA-AAAD-3CB3361ECD40}.ASP|Any CPU.ActiveCfg = ASP|Any CPU
+		{A7BA16A4-7636-46CA-AAAD-3CB3361ECD40}.ASP|Any CPU.Build.0 = ASP|Any CPU
+		{A7BA16A4-7636-46CA-AAAD-3CB3361ECD40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7BA16A4-7636-46CA-AAAD-3CB3361ECD40}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7BA16A4-7636-46CA-AAAD-3CB3361ECD40}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7BA16A4-7636-46CA-AAAD-3CB3361ECD40}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -23,6 +23,7 @@ xcopy /y ..\src\gcontacts\bin\Release\*.dll ..\lib\Release\*.*
 xcopy /y ..\src\youtube\bin\Release\*.dll ..\lib\Release\*.*
 xcopy /y ..\src\ghealth\bin\Release\*.dll ..\lib\Release\*.*
 xcopy /y ..\src\blogger\bin\Release\*.dll ..\lib\Release\*.*
+xcopy /y ..\src\analytics\bin\Release\*.dll ..\lib\Release\*.*
 
 # copy the debug DLLS
 xcopy /y ..\src\core\bin\Debug\*.dll ..\lib\Debug\*.*
@@ -40,6 +41,7 @@ xcopy /y ..\src\youtube\bin\Debug\*.dll ..\lib\Debug\*.*
 xcopy /y ..\src\ghealth\bin\Debug\*.dll ..\lib\Debug\*.*
 xcopy /y ..\src\unittests\bin\Debug\*.dll ..\lib\Debug\*.*
 xcopy /y ..\src\blogger\bin\Debug\*.dll ..\lib\Debug\*.*
+xcopy /y ..\src\analytics\bin\Debug\*.dll ..\lib\Debug\*.*
 
 
 # copy asp dlls for the youtube sample
@@ -64,11 +66,13 @@ xcopy /y ..\src\VS2005.mobile\GContactsMobile\bin\Release\*.dll ..\lib\Mobile\Wi
 xcopy /y ..\src\VS2005.mobile\GHealthMobile\bin\Release\*.dll ..\lib\Mobile\WindowsMobile\*.*
 xcopy /y ..\src\VS2005.mobile\GYouTubeMobile\bin\Release\*.dll ..\lib\Mobile\WindowsMobile\*.*
 xcopy /y ..\src\VS2005.mobile\GBloggerMobile\bin\Release\*.dll ..\lib\Mobile\WindowsMobile\*.*
+xcopy /y ..\src\VS2005.mobile\GAnalyticsMobile\bin\Release\*.dll ..\lib\Mobile\WindowsMobile\*.*
 		
 
 devenv /rebuild Release "..\samples\Google Data APIs Samples.sln" 
 
 # copy all exe files
+xcopy /y ..\samples\Analytics\bin\Release\*.exe ..\lib\Release\*.*
 xcopy /y ..\samples\Blogger\bin\Release\*.exe ..\lib\Release\*.*
 xcopy /y ..\samples\Calendar\bin\Release\*.exe ..\lib\Release\*.*
 xcopy /y ..\samples\CodeSearch\bin\Release\*.exe ..\lib\Release\*.*
@@ -95,11 +99,12 @@ xcopy /y ..\src\gcodesearch\bin\*.xml ..\docs\*.*
 xcopy /y ..\src\gapps\bin\*.xml ..\docs\*.*
 xcopy /y ..\src\gacl\bin\*.xml ..\docs\*.*
 xcopy /y ..\src\gphotos\bin\*.xml ..\docs\*.*
-xcopy /y ..\src\gdoclist\bin\*.xml ..\docs\*.*
+xcopy /y ..\src\gdocuments\bin\*.xml ..\docs\*.*
 xcopy /y ..\src\gcontacts\bin\*.xml ..\docs\*.*
 xcopy /y ..\src\youtube\bin\*.xml ..\docs\*.*
 xcopy /y ..\src\ghealth\bin\*.xml ..\docs\*.*
 xcopy /y ..\src\blogger\bin\*.xml ..\docs\*.*
+xcopy /y ..\src\analytics\bin\*.xml ..\docs\*.*
 
 #copy the Merge module files
 

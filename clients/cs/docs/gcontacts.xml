@@ -756,13 +756,13 @@
         </member>
         <member name="M:Google.Contacts.ContactsRequest.GetGroups">
             <summary>
-             returns one of the youtube default feeds. 
+             returns a feed of Groups for the default user
             </summary>
             <returns>a feed of Videos</returns>
         </member>
         <member name="M:Google.Contacts.ContactsRequest.GetGroups(System.String)">
             <summary>
-             returns one of the youtube default feeds. 
+             returns a feed of Groups for the given user
             </summary>
             <param name="user">the user for whom to retrieve the feed</param>
             <returns>a feed of Videos</returns>

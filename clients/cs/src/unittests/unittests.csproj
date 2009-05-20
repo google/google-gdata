@@ -106,6 +106,10 @@
     <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\analytics\Analytics.csproj">
+      <Project>{A7BA16A4-7636-46CA-AAAD-3CB3361ECD40}</Project>
+      <Name>Analytics</Name>
+    </ProjectReference>
     <ProjectReference Include="..\core\Core Client.csproj">
       <Project>{B6F6D938-0D45-42BA-8A67-55D92EF03995}</Project>
       <Name>Core Client</Name>
@@ -160,6 +164,13 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="analytics\AccountEntryTest.cs" />
+    <Compile Include="analytics\AccountFeedTest.cs" />
+    <Compile Include="analytics\AccountQueryTest.cs" />
+    <Compile Include="analytics\AnalyticsDataServiceTest.cs" />
+    <Compile Include="analytics\DataEntryTest.cs" />
+    <Compile Include="analytics\DataFeedTest.cs" />
+    <Compile Include="analytics\DataQueryTest.cs" />
     <Compile Include="appslivetests.cs" />
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="baselivetestclass.cs" />

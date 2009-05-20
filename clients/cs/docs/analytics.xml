@@ -1,0 +1,696 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Google.GData.Analytics</name>
+    </assembly>
+    <members>
+        <member name="T:Google.GData.Analytics.AccountEntry">
+            <summary>
+            AccountEntry API customization class for defining entries in an account feed.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Analytics.AccountEntry.properties">
+            <summary>
+            Lazy loading for the properties and tableId.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Analytics.AccountEntry.#ctor">
+            <summary>
+            Constructs a new AccountEntry instance
+            </summary>
+        </member>
+        <member name="M:Google.GData.Analytics.AccountEntry.getAccountExtension(System.String)">
+            <summary>
+            Basic method for retrieving Account extension elements.
+            </summary>
+            <param name="extension">The name of the extension element to look for</param>
+            <returns>SimpleAttribute, or NULL if the extension was not found</returns>
+        </member>
+        <member name="M:Google.GData.Analytics.AccountEntry.getAccountExtensionValue(System.String)">
+            <summary>
+            Base method for retrieving Account extension element values.
+            </summary>
+            <param name="extension">The name of the Account extension element to look for</param>
+            <returns>value as string, or NULL if the extension was not found</returns>
+        </member>
+        <member name="M:Google.GData.Analytics.AccountEntry.setAccountExtension(System.String,System.String)">
+            <summary>
+            Base method for setting Account extension element values.
+            </summary>
+            <param name="extension">the name of the extension to look for</param>
+            <param name="newValue">the new value for this extension element</param>
+            <returns>SimpleAttribute, either a brand new one, or the one
+            returned by the service</returns>
+        </member>
+        <member name="P:Google.GData.Analytics.AccountEntry.Properties">
+            <summary>
+            This field controls the properties.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Analytics.AccountEntry.ProfileId">
+            <summary>
+            This field controls the tableId (ProfileId).
+            </summary>
+        </member>
+        <member name="T:Google.GData.Analytics.DataQuery">
+            <summary>
+            A subclass of FeedQuery, to create an Analytics Data query URI.
+            </summary> 
+        </member>
+        <member name="F:Google.GData.Analytics.DataQuery.dimensions">
+            <summary> Row keys.</summary>
+        </member>
+        <member name="F:Google.GData.Analytics.DataQuery.endDate">
+            <summary> Last day for which to retrieve data in form YYYY-MM-DD.</summary>
+        </member>
+        <member name="F:Google.GData.Analytics.DataQuery.filters">
+            <summary> Dimension value filters.</summary>
+        </member>
+        <member name="F:Google.GData.Analytics.DataQuery.ids">
+            <summary> Google Analytics profile ID, prefixed by 'ga:'.</summary>
+        </member>
+        <member name="F:Google.GData.Analytics.DataQuery.metrics">
+            <summary> Comma separated list of numeric value fields.</summary>
+        </member>
+        <member name="F:Google.GData.Analytics.DataQuery.sort">
+            <summary> Comma separated list of sort keys in order of importance.</summary>
+        </member>
+        <member name="F:Google.GData.Analytics.DataQuery.startDate">
+            <summary> First day for which to retrieve data in form YYYY-MM-DD.</summary>
+        </member>
+        <member name="F:Google.GData.Analytics.DataQuery.prettyPrint">
+            <summary> Optional. Adds extra whitespace to the feed XML to make it more readable.</summary>
+        </member>
+        <member name="M:Google.GData.Analytics.DataQuery.#ctor">
+            <summary>
+            default constructor, does nothing 
+            </summary>
+        </member>
+        <member name="M:Google.GData.Analytics.DataQuery.#ctor(System.String)">
+            <summary>
+            base constructor, with initial queryUri
+            </summary>
+            <param name="queryUri">the query to use</param>
+        </member>
+        <member name="M:Google.GData.Analytics.DataQuery.ParseUri(System.Uri)">
+            <summary>protected void ParseUri</summary> 
+            <param name="targetUri">takes an incoming Uri string and parses 
+            all the properties out of it</param>
+            <returns>throws a query exception when it finds something 
+            wrong with the input, otherwise returns a baseuri</returns>
+        </member>
+        <member name="M:Google.GData.Analytics.DataQuery.CalculateQuery(System.String)">
+            <summary>Creates the partial URI query string based on all
+             set properties.</summary> 
+            <returns> string => the query part of the URI </returns>
+        </member>
+        <member name="P:Google.GData.Analytics.DataQuery.Dimensions">
+            <summary>Indicates the row keys</summary>
+            <returns>Dimensions</returns>
+        </member>
+        <member name="P:Google.GData.Analytics.DataQuery.GAEndDate">
+            <summary>Indicates the last day for which to retrieve data 
+            in form YYYY-MM-DD.</summary>
+            <returns>EndDate</returns>
+        </member>
+        <member name="P:Google.GData.Analytics.DataQuery.Filters">
+            <summary>Indicates the dimension value filters.</summary>
+            <returns>Filters</returns>
+        </member>
+        <member name="P:Google.GData.Analytics.DataQuery.Ids">
+            <summary>Indicates the Google Analytics profile ID, 
+            prefixed by 'ga:'.</summary>
+            <returns>Ids</returns>
+        </member>
+        <member name="P:Google.GData.Analytics.DataQuery.Metrics">
+            <summary>Indicates the comma separated list of numeric value 
+            fields.</summary>
+            <returns>Metrics</returns>
+        </member>
+        <member name="P:Google.GData.Analytics.DataQuery.Sort">
+            <summary>Indicates the comma separated list of sort keys 
+            in order of importance.</summary>
+            <returns>Sort</returns>
+        </member>
+        <member name="P:Google.GData.Analytics.DataQuery.GAStartDate">
+            <summary>Indicates the first day for which to retrieve data 
+            in form YYYY-MM-DD.</summary>
+            <returns>StartDate</returns>
+        </member>
+        <member name="P:Google.GData.Analytics.DataQuery.PrettyPrint">
+            <summary>Adds extra whitespace to the feed XML to make it 
+            more readable. This can be set to true or false, where the 
+            default is false.</summary>
+            <returns>PrettyPrint</returns>
+        </member>
+        <member name="T:Google.GData.Analytics.Metric">
+            <summary>
+            GData schema extension describing a metric.
+            A metric is part of a DataEntry (entry).
+            One element for each metric in the query.
+            A metric contains the following attributes:
+            # namethe name of the metric
+            # typeeither integer or string
+            # valuethe aggregate value for the query for that metric (e.g. 24 for 24 pageviews)
+            # cithe confidence interval, or range of values likely to include the correct value.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Analytics.Metric.#ctor">
+            <summary>
+            Constructs an empty Metric instance
+            </summary>
+        </member>
+        <member name="M:Google.GData.Analytics.Metric.#ctor(System.String,System.String,System.String,System.String)">
+            <summary>
+            default constructor, takes 4 parameters
+            </summary>
+            <param name="confidenceInterval">the confidenceInterval property value</param>
+            <param name="name">the name property value</param>
+            <param name="type">the type property value</param>
+            <param name="value">the value property value</param>
+        </member>
+        <member name="M:Google.GData.Analytics.Metric.CreateInstance(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
+            <summary>Parses an xml node to create a Metric object.</summary> 
+            <param name="node">the node to parse node</param>
+            <param name="parser">the xml parser to use if we need to dive deeper</param>
+            <returns>the created Metric object</returns>
+        </member>
+        <member name="M:Google.GData.Analytics.Metric.Save(System.Xml.XmlWriter)">
+            <summary>
+            Persistence method for the Dimension object
+            </summary>
+            <param name="writer">the xmlwriter to write into</param>
+        </member>
+        <member name="P:Google.GData.Analytics.Metric.ConfidenceInterval">
+            <summary>
+            confidenceInterval property accessor.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Analytics.Metric.Name">
+            <summary>
+            name property accessor.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Analytics.Metric.Type">
+            <summary>
+            type property accessor.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Analytics.Metric.Value">
+            <summary>
+            value property accessor.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Analytics.Metric.XmlName">
+            <summary>Returns the constant representing this XML element.</summary> 
+        </member>
+        <member name="P:Google.GData.Analytics.Metric.XmlNameSpace">
+            <summary>Returns the constant representing namespace of this XML.</summary> 
+        </member>
+        <member name="P:Google.GData.Analytics.Metric.XmlPrefix">
+            <summary>Returns the constant representing the prefix of this XML.</summary> 
+        </member>
+        <member name="F:Google.GData.Analytics.AnalyticsNameTable.gAnalyticsPrefix">
+            <summary>prefix for gAnalyticsNamspace if writing</summary>
+        </member>
+        <member name="F:Google.GData.Analytics.AnalyticsNameTable.DxpPrefix">
+            Dxp (Dxp) namespace prefix 
+        </member>
+        <member name="F:Google.GData.Analytics.AnalyticsNameTable.XmlAggregatesElement">
+            <summary>xmlelement for dxp:aggregates</summary> 
+        </member>
+        <member name="F:Google.GData.Analytics.AnalyticsNameTable.XmlDimensionElement">
+            <summary>xmlelement for dxp:dimension</summary> 
+        </member>
+        <member name="F:Google.GData.Analytics.AnalyticsNameTable.XmlMetricElement">
+            <summary>xmlelement for dxp:metric</summary> 
+        </member>
+        <member name="F:Google.GData.Analytics.AnalyticsNameTable.XmlPropertyElement">
+            <summary>xmlelement for dxp:property</summary> 
+        </member>
+        <member name="F:Google.GData.Analytics.AnalyticsNameTable.XmlTableIdElement">
+            <summary>xmlelement for dxp:tableId</summary> 
+        </member>
+        <member name="F:Google.GData.Analytics.AnalyticsNameTable.XmlTableNameElement">
+            <summary>xmlelement for dxp:tableName</summary> 
+        </member>
+        <member name="F:Google.GData.Analytics.AnalyticsNameTable.XmlAttributeName">
+            <summary>xml attribute name for dxp:dimension, dxp:metric and dxp:property</summary> 
+        </member>
+        <member name="F:Google.GData.Analytics.AnalyticsNameTable.XmlAttributeValue">
+            <summary>xml attribute value for dxp:dimension, dxp:metric and dxp:property</summary> 
+        </member>
+        <member name="F:Google.GData.Analytics.AnalyticsNameTable.XmlAttributeConfidenceInterval">
+            <summary>xml attribute confidenceInterval for dxp:metric</summary> 
+        </member>
+        <member name="T:Google.GData.Analytics.AnalyticsService">
+            <summary>
+            The AnalyticsService class extends the basic Service abstraction
+            to define a service that is preconfigured for access to the
+            Google Analytics data API.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Analytics.AnalyticsService.GAnalyticsService">
+            <summary>The Analytics service's name</summary> 
+        </member>
+        <member name="M:Google.GData.Analytics.AnalyticsService.#ctor(System.String)">
+            <summary>
+             default constructor
+            </summary>
+            <param name="applicationName">the applicationname</param>
+        </member>
+        <member name="M:Google.GData.Analytics.AnalyticsService.Query(Google.GData.Analytics.AccountQuery)">
+            <summary>
+            overloaded to create typed version of Query
+            </summary>
+            <param name="feedQuery"></param>
+            <returns>AccountFeed</returns>
+        </member>
+        <member name="M:Google.GData.Analytics.AnalyticsService.Query(Google.GData.Analytics.DataQuery)">
+            <summary>
+            overloaded to create typed version of Query
+            </summary>
+            <param name="feedQuery"></param>
+            <returns>DataFeed</returns>
+        </member>
+        <member name="M:Google.GData.Analytics.AnalyticsService.InitVersionInformation">
+            <summary>
+            by default all services now use version 1 for the protocol.
+            this needs to be overridden by a service to specify otherwise. 
+            YouTube uses version 2
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Google.GData.Analytics.AnalyticsService.OnNewFeed(System.Object,Google.GData.Client.ServiceEventArgs)">
+            <summary>eventchaining. We catch this by from the base service, which 
+            would not by default create an atomFeed</summary> 
+            <param name="sender"> the object which send the event</param>
+            <param name="e">FeedParserEventArguments, holds the feedentry</param> 
+            <returns> </returns>
+        </member>
+        <member name="T:Google.GData.Analytics.AccountQuery">
+            <summary>
+            A subclass of FeedQuery, to create an Analytics Account query URI.
+            </summary> 
+        </member>
+        <member name="F:Google.GData.Analytics.AccountQuery.HttpFeedUrl">
+            <summary>
+            Analytics account service url, http and https 
+            </summary>
+        </member>
+        <member name="M:Google.GData.Analytics.AccountQuery.#ctor">
+            <summary>
+            default constructor, does nothing 
+            </summary>
+        </member>
+        <member name="M:Google.GData.Analytics.AccountQuery.#ctor(System.String)">
+            <summary>
+            base constructor, with initial queryUri
+            </summary>
+            <param name="queryUri">the query to use</param>
+        </member>
+        <member name="T:Google.GData.Analytics.DataFeed">
+            <summary>DataFeed, entry
+            Returns DataEntry containing:
+            id, updated, title, dxp:dimension, dxp:metric.
+            Added Extension dxp:aggregates, which contains a list of dxp:metric.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Analytics.DataFeed.#ctor(System.Uri,Google.GData.Client.IService)">
+            <summary>
+             default constructor
+            </summary>
+            <param name="uriBase">the base URI of the feedEntry</param>
+            <param name="iService">the Service to use</param>
+        </member>
+        <member name="M:Google.GData.Analytics.DataFeed.CreateFeedEntry">
+            <summary>
+            This needs to get implemented by subclasses
+            </summary>
+            <returns>AtomEntry</returns>
+        </member>
+        <member name="T:Google.GData.Analytics.SourceFeed">
+            <summary>SourceFeed, dxp:dataSource.
+            Returns SourceEntry containing:
+            dxp:tableId, dxp:tableName, dxp:property.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Analytics.SourceFeed.#ctor(System.Uri,Google.GData.Client.IService)">
+            <summary>
+             default constructor
+            </summary>
+            <param name="uriBase">the base URI of the feedEntry</param>
+            <param name="iService">the Service to use</param>
+        </member>
+        <member name="M:Google.GData.Analytics.SourceFeed.CreateFeedEntry">
+            <summary>
+            This needs to get implemented by subclasses
+            </summary>
+            <returns>AtomEntry</returns>
+        </member>
+        <member name="M:Google.GData.Analytics.SourceFeed.HandleExtensionElements(Google.GData.Client.ExtensionElementEventArgs,Google.GData.Client.AtomFeedParser)">
+            <summary>
+            Is called after we already handled the custom entry, to handle all 
+            other potential parsing tasks
+            </summary>
+            <param name="e"></param>
+            <param name="parser">the atom feed parser used</param>
+        </member>
+        <member name="T:Google.GData.Analytics.TableName">
+            <summary>
+            GData schema extension describing a tableName.
+            Part of a feedentry (DataEntry SourceEntry/dxp:dataSource).
+            dxp:tableName  The name of the profile as it appears in the Analytics administrative UI.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Analytics.TableName.CreateInstance(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
+            <summary>Parses an xml node to create a Property object.</summary> 
+            <param name="node">the node to parse node</param>
+            <param name="parser">the xml parser to use if we need to dive deeper</param>
+            <returns>the created Property object</returns>
+        </member>
+        <member name="M:Google.GData.Analytics.TableName.Save(System.Xml.XmlWriter)">
+            <summary>
+            Persistence method for the Property object
+            </summary>
+            <param name="writer">the xmlwriter to write into</param>
+        </member>
+        <member name="P:Google.GData.Analytics.TableName.Value">
+            <summary>
+             Value property accessor
+            </summary>
+        </member>
+        <member name="P:Google.GData.Analytics.TableName.XmlName">
+            <summary>Returns the constant representing this XML element.</summary> 
+        </member>
+        <member name="P:Google.GData.Analytics.TableName.XmlNameSpace">
+            <summary>Returns the constant representing namespace of this XML.</summary> 
+        </member>
+        <member name="P:Google.GData.Analytics.TableName.XmlPrefix">
+            <summary>Returns the constant representing the prefix of this XML.</summary> 
+        </member>
+        <member name="T:Google.GData.Analytics.DataEntry">
+            <summary>
+            DataEntry API customization class for defining entries in a data feed.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Analytics.DataEntry.dimensions">
+            <summary>
+            Lazy loading for the dimensions and metrics.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Analytics.DataEntry.#ctor">
+            <summary>
+            Constructs a new DataEntry.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Analytics.DataEntry.getDataExtension(System.String)">
+            <summary>
+            Basic method for retrieving Data extension elements.
+            </summary>
+            <param name="extension">The name of the extension element to look for</param>
+            <returns>SimpleAttribute, or NULL if the extension was not found</returns>
+        </member>
+        <member name="M:Google.GData.Analytics.DataEntry.getAccountExtensionValue(System.String)">
+            <summary>
+            Base method for retrieving Data extension element values.
+            </summary>
+            <param name="extension">The name of the Data extension element to look for</param>
+            <returns>value as string, or NULL if the extension was not found</returns>
+        </member>
+        <member name="M:Google.GData.Analytics.DataEntry.setDataExtension(System.String,System.String)">
+            <summary>
+            Base method for setting Data extension element values.
+            </summary>
+            <param name="extension">the name of the extension to look for</param>
+            <param name="newValue">the new value for this extension element</param>
+            <returns>SimpleAttribute, either a brand new one, or the one
+            returned by the service</returns>
+        </member>
+        <member name="P:Google.GData.Analytics.DataEntry.Dimensions">
+            <summary>
+            This field controls the dimensions.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Analytics.DataEntry.Metrics">
+            <summary>
+            This field controls the metrics.
+            </summary>
+        </member>
+        <member name="T:Google.GData.Analytics.AccountFeed">
+            <summary>
+            This is the Google Analytics Account feed that lets you access
+            the analytics account you own.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Analytics.AccountFeed.#ctor(System.Uri,Google.GData.Client.IService)">
+            <summary>
+             default constructor
+            </summary>
+            <param name="uriBase">the base URI of the feedEntry</param>
+            <param name="iService">the Service to use</param>
+        </member>
+        <member name="M:Google.GData.Analytics.AccountFeed.CreateFeedEntry">
+            <summary>
+            This needs to get implemented by subclasses
+            </summary>
+            <returns>AtomEntry</returns>
+        </member>
+        <member name="M:Google.GData.Analytics.AccountFeed.HandleExtensionElements(Google.GData.Client.ExtensionElementEventArgs,Google.GData.Client.AtomFeedParser)">
+            <summary>
+            Is called after we already handled the custom entry, to handle all 
+            other potential parsing tasks
+            </summary>
+            <param name="e"></param>
+            <param name="parser">the atom feed parser used</param>
+        </member>
+        <member name="T:Google.GData.Analytics.TableId">
+            <summary>
+            GData schema extension describing a tableId.
+            Part of a feedentry (account feed entry or DataEntry SourceEntry/dxp:dataSource).
+            dxp:tableId  The unique, namespaced ID to be used when requesting data from a profile.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Analytics.TableId.#ctor">
+            <summary>
+            Constructs an empty Property instance
+            </summary>
+        </member>
+        <member name="M:Google.GData.Analytics.TableId.#ctor(System.String)">
+            <summary>
+            default constructor, takes 1 parameters
+            </summary>
+            <param name="value">the value property value</param>
+        </member>
+        <member name="M:Google.GData.Analytics.TableId.CreateInstance(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
+            <summary>Parses an xml node to create a Property object.</summary> 
+            <param name="node">the node to parse node</param>
+            <param name="parser">the xml parser to use if we need to dive deeper</param>
+            <returns>the created Property object</returns>
+        </member>
+        <member name="M:Google.GData.Analytics.TableId.Save(System.Xml.XmlWriter)">
+            <summary>
+            Persistence method for the Property object
+            </summary>
+            <param name="writer">the xmlwriter to write into</param>
+        </member>
+        <member name="P:Google.GData.Analytics.TableId.Value">
+            <summary>
+             Value property accessor
+            </summary>
+        </member>
+        <member name="P:Google.GData.Analytics.TableId.XmlName">
+            <summary>Returns the constant representing this XML element.</summary> 
+        </member>
+        <member name="P:Google.GData.Analytics.TableId.XmlNameSpace">
+            <summary>Returns the constant representing namespace of this XML.</summary> 
+        </member>
+        <member name="P:Google.GData.Analytics.TableId.XmlPrefix">
+            <summary>Returns the constant representing the prefix of this XML.</summary> 
+        </member>
+        <member name="T:Google.GData.Analytics.Dimension">
+            <summary>
+            GData schema extension describing a dimension.
+            A dimension is part of a DataEntry (entry).
+            dxp:dimensionone element for each dimension in the query, 
+            which includes the name and value of the dimension
+            </summary>
+        </member>
+        <member name="M:Google.GData.Analytics.Dimension.#ctor">
+            <summary>
+            Constructs an empty Dimension instance
+            </summary>
+        </member>
+        <member name="M:Google.GData.Analytics.Dimension.#ctor(System.String,System.String)">
+            <summary>
+            default constructor, takes 2 parameters
+            </summary>
+            <param name="name">name property value</param>
+            <param name="value">the value property value</param>
+        </member>
+        <member name="M:Google.GData.Analytics.Dimension.CreateInstance(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
+            <summary>Parses an xml node to create a Dimension object.</summary> 
+            <param name="node">the node to parse node</param>
+            <param name="parser">the xml parser to use if we need to dive deeper</param>
+            <returns>the created Dimension object</returns>
+        </member>
+        <member name="M:Google.GData.Analytics.Dimension.Save(System.Xml.XmlWriter)">
+            <summary>
+            Persistence method for the Dimension object
+            </summary>
+            <param name="writer">the xmlwriter to write into</param>
+        </member>
+        <member name="P:Google.GData.Analytics.Dimension.Name">
+            <summary>
+            name property accessor.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Analytics.Dimension.Value">
+            <summary>
+            value property accessor.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Analytics.Dimension.XmlName">
+            <summary>Returns the constant representing this XML element.</summary> 
+        </member>
+        <member name="P:Google.GData.Analytics.Dimension.XmlNameSpace">
+            <summary>Returns the constant representing namespace of this XML.</summary> 
+        </member>
+        <member name="P:Google.GData.Analytics.Dimension.XmlPrefix">
+            <summary>Returns the constant representing the prefix of this XML.</summary> 
+        </member>
+        <member name="T:Google.GData.Analytics.SourceEntry">
+            <summary>
+            dxp:dataSource: summary information about the Analytics source of the data.
+            It contains the following extensions:
+            dxp:tableId  The unique, namespaced profile ID of the source, such as ga:1174
+            dxp:tableName  The name of the profile as it appears in the Analytics administrative UI
+            dxp:property
+            </summary>
+        </member>
+        <member name="M:Google.GData.Analytics.SourceEntry.#ctor">
+            <summary>
+            Constructs a new DataEntry.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Analytics.SourceEntry.getDataExtension(System.String)">
+            <summary>
+            Basic method for retrieving Data extension elements.
+            </summary>
+            <param name="extension">The name of the extension element to look for</param>
+            <returns>SimpleAttribute, or NULL if the extension was not found</returns>
+        </member>
+        <member name="M:Google.GData.Analytics.SourceEntry.getAccountExtensionValue(System.String)">
+            <summary>
+            Base method for retrieving Data extension element values.
+            </summary>
+            <param name="extension">The name of the Data extension element to look for</param>
+            <returns>value as string, or NULL if the extension was not found</returns>
+        </member>
+        <member name="M:Google.GData.Analytics.SourceEntry.setDataExtension(System.String,System.String)">
+            <summary>
+            Base method for setting Data extension element values.
+            </summary>
+            <param name="extension">the name of the extension to look for</param>
+            <param name="newValue">the new value for this extension element</param>
+            <returns>SimpleAttribute, either a brand new one, or the one
+            returned by the service</returns>
+        </member>
+        <member name="P:Google.GData.Analytics.SourceEntry.Property">
+            <summary>
+            This field controls the property.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Analytics.SourceEntry.ProfileId">
+            <summary>
+            This field controls the tableId (ProfileId).
+            </summary>
+        </member>
+        <member name="P:Google.GData.Analytics.SourceEntry.TableName">
+            <summary>
+            This field controls the tableName.
+            </summary>
+        </member>
+        <member name="T:Google.GData.Analytics.Property">
+            <summary>
+            GData schema extension describing a property.
+            Property is part of the feedentry (Data and Account feed).
+            Is a dxp:property element containing a name attribute with following
+            possible values:
+            ga:profileIdThe profile ID of the source, such as 1174
+            ga:webPropertyIdThe web property ID of the source, such as UA-30481-1
+            ga:accountNameThe name of the account as it appears in the Analytics interface.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Analytics.Property.#ctor">
+            <summary>
+            Constructs an empty Property instance
+            </summary>
+        </member>
+        <member name="M:Google.GData.Analytics.Property.#ctor(System.String,System.String)">
+            <summary>
+            default constructor, takes 2 parameters
+            </summary>
+            <param name="name">name property value</param>
+            <param name="value">the value property value</param>
+        </member>
+        <member name="M:Google.GData.Analytics.Property.CreateInstance(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
+            <summary>Parses an xml node to create a Property object.</summary> 
+            <param name="node">the node to parse node</param>
+            <param name="parser">the xml parser to use if we need to dive deeper</param>
+            <returns>the created Property object</returns>
+        </member>
+        <member name="M:Google.GData.Analytics.Property.Save(System.Xml.XmlWriter)">
+            <summary>
+            Persistence method for the Property object
+            </summary>
+            <param name="writer">the xmlwriter to write into</param>
+        </member>
+        <member name="P:Google.GData.Analytics.Property.Name">
+            <summary>
+            name property accessor.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Analytics.Property.Value">
+            <summary>
+            value property accessor.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Analytics.Property.XmlName">
+            <summary>Returns the constant representing this XML element.</summary> 
+        </member>
+        <member name="P:Google.GData.Analytics.Property.XmlNameSpace">
+            <summary>Returns the constant representing namespace of this XML.</summary> 
+        </member>
+        <member name="P:Google.GData.Analytics.Property.XmlPrefix">
+            <summary>Returns the constant representing the prefix of this XML.</summary> 
+        </member>
+        <member name="T:Google.GData.Analytics.Aggregates">
+            <summary>
+            GData schema extension describing aggregate results.
+            dxp:aggregates  contains aggregate data for all metrics requested in the feed.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Analytics.Aggregates.CreateInstance(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
+            <summary>Parses an xml node to create a Property object.</summary> 
+            <param name="node">the node to parse node</param>
+            <param name="parser">the xml parser to use if we need to dive deeper</param>
+            <returns>the created Property object</returns>
+        </member>
+        <member name="M:Google.GData.Analytics.Aggregates.Save(System.Xml.XmlWriter)">
+            <summary>
+            Persistence method for the Property object
+            </summary>
+            <param name="writer">the xmlwriter to write into</param>
+        </member>
+        <member name="P:Google.GData.Analytics.Aggregates.XmlName">
+            <summary>Returns the constant representing this XML element.</summary> 
+        </member>
+        <member name="P:Google.GData.Analytics.Aggregates.XmlNameSpace">
+            <summary>Returns the constant representing namespace of this XML.</summary> 
+        </member>
+        <member name="P:Google.GData.Analytics.Aggregates.XmlPrefix">
+            <summary>Returns the constant representing the prefix of this XML.</summary> 
+        </member>
+    </members>
+</doc>

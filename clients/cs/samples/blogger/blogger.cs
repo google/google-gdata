@@ -4,6 +4,7 @@ using System.Collections;
 using System.ComponentModel;
 using System.Windows.Forms;
 using Google.GData.Client;
+using Google.GData.Blogger;
 using System.Net;
 
 namespace Blogger
@@ -209,8 +210,8 @@ namespace Blogger
             string userName =    this.UserName.Text;
             string passWord =    this.Password.Text;
 
-            FeedQuery query = new FeedQuery();
-            Service service = new Service("blogger", "BloggerSampleApp");
+            BloggerQuery query = new BloggerQuery();
+            BloggerService service = new BloggerService("BloggerSampleApp.NET");
 
             if (userName != null && userName.Length > 0)
             {
@@ -226,14 +227,14 @@ namespace Blogger
             // start repainting
             this.FeedChooser.BeginUpdate(); 
 
-            AtomFeed bloggerFeed = service.Query(query);
+            BloggerFeed bloggerFeed = service.Query(query);
             // Display a wait cursor while the TreeNodes are being created.
 
             this.FeedChooser.DisplayMember = "Title"; 
 
             while (bloggerFeed != null && bloggerFeed.Entries.Count > 0)
             {
-                foreach (AtomEntry entry in bloggerFeed.Entries) 
+                foreach (BloggerEntry entry in bloggerFeed.Entries) 
                 {
                     int iIndex = this.FeedChooser.Items.Add(new ListEntry(entry)); 
                 }
@@ -281,8 +282,8 @@ namespace Blogger
 
             if (this.feedUri != null)
             {
-                FeedQuery query = new FeedQuery();
-                Service service = new Service("blogger", "BloggerSampleApp");
+                BloggerQuery query = new BloggerQuery();
+                BloggerService service = new BloggerService("BloggerSampleApp.NET");
 
                 if (userName != null && userName.Length > 0)
                 {
@@ -297,7 +298,7 @@ namespace Blogger
                 Cursor.Current = Cursors.WaitCursor; 
             
 
-                AtomFeed bloggerFeed = service.Query(query);
+                BloggerFeed bloggerFeed = service.Query(query);
 
                 // Reset the cursor to the default for all controls.
                 Cursor.Current = Cursors.Default;
@@ -307,7 +308,7 @@ namespace Blogger
                 // now populate the calendar
                 while (bloggerFeed != null && bloggerFeed.Entries.Count > 0)
                 {
-                    foreach (AtomEntry entry in bloggerFeed.Entries) 
+                    foreach (BloggerEntry entry in bloggerFeed.Entries) 
                     {
                         int iIndex = this.FeedView.Nodes.Add(new TreeNode(entry.Title.Text)); 
                         if (iIndex >= 0) 
@@ -354,7 +355,7 @@ namespace Blogger
             {
                 // now add this to the feed.
 
-                AtomEntry entry = new AtomEntry();
+                BloggerEntry entry = new BloggerEntry();
 
                 entry.Content.Content = dlg.Entry;
                 entry.Content.Type = "html"; 
@@ -364,8 +365,7 @@ namespace Blogger
                 string userName =    this.UserName.Text;
                 string passWord =    this.Password.Text;
 
-                FeedQuery query = new FeedQuery();
-                Service service = new Service("blogger", "BloggerSampleApp");
+                BloggerService service = new BloggerService("BloggerSampleApp.NET");
 
                 if (userName != null && userName.Length > 0)
                 {
@@ -392,7 +392,7 @@ namespace Blogger
 
             if (listEntry != null) 
             {
-                AtomEntry entry = listEntry.Entry; 
+                BloggerEntry entry = listEntry.Entry; 
 
                 if (entry != null) 
                 {
@@ -423,9 +423,9 @@ namespace Blogger
     /// </summary>
     public class ListEntry 
     {
-        private AtomEntry entry;
-        
-        public AtomEntry Entry 
+        private BloggerEntry entry;
+
+        public BloggerEntry Entry 
         {
             get 
             {
@@ -437,7 +437,7 @@ namespace Blogger
             }
         }
 
-        public ListEntry(AtomEntry entry)
+        public ListEntry(BloggerEntry entry)
         {
             this.entry = entry; 
         }
