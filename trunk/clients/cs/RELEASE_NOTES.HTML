@@ -13,13 +13,26 @@
         <li>
             Features
         </li>
+         <ul>
+            <li>Added support for the new analytics api by Morten Christensen (http://blog.sitereactor.dk) (see details below). You can find this in the Google.GData.Analytics namespace.</li>
+            <li>Added AnalyticsService extends the basic Service abstraction to define a service that is preconfigured for access to the Google Analytics data API.</li>
+            <li>Added AccountQuery and DataQuery subclasses of FeedQuery, to create an Analytics Account and Data query URI.</li>
+            <li>Added AccountFeed and DataFeed (SourceFeed is also added) that lets you access the analytics accounts you own and data for those accounts.</li>
+            <li>Added AccountEntry and DataEntry for getting entries in an account or data feed.</li>
+            <li>Added extensions for all of the above, including: aggregates, 
+                dimension, metric, property, tableId and tableName. These are 
+                all located in the Analytics namespace 
+                (Google.GData.Analytics).</li>
+            <li>Unit tests for the analytics project added to the unittest project in the VS2005 solution (Created by Alex Maitland)</li>
+            <li>Simple sample application created and added to the sample library and VS2005 solution (Created by Morten Christensen)</li>
+        </ul>
         <ul>
             
         </ul>
         <li>
             Bugfixes/changes
         </li>
-        <ul>
+         <ul>
             <li>Fixed issue 230: MediaContent.Type and 
                 MediaContent.Duration were reversed.</li>
             <li>
@@ -29,7 +42,7 @@
             </li>
         </ul>
     </ul>
-
+    
 
 
     <h2>

@@ -34,6 +34,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YouTubeNotifier", "YouTubeN
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocListExporter", "DocListExporter\DocListExporter.csproj", "{6C6C0183-78AA-4DC4-BB1A-35A181F11F89}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Analytics", "analytics\Analytics.csproj", "{FA8A1FDC-138B-48D9-8288-711B911C589A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		ASP|Any CPU = ASP|Any CPU
@@ -178,6 +180,14 @@ Global
 		{6C6C0183-78AA-4DC4-BB1A-35A181F11F89}.DocListUploader - Release|Any CPU.Build.0 = Release|Any CPU
 		{6C6C0183-78AA-4DC4-BB1A-35A181F11F89}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6C6C0183-78AA-4DC4-BB1A-35A181F11F89}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA8A1FDC-138B-48D9-8288-711B911C589A}.ASP|Any CPU.ActiveCfg = Release|Any CPU
+		{FA8A1FDC-138B-48D9-8288-711B911C589A}.ASP|Any CPU.Build.0 = Release|Any CPU
+		{FA8A1FDC-138B-48D9-8288-711B911C589A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA8A1FDC-138B-48D9-8288-711B911C589A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA8A1FDC-138B-48D9-8288-711B911C589A}.DocListUploader - Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA8A1FDC-138B-48D9-8288-711B911C589A}.DocListUploader - Release|Any CPU.Build.0 = Release|Any CPU
+		{FA8A1FDC-138B-48D9-8288-711B911C589A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA8A1FDC-138B-48D9-8288-711B911C589A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

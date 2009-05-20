@@ -15,11 +15,8 @@ echo "%temp_dir%\*.*"
 echo "%target_dir%\*.*"
 
 move /y "%temp_dir%\*.*" "%target_dir%\"
-echo "now moving html files"
 move /y "%temp_dir%\html\*.*" "%target_dir%\html\"
-echo "now moving the index"
 move /y "%target_dir%\Index.html" "%target_dir%\orgindex.html"
-echo "now moving addtional contents"
 move /y "%temp_dir%\AdditionalContent\*.*" "target_dir%\AdditionalContent\"
 time /t
 

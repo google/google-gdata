@@ -1,0 +1,9 @@
+prefix=@prefix@
+libdir=${prefix}/lib
+
+Name: GData Sharp Analytics
+Description: CLI bindings to Google's Analytics webservice
+Version: @VERSION@
+
+Requires: gdata-sharp-core
+Libs: -r:${libdir}/mono/GData-Sharp/Google.GData.Analytics.dll
