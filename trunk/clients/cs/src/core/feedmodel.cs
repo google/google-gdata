@@ -502,6 +502,11 @@ namespace Google.GData.Client
         private int max = -1; 
         private bool autoPage;
         private int timeout = -1; 
+        private string consumerKey;
+        private string consumerSecret;
+        private string oAuthUser;
+        private string oAuthDomain;
+           
       
 
         /// <summary>
@@ -526,6 +531,25 @@ namespace Google.GData.Client
             this.applicationName = applicationName;
             this.credentials = new GDataCredentials(userName, passWord);
         }
+
+        /// <summary>
+        ///  a constructor for OpenAuthentication login use cases
+        /// </summary>
+        /// <param name="applicationName">The name of the application</param>
+        /// <param name="consumerKey">the consumerKey to use</param>
+        /// <param name="consumerSecret">the consumerSecret to use</param>
+        /// <param name="user">the username to use</param>
+        /// <param name="domain">the domain to use</param>
+        /// <returns></returns>
+        public RequestSettings(string applicationName, string consumerKey, string consumerSecret, string user, string domain)
+        {
+            this.applicationName = applicationName;
+            this.consumerKey = consumerKey;
+            this.consumerSecret = consumerSecret;
+            this.oAuthUser = user;
+            this.oAuthDomain = domain;
+        }
+
 
         /// <summary>
         ///  a constructor for client login use cases
@@ -586,6 +610,54 @@ namespace Google.GData.Client
             get
             {
                 return this.applicationName;
+            }
+        }
+
+        /// <summary>
+        /// returns the ConsumerKey
+        /// </summary>
+        /// <returns></returns>
+        public string ConsumerKey
+        {
+            get
+            {
+                return this.consumerKey;
+            }
+        }
+
+        /// <summary>
+        /// returns the ConsumerSecret
+        /// </summary>
+        /// <returns></returns>
+        public string ConsumerSecret
+        {
+            get
+            {
+                return this.consumerSecret;
+            }
+        }
+
+        /// <summary>
+        /// returns the OAuth User
+        /// </summary>
+        /// <returns></returns>
+        public string OAuthUser
+        {
+            get
+            {
+                return this.oAuthUser;
+            }
+        }
+
+        /// <summary>
+        /// returns the OAuth Domain
+        /// </summary>
+        /// <returns></returns>
+        public string OAuthDomain
+        {
+            get
+            {
+                return this.oAuthDomain;
             }
         }
 
@@ -774,6 +846,16 @@ namespace Google.GData.Client
                 authFactory.Token = settings.AuthSubToken; 
                 s.RequestFactory = authFactory;
             }
+            else if (settings.ConsumerKey != null)
+            {
+                // let's create an oauth factory
+                GOAuthRequestFactory authFactory = new GOAuthRequestFactory(s.ServiceIdentifier, settings.Application);
+                authFactory.ConsumerKey = settings.ConsumerKey;
+                authFactory.ConsumerSecret = settings.ConsumerSecret;
+                s.RequestFactory = authFactory;
+
+
+            }
             else 
             {
                 GDataGAuthRequestFactory authFactory = s.RequestFactory as GDataGAuthRequestFactory;
@@ -819,6 +901,34 @@ namespace Google.GData.Client
             {
                 q.NumberToRetrieve = this.settings.PageSize; 
             }
+            if (this.settings.OAuthUser != null)
+            {
+                q.OAuthRequestorId = this.settings.OAuthUser;
+                if (this.settings.OAuthDomain != null)
+                {
+                    q.OAuthRequestorId += "@" + this.settings.OAuthDomain;
+                }
+            }
+        }
+
+        /// <summary>
+        ///  should be used in subclasses to create URIs from strings, so that the OAuth parameters can be 
+        /// attached
+        /// </summary>
+        /// <param name="location"></param>
+        /// <returns></returns>
+        protected Uri CreateUri(string location)
+        {
+            Uri retUri = null; 
+            if (this.settings.OAuthUser != null && location.IndexOf(OAuthUri.OAuthParameter) != 0)
+            {
+                retUri = new OAuthUri(location, this.settings.OAuthUser, this.settings.OAuthDomain);
+            }
+            else 
+            {
+                retUri = new Uri(location);
+            }
+            return retUri; 
         }
 
         /// <summary>
