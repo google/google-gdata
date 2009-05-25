@@ -229,4 +229,42 @@ namespace Google.GData.Extensions {
         // end of accessor public string Value
     }
 
+    /// <summary>
+    /// a simple element with two  attribute,called value and name that exposes 
+    /// that value as the value property
+    /// </summary>
+    public class SimpleNameValueAttribute : SimpleAttribute
+    {
+        /// <summary>
+        /// constructor
+        /// </summary>
+        /// <param name="name">the xml name</param>
+        /// <param name="prefix">the xml prefix</param>
+        /// <param name="ns">the xml namespace</param>
+        protected SimpleNameValueAttribute(string localName, string prefix, string ns)
+                    :base(localName, prefix, ns)
+        {
+            this.Attributes.Add(BaseNameTable.XmlValue, null);
+            this.Attributes.Add(BaseNameTable.XmlName, null);
+        }
+
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Accessor for "name" attribute.</summary> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        public string Name
+        {
+            get {
+                return this.Attributes[BaseNameTable.XmlName] as string;
+            }
+            set
+            {
+                this.Attributes[BaseNameTable.XmlName] = value;
+            }
+        }
+        // end of accessor public string Value
+    }
+
+
 }  

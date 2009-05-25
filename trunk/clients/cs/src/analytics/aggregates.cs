@@ -16,6 +16,7 @@
 using System.Collections.Generic;
 using System.Xml;
 using Google.GData.Client;
+using Google.GData.Extensions;
 
 namespace Google.GData.Analytics
 {
@@ -23,94 +24,36 @@ namespace Google.GData.Analytics
     /// GData schema extension describing aggregate results.
     /// dxp:aggregates  contains aggregate data for all metrics requested in the feed.
     /// </summary>
-    public class Aggregates : IExtensionElementFactory
+    public class Aggregates : SimpleContainer
     {
-        private List<Metric> metrics;
 
-        public List<Metric> Metrics
-        {
-            get { return metrics; }
-            set { metrics = value; }
-        }
+        private ExtensionCollection<Metric> metrics;
 
-        #region overloaded from IExtensionElementFactory
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>Parses an xml node to create a Property object.</summary> 
-        /// <param name="node">the node to parse node</param>
-        /// <param name="parser">the xml parser to use if we need to dive deeper</param>
-        /// <returns>the created Property object</returns>
-        //////////////////////////////////////////////////////////////////////
-        public IExtensionElementFactory CreateInstance(XmlNode node, AtomFeedParser parser)
-        {
-            Tracing.TraceCall();
 
-            if (node != null)
-            {
-                object localname = node.LocalName;
-                if (localname.Equals(this.XmlName) == false ||
-                    node.NamespaceURI.Equals(this.XmlNameSpace) == false)
-                {
-                    return null;
-                }
-            }
-            Aggregates aggregates = new Aggregates();
-            aggregates.Metrics = new List<Metric>();
-            if (node != null)
-            {
-                if (node.InnerText != null)
-                {
-                    foreach (XmlNode xmlNode in node.ChildNodes)
-                    {
-                        Metric parsedMetric = new Metric().CreateInstance(xmlNode, parser) as Metric;
-                        if (parsedMetric != null)
-                        {
-                            aggregates.Metrics.Add(parsedMetric);
-                        }
-                    }
-                }
-            }
-            return aggregates;
-        }
-
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>Returns the constant representing this XML element.</summary> 
-        //////////////////////////////////////////////////////////////////////
-        public string XmlName
-        {
-            get { return AnalyticsNameTable.XmlAggregatesElement; }
-        }
-
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>Returns the constant representing namespace of this XML.</summary> 
-        //////////////////////////////////////////////////////////////////////
-        public string XmlNameSpace
-        {
-            get { return AnalyticsNameTable.gAnalyticsNamspace; }
-        }
-
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>Returns the constant representing the prefix of this XML.</summary> 
-        //////////////////////////////////////////////////////////////////////
-        public string XmlPrefix
-        {
-            get { return AnalyticsNameTable.gAnalyticsPrefix; }
-        }
-        #endregion
-
-        #region overloaded for persistence
         /// <summary>
-        /// Persistence method for the Property object
+        /// default constructor for dxp:aggregates
         /// </summary>
-        /// <param name="writer">the xmlwriter to write into</param>
-        public void Save(XmlWriter writer)
+        public Aggregates() :
+            base(AnalyticsNameTable.XmlAggregatesElement,
+                 AnalyticsNameTable.gAnalyticsPrefix,
+                 AnalyticsNameTable.gAnalyticsNamspace)
         {
-            writer.WriteStartElement(XmlPrefix, XmlName, XmlNameSpace);
-            foreach (Metric metric in metrics)
-            {
-                metric.Save(writer);
-            }
-            writer.WriteEndElement();
+            this.ExtensionFactories.Add(new Metric());
         }
-        #endregion
+
+        /// <summary>
+        ///  property accessor for the Thumbnails 
+        /// </summary>
+        public ExtensionCollection<Metric> Metrics
+        {
+            get 
+            {
+                if (this.metrics == null)
+                {
+                    this.metrics = new ExtensionCollection<Metric>(this); 
+                }
+                return this.metrics;
+            }
+        }
     }
 }
