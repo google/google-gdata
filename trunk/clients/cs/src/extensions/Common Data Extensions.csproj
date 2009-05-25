@@ -126,7 +126,6 @@
     <Compile Include="entrylink.cs" />
     <Compile Include="enumconstruct.cs" />
     <Compile Include="exif.cs" />
-    <Compile Include="extcollections.cs" />
     <Compile Include="extended.cs" />
     <Compile Include="feedlink.cs" />
     <Compile Include="gdatanametable.cs" />

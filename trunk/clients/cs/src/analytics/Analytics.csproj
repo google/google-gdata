@@ -62,6 +62,7 @@
     <Compile Include="sourceentry.cs" />
     <Compile Include="tableid.cs" />
     <Compile Include="tablename.cs" />
+    <Compile Include="analyticsrequest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\core\Core Client.csproj">
