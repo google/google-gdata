@@ -14,8 +14,7 @@
 */
 /* Created by Morten Christensen, elpadrinodk@gmail.com, http://blog.sitereactor.dk */
 using System;
-using System.Xml;
-using Google.GData.Client;
+using Google.GData.Extensions;
 
 namespace Google.GData.Analytics
 {
@@ -24,108 +23,26 @@ namespace Google.GData.Analytics
     /// Part of a feedentry (account feed entry or DataEntry SourceEntry/dxp:dataSource).
     /// dxp:tableId  The unique, namespaced ID to be used when requesting data from a profile.
     /// </summary>
-    public class TableId : IExtensionElementFactory
+    public class TableId : SimpleElement
     {
         /// <summary>
-        /// Constructs an empty Property instance
+        /// Constructs an empty TableId instance
         /// </summary>
-        public TableId()
+        public TableId() : base(AnalyticsNameTable.XmlTableIdElement,
+                                         AnalyticsNameTable.gAnalyticsPrefix,
+                                         AnalyticsNameTable.gAnalyticsNamspace)
         {
         }
-
+        
         /// <summary>
         /// default constructor, takes 1 parameters
         /// </summary>
         /// <param name="value">the value property value</param>
-        public TableId(String value)
+        public TableId(String value) : base(AnalyticsNameTable.XmlTableIdElement,
+                                         AnalyticsNameTable.gAnalyticsPrefix,
+                                         AnalyticsNameTable.gAnalyticsNamspace,
+                                         value)
         {
-            this.Value = value;
         }
-
-        private string value;
-
-        /// <summary>
-        ///  Value property accessor
-        /// </summary>
-        public string Value
-        {
-            get { return value; }
-            set { this.value = value; }
-        }
-
-        #region overloaded from IExtensionElementFactory
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>Parses an xml node to create a Property object.</summary> 
-        /// <param name="node">the node to parse node</param>
-        /// <param name="parser">the xml parser to use if we need to dive deeper</param>
-        /// <returns>the created Property object</returns>
-        //////////////////////////////////////////////////////////////////////
-        public IExtensionElementFactory CreateInstance(XmlNode node, AtomFeedParser parser)
-        {
-            Tracing.TraceCall();
-            TableId tableId = null;
-
-            if (node != null)
-            {
-                object localname = node.LocalName;
-                if (localname.Equals(this.XmlName) == false ||
-                  node.NamespaceURI.Equals(this.XmlNameSpace) == false)
-                {
-                    return null;
-                }
-            }
-            tableId = new TableId();
-            if (node != null)
-            {
-                if (node.InnerText != null)
-                {
-                    tableId.Value = node.InnerText.Trim();
-                }
-            }
-            return tableId;
-        }
-
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>Returns the constant representing this XML element.</summary> 
-        //////////////////////////////////////////////////////////////////////
-        public string XmlName
-        {
-            get { return AnalyticsNameTable.XmlTableIdElement; }
-        }
-
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>Returns the constant representing namespace of this XML.</summary> 
-        //////////////////////////////////////////////////////////////////////
-        public string XmlNameSpace
-        {
-            get { return AnalyticsNameTable.gAnalyticsNamspace; }
-        }
-
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>Returns the constant representing the prefix of this XML.</summary> 
-        //////////////////////////////////////////////////////////////////////
-        public string XmlPrefix
-        {
-            get { return AnalyticsNameTable.gAnalyticsPrefix; }
-        }
-        #endregion
-
-        #region overloaded for persistence
-
-        /// <summary>
-        /// Persistence method for the Property object
-        /// </summary>
-        /// <param name="writer">the xmlwriter to write into</param>
-        public void Save(XmlWriter writer)
-        {
-            if (Utilities.IsPersistable(this.value))
-            {
-                writer.WriteStartElement(AnalyticsNameTable.gAnalyticsPrefix, XmlName, AnalyticsNameTable.gAnalyticsNamspace);
-                writer.WriteString(Value);
-                writer.WriteEndElement();
-            }
-        }
-
-        #endregion
     }
 }

@@ -177,7 +177,6 @@ namespace Google.GData.YouTube {
         private string orderBy;
         private string client;
         private string lr;
-        private string racy;
         private string restriction;
         private UploadTime uploadTime = UploadTime.UploadTimeUndefined;
 
