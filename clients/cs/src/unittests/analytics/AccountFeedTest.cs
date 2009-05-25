@@ -19,7 +19,7 @@ using System.Text;
 using Google.GData.Analytics;
 using Google.GData.Client;
 using Google.GData.Client.UnitTests;
-using Google.GData.GoogleBase;
+using Google.Analytics;
 using NUnit.Framework;
 
 namespace Google.GData.Client.UnitTests.Analytics
@@ -113,6 +113,17 @@ namespace Google.GData.Client.UnitTests.Analytics
             Assert.AreEqual("UA-111111-1", entry.Properties[3].Value);
 
             Assert.AreEqual("www.test.com", entry.Title.Text);
+
+            Account a = new Account();
+            a.AtomEntry = entry; 
+
+            Assert.AreEqual("123456", a.AccountId);
+            Assert.AreEqual("Test Account", a.AccountName);
+            Assert.AreEqual("1234567", a.ProfileId);
+            Assert.AreEqual("UA-111111-1", a.WebPropertyId);
+            Assert.AreEqual("www.test.com", a.Title);
+            Assert.AreEqual("ga:1234567", a.TableId);
+
         }
 
         private static AccountFeed Parse(string xml)

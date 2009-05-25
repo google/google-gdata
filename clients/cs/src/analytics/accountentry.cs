@@ -42,57 +42,6 @@ namespace Google.GData.Analytics
         }
 
         /// <summary>
-        /// Basic method for retrieving Account extension elements.
-        /// </summary>
-        /// <param name="extension">The name of the extension element to look for</param>
-        /// <returns>SimpleAttribute, or NULL if the extension was not found</returns>
-        public SimpleAttribute getAccountExtension(string extension)
-        {
-            return FindExtension(extension, AnalyticsNameTable.gAnalyticsNamspace) as SimpleAttribute;
-        }
-
-        /// <summary>
-        /// Base method for retrieving Account extension element values.
-        /// </summary>
-        /// <param name="extension">The name of the Account extension element to look for</param>
-        /// <returns>value as string, or NULL if the extension was not found</returns>
-        public string getAccountExtensionValue(string extension)
-        {
-            SimpleAttribute e = getAccountExtension(extension);
-            if (e != null)
-            {
-                return (string)e.Value;
-            }
-            return null;
-        }
-
-        /// <summary>
-        /// Base method for setting Account extension element values.
-        /// </summary>
-        /// <param name="extension">the name of the extension to look for</param>
-        /// <param name="newValue">the new value for this extension element</param>
-        /// <returns>SimpleAttribute, either a brand new one, or the one
-        /// returned by the service</returns>
-        public SimpleElement setAccountExtension(string extension, string newValue)
-        {
-            if (extension == null)
-            {
-                throw new System.ArgumentNullException("extension");
-            }
-
-            SimpleAttribute ele = getAccountExtension(extension);
-            if (ele == null)
-            {
-                ele = CreateExtension(extension, AnalyticsNameTable.gAnalyticsNamspace) as SimpleAttribute;
-                this.ExtensionElements.Add(ele);
-            }
-
-            ele.Value = newValue;
-
-            return ele;
-        }
-
-        /// <summary>
         /// This field controls the properties.
         /// </summary>
         public List<Property> Properties
@@ -107,6 +56,24 @@ namespace Google.GData.Analytics
             }
         }
 
+
+        /// <summary>
+        /// searches through the property list to find a specific one
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public string FindPropertyValue(string name)
+        {
+            foreach (Property p in this.Properties )
+            {
+                if (p.Name == name)
+                {
+                    return p.Value;
+                }
+            }
+            return null;
+        }
+
         /// <summary>
         /// This field controls the tableId (ProfileId).
         /// </summary>
@@ -119,11 +86,6 @@ namespace Google.GData.Analytics
                     tableId = FindExtension(AnalyticsNameTable.XmlTableIdElement, AnalyticsNameTable.gAnalyticsNamspace) as TableId;
                 }
                 return tableId;
-            }
-            set
-            {
-                ReplaceExtension(AnalyticsNameTable.XmlTableIdElement,
-                                 AnalyticsNameTable.gAnalyticsNamspace, value);
             }
         }
     }
