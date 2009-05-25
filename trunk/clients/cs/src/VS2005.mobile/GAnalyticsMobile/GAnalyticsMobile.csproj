@@ -71,6 +71,9 @@
     <Compile Include="..\..\analytics\aggregates.cs">
       <Link>aggregates.cs</Link>
     </Compile>
+    <Compile Include="..\..\analytics\analyticsrequest.cs">
+      <Link>analyticsrequest.cs</Link>
+    </Compile>
     <Compile Include="..\..\analytics\analyticsservice.cs">
       <Link>analyticsservice.cs</Link>
     </Compile>
