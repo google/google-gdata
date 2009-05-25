@@ -74,9 +74,6 @@
     <Compile Include="..\..\extensions\exif.cs">
       <Link>exif.cs</Link>
     </Compile>
-    <Compile Include="..\..\extensions\extcollections.cs">
-      <Link>extcollections.cs</Link>
-    </Compile>
     <Compile Include="..\..\extensions\extended.cs">
       <Link>extended.cs</Link>
     </Compile>

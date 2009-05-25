@@ -129,7 +129,7 @@ namespace Google.GData.Client.UnitTests.Analytics
         private static AccountFeed Parse(string xml)
         {
             byte[] bytes = new UTF8Encoding().GetBytes(xml);
-            AccountFeed feed = new AccountFeed(new Uri(AccountFeedUrl), new GBaseService("Test", "boguskey"));
+            AccountFeed feed = new AccountFeed(new Uri(AccountFeedUrl), new AnalyticsService("Test"));
             feed.Parse(new MemoryStream(bytes), AlternativeFormat.Atom);
             return feed;
         }

@@ -135,6 +135,9 @@
     <Compile Include="..\..\core\exceptions.cs">
       <Link>exceptions.cs</Link>
     </Compile>
+    <Compile Include="..\..\core\extcollections.cs">
+      <Link>extcollections.cs</Link>
+    </Compile>
     <Compile Include="..\..\core\extensionbase.cs">
       <Link>extensionbase.cs</Link>
     </Compile>
