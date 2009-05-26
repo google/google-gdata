@@ -47,24 +47,28 @@ namespace Google.GData.Analytics
         /// <summary>
         /// This field controls the tableId (ProfileId).
         /// </summary>
-        public TableId TableId
+        public string TableId
         {
             get
             {
-                return FindExtension(AnalyticsNameTable.XmlTableIdElement,
+                TableId t = FindExtension(AnalyticsNameTable.XmlTableIdElement,
                                    AnalyticsNameTable.gAnalyticsNamspace) as TableId;
+
+                return t != null ? t.Value : null; 
             }
         }
 
         /// <summary>
         /// This field controls the tableName.
         /// </summary>
-        public TableName TableName
+        public string TableName
         {
             get
             {
-                return FindExtension(AnalyticsNameTable.XmlTableNameElement,
+                TableName t =  FindExtension(AnalyticsNameTable.XmlTableNameElement,
                                    AnalyticsNameTable.gAnalyticsNamspace) as TableName;
+
+                return t != null ? t.Value : null; 
             }
         }
 

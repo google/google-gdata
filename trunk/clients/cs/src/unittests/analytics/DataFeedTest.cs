@@ -105,7 +105,7 @@ namespace Google.GData.Client.UnitTests.Analytics
 
             Google.GData.Analytics.DataFeed feed = Parse(xml);
 
-            DataFeed f = new DataFeed(feed);
+            Dataset f = new Dataset(feed);
             f.AutoPaging = false; 
 
             Assert.IsNotNull(f.Aggregates);
@@ -199,7 +199,7 @@ namespace Google.GData.Client.UnitTests.Analytics
             }
         }
 
-        private static DataFeed Parse(string xml)
+        private static Google.GData.Analytics.DataFeed Parse(string xml)
         {
             byte[] bytes = new UTF8Encoding().GetBytes(xml);
             DataFeed feed = new DataFeed(new Uri(DataFeedUrl), null);

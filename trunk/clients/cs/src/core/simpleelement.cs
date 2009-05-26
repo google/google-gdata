@@ -244,7 +244,6 @@ namespace Google.GData.Extensions {
         protected SimpleNameValueAttribute(string localName, string prefix, string ns)
                     :base(localName, prefix, ns)
         {
-            this.Attributes.Add(BaseNameTable.XmlValue, null);
             this.Attributes.Add(BaseNameTable.XmlName, null);
         }
 
