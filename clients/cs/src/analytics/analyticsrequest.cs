@@ -208,14 +208,14 @@ namespace Google.Analytics
     /// subclass of a Feed, specific to Data entries
     /// </summary>
     /// <returns></returns>
-    public class DataFeed : Feed<Data>
+    public class Dataset : Feed<Data>
     {
 
         /// <summary>
         /// default constructor that takes the underlying atomfeed
         /// </summary>
         /// <param name="af"></param>
-        public DataFeed(AtomFeed af) : base(af)
+        public Dataset(AtomFeed af) : base(af)
         {
         }
 
@@ -224,7 +224,8 @@ namespace Google.Analytics
         /// </summary>
         /// <param name="service"></param>
         /// <param name="q"></param>
-        public DataFeed(Service service, FeedQuery q) : base(service, q)
+        public Dataset(Service service, FeedQuery q)
+            : base(service, q)
         {
         }
 
@@ -253,7 +254,7 @@ namespace Google.Analytics
         {
             get 
             {
-                Google.GData.Analytics.DataFeed f = this.AtomFeed as Google.GData.Analytics.DataFeed;
+                DataFeed f = this.AtomFeed as DataFeed;
                 if (f != null)
                 {
                     return f.DataSource;
@@ -321,10 +322,10 @@ namespace Google.Analytics
         /// </summary>
         /// <param name="q"></param>
         /// <returns></returns>
-        public DataFeed GetReport(DataQuery q)
+        public Dataset GetReport(DataQuery q)
         {
             PrepareQuery(q);
-            return PrepareFeed<Data>(q) as DataFeed;
+            return PrepareFeed<Data>(q) as Dataset;
         }
 
         /// <summary>
@@ -333,9 +334,9 @@ namespace Google.Analytics
         /// <typeparam name="Y"></typeparam>
         /// <param name="uri">The Uri to retrieve</param>
         /// <returns></returns>
-        public DataFeed Get(DataQuery q)
+        public Dataset Get(DataQuery q)
         {
-            return PrepareFeed<Data>(q) as DataFeed;
+            return PrepareFeed<Data>(q) as Dataset;
         }
 
 
@@ -347,7 +348,7 @@ namespace Google.Analytics
         /// <returns></returns>
         protected override Feed<Data> CreateFeed<Data>(FeedQuery q) 
         {
-            return new DataFeed(this.AtomService, q) as Feed<Data>; 
+            return new Dataset(this.AtomService, q) as Feed<Data>; 
         }
 
     }
