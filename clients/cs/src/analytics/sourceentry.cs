@@ -15,6 +15,7 @@
 /* Created by Morten Christensen, elpadrinodk@gmail.com, http://blog.sitereactor.dk */
 using Google.GData.Client;
 using Google.GData.Extensions;
+using System.Collections.Generic;
 
 namespace Google.GData.Analytics
 {
@@ -25,101 +26,33 @@ namespace Google.GData.Analytics
     /// dxp:tableName  The name of the profile as it appears in the Analytics administrative UI
     /// dxp:property
     /// </summary>
-    public class SourceEntry : AbstractEntry
+    public class DataSource : SimpleContainer
     {
+
+        private List<Property> properties;
+       
         /// <summary>
         /// Constructs a new DataEntry.
         /// </summary>
-        public SourceEntry()
-            : base()
+        public DataSource() : base(AnalyticsNameTable.XmlDataSourceElement,
+                 AnalyticsNameTable.gAnalyticsPrefix,
+                 AnalyticsNameTable.gAnalyticsNamspace)
         {
-            this.AddExtension(new Property());
-            this.AddExtension(new TableId());
-            this.AddExtension(new TableName());
+            this.ExtensionFactories.Add(new Property());
+            this.ExtensionFactories.Add(new TableId());
+            this.ExtensionFactories.Add(new TableName());
         }
 
-        /// <summary>
-        /// Basic method for retrieving Data extension elements.
-        /// </summary>
-        /// <param name="extension">The name of the extension element to look for</param>
-        /// <returns>SimpleAttribute, or NULL if the extension was not found</returns>
-        public SimpleAttribute getDataExtension(string extension)
-        {
-            return FindExtension(extension, AnalyticsNameTable.gAnalyticsNamspace) as SimpleAttribute;
-        }
-
-        /// <summary>
-        /// Base method for retrieving Data extension element values.
-        /// </summary>
-        /// <param name="extension">The name of the Data extension element to look for</param>
-        /// <returns>value as string, or NULL if the extension was not found</returns>
-        public string getAccountExtensionValue(string extension)
-        {
-            SimpleAttribute e = getDataExtension(extension);
-            if (e != null)
-            {
-                return (string)e.Value;
-            }
-            return null;
-        }
-
-        /// <summary>
-        /// Base method for setting Data extension element values.
-        /// </summary>
-        /// <param name="extension">the name of the extension to look for</param>
-        /// <param name="newValue">the new value for this extension element</param>
-        /// <returns>SimpleAttribute, either a brand new one, or the one
-        /// returned by the service</returns>
-        public SimpleElement setDataExtension(string extension, string newValue)
-        {
-            if (extension == null)
-            {
-                throw new System.ArgumentNullException("extension");
-            }
-
-            SimpleAttribute ele = getDataExtension(extension);
-            if (ele == null)
-            {
-                ele = CreateExtension(extension, AnalyticsNameTable.gAnalyticsNamspace) as SimpleAttribute;
-                this.ExtensionElements.Add(ele);
-            }
-
-            ele.Value = newValue;
-
-            return ele;
-        }
-
-        /// <summary>
-        /// This field controls the property.
-        /// </summary>
-        public Property Property
-        {
-            get
-            {
-                return FindExtension(AnalyticsNameTable.XmlPropertyElement,
-                                   AnalyticsNameTable.gAnalyticsNamspace) as Property;
-            }
-            set
-            {
-                ReplaceExtension(AnalyticsNameTable.XmlPropertyElement,
-                                 AnalyticsNameTable.gAnalyticsNamspace, value);
-            }
-        }
 
         /// <summary>
         /// This field controls the tableId (ProfileId).
         /// </summary>
-        public TableId ProfileId
+        public TableId TableId
         {
             get
             {
                 return FindExtension(AnalyticsNameTable.XmlTableIdElement,
                                    AnalyticsNameTable.gAnalyticsNamspace) as TableId;
-            }
-            set
-            {
-                ReplaceExtension(AnalyticsNameTable.XmlTableIdElement,
-                                 AnalyticsNameTable.gAnalyticsNamspace, value);
             }
         }
 
@@ -133,11 +66,79 @@ namespace Google.GData.Analytics
                 return FindExtension(AnalyticsNameTable.XmlTableNameElement,
                                    AnalyticsNameTable.gAnalyticsNamspace) as TableName;
             }
-            set
+        }
+
+
+        /// <summary>
+        /// This field controls the properties.
+        /// </summary>
+        public List<Property> Properties
+        {
+            get
             {
-                ReplaceExtension(AnalyticsNameTable.XmlTableNameElement,
-                                 AnalyticsNameTable.gAnalyticsNamspace, value);
+                if (properties == null)
+                {
+                    properties = FindExtensions<Property>(AnalyticsNameTable.XmlPropertyElement, AnalyticsNameTable.gAnalyticsNamspace);
+                }
+                return properties;
             }
         }
+
+
+        /// <summary>
+        /// searches through the property list to find a specific one
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public string FindPropertyValue(string name)
+        {
+            foreach (Property p in this.Properties )
+            {
+                if (p.Name == name)
+                {
+                    return p.Value;
+                }
+            }
+            return null;
+        }
+
+
+        /// <summary>
+        /// The numeric id of the profile
+        /// </summary>
+        /// <returns></returns>
+        public string ProfileId
+        {
+            get
+            {
+                return this.FindPropertyValue("ga:profileId");
+            }
+        }
+
+        /// <summary>
+        /// The web property ID associated with the profile.
+        /// </summary>
+        /// <returns></returns>
+        public string WebPropertyId
+        {
+            get
+            {
+                return this.FindPropertyValue("ga:webPropertyId");
+            }
+        }
+
+        /// <summary>
+        /// The name of the account associated with the profile
+        /// </summary>
+        /// <returns></returns>
+        public string AccountName
+        {
+            get
+            {
+                return this.FindPropertyValue("ga:accountName");
+            }
+        }
+
+
     }
 }

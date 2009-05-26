@@ -27,7 +27,7 @@ namespace Google.GData.Analytics
     public class Aggregates : SimpleContainer
     {
 
-        private ExtensionCollection<Metric> metrics;
+        private List<Metric> metrics;
 
 
         /// <summary>
@@ -44,13 +44,13 @@ namespace Google.GData.Analytics
         /// <summary>
         ///  property accessor for the Thumbnails 
         /// </summary>
-        public ExtensionCollection<Metric> Metrics
+        public List<Metric> Metrics
         {
             get 
             {
                 if (this.metrics == null)
                 {
-                    this.metrics = new ExtensionCollection<Metric>(this); 
+                    this.metrics = FindExtensions<Metric>(AnalyticsNameTable.XmlMetricElement, AnalyticsNameTable.gAnalyticsNamspace);
                 }
                 return this.metrics;
             }

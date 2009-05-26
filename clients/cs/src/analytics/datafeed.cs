@@ -36,6 +36,7 @@ namespace Google.GData.Analytics
         public DataFeed(Uri uriBase, IService iService) : base(uriBase, iService)
         {
             AddExtension(new Aggregates());
+            AddExtension(new DataSource());
         }
 
         /// <summary>
@@ -47,48 +48,22 @@ namespace Google.GData.Analytics
             return new DataEntry();
         }
 
+        /// <summary>
+        /// returns the Aggregates object for the DataFeed. 
+        /// </summary>
+        /// <returns></returns>
         public Aggregates Aggregates
         {
             get { return FindExtension(AnalyticsNameTable.XmlAggregatesElement, AnalyticsNameTable.gAnalyticsNamspace) as Aggregates; }
         }
-    }
 
-    //////////////////////////////////////////////////////////////////////
-    /// <summary>SourceFeed, dxp:dataSource.
-    /// Returns SourceEntry containing:
-    /// dxp:tableId, dxp:tableName, dxp:property.
-    /// </summary>
-    //////////////////////////////////////////////////////////////////////
-    public class SourceFeed : AbstractFeed
-    {
-        /// <summary>
-        ///  default constructor
+         /// <summary>
+        /// returns the DataSource object for the DataFeed. 
         /// </summary>
-        /// <param name="uriBase">the base URI of the feedEntry</param>
-        /// <param name="iService">the Service to use</param>
-        public SourceFeed(Uri uriBase, IService iService)
-            : base(uriBase, iService)
+        /// <returns></returns>
+        public DataSource DataSource
         {
-        }
-
-        /// <summary>
-        /// This needs to get implemented by subclasses
-        /// </summary>
-        /// <returns>AtomEntry</returns>
-        public override AtomEntry CreateFeedEntry()
-        {
-            return new SourceEntry();
-        }
-
-        /// <summary>
-        /// Is called after we already handled the custom entry, to handle all 
-        /// other potential parsing tasks
-        /// </summary>
-        /// <param name="e"></param>
-        /// <param name="parser">the atom feed parser used</param>
-        protected override void HandleExtensionElements(ExtensionElementEventArgs e, AtomFeedParser parser)
-        {
-            base.HandleExtensionElements(e, parser);
+            get { return FindExtension(AnalyticsNameTable.XmlDataSourceElement, AnalyticsNameTable.gAnalyticsNamspace) as DataSource; }
         }
     }
 }

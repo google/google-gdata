@@ -80,6 +80,7 @@ namespace Google.GData.Client
             }
         }
 
+
        /// <summary>
        /// if set to true will cause the feed to add more data when you iterate over it's entries
        /// </summary>
@@ -945,12 +946,22 @@ namespace Google.GData.Client
         /// <returns></returns>
         protected virtual Feed<Y> PrepareFeed<Y>(FeedQuery q) where Y : Entry, new()
         {
-             // AtomFeed feed = this.atomService.Query(q);
-             // Feed<Y> f = new Feed<Y>(feed);
-             Feed<Y> f = new Feed<Y>(this.atomService, q);
+             Feed<Y> f = CreateFeed<Y>(q);
              f.AutoPaging = this.settings.AutoPaging;
              f.Maximum   = this.settings.Maximum;
              return f;
+        }
+
+
+        /// <summary>
+        /// the virtual creator function for feeds, so that we can create feedsubclasses in
+        /// in subclasses of the request
+        /// </summary>
+        /// <param name="q"></param>
+        /// <returns></returns>
+        protected virtual Feed<Y> CreateFeed<Y>(FeedQuery q) where Y : Entry, new()
+        {
+            return new Feed<Y>(this.atomService, q); 
         }
 
         /// <summary>
@@ -1016,6 +1027,19 @@ namespace Google.GData.Client
         {
 
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        protected Service AtomService
+        {
+            get
+            {
+                return this.atomService;
+            }
+        }
+
 
 
         /// <summary>

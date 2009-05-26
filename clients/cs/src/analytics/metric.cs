@@ -67,7 +67,8 @@ namespace Google.GData.Analytics
         //////////////////////////////////////////////////////////////////////
         public string ConfidenceInterval
         {
-            get {
+            get 
+            {
                 return this.Attributes[AnalyticsNameTable.XmlAttributeConfidenceInterval] as string;
             }
             set
@@ -82,7 +83,8 @@ namespace Google.GData.Analytics
         //////////////////////////////////////////////////////////////////////
         public string Type
         {
-            get {
+            get 
+            {
                 return this.Attributes[BaseNameTable.XmlAttributeType] as string;
             }
             set
