@@ -26,6 +26,11 @@ using System.Collections.Generic;
 
 namespace Google.Analytics 
 {
+    /// <summary>
+    /// simple class to cover the AcountEntry specific extensions. Gives you access to all Account
+    /// specific properties inisde an account feed. 
+    /// </summary>
+    /// <returns></returns>
     public class Account : Entry
     {
         /// <summary>
@@ -136,6 +141,127 @@ namespace Google.Analytics
         }
     }
 
+
+     /// <summary>
+    /// simple class to cover the DataEntry specific extensions. Gives you access to all Data
+    /// specific properties inisde an data feed. 
+    /// </summary>
+    /// <returns></returns>
+    public class Data : Entry
+    {
+        /// <summary>
+        /// creates the inner contact object when needed
+        /// </summary>
+        /// <returns></returns>
+        protected override void EnsureInnerObject()
+        {
+            if (this.AtomEntry == null)
+            {
+                this.AtomEntry = new DataEntry();
+            }
+        }
+        /// <summary>
+        /// readonly accessor to the typed underlying atom object
+        /// </summary>
+        public DataEntry DataEntry
+        {
+            get
+            {
+                return this.AtomEntry as DataEntry;
+            }
+        }
+
+
+         /// <summary>
+        /// This field controls the dimensions.
+        /// </summary>
+        public List<Dimension> Dimensions
+        {
+            get
+            {
+                if (this.DataEntry != null)
+                {
+                    return this.DataEntry.Dimensions;
+                }
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// This field controls the metrics.
+        /// </summary>
+        public List<Metric> Metrics
+        {
+            get
+            {
+                if (this.DataEntry != null)
+                {
+                    return this.DataEntry.Metrics;
+                }
+                return null;
+            }
+        }
+    }
+
+
+    /// <summary>
+    /// subclass of a Feed, specific to Data entries
+    /// </summary>
+    /// <returns></returns>
+    public class DataFeed : Feed<Data>
+    {
+
+        /// <summary>
+        /// default constructor that takes the underlying atomfeed
+        /// </summary>
+        /// <param name="af"></param>
+        public DataFeed(AtomFeed af) : base(af)
+        {
+        }
+
+        /// <summary>
+        /// constructs a new feed object based on a service and a query
+        /// </summary>
+        /// <param name="service"></param>
+        /// <param name="q"></param>
+        public DataFeed(Service service, FeedQuery q) : base(service, q)
+        {
+        }
+
+        /// <summary>
+        /// returns the Aggregates object that contains aggregate data for all metrics requested in the feed
+        /// </summary>
+        /// <returns></returns>
+        public Aggregates Aggregates
+        {
+            get 
+            {
+                Google.GData.Analytics.DataFeed f = this.AtomFeed as Google.GData.Analytics.DataFeed;
+                if (f != null)
+                {
+                    return f.Aggregates;
+                }
+                return null; 
+            }
+        }   
+
+        /// <summary>
+        /// returns the Aggregates object that contains aggregate data for all metrics requested in the feed
+        /// </summary>
+        /// <returns></returns>
+        public DataSource DataSource
+        {
+            get 
+            {
+                Google.GData.Analytics.DataFeed f = this.AtomFeed as Google.GData.Analytics.DataFeed;
+                if (f != null)
+                {
+                    return f.DataSource;
+                }
+                return null; 
+            }
+        }   
+    }
    
 
     //////////////////////////////////////////////////////////////////////
@@ -186,5 +312,43 @@ namespace Google.Analytics
             AccountQuery q = PrepareQuery<AccountQuery>(AccountQuery.HttpsFeedUrl);
             return PrepareFeed<Account>(q); 
         }
+
+
+        /// <summary>
+        /// returns a Data Feed per passed in Query. The AnalyticsRequestObject 
+        /// will modidify the passed in Query object to take the default RequestObject settings into 
+        /// account (like paging). if you do not want that behaviour, use the Get method
+        /// </summary>
+        /// <param name="q"></param>
+        /// <returns></returns>
+        public DataFeed GetReport(DataQuery q)
+        {
+            PrepareQuery(q);
+            return PrepareFeed<Data>(q) as DataFeed;
+        }
+
+        /// <summary>
+        /// gets a feed object of type T
+        /// </summary>
+        /// <typeparam name="Y"></typeparam>
+        /// <param name="uri">The Uri to retrieve</param>
+        /// <returns></returns>
+        public DataFeed Get(DataQuery q)
+        {
+            return PrepareFeed<Data>(q) as DataFeed;
+        }
+
+
+        /// <summary>
+        /// the virtual creator function for feeds, so that we can create feedsubclasses in
+        /// in subclasses of the request
+        /// </summary>
+        /// <param name="q"></param>
+        /// <returns></returns>
+        protected override Feed<Data> CreateFeed<Data>(FeedQuery q) 
+        {
+            return new DataFeed(this.AtomService, q) as Feed<Data>; 
+        }
+
     }
 }

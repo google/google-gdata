@@ -24,6 +24,7 @@ using System.Text;
 using System.Xml;
 using Google.GData.Client;
 using System.Globalization;
+using System.Collections.Generic;
 
 namespace Google.GData.Extensions {
 
@@ -130,6 +131,24 @@ namespace Google.GData.Extensions {
         {
             return Utilities.FindExtensions(this.ExtensionElements,
                                             localName, ns, new ExtensionList(this));
+
+        }
+
+
+        /// <summary>
+        /// Finds all ExtensionElement based on it's local name
+        /// and it's namespace. If namespace is NULL, allwhere
+        /// the localname matches is found. If there are extensionelements that do 
+        /// not implment ExtensionElementFactory, they will not be taken into account
+        /// Primary use of this is to find XML nodes
+        /// </summary>
+        /// <param name="localName">the xml local name of the element to find</param>
+        /// <param name="ns">the namespace of the elementToPersist</param>
+        /// <returns>none</returns>
+        public List<T> FindExtensions<T>(string localName, string ns) where T : IExtensionElementFactory
+        {
+            return Utilities.FindExtensions<T>(this.ExtensionElements,
+                                            localName, ns);
 
         }
 

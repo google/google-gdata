@@ -41,6 +41,8 @@ namespace Google.GData.Analytics
         public const string XmlTableIdElement = "tableId";
         /// <summary>xmlelement for dxp:tableName</summary> 
         public const string XmlTableNameElement = "tableName";
+        /// <summary>xmlelement for dxp:dataSource</summary> 
+        public const string XmlDataSourceElement = "dataSource";
         /// <summary>xml attribute name for dxp:dimension, dxp:metric and dxp:property</summary> 
         public const string XmlAttributeName = "name";
         /// <summary>xml attribute value for dxp:dimension, dxp:metric and dxp:property</summary> 

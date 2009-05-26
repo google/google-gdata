@@ -27,6 +27,9 @@ namespace Google.GData.Analytics
     //////////////////////////////////////////////////////////////////////
     public class DataQuery : FeedQuery
     {
+
+        public const string dataFeedUrl = "https://www.google.com/analytics/feeds/data";
+
         /// <summary> Row keys.</summary>
 		private string dimensions;
 
@@ -52,9 +55,9 @@ namespace Google.GData.Analytics
         private bool? prettyPrint;
 
         /// <summary>
-        /// default constructor, does nothing 
+        /// default constructor, constructs a query to the default analytics feed with no parameters
         /// </summary>
-        public DataQuery() : base()
+        public DataQuery() : base(DataQuery.dataFeedUrl)
         {
         }
 
@@ -66,10 +69,79 @@ namespace Google.GData.Analytics
         : base(queryUri)
         {
         }
+
+
+
+         /// <summary>
+        /// overloaded constructor
+        /// </summary>
+        /// <param name="ids">the account id</param>
+        /// <param name="startDate"></param>
+        /// <param name="endDate"></param>
+        /// <returns></returns>
+        public DataQuery(string id, DateTime startDate, DateTime endDate) : base(DataQuery.dataFeedUrl)
+        {
+            this.Ids = id;
+            this.GAStartDate = startDate.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
+            this.GAEndDate = endDate.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
+        }
+
+        /// <summary>
+        /// overloaded constructor
+        /// </summary>
+        /// <param name="ids">the account id</param>
+        /// <param name="metric"></param>
+        /// <param name="dimension"></param>
+        /// <param name="startDate"></param>
+        /// <param name="endDate"></param>
+        /// <returns></returns>
+        public DataQuery(string id, DateTime startDate, DateTime endDate, string metric, string dimension) : this(id, startDate, endDate)
+        {
+            this.Metrics = metric;
+            this.Dimensions = dimension;
+        }
+		
+        /// <summary>
+        /// overloaded constructor
+        /// </summary>
+        /// <param name="ids">the account id</param>
+        /// <param name="metric"></param>
+        /// <param name="dimension"></param>
+        /// <param name="startDate"></param>
+        /// <param name="endDate"></param>
+        /// <param name="sorting"></param>
+        /// <returns></returns>
+        public DataQuery(string id, DateTime startDate, DateTime endDate, string metric, string dimension, string sorting) : 
+                this(id, startDate, endDate, metric, dimension)
+        {
+            this.Sort = sorting;
+        }
+
+        /// <summary>
+        /// overloaded constructor
+        /// </summary>
+        /// <param name="ids">the account id</param>
+        /// <param name="metric"></param>
+        /// <param name="dimension"></param>
+        /// <param name="startDate"></param>
+        /// <param name="endDate"></param>
+        /// <param name="sorting"></param>
+        /// <param name="filters"></param>
+        /// <returns></returns>
+        public DataQuery(string id, DateTime startDate, DateTime endDate, string metric, string dimension, string sorting, string filters) : 
+            this(id, startDate, endDate, metric, dimension, sorting)
+        
+        {
+            this.Filters = filters; 
+        }
+		
 		
 		
         //////////////////////////////////////////////////////////////////////
-        /// <summary>Indicates the row keys</summary>
+        /// <summary>The primary data keys from which Analytics reports
+        ///  are constructed. Like metrics, dimensions are also categorized by type. 
+        /// For example, ga:pageTitle and ga:page are two Content report dimensions
+        ///  and ga:browser, ga:city, and ga:pageDepth are two visitor dimensions.</summary>
         /// <returns>Dimensions</returns>
         //////////////////////////////////////////////////////////////////////
         public string Dimensions
@@ -116,7 +188,13 @@ namespace Google.GData.Analytics
 		
 		//////////////////////////////////////////////////////////////////////
         /// <summary>Indicates the comma separated list of numeric value 
-        /// fields.</summary>
+        /// fields.The aggregated statistics for user activity in a profile, 
+        /// categorized by type. Examples of metrics include ga:clicks or ga:pageviews. 
+        /// When queried by themselves, metrics provide an aggregate measure of user
+        ///  activity for your profile, such as overall page views or bounce rate. 
+        /// However, when paired with dimensions, they provide information in the context
+        ///  of the dimension. For example, when pageviews are combined with 
+        /// ga:countryOrTerritory, you see how many pageviews come from each country.</summary>
         /// <returns>Metrics</returns>
         //////////////////////////////////////////////////////////////////////
         public string Metrics
@@ -232,55 +310,20 @@ namespace Google.GData.Analytics
             string path = base.CalculateQuery(basePath);
             StringBuilder newPath = new StringBuilder(path, 2048);
             char paramInsertion = InsertionParameter(path);  
-			
-            if (!string.IsNullOrEmpty(this.Dimensions))
+
+            paramInsertion = AppendQueryPart(this.Dimensions, "dimensions", paramInsertion, newPath);            
+            paramInsertion = AppendQueryPart(this.GAEndDate, "end-date", paramInsertion, newPath);            
+            paramInsertion = AppendQueryPart(this.Filters, "filters", paramInsertion, newPath);            
+            paramInsertion = AppendQueryPart(this.Ids, "ids", paramInsertion, newPath);            
+            paramInsertion = AppendQueryPart(this.Metrics, "metrics", paramInsertion, newPath);            
+            paramInsertion = AppendQueryPart(this.Sort, "sort", paramInsertion, newPath);            
+            paramInsertion = AppendQueryPart(this.GAStartDate, "start-date", paramInsertion, newPath);    
+            
+            if (this.PrettyPrint == true)
             {
-                newPath.Append(paramInsertion);
-                newPath.AppendFormat(CultureInfo.InvariantCulture, "dimensions={0}", Utilities.UriEncodeReserved(this.Dimensions));
-                paramInsertion = '&';
+                paramInsertion = AppendQueryPart("true", "prettyprint", paramInsertion, newPath);            
             }
-            if (!string.IsNullOrEmpty(this.GAEndDate))
-            {
-                newPath.Append(paramInsertion);
-                newPath.AppendFormat(CultureInfo.InvariantCulture, "end-date={0}", Utilities.UriEncodeReserved(this.GAEndDate));
-                paramInsertion = '&';
-            }
-            if (!string.IsNullOrEmpty(this.Filters))
-            {
-                newPath.Append(paramInsertion);
-                newPath.AppendFormat(CultureInfo.InvariantCulture, "filters={0}", Utilities.UriEncodeReserved(this.Filters));
-                paramInsertion = '&';
-            }
-            if (!string.IsNullOrEmpty(this.Ids))
-            {
-                newPath.Append(paramInsertion);
-                newPath.AppendFormat(CultureInfo.InvariantCulture, "ids={0}", Utilities.UriEncodeReserved(this.Ids));
-                paramInsertion = '&';
-            }
-            if (!string.IsNullOrEmpty(this.Metrics))
-            {
-                newPath.Append(paramInsertion);
-                newPath.AppendFormat(CultureInfo.InvariantCulture, "metrics={0}", Utilities.UriEncodeReserved(this.Metrics));
-                paramInsertion = '&';
-            }
-            if (!string.IsNullOrEmpty(this.Sort))
-            {
-                newPath.Append(paramInsertion);
-                newPath.AppendFormat(CultureInfo.InvariantCulture, "sort={0}", Utilities.UriEncodeReserved(this.Sort));
-                paramInsertion = '&';
-            }
-            if (!string.IsNullOrEmpty(this.GAStartDate))
-            {
-                newPath.Append(paramInsertion);
-                newPath.AppendFormat(CultureInfo.InvariantCulture, "start-date={0}", Utilities.UriEncodeReserved(this.GAStartDate));
-                paramInsertion = '&';
-            }
-            if (this.PrettyPrint.HasValue)
-            {
-                newPath.Append(paramInsertion);
-                newPath.AppendFormat(CultureInfo.InvariantCulture, "prettyprint={0}", Utilities.UriEncodeReserved(this.PrettyPrint.Value.ToString().ToLower()));
-                paramInsertion = '&';
-            }
+
             return newPath.ToString();
         }
     }

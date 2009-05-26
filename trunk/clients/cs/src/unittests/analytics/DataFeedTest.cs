@@ -20,6 +20,7 @@ using Google.GData.Analytics;
 using Google.GData.Client;
 using Google.GData.Client.UnitTests;
 using Google.GData.GoogleBase;
+using Google.Analytics;
 using NUnit.Framework;
 
 namespace Google.GData.Client.UnitTests.Analytics
@@ -102,9 +103,30 @@ namespace Google.GData.Client.UnitTests.Analytics
                 "<entry gd:etag='W/&quot;CQFFQX53eSp7ImA8WxPSGUw.&quot;'><id>http://www.google.com/analytics/feeds/data?ids=ga:123456&amp;ga:browser=Safari&amp;start-date=2009-04-28&amp;end-date=2009-05-10</id><updated>2009-05-09T17:00:00.001-07:00</updated><title>ga:browser=Safari</title><link rel='alternate' type='text/html' href='http://www.google.com/analytics'/><dxp:dimension name='ga:browser' value='Safari'/><dxp:metric confidenceInterval='0.0' name='ga:pageviews' type='integer' value='3346'/></entry>" +
                 "</feed>";
 
-            DataFeed feed = Parse(xml);
+            Google.GData.Analytics.DataFeed feed = Parse(xml);
+
+            DataFeed f = new DataFeed(feed);
+            f.AutoPaging = false; 
+
+            Assert.IsNotNull(f.Aggregates);
+            Assert.IsNotNull(f.DataSource);
+            Assert.IsNotNull(f.Entries);
+
+            Assert.AreEqual(50599, f.Aggregates.Metrics[0].IntegerValue);
+            Assert.AreEqual("0.0", f.Aggregates.Metrics[0].ConfidenceInterval);
+            Assert.AreEqual("ga:pageviews", f.Aggregates.Metrics[0].Name);
+            Assert.AreEqual("integer", f.Aggregates.Metrics[0].Type);
+
+            Assert.AreEqual("ga:123456", f.DataSource.TableId);
+            Assert.AreEqual("www.test.com", f.DataSource.TableName);
+            Assert.AreEqual("123456", f.DataSource.ProfileId);
+            Assert.AreEqual("UA-111111-1", f.DataSource.WebPropertyId);
+            Assert.AreEqual("Test Account", f.DataSource.AccountName);
+
+
 
             Assert.AreEqual(50599, Int32.Parse(feed.Aggregates.Metrics[0].Value));
+
 
             DataEntry camino = feed.Entries[0] as DataEntry;
             Assert.IsNotNull(camino, "entry");
@@ -162,12 +184,25 @@ namespace Google.GData.Client.UnitTests.Analytics
                 Assert.AreEqual("ga:pageviews", entry.Metrics[0].Name);
                 Assert.Greater(int.Parse(entry.Metrics[0].Value), 0);
             }
+
+            foreach (Data d in f.Entries)
+            {
+                Assert.IsNotNull(d, "entry");
+                Assert.IsNotNull(d.Dimensions);
+                Assert.IsNotNull(d.Metrics);
+
+                Assert.AreEqual("ga:browser", d.Dimensions[0].Name);
+                Assert.IsNotEmpty(d.Dimensions[0].Value);
+
+                Assert.AreEqual("ga:pageviews", d.Metrics[0].Name);
+                Assert.Greater(int.Parse(d.Metrics[0].Value), 0);
+            }
         }
 
         private static DataFeed Parse(string xml)
         {
             byte[] bytes = new UTF8Encoding().GetBytes(xml);
-            DataFeed feed = new DataFeed(new Uri(DataFeedUrl), new GBaseService("Test", "boguskey"));
+            DataFeed feed = new DataFeed(new Uri(DataFeedUrl), null);
             feed.Parse(new MemoryStream(bytes), AlternativeFormat.Atom);
             return feed;
         }
