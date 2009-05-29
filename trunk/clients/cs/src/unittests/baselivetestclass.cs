@@ -35,8 +35,6 @@ namespace Google.GData.Client.LiveTests
         protected string userName;
         /// <summary>holds the password to use</summary>
         protected string passWord;
-        /// <summary>holds the accountId to use</summary>
-        protected string accountId;
         /// <summary>holds the default authhandler</summary> 
         protected string strAuthHandler;
         /// <summary>decides if we should empty out the feed when done.</summary>
@@ -73,11 +71,6 @@ namespace Google.GData.Client.LiveTests
             {
                 this.passWord = (string) unitTestConfiguration["passWord"];
                 Tracing.TraceInfo("Read passWord value: " + this.passWord);
-            }
-            if (unitTestConfiguration.Contains("accountId") == true)
-            {
-                this.accountId = (string)unitTestConfiguration["accountId"];
-                Tracing.TraceInfo("Read accountId value: " + this.accountId);
             }
             if (unitTestConfiguration.Contains("wipeFeeds") == true)
             {
