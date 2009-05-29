@@ -21,6 +21,7 @@ using Google.GData.Analytics;
 using Google.GData.Client;
 using Google.GData.Client.LiveTests;
 using Google.GData.Client.UnitTests;
+using Google.Analytics;
 using NUnit.Framework;
 
 namespace Google.GData.Client.UnitTests.Analytics
@@ -28,10 +29,37 @@ namespace Google.GData.Client.UnitTests.Analytics
     [TestFixture]
     public class AnalyticsDataServiceTest : BaseLiveTestClass
     {
-        private const string DataFeedUrl = "https://www.google.com/analytics/feeds/data";
-        private const string AccountFeedUrl = "https://www.google.com/analytics/feeds/accounts/default";
+        private const string DataFeedUrl = "http://www.google.com/analytics/feeds/data";
+        private const string AccountFeedUrl = "http://www.google.com/analytics/feeds/accounts/default";
+
+        private string accountId;
+
 
         private TestContext TestContext1;
+
+
+        protected override void ReadConfigFile()
+        {
+            base.ReadConfigFile();
+
+            if (unitTestConfiguration.Contains("analyticsUserName") == true)
+            {
+                this.userName = (string)unitTestConfiguration["analyticsUserName"];
+                Tracing.TraceInfo("Read userName value: " + this.userName);
+            }
+            if (unitTestConfiguration.Contains("analyticsPassWord") == true)
+            {
+                this.passWord = (string)unitTestConfiguration["analyticsPassWord"];
+                Tracing.TraceInfo("Read passWord value: " + this.passWord);
+            }
+
+            if (unitTestConfiguration.Contains("accountId") == true)
+            {
+                this.accountId = (string)unitTestConfiguration["accountId"];
+                Tracing.TraceInfo("Read accountId value: " + this.accountId);
+            }
+
+        }
 
         /// <summary>
         ///Gets or sets the test context which provides
@@ -56,6 +84,8 @@ namespace Google.GData.Client.UnitTests.Analytics
             {
                 Assert.IsNotNull(entry.Id);
                 Assert.IsNotNull(entry.ProfileId.Value);
+                if (this.accountId == null)
+                    this.accountId = entry.ProfileId.Value;
             }
         }
 
@@ -258,5 +288,37 @@ namespace Google.GData.Client.UnitTests.Analytics
 				Assert.IsNotNull(entry.Id);
 			}
 		}
+
+        [Test]
+        public void TestAnalyticsModel()
+        {
+            RequestSettings settings = new RequestSettings("Unittests", this.userName, this.passWord);
+
+            AnalyticsRequest request = new AnalyticsRequest(settings);
+
+            Feed<Account> accounts = request.GetAccounts();
+
+            foreach (Account a in accounts.Entries)
+            {
+                Assert.IsNotNull(a.AccountId);
+                Assert.IsNotNull(a.ProfileId);
+                Assert.IsNotNull(a.WebPropertyId);
+                if (this.accountId == null)
+                    this.accountId = a.TableId;
+            }
+            
+
+            DataQuery q = new DataQuery(this.accountId, DateTime.Now.AddDays(-14), DateTime.Now.AddDays(-2), "ga:pageviews", "ga:pageTitle", "ga:pageviews");
+
+
+            Dataset set = request.Get(q);
+
+            foreach (Data d in set.Entries)
+            {
+                Assert.IsNotNull(d.Id);
+                Assert.IsNotNull(d.Metrics);
+                Assert.IsNotNull(d.Dimensions);
+            }
+        }
     }
 }

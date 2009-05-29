@@ -346,9 +346,13 @@ namespace Google.Analytics
         /// </summary>
         /// <param name="q"></param>
         /// <returns></returns>
-        protected override Feed<Data> CreateFeed<Data>(FeedQuery q) 
+        protected override Feed<Y> CreateFeed<Y>(FeedQuery q) 
         {
-            return new Dataset(this.AtomService, q) as Feed<Data>; 
+            if (typeof(Y) == typeof(Data))
+            {
+                return new Dataset(this.AtomService, q) as Feed<Y>; 
+            }
+            return base.CreateFeed<Y>(q);
         }
 
     }

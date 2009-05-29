@@ -27,8 +27,11 @@ namespace Google.GData.Analytics
     //////////////////////////////////////////////////////////////////////
     public class DataQuery : FeedQuery
     {
-
+#if DEBUG
+        public const string dataFeedUrl = "http://www.google.com/analytics/feeds/data";
+#else
         public const string dataFeedUrl = "https://www.google.com/analytics/feeds/data";
+#endif
 
         /// <summary> Row keys.</summary>
 		private string dimensions;
