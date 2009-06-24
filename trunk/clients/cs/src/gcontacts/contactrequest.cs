@@ -138,7 +138,7 @@ namespace Google.Contacts
         /// there is no setter, to change this use the Primary Flag on 
         /// an individual object
         /// </summary>
-        public PostalAddress PrimaryPostalAddress
+        public StructuredPostalAddress PrimaryPostalAddress
         {
             get
             {   
@@ -218,7 +218,7 @@ namespace Google.Contacts
         /// <summary>
         /// returns the phonenumber collection
         /// </summary>
-        public ExtensionCollection<PostalAddress> PostalAddresses
+        public ExtensionCollection<StructuredPostalAddress> PostalAddresses
         {
             get 
             {

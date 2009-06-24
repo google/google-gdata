@@ -28,234 +28,7 @@ using Google.GData.Extensions;
 
 namespace Google.GData.Contacts {
 
-    /// <summary>
-    /// short table to hold the namespace and the prefix
-    /// </summary>
-    public class ContactsNameTable 
-    {
-        /// <summary>static string to specify the Contacts namespace supported</summary>
-        public const string NSContacts = "http://schemas.google.com/contact/2008"; 
-        /// <summary>static string to specify the Google Contacts prefix used</summary>
-        public const string contactsPrefix = "gContact"; 
-
-        /// <summary>
-        /// Group Member ship info element string
-        /// </summary>
-        public const string GroupMembershipInfo = "groupMembershipInfo";
-
-        /// <summary>
-        /// SystemGroup element, indicating that this entry is a system group
-        /// </summary>
-        public const string SystemGroupElement = "systemGroup";
-    }
-
-
-
-    /// <summary>
-    /// an element is defined that represents a group to which the contact belongs   
-    /// </summary>
-    public class GroupMembership: SimpleElement
-    {
-        /// <summary>the  href attribute </summary>
-        public const string XmlAttributeHRef = "href";
-        /// <summary>the deleted attribute </summary>
-        public const string XmlAttributeDeleted = "deleted";
-
-        /// <summary>
-        /// default constructor 
-        /// </summary>
-        public GroupMembership()
-        : base(ContactsNameTable.GroupMembershipInfo, ContactsNameTable.contactsPrefix, ContactsNameTable.NSContacts)
-        {
-            this.Attributes.Add(XmlAttributeHRef, null);
-            this.Attributes.Add(XmlAttributeDeleted, null);
-        }
-
-       /////////////////////////////////////////////////////////////////////
-       /// <summary>Identifies the group to which the contact belongs or belonged. 
-       /// The group is referenced by its id.</summary>
-       //////////////////////////////////////////////////////////////////////
-       public string HRef
-       {
-           get
-           {
-               return this.Attributes[XmlAttributeHRef] as string;
-           }
-           set
-           {
-               this.Attributes[XmlAttributeHRef] = value;
-           }
-       }
-
-       /////////////////////////////////////////////////////////////////////
-       /// <summary>Means, that the group membership was removed for the contact. 
-       /// This attribute will only be included if showdeleted is specified 
-       /// as query parameter, otherwise groupMembershipInfo for groups a contact 
-       /// does not belong to anymore is simply not returned.</summary>
-       //////////////////////////////////////////////////////////////////////
-       public string Deleted
-       {
-           get
-           {
-               return this.Attributes[XmlAttributeDeleted] as string;
-           }
-       }
-    }
-
-
-    /// <summary>
-    /// extension element to represent a system group
-    /// </summary>
-    public class SystemGroup : SimpleElement
-    {
-        /// <summary>
-        /// id attribute for the system group element
-        /// </summary>
-        /// <returns></returns>
-        public const string XmlAttributeId = "id";
-
-        /// <summary>
-        /// default constructor 
-        /// </summary>
-        public SystemGroup()
-        : base(ContactsNameTable.SystemGroupElement, ContactsNameTable.contactsPrefix, ContactsNameTable.NSContacts)
-        {
-            this.Attributes.Add(XmlAttributeId, null);
-        }
-
-       /////////////////////////////////////////////////////////////////////
-       /// <summary>Identifies the system group. Note that you still need 
-       /// to use the group entries href membership to retrieve the group
-       /// </summary>
-       //////////////////////////////////////////////////////////////////////
-       public string Id
-       {
-           get
-           {
-               return this.Attributes[XmlAttributeId] as string;
-           }
-       }
-    }
-
-    /// <summary>
-    /// abstract class for a basecontactentry, used for contacts and groups
-    /// </summary>
-    public abstract class BaseContactEntry : AbstractEntry, IContainsDeleted
-    {
-        private ExtensionCollection<ExtendedProperty> xproperties;
-
-
-        /// <summary>
-        /// Constructs a new BaseContactEntry instance 
-        /// to indicate that it is an event.
-        /// </summary>
-        public BaseContactEntry()
-        : base()
-        {
-            Tracing.TraceMsg("Created BaseContactEntry Entry");
-            this.AddExtension(new ExtendedProperty());
-        }
-
-
-
-        /// <summary>
-        /// returns the extended properties on this object
-        /// </summary>
-        /// <returns></returns>
-        public ExtensionCollection<ExtendedProperty> ExtendedProperties
-        {
-            get 
-            {
-                if (this.xproperties == null)
-                {
-                    this.xproperties = new ExtensionCollection<ExtendedProperty>(this); 
-                }
-                return this.xproperties;
-            }
-        }
-
-
-        /// <summary>
-        /// if this is a previously deleted contact, returns true
-        /// to delete a contact, use the delete method
-        /// </summary>
-        public bool Deleted
-        {
-            get
-            {
-                if (FindExtension(GDataParserNameTable.XmlDeletedElement,
-                                     BaseNameTable.gNamespace) != null) 
-                {
-                    return true;
-                }
-                return false;
-            }
-        }
-    }
-
-    //////////////////////////////////////////////////////////////////////
-    /// <summary>
-    /// Entry API customization class for defining entries in an Group feed.
-    /// </summary>
-    //////////////////////////////////////////////////////////////////////
-    public class GroupEntry : BaseContactEntry
-    {
-
-        /// <summary>
-        /// default contact term string for the contact relationship link
-        /// </summary>
-        public static string GroupTerm = "http://schemas.google.com/contact/2008#group";
-        /// <summary>`
-        /// Category used to label entries that contain contact extension data.
-        /// </summary>
-        public static AtomCategory GROUP_CATEGORY =
-        new AtomCategory(GroupEntry.GroupTerm, new AtomUri(BaseNameTable.gKind));
-
-        /// <summary>
-        /// Constructs a new ContactEntry instance with the appropriate category
-        /// to indicate that it is an event.
-        /// </summary>
-        public GroupEntry()
-        : base()
-        {
-            Tracing.TraceMsg("Created Group Entry");
-            this.AddExtension(new SystemGroup());
-            Categories.Add(GROUP_CATEGORY);
-        }
-
-        /// <summary>
-        /// typed override of the Update method
-        /// </summary>
-        /// <returns></returns>
-        public new GroupEntry Update()
-        {
-            return base.Update() as GroupEntry;
-        }
-
-        /// <summary>
-        /// returns the systemgroup id, if this groupentry represents 
-        /// a system group. 
-        /// The values of the system group ids corresponding to these 
-        /// groups can be found in the Reference Guide for the Contacts Data API.
-        /// Currently the values can be Contacts, Friends, Family and Coworkers
-        /// </summary>
-        /// <returns></returns>
-        public string SystemGroup
-        {
-            get
-            {
-                SystemGroup sg = FindExtension(ContactsNameTable.SystemGroupElement, 
-                                  ContactsNameTable.NSContacts) as SystemGroup;
-                if (sg != null)
-                {
-                    return sg.Id;
-                }
-                return null;
-            }
-        }
-
-
-    }
+   
 
     //////////////////////////////////////////////////////////////////////
     /// <summary>
@@ -279,9 +52,21 @@ namespace Google.GData.Contacts {
         private ExtensionCollection<EMail> emails;
         private ExtensionCollection<IMAddress> ims;
         private ExtensionCollection<PhoneNumber> phonenumbers;
-        private ExtensionCollection<PostalAddress> postals;
+        private ExtensionCollection<StructuredPostalAddress> structuredAddress;
         private ExtensionCollection<Organization> organizations;
         private ExtensionCollection<GroupMembership> groups;
+        private ExtensionCollection<CalendarLink> calendars;
+        private ExtensionCollection<Event> events;
+        private ExtensionCollection<ExternalId> externalIds;
+        private ExtensionCollection<Hobby> hobbies;
+        private ExtensionCollection<Jot> jots;
+        private ExtensionCollection<Language> languages;
+        private ExtensionCollection<Relation> relations;
+        private ExtensionCollection<UserDefinedField> userDefinedFiels;
+        private ExtensionCollection<Website> websites;
+
+
+
 
 
         /// <summary>
@@ -294,7 +79,34 @@ namespace Google.GData.Contacts {
             Tracing.TraceMsg("Created Contact Entry");
             Categories.Add(CONTACT_CATEGORY);
             this.AddExtension(new GroupMembership());
-            ContactsExtensions.AddExtension(this);
+            this.AddExtension(new Where());
+            ContactsKindExtensions.AddExtension(this);
+
+            // colletions
+            this.AddExtension(new CalendarLink());
+            this.AddExtension(new Event());
+            this.AddExtension(new ExternalId());
+            this.AddExtension(new Hobby());
+            this.AddExtension(new Jot());
+            this.AddExtension(new Language());
+            this.AddExtension(new Relation());
+            this.AddExtension(new UserDefinedField());
+            this.AddExtension(new Website());
+
+            // singletons
+            this.AddExtension(new BillingInformation());
+            this.AddExtension(new Birthday());
+            this.AddExtension(new DirectoryServer());
+            this.AddExtension(new Initials());
+            this.AddExtension(new MaidenName());
+            this.AddExtension(new Mileage());
+            this.AddExtension(new Nickname());
+            this.AddExtension(new Occupation());
+            this.AddExtension(new Priority());
+            this.AddExtension(new Sensitivity());
+            this.AddExtension(new ShortName());
+            this.AddExtension(new Subject());
+           
         }
 
 
@@ -352,11 +164,11 @@ namespace Google.GData.Contacts {
         /// there is no setter, to change this use the Primary Flag on 
         /// an individual object
         /// </summary>
-        public PostalAddress PrimaryPostalAddress
+        public StructuredPostalAddress PrimaryPostalAddress
         {
             get
             {
-                foreach (PostalAddress p in this.PostalAddresses)
+                foreach (StructuredPostalAddress p in this.PostalAddresses)
                 {
                     if (p.Primary == true)
                     {
@@ -454,17 +266,18 @@ namespace Google.GData.Contacts {
         }
 
         /// <summary>
-        /// returns the phonenumber collection
+        /// Postal address split into components. It allows to store the address in locale independent format. 
+        /// The fields can be interpreted and used to generate formatted, locale dependent address
         /// </summary>
-        public ExtensionCollection<PostalAddress> PostalAddresses
+        public ExtensionCollection<StructuredPostalAddress> PostalAddresses
         {
             get 
             {
-                if (this.postals == null)
+                if (this.structuredAddress == null)
                 {
-                    this.postals = new ExtensionCollection<PostalAddress>(this); 
+                    this.structuredAddress = new ExtensionCollection<StructuredPostalAddress>(this); 
                 }
-                return this.postals;
+                return this.structuredAddress;
             }
         }
 
@@ -482,6 +295,142 @@ namespace Google.GData.Contacts {
                 return this.organizations;
             }
         }
+
+        /// <summary>
+        /// getter for the CalendarLink collections
+        /// </summary>
+        public ExtensionCollection<CalendarLink> Calendars
+        {
+            get 
+            {
+                if (this.calendars == null)
+                {
+                    this.calendars = new ExtensionCollection<CalendarLink>(this); 
+                }
+                return this.calendars;
+            }
+        } 
+
+         /// <summary>
+        /// getter for the Events collections
+        /// </summary>
+        public ExtensionCollection<Event> Events
+        {
+            get 
+            {
+                if (this.events == null)
+                {
+                    this.events = new ExtensionCollection<Event>(this); 
+                }
+                return this.events;
+            }
+        }
+
+         /// <summary>
+        /// getter for the externalids collections
+        /// </summary>
+        public ExtensionCollection<ExternalId> ExternalIds
+        {
+            get 
+            {
+                if (this.externalIds == null)
+                {
+                    this.externalIds = new ExtensionCollection<ExternalId>(this); 
+                }
+                return this.externalIds;
+            }
+        }
+
+         /// <summary>
+        /// getter for the Hobby collections
+        /// </summary>
+        public ExtensionCollection<Hobby> Hobbies
+        {
+            get 
+            {
+                if (this.hobbies == null)
+                {
+                    this.hobbies = new ExtensionCollection<Hobby>(this); 
+                }
+                return this.hobbies;
+            }
+        }
+
+         /// <summary>
+        /// getter for the Jot collections
+        /// </summary>
+        public ExtensionCollection<Jot> Jots
+        {
+            get 
+            {
+                if (this.jots == null)
+                {
+                    this.jots = new ExtensionCollection<Jot>(this); 
+                }
+                return this.jots;
+            }
+        }
+
+         /// <summary>
+        /// getter for the languages collections
+        /// </summary>
+        public ExtensionCollection<Language> Languages
+        {
+            get 
+            {
+                if (this.languages == null)
+                {
+                    this.languages = new ExtensionCollection<Language>(this); 
+                }
+                return this.languages;
+            }
+        }
+
+         /// <summary>
+        /// getter for the Relation collections
+        /// </summary>
+        public ExtensionCollection<Relation> Relations
+        {
+            get 
+            {
+                if (this.relations == null)
+                {
+                    this.relations = new ExtensionCollection<Relation>(this); 
+                }
+                return this.relations;
+            }
+        }
+
+        /// <summary>
+        /// getter for the UserDefinedField collections
+        /// </summary>
+        public ExtensionCollection<UserDefinedField> UserDefinedFields
+        {
+            get 
+            {
+                if (this.userDefinedFiels == null)
+                {
+                    this.userDefinedFiels = new ExtensionCollection<UserDefinedField>(this); 
+                }
+                return this.userDefinedFiels;
+            }
+        }
+
+        /// <summary>
+        /// getter for the website collections
+        /// </summary>
+        public ExtensionCollection<Website> Websites
+        {
+            get 
+            {
+                if (this.websites == null)
+                {
+                    this.websites = new ExtensionCollection<Website>(this); 
+                }
+                return this.websites;
+            }
+        }
+
 
         /// <summary>
         /// retrieves the Uri of the Photo Link. To set this, you need to create an AtomLink object
@@ -543,6 +492,259 @@ namespace Google.GData.Contacts {
                 return link;
             }
         }
+
+        /// <summary>
+        /// Contacts billing information.
+        /// </summary>
+        /// <returns></returns>
+        public string BillingInformation 
+        {
+            get 
+            {
+                return GetStringValue<BillingInformation>(ContactsNameTable.BillingInformationElement,
+                        ContactsNameTable.NSContacts);
+            }
+            set
+            {
+                SetStringValue<BillingInformation>(value, ContactsNameTable.BillingInformationElement,
+                                        ContactsNameTable.NSContacts);
+            }
+        }
+
+
+        /// <summary>
+        /// Contact's birthday.
+        /// </summary>
+        /// <returns></returns>
+        public string Birthday 
+        {
+            get 
+            {
+                Birthday b =  FindExtension(ContactsNameTable.BirthdayElement, ContactsNameTable.NSContacts) as Birthday;
+                if (b != null)
+                {
+                    return b.When;
+                }
+                return null;
+            }
+            set
+            {
+                Birthday b = null;
+                if (value != null)
+                {
+                    b = new Birthday(value);
+                }
+                ReplaceExtension(ContactsNameTable.BirthdayElement, ContactsNameTable.NSContacts, b);
+            }
+        }
+
+
+        /// <summary>
+        /// Directory server associated with the contact.
+        /// </summary>
+        /// <returns></returns>
+        public string DirectoryServer 
+        {
+            get 
+            {
+                return GetStringValue<DirectoryServer>(ContactsNameTable.DirectoryServerElement,
+                        ContactsNameTable.NSContacts);
+            }
+            set
+            {
+                SetStringValue<DirectoryServer>(value, ContactsNameTable.DirectoryServerElement,
+                                        ContactsNameTable.NSContacts);
+            }
+        }
+        
+
+        /// <summary>
+        /// Contacts initals
+        /// </summary>
+        /// <returns></returns>
+        public string Initials 
+        {
+            get 
+            {
+                return GetStringValue<Initials>(ContactsNameTable.InitialsElement,
+                        ContactsNameTable.NSContacts);
+            }
+            set
+            {
+                SetStringValue<Initials>(value, ContactsNameTable.InitialsElement,
+                                        ContactsNameTable.NSContacts);
+            }
+        }
+        
+        /// <summary>
+        /// Maiden name associated with the contact.
+        /// </summary>
+        /// <returns></returns>
+        public string MaidenName 
+        {
+            get 
+            {
+                return GetStringValue<MaidenName>(ContactsNameTable.MaidenNameElement,
+                        ContactsNameTable.NSContacts);
+            }
+            set
+            {
+                SetStringValue<MaidenName>(value, ContactsNameTable.MaidenNameElement,
+                                        ContactsNameTable.NSContacts);
+            }
+        }
+        
+        /// <summary>
+        /// Mileage associated with the contact.
+        /// </summary>
+        /// <returns></returns>
+        public string Mileage 
+        {
+            get 
+            {
+                return GetStringValue<Mileage>(ContactsNameTable.MileageElement,
+                        ContactsNameTable.NSContacts);
+            }
+            set
+            {
+                SetStringValue<Mileage>(value, ContactsNameTable.MileageElement,
+                                        ContactsNameTable.NSContacts);
+            }
+        }
+        
+
+        /// <summary>
+        /// Nickname associated with the contact.
+        /// </summary>
+        /// <returns></returns>
+        public string Nickname 
+        {
+            get 
+            {
+                return GetStringValue<Nickname>(ContactsNameTable.NicknameElement,
+                        ContactsNameTable.NSContacts);
+            }
+            set
+            {
+                SetStringValue<Nickname>(value, ContactsNameTable.NicknameElement,
+                                        ContactsNameTable.NSContacts);
+            }
+        }
+        
+        /// <summary>
+        /// Occupation associated with the contact.
+        /// </summary>
+        /// <returns></returns>
+        public string Occupation 
+        {
+            get 
+            {
+                return GetStringValue<Occupation>(ContactsNameTable.OccupationElement,
+                        ContactsNameTable.NSContacts);
+            }
+            set
+            {
+                SetStringValue<Occupation>(value, ContactsNameTable.OccupationElement,
+                                        ContactsNameTable.NSContacts);
+            }
+        }
+
+        /// <summary>
+        /// Priority ascribed to the contact.
+        /// </summary>
+        /// <returns></returns>
+        public string Priority 
+        {
+            get 
+            {
+                Priority b =  FindExtension(ContactsNameTable.PriorityElement, ContactsNameTable.NSContacts) as Priority;
+                if (b != null)
+                {
+                    return b.Relation;
+                }
+                return null;
+            }
+            set
+            {
+                Priority b = null;
+                if (value != null)
+                {
+                    b = new Priority(value);
+                }
+                ReplaceExtension(ContactsNameTable.PriorityElement, ContactsNameTable.NSContacts, b);
+            }
+        }
+        
+        /// <summary>
+        /// Sensitivity ascribed to the contact.
+        /// </summary>
+        /// <returns></returns>
+        public string Sensitivity 
+        {
+            get 
+            {
+                Sensitivity b =  FindExtension(ContactsNameTable.SensitivityElement, ContactsNameTable.NSContacts) as Sensitivity;
+                if (b != null)
+                {
+                    return b.Relation;
+                }
+                return null;
+            }
+            set
+            {
+                Sensitivity b = null;
+                if (value != null)
+                {
+                    b = new Sensitivity(value);
+                }
+                ReplaceExtension(ContactsNameTable.SensitivityElement, ContactsNameTable.NSContacts, b);
+            }
+        }
+        
+        /// <summary>
+        /// Contact's short name.
+        /// </summary>
+        /// <returns></returns>
+        public string ShortName 
+        {
+            get 
+            {
+                return GetStringValue<ShortName>(ContactsNameTable.ShortNameElement,
+                        ContactsNameTable.NSContacts);
+            }
+            set
+            {
+                SetStringValue<ShortName>(value, ContactsNameTable.ShortNameElement,
+                                        ContactsNameTable.NSContacts);
+            }
+        }
+        
+        /// <summary>
+        /// Subject associated with the contact.
+        /// </summary>
+        /// <returns></returns>
+        public string Subject 
+        {
+            get 
+            {
+                return GetStringValue<Subject>(ContactsNameTable.SubjectElement,
+                        ContactsNameTable.NSContacts);
+            }
+            set
+            {
+                SetStringValue<Subject>(value, ContactsNameTable.SubjectElement,
+                                        ContactsNameTable.NSContacts);
+            }
+        }
+        
+        
+
+
+
+
+
+
+
     }
 }
 
