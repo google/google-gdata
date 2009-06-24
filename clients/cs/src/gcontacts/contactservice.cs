@@ -75,7 +75,7 @@ namespace Google.GData.Contacts {
         /// <returns></returns>
         protected override void InitVersionInformation()
         {
-             this.ProtocolMajor = VersionDefaults.VersionTwo;
+             this.ProtocolMajor = VersionDefaults.VersionThree;
         }
 
         //////////////////////////////////////////////////////////////////////

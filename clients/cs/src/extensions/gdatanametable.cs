@@ -193,10 +193,102 @@ namespace Google.GData.Extensions
         public const string XmlQuickAddElement = "quickadd"; 
 #endregion
 
+#region Contacts specific 
+        /// <summary>
+        /// Allows storing person's name in a structured way. Consists of given name, additional name, family name, prefix, suffix and full name.
+        /// </summary>
+        public const string NameElement = "name";
+        /// <summary>
+        /// Person's given name
+        /// </summary>
+        public const string GivenNameElement = "givenName";
+        /// <summary>
+        /// Additonal name of the person, e.g. middle name
+        /// </summary>
+        public const string AdditonalNameElement = "additonalName";
+        /// <summary>
+        /// Person's family Name
+        /// </summary>
+        public const string FamilyNameElement = "familyName";
+        /// <summary>
+        /// honorific prefix, eg. Mr or Mrs
+        /// </summary>
+        public const string NamePrefixElement = "namePrefix";
+        /// <summary>
+        /// Honorific suffix, eg. san
+        /// </summary>
+        public const string NameSuffixElement = "nameSuffix";
+        /// <summary>
+        /// Unstructured representation of the name
+        /// </summary>
+        public const string FullNameElement = "fullName";
+        /// <summary>     
+        /// Postal address split into components. It allows to store the address in locale independent format. 
+        /// The fields can be interpreted and used to generate formatted, locale dependent address. 
+        /// </summary>
+        public const string StructuredPostalAddressElement = "structuredPostalAddress";
+        /// <summary>
+        /// The agent who actually receives the mail. 
+        /// </summary>
+        public const string AgentElement = "agent";
+        /// <summary>
+        /// Used in places where houses have names
+        /// </summary>
+        public const string HousenameElement = "housename";
+        /// <summary>
+        /// Can be stree, avenue, road, etc
+        /// </summary>
+        public const string StreetElement = "street";
+        /// <summary>
+        /// Covers actual P.O. Boxes, drawers, locked bags etc
+        /// </summary>
+        public const string PoboxElement = "pobox";
+        /// <summary>
+        /// This is used to disambiguate a street address when a city contains 
+        /// more than one street with the same name, or to specify a small place whose 
+        /// mail is routed through a larger postal town. 
+        /// In China it could be a county or a minor city.
+        /// </summary>
+        public const string NeighborhoodElement = "neighborhood";
+        /// <summary>
+        /// Can be City, village etc
+        /// </summary>
+        public const string CityElement = "city";
+        /// <summary>
+        /// Administrative districts
+        /// </summary>
+        public const string SubregionElement = "subregion";
+        /// <summary>
+        /// A state, province etc
+        /// </summary>
+        public const string RegionElement = "region";
+        /// <summary>
+        /// Postal code
+        /// </summary>
+        public const string PostcodeElement = "postcode";
+        /// <summary>
+        /// The name or code of the country
+        /// </summary>
+        public const string CountryElement = "country";
+        /// <summary>
+        /// The full, unstructured postal address
+        /// </summary>
+        public const string FormattedAddressElement = "formattedAddress";
+        /// <summary>
+        /// The full, unstructured postal address
+        /// </summary>
+        public const string XmlAttributeMailClass = "mailClass";
+        /// <summary>
+        /// The full, unstructured postal address
+        /// </summary>
+        public const string XmlAttributeUsage = "usage";
+#endregion
+
    }
     /////////////////////////////////////////////////////////////////////////////
 
 }
 /////////////////////////////////////////////////////////////////////////////
+
 
 

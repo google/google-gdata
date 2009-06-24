@@ -532,7 +532,7 @@ namespace Google.GData.Client.LiveTests
             }
 
 
-            PostalAddress p = new PostalAddress("Testaddress");
+            StructuredPostalAddress p = new StructuredPostalAddress();
             p.Primary = true;
             Assert.IsTrue(entry.PrimaryPostalAddress == null, "Entry should have no primary Postal");
             entry.PostalAddresses.Add(p);
@@ -598,7 +598,7 @@ namespace Google.GData.Client.LiveTests
             }
 
 
-            PostalAddress p = new PostalAddress("Testaddress");
+            StructuredPostalAddress p = new StructuredPostalAddress();
             p.Primary = true;
             Assert.IsTrue(c.PrimaryPostalAddress == null, "Contact should have no primary Postal");
             c.PostalAddresses.Add(p);

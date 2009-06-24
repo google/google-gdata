@@ -227,7 +227,7 @@ namespace Google.GData.Client.UnitTests
             p.Label = "some other thing";
             entry.Phonenumbers.Add(p);
 
-            PostalAddress pa = new PostalAddress("This is the address");
+            StructuredPostalAddress pa = new StructuredPostalAddress();
             pa.Primary = true;
             pa.Rel = ContactsRelationships.IsHome;
             entry.PostalAddresses.Add(pa);

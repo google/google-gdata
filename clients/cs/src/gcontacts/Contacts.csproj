@@ -67,10 +67,12 @@
     </Compile>
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="contactentry.cs" />
+    <Compile Include="groupentry.cs" />
     <Compile Include="contactfeed.cs" />
     <Compile Include="contactquery.cs" />
     <Compile Include="contactservice.cs" />
     <Compile Include="contactrequest.cs" />
+    <Compile Include="contactextensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

@@ -285,6 +285,30 @@ namespace Google.GData.Extensions {
                 }
             }
         }
+
+
+        protected void SetStringValue<T>(string value, string elementName, string ns) where T : SimpleElement, new()
+        {
+            T v = null;
+            if (String.IsNullOrEmpty(value) == false)
+            {
+                v = new T();
+                v.Value = value;
+            }
+           
+            ReplaceExtension(elementName, ns, v);
+        }
+
+
+        protected string GetStringValue<T>(string elementName, string ns) where T : SimpleElement
+        {
+            T e =  FindExtension(elementName, ns) as T;
+            if (e!= null)
+            {
+                return e.Value;
+            }
+            return null;
+        }
         #endregion
     }
 }  
