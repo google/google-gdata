@@ -69,6 +69,9 @@
     <Compile Include="..\..\gcontacts\contactentry.cs">
       <Link>contactentry.cs</Link>
     </Compile>
+    <Compile Include="..\..\gcontacts\contactextensions.cs">
+      <Link>contactextensions.cs</Link>
+    </Compile>
     <Compile Include="..\..\gcontacts\contactfeed.cs">
       <Link>contactfeed.cs</Link>
     </Compile>
@@ -80,6 +83,9 @@
     </Compile>
     <Compile Include="..\..\gcontacts\contactservice.cs">
       <Link>contactservice.cs</Link>
+    </Compile>
+    <Compile Include="..\..\gcontacts\groupentry.cs">
+      <Link>groupentry.cs</Link>
     </Compile>
   </ItemGroup>
   <ItemGroup>

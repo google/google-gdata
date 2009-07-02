@@ -272,6 +272,24 @@ namespace Google.Contacts
             }
         }
 
+        /// <summary>
+        /// the contacts name object
+        /// </summary>
+        public Name Name
+        {
+            get
+            {
+                EnsureInnerObject();
+                if (this.ContactEntry.Name == null)
+                    this.ContactEntry.Name = new Name();
+                return this.ContactEntry.Name;
+            }
+            set
+            {
+                EnsureInnerObject();
+                this.ContactEntry.Name = value;
+            }
+        }
 
     }
 

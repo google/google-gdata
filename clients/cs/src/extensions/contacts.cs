@@ -65,66 +65,66 @@ namespace Google.GData.Extensions
         /// <summary>
         /// indicates a home email in the rel field
         /// </summary>
-        public const string IsHome = "http://schemas.google.com/g/2005#home";
+        public const string IsHome = BaseNameTable.gNamespace + "#home";
         /// <summary>
         /// indicates an undefined email in the rel field, label might be used to be
         /// more precise
         /// </summary>
-        public const string IsOther = "http://schemas.google.com/g/2005#other";
+        public const string IsOther = BaseNameTable.gNamespace + "#other";
         /// <summary>
         /// indicates a work email in the rel field
         /// </summary>
-        public const string IsWork = "http://schemas.google.com/g/2005#work";
+        public const string IsWork = BaseNameTable.gNamespace + "#work";
 
         /// <summary>
         /// indicates a general value in the rel field
         /// </summary>
-        public const string IsGeneral = "http://schemas.google.com/g/2005#general";
+        public const string IsGeneral = BaseNameTable.gNamespace + "#general";
 
         /// <summary>
         /// indicates a car related value in the rel field
         /// </summary>
-        public const string IsCar = "http://schemas.google.com/g/2005#car";
+        public const string IsCar = BaseNameTable.gNamespace + "#car";
 
         /// <summary>
         /// indicates a fax value in the rel field
         /// </summary>
-        public const string IsFax = "http://schemas.google.com/g/2005#fax";
+        public const string IsFax = BaseNameTable.gNamespace + "#fax";
 
         /// <summary>
         /// indicates a home fax value in the rel field
         /// </summary>
-        public const string IsHomeFax = "http://schemas.google.com/g/2005#home_fax";
+        public const string IsHomeFax = BaseNameTable.gNamespace + "#home_fax";
 
         /// <summary>
         /// indicates a work fax value in the rel field
         /// </summary>
-        public const string IsWorkFax = "http://schemas.google.com/g/2005#work_fax";
+        public const string IsWorkFax = BaseNameTable.gNamespace + "#work_fax";
 
         /// <summary>
         /// indicates an internal extension value in the rel field
         /// </summary>
-        public const string IsInternalExtension = "http://schemas.google.com/g/2005#internal-extension";
+        public const string IsInternalExtension = BaseNameTable.gNamespace + "#internal-extension";
 
         /// <summary>
         /// indicates a mobile number value in the rel field
         /// </summary>
-        public const string IsMobile = "http://schemas.google.com/g/2005#mobile";
+        public const string IsMobile = BaseNameTable.gNamespace + "#mobile";
 
         /// <summary>
         /// indicates a pager value in the rel field
         /// </summary>
-        public const string IsPager = "http://schemas.google.com/g/2005#pager";
+        public const string IsPager = BaseNameTable.gNamespace + "#pager";
 
         /// <summary>
         /// indicates a satellite value in the rel field
         /// </summary>
-        public const string IsSatellite = "http://schemas.google.com/g/2005#satellite";
+        public const string IsSatellite = BaseNameTable.gNamespace + "#satellite";
 
         /// <summary>
         /// indicates a voip value in the rel field
         /// </summary>
-        public const string IsVoip = "http://schemas.google.com/g/2005#voip";
+        public const string IsVoip = BaseNameTable.gNamespace + "#voip";
     }
 
 
