@@ -273,6 +273,23 @@ namespace Google.Contacts
         }
 
         /// <summary>
+        /// returns the location associated with a contact
+        /// </summary>
+        /// <returns></returns>
+        public string Location
+        {
+           get
+            {
+                EnsureInnerObject();
+                return this.ContactEntry.Location;
+            }
+            set
+            {
+                EnsureInnerObject();
+                this.ContactEntry.Location = value;
+            }
+        }
+        /// <summary>
         /// the contacts name object
         /// </summary>
         public Name Name
@@ -290,7 +307,6 @@ namespace Google.Contacts
                 this.ContactEntry.Name = value;
             }
         }
-
     }
 
 

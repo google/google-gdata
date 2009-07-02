@@ -84,8 +84,8 @@ namespace Google.GData.Extensions
         /// <param name="label">label property value</param>
         /// <param name="rel">default for the Rel property value</param>
         public Where(String rel,
-                                 String label, 
-                                 String value)
+                     String label, 
+                     String value)
         {
             this.Rel = rel;
             this.Label = label;
