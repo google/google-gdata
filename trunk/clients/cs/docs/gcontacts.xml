@@ -138,6 +138,12 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="P:Google.GData.Contacts.ContactEntry.Location">
+            <summary>
+            Location associated with the contact
+            </summary>
+            <returns></returns>
+        </member>
         <member name="P:Google.GData.Contacts.ContactEntry.PrimaryEmail">
             <summary>
             convienience accessor to find the primary Email
@@ -256,6 +262,11 @@
             that needs to be used when you want to delete or update that picture.
             </summary>
             <returns>the etag value as a string</returns>
+        </member>
+        <member name="P:Google.GData.Contacts.ContactEntry.Name">
+            <summary>
+             returns the Name object
+            </summary>
         </member>
         <member name="P:Google.GData.Contacts.ContactEntry.BillingInformation">
             <summary>
@@ -1300,6 +1311,17 @@
             that needs to be used when you want to delete or update that picture.
             </summary>
             <returns>the etag value as a string</returns>
+        </member>
+        <member name="P:Google.Contacts.Contact.Location">
+            <summary>
+            returns the location associated with a contact
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.Contacts.Contact.Name">
+            <summary>
+            the contacts name object
+            </summary>
         </member>
         <member name="T:Google.Contacts.Group">
             <summary>
