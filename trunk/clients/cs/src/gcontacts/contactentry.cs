@@ -494,6 +494,21 @@ namespace Google.GData.Contacts {
         }
 
         /// <summary>
+        ///  returns the Name object
+        /// </summary>
+        public Name Name
+        {
+            get
+            {
+                return FindExtension(GDataParserNameTable.NameElement, BaseNameTable.gNamespace) as Name;
+            }
+            set
+            {
+                ReplaceExtension(GDataParserNameTable.NameElement, BaseNameTable.gNamespace, value);
+            }
+        }
+
+        /// <summary>
         /// Contacts billing information.
         /// </summary>
         /// <returns></returns>
@@ -736,15 +751,6 @@ namespace Google.GData.Contacts {
                                         ContactsNameTable.NSContacts);
             }
         }
-        
-        
-
-
-
-
-
-
-
     }
 }
 

@@ -24,6 +24,7 @@ using Google.GData.Client;
 using Google.GData.Calendar;
 using Google.GData.Contacts;
 using Google.GData.Extensions;
+using Google.GData.Client.LiveTests;
 
 using System.IO;
 using System.Xml;
@@ -227,8 +228,7 @@ namespace Google.GData.Client.UnitTests
             p.Label = "some other thing";
             entry.Phonenumbers.Add(p);
 
-            StructuredPostalAddress pa = new StructuredPostalAddress();
-            pa.Primary = true;
+            StructuredPostalAddress pa = ContactsTestSuite.CreatePostalAddress();
             pa.Rel = ContactsRelationships.IsHome;
             entry.PostalAddresses.Add(pa);
 

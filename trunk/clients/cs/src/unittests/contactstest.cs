@@ -235,7 +235,6 @@ namespace Google.GData.Client.LiveTests
             currentEntry = currentEntry.Update();
             // now we should have 2 new groups and one new entry with no groups anymore
 
-
             int oldCountGroups = feed.Entries.Count;
             int oldCountContacts = cf.Entries.Count;
 
@@ -532,8 +531,7 @@ namespace Google.GData.Client.LiveTests
             }
 
 
-            StructuredPostalAddress p = new StructuredPostalAddress();
-            p.Primary = true;
+            StructuredPostalAddress p = CreatePostalAddress();
             Assert.IsTrue(entry.PrimaryPostalAddress == null, "Entry should have no primary Postal");
             entry.PostalAddresses.Add(p);
             Assert.IsTrue(entry.PrimaryPostalAddress == p, "Entry should have one primary Postal");
@@ -562,6 +560,20 @@ namespace Google.GData.Client.LiveTests
             Assert.IsTrue(entry.PrimaryIMAddress == null, "Entry should have no primary IM");
         }
 
+        public static StructuredPostalAddress CreatePostalAddress()
+        {
+            StructuredPostalAddress p = new StructuredPostalAddress();
+            p.City = "TestTown";
+            p.Street = "Rosanna Drive";
+            p.Postcode = "12345";
+            p.Country = "The good ole Country";
+
+            p.Primary = true;
+
+            return p;
+        }
+      
+        
         //////////////////////////////////////////////////////////////////////
         /// <summary>Tests the primary Accessors</summary> 
         //////////////////////////////////////////////////////////////////////
@@ -597,9 +609,7 @@ namespace Google.GData.Client.LiveTests
                 }
             }
 
-
-            StructuredPostalAddress p = new StructuredPostalAddress();
-            p.Primary = true;
+            StructuredPostalAddress p = CreatePostalAddress();
             Assert.IsTrue(c.PrimaryPostalAddress == null, "Contact should have no primary Postal");
             c.PostalAddresses.Add(p);
             Assert.IsTrue(c.PrimaryPostalAddress == p, "Contact should have one primary Postal");
@@ -787,7 +797,7 @@ namespace Google.GData.Client.LiveTests
                             // verify we got the phonenumber back....
                             Assert.IsTrue(e.PrimaryPhonenumber != null, "They should have a primary phonenumber");
                             Assert.AreEqual(e.PrimaryPhonenumber.Value,p.Value, "They should be identical");
-                            e.Title = newTitle;
+                            e.Name.FamilyName = newTitle;
                             inserted[i] = cr.Update(e);
                         }
                     }
@@ -812,7 +822,7 @@ namespace Google.GData.Client.LiveTests
                             // verify we got the phonenumber back....
                             Assert.IsTrue(e.PrimaryPhonenumber != null, "They should have a primary phonenumber");
                             Assert.AreEqual(e.PrimaryPhonenumber.Value,p.Value, "They should be identical");
-                            Assert.AreEqual(e.Title, newTitle, "The title should have been updated");
+                            Assert.AreEqual(e.Name.FamilyName, newTitle, "The familyname should have been updated");
                         }
                     }
                 }
@@ -965,7 +975,7 @@ namespace Google.GData.Client.LiveTests
             {
                 // let's count and update them
                 iVerify++; 
-                c.Title = "get a nother one"; 
+                c.Name.FamilyName = "get a nother one"; 
                 c.BatchData.Type = GDataBatchOperationType.update;
                 list.Add(c);
             }
