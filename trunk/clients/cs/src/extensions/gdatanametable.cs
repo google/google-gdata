@@ -108,6 +108,12 @@ namespace Google.GData.Extensions
         public const string XmlDeletedElement = "deleted";
         /// <summary>static string for parsing the organization name element in a contacts</summary>
         public const string XmlOrgNameElement = "orgName";        
+        /// <summary>static string for parsing the organization symbol element in a contacts</summary>
+        public const string XmlOrgSymbolElement = "orgSymbol";
+        /// <summary>static string for parsing the organization job description element in a contacts</summary>
+        public const string XmlOrgJobDescriptionElement = "orgJobDescription";
+        /// <summary>static string for parsing the organization department element in a contacts</summary>
+        public const string XmlOrgDepartmentElement = "orgDepartment";
         /// <summary>static string for parsing the organization title element in a contacts</summary>
         public const string XmlOrgTitleElement = "orgTitle";
 
@@ -171,6 +177,8 @@ namespace Google.GData.Extensions
         public const string XmlAttributeProtocol= "protocol";
         /// <summary>static string for parsing the uri attribute</summary>    
         public const string XmlAttributeUri = "uri";
+        /// <summary>static string for parsing the displayname attribute</summary>    
+        public const string XmlAttributeDisplayName = "displayName";
 
 #endregion
 

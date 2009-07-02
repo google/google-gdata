@@ -159,8 +159,6 @@ namespace Google.GData.Contacts {
         /// </summary>
         public const string WebsiteElement = "website";
         
-
-        
         /// <summary>
         /// rel Attribute
         /// </summary>
@@ -171,14 +169,7 @@ namespace Google.GData.Contacts {
         /// </summary>
         /// <returns></returns>
         public static string AttributeLabel = "label";
-    
-
-        
-        
-        
-
-
-    }
+   }
 
 
 

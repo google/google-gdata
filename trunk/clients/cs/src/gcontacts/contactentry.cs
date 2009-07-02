@@ -119,6 +119,29 @@ namespace Google.GData.Contacts {
             return base.Update() as ContactEntry;
         }
 
+
+        /// <summary>
+        /// Location associated with the contact
+        /// </summary>
+        /// <returns></returns>
+        public String Location
+        {
+            get 
+            {
+                Where w = FindExtension(GDataParserNameTable.XmlWhereElement, BaseNameTable.gNamespace) as Where;
+                return w != null ? w.ValueString : null;
+            }
+            set
+            { 
+                Where w = null;
+                if (value != null)
+                {
+                    w = new Where(null, null, value);
+                }
+                ReplaceExtension(GDataParserNameTable.XmlWhereElement, BaseNameTable.gNamespace, w);
+            }
+        }
+
         /// <summary>
         /// convienience accessor to find the primary Email
         /// there is no setter, to change this use the Primary Flag on 

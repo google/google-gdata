@@ -125,6 +125,113 @@ namespace Google.GData.Extensions
         /// indicates a voip value in the rel field
         /// </summary>
         public const string IsVoip = BaseNameTable.gNamespace + "#voip";
+
+        /// <summary>
+        /// Assistant's number
+        /// </summary>
+        public const string IsAssistant = BaseNameTable.gNamespace + "#assistant";
+
+        /// <summary>
+        /// Callback number
+        /// </summary>
+        public const string IsCallback = BaseNameTable.gNamespace + "#callback";
+
+        /// <summary>
+        /// CompanyMain
+        /// </summary>
+        public const string IsCompanyMain = BaseNameTable.gNamespace + "#company_main";
+
+        /// <summary>
+        /// ISDN number
+        /// </summary>
+        public const string IsISDN = BaseNameTable.gNamespace + "#isdn";
+        
+        /// <summary>
+        /// Main number
+        /// </summary>
+        public const string IsMain = BaseNameTable.gNamespace + "#main";
+        
+        /// <summary>
+        /// OtherFax number
+        /// </summary>
+        public const string IsOtherFax = BaseNameTable.gNamespace + "#other_fax";
+        
+        /// <summary>
+        /// Radio number
+        /// </summary>
+        public const string IsRadio = BaseNameTable.gNamespace + "#radio";
+        
+        /// <summary>
+        /// Telex number
+        /// </summary>
+        public const string IsTelex = BaseNameTable.gNamespace + "#telex";
+        
+        /// <summary>
+        /// TTY_TDD number
+        /// </summary>
+        public const string IsTTY_TDD = BaseNameTable.gNamespace + "#tty_tdd";
+        
+        /// <summary>
+        /// WorkMobile number
+        /// </summary>
+        public const string IsWorkMobile = BaseNameTable.gNamespace + "#work_mobile";
+        
+        /// <summary>
+        /// WorkPager number
+        /// </summary>
+        public const string IsWorkPager = BaseNameTable.gNamespace + "#work_pager";
+
+        /// <summary>
+        /// Netmeeting relationship
+        /// </summary>
+        public const string IsNetmeeting = BaseNameTable.gNamespace + "#netmeeting";
+    }
+
+ /// <summary>
+    /// holds static strings indicating several often used protocol 
+    /// values for the contacts API in the IM element
+    /// </summary>
+    public static class ContactsProtocols
+    {
+        /// <summary>
+        /// AOL Instant Messenger protocol
+        /// </summary>
+        public const string IsAIM = BaseNameTable.gNamespace + "#AIM"; 
+
+        /// <summary>
+        /// MSN protocol
+        /// </summary>
+        public const string IsMSN = BaseNameTable.gNamespace + "#MSN";
+        
+        /// <summary>
+        /// Yahoo protocol
+        /// </summary>
+        public const string IsYahoo = BaseNameTable.gNamespace + "#YAHOO";
+        
+        /// <summary>
+        /// Skype protocol
+        /// </summary>
+        public const string IsSkype = BaseNameTable.gNamespace + "#SKYPE";
+        
+        /// <summary>
+        /// QQ protocol
+        /// </summary>
+        public const string IsQQ = BaseNameTable.gNamespace + "#QQ";
+        
+        /// <summary>
+        /// GoogleTalk protocol
+        /// </summary>
+        public const string IsGoogleTalk = BaseNameTable.gNamespace + "#GOOGLE_TALK";
+        
+        /// <summary>
+        /// ICQ protocol
+        /// </summary>
+        public const string IsICQ = BaseNameTable.gNamespace + "#ICQ";
+        
+        /// <summary>
+        /// Jabber protocol
+        /// </summary>
+        public const string IsJabber = BaseNameTable.gNamespace + "#JABBER";
     }
 
 
@@ -190,6 +297,7 @@ namespace Google.GData.Extensions
         private void addAttributes()
         {
             this.Attributes.Add(GDataParserNameTable.XmlAttributeAddress, null);
+            this.Attributes.Add(GDataParserNameTable.XmlAttributeDisplayName, null);
         }
 
 
@@ -417,11 +525,7 @@ namespace Google.GData.Extensions
         {
             get 
             {
-                if (this.Rel == ContactsRelationships.IsHome)
-                {
-                    return true;
-                }
-                return false;
+                return IsType(ContactsRelationships.IsHome);
             }
         }
 
@@ -431,11 +535,7 @@ namespace Google.GData.Extensions
         public bool Work       {
             get 
             {
-                if (this.Rel == ContactsRelationships.IsWork)
-                {
-                    return true;
-                }
-                return false;
+                return IsType(ContactsRelationships.IsWork);
             }
         }
 
@@ -446,12 +546,18 @@ namespace Google.GData.Extensions
         {
             get 
             {
-                if (this.Rel == ContactsRelationships.IsOther)
-                {
-                    return true;
-                }
-                return false;
+                return IsType(ContactsRelationships.IsOther);
             }
+        }
+
+        /// <summary>
+        /// returns true if the element is of the given relationship type
+        /// </summary>
+        /// <param name="relationShip"></param>
+        /// <returns></returns>
+        public bool IsType(string relationShip)
+        {
+            return this.Rel == relationShip;
         }
     }
 
@@ -538,6 +644,10 @@ namespace Google.GData.Extensions
         {
             this.ExtensionFactories.Add(new OrgName());
             this.ExtensionFactories.Add(new OrgTitle());
+            this.ExtensionFactories.Add(new OrgDepartment());
+            this.ExtensionFactories.Add(new OrgJobDescription());
+            this.ExtensionFactories.Add(new OrgSymbol());
+            this.ExtensionFactories.Add(new Where());
             this.Attributes.Add(GDataParserNameTable.XmlAttributeLabel, null);
             this.Attributes.Add(GDataParserNameTable.XmlAttributePrimary, null);
             this.Attributes.Add(GDataParserNameTable.XmlAttributeRel, null);
@@ -587,26 +697,13 @@ namespace Google.GData.Extensions
         {
             get 
             {
-                OrgName name = FindExtension(GDataParserNameTable.XmlOrgNameElement,
-                                        BaseNameTable.gNamespace) as OrgName;
-                if (name != null)
-                {
-                    return name.Value;
-                }
-                return null;
-            }
+                return GetStringValue<OrgName>(GDataParserNameTable.XmlOrgNameElement,
+                                        BaseNameTable.gNamespace);
+                            }
             set
             {
-                OrgName name = null;
-
-                if (String.IsNullOrEmpty(value) == false)
-                {
-                    name = new OrgName(value);
-                }
-               
-                ReplaceExtension(GDataParserNameTable.XmlOrgNameElement,
-                                        BaseNameTable.gNamespace,
-                                        name);
+                SetStringValue<OrgName>(value, GDataParserNameTable.XmlOrgNameElement,
+                                        BaseNameTable.gNamespace);
             }
         }
 
@@ -618,29 +715,97 @@ namespace Google.GData.Extensions
         {
             get 
             {
-                OrgTitle title = FindExtension(GDataParserNameTable.XmlOrgTitleElement,
-                                        BaseNameTable.gNamespace) as OrgTitle;
-                if (title != null)
-                {
-                    return title.Value;
-                }
-                return null;
-            }
+                return GetStringValue<OrgTitle>(GDataParserNameTable.XmlOrgTitleElement,
+                                        BaseNameTable.gNamespace);
+                            }
             set
             {
-                OrgTitle title = null;
-               
-                if (String.IsNullOrEmpty(value) == false)
-                {
-                    title = new OrgTitle(value);
-                }
-               
-                ReplaceExtension(GDataParserNameTable.XmlOrgTitleElement,
-                                        BaseNameTable.gNamespace,
-                                        title);
-
+                SetStringValue<OrgTitle>(value, GDataParserNameTable.XmlOrgTitleElement,
+                                        BaseNameTable.gNamespace);
             }
         }
+
+        /// <summary>
+        /// Symbol of the organization.
+        /// </summary>
+        /// <returns></returns>
+        public string Symbol 
+        {
+            get 
+            {
+                return GetStringValue<OrgSymbol>(GDataParserNameTable.XmlOrgSymbolElement,
+                                        BaseNameTable.gNamespace);
+                            }
+            set
+            {
+                SetStringValue<OrgSymbol>(value, GDataParserNameTable.XmlOrgSymbolElement,
+                                        BaseNameTable.gNamespace);
+            }
+        }
+
+        /// <summary>
+        /// Department of the organization.
+        /// </summary>
+        /// <returns></returns>
+        public string Department 
+        {
+            get 
+            {
+                return GetStringValue<OrgDepartment>(GDataParserNameTable.XmlOrgDepartmentElement,
+                                        BaseNameTable.gNamespace);
+                            }
+            set
+            {
+                SetStringValue<OrgDepartment>(value, GDataParserNameTable.XmlOrgDepartmentElement,
+                                        BaseNameTable.gNamespace);
+            }
+        }
+
+        /// <summary>
+        /// Job Description in the organization.
+        /// </summary>
+        /// <returns></returns>
+        public string JobDescription 
+        {
+            get 
+            {
+                return GetStringValue<OrgJobDescription>(GDataParserNameTable.XmlOrgJobDescriptionElement,
+                                        BaseNameTable.gNamespace);
+                            }
+            set
+            {
+                SetStringValue<OrgJobDescription>(value, GDataParserNameTable.XmlOrgJobDescriptionElement,
+                                        BaseNameTable.gNamespace);
+            }
+        }
+
+        
+        /// <summary>
+        /// Location associated with the organization
+        /// </summary>
+        /// <returns></returns>
+        public String Location
+        {
+            get 
+            {
+                Where w = FindExtension(GDataParserNameTable.XmlWhereElement, BaseNameTable.gNamespace) as Where;
+                return w != null ? w.ValueString : null;
+            }
+            set
+            { 
+                Where w = null;
+                if (value != null)
+                {
+                    w = new Where(null, null, value);
+                }
+                ReplaceExtension(GDataParserNameTable.XmlWhereElement, BaseNameTable.gNamespace, w);
+            }
+        }
+
+        
+
+
+
         //////////////////////////////////////////////////////////////////////
         /// <summary>accessor method public string Primary</summary> 
         /// <returns> </returns>
@@ -729,6 +894,84 @@ namespace Google.GData.Extensions
         /// <param name="initValue"/>
         public OrgTitle(string initValue)
         : base(GDataParserNameTable.XmlOrgTitleElement, 
+               BaseNameTable.gDataPrefix,
+               BaseNameTable.gNamespace, initValue)
+        {}
+    }
+
+    /// <summary>
+    /// describes a department within an organization.
+    /// it's a child of Organization
+    /// </summary>
+    public class OrgDepartment : SimpleElement
+    {
+        /// <summary>
+        /// default constructor for gd:OrgDepartment 
+        /// </summary>
+        public OrgDepartment()
+        : base(GDataParserNameTable.XmlOrgDepartmentElement, 
+               BaseNameTable.gDataPrefix,
+               BaseNameTable.gNamespace)
+        {}
+
+        /// <summary>
+        /// default constructor for gd:OrgDepartment  with an initial value
+        /// </summary>
+        /// <param name="initValue"/>
+        public OrgDepartment(string initValue)
+        : base(GDataParserNameTable.XmlOrgDepartmentElement, 
+               BaseNameTable.gDataPrefix,
+               BaseNameTable.gNamespace, initValue)
+        {}
+    }
+
+    /// <summary>
+    /// Describes a job within an organization.
+    /// it's a child of Organization
+    /// </summary>
+    public class OrgJobDescription : SimpleElement
+    {
+        /// <summary>
+        /// default constructor for gd:XmlOrgJobDescriptionElement 
+        /// </summary>
+        public OrgJobDescription()
+        : base(GDataParserNameTable.XmlOrgJobDescriptionElement, 
+               BaseNameTable.gDataPrefix,
+               BaseNameTable.gNamespace)
+        {}
+
+        /// <summary>
+        /// default constructor for gd:XmlOrgJobDescriptionElement  with an initial value
+        /// </summary>
+        /// <param name="initValue"/>
+        public OrgJobDescription(string initValue)
+        : base(GDataParserNameTable.XmlOrgJobDescriptionElement, 
+               BaseNameTable.gDataPrefix,
+               BaseNameTable.gNamespace, initValue)
+        {}
+    }
+
+    /// <summary>
+    /// Provides a symbol of an organization
+    /// it's a child of Organization
+    /// </summary>
+    public class OrgSymbol : SimpleElement
+    {
+        /// <summary>
+        /// default constructor for OrgSymbol
+        /// </summary>
+        public OrgSymbol()
+        : base(GDataParserNameTable.XmlOrgSymbolElement, 
+               BaseNameTable.gDataPrefix,
+               BaseNameTable.gNamespace)
+        {}
+
+        /// <summary>
+        /// default constructor for OrgSymbol with an initial value
+        /// </summary>
+        /// <param name="initValue"/>
+        public OrgSymbol(string initValue)
+        : base(GDataParserNameTable.XmlOrgSymbolElement, 
                BaseNameTable.gDataPrefix,
                BaseNameTable.gNamespace, initValue)
         {}
