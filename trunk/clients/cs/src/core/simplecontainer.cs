@@ -125,7 +125,7 @@ namespace Google.GData.Extensions {
         /// Primary use of this is to find XML nodes
         /// </summary>
         /// <param name="localName">the xml local name of the element to find</param>
-        /// <param name="ns">the namespace of the elementToPersist</param>
+        /// <param name="ns">the namespace of the element to find</param>
         /// <returns>none</returns>
         public ExtensionList FindExtensions(string localName, string ns) 
         {
@@ -143,7 +143,7 @@ namespace Google.GData.Extensions {
         /// Primary use of this is to find XML nodes
         /// </summary>
         /// <param name="localName">the xml local name of the element to find</param>
-        /// <param name="ns">the namespace of the elementToPersist</param>
+        /// <param name="ns">the namespace of the element to find</param>
         /// <returns>none</returns>
         public List<T> FindExtensions<T>(string localName, string ns) where T : IExtensionElementFactory
         {
