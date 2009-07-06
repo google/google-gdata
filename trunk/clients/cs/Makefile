@@ -5,6 +5,7 @@ DEFINES=/d:TRACE
 
 VERSION=$(shell egrep AssemblyVersion version/AssemblyVersion.cs | egrep -o \([[:digit:]]\.\)+[[:digit:]]+)
 PREFIX=/usr/local
+PKGCONFIGDIR = $(PREFIX)/lib/pkgconfig
 
 CORELIBS=\
 	Google.GData.Client.dll		\
@@ -126,12 +127,12 @@ clean:
 
 install: all
 	for i in $(ALLLIBS); do gacutil -i $$i -package GData-Sharp -root "$(DESTDIR)$(PREFIX)/lib"; done
-	install -d "$(DESTDIR)$(PREFIX)/lib/pkgconfig"
-	install -m 644 -t "$(DESTDIR)$(PREFIX)/lib/pkgconfig" $(PKGCONFIG_FILES) 
+	install -d "$(DESTDIR)$(PKGCONFIGDIR)"
+	install -m 644 -t "$(DESTDIR)$(PKGCONFIGDIR)" $(PKGCONFIG_FILES) 
 
 uninstall:
 	for i in $(ALLLIBS); do gacutil -u $$i -package GData-Sharp -root "$(DESTDIR)$(PREFIX)/lib"; done
-	for i in $(PKGCONFIG_FILES) ; do rm "$(DESTDIR)$(PREFIX)/lib/pkgconfig/$$i" ; done
+	for i in $(PKGCONFIG_FILES) ; do rm "$(DESTDIR)$(PKGCONFIGDIR)/$$i" ; done
 
 tests: $(ALLLIBS)
 	$(CSC) $(DEFINES) -target:library -out:unittests.dll $(ALLREFS) -r:nunit.framework.dll $(test_sources)
