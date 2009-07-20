@@ -234,7 +234,7 @@ namespace Google.GData.Client
 
         /// <summary>
         /// property accessor to set the account type that is used during
-        /// authentication. Defaults, if not set, to GOOGLE_OR_HOSTED
+        /// authentication. Defaults, if not set, to HOSTED_OR_GOOGLE
         /// </summary>
         public string AccountType
         {
