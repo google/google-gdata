@@ -56,9 +56,12 @@ namespace Google.GData.Apps.Groups
         /// <summary>
         /// Accessor for Domain property.
         /// </summary>
+        /// <param name="domain">The hosted domain in which the Google Groups are
+        /// being set up</param>
         public String Domain
         {
             get { return domain; }
+            set { domain = value; }
         }
 
         /// <summary>
