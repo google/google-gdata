@@ -63,6 +63,17 @@ namespace Google.GData.Photos {
         {
             this.NewFeed += new ServiceEventHandler(this.OnNewFeed); 
         }
+
+        /// <summary>
+        /// by default all services now use version 1 for the protocol.
+        /// this needs to be overridden by a service to specify otherwise. 
+        /// Picasa uses version 2
+        /// </summary>
+        /// <returns></returns>
+        protected override void InitVersionInformation()
+        {
+             this.ProtocolMajor = VersionDefaults.VersionTwo;
+        }
    
         /// <summary>
         /// overloaded to create typed version of Query

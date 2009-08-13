@@ -70,7 +70,7 @@ namespace Google.GData.Contacts {
         /// <summary>
         /// by default all services now use version 1 for the protocol.
         /// this needs to be overridden by a service to specify otherwise. 
-        /// YouTube uses version 2
+        /// Contacts uses version 3
         /// </summary>
         /// <returns></returns>
         protected override void InitVersionInformation()

@@ -69,19 +69,7 @@ namespace Google.GData.Client.UnitTests.YouTube
         #endregion
 
 
-        /// <summary>
-        ///A test for VQ
-        ///</summary>
-        [Test]
-        public void VQTest()
-        {
-            YouTubeQuery target = new YouTubeQuery(); // TODO: Initialize to an appropriate value
-            string expected = "secret text string"; // TODO: Initialize to an appropriate value
-            string actual;
-            target.VQ = expected;
-            actual = target.VQ;
-            Assert.AreEqual(expected, actual);
-        }
+        
 
         /// <summary>
         ///A test for Time
