@@ -133,6 +133,7 @@
     <Compile Include="picasaquery.cs" />
     <Compile Include="picasaservice.cs" />
     <Compile Include="tagentry.cs" />
+    <Compile Include="photosrequest.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

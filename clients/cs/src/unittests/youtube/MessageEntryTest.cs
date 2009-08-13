@@ -74,8 +74,8 @@ namespace Google.GData.Client.UnitTests.YouTube
             MessageEntry target = new MessageEntry(); // TODO: Initialize to an appropriate value
             string expected = "secret text string"; // TODO: Initialize to an appropriate value
             string actual;
-            target.Description = expected;
-            actual = target.Description;
+            target.Summary.Text = expected;
+            actual = target.Summary.Text;
             Assert.AreEqual(expected, actual);
         }
     }

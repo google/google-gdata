@@ -50,17 +50,18 @@ namespace Google.GData.Photos {
             baseObject.AddExtension(new GPhotoNumPhotos());
             baseObject.AddExtension(new GPhotoNumPhotosRemaining());
             baseObject.AddExtension(new GPhotoChecksum());
-            baseObject.AddExtension(new GPhotoClient());
             baseObject.AddExtension(new GPhotoHeight());
-            baseObject.AddExtension(new GPhotoPosition());
             baseObject.AddExtension(new GPhotoRotation());
             baseObject.AddExtension(new GPhotoSize());
             baseObject.AddExtension(new GPhotoTimestamp());
-            baseObject.AddExtension(new GPhotoVersion());
             baseObject.AddExtension(new GPhotoWidth());
             baseObject.AddExtension(new GPhotoPhotoId());
             baseObject.AddExtension(new GPhotoWeight());
-            baseObject.AddExtension(new GPhotoName());
+            baseObject.AddExtension(new GPhotoAlbumDesc());
+            baseObject.AddExtension(new GPhotoAlbumTitle());
+            baseObject.AddExtension(new GPhotoSnippet());
+            baseObject.AddExtension(new GPhotoSnippetType());
+            baseObject.AddExtension(new GPhotoTruncated());
         }
     }
 
@@ -229,6 +230,29 @@ namespace Google.GData.Photos {
         /// weight element string
         /// </summary>
         public const string Weight = "weight";
+
+        /// <summary>
+        /// Description of the album this photo is in.
+        /// </summary>
+        public const string AlbumDesc = "albumdesc";
+        /// <summary>
+        /// Title of the album this photo is in.
+        /// </summary>
+        public const string AlbumTitle = "albumtitle";
+        /// <summary>
+        /// Snippet that matches the search text.
+        /// </summary>
+        public const string Snippet = "snippet";
+        /// <summary>
+        /// Describes where the match with the search query was found, and thus where the snippet 
+        /// is from: the photo caption, the photo tags, the album title, 
+        /// the album description, or the album location.
+        /// </summary>
+        public const string SnippetType = "snippettype";
+        /// <summary>
+        /// Indicates whether search results are truncated or not
+        /// </summary>
+        public const string Truncated = "truncated";
 
     }
 
@@ -481,24 +505,6 @@ namespace Google.GData.Photos {
         {}
     }
 
-    /// <summary>
-    /// GPhotoName schema extension describing an name
-    /// </summary>
-    public class GPhotoName : SimpleElement
-    {
-        /// <summary>
-        /// default constructor 
-        /// </summary>
-        public GPhotoName()
-        : base(GPhotoNameTable.Name, GPhotoNameTable.gPhotoPrefix, GPhotoNameTable.NSGPhotos)
-         {}
-        /// <summary>
-        /// default constructor with an initial value as a string 
-        /// </summary>
-        public GPhotoName(string initValue)
-        : base(GPhotoNameTable.Name, GPhotoNameTable.gPhotoPrefix, GPhotoNameTable.NSGPhotos, initValue)
-        {}
-    }
 
     /// <summary>
     /// GPhotoNumPhotos schema extension describing an numphotos
@@ -558,25 +564,6 @@ namespace Google.GData.Photos {
     }
 
     /// <summary>
-    /// GPhotoClient schema extension describing an client
-    /// </summary>
-    public class GPhotoClient : SimpleElement
-    {
-        /// <summary>
-        /// default constructor 
-        /// </summary>
-        public GPhotoClient()
-        : base(GPhotoNameTable.Client, GPhotoNameTable.gPhotoPrefix, GPhotoNameTable.NSGPhotos)
-         {}
-        /// <summary>
-        /// default constructor with an initial value as a string 
-        /// </summary>
-        public GPhotoClient(string initValue)
-        : base(GPhotoNameTable.Client, GPhotoNameTable.gPhotoPrefix, GPhotoNameTable.NSGPhotos, initValue)
-        {}
-    }
-
-    /// <summary>
     /// GPhotoHeight schema extension describing an height
     /// </summary>
     public class GPhotoHeight : SimpleElement
@@ -595,24 +582,6 @@ namespace Google.GData.Photos {
         {}
     }
 
-    /// <summary>
-    /// GPhotoPosition schema extension describing an position
-    /// </summary>
-    public class GPhotoPosition : SimpleElement
-    {
-        /// <summary>
-        /// default constructor 
-        /// </summary>
-        public GPhotoPosition()
-        : base(GPhotoNameTable.Position, GPhotoNameTable.gPhotoPrefix, GPhotoNameTable.NSGPhotos)
-         {}
-        /// <summary>
-        /// default constructor with an initial value as a string 
-        /// </summary>
-        public GPhotoPosition(string initValue)
-        : base(GPhotoNameTable.Position, GPhotoNameTable.gPhotoPrefix, GPhotoNameTable.NSGPhotos, initValue)
-        {}
-    }
 
     /// <summary>
     /// GPhotoRotation schema extension describing an rotation
@@ -672,24 +641,6 @@ namespace Google.GData.Photos {
     }
 
 
-    /// <summary>
-    /// GPhotoVersion schema extension describing an version
-    /// </summary>
-    public class GPhotoVersion : SimpleElement
-    {
-        /// <summary>
-        /// default constructor 
-        /// </summary>
-        public GPhotoVersion()
-        : base(GPhotoNameTable.Version, GPhotoNameTable.gPhotoPrefix, GPhotoNameTable.NSGPhotos)
-         {}
-        /// <summary>
-        /// default constructor with an initial value as a string 
-        /// </summary>
-        public GPhotoVersion(string initValue)
-        : base(GPhotoNameTable.Version, GPhotoNameTable.gPhotoPrefix, GPhotoNameTable.NSGPhotos, initValue)
-        {}
-    }
 
     /// <summary>
     /// GPhotoPhotoId schema extension describing an photoid
@@ -745,6 +696,106 @@ namespace Google.GData.Photos {
         /// </summary>
         public GPhotoWeight(string initValue)
         : base(GPhotoNameTable.Weight, GPhotoNameTable.gPhotoPrefix, GPhotoNameTable.NSGPhotos, initValue)
+        {}
+    }
+
+    /// <summary>
+    /// Description of the album this photo is in.
+    /// </summary>
+    public class GPhotoAlbumDesc : SimpleElement
+    {
+        /// <summary>
+        /// default constructor 
+        /// </summary>
+        public GPhotoAlbumDesc()
+        : base(GPhotoNameTable.AlbumDesc, GPhotoNameTable.gPhotoPrefix, GPhotoNameTable.NSGPhotos)
+         {}
+        /// <summary>
+        /// default constructor with an initial value as a string 
+        /// </summary>
+        public GPhotoAlbumDesc(string initValue)
+        : base(GPhotoNameTable.AlbumDesc, GPhotoNameTable.gPhotoPrefix, GPhotoNameTable.NSGPhotos, initValue)
+        {}
+    }
+
+    /// <summary>
+    /// Title of the album this photo is in.
+    /// </summary>
+    public class GPhotoAlbumTitle : SimpleElement
+    {
+        /// <summary>
+        /// default constructor 
+        /// </summary>
+        public GPhotoAlbumTitle()
+        : base(GPhotoNameTable.AlbumTitle, GPhotoNameTable.gPhotoPrefix, GPhotoNameTable.NSGPhotos)
+         {}
+        /// <summary>
+        /// default constructor with an initial value as a string 
+        /// </summary>
+        public GPhotoAlbumTitle(string initValue)
+        : base(GPhotoNameTable.AlbumTitle, GPhotoNameTable.gPhotoPrefix, GPhotoNameTable.NSGPhotos, initValue)
+        {}
+    }
+
+    /// <summary>
+    /// Snippet that matches the search text.
+    /// </summary>
+    public class GPhotoSnippet : SimpleElement
+    {
+        /// <summary>
+        /// default constructor 
+        /// </summary>
+        public GPhotoSnippet()
+        : base(GPhotoNameTable.Snippet, GPhotoNameTable.gPhotoPrefix, GPhotoNameTable.NSGPhotos)
+         {}
+        /// <summary>
+        /// default constructor with an initial value as a string 
+        /// </summary>
+        public GPhotoSnippet(string initValue)
+        : base(GPhotoNameTable.Snippet, GPhotoNameTable.gPhotoPrefix, GPhotoNameTable.NSGPhotos, initValue)
+        {}
+    }
+
+    /// <summary>
+    /// Describes where the match with the search query was found, and thus where the snippet 
+    /// is from: the photo caption, the photo tags, the album title, 
+    /// the album description, or the album location.
+    /// Possible values are PHOTO_DESCRIPTION, PHOTO_TAGS, ALBUM_TITLE, 
+    /// ALBUM_DESCRIPTION, or ALBUM_LOCATION.
+    /// </summary>
+    public class GPhotoSnippetType : SimpleElement
+    {
+        /// <summary>
+        /// default constructor 
+        /// </summary>
+        public GPhotoSnippetType()
+        : base(GPhotoNameTable.SnippetType, GPhotoNameTable.gPhotoPrefix, GPhotoNameTable.NSGPhotos)
+         {}
+        /// <summary>
+        /// default constructor with an initial value as a string 
+        /// </summary>
+        public GPhotoSnippetType(string initValue)
+        : base(GPhotoNameTable.SnippetType, GPhotoNameTable.gPhotoPrefix, GPhotoNameTable.NSGPhotos, initValue)
+        {}
+    }
+
+    /// <summary>
+    /// Indicates whether search results are truncated or not
+    /// Possible values are 1 (results are truncated) or 0 (results are not truncated).
+    /// </summary>
+    public class GPhotoTruncated : SimpleElement
+    {
+        /// <summary>
+        /// default constructor 
+        /// </summary>
+        public GPhotoTruncated()
+        : base(GPhotoNameTable.Truncated, GPhotoNameTable.gPhotoPrefix, GPhotoNameTable.NSGPhotos)
+         {}
+        /// <summary>
+        /// default constructor with an initial value as a string 
+        /// </summary>
+        public GPhotoTruncated(string initValue)
+        : base(GPhotoNameTable.Truncated, GPhotoNameTable.gPhotoPrefix, GPhotoNameTable.NSGPhotos, initValue)
         {}
     }
 }

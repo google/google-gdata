@@ -71,10 +71,10 @@ namespace Google.GData.Client.UnitTests.YouTube
         public void FeedLinkTest()
         {
             PlaylistsEntry target = new PlaylistsEntry(); // TODO: Initialize to an appropriate value
-            FeedLink expected =  new FeedLink();
-            FeedLink actual;
-            target.FeedLink = expected;
-            actual = target.FeedLink;
+            string expected =  "secret text string";
+            string actual;
+            target.Content.Src.Content = expected;
+            actual = target.Content.Src.Content;
             Assert.AreEqual(expected, actual);
         }
 
@@ -87,8 +87,8 @@ namespace Google.GData.Client.UnitTests.YouTube
             PlaylistsEntry target = new PlaylistsEntry(); // TODO: Initialize to an appropriate value
             string expected = "secret text string"; // TODO: Initialize to an appropriate value
             string actual;
-            target.Description = expected;
-            actual = target.Description;
+            target.Summary.Text = expected;
+            actual = target.Summary.Text;
             Assert.AreEqual(expected, actual);
         }
 
@@ -100,7 +100,7 @@ namespace Google.GData.Client.UnitTests.YouTube
         {
             PlaylistsEntry target = new PlaylistsEntry();
             Assert.IsNotNull(target);
-            Assert.IsNull(target.FeedLink);
+            Assert.IsNull(target.Content.Src.Content);
             Assert.IsNull(target.Description);
         }
     }
