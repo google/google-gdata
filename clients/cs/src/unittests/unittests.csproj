@@ -1,4 +1,4 @@
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
     <ProductVersion>8.0.50727</ProductVersion>
@@ -284,7 +284,6 @@
     <Compile Include="picasa\GPhotoAlbumIdTest.cs" />
     <Compile Include="picasa\GPhotoBytesUsedTest.cs" />
     <Compile Include="picasa\GPhotoChecksumTest.cs" />
-    <Compile Include="picasa\GPhotoClientTest.cs" />
     <Compile Include="picasa\GPhotoCommentCountTest.cs" />
     <Compile Include="picasa\GPhotoCommentingEnabledTest.cs" />
     <Compile Include="picasa\GPhotoExtensionsTest.cs" />
@@ -292,12 +291,10 @@
     <Compile Include="picasa\GPhotoIdTest.cs" />
     <Compile Include="picasa\GPhotoLocationTest.cs" />
     <Compile Include="picasa\GPhotoMaxPhotosPerAlbumTest.cs" />
-    <Compile Include="picasa\GPhotoNameTest.cs" />
     <Compile Include="picasa\GPhotoNickNameTest.cs" />
     <Compile Include="picasa\GPhotoNumPhotosRemainingTest.cs" />
     <Compile Include="picasa\GPhotoNumPhotosTest.cs" />
     <Compile Include="picasa\GPhotoPhotoIdTest.cs" />
-    <Compile Include="picasa\GPhotoPositionTest.cs" />
     <Compile Include="picasa\GPhotoQuotaCurrentTest.cs" />
     <Compile Include="picasa\GPhotoQuotaLimitTest.cs" />
     <Compile Include="picasa\GPhotoRotationTest.cs" />
@@ -305,7 +302,6 @@
     <Compile Include="picasa\GPhotoThumbnailTest.cs" />
     <Compile Include="picasa\GPhotoTimestampTest.cs" />
     <Compile Include="picasa\GPhotoUserTest.cs" />
-    <Compile Include="picasa\GPhotoVersionTest.cs" />
     <Compile Include="picasa\GPhotoWeightTest.cs" />
     <Compile Include="picasa\GPhotoWidthTest.cs" />
     <Compile Include="picasa\KindQueryTest.cs" />
