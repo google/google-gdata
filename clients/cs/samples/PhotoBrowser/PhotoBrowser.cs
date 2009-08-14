@@ -8,6 +8,7 @@ using Google.GData.Photos;
 using Google.GData.Client;
 using Google.GData.Extensions.MediaRss;
 using Google.GData.Extensions;
+using Google.Picasa;
 using System.IO;
 
 namespace PhotoBrowser
@@ -286,7 +287,9 @@ namespace PhotoBrowser
                     Icon error = new Icon(SystemIcons.Exclamation, 40, 40);
                     this.PhotoPreview.Image = error.ToBitmap();
                 }
-                this.PhotoInspector.SelectedObject = new PhotoAccessor(entry);
+                Photo photo = new Photo();
+                photo.AtomEntry = entry;
+                this.PhotoInspector.SelectedObject = photo;
                 this.Cursor = Cursors.Default;
                 this.DownloadPhoto.Enabled = true;
             }

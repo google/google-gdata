@@ -7,6 +7,7 @@ using System.Data;
 using Google.GData.Photos;
 using Google.GData.Extensions.MediaRss;
 using Google.GData.Tools;
+using Google.Picasa;
 using System.IO;
 
 namespace PhotoBrowser
@@ -330,7 +331,9 @@ namespace PhotoBrowser
                     Icon error = new Icon(SystemIcons.Exclamation, 40, 40);
                     this.AlbumPicture.Image = error.ToBitmap();
                 }
-                this.AlbumInspector.SelectedObject = new AlbumAccessor(entry);
+                Album a = new Album();
+                a.AtomEntry = entry;
+                this.AlbumInspector.SelectedObject = a;
                 this.Cursor = Cursors.Default;
             }
             else 

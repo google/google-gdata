@@ -50,7 +50,8 @@ namespace Google.GData.Photos
     /// <summary>
     ///  accessor for an AlbumEntry
     /// </summary>
-    public class AlbumAccessor 
+    [Obsolete("Use Google.Picasa.Album instead. This code will be removed soon")] 
+    public class AlbumAccessor
     {
 
         private PicasaEntry entry;

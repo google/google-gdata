@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Windows.Forms;
 using Google.GData.Photos;
 using Google.GData.Extensions.MediaRss;
+using Google.Picasa;
 
 namespace PhotoBrowser
 {
@@ -222,24 +223,23 @@ namespace PhotoBrowser
 
         private void Ok_Click(object sender, System.EventArgs e)
         {
-            AlbumEntry entry = new AlbumEntry();
-            AlbumAccessor acc = new AlbumAccessor(entry);
-            entry.Title.Text = this.AlbumName.Text;
-            entry.Summary.Text = this.AlbumDescription.Text;
+            Album acc = new Album();
+            acc.Title = this.AlbumName.Text;
+            acc.Summary = this.AlbumDescription.Text;
             if (this.AlbumLocation.Text.Length > 0) 
             {
                 acc.Location = this.AlbumLocation.Text;
             }
             if (this.AlbumKeywords.Text.Length > 0) 
             {
-                entry.Media = new MediaGroup();
+                acc.AlbumEntry.Media = new MediaGroup();
                 MediaKeywords keywords = new MediaKeywords(this.AlbumKeywords.Text);
-                entry.Media.Keywords = keywords;
+                acc.AlbumEntry.Media.Keywords = keywords;
             }
             acc.Access = this.AlbumPublic.Checked ? "public" : "private";
             acc.CommentingEnabled = this.AllowComments.Checked;
 
-            this.newEntry = this.service.Insert(this.feed, entry); 
+            this.newEntry = this.service.Insert(this.feed, acc.AlbumEntry); 
             this.Close();
 
         }

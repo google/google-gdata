@@ -53,6 +53,11 @@ namespace Google.GData.Client
         /// xsd version of bool:false
         /// </summary>
         public const string XSDFalse = "false";
+        /// <summary>
+        /// default user string
+        /// </summary>
+        public const string DefaultUser = "default";
+
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>private constructor to prevent the compiler from generating a default one</summary> 
