@@ -57,6 +57,7 @@ namespace Google.GData.Photos
     /// this is a pure accessor class that can either take a photoentry or work with 
     /// a picasaentry to get you convienience accessors
     /// </summary>
+    [Obsolete("Use Google.Picasa.Photo instead. This code will be removed soon")] 
     public class PhotoAccessor
     {
 

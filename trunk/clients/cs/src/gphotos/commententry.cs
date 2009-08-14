@@ -45,6 +45,7 @@ namespace Google.GData.Photos {
     /// <summary>
     ///  accessor for a Comment Entry
     /// </summary>
+    [Obsolete("Use Google.Picasa.Comment instead. This code will be removed soon")] 
     public class CommentAccessor 
     {
 

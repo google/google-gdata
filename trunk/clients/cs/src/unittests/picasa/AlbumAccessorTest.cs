@@ -1,6 +1,7 @@
 ﻿using Google.GData.Photos;
 using NUnit.Framework;
 using Google.GData.Client.UnitTests;
+using Google.Picasa;
 
 
 
@@ -72,8 +73,7 @@ namespace Google.GData.Client.UnitTests.Picasa
         [Test]
         public void NumPhotosRemainingTest()
         {
-            PicasaEntry entry = new AlbumEntry(); 
-            AlbumAccessor target = new AlbumAccessor(entry); 
+            Album target = new Album(); 
             uint expected = 4; // TODO: Initialize to an appropriate value
             uint actual;
             target.NumPhotosRemaining = expected;
@@ -87,8 +87,7 @@ namespace Google.GData.Client.UnitTests.Picasa
         [Test]
         public void NumPhotosTest()
         {
-            PicasaEntry entry = new AlbumEntry();
-            AlbumAccessor target = new AlbumAccessor(entry);
+            Album target = new Album(); 
             uint expected = 4; // TODO: Initialize to an appropriate value
             uint actual;
             target.NumPhotos = expected;
@@ -102,8 +101,7 @@ namespace Google.GData.Client.UnitTests.Picasa
         [Test]
         public void NameTest()
         {
-            PicasaEntry entry = new AlbumEntry();
-            AlbumAccessor target = new AlbumAccessor(entry);
+            Album target = new Album(); 
             string expected = "TestValue"; 
             string actual;
             target.Name = expected;
@@ -117,8 +115,7 @@ namespace Google.GData.Client.UnitTests.Picasa
         [Test]
         public void LongitudeTest()
         {
-            PicasaEntry entry = new AlbumEntry();
-            AlbumAccessor target = new AlbumAccessor(entry);
+            Album target = new Album(); 
             double expected = 0F; // TODO: Initialize to an appropriate value
             double actual;
             target.Longitude = expected;
@@ -132,8 +129,7 @@ namespace Google.GData.Client.UnitTests.Picasa
         [Test]
         public void LocationTest()
         {
-            PicasaEntry entry = new AlbumEntry();
-            AlbumAccessor target = new AlbumAccessor(entry);
+            Album target = new Album(); 
             string expected = "TestValue"; 
             string actual;
             target.Location = expected;
@@ -147,8 +143,7 @@ namespace Google.GData.Client.UnitTests.Picasa
         [Test]
         public void LatitudeTest()
         {
-            PicasaEntry entry = new AlbumEntry();
-            AlbumAccessor target = new AlbumAccessor(entry);
+            Album target = new Album(); 
             double expected = 0F; // TODO: Initialize to an appropriate value
             double actual;
             target.Latitude = expected;
@@ -162,8 +157,7 @@ namespace Google.GData.Client.UnitTests.Picasa
         [Test]
         public void IdTest()
         {
-            PicasaEntry entry = new AlbumEntry();
-            AlbumAccessor target = new AlbumAccessor(entry);
+            Album target = new Album(); 
             string expected = "TestValue"; 
             string actual;
             target.Id = expected;
@@ -177,8 +171,7 @@ namespace Google.GData.Client.UnitTests.Picasa
         [Test]
         public void CommentingEnabledTest()
         {
-            PicasaEntry entry = new AlbumEntry();
-            AlbumAccessor target = new AlbumAccessor(entry);
+            Album target = new Album(); 
             bool expected = false; // TODO: Initialize to an appropriate value
             bool actual;
             target.CommentingEnabled = expected;
@@ -192,8 +185,7 @@ namespace Google.GData.Client.UnitTests.Picasa
         [Test]
         public void CommentCountTest()
         {
-            PicasaEntry entry = new AlbumEntry();
-            AlbumAccessor target = new AlbumAccessor(entry);
+            Album target = new Album(); 
             uint expected = 12; // TODO: Initialize to an appropriate value
             uint actual;
             target.CommentCount = expected;
@@ -207,8 +199,7 @@ namespace Google.GData.Client.UnitTests.Picasa
         [Test]
         public void BytesUsedTest()
         {
-            PicasaEntry entry = new AlbumEntry();
-            AlbumAccessor target = new AlbumAccessor(entry);
+            Album target = new Album(); 
             uint expected = 12; // TODO: Initialize to an appropriate value
             uint actual;
             target.BytesUsed = expected;
@@ -222,12 +213,11 @@ namespace Google.GData.Client.UnitTests.Picasa
         [Test]
         public void AlbumTitleTest()
         {
-            PicasaEntry entry = new AlbumEntry();
-            AlbumAccessor target = new AlbumAccessor(entry);
+            Album target = new Album(); 
             string expected = "TestValue"; 
             string actual;
-            target.AlbumTitle = expected;
-            actual = target.AlbumTitle;
+            target.Title = expected;
+            actual = target.Title;
             Assert.AreEqual(expected, actual);
         }
 
@@ -237,12 +227,11 @@ namespace Google.GData.Client.UnitTests.Picasa
         [Test]
         public void AlbumSummaryTest()
         {
-            PicasaEntry entry = new AlbumEntry();
-            AlbumAccessor target = new AlbumAccessor(entry);
+            Album target = new Album(); 
             string expected = "TestValue"; 
             string actual;
-            target.AlbumSummary = expected;
-            actual = target.AlbumSummary;
+            target.Summary = expected;
+            actual = target.Summary;
             Assert.AreEqual(expected, actual);
         }
 
@@ -252,8 +241,7 @@ namespace Google.GData.Client.UnitTests.Picasa
         [Test]
         public void AlbumAuthorNicknameTest()
         {
-            PicasaEntry entry = new AlbumEntry();
-            AlbumAccessor target = new AlbumAccessor(entry);
+            Album target = new Album(); 
             string expected = "TestValue"; 
             string actual;
             target.AlbumAuthorNickname = expected;
@@ -267,12 +255,11 @@ namespace Google.GData.Client.UnitTests.Picasa
         [Test]
         public void AlbumAuthorTest()
         {
-            PicasaEntry entry = new AlbumEntry();
-            AlbumAccessor target = new AlbumAccessor(entry);
+            Album target = new Album(); 
             string expected = "TestValue"; 
             string actual;
-            target.AlbumAuthor = expected;
-            actual = target.AlbumAuthor;
+            target.Author = expected;
+            actual = target.Author;
             Assert.AreEqual(expected, actual);
         }
 
@@ -282,8 +269,7 @@ namespace Google.GData.Client.UnitTests.Picasa
         [Test]
         public void AccessTest()
         {
-            PicasaEntry entry = new AlbumEntry();
-            AlbumAccessor target = new AlbumAccessor(entry);
+            Album target = new Album(); 
             string expected = "TestValue"; 
             string actual;
             target.Access = expected;
@@ -297,8 +283,7 @@ namespace Google.GData.Client.UnitTests.Picasa
         [Test]
         public void AlbumAccessorConstructorTest()
         {
-            PicasaEntry entry = new AlbumEntry();
-            AlbumAccessor target = new AlbumAccessor(entry);
+            Album target = new Album(); 
             Assert.IsNotNull(target);
         }
     }

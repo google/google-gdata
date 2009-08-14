@@ -1,6 +1,8 @@
 ﻿using Google.GData.Photos;
 using NUnit.Framework;
 using Google.GData.Client.UnitTests;
+using Google.Picasa;
+
 namespace Google.GData.Client.UnitTests.Picasa
 {
     
@@ -69,8 +71,7 @@ namespace Google.GData.Client.UnitTests.Picasa
         [Test]
         public void WidthTest()
         {
-            PicasaEntry entry = new PhotoEntry();
-            PhotoAccessor target = new PhotoAccessor(entry); 
+            Photo target = new Photo();
             int expected = 5; // TODO: Initialize to an appropriate value
             int actual;
             target.Width = expected;
@@ -84,8 +85,7 @@ namespace Google.GData.Client.UnitTests.Picasa
         [Test]
         public void VersionTest()
         {
-            PicasaEntry entry = new PhotoEntry();
-            PhotoAccessor target = new PhotoAccessor(entry);
+            Photo target = new Photo();
             string expected = "TestValue"; 
             string actual;
             target.Version = expected;
@@ -99,8 +99,7 @@ namespace Google.GData.Client.UnitTests.Picasa
         [Test]
         public void TimestampTest()
         {
-            PicasaEntry entry = new PhotoEntry();
-            PhotoAccessor target = new PhotoAccessor(entry);
+            Photo target = new Photo();
             ulong expected = 122; // TODO: Initialize to an appropriate value
             ulong actual;
             target.Timestamp = expected;
@@ -114,8 +113,7 @@ namespace Google.GData.Client.UnitTests.Picasa
         [Test]
         public void SizeTest()
         {
-            PicasaEntry entry = new PhotoEntry();
-            PhotoAccessor target = new PhotoAccessor(entry);
+            Photo target = new Photo();
             long expected = 12; // TODO: Initialize to an appropriate value
             long actual;
             target.Size = expected;
@@ -129,8 +127,7 @@ namespace Google.GData.Client.UnitTests.Picasa
         [Test]
         public void RotationTest()
         {
-            PicasaEntry entry = new PhotoEntry();
-            PhotoAccessor target = new PhotoAccessor(entry);
+            Photo target = new Photo();
             int expected = 45; // TODO: Initialize to an appropriate value
             int actual;
             target.Rotation = expected;
@@ -144,8 +141,7 @@ namespace Google.GData.Client.UnitTests.Picasa
         [Test]
         public void PositionTest()
         {
-            PicasaEntry entry = new PhotoEntry();
-            PhotoAccessor target = new PhotoAccessor(entry);
+            Photo target = new Photo();
             double expected = 0.5F; // TODO: Initialize to an appropriate value
             double actual;
             target.Position = expected;
@@ -159,12 +155,11 @@ namespace Google.GData.Client.UnitTests.Picasa
         [Test]
         public void PhotoTitleTest()
         {
-            PicasaEntry entry = new PhotoEntry();
-            PhotoAccessor target = new PhotoAccessor(entry);
+            Photo target = new Photo();
             string expected = "TestValue"; 
             string actual;
-            target.PhotoTitle = expected;
-            actual = target.PhotoTitle;
+            target.Title = expected;
+            actual = target.Title;
             Assert.AreEqual(expected, actual);
         }
 
@@ -174,12 +169,11 @@ namespace Google.GData.Client.UnitTests.Picasa
         [Test]
         public void PhotoSummaryTest()
         {
-            PicasaEntry entry = new PhotoEntry();
-            PhotoAccessor target = new PhotoAccessor(entry);
+            Photo target = new Photo();
             string expected = "TestValue"; 
             string actual;
-            target.PhotoSummary = expected;
-            actual = target.PhotoSummary;
+            target.Summary = expected;
+            actual = target.Summary;
             Assert.AreEqual(expected, actual);
         }
 
@@ -189,8 +183,7 @@ namespace Google.GData.Client.UnitTests.Picasa
         [Test]
         public void LongitudeTest()
         {
-            PicasaEntry entry = new PhotoEntry();
-            PhotoAccessor target = new PhotoAccessor(entry);
+            Photo target = new Photo();
             double expected = 12.5F; // TODO: Initialize to an appropriate value
             double actual;
             target.Longitude = expected;
@@ -204,8 +197,7 @@ namespace Google.GData.Client.UnitTests.Picasa
         [Test]
         public void LatitudeTest()
         {
-            PicasaEntry entry = new PhotoEntry();
-            PhotoAccessor target = new PhotoAccessor(entry);
+            Photo target = new Photo();
             double expected = 12.5F; // TODO: Initialize to an appropriate value
             double actual;
             target.Latitude = expected;
@@ -219,8 +211,7 @@ namespace Google.GData.Client.UnitTests.Picasa
         [Test]
         public void IdTest()
         {
-            PicasaEntry entry = new PhotoEntry();
-            PhotoAccessor target = new PhotoAccessor(entry);
+            Photo target = new Photo();
             string expected = "TestValue"; 
             string actual;
             target.Id = expected;
@@ -234,8 +225,7 @@ namespace Google.GData.Client.UnitTests.Picasa
         [Test]
         public void HeightTest()
         {
-            PicasaEntry entry = new PhotoEntry();
-            PhotoAccessor target = new PhotoAccessor(entry);
+            Photo target = new Photo();
             int expected = 12; // TODO: Initialize to an appropriate value
             int actual;
             target.Height = expected;
@@ -249,8 +239,7 @@ namespace Google.GData.Client.UnitTests.Picasa
         [Test]
         public void CommentingEnabledTest()
         {
-            PicasaEntry entry = new PhotoEntry();
-            PhotoAccessor target = new PhotoAccessor(entry);
+            Photo target = new Photo();
             bool expected = true;
             bool actual;
             target.CommentingEnabled = expected;
@@ -264,8 +253,7 @@ namespace Google.GData.Client.UnitTests.Picasa
         [Test]
         public void CommentCountTest()
         {
-            PicasaEntry entry = new PhotoEntry();
-            PhotoAccessor target = new PhotoAccessor(entry);
+            Photo target = new Photo();
             uint expected = 12; // TODO: Initialize to an appropriate value
             uint actual;
             target.CommentCount = expected;
@@ -279,8 +267,7 @@ namespace Google.GData.Client.UnitTests.Picasa
         [Test]
         public void ClientTest()
         {
-            PicasaEntry entry = new PhotoEntry();
-            PhotoAccessor target = new PhotoAccessor(entry);
+            Photo target = new Photo();
             string expected = "TestValue"; 
             string actual;
             target.Client = expected;
@@ -294,9 +281,7 @@ namespace Google.GData.Client.UnitTests.Picasa
         [Test]
         public void ChecksumTest()
         {
-            PicasaEntry entry = new PhotoEntry();
-            PhotoAccessor target = new PhotoAccessor(entry);
-
+            Photo target = new Photo();
             string expected = "TestValue"; 
             string actual;
             target.Checksum = expected;
@@ -310,8 +295,7 @@ namespace Google.GData.Client.UnitTests.Picasa
         [Test]
         public void AlbumIdTest()
         {
-            PicasaEntry entry = new PhotoEntry();
-            PhotoAccessor target = new PhotoAccessor(entry);
+            Photo target = new Photo();
             string expected = "TestValue"; 
             string actual;
             target.AlbumId = expected;
