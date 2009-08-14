@@ -1568,6 +1568,8 @@
             <summary>
             Accessor for Domain property.
             </summary>
+            <param name="domain">The hosted domain in which the Google Groups are
+            being set up</param>
         </member>
         <member name="T:Google.GData.Apps.GoogleMailSettings.GoogleMailSettingsEntry">
             <summary>
