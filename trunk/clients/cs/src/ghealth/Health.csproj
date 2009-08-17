@@ -1,4 +1,4 @@
-﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
     <ProductVersion>8.0.50727</ProductVersion>
@@ -123,10 +123,41 @@
       <Link>AssemblyVersion.cs</Link>
     </Compile>
     <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="author.cs" />
+    <Compile Include="ccr\ActiveDetail.cs" />
+    <Compile Include="ccr\Actor.cs" />
+    <Compile Include="ccr\Alert.cs" />
+    <Compile Include="ccr\Body.cs" />
+    <Compile Include="ccr\CareRecord.cs" />
+    <Compile Include="ccr\Code.cs" />
+    <Compile Include="ccr\Constants.cs" />
+    <Compile Include="ccr\DateTime.cs" />
+    <Compile Include="ccr\Direction.cs" />
+    <Compile Include="ccr\ElementBuilder.cs" />
+    <Compile Include="ccr\Form.cs" />
+    <Compile Include="ccr\HealthStatus.cs" />
+    <Compile Include="ccr\Measurement.cs" />
+    <Compile Include="ccr\Name.cs" />
+    <Compile Include="ccr\Patient.cs" />
+    <Compile Include="ccr\Person.cs" />
+    <Compile Include="ccr\Problems.cs" />
+    <Compile Include="ccr\Product.cs" />
+    <Compile Include="ccr\Reaction.cs" />
+    <Compile Include="ccr\Refill.cs" />
+    <Compile Include="ccr\Remedial.cs" />
+    <Compile Include="ccr\Result.cs" />
+    <Compile Include="ccr\SocialHistory.cs" />
+    <Compile Include="ccr\Source.cs" />
+    <Compile Include="ccr\Status.cs" />
+    <Compile Include="ccr\Unit.cs" />
+    <Compile Include="ccr\Version.cs" />
+    <Compile Include="ccr\XAttribute.cs" />
     <Compile Include="healthentry.cs" />
     <Compile Include="healthfeed.cs" />
     <Compile Include="healthquery.cs" />
     <Compile Include="healthservice.cs" />
+    <Compile Include="notice.cs" />
+    <Compile Include="profile.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
