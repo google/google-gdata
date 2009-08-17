@@ -77,6 +77,17 @@ namespace Google.GData.Health
             this.Type = type;
         }
 
+		/// <summary>
+		/// Creates a binding according to its alternate names and binding type.
+		/// </summary>
+		/// <param name="type">The binding type associated with the name.</param>
+		/// <param name="alternateNames">The alternate names for this binding.</param>
+		public XElemBindingAttribute(BindingType type, params string[] alternateNames)
+		{
+			this.Type = type;
+			this.AlternateNames = alternateNames;
+		}
+
         /// <summary>
         /// When using the Elements Binding, it may be desirable to 
         /// specify the parent element containing the list of elements.

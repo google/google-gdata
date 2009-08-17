@@ -47,17 +47,13 @@ namespace Google.GData.Health
         /// <summary>
         /// Gets or sets the sequence position.
         /// </summary>
-        [XElemBinding(AlternateNames = new string[] 
-            { "FrequencySequencePosition", "ResultSequencePosition", "StrengthSequencePosition", "DoseSequencePosition" },
-            Type = BindingType.Value)]
+        [XElemBinding(BindingType.Value, "FrequencySequencePosition", "ResultSequencePosition", "StrengthSequencePosition", "DoseSequencePosition")]
         public string SequencePosition { get; set; }
 
         /// <summary>
         /// Gets or sets the variable modifier.
         /// </summary>
-        [XElemBinding(AlternateNames = new string[] 
-            { "VariableFrequencyModifier", "VariableResultModifier", "VariableStrengthModifier", "VariableDoseModifier" },
-            Type = BindingType.Value)]
+        [XElemBinding(BindingType.Value, "VariableFrequencyModifier", "VariableResultModifier", "VariableStrengthModifier", "VariableDoseModifier")]
         public string VariableModifier { get; set; }
     }
 }
