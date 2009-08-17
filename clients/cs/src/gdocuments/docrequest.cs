@@ -316,7 +316,7 @@ namespace Google.Documents
             }
             set
             {
-                this.BaseUri = value;
+                this.baseUri = value;
             }
         }
         /// <summary>
