@@ -161,10 +161,6 @@ namespace Google.GData.Photos {
         /// </summary>
         public const string Location = "location";
 
-        /// <summary>
-        /// name element string
-        /// </summary>
-        public const string Name = "name";
 
         /// <summary>
         /// numphotos element string

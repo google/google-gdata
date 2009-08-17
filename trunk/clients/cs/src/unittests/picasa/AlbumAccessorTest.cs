@@ -95,19 +95,7 @@ namespace Google.GData.Client.UnitTests.Picasa
             Assert.AreEqual(expected, actual);
         }
 
-        /// <summary>
-        ///A test for Name
-        ///</summary>
-        [Test]
-        public void NameTest()
-        {
-            Album target = new Album(); 
-            string expected = "TestValue"; 
-            string actual;
-            target.Name = expected;
-            actual = target.Name;
-            Assert.AreEqual(expected, actual);
-        }
+        
 
         /// <summary>
         ///A test for Longitude

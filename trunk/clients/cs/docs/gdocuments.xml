@@ -36,9 +36,42 @@
         </member>
         <member name="P:Google.Documents.Document.DocumentId">
             <summary>
-            returns the document id of the object
+            returns the document id of the object. This is calculated with a parser of the URI
             </summary>
             <returns></returns>
+        </member>
+        <member name="P:Google.Documents.Document.ResourceId">
+            <summary>
+            returns the document resource id of the object. 
+            this uses the gd:resourceId element
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.Documents.Document.WritersCanInvite">
+            <summary>
+            returns if colaborators should be able to modify 
+            the documents ACL list
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.Documents.Document.LastViewed">
+            <summary>
+            Returns the last viewed timestamp
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.Documents.Document.LastModified">
+            <summary>
+            returns the last modififiedBy subobject, indicating
+            who edited the document last
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.Documents.Document.AccessControlList">
+            <summary>
+            returns the Uri to the access control list
+            </summary>
+            <returns>the value of the href attribute for the acl feedlink, or null if not found</returns>
         </member>
         <member name="T:Google.Documents.Document.DocumentType">
             <summary>
@@ -47,7 +80,7 @@
         </member>
         <member name="F:Google.Documents.Document.DocumentType.Document">
             <summary>
-            a docuemtn
+            a document
             </summary>
         </member>
         <member name="F:Google.Documents.Document.DocumentType.Spreadsheet">
@@ -219,6 +252,18 @@
             </summary>
             <returns>a feed of Documents</returns>
         </member>
+        <member name="M:Google.Documents.DocumentsRequest.GetViewed">
+            <summary>
+            returns all items the user has viewed recently
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Google.Documents.DocumentsRequest.GetForms">
+            <summary>
+            returns all forms for the authorized user
+             </summary>
+            <returns></returns>
+        </member>
         <member name="M:Google.Documents.DocumentsRequest.GetFolderContent(Google.Documents.Document)">
             <summary>
             returns a feed of documents for the specified folder
@@ -381,6 +426,11 @@
             document feed base URI 
             </summary>
         </member>
+        <member name="F:Google.GData.Documents.DocumentsListQuery.documentsAclUri">
+            <summary>
+            document feed base URI with ACLs
+            </summary>
+        </member>
         <member name="F:Google.GData.Documents.DocumentsListQuery.folderBaseUri">
             <summary>
             folder base uri
@@ -425,6 +475,36 @@
         <member name="F:Google.GData.Documents.DocumentsListQuery.FOLDER">
             <summary>
             predefined query category for starred documents
+            </summary>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentsListQuery.ATOMCATEGORY_VIEWED">
+            <summary>
+            predefined query category for viewed documents
+            </summary>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentsListQuery.VIEWED">
+            <summary>
+            predefined query category for starred documents
+            </summary>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentsListQuery.ATOMCATEGORY_HIDDEN">
+            <summary>
+            predefined atom category for hidden documents
+            </summary>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentsListQuery.HIDDEN">
+            <summary>
+            predefined query category for hidden documents
+            </summary>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentsListQuery.ATOMCATEGORY_FORM">
+            <summary>
+            predefined atom category for formss
+            </summary>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentsListQuery.FORM">
+            <summary>
+            predefined query category for hidden documents
             </summary>
         </member>
         <member name="M:Google.GData.Documents.DocumentsListQuery.#ctor">
@@ -561,6 +641,20 @@
             <param name="e"></param>
             <param name="parser">the atom feed parser used</param>
         </member>
+        <member name="T:Google.GData.Documents.DocumentslistNametable">
+            <summary>
+            Name Table for string constants used in the Documents list api
+            </summary>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentslistNametable.NSDocumentslist">
+            <summary>Document list namespace</summary>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentslistNametable.Prefix">
+            <summary>Document list prefix</summary>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentslistNametable.WritersCanInvite">
+            <summary>Writers can invite element</summary>
+        </member>
         <member name="T:Google.GData.Documents.DocumentEntry">
             <summary>
             Entry API customization class for defining entries in an Event feed.
@@ -605,6 +699,12 @@
             to indicate that it is an event.
             </summary>
         </member>
+        <member name="M:Google.GData.Documents.DocumentEntry.AddOtherNamespaces(System.Xml.XmlWriter)">
+            <summary>
+            add the documentslist NS
+            </summary>
+            <param name="writer">The XmlWrite, where we want to add default namespaces to</param>
+        </member>
         <member name="P:Google.GData.Documents.DocumentEntry.IsDocument">
             <summary>
             Reflects if this entry is a word processor document
@@ -646,6 +746,40 @@
             returns the href value of the parent link releationship
             </summary>
             <returns></returns>
+        </member>
+        <member name="P:Google.GData.Documents.DocumentEntry.ResourceId">
+            <summary>
+            Documents resource Identifier.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.GData.Documents.DocumentEntry.WritersCanInvite">
+            <summary>
+            Identifies if a collaborator can modify the ACLs of the document
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.GData.Documents.DocumentEntry.LastViewed">
+            <summary>
+            Returns the last viewed timestamp
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.GData.Documents.DocumentEntry.LastModified">
+            <summary>
+            returns the last modififiedBy Element
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Google.GData.Documents.WritersCanInvite">
+            <summary>
+            Determines if a collaborator can modify a documents ACL
+            </summary>
+        </member>
+        <member name="M:Google.GData.Documents.WritersCanInvite.#ctor">
+            <summary>
+            default constructor for gd:resourceid 
+            </summary>
         </member>
     </members>
 </doc>
