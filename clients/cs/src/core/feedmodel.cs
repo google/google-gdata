@@ -548,6 +548,19 @@ namespace Google.GData.Client
                 this.e.BatchData = value;
             }
         }
+
+        /// <summary>
+        /// returns the categories for the entry
+        /// </summary>
+        /// <returns></returns>
+        public AtomCategoryCollection Categories
+        {
+            get
+            {
+                EnsureInnerObject();
+                return this.e.Categories;
+            }
+        }
     }
 
    

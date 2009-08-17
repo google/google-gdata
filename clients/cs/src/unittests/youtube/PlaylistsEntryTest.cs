@@ -101,7 +101,7 @@ namespace Google.GData.Client.UnitTests.YouTube
             PlaylistsEntry target = new PlaylistsEntry();
             Assert.IsNotNull(target);
             Assert.IsNull(target.Content.Src.Content);
-            Assert.IsNull(target.Description);
+            Assert.IsNull(target.Summary.Text);
         }
     }
 }

@@ -119,6 +119,9 @@
     <Compile Include="..\..\extensions\who.cs">
       <Link>who.cs</Link>
     </Compile>
+    <Compile Include="..\..\extensions\misc.cs">
+      <Link>misc.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GDataMobile\GDataMobile.csproj">

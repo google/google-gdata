@@ -124,6 +124,33 @@ namespace Google.GData.Documents {
         /// </summary>
         public static QueryCategory FOLDER = new QueryCategory(ATOMCATEGORY_FOLDER);
 
+        /// <summary>
+        /// predefined query category for viewed documents
+        /// </summary>
+        public static AtomCategory ATOMCATEGORY_VIEWED = new AtomCategory("viewed");
+        /// <summary>
+        /// predefined query category for starred documents
+        /// </summary>
+        public static QueryCategory VIEWED = new QueryCategory(ATOMCATEGORY_VIEWED);
+
+        /// <summary>
+        /// predefined atom category for hidden documents
+        /// </summary>
+        public static AtomCategory ATOMCATEGORY_HIDDEN = new AtomCategory("hidden");
+        /// <summary>
+        /// predefined query category for hidden documents
+        /// </summary>
+        public static QueryCategory HIDDEN = new QueryCategory(ATOMCATEGORY_HIDDEN);
+
+        /// <summary>
+        /// predefined atom category for formss
+        /// </summary>
+        public static AtomCategory ATOMCATEGORY_FORM = new AtomCategory("form");
+        /// <summary>
+        /// predefined query category for hidden documents
+        /// </summary>
+        public static QueryCategory FORM = new QueryCategory(ATOMCATEGORY_FORM);
+
         //Local variable to hold the contents of a title query
         private string title;
         //Local variable to hold if the title query we are doing should be exact.

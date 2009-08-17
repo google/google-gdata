@@ -1,4 +1,5 @@
 ﻿using Google.GData.Photos;
+using Google.Picasa;
 using NUnit.Framework;
 using Google.GData.Client.UnitTests;
 namespace Google.GData.Client.UnitTests.Picasa
@@ -69,8 +70,7 @@ namespace Google.GData.Client.UnitTests.Picasa
         [Test]
         public void PhotoIdTest()
         {
-            PicasaEntry entry = new CommentEntry();
-            CommentAccessor target = new CommentAccessor(entry); // TODO: Initialize to an appropriate value
+            Comment target = new Comment();
             string expected = "TestValue"; 
             string actual;
             target.PhotoId = expected;
@@ -84,8 +84,7 @@ namespace Google.GData.Client.UnitTests.Picasa
         [Test]
         public void IdTest()
         {
-            PicasaEntry entry = new CommentEntry();
-            CommentAccessor target = new CommentAccessor(entry); 
+            Comment target = new Comment();
             string expected = "TestValue"; 
             string actual;
             target.Id = expected;
@@ -99,8 +98,7 @@ namespace Google.GData.Client.UnitTests.Picasa
         [Test]
         public void AlbumIdTest()
         {
-            PicasaEntry entry = new CommentEntry();
-            CommentAccessor target = new CommentAccessor(entry);
+            Comment target = new Comment();
             string expected = "TestValue"; 
             string actual;
             target.AlbumId = expected;
@@ -114,8 +112,7 @@ namespace Google.GData.Client.UnitTests.Picasa
         [Test]
         public void CommentAccessorConstructorTest()
         {
-            PicasaEntry entry = new CommentEntry();
-            CommentAccessor target = new CommentAccessor(entry);
+            Comment target = new Comment();
             Assert.IsNotNull(target);
         }
     }
