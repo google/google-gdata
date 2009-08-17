@@ -342,28 +342,6 @@ namespace Google.GData.Photos
             }
         }
 
-        /// <summary>
-        /// The name of the album, which is the URL-usable name 
-        /// derived from the title. This is the name that should be used in all 
-        /// URLs involving the album.
-        /// </summary>
-        
-#if WindowsCE || PocketPC
-#else
-        [Category("Base Album Data"),
-        Description("Specifies the name for the album.")]
-#endif
-        public string Name 
-        {
-            get 
-             {
-                return this.entry.GetPhotoExtensionValue(GPhotoNameTable.Name);
-            }
-            set 
-            {
-                this.entry.SetPhotoExtensionValue(GPhotoNameTable.Name, value);
-            }
-        }
 
         /// <summary>
         /// the number of comments on an album
