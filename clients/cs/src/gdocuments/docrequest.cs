@@ -40,7 +40,7 @@ namespace Google.Documents
         public enum DocumentType
         {
             /// <summary>
-            /// a docuemtn
+            /// a document
             /// </summary>
             Document,
             /// <summary>
@@ -237,6 +237,21 @@ namespace Google.Documents
             {
                 EnsureInnerObject();
                 return DocumentsListQuery.DocumentId(this.Id);
+            }
+        }
+
+        /// <summary>
+        /// returns the Uri to the access control list
+        /// </summary>
+        /// <returns>the value of the href attribute for the acl feedlink, or null if not found</returns>
+        public Uri AccessControlList
+        {
+            get
+            {
+                EnsureInnerObject();
+                return this.DocumentEntry.AccessControlList != null ? 
+                    new Uri(this.DocumentEntry.AccessControlList) :
+                    null;
             }
         }
     }
