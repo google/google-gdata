@@ -46,7 +46,7 @@ namespace Google.GData.Health
 			profile.ID = entry.Content.Content;
 			profile.Name = entry.Title.Text;
 			profile.Authors = new List<Author>();
-			foreach (var person in entry.Authors)
+			foreach (AtomPerson person in entry.Authors)
 			{
 				profile.Authors.Add(Author.FromAtomPerson(person));
 			}

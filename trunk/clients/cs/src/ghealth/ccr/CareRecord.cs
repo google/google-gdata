@@ -82,7 +82,7 @@ namespace Google.GData.Health
         {
             if (entry != null)
             {
-                var factory = entry.FindExtension("ContinuityOfCareRecord", "urn:astm-org:CCR");
+                IExtensionElementFactory factory = entry.FindExtension("ContinuityOfCareRecord", "urn:astm-org:CCR");
                 if (factory != null)
                 {
                     XmlExtension extension = factory as XmlExtension;

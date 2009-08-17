@@ -66,50 +66,52 @@ namespace Google.GData.Health
 
             private void BuildBindings()
             {
-                var properties = type.GetProperties();
-                foreach (var property in properties)
+                PropertyInfo[] properties = type.GetProperties();
+                foreach (PropertyInfo property in properties)
                 {
-                    var attributes = property.GetCustomAttributes(true);
-                    foreach (var attr in attributes)
-                    {
-                        if (attr is XElemBindingAttribute)
-                        {
-                            var binding = attr as XElemBindingAttribute;
-                            Type propertyType = property.PropertyType;
-                            Type genericType = null;
-                            if (binding.Type == BindingType.Element)
-                            {
-                                if (!builders.ContainsKey(property.PropertyType))
-                                    builders.Add(property.PropertyType, new ElementBuilder<T>.Builder(property.PropertyType));
-                            }
-                            else if (binding.Type == BindingType.Elements || binding.Type == BindingType.Additive)
-                            {
-                                Type[] types = property.PropertyType.GetGenericArguments();
-                                if (types.Length == 1)
-                                {
-                                    if (!builders.ContainsKey(types[0]))
-                                        builders.Add(types[0], new ElementBuilder<T>.Builder(types[0]));
-                                    genericType = types[0];
-                                }
-                            }
-                            else if (binding.Type == BindingType.None)
-                            {
-                                binding.Name = type.Name;
-                            }
-                            var bind = new Binding(property.Name, binding.Type, propertyType) { GenericType = genericType };
-                            if (binding.AlternateNames != null && binding.AlternateNames.Length > 0)
-                            {
-                                foreach (string name in binding.AlternateNames)
-                                {
-                                    bindings.Add(name, bind);
-                                }
-                            }
-                            else
-                            {
-                                bindings.Add(binding.Name, bind);
-                            }
-                        }
-                    }
+                    object[] attributes = property.GetCustomAttributes(typeof(XElemBindingAttribute), true);
+					if (attributes != null && attributes.Length > 0)
+					{
+						foreach (XElemBindingAttribute binding in attributes)
+						{
+							if (binding != null)
+							{
+								Type propertyType = property.PropertyType;
+								Type genericType = null;
+								if (binding.Type == BindingType.Element)
+								{
+									if (!builders.ContainsKey(property.PropertyType))
+										builders.Add(property.PropertyType, new ElementBuilder<T>.Builder(property.PropertyType));
+								}
+								else if (binding.Type == BindingType.Elements || binding.Type == BindingType.Additive)
+								{
+									Type[] types = property.PropertyType.GetGenericArguments();
+									if (types.Length == 1)
+									{
+										if (!builders.ContainsKey(types[0]))
+											builders.Add(types[0], new ElementBuilder<T>.Builder(types[0]));
+										genericType = types[0];
+									}
+								}
+								else if (binding.Type == BindingType.None)
+								{
+									binding.Name = type.Name;
+								}
+								Binding bind = new Binding(property.Name, binding.Type, propertyType) { GenericType = genericType };
+								if (binding.AlternateNames != null && binding.AlternateNames.Length > 0)
+								{
+									foreach (string name in binding.AlternateNames)
+									{
+										bindings.Add(name, bind);
+									}
+								}
+								else
+								{
+									bindings.Add(binding.Name, bind);
+								}
+							}
+						}
+					}
                 }
             }
 
@@ -139,7 +141,7 @@ namespace Google.GData.Health
                         SetProperty(ref result, bindings[type.Name].PropertyName, element.Value);
 
                     // Assign all attribute bindings for this element
-                    var attributes = element.Attributes;
+                    XmlAttributeCollection attributes = element.Attributes;
                     if (attributes != null)
                     {
 						for (int i = 0; i < attributes.Count; i++)
@@ -152,7 +154,7 @@ namespace Google.GData.Health
                     }
 
                     // For every element node, determine if there is a binding that can be built
-                    var elements = element.ChildNodes;
+                    XmlNodeList elements = element.ChildNodes;
                     if (elements != null)
                     {
                         foreach (XmlNode elem in elements)
