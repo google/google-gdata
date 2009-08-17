@@ -265,6 +265,46 @@ namespace Google.GData.Client.LiveTests
             }
         }
 
+        /// <summary>
+        /// tests to verify that an acl was detected
+        /// </summary>
+        [Test] public void ModelTestACLs()
+        {
+            RequestSettings settings = new RequestSettings(this.ApplicationName, this.userName, this.passWord);
+            // settings.PageSize = 15;
+            DocumentsRequest r = new DocumentsRequest(settings);
+        
+            // this returns the server default answer
+            Feed<Document> feed = r.GetDocuments();
+
+            foreach (Document x in feed.Entries )
+            {
+                Assert.IsTrue(x != null, "We should have something");
+                Assert.IsNotNull(x.AccessControlList);
+            }
+        }
+
+        /// <summary>
+        /// tests including acls during feed download
+        /// </summary>
+        [Test] public void ModelTestIncludeACLs()
+        {
+            RequestSettings settings = new RequestSettings(this.ApplicationName, this.userName, this.passWord);
+            // settings.PageSize = 15;
+            DocumentsRequest r = new DocumentsRequest(settings);
+            
+            r.BaseUri = DocumentsListQuery.documentsAclUri;
+            
+            // this returns the server default answer
+            Feed<Document> feed = r.GetDocuments();
+            
+            foreach (Document x in feed.Entries )
+            {
+                Assert.IsTrue(x != null, "We should have something");
+                Assert.IsNotNull(x.AccessControlList);
+            }
+        }
+
 
         /// <summary>
         /// tests etag refresh on an entry level

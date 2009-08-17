@@ -68,6 +68,13 @@ namespace Google.GData.Documents {
         public static string documentsBaseUri = "http://docs.google.com/feeds/documents/private/full";
 
         /// <summary>
+        /// document feed base URI with ACLs
+        /// </summary>
+        public static string documentsAclUri = "http://docs.google.com/feeds/documents/private/expandAcl";
+
+
+
+        /// <summary>
         /// folder base uri
         /// </summary>
         /// <returns></returns>
