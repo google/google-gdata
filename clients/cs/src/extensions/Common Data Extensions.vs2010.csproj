@@ -1,22 +1,22 @@
-﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{96CCB33A-3B32-480E-B83D-93F0309F7DD2}</ProjectGuid>
+    <ProjectGuid>{21BCB644-F9C3-4ADC-8BE1-4E55C6565011}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ApplicationIcon>
     </ApplicationIcon>
     <AssemblyKeyContainerName>
     </AssemblyKeyContainerName>
-    <AssemblyName>Google.GData.Apps</AssemblyName>
-    <AssemblyOriginatorKeyFile>gapps.sn</AssemblyOriginatorKeyFile>
+    <AssemblyName>Google.GData.Extensions</AssemblyName>
+    <AssemblyOriginatorKeyFile>extensionkey.sn</AssemblyOriginatorKeyFile>
     <DefaultClientScript>JScript</DefaultClientScript>
     <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
     <DefaultTargetSchema>IE50</DefaultTargetSchema>
     <DelaySign>false</DelaySign>
     <OutputType>Library</OutputType>
-    <RootNamespace>Google.GData.Apps</RootNamespace>
+    <RootNamespace>Google.GData.Extensions</RootNamespace>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
     <StartupObject>
     </StartupObject>
@@ -58,7 +58,7 @@
     </ConfigurationOverrideFile>
     <DefineConstants>
     </DefineConstants>
-    <DocumentationFile>bin\gapps.xml</DocumentationFile>
+    <DocumentationFile>bin\gextension.xml</DocumentationFile>
     <DebugSymbols>false</DebugSymbols>
     <FileAlignment>4096</FileAlignment>
     <NoStdLib>false</NoStdLib>
@@ -80,7 +80,7 @@
     <ConfigurationOverrideFile>
     </ConfigurationOverrideFile>
     <DefineConstants>PARTIALLY_TRUSTED</DefineConstants>
-    <DocumentationFile>bin\gapps.xml</DocumentationFile>
+    <DocumentationFile>bin\gextension.xml</DocumentationFile>
     <DebugSymbols>false</DebugSymbols>
     <FileAlignment>4096</FileAlignment>
     <NoStdLib>false</NoStdLib>
@@ -104,51 +104,43 @@
     <Reference Include="System.Xml">
       <Name>System.XML</Name>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="extensionkey.sn" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\core\Core Client.csproj">
       <Project>{B6F6D938-0D45-42BA-8A67-55D92EF03995}</Project>
       <Name>Core Client</Name>
     </ProjectReference>
-    <ProjectReference Include="..\extensions\Common Data Extensions.csproj">
-      <Name>Common Data Extensions</Name>
-      <Project>{21BCB644-F9C3-4ADC-8BE1-4E55C6565011}</Project>
-      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="gapps.sn" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\version\AssemblyVersion.cs">
       <Link>AssemblyVersion.cs</Link>
     </Compile>
-    <Compile Include="appsexception.cs" />
-    <Compile Include="appsextendedentry.cs" />
-    <Compile Include="appsextendedfeed.cs" />
-    <Compile Include="appsservice.cs" />
+    <Compile Include="apps.cs" />
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="emaillistentry.cs" />
-    <Compile Include="emaillistfeed.cs" />
-    <Compile Include="emaillistquery.cs" />
-    <Compile Include="emaillistrecipiententry.cs" />
-    <Compile Include="emaillistrecipientfeed.cs" />
-    <Compile Include="emaillistrecipientquery.cs" />
-    <Compile Include="emaillistrecipientservice.cs" />
-    <Compile Include="emaillistservice.cs" />
-    <Compile Include="googlemailsettingsentry.cs" />
-    <Compile Include="googlemailsettingsfeed.cs" />
-    <Compile Include="googlemailsettingsservice.cs" />
-    <Compile Include="groupsservice.cs" />
-    <Compile Include="mailitementry.cs" />
-    <Compile Include="mailitemfeed.cs" />
-    <Compile Include="mailitemservice.cs" />
-    <Compile Include="nicknameentry.cs" />
-    <Compile Include="nicknamefeed.cs" />
-    <Compile Include="nicknamequery.cs" />
-    <Compile Include="nicknameservice.cs" />
-    <Compile Include="userentry.cs" />
-    <Compile Include="userfeed.cs" />
-    <Compile Include="userquery.cs" />
-    <Compile Include="userservice.cs" />
+    <Compile Include="comments.cs" />
+    <Compile Include="contacts.cs" />
+    <Compile Include="entrylink.cs" />
+    <Compile Include="enumconstruct.cs" />
+    <Compile Include="exif.cs" />
+    <Compile Include="extended.cs" />
+    <Compile Include="feedlink.cs" />
+    <Compile Include="gdatanametable.cs" />
+    <Compile Include="georsswhere.cs" />
+    <Compile Include="labelcollection.cs" />
+    <Compile Include="mailitempropertycollection.cs" />
+    <Compile Include="mediarss.cs" />
+    <Compile Include="originalevent.cs" />
+    <Compile Include="ratings.cs" />
+    <Compile Include="recurexception.cs" />
+    <Compile Include="recurrence.cs" />
+    <Compile Include="misc.cs" />
+    <Compile Include="reminder.cs" />
+    <Compile Include="when.cs" />
+    <Compile Include="where.cs" />
+    <Compile Include="who.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

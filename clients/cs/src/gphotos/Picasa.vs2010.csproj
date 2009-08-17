@@ -1,22 +1,22 @@
-﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{96CCB33A-3B32-480E-B83D-93F0309F7DD2}</ProjectGuid>
+    <ProjectGuid>{6781DF3C-A44F-418B-989B-771D17937F91}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ApplicationIcon>
     </ApplicationIcon>
     <AssemblyKeyContainerName>
     </AssemblyKeyContainerName>
-    <AssemblyName>Google.GData.Apps</AssemblyName>
-    <AssemblyOriginatorKeyFile>gapps.sn</AssemblyOriginatorKeyFile>
+    <AssemblyName>Google.GData.Photos</AssemblyName>
+    <AssemblyOriginatorKeyFile>picasa.sn</AssemblyOriginatorKeyFile>
     <DefaultClientScript>JScript</DefaultClientScript>
     <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
     <DefaultTargetSchema>IE50</DefaultTargetSchema>
     <DelaySign>false</DelaySign>
     <OutputType>Library</OutputType>
-    <RootNamespace>Google.GData.Apps</RootNamespace>
+    <RootNamespace>Google.GData.Photos</RootNamespace>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
     <StartupObject>
     </StartupObject>
@@ -56,9 +56,8 @@
     <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
     <ConfigurationOverrideFile>
     </ConfigurationOverrideFile>
-    <DefineConstants>
-    </DefineConstants>
-    <DocumentationFile>bin\gapps.xml</DocumentationFile>
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile>bin\gphotos.xml</DocumentationFile>
     <DebugSymbols>false</DebugSymbols>
     <FileAlignment>4096</FileAlignment>
     <NoStdLib>false</NoStdLib>
@@ -73,15 +72,16 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ASP|AnyCPU' ">
-    <OutputPath>bin\asp\</OutputPath>
+    <OutputPath>bin\ASP\</OutputPath>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <BaseAddress>285212672</BaseAddress>
     <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
     <ConfigurationOverrideFile>
     </ConfigurationOverrideFile>
     <DefineConstants>PARTIALLY_TRUSTED</DefineConstants>
-    <DocumentationFile>bin\gapps.xml</DocumentationFile>
-    <DebugSymbols>false</DebugSymbols>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
     <FileAlignment>4096</FileAlignment>
     <NoStdLib>false</NoStdLib>
     <NoWarn>
@@ -90,8 +90,8 @@
     <RegisterForComInterop>false</RegisterForComInterop>
     <RemoveIntegerChecks>false</RemoveIntegerChecks>
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
-    <WarningLevel>4</WarningLevel>
-    <DebugType>none</DebugType>
+    <WarningLevel>1</WarningLevel>
+    <DebugType>full</DebugType>
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
@@ -115,40 +115,24 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="gapps.sn" />
+    <None Include="picasa.sn" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\version\AssemblyVersion.cs">
       <Link>AssemblyVersion.cs</Link>
     </Compile>
-    <Compile Include="appsexception.cs" />
-    <Compile Include="appsextendedentry.cs" />
-    <Compile Include="appsextendedfeed.cs" />
-    <Compile Include="appsservice.cs" />
+    <Compile Include="albumentry.cs" />
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="emaillistentry.cs" />
-    <Compile Include="emaillistfeed.cs" />
-    <Compile Include="emaillistquery.cs" />
-    <Compile Include="emaillistrecipiententry.cs" />
-    <Compile Include="emaillistrecipientfeed.cs" />
-    <Compile Include="emaillistrecipientquery.cs" />
-    <Compile Include="emaillistrecipientservice.cs" />
-    <Compile Include="emaillistservice.cs" />
-    <Compile Include="googlemailsettingsentry.cs" />
-    <Compile Include="googlemailsettingsfeed.cs" />
-    <Compile Include="googlemailsettingsservice.cs" />
-    <Compile Include="groupsservice.cs" />
-    <Compile Include="mailitementry.cs" />
-    <Compile Include="mailitemfeed.cs" />
-    <Compile Include="mailitemservice.cs" />
-    <Compile Include="nicknameentry.cs" />
-    <Compile Include="nicknamefeed.cs" />
-    <Compile Include="nicknamequery.cs" />
-    <Compile Include="nicknameservice.cs" />
-    <Compile Include="userentry.cs" />
-    <Compile Include="userfeed.cs" />
-    <Compile Include="userquery.cs" />
-    <Compile Include="userservice.cs" />
+    <Compile Include="commententry.cs" />
+    <Compile Include="gextphotos.cs" />
+    <Compile Include="kindsquery.cs" />
+    <Compile Include="photoentry.cs" />
+    <Compile Include="picasaentry.cs" />
+    <Compile Include="picasafeed.cs" />
+    <Compile Include="picasaquery.cs" />
+    <Compile Include="picasaservice.cs" />
+    <Compile Include="tagentry.cs" />
+    <Compile Include="photosrequest.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

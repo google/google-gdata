@@ -1,15 +1,15 @@
-﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{A7BA16A4-7636-46CA-AAAD-3CB3361ECD40}</ProjectGuid>
+    <ProjectGuid>{66B2AD47-7DD2-43E5-9124-D53486609992}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Google.GData.Analytics</RootNamespace>
-    <AssemblyName>Google.GData.Analytics</AssemblyName>
+    <RootNamespace>Google.GData.Contacts</RootNamespace>
+    <AssemblyName>Google.GData.Contacts</AssemblyName>
     <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>analytics.sn</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>contacts.sn</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -24,17 +24,19 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>
+    </DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\analytics.xml</DocumentationFile>
+    <DocumentationFile>bin\gcontacts.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ASP|AnyCPU' ">
-    <OutputPath>bin\ASP\</OutputPath>
-    <DefineConstants>TRACE;PARTIALLY_TRUSTED</DefineConstants>
+    <OutputPath>bin\asp\</OutputPath>
+    <DefineConstants>PARTIALLY_TRUSTED</DefineConstants>
+    <DebugSymbols>false</DebugSymbols>
     <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>none</DebugType>
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
@@ -43,25 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\version\AssemblyVersion.cs">
-      <Link>AssemblyVersion.cs</Link>
-    </Compile>
-    <Compile Include="accountentry.cs" />
-    <Compile Include="accountfeed.cs" />
-    <Compile Include="accountquery.cs" />
-    <Compile Include="aggregates.cs" />
-    <Compile Include="analyticsservice.cs" />
-    <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="dataentry.cs" />
-    <Compile Include="datafeed.cs" />
-    <Compile Include="dataquery.cs" />
-    <Compile Include="dimension.cs" />
-    <Compile Include="metric.cs" />
-    <Compile Include="property.cs" />
-    <Compile Include="sourceentry.cs" />
-    <Compile Include="tableid.cs" />
-    <Compile Include="tablename.cs" />
-    <Compile Include="analyticsrequest.cs" />
+    <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\core\Core Client.csproj">
@@ -74,7 +58,23 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="analytics.sn" />
+    <None Include="contacts.sn" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\version\AssemblyVersion.cs">
+      <Link>AssemblyVersion.cs</Link>
+    </Compile>
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="contactentry.cs" />
+    <Compile Include="groupentry.cs" />
+    <Compile Include="contactfeed.cs" />
+    <Compile Include="contactquery.cs" />
+    <Compile Include="contactservice.cs" />
+    <Compile Include="contactrequest.cs" />
+    <Compile Include="contactextensions.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

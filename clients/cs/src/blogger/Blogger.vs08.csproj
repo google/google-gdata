@@ -1,15 +1,15 @@
-﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{A7BA16A4-7636-46CA-AAAD-3CB3361ECD40}</ProjectGuid>
+    <ProjectGuid>{BE48B106-7766-494C-B0F1-00989ACF2480}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Google.GData.Analytics</RootNamespace>
-    <AssemblyName>Google.GData.Analytics</AssemblyName>
+    <RootNamespace>Google.GData.Blogger</RootNamespace>
+    <AssemblyName>Google.GData.Blogger</AssemblyName>
     <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>analytics.sn</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>blogger.sn</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -27,7 +27,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\analytics.xml</DocumentationFile>
+    <DocumentationFile>bin\blogger.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ASP|AnyCPU' ">
     <OutputPath>bin\ASP\</OutputPath>
@@ -43,38 +43,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\version\AssemblyVersion.cs">
-      <Link>AssemblyVersion.cs</Link>
-    </Compile>
-    <Compile Include="accountentry.cs" />
-    <Compile Include="accountfeed.cs" />
-    <Compile Include="accountquery.cs" />
-    <Compile Include="aggregates.cs" />
-    <Compile Include="analyticsservice.cs" />
-    <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="dataentry.cs" />
-    <Compile Include="datafeed.cs" />
-    <Compile Include="dataquery.cs" />
-    <Compile Include="dimension.cs" />
-    <Compile Include="metric.cs" />
-    <Compile Include="property.cs" />
-    <Compile Include="sourceentry.cs" />
-    <Compile Include="tableid.cs" />
-    <Compile Include="tablename.cs" />
-    <Compile Include="analyticsrequest.cs" />
+    <None Include="blogger.sn" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\core\Core Client.csproj">
       <Project>{B6F6D938-0D45-42BA-8A67-55D92EF03995}</Project>
       <Name>Core Client</Name>
     </ProjectReference>
-    <ProjectReference Include="..\extensions\Common Data Extensions.csproj">
-      <Project>{21BCB644-F9C3-4ADC-8BE1-4E55C6565011}</Project>
-      <Name>Common Data Extensions</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="analytics.sn" />
+    <Compile Include="..\..\version\AssemblyVersion.cs">
+      <Link>AssemblyVersion.cs</Link>
+    </Compile>
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="bloggerentry.cs" />
+    <Compile Include="bloggerfeed.cs" />
+    <Compile Include="bloggerquery.cs" />
+    <Compile Include="bloggerservice.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

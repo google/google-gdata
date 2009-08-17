@@ -1,22 +1,22 @@
-﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{96CCB33A-3B32-480E-B83D-93F0309F7DD2}</ProjectGuid>
+    <ProjectGuid>{279D35CE-871A-4C76-B823-A73675EDF191}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ApplicationIcon>
     </ApplicationIcon>
     <AssemblyKeyContainerName>
     </AssemblyKeyContainerName>
-    <AssemblyName>Google.GData.Apps</AssemblyName>
-    <AssemblyOriginatorKeyFile>gapps.sn</AssemblyOriginatorKeyFile>
+    <AssemblyName>Google.GData.AccessControl</AssemblyName>
+    <AssemblyOriginatorKeyFile>gacl.sn</AssemblyOriginatorKeyFile>
     <DefaultClientScript>JScript</DefaultClientScript>
     <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
     <DefaultTargetSchema>IE50</DefaultTargetSchema>
     <DelaySign>false</DelaySign>
     <OutputType>Library</OutputType>
-    <RootNamespace>Google.GData.Apps</RootNamespace>
+    <RootNamespace>Google.GData.AccessControl</RootNamespace>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
     <StartupObject>
     </StartupObject>
@@ -58,7 +58,7 @@
     </ConfigurationOverrideFile>
     <DefineConstants>
     </DefineConstants>
-    <DocumentationFile>bin\gapps.xml</DocumentationFile>
+    <DocumentationFile>bin\gacl.xml</DocumentationFile>
     <DebugSymbols>false</DebugSymbols>
     <FileAlignment>4096</FileAlignment>
     <NoStdLib>false</NoStdLib>
@@ -80,7 +80,7 @@
     <ConfigurationOverrideFile>
     </ConfigurationOverrideFile>
     <DefineConstants>PARTIALLY_TRUSTED</DefineConstants>
-    <DocumentationFile>bin\gapps.xml</DocumentationFile>
+    <DocumentationFile>bin\gacl.xml</DocumentationFile>
     <DebugSymbols>false</DebugSymbols>
     <FileAlignment>4096</FileAlignment>
     <NoStdLib>false</NoStdLib>
@@ -115,40 +115,18 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="gapps.sn" />
+    <None Include="gacl.sn" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\version\AssemblyVersion.cs">
       <Link>AssemblyVersion.cs</Link>
     </Compile>
-    <Compile Include="appsexception.cs" />
-    <Compile Include="appsextendedentry.cs" />
-    <Compile Include="appsextendedfeed.cs" />
-    <Compile Include="appsservice.cs" />
+    <Compile Include="aclentry.cs" />
+    <Compile Include="aclfeed.cs" />
+    <Compile Include="aclnamespace.cs" />
+    <Compile Include="aclrole.cs" />
+    <Compile Include="aclscope.cs" />
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="emaillistentry.cs" />
-    <Compile Include="emaillistfeed.cs" />
-    <Compile Include="emaillistquery.cs" />
-    <Compile Include="emaillistrecipiententry.cs" />
-    <Compile Include="emaillistrecipientfeed.cs" />
-    <Compile Include="emaillistrecipientquery.cs" />
-    <Compile Include="emaillistrecipientservice.cs" />
-    <Compile Include="emaillistservice.cs" />
-    <Compile Include="googlemailsettingsentry.cs" />
-    <Compile Include="googlemailsettingsfeed.cs" />
-    <Compile Include="googlemailsettingsservice.cs" />
-    <Compile Include="groupsservice.cs" />
-    <Compile Include="mailitementry.cs" />
-    <Compile Include="mailitemfeed.cs" />
-    <Compile Include="mailitemservice.cs" />
-    <Compile Include="nicknameentry.cs" />
-    <Compile Include="nicknamefeed.cs" />
-    <Compile Include="nicknamequery.cs" />
-    <Compile Include="nicknameservice.cs" />
-    <Compile Include="userentry.cs" />
-    <Compile Include="userfeed.cs" />
-    <Compile Include="userquery.cs" />
-    <Compile Include="userservice.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
