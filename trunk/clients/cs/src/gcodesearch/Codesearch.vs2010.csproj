@@ -1,22 +1,22 @@
-﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{96CCB33A-3B32-480E-B83D-93F0309F7DD2}</ProjectGuid>
+    <ProjectGuid>{6C9717F6-4CEF-4665-82DA-31073493FFA0}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ApplicationIcon>
     </ApplicationIcon>
     <AssemblyKeyContainerName>
     </AssemblyKeyContainerName>
-    <AssemblyName>Google.GData.Apps</AssemblyName>
-    <AssemblyOriginatorKeyFile>gapps.sn</AssemblyOriginatorKeyFile>
+    <AssemblyName>Google.GData.CodeSearch</AssemblyName>
+    <AssemblyOriginatorKeyFile>codesearch.sn</AssemblyOriginatorKeyFile>
     <DefaultClientScript>JScript</DefaultClientScript>
     <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
     <DefaultTargetSchema>IE50</DefaultTargetSchema>
     <DelaySign>false</DelaySign>
     <OutputType>Library</OutputType>
-    <RootNamespace>Google.GData.Apps</RootNamespace>
+    <RootNamespace>Google.GData.CodeSearch</RootNamespace>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
     <StartupObject>
     </StartupObject>
@@ -34,8 +34,7 @@
     <ConfigurationOverrideFile>
     </ConfigurationOverrideFile>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DocumentationFile>
-    </DocumentationFile>
+    <DocumentationFile>doc.xml</DocumentationFile>
     <DebugSymbols>true</DebugSymbols>
     <FileAlignment>4096</FileAlignment>
     <NoStdLib>false</NoStdLib>
@@ -58,7 +57,7 @@
     </ConfigurationOverrideFile>
     <DefineConstants>
     </DefineConstants>
-    <DocumentationFile>bin\gapps.xml</DocumentationFile>
+    <DocumentationFile>bin\gcodesearch.xml</DocumentationFile>
     <DebugSymbols>false</DebugSymbols>
     <FileAlignment>4096</FileAlignment>
     <NoStdLib>false</NoStdLib>
@@ -80,7 +79,7 @@
     <ConfigurationOverrideFile>
     </ConfigurationOverrideFile>
     <DefineConstants>PARTIALLY_TRUSTED</DefineConstants>
-    <DocumentationFile>bin\gapps.xml</DocumentationFile>
+    <DocumentationFile>bin\gcodesearch.xml</DocumentationFile>
     <DebugSymbols>false</DebugSymbols>
     <FileAlignment>4096</FileAlignment>
     <NoStdLib>false</NoStdLib>
@@ -98,9 +97,6 @@
     <Reference Include="System">
       <Name>System</Name>
     </Reference>
-    <Reference Include="System.Data">
-      <Name>System.Data</Name>
-    </Reference>
     <Reference Include="System.Xml">
       <Name>System.XML</Name>
     </Reference>
@@ -115,40 +111,20 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="gapps.sn" />
+    <None Include="codesearch.sn" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\version\AssemblyVersion.cs">
       <Link>AssemblyVersion.cs</Link>
     </Compile>
-    <Compile Include="appsexception.cs" />
-    <Compile Include="appsextendedentry.cs" />
-    <Compile Include="appsextendedfeed.cs" />
-    <Compile Include="appsservice.cs" />
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="emaillistentry.cs" />
-    <Compile Include="emaillistfeed.cs" />
-    <Compile Include="emaillistquery.cs" />
-    <Compile Include="emaillistrecipiententry.cs" />
-    <Compile Include="emaillistrecipientfeed.cs" />
-    <Compile Include="emaillistrecipientquery.cs" />
-    <Compile Include="emaillistrecipientservice.cs" />
-    <Compile Include="emaillistservice.cs" />
-    <Compile Include="googlemailsettingsentry.cs" />
-    <Compile Include="googlemailsettingsfeed.cs" />
-    <Compile Include="googlemailsettingsservice.cs" />
-    <Compile Include="groupsservice.cs" />
-    <Compile Include="mailitementry.cs" />
-    <Compile Include="mailitemfeed.cs" />
-    <Compile Include="mailitemservice.cs" />
-    <Compile Include="nicknameentry.cs" />
-    <Compile Include="nicknamefeed.cs" />
-    <Compile Include="nicknamequery.cs" />
-    <Compile Include="nicknameservice.cs" />
-    <Compile Include="userentry.cs" />
-    <Compile Include="userfeed.cs" />
-    <Compile Include="userquery.cs" />
-    <Compile Include="userservice.cs" />
+    <Compile Include="codesearchentry.cs" />
+    <Compile Include="codesearchfeed.cs" />
+    <Compile Include="codesearchnametable.cs" />
+    <Compile Include="file.cs" />
+    <Compile Include="gcodesearchservice.cs" />
+    <Compile Include="match.cs" />
+    <Compile Include="package.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

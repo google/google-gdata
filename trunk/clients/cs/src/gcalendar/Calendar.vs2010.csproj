@@ -1,22 +1,22 @@
-﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{96CCB33A-3B32-480E-B83D-93F0309F7DD2}</ProjectGuid>
+    <ProjectGuid>{0AD0FA26-A071-4CAC-851C-05B6C26B9888}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ApplicationIcon>
     </ApplicationIcon>
     <AssemblyKeyContainerName>
     </AssemblyKeyContainerName>
-    <AssemblyName>Google.GData.Apps</AssemblyName>
-    <AssemblyOriginatorKeyFile>gapps.sn</AssemblyOriginatorKeyFile>
+    <AssemblyName>Google.GData.Calendar</AssemblyName>
+    <AssemblyOriginatorKeyFile>calendarkey.sn</AssemblyOriginatorKeyFile>
     <DefaultClientScript>JScript</DefaultClientScript>
     <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
     <DefaultTargetSchema>IE50</DefaultTargetSchema>
     <DelaySign>false</DelaySign>
     <OutputType>Library</OutputType>
-    <RootNamespace>Google.GData.Apps</RootNamespace>
+    <RootNamespace>Google.GData.Calendar</RootNamespace>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
     <StartupObject>
     </StartupObject>
@@ -58,7 +58,7 @@
     </ConfigurationOverrideFile>
     <DefineConstants>
     </DefineConstants>
-    <DocumentationFile>bin\gapps.xml</DocumentationFile>
+    <DocumentationFile>bin\gcal.xml</DocumentationFile>
     <DebugSymbols>false</DebugSymbols>
     <FileAlignment>4096</FileAlignment>
     <NoStdLib>false</NoStdLib>
@@ -80,7 +80,7 @@
     <ConfigurationOverrideFile>
     </ConfigurationOverrideFile>
     <DefineConstants>PARTIALLY_TRUSTED</DefineConstants>
-    <DocumentationFile>bin\gapps.xml</DocumentationFile>
+    <DocumentationFile>bin\gcal.xml</DocumentationFile>
     <DebugSymbols>false</DebugSymbols>
     <FileAlignment>4096</FileAlignment>
     <NoStdLib>false</NoStdLib>
@@ -108,6 +108,11 @@
       <Project>{B6F6D938-0D45-42BA-8A67-55D92EF03995}</Project>
       <Name>Core Client</Name>
     </ProjectReference>
+    <ProjectReference Include="..\gacl\Access Control.csproj">
+      <Name>Access Control</Name>
+      <Project>{279D35CE-871A-4C76-B823-A73675EDF191}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
     <ProjectReference Include="..\extensions\Common Data Extensions.csproj">
       <Name>Common Data Extensions</Name>
       <Project>{21BCB644-F9C3-4ADC-8BE1-4E55C6565011}</Project>
@@ -115,40 +120,22 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="gapps.sn" />
+    <None Include="calendarkey.sn" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\version\AssemblyVersion.cs">
       <Link>AssemblyVersion.cs</Link>
     </Compile>
-    <Compile Include="appsexception.cs" />
-    <Compile Include="appsextendedentry.cs" />
-    <Compile Include="appsextendedfeed.cs" />
-    <Compile Include="appsservice.cs" />
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="emaillistentry.cs" />
-    <Compile Include="emaillistfeed.cs" />
-    <Compile Include="emaillistquery.cs" />
-    <Compile Include="emaillistrecipiententry.cs" />
-    <Compile Include="emaillistrecipientfeed.cs" />
-    <Compile Include="emaillistrecipientquery.cs" />
-    <Compile Include="emaillistrecipientservice.cs" />
-    <Compile Include="emaillistservice.cs" />
-    <Compile Include="googlemailsettingsentry.cs" />
-    <Compile Include="googlemailsettingsfeed.cs" />
-    <Compile Include="googlemailsettingsservice.cs" />
-    <Compile Include="groupsservice.cs" />
-    <Compile Include="mailitementry.cs" />
-    <Compile Include="mailitemfeed.cs" />
-    <Compile Include="mailitemservice.cs" />
-    <Compile Include="nicknameentry.cs" />
-    <Compile Include="nicknamefeed.cs" />
-    <Compile Include="nicknamequery.cs" />
-    <Compile Include="nicknameservice.cs" />
-    <Compile Include="userentry.cs" />
-    <Compile Include="userfeed.cs" />
-    <Compile Include="userquery.cs" />
-    <Compile Include="userservice.cs" />
+    <Compile Include="calendarentry.cs" />
+    <Compile Include="calendarfeed.cs" />
+    <Compile Include="calendarquery.cs" />
+    <Compile Include="calendarservice.cs" />
+    <Compile Include="evententry.cs" />
+    <Compile Include="eventfeed.cs" />
+    <Compile Include="eventquery.cs" />
+    <Compile Include="webcontent.cs" />
+    <Compile Include="webcontentlink.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
