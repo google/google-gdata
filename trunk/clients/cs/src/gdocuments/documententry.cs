@@ -21,9 +21,25 @@ using System.Collections.Generic;
 using Google.GData.Client;
 using Google.GData.Extensions;
 using Google.GData.AccessControl;
+using System.Globalization;
 
 
 namespace Google.GData.Documents {
+
+
+    /// <summary>
+    /// Name Table for string constants used in the Documents list api
+    /// </summary>
+    public class DocumentslistNametable : GDataParserNameTable
+    {
+        /// <summary>Document list namespace</summary>
+        public const string NSDocumentslist = "http://schemas.google.com/docs/2007";
+        /// <summary>Document list prefix</summary>
+        public const string Prefix = "docs";
+        /// <summary>Writers can invite element</summary>
+        public const string WritersCanInvite = "writersCanInvite";
+    }
+
 
 
     //////////////////////////////////////////////////////////////////////
@@ -41,6 +57,7 @@ namespace Google.GData.Documents {
         static string STARRED_KIND = "http://schemas.google.com/g/2005/labels#starred";
         static string FOLDER_KIND = "http://schemas.google.com/docs/2007#folder";
         static string PARENT_FOLDER_REL = "http://schemas.google.com/docs/2007#parent";
+        
 
         /// <summary>
         /// a predefined atom category for Documents
@@ -87,6 +104,28 @@ namespace Google.GData.Documents {
         {
             Tracing.TraceMsg("Created DocumentEntry");
             this.AddExtension(new FeedLink());
+            this.AddExtension(new ResourceId());
+            this.AddExtension(new WritersCanInvite()); 
+            this.AddExtension(new LastViewed());
+            this.AddExtension(new LastModifiedBy());
+        }
+
+        /// <summary>
+        /// add the documentslist NS
+        /// </summary>
+        /// <param name="writer">The XmlWrite, where we want to add default namespaces to</param>
+        protected override void AddOtherNamespaces(XmlWriter writer)
+        {
+            base.AddOtherNamespaces(writer);
+            if (writer == null)
+            {
+                throw new ArgumentNullException("writer"); 
+            }
+            string strPrefix = writer.LookupPrefix(DocumentslistNametable.NSDocumentslist);
+            if (strPrefix == null)
+            {
+                writer.WriteAttributeString("xmlns", DocumentslistNametable.Prefix, null, DocumentslistNametable.NSDocumentslist);
+            }
         }
 
         /// <summary>
@@ -214,6 +253,95 @@ namespace Google.GData.Documents {
             }
         }
 
+        /// <summary>
+        /// Documents resource Identifier.
+        /// </summary>
+        /// <returns></returns>
+        public string ResourceId
+        {
+            get 
+            {
+                return GetStringValue<ResourceId>(GDataParserNameTable.XmlResourceIdElement,
+                        GDataParserNameTable.gNamespace);
+            }
+        }
+
+        /// <summary>
+        /// Identifies if a collaborator can modify the ACLs of the document
+        /// </summary>
+        /// <returns></returns>
+        public bool WritersCanInvite
+        {
+            get 
+            {
+                String v = GetStringValue<WritersCanInvite>(DocumentslistNametable.WritersCanInvite,
+                        DocumentslistNametable.NSDocumentslist);
+                // v can either be 1/0 or true/false
+                bool ret = Utilities.XSDTrue == v;
+                
+                if (ret == false)
+                {
+                    ret = "0" == v;
+                }
+                return ret;
+            }
+            set 
+            {
+                String v = value == true ? Utilities.XSDTrue : Utilities.XSDFalse;
+                SetStringValue<WritersCanInvite>(v,
+                        DocumentslistNametable.WritersCanInvite,
+                        DocumentslistNametable.NSDocumentslist);
+            }
+        }
+
+        /// <summary>
+        /// Returns the last viewed timestamp
+        /// </summary>
+        /// <returns></returns>
+        public DateTime LastViewed
+        {
+            get 
+            {
+                LastViewed e =  FindExtension(GDataParserNameTable.XmlLastViewedElement, GDataParserNameTable.gNamespace) as LastViewed;
+                if (e!= null && e.Value != null)
+                {
+                    return DateTime.Parse(e.Value, CultureInfo.InvariantCulture);
+                }
+                return DateTime.MinValue;
+            }
+        }
+
+        /// <summary>
+        /// returns the last modififiedBy Element
+        /// </summary>
+        /// <returns></returns>
+        public LastModifiedBy LastModified 
+        {
+            get
+            {
+                return FindExtension(GDataParserNameTable.XmlLastModifiedByElement, GDataParserNameTable.gNamespace) as LastModifiedBy;
+            }
+        }
+
     }
+
+    /// <summary>
+    /// Determines if a collaborator can modify a documents ACL
+    /// </summary>
+    public class WritersCanInvite : SimpleAttribute
+    {
+        /// <summary>
+        /// default constructor for gd:resourceid 
+        /// </summary>
+        public WritersCanInvite()
+        : base(DocumentslistNametable.WritersCanInvite, 
+               DocumentslistNametable.NSDocumentslist,
+               DocumentslistNametable.Prefix)
+        {
+        }
+
+        
+    }
+
 }
 

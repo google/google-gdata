@@ -228,9 +228,10 @@ namespace Google.Documents
         }
 
         /// <summary>
-        /// returns the document id of the object
+        /// returns the document id of the object. This is calculated with a parser of the URI
         /// </summary>
         /// <returns></returns>
+        [Obsolete("Use ResourceId instead")]
         public string DocumentId
         {
             get
@@ -239,6 +240,72 @@ namespace Google.Documents
                 return DocumentsListQuery.DocumentId(this.Id);
             }
         }
+
+
+        /// <summary>
+        /// returns the document resource id of the object. 
+        /// this uses the gd:resourceId element
+        /// </summary>
+        /// <returns></returns>
+        public string ResourceId
+        {
+            get
+            {
+                EnsureInnerObject();
+                return this.DocumentEntry.ResourceId;
+            }
+        }
+
+        /// <summary>
+        /// returns if colaborators should be able to modify 
+        /// the documents ACL list
+        /// </summary>
+        /// <returns></returns>
+        public bool WritersCanInvite
+        {
+            get
+            {
+                EnsureInnerObject();
+                return this.DocumentEntry.WritersCanInvite;
+            }
+            set
+            {
+                EnsureInnerObject();
+                this.DocumentEntry.WritersCanInvite = value;
+            }
+        }
+
+        /// <summary>
+        /// Returns the last viewed timestamp
+        /// </summary>
+        /// <returns></returns>
+        public DateTime LastViewed
+        {
+            get 
+            {
+                EnsureInnerObject();
+                return this.DocumentEntry.LastViewed;
+            }
+        }
+
+
+        /// <summary>
+        /// returns the last modififiedBy subobject, indicating
+        /// who edited the document last
+        /// </summary>
+        /// <returns></returns>
+        public LastModifiedBy LastModified
+        {
+            get 
+            {
+                EnsureInnerObject();
+                return this.DocumentEntry.LastModified;
+            }
+        }
+
+
+
+
 
         /// <summary>
         /// returns the Uri to the access control list
@@ -254,6 +321,8 @@ namespace Google.Documents
                     null;
             }
         }
+
+
     }
 
 
@@ -414,6 +483,28 @@ namespace Google.Documents
         {
             FolderQuery q = PrepareQuery<FolderQuery>(this.BaseUri);
             return PrepareFeed<Document>(q); 
+        }
+
+        /// <summary>
+        /// returns all items the user has viewed recently
+        /// </summary>
+        /// <returns></returns>
+        public Feed<Document> GetViewed()
+        {
+            DocumentsListQuery q = PrepareQuery<DocumentsListQuery>(this.BaseUri);
+            q.Categories.Add(DocumentsListQuery.VIEWED);
+            return PrepareFeed<Document>(q);
+        }
+
+        /// <summary>
+        /// returns all forms for the authorized user
+        ///  </summary>
+        /// <returns></returns>
+        public Feed<Document> GetForms()
+        {
+            DocumentsListQuery q = PrepareQuery<DocumentsListQuery>(this.BaseUri);
+            q.Categories.Add(DocumentsListQuery.FORM);
+            return PrepareFeed<Document>(q);
         }
 
         /// <summary>

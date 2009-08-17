@@ -48,6 +48,7 @@ namespace Google.GData.Client
         }
 
         private MediaSource mediaSource;
+
         /// <summary>
         /// base implementation, as with the abstract feed, we are adding
         /// the gnamespace

@@ -137,6 +137,7 @@
     <Compile Include="ratings.cs" />
     <Compile Include="recurexception.cs" />
     <Compile Include="recurrence.cs" />
+    <Compile Include="misc.cs" />
     <Compile Include="reminder.cs" />
     <Compile Include="when.cs" />
     <Compile Include="where.cs" />

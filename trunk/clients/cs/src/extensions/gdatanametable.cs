@@ -180,6 +180,25 @@ namespace Google.GData.Extensions
         /// <summary>static string for parsing the displayname attribute</summary>    
         public const string XmlAttributeDisplayName = "displayName";
 
+        /// <summary>
+        /// a resource id
+        /// </summary>
+        public const string XmlResourceIdElement = "resourceId";
+
+        /// <summary>
+        /// lastviewed constant
+        /// </summary>
+        /// <returns></returns>
+        public const string XmlLastViewedElement = "lastViewed";
+
+        /// <summary>
+        /// lastviewed constant
+        /// </summary>
+        /// <returns></returns>
+        public const string XmlLastModifiedByElement = "lastModifiedBy";
+
+        
+
 #endregion
 
 #region Calendar specific (consider moving to seperate table)
