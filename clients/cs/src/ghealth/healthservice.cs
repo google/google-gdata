@@ -22,61 +22,43 @@ using System.Net;
 using Google.GData.Client;
 using Google.GData.Extensions;
 using System.Collections.Specialized;
+using System.Collections.Generic;
+using System.Xml;
+using System.Xml.Serialization;
+using ASTM.Org.CCR;
 
-
-namespace Google.GData.Health {
-
+namespace Google.GData.Health 
+{
     //////////////////////////////////////////////////////////////////////
     /// <summary>
     /// The Google Health Data API allows applications to view and send health data in the form of Google Data feeds. 
     /// The HealthService class encapsulates authentication to the Google HealthService.
     /// </summary>
     //////////////////////////////////////////////////////////////////////
-    public class HealthService : Service
+    public class HealthService : BaseHealthService
     {
-       
         /// <summary>The Calendar service's name</summary> 
         public const string ServiceName = "health";
+		/// <summary>The base Google Health Feeds address.</summary>
+		public const string BaseAddress = "https://www.google.com/health/feeds/";
+		/// <summary>The Google Health Profile list feed.</summary>
+		public const string ProfileListFeed = BaseAddress + "profile/list/";
+		/// <summary>The Google Health Profile UI feed</summary>
+		public const string ProfileFeed = BaseAddress + "profile/ui/";
+		/// <summary>The Google Health Register UI feed</summary>
+		public const string RegisterFeed = BaseAddress + "register/ui/";
+		/// <summary>The Google Health Default Profile UI feed</summary>
+		public const string DefaultProfileFeed = BaseAddress + "profile/default";
+		/// <summary>The Google Health Default Register UI feed</summary>
+		public const string DefaultRegisterFeed = BaseAddress + "register/default";
 
         /// <summary>
-        /// default constructor
+        /// Constructs the Google Health Service using the 
+		/// primary Health Feeds address.
         /// </summary>
-        /// <param name="applicationName"></param>
-        /// <returns></returns>
-        public HealthService(string applicationName) : base(ServiceName, applicationName)
-        {
-            this.NewFeed += new ServiceEventHandler(this.OnNewFeed); 
-        }
-   
-        /// <summary>
-        /// overloaded to create typed version of Query
-        /// </summary>
-        /// <param name="feedQuery"></param>
-        /// <returns>EventFeed</returns>
-        public HealthFeed Query(HealthQuery feedQuery) 
-        {
-            return base.Query(feedQuery) as HealthFeed;
-        }
-
-
-
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>eventchaining. We catch this by from the base service, which 
-        /// would not by default create an atomFeed</summary> 
-        /// <param name="sender"> the object which send the event</param>
-        /// <param name="e">FeedParserEventArguments, holds the feedentry</param> 
-        /// <returns> </returns>
-        //////////////////////////////////////////////////////////////////////
-        protected void OnNewFeed(object sender, ServiceEventArgs e)
-        {
-            Tracing.TraceMsg("Created new YouTube Feed");
-            if (e == null)
-            {
-                throw new ArgumentNullException("e"); 
-            }
-
-            e.Feed = new HealthFeed(e.Uri, e.Service);
-        }
-        /////////////////////////////////////////////////////////////////////////////
+        /// <param name="applicationName">The name of the application leveraging the service.</param>
+		public HealthService(string applicationName) : base(applicationName, 
+			BaseAddress, ProfileListFeed, ProfileFeed, RegisterFeed, 
+			DefaultProfileFeed, DefaultRegisterFeed) { }
     }
 }

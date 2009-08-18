@@ -18,6 +18,11 @@ using System.Collections.Generic;
 using System.Text;
 using Google.GData.Health;
 using Google.GData.Client;
+using ASTM.Org.CCR;
+using Google.GData.Extensions;
+using System.Xml;
+using System.Xml.Serialization;
+using System.IO;
 
 namespace Google.GData.Health
 {
@@ -83,8 +88,14 @@ namespace Google.GData.Health
 			notice.ContentType = entry.Content.Type;
 			notice.Content = entry.Content.Content;
 			notice.Subject = entry.Title.Text;
-			notice.CareRecord = ContinuityOfCareRecord.FromAtomEntry(entry);
-
+			IExtensionElementFactory factory = entry.FindExtension("ContinuityOfCareRecord", "urn:astm-org:CCR");
+			if (factory != null)
+			{
+				XmlExtension extension = factory as XmlExtension;
+				XmlSerializer serializer = new XmlSerializer(typeof(ContinuityOfCareRecord));
+				XmlTextReader reader = new XmlTextReader(new StringReader(extension.Node.OuterXml));
+				notice.CareRecord = serializer.Deserialize(reader) as ContinuityOfCareRecord;
+			}
 			return notice;
 		}
 	}
