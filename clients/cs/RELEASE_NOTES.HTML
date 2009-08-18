@@ -1,1310 +1,619 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
-    <head>
-        <title>Release Notes</title>
-    </head>
-    
-    
-<h1>This document lists the changes in the different releases</h1>
-
-<h2>
-     1.5.0.0
-    </h2>
-    <ul>
-        <li>
-            Features
-        </li>
-         <ul>
-            <li>Added support for the new analytics api by Morten Christensen (http://blog.sitereactor.dk) (see details below). You can find this in the Google.GData.Analytics namespace.</li>
-            <li>Added AnalyticsService extends the basic Service abstraction to define a service that is preconfigured for access to the Google Analytics data API.</li>
-            <li>Added AccountQuery and DataQuery subclasses of FeedQuery, to create an Analytics Account and Data query URI.</li>
-            <li>Added AccountFeed and DataFeed (SourceFeed is also added) that lets you access the analytics accounts you own and data for those accounts.</li>
-            <li>Added AccountEntry and DataEntry for getting entries in an 
-                account or data feed.</li>
-            <li>Added extensions for all of the above, including: aggregates, 
-                dimension, metric, property, tableId and tableName. These are 
-                all located in the Analytics namespace 
-                (Google.GData.Analytics).</li>
-            <li>Unit tests for the analytics project added to the unittest project in the VS2005 solution (Created by Alex Maitland)</li>
-            <li>Simple sample application created and added to the sample library and VS2005 solution (Created by Morten Christensen)</li>
-             <li>
-                 Added support for OAuth requests using the new RequestSettings 
-                 object. RequestSettings got one more constructor. 
-             </li>
-                Added support for Contacts V3, including structured address/name 
-                informations
-                </li>
-            <li>Documentlist: Added support for writersCanInvite</li>
-            <li>Documentlist: Added support for resourceId</li>
-            <li>Documentlist: Added a property to get the ACL URI directly on the Document object</li>
- 
-
-        </ul>
-        <ul>
-            
-        </ul>
-        <li>
-            Bugfixes/changes
-        </li>
-         <ul>
-            <li>Fixed issue 230: MediaContent.Type and 
-                MediaContent.Duration were reversed.</li>
-            <li>
-                Changed AllowWriteStreamBuffering to FALSE as a default
-                for requests using the GAuthRequest base classes, as data 
-                was already buffered anyhow. 
-            </li>
-             <li>Fixed issue 268, correct mimetypes for docx and xlsx in 
-                 the documentservice</li>
-             <li>Fixed a stackoverflow error when you set the BaseUri 
-                                   property on the DocumentService/li>
-        </ul>
-    </ul>
-    
-
-
-    <h2>
-        1.4.0.2
-    </h2>
-    <ul>
-        <li>
-            Features
-        </li>
-        <ul>
-            <li>Added PlaylistID and PlaylistTitle support to the 
-                subscription entries in youtube feeds, added support for 
-                subscriptions to the Google.YouTube namespace</li>
-            <li>
-                Added Google Contacts v2 support, including a new, vertical 
-                model like the YouTube programming model. You can find this 
-                in the Google.Contacts namespace. 
-            </li>
-            <li>
-                Added Batch access to the new generics model. You can now
-                create a FeedRequest object, and use it's Batch method to send a 
-                List of entry objects to the server. Entry and Feed expose 
-                access to the batch data. 
-            </li>
-            <li>Added Google Documents v2 support including the new 
-                download functionallity</li>
-            <li>
-                Added a new Google Documents exporter sample. It allows you to 
-                populate a treeview with your Google Documents and then export 
-                each individual file in a variety of formats. 
-            </li>
-            <li>
-                Extended the YouTube Notifier sample to use the User Events feed
-                as well. 
-            </li>
-        </ul>
-        <li>
-            Bugfixes/changes
-        </li>
-        <ul>
-            <li>Added the missing contacts DLL to the setup program.</li>
-            <li>Changed the new Feed model code to lazily load the feed on 
-                construction.</li>
-            <li>
-                Removed the CreateInstance methods from the new feedmodel and 
-                changed the internals to lazyily create the inner objects on 
-                demand. That means, no more Video v = Vidoe.CreateInstance() 
-                in your code, but Video v = new Video() is now fine. 
-            </li>
-            <li>Removed an incorrect check for HTTP.StatusOK (200) as the 
-                result for an HTTP.Delete operation. Delete can return any 2xx 
-                code in theory. 
-                </li>
-            <li>
-                Fixed issue 209, an feed.Entries.Add(entryOfAnotherFeed) did 
-                create a source element automatically. That was too smart for 
-                it's own good. There is an explict method 
-                Entries.MoveOrCopy(entry) that does that, add will just change 
-                the ownership to the new collection.
-            </li>
-            <li>
-                Changed Google.Client.Entry.ID to Google.Client.Entry.Id
-            </li>
-            <li>
-                 fixed the feed.Entries iterator to restart from the beginning 
-                 when you want to use it again. Note that you should cache the 
-                 output of the iterator is you want to use that in a loop. 
-            </li>
-            <li>Fixed issue 217, a call to setUserCredentials now automatically invalidates
-                a stored authtoken.</li>
-            <li>Fixed issue 200. A feedQuery now supports an etag property, and several new 
-            service method overloads for query and send support an etag as a parameter.</li>
-            <li>Service.Query(FeedQuery, ifModifiedSince) is now marked obsolete. You can use the ModifiedSince
-            property on the FeedQuery object and Query(FeedQuery) instead.</li>
-            <li>Added the ability to store a client token to 
-                GDataCredentials. Setting the credentials property will take
-                this into account.</li>
-            <li>Changed the base apps feed uri for Google Apps</li>
-            <li>
-                Changed GBatchStatus and GBatchError to use the correct 
-                namespace, it was incorrectly using the prefix instead.
-            </li>
-            <li> fixed issue 218, setting org.Title or org.name in a 
-                contact to null or an empty string did not remove the 
-                element.</li>
-            <li>
-                fixed issue 203, you can now retrieve the ACL feed for a 
-                document
-            </li>
-            <li>
-                fixed issue 200, feedquery now has an etag property to create 
-                if-match queries.
-            </li>
-            <li>
-                Fixed issue 221, setting private to false in an YouTubeEntry
-                resulted in failure to persist that entr. 
-                </li>
-
-            <li>Added a setter for Entry.Id</li>
-            <li>Added a batch method for Feed</li>
-            <li>YouTube.Video.VideoId now has a setter</li>
-            <li>YouTube.YouTubeRequest has an AddComment method.</li>
-            <li>Google.Client.FeedRequest has a new Get(Uri uri) method</li>
-
-            <li>Added AppControl and IsDraft accessors to 
-                Google.Client.Entry</li>
-            <li>Added  a Get(uri) method to the 
-            Google.Client.FeedRequest</li>
-
-            <li> Fixed YouTubeEntry.State to actually parse and return the 
-                yt:state element</li>
-
-            <li>Added property accessors to YouTube.State<li>
-
-             <li>Added a State property accessor 
-                 to Google.YouTube.YouTubeRequest</li>
-             <li>Added a 
-                 GetVideoMetaData method to YouTubeRequest</li>
-             <li>Changed Get on the FeedRequest to Retrieve for single 
-                 entries. This was required for the new overloads introduced. 
-                 Also, as Retrieve directly accesses the service, compared to 
-                 Get wich is defered, a name change is a good distinction.
-                 </li>
-             <li>Video.Rating, ViewCount and CommentCount returns -1 as default 
-                 if no value was found.</li>
-
-             <li>Lot's of addtions to the Entry Model and it's subclasses. Check
-                 the documentation for details</li>
-
-        </ul>
-    </ul>
-
-
-    <h2>
-        1.3.1.0
-    </h2>
-    <ul>
-        <li>
-            Features
-        </li>
-        <ul>
-            <li>Added a mergemodule for the Core libraries. </li>
-            <li>Added a mergemodule for the YouTube libraries. </li>
-            <li>Added a new sample application for YouTube, the YouTube Notifier</li>
-            <li>
-                Added a YouTubeQuery.GetYouTubeCategories method that returns a 
-                collection of category objects based on parsing the youtube 
-                category file hosted on the web.
-            </li>
-            <li>YouTube project template.</li>
-            <li>
-                New, simpler, YouTube object model. Look at the items in the new 
-                Google.YouTube namespace. This new code is used in the YouTube 
-                Sample application, the template above, and the youtubetest.cs 
-                file in the unittests. 
-            </li>
-            <li>
-                Added a ModifiedSince property on the FeedQuery object. If set 
-                to something different than DateTime.MinValue this results in an 
-                if-modified-since HTTP header produced if the FeedQuery is used 
-                in a Service.Query call.
-            </li>
-            <li>OAuth support for two-legged authentication. Look in samples/OAuth for a usage example. Code for this
-            graciously provided by Andrew Smith and Eran Sandler. Note that due to different support on the Compact Framework,
-            this is not available in the Windows Mobile build. </li>
-        </ul>
-        <li>
-            Bugfixes/changes
-        </li>
-        <ul>
-            <li>
-                Fixed issue 198. HealthEntry.CCR returned null, as a wrong cast 
-                after the recent refactory that happened to the extensions 
-                returned always null. 
-                
-            </li>
-            <li>
-                Fixed issue 195. Service.Update could call itself, resulting in 
-                recursion.
-            </li>
-            <li>
-                Fixed bug 194. CreatePicasaUri was confusing because it used the 
-                albumname as a parameter compared to an albumid. Changed to now 
-                use an AlbumID.
-                </li>
-            <li>
-                Removed the ASP build and marked the standard release assemblies 
-                as Partially Trusted.
-            </li>
-            <li>
-                Fixed issue 191, Overloaded AuthSubUtil.getRequestUrl(hostedDomain, nextUrl, scope, secure, session) is broken
-            </li>
-            <li>
-                Fixed issue 189, Cannot select Contacts by group
-            </li>
-            <li>Fixed an issue in AlbumEntry Accessor for Picasa, where ComentingEnabled accidently 
-            set the wrong element in the xml</li>
-            <li>
-                Removed the Service(service, application, library) constructor 
-                as this variation did not use the passsed in information. If you 
-                used this, just remove the 3rd parameter.
-            </li>
-            <li>
-                Entry.Update and Entry.Delete will now thow an 
-                InvalidOperationException when they are called without a valid 
-                service object being set, instead of not doing anything 
-                silently.
-            </li>
-            <li>
-                 Removed the usage of StringCollection and replaced it with a 
-                 generic  List
-            </li>
-            <li>
-                CommentingEnabled was accidently setting the CommentCount 
-                element. 
-            </li>
-            <li>
-                Made the created useragent string more uniform and meaningful
-            </li>
-            <li>
-                AtomFeed.Entries are not an ILIst<> an no longer an arraylist.
-            </li>
-            <li>
-                Fixed several v2 related YouTube issues
-            </li>
-            <li>
-                Fixed issue 186 by removing the verification check at the end of the reminder parser
-            </li>
-        </ul>
-    </ul>
-
-
-    <h2>
-        1.2.3.0
-    </h2>
-    <ul>
-        <li>
-            Features
-        </li>
-        <ul>
-            <li>Added support for EMail Settings in Google Apps</li>
-            
-            <li>Added support for the protocol version 2</li>
-            <ul>
-                <li>YouTube will work against version 2 of the protocol by 
-                    default. Added support for the version 2 of the YouTube 
-                    feed. Old methods are marked as obsolete and will be removed
-                    in future releases.</li>
-                <li>Bloogger will work against version 2 of the protocol by 
-                    default. </li> 
-            </ul>
-            <li>
-                Created a blogger service, feed, entry and query class. The 
-                query class allows the OrderBy parameter. This also fixes issue 
-                151 on the public issue list. Added a PostUri method to the 
-                blogger entry. 
-            </li>
-            <li>
-                Added the Error subelement collection to GDataBatchStatus. 
-                Removed the Value element as it was not used.                 
-            </li>
-            <li>Issue 166: Added a GetTokenInfo helper method that returns 
-                a Dictionary with the Information returned about the 
-                authentication token.</li>
-            <li>Added a bool property Private to the YouTubeEntry 
-                identifying if a video is private</li>
-            <li>Added a script to create a linux friendly tarball</li>
-            <li>Issue 165: Added the ability to access the error collection 
-                from inside the batch error.  </li>
-        </ul>
-        <li>
-        
-        </ul>
-            Bugfixes/changes
-        </li>
-        <ul>
-            <li>Fixed issue 154: you can now access the publishing priority 
-                element on a GBaseEntry directly.</li>
-            <li>Fixed issue 176: onProgress events were potentially not 
-                being raised in the Async Methods. </li>
-            <li>Fixed issue 178: Groups feeds on the contacts service did 
-                not work when using https. </li>
-            <li>Fixed issue 180: Passwords with some special characters 
-                were incorrectly encoded, leading to a failure in 
-                authentication.</li>
-            <li>Removed the version dependency for the NUNIT tests, so that the 
-                tests can now be used with different installed versions of the 
-                NUNIT framework.
-                </li>
-            <li>Some typographical changes. getExtensionValue and 
-                setExtension are now named GetExtensionValue and
-                SetExtensionValue</li>
-            <li>
-                Unknown extension elements are now stored in a Wrapper 
-                XmlExtension element, which implements the usual 
-                IExtensionElements interfaces to enable removing untyped lists 
-                internally. 
-            </li>
-            <li>
-                Moved the core of the extension functionallity, so just the base
-                classes, into the Google.GData.Client, so that the base 
-                AtomFeed/AtomEntry can be extended using this extension system. 
-                Otherwise there would be a circular reference between client.dll 
-                and extension.dll
-            </li>
-        </ul>
-    </ul>
-
-<h2>1.2.2.0</h2>
-   <ul>
-      <li>Features</li>
-       <ul>
-           <li>Added a SetRequestFactory method on the AppsService. This 
-               allows a user of the AppsService to set advanced HTTP properties
-               for the underlying service objects used (like setting a proxy
-               server, additional headers etc.) by creating a new RequestFactory
-               object and passing it into the service. To make it easy to create
-               this factory object a helper CreateRequestFactory was added to 
-               the AppsService object as well. 
-               </li>
-           <li>
-               Asyncronous/background support including a sample application. 
-               You can now easily fire off that long running YouTube upload, or 
-               the download of a picture as a seperate thread, so that your main 
-               application is no longer blocked. It uses the AsyncOperation 
-               pattern, and is not available (due to missing base support in the 
-               compact framework) in the Windows Mobile build. <br>
-               The sample PhotoBrowser application was changed to use that 
-               pattern, and a page in the helpfile introduces the concept. 
-           </li>
-           <li>Added support for Issue 163: the calendar recently 
-               introduced several new elements, this adds support for syncEvent,
-               uui and sequence</li>
-       </ul>
-      <li>Bugfixes</li>
-      <ul>
-          <li>
-              Fixed a bug in CommentingEnabled on the PhotoAccessor, which was 
-              setting internally the wrong property.
-          </li>
-          <li>
-              Changed the behaviour of AlbumEntry.AlbumAuthor. The setter will 
-              now create a new author is no author is present. 
-          </li>
-          <li>Fixed an issue regarding content, type=text. This element was not encoding correctly
-          which could lead to server errors based on the contents of the element.</li>
-          <li>Fixed issue 164, the code will now throw an exception if we 
-              get an empty location header in a redirect situation</li>
-          <li>
-              Fixed issue 161, changed the WebProxy property on the 
-              RequestFactory object to IWebProxy to make this interface more 
-              flexible.
-          </li>
-             <li>Removed an obsolete size check for the authentication 
-                   response for client login and login for webapplications.</li>
-            <li>Fixed issue 160, FirstName in the profile feed of YouTube 
-                was spelled wrong and hence not loaded correctly.</li>
-            <li>Fixed issue 157, Slug Header encoding. This was not 
-                correctly confirming to RFC5023. Introduced a new helper method
-                in the utilities class for this purpose.</li>
-            <li>Fixed issue 147, a composite feed with a comment was not loading</li>
-            <li>Fixed issue 148, RemoveAt did not remove the object from the 
-            containing collection, only locally. Fixed by overriding the 
-            OnRemove method. </li>
-            <li>Fixed issue 155, there was no way to create a read only 
-            youtube service, or rephrased, one that did not require a 
-            developer key</li>
-            <li>Fixed issue 159, a typo in the makefile that prevented gac 
-            install/uninstall</li>
-            <li>Fixed issue 156, if an exception happened during upload, the 
-            resource was kept open</li>
-            <li>Fixed issue 149, the Who element failed to parse attendee 
-            status if a whitespace element was encountered</li>
-            <li>Fixed issue  144, recurrenceexception is not parsed correctly</li>
-            <li>Fixed issue 145, FeedLink element parser error</li>
-            <li>Fixed issue 146. Passwords containing percentage signs were not 
-            properly encoded.
-            </li>
-       </ul>
-     </ul>
-     
-      		
-<h2>1.2.1.0</h2>
+<head>
+  <meta name="generator" content="HTML Tidy for Mac OS X (vers 14 February 2006), see www.w3.org">
+  <title>Release Notes</title>
+</head>
+<body>
+  <h1>This document lists the changes in the different releases</h1>
+  <h2>1.5.0.0</h2>
   <ul>
-      <li>Features</li>
+    <li>Features</li>
+    <li style="list-style: none">
       <ul>
-          <li>Added media:rating to media:group</li>
-          <li>Added the most-popular constants to the defined youtube 
-              queries</li>
-          <li>Added missing convienience classes to YouTube (Comments, 
-              Complaints etc, check the YouTube documentation)</li>
-          <li>Added PDF support to the Google Documents API</li>
-          <li>Added a CategoryQueriesAsParameter property on the feedquery 
-              class, and making that false by default. On the YouTubeQuery this
-              is true by default. The effect is that category queries will not
-              be created by extending/changing the path portion of the URL, but
-              instead using a new parameter "category" and putting the 
-              categories comma delimited into the query part of the uri.</li>
-          
+        <li>Added support for the new analytics api by Morten Christensen (http://blog.sitereactor.dk) (see details below). You can find this in the Google.GData.Analytics namespace.</li>
+        <li>Added AnalyticsService extends the basic Service abstraction to define a service that is preconfigured for access to the Google Analytics data API.</li>
+        <li>Added AccountQuery and DataQuery subclasses of FeedQuery, to create an Analytics Account and Data query URI.</li>
+        <li>Added AccountFeed and DataFeed (SourceFeed is also added) that lets you access the analytics accounts you own and data for those accounts.</li>
+        <li>Added AccountEntry and DataEntry for getting entries in an account or data feed.</li>
+        <li>Added extensions for all of the above, including: aggregates, dimension, metric, property, tableId and tableName. These are all located in the Analytics namespace (Google.GData.Analytics).</li>
+        <li>Unit tests for the analytics project added to the unittest project in the VS2005 solution (Created by Alex Maitland)</li>
+        <li>Simple sample application created and added to the sample library and VS2005 solution (Created by Morten Christensen)</li>
+        <li>Added support for OAuth requests using the new RequestSettings object. RequestSettings got one more constructor.</li>
+        <li style="list-style: none">Added support for Contacts V3, including structured address/name informations</li>
+        <li>Documentlist: Added support for writersCanInvite</li>
+        <li>Documentlist: Added support for resourceId</li>
+        <li>Documentlist: Added a property to get the ACL URI directly on the Document object</li>
       </ul>
-      <li>Bugfixes</li>
+    </li>
+    <li>Bugfixes/changes</li>
+    <li style="list-style: none">
       <ul>
-          <li>Fixed issue 135. There was a bug in the FeedQuery parsing 
-              code that resulted in URIs with date parameters that are encoded
-              to potentially throw</li>
-          <li>Removed the Cookie property and replaced it with a Cookies 
-              properter on the RequestFactory. The old code, using just a simple
-              string, was implemented for mobile benefits, as the 
-              CookieContainer, that is used now, does not exist on the compact
-              framework. The simple solution though is creating problems in some
-              scenarios, and had to be removed.</li>
-          <li>Added over 100 more unittests for the YouTube service</li>
-          <li>Fixed issue 102, 142</li>
-
+        <li>Fixed issue 230: MediaContent.Type and MediaContent.Duration were reversed.</li>
+        <li>Changed AllowWriteStreamBuffering to FALSE as a default for requests using the GAuthRequest base classes, as data was already buffered anyhow.</li>
+        <li>Fixed issue 268, correct mimetypes for docx and xlsx in the documentservice</li>
+        <li>Fixed a stackoverflow error when you set the BaseUri property on the DocumentService/li&gt;</li>
+        <li>Fixed bug 256, changing explict lib references on linux to just major version references</li>
       </ul>
+    </li>
   </ul>
-
-
-<h2>1.2.0.0</h2>
-<ul>
+  <h2>1.4.0.2</h2>
+  <ul>
     <li>Features</li>
-    <ul>
-        <li>
-            Added support for the gd:rating element
-        </li>
-        <li>Added direct properties for Url, Height, Width for the 
-            MediaThumbnail</li>
-        <li>
-            Added support for mediarss:category as a childcollection of 
-            media:group
-        </li>
-        <li>
-            Created a real app:control extension. This one is currently only 
-            used in the YouTube namespace.
-        </li>
-        <li>
-            Added support for YouTube
-        </li>
-        <li>Added support for Google Health</li>
-        <li>Added HealthTool in the samples directory as a supporting 
-            tool for Google Health</li>
-        <li>
-            Added support for the timeout property of the http request. You do 
-            this by setting tbe timeout on the GDataRequestFactory to something 
-            else than -1, which indicates the default of the created HTTPRequest 
-            object.
-        </li>
-        <li>Added support for the new Contacts feed.
-            <ul>
-                <li>ContactEntry now has a collection of ExtendedProperties</li>
-                <li>ContactEntry now has a collection of GroupMemberships</li>
-                <li>The ContactsQuery.CreateContactsUri returns a FULL 
-                    projection now by default. There is a new 
-                    CreateContactsUri(user,projection) to get the old behaviour,
-                    or get other projections</li>
-                <li>There is a new ContactsQuery.CreateGroupsUri helper</li>
-                <li>ContactsQuery now supports the group parameter</li>
-
-            </ul>
-            </li>
-    </ul>
-
-   <li>Bugfixes/Changes</li>
-   <ul>
-       <li>It a text element is of type XHTML we now use the 
-           XmlWriter.WriteRaw method. This leaves encoding/decoding in the hands
-           of the user of the API, but it seems to be the only way to guarantee
-           that all kind of xhtml can be created.</li>
-       <li>Changed the way AtomUris are loaded. In the past they were, for 
-           readability reasons, decoded on the load. This caused issue in 
-           certain situations, where the server expected the encoded version to 
-           be exactly the same later on. For that reason, AtomUris are now not 
-           decoded/encoded automatically, but this is left to the programmer. 
-           </li>
-       <li>
-           Changed the Service.StreamInsert to a more appropriate name. It is
-           now called Service.EntrySend and virtual
-       </li>
-       <li>
-           Added a MediaService subclass that is going to be used for all 
-           media/mime multipart enabled services (YouTube, Picasa)
-       </li>
-        <li>Fixed a memory leak related to the embedded gzip stream</li> 
-        <li>Fixed a parsing bug in the AtomLink class</li>
-        <li>Fixed the build script for building ASP dlls. A corruption in 
-           the solution file resulted in those not being rebuild anymore since
-           1.1.3.1
-        </li>
-       <li>
-           Fixed issue 120: cellQuery range and return-empty problem on empty 
-           cells. Created a set of new helpers on the feedQuery object that 
-           solve that issue. 
-       </li>
-       <li>Fixed another round of FxCop violations. Where this has an external 
-           effect, this is noted below.
-           <ul>
-               <li>Changed Apps.IpWhiteListed to Apps.IPWhiteListed</li>
-           </ul> 
-        </li>
-       <li>
-           Service.SetAuthenticationToken will now work for ClientLogin and 
-           AuthSub
-       </li>
-       <li>
-           The PhotoBrowser sample application will no longer crash when photos 
-           can not be retrieved, or when you cancel the login screen. 
-       </li>
-   </ul>
-</ul>
-
-<h2>1.1.4.1</h2>
-<ul>
+    <li style="list-style: none">
+      <ul>
+        <li>Added PlaylistID and PlaylistTitle support to the subscription entries in youtube feeds, added support for subscriptions to the Google.YouTube namespace</li>
+        <li>Added Google Contacts v2 support, including a new, vertical model like the YouTube programming model. You can find this in the Google.Contacts namespace.</li>
+        <li>Added Batch access to the new generics model. You can now create a FeedRequest object, and use it's Batch method to send a List of entry objects to the server. Entry and Feed expose access to the batch data.</li>
+        <li>Added Google Documents v2 support including the new download functionallity</li>
+        <li>Added a new Google Documents exporter sample. It allows you to populate a treeview with your Google Documents and then export each individual file in a variety of formats.</li>
+        <li>Extended the YouTube Notifier sample to use the User Events feed as well.</li>
+      </ul>
+    </li>
+    <li>Bugfixes/changes</li>
+    <li style="list-style: none">
+      <ul>
+        <li>Added the missing contacts DLL to the setup program.</li>
+        <li>Changed the new Feed model code to lazily load the feed on construction.</li>
+        <li>Removed the CreateInstance methods from the new feedmodel and changed the internals to lazyily create the inner objects on demand. That means, no more Video v = Vidoe.CreateInstance() in your code, but Video v = new Video() is now fine.</li>
+        <li>Removed an incorrect check for HTTP.StatusOK (200) as the result for an HTTP.Delete operation. Delete can return any 2xx code in theory.</li>
+        <li>Fixed issue 209, an feed.Entries.Add(entryOfAnotherFeed) did create a source element automatically. That was too smart for it's own good. There is an explict method Entries.MoveOrCopy(entry) that does that, add will just change the ownership to the new collection.</li>
+        <li>Changed Google.Client.Entry.ID to Google.Client.Entry.Id</li>
+        <li>fixed the feed.Entries iterator to restart from the beginning when you want to use it again. Note that you should cache the output of the iterator is you want to use that in a loop.</li>
+        <li>Fixed issue 217, a call to setUserCredentials now automatically invalidates a stored authtoken.</li>
+        <li>Fixed issue 200. A feedQuery now supports an etag property, and several new service method overloads for query and send support an etag as a parameter.</li>
+        <li>Service.Query(FeedQuery, ifModifiedSince) is now marked obsolete. You can use the ModifiedSince property on the FeedQuery object and Query(FeedQuery) instead.</li>
+        <li>Added the ability to store a client token to GDataCredentials. Setting the credentials property will take this into account.</li>
+        <li>Changed the base apps feed uri for Google Apps</li>
+        <li>Changed GBatchStatus and GBatchError to use the correct namespace, it was incorrectly using the prefix instead.</li>
+        <li>fixed issue 218, setting org.Title or org.name in a contact to null or an empty string did not remove the element.</li>
+        <li>fixed issue 203, you can now retrieve the ACL feed for a document</li>
+        <li>fixed issue 200, feedquery now has an etag property to create if-match queries.</li>
+        <li>Fixed issue 221, setting private to false in an YouTubeEntry resulted in failure to persist that entr.</li>
+        <li>Added a setter for Entry.Id</li>
+        <li>Added a batch method for Feed</li>
+        <li>YouTube.Video.VideoId now has a setter</li>
+        <li>YouTube.YouTubeRequest has an AddComment method.</li>
+        <li>Google.Client.FeedRequest has a new Get(Uri uri) method</li>
+        <li>Added AppControl and IsDraft accessors to Google.Client.Entry</li>
+        <li>Added a Get(uri) method to the Google.Client.FeedRequest</li>
+        <li>Fixed YouTubeEntry.State to actually parse and return the yt:state element</li>
+        <li>Added property accessors to YouTube.State</li>
+        <li>Added a State property accessor to Google.YouTube.YouTubeRequest</li>
+        <li>Added a GetVideoMetaData method to YouTubeRequest</li>
+        <li>Changed Get on the FeedRequest to Retrieve for single entries. This was required for the new overloads introduced. Also, as Retrieve directly accesses the service, compared to Get wich is defered, a name change is a good distinction.</li>
+        <li>Video.Rating, ViewCount and CommentCount returns -1 as default if no value was found.</li>
+        <li>Lot's of addtions to the Entry Model and it's subclasses. Check the documentation for details</li>
+      </ul>
+    </li>
+  </ul>
+  <h2>1.3.1.0</h2>
+  <ul>
     <li>Features</li>
-    <ul>
-        <li>Added PrimaryEmail, PrimaryPostalAddress, PrimaryPhonenumber 
-            and PrimaryIMAddress to the ContactEntry as convienience 
-            accessors</li>
-        </ul>
+    <li style="list-style: none">
+      <ul>
+        <li>Added a mergemodule for the Core libraries.</li>
+        <li>Added a mergemodule for the YouTube libraries.</li>
+        <li>Added a new sample application for YouTube, the YouTube Notifier</li>
+        <li>Added a YouTubeQuery.GetYouTubeCategories method that returns a collection of category objects based on parsing the youtube category file hosted on the web.</li>
+        <li>YouTube project template.</li>
+        <li>New, simpler, YouTube object model. Look at the items in the new Google.YouTube namespace. This new code is used in the YouTube Sample application, the template above, and the youtubetest.cs file in the unittests.</li>
+        <li>Added a ModifiedSince property on the FeedQuery object. If set to something different than DateTime.MinValue this results in an if-modified-since HTTP header produced if the FeedQuery is used in a Service.Query call.</li>
+        <li>OAuth support for two-legged authentication. Look in samples/OAuth for a usage example. Code for this graciously provided by Andrew Smith and Eran Sandler. Note that due to different support on the Compact Framework, this is not available in the Windows Mobile build.</li>
+      </ul>
+    </li>
+    <li>Bugfixes/changes</li>
+    <li style="list-style: none">
+      <ul>
+        <li>Fixed issue 198. HealthEntry.CCR returned null, as a wrong cast after the recent refactory that happened to the extensions returned always null.</li>
+        <li>Fixed issue 195. Service.Update could call itself, resulting in recursion.</li>
+        <li>Fixed bug 194. CreatePicasaUri was confusing because it used the albumname as a parameter compared to an albumid. Changed to now use an AlbumID.</li>
+        <li>Removed the ASP build and marked the standard release assemblies as Partially Trusted.</li>
+        <li>Fixed issue 191, Overloaded AuthSubUtil.getRequestUrl(hostedDomain, nextUrl, scope, secure, session) is broken</li>
+        <li>Fixed issue 189, Cannot select Contacts by group</li>
+        <li>Fixed an issue in AlbumEntry Accessor for Picasa, where ComentingEnabled accidently set the wrong element in the xml</li>
+        <li>Removed the Service(service, application, library) constructor as this variation did not use the passsed in information. If you used this, just remove the 3rd parameter.</li>
+        <li>Entry.Update and Entry.Delete will now thow an InvalidOperationException when they are called without a valid service object being set, instead of not doing anything silently.</li>
+        <li>Removed the usage of StringCollection and replaced it with a generic List</li>
+        <li>CommentingEnabled was accidently setting the CommentCount element.</li>
+        <li>Made the created useragent string more uniform and meaningful</li>
+        <li>AtomFeed.Entries are not an ILIst&lt;&gt; an no longer an arraylist.</li>
+        <li>Fixed several v2 related YouTube issues</li>
+        <li>Fixed issue 186 by removing the verification check at the end of the reminder parser</li>
+      </ul>
+    </li>
+  </ul>
+  <h2>1.2.3.0</h2>
+  <ul>
+    <li>Features</li>
+    <li style="list-style: none">
+      <ul>
+        <li>Added support for EMail Settings in Google Apps</li>
+        <li>Added support for the protocol version 2</li>
+        <li style="list-style: none">
+          <ul>
+            <li>YouTube will work against version 2 of the protocol by default. Added support for the version 2 of the YouTube feed. Old methods are marked as obsolete and will be removed in future releases.</li>
+            <li>Bloogger will work against version 2 of the protocol by default.</li>
+          </ul>
+        </li>
+        <li>Created a blogger service, feed, entry and query class. The query class allows the OrderBy parameter. This also fixes issue 151 on the public issue list. Added a PostUri method to the blogger entry.</li>
+        <li>Added the Error subelement collection to GDataBatchStatus. Removed the Value element as it was not used.</li>
+        <li>Issue 166: Added a GetTokenInfo helper method that returns a Dictionary with the Information returned about the authentication token.</li>
+        <li>Added a bool property Private to the YouTubeEntry identifying if a video is private</li>
+        <li>Added a script to create a linux friendly tarball</li>
+        <li>Issue 165: Added the ability to access the error collection from inside the batch error.</li>
+      </ul>
+    </li>
+  </ul>Bugfixes/changes
+  <ul>
+    <li>Fixed issue 154: you can now access the publishing priority element on a GBaseEntry directly.</li>
+    <li>Fixed issue 176: onProgress events were potentially not being raised in the Async Methods.</li>
+    <li>Fixed issue 178: Groups feeds on the contacts service did not work when using https.</li>
+    <li>Fixed issue 180: Passwords with some special characters were incorrectly encoded, leading to a failure in authentication.</li>
+    <li>Removed the version dependency for the NUNIT tests, so that the tests can now be used with different installed versions of the NUNIT framework.</li>
+    <li>Some typographical changes. getExtensionValue and setExtension are now named GetExtensionValue and SetExtensionValue</li>
+    <li>Unknown extension elements are now stored in a Wrapper XmlExtension element, which implements the usual IExtensionElements interfaces to enable removing untyped lists internally.</li>
+    <li>Moved the core of the extension functionallity, so just the base classes, into the Google.GData.Client, so that the base AtomFeed/AtomEntry can be extended using this extension system. Otherwise there would be a circular reference between client.dll and extension.dll</li>
+  </ul>
+  <h2>1.2.2.0</h2>
+  <ul>
+    <li>Features</li>
+    <li style="list-style: none">
+      <ul>
+        <li>Added a SetRequestFactory method on the AppsService. This allows a user of the AppsService to set advanced HTTP properties for the underlying service objects used (like setting a proxy server, additional headers etc.) by creating a new RequestFactory object and passing it into the service. To make it easy to create this factory object a helper CreateRequestFactory was added to the AppsService object as well.</li>
+        <li>Asyncronous/background support including a sample application. You can now easily fire off that long running YouTube upload, or the download of a picture as a seperate thread, so that your main application is no longer blocked. It uses the AsyncOperation pattern, and is not available (due to missing base support in the compact framework) in the Windows Mobile build.<br>
+        The sample PhotoBrowser application was changed to use that pattern, and a page in the helpfile introduces the concept.</li>
+        <li>Added support for Issue 163: the calendar recently introduced several new elements, this adds support for syncEvent, uui and sequence</li>
+      </ul>
+    </li>
     <li>Bugfixes</li>
-    <ul>
-        <li>Added the Recurrence class as an extension element back to the 
-            EventEntry</li>
-        <li>Fixed the setup to put the contacts.cs file into the correct 
-            place, so that the SDK solution file would work</li>
+    <li style="list-style: none">
+      <ul>
+        <li>Fixed a bug in CommentingEnabled on the PhotoAccessor, which was setting internally the wrong property.</li>
+        <li>Changed the behaviour of AlbumEntry.AlbumAuthor. The setter will now create a new author is no author is present.</li>
+        <li>Fixed an issue regarding content, type=text. This element was not encoding correctly which could lead to server errors based on the contents of the element.</li>
+        <li>Fixed issue 164, the code will now throw an exception if we get an empty location header in a redirect situation</li>
+        <li>Fixed issue 161, changed the WebProxy property on the RequestFactory object to IWebProxy to make this interface more flexible.</li>
+        <li>Removed an obsolete size check for the authentication response for client login and login for webapplications.</li>
+        <li>Fixed issue 160, FirstName in the profile feed of YouTube was spelled wrong and hence not loaded correctly.</li>
+        <li>Fixed issue 157, Slug Header encoding. This was not correctly confirming to RFC5023. Introduced a new helper method in the utilities class for this purpose.</li>
+        <li>Fixed issue 147, a composite feed with a comment was not loading</li>
+        <li>Fixed issue 148, RemoveAt did not remove the object from the containing collection, only locally. Fixed by overriding the OnRemove method.</li>
+        <li>Fixed issue 155, there was no way to create a read only youtube service, or rephrased, one that did not require a developer key</li>
+        <li>Fixed issue 159, a typo in the makefile that prevented gac install/uninstall</li>
+        <li>Fixed issue 156, if an exception happened during upload, the resource was kept open</li>
+        <li>Fixed issue 149, the Who element failed to parse attendee status if a whitespace element was encountered</li>
+        <li>Fixed issue 144, recurrenceexception is not parsed correctly</li>
+        <li>Fixed issue 145, FeedLink element parser error</li>
+        <li>Fixed issue 146. Passwords containing percentage signs were not properly encoded.</li>
+      </ul>
+    </li>
+  </ul>
+  <h2>1.2.1.0</h2>
+  <ul>
+    <li>Features</li>
+    <li style="list-style: none">
+      <ul>
+        <li>Added media:rating to media:group</li>
+        <li>Added the most-popular constants to the defined youtube queries</li>
+        <li>Added missing convienience classes to YouTube (Comments, Complaints etc, check the YouTube documentation)</li>
+        <li>Added PDF support to the Google Documents API</li>
+        <li>Added a CategoryQueriesAsParameter property on the feedquery class, and making that false by default. On the YouTubeQuery this is true by default. The effect is that category queries will not be created by extending/changing the path portion of the URL, but instead using a new parameter "category" and putting the categories comma delimited into the query part of the uri.</li>
+      </ul>
+    </li>
+    <li>Bugfixes</li>
+    <li style="list-style: none">
+      <ul>
+        <li>Fixed issue 135. There was a bug in the FeedQuery parsing code that resulted in URIs with date parameters that are encoded to potentially throw</li>
+        <li>Removed the Cookie property and replaced it with a Cookies properter on the RequestFactory. The old code, using just a simple string, was implemented for mobile benefits, as the CookieContainer, that is used now, does not exist on the compact framework. The simple solution though is creating problems in some scenarios, and had to be removed.</li>
+        <li>Added over 100 more unittests for the YouTube service</li>
+        <li>Fixed issue 102, 142</li>
+      </ul>
+    </li>
+  </ul>
+  <h2>1.2.0.0</h2>
+  <ul>
+    <li>Features</li>
+    <li style="list-style: none">
+      <ul>
+        <li>Added support for the gd:rating element</li>
+        <li>Added direct properties for Url, Height, Width for the MediaThumbnail</li>
+        <li>Added support for mediarss:category as a childcollection of media:group</li>
+        <li>Created a real app:control extension. This one is currently only used in the YouTube namespace.</li>
+        <li>Added support for YouTube</li>
+        <li>Added support for Google Health</li>
+        <li>Added HealthTool in the samples directory as a supporting tool for Google Health</li>
+        <li>Added support for the timeout property of the http request. You do this by setting tbe timeout on the GDataRequestFactory to something else than -1, which indicates the default of the created HTTPRequest object.</li>
+        <li>Added support for the new Contacts feed.
+          <ul>
+            <li>ContactEntry now has a collection of ExtendedProperties</li>
+            <li>ContactEntry now has a collection of GroupMemberships</li>
+            <li>The ContactsQuery.CreateContactsUri returns a FULL projection now by default. There is a new CreateContactsUri(user,projection) to get the old behaviour, or get other projections</li>
+            <li>There is a new ContactsQuery.CreateGroupsUri helper</li>
+            <li>ContactsQuery now supports the group parameter</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li>Bugfixes/Changes</li>
+    <li style="list-style: none">
+      <ul>
+        <li>It a text element is of type XHTML we now use the XmlWriter.WriteRaw method. This leaves encoding/decoding in the hands of the user of the API, but it seems to be the only way to guarantee that all kind of xhtml can be created.</li>
+        <li>Changed the way AtomUris are loaded. In the past they were, for readability reasons, decoded on the load. This caused issue in certain situations, where the server expected the encoded version to be exactly the same later on. For that reason, AtomUris are now not decoded/encoded automatically, but this is left to the programmer.</li>
+        <li>Changed the Service.StreamInsert to a more appropriate name. It is now called Service.EntrySend and virtual</li>
+        <li>Added a MediaService subclass that is going to be used for all media/mime multipart enabled services (YouTube, Picasa)</li>
+        <li>Fixed a memory leak related to the embedded gzip stream</li>
+        <li>Fixed a parsing bug in the AtomLink class</li>
+        <li>Fixed the build script for building ASP dlls. A corruption in the solution file resulted in those not being rebuild anymore since 1.1.3.1</li>
+        <li>Fixed issue 120: cellQuery range and return-empty problem on empty cells. Created a set of new helpers on the feedQuery object that solve that issue.</li>
+        <li>Fixed another round of FxCop violations. Where this has an external effect, this is noted below.
+          <ul>
+            <li>Changed Apps.IpWhiteListed to Apps.IPWhiteListed</li>
+          </ul>
+        </li>
+        <li>Service.SetAuthenticationToken will now work for ClientLogin and AuthSub</li>
+        <li>The PhotoBrowser sample application will no longer crash when photos can not be retrieved, or when you cancel the login screen.</li>
+      </ul>
+    </li>
+  </ul>
+  <h2>1.1.4.1</h2>
+  <ul>
+    <li>Features</li>
+    <li style="list-style: none">
+      <ul>
+        <li>Added PrimaryEmail, PrimaryPostalAddress, PrimaryPhonenumber and PrimaryIMAddress to the ContactEntry as convienience accessors</li>
+      </ul>
+    </li>
+    <li>Bugfixes</li>
+    <li style="list-style: none">
+      <ul>
+        <li>Added the Recurrence class as an extension element back to the EventEntry</li>
+        <li>Fixed the setup to put the contacts.cs file into the correct place, so that the SDK solution file would work</li>
         <li>Removed the default app.ico files from the sample solutions</li>
         <li>Corrected a reference in the apps migration sample project</li>
-        <li>The setup program did not put the Access Control Extension into 
-            the correct place, so some references might have been wrong</li>
-        <li>Fixed a bug in FeedQuery that would error if no uri was 
-            precalculated</li>
-    </ul>
-    
-</ul>
-
-<h2>1.1.4.0</h2>
-<ul>
+        <li>The setup program did not put the Access Control Extension into the correct place, so some references might have been wrong</li>
+        <li>Fixed a bug in FeedQuery that would error if no uri was precalculated</li>
+      </ul>
+    </li>
+  </ul>
+  <h2>1.1.4.0</h2>
+  <ul>
     <li>Features</li>
-    <ul>
-        <li>Moved the codebase to .NET 2.0. Note this means that gradually more 
-        code will change to use generics and other .NET 2.0 only features.</li>
-        <li>Added project templates for VS 2005 that are installed by the 
-            setup program. If you use the .zip download, copy the templates into
-            the VS 2005 template folder</li>
-        <li>The setup program now points VS 2005 to the lib/release path 
-            for the Google DLLs. The DLLs are no longer installed in the 
-            GAC</li>
+    <li style="list-style: none">
+      <ul>
+        <li>Moved the codebase to .NET 2.0. Note this means that gradually more code will change to use generics and other .NET 2.0 only features.</li>
+        <li>Added project templates for VS 2005 that are installed by the setup program. If you use the .zip download, copy the templates into the VS 2005 template folder</li>
+        <li>The setup program now points VS 2005 to the lib/release path for the Google DLLs. The DLLs are no longer installed in the GAC</li>
         <li>Implemented IComparable and equal operators for AtomId</li>
         <li>Google Contacts support</li>
-        <li>
-            Added a GDataVersionConflictException that is thrown when you tried 
-            to modified/update a resource and the server detected a version 
-            conflict.
-        </li>
-        <li>
-            Added support for the hd parameter for AuthSubRequests, so that a 
-            particular domain can be specified. 
-        </li>
-        <li>
-            Added support for a UseSSL property on the FeedQuery class. If set, 
-            requests are made against the https version of the feed, if 
-            available. This is mostly relevant for hosted domains. 
-        </li>
-        <li> Added a UriEncodeUnsafe to the Utilities class to help with 
-            encoding of user emails during the URL construction</li>
-	<li>Added new VS 2005 solution files for all targets for the contacts library.</li>
-    </ul>
+        <li>Added a GDataVersionConflictException that is thrown when you tried to modified/update a resource and the server detected a version conflict.</li>
+        <li>Added support for the hd parameter for AuthSubRequests, so that a particular domain can be specified.</li>
+        <li>Added support for a UseSSL property on the FeedQuery class. If set, requests are made against the https version of the feed, if available. This is mostly relevant for hosted domains.</li>
+        <li>Added a UriEncodeUnsafe to the Utilities class to help with encoding of user emails during the URL construction</li>
+        <li>Added new VS 2005 solution files for all targets for the contacts library.</li>
+      </ul>
+    </li>
     <li>Bugfixes/changes</li>
-    <ul>
-        <li>Changed a lot of codeplaces due to a new FxCop run. Where this 
-            has a public, visible effect, it is noted below:</li>
-        <ul>
-            <li>removed the setter for CustomHeaders, 
-                Google.GData.Client.GDataRequestFactory.CustomHeaders</li>
-        </ul>
+    <li style="list-style: none">
+      <ul>
+        <li>Changed a lot of codeplaces due to a new FxCop run. Where this has a public, visible effect, it is noted below:</li>
+        <li style="list-style: none">
+          <ul>
+            <li>removed the setter for CustomHeaders, Google.GData.Client.GDataRequestFactory.CustomHeaders</li>
+          </ul>
+        </li>
         <li>Updated to VS 2005 solution files. VS 2003 files are removed.</li>
         <li>Changed documentation build to January Sandcastle release</li>
-        <li>Entry.SetAlternateUri was not setting the correct link 
-            releationship and mediatype. </li>
-        <li>
-            small bugfixes to the base code (exceptions sometimes on missing attributes) 
+        <li>Entry.SetAlternateUri was not setting the correct link releationship and mediatype.</li>
+        <li>small bugfixes to the base code (exceptions sometimes on missing attributes)</li>
+        <li>Fixed a number of bugs in the calendar extension classes that occured if you set new objects into the accessors</li>
+        <li>Fixed a crashing bug in the equal operator of the EnumConstruct class</li>
+        <li>Fixed issue 105: Cannot add a reminder in a Recurring event using C# Calendar library</li>
+        <li>The Reminders property is now a typed generic collection</li>
+      </ul>
+      <h2>1.1.3.0</h2>
+      <ul>
+        <li>Features</li>
+        <li style="list-style: none">
+          <ul>
+            <li>Added conditional Get support. The service object has an overloaded Query method now, that allows you to pass a ifModifiedSince DateTime object into it.s</li>
+            <li>Added Authsub token revocation support. There is a new method revokeToken in AuthsubUtil, similiar to the java class library</li>
+          </ul>
         </li>
-        <li>Fixed a number of bugs in the calendar extension classes that 
-            occured if you set new objects into the accessors</li>
-        <li>Fixed a crashing bug in the equal operator of the EnumConstruct 
-            class</li>
-	<li>Fixed issue 105: Cannot add a reminder in a Recurring event using C# Calendar library</li>
-	<li>The Reminders property is now a typed generic collection</li>
-
-    </ul>
-
-
-
-<h2>1.1.3.0</h2>
-<ul>
+        <li>Bugfixes/changes</li>
+        <li>Issue 93: ReFixed Title Exact Queries for Spreadsheets. Using Title-Exact resulted in two question marks in the query string.</li>
+        <li>Fixed the GeoRSS where extension, which lived in a mistyped namespace.</li>
+        <li>Fixed the Latitude property, which was misspelled Lattitude</li>
+        <li>Added the Doclist assemblies to the setup program</li>
+        <li style="list-style: none">s</li>
+        <li>Added MediaGroup.Contents as a Collection: as there could be more than one. So all previous usages should be changed to access the first element in a collection. The old method will remain in there.</li>
+      </ul>
+    </li>
+  </ul>
+  <h2>1.1.2.0</h2>
+  <ul>
     <li>Features</li>
-    <ul>
-        <li>Added conditional Get support. The service object has an overloaded Query method now,
-        that allows you to pass a ifModifiedSince DateTime object into it.s</li>
-        <li>Added Authsub token revocation support. There is a new method 
-            revokeToken in AuthsubUtil, similiar to the java class library</li>
-	        
-    </ul>
-    <li>Bugfixes/changes</li>
-  	<li>Issue 93: ReFixed Title Exact Queries for Spreadsheets. Using 
-        Title-Exact resulted in two question marks in the query string.</li>
-  	<li>Fixed the GeoRSS where extension, which lived in a mistyped namespace.</li>
-    <li>Fixed the Latitude property, which was misspelled Lattitude</li>
-    <li>Added the Doclist assemblies to the setup program</li>s
-    <li>Added MediaGroup.Contents as a Collection:  as there
-        could be more than one. So all previous usages should be changed
-        to access the first element in a collection. The old method will remain
-        in there.</li>
-    </ul>
-</ul>
-
-
-<h2>1.1.2.0</h2>
-<ul>
-    <li>Features</li>
-    <ul>
-        <li>The SpreadsheetEntry has a new property, Worksheets. This 
-            property returns a WorksheetFeed object that can be used to 
-            retrieve the Worksheets feed for a given Spreadsheet.</li>
-        <li>The SpreadsheetEntry has a new property, WorksheetsLink. This 
-            property returns a string that can be used to retrieve the 
-            Worksheets feed uri for a given Spreadsheet.</li>
-        <li>Added CreateBatchFeed to the Atomfeed object. This will create 
-            a default batch feed for you, if the feed supports batching. The
-            created batch feed will contain all currently dirty entries.</li>
+    <li style="list-style: none">
+      <ul>
+        <li>The SpreadsheetEntry has a new property, Worksheets. This property returns a WorksheetFeed object that can be used to retrieve the Worksheets feed for a given Spreadsheet.</li>
+        <li>The SpreadsheetEntry has a new property, WorksheetsLink. This property returns a string that can be used to retrieve the Worksheets feed uri for a given Spreadsheet.</li>
+        <li>Added CreateBatchFeed to the Atomfeed object. This will create a default batch feed for you, if the feed supports batching. The created batch feed will contain all currently dirty entries.</li>
         <li>Added a GDataBatchRequestException for that operation.</li>
         <li>Added Delete(Uri uir) to the service interface.</li>
-        <li>Added more constructors to the CellEntry object, and moved 
-            accessors for the CellEntry.Cell up to the CellEntry object. So 
-            instead of writing CellEntry.Cell.Column, you can call 
-            CellEntry.Column directly (and others).</li>
-        <li>Added an index accessor to the CellFeed, you can now access 
-            Cells on the CellFeed like this: CellEntry entry = CellFeed[1,1].
-            This will retrieve not existing cells if needed.</li>
-        <li>Added QueryCellFeed() and QueryCellFeedLink(ReturnEmptyCells 
-            parameter) to the WorksheetEntry. The method with no parameters will
-            get you the serverdefault cell feed.</li>
-        <li>Added the CellFeedLink property on the WorksheetEntry. This 
-            returns the URI to the CellFeed as string.</li>
-        <li>Added an overloaded Insert method to the WorksheetFeed so that 
-            you do not need to cast the return anymore.</li>
-        <li>Added support for the Apps Migration API. The Google Apps Email Migration API 
-	allows administrators and users of Google Apps to migrate mail from legacy 
-	email systems into their domain's hosted Gmail accounts. 
-	Your client application can upload email messages into these 
-	accounts using standard Google data API feeds.</li>
-	<li>Added the gapps_migration_sample: A simple application that demonstrates how to migrate 
-		email messages to a Google Apps email account. See the readme file in the 
-		samples/appsforyourdomain/migration directory for more details</li>
-	        
-    </ul>
+        <li>Added more constructors to the CellEntry object, and moved accessors for the CellEntry.Cell up to the CellEntry object. So instead of writing CellEntry.Cell.Column, you can call CellEntry.Column directly (and others).</li>
+        <li>Added an index accessor to the CellFeed, you can now access Cells on the CellFeed like this: CellEntry entry = CellFeed[1,1]. This will retrieve not existing cells if needed.</li>
+        <li>Added QueryCellFeed() and QueryCellFeedLink(ReturnEmptyCells parameter) to the WorksheetEntry. The method with no parameters will get you the serverdefault cell feed.</li>
+        <li>Added the CellFeedLink property on the WorksheetEntry. This returns the URI to the CellFeed as string.</li>
+        <li>Added an overloaded Insert method to the WorksheetFeed so that you do not need to cast the return anymore.</li>
+        <li>Added support for the Apps Migration API. The Google Apps Email Migration API allows administrators and users of Google Apps to migrate mail from legacy email systems into their domain's hosted Gmail accounts. Your client application can upload email messages into these accounts using standard Google data API feeds.</li>
+        <li>Added the gapps_migration_sample: A simple application that demonstrates&dagger;how to migrate email messages to a Google Apps email account. See the readme file in the samples/appsforyourdomain/migration directory for more details</li>
+      </ul>
+    </li>
     <li>Bugfixes/changes</li>
-    <ul>
-        <li>When an entry was copied from one feed to another, the internal 
-            service object was set incorrectly.</li>
+    <li style="list-style: none">
+      <ul>
+        <li>When an entry was copied from one feed to another, the internal service object was set incorrectly.</li>
         <li>Added unittests for the new spreadsheet code.</li>
-	<li>Issue 90: Corrected the override for Equals and GetHashCode for an EnumConstruct</li>
-  	<li>Issue 93: Fixed Title Exact Queries for Spreadsheets</li>
-  	<li>Issue 94: Fixed some incorrect Exception handlings</li>
-    </ul>
-</ul>
-
-
-<h2>1.1.1.0</h2>
-
-<ul>
+        <li>Issue 90: Corrected the override for Equals and GetHashCode for an EnumConstruct</li>
+        <li>Issue 93: Fixed Title Exact Queries for Spreadsheets</li>
+        <li>Issue 94: Fixed some incorrect Exception handlings</li>
+      </ul>
+    </li>
+  </ul>
+  <h2>1.1.1.0</h2>
+  <ul>
     <li>Features</li>
-    <ul>
-        <li>Added an EventId property to the EventEntry object. This one 
-            parses the atomId URI to just provided the EventId, which is used
-            elsewhere (e.g., for recurring events).</li>
-        <li>Added QueryAuthToken() on the service. If the Service is a 
-            Google authenticated service, you can use this to obtain an 
-            authentication token for ClientLogin</li>
-        <li>Added CreatePicasaUri helper on the PicasaQuery classes to 
-            create a Uri based on a userID</li>
-	<li>Added new PhotoBrowser sample project. The resulting file PhotoTool.exe is produced
-            using the ILMerge tool from Microsoft (free download). That way, PhotoTool.exe is 
-            a standalone application with no further assembly dependencies. </li>
-
-    </ul>
+    <li style="list-style: none">
+      <ul>
+        <li>Added an EventId property to the EventEntry object. This one parses the atomId URI to just provided the EventId, which is used elsewhere (e.g., for recurring events).</li>
+        <li>Added QueryAuthToken() on the service. If the Service is a Google authenticated service, you can use this to obtain an authentication token for ClientLogin</li>
+        <li>Added CreatePicasaUri helper on the PicasaQuery classes to create a Uri based on a userID</li>
+        <li>Added new PhotoBrowser sample project. The resulting file PhotoTool.exe is produced using the ILMerge tool from Microsoft (free download). That way, PhotoTool.exe is a standalone application with no further assembly dependencies.</li>
+      </ul>
+    </li>
     <li>Bugfixes/Changes</li>
-    <ul>
-        <li>Fixed the parsing of the OriginalEvent@id attribute. The 
-            SimpleContainer parent class was broken in the sense that it did not
-            call the generic parsing method at all. So all SimpleContainers 
-            would not have read in attributes, luckily OriginalEvent was the
-            only instance of this.</li>
-        <li>Fixed the OriginalStartTime get/set method which was using the 
-            wrong constant of the OriginalEvent object.</li>
-        <li>Fixed the onclear() handler of the new extensionCollection base 
-            class. It was incorrectly casting to When obects, which could cause
-            a runtime error when called.</li>
-        <li>Fixed a bug in the simplecontainer class that could lead to an 
-            exception if the extension list was empty</li>
-        <li>Fixed a bug in Originalevent where the wrong prefix was 
-            persisted, making saving an originalevent impossible</li>
-        <li>Fixed NULL response object being used for authentication exceptions. 
-            Now the correct object used for the authentication request is passed 
-            to the exception.</li>
-        <li>Changed the AuthException code to provide the status code 
-            detail as well</li>
-        <li>CalendarEntry did use the wrong namespace to find the location 
-            object, hence retrieval of a calendar location was broken.</li>
-        <li>Fixed ExtensionBase to not save NULL attributes as empty 
-            strings. This could cause Picasa updates to fail.</li>
-        <li>Fixed MediaGroup to allow the retrieval of multiple Thumbnails. 
-            Introduced the ThumbnailCollection for this. To enable this, 
-            SimpleContainer and AtomBase now implement IExtensionContainer, a
-            common interface that encapsulates owning Extension elements.
-            </li>
-        <li> Added a default constructor to CalendarQuery so that you can 
-            use it on .NET CF with a starting URI</li>
-        <li>Changed the Reminder element to send an empty one to enable 
-            creation of default Reminders in the calendar</li>
-    </ul>
-</ul>
-
-<h2>1.1.0.0</h2>
-
-<ul>
-	<li>Features
-	<ul>
-	<li>
-        added GZip support for .NET 1.1, 2.0 and .NET Compact Framework 2.0.
+    <li style="list-style: none">
+      <ul>
+        <li>Fixed the parsing of the OriginalEvent@id attribute. The SimpleContainer parent class was broken in the sense that it did not call the generic parsing method at all. So all SimpleContainers would not have read in attributes, luckily OriginalEvent was the only instance of this.</li>
+        <li>Fixed the OriginalStartTime get/set method which was using the wrong constant of the OriginalEvent object.</li>
+        <li>Fixed the onclear() handler of the new extensionCollection base class. It was incorrectly casting to When obects, which could cause a runtime error when called.</li>
+        <li>Fixed a bug in the simplecontainer class that could lead to an exception if the extension list was empty</li>
+        <li>Fixed a bug in Originalevent where the wrong prefix was persisted, making saving an originalevent impossible</li>
+        <li>Fixed NULL response object being used for authentication exceptions. Now the correct object used for the authentication request is passed to the exception.</li>
+        <li>Changed the AuthException code to provide the status code detail as well</li>
+        <li>CalendarEntry did use the wrong namespace to find the location object, hence retrieval of a calendar location was broken.</li>
+        <li>Fixed ExtensionBase to not save NULL attributes as empty strings. This could cause Picasa updates to fail.</li>
+        <li>Fixed MediaGroup to allow the retrieval of multiple Thumbnails. Introduced the ThumbnailCollection for this. To enable this, SimpleContainer and AtomBase now implement IExtensionContainer, a common interface that encapsulates owning Extension elements.</li>
+        <li>Added a default constructor to CalendarQuery so that you can use it on .NET CF with a starting URI</li>
+        <li>Changed the Reminder element to send an empty one to enable creation of default Reminders in the calendar</li>
+      </ul>
     </li>
-    <li>
-        added the ability to use authsubtokens to the ExecRequest utility (including 
-        exchange of a onetime token to a session token). Just run ExecRequest for the 
-        command line parameters, or read the help file page about it.
-    </li>
- 	<li>
-        Support for Google Calendar WebContent Gadgets is included. A WebContent element 
-        has a SortedList property to set and retrieve those preferences. See caltest.cs 
-        for an example.
-    </li>
-   <li>
-        Picasa support:
-        <ul>
-            <li>Added all media extensions (media:rss, exif and photo></li>
-            <li>Added a PhotoEntry and PhotoFeed class that contain all of 
-                those extensions</li>
+  </ul>
+  <h2>1.1.0.0</h2>
+  <ul>
+    <li>Features
+      <ul>
+        <li>added GZip support for .NET 1.1, 2.0 and .NET Compact Framework 2.0.</li>
+        <li>added the ability to use authsubtokens to the ExecRequest utility (including exchange of a onetime token to a session token). Just run ExecRequest for the command line parameters, or read the help file page about it.</li>
+        <li>Support for Google Calendar WebContent Gadgets is included. A WebContent element has a SortedList property to set and retrieve those preferences. See caltest.cs for an example.</li>
+        <li>Picasa support:
+          <ul>
+            <li>Added all media extensions (media:rss, exif and photo&gt;</li>
+            <li>Added a PhotoEntry and PhotoFeed class that contain all of those extensions</li>
             <li>Added unittests to query an album and insert a new photo</li>
-        </ul>
-    </li>
-       <li> Added the QuickAdd feature for the Google Calendar. An EventEntry 
-        has a QuickAdd boolean property. Setting it to true causes an insert to
-        be treated like a quickAdd operation. 
-    </li> 
- 
-	<li>Added the webcontentlink class to the Google Calendar Support to enable
-		easier creation of Gadgets in calendars.</li>
-		
-	<li>Batch support for Google Calendar</li>
-	<li>ASP .NET support for medium trust</li>
-	
- 	</ul></li>
- 	
-	<li>Changes and Bugfixes
-    <ul>
-    <li>
-        Complete refactoring of Apps extension to use the new extension system
-        (IExtensionElementFactory, AbstractEntry and AbstractFeed).
-    </li>
-
-	<li>
-        To enable ASP.NET hosting in medium trust, we removed the usage of the 
-        NetworkCredentials class. From now on, credentials are either passed as username/password, 
-        or using the GDataCredentials. (issue 57)
-    </li>
-    <li>
-        Changed "adminUserName" to "adminEmailAddress" in AppsService so that it's more 
-        clear what information is actually required for this parameter.
-    </li>
-
-    <li>
-        fixed a Google Base issue (The server doesn't accept scientific notations for 
-        floats)
-    </li>
-    <li>
-        fixed typo in the blogger sample (www..blogger), which made the sample hard to 
-        use
-    </li>
-    
-    <li>
-        make the GAuthToken property of the GAuthRequestFactory public. It was 
-        mistakenly marked internal, so that the token could not be retrieved by a client 
-        application for caching.  
-    </li>
-    <li>
-        fixed a parsing issue that resulted in Batch Upload hanging if an unknown 
-        element was encountered
-    </li>
-    <li>
-        added a helper method on AtomBase (entry and feed) to find exensionelements by 
-        specifying a localname and an optional namespace (issue 81)
-    </li>
-    <li>
-        the extension mechanism was reworked by creating an ExtensionElementFactory 
-        interface that takes care of parsing elements. ElementFactories are registered 
-        on the AtomBase (entry and feed) level.
-    </li>
-    <li>
-        Fixed Issue 60, mulitple Reminders per Event. Note, that this introduces slight 
-        changes when dealing with this. A new property, EventEntry.Reminders, was 
-        created. The old property, EventEntry.Reminder, still exists, and only works on 
-        the first Reminder in the list. Setting the old property will delete all 
-        addtional reminders.The Reminders property is of type ArrayList (this is an 
-        artifact of being .NET 1.1 compatible, once we move to .NET 2.0 or later, if 
-        that ever happens, this could/should be typed).
-    </li>
-    <li>
-        Modified data model for Spreadsheets worksheets to make it easier to change and 
-        construct associated meta-data
-    </li>
-    <li>
-        Added the ctz parameter to the EventQuery class. This parameter allows to 
-        specify the timezone that is used to calculate start/end times for the returned 
-        events
-    </li>
-    <li>
-        Added an AlternateUri Property on the AtomEntry class. This property 
-        returns the AtomUri of a rel=alternate type=html LINK entry. As this is 
-        similiar to the ill named LINK helper on the spreadsheet entry, that 
-        helper was removed, as they do serve the same purpose, and the link 
-        helper was read only.
-    </li>
-    <li>
-        Added an FeedUri Property on the AtomEntry class. This property 
-        returns the AtomUri of a rel=#feed type=atom+xml LINK entry.
-    </li>
-     <li>
-        Added an MediaUri Property on the AtomEntry class. This property 
-        returns the AtomUri of a rel=#edit-media type=atom+xml LINK entry.
-    </li>
-    <li>Added new methods on the AtomCategory collection. Find searches for a
-        category of a given term, or a term/scheme combination. Also changed the
-        implementation of the Contains method to compare not just object
-        fidelity, but also term/value pairs
+          </ul>
         </li>
-    <li>Added a ConvertToXSDSTring() helper in the Utilites class. As booleans 
-        are represented as "True"/"False" in .NET, and xsd requires 
-        "true"/"false" this helper takes care of that conversion.
-        </li>
-    <li>Added the ability to create custom AtomBase subclassed objects to 
-        custom feeds/entries. Look at CreateAtomSubElement() in AtomBase. This
-        is used to create custom clases like WebContentLink in the derived 
-        services</li>
-   </ul></li>
-
-</ul>
-
-<h2>1.0.9.9</h2>
-<ul>
-    <li>
-        added GBase support for m:adjusted_name and gm:adjusted_value inside attributes 
-        (returned only when adjustments are enabled)
-    <li>
-        Google Apps changes:
-        <ul>
-            <li>
-                Added new AppsService.createUser methods with hashed password support
-            <li>
-                Updated AppsException with new Google Apps error codes
-            <li>
-                Added the following properties to Login.cs: string hashFunctionName 
-            <li>
-                to hash user account password, bool agreedToTerms 
-            <li>
-                to see if the user has accepted the Google Apps Terms Of Service, bool admin 
-            <li>
-                to see if the user is a domain admin, bool changePasswordAtNextLogin 
-            <li>
-                to force the user to change password at next login
-            <li>
-                Updated unittests to test new properties
-        </ul>
-</ul>
-
-<h2>1.0.9.8</h2>
-<ul>
-    <li>
-        fixed a parsing bug in SpreadsheetService
-    <li>
-        fixed a bug in GDataRequestException that would prevent AppsException from 
-        accessing the server's response.
-    <li>
-        modified AppsException to comply with new GDataRequestException
-    <li>
-        fixed a bug in CalculateBaseUri, that caused a crash if the passed in parameters 
-        are all NULL. This caused composite feeds to not load if there was a comment 
-        feed embedded
-    <li>
-        fixed a bug in the CalendarEventEntry, it was not parsing extendedProperties. 
-        They are now parsed and added correctly to the ExtensionElements
-    <li>
-        added ACL support. This resulted in changes in the CalendarService.Query method 
-    <li>
-        as a CalendarService can now return an EventFeed or an AccessControlFeed is 
-        returns now an AtomFeed that you can cast to what you are expecting. Added Query 
-        overloads to accept EventQuery or AclQuery and return the appropriate Feeds
-    <li>
-        added a cmd line tool to query/insert/update to a service based on streams
-    <li>
-        modified the Spreadsheet service to use the new scheme of service subclassing. 
-        This should fix a bundle of issues with regard to entry castings.
-    <li>
-        changed persistence of gd:extendedProperty to save the value attribute, even if 
-        there is no data to persist
-    <li>
-        Added an ASP.NET release (lib/ASP.NET) where the DLLs are build with the 
-        AllowPartiallyTrustedCallers attribute n enabled. Please use with caution and 
-        refer to the readme.txt in that subdirectory for more information.
-</ul>
-
-<h2>1.0.9.7</h2>
-<ul>
-    <li>
-        fixed an incorrect trace statement in request.cs that had the result of 
-        disabling reading the error response.
-</ul>
-
-<h2>1.0.9.6</h2>
-<ul>
-    <li>
-        added Google Apps for Your Domain support, a new helper DLL Google.GData.Apps.dll, 
-        and a sample, as well as unittests. Version number is increased to distinguish 
-        from Subversion, as this will be a binary download as well.
-</ul>
-
-<h2>1.0.9.5</h2>
-<ul>
-    <li>
-        fix for incorrect encoding of usernames/passwords during authentication (you 
-        could run into problems if you had an email like "foo&joe@test.com"
-    <li>
-        exposure of the accountType as a property on the factory. If you happen to have 
-        an identical user name for a Google account and a hosted account, you need to 
-        set this property depending on which account you want to access. Default is 
-        GOOGLE_OR_HOSTED, other values are GOOGLE or HOSTED as strings.
-    <li>
-        fixed an issue with the edit/self uris on the entry. They were not correctly 
-        setable.
-    <li>
-        fixed an issue that one you used an authenticated service, but did not supply 
-        credentials, we would send an empty authentication header.
-    <li>
-        added Captcha Handling and more detailed exceptions when the authentication 
-        request fails. See authexceptions.cs for the list of potential exceptions thrown
-    <li>
-        added some preliminary unittests for the new exceptions
-    <li>
-        added a new constructor for the TokenCollection, so that captcha parsing is 
-        handled correctly
-    <li>
-        made the debug output depending on the TRACE define, and removed that define for 
-        the release build
-</ul>
-
-<h2>1.0.9.4</h2>
-<ul>
-    <li>
-        Google Base: fix for incorrect Price attribute behaviour
-    <li>
-        Google Base: fix for incorrectly persisting duplicate attributes
-    <li>
-        Fix for Content.Type having no default value (issue 41)
-    <li>
-        Fix for Content.Type="text/html" parsing incorrectly. The strict check for type=
-        "text" is now relaxed to be type="text*", so all text subtypes will be treated 
-        the same
-    <li>
-        Fix for Content.Type = "html" and "text/html" persistence. What the code does 
-        now is: first HTMLDecode the value held, than run the standard XMLWriter.WriteString 
-        over it (which does HTML encoding). This seems to work fine.
-    <li>
-        Added the gm:stats tags to the Windows Mobile build, accidently forgot to change 
-        that project file
-    <li>
-        the calendarfeed discarded entries unknown to it in the calendar namespace. This 
-        is fixed now. Unknown entries to the parser are now correctly added to the 
-        extension elements.
-    <li>
-        added the return-empty parameter to the cellquery class
-    <li>
-        added URL encoding to the authentication parameters (username/passwords etc that 
-        had unallowed FORM post chars caused failed login attempts)
-</ul>
-
-
-
-<h2>1.0.9.3</h2>
-<ul>
-    <li>
-        Google Base changes: New features:
-        <ul>
-            <li>
-                GBaseQuery supports the following optional parameters; orderby, sortorder, 
-                refine and content
-            <li>
-                Support for gm:stats tags
-            <li>
-                GBaseUriFactory can now generate the feed uri of other customers
-                Fixes:
-            <li>
-                Fixed the GBaseAttributeType hierarchy for date/dateTime/dateTimeRange
-            <li>
-                Fixed the type of the hardcoded ExpirationDate property in GBaseAttributes
-        </ul>
-    <li>
-        Added a Makefile for Mono builds. This one replaces the Ant file.
-</ul>
-
-<h2>1.0.9.2</h2>
-<ul>
-    <li>
-        Removed the MethodOverride default for the CalendarService. If you need that (due 
-        to firewalls not allowing PUT/DELETE requests, you can reenable this with 
-        setting the MethodOverride flag on the factory: ((GDataGAuthRequestFactory)calsvc.RequestFactory).MethodOverride 
-        = false;
-    <li>
-        Changed the X-Method-Override behaviour for DELETE, to fix an issue with .NET 
-        mobile (the mobile client would crash when the contentLength was set to 0 and no 
-        stream was requested).
-</ul>
-
-<h2>1.0.9.1</h2>
-<li>
-    Added a KeepAlive property to the factory object. This is set to true by default. 
-    .NET 2.0 clients, are due to behaviour changes in that runtime encouraged to set 
-    this to false.
-
-    <h2>1.0.9</h2>
-<li>
-    Fixed an issue where the login services changed the response contenttype. The 
-    check for text/plain is now more relaxed.
-<li>
-    Added the missing location calls for Geolocation for GoogleBase
-<li>
-    Fixed a build issue for Windows Mobile in release. The code now compiles for 
-    PocketPC and WindowsMobile symbols defined.
-    <h2>1.0.8</h2>
-<li>
-    Fixed issue 13 from the public issue list. If a content element contained xhtml, 
-    and not just text, the content was not read correctly.
-<li>
-    Fixed issue 17 from the public issue list. XHTML content was not persisted 
-    correctly.
-<li>
-    Added support for hosted domain feeds. This is done automatically, no 
-    codechanges needed for the application developer. The authentication code was 
-    changed to ask for Hosted domains first, then google accounts.
-<li>
-    Added support for the app:control/app:draft element, but only in the way to 
-    expose a boolean on the AtomEntry. The new member on AtomEntry is called IsDraft.
-<li>
-    Changed the way atom:content is parsed. Text & HTML types use xmlreader.ReadString() 
-    to get the inner content. XHTML and all other types use readInnerXml() to get 
-    the content.
-<li>
-    changed Exception handling. The code now throws more detailed exceptions based 
-    on what was happening: -> GDataRequestException: generic exception -> 
-    GDataForbiddenException: exception thrown when the server return a Forbidden on 
-    authentication -> GDataRedirectException: exception thrown when the server 
-    returned a redirect
-<li>
-    changed redirect handling on Post. The library will follow redirects on Post 
-    automatically by default, to accomodate Blogger (which currently may return 302s 
-    on posts). This can be turned off by setting the .StrictRedirect property to 
-    true on the GDataAuthRequestFactory. If it is turned off, the code will throw if 
-    a redirect is happening on an HTTP verb other than GET.
-<li>
-    changed redirect handling for DELETE/PUT the same as for POST
-<li>
-    removed cookie handling. The code will handle cookies now without using the 
-    CookieContainer (one hurdle on the way to the CompactFramework Port).
-<li>
-    Fixed persistence of "initialized" date values for udpated/published on the atom.entry. 
-    This resolves an issue with the Blogger.
-<li>
-    Added EventEntry.Notifications. This property (boolean) indicates if an update 
-    on an entry should send notifications to the attendees of the Event.
-<li>
-    Fixed the gbase project (the NumberFormat.cs file was missing in the project 
-    file).
-<li>
-    Added a proxy property for the GDataRequestFactory.
-<li>
-    Setting content-length correctly to fix WindowsMobile issues. This fix is a user 
-    submitted, and created by Steeve Morin
-<li>
-    Fixes to the authsub code, provided by Ryan Boyd
-<li>
-    The DLLs were renamed, to follow the Windows .NET standard. gdata.dll       ->      
-    Google.GData.Client.dll gbase.dll       ->      Google.GData.GoogleBase.dll 
-    gcalendar.dll   ->      Google.GData.Calendar.dll gcodesearch.dll ->      Google.GData.CodeSearch.dll 
-    gextensions.dll ->      Google.GData.Extensions.dll and the new one ->      
-    Google.GData.Spreadsheets.dll
-
-
-    <h2>1.0.7</h2>
-<li>
-    Added support for published-min/published-max as standard query parameters
-<li>
-    Added support for codesearch. A new DLL gcodesearch.dll and a new sample for 
-    this is available.
-<li>
-    Added support for the WebContent calendar extension
-<li>
-    Added signing to the gbase.dll
-    <h2>1.0.6</h2>
-<li>
-    Added support for sortoder, futurevents, singleevents on the calendarquery
-<li>
-    Added a ResponseString property on the GDataRequestException to make debugging 
-    server side errors easier
-<li>
-    Fixed an issue with the GoogleBaseService, if you did set the RequestFactory 
-    property twice, you would create too many header entries, and hence end up with 
-    request denied responses
-<li>
-    Added the shipping attribute for GoogleBase
-<li>
-    Changed the payment attribute to payment_accepted for GoogleBase
-    <h2>1.0.5</h2>
-<li>
-    Added batch support for GoogleFeeds, the first property to support this is the 
-    GoogleBase product
-<li>
-    Added a unittest for GoogleBase. This code shows update/insert/delete against 
-    base for single entries and batch entries refer to clients/cs/src/unittests/gbase.cs 
-    for sample code.
-<li>
-    Added IComparable to atomuri.cs (based on a feature request on our issue list)
-<li>
-    GDataAuthRequestFactory is now a subclass of GDataRequestFactory
-<li>
-    Moved GCookies from GDataAuthRequestFactory to GDataRequestFactory and renamed 
-    it to Cookies
-<li>
-    removed the debug binaries from the lib directory
-<li>
-    added a GoogleBase sample application in VB !
-<li>
-    added the build executables to the lib directory
-<li>
-    added GoogleBase classes (similiar to the java classes) to access Google base 
-    specific feeds
-    Known issues:
-<li>
-    recurrenceException is not fully tested
-<li>
-    authsubutil and gauthsubrequest are not fully tested
-
-    <h2>1.0.4</h2>
-<li>
-    Fixed a .NET 2.0 issue in calendarservice.cs, that dropped connections during 
-    repeated calls.
-<li>
-    Made the execution path more robust.
-<li>
-    Added a property, numberOfRetries on the GAuthRequestFactory to indicate how 
-    often an Execution should be retried if the server returns an error.
-<li>
-    Fixed a bug in the daterange query creation (the +sign for the timezone was not 
-    escaped properly)
-<li>
-    Fixed an issue with updating, where if you used the same AtomEntry/EventEntry 
-    several times to update, it could happen that extension elements were doubled, 
-    and the update failed.
-<li>
-    Fixed a bug in the parsing of all elements. This could cause an endless loop 
-    when the content was empty.
-<li>
-    Fixed several content creation issues (issues 5-9 on the issue list)
-<li>
-    added support for the gd:extendedProperty
-<li>
-    Added a calendar example application
-<li>
-    added a sample application to access Blogger feeds, and post to blogger feeds.
-    Known issues:
-<li>
-    recurrenceException is not fully tested
-<li>
-    authsubutil and gauthsubrequest are not fully tested Solved issues:
-<li>
-    .NET 2.0 seems to loose resources in some circumstances. Hard to reproduce.
-
-
-    <h2>1.0.3</h2>
-<li>
-    Fixed the namespace creation for extensions, the wireformat should no longer 
-    create the namespace declaration when it's not required
-<li>
-    Fixed the reminder persistence code
-<li>
-    added a TimeZone property on the EventFeed to retrieve the timezone value
-<li>
-    added a FindEvent method on the EventFeed. This one takes an OriginalEvent 
-    object, and returns the Event that this is based on. This will go to the server 
-    if required.
-<li>
-    Fixed recurrance issues in the extensions
-<li>
-    Moved EventFeed and EventEntry from the Google.GData.Extensions namespace to the 
-    Google.GData.Calendar namespace
-<li>
-    Fixed a bug in the parsing of Atom:Content elements. This could cause an endless 
-    loop when the content was empty.
-    <h2>1.0.2</h2>
-<li>
-    Fixed a problem persisting feedlink elements
-<li>
-    added an AllDay flag to the When class to allow parsing and persting of all day 
-    events
-<li>
-    cleaned up the persistence code in the extension classes
-<li>
-    fixed a problem that resulted in persisting multiple extensionn objects instead 
-    of one
-<li>
-    added a timestamp method to the Tracing class to help measuring performance in 
-    simple cases
-    <h2>1.0.1</h2>
-<li>
-    Correctly uses 'rel.previous' instead of 'rel.prev' as required by Atom 
-    Publishing Protocol.
-<li>
-    Corrected the time-shift portion of the DateTime output for time zones with a 
-    negative shift from UTC.
-<li>
-    Corrected the time-shift to permit fractional hour shifts from UTC.
-<li>
-    Correctly output "startTime" and "endTime" as attributes of the "when" extension 
-    rather than child elements.
-<li>
-    Refactored class hierarchy, now based on IExtensionElement.
-    <h2>1.0.0</h2>
-<li>
-    Initial Release
-
-
-    </html>
+        <li>Added the QuickAdd feature for the Google Calendar. An EventEntry has a QuickAdd boolean property. Setting it to true causes an insert to be treated like a quickAdd operation.</li>
+        <li>Added the webcontentlink class to the Google Calendar Support to enable easier creation of Gadgets in calendars.</li>
+        <li>Batch support for Google Calendar</li>
+        <li>ASP .NET support for medium trust</li>
+      </ul>
+    </li>
+    <li>Changes and Bugfixes
+      <ul>
+        <li>Complete refactoring of Apps extension to use the new extension system (IExtensionElementFactory, AbstractEntry and AbstractFeed).</li>
+        <li>To enable ASP.NET hosting in medium trust, we removed the usage of the NetworkCredentials class. From now on, credentials are either passed as username/password, or using the GDataCredentials. (issue 57)</li>
+        <li>Changed "adminUserName" to "adminEmailAddress" in AppsService so that it's more clear what information is actually required for this parameter.</li>
+        <li>fixed a Google Base issue (The server doesn't accept scientific notations for floats)</li>
+        <li>fixed typo in the blogger sample (www..blogger), which made the sample hard to use</li>
+        <li>make the GAuthToken property of the GAuthRequestFactory public. It was mistakenly marked internal, so that the token could not be retrieved by a client application for caching.</li>
+        <li>fixed a parsing issue that resulted in Batch Upload hanging if an unknown element was encountered</li>
+        <li>added a helper method on AtomBase (entry and feed) to find exensionelements by specifying a localname and an optional namespace (issue 81)</li>
+        <li>the extension mechanism was reworked by creating an ExtensionElementFactory interface that takes care of parsing elements. ElementFactories are registered on the AtomBase (entry and feed) level.</li>
+        <li>Fixed Issue 60, mulitple Reminders per Event. Note, that this introduces slight changes when dealing with this. A new property, EventEntry.Reminders, was created. The old property, EventEntry.Reminder, still exists, and only works on the first Reminder in the list. Setting the old property will delete all addtional reminders.The Reminders property is of type ArrayList (this is an artifact of being .NET 1.1 compatible, once we move to .NET 2.0 or later, if that ever happens, this could/should be typed).</li>
+        <li>Modified data model for Spreadsheets worksheets to make it easier to change and construct associated meta-data</li>
+        <li>Added the ctz parameter to the EventQuery class. This parameter allows to specify the timezone that is used to calculate start/end times for the returned events</li>
+        <li>Added an AlternateUri Property on the AtomEntry class. This property returns the AtomUri of a rel=alternate type=html LINK entry. As this is similiar to the ill named LINK helper on the spreadsheet entry, that helper was removed, as they do serve the same purpose, and the link helper was read only.</li>
+        <li>Added an FeedUri Property on the AtomEntry class. This property returns the AtomUri of a rel=#feed type=atom+xml LINK entry.</li>
+        <li>Added an MediaUri Property on the AtomEntry class. This property returns the AtomUri of a rel=#edit-media type=atom+xml LINK entry.</li>
+        <li>Added new methods on the AtomCategory collection. Find searches for a category of a given term, or a term/scheme combination. Also changed the implementation of the Contains method to compare not just object fidelity, but also term/value pairs</li>
+        <li>Added a ConvertToXSDSTring() helper in the Utilites class. As booleans are represented as "True"/"False" in .NET, and xsd requires "true"/"false" this helper takes care of that conversion.</li>
+        <li>Added the ability to create custom AtomBase subclassed objects to custom feeds/entries. Look at CreateAtomSubElement() in AtomBase. This is used to create custom clases like WebContentLink in the derived services</li>
+      </ul>
+    </li>
+  </ul>
+  <h2>1.0.9.9</h2>
+  <ul>
+    <li>added GBase support for m:adjusted_name and gm:adjusted_value inside attributes (returned only when adjustments are enabled)</li>
+    <li>Google Apps changes:
+      <ul>
+        <li>Added new AppsService.createUser methods with hashed password support</li>
+        <li>Updated AppsException with new Google Apps error codes</li>
+        <li>Added the following properties to Login.cs: string hashFunctionName</li>
+        <li>to hash user account password, bool agreedToTerms</li>
+        <li>to see if the user has accepted the Google Apps Terms Of Service, bool admin</li>
+        <li>to see if the user is a domain admin, bool changePasswordAtNextLogin</li>
+        <li>to force the user to change password at next login</li>
+        <li>Updated unittests to test new properties</li>
+      </ul>
+    </li>
+  </ul>
+  <h2>1.0.9.8</h2>
+  <ul>
+    <li>fixed a parsing bug in SpreadsheetService</li>
+    <li>fixed a bug in GDataRequestException that would prevent AppsException from accessing the server's response.</li>
+    <li>modified AppsException to comply with new GDataRequestException</li>
+    <li>fixed a bug in CalculateBaseUri, that caused a crash if the passed in parameters are all NULL. This caused composite feeds to not load if there was a comment feed embedded</li>
+    <li>fixed a bug in the CalendarEventEntry, it was not parsing extendedProperties. They are now parsed and added correctly to the ExtensionElements</li>
+    <li>added ACL support. This resulted in changes in the CalendarService.Query method</li>
+    <li>as a CalendarService can now return an EventFeed or an AccessControlFeed is returns now an AtomFeed that you can cast to what you are expecting. Added Query overloads to accept EventQuery or AclQuery and return the appropriate Feeds</li>
+    <li>added a cmd line tool to query/insert/update to a service based on streams</li>
+    <li>modified the Spreadsheet service to use the new scheme of service subclassing. This should fix a bundle of issues with regard to entry castings.</li>
+    <li>changed persistence of gd:extendedProperty to save the value attribute, even if there is no data to persist</li>
+    <li>Added an ASP.NET release (lib/ASP.NET) where the DLLs are build with the AllowPartiallyTrustedCallers attribute n enabled. Please use with caution and refer to the readme.txt in that subdirectory for more information.</li>
+  </ul>
+  <h2>1.0.9.7</h2>
+  <ul>
+    <li>fixed an incorrect trace statement in request.cs that had the result of disabling reading the error response.</li>
+  </ul>
+  <h2>1.0.9.6</h2>
+  <ul>
+    <li>added Google Apps for Your Domain support, a new helper DLL Google.GData.Apps.dll, and a sample, as well as unittests. Version number is increased to distinguish from Subversion, as this will be a binary download as well.</li>
+  </ul>
+  <h2>1.0.9.5</h2>
+  <ul>
+    <li>fix for incorrect encoding of usernames/passwords during authentication (you could run into problems if you had an email like "foo&amp;joe@test.com"</li>
+    <li>exposure of the accountType as a property on the factory. If you happen to have an identical user name for a Google account and a hosted account, you need to set this property depending on which account you want to access. Default is GOOGLE_OR_HOSTED, other values are GOOGLE or HOSTED as strings.</li>
+    <li>fixed an issue with the edit/self uris on the entry. They were not correctly setable.</li>
+    <li>fixed an issue that one you used an authenticated service, but did not supply credentials, we would send an empty authentication header.</li>
+    <li>added Captcha Handling and more detailed exceptions when the authentication request fails. See authexceptions.cs for the list of potential exceptions thrown</li>
+    <li>added some preliminary unittests for the new exceptions</li>
+    <li>added a new constructor for the TokenCollection, so that captcha parsing is handled correctly</li>
+    <li>made the debug output depending on the TRACE define, and removed that define for the release build</li>
+  </ul>
+  <h2>1.0.9.4</h2>
+  <ul>
+    <li>Google Base: fix for incorrect Price attribute behaviour</li>
+    <li>Google Base: fix for incorrectly persisting duplicate attributes</li>
+    <li>Fix for Content.Type having no default value (issue 41)</li>
+    <li>Fix for Content.Type="text/html" parsing incorrectly. The strict check for type= "text" is now relaxed to be type="text*", so all text subtypes will be treated the same</li>
+    <li>Fix for Content.Type = "html" and "text/html" persistence. What the code does now is: first HTMLDecode the value held, than run the standard XMLWriter.WriteString over it (which does HTML encoding). This seems to work fine.</li>
+    <li>Added the gm:stats tags to the Windows Mobile build, accidently forgot to change that project file</li>
+    <li>the calendarfeed discarded entries unknown to it in the calendar namespace. This is fixed now. Unknown entries to the parser are now correctly added to the extension elements.</li>
+    <li>added the return-empty parameter to the cellquery class</li>
+    <li>added URL encoding to the authentication parameters (username/passwords etc that had unallowed FORM post chars caused failed login attempts)</li>
+  </ul>
+  <h2>1.0.9.3</h2>
+  <ul>
+    <li>Google Base changes: New features:
+      <ul>
+        <li>GBaseQuery supports the following optional parameters; orderby, sortorder, refine and content</li>
+        <li>Support for gm:stats tags</li>
+        <li>GBaseUriFactory can now generate the feed uri of other customers Fixes:</li>
+        <li>Fixed the GBaseAttributeType hierarchy for date/dateTime/dateTimeRange</li>
+        <li>Fixed the type of the hardcoded ExpirationDate property in GBaseAttributes</li>
+      </ul>
+    </li>
+    <li>Added a Makefile for Mono builds. This one replaces the Ant file.</li>
+  </ul>
+  <h2>1.0.9.2</h2>
+  <ul>
+    <li>Removed the MethodOverride default for the CalendarService. If you need that (due to firewalls not allowing PUT/DELETE requests, you can reenable this with setting the MethodOverride flag on the factory: ((GDataGAuthRequestFactory)calsvc.RequestFactory).MethodOverride = false;</li>
+    <li>Changed the X-Method-Override behaviour for DELETE, to fix an issue with .NET mobile (the mobile client would crash when the contentLength was set to 0 and no stream was requested).</li>
+  </ul>
+  <h2>1.0.9.1</h2>
+  <ul>
+    <li>Added a KeepAlive property to the factory object. This is set to true by default. .NET 2.0 clients, are due to behaviour changes in that runtime encouraged to set this to false.</li>
+  </ul>
+  <h2>1.0.9</h2>
+  <ul>
+    <li>Fixed an issue where the login services changed the response contenttype. The check for text/plain is now more relaxed.</li>
+    <li>Added the missing location calls for Geolocation for GoogleBase</li>
+    <li>Fixed a build issue for Windows Mobile in release. The code now compiles for PocketPC and WindowsMobile symbols defined.</li>
+  </ul>
+  <h2>1.0.8</h2>
+  <ul>
+    <li>Fixed issue 13 from the public issue list. If a content element contained xhtml, and not just text, the content was not read correctly.</li>
+    <li>Fixed issue 17 from the public issue list. XHTML content was not persisted correctly.</li>
+    <li>Added support for hosted domain feeds. This is done automatically, no codechanges needed for the application developer. The authentication code was changed to ask for Hosted domains first, then google accounts.</li>
+    <li>Added support for the app:control/app:draft element, but only in the way to expose a boolean on the AtomEntry. The new member on AtomEntry is called IsDraft.</li>
+    <li>Changed the way atom:content is parsed. Text &amp; HTML types use xmlreader.ReadString() to get the inner content. XHTML and all other types use readInnerXml() to get the content.</li>
+    <li>changed Exception handling. The code now throws more detailed exceptions based on what was happening: -&gt; GDataRequestException: generic exception -&gt; GDataForbiddenException: exception thrown when the server return a Forbidden on authentication -&gt; GDataRedirectException: exception thrown when the server returned a redirect</li>
+    <li>changed redirect handling on Post. The library will follow redirects on Post automatically by default, to accomodate Blogger (which currently may return 302s on posts). This can be turned off by setting the .StrictRedirect property to true on the GDataAuthRequestFactory. If it is turned off, the code will throw if a redirect is happening on an HTTP verb other than GET.</li>
+    <li>changed redirect handling for DELETE/PUT the same as for POST</li>
+    <li>removed cookie handling. The code will handle cookies now without using the CookieContainer (one hurdle on the way to the CompactFramework Port).</li>
+    <li>Fixed persistence of "initialized" date values for udpated/published on the atom.entry. This resolves an issue with the Blogger.</li>
+    <li>Added EventEntry.Notifications. This property (boolean) indicates if an update on an entry should send notifications to the attendees of the Event.</li>
+    <li>Fixed the gbase project (the NumberFormat.cs file was missing in the project file).</li>
+    <li>Added a proxy property for the GDataRequestFactory.</li>
+    <li>Setting content-length correctly to fix WindowsMobile issues. This fix is a user submitted, and created by Steeve Morin</li>
+    <li>Fixes to the authsub code, provided by Ryan Boyd</li>
+    <li>The DLLs were renamed, to follow the Windows .NET standard. gdata.dll -&gt; Google.GData.Client.dll gbase.dll -&gt; Google.GData.GoogleBase.dll gcalendar.dll -&gt; Google.GData.Calendar.dll gcodesearch.dll -&gt; Google.GData.CodeSearch.dll gextensions.dll -&gt; Google.GData.Extensions.dll and the new one -&gt; Google.GData.Spreadsheets.dll</li>
+  </ul>
+  <h2>1.0.7</h2>
+  <ul>
+    <li>Added support for published-min/published-max as standard query parameters</li>
+    <li>Added support for codesearch. A new DLL gcodesearch.dll and a new sample for this is available.</li>
+    <li>Added support for the WebContent calendar extension</li>
+    <li>Added signing to the gbase.dll</li>
+  </ul>
+  <h2>1.0.6</h2>
+  <ul>
+    <li>Added support for sortoder, futurevents, singleevents on the calendarquery</li>
+    <li>Added a ResponseString property on the GDataRequestException to make debugging server side errors easier</li>
+    <li>Fixed an issue with the GoogleBaseService, if you did set the RequestFactory property twice, you would create too many header entries, and hence end up with request denied responses</li>
+    <li>Added the shipping attribute for GoogleBase</li>
+    <li>Changed the payment attribute to payment_accepted for GoogleBase</li>
+  </ul>
+  <h2>1.0.5</h2>
+  <ul>
+    <li>Added batch support for GoogleFeeds, the first property to support this is the GoogleBase product</li>
+    <li>Added a unittest for GoogleBase. This code shows update/insert/delete against base for single entries and batch entries refer to clients/cs/src/unittests/gbase.cs for sample code.</li>
+    <li>Added IComparable to atomuri.cs (based on a feature request on our issue list)</li>
+    <li>GDataAuthRequestFactory is now a subclass of GDataRequestFactory</li>
+    <li>Moved GCookies from GDataAuthRequestFactory to GDataRequestFactory and renamed it to Cookies</li>
+    <li>removed the debug binaries from the lib directory</li>
+    <li>added a GoogleBase sample application in VB !</li>
+    <li>added the build executables to the lib directory</li>
+    <li>added GoogleBase classes (similiar to the java classes) to access Google base specific feeds Known issues:</li>
+    <li>recurrenceException is not fully tested</li>
+    <li>authsubutil and gauthsubrequest are not fully tested</li>
+  </ul>
+  <h2>1.0.4</h2>
+  <ul>
+    <li>Fixed a .NET 2.0 issue in calendarservice.cs, that dropped connections during repeated calls.</li>
+    <li>Made the execution path more robust.</li>
+    <li>Added a property, numberOfRetries on the GAuthRequestFactory to indicate how often an Execution should be retried if the server returns an error.</li>
+    <li>Fixed a bug in the daterange query creation (the +sign for the timezone was not escaped properly)</li>
+    <li>Fixed an issue with updating, where if you used the same AtomEntry/EventEntry several times to update, it could happen that extension elements were doubled, and the update failed.</li>
+    <li>Fixed a bug in the parsing of all elements. This could cause an endless loop when the content was empty.</li>
+    <li>Fixed several content creation issues (issues 5-9 on the issue list)</li>
+    <li>added support for the gd:extendedProperty</li>
+    <li>Added a calendar example application</li>
+    <li>added a sample application to access Blogger feeds, and post to blogger feeds. Known issues:</li>
+    <li>recurrenceException is not fully tested</li>
+    <li>authsubutil and gauthsubrequest are not fully tested Solved issues:</li>
+    <li>.NET 2.0 seems to loose resources in some circumstances. Hard to reproduce.</li>
+  </ul>
+  <h2>1.0.3</h2>
+  <ul>
+    <li>Fixed the namespace creation for extensions, the wireformat should no longer create the namespace declaration when it's not required</li>
+    <li>Fixed the reminder persistence code</li>
+    <li>added a TimeZone property on the EventFeed to retrieve the timezone value</li>
+    <li>added a FindEvent method on the EventFeed. This one takes an OriginalEvent object, and returns the Event that this is based on. This will go to the server if required.</li>
+    <li>Fixed recurrance issues in the extensions</li>
+    <li>Moved EventFeed and EventEntry from the Google.GData.Extensions namespace to the Google.GData.Calendar namespace</li>
+    <li>Fixed a bug in the parsing of Atom:Content elements. This could cause an endless loop when the content was empty.</li>
+  </ul>
+  <h2>1.0.2</h2>
+  <ul>
+    <li>Fixed a problem persisting feedlink elements</li>
+    <li>added an AllDay flag to the When class to allow parsing and persting of all day events</li>
+    <li>cleaned up the persistence code in the extension classes</li>
+    <li>fixed a problem that resulted in persisting multiple extensionn objects instead of one</li>
+    <li>added a timestamp method to the Tracing class to help measuring performance in simple cases</li>
+  </ul>
+  <h2>1.0.1</h2>
+  <ul>
+    <li>Correctly uses 'rel.previous' instead of 'rel.prev' as required by Atom Publishing Protocol.</li>
+    <li>Corrected the time-shift portion of the DateTime output for time zones with a negative shift from UTC.</li>
+    <li>Corrected the time-shift to permit fractional hour shifts from UTC.</li>
+    <li>Correctly output "startTime" and "endTime" as attributes of the "when" extension rather than child elements.</li>
+    <li>Refactored class hierarchy, now based on IExtensionElement.</li>
+  </ul>
+  <h2>1.0.0</h2>
+  <ul>
+    <li>Initial Release</li>
+  </ul>
+</body>
+</html>
