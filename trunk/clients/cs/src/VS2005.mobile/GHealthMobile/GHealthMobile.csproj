@@ -66,89 +66,14 @@
     <Compile Include="..\..\ghealth\AssemblyInfo.cs">
       <Link>AssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="..\..\ghealth\ccr\ActiveDetail.cs">
-      <Link>ccr\ActiveDetail.cs</Link>
+    <Compile Include="..\..\ghealth\basehealthservice.cs">
+      <Link>basehealthservice.cs</Link>
     </Compile>
-    <Compile Include="..\..\ghealth\ccr\Actor.cs">
-      <Link>ccr\Actor.cs</Link>
+    <Compile Include="..\..\ghealth\ccrschema.cs">
+      <Link>ccrschema.cs</Link>
     </Compile>
-    <Compile Include="..\..\ghealth\ccr\Alert.cs">
-      <Link>ccr\Alert.cs</Link>
-    </Compile>
-    <Compile Include="..\..\ghealth\ccr\Body.cs">
-      <Link>ccr\Body.cs</Link>
-    </Compile>
-    <Compile Include="..\..\ghealth\ccr\CareRecord.cs">
-      <Link>ccr\CareRecord.cs</Link>
-    </Compile>
-    <Compile Include="..\..\ghealth\ccr\Code.cs">
-      <Link>ccr\Code.cs</Link>
-    </Compile>
-    <Compile Include="..\..\ghealth\ccr\Constants.cs">
-      <Link>ccr\Constants.cs</Link>
-    </Compile>
-    <Compile Include="..\..\ghealth\ccr\DateTime.cs">
-      <Link>ccr\DateTime.cs</Link>
-    </Compile>
-    <Compile Include="..\..\ghealth\ccr\Direction.cs">
-      <Link>ccr\Direction.cs</Link>
-    </Compile>
-    <Compile Include="..\..\ghealth\ccr\ElementBuilder.cs">
-      <Link>ccr\ElementBuilder.cs</Link>
-    </Compile>
-    <Compile Include="..\..\ghealth\ccr\Form.cs">
-      <Link>ccr\Form.cs</Link>
-    </Compile>
-    <Compile Include="..\..\ghealth\ccr\HealthStatus.cs">
-      <Link>ccr\HealthStatus.cs</Link>
-    </Compile>
-    <Compile Include="..\..\ghealth\ccr\Measurement.cs">
-      <Link>ccr\Measurement.cs</Link>
-    </Compile>
-    <Compile Include="..\..\ghealth\ccr\Name.cs">
-      <Link>ccr\Name.cs</Link>
-    </Compile>
-    <Compile Include="..\..\ghealth\ccr\Patient.cs">
-      <Link>ccr\Patient.cs</Link>
-    </Compile>
-    <Compile Include="..\..\ghealth\ccr\Person.cs">
-      <Link>ccr\Person.cs</Link>
-    </Compile>
-    <Compile Include="..\..\ghealth\ccr\Problems.cs">
-      <Link>ccr\Problems.cs</Link>
-    </Compile>
-    <Compile Include="..\..\ghealth\ccr\Product.cs">
-      <Link>ccr\Product.cs</Link>
-    </Compile>
-    <Compile Include="..\..\ghealth\ccr\Reaction.cs">
-      <Link>ccr\Reaction.cs</Link>
-    </Compile>
-    <Compile Include="..\..\ghealth\ccr\Refill.cs">
-      <Link>ccr\Refill.cs</Link>
-    </Compile>
-    <Compile Include="..\..\ghealth\ccr\Remedial.cs">
-      <Link>ccr\Remedial.cs</Link>
-    </Compile>
-    <Compile Include="..\..\ghealth\ccr\Result.cs">
-      <Link>ccr\Result.cs</Link>
-    </Compile>
-    <Compile Include="..\..\ghealth\ccr\SocialHistory.cs">
-      <Link>ccr\SocialHistory.cs</Link>
-    </Compile>
-    <Compile Include="..\..\ghealth\ccr\Source.cs">
-      <Link>ccr\Source.cs</Link>
-    </Compile>
-    <Compile Include="..\..\ghealth\ccr\Status.cs">
-      <Link>ccr\Status.cs</Link>
-    </Compile>
-    <Compile Include="..\..\ghealth\ccr\Unit.cs">
-      <Link>ccr\Unit.cs</Link>
-    </Compile>
-    <Compile Include="..\..\ghealth\ccr\Version.cs">
-      <Link>ccr\Version.cs</Link>
-    </Compile>
-    <Compile Include="..\..\ghealth\ccr\XAttribute.cs">
-      <Link>ccr\XAttribute.cs</Link>
+    <Compile Include="..\..\ghealth\h9service.cs">
+      <Link>h9service.cs</Link>
     </Compile>
     <Compile Include="..\..\ghealth\healthentry.cs">
       <Link>healthentry.cs</Link>
