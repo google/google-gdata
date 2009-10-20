@@ -325,6 +325,7 @@ namespace Google.GData.Apps
             emailListService.RequestFactory = factory;
             nicknameService.RequestFactory = factory;
             userAccountService.RequestFactory = factory;
+            groupsService.RequestFactory = factory;
         }
 
 
