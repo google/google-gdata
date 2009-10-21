@@ -489,7 +489,7 @@ namespace Google.GData.Client
         /// <returns>the start-index query parameter, a 1-based index
         /// indicating the first result to be retrieved.</returns>
         //////////////////////////////////////////////////////////////////////
-        public int StartIndex
+        public virtual int StartIndex
         {
             get {return this.startIndex;}
             set {this.startIndex = value; }
@@ -500,7 +500,7 @@ namespace Google.GData.Client
         /// <summary>Accessor method public int NumberToRetrieve.</summary> 
         /// <returns>the number of entries to retrieve</returns>
         //////////////////////////////////////////////////////////////////////
-        public int NumberToRetrieve
+        public virtual int NumberToRetrieve
         {
             get {return this.numToRetrieve;}
             set {this.numToRetrieve = value; }
