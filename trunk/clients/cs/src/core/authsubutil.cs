@@ -624,7 +624,7 @@ namespace Google.GData.Client
                 {
                     continue; 
                 }
-                x.Insert(i, Convert.ToInt16(randomNumber[i], CultureInfo.InvariantCulture).ToString()[0]);
+                x.Append(Convert.ToInt16(randomNumber[i], CultureInfo.InvariantCulture).ToString()[0]);
             }
             return x.ToString(); 
         }
