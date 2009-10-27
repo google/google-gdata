@@ -20,7 +20,7 @@ namespace Google_DocumentsList
     public partial class Form1 : Form
     {
         private List<Document> all = new List<Document>();
-        private DocumentsRequest request = null; 
+        private DocumentsRequest request = null;
 
         public Form1()
         {
@@ -156,8 +156,10 @@ namespace Google_DocumentsList
         private void documentsView_AfterExpand(object sender, TreeViewEventArgs e)
         {
             TreeNode node = e.Node;
-
-            if (node.Nodes.Count > 0)
+            Document d = node.Tag as Document;
+            Document.DocumentType type = d == null ? Document.DocumentType.Folder : d.Type;
+     
+            if (node.Nodes.Count > 0 && type == Document.DocumentType.Folder)
             {
                 node.SelectedImageIndex = 1;
                 node.ImageIndex = 1;
@@ -168,7 +170,10 @@ namespace Google_DocumentsList
         {
             TreeNode node = e.Node;
 
-            if (node.Nodes.Count > 0)
+            Document d = node.Tag as Document;
+            Document.DocumentType type = d == null ? Document.DocumentType.Folder : d.Type;
+
+            if (node.Nodes.Count > 0 && type == Document.DocumentType.Folder)
             {
                 node.SelectedImageIndex = 0;
                 node.ImageIndex = 0;
@@ -184,11 +189,11 @@ namespace Google_DocumentsList
                 this.propertyGrid1.SelectedObject = d;
                 if (d.Type == Document.DocumentType.PDF)
                 {
-                    this.Export.Enabled = false;
+                    this.Export.Enabled = this.ShowRevisions.Enabled = false;
                 }
                 else
                 {
-                    this.Export.Enabled = true;
+                    this.Export.Enabled = this.ShowRevisions.Enabled =  true;
                 }
             }
             else
@@ -307,6 +312,56 @@ namespace Google_DocumentsList
                 }
                 stream.Close();
             }
+        }
+
+
+        private void ShowRevisions_Click(object sender, EventArgs e)
+        {
+            TreeNode documentNode = this.documentsView.SelectedNode;
+            if (documentNode == null)
+                return;
+
+            
+            Document d = documentNode.Tag as Document;
+
+            if (d.Type == Document.DocumentType.Folder)
+                return;
+
+            // fill the filter based on the document type
+
+            // so we have a document and a revision link, get that feed
+            Feed<Document> revFeed = this.Request.Get<Document>(d.RevisionDocument);
+
+            foreach (Document doc in revFeed.Entries)
+            {
+                TreeNode node = new TreeNode(doc.Title);
+                node.Tag = doc;
+                node.ImageIndex = 2;
+                node.SelectedImageIndex = 2;
+            
+                TreeNode author = new TreeNode(doc.Author + ": " + doc.Updated);
+                author.ImageIndex = 2;
+                author.SelectedImageIndex = 2;
+            
+                node.Nodes.Add(author);
+                author.Tag = doc;
+                documentNode.Nodes.Add(node);
+                documentNode.ExpandAll();
+            }
+        }
+
+    
+        public DocumentsRequest Request
+        {
+            get
+            {
+                return this.request;
+            }
+        }
+
+        private void showPDFs_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

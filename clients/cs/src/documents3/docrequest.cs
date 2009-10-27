@@ -60,6 +60,10 @@ namespace Google.Documents
             /// </summary>
             Folder,
             /// <summary>
+            /// a form
+            /// </summary>
+            Form,
+            /// <summary>
             /// something unknown to us
             /// </summary>
             Unknown
@@ -98,6 +102,8 @@ namespace Google.Documents
             /// portable network graphics format
             /// </summary>
             png,
+            /// <summary>zip format</summary>
+            zip,
             /// <summary>
             /// flash format
             /// </summary>
@@ -227,19 +233,7 @@ namespace Google.Documents
             }
         }
 
-        /// <summary>
-        /// returns the document id of the object. This is calculated with a parser of the URI
-        /// </summary>
-        /// <returns></returns>
-        [Obsolete("Use ResourceId instead")]
-        public string DocumentId
-        {
-            get
-            {
-                EnsureInnerObject();
-                return DocumentsListQuery.DocumentId(this.Id);
-            }
-        }
+       
 
 
         /// <summary>
@@ -316,14 +310,27 @@ namespace Google.Documents
             get
             {
                 EnsureInnerObject();
-                return this.DocumentEntry.AccessControlList != null ? 
+                return this.DocumentEntry.AccessControlList != null ?
                     new Uri(this.DocumentEntry.AccessControlList) :
                     null;
             }
         }
 
-
-    }
+        /// <summary>
+        /// returns the Uri to the revision document
+        /// </summary>
+        /// <returns>The value of the href attribute of the revisions feedlink, or null if not found</returns>
+        public Uri RevisionDocument
+        {
+            get
+            {
+                EnsureInnerObject();
+                return this.DocumentEntry.RevisionDocument != null ?
+                    new Uri(this.DocumentEntry.RevisionDocument) :
+                    null;
+            }
+        }
+     }
 
 
     //////////////////////////////////////////////////////////////////////
@@ -458,18 +465,28 @@ namespace Google.Documents
             return PrepareFeed<Document>(q); 
         }
 
-        /*
+        /// <summary>
+        /// returns a Feed of all files that are owned by the authorized user
+        /// </summary>
+        /// <returns>a feed of Documents</returns>
+        public Feed<Document> GetMyDocuments()
+        {
+            DocumentsListQuery q = PrepareQuery<DocumentsListQuery>(this.BaseUri);
+            q.Categories.Add(DocumentsListQuery.MINE);
+            return PrepareFeed<Document>(q);
+        }
+
+        
         /// <summary>
         /// returns a Feed of all folders for the authorized user
         /// </summary>
         /// <returns>a feed of Documents</returns>
         public Feed<Document> GetFolders()
         {
-            FolderQuery q = PrepareQuery<FolderQuery>(this.BaseUri);
+            DocumentsListQuery q = PrepareQuery<DocumentsListQuery>(DocumentsListQuery.allFoldersUri);
             return PrepareFeed<Document>(q); 
         }
-         */
-
+        
         /// <summary>
         /// returns all items the user has viewed recently
         /// </summary>
@@ -488,7 +505,7 @@ namespace Google.Documents
         public Feed<Document> GetForms()
         {
             DocumentsListQuery q = PrepareQuery<DocumentsListQuery>(this.BaseUri);
-            q.Categories.Add(DocumentsListQuery.FORM);
+            q.Categories.Add(DocumentsListQuery.FORMS);
             return PrepareFeed<Document>(q);
         }
 
@@ -504,7 +521,7 @@ namespace Google.Documents
                 throw new ArgumentException("The parameter folder is not a folder");
             }
 
-            string uri = String.Format(DocumentsListQuery.foldersUriTemplate, folder.DocumentId); 
+            string uri = String.Format(DocumentsListQuery.foldersUriTemplate, folder.ResourceId); 
             DocumentsListQuery q = PrepareQuery<DocumentsListQuery>(uri);
             return PrepareFeed<Document>(q); 
         }
@@ -601,7 +618,7 @@ namespace Google.Documents
                     {
                         baseDomain = "http://spreadsheets.google.com/";
                     }
-                    queryUri = baseDomain + "feeds/download/spreadsheets/Export?key=" + document.DocumentId + "&fmcmd="; 
+                    queryUri = baseDomain + "feeds/download/spreadsheets/Export?key=" + document.ResourceId + "&fmcmd="; 
                     s = this.spreadsheetsService;
                     switch (type)
                     {
@@ -635,7 +652,7 @@ namespace Google.Documents
                         baseDomain = "http://docs.google.com/";
                     }
 
-                    queryUri = baseDomain + "feeds/download/presentations/Export?docID=" + document.DocumentId + "&exportFormat="; 
+                    queryUri = baseDomain + "feeds/download/presentations/Export?docID=" + document.ResourceId + "&exportFormat="; 
                     switch (type)
                     {
                         case Document.DownloadType.swf:
@@ -657,7 +674,7 @@ namespace Google.Documents
                         baseDomain = "http://docs.google.com/";
                     }
 
-                    queryUri = baseDomain + "feeds/download/documents/Export?docID=" + document.DocumentId + "&exportFormat=" + type.ToString(); 
+                    queryUri = baseDomain + "feeds/download/documents/Export?docID=" + document.ResourceId + "&exportFormat=" + type.ToString(); 
                     break;
 
             }
