@@ -46,6 +46,16 @@ namespace Google.GData.Documents {
         public const string GDocumentsService = "writely";
 
         /// <summary>
+        /// the documents namespace
+        /// </summary>
+        public const string DocumentsNamespace = "http://schemas.google.com/docs/2007";
+
+        /// <summary>
+        /// revisions prefix
+        /// </summary>
+        public const string Revisions = DocumentsNamespace + "/revisions";
+
+        /// <summary>
         /// A Hashtable that expresses the allowed content types.
         /// </summary>
         public static Hashtable GDocumentsAllowedTypes;

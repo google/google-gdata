@@ -90,6 +90,21 @@ namespace Google.GData.Client
         }
         /////////////////////////////////////////////////////////////////////////////
 
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Category constructor</summary> 
+        /// <param name="term">the term of the category</param>
+        /// <param name="scheme">the scheme of the category</param>
+        /// <param name="label"> the label for the category</param>
+        //////////////////////////////////////////////////////////////////////
+        public AtomCategory(string term, AtomUri scheme, string label)
+        {
+            this.Term = term;
+            this.Scheme = scheme;
+            this.label = label;
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+
         #region overloaded for persistence
 
         //////////////////////////////////////////////////////////////////////

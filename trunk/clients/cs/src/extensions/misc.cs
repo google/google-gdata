@@ -38,8 +38,8 @@ namespace Google.GData.Extensions {
         /// </summary>
         public ResourceId()
         : base(GDataParserNameTable.XmlResourceIdElement, 
-               GDataParserNameTable.gNamespace,
-               GDataParserNameTable.gDataPrefix)
+               GDataParserNameTable.gDataPrefix,
+               GDataParserNameTable.gNamespace)
         {
         }
     }
@@ -54,8 +54,8 @@ namespace Google.GData.Extensions {
         /// </summary>
         public LastViewed()
         : base(GDataParserNameTable.XmlLastViewedElement, 
-               GDataParserNameTable.gNamespace,
-               GDataParserNameTable.gDataPrefix)
+               GDataParserNameTable.gDataPrefix,
+               GDataParserNameTable.gNamespace)
         {
         }
     }
@@ -72,8 +72,8 @@ namespace Google.GData.Extensions {
         /// </summary>
         public LastModifiedBy() 
             : base(GDataParserNameTable.XmlLastModifiedByElement, 
-               GDataParserNameTable.gNamespace,
-               GDataParserNameTable.gDataPrefix)
+               GDataParserNameTable.gDataPrefix,
+               GDataParserNameTable.gNamespace)
         {
             this.ExtensionFactories.Add(new LastModifiedByName());
             this.ExtensionFactories.Add(new LastModifiedByEMail());
@@ -117,8 +117,8 @@ namespace Google.GData.Extensions {
         /// </summary>
         public LastModifiedByName()
         : base(GDataParserNameTable.XmlName, 
-               GDataParserNameTable.NSAtom,
-               GDataParserNameTable.AtomPrefix)
+               GDataParserNameTable.AtomPrefix,
+               GDataParserNameTable.NSAtom)
         {
         }
     }
@@ -133,8 +133,8 @@ namespace Google.GData.Extensions {
         /// </summary>
         public LastModifiedByEMail()
         : base(GDataParserNameTable.XmlEmailElement, 
-               GDataParserNameTable.NSAtom,
-               GDataParserNameTable.AtomPrefix)
+               GDataParserNameTable.AtomPrefix,
+               GDataParserNameTable.NSAtom)
         {
         }
     }

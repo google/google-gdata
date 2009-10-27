@@ -50,14 +50,22 @@ namespace Google.GData.Documents {
     public class DocumentEntry : AbstractEntry
     {
 
-        static string PRESENTATION_KIND = "http://schemas.google.com/docs/2007#presentation";
-        static string DOCUMENT_KIND = "http://schemas.google.com/docs/2007#document";
-        static string SPREADSHEET_KIND = "http://schemas.google.com/docs/2007#spreadsheet";
-        static string PDF_KIND = "http://schemas.google.com/docs/2007#pdf";
-        static string STARRED_KIND = "http://schemas.google.com/g/2005/labels#starred";
-        static string FOLDER_KIND = "http://schemas.google.com/docs/2007#folder";
-        static string PARENT_FOLDER_REL = "http://schemas.google.com/docs/2007#parent";
-        
+        static string PRESENTATION_KIND = DocumentsService.DocumentsNamespace + "#presentation";
+        static string DOCUMENT_KIND = DocumentsService.DocumentsNamespace + "#document";
+        static string SPREADSHEET_KIND = DocumentsService.DocumentsNamespace + "#spreadsheet";
+        static string PDF_KIND = DocumentsService.DocumentsNamespace + "#pdf";
+        static string FOLDER_KIND = DocumentsService.DocumentsNamespace + "#folder";
+        static string FORM_KIND = DocumentsService.DocumentsNamespace + "#form";
+        static string PARENT_FOLDER_REL = DocumentsService.DocumentsNamespace + "#parent";
+       
+        static string STARRED_KIND = BaseNameTable.gLabels + "#starred";
+        static string TRASHED_KIND =  BaseNameTable.gLabels + "#trashed";
+        static string HIDDEN_KIND = BaseNameTable.gLabels + "#hidden";
+        static string VIEWED_KIND = BaseNameTable.gLabels + "#viewed";
+        static string MINE_KIND = BaseNameTable.gLabels + "#mine";
+        static string PRIVATE_KIND = BaseNameTable.gLabels + "#private";
+        static string SHARED_KIND = BaseNameTable.gLabels + "#shared-with-domain";
+         
 
         /// <summary>
         /// a predefined atom category for Documents
@@ -83,15 +91,55 @@ namespace Google.GData.Documents {
         public static AtomCategory PRESENTATION_CATEGORY =
             new AtomCategory(PRESENTATION_KIND, new AtomUri(BaseNameTable.gKind));
         /// <summary>
-        /// a predefined atom category for starred documentss
+        /// a predefined atom category for folders
+        /// </summary>        
+        public static AtomCategory FOLDER_CATEGORY =
+            new AtomCategory(FOLDER_KIND, new AtomUri(BaseNameTable.gKind));
+        /// <summary>
+        /// a predefined atom category for forms
+        /// </summary>        
+        public static AtomCategory FORM_CATEGORY =
+            new AtomCategory(FORM_KIND, new AtomUri(BaseNameTable.gKind));
+
+        /// <summary>
+        /// a predefined atom category for starred documents
         /// </summary>        
         public static AtomCategory STARRED_CATEGORY =
             new AtomCategory(STARRED_KIND, new AtomUri(BaseNameTable.gLabels));
         /// <summary>
-        /// a predefined atom category for folders
+        /// a predefined atom category for trashed documents
         /// </summary>        
-        public static AtomCategory  FOLDER_CATEGORY =
-            new AtomCategory(FOLDER_KIND, new AtomUri(BaseNameTable.gKind));
+        public static AtomCategory TRASHED_CATEGORY =
+            new AtomCategory(TRASHED_KIND, new AtomUri(BaseNameTable.gLabels));
+        /// <summary>
+        /// a predefined atom category for hidden documents
+        /// </summary>        
+        public static AtomCategory HIDDEN_CATEGORY =
+            new AtomCategory(HIDDEN_KIND, new AtomUri(BaseNameTable.gLabels));
+        /// <summary>
+        /// a predefined atom category for VIEWED documents
+        /// </summary>        
+        public static AtomCategory VIEWED_CATEGORY =
+            new AtomCategory (VIEWED_KIND, new AtomUri(BaseNameTable.gLabels));
+        /// <summary>
+        /// a predefined atom category for owned by user documents
+        /// </summary>        
+        public static AtomCategory MINE_CATEGORY =
+            new AtomCategory(MINE_KIND, new AtomUri(BaseNameTable.gLabels));
+        /// <summary>
+        /// a predefined atom category for private documents
+        /// </summary>        
+        public static AtomCategory PRIVATE_CATEGORY =
+            new AtomCategory(PRIVATE_KIND, new AtomUri(BaseNameTable.gLabels));
+        /// <summary>
+        /// a predefined atom category for shared documents
+        /// </summary>        
+        public static AtomCategory SHARED_CATEGORY =
+            new AtomCategory(SHARED_KIND, new AtomUri(BaseNameTable.gLabels));
+       
+       
+
+     
 
 
 
@@ -174,6 +222,21 @@ namespace Google.GData.Documents {
         }
 
         /// <summary>
+        /// Reflects if this entry is a form
+        /// </summary>
+        public bool IsForm
+        {
+            get
+            {
+                return this.Categories.Contains(DocumentEntry.FORM_CATEGORY);
+            }
+            set
+            {
+                this.ToggleCategory(DocumentEntry.FORM_CATEGORY, value);
+            }
+        }
+
+        /// <summary>
         /// Reflects if this entry is a PDF document
         /// </summary>
         public bool IsPDF
@@ -232,6 +295,29 @@ namespace Google.GData.Documents {
                 foreach (FeedLink fl in list) 
                 {
                     if (fl.Rel == AclNameTable.LINK_REL_ACCESS_CONTROL_LIST)
+                    {
+                        return fl.Href;
+                    }
+                }
+                return null;
+            }
+        }
+
+
+        /// <summary>
+        /// returns the string that should represent the Uri to the revision document
+        /// </summary>
+        /// <returns>the value of the hret attribute for the revisons feedlink, or null if not found</returns>
+        public string RevisionDocument
+        {
+            get
+            {
+                List<FeedLink> list = FindExtensions<FeedLink>(GDataParserNameTable.XmlFeedLinkElement,
+                             BaseNameTable.gNamespace);
+
+                foreach (FeedLink fl in list)
+                {
+                    if (fl.Rel == DocumentsService.Revisions)
                     {
                         return fl.Href;
                     }
@@ -339,9 +425,6 @@ namespace Google.GData.Documents {
                DocumentslistNametable.Prefix)
         {
         }
-
-        
     }
-
 }
 

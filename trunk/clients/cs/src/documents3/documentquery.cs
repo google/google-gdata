@@ -89,76 +89,90 @@ namespace Google.GData.Documents {
         public static string mediaUriTemplate = "http://docs.google.com/feeds/default/media/{0}";
 
         /// <summary>
+        /// uri to get you all folders
+        /// </summary>
+        public static string allFoldersUri = "http://docs.google.com/feeds/default/private/full/~/folder";
+
+        /// <summary>
         /// template to get a revisison for a given resourceID and revisionID
         /// </summary>
         public static string revisionsUriTemplate = "http://docs.google.com/feeds/default/private/full/{0}/revisions/{1}";
 
-        private static AtomCategory ATOMCATEGORY_DOCUMENTS = new AtomCategory("document");
+       
         /// <summary>
         /// predefined query category for documents
         /// </summary>
-        public static QueryCategory DOCUMENTS = new QueryCategory(ATOMCATEGORY_DOCUMENTS);
+        public static QueryCategory DOCUMENTS = new QueryCategory(new AtomCategory("document")); 
 
-        private static AtomCategory ATOMCATEGORY_SPREADSHEETS = new AtomCategory("spreadsheet");
         /// <summary>
         /// predefined query category for spreadsheets
         /// </summary>
-        public static QueryCategory SPREADSHEETS = new QueryCategory(ATOMCATEGORY_SPREADSHEETS);
-
-        private static AtomCategory ATOMCATEGORY_PRESENTATIONS = new AtomCategory("presentation");
+        public static QueryCategory SPREADSHEETS = new QueryCategory(new AtomCategory("spreadsheet"));
+        
         /// <summary>
         /// predefined query category for presentations
         /// </summary>
-        public static QueryCategory PRESENTATIONS = new QueryCategory(ATOMCATEGORY_PRESENTATIONS);
+        public static QueryCategory PRESENTATIONS = new QueryCategory(new AtomCategory("presentation"));
 
-        private static AtomCategory ATOMCATEGORY_PDFS = new AtomCategory("pdf");
         /// <summary>
-        /// predefined query category for presentations
+        /// predefined query category for PDFS
         /// </summary>
-        public static QueryCategory PDFS = new QueryCategory(ATOMCATEGORY_PDFS);
+        public static QueryCategory PDFS = new QueryCategory(new AtomCategory("pdf"));
+     
+        /// <summary>
+        /// predefined query category for Forms
+        /// </summary>
+        public static QueryCategory FORMS = new QueryCategory(new AtomCategory("form"));
         
         
         /// <summary>
         /// predefined query category for starred documents
         /// </summary>
-        public static AtomCategory ATOMCATEGORY_STARRED = new AtomCategory("starred");
+        public static QueryCategory STARRED = new QueryCategory(new AtomCategory("starred"));
         /// <summary>
         /// predefined query category for starred documents
         /// </summary>
-        public static QueryCategory STARRED = new QueryCategory(ATOMCATEGORY_STARRED);
-
-
-       /// <summary>
-        /// predefined query category for viewed documents
-        /// </summary>
-        public static AtomCategory ATOMCATEGORY_VIEWED = new AtomCategory("viewed");
-        /// <summary>
-        /// predefined query category for starred documents
-        /// </summary>
-        public static QueryCategory VIEWED = new QueryCategory(ATOMCATEGORY_VIEWED);
-
-        /// <summary>
-        /// predefined atom category for hidden documents
-        /// </summary>
-        public static AtomCategory ATOMCATEGORY_HIDDEN = new AtomCategory("hidden");
+        public static QueryCategory VIEWED = new QueryCategory(new AtomCategory("viewed"));
         /// <summary>
         /// predefined query category for hidden documents
         /// </summary>
-        public static QueryCategory HIDDEN = new QueryCategory(ATOMCATEGORY_HIDDEN);
-
+        public static QueryCategory HIDDEN = new QueryCategory(new AtomCategory("hidden"));
         /// <summary>
-        /// predefined atom category for formss
+        /// predefined query category for trashed documents
         /// </summary>
-        public static AtomCategory ATOMCATEGORY_FORM = new AtomCategory("form");
+        public static QueryCategory TRASHED = new QueryCategory(new AtomCategory("trashed"));
         /// <summary>
-        /// predefined query category for hidden documents
+        /// predefined query category for user owned documents
         /// </summary>
-        public static QueryCategory FORM = new QueryCategory(ATOMCATEGORY_FORM);
+        public static QueryCategory MINE = new QueryCategory(new AtomCategory("mine"));
+        /// <summary>
+        /// predefined query category for private documents
+        /// </summary>
+        public static QueryCategory PRIVATE = new QueryCategory(new AtomCategory("private"));
+        /// <summary>
+        /// predefined query category for shared documents
+        /// </summary>
+        public static QueryCategory SHARED = new QueryCategory(new AtomCategory("shared-with-domain"));
 
+        
         //Local variable to hold the contents of a title query
         private string title;
         //Local variable to hold if the title query we are doing should be exact.
         private bool titleExact;
+        
+        private string owner;
+        private string writer;
+        private string reader;
+        private string targetLanguage;
+        private string sourceLanguage;
+        private bool showFolders = false;
+        private bool showDeleted = false;
+        private bool ocr = false;
+        private DateTime editedMin;
+        private DateTime editedMax;
+
+        
+
 
         /// <summary>
         /// base constructor
@@ -229,7 +243,6 @@ namespace Google.GData.Documents {
             }
         }
 
-        private bool showFolders;
         /// <summary>
         /// shows folders if true in the result
         /// </summary>
@@ -277,32 +290,135 @@ namespace Google.GData.Documents {
             }
         }
 
+        /// <summary>
+        /// Searches for documents with a specific owner. Use the email address of the owner
+        /// </summary>
+        public string Owner
+        {
+            get
+            {
+                return this.owner;
+            }
+            set
+            {
+                this.owner = value;
+            }
+        }
+        /// <summary>
+        /// Searches for documents which can be written to by specific users.
+        /// Use a single email address or a comma separated list of email addresses.
+        /// </summary>
+        public string Writer
+        {
+            get
+            {
+                return this.writer;
+            }
+            set
+            {
+                this.writer = value;
+            }
+        }
+        
+        /// <summary>
+        /// Searches for documents which can be read by specific users.
+        /// Use a single email address or a comma separated list of email addresses.
+        /// </summary>
+        public string Reader
+        {
+            get
+            {
+                return this.reader;
+            }
+            set
+            {
+                this.reader = value;
+            }
+        }
+        
+        /// <summary>
+        /// Specifies whether to attempt OCR on a .jpg, .png, of .gif upload.
+        /// </summary>
+        public bool Ocr
+        {
+            get
+            {
+                return this.ocr;
+            }
+            set
+            {
+                this.ocr = value;
+            }
+        }
 
         /// <summary>
-        /// tries to parse a document id iri and return just the 
-        /// ID portion of it
+        /// Specifies whether the query should return documents which are in the trash as well as other documents.
         /// </summary>
-        /// <param name="documentUri">the document id link as a string</param>
-        /// <returns>the document id or null if failed</returns>
-        public static string DocumentId(string documentUri)
+        public bool ShowDeleted
         {
-            const string token="%3A"; 
-            if (documentUri == null)
-
+            get
             {
-                throw new ArgumentNullException("documentUri");
+                return this.showDeleted;
             }
-            int pos = documentUri.LastIndexOf(token);
-            if (pos > 0)
+            set
             {
-                pos += 3;
-                if (pos < documentUri.Length)
-                {
-                    return documentUri.Substring(pos);
-                }
+                this.showDeleted = value;
             }
-            return null;
         }
+        /// <summary>
+        /// Specifies the language to translate a document into.
+        /// </summary>
+        public string TargetLanguage
+        {
+            get
+            {
+                return this.targetLanguage;
+            }
+            set
+            {
+                this.targetLanguage = value;
+            }
+        }
+        
+        /// <summary>
+        /// Specifies the source langugate to translate a document from.
+        /// </summary>
+        public string SourceLanguage
+        {
+            get
+            {
+                return this.sourceLanguage;
+            }
+            set
+            {
+                this.sourceLanguage = value;
+            }
+        }
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// Lower bound on the last time a document was edited by the current user.
+        /// </summary> 
+        //////////////////////////////////////////////////////////////////////
+        public DateTime EditedMin
+        {
+            get { return this.editedMin; }
+            set { this.editedMin = value; }
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Upper bound on the last time a document was edited by the current user.</summary> 
+        //////////////////////////////////////////////////////////////////////
+        public DateTime EditedMax
+        {
+            get { return this.editedMax; }
+            set { this.editedMax = value; }
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+
+       
 
 #if WindowsCE || PocketPC
 #else
@@ -333,10 +449,38 @@ namespace Google.GData.Documents {
                             case "title":
                                 this.Title = parameters[1];
                                 break;
+                            case "owner":
+                                this.Owner = parameters[1];
+                                break;
+                            case "reader":
+                                this.Reader = parameters[1];
+                                break;
+                            case "writer":
+                                this.Writer = parameters[1];
+                                break;
+                            case "targetLanguage":
+                                this.TargetLanguage = parameters[1];
+                                break;
+                            case "sourceLanguage":
+                                this.SourceLanguage = parameters[1];
+                                break;
                             case "showfolders":
                                 this.ShowFolders = bool.Parse(parameters[1]);
                                 break;
-                        }
+                            case "ocr":
+                                this.Ocr = bool.Parse(parameters[1]);
+                                break;
+                            case "showDeleted":
+                                this.ShowDeleted = bool.Parse(parameters[1]);
+                                break;
+                            case "edited-min":
+                                this.EditedMin = DateTime.Parse(Utilities.UrlDecodedValue(parameters[1]), CultureInfo.InvariantCulture);
+                                break;
+                            case "edited-max":
+                                this.EditedMax = DateTime.Parse(Utilities.UrlDecodedValue(parameters[1]), CultureInfo.InvariantCulture);
+                                break;
+                          
+                            }
                     }
                 }
             }
@@ -362,8 +506,25 @@ namespace Google.GData.Documents {
             }
             if (this.ShowFolders == true)
             {
-                paramInsertion = AppendQueryPart("true", "showfolders", paramInsertion, newPath);            
+                paramInsertion = AppendQueryPart("true", "showfolders", paramInsertion, newPath);
             }
+            if (this.Ocr == true)
+            {
+                paramInsertion = AppendQueryPart("true", "ocr", paramInsertion, newPath);
+            }
+            if (this.ShowDeleted == true)
+            {
+                paramInsertion = AppendQueryPart("true", "showDeleted", paramInsertion, newPath);
+            }
+
+            paramInsertion = AppendQueryPart(this.Owner, "owner", paramInsertion, newPath);
+            paramInsertion = AppendQueryPart(this.Writer, "writer", paramInsertion, newPath);
+            paramInsertion = AppendQueryPart(this.Reader, "reader", paramInsertion, newPath);
+            paramInsertion = AppendQueryPart(this.EditedMin, "edited-min", paramInsertion, newPath);
+            paramInsertion = AppendQueryPart(this.EditedMax, "edited-max", paramInsertion, newPath);
+            paramInsertion = AppendQueryPart(this.TargetLanguage, "targetLanguage", paramInsertion, newPath);
+            paramInsertion = AppendQueryPart(this.SourceLanguage, "sourceLanguage", paramInsertion, newPath);
+           
             return newPath.ToString();
         }
     }

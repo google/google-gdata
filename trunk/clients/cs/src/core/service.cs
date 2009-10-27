@@ -410,7 +410,7 @@ namespace Google.GData.Client
 
               throw;
             }
-
+            
             // return the response
             GDataGAuthRequest gr = request as GDataGAuthRequest;
             if (gr != null)
