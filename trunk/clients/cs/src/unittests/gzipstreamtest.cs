@@ -2,6 +2,7 @@ using System;
 using System.Text;
 using System.Xml;
 using System.IO;
+using System.IO.Compression;
 
 using Google.GData.Client;
 
@@ -15,7 +16,7 @@ namespace Google.GData.Client.UnitTests
     [TestFixture]
     public class GZipStreamTest : BaseTestClass
 	{
-        private const string    Data = "Google.GData.Client.GZipStream";
+        private const string    Data = "System.IO.Compression.GZipStream";
         private const string    Base64GZipData = "H4sIAEDbsEYAA3PPz0/PSdVzd0ksSdRzzslMzSvRc4/KLAguKUpNzAUAg1++Bx4AAAA=";
 
         private byte[]          compressedData;

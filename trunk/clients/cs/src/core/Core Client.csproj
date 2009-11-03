@@ -150,7 +150,6 @@
     <Compile Include="gauthsubrequest.cs" />
     <Compile Include="gdatabatch.cs" />
     <Compile Include="goauthrequest.cs" />
-    <Compile Include="gzipstream.cs" />
     <Compile Include="HttpUtility.cs" />
     <Compile Include="logrequest.cs" />
     <Compile Include="mediaservice.cs" />
