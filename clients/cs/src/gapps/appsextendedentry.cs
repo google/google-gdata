@@ -56,6 +56,19 @@ namespace Google.GData.Apps
                 this.Properties = value;
             }
         }
+        /// <summary>
+        /// Gets a the Value of a PropertyElement by its Name
+        /// </summary>
+        /// <returns>a string containing the results of the execution</returns>
+        [Obsolete("this method was mispelled. Please use getPropertyValueByName from now on")]
+        public string getPropetyValueByName(string name)
+        {
+            PropertyElement property = this.getPropertyByName(name);
+            if (property != null)
+                return property.Value;
+            else
+                return null;
+        }
 
         /// <summary>
         /// Gets a PropertyElement by its Name
@@ -78,7 +91,7 @@ namespace Google.GData.Apps
         /// Gets a the Value of a PropertyElement by its Name
         /// </summary>
         /// <returns>a string containing the results of the execution</returns>
-        public string getPropetyValueByName(string name)
+        public string getPropertyValueByName(string name)
         {
             PropertyElement property = this.getPropertyByName(name);
             if (property != null)
