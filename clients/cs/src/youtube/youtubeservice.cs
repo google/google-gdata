@@ -54,9 +54,6 @@ namespace Google.GData.YouTube {
         /// the YouTube authentication handler URL
         /// </summary>
         public const string AuthenticationHandler = "https://www.google.com/youtube/accounts/ClientLogin";
-
-
-        private string clientID;
         private string developerID;
 
 
@@ -66,23 +63,32 @@ namespace Google.GData.YouTube {
         /// <param name="applicationName">the applicationname</param>
         /// <param name="client">the client identifier</param>
         /// <param name="developerKey">the developerKey</param>/// 
+        [Obsolete("The client id was removed from the YouTubeService, use the constructor without a clientid")]
         public YouTubeService(string applicationName, string client, string developerKey) : base(YTService, applicationName)
         {
-            if (client == null)
-            {
-                throw new ArgumentNullException("client"); 
-            }
             if (developerKey == null)
             {
                 throw new ArgumentNullException("developerKey"); 
             }
 
             this.NewFeed += new ServiceEventHandler(this.OnNewFeed); 
-            clientID = client;
             developerID = developerKey;
             OnRequestFactoryChanged();
         }
 
+
+        public YouTubeService(string applicationName, string developerKey)
+            : base(YTService, applicationName)
+        {
+            if (developerKey == null)
+            {
+                throw new ArgumentNullException("developerKey");
+            }
+
+            this.NewFeed += new ServiceEventHandler(this.OnNewFeed);
+            developerID = developerKey;
+            OnRequestFactoryChanged();
+        }
 
         /// <summary>
         ///  readonly constructor 
@@ -235,10 +241,9 @@ namespace Google.GData.YouTube {
         {
             base.OnRequestFactoryChanged();
             GDataGAuthRequestFactory factory = this.RequestFactory as GDataGAuthRequestFactory;
-            if (factory != null && this.developerID != null && this.clientID != null)
+            if (factory != null && this.developerID != null)
             {
                 RemoveOldKeys(factory.CustomHeaders);
-                factory.CustomHeaders.Add(GoogleAuthentication.YouTubeClientId + this.clientID); 
                 factory.CustomHeaders.Add(GoogleAuthentication.YouTubeDevKey + this.developerID); 
                 factory.Handler = YouTubeService.AuthenticationHandler;
             }

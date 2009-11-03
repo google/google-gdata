@@ -618,27 +618,27 @@ namespace Google.Documents
                     {
                         baseDomain = "http://spreadsheets.google.com/";
                     }
-                    queryUri = baseDomain + "feeds/download/spreadsheets/Export?key=" + document.ResourceId + "&fmcmd="; 
+                    queryUri = baseDomain + "feeds/download/spreadsheets/Export?key=" + document.ResourceId + "&exportFormat="; 
                     s = this.spreadsheetsService;
                     switch (type)
                     {
                         case Document.DownloadType.xls:
-                            queryUri+="4";
+                            queryUri+="xls";
                             break;
                         case Document.DownloadType.csv:
-                            queryUri+="5&gid="+sheetNumber.ToString();
+                            queryUri+="csv&gid="+sheetNumber.ToString();
                             break;
                         case Document.DownloadType.pdf:
-                            queryUri+="12";
+                            queryUri+="pdf";
                             break;
                         case Document.DownloadType.ods:
-                            queryUri+="13";
+                            queryUri+="ods";
                             break;
                         case Document.DownloadType.tsv:
-                            queryUri+="23&gid="+sheetNumber.ToString();;
+                            queryUri+="tsv&gid="+sheetNumber.ToString();;
                             break;
                         case Document.DownloadType.html:
-                            queryUri+="102";
+                            queryUri+="html";
                             break;
                         default:
                             throw new ArgumentException("type is invalid for a spreadsheet");

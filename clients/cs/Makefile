@@ -123,7 +123,7 @@ Google.GData.Analytics.dll: $(CORELIBS) $(analytics_sources) src/analytics/analy
 
 
 clean:
-	-rm *.sn *.dll *exe $(PKGCONFIG_FILES)
+	-rm -f *.sn *.dll *exe $(PKGCONFIG_FILES)
 
 install: all
 	for i in $(ALLLIBS); do gacutil -i $$i -package GData-Sharp -root "$(DESTDIR)$(PREFIX)/lib"; done

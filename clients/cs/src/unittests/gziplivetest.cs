@@ -54,7 +54,6 @@ namespace Google.GData.Client.LiveTests
 
             Stream responseStream = request.GetResponseStream();
             Assert.IsTrue(responseStream != null, "Response stream should not be null.");
-            Assert.IsTrue(responseStream is Google.GData.Client.GZipStream, "Response stream is not Google.GData.Client.GZipStream.");
 
             AtomFeed feed = new AtomFeed(new Uri(calendarUri), this.calendarService);
             feed.Parse(request.GetResponseStream(), AlternativeFormat.Atom);

@@ -18,6 +18,7 @@
 
 using System;
 using System.IO;
+using System.IO.Compression;
 using System.Net;
 using System.Collections.Generic;
 using System.Globalization;
