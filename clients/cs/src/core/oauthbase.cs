@@ -165,7 +165,7 @@ namespace Google.GData.Client {
             QueryParameter p = null;
             for (int i = 0; i < parameters.Count; i++) {
                 p = parameters[i];
-                sb.AppendFormat(CultureInfo.InvariantCulture, "{0}={1}", p.Name, p.Value);
+                sb.AppendFormat(CultureInfo.InvariantCulture, "{0}={1}", p.Name, UrlEncode(p.Value));
 
                 if (i < parameters.Count - 1) {
                     sb.Append("&");
