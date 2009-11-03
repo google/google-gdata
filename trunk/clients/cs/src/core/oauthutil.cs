@@ -63,20 +63,32 @@ namespace Google.GData.Client
         /// <returns>The OAuth authorization header</returns>
         public static string GenerateHeader(Uri uri, String consumerKey, String consumerSecret, String httpMethod)
         {
+            return GenerateHeader(uri, consumerKey, consumerSecret, string.Empty, string.Empty, httpMethod);
+        }
+
+        public static string GenerateHeader(Uri uri, String consumerKey, String consumerSecret, String token, String tokenSecret, String httpMethod)
+        {
             OAuthUtil oauthUtil = new OAuthUtil();
             string timeStamp = oauthUtil.GenerateTimeStamp();
             string nonce = oauthUtil.GenerateNonce();
             string normalizedUrl; string normalizedRequestParameters;
 
-            string signature = oauthUtil.GenerateSignature(uri, consumerKey, consumerSecret, string.Empty, string.Empty,
+  
+            string signature = oauthUtil.GenerateSignature(uri, consumerKey, consumerSecret, token, tokenSecret,
                 httpMethod.ToUpper(), timeStamp, nonce, out normalizedUrl, out normalizedRequestParameters);
+           
             signature = System.Web.HttpUtility.UrlEncode(signature);
-
+            
             StringBuilder sb = new StringBuilder();
             sb.Append("Authorization: OAuth realm=\"\",oauth_version=\"1.0\",");
             sb.AppendFormat("oauth_nonce=\"{0}\",", nonce);
             sb.AppendFormat("oauth_timestamp=\"{0}\",", timeStamp);
             sb.AppendFormat("oauth_consumer_key=\"{0}\",", consumerKey);
+            if (token != String.Empty)
+            {
+                token = System.Web.HttpUtility.UrlEncode(token);
+                sb.AppendFormat("oauth_token=\"{0}\",", token);
+            }
             sb.Append("oauth_signature_method=\"HMAC-SHA1\",");
             sb.AppendFormat("oauth_signature=\"{0}\"", signature);
 
