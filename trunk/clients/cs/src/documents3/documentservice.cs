@@ -58,31 +58,31 @@ namespace Google.GData.Documents {
         /// <summary>
         /// A Hashtable that expresses the allowed content types.
         /// </summary>
-        public static Hashtable GDocumentsAllowedTypes;
+        public static Hashtable DocumentTypes;
 
         /// <summary>
         /// Static constructor used to initialize GDocumentsAllowedTypes.
         /// </summary>
         static DocumentsService()
         {
-            GDocumentsAllowedTypes = new Hashtable();
-            GDocumentsAllowedTypes.Add("CSV", "text/csv");
-            GDocumentsAllowedTypes.Add("TAB", "text/tab-separated-values");
-            GDocumentsAllowedTypes.Add("TSV", "text/tab-separated-values");
-            GDocumentsAllowedTypes.Add("TXT", "text/plain");
-            GDocumentsAllowedTypes.Add("HTML", "text/html");
-            GDocumentsAllowedTypes.Add("HTM", "text/html");
-            GDocumentsAllowedTypes.Add("DOC", "application/msword");
-            GDocumentsAllowedTypes.Add("DOCX", "application/vnd.openxmlformats-officedocument.wordprocessingml.document");
-            GDocumentsAllowedTypes.Add("ODS", "application/x-vnd.oasis.opendocument.spreadsheet");
-            GDocumentsAllowedTypes.Add("ODT", "application/vnd.oasis.opendocument.text");
-            GDocumentsAllowedTypes.Add("RTF", "application/rtf");
-            GDocumentsAllowedTypes.Add("SXW", "application/vnd.sun.xml.writer");
-            GDocumentsAllowedTypes.Add("XLSX", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-            GDocumentsAllowedTypes.Add("XLS", "application/vnd.ms-excel");
-            GDocumentsAllowedTypes.Add("PPT", "application/vnd.ms-powerpoint");
-            GDocumentsAllowedTypes.Add("PPS", "application/vnd.ms-powerpoint");
-            GDocumentsAllowedTypes.Add("PDF", "application/pdf");
+            DocumentTypes = new Hashtable();
+            DocumentTypes.Add("CSV", "text/csv");
+            DocumentTypes.Add("TAB", "text/tab-separated-values");
+            DocumentTypes.Add("TSV", "text/tab-separated-values");
+            DocumentTypes.Add("TXT", "text/plain");
+            DocumentTypes.Add("HTML", "text/html");
+            DocumentTypes.Add("HTM", "text/html");
+            DocumentTypes.Add("DOC", "application/msword");
+            DocumentTypes.Add("DOCX", "application/vnd.openxmlformats-officedocument.wordprocessingml.document");
+            DocumentTypes.Add("ODS", "application/x-vnd.oasis.opendocument.spreadsheet");
+            DocumentTypes.Add("ODT", "application/vnd.oasis.opendocument.text");
+            DocumentTypes.Add("RTF", "application/rtf");
+            DocumentTypes.Add("SXW", "application/vnd.sun.xml.writer");
+            DocumentTypes.Add("XLSX", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+            DocumentTypes.Add("XLS", "application/vnd.ms-excel");
+            DocumentTypes.Add("PPT", "application/vnd.ms-powerpoint");
+            DocumentTypes.Add("PPS", "application/vnd.ms-powerpoint");
+            DocumentTypes.Add("PDF", "application/pdf");
         }
 
         /// <summary>
@@ -114,6 +114,28 @@ namespace Google.GData.Documents {
         /// <returns>A DocumentEntry describing the created document.</returns>
         public DocumentEntry UploadDocument(string fileName, string documentName)
         {
+            FileInfo fileInfo = new FileInfo(fileName);
+            //convert the extension to caps and strip the "." off the front
+            string ext = fileInfo.Extension.ToUpper().Substring(1);
+
+            String contentType = (String)DocumentTypes[ext];
+            if (contentType == null)
+            {
+                throw new ArgumentException("File extension '" + ext + "' could not be matched to a contentType automatically.");
+            }
+
+            return this.UploadDocument(fileName, documentName, contentType);
+        }
+
+        /// <summary>
+        /// Simple method to upload a document, presentation, or spreadsheet
+        /// </summary>
+        /// <param name="fileName">The full path to the file.</param>
+        /// <param name="documentName">The desired name of the document on the server.</param>
+        /// <param name="contentType">The mime type of the document</param>
+        /// <returns>A DocumentEntry describing the created document.</returns>
+        public DocumentEntry UploadDocument(string fileName, string documentName, string contentType)
+        {
             DocumentEntry entry = null;
 
             FileInfo fileInfo = new FileInfo(fileName);
@@ -122,22 +144,17 @@ namespace Google.GData.Documents {
             try
             {
                 Uri postUri = new Uri(DocumentsListQuery.documentsBaseUri);
-    
+
                 if (documentName == null)
                 {
                     documentName = fileInfo.Name;
                 }
-    
-                //convert the extension to caps and strip the "." off the front
-                string ext = fileInfo.Extension.ToUpper().Substring(1);
-    
-                String contentType = (String) GDocumentsAllowedTypes[ext];
-    
+
                 if (contentType == null)
                 {
-                    throw new ArgumentException("File extension '"+ext+"' is not recognized as valid.");
+                    throw new ArgumentException("You need to specify a content type, like text/html");
                 }
-    
+
                 entry = this.Insert(postUri, stream, contentType, documentName) as DocumentEntry;
             }
             finally

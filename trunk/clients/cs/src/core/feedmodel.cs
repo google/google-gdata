@@ -488,7 +488,7 @@ namespace Google.GData.Client
         [Category("Basic Entry Data"),
         Description("returns the string representation of the atom.Summary element.")]
 #endif
-         public string Summary
+        public string Summary
         {
             get
             {
@@ -553,6 +553,11 @@ namespace Google.GData.Client
         /// returns the categories for the entry
         /// </summary>
         /// <returns></returns>
+#if WindowsCE || PocketPC
+#else
+        [Category("Basic Entry Data"),
+        Description("The Categories collection.")]
+#endif
         public AtomCategoryCollection Categories
         {
             get
@@ -561,6 +566,42 @@ namespace Google.GData.Client
                 return this.e.Categories;
             }
         }
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>access the associated media element. Note, that setting this
+        /// WILL cause subsequent updates to be done using MIME multipart posts
+        /// </summary> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+#if WindowsCE || PocketPC
+#else
+        [Category("Media Data"),
+        Description("The Mediasource subobject.")]
+#endif
+        public MediaSource MediaSource
+        {
+            get 
+            {
+                EnsureInnerObject();
+                AbstractEntry ae = this.e as AbstractEntry;
+
+                if (ae != null)
+                    return ae.MediaSource;
+
+                return null;
+            }
+            set
+            {
+                EnsureInnerObject();
+                AbstractEntry ae = this.e as AbstractEntry;
+
+                if (ae != null)
+                    ae.MediaSource = value;
+
+                throw new InvalidOperationException("The AtomEntry contained does not support Media operations");
+            }
+        }
+        // end of accessor public MediaSource Media
     }
 
    

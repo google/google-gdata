@@ -30,7 +30,8 @@ namespace Google.GData.Extensions {
     /// <summary>
     /// Extensible enum type used in many places.
     /// compared to the base class, this one
-    /// adds a default values
+    /// adds a default value which is the text content inside the 
+    /// element node.
     /// </summary>
     public abstract class SimpleElement : ExtensionBase
     {

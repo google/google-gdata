@@ -156,6 +156,7 @@ namespace Google.GData.Documents {
             this.AddExtension(new WritersCanInvite()); 
             this.AddExtension(new LastViewed());
             this.AddExtension(new LastModifiedBy());
+            this.AddExtension(new QuotaBytesUsed());
         }
 
         /// <summary>
@@ -406,6 +407,18 @@ namespace Google.GData.Documents {
             get
             {
                 return FindExtension(GDataParserNameTable.XmlLastModifiedByElement, GDataParserNameTable.gNamespace) as LastModifiedBy;
+            }
+        }
+
+        /// <summary>
+        /// returns the last quotabytesused Element
+        /// </summary>
+        /// <returns></returns>
+        public QuotaBytesUsed QuotaUsed
+        {
+            get
+            {
+                return FindExtension(GDataParserNameTable.XmlQuotaBytesUsedElement, GDataParserNameTable.gNamespace) as QuotaBytesUsed;
             }
         }
 
