@@ -117,6 +117,9 @@ namespace Google.GData.Extensions
         /// <summary>static string for parsing the organization title element in a contacts</summary>
         public const string XmlOrgTitleElement = "orgTitle";
 
+        /// <summary>static string for parsing the quotaBytesUsed element </summary>
+        public const string XmlQuotaBytesUsedElement = "quotaBytesUsed";
+
 
         /// <summary>xmlelement for gd:rating</summary> 
         public const string XmlRatingElement = "rating";

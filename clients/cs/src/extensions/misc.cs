@@ -138,4 +138,20 @@ namespace Google.GData.Extensions {
         {
         }
     }
+
+    /// <summary>
+    /// The amount of quota consumed by the entry. 
+    /// </summary>
+    public class QuotaBytesUsed : SimpleElement
+    {
+        /// <summary>
+        /// default constructor for gd:resourceid 
+        /// </summary>
+        public QuotaBytesUsed()
+            : base(GDataParserNameTable.XmlQuotaBytesUsedElement,
+                   GDataParserNameTable.gDataPrefix,
+                   GDataParserNameTable.gNamespace)
+        {
+        }
+    }
 }

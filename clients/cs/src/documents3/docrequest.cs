@@ -264,6 +264,7 @@ namespace Google.Documents
             }
             set
             {
+        
                 EnsureInnerObject();
                 this.DocumentEntry.WritersCanInvite = value;
             }
@@ -284,7 +285,7 @@ namespace Google.Documents
 
 
         /// <summary>
-        /// returns the last modififiedBy subobject, indicating
+        /// returns the last modifiedBy subobject, indicating
         /// who edited the document last
         /// </summary>
         /// <returns></returns>
@@ -297,8 +298,22 @@ namespace Google.Documents
             }
         }
 
-
-
+        /// <summary>
+        /// returns the quota used by the object. 0 if not availabe
+        /// </summary>
+        [CLSCompliant(false)]
+        public uint QuotaBytesUsed
+        {
+            get
+            {
+                EnsureInnerObject();
+                if (this.DocumentEntry.QuotaUsed != null)
+                {
+                    return this.DocumentEntry.QuotaUsed.UnsignedIntegerValue;
+                }
+                return 0;
+            }
+        }
 
 
         /// <summary>
