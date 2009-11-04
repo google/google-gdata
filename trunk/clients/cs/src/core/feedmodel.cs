@@ -624,6 +624,8 @@ namespace Google.GData.Client
         private string consumerSecret;
         private string oAuthUser;
         private string oAuthDomain;
+        private string token;
+        private string tokenSecret;
            
       
 
@@ -667,6 +669,30 @@ namespace Google.GData.Client
             this.oAuthUser = user;
             this.oAuthDomain = domain;
         }
+        
+        /// <summary>
+        ///  a constructor for OpenAuthentication login use cases using 2 legged oAuth
+        /// </summary>
+        /// <param name="applicationName">The name of the application</param>
+        /// <param name="consumerKey">the consumerKey to use</param>
+        /// <param name="consumerSecret">the consumerSecret to use</param>
+        /// <param name="user">the username to use</param>
+        /// <param name="domain">the domain to use</param>
+        /// <returns></returns>
+        public RequestSettings(string applicationName, 
+                               string consumerKey, string consumerSecret, 
+                               string token, string tokenSecret,
+                               string user, string domain)
+        {
+            this.applicationName = applicationName;
+            this.consumerKey = consumerKey;
+            this.consumerSecret = consumerSecret;
+            this.oAuthUser = user;
+            this.oAuthDomain = domain;
+            this.token = token;
+            this.tokenSecret = tokenSecret;
+        }
+
 
 
         /// <summary>
@@ -752,6 +778,30 @@ namespace Google.GData.Client
             get
             {
                 return this.consumerSecret;
+            }
+        }
+
+        /// <summary>
+        /// returns the Token for oAuth
+        /// </summary>
+        /// <returns></returns>
+        public string Token
+        {
+            get
+            {
+                return this.token;
+            }
+        }
+
+        /// <summary>
+        /// returns the TokenSecret for oAuth
+        /// </summary>
+        /// <returns></returns>
+        public string TokenSecret
+        {
+            get
+            {
+                return this.tokenSecret;
             }
         }
 
@@ -970,6 +1020,8 @@ namespace Google.GData.Client
                 GOAuthRequestFactory authFactory = new GOAuthRequestFactory(s.ServiceIdentifier, settings.Application);
                 authFactory.ConsumerKey = settings.ConsumerKey;
                 authFactory.ConsumerSecret = settings.ConsumerSecret;
+                authFactory.Token = settings.Token;
+                authFactory.TokenSecret = settings.TokenSecret;
                 s.RequestFactory = authFactory;
 
 
