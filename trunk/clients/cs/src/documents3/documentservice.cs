@@ -21,6 +21,8 @@ using System.Text;
 using System.Net; 
 using Google.GData.Client;
 using Google.GData.Extensions;
+using Google.GData.AccessControl;
+
 
 
 namespace Google.GData.Documents {
@@ -175,6 +177,16 @@ namespace Google.GData.Documents {
         protected override void InitVersionInformation()
         {
              this.ProtocolMajor = VersionDefaults.VersionThree;
+        }
+
+        /// <summary>
+        /// overloaded to create typed version of Query
+        /// </summary>
+        /// <param name="feedQuery"></param>
+        /// <returns>EventFeed</returns>
+        public AclFeed Query(AclQuery feedQuery)
+        {
+            return base.Query(feedQuery) as AclFeed;
         }
 
 

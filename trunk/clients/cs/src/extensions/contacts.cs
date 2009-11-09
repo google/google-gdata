@@ -1203,7 +1203,7 @@ namespace Google.GData.Extensions
             }
             set
             {
-                SetStringValue<NamePrefix>(value, GDataParserNameTable.FamilyNameElement,
+                SetStringValue<NamePrefix>(value, GDataParserNameTable.NamePrefixElement,
                                         BaseNameTable.gNamespace);
        
             }
