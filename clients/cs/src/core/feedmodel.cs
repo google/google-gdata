@@ -597,8 +597,45 @@ namespace Google.GData.Client
 
                 if (ae != null)
                     ae.MediaSource = value;
+                else
+                    throw new InvalidOperationException("The AtomEntry contained does not support Media operations");
+            }
+        }
+        // end of accessor public MediaSource Media
 
-                throw new InvalidOperationException("The AtomEntry contained does not support Media operations");
+
+            //////////////////////////////////////////////////////////////////////
+        /// <summary>access the associated media element. Note, that setting this
+        /// WILL cause subsequent updates to be done using MIME multipart posts
+        /// </summary> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+#if WindowsCE || PocketPC
+#else
+        [Category("State Data"),
+        Description("The etag information.")]
+#endif
+        public string ETag
+        {
+            get 
+            {
+                EnsureInnerObject();
+                AbstractEntry ae = this.e as AbstractEntry;
+
+                if (ae != null)
+                    return ae.Etag;
+
+                return null;
+            }
+            set
+            {
+                EnsureInnerObject();
+                AbstractEntry ae = this.e as AbstractEntry;
+
+                if (ae != null)
+                    ae.Etag = value;
+                else
+                    throw new InvalidOperationException("The AtomEntry contained does not support ETags operations");
             }
         }
         // end of accessor public MediaSource Media

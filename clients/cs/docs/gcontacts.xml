@@ -4,93 +4,56 @@
         <name>Google.GData.Contacts</name>
     </assembly>
     <members>
-        <member name="T:Google.GData.Contacts.ContactsFeed">
-             <summary>
-                  A contact feed is a private read/write feed that can be used to view and manage a user's
-                  contacts. The URI for the feed is as follows:
-                  http://www.google.com/m8/feeds/contacts/userID/base
-            
-                  For example, the contacts feed for user liz@gmail.com would have the following URI:
-                  http://www.google.com/m8/feeds/contacts/liz%40gmail.com/base
-            
-                  Since the contact feed is private, you can access it only by using an authenticated
-                  request. That is, the request must contain an authentication token for the user whose
-                  contacts you want to retrieve.
-             </summary>
+        <member name="T:Google.GData.Contacts.ContactsService">
+            <summary>
+            The Contacts Data API allows client applications to view and update a user's contacts. 
+            Contacts are stored in the user's Google Account; most Google services have access 
+            to the contact list. Your client application can use the Contacts Data API to create 
+            new contacts, edit or delete existing contacts, and query for contacts that 
+            match particular criteria.
+            </summary>
         </member>
-        <member name="M:Google.GData.Contacts.ContactsFeed.#ctor(System.Uri,Google.GData.Client.IService)">
+        <member name="F:Google.GData.Contacts.ContactsService.GContactService">
+            <summary>The Calendar service's name</summary> 
+        </member>
+        <member name="M:Google.GData.Contacts.ContactsService.#ctor(System.String)">
             <summary>
              default constructor
             </summary>
-            <param name="uriBase">the base URI of the feedEntry</param>
-            <param name="iService">the Service to use</param>
+            <param name="applicationName">the applicationname</param>
         </member>
-        <member name="M:Google.GData.Contacts.ContactsFeed.#ctor(System.String,Google.GData.Client.IService)">
+        <member name="M:Google.GData.Contacts.ContactsService.Query(Google.GData.Contacts.ContactsQuery)">
             <summary>
-             default constructor with user name
+            overloaded to create typed version of Query
             </summary>
-            <param name="userName">the username for the contacts feed</param>
-            <param name="iService">the Service to use</param>
+            <param name="feedQuery"></param>
+            <returns>EventFeed</returns>
         </member>
-        <member name="M:Google.GData.Contacts.ContactsFeed.CreateFeedEntry">
+        <member name="M:Google.GData.Contacts.ContactsService.Query(Google.GData.Contacts.GroupsQuery)">
             <summary>
-            this needs to get implemented by subclasses
+            overloaded to create typed version of Query
             </summary>
-            <returns>AtomEntry</returns>
+            <param name="feedQuery"></param>
+            <returns>EventFeed</returns>
         </member>
-        <member name="M:Google.GData.Contacts.ContactsFeed.HandleExtensionElements(Google.GData.Client.ExtensionElementEventArgs,Google.GData.Client.AtomFeedParser)">
+        <member name="M:Google.GData.Contacts.ContactsService.InitVersionInformation">
             <summary>
-            get's called after we already handled the custom entry, to handle all 
-            other potential parsing tasks
+            by default all services now use version 1 for the protocol.
+            this needs to be overridden by a service to specify otherwise. 
+            Contacts uses version 3
             </summary>
-            <param name="e"></param>
-            <param name="parser">the atom feed parser used</param>
+            <returns></returns>
         </member>
-        <member name="T:Google.GData.Contacts.GroupsFeed">
-             <summary>
-                  A groups feed is a private read/write feed that can be used to view and manage a user's
-                  groups. The URI for the feed is as follows:
-                  http://www.google.com/m8/feeds/groups/userID/base
-            
-                  For example, the contacts feed for user liz@gmail.com would have the following URI:
-                  http://www.google.com/m8/feeds/groups/liz%40gmail.com/base
-            
-                  Since the groups feed is private, you can access it only by using an authenticated
-                  request. That is, the request must contain an authentication token for the user whose
-                  contacts you want to retrieve.
-             </summary>
+        <member name="M:Google.GData.Contacts.ContactsService.OnNewFeed(System.Object,Google.GData.Client.ServiceEventArgs)">
+            <summary>eventchaining. We catch this by from the base service, which 
+            would not by default create an atomFeed</summary> 
+            <param name="sender"> the object which send the event</param>
+            <param name="e">FeedParserEventArguments, holds the feedentry</param> 
+            <returns> </returns>
         </member>
-        <member name="M:Google.GData.Contacts.GroupsFeed.#ctor(System.Uri,Google.GData.Client.IService)">
+        <member name="T:Google.GData.Contacts.GroupEntry">
             <summary>
-             default constructor
-            </summary>
-            <param name="uriBase">the base URI of the feedEntry</param>
-            <param name="iService">the Service to use</param>
-        </member>
-        <member name="M:Google.GData.Contacts.GroupsFeed.#ctor(System.String,Google.GData.Client.IService)">
-            <summary>
-             default constructor with user name
-            </summary>
-            <param name="userName">the username for the contacts feed</param>
-            <param name="iService">the Service to use</param>
-        </member>
-        <member name="M:Google.GData.Contacts.GroupsFeed.CreateFeedEntry">
-            <summary>
-            this needs to get implemented by subclasses
-            </summary>
-            <returns>AtomEntry</returns>
-        </member>
-        <member name="M:Google.GData.Contacts.GroupsFeed.HandleExtensionElements(Google.GData.Client.ExtensionElementEventArgs,Google.GData.Client.AtomFeedParser)">
-            <summary>
-            get's called after we already handled the custom entry, to handle all 
-            other potential parsing tasks
-            </summary>
-            <param name="e"></param>
-            <param name="parser">the atom feed parser used</param>
-        </member>
-        <member name="T:Google.GData.Contacts.ContactEntry">
-            <summary>
-            Entry API customization class for defining entries in an Event feed.
+            Entry API customization class for defining entries in an Group feed.
             </summary>
         </member>
         <member name="T:Google.GData.Contacts.BaseContactEntry">
@@ -114,6 +77,43 @@
             <summary>
             if this is a previously deleted contact, returns true
             to delete a contact, use the delete method
+            </summary>
+        </member>
+        <member name="F:Google.GData.Contacts.GroupEntry.GroupTerm">
+            <summary>
+            default contact term string for the contact relationship link
+            </summary>
+        </member>
+        <member name="F:Google.GData.Contacts.GroupEntry.GROUP_CATEGORY">
+            <summary>`
+            Category used to label entries that contain contact extension data.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Contacts.GroupEntry.#ctor">
+            <summary>
+            Constructs a new ContactEntry instance with the appropriate category
+            to indicate that it is an event.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Contacts.GroupEntry.Update">
+            <summary>
+            typed override of the Update method
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.GData.Contacts.GroupEntry.SystemGroup">
+            <summary>
+            returns the systemgroup id, if this groupentry represents 
+            a system group. 
+            The values of the system group ids corresponding to these 
+            groups can be found in the Reference Guide for the Contacts Data API.
+            Currently the values can be Contacts, Friends, Family and Coworkers
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Google.GData.Contacts.ContactEntry">
+            <summary>
+            Entry API customization class for defining entries in an Event feed.
             </summary>
         </member>
         <member name="F:Google.GData.Contacts.ContactEntry.ContactTerm">
@@ -340,262 +340,89 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="T:Google.GData.Contacts.ContactsService">
-            <summary>
-            The Contacts Data API allows client applications to view and update a user's contacts. 
-            Contacts are stored in the user's Google Account; most Google services have access 
-            to the contact list. Your client application can use the Contacts Data API to create 
-            new contacts, edit or delete existing contacts, and query for contacts that 
-            match particular criteria.
-            </summary>
+        <member name="T:Google.GData.Contacts.ContactsFeed">
+             <summary>
+                  A contact feed is a private read/write feed that can be used to view and manage a user's
+                  contacts. The URI for the feed is as follows:
+                  http://www.google.com/m8/feeds/contacts/userID/base
+            
+                  For example, the contacts feed for user liz@gmail.com would have the following URI:
+                  http://www.google.com/m8/feeds/contacts/liz%40gmail.com/base
+            
+                  Since the contact feed is private, you can access it only by using an authenticated
+                  request. That is, the request must contain an authentication token for the user whose
+                  contacts you want to retrieve.
+             </summary>
         </member>
-        <member name="F:Google.GData.Contacts.ContactsService.GContactService">
-            <summary>The Calendar service's name</summary> 
-        </member>
-        <member name="M:Google.GData.Contacts.ContactsService.#ctor(System.String)">
+        <member name="M:Google.GData.Contacts.ContactsFeed.#ctor(System.Uri,Google.GData.Client.IService)">
             <summary>
              default constructor
             </summary>
-            <param name="applicationName">the applicationname</param>
+            <param name="uriBase">the base URI of the feedEntry</param>
+            <param name="iService">the Service to use</param>
         </member>
-        <member name="M:Google.GData.Contacts.ContactsService.Query(Google.GData.Contacts.ContactsQuery)">
+        <member name="M:Google.GData.Contacts.ContactsFeed.#ctor(System.String,Google.GData.Client.IService)">
             <summary>
-            overloaded to create typed version of Query
+             default constructor with user name
             </summary>
-            <param name="feedQuery"></param>
-            <returns>EventFeed</returns>
+            <param name="userName">the username for the contacts feed</param>
+            <param name="iService">the Service to use</param>
         </member>
-        <member name="M:Google.GData.Contacts.ContactsService.Query(Google.GData.Contacts.GroupsQuery)">
+        <member name="M:Google.GData.Contacts.ContactsFeed.CreateFeedEntry">
             <summary>
-            overloaded to create typed version of Query
+            this needs to get implemented by subclasses
             </summary>
-            <param name="feedQuery"></param>
-            <returns>EventFeed</returns>
+            <returns>AtomEntry</returns>
         </member>
-        <member name="M:Google.GData.Contacts.ContactsService.InitVersionInformation">
+        <member name="M:Google.GData.Contacts.ContactsFeed.HandleExtensionElements(Google.GData.Client.ExtensionElementEventArgs,Google.GData.Client.AtomFeedParser)">
             <summary>
-            by default all services now use version 1 for the protocol.
-            this needs to be overridden by a service to specify otherwise. 
-            Contacts uses version 3
+            get's called after we already handled the custom entry, to handle all 
+            other potential parsing tasks
             </summary>
-            <returns></returns>
+            <param name="e"></param>
+            <param name="parser">the atom feed parser used</param>
         </member>
-        <member name="M:Google.GData.Contacts.ContactsService.OnNewFeed(System.Object,Google.GData.Client.ServiceEventArgs)">
-            <summary>eventchaining. We catch this by from the base service, which 
-            would not by default create an atomFeed</summary> 
-            <param name="sender"> the object which send the event</param>
-            <param name="e">FeedParserEventArguments, holds the feedentry</param> 
-            <returns> </returns>
-        </member>
-        <member name="T:Google.GData.Contacts.GroupsQuery">
-            <summary>
-            A subclass of FeedQuery, to create an Contacts query URI.
-            Provides public properties that describe the different
-            aspects of the URI, as well as a composite URI.
-            The ContactsQuery supports the following GData parameters:
-            The Contacts Data API supports the following standard Google Data API query parameters:
-            Name              Description
-            alt               The type of feed to return, such as atom (the default), rss, or json.
-            max-results       The maximum number of entries to return. If you want to receive all of
-                              the contacts, rather than only the default maximum, you can specify a very 
-                              large number for max-results.
-            start-index       The 1-based index of the first result to be retrieved (for paging).
-            updated-min       The lower bound on entry update dates.
+        <member name="T:Google.GData.Contacts.GroupsFeed">
+             <summary>
+                  A groups feed is a private read/write feed that can be used to view and manage a user's
+                  groups. The URI for the feed is as follows:
+                  http://www.google.com/m8/feeds/groups/userID/base
             
-            For more information about the standard parameters, see the Google Data APIs protocol reference document.
-            In addition to the standard query parameters, the Contacts Data API supports the following parameters:
+                  For example, the contacts feed for user liz@gmail.com would have the following URI:
+                  http://www.google.com/m8/feeds/groups/liz%40gmail.com/base
             
-            Name              Description
-            orderby           Sorting criterion. The only supported value is lastmodified.
-            showdeleted       Include deleted contacts in the returned contacts feed. 
-                              Deleted contacts are shown as entries that contain nothing but an 
-                              atom:id element and a gd:deleted element. 
-                              (Google retains placeholders for deleted contacts for 30 days after 
-                              deletion; during that time, you can request the placeholders 
-                              using the showdeleted query parameter.) Valid values are true or false.
-            sortorder         Sorting order direction. Can be either ascending or descending.
-            group	          Constrains the results to only the contacts belonging to the group specified. 
-                              Value of this parameter specifies group ID (see also: gContact:groupMembershipInfo).
-            </summary> 
+                  Since the groups feed is private, you can access it only by using an authenticated
+                  request. That is, the request must contain an authentication token for the user whose
+                  contacts you want to retrieve.
+             </summary>
         </member>
-        <member name="F:Google.GData.Contacts.GroupsQuery.groupsBaseUri">
+        <member name="M:Google.GData.Contacts.GroupsFeed.#ctor(System.Uri,Google.GData.Client.IService)">
             <summary>
-            contacts group base URI 
+             default constructor
             </summary>
+            <param name="uriBase">the base URI of the feedEntry</param>
+            <param name="iService">the Service to use</param>
         </member>
-        <member name="F:Google.GData.Contacts.GroupsQuery.OrderByLastModified">
+        <member name="M:Google.GData.Contacts.GroupsFeed.#ctor(System.String,Google.GData.Client.IService)">
             <summary>
-            sortoder value for sorting by lastmodified
+             default constructor with user name
             </summary>
+            <param name="userName">the username for the contacts feed</param>
+            <param name="iService">the Service to use</param>
         </member>
-        <member name="F:Google.GData.Contacts.GroupsQuery.SortOrderAscending">
+        <member name="M:Google.GData.Contacts.GroupsFeed.CreateFeedEntry">
             <summary>
-            sortoder value for sorting ascending
+            this needs to get implemented by subclasses
             </summary>
+            <returns>AtomEntry</returns>
         </member>
-        <member name="F:Google.GData.Contacts.GroupsQuery.SortOrderDescending">
+        <member name="M:Google.GData.Contacts.GroupsFeed.HandleExtensionElements(Google.GData.Client.ExtensionElementEventArgs,Google.GData.Client.AtomFeedParser)">
             <summary>
-            sortoder value for sorting descending
+            get's called after we already handled the custom entry, to handle all 
+            other potential parsing tasks
             </summary>
-        </member>
-        <member name="F:Google.GData.Contacts.GroupsQuery.baseProjection">
-            <summary>
-            base projection value
-            </summary>
-        </member>
-        <member name="F:Google.GData.Contacts.GroupsQuery.thinProjection">
-            <summary>
-            thin projection value
-            </summary>
-        </member>
-        <member name="F:Google.GData.Contacts.GroupsQuery.propertyProjection">
-            <summary>
-            property-key projection value
-            </summary>
-        </member>
-        <member name="F:Google.GData.Contacts.GroupsQuery.fullProjection">
-            <summary>
-            full projection value
-            </summary>
-        </member>
-        <member name="M:Google.GData.Contacts.GroupsQuery.#ctor">
-            <summary>
-            base constructor
-            </summary>
-        </member>
-        <member name="M:Google.GData.Contacts.GroupsQuery.#ctor(System.String)">
-            <summary>
-            base constructor, with initial queryUri
-            </summary>
-            <param name="queryUri">the query to use</param>
-        </member>
-        <member name="M:Google.GData.Contacts.GroupsQuery.CreateGroupsUri(System.String)">
-            <summary>
-            convienience method to create an URI based on a userID for a groups feed
-            this returns a FULL projection by default
-            </summary>
-            <param name="userID"></param>
-            <returns>string</returns>
-        </member>
-        <member name="M:Google.GData.Contacts.GroupsQuery.CreateGroupsUri(System.String,System.String)">
-            <summary>
-            convienience method to create an URI based on a userID for a groups feed
-            </summary>
-            <param name="userID">if the parameter is NULL, uses the default user</param>
-            <param name="projection">the projection to use</param>
-            <returns>string</returns>
-        </member>
-        <member name="M:Google.GData.Contacts.GroupsQuery.UserString(System.String)">
-            <summary>
-            helper to create the userstring for a query
-            </summary>
-            <param name="user">the user to encode, or NULL if default</param>
-            <returns></returns>
-        </member>
-        <member name="M:Google.GData.Contacts.GroupsQuery.ParseUri(System.Uri)">
-            <summary>protected void ParseUri</summary> 
-            <param name="targetUri">takes an incoming Uri string and parses all the properties out of it</param>
-            <returns>throws a query exception when it finds something wrong with the input, otherwise returns a baseuri</returns>
-        </member>
-        <member name="M:Google.GData.Contacts.GroupsQuery.CalculateQuery(System.String)">
-            <summary>Creates the partial URI query string based on all
-             set properties.</summary> 
-            <returns> string => the query part of the URI </returns>
-        </member>
-        <member name="P:Google.GData.Contacts.GroupsQuery.SortOrder">
-            <summary>Sorting order direction. Can be either ascending or descending</summary> 
-            <returns> </returns>
-        </member>
-        <member name="P:Google.GData.Contacts.GroupsQuery.OrderBy">
-            <summary>Sorting criterion. The only supported value is lastmodified</summary>
-            <returns> </returns>
-        </member>
-        <member name="P:Google.GData.Contacts.GroupsQuery.ShowDeleted">
-            <summary>Include deleted contacts in the returned contacts feed. 
-            Deleted contacts are shown as entries that contain nothing but
-             an atom:id element and a gd:deleted element. (Google retains placeholders 
-            for deleted contacts for 30 days after deletion; during that time, 
-            you can request the placeholders using the showdeleted query
-             parameter.) Valid values are true or false.</summary> 
-            <returns> </returns>
-        </member>
-        <member name="T:Google.GData.Contacts.ContactsQuery">
-            <summary>
-            A subclass of GroupsQuery, to create an Contacts query URI.
-            Provides public properties that describe the different
-            aspects of the URI, as well as a composite URI.
-            The ContactsQuery supports the following GData parameters:
-            Name              Description
-            alt               The type of feed to return, such as atom (the default), rss, or json.
-            max-results       The maximum number of entries to return. If you want to receive all of
-                              the contacts, rather than only the default maximum, you can specify a very 
-                              large number for max-results.
-            start-index       The 1-based index of the first result to be retrieved (for paging).
-            updated-min       The lower bound on entry update dates.
-            
-            For more information about the standard parameters, see the Google Data APIs protocol reference document.
-            In addition to the standard query parameters, the Contacts Data API supports the following parameters:
-            
-            Name              Description
-            orderby           Sorting criterion. The only supported value is lastmodified.
-            showdeleted       Include deleted contacts in the returned contacts feed. 
-                              Deleted contacts are shown as entries that contain nothing but an 
-                              atom:id element and a gd:deleted element. 
-                              (Google retains placeholders for deleted contacts for 30 days after 
-                              deletion; during that time, you can request the placeholders 
-                              using the showdeleted query parameter.) Valid values are true or false.
-            sortorder         Sorting order direction. Can be either ascending or descending.
-            group	          Constrains the results to only the contacts belonging to the group specified. 
-                              Value of this parameter specifies group ID (see also: gContact:groupMembershipInfo).
-            </summary> 
-        </member>
-        <member name="F:Google.GData.Contacts.ContactsQuery.contactsBaseUri">
-            <summary>
-            contacts base URI 
-            </summary>
-        </member>
-        <member name="M:Google.GData.Contacts.ContactsQuery.#ctor">
-            <summary>
-            base constructor
-            </summary>
-        </member>
-        <member name="M:Google.GData.Contacts.ContactsQuery.#ctor(System.String)">
-            <summary>
-            base constructor, with initial queryUri
-            </summary>
-            <param name="queryUri">the query to use</param>
-        </member>
-        <member name="M:Google.GData.Contacts.ContactsQuery.CreateContactsUri(System.String)">
-            <summary>
-            convienience method to create an URI based on a userID for a contacts feed
-            this returns a FULL projection by default
-            </summary>
-            <param name="userID">if the parameter is NULL, uses the default user</param>
-            <returns>string</returns>
-        </member>
-        <member name="M:Google.GData.Contacts.ContactsQuery.CreateContactsUri(System.String,System.String)">
-            <summary>
-            convienience method to create an URI based on a userID for a contacts feed
-            this returns a FULL projection by default
-            </summary>
-            <param name="userID">if the parameter is NULL, uses the default user</param>
-            <param name="projection">the projection to use</param>
-            <returns>string</returns>
-        </member>
-        <member name="M:Google.GData.Contacts.ContactsQuery.ParseUri(System.Uri)">
-            <summary>protected void ParseUri</summary> 
-            <param name="targetUri">takes an incoming Uri string and parses all the properties out of it</param>
-            <returns>throws a query exception when it finds something wrong with the input, otherwise returns a baseuri</returns>
-        </member>
-        <member name="M:Google.GData.Contacts.ContactsQuery.CalculateQuery(System.String)">
-            <summary>Creates the partial URI query string based on all
-             set properties.</summary> 
-            <returns> string => the query part of the URI </returns>
-        </member>
-        <member name="P:Google.GData.Contacts.ContactsQuery.Group">
-            <summary>Constrains the results to only the contacts belonging to the 
-            group specified. Value of this parameter specifies group ID</summary> 
-            <returns> </returns>
+            <param name="e"></param>
+            <param name="parser">the atom feed parser used</param>
         </member>
         <member name="T:Google.GData.Contacts.ContactsNameTable">
             <summary>
@@ -1434,42 +1261,215 @@
             <param name="mimeType">specifies the type of the image, like image/jpg</param>
             <returns></returns>
         </member>
-        <member name="T:Google.GData.Contacts.GroupEntry">
+        <member name="T:Google.GData.Contacts.GroupsQuery">
             <summary>
-            Entry API customization class for defining entries in an Group feed.
+            A subclass of FeedQuery, to create an Contacts query URI.
+            Provides public properties that describe the different
+            aspects of the URI, as well as a composite URI.
+            The ContactsQuery supports the following GData parameters:
+            The Contacts Data API supports the following standard Google Data API query parameters:
+            Name              Description
+            alt               The type of feed to return, such as atom (the default), rss, or json.
+            max-results       The maximum number of entries to return. If you want to receive all of
+                              the contacts, rather than only the default maximum, you can specify a very 
+                              large number for max-results.
+            start-index       The 1-based index of the first result to be retrieved (for paging).
+            updated-min       The lower bound on entry update dates.
+            
+            For more information about the standard parameters, see the Google Data APIs protocol reference document.
+            In addition to the standard query parameters, the Contacts Data API supports the following parameters:
+            
+            Name              Description
+            orderby           Sorting criterion. The only supported value is lastmodified.
+            showdeleted       Include deleted contacts in the returned contacts feed. 
+                              Deleted contacts are shown as entries that contain nothing but an 
+                              atom:id element and a gd:deleted element. 
+                              (Google retains placeholders for deleted contacts for 30 days after 
+                              deletion; during that time, you can request the placeholders 
+                              using the showdeleted query parameter.) Valid values are true or false.
+            sortorder         Sorting order direction. Can be either ascending or descending.
+            group	          Constrains the results to only the contacts belonging to the group specified. 
+                              Value of this parameter specifies group ID (see also: gContact:groupMembershipInfo).
+            </summary> 
+        </member>
+        <member name="F:Google.GData.Contacts.GroupsQuery.groupsBaseUri">
+            <summary>
+            contacts group base URI 
             </summary>
         </member>
-        <member name="F:Google.GData.Contacts.GroupEntry.GroupTerm">
+        <member name="F:Google.GData.Contacts.GroupsQuery.OrderByLastModified">
             <summary>
-            default contact term string for the contact relationship link
+            sortoder value for sorting by lastmodified
             </summary>
         </member>
-        <member name="F:Google.GData.Contacts.GroupEntry.GROUP_CATEGORY">
-            <summary>`
-            Category used to label entries that contain contact extension data.
+        <member name="F:Google.GData.Contacts.GroupsQuery.SortOrderAscending">
+            <summary>
+            sortoder value for sorting ascending
             </summary>
         </member>
-        <member name="M:Google.GData.Contacts.GroupEntry.#ctor">
+        <member name="F:Google.GData.Contacts.GroupsQuery.SortOrderDescending">
             <summary>
-            Constructs a new ContactEntry instance with the appropriate category
-            to indicate that it is an event.
+            sortoder value for sorting descending
             </summary>
         </member>
-        <member name="M:Google.GData.Contacts.GroupEntry.Update">
+        <member name="F:Google.GData.Contacts.GroupsQuery.baseProjection">
             <summary>
-            typed override of the Update method
+            base projection value
             </summary>
+        </member>
+        <member name="F:Google.GData.Contacts.GroupsQuery.thinProjection">
+            <summary>
+            thin projection value
+            </summary>
+        </member>
+        <member name="F:Google.GData.Contacts.GroupsQuery.propertyProjection">
+            <summary>
+            property-key projection value
+            </summary>
+        </member>
+        <member name="F:Google.GData.Contacts.GroupsQuery.fullProjection">
+            <summary>
+            full projection value
+            </summary>
+        </member>
+        <member name="M:Google.GData.Contacts.GroupsQuery.#ctor">
+            <summary>
+            base constructor
+            </summary>
+        </member>
+        <member name="M:Google.GData.Contacts.GroupsQuery.#ctor(System.String)">
+            <summary>
+            base constructor, with initial queryUri
+            </summary>
+            <param name="queryUri">the query to use</param>
+        </member>
+        <member name="M:Google.GData.Contacts.GroupsQuery.CreateGroupsUri(System.String)">
+            <summary>
+            convienience method to create an URI based on a userID for a groups feed
+            this returns a FULL projection by default
+            </summary>
+            <param name="userID"></param>
+            <returns>string</returns>
+        </member>
+        <member name="M:Google.GData.Contacts.GroupsQuery.CreateGroupsUri(System.String,System.String)">
+            <summary>
+            convienience method to create an URI based on a userID for a groups feed
+            </summary>
+            <param name="userID">if the parameter is NULL, uses the default user</param>
+            <param name="projection">the projection to use</param>
+            <returns>string</returns>
+        </member>
+        <member name="M:Google.GData.Contacts.GroupsQuery.UserString(System.String)">
+            <summary>
+            helper to create the userstring for a query
+            </summary>
+            <param name="user">the user to encode, or NULL if default</param>
             <returns></returns>
         </member>
-        <member name="P:Google.GData.Contacts.GroupEntry.SystemGroup">
+        <member name="M:Google.GData.Contacts.GroupsQuery.ParseUri(System.Uri)">
+            <summary>protected void ParseUri</summary> 
+            <param name="targetUri">takes an incoming Uri string and parses all the properties out of it</param>
+            <returns>throws a query exception when it finds something wrong with the input, otherwise returns a baseuri</returns>
+        </member>
+        <member name="M:Google.GData.Contacts.GroupsQuery.CalculateQuery(System.String)">
+            <summary>Creates the partial URI query string based on all
+             set properties.</summary> 
+            <returns> string => the query part of the URI </returns>
+        </member>
+        <member name="P:Google.GData.Contacts.GroupsQuery.SortOrder">
+            <summary>Sorting order direction. Can be either ascending or descending</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Contacts.GroupsQuery.OrderBy">
+            <summary>Sorting criterion. The only supported value is lastmodified</summary>
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Contacts.GroupsQuery.ShowDeleted">
+            <summary>Include deleted contacts in the returned contacts feed. 
+            Deleted contacts are shown as entries that contain nothing but
+             an atom:id element and a gd:deleted element. (Google retains placeholders 
+            for deleted contacts for 30 days after deletion; during that time, 
+            you can request the placeholders using the showdeleted query
+             parameter.) Valid values are true or false.</summary> 
+            <returns> </returns>
+        </member>
+        <member name="T:Google.GData.Contacts.ContactsQuery">
             <summary>
-            returns the systemgroup id, if this groupentry represents 
-            a system group. 
-            The values of the system group ids corresponding to these 
-            groups can be found in the Reference Guide for the Contacts Data API.
-            Currently the values can be Contacts, Friends, Family and Coworkers
+            A subclass of GroupsQuery, to create an Contacts query URI.
+            Provides public properties that describe the different
+            aspects of the URI, as well as a composite URI.
+            The ContactsQuery supports the following GData parameters:
+            Name              Description
+            alt               The type of feed to return, such as atom (the default), rss, or json.
+            max-results       The maximum number of entries to return. If you want to receive all of
+                              the contacts, rather than only the default maximum, you can specify a very 
+                              large number for max-results.
+            start-index       The 1-based index of the first result to be retrieved (for paging).
+            updated-min       The lower bound on entry update dates.
+            
+            For more information about the standard parameters, see the Google Data APIs protocol reference document.
+            In addition to the standard query parameters, the Contacts Data API supports the following parameters:
+            
+            Name              Description
+            orderby           Sorting criterion. The only supported value is lastmodified.
+            showdeleted       Include deleted contacts in the returned contacts feed. 
+                              Deleted contacts are shown as entries that contain nothing but an 
+                              atom:id element and a gd:deleted element. 
+                              (Google retains placeholders for deleted contacts for 30 days after 
+                              deletion; during that time, you can request the placeholders 
+                              using the showdeleted query parameter.) Valid values are true or false.
+            sortorder         Sorting order direction. Can be either ascending or descending.
+            group	          Constrains the results to only the contacts belonging to the group specified. 
+                              Value of this parameter specifies group ID (see also: gContact:groupMembershipInfo).
+            </summary> 
+        </member>
+        <member name="F:Google.GData.Contacts.ContactsQuery.contactsBaseUri">
+            <summary>
+            contacts base URI 
             </summary>
-            <returns></returns>
+        </member>
+        <member name="M:Google.GData.Contacts.ContactsQuery.#ctor">
+            <summary>
+            base constructor
+            </summary>
+        </member>
+        <member name="M:Google.GData.Contacts.ContactsQuery.#ctor(System.String)">
+            <summary>
+            base constructor, with initial queryUri
+            </summary>
+            <param name="queryUri">the query to use</param>
+        </member>
+        <member name="M:Google.GData.Contacts.ContactsQuery.CreateContactsUri(System.String)">
+            <summary>
+            convienience method to create an URI based on a userID for a contacts feed
+            this returns a FULL projection by default
+            </summary>
+            <param name="userID">if the parameter is NULL, uses the default user</param>
+            <returns>string</returns>
+        </member>
+        <member name="M:Google.GData.Contacts.ContactsQuery.CreateContactsUri(System.String,System.String)">
+            <summary>
+            convienience method to create an URI based on a userID for a contacts feed
+            this returns a FULL projection by default
+            </summary>
+            <param name="userID">if the parameter is NULL, uses the default user</param>
+            <param name="projection">the projection to use</param>
+            <returns>string</returns>
+        </member>
+        <member name="M:Google.GData.Contacts.ContactsQuery.ParseUri(System.Uri)">
+            <summary>protected void ParseUri</summary> 
+            <param name="targetUri">takes an incoming Uri string and parses all the properties out of it</param>
+            <returns>throws a query exception when it finds something wrong with the input, otherwise returns a baseuri</returns>
+        </member>
+        <member name="M:Google.GData.Contacts.ContactsQuery.CalculateQuery(System.String)">
+            <summary>Creates the partial URI query string based on all
+             set properties.</summary> 
+            <returns> string => the query part of the URI </returns>
+        </member>
+        <member name="P:Google.GData.Contacts.ContactsQuery.Group">
+            <summary>Constrains the results to only the contacts belonging to the 
+            group specified. Value of this parameter specifies group ID</summary> 
+            <returns> </returns>
         </member>
     </members>
 </doc>
