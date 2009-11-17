@@ -854,6 +854,118 @@ namespace Google.GData.Client.LiveTests
         }
         /////////////////////////////////////////////////////////////////////////////
 
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>runs an authentication test, inserts a new contact</summary> 
+        //////////////////////////////////////////////////////////////////////
+        [Test]
+        public void ModelUpdateIfMatchAllContactsTest()
+        {
+            const int numberOfInserts = 5;
+            Tracing.TraceMsg("Entering ModelInsertContactsTest");
+
+            DeleteAllContacts();
+
+            RequestSettings rs = new RequestSettings(this.ApplicationName, this.userName, this.passWord);
+            rs.AutoPaging = true;
+
+            ContactsRequest cr = new ContactsRequest(rs);
+
+            Feed<Contact> f = cr.GetContacts();
+
+            int originalCount = f.TotalResults;
+
+            PhoneNumber p = null;
+            List<Contact> inserted = new List<Contact>();
+
+            if (f != null)
+            {
+                Assert.IsTrue(f.Entries != null, "the contacts needs entries");
+
+                for (int i = 0; i < numberOfInserts; i++)
+                {
+                    Contact entry = new Contact();
+                    entry.AtomEntry = ObjectModelHelper.CreateContactEntry(i);
+                    entry.PrimaryEmail.Address = "joe" + i.ToString() + "@doe.com";
+                    p = entry.PrimaryPhonenumber;
+                    inserted.Add(cr.Insert(f, entry));
+                }
+            }
+
+            string newTitle = "This is an update to the title";
+            f = cr.GetContacts();
+            if (inserted.Count > 0)
+            {
+                int iVer = numberOfInserts;
+                // let's find those guys
+                foreach (Contact e in f.Entries)
+                {
+                    for (int i = 0; i < inserted.Count; i++)
+                    {
+                        Contact test = inserted[i];
+                        if (e.Id == test.Id)
+                        {
+                            iVer--;
+                            // verify we got the phonenumber back....
+                            Assert.IsTrue(e.PrimaryPhonenumber != null, "They should have a primary phonenumber");
+                            Assert.AreEqual(e.PrimaryPhonenumber.Value, p.Value, "They should be identical");
+                            e.Name.FamilyName = newTitle;
+                            e.ETag = GDataRequestFactory.IfMatchAll;
+                            inserted[i] = cr.Update(e);
+                        }
+                    }
+                }
+
+                Assert.IsTrue(iVer == 0, "The new entries should all be part of the feed now, we have " + iVer + " left");
+            }
+
+            f = cr.GetContacts();
+            if (inserted.Count > 0)
+            {
+                int iVer = numberOfInserts;
+                // let's find those guys
+                foreach (Contact e in f.Entries)
+                {
+                    for (int i = 0; i < inserted.Count; i++)
+                    {
+                        Contact test = inserted[i];
+                        if (e.Id == test.Id)
+                        {
+                            iVer--;
+                            // verify we got the phonenumber back....
+                            Assert.IsTrue(e.PrimaryPhonenumber != null, "They should have a primary phonenumber");
+                            Assert.AreEqual(e.PrimaryPhonenumber.Value, p.Value, "They should be identical");
+                            Assert.AreEqual(e.Name.FamilyName, newTitle, "The familyname should have been updated");
+                        }
+                    }
+                }
+                Assert.IsTrue(iVer == 0, "The new entries should all be part of the feed now, we have: " + iVer + " now");
+            }
+
+
+            // now delete them again
+            DeleteList(inserted, cr, new Uri(f.AtomFeed.Batch));
+
+
+
+            // now make sure they are gone
+            if (inserted.Count > 0)
+            {
+                int iVer = inserted.Count;
+                f = cr.GetContacts();
+                foreach (Contact e in f.Entries)
+                {
+                    // let's find those guys, we should not find ANY
+                    for (int i = 0; i < inserted.Count; i++)
+                    {
+                        Contact test = inserted[i] as Contact;
+                        Assert.IsTrue(e.Id != test.Id, "The new entries should all be deleted now");
+                    }
+                }
+                Assert.IsTrue(f.TotalResults == originalCount, "The count should be correct as well");
+            }
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>tests querying contacts with an etag</summary> 
@@ -861,7 +973,6 @@ namespace Google.GData.Client.LiveTests
         [Test]
         public void ModelTestETagQuery()
         {
-            const int numberOfInserts = 5;
             Tracing.TraceMsg("Entering ModelTestETagQuery");
 
             RequestSettings rs = new RequestSettings(this.ApplicationName, this.userName, this.passWord);
