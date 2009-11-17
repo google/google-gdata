@@ -73,23 +73,23 @@
     <Compile Include="..\..\..\version\AssemblyVersion.cs">
       <Link>AssemblyVersion.cs</Link>
     </Compile>
-    <Compile Include="..\..\gdocuments\AssemblyInfo.cs">
-      <Link>AssemblyInfo.cs</Link>
-    </Compile>
-    <Compile Include="..\..\gdocuments\docrequest.cs">
+    <Compile Include="..\..\documents3\docrequest.cs">
       <Link>docrequest.cs</Link>
     </Compile>
-    <Compile Include="..\..\gdocuments\documententry.cs">
+    <Compile Include="..\..\documents3\documententry.cs">
       <Link>documententry.cs</Link>
     </Compile>
-    <Compile Include="..\..\gdocuments\documentfeed.cs">
+    <Compile Include="..\..\documents3\documentfeed.cs">
       <Link>documentfeed.cs</Link>
     </Compile>
-    <Compile Include="..\..\gdocuments\documentquery.cs">
+    <Compile Include="..\..\documents3\documentquery.cs">
       <Link>documentquery.cs</Link>
     </Compile>
-    <Compile Include="..\..\gdocuments\documentservice.cs">
+    <Compile Include="..\..\documents3\documentservice.cs">
       <Link>documentservice.cs</Link>
+    </Compile>
+    <Compile Include="..\..\gdocuments\AssemblyInfo.cs">
+      <Link>AssemblyInfo.cs</Link>
     </Compile>
   </ItemGroup>
   <ItemGroup>
