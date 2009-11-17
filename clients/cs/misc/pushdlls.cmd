@@ -111,15 +111,14 @@ xcopy /y ..\src\analytics\bin\*.xml ..\docs\*.*
 xcopy /y ..\src\MergeModules\CoreMergeModule\Release\*.msm ..\lib\MergeModules\*.*
 xcopy /y ..\src\MergeModules\YouTubeMergeModule\Release\*.msm ..\lib\MergeModules\*.*
 
+cd ..\lib\release\
 
 rem run ILMerge on PhotoBrowser.exe
-cd ..\lib\release\
 ilmerge Photobrowser.exe Google.GData.Client.Dll Google.GData.Extensions.Dll Google.GData.Photos.Dll /out:PhotoTool.exe
 del Photobrowser.exe
 del Phototool.pdb
 
 rem run ILMerge on DocListExport.exe
-cd ..\lib\release\
 ilmerge DocListExport.exe Google.GData.Client.Dll Google.GData.Extensions.Dll Google.GData.AccessControl.Dll Google.GData.Documents.dll /out:DocListExporter.exe
 del DocListExport.exe
 
