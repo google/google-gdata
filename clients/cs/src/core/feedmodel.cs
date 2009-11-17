@@ -671,11 +671,13 @@ namespace Google.GData.Client
         }
         
         /// <summary>
-        ///  a constructor for OpenAuthentication login use cases using 2 legged oAuth
+        ///  a constructor for OpenAuthentication login use cases using 2 or 3 legged oAuth
         /// </summary>
         /// <param name="applicationName">The name of the application</param>
         /// <param name="consumerKey">the consumerKey to use</param>
         /// <param name="consumerSecret">the consumerSecret to use</param>
+        /// <param name="token">The token to be used</param>
+        /// <param name="tokenSecret">The tokenSecret to be used</param>
         /// <param name="user">the username to use</param>
         /// <param name="domain">the domain to use</param>
         /// <returns></returns>
@@ -1314,6 +1316,7 @@ namespace Google.GData.Client
         /// </summary>
         /// <param name="batchUri">the batch endpoint of the service</param>
         /// <param name="entries">List of entries of type Y, that are to be batched</param>
+        /// <param name="defaultOperation">The default operation to be used for all entries</param>
         /// <returns></returns>
         public Feed<Y> Batch<Y>(List<Y> entries, Uri batchUri, GDataBatchOperationType defaultOperation) where Y: Entry, new()
         {
@@ -1397,7 +1400,6 @@ namespace Google.GData.Client
         /// <summary>
         /// returns a the entry the Uri pointed to
         /// </summary>
-        ///  <example>
         /// <param name="entryUri">the Uri of the entry</param>
         /// <returns></returns>
         public Y Retrieve<Y>(Uri entryUri) where Y : Entry, new()
