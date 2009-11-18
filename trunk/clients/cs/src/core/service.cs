@@ -268,9 +268,33 @@ namespace Google.GData.Client
         /// if the service is using a Google Request Factory it will use that 
         /// assuming credentials are set to retrieve the authentication token
         /// for those credentials
+        /// 
+        /// Note that this only works for ClientLogin, not for any other type of authentication
         /// </summary>
         /// <returns>string</returns>
+        [Obsolete("the name is confusing. Do not use this, use QueryClientLoginToken instead")]
         public string QueryAuthenticationToken() 
+        {
+            if (this.Credentials != null)
+            {
+                GDataGAuthRequestFactory factory = this.factory as GDataGAuthRequestFactory;
+                if (factory != null)
+                {
+                    return factory.QueryAuthToken(this.Credentials);
+                }
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// if the service is using a Google Request Factory it will use that 
+        /// assuming credentials are set to retrieve the authentication token
+        /// for those credentials
+        /// 
+        /// Note that this only works for ClientLogin, not for any other type of authentication
+        /// </summary>
+        /// <returns>string</returns>
+        public string QueryClientLoginToken()
         {
             if (this.Credentials != null)
             {
