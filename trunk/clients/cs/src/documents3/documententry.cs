@@ -71,17 +71,17 @@ namespace Google.GData.Documents {
         /// a predefined atom category for Documents
         /// </summary>
         public static AtomCategory DOCUMENT_CATEGORY =
-            new AtomCategory(DOCUMENT_KIND, new AtomUri(BaseNameTable.gKind));
+            new AtomCategory(DOCUMENT_KIND, new AtomUri(BaseNameTable.gKind), "document");
         /// <summary>
         /// a predefined atom category for Spreadsheets
         /// </summary>
         public static AtomCategory SPREADSHEET_CATEGORY =
-            new AtomCategory(SPREADSHEET_KIND, new AtomUri(BaseNameTable.gKind));
+            new AtomCategory(SPREADSHEET_KIND, new AtomUri(BaseNameTable.gKind), "spreadsheet");
         /// <summary>
         /// a predefined atom category for PDF
         /// </summary>
         public static AtomCategory PDF_CATEGORY =
-            new AtomCategory(PDF_KIND, new AtomUri(BaseNameTable.gKind));
+            new AtomCategory(PDF_KIND, new AtomUri(BaseNameTable.gKind), "pdf");
         /// <summary>
         /// a predefined atom category for starred documentss
         /// </summary>
@@ -89,53 +89,53 @@ namespace Google.GData.Documents {
         /// a predefined atom category for Presentations
         /// </summary>
         public static AtomCategory PRESENTATION_CATEGORY =
-            new AtomCategory(PRESENTATION_KIND, new AtomUri(BaseNameTable.gKind));
+            new AtomCategory(PRESENTATION_KIND, new AtomUri(BaseNameTable.gKind), "presentation");
         /// <summary>
         /// a predefined atom category for folders
         /// </summary>        
         public static AtomCategory FOLDER_CATEGORY =
-            new AtomCategory(FOLDER_KIND, new AtomUri(BaseNameTable.gKind));
+            new AtomCategory(FOLDER_KIND, new AtomUri(BaseNameTable.gKind), "folder");
         /// <summary>
         /// a predefined atom category for forms
         /// </summary>        
         public static AtomCategory FORM_CATEGORY =
-            new AtomCategory(FORM_KIND, new AtomUri(BaseNameTable.gKind));
+            new AtomCategory(FORM_KIND, new AtomUri(BaseNameTable.gKind), "form");
 
         /// <summary>
         /// a predefined atom category for starred documents
         /// </summary>        
         public static AtomCategory STARRED_CATEGORY =
-            new AtomCategory(STARRED_KIND, new AtomUri(BaseNameTable.gLabels));
+            new AtomCategory(STARRED_KIND, new AtomUri(BaseNameTable.gLabels), "starred");
         /// <summary>
         /// a predefined atom category for trashed documents
         /// </summary>        
         public static AtomCategory TRASHED_CATEGORY =
-            new AtomCategory(TRASHED_KIND, new AtomUri(BaseNameTable.gLabels));
+            new AtomCategory(TRASHED_KIND, new AtomUri(BaseNameTable.gLabels), "trashed");
         /// <summary>
         /// a predefined atom category for hidden documents
         /// </summary>        
         public static AtomCategory HIDDEN_CATEGORY =
-            new AtomCategory(HIDDEN_KIND, new AtomUri(BaseNameTable.gLabels));
+            new AtomCategory(HIDDEN_KIND, new AtomUri(BaseNameTable.gLabels), "hidden");
         /// <summary>
         /// a predefined atom category for VIEWED documents
         /// </summary>        
         public static AtomCategory VIEWED_CATEGORY =
-            new AtomCategory (VIEWED_KIND, new AtomUri(BaseNameTable.gLabels));
+            new AtomCategory(VIEWED_KIND, new AtomUri(BaseNameTable.gLabels), "viewed");
         /// <summary>
         /// a predefined atom category for owned by user documents
         /// </summary>        
         public static AtomCategory MINE_CATEGORY =
-            new AtomCategory(MINE_KIND, new AtomUri(BaseNameTable.gLabels));
+            new AtomCategory(MINE_KIND, new AtomUri(BaseNameTable.gLabels), "mine");
         /// <summary>
         /// a predefined atom category for private documents
         /// </summary>        
         public static AtomCategory PRIVATE_CATEGORY =
-            new AtomCategory(PRIVATE_KIND, new AtomUri(BaseNameTable.gLabels));
+            new AtomCategory(PRIVATE_KIND, new AtomUri(BaseNameTable.gLabels), "private");
         /// <summary>
         /// a predefined atom category for shared documents
         /// </summary>        
         public static AtomCategory SHARED_CATEGORY =
-            new AtomCategory(SHARED_KIND, new AtomUri(BaseNameTable.gLabels));
+            new AtomCategory(SHARED_KIND, new AtomUri(BaseNameTable.gLabels), "shared-with-domain");
        
        
 
