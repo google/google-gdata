@@ -215,6 +215,7 @@ namespace Google.GData.Extensions {
             SimpleContainer sc = null;            
             // create a new container
             sc = this.MemberwiseClone() as SimpleContainer;
+            sc.InitInstance(this);
       
             sc.ProcessAttributes(node);
             sc.ProcessChildNodes(node, parser);
