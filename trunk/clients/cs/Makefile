@@ -33,6 +33,8 @@ ALLLIBS = \
 	Google.GData.Health.dll \
 	Google.GData.Blogger.dll \
 	Google.GData.Analytics.dll \
+	
+UNINSTALLLIBS = $(basename $(ALLLIBS))
 
 FRAMEWORK_REFS = -r:System.dll -r:System.Xml.dll -r:System.Web.dll -r:System.Configuration.dll
 
@@ -131,7 +133,7 @@ install: all
 	install -m 644 -t "$(DESTDIR)$(PKGCONFIGDIR)" $(PKGCONFIG_FILES) 
 
 uninstall:
-	for i in $(ALLLIBS); do gacutil -u $$i -package GData-Sharp -root "$(DESTDIR)$(PREFIX)/lib"; done
+	for i in $(UNINSTALLLIBS); do gacutil -u $$i -package GData-Sharp -root "$(DESTDIR)$(PREFIX)/lib"; done
 	for i in $(PKGCONFIG_FILES) ; do rm "$(DESTDIR)$(PKGCONFIGDIR)/$$i" ; done
 
 tests: $(ALLLIBS)
