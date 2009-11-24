@@ -444,11 +444,6 @@
             uploaders to associate a checksum with a photo to ease duplicate detection
             </summary>
         </member>
-        <member name="P:Google.GData.Photos.PhotoAccessor.Client">
-            <summary>
-            The client application that created the photo. (Optional element.)
-            </summary>
-        </member>
         <member name="P:Google.GData.Photos.PhotoAccessor.Height">
             <summary>
             The height of the photo in pixels
@@ -457,11 +452,6 @@
         <member name="P:Google.GData.Photos.PhotoAccessor.Width">
             <summary>
             The width of the photo in pixels
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.PhotoAccessor.Position">
-            <summary>
-            The ordinal position of the photo in the parent album
             </summary>
         </member>
         <member name="P:Google.GData.Photos.PhotoAccessor.Rotation">
@@ -480,14 +470,6 @@
             The photo's timestamp, represented as the number of milliseconds since 
             January 1st, 1970. Contains the date of the photo either set externally
             or retrieved from the Exif data.
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.PhotoAccessor.Version">
-            <summary>
-            The version number of the photo. Version numbers are based on modification time, 
-            so they don't increment linearly. Note that if you try to update a photo using a 
-            version number other than the latest one, you may receive an error; 
-            for more information, see Optimistic concurrency (versioning) in the GData reference document
             </summary>
         </member>
         <member name="P:Google.GData.Photos.PhotoAccessor.AlbumId">
@@ -808,11 +790,6 @@
             uploaders to associate a checksum with a photo to ease duplicate detection
             </summary>
         </member>
-        <member name="P:Google.Picasa.Photo.Client">
-            <summary>
-            The client application that created the photo. (Optional element.)
-            </summary>
-        </member>
         <member name="P:Google.Picasa.Photo.Height">
             <summary>
             The height of the photo in pixels
@@ -821,11 +798,6 @@
         <member name="P:Google.Picasa.Photo.Width">
             <summary>
             The width of the photo in pixels
-            </summary>
-        </member>
-        <member name="P:Google.Picasa.Photo.Position">
-            <summary>
-            The ordinal position of the photo in the parent album
             </summary>
         </member>
         <member name="P:Google.Picasa.Photo.Rotation">
@@ -844,14 +816,6 @@
             The photo's timestamp, represented as the number of milliseconds since 
             January 1st, 1970. Contains the date of the photo either set externally
             or retrieved from the Exif data.
-            </summary>
-        </member>
-        <member name="P:Google.Picasa.Photo.Version">
-            <summary>
-            The version number of the photo. Version numbers are based on modification time, 
-            so they don't increment linearly. Note that if you try to update a photo using a 
-            version number other than the latest one, you may receive an error; 
-            for more information, see Optimistic concurrency (versioning) in the GData reference document
             </summary>
         </member>
         <member name="P:Google.Picasa.Photo.AlbumId">

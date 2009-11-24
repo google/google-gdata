@@ -85,7 +85,7 @@ namespace Google.GData.Client.UnitTests.Picasa
         public void IdTest()
         {
             Comment target = new Comment();
-            string expected = "TestValue"; 
+            string expected = "http://www.test.com/TestValue"; 
             string actual;
             target.Id = expected;
             actual = target.Id;

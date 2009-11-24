@@ -697,37 +697,21 @@ namespace Google.GData.Client
                 writer.WriteAttributeString(BaseNameTable.gDataPrefix, BaseNameTable.XmlEtagAttribute, BaseNameTable.gNamespace, se.Etag);
             }
 
-            foreach (object ob in this.ExtensionElements)
+            foreach (IExtensionElementFactory ele in this.ExtensionElements)
             {
-                // this code can be removed when the generics are introduced. 
-                XmlNode node = ob as XmlNode;
-                if (node != null)
+                XmlExtension x = ele as XmlExtension;
+                if (x != null)
                 {
-                    if (SkipNode(node))
+                    if (SkipNode(x.Node))
                     {
                         continue;
                     }
-                    Tracing.TraceInfo("Saving out additonal attributes..." + node.Name); 
-                    node.WriteTo(writer);
                 }
-                else
+                if (ele != null)
                 {
-                    IExtensionElementFactory ele = ob as IExtensionElementFactory;
-                    XmlExtension x = ele as XmlExtension;
-                    if (x != null)
-                    {
-                        if (SkipNode(x.Node))
-                        {
-                            continue;
-                        }
-                    }
-                    if (ele != null)
-                    {
-                        ele.Save(writer);
-                    }
+                    ele.Save(writer);
                 }
             }
-
         }
         /////////////////////////////////////////////////////////////////////////////
          
