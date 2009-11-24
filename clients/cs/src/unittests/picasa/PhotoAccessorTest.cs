@@ -79,19 +79,7 @@ namespace Google.GData.Client.UnitTests.Picasa
             Assert.AreEqual(expected, actual);
         }
 
-        /// <summary>
-        ///A test for Version
-        ///</summary>
-        [Test]
-        public void VersionTest()
-        {
-            Photo target = new Photo();
-            string expected = "TestValue"; 
-            string actual;
-            target.Version = expected;
-            actual = target.Version;
-            Assert.AreEqual(expected, actual);
-        }
+       
 
         /// <summary>
         ///A test for Timestamp
@@ -135,19 +123,7 @@ namespace Google.GData.Client.UnitTests.Picasa
             Assert.AreEqual(expected, actual);
         }
 
-        /// <summary>
-        ///A test for Position
-        ///</summary>
-        [Test]
-        public void PositionTest()
-        {
-            Photo target = new Photo();
-            double expected = 0.5F; // TODO: Initialize to an appropriate value
-            double actual;
-            target.Position = expected;
-            actual = target.Position;
-            Assert.AreEqual(expected, actual);
-        }
+        
 
         /// <summary>
         ///A test for PhotoTitle
@@ -261,19 +237,7 @@ namespace Google.GData.Client.UnitTests.Picasa
             Assert.AreEqual(expected, actual);
         }
 
-        /// <summary>
-        ///A test for Client
-        ///</summary>
-        [Test]
-        public void ClientTest()
-        {
-            Photo target = new Photo();
-            string expected = "TestValue"; 
-            string actual;
-            target.Client = expected;
-            actual = target.Client;
-            Assert.AreEqual(expected, actual);
-        }
+      
 
         /// <summary>
         ///A test for Checksum

@@ -78,10 +78,10 @@ namespace Google.GData.Client
            AsyncSendData sData = data as AsyncSendData;
 
            this.uri = data.UriToUse;
-
+           this.feedObject = data.Feed;
+           
            if (qData != null)
            {
-               this.feedObject = qData.Feed;
                this.stream = qData.DataStream;
            }
            if (sData != null)

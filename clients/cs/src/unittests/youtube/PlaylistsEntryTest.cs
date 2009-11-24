@@ -73,7 +73,7 @@ namespace Google.GData.Client.UnitTests.YouTube
             PlaylistsEntry target = new PlaylistsEntry(); // TODO: Initialize to an appropriate value
             string expected =  "secret text string";
             string actual;
-            target.Content.Src.Content = expected;
+            target.Content.Src =  new AtomUri(expected);
             actual = target.Content.Src.Content;
             Assert.AreEqual(expected, actual);
         }
@@ -100,7 +100,7 @@ namespace Google.GData.Client.UnitTests.YouTube
         {
             PlaylistsEntry target = new PlaylistsEntry();
             Assert.IsNotNull(target);
-            Assert.IsNull(target.Content.Src.Content);
+            Assert.IsNull(target.Content.Src);
             Assert.IsNull(target.Summary.Text);
         }
     }

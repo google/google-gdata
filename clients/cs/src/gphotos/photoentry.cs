@@ -141,25 +141,7 @@ namespace Google.GData.Photos
             }
         }
 
-        /// <summary>
-        /// The client application that created the photo. (Optional element.)
-        /// </summary>
-#if WindowsCE || PocketPC
-#else
-        [Category("Meta Photo Data"),
-        Description("The client application that created the photo.")]
-#endif
-        public string Client 
-        {
-            get 
-            {
-                return this.entry.GetPhotoExtensionValue(GPhotoNameTable.Client);
-            }
-            set 
-            {
-                this.entry.SetPhotoExtensionValue(GPhotoNameTable.Client, value);
-            }
-        }
+ 
 
         /// <summary>
         /// The height of the photo in pixels
@@ -202,25 +184,7 @@ namespace Google.GData.Photos
         }
 
 
-        /// <summary>
-        /// The ordinal position of the photo in the parent album
-        /// </summary>
-#if WindowsCE || PocketPC
-#else
-        [Category("Basic Photo Data"),
-        Description("The ordinal position of the photo in the parent album.")]
-#endif
-        public double Position 
-        {
-            get 
-            {
-                return Convert.ToDouble(this.entry.GetPhotoExtensionValue(GPhotoNameTable.Position));
-            }
-            set 
-            {
-                this.entry.SetPhotoExtensionValue(GPhotoNameTable.Position, Convert.ToString(value));
-            }
-        }
+
 
         /// <summary>
         /// The rotation of the photo in degrees, used to change the rotation of the photo. Will only be shown if 
@@ -288,28 +252,7 @@ namespace Google.GData.Photos
         }
 
 
-        /// <summary>
-        /// The version number of the photo. Version numbers are based on modification time, 
-        /// so they don't increment linearly. Note that if you try to update a photo using a 
-        /// version number other than the latest one, you may receive an error; 
-        /// for more information, see Optimistic concurrency (versioning) in the GData reference document
-        /// </summary>
-#if WindowsCE || PocketPC
-#else
-        [Category("Meta Photo Data"),
-        Description("The version number of the photo.")]
-#endif
-        public string Version 
-        {
-            get 
-            {
-                return this.entry.GetPhotoExtensionValue(GPhotoNameTable.Version);
-            }
-            set 
-            {
-                this.entry.SetPhotoExtensionValue(GPhotoNameTable.Version, value);
-            }
-        }
+ 
 
         /// <summary>
         /// The albums ID
