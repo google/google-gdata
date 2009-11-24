@@ -705,6 +705,13 @@
             </summary>
             <param name="writer">The XmlWrite, where we want to add default namespaces to</param>
         </member>
+        <member name="M:Google.GData.Documents.DocumentEntry.SkipNode(System.Xml.XmlNode)">
+            <summary>
+            Checks if this is a namespace declaration that we already added
+            </summary>
+            <param name="node">XmlNode to check</param>
+            <returns>True if this node should be skipped</returns>
+        </member>
         <member name="P:Google.GData.Documents.DocumentEntry.IsDocument">
             <summary>
             Reflects if this entry is a word processor document

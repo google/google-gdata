@@ -117,6 +117,8 @@ namespace Google.GData.Client.LiveTests
             {
                 throw e;
             }
+
+            entry.Update();
             
             
             //try to delete the document we created
@@ -438,7 +440,7 @@ namespace Google.GData.Client.LiveTests
             bool fFound = false;
             foreach (Document child in children.Entries )
             {
-                if (child.DocumentId == doc.DocumentId)
+                if (child.ResourceId == doc.ResourceId)
                 {
                     fFound = true;
                     break;
