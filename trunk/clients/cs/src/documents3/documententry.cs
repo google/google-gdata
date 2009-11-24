@@ -178,6 +178,23 @@ namespace Google.GData.Documents {
         }
 
         /// <summary>
+        /// Checks if this is a namespace declaration that we already added
+        /// </summary>
+        /// <param name="node">XmlNode to check</param>
+        /// <returns>True if this node should be skipped</returns>
+        protected override bool SkipNode(XmlNode node)
+        {
+            if (base.SkipNode(node))
+            {
+                return true;
+            }
+
+            return (node.NodeType == XmlNodeType.Attribute
+                   && node.Name.StartsWith("xmlns")
+                   && String.Compare(node.Value, DocumentslistNametable.NSDocumentslist) == 0);
+        }
+
+        /// <summary>
         /// Reflects if this entry is a word processor document
         /// </summary>
         public bool IsDocument

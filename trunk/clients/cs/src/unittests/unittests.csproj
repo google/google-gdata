@@ -114,6 +114,10 @@
       <Project>{B6F6D938-0D45-42BA-8A67-55D92EF03995}</Project>
       <Name>Core Client</Name>
     </ProjectReference>
+    <ProjectReference Include="..\documents3\Documents3.csproj">
+      <Project>{4E97E7C2-D30C-48ED-9C3D-FFA2127099AA}</Project>
+      <Name>Documents3</Name>
+    </ProjectReference>
     <ProjectReference Include="..\youtube\YouTube.csproj">
       <Project>{2C497F73-7C10-4DC6-A680-CAA9DF442E91}</Project>
       <Name>YouTube</Name>
@@ -145,10 +149,6 @@
     <ProjectReference Include="..\gcontacts\Contacts.csproj">
       <Project>{66B2AD47-7DD2-43E5-9124-D53486609992}</Project>
       <Name>Contacts</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\gdocuments\Documents.csproj">
-      <Project>{1C00DDC8-021D-4F60-9EE9-314431586936}</Project>
-      <Name>Documents</Name>
     </ProjectReference>
     <ProjectReference Include="..\extensions\Common Data Extensions.csproj">
       <Project>{21BCB644-F9C3-4ADC-8BE1-4E55C6565011}</Project>
