@@ -109,7 +109,7 @@ namespace Google.GData.Calendar
             }
             set
             {
-                setCalendarExtension(GDataParserNameTable.XmlHiddenElement, value.ToString());
+                setCalendarExtension(GDataParserNameTable.XmlHiddenElement, Utilities.ConvertBooleanToXSDString(value));
             }
         }
 
@@ -124,7 +124,7 @@ namespace Google.GData.Calendar
             }
             set
             {
-                setCalendarExtension(GDataParserNameTable.XmlSelectedElement, value.ToString());
+                setCalendarExtension(GDataParserNameTable.XmlSelectedElement, Utilities.ConvertBooleanToXSDString(value));
             }
         }
 
