@@ -91,7 +91,7 @@ namespace Google.GData.Documents {
         /// <summary>
         /// uri to get you all folders
         /// </summary>
-        public static string allFoldersUri = "http://docs.google.com/feeds/default/private/full/~/folder";
+        public static string allFoldersUri = "http://docs.google.com/feeds/default/private/full/-/folder";
 
         /// <summary>
         /// template to get a revisison for a given resourceID and revisionID

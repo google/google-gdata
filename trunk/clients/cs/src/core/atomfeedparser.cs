@@ -1139,17 +1139,27 @@ namespace Google.GData.Client
                     // using readInnerXml has disadvantages, even for HTML/XHTML. in .NET 1.1
                     // decoding will happen and text like "this & that" will come back
                     // as "this &amp; that" 
-                    if (content.Type.Equals("xhtml"))
+                    if (content.Type.Equals("xhtml") ||
+                        content.Type.Equals("html"))
                     {
                         // ReadInnerXml moves to the next node
                         skipNode = false; 
                         content.Content = reader.ReadInnerXml(); 
                     } 
-                    else
+                    else if (content.Type.Equals("text"))
                     {
-                        // anything NOT xhtml get's just the string treatment. No 
+                        // if it's text it get's just the string treatment. No 
                         // subelements are allowed here
                         content.Content = Utilities.DecodedValue(reader.ReadString());
+                    }
+                    else 
+                    {
+                        // different media type. Create extension elements
+                        int lvl = -1;
+                        while (NextChildElement(reader, ref lvl))
+                        {
+                           ParseExtensionElements(reader, content);
+                        }
                     }
                 }
             }
