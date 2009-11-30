@@ -39,24 +39,15 @@ namespace Google.GData.AccessControl
         /// <summary>
         /// default constructor
         /// </summary>
-        public AclScope() : base(AclNameTable.XmlAclScopeElement,
-                                         AclNameTable.gAclAlias,
-                                        AclNameTable.gAclNamespace)
-        {
-            this.Attributes.Add(AclNameTable.XmlAttributeType, null);
-        }
+        public AclScope() : this(null, null)
+        {}
 
         /// <summary>
         /// default constructor with an init value
         /// </summary>
         /// <param name="initValue"></param>
-        public AclScope(string initValue) : base(GDataParserNameTable.XmlExtendedPropertyElement,
-                                         BaseNameTable.gDataPrefix,
-                                         BaseNameTable.gNamespace,
-                                         initValue)
-        {
-            this.Attributes.Add(AclNameTable.XmlAttributeType, null);
-        }
+        public AclScope(string initValue) : this(initValue, null)           
+        {}
 
         /// <summary>
         /// constructor taking an initial value and a name
@@ -64,8 +55,8 @@ namespace Google.GData.AccessControl
         /// <param name="initValue"></param>
         /// <param name="initName"></param>
         public AclScope(string initValue, string initName) : base(GDataParserNameTable.XmlExtendedPropertyElement,
-                                         BaseNameTable.gDataPrefix,
-                                         BaseNameTable.gNamespace,
+                                         AclNameTable.gAclAlias,
+                                         AclNameTable.gAclNamespace,
                                          initValue)
         {
             this.Attributes.Add(AclNameTable.XmlAttributeType, initName);
