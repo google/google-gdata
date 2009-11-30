@@ -34,7 +34,19 @@
         <li>Fixed issue 268, correct mimetypes for docx and xlsx in the documentservice</li>
         <li>Fixed a stackoverflow error when you set the BaseUri property on the DocumentService/li&gt;</li>
         <li>Fixed bug 256, changing explict lib references on linux to just major version references</li>
-      </ul>
+        <li>Atom Content handling was still weird/wrong/incomplete. I changed this again, hopefully for the last time:
+        <ul>
+        <li>
+            everything that is text/html, or text, or text/* will be treated as text, and ReadString will be called.  
+        </li>
+        <li>
+            everything that is xml media type will be treated by being processed into extension elements     
+        </li>
+        <li>
+            everything that is not above, has to be base 64 encoded, and that encoded stuff will be read with ReadString again     
+        </li></ul>
+            This is now completely per atom spec. So xhtml (which i do not believe any service uses) will be treated over subelements.       
+       </ul>
     </li>
   </ul>
   <h2>1.4.0.2</h2>

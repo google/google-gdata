@@ -1092,7 +1092,7 @@ namespace Google.GData.Client.LiveTests
             }
             Assert.IsTrue(iVerify == numberOfInserts, "should have gotten 5 inserts");
 
-            Feed<Contact> u = cr.Batch(list, new Uri(r.AtomFeed.Batch), GDataBatchOperationType.Default);
+            Feed<Contact> u = cr.Batch(list, new Uri(f.AtomFeed.Batch), GDataBatchOperationType.Default);
             list.Clear();
 
             iVerify = 0; 
@@ -1105,7 +1105,7 @@ namespace Google.GData.Client.LiveTests
             }
             Assert.IsTrue(iVerify == numberOfInserts, "should have gotten 5 updates");
 
-            Feed<Contact> d = cr.Batch(list, new Uri(u.AtomFeed.Batch), GDataBatchOperationType.Default);
+            Feed<Contact> d = cr.Batch(list, new Uri(f.AtomFeed.Batch), GDataBatchOperationType.Default);
 
             iVerify = 0; 
             foreach (Contact c in d.Entries )
