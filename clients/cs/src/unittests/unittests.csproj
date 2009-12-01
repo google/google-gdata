@@ -177,6 +177,7 @@
     <Compile Include="blogger.cs" />
     <Compile Include="caltest.cs" />
     <Compile Include="contactstest.cs" />
+    <Compile Include="oauthtest.cs" />
     <Compile Include="coretest.cs" />
     <Compile Include="core\AbstractEntryTest.cs" />
     <Compile Include="core\AbstractFeedTest.cs" />

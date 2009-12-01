@@ -84,7 +84,7 @@ namespace Google.GData.Client
             sb.AppendFormat("oauth_nonce=\"{0}\",", nonce);
             sb.AppendFormat("oauth_timestamp=\"{0}\",", timeStamp);
             sb.AppendFormat("oauth_consumer_key=\"{0}\",", consumerKey);
-            if (token != String.Empty)
+            if (!String.IsNullOrEmpty(token))
             {
                 token = System.Web.HttpUtility.UrlEncode(token);
                 sb.AppendFormat("oauth_token=\"{0}\",", token);
