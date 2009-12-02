@@ -43,8 +43,6 @@ namespace Google.GData.Client.LiveTests
     [Category("LiveTest")]
     public class YouTubeTestSuite : BaseLiveTestClass
     {
-
-        private string ytClient;
         private string ytDevKey;
         private string ytUser;
         private string ytPwd;
@@ -72,10 +70,6 @@ namespace Google.GData.Client.LiveTests
         {
             base.ReadConfigFile();
 
-            if (unitTestConfiguration.Contains("youTubeClientID") == true)
-            {
-                this.ytClient = (string) unitTestConfiguration["youTubeClientID"];
-            }
             if (unitTestConfiguration.Contains("youTubeDevKey") == true)
             {
                 this.ytDevKey = (string) unitTestConfiguration["youTubeDevKey"];
@@ -128,7 +122,7 @@ namespace Google.GData.Client.LiveTests
             Tracing.TraceMsg("Entering YouTubeQueryPrivateTest");
 
             YouTubeQuery query = new YouTubeQuery(YouTubeQuery.DefaultVideoUri);
-            YouTubeService service = new YouTubeService("NETUnittests", this.ytClient, this.ytDevKey);
+            YouTubeService service = new YouTubeService("NETUnittests",  this.ytDevKey);
 
             query.Query = "Education expertvillage"; 
             query.NumberToRetrieve = 50; 
@@ -162,7 +156,7 @@ namespace Google.GData.Client.LiveTests
             Tracing.TraceMsg("Entering YouTubeFeedTest");
 
             YouTubeQuery query = new YouTubeQuery(YouTubeQuery.TopRatedVideo);
-            YouTubeService service = new YouTubeService("NETUnittests", this.ytClient, this.ytDevKey);
+            YouTubeService service = new YouTubeService("NETUnittests", this.ytDevKey);
             if (this.userName != null)
             {
                 service.Credentials = new GDataCredentials(this.ytUser, this.ytPwd);
@@ -216,7 +210,7 @@ namespace Google.GData.Client.LiveTests
         {
             Tracing.TraceMsg("Entering YouTubeFeedTest");
 
-            YouTubeService service = new YouTubeService("NETUnittests", this.ytClient, this.ytDevKey);
+            YouTubeService service = new YouTubeService("NETUnittests", this.ytDevKey);
             if (this.userName != null)
             {
                 service.Credentials = new GDataCredentials(this.ytUser, this.ytPwd);
@@ -287,7 +281,7 @@ namespace Google.GData.Client.LiveTests
         {
             Tracing.TraceMsg("Entering YouTubeRatingsTest");
 
-            YouTubeService service = new YouTubeService("NETUnittests", this.ytClient, this.ytDevKey);
+            YouTubeService service = new YouTubeService("NETUnittests", this.ytDevKey);
             if (this.userName != null)
             {
                 service.Credentials = new GDataCredentials(this.ytUser, this.ytPwd);
@@ -330,7 +324,7 @@ namespace Google.GData.Client.LiveTests
             YouTubeQuery query = new YouTubeQuery();
             query.Uri = new Uri(CreateUri(this.resourcePath + "uploaderyt.xml"));
 
-            YouTubeService service = new YouTubeService("NETUnittests", this.ytClient, this.ytDevKey);
+            YouTubeService service = new YouTubeService("NETUnittests", this.ytDevKey);
             if (this.userName != null)
             {
                 service.Credentials = new GDataCredentials(this.ytUser, this.ytPwd);
@@ -363,7 +357,7 @@ namespace Google.GData.Client.LiveTests
             Tracing.TraceMsg("Entering YouTubeRequestTest");
 
 
-            YouTubeRequestSettings settings = new YouTubeRequestSettings("NETUnittests", this.ytClient, this.ytDevKey, this.ytUser, this.ytPwd);
+            YouTubeRequestSettings settings = new YouTubeRequestSettings("NETUnittests", this.ytDevKey, this.ytUser, this.ytPwd);
 
             YouTubeRequest f = new YouTubeRequest(settings);
             // GetVideoFeed get's you a users video feed
@@ -410,7 +404,7 @@ namespace Google.GData.Client.LiveTests
         {
             Tracing.TraceMsg("Entering YouTubePlaylistRequestTest");
 
-            YouTubeRequestSettings settings = new YouTubeRequestSettings("NETUnittests", this.ytClient, this.ytDevKey, this.ytUser, this.ytPwd);
+            YouTubeRequestSettings settings = new YouTubeRequestSettings("NETUnittests", this.ytDevKey, this.ytUser, this.ytPwd);
 
             YouTubeRequest f = new YouTubeRequest(settings);
             // GetVideoFeed get's you a users video feed
@@ -451,7 +445,7 @@ namespace Google.GData.Client.LiveTests
         {
             Tracing.TraceMsg("Entering YouTubePlaylistBatchTest");
 
-            YouTubeRequestSettings settings = new YouTubeRequestSettings("NETUnittests", this.ytClient, this.ytDevKey, this.ytUser, this.ytPwd);
+            YouTubeRequestSettings settings = new YouTubeRequestSettings("NETUnittests", this.ytDevKey, this.ytUser, this.ytPwd);
 
             YouTubeRequest f = new YouTubeRequest(settings);
             // GetVideoFeed get's you a users video feed
@@ -515,7 +509,7 @@ namespace Google.GData.Client.LiveTests
         {
             Tracing.TraceMsg("Entering YouTubeCommentRequestTest");
 
-            YouTubeRequestSettings settings = new YouTubeRequestSettings("NETUnittests", this.ytClient, this.ytDevKey, this.ytUser, this.ytPwd);
+            YouTubeRequestSettings settings = new YouTubeRequestSettings("NETUnittests", this.ytDevKey, this.ytUser, this.ytPwd);
             YouTubeRequest f = new YouTubeRequest(settings);
 
             Feed<Video> feed = f.GetStandardFeed(YouTubeQuery.MostPopular);
@@ -541,7 +535,7 @@ namespace Google.GData.Client.LiveTests
         {
             Tracing.TraceMsg("Entering YouTubeMaximumTest");
 
-            YouTubeRequestSettings settings = new YouTubeRequestSettings("NETUnittests", this.ytClient, this.ytDevKey, this.ytUser, this.ytPwd);
+            YouTubeRequestSettings settings = new YouTubeRequestSettings("NETUnittests", this.ytDevKey, this.ytUser, this.ytPwd);
             settings.Maximum = 15;
             YouTubeRequest f = new YouTubeRequest(settings);
 
@@ -566,7 +560,7 @@ namespace Google.GData.Client.LiveTests
         {
             Tracing.TraceMsg("Entering YouTubeUnAuthenticatedRequestTest");
 
-            YouTubeRequestSettings settings = new YouTubeRequestSettings("NETUnittests", this.ytClient, this.ytDevKey);
+            YouTubeRequestSettings settings = new YouTubeRequestSettings("NETUnittests", this.ytDevKey);
             settings.AutoPaging = true;
             settings.Maximum = 50; 
 
@@ -593,7 +587,7 @@ namespace Google.GData.Client.LiveTests
         [Test] public void YouTubeRequestInsertTest()
         {
             Tracing.TraceMsg("Entering YouTubeRequestInsertTest");
-            YouTubeRequestSettings settings = new YouTubeRequestSettings("NETUnittests", this.ytClient, this.ytDevKey, this.ytUser, this.ytPwd);
+            YouTubeRequestSettings settings = new YouTubeRequestSettings("NETUnittests", this.ytDevKey, this.ytUser, this.ytPwd);
             YouTubeRequest f = new YouTubeRequest(settings);
 
             Video v = new Video(); 
@@ -628,7 +622,7 @@ namespace Google.GData.Client.LiveTests
         {
             Tracing.TraceMsg("Entering YouTubePageSizeTest");
 
-            YouTubeRequestSettings settings = new YouTubeRequestSettings("NETUnittests", this.ytClient, this.ytDevKey, this.ytUser, this.ytPwd);
+            YouTubeRequestSettings settings = new YouTubeRequestSettings("NETUnittests", this.ytDevKey, this.ytUser, this.ytPwd);
             settings.PageSize = 15;
             YouTubeRequest f = new YouTubeRequest(settings);
 
@@ -662,7 +656,7 @@ namespace Google.GData.Client.LiveTests
         {
             Tracing.TraceMsg("Entering YouTubePagingTest");
 
-            YouTubeRequestSettings settings = new YouTubeRequestSettings("NETUnittests", this.ytClient, this.ytDevKey, this.ytUser, this.ytPwd);
+            YouTubeRequestSettings settings = new YouTubeRequestSettings("NETUnittests", this.ytDevKey, this.ytUser, this.ytPwd);
             settings.PageSize = 15;
             YouTubeRequest f = new YouTubeRequest(settings);
 
@@ -686,7 +680,7 @@ namespace Google.GData.Client.LiveTests
         {
             Tracing.TraceMsg("Entering YouTubeGetTest");
 
-            YouTubeRequestSettings settings = new YouTubeRequestSettings("NETUnittests", this.ytClient, this.ytDevKey, this.ytUser, this.ytPwd);
+            YouTubeRequestSettings settings = new YouTubeRequestSettings("NETUnittests", this.ytDevKey, this.ytUser, this.ytPwd);
             settings.PageSize = 15;
             YouTubeRequest f = new YouTubeRequest(settings);
 
@@ -712,7 +706,7 @@ namespace Google.GData.Client.LiveTests
         {
             Tracing.TraceMsg("Entering YouTubePrivateTest");
 
-            YouTubeRequestSettings settings = new YouTubeRequestSettings("NETUnittests", this.ytClient, this.ytDevKey, this.ytUser, this.ytPwd);
+            YouTubeRequestSettings settings = new YouTubeRequestSettings("NETUnittests", this.ytDevKey, this.ytUser, this.ytPwd);
             settings.PageSize = 15;
             settings.AutoPaging = true;
             YouTubeRequest f = new YouTubeRequest(settings);
@@ -779,7 +773,7 @@ namespace Google.GData.Client.LiveTests
         {
             ActivitiesQuery query = new ActivitiesQuery();
             query.ModifiedSince = new DateTime(1980, 12, 1);
-            YouTubeService service = new YouTubeService("NETUnittests", this.ytClient, this.ytDevKey);
+            YouTubeService service = new YouTubeService("NETUnittests", this.ytDevKey);
 
             if (this.userName != null)
             {
@@ -804,7 +798,7 @@ namespace Google.GData.Client.LiveTests
         {
             Tracing.TraceMsg("Entering YouTubeRequestActivitiesTest");
 
-            YouTubeRequestSettings settings = new YouTubeRequestSettings("NETUnittests", this.ytClient, this.ytDevKey, this.ytUser, this.ytPwd);
+            YouTubeRequestSettings settings = new YouTubeRequestSettings("NETUnittests", this.ytDevKey, this.ytUser, this.ytPwd);
             // settings.PageSize = 15;
             YouTubeRequest f = new YouTubeRequest(settings);
 
@@ -870,7 +864,7 @@ namespace Google.GData.Client.LiveTests
             Tracing.TraceMsg("Entering YouTubeSubscriptionsTest");
             string playlistID = "4A3A73D5172EB90A";
 
-            YouTubeRequestSettings settings = new YouTubeRequestSettings(this.ApplicationName, this.ytClient, this.ytDevKey, this.ytUser, this.ytPwd);
+            YouTubeRequestSettings settings = new YouTubeRequestSettings(this.ApplicationName, this.ytDevKey, this.ytUser, this.ytPwd);
             // settings.PageSize = 15;
             YouTubeRequest f = new YouTubeRequest(settings);
 
@@ -933,7 +927,7 @@ namespace Google.GData.Client.LiveTests
         {
             Tracing.TraceMsg("Entering YouTubeUserActivitiesTest");
 
-            YouTubeRequestSettings settings = new YouTubeRequestSettings("NETUnittests", this.ytClient, this.ytDevKey);
+            YouTubeRequestSettings settings = new YouTubeRequestSettings("NETUnittests", this.ytDevKey);
             // settings.PageSize = 15;
             YouTubeRequest f = new YouTubeRequest(settings);
 
