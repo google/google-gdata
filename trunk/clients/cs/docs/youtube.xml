@@ -2273,40 +2273,45 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Google.YouTube.YouTubeRequestSettings.#ctor(System.String,System.String,System.String)">
+        <member name="M:Google.YouTube.YouTubeRequestSettings.#ctor(System.String,System.String)">
             <summary>
             A constructor for a readonly scenario.
             </summary>
             <param name="applicationName">The name of the application</param>
-            <param name="client">the client ID to use</param>
             <param name="developerKey">the developer key to use</param>
             <returns></returns>
         </member>
-        <member name="M:Google.YouTube.YouTubeRequestSettings.#ctor(System.String,System.String,System.String,System.String,System.String)">
+        <member name="M:Google.YouTube.YouTubeRequestSettings.#ctor(System.String,System.String,System.String,System.String)">
             <summary>
             A constructor for a client login scenario
             </summary>
             <param name="applicationName">The name of the application</param>
-            <param name="client">the client ID to use</param>
             <param name="developerKey">the developer key to use</param>
             <param name="userName">the username</param>
             <param name="passWord">the password</param>
             <returns></returns>
         </member>
-        <member name="M:Google.YouTube.YouTubeRequestSettings.#ctor(System.String,System.String,System.String,System.String)">
+        <member name="M:Google.YouTube.YouTubeRequestSettings.#ctor(System.String,System.String,System.String)">
             <summary>
             a constructor for a web application authentication scenario        
             </summary>
             <param name="applicationName">The name of the application</param>
-            <param name="client">the client ID to use</param>
             <param name="developerKey">the developer key to use</param>
             <param name="authSubToken">the authentication token</param>
             <returns></returns>
         </member>
-        <member name="P:Google.YouTube.YouTubeRequestSettings.Client">
+        <member name="M:Google.YouTube.YouTubeRequestSettings.#ctor(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
             <summary>
-            returns the client ID
+             a constructor for OpenAuthentication login use cases using 2 or 3 legged oAuth
             </summary>
+            <param name="applicationName">The name of the application</param>
+            <param name="developerKey">the developer key to use</param>
+            <param name="consumerKey">the consumerKey to use</param>
+            <param name="consumerSecret">the consumerSecret to use</param>
+            <param name="token">The token to be used</param>
+            <param name="tokenSecret">The tokenSecret to be used</param>
+            <param name="user">the username to use</param>
+            <param name="domain">the domain to use</param>
             <returns></returns>
         </member>
         <member name="P:Google.YouTube.YouTubeRequestSettings.DeveloperKey">

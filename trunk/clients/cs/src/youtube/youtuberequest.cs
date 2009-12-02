@@ -892,19 +892,16 @@ namespace Google.YouTube
     /// <returns></returns>
     public class YouTubeRequestSettings : RequestSettings
     {
-        private string clientID;
         private string developerKey;
 
         /// <summary>
         /// A constructor for a readonly scenario.
         /// </summary>
         /// <param name="applicationName">The name of the application</param>
-        /// <param name="client">the client ID to use</param>
         /// <param name="developerKey">the developer key to use</param>
         /// <returns></returns>
-        public YouTubeRequestSettings(string applicationName, string client, string developerKey) : base(applicationName)
+        public YouTubeRequestSettings(string applicationName, string developerKey) : base(applicationName)
         {
-            this.clientID = client;
             this.developerKey = developerKey;
         }
 
@@ -912,15 +909,13 @@ namespace Google.YouTube
         /// A constructor for a client login scenario
         /// </summary>
         /// <param name="applicationName">The name of the application</param>
-        /// <param name="client">the client ID to use</param>
         /// <param name="developerKey">the developer key to use</param>
         /// <param name="userName">the username</param>
         /// <param name="passWord">the password</param>
         /// <returns></returns>
-        public YouTubeRequestSettings(string applicationName, string client, string developerKey, string userName, string passWord)  
+        public YouTubeRequestSettings(string applicationName, string developerKey, string userName, string passWord)  
                     : base(applicationName, userName, passWord)
         {
-            this.clientID = client;
             this.developerKey = developerKey;
         }
 
@@ -928,28 +923,39 @@ namespace Google.YouTube
         /// a constructor for a web application authentication scenario        
         /// </summary>
         /// <param name="applicationName">The name of the application</param>
-        /// <param name="client">the client ID to use</param>
         /// <param name="developerKey">the developer key to use</param>
         /// <param name="authSubToken">the authentication token</param>
         /// <returns></returns>
-        public YouTubeRequestSettings(string applicationName, string client, string developerKey, string authSubToken)  
+        public YouTubeRequestSettings(string applicationName, string developerKey, string authSubToken)  
                     : base(applicationName, authSubToken)
         {
-            this.clientID = client;
             this.developerKey = developerKey;
         }
 
         /// <summary>
-        /// returns the client ID
+        ///  a constructor for OpenAuthentication login use cases using 2 or 3 legged oAuth
         /// </summary>
+        /// <param name="applicationName">The name of the application</param>
+        /// <param name="developerKey">the developer key to use</param>
+        /// <param name="consumerKey">the consumerKey to use</param>
+        /// <param name="consumerSecret">the consumerSecret to use</param>
+        /// <param name="token">The token to be used</param>
+        /// <param name="tokenSecret">The tokenSecret to be used</param>
+        /// <param name="user">the username to use</param>
+        /// <param name="domain">the domain to use</param>
         /// <returns></returns>
-        public string Client
+        public YouTubeRequestSettings(string applicationName, 
+                               string developerKey,
+                               string consumerKey, string consumerSecret, 
+                               string token, string tokenSecret,
+                               string user, string domain) : base(applicationName, consumerKey, consumerSecret, 
+                                                            token, tokenSecret, user, domain)
         {
-            get
-            {
-                return this.clientID;
-            }
+            this.developerKey = developerKey;
         }
+
+
+        
 
         /// <summary>
         /// returns the developer key
@@ -1009,9 +1015,9 @@ namespace Google.YouTube
         /// <param name="settings"></param>
         public YouTubeRequest(YouTubeRequestSettings settings) : base(settings)
         {
-            if (settings.Client != null && settings.DeveloperKey != null)
+            if (settings.DeveloperKey != null)
             {
-                this.Service = new YouTubeService(settings.Application, settings.Client, settings.DeveloperKey);
+                this.Service = new YouTubeService(settings.Application, settings.DeveloperKey);
             }
             else
             {
