@@ -41,6 +41,10 @@ namespace Google.GData.Client
         private string passWord;
         private string userName;
         private string clientToken;
+        private string accountType = GoogleAuthentication.AccountTypeDefault;
+
+        private string captchaAnswer;
+        private string captchaToken;
 
         /// <summary>
         /// default constructor
@@ -62,15 +66,47 @@ namespace Google.GData.Client
             this.clientToken = clientToken;
         }
 
-
         //////////////////////////////////////////////////////////////////////
-        /// <summary>accessor method public string Username</summary> 
+        /// <summary>the username used for authentication</summary> 
         /// <returns> </returns>
         //////////////////////////////////////////////////////////////////////
         public string Username
         {
             get {return this.userName;}
             set {this.userName = value;}
+        }
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>the type of Account used</summary> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        public string AccountType
+        {
+            get {return this.accountType;}
+            set {this.accountType = value;}
+        }
+        // end of accessor public string Username
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>in case you need to handle catpcha responses for this account</summary> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        public string CaptchaToken
+        {
+            get {return this.captchaToken;}
+            set {this.captchaToken = value;}
+        }
+        // end of accessor public string Username
+
+
+        //////////////////////////////////////////////////////////////////////
+       /// <summary>in case you need to handle catpcha responses for this account</summary> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        public string CaptchaAnswer
+        {
+            get {return this.captchaAnswer;}
+            set {this.captchaAnswer = value;}
         }
         // end of accessor public string Username
 
@@ -99,6 +135,10 @@ namespace Google.GData.Client
             get
             {
                 return this.clientToken;
+            }
+            set 
+            {
+                this.clientToken = value; 
             }
         }
 
@@ -566,7 +606,6 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         protected virtual void EnsureWebRequest()
         {
-
             if (this.webRequest == null && this.targetUri != null)
             {
                 this.webRequest = WebRequest.Create(this.targetUri);

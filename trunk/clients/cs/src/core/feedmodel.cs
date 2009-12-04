@@ -23,6 +23,7 @@ using Google.GData.Client;
 using Google.GData.Extensions;
 using System.Collections.Generic;
 using Google.GData.Extensions.AppControl;
+using System.Security.Cryptography;
 #if WindowsCE || PocketPC
 #else
 using System.ComponentModel;
@@ -650,6 +651,15 @@ namespace Google.GData.Client
     /// <returns></returns>
     public class RequestSettings
     {
+        public enum AuthenticationType
+        {
+            none,
+            clientLogin,
+            authSub,
+            oAuth
+        }
+
+        private AuthenticationType authType = AuthenticationType.none;
         private string applicationName;
         private GDataCredentials credentials; 
         private string authSubToken; 
@@ -663,6 +673,8 @@ namespace Google.GData.Client
         private string oAuthDomain;
         private string token;
         private string tokenSecret;
+        private AsymmetricAlgorithm privateKey;
+        private Uri clientLoginHandler;
            
       
 
@@ -683,10 +695,9 @@ namespace Google.GData.Client
         /// <param name="userName">the user name</param>
         /// <param name="passWord">the password</param>
         /// <returns></returns>
-        public RequestSettings(string applicationName, string userName, string passWord)
+        public RequestSettings(string applicationName, string userName, string passWord) : 
+            this(applicationName, new GDataCredentials(userName, passWord))
         {
-            this.applicationName = applicationName;
-            this.credentials = new GDataCredentials(userName, passWord);
         }
 
         /// <summary>
@@ -698,9 +709,12 @@ namespace Google.GData.Client
         /// <param name="user">the username to use</param>
         /// <param name="domain">the domain to use</param>
         /// <returns></returns>
-        public RequestSettings(string applicationName, string consumerKey, string consumerSecret, string user, string domain)
+        public RequestSettings(string applicationName, string consumerKey, 
+                               string consumerSecret, 
+                               string user, 
+                               string domain) : this(applicationName)
         {
-            this.applicationName = applicationName;
+            this.authType = AuthenticationType.oAuth;
             this.consumerKey = consumerKey;
             this.consumerSecret = consumerSecret;
             this.oAuthUser = user;
@@ -721,13 +735,10 @@ namespace Google.GData.Client
         public RequestSettings(string applicationName, 
                                string consumerKey, string consumerSecret, 
                                string token, string tokenSecret,
-                               string user, string domain)
+                               string user, string domain) 
+                    : this(applicationName, consumerKey, consumerSecret, 
+                           user, domain)
         {
-            this.applicationName = applicationName;
-            this.consumerKey = consumerKey;
-            this.consumerSecret = consumerSecret;
-            this.oAuthUser = user;
-            this.oAuthDomain = domain;
             this.token = token;
             this.tokenSecret = tokenSecret;
         }
@@ -742,6 +753,7 @@ namespace Google.GData.Client
         /// <returns></returns>
         public RequestSettings(string applicationName, GDataCredentials credentials)
         {
+            this.authType = AuthenticationType.clientLogin; 
             this.applicationName = applicationName;
             this.credentials = credentials;
         }
@@ -753,9 +765,26 @@ namespace Google.GData.Client
         /// <param name="applicationName"></param>
         /// <param name="authSubToken"></param>
         /// <returns></returns>
-        public RequestSettings(string applicationName, string authSubToken)
+        public RequestSettings(string applicationName, string authSubToken) 
+                : this(applicationName)
         {
-            this.applicationName = applicationName;
+            this.authType = AuthenticationType.authSub;
+            this.authSubToken = authSubToken; 
+        }
+
+        /// <summary>
+        /// a constructor for a web application authentication scenario
+        /// </summary>
+        /// <param name="applicationName"></param>
+        /// <param name="authSubToken"></param>
+        /// <param name="privateKey"></param>
+        /// <returns></returns>
+        public RequestSettings(string applicationName, 
+                               string authSubToken, 
+                               AsymmetricAlgorithm privateKey) : this(applicationName)
+        {
+            this.authType = AuthenticationType.authSub;
+            this.privateKey = privateKey;
             this.authSubToken = authSubToken; 
         }
 
@@ -781,6 +810,18 @@ namespace Google.GData.Client
             get
             {
                 return this.authSubToken;
+            }
+        }
+
+        /// <summary>
+        /// returns the private key used for authsub authentication
+        /// </summary>
+        /// <returns></returns>
+        public AsymmetricAlgorithm PrivateKey
+        {
+            get
+            {
+                return this.privateKey;
             }
         }
 
@@ -982,6 +1023,100 @@ namespace Google.GData.Client
                 this.timeout = value;
             }
         }
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>ClientLoginHandler - this is the URI that is used to 
+        /// retrieve a client login authentication token
+        /// </summary> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        public Uri ClientLoginHandler
+        {
+            get {
+
+                return this.clientLoginHandler!=null ? 
+                       this.clientLoginHandler : new Uri(GoogleAuthentication.UriHandler); 
+            }
+            set {this.clientLoginHandler = value;}
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+
+
+
+        /// <summary>
+        /// Creates a HttpWebRequest object that can be used against a given service. 
+        /// for a RequestSetting object that is using client login, this might call 
+        /// to get an authentication token from the service, if it is not already set.
+        /// 
+        /// if this uses client login, and you need to use a proxy, set the application wide
+        /// proxy first using the GlobalProxySelection
+        /// </summary>
+        /// <param name="serviceName"></param>
+        /// <param name="httpMethod"></param>
+        /// <param name="targetUri"></param>
+        /// <returns></returns>
+        public HttpWebRequest CreateHttpWebRequest(string serviceName, string httpMethod, Uri targetUri)
+        {
+            HttpWebRequest request = WebRequest.Create(targetUri) as HttpWebRequest;
+            if (request == null)
+            {
+                throw new ArgumentException("targetUri does not resolve to an http request");
+            }
+            if (this.authType == AuthenticationType.clientLogin)
+            {
+                EnsureClientLoginCredentials(request, serviceName);
+            }
+            if (this.authType == AuthenticationType.authSub)
+            {
+                EnsureAuthSubCredentials(request);
+            }
+            if (this.authType == AuthenticationType.oAuth)
+            {
+                EnsureOAuthCredentials(request);
+            }
+
+            return request;
+
+        }
+
+        private void EnsureClientLoginCredentials(HttpWebRequest request, string serviceName)
+        {          
+            if (String.IsNullOrEmpty(this.Credentials.ClientToken))
+            {
+                this.Credentials.ClientToken = Utilities.QueryClientLoginToken(this.Credentials,
+                                        serviceName,
+                                        this.Application,
+                                        false,
+                                        this.ClientLoginHandler);
+            }
+            if (!String.IsNullOrEmpty(this.Credentials.ClientToken))
+            {
+                string strHeader = GoogleAuthentication.Header + this.Credentials.ClientToken;
+                request.Headers.Add(strHeader);
+            }
+        } 
+
+        private void EnsureAuthSubCredentials(HttpWebRequest request)
+        {
+            string header = AuthSubUtil.formAuthorizationHeader(this.Token, 
+                                                                this.PrivateKey, 
+                                                                request.RequestUri,
+                                                                request.Method);
+            request.Headers.Add(header);
+        }
+
+  
+        private void EnsureOAuthCredentials(HttpWebRequest request)
+        {
+            string oauthHeader = OAuthUtil.GenerateHeader(request.RequestUri, 
+                                                            this.ConsumerKey, 
+                                                            this.ConsumerSecret, 
+                                                            this.Token, 
+                                                            this.TokenSecret,
+                                                            request.Method);
+            request.Headers.Add(oauthHeader);
+        }
     }
 
 
@@ -994,7 +1129,7 @@ namespace Google.GData.Client
         /// returns the next feed chunk if there is more data
         /// </summary>
         Next,
-        /// <summary>
+        /// <summary> 
         /// returns the previous feed chunk if there is data before
         /// </summary>
         Prev,
@@ -1051,6 +1186,7 @@ namespace Google.GData.Client
                 GAuthSubRequestFactory authFactory = new GAuthSubRequestFactory(s.ServiceIdentifier, settings.Application);
                 authFactory.UserAgent = authFactory.UserAgent + "--IEnumerable";
                 authFactory.Token = settings.AuthSubToken; 
+                authFactory.PrivateKey = settings.PrivateKey;
                 s.RequestFactory = authFactory;
             }
             else if (settings.ConsumerKey != null)
@@ -1435,7 +1571,7 @@ namespace Google.GData.Client
         }
 
         /// <summary>
-        /// returns a the entry the Uri pointed to
+        /// returns the entry the Uri pointed to
         /// </summary>
         /// <param name="entryUri">the Uri of the entry</param>
         /// <returns></returns>
