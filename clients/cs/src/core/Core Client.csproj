@@ -168,6 +168,8 @@
     <Compile Include="versioninterface.cs" />
     <Compile Include="xmlextension.cs" />
     <Compile Include="extcollections.cs" />
+    <Compile Include="resumableupload.cs" />
+    <Compile Include="authentication.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
