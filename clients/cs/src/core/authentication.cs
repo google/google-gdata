@@ -62,7 +62,11 @@ namespace Google.GData.Client
         /// <returns></returns>
         public HttpWebRequest CreateHttpWebRequest(string httpMethod, Uri targetUri)
         {
-            HttpWebRequest request = WebRequest.Create(targetUri) as HttpWebRequest;
+            Uri uriResult = ApplyAuthenticationToUri(targetUri);
+
+            HttpWebRequest request = WebRequest.Create(uriResult) as HttpWebRequest;
+            // turn off autoredirect
+            request.AllowAutoRedirect = false;
             request.Method = httpMethod;
             ApplyAuthenticationToRequest(request);
             return request;
@@ -88,6 +92,18 @@ namespace Google.GData.Client
         /// <param name="request"></param>
         /// <returns></returns>
         public abstract void ApplyAuthenticationToRequest(HttpWebRequest request);
+
+        /// <summary>
+        /// Takes an existing httpwebrequest and modifies it's uri according to 
+        /// the authentication system used. Only overridden in 2leggedoauth case
+        /// </summary>
+        /// <param name="source">the original uri</param>
+        /// <returns></returns>
+        public virtual Uri ApplyAuthenticationToUri(Uri source)
+        {
+            return source;
+        }
+
     }
 
 
@@ -328,6 +344,8 @@ namespace Google.GData.Client
         private string oAuthUser;
         private string oAuthDomain;
 
+        public static string OAuthParameter = "xoauth_requestor_id"; 
+     
         /// <summary>
         ///  a constructor for OpenAuthentication login use cases
         /// </summary>
@@ -388,24 +406,24 @@ namespace Google.GData.Client
             request.Headers.Add(oauthHeader);
         }
 
-
-        /// <summary>
-        /// Creates a HttpWebRequest object that can be used against a given service. 
-        /// for a RequestSetting object that is using client login, this might call 
-        /// to get an authentication token from the service, if it is not already set.
-        /// 
-        /// if this uses client login, and you need to use a proxy, set the application wide
-        /// proxy first using the GlobalProxySelection
+         /// <summary>
+        /// Takes an existing httpwebrequest and modifies it's uri according to 
+        /// the authentication system used. Only overridden in 2leggedoauth case
+        /// Here we need to add the xoauthrequestor parameter
         /// </summary>
-        /// <param name="serviceName"></param>
-        /// <param name="httpMethod"></param>
-        /// <param name="targetUri"></param>
+        /// <param name="source">the original uri</param>
         /// <returns></returns>
-        public HttpWebRequest CreateHttpWebRequest(string httpMethod, Uri targetUri)
+        public override Uri ApplyAuthenticationToUri(Uri source)
         {
-            // TODO: need to add the user/domain to the uri, need to 
-            // use a uri builder to do so.
-            return base.CreateHttpWebRequest(httpMethod, targetUri);
+            UriBuilder builder = new UriBuilder(source);
+            string queryToAppend = OAuth2LeggedAuthenticator.OAuthParameter + "=" + this.oAuthUser + "%40" + this.OAuthDomain;
+
+            if (builder.Query != null && builder.Query.Length > 1)
+                builder.Query = builder.Query + "&" + queryToAppend; 
+            else
+                builder.Query = queryToAppend;
+
+            return builder.Uri;
         }
     }
 

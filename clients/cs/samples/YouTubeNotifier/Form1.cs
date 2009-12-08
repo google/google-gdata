@@ -113,7 +113,6 @@ namespace NotifierForYT
 
 
             YouTubeRequestSettings settings = new YouTubeRequestSettings(AppKey, 
-                    YTCLIENTID, 
                     YTDEVKEY,
                     this.userName.Text,
                     "");
@@ -139,7 +138,6 @@ namespace NotifierForYT
             {
                 // let's see if we get a valid authtoken back for the passed in credentials....
                 YouTubeRequestSettings settings = new YouTubeRequestSettings(AppKey,
-                                    YTCLIENTID,
                                     YTDEVKEY,
                                     this.userName.Text,
                                     this.passWord.Text);
@@ -147,7 +145,7 @@ namespace NotifierForYT
                 this.ytRequest = new YouTubeRequest(settings);
                 try
                 {
-                    this.authToken = this.ytRequest.Service.QueryAuthenticationToken();
+                    this.authToken = this.ytRequest.Service.QueryClientLoginToken();
                     this.passWord.Text = ""; 
                 }
                 catch
