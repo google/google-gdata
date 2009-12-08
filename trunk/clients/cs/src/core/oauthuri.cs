@@ -24,6 +24,7 @@ namespace Google.GData.Client
     /// An implementation of Uri that will create an uri with an 
     /// xoauth_requestor_id query string.
     /// </summary>
+    [Obsolete("this is going to be removed in the future and replaced with OAuthAuthenticator")]
     public class OAuthUri : Uri
     {
         public static string OAuthParameter = "xoauth_requestor_id"; 

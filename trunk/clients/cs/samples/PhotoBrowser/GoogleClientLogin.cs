@@ -233,7 +233,7 @@ namespace Google.GData.Tools
         private void Login_Click(object sender, System.EventArgs e)
         {
             this.service.setUserCredentials(this.Username.Text, this.Password.Text);
-            this.authToken = this.service.QueryAuthenticationToken();
+            this.authToken = this.service.QueryClientLoginToken();
             this.Close();
         }
     }

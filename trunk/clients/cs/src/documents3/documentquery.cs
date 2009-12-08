@@ -205,20 +205,6 @@ namespace Google.GData.Documents {
         }
         /////////////////////////////////////////////////////////////////////////////
 
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>Doclist does not support index based paging</returns>
-        //////////////////////////////////////////////////////////////////////
-        [Obsolete("Index based paging is not supported on DocumentsList")]
-        public override int NumberToRetrieve
-        {
-            get { return 0; }
-            set { }
-        }
-        /////////////////////////////////////////////////////////////////////////////
-
-     
-
-
 
         /// <summary>
         /// Restricts the results to only starred documents
