@@ -1067,6 +1067,8 @@ namespace Google.GData.Client
             {
                 EnsureClientLoginCredentials(request, serviceName);
             }
+#if WindowsCE || PocketPC
+#else
             if (this.authType == AuthenticationType.authSub)
             {
                 EnsureAuthSubCredentials(request);
@@ -1075,7 +1077,7 @@ namespace Google.GData.Client
             {
                 EnsureOAuthCredentials(request);
             }
-
+#endif
             return request;
 
         }
@@ -1096,7 +1098,8 @@ namespace Google.GData.Client
                 request.Headers.Add(strHeader);
             }
         } 
-
+#if WindowsCE || PocketPC
+#else
         private void EnsureAuthSubCredentials(HttpWebRequest request)
         {
             string header = AuthSubUtil.formAuthorizationHeader(this.Token, 
@@ -1117,6 +1120,7 @@ namespace Google.GData.Client
                                                             request.Method);
             request.Headers.Add(oauthHeader);
         }
+#endif
     }
 
 

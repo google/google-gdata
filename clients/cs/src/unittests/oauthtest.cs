@@ -37,10 +37,10 @@ namespace Google.GData.Client.LiveTests
     [Category("LiveTest")]
     public class OAuthTestSuite : BaseLiveTestClass
     {
-        private string oAuthConsumerKey;
-        private string oAuthConsumerSecrect;
-        private string oAuthDomain;
-        private string oAuthUser;
+        protected string oAuthConsumerKey;
+        protected string oAuthConsumerSecrect;
+        protected string oAuthDomain;
+        protected string oAuthUser;
 
 
         //////////////////////////////////////////////////////////////////////
