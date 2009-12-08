@@ -126,6 +126,9 @@
     <Compile Include="..\..\core\atomuri.cs">
       <Link>atomuri.cs</Link>
     </Compile>
+    <Compile Include="..\..\core\authentication.cs">
+      <Link>authentication.cs</Link>
+    </Compile>
     <Compile Include="..\..\core\basefeedparser.cs">
       <Link>basefeedparser.cs</Link>
     </Compile>
@@ -179,6 +182,9 @@
     </Compile>
     <Compile Include="..\..\core\request.cs">
       <Link>request.cs</Link>
+    </Compile>
+    <Compile Include="..\..\core\resumableupload.cs">
+      <Link>resumableupload.cs</Link>
     </Compile>
     <Compile Include="..\..\core\rssfeedparser.cs">
       <Link>rssfeedparser.cs</Link>

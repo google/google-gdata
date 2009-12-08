@@ -208,6 +208,8 @@ namespace Google.GData.Client
         } 
     }
 
+#if WindowsCE || PocketPC
+#else
     public class AuthSubAuthenticator : Authenticator
     {
         private string authSubToken; 
@@ -280,7 +282,7 @@ namespace Google.GData.Client
         }
     }
 
-    abstract class OAuthAuthenticator : Authenticator
+    public abstract class OAuthAuthenticator : Authenticator
     {
         private string consumerKey;
         private string consumerSecret;
@@ -321,7 +323,7 @@ namespace Google.GData.Client
                 
     }
 
-    class OAuth2LeggedAuthenticator : OAuthAuthenticator
+    public class OAuth2LeggedAuthenticator : OAuthAuthenticator
     {
         private string oAuthUser;
         private string oAuthDomain;
@@ -407,7 +409,7 @@ namespace Google.GData.Client
         }
     }
 
-    class OAuth3LeggedAuthenticator : OAuthAuthenticator
+    public class OAuth3LeggedAuthenticator : OAuthAuthenticator
     {
         private string token;
         private string tokenSecret; 
@@ -471,6 +473,10 @@ namespace Google.GData.Client
             request.Headers.Add(oauthHeader);
         }
     }
+
+            
+#endif
+
 }
 
 
