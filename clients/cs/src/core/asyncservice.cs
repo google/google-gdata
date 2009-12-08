@@ -56,137 +56,134 @@ namespace Google.GData.Client
 
 #else
 
-   /// <summary>
-   /// EventArgument class for async events, this one is used
-   /// when the operation is completed.
-   /// </summary>
-   public class AsyncOperationCompletedEventArgs : AsyncCompletedEventArgs
-   {
-       private AtomFeed feedObject;
-       private Stream   stream;
-       private Uri uri;
-       private AtomEntry entryObject;
+    /// <summary>
+    /// EventArgument class for async events, this one is used
+    /// when the operation is completed.
+    /// </summary>
+    public class AsyncOperationCompletedEventArgs : AsyncCompletedEventArgs
+    {
+        private AtomFeed feedObject;
+        private Stream stream;
+        private Uri uri;
+        private AtomEntry entryObject;
 
 
-       /// <summary>
-       /// constructor. takes the async data blog
-       /// </summary>
-       /// <param name="data">async data to constructor</param>
-       internal AsyncOperationCompletedEventArgs(AsyncData data) : base(data.Exception, false, data.UserData)
-       {
-           AsyncQueryData qData = data as AsyncQueryData;
-           AsyncSendData sData = data as AsyncSendData;
+        /// <summary>
+        /// constructor. takes the async data blog
+        /// </summary>
+        /// <param name="data">async data to constructor</param>
+        internal AsyncOperationCompletedEventArgs(AsyncData data)
+            : base(data.Exception, false, data.UserData)
+        {
+            uri = data.UriToUse;
+            feedObject = data.Feed;
+            stream = data.DataStream;
 
-           this.uri = data.UriToUse;
-           this.feedObject = data.Feed;
-           
-           if (qData != null)
-           {
-               this.stream = qData.DataStream;
-           }
-           if (sData != null)
-           {
-               this.entryObject = sData.Entry;
-           }
-       }
+            AsyncSendData sData = data as AsyncSendData;
+            if (sData != null)
+            {
+                entryObject = sData.Entry;
+            }
+        }
 
-       internal AsyncOperationCompletedEventArgs(AsyncData data, bool cancelled)
-           : base(data.Exception, cancelled, data.UserData)
-       {
-       }
-       
+        internal AsyncOperationCompletedEventArgs(AsyncData data, bool cancelled)
+            : base(data.Exception, cancelled, data.UserData)
+        {
+        }
 
-       //////////////////////////////////////////////////////////////////////
-       /// <summary>the feed that was created. If NULL, a stream or entry was returned</summary> 
-       /// <returns> </returns>
-       //////////////////////////////////////////////////////////////////////
-       public AtomFeed Feed
-       {
-           get { return this.feedObject; }
-       }
-       ////////////////////////////////////////////////////////////////////////
-       
-       //////////////////////////////////////////////////////////////////////
-       /// <summary>the entry that was created. If NULL, a stream or feed was returned</summary> 
-       /// <returns> </returns>
-       //////////////////////////////////////////////////////////////////////
-       public AtomEntry Entry
-       {
-           get { return this.entryObject; }
-       }
-       ////////////////////////////////////////////////////////////////////////
- 
 
-       //////////////////////////////////////////////////////////////////////
-       /// <summary>the stream that was created. If NULL, a feed or entry was returned</summary> 
-       /// <returns> </returns>
-       //////////////////////////////////////////////////////////////////////
-       public Stream ResponseStream
-       {
-           get { return this.stream; }
-       }
-       ////////////////////////////////////////////////////////////////////////
-    
-       
-       //////////////////////////////////////////////////////////////////////
-       /// <summary>the Uri to be used</summary> 
-       /// <returns> </returns>
-       //////////////////////////////////////////////////////////////////////
-       public Uri Uri
-       {
-           get { return this.uri; }
-       }
-       ////////////////////////////////////////////////////////////////////////
-   }
-   /// <summary>Delegate declaration for the feed creation in a service</summary> 
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>the feed that was created. If NULL, a stream or entry was returned</summary> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        public AtomFeed Feed
+        {
+            get { return this.feedObject; }
+        }
+        ////////////////////////////////////////////////////////////////////////
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>the entry that was created. If NULL, a stream or feed was returned</summary> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        public AtomEntry Entry
+        {
+            get { return this.entryObject; }
+        }
+        ////////////////////////////////////////////////////////////////////////
+
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>the stream that was created. If NULL, a feed or entry was returned</summary> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        public Stream ResponseStream
+        {
+            get { return this.stream; }
+        }
+        ////////////////////////////////////////////////////////////////////////
+
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>the Uri to be used</summary> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        public Uri Uri
+        {
+            get { return this.uri; }
+        }
+        ////////////////////////////////////////////////////////////////////////
+    }
+    /// <summary>Delegate declaration for the feed creation in a service</summary> 
     public delegate void AsyncOperationCompletedEventHandler(object sender, AsyncOperationCompletedEventArgs e);
 
 
-   /// <summary>
-   /// EventArgument class for async operation progress reports
-   /// </summary>
-   public class AsyncOperationProgressEventArgs : ProgressChangedEventArgs
-   {
-       private long completeSize;
-       private long currentPosition;
+    /// <summary>
+    /// EventArgument class for async operation progress reports
+    /// </summary>
+    public class AsyncOperationProgressEventArgs : ProgressChangedEventArgs
+    {
+        private long completeSize;
+        private long currentPosition;
 
-       /// <summary>
-       /// constructor. Takes the URI and the service this event applies to
-       /// </summary>
-       /// <param name="completeSize">the completesize of the request</param>
-       /// <param name="currentPosition">the current position in the upload/download</param>
-       /// <param name="percentage">progress percentage</param>
-       /// <param name="userData">The userdata identifying the request</param>
-       public AsyncOperationProgressEventArgs(long completeSize, long currentPosition, int percentage, 
-                                    object userData) : base(percentage, userData)
-       {
-           this.completeSize = completeSize;
-           this.currentPosition = currentPosition;
-       }
+        /// <summary>
+        /// constructor. Takes the URI and the service this event applies to
+        /// </summary>
+        /// <param name="completeSize">the completesize of the request</param>
+        /// <param name="currentPosition">the current position in the upload/download</param>
+        /// <param name="percentage">progress percentage</param>
+        /// <param name="userData">The userdata identifying the request</param>
+        public AsyncOperationProgressEventArgs(long completeSize, long currentPosition, int percentage,
+                                     object userData)
+            : base(percentage, userData)
+        {
+            this.completeSize = completeSize;
+            this.currentPosition = currentPosition;
+        }
 
-       //////////////////////////////////////////////////////////////////////
-       /// <summary>the complete upload size</summary> 
-       /// <returns> </returns>
-       //////////////////////////////////////////////////////////////////////
-       public long CompleteSize
-       {
-           get { return this.completeSize; }
-       }
-       ////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>the complete upload size</summary> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        public long CompleteSize
+        {
+            get { return this.completeSize; }
+        }
+        ////////////////////////////////////////////////////////////////////////
 
-       //////////////////////////////////////////////////////////////////////
-       /// <summary>the current position in the upload process</summary> 
-       /// <returns> </returns>
-       //////////////////////////////////////////////////////////////////////
-       public long Position
-       {
-           get { return this.currentPosition; }
-       }
-       ////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>the current position in the upload process</summary> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        public long Position
+        {
+            get { return this.currentPosition; }
+        }
+        ////////////////////////////////////////////////////////////////////////
 
-   }
+    }
 
-    
+
     /// <summary>Delegate declaration for the feed creation in a service</summary> 
     public delegate void AsyncOperationProgressEventHandler(object sender, AsyncOperationProgressEventArgs e);
 
@@ -200,21 +197,25 @@ namespace Google.GData.Client
         private AtomFeed feed;
         private Stream stream;
         private SendOrPostCallback onProgressReportDelegate;
-        private Service service; 
+        private Service service;
 
-        public AsyncData(Uri uri, AsyncOperation op, object userData, SendOrPostCallback callback) 
+        public AsyncData(Uri uri, AsyncOperation op, object userData, SendOrPostCallback callback, bool parseFeed)
         {
             this.uriToUse = uri;
-            this.userData = userData;
             this.op = op;
+            this.userData = userData;
             this.onProgressReportDelegate = callback;
+            this.ParseFeed = parseFeed;
         }
 
-        public AsyncData(Uri uri, object userData, SendOrPostCallback callback) 
+        public AsyncData(Uri uri, AsyncOperation op, object userData, SendOrPostCallback callback)
+            : this(uri, op, userData, callback, false)
         {
-            this.uriToUse = uri;
-            this.userData = userData;
-            this.onProgressReportDelegate = callback;
+        }
+
+        public AsyncData(Uri uri, object userData, SendOrPostCallback callback)
+            : this(uri, null, userData, callback)
+        {
         }
 
         /// <summary>
@@ -244,9 +245,6 @@ namespace Google.GData.Client
             }
         }
 
-
-
-
         public object UserData
         {
             get
@@ -254,7 +252,6 @@ namespace Google.GData.Client
                 return this.userData;
             }
         }
-
 
         public AtomFeed Feed
         {
@@ -267,13 +264,14 @@ namespace Google.GData.Client
                 this.feed = value;
             }
         }
+
         public AsyncOperation Operation
         {
             get
             {
                 return this.op;
             }
-            set 
+            set
             {
                 this.op = value;
             }
@@ -281,13 +279,13 @@ namespace Google.GData.Client
 
         public SendOrPostCallback Delegate
         {
-            get 
+            get
             {
                 return this.onProgressReportDelegate;
             }
         }
 
-        public Exception Exception 
+        public Exception Exception
         {
             get
             {
@@ -295,7 +293,7 @@ namespace Google.GData.Client
             }
             set
             {
-                this.e= value;
+                this.e = value;
             }
         }
 
@@ -310,46 +308,53 @@ namespace Google.GData.Client
                 this.stream = value;
             }
         }
+
+        /// <summary>
+        /// indicates if the async operation should try to 
+        /// parse the server returned stream, or just return the stream
+        /// </summary>
+        /// <returns></returns>
+        public bool ParseFeed { get; private set; }
     }
 
     internal class AsyncSendData : AsyncData
     {
-        private AtomEntry entry; 
+        private AtomEntry entry;
         private GDataRequestType type;
         private string contentType;
         private string slugHeader;
 
-        public AsyncSendData(Service service, AtomEntry entry, SendOrPostCallback callback, object userData)
-            : base(null, userData, callback)
+        private AsyncSendData(Service service, Uri uriToUse, AtomEntry entry, AtomFeed feed, SendOrPostCallback callback, object userData, bool parseFeed)
+            : base(uriToUse, null, userData, callback, parseFeed)
         {
+            this.Service = service;
             this.entry = entry;
-            this.Service = service; 
+            this.Feed = feed;
         }
 
         public AsyncSendData(Service service, Uri uriToUse, AtomEntry entry, SendOrPostCallback callback, object userData)
-            : base(uriToUse, userData, callback)
+            : this(service, uriToUse, entry, null, callback, userData, false)
         {
-            this.entry = entry;
-            this.Service = service; 
+        }
+
+        public AsyncSendData(Service service, AtomEntry entry, SendOrPostCallback callback, object userData)
+            : this(service, null, entry, null, callback, userData, false)
+        {
         }
 
         public AsyncSendData(Service service, Uri uriToUse, AtomFeed feed, SendOrPostCallback callback, object userData)
-            : base(uriToUse, userData, callback)
+            : this(service, uriToUse, null, feed, callback, userData, false)
         {
-            this.Feed = feed;
-            this.Service = service; 
         }
 
-
         public AsyncSendData(Service service, Uri uriToUse, Stream stream, GDataRequestType type,
-                             string contentType, string slugHeader, SendOrPostCallback callback, object userData)
-            : base(uriToUse, userData, callback)
+                            string contentType, string slugHeader, SendOrPostCallback callback, object userData, bool parseFeed)
+            : this(service, uriToUse, null, null, callback, userData, parseFeed)
         {
             this.DataStream = stream;
             this.type = type;
             this.contentType = contentType;
             this.slugHeader = slugHeader;
-            this.Service = service; 
         }
 
         public AtomEntry Entry
@@ -358,7 +363,7 @@ namespace Google.GData.Client
             {
                 return this.entry;
             }
-            set 
+            set
             {
                 this.entry = value;
             }
@@ -387,6 +392,7 @@ namespace Google.GData.Client
                 return this.type;
             }
         }
+
     }
 
     /// <summary>
@@ -397,16 +403,14 @@ namespace Google.GData.Client
         private DateTime ifModifiedDate;
         bool fParseFeed;
 
-
         public AsyncQueryData(Uri uri, DateTime timeStamp, bool doParse,
-                               AsyncOperation op, object userData, SendOrPostCallback callback) 
-                    : base(uri, op, userData, callback)
+                               AsyncOperation op, object userData, SendOrPostCallback callback)
+            : base(uri, op, userData, callback, doParse)
         {
             this.ifModifiedDate = timeStamp;
             this.fParseFeed = doParse;
         }
 
-        
         /// <summary>
         ///  the date for the ifModified timestamp
         /// </summary>
@@ -421,27 +425,8 @@ namespace Google.GData.Client
                 this.ifModifiedDate = value;
             }
         }
-
-        /// <summary>
-        /// indicates if the async operation should try to 
-        /// parse the server returned stream, or just return the stream
-        /// </summary>
-        /// <returns></returns>
-        public bool ParseFeed
-        {
-            get 
-            {
-                return this.fParseFeed;
-            }
-            set
-            {
-                this.fParseFeed = value;
-            }
-        }
-
-
     }
-   
+
     //////////////////////////////////////////////////////////////////////
     /// <summary>async functionallity of the Service implementation
     /// </summary> 
@@ -465,9 +450,9 @@ namespace Google.GData.Client
         private SendOrPostCallback onProgressReportDelegate;
         private SendOrPostCallback onCompletedDelegate;
         private SendOrPostCallback completionMethodDelegate;
-        
 
-        private HybridDictionary userStateToLifetime = 
+
+        private HybridDictionary userStateToLifetime =
                                     new HybridDictionary();
 
 
@@ -527,7 +512,7 @@ namespace Google.GData.Client
                 if (userStateToLifetime.Contains(userData))
                 {
                     throw new ArgumentException(
-                        "UserData parameter must be unique", 
+                        "UserData parameter must be unique",
                         "userData");
                 }
 
@@ -546,12 +531,6 @@ namespace Google.GData.Client
                 null);
         }
 
-
-
-
-
-
-
         /// <summary>
         ///  worker method for the query case
         /// </summary>
@@ -559,85 +538,96 @@ namespace Google.GData.Client
         /// <param name="asyncOp"></param>
         /// <param name="completionMethodDelegate"></param>
         /// <returns></returns>
-        private void AsyncQueryWorker(AsyncQueryData data, 
-                                      AsyncOperation asyncOp,
-                                      SendOrPostCallback completionMethodDelegate)
-
+        private void AsyncQueryWorker(AsyncQueryData data, AsyncOperation asyncOp, SendOrPostCallback completionMethodDelegate)
         {
-            Stream responseStream = null;
             try
             {
                 long contentLength;
-                responseStream = this.Query(data.UriToUse, data.Modified, null, out contentLength);
-                AtomFeed feed = null;
-                MemoryStream memStream = null;
-
-                if (responseStream != null)
+                using (var responseStream = Query(data.UriToUse, data.Modified, null, out contentLength))
                 {
-                    // read the stream into memory. That's the only way to satisfy the "main work
-                    // on the other thread requirement
-                    memStream = new MemoryStream();
-                    const int size = 4096;
-                    byte[] bytes = new byte[4096];
-
-                    int numBytes;
-
-                    double current = 0;
-                    long bytesWritten = 0;
-
-                    while ((numBytes = responseStream.Read(bytes, 0, size)) > 0)
-                    {
-                        memStream.Write(bytes, 0, numBytes);
-                        bytesWritten += numBytes;
-                        if (data != null && data.Delegate != null)
-                        {
-                            AsyncOperationProgressEventArgs args;
-                            if (contentLength > size)
-                            {
-                                current = (double)bytesWritten * 100 / (double)contentLength;
-                            }
-                            // see if we are still in the list...
-                            // Multiple threads will access the task dictionary,
-                            // so it must be locked to serialize access.
-                            lock (this.userStateToLifetime.SyncRoot)
-                            {
-                                if (userStateToLifetime.Contains(data.UserData) == false)
-                                {
-                                    throw new ArgumentException("Operation was cancelled");
-                                }
-                            }
-                            args = new AsyncOperationProgressEventArgs(contentLength, bytesWritten, (int)current, data.UserData);
-                            data.Operation.Post(data.Delegate, args);
-                        }
-                    }
-                    memStream.Seek(0, SeekOrigin.Begin);
+                    HandleResponseStream(data, responseStream, contentLength);
                 }
 
-                if (data.ParseFeed == true && responseStream != null)
-                {
-                    Tracing.TraceCall("Using Atom always.... ");
-                    feed = CreateFeed(data.UriToUse);
-
-                    feed.NewAtomEntry += new FeedParserEventHandler(this.OnParsedNewEntry);
-                    feed.NewExtensionElement += new ExtensionElementEventHandler(this.OnNewExtensionElement);
-                    feed.Parse(memStream, AlternativeFormat.Atom);
-                    memStream.Close();
-                    memStream = null;
-                }
-
-                data.Feed = feed;
-                data.DataStream = memStream;
             }
             catch (Exception e)
             {
                 data.Exception = e;
             }
-            finally
-            {
-                if (responseStream != null)
-                    responseStream.Close();
-            }
+
             completionMethodDelegate(data);
+        }
+
+        /// <summary>
+        /// handles the response stream
+        /// copies it into the memory stream, or parses it into a feed.
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="responseStream"></param>
+        /// <param name="contentLength"></param>
+        /// <returns></returns>
+        private void HandleResponseStream(AsyncData data, Stream responseStream, long contentLength)
+        {
+            if (data.ParseFeed)
+            {
+                Tracing.TraceCall("Using Atom always.... ");
+                data.Feed = CreateAndParseFeed(responseStream, data.UriToUse);
+                data.DataStream = null;
+            }
+            else
+            {
+                data.DataStream = CopyResponseToMemory(data, responseStream, contentLength);
+            }
+        }
+
+        private MemoryStream CopyResponseToMemory(AsyncData data, Stream responseStream, long contentLength)
+        {
+            MemoryStream memStream = null;
+            if (responseStream != null)
+            {
+                // read the stream into memory. That's the only way to satisfy the "main work
+                // on the other thread requirement
+                memStream = new MemoryStream();
+                const int size = 4096;
+                var bytes = new byte[size];
+
+                int numBytes;
+
+                double current = 0;
+                long bytesWritten = 0;
+
+                while ((numBytes = responseStream.Read(bytes, 0, size)) > 0)
+                {
+                    memStream.Write(bytes, 0, numBytes);
+                    if (data == null || data.Delegate == null)
+                    {
+                        continue;
+                    }
+                    bytesWritten += numBytes;
+
+                    if (contentLength > size)
+                    {
+                        current = bytesWritten * 100d / contentLength;
+                    }
+
+                    // see if we are still in the list...
+                    // Multiple threads will access the task dictionary,
+                    // so it must be locked to serialize access.
+                    lock (userStateToLifetime.SyncRoot)
+                    {
+                        if (userStateToLifetime.Contains(data.UserData) == false)
+                        {
+                            throw new ArgumentException("Operation was cancelled");
+                        }
+                    }
+
+                    var args = new AsyncOperationProgressEventArgs(contentLength, bytesWritten, (int)current, data.UserData);
+                    data.Operation.Post(data.Delegate, args);
+                }
+
+                memStream.Seek(0, SeekOrigin.Begin);
+            }
+
+            return memStream;
         }
 
         // This method is invoked via the AsyncOperation object,
@@ -665,7 +655,7 @@ namespace Google.GData.Client
             AsyncData data = operationState as AsyncData;
 
             AsyncOperation asyncOp = data.Operation;
-    
+
             AsyncOperationCompletedEventArgs args =
                          new AsyncOperationCompletedEventArgs(data);
 
@@ -682,12 +672,12 @@ namespace Google.GData.Client
                     this.userStateToLifetime.Remove(asyncOp.UserSuppliedState);
                 }
             }
-    
+
             // The asyncOp object is responsible for marshaling 
             // the call.
             if (asyncOp != null)
                 asyncOp.PostOperationCompleted(onCompletedDelegate, args);
-    
+
             // Note that after the call to OperationCompleted, 
             // asyncOp is no longer usable, and any attempt to use it
             // will cause an exception to be thrown.
@@ -746,11 +736,53 @@ namespace Google.GData.Client
         /// <param name="batchUri">the URI to user</param>
         /// <param name="userData">the userdata identifying this request</param>
         /// <returns></returns>
-        public void  BatchAsync(AtomFeed feed, Uri batchUri, Object userData) 
+        public void BatchAsync(AtomFeed feed, Uri batchUri, Object userData)
         {
-            AsyncSendData data = new AsyncSendData(this, batchUri, feed,this.onProgressReportDelegate, userData);
+            AsyncSendData data = new AsyncSendData(this, batchUri, feed, this.onProgressReportDelegate, userData);
             WorkerSendEventHandler workerDelegate = new WorkerSendEventHandler(AsyncBatchWorker);
             this.AsyncStarter(data, workerDelegate, userData);
+        }
+
+        /// <summary>
+        /// this is a helper function for to send binary data asyncronous to a resource
+        /// The async returned object will contain the output Feed
+        /// </summary>
+        /// <param name="targetUri"></param>
+        /// <param name="inputStream"></param>
+        /// <param name="type"></param>
+        /// <param name="contentType">the contenttype to use in the request, if NULL is passed, factory default is used</param>
+        /// <param name="slugHeader">the slugHeader to use in the request, if NULL is passed, factory default is used</param>
+        /// <param name="userData">a unique identifier to associate this request with</param>
+        /// <returns></returns>
+        public void StreamSendFeedAsync(Uri targetUri,
+                                 Stream inputStream,
+                                 GDataRequestType type,
+                                 string contentType,
+                                 string slugHeader,
+                                 object userData)
+        {
+            StreamSendAsync(targetUri, inputStream, type, contentType, slugHeader, userData, true);
+        }
+
+        /// <summary>
+        /// this is a helper function for to send binary data asyncronous to a resource
+        /// The async returned object will contain the output stream
+        /// </summary>
+        /// <param name="targetUri"></param>
+        /// <param name="inputStream"></param>
+        /// <param name="type"></param>
+        /// <param name="contentType">the contenttype to use in the request, if NULL is passed, factory default is used</param>
+        /// <param name="slugHeader">the slugHeader to use in the request, if NULL is passed, factory default is used</param>
+        /// <param name="userData">a unique identifier to associate this request with</param>
+        /// <returns></returns>
+        public void StreamSendStreamAsync(Uri targetUri,
+                                 Stream inputStream,
+                                 GDataRequestType type,
+                                 string contentType,
+                                 string slugHeader,
+                                 object userData)
+        {
+            StreamSendAsync(targetUri, inputStream, type, contentType, slugHeader, userData, false);
         }
 
         /// <summary>
@@ -762,21 +794,20 @@ namespace Google.GData.Client
         /// <param name="contentType">the contenttype to use in the request, if NULL is passed, factory default is used</param>
         /// <param name="slugHeader">the slugHeader to use in the request, if NULL is passed, factory default is used</param>
         /// <param name="userData">a unique identifier to associate this request with</param>
+        /// <param name="parseFeed">indicates if the async operation should try to parse the server returned stream, or just return the stream</param>
         /// <returns></returns>
-        public void StreamSendAsync(Uri targetUri, 
-                                 Stream inputStream, 
-                                 GDataRequestType type, 
+        private void StreamSendAsync(Uri targetUri,
+                                 Stream inputStream,
+                                 GDataRequestType type,
                                  string contentType,
                                  string slugHeader,
-                                 object userData)
+                                 object userData, bool parseFeed)
         {
-            AsyncSendData data = new AsyncSendData(this, targetUri, inputStream, type, contentType, slugHeader, 
-                                                   this.onProgressReportDelegate, userData);
+            AsyncSendData data = new AsyncSendData(this, targetUri, inputStream, type, contentType, slugHeader,
+                                                   this.onProgressReportDelegate, userData, parseFeed);
             WorkerSendEventHandler workerDelegate = new WorkerSendEventHandler(AsyncStreamSendWorker);
             this.AsyncStarter(data, workerDelegate, userData);
         }
-
-
 
         /// <summary>
         /// starts the async job for several send methods
@@ -798,7 +829,7 @@ namespace Google.GData.Client
                 if (userStateToLifetime.Contains(userData))
                 {
                     throw new ArgumentException(
-                        "UserData parameter must be unique", 
+                        "UserData parameter must be unique",
                         "userData");
                 }
 
@@ -822,15 +853,15 @@ namespace Google.GData.Client
         /// <param name="asyncOp"></param>
         /// <param name="completionMethodDelegate"></param>
         /// <returns></returns>
-        private void AsyncUpdateWorker(AsyncSendData data, 
+        private void AsyncUpdateWorker(AsyncSendData data,
                                       AsyncOperation asyncOp,
                                       SendOrPostCallback completionMethodDelegate)
-
         {
             try
             {
                 data.Entry = this.Update(data.Entry, data);
-            } catch (Exception e)
+            }
+            catch (Exception e)
             {
                 data.Exception = e;
             }
@@ -844,15 +875,15 @@ namespace Google.GData.Client
         /// <param name="asyncOp"></param>
         /// <param name="completionMethodDelegate"></param>
         /// <returns></returns>
-        private void AsyncInsertWorker(AsyncSendData data, 
+        private void AsyncInsertWorker(AsyncSendData data,
                                       AsyncOperation asyncOp,
                                       SendOrPostCallback completionMethodDelegate)
-
         {
             try
             {
                 data.Entry = this.Insert(data.UriToUse, data.Entry, data);
-            } catch (Exception e)
+            }
+            catch (Exception e)
             {
                 data.Exception = e;
             }
@@ -866,16 +897,16 @@ namespace Google.GData.Client
         /// <param name="asyncOp"></param>
         /// <param name="completionMethodDelegate"></param>
         /// <returns></returns>
-        private void AsyncBatchWorker(AsyncSendData data, 
+        private void AsyncBatchWorker(AsyncSendData data,
                                       AsyncOperation asyncOp,
                                       SendOrPostCallback completionMethodDelegate)
-
         {
             try
             {
-                data.Feed = this.Batch(data.Feed, data.UriToUse, data); 
+                data.Feed = this.Batch(data.Feed, data.UriToUse, data);
 
-            } catch (Exception e)
+            }
+            catch (Exception e)
             {
                 data.Exception = e;
             }
@@ -889,33 +920,33 @@ namespace Google.GData.Client
         /// <param name="asyncOp"></param>
         /// <param name="completionMethodDelegate"></param>
         /// <returns></returns>
-        private void AsyncStreamSendWorker(AsyncSendData data, 
-                                      AsyncOperation asyncOp,
-                                      SendOrPostCallback completionMethodDelegate)
-
+        private void AsyncStreamSendWorker(AsyncSendData data, AsyncOperation asyncOp, SendOrPostCallback completionMethodDelegate)
         {
             try
             {
-                data.DataStream = this.StreamSend(data.UriToUse, data.DataStream, data.Type,
-                                            data.ContentType, data.SlugHeader, null, data);
-
-            } catch (Exception e)
+                using (var responseStream = StreamSend(data.UriToUse, data.DataStream, data.Type, data.ContentType, data.SlugHeader, null, data))
+                {
+                    HandleResponseStream(data, responseStream, -1);
+                }
+            }
+            catch (Exception e)
             {
                 data.Exception = e;
             }
+
             completionMethodDelegate(data);
         }
 
         internal bool SendProgressData(AsyncData data, AsyncOperationProgressEventArgs args)
         {
-            bool ret = true; 
+            bool ret = true;
             // In this case, don't allow cancellation, as the method 
             // is about to raise the completed event.
             lock (this.userStateToLifetime.SyncRoot)
             {
                 if (userStateToLifetime.Contains(data.UserData) == false)
                 {
-                    ret = false; 
+                    ret = false;
                 }
             }
             if (ret == true)
@@ -951,17 +982,17 @@ namespace Google.GData.Client
                     AsyncData data = new AsyncData(null, userData, this.onProgressReportDelegate);
                     AsyncOperationCompletedEventArgs args =
                      new AsyncOperationCompletedEventArgs(data, true);
-        
+
                     asyncOp.PostOperationCompleted(this.onCompletedDelegate, args);
                 }
             }
         }
-        
+
         private void InitDelegates()
         {
             this.onProgressReportDelegate = new SendOrPostCallback(AsyncReportProgress);
             this.onCompletedDelegate = new SendOrPostCallback(OnAsyncCompleted);
-            this.completionMethodDelegate= new SendOrPostCallback(AsyncCompletionMethod);
+            this.completionMethodDelegate = new SendOrPostCallback(AsyncCompletionMethod);
         }
 
     }
