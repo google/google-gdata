@@ -54,7 +54,7 @@ namespace Google.GData.AccessControl
         /// </summary>
         /// <param name="initValue"></param>
         /// <param name="initName"></param>
-        public AclScope(string initValue, string initName) : base(GDataParserNameTable.XmlExtendedPropertyElement,
+        public AclScope(string initValue, string initName) : base(AclNameTable.XmlAclScopeElement,
                                          AclNameTable.gAclAlias,
                                          AclNameTable.gAclNamespace,
                                          initValue)
