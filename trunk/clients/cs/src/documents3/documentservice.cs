@@ -206,7 +206,12 @@ namespace Google.GData.Documents {
             {
                 throw new ArgumentNullException("e"); 
             }
-            e.Feed = new DocumentsFeed(e.Uri, e.Service);
+            if (e.Uri.AbsoluteUri.IndexOf("/acl") != -1)
+            {
+                e.Feed = new AclFeed(e.Uri, e.Service);
+            }
+            else
+                e.Feed = new DocumentsFeed(e.Uri, e.Service);
         }
         /////////////////////////////////////////////////////////////////////////////
     }

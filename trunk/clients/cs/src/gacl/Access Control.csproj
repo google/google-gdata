@@ -124,6 +124,7 @@
     </Compile>
     <Compile Include="aclentry.cs" />
     <Compile Include="aclfeed.cs" />
+    <Compile Include="aclmodel.cs" />
     <Compile Include="aclnamespace.cs" />
     <Compile Include="aclrole.cs" />
     <Compile Include="aclscope.cs" />
