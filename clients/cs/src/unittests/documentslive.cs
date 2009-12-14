@@ -22,6 +22,7 @@ using NUnit.Framework;
 using Google.GData.Client.UnitTests;
 using Google.GData.Documents;
 using Google.Documents;
+using Google.AccessControl;
 
 
 namespace Google.GData.Client.LiveTests
@@ -270,19 +271,29 @@ namespace Google.GData.Client.LiveTests
         /// <summary>
         /// tests to verify that an acl was detected
         /// </summary>
-        [Test] public void ModelTestACLs()
+        [Test]
+        public void ModelTestACLs()
         {
             RequestSettings settings = new RequestSettings(this.ApplicationName, this.userName, this.passWord);
             // settings.PageSize = 15;
             DocumentsRequest r = new DocumentsRequest(settings);
-        
+
             // this returns the server default answer
             Feed<Document> feed = r.GetDocuments();
 
-            foreach (Document x in feed.Entries )
+            foreach (Document x in feed.Entries)
             {
                 Assert.IsTrue(x != null, "We should have something");
                 Assert.IsNotNull(x.AccessControlList);
+
+                Feed<Acl> f = r.Get<Acl>(x.AccessControlList);
+                foreach (Acl a in f.Entries)
+                {
+                    Assert.IsNotNull(a.Role);
+                    Assert.IsNotNull(a.Scope);
+                    Assert.IsNotNull(a.Scope.Type);
+                    Assert.IsNotNull(a.Scope.Value);
+                }
             }
         }
 
