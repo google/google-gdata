@@ -522,7 +522,7 @@ namespace Google.GData.Client
                 throw new GDataRequestException("Invalid authentication handler URI given"); 
             }                         
 
-            return Utilities.QueryClientLoginToken(gc,
+            return Utilities.QueryClientLoginToken(gdc,
                                         this.factory.Service,
                                         this.factory.ApplicationName,
                                         this.factory.KeepAlive,
