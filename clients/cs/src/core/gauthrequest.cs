@@ -679,10 +679,9 @@ namespace Google.GData.Client
                         {
                             AsyncOperationProgressEventArgs args;
                             args = new AsyncOperationProgressEventArgs(this.requestCopy.Length, bytesWritten, (int)current, this.asyncData.UserData);
-
-                            if (this.asyncData.Service.SendProgressData(asyncData, args) == false)
-                                break;
                             current += oneLoop;
+                            if (this.asyncData.Service.SendProgressData(asyncData, args) == false)
+                                break;         
                         }
 #endif
                     }
