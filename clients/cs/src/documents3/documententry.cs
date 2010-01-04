@@ -451,8 +451,8 @@ namespace Google.GData.Documents {
         /// </summary>
         public WritersCanInvite()
         : base(DocumentslistNametable.WritersCanInvite, 
-               DocumentslistNametable.NSDocumentslist,
-               DocumentslistNametable.Prefix)
+               DocumentslistNametable.Prefix,
+               DocumentslistNametable.NSDocumentslist)
         {
         }
     }
