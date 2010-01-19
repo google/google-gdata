@@ -99,6 +99,7 @@
     <Reference Include="System">
       <Name>System</Name>
     </Reference>
+    <Reference Include="System.Data" />
     <Reference Include="System.Web">
       <Name>System.Web</Name>
     </Reference>
@@ -137,6 +138,7 @@
     <Compile Include="atomuri.cs" />
     <Compile Include="authexceptions.cs" />
     <Compile Include="authsubutil.cs" />
+    <Compile Include="asyncDataHandler.cs" />
     <Compile Include="basefeedparser.cs" />
     <Compile Include="basenametable.cs" />
     <Compile Include="collections.cs" />

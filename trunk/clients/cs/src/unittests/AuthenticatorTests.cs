@@ -81,7 +81,7 @@ namespace Google.GData.Client.LiveTests
             Tracing.TraceMsg("Entering ClientAuthenticatorTest");
 
             ClientLoginAuthenticator auth = new ClientLoginAuthenticator(this.ApplicationName,
-                DocumentsService.GDocumentsService,
+                ServiceNames.Documents,
                 this.userName,
                 this.passWord);
 

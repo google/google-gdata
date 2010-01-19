@@ -153,6 +153,29 @@ namespace Google.GData.Client
             this.stream = data;
         }
 
+
+        /// <summary>
+        /// tries to get a contenttype for a filename by using the classesRoot
+        /// in the registry. Will FAIL if that filetype is not registered with a
+        /// contenttype
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <returns>NULL or the registered contenttype</returns>
+        public static string GetContentTypeForFileName(string fileName)
+        {
+            string ext = System.IO.Path.GetExtension(fileName).ToLower();
+
+            using (Microsoft.Win32.RegistryKey registryKey = Microsoft.Win32.Registry.ClassesRoot.OpenSubKey(ext))
+            {
+                if (registryKey != null && registryKey.GetValue("Content Type") != null)
+                {
+                    return registryKey.GetValue("Content Type").ToString();
+                }
+            }
+            return null;
+        }        
+
+
         /// <summary>
         /// returns the content lenght of the file
         /// </summary>

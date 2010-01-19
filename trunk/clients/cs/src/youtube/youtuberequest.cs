@@ -814,6 +814,30 @@ namespace Google.YouTube
             }
         }
 
+        /// <summary>
+        /// boolean property shortcut to set the mediagroup/yt:private element. Setting this to true 
+        /// adds the element, if not already there (otherwise nothing happens)
+        /// setting this to false, removes it
+        /// </summary>
+        /// <returns></returns>
+        public bool Private
+        {
+            get
+            {
+                if (this.YouTubeEntry != null)
+                {
+                    return this.YouTubeEntry.Private;
+                }
+                return false;
+            }
+            set
+            {
+                EnsureInnerObject();
+                this.YouTubeEntry.Private = value;
+            }
+        }
+
+
 
 
         /// <summary>

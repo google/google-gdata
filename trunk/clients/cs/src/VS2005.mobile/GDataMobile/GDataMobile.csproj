@@ -72,6 +72,9 @@
     <Compile Include="..\..\core\AssemblyInfo.cs">
       <Link>AssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="..\..\core\asyncDataHandler.cs">
+      <Link>asyncDataHandler.cs</Link>
+    </Compile>
     <Compile Include="..\..\core\asyncservice.cs">
       <Link>asyncservice.cs</Link>
     </Compile>
@@ -182,9 +185,6 @@
     </Compile>
     <Compile Include="..\..\core\request.cs">
       <Link>request.cs</Link>
-    </Compile>
-    <Compile Include="..\..\core\resumableupload.cs">
-      <Link>resumableupload.cs</Link>
     </Compile>
     <Compile Include="..\..\core\rssfeedparser.cs">
       <Link>rssfeedparser.cs</Link>

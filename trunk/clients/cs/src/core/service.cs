@@ -121,10 +121,9 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         /// <summary>default constructor, sets the default GDataRequest</summary> 
         //////////////////////////////////////////////////////////////////////
-        public Service()
+        public Service() : base()
         {
             this.RequestFactory = new GDataRequestFactory(this.GetType().Name);
-            InitDelegates();
             InitVersionInformation();
         }
         /////////////////////////////////////////////////////////////////////////////
@@ -133,12 +132,11 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         /// <summary>default constructor, sets the default GDataRequest</summary> 
         //////////////////////////////////////////////////////////////////////
-        public Service(string applicationName)
+        public Service(string applicationName) : base()
         {
             this.RequestFactory = new GDataRequestFactory(applicationName == null ? 
                                                             this.GetType().Name : 
                                                             applicationName);
-            InitDelegates();
             InitVersionInformation();
         }
         /////////////////////////////////////////////////////////////////////////////
@@ -147,11 +145,10 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         /// <summary>this will trigger the creation of an authenticating service</summary> 
         //////////////////////////////////////////////////////////////////////
-        public Service(string service, string applicationName)
+        public Service(string service, string applicationName) : base()
         {
             this.RequestFactory = new GDataGAuthRequestFactory(service, applicationName);
             this.serviceID = service; 
-            InitDelegates();
             InitVersionInformation();
         }
         /////////////////////////////////////////////////////////////////////////////
