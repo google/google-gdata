@@ -57,7 +57,7 @@ namespace Google.GData.Client.LiveTests
         public override string ServiceName
         {
             get {
-                return YouTubeService.YTService; 
+                return ServiceNames.YouTube; 
             }
         }
 
@@ -1109,7 +1109,7 @@ namespace Google.GData.Client.LiveTests
         public override string ServiceName
         {
             get {
-                return YouTubeService.YTService; 
+                return ServiceNames.YouTube; 
             }
         }
 

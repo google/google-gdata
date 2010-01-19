@@ -41,10 +41,6 @@ namespace Google.GData.YouTube {
     //////////////////////////////////////////////////////////////////////
     public class YouTubeService : MediaService
     {
-       
-        /// <summary>The YouTubes service's name</summary> 
-        public const string YTService = "youtube";
-
         /// <summary>
         /// default category for YouTube
         /// </summary>
@@ -64,7 +60,7 @@ namespace Google.GData.YouTube {
         /// <param name="client">the client identifier</param>
         /// <param name="developerKey">the developerKey</param>/// 
         [Obsolete("The client id was removed from the YouTubeService, use the constructor without a clientid")]
-        public YouTubeService(string applicationName, string client, string developerKey) : base(YTService, applicationName)
+        public YouTubeService(string applicationName, string client, string developerKey) : base(ServiceNames.YouTube, applicationName)
         {
             if (developerKey == null)
             {
@@ -78,7 +74,7 @@ namespace Google.GData.YouTube {
 
 
         public YouTubeService(string applicationName, string developerKey)
-            : base(YTService, applicationName)
+            : base(ServiceNames.YouTube, applicationName)
         {
             if (developerKey == null)
             {
@@ -94,7 +90,7 @@ namespace Google.GData.YouTube {
         ///  readonly constructor 
         /// </summary>
         /// <param name="applicationName">the application identifier</param>
-        public YouTubeService(string applicationName) : base(YTService, applicationName)
+        public YouTubeService(string applicationName) : base(ServiceNames.YouTube, applicationName)
         {
             this.NewFeed += new ServiceEventHandler(this.OnNewFeed); 
             OnRequestFactoryChanged();

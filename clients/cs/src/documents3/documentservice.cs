@@ -43,10 +43,7 @@ namespace Google.GData.Documents {
     //////////////////////////////////////////////////////////////////////
     public class DocumentsService : Service
     {
-       
-        /// <summary>The Calendar service's name</summary> 
-        public const string GDocumentsService = "writely";
-
+ 
         /// <summary>
         /// the documents namespace
         /// </summary>
@@ -91,7 +88,7 @@ namespace Google.GData.Documents {
         ///  default constructor
         /// </summary>
         /// <param name="applicationName">the applicationname</param>
-        public DocumentsService(string applicationName) : base(GDocumentsService, applicationName)
+        public DocumentsService(string applicationName) : base(ServiceNames.Documents, applicationName)
         {
             this.NewFeed += new ServiceEventHandler(this.OnNewFeed); 
         }

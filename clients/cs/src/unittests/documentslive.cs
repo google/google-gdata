@@ -222,8 +222,6 @@ namespace Google.GData.Client.LiveTests
             // this returns the server default answer
             Feed<Document> feed = r.GetDocuments();
 
-            Document d = null; 
-
             foreach (Document x in feed.Entries )
             {
                 Assert.IsTrue(x != null, "We should have something");

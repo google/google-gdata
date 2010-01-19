@@ -675,12 +675,12 @@ namespace Google.GData.Client
 #else
                         bytesWritten += numBytes;
                         if (this.asyncData != null && this.asyncData.Delegate != null &&
-                            this.asyncData.Service != null)
+                            this.asyncData.DataHandler != null)
                         {
                             AsyncOperationProgressEventArgs args;
                             args = new AsyncOperationProgressEventArgs(this.requestCopy.Length, bytesWritten, (int)current, this.asyncData.UserData);
                             current += oneLoop;
-                            if (this.asyncData.Service.SendProgressData(asyncData, args) == false)
+                            if (this.asyncData.DataHandler.SendProgressData(asyncData, args) == false)
                                 break;         
                         }
 #endif

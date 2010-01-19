@@ -26,7 +26,17 @@ using System.Security.Cryptography;
 
 
 namespace Google.GData.Client
-{   
+{
+
+    /// <summary>
+    ///  this is the static collection of all google service names
+    /// </summary>
+    public static class ServiceNames
+    {
+        public static string YouTube = "youtube";
+        public static string Calendar = "cl";
+        public static string Documents = "writely";
+    }
 
     /// <summary>
     /// Base authentication class. Takes credentials and applicationname
@@ -37,6 +47,7 @@ namespace Google.GData.Client
     public abstract class Authenticator
     {
         private string applicationName;
+        private string developerKey;
             
         /// <summary>
         /// an unauthenticated use case
@@ -84,6 +95,22 @@ namespace Google.GData.Client
             }
         }
 
+        /// <summary>
+        /// primarily for YouTube. allows you to set the developer key used
+        /// </summary>
+        public string DeveloperKey
+        {
+            get
+            {
+                return this.developerKey;
+            }
+            set
+            {
+                this.developerKey = value;
+            }
+        }
+           
+
   
         /// <summary>
         /// Takes an existing httpwebrequest and modifies it's headers according to 
@@ -91,7 +118,15 @@ namespace Google.GData.Client
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public abstract void ApplyAuthenticationToRequest(HttpWebRequest request);
+        public virtual void ApplyAuthenticationToRequest(HttpWebRequest request)
+        {
+            /// adds the developer key if present
+            if (this.DeveloperKey != null)
+            {
+                string strHeader = GoogleAuthentication.YouTubeDevKey + this.DeveloperKey;
+                request.Headers.Add(strHeader);
+            }
+        }
 
         /// <summary>
         /// Takes an existing httpwebrequest and modifies it's uri according to 
@@ -201,6 +236,7 @@ namespace Google.GData.Client
         /// <returns></returns>
         public override void ApplyAuthenticationToRequest(HttpWebRequest request)
         {
+            base.ApplyAuthenticationToRequest(request);
             EnsureClientLoginCredentials(request);
             if (!String.IsNullOrEmpty(this.Credentials.ClientToken))
             {
@@ -290,6 +326,8 @@ namespace Google.GData.Client
         /// <returns></returns>
         public override void ApplyAuthenticationToRequest(HttpWebRequest request)
         {
+            base.ApplyAuthenticationToRequest(request);
+         
             string header = AuthSubUtil.formAuthorizationHeader(this.Token, 
                                                                this.PrivateKey, 
                                                                request.RequestUri,
@@ -397,6 +435,8 @@ namespace Google.GData.Client
         /// <returns></returns>
         public override void ApplyAuthenticationToRequest(HttpWebRequest request)
         {
+            base.ApplyAuthenticationToRequest(request);
+         
             string oauthHeader = OAuthUtil.GenerateHeader(request.RequestUri, 
                                                             this.ConsumerKey, 
                                                             this.ConsumerSecret, 
@@ -482,6 +522,8 @@ namespace Google.GData.Client
         /// <returns></returns>
         public override void ApplyAuthenticationToRequest(HttpWebRequest request)
         {
+            base.ApplyAuthenticationToRequest(request);
+         
             string oauthHeader = OAuthUtil.GenerateHeader(request.RequestUri, 
                                                             this.ConsumerKey, 
                                                             this.ConsumerSecret, 

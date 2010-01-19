@@ -619,9 +619,6 @@
             subscriptions, contacts and other account-specific entities.
             </summary>
         </member>
-        <member name="F:Google.GData.YouTube.YouTubeService.YTService">
-            <summary>The YouTubes service's name</summary> 
-        </member>
         <member name="F:Google.GData.YouTube.YouTubeService.DefaultCategory">
             <summary>
             default category for YouTube
@@ -2233,6 +2230,14 @@
             <summary>
             returns the complaint Uri, to post a comlaint to.
             </summary>
+        </member>
+        <member name="P:Google.YouTube.Video.Private">
+            <summary>
+            boolean property shortcut to set the mediagroup/yt:private element. Setting this to true 
+            adds the element, if not already there (otherwise nothing happens)
+            setting this to false, removes it
+            </summary>
+            <returns></returns>
         </member>
         <member name="P:Google.YouTube.Video.Status">
             <summary>

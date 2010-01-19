@@ -150,6 +150,8 @@ namespace Google.GData.Documents {
         public DocumentEntry()
         : base()
         {
+            this.ProtocolMajor = VersionDefaults.VersionThree;
+    
             Tracing.TraceMsg("Created DocumentEntry");
             this.AddExtension(new FeedLink());
             this.AddExtension(new ResourceId());
