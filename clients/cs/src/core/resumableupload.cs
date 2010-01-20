@@ -208,7 +208,7 @@ namespace Google.GData.Client.ResumableUpload
             return UploadStream(HttpMethods.Post, resumeUri,  authentication, payload.MediaSource.Data, payload.MediaSource.ContentType, data);
         }
 
-        public WebResponse Insert(Authenticator authentication, Uri resumableUploadUri, Stream payload, string contentType, string slug, AsyncData data)
+        private WebResponse Insert(Authenticator authentication, Uri resumableUploadUri, Stream payload, string contentType, string slug, AsyncData data)
         {
             Uri resumeUri = InitiateUpload(resumableUploadUri, authentication, contentType, slug);
             return UploadStream(HttpMethods.Post, resumeUri, authentication, payload, contentType, data);
