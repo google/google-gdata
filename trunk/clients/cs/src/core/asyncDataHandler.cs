@@ -72,9 +72,7 @@ namespace Google.GData.Client
     {
         private AtomFeed feedObject;
         private Stream stream;
-        private Uri uri;
         private AtomEntry entryObject;
-
 
         /// <summary>
         /// constructor. takes the async data blob
@@ -83,15 +81,15 @@ namespace Google.GData.Client
         internal AsyncOperationCompletedEventArgs(AsyncData data)
             : base(data.Exception, false, data.UserData)
         {
-            uri = data.UriToUse;
             feedObject = data.Feed;
             stream = data.DataStream;
-
+  
             AsyncSendData sData = data as AsyncSendData;
             if (sData != null)
             {
                 entryObject = sData.Entry;
             }
+
         }
 
         internal AsyncOperationCompletedEventArgs(AsyncData data, bool cancelled)
@@ -131,16 +129,6 @@ namespace Google.GData.Client
         }
         ////////////////////////////////////////////////////////////////////////
 
-
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>the Uri to be used</summary> 
-        /// <returns> </returns>
-        //////////////////////////////////////////////////////////////////////
-        public Uri Uri
-        {
-            get { return this.uri; }
-        }
-        ////////////////////////////////////////////////////////////////////////
     }
     /// <summary>Delegate declaration for the feed creation in a service</summary> 
     public delegate void AsyncOperationCompletedEventHandler(object sender, AsyncOperationCompletedEventArgs e);
@@ -153,6 +141,9 @@ namespace Google.GData.Client
     {
         private long completeSize;
         private long currentPosition;
+        private Uri uri;
+        private string httpVerb;
+
 
         /// <summary>
         /// constructor. Takes the URI and the service this event applies to
@@ -162,11 +153,15 @@ namespace Google.GData.Client
         /// <param name="percentage">progress percentage</param>
         /// <param name="userData">The userdata identifying the request</param>
         public AsyncOperationProgressEventArgs(long completeSize, long currentPosition, int percentage,
+                                     Uri targetUri, string httpVerb, 
                                      object userData)
             : base(percentage, userData)
         {
             this.completeSize = completeSize;
             this.currentPosition = currentPosition;
+            this.uri = targetUri;
+            this.httpVerb = httpVerb;
+
         }
 
         //////////////////////////////////////////////////////////////////////
@@ -189,6 +184,24 @@ namespace Google.GData.Client
         }
         ////////////////////////////////////////////////////////////////////////
 
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>the Uri that was used</summary> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        public Uri Uri
+        {
+            get { return this.uri; }
+        }
+        ////////////////////////////////////////////////////////////////////////
+
+        /// <summary>
+        /// returns the http verb that is executed
+        /// </summary>
+        public string HttpVerb
+        {
+            get { return this.httpVerb; }
+        }
+
     }
 
 
@@ -200,6 +213,7 @@ namespace Google.GData.Client
     {
         private Uri uriToUse;
         private object userData;
+        private string httpVerb;
         private AsyncOperation op;
         private Exception e;
         private AtomFeed feed;
@@ -240,6 +254,19 @@ namespace Google.GData.Client
                 this.uriToUse = value;
             }
         }
+
+        public string HttpVerb
+        {
+            get
+            {
+                return this.httpVerb;
+            }
+            set
+            {
+                this.httpVerb = value;
+            }
+        }
+
 
         public AsyncDataHandler DataHandler
         {
@@ -592,7 +619,10 @@ namespace Google.GData.Client
                         throw new ArgumentException("Operation was cancelled");
                     }
 
-                    var args = new AsyncOperationProgressEventArgs(contentLength, bytesWritten, (int)current, data.UserData);
+                    var args = new AsyncOperationProgressEventArgs(contentLength, bytesWritten, (int)current, 
+                        data.UriToUse,
+                        data.HttpVerb,
+                        data.UserData);
                     data.Operation.Post(data.Delegate, args);
                 }
 

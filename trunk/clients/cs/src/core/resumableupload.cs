@@ -43,14 +43,15 @@ namespace Google.GData.Client.ResumableUpload
         private string contentType;
         private AbstractEntry entry;
         private string slug;
-
+ 
 
         public AsyncResumableUploadData(AsyncDataHandler handler,
                                         Authenticator authenticator,
                                         Uri uriToUse,
                                         Stream payload,
-                                        String contentType,
-                                        String slug,
+                                        string contentType,
+                                        string slug,
+                                        string httpMethod,
                                         SendOrPostCallback callback,
                                         object userData)
             : base(uriToUse, null, userData, callback)
@@ -60,11 +61,13 @@ namespace Google.GData.Client.ResumableUpload
             this.contentType = contentType;
             this.DataStream = payload;
             this.slug = slug;
+            this.HttpVerb = httpMethod;
         }
 
         public AsyncResumableUploadData(AsyncDataHandler handler,
                                                 Authenticator authenticator,
                                                 AbstractEntry payload,
+                                                string httpMethod,
                                                 SendOrPostCallback callback,
                                                 object userData)
             : base(null, null, userData, callback)
@@ -72,6 +75,7 @@ namespace Google.GData.Client.ResumableUpload
             this.DataHandler = handler;
             this.authenticator = authenticator;
             this.entry = payload;
+            this.HttpVerb = httpMethod;
         }
 
 
@@ -129,10 +133,10 @@ namespace Google.GData.Client.ResumableUpload
 
 
         /// <summary>
-        /// Default constructor. Uses the default chunksize of one megabyte
+        /// Default constructor. Uses the default chunksize of 25 megabyte
         /// </summary>
         /// <returns></returns>
-        public ResumableUploader() : this(1)
+        public ResumableUploader() : this(25)
         {
         }
 
@@ -222,6 +226,7 @@ namespace Google.GData.Client.ResumableUpload
                                                 payload, 
                                                 contentType,
                                                 slug,
+                                                HttpMethods.Post,
                                                 this.ProgressReportDelegate, 
                                                 userData);
             WorkerResumableUploadHandler workerDelegate = new WorkerResumableUploadHandler(AsyncInsertWorker);
@@ -233,6 +238,7 @@ namespace Google.GData.Client.ResumableUpload
             AsyncResumableUploadData data = new AsyncResumableUploadData(this,
                                                 authentication,
                                                 payload,
+                                                HttpMethods.Post,
                                                 this.ProgressReportDelegate,
                                                 userData);
             WorkerResumableUploadHandler workerDelegate = new WorkerResumableUploadHandler(AsyncInsertWorker);
@@ -324,6 +330,7 @@ namespace Google.GData.Client.ResumableUpload
                                                 payload,
                                                 contentType,
                                                 null,
+                                                HttpMethods.Put,
                                                 this.ProgressReportDelegate,
                                                 userData);
             WorkerResumableUploadHandler workerDelegate = new WorkerResumableUploadHandler(AsyncUpdateWorker);
@@ -335,11 +342,66 @@ namespace Google.GData.Client.ResumableUpload
             AsyncResumableUploadData data = new AsyncResumableUploadData(this,
                                                 authentication,
                                                 payload,
+                                                HttpMethods.Put,
                                                 this.ProgressReportDelegate,
                                                 userData);
             WorkerResumableUploadHandler workerDelegate = new WorkerResumableUploadHandler(AsyncUpdateWorker);
             this.AsyncStarter(data, workerDelegate, userData);
         }
+
+        public WebResponse Resume(Authenticator authentication, Uri resumeUri, String httpMethod, Stream payload, string contentType)
+        {
+            return Resume(authentication, resumeUri, httpMethod, payload, contentType, null);
+        }
+
+        public void ResumeAsync(Authenticator authentication, Uri resumeUri, String httpmethod, Stream payload, string contentType, object userData)
+        {
+            AsyncResumableUploadData data = new AsyncResumableUploadData(this,
+                                                authentication,
+                                                resumeUri,
+                                                payload,
+                                                contentType,
+                                                null,
+                                                httpmethod,
+                                                this.ProgressReportDelegate,
+                                                userData);
+            WorkerResumableUploadHandler workerDelegate = new WorkerResumableUploadHandler(AsyncResumeWorker);
+            this.AsyncStarter(data, workerDelegate, userData);
+        }
+
+        private WebResponse Resume(Authenticator authentication, Uri resumeUri, 
+                                    String httpmethod, Stream payload, string contentType,
+                                    AsyncData data)
+        {
+            return UploadStream(httpmethod, resumeUri, authentication, payload, contentType, data);
+        }
+
+        /// <summary>
+        ///  worker method for the the resume
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="asyncOp"></param>
+        /// <param name="completionMethodDelegate"></param>
+        /// <returns></returns>
+        private void AsyncResumeWorker(AsyncResumableUploadData data, AsyncOperation asyncOp, SendOrPostCallback completionMethodDelegate)
+        {
+            try
+            {
+
+                using (var response = Resume(data.Authentication, data.UriToUse, data.HttpVerb, data.DataStream, data.ContentType, data))
+                {
+                    HandleResponseStream(data, response.GetResponseStream(), -1);
+                }
+            }
+            catch (Exception e)
+            {
+                data.Exception = e;
+            }
+
+            this.CompletionMethodDelegate(data);
+        }
+
+
 
 
         /// <summary>
@@ -392,31 +454,59 @@ namespace Google.GData.Client.ResumableUpload
             // upload one part at a time
             int index = 0;
             bool isDone = false;
+
+
+            // if the passed in stream is NOT at the beginning, we assume
+            // that we are resuming
+            try
+            {
+                // calculate a new index, we will resume in chunk sizes
+                if (payload.Position != 0)
+                {
+                    index = (int)((double)payload.Position / (this.chunkSize * ResumableUploader.MB));
+                }
+            }
+            catch (System.NotSupportedException e)
+            {
+                index = 0;
+            }
   
             do
             {
-
-                using (HttpWebResponse response = UploadStreamPart(index, httpMethod, sessionUri, authentication, payload, mediaType, data))
+                HttpWebResponse response;
+                try
                 {
-                    int status = (int)response.StatusCode;
-                    switch (status)
+                    response = UploadStreamPart(index, httpMethod, sessionUri, authentication, payload, mediaType, data);
+                    if (data != null && CheckIfOperationIsCancelled(data.UserData) == true)
                     {
+                        break;
+                    }
+              
+                    index++;
+                    {
+                        int status = (int)response.StatusCode;
+                        switch (status)
+                        {
 
-                        case 308:
-                            isDone = false;
-                            break;
-                        case 200:
-                        case 201:
-                            isDone = true;
-                            returnResponse = response;
-                            break;
-                        default:
-                            throw new ApplicationException("Unexpected return code during resumable upload");
+                            case 308:
+                                isDone = false;
+                                break;
+                            case 200:
+                            case 201:
+                                isDone = true;
+                                returnResponse = response;
+                                break;
+                            default:
+                                throw new ApplicationException("Unexpected return code during resumable upload");
+
+                        }
 
                     }
-
                 }
-                index++;
+                finally 
+                {
+                    response = null;
+                }
             } while (isDone == false);
             return returnResponse;
         }
@@ -426,6 +516,8 @@ namespace Google.GData.Client.ResumableUpload
                                     AsyncData data)
         {
             HttpWebRequest request = authentication.CreateHttpWebRequest(httpMethod, sessionUri);
+            request.AllowWriteStreamBuffering = false;
+            request.Timeout = 600000;
 
             // write the data
             request.ContentType = mediaType;
@@ -499,22 +591,35 @@ namespace Google.GData.Client.ResumableUpload
                     req.Write(bytes, 0, numBytes);
                     chunkCounter += numBytes;
 
+            
+                    // while we are writing along, send notifications out
+                    if (data != null)
+                    {
+                        if (CheckIfOperationIsCancelled(data.UserData) == true)
+                        {
+                            break;
+                        }
+                        else if (data.Delegate != null &&
+                            data.DataHandler != null)
+                        {
+                            AsyncOperationProgressEventArgs args;
+                            int current = (int)((double)(chunkStart + chunkCounter - 1) / dataLength * 100);
+
+                            args = new AsyncOperationProgressEventArgs(dataLength, (chunkStart + chunkCounter - 1),
+                                (int)current,
+                                request.RequestUri,
+                                request.Method,
+                                data.UserData);
+                            data.DataHandler.SendProgressData(data, args);
+                        }
+                    }
+
                     if (chunkCounter >= request.ContentLength)
                         break;
+
                 }
             }
 
-            if (data != null && data.Delegate != null &&
-                            data.DataHandler != null)
-            {
-                AsyncOperationProgressEventArgs args;
-                int current = (int) ((double)(chunkStart + chunkCounter -1)/dataLength*100);
-
-                args = new AsyncOperationProgressEventArgs(dataLength, (chunkStart + chunkCounter -1), (int)current, data.UserData);
-                data.DataHandler.SendProgressData(data, args);
-            }
-
-         
             return chunkCounter < (this.chunkSize * ResumableUploader.MB);
     
         }
