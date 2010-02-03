@@ -169,10 +169,11 @@ namespace Google.GData.Client
         public const string DefaultContentType = "application/atom+xml; charset=UTF-8";
         /// <summary>holds the user-agent</summary> 
         private string userAgent;
-        private List<string> customHeaders;     // holds any custom headers to set
+        private List<string> customHeaders;         // holds any custom headers to set
         private IWebProxy webProxy;                  // holds an iwebproxy interface
         private bool keepAlive;                     // indicates wether or not to keep the connection alive
         private bool useGZip;
+        private bool useSSL;                        // indicate is https should be used
         private string contentType = DefaultContentType;
         private string slugHeader;
         // set to default by default
@@ -322,8 +323,20 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         public bool KeepAlive
         {
-            get {return this.keepAlive;}
-            set {this.keepAlive = value;}
+            get { return this.keepAlive; }
+            set { this.keepAlive = value; }
+        }
+        /////////////////////////////////////////////////////////////////////////////
+ 
+        /////////////////////////////////////////////////////////////////////
+        /// <summary>indicates if the connection should use https
+        /// is true</summary> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        public bool UseSSL
+        {
+            get { return this.useSSL; }
+            set { this.useSSL = value; }
         }
         /////////////////////////////////////////////////////////////////////////////
 
@@ -612,6 +625,11 @@ namespace Google.GData.Client
         {
             if (this.webRequest == null && this.targetUri != null)
             {
+                if (this.factory.UseSSL == true && (this.targetUri.Scheme.ToLower().Equals("https") == false))
+                {
+                    this.targetUri = new Uri("https://" + this.targetUri.Host + this.targetUri.PathAndQuery);
+                }
+
                 this.webRequest = WebRequest.Create(this.targetUri);
 
                 this.webResponse = null; 

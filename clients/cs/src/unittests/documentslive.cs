@@ -213,6 +213,30 @@ namespace Google.GData.Client.LiveTests
         /// <summary>
         /// tests document download
         /// </summary>
+        [Test]
+        public void ModelTestSSL()
+        {
+            RequestSettings settings = new RequestSettings(this.ApplicationName, this.userName, this.passWord);
+            settings.AutoPaging = true;
+            settings.UseSSL = true;
+            DocumentsRequest r = new DocumentsRequest(settings);
+
+            // this returns the server default answer
+            Feed<Document> feed = r.GetDocuments();
+
+            foreach (Document x in feed.Entries)
+            {
+                Assert.IsTrue(x != null, "We should have something");
+
+                Stream ret = r.Download(x, Document.DownloadType.pdf);
+                ret.Close();
+            }
+        }
+
+
+        /// <summary>
+        /// tests document download
+        /// </summary>
         [Test] public void ModelTestDocumentDownload()
         {
             RequestSettings settings = new RequestSettings(this.ApplicationName, this.userName, this.passWord);

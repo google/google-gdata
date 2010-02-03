@@ -186,6 +186,8 @@ namespace Google.GData.Client
             }
         }
 
+       
+
         /// <summary>
         /// returns the minor protocol version number this element 
         /// is working against. 
