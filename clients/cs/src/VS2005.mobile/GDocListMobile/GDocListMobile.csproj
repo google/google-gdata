@@ -73,6 +73,9 @@
     <Compile Include="..\..\..\version\AssemblyVersion.cs">
       <Link>AssemblyVersion.cs</Link>
     </Compile>
+    <Compile Include="..\..\documents3\AssemblyInfo.cs">
+      <Link>AssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="..\..\documents3\docrequest.cs">
       <Link>docrequest.cs</Link>
     </Compile>
@@ -87,9 +90,6 @@
     </Compile>
     <Compile Include="..\..\documents3\documentservice.cs">
       <Link>documentservice.cs</Link>
-    </Compile>
-    <Compile Include="..\..\gdocuments\AssemblyInfo.cs">
-      <Link>AssemblyInfo.cs</Link>
     </Compile>
   </ItemGroup>
   <ItemGroup>

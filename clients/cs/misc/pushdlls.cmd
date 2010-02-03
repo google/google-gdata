@@ -18,7 +18,7 @@ xcopy /y ..\src\gcodesearch\bin\Release\*.dll ..\lib\Release\*.*
 xcopy /y ..\src\gapps\bin\Release\*.dll ..\lib\Release\*.*
 xcopy /y ..\src\gacl\bin\Release\*.dll ..\lib\Release\*.*
 xcopy /y ..\src\gphotos\bin\Release\*.dll ..\lib\Release\*.*
-xcopy /y ..\src\gdocuments\bin\Release\*.dll ..\lib\Release\*.*
+xcopy /y ..\src\documents3\bin\Release\*.dll ..\lib\Release\*.*
 xcopy /y ..\src\gcontacts\bin\Release\*.dll ..\lib\Release\*.*
 xcopy /y ..\src\youtube\bin\Release\*.dll ..\lib\Release\*.*
 xcopy /y ..\src\ghealth\bin\Release\*.dll ..\lib\Release\*.*
@@ -35,7 +35,7 @@ xcopy /y ..\src\gcodesearch\bin\Debug\*.dll ..\lib\Debug\*.*
 xcopy /y ..\src\gapps\bin\Debug\*.dll ..\lib\Debug\*.*
 xcopy /y ..\src\gacl\bin\Debug\*.dll ..\lib\Debug\*.*
 xcopy /y ..\src\gphotos\bin\Debug\*.dll ..\lib\Debug\*.*
-xcopy /y ..\src\gdocuments\bin\Debug\*.dll ..\lib\Debug\*.*
+xcopy /y ..\src\documents3\bin\Debug\*.dll ..\lib\Debug\*.*
 xcopy /y ..\src\gcontacts\bin\Debug\*.dll ..\lib\Debug\*.*
 xcopy /y ..\src\youtube\bin\Debug\*.dll ..\lib\Debug\*.*
 xcopy /y ..\src\ghealth\bin\Debug\*.dll ..\lib\Debug\*.*
