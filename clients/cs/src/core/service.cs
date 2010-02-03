@@ -739,7 +739,13 @@ namespace Google.GData.Client
         }
 
 
-        private AtomFeed CreateAndParseFeed(Stream inputStream, Uri uriToUse)
+        /// <summary>
+        /// used to create a feed based on a stream
+        /// </summary>
+        /// <param name="inputStream"></param>
+        /// <param name="uriToUse"></param>
+        /// <returns></returns>
+        internal AtomFeed CreateAndParseFeed(Stream inputStream, Uri uriToUse)
         {
             AtomFeed returnFeed = null;
 

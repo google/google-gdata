@@ -2484,6 +2484,14 @@
             <param name="list">a list of activities</param>
             <returns>a video feed, with no entries, if there were no video related activities</returns>
         </member>
+        <member name="M:Google.YouTube.YouTubeRequest.ParseVideo(System.IO.Stream)">
+            <summary>
+            returns a single Video (the first) from that stream. Usefull to parse insert/update 
+            response streams
+            </summary>
+            <param name="inputStream"></param>
+            <returns></returns>
+        </member>
         <member name="T:Google.GData.YouTube.PlaylistsEntry">
             <summary>
             Entry API customization class for defining entries in an Playlist feed.

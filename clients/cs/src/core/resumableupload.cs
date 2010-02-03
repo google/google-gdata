@@ -209,12 +209,16 @@ namespace Google.GData.Client.ResumableUpload
                 throw new ArgumentException("payload did not contain a resumabled create media Uri");
 
             Uri resumeUri = InitiateUpload(initialUri, authentication, payload);
-            return UploadStream(HttpMethods.Post, resumeUri,  authentication, payload.MediaSource.Data, payload.MediaSource.ContentType, data);
+            return UploadStream(HttpMethods.Post, resumeUri,  authentication, 
+                                payload.MediaSource.Data, 
+                                payload.MediaSource.ContentType, data);
         }
 
-        private WebResponse Insert(Authenticator authentication, Uri resumableUploadUri, Stream payload, string contentType, string slug, AsyncData data)
+        private WebResponse Insert(Authenticator authentication, Uri resumableUploadUri, 
+                                Stream payload, string contentType, string slug, AsyncData data)
         {
-            Uri resumeUri = InitiateUpload(resumableUploadUri, authentication, contentType, slug);
+
+            Uri resumeUri = InitiateUpload(resumableUploadUri, authentication, contentType, null, GetStreamLength(payload));
             return UploadStream(HttpMethods.Post, resumeUri, authentication, payload, contentType, data);
         }
 
@@ -318,7 +322,7 @@ namespace Google.GData.Client.ResumableUpload
 
         private WebResponse Update(Authenticator authentication, Uri resumableUploadUri, Stream payload, string contentType, AsyncData data)
         {
-            Uri resumeUri = InitiateUpload(resumableUploadUri, authentication, contentType, null);
+            Uri resumeUri = InitiateUpload(resumableUploadUri, authentication, contentType, null, GetStreamLength(payload));
             return UploadStream(HttpMethods.Put, resumeUri, authentication, payload, contentType, data);
         }
         
@@ -528,6 +532,23 @@ namespace Google.GData.Client.ResumableUpload
             return response;
         }
 
+        private long GetStreamLength(Stream s)
+        {
+            long result;
+            
+            try
+            {
+                result = s.Length;
+            }
+            catch (NotSupportedException e)
+            {
+                result = -1;
+            }
+
+            return result;
+
+        }
+
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>takes our copy of the stream, and puts it into the request stream
@@ -539,16 +560,10 @@ namespace Google.GData.Client.ResumableUpload
             long chunkCounter = 0;
             long chunkStart = partIndex * this.chunkSize * ResumableUploader.MB;
             long dataLength;
-            
-            try
-            {
-                dataLength = input.Length;
-            }
-            catch (NotSupportedException e)
-            {
-                dataLength = -1;
-            }
 
+            dataLength = GetStreamLength(input);
+
+            
             // calculate the range
             // move the source stream to the correct position
             input.Seek(chunkStart, SeekOrigin.Begin);
@@ -633,13 +648,14 @@ namespace Google.GData.Client.ResumableUpload
         /// <param name="authentication"></param>
         /// <param name="entry"></param>
         /// <returns>The uri to be used for the rest of the operation</returns>
-        private Uri InitiateUpload(Uri resumableUploadUri, Authenticator authentication, string contentType, string slug)
+        private Uri InitiateUpload(Uri resumableUploadUri, Authenticator authentication, string contentType, string slug, long contentLength)
         {
             this.authenticator = authentication;
 
-            HttpWebRequest request = this.authenticator.CreateHttpWebRequest(HttpMethods.Post, resumableUploadUri);
-            request.Headers.Add(GDataRequestFactory.SlugHeader + ": " + slug);
-            // request.ContentType = contentType;
+            HttpWebRequest request = PrepareRequest(resumableUploadUri, 
+                                                    slug, 
+                                                    contentType, 
+                                                    contentLength);
 
             WebResponse response = request.GetResponse();
             return new Uri(response.Headers["Location"]);
@@ -658,9 +674,11 @@ namespace Google.GData.Client.ResumableUpload
         {
             this.authenticator = authentication;
 
-            HttpWebRequest request = this.authenticator.CreateHttpWebRequest(HttpMethods.Post, resumableUploadUri);
-            request.Headers.Add(GDataRequestFactory.SlugHeader + ": " + entry.MediaSource.Name);
-            
+            HttpWebRequest request = PrepareRequest(resumableUploadUri,
+                                                    entry.MediaSource.Name,
+                                                    entry.MediaSource.ContentType,
+                                                    entry.MediaSource.ContentLength);
+
             IVersionAware v = entry as IVersionAware;
             if (v != null)
             {
@@ -676,6 +694,20 @@ namespace Google.GData.Client.ResumableUpload
 
             WebResponse response = request.GetResponse();
             return new Uri(response.Headers["Location"]);
+        }
+
+        private HttpWebRequest PrepareRequest(Uri target, string slug, string contentType, long contentLength)
+        {
+            HttpWebRequest request = this.authenticator.CreateHttpWebRequest(HttpMethods.Post, target);
+            request.Headers.Add(GDataRequestFactory.SlugHeader + ": " + slug);
+            request.Headers.Add(GDataRequestFactory.ContentOverrideHeader + ": " + contentType);
+            if (contentLength != -1)
+            {
+                request.Headers.Add(GDataRequestFactory.ContentLengthOverrideHeader + ": " + contentLength);
+            }
+
+            return request;
+        
         }
 
 
