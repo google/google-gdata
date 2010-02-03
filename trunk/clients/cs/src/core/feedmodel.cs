@@ -675,7 +675,7 @@ namespace Google.GData.Client
         private string tokenSecret;
         private AsymmetricAlgorithm privateKey;
         private Uri clientLoginHandler;
-           
+        private bool useSSL;
       
 
         /// <summary>
@@ -1023,6 +1023,31 @@ namespace Google.GData.Client
                 this.timeout = value;
             }
         }
+        
+        
+        /// <summary>get's and set's the SSL property used for the created
+        /// HTTPRequestObject. If true, all requests done will use https
+        /// The default is false .</summary>   
+        ///  <example>
+        ///         The following code illustrates a possible use of   
+        ///          the <c>Timeout</c> property:  
+        ///          <code>    
+        ///           YouTubeRequestSettings settings = new YouTubeRequestSettings("yourApp", "yourClient", "yourKey", "username", "pwd");
+        ///            settings.UseSSL = true;
+        ///  </code>
+        ///  </example>
+        /// <returns></returns>
+        public bool UseSSL
+        {
+            get
+            {
+                return this.useSSL;
+            }
+            set
+            {
+                this.useSSL = value;
+            }
+        }
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>ClientLoginHandler - this is the URI that is used to 
@@ -1058,6 +1083,12 @@ namespace Google.GData.Client
         /// <returns></returns>
         public HttpWebRequest CreateHttpWebRequest(string serviceName, string httpMethod, Uri targetUri)
         {
+
+            if (this.UseSSL == true && (targetUri.Scheme.ToLower().Equals("https") == false))
+            {
+                targetUri = new Uri("https://" + targetUri.Host + targetUri.PathAndQuery);
+            }
+
             HttpWebRequest request = WebRequest.Create(targetUri) as HttpWebRequest;
             if (request == null)
             {
@@ -1222,6 +1253,9 @@ namespace Google.GData.Client
                     f.Timeout = settings.Timeout;
                 }
             }
+
+            s.RequestFactory.UseSSL = settings.UseSSL;
+
 #endif
         }
 

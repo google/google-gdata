@@ -65,7 +65,7 @@ namespace Google.GData.Client
             get;
         }
 
-        /// <summary>the minimal Get OpenSearchRssDescription function</summary> 
+           /// <summary>the minimal Get OpenSearchRssDescription function</summary> 
         Stream QueryOpenSearchRssDescription(Uri serviceUri);
 
         /// <summary>the minimal query implementation</summary> 
@@ -99,6 +99,15 @@ namespace Google.GData.Client
         IGDataRequest CreateRequest(GDataRequestType type, Uri uriTarget); 
         /// <summary>set wether or not to use gzip for new requests</summary>
         bool    UseGZip
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// indicates that the service should use SSL exclusively
+        /// </summary>
+        bool UseSSL
         {
             get;
             set;

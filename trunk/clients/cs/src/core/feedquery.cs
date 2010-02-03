@@ -307,6 +307,7 @@ namespace Google.GData.Client
         /// or the other way round. This is mostly relevant for hosted domains. 
         /// </summary>
         /// <returns></returns>
+        [Obsolete("This is deprecated and replaced by UseSSL on the service and the requestsettings")]
         public bool UseSSL
         {
             get { return this.defaultSSL; }
