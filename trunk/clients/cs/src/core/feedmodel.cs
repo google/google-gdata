@@ -1451,6 +1451,41 @@ namespace Google.GData.Client
             return f; 
         }
 
+
+        /// <summary>
+        /// takes an existing stream and creates Feed of entries out of it
+        /// </summary>
+        /// <typeparam name="Y"></typeparam>
+        /// <param name="inputStream"></param>
+        /// <param name="targetUri"></param>
+        /// <returns></returns>
+        public Feed<Y> Parse<Y>(Stream inputStream, Uri targetUri) where Y : Entry, new()
+        {
+            if (targetUri == null)
+                throw new ArgumentNullException("targetUri can not be null");
+            if (inputStream == null)
+                throw new ArgumentNullException("inputStream can not be null");
+
+            AtomFeed feed = this.Service.CreateAndParseFeed(inputStream, targetUri);
+            return new Feed<Y>(feed);
+        }
+
+        /// <summary>
+        /// takes an existing stream and creates just one entry (the first in the stream)
+        /// </summary>
+        /// <typeparam name="Y"></typeparam>
+        /// <param name="inputStream"></param>
+        /// <returns></returns>
+        public Y ParseEntry<Y>(Stream inputStream, Uri targetUri) where Y : Entry, new()
+        {
+            Feed<Y> f = Parse<Y>(inputStream, targetUri);
+            foreach (Y y in f.Entries)
+            {
+                return y;
+            }
+            return null;
+        }
+
         /// <summary>
         /// performs a batch operation. 
         /// </summary>

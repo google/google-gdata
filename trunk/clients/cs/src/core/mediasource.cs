@@ -183,8 +183,21 @@ namespace Google.GData.Client
         public override long ContentLength
         {
             get
-            {
-                return 0;
+            {  
+                long result;
+
+                try
+                {
+
+                    Stream s = this.Data;
+                    result = s.Length;
+                }
+                catch (NotSupportedException e)
+                {
+                    result = -1;
+                }
+
+                return result;
             }
         }
 

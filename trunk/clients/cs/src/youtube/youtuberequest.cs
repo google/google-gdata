@@ -1395,5 +1395,17 @@ namespace Google.YouTube
 
             return meta == null? new Feed<Video>(null) : meta ; 
         }
+
+
+        /// <summary>
+        /// returns a single Video (the first) from that stream. Usefull to parse insert/update 
+        /// response streams
+        /// </summary>
+        /// <param name="inputStream"></param>
+        /// <returns></returns>
+        public Video ParseVideo(Stream inputStream)
+        {
+            return ParseEntry<Video>(inputStream, new Uri(YouTubeQuery.DefaultVideoUri));
+        }
     }
 }

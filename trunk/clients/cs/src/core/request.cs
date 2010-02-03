@@ -183,9 +183,13 @@ namespace Google.GData.Client
         /// <summary>Cookie setting header, returned from server</summary>
         public const string SetCookieHeader = "Set-Cookie"; 
         /// <summary>Cookie client header</summary>
-        public const string CookieHeader = "Cookie"; 
+        public const string CookieHeader = "Cookie";
         /// <summary>Slug client header</summary>
         public const string SlugHeader = "Slug";
+        /// <summary>content override header for resumable upload</summary>
+        public const string ContentOverrideHeader = "X-Upload-Content-Type";
+        /// <summary>content length header for resumable upload</summary>
+        public const string ContentLengthOverrideHeader = "X-Upload-Content-Length";
 
         /// <summary>
         /// constant for the Etag header

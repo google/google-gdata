@@ -454,8 +454,7 @@ namespace Google.GData.Client
             {
 
                 http.Headers.Remove(GDataGAuthRequestFactory.GDataVersion);
-                http.Headers.Remove(GoogleAuthentication.Override);
-
+      
                 // as we are doublebuffering due to redirect issues anyhow, 
                 // disallow the default buffering
                 http.AllowWriteStreamBuffering = false; 
@@ -474,6 +473,9 @@ namespace Google.GData.Client
                     http.Method != HttpMethods.Get &&
                     http.Method != HttpMethods.Post)
                 {
+                    // remove it, if it is already there.
+                    http.Headers.Remove(GoogleAuthentication.Override);
+
                     // cache the method, because Mono will complain if we try
                     // to open the request stream with a DELETE method.
                     string currentMethod = http.Method;
