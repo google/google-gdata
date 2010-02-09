@@ -185,7 +185,7 @@ namespace Google.GData.Client
         until the server reports no more rows available.
         Note that you should cache the entries returned in a list of your own
         if you want to access them more than once, as this one does no caching on
-        it's own.
+        it's own. 
         </summary>
          <example>
                 The following code illustrates a possible use of   
@@ -204,14 +204,11 @@ namespace Google.GData.Client
             get
             {
                 bool looping;
-
-                // if we have iterated once before, we need to reset
-                if (this.numberRetrieved > 0 && this.paging == false && this.service != null)
-                {
-                    this.af = null; 
-                }
+                
                 if (this.AtomFeed == null)
                     yield break;
+
+                AtomFeed originalFeed = this.AtomFeed;
 
                 this.numberRetrieved = 0; 
 
@@ -238,6 +235,9 @@ namespace Google.GData.Client
                         this.af = this.AtomFeed.Service.Query(q);
                     }
                 } while (looping);
+
+                // we are done, reset the feed to the start
+                this.af = originalFeed;
             }
         }
     }
