@@ -77,25 +77,25 @@ Note that all the values are optional. So it's perfectly fine to have a file tha
 
 Here is an explanation of all the parameters:
 
-*UserName* -> your google account username
+*!UserName* -> your google account username
 
-*PassWord* -> the password for that account
+*!PassWord* -> the password for that account
 
-*YoutubeAccount* -> the youtube accountname
+*!YoutubeAccount* -> the youtube accountname
 
 If you provide the above 3 values, the application will, on startup, skip the login dialog and use the provided values instead.
 
-*MaxThreads* -> this value determines how many uploads will happen at the same time.  You can try to tune this to maximize the upload bandwidth used.
+*!MaxThreads* -> this value determines how many uploads will happen at the same time.  You can try to tune this to maximize the upload bandwidth used.
 
-*ChunkSize*  -> this value determines how many Megabytes of the files will be uploaded  at once. Let's say you have a 1GB video and this value is 4, the  application will upload 250 parts of the video before it's done. Again,  you can try to finetune this depending on bandwidth available.
+*!ChunkSize*  -> this value determines how many Megabytes of the files will be uploaded  at once. Let's say you have a 1GB video and this value is 4, the  application will upload 250 parts of the video before it's done. Again,  you can try to finetune this depending on bandwidth available.
 
-*RetryCount* -> if an upload fails due to network or other conditions, it will be retried. The application will stop trying to upload a file once its retry  counter reaches this number. Note that, once ANY upload succeeds, all retry              counters will be reset to 0 and the remaining files will be tried again. 
+*!RetryCount* -> if an upload fails due to network or other conditions, it will be retried. The application will stop trying to upload a file once its retry  counter reaches this number. Note that, once ANY upload succeeds, all retry              counters will be reset to 0 and the remaining files will be tried again. 
 
-*CsvFile*    -> the filename of a CSV file to open on startup
+*!CsvFile*    -> the filename of a CSV file to open on startup
 
-*OutputFile* -> the filename of an output CSV file where the application should save the results of the upload to
+*!OutputFile* -> the filename of an output CSV file where the application should save the results of the upload to
 
-*DevKey*     -> your YouTube developer key that you like to use for uploading to your account.
+*!DevKey*     -> your YouTube developer key that you like to use for uploading to your account.
 
 ===Command line arguments=== 
 
