@@ -34,6 +34,7 @@ namespace Google.GData.Extensions
     public class WebContent : IExtensionElementFactory
     {
         private string url;
+        private string display;
         private uint width; 
         private uint height;
         private SortedList gadgetPrefs;
@@ -47,6 +48,16 @@ namespace Google.GData.Extensions
         {
             get { return this.url; }
             set { this.url = value; }
+        }
+      
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Display property</summary> 
+        /// <returns> </returns>
+        //////////////////////////////////////////////////////////////////////
+        public string Display
+        {
+            get { return this.display; }
+            set { this.display = value; }
         }
 
         //////////////////////////////////////////////////////////////////////
@@ -122,6 +133,13 @@ namespace Google.GData.Extensions
                 if (value != null)
                 {
                     webContent.Url = value;
+                }
+
+                value = node.Attributes[GDataParserNameTable.XmlAttributeDisplay] != null ?
+                    node.Attributes[GDataParserNameTable.XmlAttributeDisplay].Value : null;
+                if (value != null)
+                {
+                    webContent.Display = value;
                 }
 
                 value = node.Attributes[GDataParserNameTable.XmlAttributeWidth] != null ? 
@@ -208,6 +226,7 @@ namespace Google.GData.Extensions
             {
                 writer.WriteStartElement(XmlPrefix, XmlName, XmlNameSpace);
                 writer.WriteAttributeString(GDataParserNameTable.XmlAttributeUrl, this.Url);
+                writer.WriteAttributeString(GDataParserNameTable.XmlAttributeDisplay, this.Display);
                 writer.WriteAttributeString(GDataParserNameTable.XmlAttributeHeight, this.Height.ToString());
                 writer.WriteAttributeString(GDataParserNameTable.XmlAttributeWidth, this.Width.ToString());
                 if (this.gadgetPrefs != null && this.gadgetPrefs.Count > 0)
