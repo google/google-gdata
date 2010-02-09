@@ -251,6 +251,36 @@ namespace Google.GData.Client.ResumableUpload
 
 
         /// <summary>
+        ///  askes the server about the current status
+        /// </summary>
+        /// <param name="authentication"></param>
+        /// <param name="targetUri"></param>
+        /// <returns></returns>
+        public static long QueryStatus(Authenticator authentication, Uri targetUri)
+        {
+            HttpWebRequest request = authentication.CreateHttpWebRequest(HttpMethods.Post, targetUri);
+            long result = -1;
+
+            // add a range header
+            string contentRange = String.Format("bytes */*");
+            request.Headers.Add(HttpRequestHeader.ContentRange, contentRange);
+            request.ContentLength = 0;
+            HttpWebResponse response = request.GetResponse() as HttpWebResponse;
+
+            // now parse the header
+            string range = response.Headers["Range"];
+            string []parts = range.Split('-');
+
+            if (parts.Length > 1 && parts[1] != null)
+            {
+                result = long.Parse(parts[1]);
+            }
+
+            return result;
+        }
+
+
+        /// <summary>
         ///  worker method for the the resumable insert
         /// </summary>
         /// <param name="data"></param>
@@ -451,7 +481,7 @@ namespace Google.GData.Client.ResumableUpload
         /// <param name="authentication"></param>
         /// <param name="payload"></param>
         /// <param name="mediaType"></param>
-        private WebResponse UploadStream(string httpMethod, Uri sessionUri, Authenticator authentication, 
+        public WebResponse UploadStream(string httpMethod, Uri sessionUri, Authenticator authentication, 
                                         Stream payload, string mediaType, AsyncData data)
         {
             HttpWebResponse returnResponse = null;
@@ -648,7 +678,7 @@ namespace Google.GData.Client.ResumableUpload
         /// <param name="authentication"></param>
         /// <param name="entry"></param>
         /// <returns>The uri to be used for the rest of the operation</returns>
-        private Uri InitiateUpload(Uri resumableUploadUri, Authenticator authentication, string contentType, string slug, long contentLength)
+        public Uri InitiateUpload(Uri resumableUploadUri, Authenticator authentication, string contentType, string slug, long contentLength)
         {
             this.authenticator = authentication;
 
@@ -670,7 +700,7 @@ namespace Google.GData.Client.ResumableUpload
         /// <param name="authentication"></param>
         /// <param name="entry"></param>
         /// <returns>The uri to be used for the rest of the operation</returns>
-        private Uri InitiateUpload(Uri resumableUploadUri, Authenticator authentication, AbstractEntry entry)
+        public Uri InitiateUpload(Uri resumableUploadUri, Authenticator authentication, AbstractEntry entry)
         {
             this.authenticator = authentication;
 
@@ -685,6 +715,13 @@ namespace Google.GData.Client.ResumableUpload
                 // need to add the version header to the request
                 request.Headers.Add(GDataGAuthRequestFactory.GDataVersion, v.ProtocolMajor.ToString() + "." + v.ProtocolMinor.ToString());
             }
+            
+            ISupportsEtag e = entry as ISupportsEtag;
+            if (e != null && Utilities.IsWeakETag(e) == false)
+            {
+                request.Headers.Add(GDataRequestFactory.IfMatch, e.Etag);
+             }
+
             Stream outputStream = request.GetRequestStream();
             entry.SaveToXml(outputStream);
             outputStream.Close();
