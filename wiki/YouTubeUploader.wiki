@@ -2,11 +2,11 @@
 
 = Introduction =
 
-The YouTube Uploader is a sample application introducing you to the ResumableUploader class, and how to use it to asynchronously upload several large files with the ability to resume the upload from failure. 
+The !YouTube Content Uploader is a sample application introducing you to the ResumableUploader class, and how to use it to asynchronously upload several large files with the ability to resume the upload from failure. 
 
 = Details =
 
-The YouTube Content Uploader is a sample app showcasing the Resumable Upload functionality in the API. In the app, you can open a .CSV file containing metadata of the videos you want to upload, and then let the tool upload all these files in the background. 
+The !YouTube Content Uploader is a sample app showcasing the Resumable Upload functionality in the API. In the app, you can open a .CSV file containing metadata of the videos you want to upload, and then let the tool upload all these files in the background. 
 
 ===CSV File gotchas===
 
