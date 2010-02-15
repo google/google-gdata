@@ -213,6 +213,8 @@ namespace Google.GData.Extensions
         public const string XmlExtendedPropertyElement = "extendedProperty";
         /// <summary>static string for the url attribute</summary>    
         public const string XmlAttributeUrl = "url";
+        /// <summary>static string for the display attribute</summary>    
+        public const string XmlAttributeDisplay = "display";
         /// <summary>static string for the width attribute</summary>    
         public const string XmlAttributeWidth= "width";
         /// <summary>static string for the height attribute</summary>    

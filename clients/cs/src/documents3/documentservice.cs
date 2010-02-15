@@ -135,6 +135,19 @@ namespace Google.GData.Documents {
         /// <returns>A DocumentEntry describing the created document.</returns>
         public DocumentEntry UploadDocument(string fileName, string documentName, string contentType)
         {
+            return UploadFile(fileName, documentName, contentType, true);
+        }
+
+        /// <summary>
+        /// Simple method to upload an arbitrary file. 
+        /// </summary>
+        /// <param name="fileName">The full path to the file.</param>
+        /// <param name="documentName">The desired name of the file on the server.</param>
+        /// <param name="contentType">The mime type of the file</param>
+        /// <param name="convert">Indiates if the document should be converted to a known type on the server</param>
+        /// <returns>A DocumentEntry describing the created document.</returns>
+        public DocumentEntry UploadFile(string fileName, string documentName, string contentType, bool convert)
+        {
             DocumentEntry entry = null;
 
             FileInfo fileInfo = new FileInfo(fileName);
@@ -142,7 +155,17 @@ namespace Google.GData.Documents {
 
             try
             {
-                Uri postUri = new Uri(DocumentsListQuery.documentsBaseUri);
+                Uri postUri;
+
+                if (convert == false)
+                {
+                    postUri = new Uri(DocumentsListQuery.documentsBaseUri + "?convert=false");
+                }
+                else
+                {
+                    postUri = new Uri(DocumentsListQuery.documentsBaseUri);
+                }
+
 
                 if (documentName == null)
                 {
