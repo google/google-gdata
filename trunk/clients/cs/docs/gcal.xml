@@ -620,6 +620,10 @@
             <summary>url of content</summary> 
             <returns> </returns>
         </member>
+        <member name="P:Google.GData.Extensions.WebContent.Display">
+            <summary>Display property</summary> 
+            <returns> </returns>
+        </member>
         <member name="P:Google.GData.Extensions.WebContent.Width">
             <summary>width of the iframe/gif</summary> 
             <returns> </returns>

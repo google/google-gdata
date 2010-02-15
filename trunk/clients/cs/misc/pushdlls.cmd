@@ -7,7 +7,10 @@ devenv /rebuild Debug "..\src\Google Data API SDK.sln"
 if errorlevel 1 goto buildError
 devenv /rebuild Release ..\src\VS2005.mobile\gdatamobile.sln
 if errorlevel 1 goto buildError
-
+devenv /rebuild Release ..\src\VS2005.mobile\gdatamobile.sln
+if errorlevel 1 goto buildError
+devenv /rebuild Release "..\src\youtube\YouTube SDK\YouTube SDK.sln"
+if errorlevel 1 goto buildError
 # copy the DLLS
 xcopy /y ..\src\core\bin\Release\*.dll ..\lib\Release\*.*
 xcopy /y ..\src\gbase\bin\Release\*.dll ..\lib\Release\*.*
@@ -42,6 +45,9 @@ xcopy /y ..\src\ghealth\bin\Debug\*.dll ..\lib\Debug\*.*
 xcopy /y ..\src\unittests\bin\Debug\*.dll ..\lib\Debug\*.*
 xcopy /y ..\src\blogger\bin\Debug\*.dll ..\lib\Debug\*.*
 xcopy /y ..\src\analytics\bin\Debug\*.dll ..\lib\Debug\*.*
+
+#copy the setup
+xcopy /y "..\src\youtube\YouTube SDK\YouTube SDK\Release\YouTube SDK.msi" ..\lib\Setup\*.*
 
 
 # copy asp dlls for the youtube sample

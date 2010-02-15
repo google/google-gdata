@@ -46,7 +46,7 @@ public partial class YourVideo : System.Web.UI.Page
             String.IsNullOrEmpty(this.Keyword.Text) == false)
         {
 
-            GAuthSubRequestFactory authFactory = new GAuthSubRequestFactory(YouTubeService.YTService, "TesterApp");
+            GAuthSubRequestFactory authFactory = new GAuthSubRequestFactory(ServiceNames.YouTube, "TesterApp");
 
             YouTubeService service = new YouTubeService(authFactory.ApplicationName,
                 "ytapi-FrankMantek-TestaccountforGD-sjgv537n-0",

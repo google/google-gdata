@@ -726,7 +726,14 @@ namespace Google.YouTube
                 if (this.YouTubeEntry != null &&
                     this.YouTubeEntry.Rating != null)
                 {
-                    return this.YouTubeEntry.Rating.Value;
+                    try
+                    {
+                        return this.YouTubeEntry.Rating.Value;
+                    }
+                    catch (FormatException e)
+                    {
+                        return -1;
+                    }
                 }
                 return -1;
             }

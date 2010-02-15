@@ -30,7 +30,6 @@ namespace NotifierForYT
         private const string AppKey = "NotifierYT"; 
 
         private const string YTNOTIFIERKEY = "Software\\GoogleYouTubeNotifier";
-        private const string YTCLIENTID = "ytapi-FrankMantek-TestaccountforGD-sjgv537n-0";
         private const string YTDEVKEY = "AI39si4v3E6oIYiI60ndCNDqnPP5lCqO28DSvvDPnQt-Mqia5uPz2e4E-gMSBVwHXwyn_LF1tWox4LyM-0YQd2o4i_3GcXxa2Q";
 
         private List<Activity> allActivities = new List<Activity>();
@@ -284,7 +283,6 @@ namespace NotifierForYT
 
                 // let's see if we get a valid authtoken back for the passed in credentials....
                 YouTubeRequestSettings settings = new YouTubeRequestSettings("YouTubeNotifier",
-                                    YTCLIENTID,
                                     YTDEVKEY);
                 // settings.PageSize = 15;
                 YouTubeRequest r = new YouTubeRequest(settings);

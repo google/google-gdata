@@ -555,6 +555,19 @@ namespace Google.Documents
         }
 
         /// <summary>
+        /// this will create an empty document or folder, pending
+        /// the content of the newDocument parameter. This will
+        /// append the convert=false paramter to allow for arbitrary file
+        /// uploads
+        /// </summary>
+        /// <param name="newDocument"></param>
+        /// <returns>the created document from the server</returns>
+        public Document CreateFile(Document newDocument)
+        {
+            return Insert(new Uri(DocumentsListQuery.documentsBaseUri + "?convert=false"), newDocument);
+        }
+
+        /// <summary>
         /// moves a document or a folder into a folder
         /// </summary>
         /// <param name="parent">this has to be a folder</param>
@@ -595,6 +608,8 @@ namespace Google.Documents
         {
             return this.Download(document, type, null, 0);
         }
+
+        
         
 
         /// <summary>
