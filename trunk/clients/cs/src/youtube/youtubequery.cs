@@ -655,6 +655,16 @@ namespace Google.GData.YouTube {
         }
 
 
+		
+        /// <summary>
+        /// retrieves a category collection from the given URL
+        /// The owner should be a new Collection object, like:
+        /// <code>
+        ///		GetCategories(new Uri("http://gdata.youtube.com/schemas/2007/categories.cat"), 
+        ///					  new YouTubeCategoryCollection())
+        /// </code>
+        /// </summary>
+        /// <returns></returns>
         public static AtomCategoryCollection GetCategories(Uri uri, AtomBase owner)
         {
             // first order is to get the document into an xml dom
