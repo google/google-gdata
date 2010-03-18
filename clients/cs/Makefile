@@ -68,7 +68,7 @@ gcalendar_sources =  $(wildcard src/gcalendar/*.cs) $(wildcard version/*.cs)
 gacl_sources = $(wildcard src/gacl/*.cs) $(wildcard version/*.cs)
 gapps_sources = $(wildcard src/gapps/*.cs) $(wildcard version/*.cs)
 gphotos_sources = $(wildcard src/gphotos/*.cs) $(wildcard version/*.cs)
-gdocuments_sources = $(wildcard src/gdocuments/*.cs) $(wildcard version/*.cs)
+gdocuments_sources = $(wildcard src/documents3/*.cs) $(wildcard version/*.cs)
 gcontact_sources = $(wildcard src/gcontacts/*.cs) $(wildcard version/*.cs)
 youtube_sources = $(wildcard src/youtube/*.cs) $(wildcard version/*.cs)
 health_sources = $(wildcard src/ghealth/*.cs) $(wildcard version/*.cs)
@@ -105,8 +105,8 @@ Google.GData.Apps.dll: $(CORELIBS) $(gapps_sources) src/gapps/gapps.sn
 Google.GData.Photos.dll: $(CORELIBS) $(gphotos_sources) src/gphotos/picasa.sn
 	$(CSC) $(DEFINES) -target:library -out:$@ $(COREREFS) $(gphotos_sources) -keyfile:src/gphotos/picasa.sn
 
-Google.GData.Documents.dll: $(ACLLIBS) $(gdocuments_sources) src/gdocuments/documents.sn
-	$(CSC) $(DEFINES) -target:library -out:$@ $(ACLREFS) $(gdocuments_sources) -keyfile:src/gdocuments/documents.sn
+Google.GData.Documents.dll: $(ACLLIBS) $(gdocuments_sources) src/documents3/documents.sn
+	$(CSC) $(DEFINES) -target:library -out:$@ $(ACLREFS) $(gdocuments_sources) -keyfile:src/documents3/documents.sn
 
 Google.GData.Contacts.dll: $(CORELIBS) $(gcontact_sources) src/gcontacts/contacts.sn
 	$(CSC) $(DEFINES) -target:library -out:$@ $(COREREFS) $(gcontact_sources) -keyfile:src/gcontacts/contacts.sn
