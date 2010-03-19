@@ -43,6 +43,19 @@ namespace Google.Picasa
     /// <returns></returns>
     public abstract class PicasaEntity : Entry
     {
+            /// <summary>
+        /// readonly accessor for the AlbumEntry that is underneath this object.
+        /// </summary>
+        /// <returns></returns>
+        public  PicasaEntry PicasaEntry
+        {
+            get
+            {
+                EnsureInnerObject();
+                return this.AtomEntry as PicasaEntry;
+            }
+        }
+
     }
 
 
@@ -61,19 +74,6 @@ namespace Google.Picasa
         }
 
         /// <summary>
-        /// readonly accessor for the AlbumEntry that is underneath this object.
-        /// </summary>
-        /// <returns></returns>
-        public  AlbumEntry AlbumEntry
-        {
-            get
-            {
-                EnsureInnerObject();
-                return this.AtomEntry as AlbumEntry;
-            }
-        }
-
-        /// <summary>
         /// The album's access level. In this document, access level is also 
         /// referred to as "visibility." Valid values are public or private.
         /// </summary>
@@ -86,11 +86,11 @@ namespace Google.Picasa
         {
             get 
              {
-                return this.AlbumEntry.GetPhotoExtensionValue(GPhotoNameTable.Access);
+                return this.PicasaEntry.GetPhotoExtensionValue(GPhotoNameTable.Access);
             }
             set 
             {
-                this.AlbumEntry.SetPhotoExtensionValue(GPhotoNameTable.Access, value);
+                this.PicasaEntry.SetPhotoExtensionValue(GPhotoNameTable.Access, value);
             }
         }
         
@@ -107,11 +107,11 @@ namespace Google.Picasa
         {
             get 
             {
-                return this.AlbumEntry.GetPhotoExtensionValue(GPhotoNameTable.Nickname);
+                return this.PicasaEntry.GetPhotoExtensionValue(GPhotoNameTable.Nickname);
             }
             set 
             {
-                this.AlbumEntry.SetPhotoExtensionValue(GPhotoNameTable.Nickname, value);
+                this.PicasaEntry.SetPhotoExtensionValue(GPhotoNameTable.Nickname, value);
             }
         }
 
@@ -128,11 +128,11 @@ namespace Google.Picasa
         {
             get 
              {
-                return Convert.ToUInt32(this.AlbumEntry.GetPhotoExtensionValue(GPhotoNameTable.BytesUsed));
+                return Convert.ToUInt32(this.PicasaEntry.GetPhotoExtensionValue(GPhotoNameTable.BytesUsed));
             }
             set 
             {
-                this.AlbumEntry.SetPhotoExtensionValue(GPhotoNameTable.BytesUsed, Convert.ToString(value));
+                this.PicasaEntry.SetPhotoExtensionValue(GPhotoNameTable.BytesUsed, Convert.ToString(value));
             }
         }
 
@@ -148,11 +148,11 @@ namespace Google.Picasa
         {
             get 
              {
-                return this.AlbumEntry.GetPhotoExtensionValue(GPhotoNameTable.Location);
+                return this.PicasaEntry.GetPhotoExtensionValue(GPhotoNameTable.Location);
             }
             set 
             {
-                this.AlbumEntry.SetPhotoExtensionValue(GPhotoNameTable.Location, value);
+                this.PicasaEntry.SetPhotoExtensionValue(GPhotoNameTable.Location, value);
             }
         }
 
@@ -168,22 +168,22 @@ namespace Google.Picasa
         {
             get 
             {
-                GeoRssWhere where = this.AlbumEntry.FindExtension(GeoNametable.GeoRssWhereElement, GeoNametable.NSGeoRss) as GeoRssWhere;
-                if (where != null)
+                GeoRssWhere w = this.PicasaEntry.FindExtension(GeoNametable.GeoRssWhereElement, GeoNametable.NSGeoRss) as GeoRssWhere;
+                if (w != null)
                 {
-                    return where.Longitude;
+                    return w.Longitude;
                 }
                 return -1; 
             }
             set 
             {
-                GeoRssWhere where = this.AlbumEntry.FindExtension(GeoNametable.GeoRssWhereElement, GeoNametable.NSGeoRss) as GeoRssWhere;
-                if (where == null)
+                GeoRssWhere w = this.PicasaEntry.FindExtension(GeoNametable.GeoRssWhereElement, GeoNametable.NSGeoRss) as GeoRssWhere;
+                if (w == null)
                 {
-                    where = AlbumEntry.CreateExtension(GeoNametable.GeoRssWhereElement, GeoNametable.NSGeoRss) as GeoRssWhere;
-                    this.AlbumEntry.ExtensionElements.Add(where);
+                    w = this.PicasaEntry.CreateExtension(GeoNametable.GeoRssWhereElement, GeoNametable.NSGeoRss) as GeoRssWhere;
+                    this.PicasaEntry.ExtensionElements.Add(w);
                 }
-                where.Longitude = value; 
+                w.Longitude = value; 
             }
         }
     
@@ -199,22 +199,22 @@ namespace Google.Picasa
         {
             get 
             {
-                GeoRssWhere where = this.AlbumEntry.FindExtension(GeoNametable.GeoRssWhereElement, GeoNametable.NSGeoRss) as GeoRssWhere;
-                if (where != null)
+                GeoRssWhere w = this.PicasaEntry.FindExtension(GeoNametable.GeoRssWhereElement, GeoNametable.NSGeoRss) as GeoRssWhere;
+                if (w != null)
                 {
-                    return where.Latitude;
+                    return w.Latitude;
                 }
                 return -1; 
             }
             set 
             {
-                GeoRssWhere where = this.AlbumEntry.FindExtension(GeoNametable.GeoRssWhereElement, GeoNametable.NSGeoRss) as GeoRssWhere;
-                if (where == null)
+                GeoRssWhere w = this.PicasaEntry.FindExtension(GeoNametable.GeoRssWhereElement, GeoNametable.NSGeoRss) as GeoRssWhere;
+                if (w == null)
                 {
-                    where = AlbumEntry.CreateExtension(GeoNametable.GeoRssWhereElement, GeoNametable.NSGeoRss) as GeoRssWhere;
-                    this.AlbumEntry.ExtensionElements.Add(where);
+                    w = this.PicasaEntry.CreateExtension(GeoNametable.GeoRssWhereElement, GeoNametable.NSGeoRss) as GeoRssWhere;
+                    this.PicasaEntry.ExtensionElements.Add(w);
                 }
-                where.Latitude = value; 
+                w.Latitude = value; 
             }
         }
   
@@ -232,11 +232,11 @@ namespace Google.Picasa
         {
             get 
              {
-                return Convert.ToUInt32(this.AlbumEntry.GetPhotoExtensionValue(GPhotoNameTable.NumPhotos));
+                return Convert.ToUInt32(this.PicasaEntry.GetPhotoExtensionValue(GPhotoNameTable.NumPhotos));
             }
             set 
             {
-                this.AlbumEntry.SetPhotoExtensionValue(GPhotoNameTable.NumPhotos, Convert.ToString(value));
+                this.PicasaEntry.SetPhotoExtensionValue(GPhotoNameTable.NumPhotos, Convert.ToString(value));
             }
         }
 
@@ -257,11 +257,11 @@ namespace Google.Picasa
         {
             get 
              {
-                return Convert.ToUInt32(this.AlbumEntry.GetPhotoExtensionValue(GPhotoNameTable.NumPhotosRemaining));
+                return Convert.ToUInt32(this.PicasaEntry.GetPhotoExtensionValue(GPhotoNameTable.NumPhotosRemaining));
             }
             set 
             {
-                this.AlbumEntry.SetPhotoExtensionValue(GPhotoNameTable.NumPhotosRemaining, Convert.ToString(value));
+                this.PicasaEntry.SetPhotoExtensionValue(GPhotoNameTable.NumPhotosRemaining, Convert.ToString(value));
             }
         }
 
@@ -279,11 +279,11 @@ namespace Google.Picasa
         {
             get 
             {
-                return Convert.ToUInt32(this.AlbumEntry.GetPhotoExtensionValue(GPhotoNameTable.CommentCount));
+                return Convert.ToUInt32(this.PicasaEntry.GetPhotoExtensionValue(GPhotoNameTable.CommentCount));
             }
             set 
             {
-                this.AlbumEntry.SetPhotoExtensionValue(GPhotoNameTable.CommentCount, Convert.ToString(value));
+                this.PicasaEntry.SetPhotoExtensionValue(GPhotoNameTable.CommentCount, Convert.ToString(value));
             }
         }
 
@@ -300,11 +300,11 @@ namespace Google.Picasa
         {
             get 
             {
-                return Convert.ToBoolean(this.AlbumEntry.GetPhotoExtensionValue(GPhotoNameTable.CommentingEnabled));
+                return Convert.ToBoolean(this.PicasaEntry.GetPhotoExtensionValue(GPhotoNameTable.CommentingEnabled));
             }
             set 
             {
-                this.AlbumEntry.SetPhotoExtensionValue(GPhotoNameTable.CommentingEnabled, Utilities.ConvertBooleanToXSDString(value));
+                this.PicasaEntry.SetPhotoExtensionValue(GPhotoNameTable.CommentingEnabled, Utilities.ConvertBooleanToXSDString(value));
             }
         }
 
@@ -321,11 +321,11 @@ namespace Google.Picasa
         {
             get 
             {
-                return this.AlbumEntry.GetPhotoExtensionValue(GPhotoNameTable.Id);
+                return this.PicasaEntry.GetPhotoExtensionValue(GPhotoNameTable.Id);
             }
             set 
             {
-                this.AlbumEntry.SetPhotoExtensionValue(GPhotoNameTable.Id, value);
+                this.PicasaEntry.SetPhotoExtensionValue(GPhotoNameTable.Id, value);
             }
         }
     }
@@ -369,20 +369,7 @@ namespace Google.Picasa
             }
         }
 
-        /// <summary>
-        /// readonly accessor for the CommentEntry that is underneath this object.
-        /// </summary>
-        /// <returns></returns>
-        public  CommentEntry CommentEntry
-        {
-            get
-            {
-                EnsureInnerObject();
-                return this.AtomEntry as CommentEntry;
-            }
-        }
-
-
+    
         /// <summary>
         /// The ID of the photo associated with the current comment.
         /// </summary>
@@ -391,15 +378,15 @@ namespace Google.Picasa
         [Category("Base Comment Data"),
         Description("The ID of the photo associated with the current comment.")]
 #endif
-         public string PhotoId 
+        public string PhotoId 
         {
             get 
             {
-                return this.CommentEntry.GetPhotoExtensionValue(GPhotoNameTable.Photoid);
+                return this.PicasaEntry.GetPhotoExtensionValue(GPhotoNameTable.Photoid);
             }
             set 
             {
-                this.CommentEntry.SetPhotoExtensionValue(GPhotoNameTable.Photoid, value);
+                this.PicasaEntry.SetPhotoExtensionValue(GPhotoNameTable.Photoid, value);
             }
         }
 
@@ -415,11 +402,11 @@ namespace Google.Picasa
         {
             get 
             {
-                return this.CommentEntry.GetPhotoExtensionValue(GPhotoNameTable.AlbumId);
+                return this.PicasaEntry.GetPhotoExtensionValue(GPhotoNameTable.AlbumId);
             }
             set 
             {
-                this.CommentEntry.SetPhotoExtensionValue(GPhotoNameTable.AlbumId, value);
+                this.PicasaEntry.SetPhotoExtensionValue(GPhotoNameTable.AlbumId, value);
             }
         }
 
@@ -435,11 +422,11 @@ namespace Google.Picasa
         {
             get 
             {
-                return this.CommentEntry.GetPhotoExtensionValue(GPhotoNameTable.Id);
+                return this.PicasaEntry.GetPhotoExtensionValue(GPhotoNameTable.Id);
             }
             set 
             {
-                this.CommentEntry.SetPhotoExtensionValue(GPhotoNameTable.Id, value);
+                this.PicasaEntry.SetPhotoExtensionValue(GPhotoNameTable.Id, value);
             }
         }
     }
@@ -463,19 +450,7 @@ namespace Google.Picasa
 
 
 
-        /// <summary>
-        /// readonly accessor for the PhotoEntry that is underneath this object.
-        /// </summary>
-        /// <returns></returns>
-        public  PhotoEntry PhotoEntry
-        {
-            get
-            {
-                EnsureInnerObject();
-                return this.AtomEntry as PhotoEntry;
-            }
-        }
-
+    
         /// <summary>
         /// tries to construct an URI on the Url attribute in media.content
         /// </summary>
@@ -490,17 +465,17 @@ namespace Google.Picasa
             get
             {
                 EnsureInnerObject();
-                if (this.PhotoEntry.Media != null &&
-                    this.PhotoEntry.Media.Content != null) 
+                if (this.PicasaEntry.Media != null &&
+                    this.PicasaEntry.Media.Content != null) 
                 {
-                    return new Uri(this.PhotoEntry.Media.Content.Attributes["url"] as string);
+                    return new Uri(this.PicasaEntry.Media.Content.Attributes["url"] as string);
                 }
                 return null;
             }
             set
             {
                 EnsureMediaContent();
-                this.PhotoEntry.Media.Content.Attributes["url"] = value.AbsoluteUri;
+                this.PicasaEntry.Media.Content.Attributes["url"] = value.AbsoluteUri;
             }
         }
 
@@ -520,11 +495,11 @@ namespace Google.Picasa
         {
             get 
             {
-                return this.PhotoEntry.GetPhotoExtensionValue(GPhotoNameTable.Checksum);
+                return this.PicasaEntry.GetPhotoExtensionValue(GPhotoNameTable.Checksum);
             }
             set 
             {
-                this.PhotoEntry.SetPhotoExtensionValue(GPhotoNameTable.Checksum, value);
+                this.PicasaEntry.SetPhotoExtensionValue(GPhotoNameTable.Checksum, value);
             }
         }
 
@@ -542,11 +517,11 @@ namespace Google.Picasa
         {
             get 
             {
-                return Convert.ToInt32(this.PhotoEntry.GetPhotoExtensionValue(GPhotoNameTable.Height));
+                return Convert.ToInt32(this.PicasaEntry.GetPhotoExtensionValue(GPhotoNameTable.Height));
             }
             set 
             {
-                this.PhotoEntry.SetPhotoExtensionValue(GPhotoNameTable.Height, Convert.ToString(value));
+                this.PicasaEntry.SetPhotoExtensionValue(GPhotoNameTable.Height, Convert.ToString(value));
             }
         }
 
@@ -562,11 +537,11 @@ namespace Google.Picasa
         {
             get 
             {
-                return Convert.ToInt32(this.PhotoEntry.GetPhotoExtensionValue(GPhotoNameTable.Width));
+                return Convert.ToInt32(this.PicasaEntry.GetPhotoExtensionValue(GPhotoNameTable.Width));
             }
             set 
             {
-                this.PhotoEntry.SetPhotoExtensionValue(GPhotoNameTable.Width, Convert.ToString(value));
+                this.PicasaEntry.SetPhotoExtensionValue(GPhotoNameTable.Width, Convert.ToString(value));
             }
         }
 
@@ -586,11 +561,11 @@ namespace Google.Picasa
         {
             get 
             {
-                return Convert.ToInt32(this.PhotoEntry.GetPhotoExtensionValue(GPhotoNameTable.Rotation));
+                return Convert.ToInt32(this.PicasaEntry.GetPhotoExtensionValue(GPhotoNameTable.Rotation));
             }
             set 
             {
-                this.PhotoEntry.SetPhotoExtensionValue(GPhotoNameTable.Rotation, Convert.ToString(value));
+                this.PicasaEntry.SetPhotoExtensionValue(GPhotoNameTable.Rotation, Convert.ToString(value));
             }
         }
 
@@ -606,11 +581,11 @@ namespace Google.Picasa
         {
             get 
             {
-                return Convert.ToInt32(this.PhotoEntry.GetPhotoExtensionValue(GPhotoNameTable.Size));
+                return Convert.ToInt32(this.PicasaEntry.GetPhotoExtensionValue(GPhotoNameTable.Size));
             }
             set 
             {
-                this.PhotoEntry.SetPhotoExtensionValue(GPhotoNameTable.Size, Convert.ToString(value));
+                this.PicasaEntry.SetPhotoExtensionValue(GPhotoNameTable.Size, Convert.ToString(value));
             }
         }
 
@@ -630,11 +605,11 @@ namespace Google.Picasa
         {
             get 
             {
-                return Convert.ToUInt64(this.PhotoEntry.GetPhotoExtensionValue(GPhotoNameTable.Timestamp));
+                return Convert.ToUInt64(this.PicasaEntry.GetPhotoExtensionValue(GPhotoNameTable.Timestamp));
             }
             set 
             {
-                this.PhotoEntry.SetPhotoExtensionValue(GPhotoNameTable.Timestamp, Convert.ToString(value));
+                this.PicasaEntry.SetPhotoExtensionValue(GPhotoNameTable.Timestamp, Convert.ToString(value));
             }
         }
 
@@ -652,11 +627,11 @@ namespace Google.Picasa
         {
             get 
             {
-                return this.PhotoEntry.GetPhotoExtensionValue(GPhotoNameTable.AlbumId);
+                return this.PicasaEntry.GetPhotoExtensionValue(GPhotoNameTable.AlbumId);
             }
             set 
             {
-                this.PhotoEntry.SetPhotoExtensionValue(GPhotoNameTable.AlbumId, value);
+                this.PicasaEntry.SetPhotoExtensionValue(GPhotoNameTable.AlbumId, value);
             }
         }
 
@@ -673,11 +648,11 @@ namespace Google.Picasa
         {
             get 
             {
-                return Convert.ToUInt32(this.PhotoEntry.GetPhotoExtensionValue(GPhotoNameTable.CommentCount));
+                return Convert.ToUInt32(this.PicasaEntry.GetPhotoExtensionValue(GPhotoNameTable.CommentCount));
             }
             set 
             {
-                this.PhotoEntry.SetPhotoExtensionValue(GPhotoNameTable.CommentCount, Convert.ToString(value));
+                this.PicasaEntry.SetPhotoExtensionValue(GPhotoNameTable.CommentCount, Convert.ToString(value));
             }
         }
 
@@ -693,11 +668,11 @@ namespace Google.Picasa
         {
             get 
             {
-                return Convert.ToBoolean(this.PhotoEntry.GetPhotoExtensionValue(GPhotoNameTable.CommentingEnabled));
+                return Convert.ToBoolean(this.PicasaEntry.GetPhotoExtensionValue(GPhotoNameTable.CommentingEnabled));
             }
             set 
             {
-                this.PhotoEntry.SetPhotoExtensionValue(GPhotoNameTable.CommentingEnabled, Utilities.ConvertBooleanToXSDString(value));
+                this.PicasaEntry.SetPhotoExtensionValue(GPhotoNameTable.CommentingEnabled, Utilities.ConvertBooleanToXSDString(value));
             }
         }
 
@@ -714,11 +689,11 @@ namespace Google.Picasa
         {
             get 
             {
-                return this.PhotoEntry.GetPhotoExtensionValue(GPhotoNameTable.Id);
+                return this.PicasaEntry.GetPhotoExtensionValue(GPhotoNameTable.Id);
             }
             set 
             {
-                this.PhotoEntry.SetPhotoExtensionValue(GPhotoNameTable.Id, value);
+                this.PicasaEntry.SetPhotoExtensionValue(GPhotoNameTable.Id, value);
             }
         }
 
@@ -734,7 +709,7 @@ namespace Google.Picasa
         {
             get 
             {
-                GeoRssWhere where = this.PhotoEntry.FindExtension(GeoNametable.GeoRssWhereElement, GeoNametable.NSGeoRss) as GeoRssWhere;
+                GeoRssWhere where = this.PicasaEntry.FindExtension(GeoNametable.GeoRssWhereElement, GeoNametable.NSGeoRss) as GeoRssWhere;
                 if (where != null)
                 {
                     return where.Longitude;
@@ -743,11 +718,11 @@ namespace Google.Picasa
             }
             set 
             {
-                GeoRssWhere where = this.PhotoEntry.FindExtension(GeoNametable.GeoRssWhereElement, GeoNametable.NSGeoRss) as GeoRssWhere;
+                GeoRssWhere where = this.PicasaEntry.FindExtension(GeoNametable.GeoRssWhereElement, GeoNametable.NSGeoRss) as GeoRssWhere;
                 if (where == null)
                 {
-                    where = this.PhotoEntry.CreateExtension(GeoNametable.GeoRssWhereElement, GeoNametable.NSGeoRss) as GeoRssWhere;
-                    this.PhotoEntry.ExtensionElements.Add(where);
+                    where = this.PicasaEntry.CreateExtension(GeoNametable.GeoRssWhereElement, GeoNametable.NSGeoRss) as GeoRssWhere;
+                    this.PicasaEntry.ExtensionElements.Add(where);
                 }
                 where.Longitude = value; 
             }
@@ -765,7 +740,7 @@ namespace Google.Picasa
         {
             get 
             {
-                GeoRssWhere where = this.PhotoEntry.FindExtension(GeoNametable.GeoRssWhereElement, GeoNametable.NSGeoRss) as GeoRssWhere;
+                GeoRssWhere where = this.PicasaEntry.FindExtension(GeoNametable.GeoRssWhereElement, GeoNametable.NSGeoRss) as GeoRssWhere;
                 if (where != null)
                 {
                     return where.Latitude;
@@ -774,11 +749,11 @@ namespace Google.Picasa
             }
             set 
             {
-                GeoRssWhere where = this.PhotoEntry.FindExtension(GeoNametable.GeoRssWhereElement, GeoNametable.NSGeoRss) as GeoRssWhere;
+                GeoRssWhere where = this.PicasaEntry.FindExtension(GeoNametable.GeoRssWhereElement, GeoNametable.NSGeoRss) as GeoRssWhere;
                 if (where == null)
                 {
-                    where = this.PhotoEntry.CreateExtension(GeoNametable.GeoRssWhereElement, GeoNametable.NSGeoRss) as GeoRssWhere;
-                    this.PhotoEntry.ExtensionElements.Add(where);
+                    where = this.PicasaEntry.CreateExtension(GeoNametable.GeoRssWhereElement, GeoNametable.NSGeoRss) as GeoRssWhere;
+                    this.PicasaEntry.ExtensionElements.Add(where);
                 }
                 where.Latitude = value; 
             }
@@ -796,11 +771,11 @@ namespace Google.Picasa
         {
             get 
             {
-                return this.PhotoEntry.GetPhotoExtensionValue(GPhotoNameTable.AlbumDesc);
+                return this.PicasaEntry.GetPhotoExtensionValue(GPhotoNameTable.AlbumDesc);
             }
             set 
             {
-                this.PhotoEntry.SetPhotoExtensionValue(GPhotoNameTable.AlbumDesc, value);
+                this.PicasaEntry.SetPhotoExtensionValue(GPhotoNameTable.AlbumDesc, value);
             }
         }
 
@@ -816,7 +791,7 @@ namespace Google.Picasa
         {
             get 
             {
-                return this.PhotoEntry.GetPhotoExtensionValue(GPhotoNameTable.Snippet);
+                return this.PicasaEntry.GetPhotoExtensionValue(GPhotoNameTable.Snippet);
             }
         }
 
@@ -837,7 +812,7 @@ namespace Google.Picasa
         {
             get 
             {
-                return this.PhotoEntry.GetPhotoExtensionValue(GPhotoNameTable.SnippetType);
+                return this.PicasaEntry.GetPhotoExtensionValue(GPhotoNameTable.SnippetType);
             }
         }
 
@@ -855,7 +830,7 @@ namespace Google.Picasa
         {
             get 
             {
-                return this.PhotoEntry.GetPhotoExtensionValue(GPhotoNameTable.Truncated);
+                return this.PicasaEntry.GetPhotoExtensionValue(GPhotoNameTable.Truncated);
             }
         }
 
@@ -864,13 +839,13 @@ namespace Google.Picasa
         private void EnsureMediaContent()
         {
             EnsureInnerObject();
-            if (this.PhotoEntry.Media == null)
+            if (this.PicasaEntry.Media == null)
             {
-                this.PhotoEntry.Media = new MediaGroup();
+                this.PicasaEntry.Media = new MediaGroup();
             }
-            if (this.PhotoEntry.Media.Content == null)
+            if (this.PicasaEntry.Media.Content == null)
             {
-                this.PhotoEntry.Media.Content = new MediaContent();
+                this.PicasaEntry.Media.Content = new MediaContent();
             }
         }
 

@@ -232,14 +232,14 @@ namespace PhotoBrowser
             }
             if (this.AlbumKeywords.Text.Length > 0) 
             {
-                acc.AlbumEntry.Media = new MediaGroup();
+                acc.PicasaEntry.Media = new MediaGroup();
                 MediaKeywords keywords = new MediaKeywords(this.AlbumKeywords.Text);
-                acc.AlbumEntry.Media.Keywords = keywords;
+                acc.PicasaEntry.Media.Keywords = keywords;
             }
             acc.Access = this.AlbumPublic.Checked ? "public" : "private";
             acc.CommentingEnabled = this.AllowComments.Checked;
 
-            this.newEntry = this.service.Insert(this.feed, acc.AlbumEntry); 
+            this.newEntry = this.service.Insert(this.feed, acc.PicasaEntry); 
             this.Close();
 
         }
