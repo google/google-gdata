@@ -31,8 +31,6 @@ namespace Google.GData.Client.LiveTests
     [Category("LiveTest")]
     public class DocumentsTestSuite : BaseLiveTestClass
     {
-      
-
         //////////////////////////////////////////////////////////////////////
         /// <summary>default empty constructor</summary> 
         //////////////////////////////////////////////////////////////////////
@@ -484,8 +482,36 @@ namespace Google.GData.Client.LiveTests
 
         }
 
+        
+        /// <summary>
+        /// tests moving a document in and out of folders
+        /// </summary>
+        [Test] public void ModelTestArbitraryDownload()
+        {
+            const string folderTitle = "That is a new & weird folder";
+            const string docTitle = "that's the doc";
+    
+            RequestSettings settings = new RequestSettings(this.ApplicationName, this.userName, this.passWord);
+            // settings.PageSize = 15;
+            DocumentsRequest r = new DocumentsRequest(settings);
+    
+            Feed<Document> feed = r.GetEverything();
+    
+            foreach (Document d in feed.Entries)
+            {
+                Stream res = r.Download(d, null);
+                Assert.IsNotNull(res, "The download stream should not be null");
+            }
+            foreach (Document d in feed.Entries)
+            {
+                Stream res = r.Download(d, "pdf");
+                Assert.IsNotNull(res, "The download stream should not be null");
+            }
+        }
     
     } /////////////////////////////////////////////////////////////////////////////
+
+
 }
 
 

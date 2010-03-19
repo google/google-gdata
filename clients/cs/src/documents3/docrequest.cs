@@ -712,5 +712,50 @@ namespace Google.Documents
             Uri target = new Uri(queryUri);
             return s.Query(target);
         }
+
+
+        /// <summary>
+        /// Downloads arbitrary documents, where the link to the document is inside the 
+        /// content field. 
+        /// </summary>
+        /// <param name="document">a Document Entry</param>
+        /// <param name="exportFormat">a string for the exportformat parameter or null</param>
+        /// <returns></returns>
+        public Stream Download(Document document, string exportFormat)
+        {
+            if (document == null)
+            {
+                throw new ArgumentException("Document should not be null");
+            }
+            if (document.DocumentEntry == null)
+            {
+                throw new ArgumentException("document.DocumentEntry should not be null");
+            }
+            if (document.DocumentEntry.Content == null)
+            {
+                throw new ArgumentException("document.DocumentEntry.Content should not be null");
+            }
+            string url = document.DocumentEntry.Content.Src.ToString();
+            if (String.IsNullOrEmpty(exportFormat) == false)
+            {
+                char r = '?'; 
+                if (url.IndexOf('?') != -1)
+                {
+                    r = '&';
+                }
+                
+                url += r + "exportFormat=" + exportFormat;
+            }
+
+            Service s = this.Service;
+            // figure out if we need to use the spreadsheet service
+            if (url.IndexOf("spreadsheets.google.com") != -1)
+            {
+                s = this.spreadsheetsService;
+            }
+
+            Uri target = new Uri(url);
+            return s.Query(target);
+        }
     }
 }
