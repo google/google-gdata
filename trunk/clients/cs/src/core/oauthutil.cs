@@ -18,6 +18,7 @@
 
 using System;
 using System.Text;
+using System.Globalization;
 
 namespace Google.GData.Client
 {
@@ -35,7 +36,7 @@ namespace Google.GData.Client
         {
             // Default implementation of UNIX time of the current UTC time
             TimeSpan ts = DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, 0);
-            string timeStamp = ts.TotalSeconds.ToString();
+            string timeStamp = ts.TotalSeconds.ToString(CultureInfo.InvariantCulture); 
             // remove any fractions of seconds
             int pointIndex = timeStamp.IndexOf(".");
             if (pointIndex != -1)
