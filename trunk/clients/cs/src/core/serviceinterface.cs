@@ -98,7 +98,7 @@ namespace Google.GData.Client
         /// <summary>creation method for GDatarequests</summary> 
         IGDataRequest CreateRequest(GDataRequestType type, Uri uriTarget); 
         /// <summary>set wether or not to use gzip for new requests</summary>
-        bool    UseGZip
+        bool UseGZip
         {
             get;
             set;
