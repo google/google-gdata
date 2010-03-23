@@ -770,7 +770,7 @@ namespace Google.GData.Client
             return returnFeed; 
         }
 
-        private AtomEntry CreateAndParseEntry(Stream inputStream, Uri uriTarget)
+        internal AtomEntry CreateAndParseEntry(Stream inputStream, Uri uriTarget)
         {
             AtomFeed returnFeed = CreateAndParseFeed(inputStream, uriTarget);
             AtomEntry entry=null; 
