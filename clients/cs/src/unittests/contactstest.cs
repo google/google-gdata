@@ -728,6 +728,97 @@ namespace Google.GData.Client.LiveTests
         }
         /////////////////////////////////////////////////////////////////////////////
 
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>runs an authentication test using OAUTH, inserts a new contact</summary> 
+        //////////////////////////////////////////////////////////////////////
+        [Test]
+        public void ModelInsertWithOAuthContactsTest()
+        {
+            const int numberOfInserts = 37;
+            Tracing.TraceMsg("Entering ModelInsertContactsTest");
+
+            DeleteAllContacts();
+
+
+            RequestSettings rs = new RequestSettings(this.ApplicationName, "mantek.org", "1dsdsfsdfsf", "frank@mantek.org", "mantek.org");
+
+            rs.AutoPaging = true;
+
+            ContactsRequest cr = new ContactsRequest(rs);
+
+            Feed<Contact> f = cr.GetContacts();
+
+            int originalCount = f.TotalResults;
+
+            PhoneNumber p = null;
+            List<Contact> inserted = new List<Contact>();
+
+            if (f != null)
+            {
+                Assert.IsTrue(f.Entries != null, "the contacts needs entries");
+
+                for (int i = 0; i < numberOfInserts; i++)
+                {
+                    Contact entry = new Contact();
+                    entry.AtomEntry = ObjectModelHelper.CreateContactEntry(i);
+                    entry.PrimaryEmail.Address = "joe" + i.ToString() + "@doe.com";
+                    p = entry.PrimaryPhonenumber;
+                    inserted.Add(cr.Insert(f, entry));
+                }
+            }
+
+
+            List<Contact> list = new List<Contact>();
+
+            f = cr.GetContacts();
+            foreach (Contact e in f.Entries)
+            {
+                list.Add(e);
+            }
+
+            if (inserted.Count > 0)
+            {
+                int iVer = numberOfInserts;
+                // let's find those guys
+                for (int i = 0; i < inserted.Count; i++)
+                {
+                    Contact test = inserted[i];
+                    foreach (Contact e in list)
+                    {
+                        if (e.Id == test.Id)
+                        {
+                            iVer--;
+                            // verify we got the phonenumber back....
+                            Assert.IsTrue(e.PrimaryPhonenumber != null, "They should have a primary phonenumber");
+                            Assert.AreEqual(e.PrimaryPhonenumber.Value, p.Value, "They should be identical");
+                        }
+                    }
+                }
+
+                Assert.IsTrue(iVer == 0, "The new entries should all be part of the feed now, " + iVer + " left over");
+            }
+
+            // now delete them again
+            DeleteList(inserted, cr, new Uri(f.AtomFeed.Batch));
+
+            // now make sure they are gone
+            if (inserted.Count > 0)
+            {
+                f = cr.GetContacts();
+                Assert.IsTrue(f.TotalResults == originalCount, "The count should be correct as well");
+                foreach (Contact e in f.Entries)
+                {
+                    // let's find those guys, we should not find ANY
+                    for (int i = 0; i < inserted.Count; i++)
+                    {
+                        Contact test = inserted[i] as Contact;
+                        Assert.IsTrue(e.Id != test.Id, "The new entries should all be deleted now");
+                    }
+                }
+            }
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
 
         private void DeleteList(List<Contact> list, ContactsRequest cr, Uri batch)
         {

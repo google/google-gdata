@@ -2769,6 +2769,17 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Google.GData.YouTube.YouTubeQuery.GetCategories(System.Uri,Google.GData.Client.AtomBase)">
+            <summary>
+            retrieves a category collection from the given URL
+            The owner should be a new Collection object, like:
+            <code>
+            	GetCategories(new Uri("http://gdata.youtube.com/schemas/2007/categories.cat"), 
+            				  new YouTubeCategoryCollection())
+            </code>
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Google.GData.YouTube.YouTubeQuery.ParseUri(System.Uri)">
             <summary>protected void ParseUri</summary> 
             <param name="targetUri">takes an incoming Uri string and parses all the properties out of it</param>

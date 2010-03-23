@@ -643,17 +643,17 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="P:Google.Picasa.PicasaEntity.PicasaEntry">
+            <summary>
+            readonly accessor for the AlbumEntry that is underneath this object.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Google.Picasa.Album.EnsureInnerObject">
             <summary>
             needs to be subclassed to ensure the creation of the corrent AtomEntry based
             object
             </summary>
-        </member>
-        <member name="P:Google.Picasa.Album.AlbumEntry">
-            <summary>
-            readonly accessor for the AlbumEntry that is underneath this object.
-            </summary>
-            <returns></returns>
         </member>
         <member name="P:Google.Picasa.Album.Access">
             <summary>
@@ -740,12 +740,6 @@
             object
             </summary>
         </member>
-        <member name="P:Google.Picasa.Comment.CommentEntry">
-            <summary>
-            readonly accessor for the CommentEntry that is underneath this object.
-            </summary>
-            <returns></returns>
-        </member>
         <member name="P:Google.Picasa.Comment.PhotoId">
             <summary>
             The ID of the photo associated with the current comment.
@@ -769,12 +763,6 @@
         <member name="M:Google.Picasa.Photo.EnsureInnerObject">
             <summary>
             creates the inner contact object when needed
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="P:Google.Picasa.Photo.PhotoEntry">
-            <summary>
-            readonly accessor for the PhotoEntry that is underneath this object.
             </summary>
             <returns></returns>
         </member>
