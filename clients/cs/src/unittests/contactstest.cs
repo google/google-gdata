@@ -924,8 +924,6 @@ namespace Google.GData.Client.LiveTests
             // now delete them again
             DeleteList(inserted, cr, new Uri(f.AtomFeed.Batch));
 
-
-
             // now make sure they are gone
             if (inserted.Count > 0)
             {

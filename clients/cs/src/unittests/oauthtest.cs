@@ -27,6 +27,8 @@ using Google.GData.Client.UnitTests;
 using Google.GData.Extensions;
 using Google.GData.Calendar;
 using Google.GData.AccessControl;
+using Google.Contacts;
+using System.Collections.Generic;
 
 
 
@@ -128,6 +130,43 @@ namespace Google.GData.Client.LiveTests
         }
         /////////////////////////////////////////////////////////////////////////////
 
+        [Test]
+        public void OAuth2LeggedContactsTest()
+        {
+            Tracing.TraceMsg("Entering OAuth2LeggedContactsTest");
+  
+        
+            RequestSettings rs = new RequestSettings(this.ApplicationName, this.oAuthConsumerKey, this.oAuthConsumerSecrect,
+                                                     this.oAuthUser, this.oAuthDomain);
+     
+            ContactsRequest cr = new ContactsRequest(rs);
+
+            List<Contact> list = new List<Contact>();
+
+            Feed<Contact> f = cr.GetContacts();
+
+            // modify one
+            foreach (Contact c in f.Entries)
+            {
+                c.Title = "new title";
+                cr.Update(c);
+                break;
+            }
+
+
+            Contact entry = new Contact();
+            entry.AtomEntry = ObjectModelHelper.CreateContactEntry(1);
+            entry.PrimaryEmail.Address = "joe@doe.com";
+            Contact e = cr.Insert(f, entry);
+
+
+            cr.Delete(e);
+            
+        }
+        /////////////////////////////////////////////////////////////////////////////
+ 
+
+      
     }
 }
 

@@ -1692,7 +1692,13 @@ namespace Google.GData.Client
                 throw new ArgumentNullException("Entry.AtomEntry was null");
 
             Y r = null;
-            AtomEntry ae = this.Service.Update(entry.AtomEntry);
+     
+            FeedQuery q = new FeedQuery(entry.AtomEntry.EditUri.ToString());
+
+            PrepareQuery(q);
+
+            Stream s = this.Service.EntrySend(q.Uri, entry.AtomEntry, GDataRequestType.Update, null);
+            AtomEntry ae = this.Service.CreateAndParseEntry(s, new Uri(entry.AtomEntry.EditUri.ToString()));
            
             if (ae != null)
             {
@@ -1713,7 +1719,9 @@ namespace Google.GData.Client
             if (entry.AtomEntry == null)
                 throw new ArgumentNullException("Entry.AtomEntry was null");
 
-            entry.AtomEntry.Delete();
+            FeedQuery q = new FeedQuery(entry.AtomEntry.EditUri.ToString());
+            PrepareQuery(q);
+            this.Service.Delete(q.Uri, entry.ETag);
         }
 
         /// <summary>
@@ -1759,7 +1767,10 @@ namespace Google.GData.Client
                 throw new ArgumentNullException("Feed was null");
 
             Y r = null;
-            AtomEntry ae = this.Service.Insert(feed.AtomFeed, entry.AtomEntry);
+            FeedQuery q = new FeedQuery(feed.AtomFeed.Post);
+            PrepareQuery(q);
+
+            AtomEntry ae = this.Service.Insert(q.Uri, entry.AtomEntry);
             if (ae != null)
             {
                 r = new Y();
