@@ -117,7 +117,7 @@ namespace Google.GData.Apps
         {
             Service service = new Service(AppsNameTable.GAppsService,"apps-"+domain);
             service.setUserCredentials(adminEmailAddress, adminPassword);
-            return service.QueryAuthenticationToken();
+            return service.QueryClientLoginToken();
         }
 
         /// <summary>

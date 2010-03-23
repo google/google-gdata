@@ -107,10 +107,17 @@ namespace Google.GData.Client
         /// returns a stream of the actual content that is base64 encoded
         /// </summary>
         /// <returns></returns>
+        [Obsolete("That name was misleading. Use GetDataStream() instead")]
         public abstract Stream Data
         {
             get;
         }
+
+        /// <summary>
+        /// returns a stream of the actual content that is base64 encoded
+        /// </summary>
+        /// <returns></returns>
+        public abstract Stream GetDataStream();
     }
 
 
@@ -189,8 +196,9 @@ namespace Google.GData.Client
                 try
                 {
 
-                    Stream s = this.Data;
+                    Stream s = this.GetDataStream();
                     result = s.Length;
+                    s.Close();
                 }
                 catch (NotSupportedException e)
                 {
@@ -206,17 +214,29 @@ namespace Google.GData.Client
         /// note, the caller has to release the resource
         /// </summary>
         /// <returns></returns>
+        [Obsolete("That name was misleading. Use GetDataStream() instead")]       
         public override Stream Data
         {
             get
             {
-                if (String.IsNullOrEmpty(this.file) == false)
-                {
-                    FileStream f = File.OpenRead(this.file);
-                    return f;
-                }
-                return this.stream;
+                return GetDataStream();
             }
+        }
+
+
+        /// <summary>
+        /// returns the stream for the file. The file will be opened in readonly mode
+        /// note, the caller has to release the resource
+        /// </summary>
+        /// <returns></returns>
+        public override Stream GetDataStream()
+        {
+            if (String.IsNullOrEmpty(this.file) == false)
+            {
+                FileStream f = File.OpenRead(this.file);
+                return f;
+            }
+            return this.stream;
         }
     }
 }

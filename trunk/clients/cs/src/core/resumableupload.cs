@@ -204,14 +204,21 @@ namespace Google.GData.Client.ResumableUpload
 
         private WebResponse Insert(Authenticator authentication, AbstractEntry payload, AsyncData data)
         {
+            WebResponse r = null;
             Uri initialUri = ResumableUploader.GetResumableCreateUri(payload.Links);
             if (initialUri == null)
                 throw new ArgumentException("payload did not contain a resumabled create media Uri");
 
             Uri resumeUri = InitiateUpload(initialUri, authentication, payload);
-            return UploadStream(HttpMethods.Post, resumeUri,  authentication, 
-                                payload.MediaSource.Data, 
-                                payload.MediaSource.ContentType, data);
+
+            using (Stream s = payload.MediaSource.GetDataStream())
+            {
+
+                r = UploadStream(HttpMethods.Post, resumeUri, authentication,
+                                    s,
+                                    payload.MediaSource.ContentType, data);
+            }
+            return r;
         }
 
         private WebResponse Insert(Authenticator authentication, Uri resumableUploadUri, 
@@ -342,12 +349,21 @@ namespace Google.GData.Client.ResumableUpload
 
         private WebResponse Update(Authenticator authentication, AbstractEntry payload, AsyncData data)
         {
+            WebResponse r = null;
+
             Uri initialUri = ResumableUploader.GetResumableEditUri(payload.Links);
             if (initialUri == null)
                 throw new ArgumentException("payload did not contain a resumabled edit media Uri");
 
             Uri resumeUri = InitiateUpload(initialUri, authentication, payload);
-            return UploadStream(HttpMethods.Put, resumeUri, authentication, payload.MediaSource.Data, payload.MediaSource.ContentType, data);
+            // get the stream
+
+            using (Stream s = payload.MediaSource.GetDataStream())
+            {
+                r = UploadStream(HttpMethods.Put, resumeUri, authentication, s, payload.MediaSource.ContentType, data);
+            }            
+            return r;
+
         }
 
         private WebResponse Update(Authenticator authentication, Uri resumableUploadUri, Stream payload, string contentType, AsyncData data)
