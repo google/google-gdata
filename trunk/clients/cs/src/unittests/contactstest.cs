@@ -499,6 +499,50 @@ namespace Google.GData.Client.LiveTests
         }
         /////////////////////////////////////////////////////////////////////////////
 
+        
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>runs an authentication test, inserts a new contact with an extended property</summary> 
+        //////////////////////////////////////////////////////////////////////
+        [Test]
+        public void InsertExtendedPropertyContactsTest()
+        {
+            Tracing.TraceMsg("Entering InsertExtendedPropertyContactsTest");
+
+            DeleteAllContacts();
+
+            RequestSettings rs = new RequestSettings(this.ApplicationName, this.userName, this.passWord);
+            rs.AutoPaging = true;
+
+            FeedQuery query = new FeedQuery();
+            query.Uri = new Uri(CreateUri(this.resourcePath + "contactsextendedprop.xml"));
+
+         
+
+            ContactsRequest cr = new ContactsRequest(rs);
+
+            Feed<Contact> f = cr.Get<Contact>(query);
+
+            Contact newEntry = null;
+
+            foreach (Contact c in f.Entries)
+            {
+                ExtendedProperty e = c.ExtendedProperties[0];
+                Assert.NotNull(e);
+                newEntry = c;
+            }
+
+            f = cr.GetContacts();
+
+            Contact createdEntry = cr.Insert<Contact>(f, newEntry);
+
+            cr.Delete(createdEntry);
+
+
+
+   
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
         //////////////////////////////////////////////////////////////////////
         /// <summary>Tests the primary Accessors</summary> 
         //////////////////////////////////////////////////////////////////////
