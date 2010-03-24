@@ -239,6 +239,28 @@ namespace Google.GData.Client
         }
 
 
+        /// <summary>
+        /// helper method to setup a query object with some parameters 
+        /// based on a requestsettings
+        /// </summary>
+        /// <param name="q"></param>
+        /// <param name="settings"></param>
+        internal static void PrepareQuery(FeedQuery q, RequestSettings settings)
+        {
+            if (settings.PageSize != -1)
+            {
+                q.NumberToRetrieve = settings.PageSize;
+            }
+            if (settings.OAuthUser != null)
+            {
+                q.OAuthRequestorId = settings.OAuthUser;
+                if (settings.OAuthDomain != null)
+                {
+                    q.OAuthRequestorId += "@" + settings.OAuthDomain;
+                }
+            }
+        }
+
 
      
         //////////////////////////////////////////////////////////////////////

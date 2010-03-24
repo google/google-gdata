@@ -44,7 +44,8 @@ namespace Google.GData.Client
         int  maximum = -1; 
         int  numberRetrieved=0; 
         Service service; 
-        FeedQuery query; 
+        FeedQuery query;
+        RequestSettings settings;
 
 
         /// <summary>
@@ -172,6 +173,22 @@ namespace Google.GData.Client
            }
        }
 
+       /// <summary>
+       /// accessor for the RequestSettings used to construct the feed. Needed to 
+       /// construct a query that takes auth into account
+       /// </summary>
+       internal RequestSettings Settings
+       {
+           get
+           {
+               return this.settings;
+           }
+           set
+           {
+               this.settings = value;
+           }
+       }
+
 
        /**
        <summary>
@@ -232,6 +249,7 @@ namespace Google.GData.Client
                     if (looping)
                     {
                         FeedQuery q = new FeedQuery(this.AtomFeed.NextChunk);
+                        FeedQuery.PrepareQuery(q, this.settings);
                         this.af = this.AtomFeed.Service.Query(q);
                     }
                 } while (looping);
@@ -1280,19 +1298,9 @@ namespace Google.GData.Client
         /// <param name="q"></param>
         protected void PrepareQuery(FeedQuery q)
         {
-            if (this.settings.PageSize != -1)
-            {
-                q.NumberToRetrieve = this.settings.PageSize; 
-            }
-            if (this.settings.OAuthUser != null)
-            {
-                q.OAuthRequestorId = this.settings.OAuthUser;
-                if (this.settings.OAuthDomain != null)
-                {
-                    q.OAuthRequestorId += "@" + this.settings.OAuthDomain;
-                }
-            }
+            FeedQuery.PrepareQuery(q, this.settings);
         }
+
 
         /// <summary>
         ///  should be used in subclasses to create URIs from strings, so that the OAuth parameters can be 
@@ -1329,6 +1337,7 @@ namespace Google.GData.Client
         protected virtual Feed<Y> PrepareFeed<Y>(FeedQuery q) where Y : Entry, new()
         {
              Feed<Y> f = CreateFeed<Y>(q);
+             f.Settings = this.settings;
              f.AutoPaging = this.settings.AutoPaging;
              f.Maximum   = this.settings.Maximum;
              return f;
@@ -1575,7 +1584,10 @@ namespace Google.GData.Client
                 {
                     batchFeed.Entries.Add(e.AtomEntry);
                 }
-                AtomFeed resultFeed = this.Service.Batch(batchFeed, batchUri);
+
+                FeedQuery q = PrepareQuery<FeedQuery>(batchUri.AbsoluteUri);
+
+                AtomFeed resultFeed = this.Service.Batch(batchFeed, q.Uri);
                 Feed<Y> f = new Feed<Y>(resultFeed);
                 return f;
             }
@@ -1693,10 +1705,7 @@ namespace Google.GData.Client
 
             Y r = null;
      
-            FeedQuery q = new FeedQuery(entry.AtomEntry.EditUri.ToString());
-
-            PrepareQuery(q);
-
+            FeedQuery q = PrepareQuery<FeedQuery>(entry.AtomEntry.EditUri.ToString());
             Stream s = this.Service.EntrySend(q.Uri, entry.AtomEntry, GDataRequestType.Update, null);
             AtomEntry ae = this.Service.CreateAndParseEntry(s, new Uri(entry.AtomEntry.EditUri.ToString()));
            
@@ -1719,8 +1728,7 @@ namespace Google.GData.Client
             if (entry.AtomEntry == null)
                 throw new ArgumentNullException("Entry.AtomEntry was null");
 
-            FeedQuery q = new FeedQuery(entry.AtomEntry.EditUri.ToString());
-            PrepareQuery(q);
+            FeedQuery q = PrepareQuery<FeedQuery>(entry.AtomEntry.EditUri.ToString());
             this.Service.Delete(q.Uri, entry.ETag);
         }
 
@@ -1767,9 +1775,8 @@ namespace Google.GData.Client
                 throw new ArgumentNullException("Feed was null");
 
             Y r = null;
-            FeedQuery q = new FeedQuery(feed.AtomFeed.Post);
-            PrepareQuery(q);
-
+            FeedQuery q = PrepareQuery<FeedQuery>(feed.AtomFeed.Post);
+  
             AtomEntry ae = this.Service.Insert(q.Uri, entry.AtomEntry);
             if (ae != null)
             {
