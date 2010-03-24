@@ -1190,6 +1190,7 @@ namespace Google.GData.Client.LiveTests
                 Assert.AreEqual(newCalendar.Location.ValueString, createdCalendar.Location.ValueString, "Where should be equal");
 
                 createdCalendar.Title.Text = "renamed calendar" + Guid.NewGuid().ToString();
+                createdCalendar.Hidden = true;
                 CalendarEntry updatedCalendar = (CalendarEntry) createdCalendar.Update();
 
                 Assert.AreEqual(createdCalendar.Title.Text, updatedCalendar.Title.Text, "entry should have been updated");
