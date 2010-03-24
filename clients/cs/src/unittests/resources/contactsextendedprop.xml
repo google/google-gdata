@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<entry xmlns="http://www.w3.org/2005/Atom" xmlns:gd="http://schemas.google.com/g/2005">
+  <gd:organization rel="http://schemas.google.com/g/2005#work">
+  <gd:orgName>COMPANY_NAME_HERE</gd:orgName>
+  </gd:organization>
+  <gd:email address="CONTACT_EMAIL_ADDRESS_HERE" rel="http://schemas.google.com/g/2005#work" />
+  <gd:extendedProperty gs="http://schemas.google_apps_sync.com/contact/2008" name="google_apps_sync">
+    <gs:em_odn1 xmlns:gs="http://schemas.google_apps_sync.com/contact/2008">CONTACT_EMAIL_ADDRESS_HERE</gs:em_odn1>
+    <gs:em_dn1 xmlns:gs="http://schemas.google_apps_sync.com/contact/2008">CONTACTG_ACCOUNTNAME(CONTACT_EMAIL_ADDRESS_HERE)</gs:em_dn1>
+    <gs:em_ad1 xmlns:gs="http://schemas.google_apps_sync.com/contact/2008">CONTACT_EMAIL_ADDRESS_HERE</gs:em_ad1>
+    <gs:em_t1 xmlns:gs="http://schemas.google_apps_sync.com/contact/2008">SMTP</gs:em_t1>
+    <gs:f_c xmlns:gs="http://schemas.google_apps_sync.com/contact/2008">32791</gs:f_c>
+    <gs:f xmlns:gs="http://schemas.google_apps_sync.com/contact/2008">LAST_NAME FIRST_NAME</gs:f>
+  </gd:extendedProperty>
+
+  <gd:extendedProperty name="testKey">this is the value</gd:extendedProperty>
+  <content type="text" />
+</entry>
