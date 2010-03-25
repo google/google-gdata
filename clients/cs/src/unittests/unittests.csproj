@@ -178,7 +178,9 @@
     <Compile Include="baselivetestclass.cs" />
     <Compile Include="blogger.cs" />
     <Compile Include="caltest.cs" />
+    <Compile Include="gapps\adminsettingsentrytest.cs" />
     <Compile Include="contactstest.cs" />
+    <Compile Include="gapps\adminsettingsservicetest.cs" />
     <Compile Include="oauthtest.cs" />
     <Compile Include="coretest.cs" />
     <Compile Include="core\AbstractEntryTest.cs" />

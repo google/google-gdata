@@ -127,6 +127,9 @@
     <Compile Include="appsextendedfeed.cs" />
     <Compile Include="appsservice.cs" />
     <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="adminsettingsentry.cs" />
+    <Compile Include="adminsettingsfeed.cs" />
+    <Compile Include="adminsettingsservice.cs" />
     <Compile Include="emaillistentry.cs" />
     <Compile Include="emaillistfeed.cs" />
     <Compile Include="emaillistquery.cs" />
