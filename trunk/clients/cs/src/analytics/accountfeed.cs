@@ -15,6 +15,7 @@
 /* Created by Morten Christensen, elpadrinodk@gmail.com, http://blog.sitereactor.dk */
 using System;
 using Google.GData.Client;
+using System.Collections.Generic;
 
 namespace Google.GData.Analytics
 {
@@ -26,6 +27,9 @@ namespace Google.GData.Analytics
     //////////////////////////////////////////////////////////////////////
     public class AccountFeed : AbstractFeed
     {
+
+        private List<Segment> segments;
+        
         /// <summary>
         ///  default constructor
         /// </summary>
@@ -34,6 +38,9 @@ namespace Google.GData.Analytics
         public AccountFeed(Uri uriBase, IService iService)
             : base(uriBase, iService)
         {
+            AddExtension(new Segment());
+            
+            
         }
 
         /// <summary>
@@ -51,9 +58,27 @@ namespace Google.GData.Analytics
         /// </summary>
         /// <param name="e"></param>
         /// <param name="parser">the atom feed parser used</param>
-        protected override void HandleExtensionElements(ExtensionElementEventArgs e, AtomFeedParser parser)
+        protected override void HandleExtensionElements(ExtensionElementEventArgs e, 
+                                                        AtomFeedParser parser)
         {
             base.HandleExtensionElements(e, parser);
+        }
+
+
+        /// <summary>
+        /// This field controls the segments.
+        /// </summary>
+        public List<Segment> Segments
+        {
+            get
+            {
+                if (segments == null)
+                {
+                    segments = FindExtensions<Segment>(AnalyticsNameTable.XmlSegmentElement, 
+                                                       AnalyticsNameTable.gAnalyticsNamspace);
+                }
+                return segments;
+            }
         }
     }
 }

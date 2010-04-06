@@ -42,6 +42,9 @@ namespace Google.GData.Analytics
         /// <summary> Dimension value filters.</summary>
 		private string filters;
 
+        /// <summary> Advanced Segment, either dynamic or by index</summary>
+        private string segment;
+
         /// <summary> Google Analytics profile ID, prefixed by 'ga:'.</summary>
 		private string ids;
 
@@ -56,6 +59,8 @@ namespace Google.GData.Analytics
 
         /// <summary> Optional. Adds extra whitespace to the feed XML to make it more readable.</summary>
         private bool? prettyPrint;
+
+
 
         /// <summary>
         /// default constructor, constructs a query to the default analytics feed with no parameters
@@ -137,8 +142,25 @@ namespace Google.GData.Analytics
         {
             this.Filters = filters; 
         }
+
+        /// <summary>
+        /// overloaded constructor
+        /// </summary>
+        /// <param name="ids">the account id</param>
+        /// <param name="metric"></param>
+        /// <param name="dimension"></param>
+        /// <param name="startDate"></param>
+        /// <param name="endDate"></param>
+        /// <param name="sorting"></param>
+        /// <param name="filters"></param>
+        /// <returns></returns>
+        public DataQuery(string id, DateTime startDate, DateTime endDate, string metric, string dimension, string sorting, string filters, string segment) :
+            this(id, startDate, endDate, metric, dimension, sorting, filters)
+        {
+            this.Segment = segment;
+        }
 		
-		
+
 		
         //////////////////////////////////////////////////////////////////////
         /// <summary>The primary data keys from which Analytics reports
@@ -165,17 +187,32 @@ namespace Google.GData.Analytics
             set {this.endDate = value;}
         }
         // end of accessor public string EndDate
-		
-		//////////////////////////////////////////////////////////////////////
+
+        //////////////////////////////////////////////////////////////////////
         /// <summary>Indicates the dimension value filters.</summary>
         /// <returns>Filters</returns>
         //////////////////////////////////////////////////////////////////////
         public string Filters
         {
-            get {return this.filters;}
-            set {this.filters = value;}
+            get { return this.filters; }
+            set { this.filters = value; }
         }
         // end of accessor public string Filters
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Indicates the Segments.</summary>
+        /// <returns>Segments</returns>
+        //////////////////////////////////////////////////////////////////////
+        
+        public string Segment
+        {
+            get { return this.segment; }
+            set { this.segment = value; }
+        }
+        // end of accessor public string Segments
+
+
+
 		
 		//////////////////////////////////////////////////////////////////////
         /// <summary>Indicates the Google Analytics profile ID, 
@@ -278,6 +315,9 @@ namespace Google.GData.Analytics
                             case "filters":
                                 this.filters = parameters[1];
                                 break;
+                            case "segment":
+                                this.segment = parameters[1];
+                                break;
                             case "ids":
                                 this.ids = parameters[1];
                                 break;
@@ -296,8 +336,6 @@ namespace Google.GData.Analytics
                         }
                     }
                 }
-
-        
             }
             return this.Uri;
         }
@@ -320,8 +358,9 @@ namespace Google.GData.Analytics
             paramInsertion = AppendQueryPart(this.Ids, "ids", paramInsertion, newPath);            
             paramInsertion = AppendQueryPart(this.Metrics, "metrics", paramInsertion, newPath);            
             paramInsertion = AppendQueryPart(this.Sort, "sort", paramInsertion, newPath);            
-            paramInsertion = AppendQueryPart(this.GAStartDate, "start-date", paramInsertion, newPath);    
-            
+            paramInsertion = AppendQueryPart(this.GAStartDate, "start-date", paramInsertion, newPath);
+            paramInsertion = AppendQueryPart(this.Segment, "segment", paramInsertion, newPath);
+    
             if (this.PrettyPrint == true)
             {
                 paramInsertion = AppendQueryPart("true", "prettyprint", paramInsertion, newPath);            

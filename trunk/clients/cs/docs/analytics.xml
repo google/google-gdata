@@ -151,6 +151,30 @@
             <param name="q"></param>
             <returns></returns>
         </member>
+        <member name="P:Google.GData.Analytics.Goal.Name">
+            <summary>Accessor for "name" attribute.</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Analytics.Goal.Number">
+            <summary>Accessor for "Number" attribute.</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Analytics.Goal.Active">
+            <summary>Accessor for "Active" attribute.</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Analytics.Goal.Value">
+            <summary>Accessor for "value" attribute.</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Analytics.Goal.Destination">
+            <summary>Accessor for "Destination" sub-element.</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Analytics.Goal.Engagement">
+            <summary>Accessor for "Engagement" sub-element.</summary> 
+            <returns> </returns>
+        </member>
         <member name="T:Google.GData.Analytics.DataFeed">
             <summary>DataFeed, entry
             Returns DataEntry containing:
@@ -183,6 +207,11 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="P:Google.GData.Analytics.DataFeed.Segments">
+            <summary>
+            This field controls the segments.
+            </summary>
+        </member>
         <member name="T:Google.GData.Analytics.AccountFeed">
             <summary>
             This is the Google Analytics Account feed that lets you access
@@ -209,6 +238,11 @@
             </summary>
             <param name="e"></param>
             <param name="parser">the atom feed parser used</param>
+        </member>
+        <member name="P:Google.GData.Analytics.AccountFeed.Segments">
+            <summary>
+            This field controls the segments.
+            </summary>
         </member>
         <member name="T:Google.GData.Analytics.DataSource">
             <summary>
@@ -312,6 +346,16 @@
             This field controls the tableId (ProfileId).
             </summary>
         </member>
+        <member name="P:Google.GData.Analytics.AccountEntry.CustomVariables">
+            <summary>
+            This field controls the Custom Variables.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Analytics.AccountEntry.Goals">
+            <summary>
+            This field controls the goals.
+            </summary>
+        </member>
         <member name="T:Google.GData.Analytics.TableId">
             <summary>
             GData schema extension describing a tableId.
@@ -330,6 +374,18 @@
             </summary>
             <param name="value">the value property value</param>
         </member>
+        <member name="P:Google.GData.Analytics.Engagement.Comparison">
+            <summary>Accessor for "Comparison" attribute.</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Analytics.Engagement.Threshold">
+            <summary>Accessor for "thresholdValue" attribute.</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Analytics.Engagement.Type">
+            <summary>Accessor for "type" attribute.</summary> 
+            <returns> </returns>
+        </member>
         <member name="T:Google.GData.Analytics.TableName">
             <summary>
             GData schema extension describing a tableName.
@@ -347,6 +403,37 @@
             default constructor, takes 1 parameters
             </summary>
             <param name="value">the value property value</param>
+        </member>
+        <member name="P:Google.GData.Analytics.Step.Name">
+            <summary>Accessor for "name" attribute.</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Analytics.Step.Number">
+            <summary>Accessor for "Number" attribute.</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Analytics.Step.Path">
+            <summary>Accessor for "Path" attribute.</summary> 
+            <returns> </returns>
+        </member>
+        <member name="T:Google.GData.Analytics.Segment">
+            <summary>
+            GData schema extension describing a Segment.
+            Segment is part of Data Feed 
+            </summary>    
+            
+        </member>
+        <member name="P:Google.GData.Analytics.Segment.Name">
+            <summary>Accessor for "name" attribute.</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Analytics.Segment.Id">
+            <summary>Accessor for "name" attribute.</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Analytics.Segment.Definition">
+            <summary>Accessor for "definition" attribute.</summary> 
+            <returns> </returns>
         </member>
         <member name="T:Google.GData.Analytics.DataEntry">
             <summary>
@@ -396,6 +483,18 @@
             This field controls the metrics.
             </summary>
         </member>
+        <member name="P:Google.GData.Analytics.CustomVariable.Index">
+            <summary>Accessor for "Index" attribute.</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Analytics.CustomVariable.Name">
+            <summary>Accessor for "Name" attribute.</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Analytics.CustomVariable.Scope">
+            <summary>Accessor for "Scope" attribute.</summary> 
+            <returns> </returns>
+        </member>
         <member name="T:Google.GData.Analytics.Property">
             <summary>
             GData schema extension describing a property.
@@ -439,6 +538,9 @@
             <param name="initValue">initial value</param>
             <param name="initName">name for the key</param>
         </member>
+        <member name="F:Google.GData.Analytics.AnalyticsNameTable.gaPrefix">
+            <summary>prefix for GA namespace if writing</summary>
+        </member>
         <member name="F:Google.GData.Analytics.AnalyticsNameTable.gAnalyticsPrefix">
             <summary>prefix for gAnalyticsNamspace if writing</summary>
         </member>
@@ -474,6 +576,66 @@
         </member>
         <member name="F:Google.GData.Analytics.AnalyticsNameTable.XmlAttributeConfidenceInterval">
             <summary>xml attribute confidenceInterval for dxp:metric</summary> 
+        </member>
+        <member name="F:Google.GData.Analytics.AnalyticsNameTable.XmlAttributeNumber">
+            <summary>xml attribute number for ga:goal and ga:step</summary> 
+        </member>
+        <member name="F:Google.GData.Analytics.AnalyticsNameTable.XmlAttributeActive">
+            <summary>xml attribute active for ga:goal</summary> 
+        </member>
+        <member name="F:Google.GData.Analytics.AnalyticsNameTable.XmlSegmentElement">
+            <summary>xmlelement for dxp:segment</summary> 
+        </member>
+        <member name="F:Google.GData.Analytics.AnalyticsNameTable.XmlAttributeId">
+            <summary>xml attribute id for dxp:segment</summary>
+        </member>
+        <member name="F:Google.GData.Analytics.AnalyticsNameTable.XmlGoalElement">
+            <summary>xmlelement definition for ga:goal</summary> 
+        </member>
+        <member name="F:Google.GData.Analytics.AnalyticsNameTable.XmlDefinitionElement">
+            <summary>xmlelement definition for ga:engagement</summary> 
+        </member>
+        <member name="F:Google.GData.Analytics.AnalyticsNameTable.XmlDestinationElement">
+            <summary>xmlelement destination for ga:destination</summary> 
+        </member>
+        <member name="F:Google.GData.Analytics.AnalyticsNameTable.XmlAttributeCaseSensitive">
+            <summary>xml attribute caseSensitive for ga:destination</summary> 
+        </member>
+        <member name="F:Google.GData.Analytics.AnalyticsNameTable.XmlAttributeExpression">
+            <summary>xmlelement expression for ga:destination</summary> 
+        </member>
+        <member name="F:Google.GData.Analytics.AnalyticsNameTable.XmlAttributeMatchType">
+            <summary>xmlelement matchType for ga:destination</summary> 
+        </member>
+        <member name="F:Google.GData.Analytics.AnalyticsNameTable.XmlAttributeStep1Required">
+            <summary>xmlelement step1Required for ga:destination</summary> 
+        </member>
+        <member name="F:Google.GData.Analytics.AnalyticsNameTable.XmlStepElement">
+            <summary>xmlelement definition for ga:step</summary> 
+        </member>
+        <member name="F:Google.GData.Analytics.AnalyticsNameTable.XmlAttributePath">
+            <summary>xml attribute path for ga:step</summary> 
+        </member>
+        <member name="F:Google.GData.Analytics.AnalyticsNameTable.XmlEngagementElement">
+            <summary>xmlelement engagement for ga:engagement</summary> 
+        </member>
+        <member name="F:Google.GData.Analytics.AnalyticsNameTable.XmlAttributeComparison">
+            <summary>xml attribute comparison for ga:destination</summary> 
+        </member>
+        <member name="F:Google.GData.Analytics.AnalyticsNameTable.XmlAttributeThresholdValue">
+            <summary>xml attribute thresholdValue for ga:destination</summary> 
+        </member>
+        <member name="F:Google.GData.Analytics.AnalyticsNameTable.XmlAttributeType">
+            <summary>xml attribute type for ga:destination</summary> 
+        </member>
+        <member name="F:Google.GData.Analytics.AnalyticsNameTable.XmlCustomVariableElement">
+            <summary>xmlelement customVariable for ga:customVariable</summary> 
+        </member>
+        <member name="F:Google.GData.Analytics.AnalyticsNameTable.XmlAttributeIndex">
+            <summary>xml attribute index for ga:customVariable</summary> 
+        </member>
+        <member name="F:Google.GData.Analytics.AnalyticsNameTable.XmlAttributeScope">
+            <summary>xml attribute scope for ga:customVariable</summary> 
         </member>
         <member name="T:Google.GData.Analytics.AnalyticsService">
             <summary>
@@ -575,6 +737,26 @@
             </summary>
             <param name="queryUri">the query to use</param>
         </member>
+        <member name="P:Google.GData.Analytics.Destination.Steps">
+            <summary>Accessor for "Step" sub-element.</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Analytics.Destination.CaseSensitive">
+            <summary>Accessor for "caseSensitive" attribute.</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Analytics.Destination.Expression">
+            <summary>Accessor for "expression" attribute.</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Analytics.Destination.MatchType">
+            <summary>Accessor for "matchType" attribute.</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Analytics.Destination.Step1Required">
+            <summary>Accessor for "step1Required" attribute.</summary> 
+            <returns> </returns>
+        </member>
         <member name="T:Google.GData.Analytics.DataQuery">
             <summary>
             A subclass of FeedQuery, to create an Analytics Data query URI.
@@ -588,6 +770,9 @@
         </member>
         <member name="F:Google.GData.Analytics.DataQuery.filters">
             <summary> Dimension value filters.</summary>
+        </member>
+        <member name="F:Google.GData.Analytics.DataQuery.segment">
+            <summary> Advanced Segment, either dynamic or by index</summary>
         </member>
         <member name="F:Google.GData.Analytics.DataQuery.ids">
             <summary> Google Analytics profile ID, prefixed by 'ga:'.</summary>
@@ -660,6 +845,19 @@
             <param name="filters"></param>
             <returns></returns>
         </member>
+        <member name="M:Google.GData.Analytics.DataQuery.#ctor(System.String,System.DateTime,System.DateTime,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            overloaded constructor
+            </summary>
+            <param name="ids">the account id</param>
+            <param name="metric"></param>
+            <param name="dimension"></param>
+            <param name="startDate"></param>
+            <param name="endDate"></param>
+            <param name="sorting"></param>
+            <param name="filters"></param>
+            <returns></returns>
+        </member>
         <member name="M:Google.GData.Analytics.DataQuery.ParseUri(System.Uri)">
             <summary>protected void ParseUri</summary> 
             <param name="targetUri">takes an incoming Uri string and parses 
@@ -687,6 +885,10 @@
         <member name="P:Google.GData.Analytics.DataQuery.Filters">
             <summary>Indicates the dimension value filters.</summary>
             <returns>Filters</returns>
+        </member>
+        <member name="P:Google.GData.Analytics.DataQuery.Segment">
+            <summary>Indicates the Segments.</summary>
+            <returns>Segments</returns>
         </member>
         <member name="P:Google.GData.Analytics.DataQuery.Ids">
             <summary>Indicates the Google Analytics profile ID, 

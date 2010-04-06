@@ -23,6 +23,11 @@ namespace Google.GData.Analytics
 
     public class AnalyticsNameTable
     {
+
+        // <summary>GData GA extension namespace</summary>
+        public const string gaNamespace = "http://schemas.google.com/ga/2009";
+        /// <summary>prefix for GA namespace if writing</summary>
+        public const string gaPrefix = "ga";
         // <summary>GData analytics extension namespace</summary>
         public const string gAnalyticsNamspace = "http://schemas.google.com/analytics/2009";
         /// <summary>prefix for gAnalyticsNamspace if writing</summary>
@@ -49,6 +54,56 @@ namespace Google.GData.Analytics
         public const string XmlAttributeValue = "value";
         /// <summary>xml attribute confidenceInterval for dxp:metric</summary> 
         public const string XmlAttributeConfidenceInterval = "confidenceInterval";
+
+        /// <summary>xml attribute number for ga:goal and ga:step</summary> 
+        public const string XmlAttributeNumber = "number";
+        /// <summary>xml attribute active for ga:goal</summary> 
+        public const string XmlAttributeActive = "active";
+        /// <summary>xmlelement for dxp:segment</summary> 
+        public const string XmlSegmentElement = "segment";
+        /// <summary>xml attribute id for dxp:segment</summary>
+        public const string XmlAttributeId = "id";
+        /// <summary>xmlelement definition for ga:goal</summary> 
+        public const string XmlGoalElement = "goal";
+        /// <summary>xmlelement definition for ga:engagement</summary> 
+        public const string XmlDefinitionElement = "definition";
+
+        /// <summary>xmlelement destination for ga:destination</summary> 
+        public const string XmlDestinationElement = "destination";
+        /// <summary>xml attribute caseSensitive for ga:destination</summary> 
+        public const string XmlAttributeCaseSensitive = "caseSensitive";
+        /// <summary>xmlelement expression for ga:destination</summary> 
+        public const string XmlAttributeExpression = "expression";
+        /// <summary>xmlelement matchType for ga:destination</summary> 
+        public const string XmlAttributeMatchType = "matchType";
+        /// <summary>xmlelement step1Required for ga:destination</summary> 
+        public const string XmlAttributeStep1Required = "step1Required";
+
+        /// <summary>xmlelement definition for ga:step</summary> 
+        public const string XmlStepElement = "step";
+        /// <summary>xml attribute path for ga:step</summary> 
+        public const string XmlAttributePath = "path";
+
+        /// <summary>xmlelement engagement for ga:engagement</summary> 
+        public const string XmlEngagementElement = "engagement";
+        /// <summary>xml attribute comparison for ga:destination</summary> 
+        public const string XmlAttributeComparison = "comparison";
+        /// <summary>xml attribute thresholdValue for ga:destination</summary> 
+        public const string XmlAttributeThresholdValue = "thresholdValue";
+        /// <summary>xml attribute type for ga:destination</summary> 
+        public const string XmlAttributeType = "type";
+
+        /// <summary>xmlelement customVariable for ga:customVariable</summary> 
+        public const string XmlCustomVariableElement = "customVariable";
+        /// <summary>xml attribute index for ga:customVariable</summary> 
+        public const string XmlAttributeIndex = "index";
+        /// <summary>xml attribute scope for ga:customVariable</summary> 
+        public const string XmlAttributeScope = "scope";
+
+
+
+
+
     }
     #endregion
 
