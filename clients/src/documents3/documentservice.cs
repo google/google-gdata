@@ -80,6 +80,7 @@ namespace Google.GData.Documents {
             DocumentTypes.Add("XLSX", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
             DocumentTypes.Add("XLS", "application/vnd.ms-excel");
             DocumentTypes.Add("PPT", "application/vnd.ms-powerpoint");
+            DocumentTypes.Add("PPTX", "application/vnd.ms-powerpoint");
             DocumentTypes.Add("PPS", "application/vnd.ms-powerpoint");
             DocumentTypes.Add("PDF", "application/pdf");
         }
@@ -113,6 +114,19 @@ namespace Google.GData.Documents {
         /// <returns>A DocumentEntry describing the created document.</returns>
         public DocumentEntry UploadDocument(string fileName, string documentName)
         {
+            return UploadDocument(fileName, documentName, true);
+        }
+
+        /// <summary>
+        /// Simple method to upload a document, presentation, or spreadsheet
+        /// based upon the file extension.
+        /// </summary>
+        /// <param name="fileName">The full path to the file.</param>
+        /// <param name="documentName">The desired name of the document on the server.</param>
+        /// <param name="convert">set to true if the document hsould be converted to google docs</param>
+        /// <returns>A DocumentEntry describing the created document.</returns>
+        public DocumentEntry UploadDocument(string fileName, string documentName, bool convert)
+        {
             FileInfo fileInfo = new FileInfo(fileName);
             //convert the extension to caps and strip the "." off the front
             string ext = fileInfo.Extension.ToUpper().Substring(1);
@@ -123,7 +137,7 @@ namespace Google.GData.Documents {
                 throw new ArgumentException("File extension '" + ext + "' could not be matched to a contentType automatically.");
             }
 
-            return this.UploadDocument(fileName, documentName, contentType);
+            return this.UploadFile(fileName, documentName, contentType, convert);
         }
 
         /// <summary>
@@ -185,6 +199,38 @@ namespace Google.GData.Documents {
             }
 
             return entry;
+        }
+
+        /// <summary>
+        /// Updates the media contents of an existing document
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <param name="documentName"></param>
+        /// <param name="mediaUri"></param>
+        /// <param name="etag"></param>
+        /// <returns></returns>
+        public DocumentEntry UpdateDocument(string fileName, string documentName, AtomUri mediaUri, string etag)
+        {
+            FileInfo fileInfo = new FileInfo(fileName);
+            FileStream stream = fileInfo.Open(FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+            string ext = fileInfo.Extension.ToUpper().Substring(1);
+
+            String contentType = (String)DocumentTypes[ext];
+            if (contentType == null)
+            {
+                throw new ArgumentException("File extension '" + ext + "' could not be matched to a contentType automatically.");
+            }
+
+            try
+            {
+                Uri putUri = new Uri(mediaUri.Content);
+
+                return UpdateDocumentContent(putUri, stream, contentType, documentName, etag) as DocumentEntry;
+            }
+            finally
+            {
+                stream.Close();
+            }
         }
 
 

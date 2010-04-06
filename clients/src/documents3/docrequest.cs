@@ -66,7 +66,11 @@ namespace Google.Documents
             /// <summary>
             /// something unknown to us
             /// </summary>
-            Unknown
+            Unknown,
+            /// <summary>
+            /// a file
+            /// </summary>
+            File
         }
 
         /// <summary>
@@ -127,7 +131,11 @@ namespace Google.Documents
             /// <summary>
             /// tab seperated values format
             /// </summary>
-            tsv
+            tsv,
+            /// <summary>
+            /// raw file
+            /// </summary>
+            raw
         }
 
         /// <summary>
@@ -186,6 +194,10 @@ namespace Google.Documents
                 {
                     return Document.DocumentType.Presentation;
                 }
+                else if (this.DocumentEntry.IsFile)
+                {
+                    return Document.DocumentType.File;
+                }
                 return Document.DocumentType.Unknown;
             }
             set
@@ -207,6 +219,9 @@ namespace Google.Documents
                         break;
                     case Document.DocumentType.Spreadsheet:
                         this.DocumentEntry.IsSpreadsheet = true;
+                        break;
+                    case Document.DocumentType.File:
+                        this.DocumentEntry.IsFile = true;
                         break;
                     case Document.DocumentType.Unknown:
                         throw new ArgumentException("Type.Unknown is not allowed to be set");
@@ -377,6 +392,8 @@ namespace Google.Documents
     {
 
         private string baseUri = DocumentsListQuery.documentsBaseUri;
+        private string fileUri = DocumentsListQuery.fileBaseUri;
+
         private Service spreadsheetsService; 
         /// <summary>
         /// default constructor for a DocumentsRequest
@@ -428,7 +445,22 @@ namespace Google.Documents
             }
         }
 
-       
+        /// <summary>
+        /// the base string ot use for file queries.  Defaults to
+        /// <see cref="DocumentsListQuery.fileBaseUri"/>.
+        /// </summary>
+        public string FileUri
+        {
+            get
+            {
+                return fileUri;
+            }
+            set
+            {
+                fileUri = value;
+            }
+        }
+
         /// <summary>
         /// returns a Feed of all documents and folders for the authorized user
         /// </summary>
@@ -541,7 +573,21 @@ namespace Google.Documents
             return PrepareFeed<Document>(q); 
         }
 
-
+        /// <summary>
+        /// Returns a single document for the specified ID if it exists; otherwise null.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public Document GetFile(string resourceId)
+        {
+            // TODO: Not in love with this-- need to look at retrieving via the full URI
+            var queryUri = new Uri(FileUri + resourceId);
+            foreach (Document d in this.Get<Document>(queryUri).Entries)
+            {
+                return d;
+            }
+            return null;
+        }
 
         /// <summary>
         /// this will create an empty document or folder, pending
@@ -697,6 +743,13 @@ namespace Google.Documents
                         default:
                             throw new ArgumentException("type is invalid for a presentation");
                     }
+                    break;
+                case Document.DocumentType.File:
+                    if (document.AtomEntry == null || document.AtomEntry.Content == null || document.AtomEntry.Content.Src == null)
+                    {
+                        throw new ArgumentException("Cannot read content source from document.AtomEntry.Content.Src.");
+                    }
+                    queryUri = document.AtomEntry.Content.Src.Content;
                     break;
                 default:
                     if (baseDomain == null)

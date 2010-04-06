@@ -66,7 +66,11 @@ namespace Google.GData.Documents {
         /// document feed base URI 
         /// </summary>
         public static string documentsBaseUri = "http://docs.google.com/feeds/default/private/full";
-      
+
+        /// <summary>
+        /// file base uri
+        /// </summary>
+        public static string fileBaseUri = "http://docs.google.com/feeds/default/private/full/file%3A";
 
         /// <summary>
         /// document feed base URI with ACLs

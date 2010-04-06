@@ -927,8 +927,8 @@ namespace Google.GData.Client
             } 
             catch (WebException e)
             {
-                Tracing.TraceMsg("QueryAuthtoken failed " + e.Status + " " + e.Message); 
-                throw;
+                Tracing.TraceMsg("QueryAuthtoken failed " + e.Status + " " + e.Message);
+                authResponse = e.Response;
             }
             HttpWebResponse response = authResponse as HttpWebResponse;
             if (response != null)
