@@ -1,0 +1,792 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Google.GData.Documents</name>
+    </assembly>
+    <members>
+        <member name="T:Google.GData.Documents.DocumentsService">
+            <summary>
+            The Google Documents List data API allows client applications to upload 
+            documents to Google Documents and list them in the form of Google data 
+            API ("GData") feeds. Your client application can request a list of a user's 
+            documents, and query the content in an existing document.
+            Here are some of the things you can do with the Documents List data API:
+                Upload the word processing documents and spreadsheets on
+                    your computer to allow you to back them up or 
+                    collaborate online when editing.
+                Find all of your documents that contain specific keywords.
+                Get a list of spreadsheets which can be accessed through the Google Spreadsheets data API. 
+            </summary>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentsService.GDocumentsService">
+            <summary>The Calendar service's name</summary> 
+        </member>
+        <member name="F:Google.GData.Documents.DocumentsService.GDocumentsAllowedTypes">
+            <summary>
+            A Hashtable that expresses the allowed content types.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Documents.DocumentsService.#cctor">
+            <summary>
+            Static constructor used to initialize GDocumentsAllowedTypes.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Documents.DocumentsService.#ctor(System.String)">
+            <summary>
+             default constructor
+            </summary>
+            <param name="applicationName">the applicationname</param>
+        </member>
+        <member name="M:Google.GData.Documents.DocumentsService.Query(Google.GData.Documents.DocumentsListQuery)">
+            <summary>
+            overloaded to create typed version of Query
+            </summary>
+            <param name="feedQuery"></param>
+            <returns>EventFeed</returns>
+        </member>
+        <member name="M:Google.GData.Documents.DocumentsService.UploadDocument(System.String,System.String)">
+            <summary>
+            Simple method to upload a document, presentation, or spreadsheet
+            based upon the file extension.
+            </summary>
+            <param name="fileName">The full path to the file.</param>
+            <param name="documentName">The desired name of the document on the server.</param>
+            <returns>A DocumentEntry describing the created document.</returns>
+        </member>
+        <member name="M:Google.GData.Documents.DocumentsService.InitVersionInformation">
+            <summary>
+            by default all services now use version 1 for the protocol.
+            this needs to be overridden by a service to specify otherwise. 
+            YouTube uses version 2
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Google.GData.Documents.DocumentsService.OnNewFeed(System.Object,Google.GData.Client.ServiceEventArgs)">
+            <summary>eventchaining. We catch this by from the base service, which 
+            would not by default create an atomFeed</summary> 
+            <param name="sender"> the object which send the event</param>
+            <param name="e">FeedParserEventArguments, holds the feedentry</param> 
+            <returns> </returns>
+        </member>
+        <member name="T:Google.GData.Documents.DocumentsFeed">
+            <summary>
+            Google Documents List feed URI takes the following form:
+                http://docs.google.com/feeds/documents/visibility/projection
+            The visibility parameter has two possible values: private and public. 
+            In almost all cases, your client should use private. 
+            The projection parameter indicates what information is included in the representation. 
+            For example, if your client specifies a projection of basic, it's requesting an Atom feed
+             without any GData extension elements. 
+            Currently, in the Documents List feed, only the private/full combination 
+            for visibility and projection is available. 
+            </summary>
+        </member>
+        <member name="M:Google.GData.Documents.DocumentsFeed.#ctor(System.Uri,Google.GData.Client.IService)">
+            <summary>
+             default constructor
+            </summary>
+            <param name="uriBase">the base URI of the feedEntry</param>
+            <param name="iService">the Service to use</param>
+        </member>
+        <member name="M:Google.GData.Documents.DocumentsFeed.CreateFeedEntry">
+            <summary>
+            this needs to get implemented by subclasses
+            </summary>
+            <returns>AtomEntry</returns>
+        </member>
+        <member name="M:Google.GData.Documents.DocumentsFeed.HandleExtensionElements(Google.GData.Client.ExtensionElementEventArgs,Google.GData.Client.AtomFeedParser)">
+            <summary>
+            get's called after we already handled the custom entry, to handle all 
+            other potential parsing tasks
+            </summary>
+            <param name="e"></param>
+            <param name="parser">the atom feed parser used</param>
+        </member>
+        <member name="T:Google.GData.Documents.DocumentsListQuery">
+            <summary>
+            A subclass of FeedQuery, to create an Documents query URI.
+            Provides public properties that describe the different
+            aspects of the URI, as well as a composite URI.
+            
+            Documents List supports the following standard GData query parameters: 
+                alt, author, q, start-index, max-results, updated-min, updated-max, /category
+            For more information about the standard parameters, see the GData protocol reference document.
+            In addition to the standard GData query parameters, the Documents List data API uses the following parameters.
+            Parameter	Meaning	                                                
+            title	    Specifies the search terms for the title of a document.	
+                        This parameter used without title-exact will only submit partial queries, not exact queries.
+            
+            title-exact	Specifies whether the title query should be taken as an exact string.	
+                        Meaningless without title. Possible values are true and false.
+            
+            The Documents List data API supports the following categories.
+                Category: Document Type	
+                        Scheme: http://schemas.google.com/g/2005#kind	
+                        Term: http://schemas.google.com/docs/2007#type	
+                        Label: type	    
+                        All documents of the corresponding type in the requesting users document list. 
+                        Type is currently one of (document|spreadsheet|presentation)
+                Category: Starred Status
+                    	Scheme: http://schemas.google.com/g/2005/labels	
+                        Term: starred	                                    
+                        Label: starred	    
+                        All documents that have been starred by the requesting user
+                Category: Containing Folders	
+                        Scheme: http://schemas.google.com/docs/2007/folders/user-email	
+                        Term: folder-id	
+                        Label: folder-name	
+                        All documents inside the given folder for the requesting user
+             </summary>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentsListQuery.documentsBaseUri">
+            <summary>
+            document feed base URI 
+            </summary>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentsListQuery.documentsAclUri">
+            <summary>
+            document feed base URI with ACLs
+            </summary>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentsListQuery.folderBaseUri">
+            <summary>
+            folder base uri
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentsListQuery.DOCUMENTS">
+            <summary>
+            predefined query category for documents
+            </summary>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentsListQuery.SPREADSHEETS">
+            <summary>
+            predefined query category for spreadsheets
+            </summary>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentsListQuery.PRESENTATIONS">
+            <summary>
+            predefined query category for presentations
+            </summary>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentsListQuery.PDFS">
+            <summary>
+            predefined query category for presentations
+            </summary>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentsListQuery.ATOMCATEGORY_STARRED">
+            <summary>
+            predefined query category for starred documents
+            </summary>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentsListQuery.STARRED">
+            <summary>
+            predefined query category for starred documents
+            </summary>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentsListQuery.ATOMCATEGORY_FOLDER">
+            <summary>
+            predefined query category for starred documents
+            </summary>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentsListQuery.FOLDER">
+            <summary>
+            predefined query category for starred documents
+            </summary>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentsListQuery.ATOMCATEGORY_VIEWED">
+            <summary>
+            predefined query category for viewed documents
+            </summary>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentsListQuery.VIEWED">
+            <summary>
+            predefined query category for starred documents
+            </summary>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentsListQuery.ATOMCATEGORY_HIDDEN">
+            <summary>
+            predefined atom category for hidden documents
+            </summary>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentsListQuery.HIDDEN">
+            <summary>
+            predefined query category for hidden documents
+            </summary>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentsListQuery.ATOMCATEGORY_FORM">
+            <summary>
+            predefined atom category for formss
+            </summary>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentsListQuery.FORM">
+            <summary>
+            predefined query category for hidden documents
+            </summary>
+        </member>
+        <member name="M:Google.GData.Documents.DocumentsListQuery.#ctor">
+            <summary>
+            base constructor
+            </summary>
+        </member>
+        <member name="M:Google.GData.Documents.DocumentsListQuery.#ctor(System.String)">
+            <summary>
+            base constructor, with initial queryUri
+            </summary>
+            <param name="queryUri">the query to use</param>
+        </member>
+        <member name="M:Google.GData.Documents.DocumentsListQuery.DocumentId(System.String)">
+            <summary>
+            tries to parse a document id iri and return just the 
+            ID portion of it
+            </summary>
+            <param name="documentUri">the document id link as a string</param>
+            <returns>the document id or null if failed</returns>
+        </member>
+        <member name="M:Google.GData.Documents.DocumentsListQuery.ParseUri(System.Uri)">
+            <summary>Parses custom properties out of the incoming URI</summary> 
+            <param name="targetUri">A URI representing a query on a feed</param>
+            <returns>returns the base uri</returns>
+        </member>
+        <member name="M:Google.GData.Documents.DocumentsListQuery.CalculateQuery(System.String)">
+            <summary>Creates the partial URI query string based on all
+             set properties.</summary> 
+            <returns> A string representing the query part of the URI.</returns>
+        </member>
+        <member name="P:Google.GData.Documents.DocumentsListQuery.Starred">
+            <summary>
+            Restricts the results to only starred documents
+            </summary>
+        </member>
+        <member name="P:Google.GData.Documents.DocumentsListQuery.ShowFolders">
+            <summary>
+            shows folders if true in the result
+            </summary>
+        </member>
+        <member name="P:Google.GData.Documents.DocumentsListQuery.Title">
+            <summary>
+            Restricts the results to only documents with titles matching a string.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Documents.DocumentsListQuery.TitleExact">
+            <summary>
+            Restricts the results to only documents matching a string provided
+            by the Title property exactly. (No partial matches.)
+            </summary>
+        </member>
+        <member name="T:Google.GData.Documents.TextDocumentQuery">
+            <summary>
+            a subclass setup to just retrieve all word processor documents
+            </summary>
+        </member>
+        <member name="M:Google.GData.Documents.TextDocumentQuery.#ctor">
+            <summary>
+            base constructor
+            </summary>
+        </member>
+        <member name="T:Google.GData.Documents.SpreadsheetQuery">
+            <summary>
+            a subclass setup to just retrieve all spreadsheets
+            </summary>
+        </member>
+        <member name="M:Google.GData.Documents.SpreadsheetQuery.#ctor">
+            <summary>
+            base constructor
+            </summary>
+        </member>
+        <member name="T:Google.GData.Documents.PresentationsQuery">
+            <summary>
+            a subclass setup to just retrieve all presentations
+            </summary>
+        </member>
+        <member name="M:Google.GData.Documents.PresentationsQuery.#ctor">
+            <summary>
+            base constructor
+            </summary>
+        </member>
+        <member name="T:Google.GData.Documents.PDFsQuery">
+            <summary>
+            a subclass setup to just retrieve all PDFs
+            </summary>
+        </member>
+        <member name="M:Google.GData.Documents.PDFsQuery.#ctor">
+            <summary>
+            base constructor
+            </summary>
+        </member>
+        <member name="T:Google.GData.Documents.FolderQuery">
+            <summary>
+            a subclass setup to just retrieve all Folders
+            </summary>
+        </member>
+        <member name="M:Google.GData.Documents.FolderQuery.#ctor">
+            <summary>
+            base constructor
+            </summary>
+        </member>
+        <member name="T:Google.Documents.Document">
+            <summary>
+             the base class for all documents in the document service. A document can represent folders, documents, spreadsheets etc. 
+            </summary>
+        </member>
+        <member name="M:Google.Documents.Document.EnsureInnerObject">
+            <summary>
+            creates the inner contact object when needed
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.Documents.Document.DocumentEntry">
+            <summary>
+            readonly accessor for the DocumentEntry that is underneath this object.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.Documents.Document.Type">
+            <summary>
+            the type of the document entry
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.Documents.Document.ParentFolders">
+            <summary>
+            returns the href values of the parent link releationships
+            can be used to retrieve the parent folder
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.Documents.Document.DocumentId">
+            <summary>
+            returns the document id of the object. This is calculated with a parser of the URI
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.Documents.Document.ResourceId">
+            <summary>
+            returns the document resource id of the object. 
+            this uses the gd:resourceId element
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.Documents.Document.WritersCanInvite">
+            <summary>
+            returns if colaborators should be able to modify 
+            the documents ACL list
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.Documents.Document.LastViewed">
+            <summary>
+            Returns the last viewed timestamp
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.Documents.Document.LastModified">
+            <summary>
+            returns the last modififiedBy subobject, indicating
+            who edited the document last
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.Documents.Document.AccessControlList">
+            <summary>
+            returns the Uri to the access control list
+            </summary>
+            <returns>the value of the href attribute for the acl feedlink, or null if not found</returns>
+        </member>
+        <member name="T:Google.Documents.Document.DocumentType">
+            <summary>
+            descripes the type of the document entry
+            </summary>
+        </member>
+        <member name="F:Google.Documents.Document.DocumentType.Document">
+            <summary>
+            a document
+            </summary>
+        </member>
+        <member name="F:Google.Documents.Document.DocumentType.Spreadsheet">
+            <summary>
+            a spreadsheet
+            </summary>
+        </member>
+        <member name="F:Google.Documents.Document.DocumentType.PDF">
+            <summary>
+            a pdf file
+            </summary>
+        </member>
+        <member name="F:Google.Documents.Document.DocumentType.Presentation">
+            <summary>
+            a presentation
+            </summary>
+        </member>
+        <member name="F:Google.Documents.Document.DocumentType.Folder">
+            <summary>
+            a folder
+            </summary>
+        </member>
+        <member name="F:Google.Documents.Document.DocumentType.Unknown">
+            <summary>
+            something unknown to us
+            </summary>
+        </member>
+        <member name="T:Google.Documents.Document.DownloadType">
+            <summary>
+            describes the download type, in what format you want to download the document
+            </summary>
+        </member>
+        <member name="F:Google.Documents.Document.DownloadType.txt">
+            <summary>
+            text file
+            </summary>
+        </member>
+        <member name="F:Google.Documents.Document.DownloadType.odt">
+            <summary>
+            open document format
+            </summary>
+        </member>
+        <member name="F:Google.Documents.Document.DownloadType.pdf">
+            <summary>
+            portable document format PFDF
+            </summary>
+        </member>
+        <member name="F:Google.Documents.Document.DownloadType.html">
+            <summary>
+            html format
+            </summary>
+        </member>
+        <member name="F:Google.Documents.Document.DownloadType.rtf">
+            <summary>
+            rich text format
+            </summary>
+        </member>
+        <member name="F:Google.Documents.Document.DownloadType.doc">
+            <summary>
+            microsoft word format
+            </summary>
+        </member>
+        <member name="F:Google.Documents.Document.DownloadType.png">
+            <summary>
+            portable network graphics format
+            </summary>
+        </member>
+        <member name="F:Google.Documents.Document.DownloadType.swf">
+            <summary>
+            flash format
+            </summary>
+        </member>
+        <member name="F:Google.Documents.Document.DownloadType.ppt">
+            <summary>
+            Microsoft Powerpoint format
+            </summary>
+        </member>
+        <member name="F:Google.Documents.Document.DownloadType.xls">
+            <summary>
+            Microsoft Excel format
+            </summary>
+        </member>
+        <member name="F:Google.Documents.Document.DownloadType.csv">
+            <summary>
+            commma seperated value format
+            </summary>
+        </member>
+        <member name="F:Google.Documents.Document.DownloadType.ods">
+            <summary>
+            open document spreadsheet format
+            </summary>
+        </member>
+        <member name="F:Google.Documents.Document.DownloadType.tsv">
+            <summary>
+            tab seperated values format
+            </summary>
+        </member>
+        <member name="T:Google.Documents.DocumentsRequest">
+            <summary>
+            The Google Documents List Data API allows client applications 
+            to view and update documents (spreadsheets and word processor) 
+            using a Google Data API feed. Your client application can request
+            a list of a user's documents, query the content of a 
+            user's documents, and upload new documents.
+            </summary>
+             <example>
+                    The following code illustrates a possible use of   
+                     the <c>DocumentsRequest</c> object:  
+                     <code>    
+                       RequestSettings settings = new RequestSettings("yourApp");
+                       settings.PageSize = 50; 
+                       settings.AutoPaging = true;
+                       DocumentsRequest c = new DocumentsRequest(settings);
+                       Feed&lt;Dcouments&gt; feed = c.GetDocuments();
+                
+                    foreach (Document d in feed.Entries)
+                    {
+                         Console.WriteLine(d.Title);
+                    }
+             </code>
+             </example>
+        </member>
+        <member name="M:Google.Documents.DocumentsRequest.#ctor(Google.GData.Client.RequestSettings)">
+            <summary>
+            default constructor for a DocumentsRequest
+            </summary>
+            <param name="settings"></param>
+        </member>
+        <member name="M:Google.Documents.DocumentsRequest.OnSetOtherProxies(System.Net.IWebProxy)">
+            <summary>
+            called to set additonal proxies if required. Overloaded on the document service
+            </summary>
+            <param name="proxy"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Google.Documents.DocumentsRequest.GetEverything">
+            <summary>
+            returns a Feed of all documents and folders for the authorized user
+            </summary>
+            <returns>a feed of everyting</returns>
+        </member>
+        <member name="M:Google.Documents.DocumentsRequest.GetDocuments">
+            <summary>
+            returns a Feed of all documents for the authorized user
+            </summary>
+            <returns>a feed of Documents</returns>
+        </member>
+        <member name="M:Google.Documents.DocumentsRequest.GetPresentations">
+            <summary>
+            returns a Feed of all presentations for the authorized user
+            </summary>
+            <returns>a feed of Documents</returns>
+        </member>
+        <member name="M:Google.Documents.DocumentsRequest.GetSpreadsheets">
+            <summary>
+            returns a Feed of all spreadsheets for the authorized user
+            </summary>
+            <returns>a feed of Documents</returns>
+        </member>
+        <member name="M:Google.Documents.DocumentsRequest.GetPDFs">
+            <summary>
+            returns a Feed of all pdf files for the authorized user
+            </summary>
+            <returns>a feed of Documents</returns>
+        </member>
+        <member name="M:Google.Documents.DocumentsRequest.GetFolders">
+            <summary>
+            returns a Feed of all folders for the authorized user
+            </summary>
+            <returns>a feed of Documents</returns>
+        </member>
+        <member name="M:Google.Documents.DocumentsRequest.GetViewed">
+            <summary>
+            returns all items the user has viewed recently
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Google.Documents.DocumentsRequest.GetForms">
+            <summary>
+            returns all forms for the authorized user
+             </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Google.Documents.DocumentsRequest.GetFolderContent(Google.Documents.Document)">
+            <summary>
+            returns a feed of documents for the specified folder
+            </summary>
+            <param name="folder"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Google.Documents.DocumentsRequest.CreateDocument(Google.Documents.Document)">
+            <summary>
+            this will create an empty document or folder, pending
+            the content of the newDocument parameter
+            </summary>
+            <param name="newDocument"></param>
+            <returns>the created document from the server</returns>
+        </member>
+        <member name="M:Google.Documents.DocumentsRequest.MoveDocumentTo(Google.Documents.Document,Google.Documents.Document)">
+            <summary>
+            moves a document or a folder into a folder
+            </summary>
+            <param name="parent">this has to be a folder</param>
+            <param name="child">can be a folder or a document</param>
+            <returns></returns>
+        </member>
+        <member name="M:Google.Documents.DocumentsRequest.Download(Google.Documents.Document,Google.Documents.Document.DownloadType)">
+            <summary>
+            downloads a document. 
+            </summary>
+            <param name="document">The document to download. It needs to have the document type set, as well as the id link</param>
+            <param name="type">The output format of the document you want to download</param>
+            <returns></returns>
+        </member>
+        <member name="M:Google.Documents.DocumentsRequest.Download(Google.Documents.Document,Google.Documents.Document.DownloadType,System.String,System.Int32)">
+            <summary>
+            downloads a document. 
+            </summary>
+            <param name="document">The document to download. It needs to have the document type set, as well as the id link</param>
+            <param name="type">The output format of the document you want to download</param>
+            <param name="sheetNumber">When requesting a CSV or TSV file you must specify an additional parameter called 
+            gid which indicates which grid, or sheet, you wish to get (the index is 0 based, so gid 1 
+            actually refers to the second sheet sheet on a given spreadsheet). </param>
+            <param name="baseDomain">if null, default is used. Otherwise needs to specify the domain to download from, ending with a slash</param>
+            <returns></returns>
+        </member>
+        <member name="P:Google.Documents.DocumentsRequest.BaseUri">
+            <summary>
+            the base string to use for queries. Defaults to 
+            DocumentsListQuery.documentsBaseUri
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.Documents.DocumentsRequest.FolderUri">
+            <summary>
+            the base string to use for folder queries. Defaults to 
+            DocumentsListQuery.folderBaseUri
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Google.GData.Documents.DocumentslistNametable">
+            <summary>
+            Name Table for string constants used in the Documents list api
+            </summary>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentslistNametable.NSDocumentslist">
+            <summary>Document list namespace</summary>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentslistNametable.Prefix">
+            <summary>Document list prefix</summary>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentslistNametable.WritersCanInvite">
+            <summary>Writers can invite element</summary>
+        </member>
+        <member name="T:Google.GData.Documents.DocumentEntry">
+            <summary>
+            Entry API customization class for defining entries in an Event feed.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentEntry.DOCUMENT_CATEGORY">
+            <summary>
+            a predefined atom category for Documents
+            </summary>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentEntry.SPREADSHEET_CATEGORY">
+            <summary>
+            a predefined atom category for Spreadsheets
+            </summary>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentEntry.PDF_CATEGORY">
+            <summary>
+            a predefined atom category for PDF
+            </summary>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentEntry.PRESENTATION_CATEGORY">
+            <summary>
+            a predefined atom category for starred documentss
+            </summary>
+            <summary>
+            a predefined atom category for Presentations
+            </summary>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentEntry.STARRED_CATEGORY">
+            <summary>
+            a predefined atom category for starred documentss
+            </summary>        
+        </member>
+        <member name="F:Google.GData.Documents.DocumentEntry.FOLDER_CATEGORY">
+            <summary>
+            a predefined atom category for folders
+            </summary>        
+        </member>
+        <member name="M:Google.GData.Documents.DocumentEntry.#ctor">
+            <summary>
+            Constructs a new EventEntry instance with the appropriate category
+            to indicate that it is an event.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Documents.DocumentEntry.AddOtherNamespaces(System.Xml.XmlWriter)">
+            <summary>
+            add the documentslist NS
+            </summary>
+            <param name="writer">The XmlWrite, where we want to add default namespaces to</param>
+        </member>
+        <member name="M:Google.GData.Documents.DocumentEntry.SkipNode(System.Xml.XmlNode)">
+            <summary>
+            Checks if this is a namespace declaration that we already added
+            </summary>
+            <param name="node">XmlNode to check</param>
+            <returns>True if this node should be skipped</returns>
+        </member>
+        <member name="P:Google.GData.Documents.DocumentEntry.IsDocument">
+            <summary>
+            Reflects if this entry is a word processor document
+            </summary>
+        </member>
+        <member name="P:Google.GData.Documents.DocumentEntry.IsSpreadsheet">
+            <summary>
+            Reflects if this entry is a spreadsheet document
+            </summary>
+        </member>
+        <member name="P:Google.GData.Documents.DocumentEntry.IsPresentation">
+            <summary>
+            Reflects if this entry is a presentation document
+            </summary>
+        </member>
+        <member name="P:Google.GData.Documents.DocumentEntry.IsPDF">
+            <summary>
+            Reflects if this entry is a PDF document
+            </summary>
+        </member>
+        <member name="P:Google.GData.Documents.DocumentEntry.IsStarred">
+            <summary>
+            Reflects if this entry is starred
+            </summary>
+        </member>
+        <member name="P:Google.GData.Documents.DocumentEntry.IsFolder">
+            <summary>
+            returns true if this is a folder
+            </summary>
+        </member>
+        <member name="P:Google.GData.Documents.DocumentEntry.AccessControlList">
+            <summary>
+            returns the string that should represent the Uri to the access control list
+            </summary>
+            <returns>the value of the hret attribute for the acl feedlink, or null if not found</returns>
+        </member>
+        <member name="P:Google.GData.Documents.DocumentEntry.ParentFolders">
+            <summary>
+            returns the href value of the parent link releationship
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.GData.Documents.DocumentEntry.ResourceId">
+            <summary>
+            Documents resource Identifier.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.GData.Documents.DocumentEntry.WritersCanInvite">
+            <summary>
+            Identifies if a collaborator can modify the ACLs of the document
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.GData.Documents.DocumentEntry.LastViewed">
+            <summary>
+            Returns the last viewed timestamp
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.GData.Documents.DocumentEntry.LastModified">
+            <summary>
+            returns the last modififiedBy Element
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Google.GData.Documents.WritersCanInvite">
+            <summary>
+            Determines if a collaborator can modify a documents ACL
+            </summary>
+        </member>
+        <member name="M:Google.GData.Documents.WritersCanInvite.#ctor">
+            <summary>
+            default constructor for gd:resourceid 
+            </summary>
+        </member>
+    </members>
+</doc>

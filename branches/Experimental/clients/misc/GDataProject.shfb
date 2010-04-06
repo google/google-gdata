@@ -1,0 +1,177 @@
+﻿<project schemaVersion="1.6.0.2">
+    <assemblies>
+        <assembly assemblyPath="..\lib\Release\Google.GData.AccessControl.dll" xmlCommentsPath="..\docs\gacl.xml" commentsOnly="False" />
+        <assembly assemblyPath="..\..\..\..\..\googlegdata\clients\cs\lib\Release\Google.GData.Analytics.dll" xmlCommentsPath="..\docs\analytics.xml" commentsOnly="False" />
+        <assembly assemblyPath="..\lib\Release\Google.GData.Apps.dll" xmlCommentsPath="..\docs\gapps.xml" commentsOnly="False" />
+        <assembly assemblyPath="..\lib\Release\Google.GData.Calendar.dll" xmlCommentsPath="..\docs\gcal.xml" commentsOnly="False" />
+        <assembly assemblyPath="..\lib\Release\Google.GData.Client.dll" xmlCommentsPath="..\docs\gdata.xml" commentsOnly="False" />
+        <assembly assemblyPath="..\lib\Release\Google.GData.CodeSearch.dll" xmlCommentsPath="..\docs\gcodesearch.xml" commentsOnly="False" />
+        <assembly assemblyPath="..\lib\Release\Google.GData.Contacts.dll" xmlCommentsPath="..\docs\gcontacts.xml" commentsOnly="False" />
+        <assembly assemblyPath="..\lib\Release\Google.GData.Documents.dll" xmlCommentsPath="..\docs\gdocuments.xml" commentsOnly="False" />
+        <assembly assemblyPath="..\lib\Release\Google.GData.Extensions.dll" xmlCommentsPath="..\docs\gextension.xml" commentsOnly="False" />
+        <assembly assemblyPath="..\lib\Release\Google.GData.GoogleBase.dll" xmlCommentsPath="..\docs\gbase.xml" commentsOnly="False" />
+        <assembly assemblyPath="..\lib\Release\Google.GData.Health.dll" xmlCommentsPath="..\docs\health.xml" commentsOnly="False" />
+        <assembly assemblyPath="..\lib\Release\Google.GData.Photos.dll" xmlCommentsPath="..\docs\gphotos.xml" commentsOnly="False" />
+        <assembly assemblyPath="..\lib\Release\Google.GData.Spreadsheets.dll" xmlCommentsPath="..\docs\gspreadsheet.xml" commentsOnly="False" />
+        <assembly assemblyPath="..\lib\Release\Google.GData.YouTube.dll" xmlCommentsPath="..\docs\youtube.xml" commentsOnly="False" />
+    </assemblies>
+    <namespaceSummaries>
+        <namespaceSummaryItem name="" isDocumented="False" />
+        <namespaceSummaryItem name="Google.Contacts" isDocumented="True">This namespace contains helper classes to ease the development of Google Contacts based applications. They are used in the samples and the project templates. You can find usage scenarios of those helper clasess in the unittests for contacts as well as in the project template for it.</namespaceSummaryItem>
+        <namespaceSummaryItem name="Google.Documents" isDocumented="True">This namespace contains helper classes to ease the development of Google Documents based applications. They are used in the samples and the project templates. You can find usage scenarios of those helper clasess in the unittests for documents as well as in the project template for it.</namespaceSummaryItem>
+        <namespaceSummaryItem name="Google.GData.AccessControl" isDocumented="True">This namespace contains elements and methods to deal with AccessControl lists. AccessControl lists are used, for example, in the Google Calendar to enable authorization and security on a per calendar level</namespaceSummaryItem>
+        <namespaceSummaryItem name="Google.GData.Analytics" isDocumented="True">With the Google Analytics Data Export API, you can develop client applications that download Analytics data in the form of Google Data API feeds. Your client application can use the Data Export API to request data from an existing Analytics profile for an authorized user, and refine the results of the request using query parameters. Currently, the Data Export API supports read-only access to your Google Analytics data. The current feeds in the Data Export API contain two general categories of Analytics data:
+
+    * Analytics accounts and website profiles
+    * Analytics report data from a single profile
+
+As a developer, you can use this API for a number of use cases. For example, you might create a customized dashboard to integrate your most commonly viewed or requested page statistics, thus allowing other team members to view reports without having to access the Google Analytics reporting interface.</namespaceSummaryItem>
+        <namespaceSummaryItem name="Google.GData.Apps" isDocumented="True">Google Apps allows website administrators to offer their users cobranded versions of a variety of personalized Google applications, such as Gmail. This document describes the Google Apps Provisioning API, which enables Google partners to programmatically enable access to these applications. Specifically, the API provides functions for creating, retrieving, updating and deleting user accounts, nicknames and email lists.
+
+This version of the Provisioning API follows the principles of the Google Data (GData) APIs. GData APIs are based on both the Atom 1.0 and RSS 2.0 syndication formats in addition to the Atom Publishing Protocol. Learn more about GData APIs.
+
+Note: The Provisioning API is only available to Google Apps Premier Edition and Google Apps Education Edition partners. To enable the API, log in to your admin account, and click the User accounts tab. Then click the Settings subtab to enable the API, select the checkbox to enable the Provisioning API and save your changes. (You will need to complete the steps for setting up Google Apps before you can log in to your admin account.)</namespaceSummaryItem>
+        <namespaceSummaryItem name="Google.GData.Apps.GoogleMailSettings" isDocumented="True" />
+        <namespaceSummaryItem name="Google.GData.Apps.Groups" isDocumented="True" />
+        <namespaceSummaryItem name="Google.GData.Apps.Migration" isDocumented="True">The Google Apps Email Migration API allows administrators and users of Google Apps to migrate mail from legacy email systems into their domain's hosted Gmail accounts. Your client application can upload email messages into these accounts using standard Google data API feeds.</namespaceSummaryItem>
+        <namespaceSummaryItem name="Google.GData.Calendar" isDocumented="True">Google Calendar allows client applications to view and update calendar events in the form of Google data API ("GData") feeds. Your client application can use the Google Calendar data API to create new events, edit or delete existing events, and query for events that match particular criteria.</namespaceSummaryItem>
+        <namespaceSummaryItem name="Google.GData.Client" isDocumented="True">This is the core namespace that contains most base classes to deal with feed authentication and general Atom based parsing. You can use classes from this namespace to deal with all kind of Google properties, you just won't get special data access objects to handle custom attributes.</namespaceSummaryItem>
+        <namespaceSummaryItem name="Google.GData.Client.Samples" isDocumented="True">This is documentation for the provided Sample applications</namespaceSummaryItem>
+        <namespaceSummaryItem name="Google.GData.CodeSearch" isDocumented="True">The Google Code Search data API allows client and web applications to search public source code for function definitions and sample code.
+
+Here are some of the things you can do with the Code Search data API:
+
+    * Create a plugin for your favorite IDE that searches over the Code Search index for relevant sample code.
+    * Create client applications that use Google Code Search to find function definitions and sample code.</namespaceSummaryItem>
+        <namespaceSummaryItem name="Google.GData.Contacts" isDocumented="True">The Google Contacts Data API allows client applications to view and update Contacts content in the form of Google Data API feeds. Your client application can request a list of a user's contacts, edit or delete content in an existing contact, and query the content in an existing contact. Here are some of the things you can do with the Contacts Data API: 
+ - Synchronize Google contacts with contacts on a mobile device
+- Maintain relationships between people in social applications
+- Give users the ability to communicate directly with their friends from external applications using phone, email, and IM</namespaceSummaryItem>
+        <namespaceSummaryItem name="Google.GData.Documents" isDocumented="True">The Google Documents List Data API allows client applications to view and search through documents stored in Google Documents using Google Data API feeds. Your client application can request a list of a user's word processing documents and/or spreadsheets and upload existing documents to Google Documents.</namespaceSummaryItem>
+        <namespaceSummaryItem name="Google.GData.Extensions" isDocumented="True">This namespace contains common extension elements that are used accross several Google Data API enabled properties</namespaceSummaryItem>
+        <namespaceSummaryItem name="Google.GData.Extensions.AppControl" isDocumented="True">This namespace contains the AtomPublishing control elements</namespaceSummaryItem>
+        <namespaceSummaryItem name="Google.GData.Extensions.Apps" isDocumented="True">Extensions for the Apps Provisioning API</namespaceSummaryItem>
+        <namespaceSummaryItem name="Google.GData.Extensions.Exif" isDocumented="True">Picasa Web Albums uses the exif namespace to represent Exif data encoded in a photo. The schema URL for the exif namespace is http://schemas.google.com/photos/exif/2007.
+
+The exif elements all appear inside the container element called tags
+
+Picasa Web Albums uses the following exif elements:
+
+   1. exif:distance
+   2. exif:exposure
+   3. exif:flash
+   4. exif:focallength
+   5. exif:fstop
+   6. exif:imageUniqueID
+   7. exif:iso
+   8. exif:make
+   9. exif:model
+  10. exif:tags
+  11. exif:time</namespaceSummaryItem>
+        <namespaceSummaryItem name="Google.GData.Extensions.Location" isDocumented="True">Picasa Web Albums uses the georss and gml namespaces for elements defined in the GeoRSS and Geography Markup Language specifications.
+
+Note: Despite the name "GeoRSS," the Picasa Web Albums data API uses elements from these namespaces in both Atom and RSS feeds.
+
+Specifically, Picasa Web Albums uses the following elements:
+
+   1. georss:where
+   2. gml:Point
+   3. gml:pos
+
+Picasa Web Albums also accepts geographic-location data in two other formats: W3C format and plain-GeoRSS (without GML) format. But those formats are beyond the scope of this document. All geo data that appears in feeds generated by Picasa Web Albums uses the GeoRSS-plus-GML format documented here.</namespaceSummaryItem>
+        <namespaceSummaryItem name="Google.GData.Extensions.MediaRss" isDocumented="True">Picasa Web Albums uses the media namespace for elements defined in the Media RSS specification. For information about the media namespace, see the Media RSS specification.
+
+Note: Despite the name "Media RSS," the Picasa Web Albums data API uses elements from the media namespace in both Atom and RSS feeds.
+
+Picasa Web Albums uses the following media elements:
+
+   1. media:content
+   2.
+   3. media:credit
+   4. media:description
+   5. media:group
+   6. media:keywords
+   7. media:thumbnail
+   8. media:title</namespaceSummaryItem>
+        <namespaceSummaryItem name="Google.GData.GoogleBase" isDocumented="True">The Google Base data API is designed to enable developers to do two things:   
+      Query Google Base data to create applications and mashups.
+      Input and manage Google Base items programmatically.</namespaceSummaryItem>
+        <namespaceSummaryItem name="Google.GData.Health" isDocumented="True">The Google Health Data API allows client applications to view and send Health content in the form of Google Data API feeds. Your client application can use the Health Data API to create new medical records, request a list of medical records and query for medical records that match particular criteria. 
+
+Here are some of the things you can do with the Health Data API:
+Upload patient medical records
+Get patient medical data and provide personalized functionality based on that data</namespaceSummaryItem>
+        <namespaceSummaryItem name="Google.GData.Photos" isDocumented="True">The Picasa Web Albums data API allows client applications to view and update Picasa Web Albums content in the form of Google data API ("GData") feeds. Your client application can request a list of a user's albums, photos, comments, or tags, edit or delete content in an existing entry, and query the content in an existing entry.
+
+Here are some of the things you can do with the Picasa Web Albums data API:
+
+    * Include your public photos in your own web page, and allow users to comment on them (and have the comments stored in Picasa Web Albums).
+    * Write a plugin to manage your albums and photos from a desktop or mobile phone client.
+    * Create a custom screensaver to display your Picasa Web Albums photos on your computer.</namespaceSummaryItem>
+        <namespaceSummaryItem name="Google.GData.Spreadsheets" isDocumented="True">The Google Spreadsheets data API allows client applications to view and update Spreadsheets content in the form of Google data API ("GData") feeds. Your client application can request a list of a user's spreadsheets, edit or delete content in an existing Spreadsheets worksheet, and query the content in an existing Spreadsheets worksheet.
+
+Here are some of the things you can do with the Spreadsheets data API:
+
+    * Use a spreadsheet as a database and access data for another application via the Spreadsheets data API.
+    * Use an external graphing library with the Spreadsheets data API to add nice looking graphs to your site.
+    * Implement auto-filtering and other spreadsheet functionality in an application you build for your users.</namespaceSummaryItem>
+        <namespaceSummaryItem name="Google.GData.YouTube" isDocumented="True">YouTube offers open access to key parts of the YouTube video repository and user community, via an open API interface and RSS feeds. Using our APIs, you can easily integrate online videos from YouTube's rapidly growing repository of videos into your application.</namespaceSummaryItem>
+        <namespaceSummaryItem name="Google.Spreadsheets" isDocumented="False" />
+        <namespaceSummaryItem name="Google.YouTube" isDocumented="True">This namespace contains helper classes to ease the development of YouTube based applications. They are used in the samples and the project templates. You can find usage scenarios of those helper clasess in the unittests for youtube, as well as in the project template for it.</namespaceSummaryItem>
+    </namespaceSummaries>
+    <additionalContent>
+        <contentItem sourcePath="..\docs\AdditionalContent\*.html" destPath="AdditionalContent\" excludeItems="False" />
+        <contentItem sourcePath="..\RELEASE_NOTES.HTML" destPath="" excludeItems="False" />
+    </additionalContent>
+    <ProjectSummary>GData is a new protocol based on the Atom 1.0 and RSS 2.0 syndication formats, plus the Atom Publishing Protocol.
+
+GData extends those standards in various ways, using the extension mechanisms built into the standards. A GData feed conforms to either the Atom or RSS syndication formats. The GData publishing model conforms to the Atom Publishing Protocol.
+
+To acquire information from a service that supports GData, you send an HTTP GET request; the service returns results as an Atom or RSS feed.
+
+You can update data (where supported by a particular GData service) by sending an HTTP PUT request.
+
+All sorts of services can provide GData feeds, from public services like blog feeds or news syndication feeds to personalized data like email or calendar events or task-list items. The RSS and Atom models are extensible, so each feed provider can define its own extensions and semantics as desired while still conforming to the standards. A feed provider can provide read-only feeds (such as a search-results feed) or read/write feeds (such as a calendar application).
+
+For example, a blogging application might provide a feed for each blog, and a comment feed for each blog entry. A calendar application might allow you to send full-text search queries using the GData protocol, and return results in the GData syndication format.
+
+Because GData is built on basic technologies—HTTP and standard syndication models—you can send GData requests and process the resulting feeds in a variety of ways: traditional syndication aggregators/feed readers, JavaScript/AJAX-based clients in a web browser, standalone applications, or any other approach you like. The GData protocol is programming-language-neutral; you can write a client in any programming language that lets you issue HTTP requests and parse XML-based responses.
+
+Creating and deleting a feed is left up to the service; the GData protocol does not provide ways to create or delete a feed.</ProjectSummary>
+    <MissingTags>AutoDocumentCtors, Namespace</MissingTags>
+    <VisibleItems>InheritedMembers, InheritedFrameworkMembers, Protected, SealedProtected</VisibleItems>
+    <HtmlHelp1xCompilerPath path="" />
+    <HtmlHelp2xCompilerPath path="" />
+    <OutputPath>D:\TempHTML\</OutputPath>
+    <SandcastlePath path="" />
+    <WorkingPath path="" />
+    <CleanIntermediates>True</CleanIntermediates>
+    <KeepLogFile>True</KeepLogFile>
+    <HelpFileFormat>Help1xAndWebsite</HelpFileFormat>
+    <PurgeDuplicateTopics>True</PurgeDuplicateTopics>
+    <CppCommentsFixup>True</CppCommentsFixup>
+    <FrameworkVersion>2.0.50727</FrameworkVersion>
+    <BinaryTOC>True</BinaryTOC>
+    <IncludeFavorites>False</IncludeFavorites>
+    <Preliminary>False</Preliminary>
+    <RootNamespaceContainer>False</RootNamespaceContainer>
+    <RootNamespaceTitle />
+    <HelpTitle>Google Data API for .Net Documentation</HelpTitle>
+    <HtmlHelpName>Google.GData.Documentation</HtmlHelpName>
+    <Language>en-US</Language>
+    <CopyrightHref />
+    <CopyrightText>Google Inc.</CopyrightText>
+    <FeedbackEMailAddress />
+    <HeaderText />
+    <FooterText>Google Data API for .Net (http://code.google.com/apis/gdata)</FooterText>
+    <ProjectLinkType>Local</ProjectLinkType>
+    <SdkLinkType>Msdn</SdkLinkType>
+    <SdkLinkTarget>Blank</SdkLinkTarget>
+    <PresentationStyle>vs2005</PresentationStyle>
+    <NamingMethod>MemberName</NamingMethod>
+    <SyntaxFilters>Standard</SyntaxFilters>
+    <ShowFeedbackControl>False</ShowFeedbackControl>
+    <ContentPlacement>AboveNamespaces</ContentPlacement>
+    <ContentSiteMap path=".\helpfile.sitemap" />
+    <TopicFileTransform path="" />
+</project>

@@ -1,0 +1,833 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Google.GData.Calendar</name>
+    </assembly>
+    <members>
+        <member name="T:Google.GData.Calendar.GCalNameTable">
+            <summary>subelements definition for the event entry thar are calendar specific
+            </summary> 
+        </member>
+        <member name="F:Google.GData.Calendar.GCalNameTable.XmlSyncEventElement">
+            <summary>syncEvent</summary>
+        </member>
+        <member name="F:Google.GData.Calendar.GCalNameTable.XmlSequenceElement">
+            <summary>sequence element</summary>
+        </member>
+        <member name="F:Google.GData.Calendar.GCalNameTable.XmlUidElement">
+            <summary>uid element</summary>
+        </member>
+        <member name="T:Google.GData.Calendar.GCalSyncEvent">
+            <summary>
+            Indicates whether this is a sync scenario where we allow setting the gCal:uid, the gCal:sequence, 
+            and the organizer of an event. This element makes sense only when inserting and updating
+             events. This element should primarily be used in a sync scenario.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Calendar.GCalSyncEvent.#ctor">
+            <summary>
+            default calendar access level constructor
+            </summary>        
+        </member>
+        <member name="M:Google.GData.Calendar.GCalSyncEvent.#ctor(System.String)">
+            <summary>
+            default calendar acccess level
+             constructor with an initial value
+            </summary>
+            <param name="initValue"></param>
+        </member>
+        <member name="T:Google.GData.Calendar.GCalUid">
+            <summary>
+            Indicates the globally unique identifier (UID) of the event as defined in Section 4.8.4.7 of RFC 2445.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Calendar.GCalUid.#ctor">
+            <summary>
+            default calendar access level constructor
+            </summary>        
+        </member>
+        <member name="M:Google.GData.Calendar.GCalUid.#ctor(System.String)">
+            <summary>
+            default calendar acccess level
+             constructor with an initial value
+            </summary>
+            <param name="initValue"></param>
+        </member>
+        <member name="T:Google.GData.Calendar.GCalSequence">
+            <summary>
+            Indicates the revision sequence number of the event as defined in Section 4.8.7.4 of RFC 2445. Must be non-negative.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Calendar.GCalSequence.#ctor">
+            <summary>
+            default calendar access level constructor
+            </summary>        
+        </member>
+        <member name="M:Google.GData.Calendar.GCalSequence.#ctor(System.String)">
+            <summary>
+            default calendar acccess level
+             constructor with an initial value
+            </summary>
+            <param name="initValue"></param>
+        </member>
+        <member name="T:Google.GData.Calendar.EventEntry">
+            <summary>
+            Entry API customization class for defining entries in an Event feed.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Calendar.EventEntry.EVENT_CATEGORY">
+            <summary>
+            Category used to label entries that contain Event extension data.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Calendar.EventEntry.#ctor">
+            <summary>
+            Constructs a new EventEntry instance with the appropriate category
+            to indicate that it is an event.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Calendar.EventEntry.#ctor(System.String)">
+            <summary>
+            Constructs a new EventEntry instance with provided data.
+            </summary>
+            <param name="title">The descriptive title of the event ("What" in the UI)</param>
+        </member>
+        <member name="M:Google.GData.Calendar.EventEntry.#ctor(System.String,System.String)">
+            <summary>
+            Constructs a new EventEntry instance with provided data.
+            </summary>
+            <param name="title">The descriptive title of the event ("What" in the UI)</param>
+            <param name="description">A longer description of the event 
+            ("Description" in the UI)</param>
+        </member>
+        <member name="M:Google.GData.Calendar.EventEntry.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Constructs a new EventEntry instance with provided data.
+            </summary>
+            <param name="title">The descriptive title of the event ("What" in the UI)</param>
+            <param name="description">A longer description of the event 
+            ("Description" in the UI)</param>
+            <param name="location">The location of the event ("Where" in the UI)</param>
+        </member>
+        <member name="M:Google.GData.Calendar.EventEntry.addEventEntryExtensions">
+            <summary>
+             helper method to add extensions to the evententry
+            </summary>
+        </member>
+        <member name="M:Google.GData.Calendar.EventEntry.GetFirstReminder">
+            <summary>
+            returns the first reminder of the Times collection
+            </summary>
+            <returns>When object for the reminder or NULL</returns>
+        </member>
+        <member name="M:Google.GData.Calendar.EventEntry.CreateAtomSubElement(System.Xml.XmlReader,Google.GData.Client.AtomFeedParser)">
+            <summary>
+            this is the subclassing method for AtomBase derived 
+            classes to overload what childelements should be created
+            needed to create CustomLink type objects, like WebContentLink etc
+            </summary>
+            <param name="reader">The XmlReader that tells us what we are working with</param>
+            <param name="parser">the parser is primarily used for nametable comparisons</param>
+            <returns>AtomBase</returns>
+        </member>
+        <member name="P:Google.GData.Calendar.EventEntry.Times">
+            <summary>
+             property accessor for the WhenCollection
+            </summary>
+        </member>
+        <member name="P:Google.GData.Calendar.EventEntry.Locations">
+            <summary>
+             property accessor for the WhereCollection
+            </summary>
+        </member>
+        <member name="P:Google.GData.Calendar.EventEntry.Participants">
+            <summary>
+             property accessor for the whos in the event
+            </summary>
+        </member>
+        <member name="P:Google.GData.Calendar.EventEntry.Notifications">
+            <summary>
+             property accessor for the Eventnotifications
+             set this to True for notfications to be send 
+            </summary>
+        </member>
+        <member name="P:Google.GData.Calendar.EventEntry.QuickAdd">
+            <summary>
+             property accessor QuickAdd
+            To create an event using Google Calendar's quick add feature, set the event 
+            entry's content to the quick add string you'd like to use. Then add a 
+            gCal:quickadd element with a value attribute set to true
+            </summary>
+        </member>
+        <member name="P:Google.GData.Calendar.EventEntry.Status">
+            <summary>
+             property accessor for the EventStatus
+            </summary>
+        </member>
+        <member name="P:Google.GData.Calendar.EventEntry.EventVisibility">
+            <summary>
+             property accessor for the Event Visibility 
+            </summary>
+        </member>
+        <member name="P:Google.GData.Calendar.EventEntry.EventTransparency">
+            <summary>
+             property accessor for the EventTransparency
+            </summary>
+        </member>
+        <member name="P:Google.GData.Calendar.EventEntry.Recurrence">
+            <summary>
+             property accessor for the Recurrence
+            </summary>
+        </member>
+        <member name="P:Google.GData.Calendar.EventEntry.RecurrenceException">
+            <summary>
+             property accessor for the RecurrenceException
+            </summary>
+        </member>
+        <member name="P:Google.GData.Calendar.EventEntry.OriginalEvent">
+            <summary>
+            property accessor for the OriginalEvent
+            </summary>
+        </member>
+        <member name="P:Google.GData.Calendar.EventEntry.Comments">
+            <summary>
+             property accessor for the Comments
+            </summary>
+        </member>
+        <member name="P:Google.GData.Calendar.EventEntry.Reminder">
+            <summary>
+            returns the FIRST reminder for backwards compatibility
+            if set, will REMOVE all reminders, but this one (array of one)
+            </summary>
+        </member>
+        <member name="P:Google.GData.Calendar.EventEntry.Reminders">
+            <summary>
+            property accessor for the Reminder
+            </summary>
+        </member>
+        <member name="P:Google.GData.Calendar.EventEntry.EventId">
+            <summary>
+            as eventId is a commonly used part in the calendar world, we expose it
+            here. In general the EventId is the last part of the AtomId
+            </summary>
+        </member>
+        <member name="P:Google.GData.Calendar.EventEntry.WebContentLink">
+            <summary>
+            Property to retrieve/set an associated WebContentLink
+            </summary>
+        </member>
+        <member name="P:Google.GData.Calendar.EventEntry.SyncEvent">
+            <summary>
+             property accessor for the SyncEvent element
+            </summary>
+        </member>
+        <member name="P:Google.GData.Calendar.EventEntry.Uid">
+            <summary>
+             property accessor for the uid element
+            </summary>
+        </member>
+        <member name="P:Google.GData.Calendar.EventEntry.Sequence">
+            <summary>
+             property accessor for the SyncEvent element
+            </summary>
+        </member>
+        <member name="T:Google.GData.Calendar.EventEntry.EventStatus">
+            <summary>
+            Constructs a new EventStatus  instance
+            </summary>
+        </member>
+        <member name="F:Google.GData.Calendar.EventEntry.EventStatus.CONFIRMED_VALUE">
+            <summary>string constant for a confirmed event</summary>
+        </member>
+        <member name="F:Google.GData.Calendar.EventEntry.EventStatus.TENTATIVE_VALUE">
+            <summary>string constant for a tentative accepted event</summary>
+        </member>
+        <member name="F:Google.GData.Calendar.EventEntry.EventStatus.CANCELED_VALUE">
+            <summary>string constant for a cancelled event</summary>
+        </member>
+        <member name="M:Google.GData.Calendar.EventEntry.EventStatus.#ctor">
+            <summary>
+             default constructor
+            </summary>
+        </member>
+        <member name="M:Google.GData.Calendar.EventEntry.EventStatus.#ctor(System.String)">
+            <summary>
+             EventStatus constructor 
+            </summary>
+            <param name="value">indicates the default status</param>
+        </member>
+        <member name="F:Google.GData.Calendar.EventEntry.EventStatus.CONFIRMED">
+            <summary>EventStatus constant for a confirmed event</summary>
+        </member>
+        <member name="F:Google.GData.Calendar.EventEntry.EventStatus.TENTATIVE">
+            <summary>EventStatus constant for a tentative event</summary>
+        </member>
+        <member name="F:Google.GData.Calendar.EventEntry.EventStatus.CANCELED">
+            <summary>EventStatus constant for a Cancelled  event</summary>
+        </member>
+        <member name="T:Google.GData.Calendar.EventEntry.Visibility">
+            <summary>
+            Visibility class indicates the visibility of an eventNode
+            </summary>
+        </member>
+        <member name="F:Google.GData.Calendar.EventEntry.Visibility.DEFAULT_VALUE">
+            <summary>string constant for the default visibility value</summary>
+        </member>
+        <member name="F:Google.GData.Calendar.EventEntry.Visibility.PUBLIC_VALUE">
+            <summary>string constant for the public visibility value</summary>
+        </member>
+        <member name="F:Google.GData.Calendar.EventEntry.Visibility.CONFIDENTIAL_VALUE">
+            <summary>string constant for the confidential visibility value</summary>
+        </member>
+        <member name="F:Google.GData.Calendar.EventEntry.Visibility.PRIVATE_VALUE">
+            <summary>string constant for the private visibility value</summary>
+        </member>
+        <member name="M:Google.GData.Calendar.EventEntry.Visibility.#ctor">
+            <summary>
+             default constructor
+            </summary>
+        </member>
+        <member name="M:Google.GData.Calendar.EventEntry.Visibility.#ctor(System.String)">
+            <summary>
+             Visibility constructor with a string to indicate default value
+            </summary>
+            <param name="value">the default visibility value</param>
+        </member>
+        <member name="F:Google.GData.Calendar.EventEntry.Visibility.DEFAULT">
+            <summary>object constant for the private visibility value</summary>
+        </member>
+        <member name="F:Google.GData.Calendar.EventEntry.Visibility.PUBLIC">
+            <summary>object constant for the private visibility value</summary>
+        </member>
+        <member name="F:Google.GData.Calendar.EventEntry.Visibility.CONFIDENTIAL">
+            <summary>object constant for the private visibility value</summary>
+        </member>
+        <member name="F:Google.GData.Calendar.EventEntry.Visibility.PRIVATE">
+            <summary>object constant for the private visibility value</summary>
+        </member>
+        <member name="T:Google.GData.Calendar.EventEntry.Transparency">
+            <summary>
+             the Transparency of an event class
+            </summary>
+        </member>
+        <member name="F:Google.GData.Calendar.EventEntry.Transparency.OPAQUE_VALUE">
+            <summary>string constant for the opaque transparency value</summary>
+        </member>
+        <member name="F:Google.GData.Calendar.EventEntry.Transparency.TRANSPARENT_VALUE">
+            <summary>string constant for the transparent trancparency value</summary>
+        </member>
+        <member name="M:Google.GData.Calendar.EventEntry.Transparency.#ctor">
+            <summary>
+             default constructor
+            </summary>
+        </member>
+        <member name="M:Google.GData.Calendar.EventEntry.Transparency.#ctor(System.String)">
+            <summary>
+             constructor with a default string value
+            </summary>
+            <param name="value">transparency value</param>
+        </member>
+        <member name="F:Google.GData.Calendar.EventEntry.Transparency.OPAQUE">
+            <summary>object constant for the opaque transparency value</summary>
+        </member>
+        <member name="F:Google.GData.Calendar.EventEntry.Transparency.TRANSPARENT">
+            <summary>object constant for the transparent transparency value</summary>
+        </member>
+        <member name="T:Google.GData.Calendar.EventEntry.SendNotifications">
+            <summary>
+             indicates if an eventupdate should reissue notifications
+            false by default
+            </summary>
+        </member>
+        <member name="M:Google.GData.Calendar.EventEntry.SendNotifications.#ctor">
+            <summary>
+             default constructor
+            </summary>
+        </member>
+        <member name="M:Google.GData.Calendar.EventEntry.SendNotifications.#ctor(System.String)">
+            <summary>
+             constructor with a default string value
+            </summary>
+            <param name="value">transparency value</param>
+        </member>
+        <member name="T:Google.GData.Calendar.EventEntry.QuickAddElement">
+            <summary>
+             indicates if this new entry should be a quickadd
+            false by default
+            </summary>
+        </member>
+        <member name="M:Google.GData.Calendar.EventEntry.QuickAddElement.#ctor">
+            <summary>
+             default constructor
+            </summary>
+        </member>
+        <member name="M:Google.GData.Calendar.EventEntry.QuickAddElement.#ctor(System.String)">
+            <summary>
+             constructor with a default string value
+            </summary>
+            <param name="value">transparency value</param>
+        </member>
+        <member name="T:Google.GData.Calendar.CalendarService">
+            <summary>
+            The CalendarService class extends the basic Service abstraction
+            to define a service that is preconfigured for access to the
+            Google Calendar data API.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Calendar.CalendarService.GCalendarService">
+            <summary>The Calendar service's name</summary> 
+        </member>
+        <member name="M:Google.GData.Calendar.CalendarService.#ctor(System.String)">
+            <summary>
+             default constructor
+            </summary>
+            <param name="applicationName">the applicationname</param>
+        </member>
+        <member name="M:Google.GData.Calendar.CalendarService.Query(Google.GData.Calendar.EventQuery)">
+            <summary>
+            overloaded to create typed version of Query
+            </summary>
+            <param name="feedQuery"></param>
+            <returns>EventFeed</returns>
+        </member>
+        <member name="M:Google.GData.Calendar.CalendarService.Query(Google.GData.Calendar.CalendarQuery)">
+            <summary>
+            overloaded to create typed version of Query for Calendar feeds
+            </summary>
+            <param name="calQuery">The query object for searching a calendar feed.</param>
+            <returns>CalendarFeed of the returned calendar entries.</returns>
+        </member>
+        <member name="M:Google.GData.Calendar.CalendarService.Query(Google.GData.AccessControl.AclQuery)">
+            <summary>
+            overloaded to create typed version of Query
+            </summary>
+            <param name="feedQuery"></param>
+            <returns>EventFeed</returns>
+        </member>
+        <member name="M:Google.GData.Calendar.CalendarService.OnNewFeed(System.Object,Google.GData.Client.ServiceEventArgs)">
+            <summary>eventchaining. We catch this by from the base service, which 
+            would not by default create an atomFeed</summary> 
+            <param name="sender"> the object which send the event</param>
+            <param name="e">FeedParserEventArguments, holds the feedentry</param> 
+            <returns> </returns>
+        </member>
+        <member name="T:Google.GData.Calendar.CalendarEntry">
+            <summary>
+            CalendarEntry API customization class for defining entries in a calendar feed.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Calendar.CalendarEntry.#ctor">
+            <summary>
+            Constructs a new CalenderEntry instance
+            </summary>
+        </member>
+        <member name="M:Google.GData.Calendar.CalendarEntry.getCalendarExtension(System.String)">
+            <summary>
+            Basic method for retrieving Calendar extension elements.
+            </summary>
+            <param name="extension">The name of the extension element to look for</param>
+            <returns>SimpleAttribute, or NULL if the extension was not found</returns>
+        </member>
+        <member name="M:Google.GData.Calendar.CalendarEntry.getCalendarExtensionValue(System.String)">
+            <summary>
+            Base method for retrieving Calendar extension element values.
+            </summary>
+            <param name="extension">The name of the Calendar extension element to look for</param>
+            <returns>value as string, or NULL if the extension was not found</returns>
+        </member>
+        <member name="M:Google.GData.Calendar.CalendarEntry.setCalendarExtension(System.String,System.String)">
+            <summary>
+            Base method for setting Calendar extension element values.
+            </summary>
+            <param name="extension">the name of the extension to look for</param>
+            <param name="newValue">the new value for this extension element</param>
+            <returns>SimpleAttribute, either a brand new one, or the one
+            returned by the service</returns>
+        </member>
+        <member name="P:Google.GData.Calendar.CalendarEntry.Hidden">
+            <summary>
+            This field tells if the calendar is currently hidden in the UI list
+            </summary>
+        </member>
+        <member name="P:Google.GData.Calendar.CalendarEntry.Selected">
+            <summary>
+            This field tells if the calendar is currently selected in the UI
+            </summary>
+        </member>
+        <member name="P:Google.GData.Calendar.CalendarEntry.Color">
+            <summary>
+            This field manages the color of the calendar.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Calendar.CalendarEntry.AccessLevel">
+            <summary>
+            This field deals with the access level of the current user on the calendar.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Calendar.CalendarEntry.TimeZone">
+            <summary>
+            This field controls the time zone of the calendar.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Calendar.CalendarEntry.Location">
+            <summary>
+            This field controls the location of the calendar.
+            </summary>
+        </member>
+        <member name="T:Google.GData.Calendar.GCalColor">
+            <summary>
+            Color schema describing a gCal:color
+            </summary>
+        </member>
+        <member name="M:Google.GData.Calendar.GCalColor.#ctor">
+            <summary>
+            default calendar color constructor
+            </summary>
+        </member>
+        <member name="M:Google.GData.Calendar.GCalColor.#ctor(System.String)">
+            <summary>
+            default calendar color constructor with an initial value
+            </summary>
+            <param name="initValue"></param>
+        </member>
+        <member name="T:Google.GData.Calendar.GCalHidden">
+            <summary>
+            Color schema describing a gCal:hidden
+            </summary>
+        </member>
+        <member name="M:Google.GData.Calendar.GCalHidden.#ctor">
+            <summary>
+            default calendar hidden constructor
+            </summary>
+        </member>
+        <member name="M:Google.GData.Calendar.GCalHidden.#ctor(System.String)">
+            <summary>
+            default calendar hidden constructor with an initial value
+            </summary>
+            <param name="initValue"></param>
+        </member>
+        <member name="T:Google.GData.Calendar.GCalSelected">
+            <summary>
+            Color schema describing a gCal:selected
+            </summary>
+        </member>
+        <member name="M:Google.GData.Calendar.GCalSelected.#ctor">
+            <summary>
+            default calendar selected constructor
+            </summary>
+        </member>
+        <member name="M:Google.GData.Calendar.GCalSelected.#ctor(System.String)">
+            <summary>
+            default calendar selected constructor with an initial value
+            </summary>
+            <param name="initValue"></param>
+        </member>
+        <member name="T:Google.GData.Calendar.GCalAccessLevel">
+            <summary>
+            Color schema describing a gCal:accesslevel
+            </summary>
+        </member>
+        <member name="M:Google.GData.Calendar.GCalAccessLevel.#ctor">
+            <summary>
+            default calendar access level constructor
+            </summary>        
+        </member>
+        <member name="M:Google.GData.Calendar.GCalAccessLevel.#ctor(System.String)">
+            <summary>
+            default calendar acccess level
+             constructor with an initial value
+            </summary>
+            <param name="initValue"></param>
+        </member>
+        <member name="T:Google.GData.Extensions.WebContentLink">
+            <summary>
+            Models a special kind of Atom link that contains a WebContent element.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Extensions.WebContentLink.WEB_CONTENT_REL">
+            <summary>
+            defines the webcontent rel value for the atom:link
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.WebContentLink.#ctor">
+            <summary>
+            Constructs a new Atom link containing a WebContent extension
+            and with the appropriate rel attribute.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.WebContentLink.#ctor(System.Boolean)">
+            <summary>
+            Constructs a new Atom link containing a WebContent extension
+            and with the appropriate rel attribute.
+            This constructor lets you specify if you want the extension
+            element to be created for you. The parser sets this to false
+            as it refuses to override pre-existing elements (even empty ones.)
+            </summary>
+            <param name="createWebContent">Optionally create the web content extension.</param>
+        </member>
+        <member name="P:Google.GData.Extensions.WebContentLink.Icon">
+            <summary>
+            The icon URL for the WebContent entry is really just the HRef
+            of the link itself.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.WebContentLink.Height">
+            <summary>
+            Alias for the Height property of the nested WebContent element.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.WebContentLink.Width">
+            <summary>
+            Alias for the Width property of the nested WebContent element.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.WebContentLink.GadgetPreferences">
+            <summary>
+            Alias for the GadgetPreferences property of the nested
+            WebContent element.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.WebContentLink.Url">
+            <summary>
+            The Url property just references the Url of the nested 
+            WebContent element
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.WebContentLink.WebContent">
+            <summary>
+            Property that lets one modify the associated WebContent
+            entry directly.
+            </summary>
+        </member>
+        <member name="T:Google.GData.Extensions.WebContent">
+            <summary>
+            GData schema extension describing a webcontent for the calendar
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.WebContent.CreateInstance(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
+            <summary>Parses an xml node to create a webcontent object.</summary> 
+            <param name="node">xml node</param>
+            <param name="parser">the atomfeedparser to use for deep dive parsing</param>
+            <returns>the created SimpleElement object</returns>
+        </member>
+        <member name="M:Google.GData.Extensions.WebContent.Save(System.Xml.XmlWriter)">
+            <summary>
+            Persistence method for the When object
+            </summary>
+            <param name="writer">the xmlwriter to write into</param>
+        </member>
+        <member name="P:Google.GData.Extensions.WebContent.Url">
+            <summary>url of content</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Extensions.WebContent.Display">
+            <summary>Display property</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Extensions.WebContent.Width">
+            <summary>width of the iframe/gif</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Extensions.WebContent.Height">
+            <summary>Height of the iframe/gif</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Extensions.WebContent.GadgetPreferences">
+            <summary>accessor method public SortedList GadgetPreferences</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Extensions.WebContent.XmlName">
+            <summary>Returns the constant representing this XML element.
+            </summary> 
+        </member>
+        <member name="P:Google.GData.Extensions.WebContent.XmlNameSpace">
+            <summary>Returns the constant representing this XML element.</summary> 
+        </member>
+        <member name="P:Google.GData.Extensions.WebContent.XmlPrefix">
+            <summary>Returns the constant representing this XML element.</summary> 
+        </member>
+        <member name="T:Google.GData.Calendar.CalendarSortOrder">
+            <summary>Enum to describe the different sort orders
+            </summary> 
+        </member>
+        <member name="F:Google.GData.Calendar.CalendarSortOrder.serverDefault">
+            <summary> do not create the parameter, do whatever the server does</summary>
+        </member>
+        <member name="F:Google.GData.Calendar.CalendarSortOrder.ascending">
+            <summary>sort in ascending order</summary>
+        </member>
+        <member name="F:Google.GData.Calendar.CalendarSortOrder.descending">
+            <summary>sort in descending order</summary>
+        </member>
+        <member name="T:Google.GData.Calendar.EventQuery">
+            <summary>
+            A subclass of FeedQuery, to create a Calendar query URI.
+            Provides public properties that describe the different
+            aspects of the URI, as well as a composite URI.
+            </summary> 
+        </member>
+        <member name="M:Google.GData.Calendar.EventQuery.#ctor">
+            <summary>
+            base constructor
+            </summary>
+        </member>
+        <member name="M:Google.GData.Calendar.EventQuery.#ctor(System.String)">
+            <summary>
+            base constructor, with initial queryUri
+            </summary>
+            <param name="queryUri">the query to use</param>
+        </member>
+        <member name="M:Google.GData.Calendar.EventQuery.ParseUri(System.Uri)">
+            <summary>protected void ParseUri</summary> 
+            <param name="targetUri">takes an incoming Uri string and parses all the properties out of it</param>
+            <returns>throws a query exception when it finds something wrong with the input, otherwise returns a baseuri</returns>
+        </member>
+        <member name="M:Google.GData.Calendar.EventQuery.Reset">
+            <summary>Resets object state to default, as if newly created.
+            </summary> 
+        </member>
+        <member name="M:Google.GData.Calendar.EventQuery.CalculateQuery(System.String)">
+            <summary>Creates the partial URI query string based on all
+             set properties.</summary> 
+            <returns> string => the query part of the URI </returns>
+        </member>
+        <member name="P:Google.GData.Calendar.EventQuery.TimeZone">
+            <summary>this indicates the ctz parameter in the query. It
+            allows you specify the timezone that is used to calculate the 
+            start/end times for events</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Calendar.EventQuery.SortOrder">
+            <summary>indicates the sortorder of the returned feed</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Calendar.EventQuery.SingleEvents">
+            <summary>Decides wether recurring events should be expanded or not</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Calendar.EventQuery.FutureEvents">
+            <summary>Decides wether events in the past should be returned. Defa</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Calendar.EventQuery.StartTime">
+            <summary>
+             StartTime, this effects the start-min parameter of the uri
+             Together with start-max creates a timespan such that only 
+             events that are within the timespan are returned. 
+             If not specified, default start-min is 1970-01-01.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Calendar.EventQuery.EndTime">
+            <summary>
+             EndTime, this effects the start-max parameter of the uri
+             Together with start-min creates a timespan such that 
+             only events that are within the timespan are returned. 
+             If not specified, default start-max is 2031-01-01.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Calendar.EventQuery.RecurrenceStart">
+            <summary>
+             RecurrenceStart, effects the recurrance-expansion-start parameter
+             Specifies beginning of time period for which to expand recurring events.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Calendar.EventQuery.RecurrenceEnd">
+            <summary>
+             RecurrenceEnd, effects the recurrance-expansion-end parameter
+             Specifies ending of time period for which to expand recurring events.
+            </summary>
+        </member>
+        <member name="T:Google.GData.Calendar.CalendarQuery">
+            <summary>
+            A subclass of FeedQuery, to create a Calendar query URI.
+            Currently, there are no extra parameters specific to the calendar feeds.
+            </summary> 
+        </member>
+        <member name="M:Google.GData.Calendar.CalendarQuery.#ctor">
+            <summary>
+            default constructor, does nothing 
+            </summary>
+        </member>
+        <member name="M:Google.GData.Calendar.CalendarQuery.#ctor(System.String)">
+            <summary>
+            base constructor, with initial queryUri
+            </summary>
+            <param name="queryUri">the query to use</param>
+        </member>
+        <member name="T:Google.GData.Calendar.CalendarFeed">
+            <summary>
+            This is the Google Calendar feed that lets you access and manage
+            the calendars you own and also lets you subscribe or 
+            unsubscribe from calendars owned by others.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Calendar.CalendarFeed.#ctor(System.Uri,Google.GData.Client.IService)">
+            <summary>
+             default constructor
+            </summary>
+            <param name="uriBase">the base URI of the feedEntry</param>
+            <param name="iService">the Service to use</param>
+        </member>
+        <member name="M:Google.GData.Calendar.CalendarFeed.CreateFeedEntry">
+            <summary>
+            This needs to get implemented by subclasses
+            </summary>
+            <returns>AtomEntry</returns>
+        </member>
+        <member name="M:Google.GData.Calendar.CalendarFeed.HandleExtensionElements(Google.GData.Client.ExtensionElementEventArgs,Google.GData.Client.AtomFeedParser)">
+            <summary>
+            Is called after we already handled the custom entry, to handle all 
+            other potential parsing tasks
+            </summary>
+            <param name="e"></param>
+            <param name="parser">the atom feed parser used</param>
+        </member>
+        <member name="T:Google.GData.Calendar.TimeZone">
+            <summary>
+            holds the timezone element on the feed level
+            </summary>
+        </member>
+        <member name="M:Google.GData.Calendar.TimeZone.#ctor">
+            <summary>
+             default constructor
+            </summary>
+        </member>
+        <member name="M:Google.GData.Calendar.TimeZone.#ctor(System.String)">
+            <summary>
+             default constructor with an initial value for the attribute
+            </summary>
+            <param name="initValue"></param>
+        </member>
+        <member name="T:Google.GData.Calendar.EventFeed">
+            <summary>
+            Feed API customization class for defining feeds in an Event feed.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Calendar.EventFeed.#ctor(System.Uri,Google.GData.Client.IService)">
+            <summary>
+             default constructor
+            </summary>
+            <param name="uriBase">the base URI of the feedEntry</param>
+            <param name="iService">the Service to use</param>
+        </member>
+        <member name="M:Google.GData.Calendar.EventFeed.FindEvent(Google.GData.Extensions.OriginalEvent)">
+            <summary>searches through the evententries to 
+            find the original event</summary> 
+            <param name="original">The original event to find</param>
+            <returns> </returns>
+        </member>
+        <member name="M:Google.GData.Calendar.EventFeed.CreateFeedEntry">
+            <summary>
+            this needs to get implemented by subclasses
+            </summary>
+            <returns>AtomEntry</returns>
+        </member>
+        <member name="P:Google.GData.Calendar.EventFeed.Location">
+            <summary>accessor for the Location collection</summary>
+        </member>
+        <member name="P:Google.GData.Calendar.EventFeed.TimeZone">
+            <summary>accessor method public TimeZone TimeZone</summary> 
+            <returns> </returns>
+        </member>
+    </members>
+</doc>

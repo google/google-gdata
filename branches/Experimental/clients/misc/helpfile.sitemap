@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0">
+  <siteMapNode title="Release Notes" url="..\RELEASE_NOTES.HTML" isDefault="true" />
+  <siteMapNode title="AdditionalContent" url="..\docs\AdditionalContent\">
+    <siteMapNode title="AuthSub in .NET" url="..\docs\AdditionalContent\UsingAuthsub.html" />
+    <siteMapNode title="Copyright and Licence information" url="..\docs\AdditionalContent\License.html" />
+    <siteMapNode title="ExecRequest" url="..\docs\AdditionalContent\ExecRequest.html" />
+    <siteMapNode title="Getting Started with .NET" url="..\docs\AdditionalContent\GettingStarted.html" />
+    <siteMapNode title="Understanding the Unknown" url="..\docs\AdditionalContent\UnderstandingUnknown.html" />
+    <siteMapNode title="Using Batch support in Google Base" url="..\docs\AdditionalContent\BatchSupport.html" />
+    <siteMapNode title="Using Proxy servers" url="..\docs\AdditionalContent\UsingProxies.html" />
+    <siteMapNode title="Creating asyncronous requests" url="..\docs\AdditionalContent\Multithreadedoperations.html" />
+    <siteMapNode title="Linq and YouTube" url="..\docs\AdditionalContent\YouTubeLinqExamples.html" />
+  </siteMapNode>
+</siteMap>

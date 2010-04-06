@@ -1,0 +1,8 @@
+prefix=@prefix@
+libdir=${prefix}/lib
+
+Name: GData Sharp Core
+Description: CLI bindings to Google's online services (Core libraries)
+Version: @VERSION@
+
+Libs: -r:${libdir}/mono/GData-Sharp/Google.GData.Client.dll -r:${libdir}/mono/GData-Sharp/Google.GData.Extensions.dll

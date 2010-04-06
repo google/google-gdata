@@ -1,0 +1,203 @@
+<title>The YouTube simplified object mode</title>
+<h1>YouTube simplified object model</h1>
+<em>Frank Mantek, Google Data APIs team
+<br>December 2008</em>
+
+<ul>
+  <li><a href="#introduction">Introduction</a></li>
+  <ul>
+  <li><a href="#oldcode">The current model</a></li>
+  <li><a href="#newcodelooping">The new model: simple looping</a></li>
+  <li><a href="#newcodeautopaging">The new model: automatic paging</a></li>
+  <li><a href="#newcodemax">The new model: limit data retrieval</a></li>
+  <li><a href="#newcodeinsert">The new model: inserting a new video</a></li>
+
+  <li><a href="#conclusion">Conclusion</a></li>
+
+</ul>
+
+
+<a name="introduction"><h3>Introduction</h3></a>
+
+The default object model, as available under the Google.GData.YouTube.* namespace is a direct protocol layer. It allows you to do everything there is to do with the protocol itself, but it has exactly the same disadvantage. It's overwhelming to be confronted with all that power of the Atom (pardon the pun), when all you want to do is work with Videos and YouTube.
+
+To solve this problem, I will be working on more vertical libraries in the future. They will use the underlying protocol object model, but hide some of the protocol specific issues, and let you worry primarily on the task at hand. At the same time, you can get access to the protocol itself if the need arises.
+
+
+<a name="oldcode"><h3>The current model</h3></a>
+
+Let's look at some of the old model code:<br>
+
+
+<p><code><pre>
+
+            YouTubeService service = new YouTubeService("NETUnittests", this.ytClient, this.ytDevKey);
+            service.Credentials = new GDataCredentials(this.ytUser, this.ytPwd);
+
+            GDataRequestFactory factory = service.RequestFactory as GDataRequestFactory;
+            factory.Timeout = 1000000; 
+
+            YouTubeEntry entry = new YouTubeEntry();
+
+            entry.MediaSource = new MediaFileSource(this.resourcePath + "test_movie.mov", "video/quicktime");
+            entry.Media = new YouTube.MediaGroup();
+            entry.Media.Description = new MediaDescription("This is a test with and & in it");
+            entry.Media.Title = new MediaTitle("Sample upload");
+            entry.Media.Keywords = new MediaKeywords("math");
+
+            // entry.Media.Categories
+
+            MediaCategory category = new MediaCategory("Nonprofit");
+            category.Attributes["scheme"] = YouTubeService.DefaultCategory;
+
+            entry.Media.Categories.Add(category);
+
+            YouTubeEntry newEntry = service.Upload(this.ytUser, entry);
+
+</pre>
+
+       
+
+</code></p>
+<p>To insert a new video, you need to create a service object, set the timeout on the service to a reasonable amount, create a new YouTubeEntry object, create a MediaSource on that object, set the properties on that media source, add a category, and at the end upload the entry using the service upload method. Not too complicated, in general.</p>
+
+If you wanted to iterate over a feed, this is the code you were writing:
+
+<p><code>
+<pre>
+            YouTubeQuery query = new YouTubeQuery(YouTubeQuery.TopRatedVideo);
+            YouTubeService service = new YouTubeService("NETUnittests", this.ytClient, this.ytDevKey);
+            service.Credentials = new GDataCredentials(this.ytUser, this.ytPwd);
+
+            query.Formats.Add(YouTubeQuery.VideoFormat.RTSP);
+            query.Time = YouTubeQuery.UploadTime.ThisWeek;
+
+            YouTubeFeed feed = service.Query(query);
+
+            foreach (YouTubeEntry e in feed.Entries )
+            {
+                Console.WriteLine(e.Media.Title.Value);
+            }
+        
+
+</pre>
+</code></p>
+
+<p>Again, the code is pretty straightforward. Create a service object, create a query, have a loop to go over the data. But, as you are aware, the loop above will only return 25 entries, or whatever the service default is. So while you wanted all TopRatedVideos, you in fact, only got a part of it. To get more, you need to page by checking the feeds nextChunk property and executing another query.</p>
+
+
+<p>This was well as long as you were trying to retrieve required elements. An entry object is required to have a Summary, but the code above <b>e.Media.Title.Value</b> can actually crash on you, as e.Media might return NULL - while YouTube entries are unlikely to have no Media subelement,
+the implementation code would return a null element if none is found.</p>
+<p>And that is one of the more fundamental problems with the protocol based object model. Due to the nature of the beast, you will end up with a lot of code that looks like this:</p>
+
+<code><pre>
+                if (youTubeEntry != null && 
+                youTubeEntry.Media != null &&
+                youTubeEntry.Media.Description != null)
+                {
+                    Console.WriteLine(youTubeEntry.Media.Description.Value);
+</pre></code>
+
+<a name="newcodelooping"><h3>The new model: simple looping</h3></a>
+
+<p>In the new model, we are trying to hide a lot of the checks above, and make iteration over feeds easier. Let's look at how looping over a feed looks like, and what objects are involved.</p>
+
+<code><pre>
+
+            YouTubeRequestSettings settings = new YouTubeRequestSettings("NETUnittests", this.ytClient, this.ytDevKey, this.ytUser, this.ytPwd);
+            YouTubeRequest f = new YouTubeRequest(settings);
+
+            Feed&lt;Video&gt; feed = f.GetStandardFeed(YouTubeQuery.MostPopular);
+            foreach (Video v in feed.Entries)
+            {
+                Feed&lt;Comment&gt; list = f.GetComments(v);
+                foreach (Comment c in list.Entries)
+                {
+                    Console.WriteLine(c.Title);
+                }
+            }
+
+</pre></code>
+<p>A YouTubeRequestSettings object holds the information needed to connect to the YouTubeServer. Username, password, developer key etc. There are several different constructors (for anonymous access or AuthSub access). You pass this object to a YouTubeRequest object. The request object is your representation of the server in this code. You want data, you want to send data, that's the object that does it. No more entry.Update() or feed.Insert(). </p>
+<p>From the YouTubeRequest, you get a generic type back, a feed of Videos in this case. You loop over that feed, and want to retrieve a comment feed for the video. So you return to the YouTubeRequest and ask for a comment feed for the current video. This time you get a feed of comments and you can iterate over this again.</p>
+
+
+<a name="newcodeautopaging"><h3>The new model: automatic paging</h3></a>
+
+<p>As mentioned above, the server will normally only return a page full of data, and that is true here as well. So we loop over the 25 top videos, and then the first 25 comments of that. To change this behaviour, we need to add one line of code:</p>
+<code><pre>
+
+            YouTubeRequestSettings settings = new YouTubeRequestSettings("NETUnittests", this.ytClient, this.ytDevKey, this.ytUser, this.ytPwd);
+            settings.AutoPaging = true;
+            YouTubeRequest f = new YouTubeRequest(settings);
+
+            Feed&lt;Video&gt; feed = f.GetStandardFeed(YouTubeQuery.MostPopular);
+            foreach (Video v in feed.Entries)
+            {
+                Feed&lt;Comment&gt; list = f.GetComments(v);
+                foreach (Comment c in list.Entries)
+                {
+                    Console.WriteLine(c.Title);
+                }
+            }
+
+</pre></code>
+
+
+<p>That one line, settings.Autopaging = true, results in the iterator that is used when we loop over the entries collection to automatically request new data from the server when we reach the end of the current set. As the most popular feed is limited to a fixed set of videos, this will iterate over 50 videos, by requesting 2 set of results from the server, and get all comments for those videos. </p>
+
+
+<a name="newcodemax"><h3>The new model: limit data retrieval</h3></a>
+
+<p>If you wanted to say: yes, get me all data, up to a certain maximum, you add another line of code:</p>
+<code><pre>
+
+            YouTubeRequestSettings settings = new YouTubeRequestSettings("NETUnittests", this.ytClient, this.ytDevKey, this.ytUser, this.ytPwd);
+            settings.AutoPaging = true;
+            settings.Maximum = 15; 
+            YouTubeRequest f = new YouTubeRequest(settings);
+
+            Feed&lt;Video&gt; feed = f.GetStandardFeed(YouTubeQuery.MostPopular);
+            foreach (Video v in feed.Entries)
+            {
+                Feed&lt;Comment&gt; list = f.GetComments(v);
+                foreach (Comment c in list.Entries)
+                {
+                    Console.WriteLine(c.Title);
+                }
+            }
+
+</pre></code>
+<p>The Maximum property of the YouTubeRequestSettings allows you to specify that the iterators will stop at this maximum, no matter how much more data might be available.</p>
+
+<a name="newcodeinsert"><h3>The new model: inserting a new video</h3></a>
+
+<p>As you can see in the code below, the main difference is that the creation of the in-between objects (like Media or MediaDesription in the old code), is no longer required. The Timeout as well is easily accessible directly on the YouTubeRequestSettings object.</p>
+
+<code><pre>
+            YouTubeRequestSettings settings = new YouTubeRequestSettings("NETUnittests", this.ytClient, this.ytDevKey, this.ytUser, this.ytPwd);
+            settings.Timeout = = 1000000; 
+            YouTubeRequest f = new YouTubeRequest(settings);
+
+            Video v = Video.CreateInstance();
+            v.Title = "Sample upload";
+            v.Description = "This is a test with and & in it";
+
+            MediaCategory category = new MediaCategory("Nonprofit");
+            category.Attributes["scheme"] = YouTubeService.DefaultCategory;
+            
+            v.Tags.Add(category);
+            v.Keywords = "math"; 
+            v.YouTubeEntry.MediaSource = new MediaFileSource(this.resourcePath + "test_movie.mov", "video/quicktime");
+
+            Video newVideo = f.Upload(this.ytUser, v); 
+
+</pre></code>
+
+<p>But overall for creating new video, while the code looks nicer and is slightly less verbose, this is not introducing a significant code saving as it is for the read case before.</p>
+
+
+<a name="conclusion"><h3>Conclusion</h3></a>
+
+The new object model is found in the Google.YouTube namespace of the .NET SDK. I invite you play with it, and report all things missing etc at the usual place (<a href="http://code.google.com/p/google-gdata/issues">Bug Report page</a>). The features currently not modeled in this are asynchronous operations, which will come later. 
+

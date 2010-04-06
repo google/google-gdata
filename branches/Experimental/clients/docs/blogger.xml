@@ -1,0 +1,129 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Google.GData.Blogger</name>
+    </assembly>
+    <members>
+        <member name="T:Google.GData.Blogger.BloggerFeed">
+            <summary>
+            This is the Google Calendar feed that lets you access and manage
+            the calendars you own and also lets you subscribe or 
+            unsubscribe from calendars owned by others.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Blogger.BloggerFeed.#ctor(System.Uri,Google.GData.Client.IService)">
+            <summary>
+             default constructor
+            </summary>
+            <param name="uriBase">the base URI of the feedEntry</param>
+            <param name="iService">the Service to use</param>
+        </member>
+        <member name="M:Google.GData.Blogger.BloggerFeed.CreateFeedEntry">
+            <summary>
+            This needs to get implemented by subclasses
+            </summary>
+            <returns>AtomEntry</returns>
+        </member>
+        <member name="T:Google.GData.Blogger.BloggerQuery">
+            <summary>
+            A subclass of FeedQuery, to create a Blogger query URI.
+            </summary> 
+        </member>
+        <member name="F:Google.GData.Blogger.BloggerQuery.OrderByUpdated">
+            <summary>
+            constant string for the order by updated query
+            </summary>
+        </member>
+        <member name="F:Google.GData.Blogger.BloggerQuery.OrderByPublished">
+            <summary>
+            constant string for the order by published query
+            </summary>
+        </member>
+        <member name="M:Google.GData.Blogger.BloggerQuery.#ctor">
+            <summary>
+            default constructor, does nothing 
+            </summary>
+        </member>
+        <member name="M:Google.GData.Blogger.BloggerQuery.#ctor(System.String)">
+            <summary>
+            base constructor, with initial queryUri
+            </summary>
+            <param name="queryUri">the query to use</param>
+        </member>
+        <member name="M:Google.GData.Blogger.BloggerQuery.ParseUri(System.Uri)">
+            <summary>protected void ParseUri</summary> 
+            <param name="targetUri">takes an incoming Uri string and parses all the properties out of it</param>
+            <returns>throws a query exception when it finds something wrong with the input, otherwise returns a baseuri</returns>
+        </member>
+        <member name="M:Google.GData.Blogger.BloggerQuery.CalculateQuery(System.String)">
+            <summary>Creates the partial URI query string based on all
+             set properties.</summary> 
+            <returns> string => the query part of the URI </returns>
+        </member>
+        <member name="P:Google.GData.Blogger.BloggerQuery.OrderBy">
+            <summary>You can add orderby=published or orderby=updated to a GData query 
+            to get the posts sorted in that order. 
+            Some notes: 
+            - updated is the default 
+            - This has no effect on comments feeds, whose updated and published 
+                dates are the same 
+            - Pagination in the by-updated feed is limited to the most recently 
+                published 500 posts. </summary>
+            <returns> </returns>
+        </member>
+        <member name="T:Google.GData.Blogger.BloggerService">
+            <summary>
+            The CalendarService class extends the basic Service abstraction
+            to define a service that is preconfigured for access to the
+            Google Calendar data API.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Blogger.BloggerService.Service">
+            <summary>This service's User-Agent string</summary> 
+            <summary>The Calendar service's name</summary> 
+        </member>
+        <member name="M:Google.GData.Blogger.BloggerService.#ctor(System.String)">
+            <summary>
+             default constructor
+            </summary>
+            <param name="applicationName">the applicationname</param>
+        </member>
+        <member name="M:Google.GData.Blogger.BloggerService.Query(Google.GData.Blogger.BloggerQuery)">
+            <summary>
+            overloaded to create typed version of Query
+            </summary>
+            <param name="feedQuery"></param>
+            <returns>EventFeed</returns>
+        </member>
+        <member name="M:Google.GData.Blogger.BloggerService.InitVersionInformation">
+            <summary>
+            by default all services now use version 1 for the protocol.
+            this needs to be overridden by a service to specify otherwise. 
+            YouTube uses version 2
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Google.GData.Blogger.BloggerService.OnNewFeed(System.Object,Google.GData.Client.ServiceEventArgs)">
+            <summary>eventchaining. We catch this by from the base service, which 
+            would not by default create an atomFeed</summary> 
+            <param name="sender"> the object which send the event</param>
+            <param name="e">FeedParserEventArguments, holds the feedentry</param> 
+            <returns> </returns>
+        </member>
+        <member name="T:Google.GData.Blogger.BloggerEntry">
+            <summary>
+            CalendarEntry API customization class for defining entries in a calendar feed.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Blogger.BloggerEntry.#ctor">
+            <summary>
+            Constructs a new CalenderEntry instance
+            </summary>
+        </member>
+        <member name="P:Google.GData.Blogger.BloggerEntry.PostUri">
+            <summary>Allows you to retrieve the Post Uri value for a blogger entry. 
+            This is relevant in the "feeds of blogs"</summary> 
+            <returns> </returns>
+        </member>
+    </members>
+</doc>

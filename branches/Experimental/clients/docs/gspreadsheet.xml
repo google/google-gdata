@@ -1,0 +1,919 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Google.GData.Spreadsheets</name>
+    </assembly>
+    <members>
+        <member name="T:Google.GData.Spreadsheets.WorksheetEntry">
+            <summary>
+            Entry API customization class for defining entries in a Worksheets feed.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Spreadsheets.WorksheetEntry.WORKSHEET_CATEGORY">
+            <summary>
+            Category used to label entries that contain Cell extension data.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Spreadsheets.WorksheetEntry.#ctor">
+            <summary>
+            Constructs a new WorksheetEntry instance with the appropriate category
+            to indicate that it is a worksheet.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Spreadsheets.WorksheetEntry.#ctor(System.UInt32,System.UInt32)">
+            <summary>
+            Constructs a new WorksheetEntry instance with the given number of
+            rows and columns.
+            </summary>
+            <param name="rows">The number of rows.</param>
+            <param name="cols">The number of columns.</param>
+        </member>
+        <member name="M:Google.GData.Spreadsheets.WorksheetEntry.#ctor(System.UInt32,System.UInt32,System.String)">
+            <summary>
+            Constructs a new WorksheetEntry instance with a given number of
+            rows and columns and with a set title.
+            </summary>
+            <param name="rows">The number of rows.</param>
+            <param name="cols">The number of columns.</param>
+            <param name="title">The title of the worksheet.</param>
+        </member>
+        <member name="M:Google.GData.Spreadsheets.WorksheetEntry.QueryCellFeed">
+            <summary>
+            Retrieves the cell-based metafeed of the cells within the worksheet.
+            </summary>
+            <returns>The CellsFeed of the cells in this worksheet.</returns>
+        </member>
+        <member name="M:Google.GData.Spreadsheets.WorksheetEntry.QueryCellFeed(Google.GData.Spreadsheets.ReturnEmtpyCells)">
+            <summary>
+            Retrieves the cell-based metafeed of the cells within the worksheet.
+            </summary>
+            <param name="returnEmpty">indicates if a full sheet should be returned</param> 
+            <returns>The CellsFeed of the cells in this worksheet.</returns>
+        </member>
+        <member name="P:Google.GData.Spreadsheets.WorksheetEntry.ColCount">
+            <summary>
+            The colCount element in this worksheet entry
+            </summary>
+        </member>
+        <member name="P:Google.GData.Spreadsheets.WorksheetEntry.Cols">
+            <summary>
+            Sets the number of columns for this worksheet entry
+            </summary>
+        </member>
+        <member name="P:Google.GData.Spreadsheets.WorksheetEntry.RowCount">
+            <summary>
+            The rowCount element in this cell entry
+            </summary>
+        </member>
+        <member name="P:Google.GData.Spreadsheets.WorksheetEntry.Rows">
+            <summary>
+            Sets the number of rows for this worksheet entry
+            </summary>
+        </member>
+        <member name="P:Google.GData.Spreadsheets.WorksheetEntry.CellFeedLink">
+            <summary>
+            Retrieves the URI for the cells feed of the worksheet.
+            </summary>
+            <returns>The URI of the cells feed for this worksheet.</returns>
+        </member>
+        <member name="T:Google.GData.Spreadsheets.SpreadsheetsService">
+            <summary>
+            The SpreadsheetsService class extends the basic Service abstraction
+            to define a service that is preconfigured for access to the
+            Google Spreadsheets data API.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Spreadsheets.SpreadsheetsService.GSpreadsheetsService">
+            <summary>The Spreadsheets service's name</summary>
+        </member>
+        <member name="M:Google.GData.Spreadsheets.SpreadsheetsService.#ctor(System.String)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="applicationName">The name of the client application 
+            using this service.</param>
+        </member>
+        <member name="M:Google.GData.Spreadsheets.SpreadsheetsService.Query(Google.GData.Spreadsheets.CellQuery)">
+            <summary>
+             overwritten Query method
+            </summary>
+            <param name="feedQuery">The FeedQuery touse</param>
+            <returns>the retrieved CellFeed</returns>
+        </member>
+        <member name="M:Google.GData.Spreadsheets.SpreadsheetsService.Query(Google.GData.Spreadsheets.ListQuery)">
+            <summary>
+             overwritten Query method
+            </summary>
+            <param name="feedQuery">The FeedQuery touse</param>
+            <returns>the retrieved ListFeed</returns>
+        </member>
+        <member name="M:Google.GData.Spreadsheets.SpreadsheetsService.Query(Google.GData.Spreadsheets.SpreadsheetQuery)">
+            <summary>
+             overwritten Query method
+            </summary>
+            <param name="feedQuery">The FeedQuery to use</param>
+            <returns>the retrieved SpreadsheetFeed</returns>
+        </member>
+        <member name="M:Google.GData.Spreadsheets.SpreadsheetsService.Query(Google.GData.Spreadsheets.WorksheetQuery)">
+            <summary>
+             overwritten Query method
+            </summary>
+            <param name="feedQuery">The FeedQuery to use</param>
+            <returns>the retrieved WorksheetFeed</returns>
+        </member>
+        <member name="M:Google.GData.Spreadsheets.SpreadsheetsService.OnNewFeed(System.Object,Google.GData.Client.ServiceEventArgs)">
+            <summary>eventchaining. We catch this by from the base service, which 
+            would not by default create an atomFeed</summary> 
+            <param name="sender"> the object which send the event</param>
+            <param name="e">FeedParserEventArguments, holds the feedentry</param> 
+            <returns> </returns>
+        </member>
+        <member name="T:Google.GData.Spreadsheets.SpreadsheetEntry">
+            <summary>
+            Entry API customization class for defining entries in a Spreadsheets feed.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Spreadsheets.SpreadsheetEntry.SPREADSHEET_CATEGORY">
+            <summary>
+            Category used to label entries that contain Cell extension data.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Spreadsheets.SpreadsheetEntry.#ctor">
+            <summary>
+            Constructs a new SpreadsheetEntry instance with the appropriate category
+            to indicate that it is a worksheet.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Spreadsheets.SpreadsheetEntry.Worksheets">
+            <summary>
+            returns a query object for the Worksheets feed for this spreadsheet
+            </summary>
+        </member>
+        <member name="P:Google.GData.Spreadsheets.SpreadsheetEntry.WorksheetsLink">
+            <summary>
+            returns a string for the Worksheets feed Uri 
+            </summary>
+        </member>
+        <member name="T:Google.GData.Spreadsheets.WorksheetFeed">
+            <summary>
+            Feed API customzation class for defining Worksheets feed.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Spreadsheets.WorksheetFeed.#ctor(System.Uri,Google.GData.Client.IService)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="uriBase">The uri for the worksheets feed.</param>
+            <param name="iService">The Spreadsheets service.</param>
+        </member>
+        <member name="M:Google.GData.Spreadsheets.WorksheetFeed.CreateFeedEntry">
+            <summary>
+            returns a new entry for this feed
+            </summary>
+            <returns>AtomEntry</returns>
+        </member>
+        <member name="T:Google.GData.Spreadsheets.RowCountElement">
+            <summary>
+            GData schema extension for rowCount element.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Spreadsheets.RowCountElement.#ctor">
+            <summary>
+            default constructor 
+            </summary>
+        </member>
+        <member name="M:Google.GData.Spreadsheets.RowCountElement.#ctor(System.UInt32)">
+            <summary>
+            default constructor with an initial value as a integer 
+            </summary>
+        </member>
+        <member name="P:Google.GData.Spreadsheets.RowCountElement.Count">
+            <summary>
+            Gets or sets the count of rows.
+            </summary>
+        </member>
+        <member name="T:Google.GData.Spreadsheets.ListQuery">
+            <summary>
+            A subclass of FeedQuery, to create a Spreadsheets list query URI.
+            Provides public properties that describe the different
+            aspects of the URI, as well as a composite URI.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Spreadsheets.ListQuery.#ctor(System.String,System.String,System.String,System.String)">
+            <summary>
+            Constructor 
+            </summary>
+            <param name="key">The spreadsheet key</param>
+            <param name="worksheetId">The unique identifier or position of the worksheet</param>
+            <param name="visibility">public or private</param>
+            <param name="projection">full, values, or basic</param>
+        </member>
+        <member name="M:Google.GData.Spreadsheets.ListQuery.#ctor(System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Constructor - Sets the base URI
+            </summary>
+            <param name="baseUri">The feed base</param>
+            <param name="key">The spreadsheet key</param>
+            <param name="worksheetId">The unique identifier or position of the worksheet</param>
+            <param name="visibility">public or private</param>
+            <param name="projection">full, values, or basic</param>
+        </member>
+        <member name="M:Google.GData.Spreadsheets.ListQuery.#ctor(System.String)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="baseUri">The feed base with the key, worksheetId, visibility and 
+            projections are appended and delimited by "/"</param>
+        </member>
+        <member name="M:Google.GData.Spreadsheets.ListQuery.ParseUri(System.Uri)">
+            <summary>
+            Parses an incoming URI string and sets the instance variables
+            of this object.
+            </summary>
+            <param name="targetUri">Takes an incoming Uri string and parses all the properties of it</param>
+            <returns>Throws a query exception when it finds something wrong with the input, otherwise returns a baseuri.</returns>
+        </member>
+        <member name="M:Google.GData.Spreadsheets.ListQuery.Reset">
+            <summary>
+            Resets object state to default, as if newly created.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Spreadsheets.ListQuery.CalculateQuery(System.String)">
+            <summary>
+            Creates the partial URI query string based on all set properties.
+            </summary>
+            <returns> string => the query part of the URI </returns>
+        </member>
+        <member name="P:Google.GData.Spreadsheets.ListQuery.SpreadsheetQuery">
+            <summary>
+            A spreadsheet query string, if set to a non-null value, 
+            then the FullTextQuery will be set to null
+            </summary>
+        </member>
+        <member name="P:Google.GData.Spreadsheets.ListQuery.OrderByColumn">
+            <summary>
+            The header of the column to sort results by.  Sets OrderByPosition to false.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Spreadsheets.ListQuery.OrderByPosition">
+            <summary>
+            If true, then results will be ordered by the position in the spreadsheet.  
+            Sets OrderByColumn to null.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Spreadsheets.ListQuery.Reverse">
+            <summary>
+            If true, then however the results are ordered will be reversed.
+            </summary>
+        </member>
+        <member name="T:Google.GData.Spreadsheets.ListFeed">
+            <summary>
+            Feed API customization class for defining a List feed.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Spreadsheets.ListFeed.#ctor(System.Uri,Google.GData.Client.IService)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="uriBase">The uri for this list feed.</param>
+            <param name="iService">The Spreadsheets service.</param>
+        </member>
+        <member name="M:Google.GData.Spreadsheets.ListFeed.CreateFeedEntry">
+            <summary>
+            returns a new entry for this feed
+            </summary>
+            <returns>AtomEntry</returns>
+        </member>
+        <member name="M:Google.GData.Spreadsheets.ListFeed.HandleExtensionElements(Google.GData.Client.ExtensionElementEventArgs,Google.GData.Client.AtomFeedParser)">
+            <summary>
+            get's called after we already handled the custom entry, to handle all 
+            other potential parsing tasks
+            </summary>
+            <param name="e">the event arguments</param>
+            <param name="parser">the atom feed parser calling</param>
+        </member>
+        <member name="T:Google.GData.Spreadsheets.ColCountElement">
+            <summary>
+            GData schema extension for rowCount element.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Spreadsheets.ColCountElement.#ctor">
+            <summary>
+            default constructor 
+            </summary>
+        </member>
+        <member name="M:Google.GData.Spreadsheets.ColCountElement.#ctor(System.UInt32)">
+            <summary>
+            default constructor with an initial value as a integer 
+            </summary>
+        </member>
+        <member name="P:Google.GData.Spreadsheets.ColCountElement.Count">
+            <summary>
+            Gets or sets the count of rows.
+            </summary>
+        </member>
+        <member name="T:Google.GData.Spreadsheets.SpreadsheetFeed">
+            <summary>
+            Feed API customization class for defining a myspreadsheets feed.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Spreadsheets.SpreadsheetFeed.#ctor(System.Uri,Google.GData.Client.IService)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="uriBase">The uri for this myspreadsheets feed.</param>
+            <param name="iService">The Spreadsheets service.</param>
+        </member>
+        <member name="M:Google.GData.Spreadsheets.SpreadsheetFeed.CreateFeedEntry">
+            <summary>
+            returns a new entry for this feed
+            </summary>
+            <returns>AtomEntry</returns>
+        </member>
+        <member name="M:Google.GData.Spreadsheets.SpreadsheetFeed.HandleExtensionElements(Google.GData.Client.ExtensionElementEventArgs,Google.GData.Client.AtomFeedParser)">
+            <summary>
+            get's called after we already handled the custom entry, to handle all 
+            other potential parsing tasks
+            </summary>
+            <param name="e">the event arguments</param>
+            <param name="parser">the atom feed parser calling</param>
+        </member>
+        <member name="T:Google.GData.Spreadsheets.ReturnEmtpyCells">
+            <summary>Enum to describe the different return empty parameters
+            </summary> 
+        </member>
+        <member name="F:Google.GData.Spreadsheets.ReturnEmtpyCells.serverDefault">
+            <summary> do not create the parameter, do whatever the server does</summary>
+        </member>
+        <member name="F:Google.GData.Spreadsheets.ReturnEmtpyCells.yes">
+            <summary>return empty cells</summary>
+        </member>
+        <member name="F:Google.GData.Spreadsheets.ReturnEmtpyCells.no">
+            <summary>do not return empty cells</summary>
+        </member>
+        <member name="T:Google.GData.Spreadsheets.CellQuery">
+            <summary>
+            A subclass of FeedQuery, to create a Spreadsheets cell query URI.
+            Provides public properties that describe the different
+            aspects of the URI, as well as a composite URI.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Spreadsheets.CellQuery.#ctor(System.String,System.String,System.String,System.String)">
+            <summary>
+            Constructor 
+            </summary>
+            <param name="key">The spreadsheet key</param>
+            <param name="worksheetId">The unique identifier or position of the worksheet</param>
+            <param name="visibility">public or private</param>
+            <param name="projection">full, values, or basic</param>
+        </member>
+        <member name="M:Google.GData.Spreadsheets.CellQuery.#ctor(System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Constructor - Sets the base URI
+            </summary>
+            <param name="baseUri">The feed base</param>
+            <param name="key">The spreadsheet key</param>
+            <param name="worksheetId">The unique identifier or position of the worksheet</param>
+            <param name="visibility">public or private</param>
+            <param name="projection">full, values, or basic</param>
+        </member>
+        <member name="M:Google.GData.Spreadsheets.CellQuery.#ctor(System.String)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="baseUri">The feed base with the key, worksheetId, visibility and 
+            projections are appended and delimited by "/"</param>
+        </member>
+        <member name="M:Google.GData.Spreadsheets.CellQuery.ParseUri(System.Uri)">
+            <summary>
+            Parses an incoming URI string and sets the instance variables
+            of this object.
+            </summary>
+            <param name="targetUri">Takes an incoming Uri string and parses all the properties of it</param>
+            <returns>Throws a query exception when it finds something wrong with the input, otherwise returns a baseuri.</returns>
+        </member>
+        <member name="M:Google.GData.Spreadsheets.CellQuery.Reset">
+            <summary>
+            Resets object state to default, as if newly created.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Spreadsheets.CellQuery.CalculateQuery(System.String)">
+            <summary>
+            Creates the partial URI query string based on all set properties.
+            </summary>
+            <returns> string => the query part of the URI </returns>
+        </member>
+        <member name="P:Google.GData.Spreadsheets.CellQuery.MinimumRow">
+            <summary>
+            The minimum index for a row allowed in the response
+            </summary>
+        </member>
+        <member name="P:Google.GData.Spreadsheets.CellQuery.MaximumRow">
+            <summary>
+            The maximum index for a row allowed in the response
+            </summary>
+        </member>
+        <member name="P:Google.GData.Spreadsheets.CellQuery.MinimumColumn">
+            <summary>
+            The minimum index for a column allowed in the response
+            </summary>
+        </member>
+        <member name="P:Google.GData.Spreadsheets.CellQuery.MaximumColumn">
+            <summary>
+            The maximum index for a column allowed in a response
+            </summary>
+        </member>
+        <member name="P:Google.GData.Spreadsheets.CellQuery.Range">
+            <summary>
+            A range string in R1C1 or A1 notation.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Spreadsheets.CellQuery.ReturnEmpty">
+            <summary>
+            If true, then empty cells will be included in the feed.
+            </summary>
+        </member>
+        <member name="T:Google.GData.Spreadsheets.WorksheetQuery">
+            <summary>
+            A subclass of DocumentQuery, to create a Spreadsheets worksheet query URI.
+            Provides public properties that describe the different
+            aspects of the URI, as well as a composite URI.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Spreadsheets.WorksheetQuery.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:Google.GData.Spreadsheets.WorksheetQuery.#ctor(System.String,System.String,System.String,System.String)">
+            <summary>
+            Constructor - Sets the base URI
+            </summary>
+        </member>
+        <member name="M:Google.GData.Spreadsheets.WorksheetQuery.#ctor(System.String)">
+            <summary>
+            Constructor - Sets the base URI including key, visibility, and projection
+            </summary>
+        </member>
+        <member name="T:Google.GData.Spreadsheets.SpreadsheetQuery">
+            <summary>
+            A subclass of DocumentQuery, to create a Spreadsheets spreadsheet query URI.
+            Provides public properties that describe the different
+            aspects of the URI, as well as a composite URI.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Spreadsheets.SpreadsheetQuery.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:Google.GData.Spreadsheets.SpreadsheetQuery.#ctor(System.String)">
+            <summary>
+            Constructor - Sets the base URI
+            </summary>
+        </member>
+        <member name="T:Google.GData.Spreadsheets.CellFeed">
+            <summary>
+            Feed API customization class for defining a Cells feed.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Spreadsheets.CellFeed.#ctor(System.Uri,Google.GData.Client.IService)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="uriBase">The uri for this cells feed.</param>
+            <param name="iService">The Spreadsheets service.</param>
+        </member>
+        <member name="M:Google.GData.Spreadsheets.CellFeed.SkipNode(System.Xml.XmlNode)">
+            <summary>checks if this is a namespace 
+            decl that we already added</summary> 
+            <param name="node">XmlNode to check</param>
+            <returns>true if this node should be skipped </returns>
+        </member>
+        <member name="M:Google.GData.Spreadsheets.CellFeed.CreateFeedEntry">
+            <summary>
+            creates our cellfeed type entry
+            </summary>
+            <returns>AtomEntry</returns>
+        </member>
+        <member name="M:Google.GData.Spreadsheets.CellFeed.CellUri(System.UInt32,System.UInt32)">
+            <summary>
+            returns an update URI for a given row/column combination
+            in general that URI is based on the feeds POST feed plus the
+            cell address in RnCn notation:
+            http://spreadsheets.google.com/feeds/cells/key/worksheetId/private/full/cell
+            </summary>
+            <param name="row"></param>
+            <param name="column"></param>
+            <returns>string</returns>
+        </member>
+        <member name="M:Google.GData.Spreadsheets.CellFeed.Delete(System.UInt32,System.UInt32)">
+            <summary>
+            deletes a cell by using row and column addressing
+            </summary>
+            <param name="row"></param>
+            <param name="column"></param>
+        </member>
+        <member name="M:Google.GData.Spreadsheets.CellFeed.Publish">
+            <summary>uses GData batch to batchupdate the cell feed. If the returned
+            batch result set contained an error, it will throw a GDataRequestBatchException</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Spreadsheets.CellFeed.RowCount">
+            <summary>
+            The number of rows in this cell feed, as a RowCountElement
+            </summary>
+        </member>
+        <member name="P:Google.GData.Spreadsheets.CellFeed.ColCount">
+            <summary>
+            The number of columns in this cell feed, as a ColCountElement
+            </summary>
+        </member>
+        <member name="P:Google.GData.Spreadsheets.CellFeed.Item(System.UInt32,System.UInt32)">
+            <summary>
+            returns the given CellEntry object. Note that the getter will go to the server
+            to get CellEntries that are NOT yet on the client
+            </summary>
+            <returns>CellEntry</returns>
+        </member>
+        <member name="T:Google.GData.Spreadsheets.ListEntry">
+            <summary>
+            Entry API customization class for defining entries in a List feed.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Spreadsheets.ListEntry.LIST_CATEGORY">
+            <summary>
+            Category used to label entries that contain Cell extension data.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Spreadsheets.ListEntry.#ctor">
+            <summary>
+            Constructs a new ListEntry instance with the appropriate category
+            to indicate that it is a list entry.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Spreadsheets.ListEntry.Parse(Google.GData.Client.ExtensionElementEventArgs,Google.GData.Client.AtomFeedParser)">
+            <summary>
+            Parses the inner state of the element. TODO. 
+            </summary>
+            <param name="e">The extension element that should be added to this entry</param>
+            <param name="parser">The AtomFeedParser that called this</param>
+        </member>
+        <member name="P:Google.GData.Spreadsheets.ListEntry.Elements">
+            <summary>
+            The custom elements in this list entry
+            </summary>
+        </member>
+        <member name="T:Google.GData.Spreadsheets.ListEntry.Custom">
+            <summary>
+            GData schema extension describing a custom element in a spreadsheet.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Spreadsheets.ListEntry.Custom.#ctor">
+            <summary>
+            Constructs an empty custom element
+            </summary>
+        </member>
+        <member name="M:Google.GData.Spreadsheets.ListEntry.Custom.ParseCustom(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
+            <summary>
+            Parses an XML node to create a Custom object
+            </summary>
+            <param name="node">Custom node</param>
+            <param name="parser">AtomFeedParser to use</param>
+            <returns>The created Custom object</returns>
+        </member>
+        <member name="M:Google.GData.Spreadsheets.ListEntry.Custom.Equals(System.Object)">
+            <summary>
+            Custom elements are equal if they have the same local name.
+            </summary>
+            <param name="value">The custom element to compare against.</param>
+            <returns>True if the LocalNames are equal, false otherwise</returns>
+        </member>
+        <member name="M:Google.GData.Spreadsheets.ListEntry.Custom.GetHashCode">
+            <summary>
+            The hash code is simply the hash of the local name
+            </summary>
+            <returns>The hash code calculated by String on the LocalName</returns>
+        </member>
+        <member name="M:Google.GData.Spreadsheets.ListEntry.Custom.Save(System.Xml.XmlWriter)">
+            <summary>
+            Used to save the EntryLink instance into the passed in xmlwriter
+            </summary>
+            <param name="writer">the XmlWriter to write into</param>
+        </member>
+        <member name="P:Google.GData.Spreadsheets.ListEntry.Custom.LocalName">
+            <summary>
+            The local name of the custom element
+            </summary>
+        </member>
+        <member name="P:Google.GData.Spreadsheets.ListEntry.Custom.Value">
+            <summary>
+            The value of the custom element
+            </summary>
+        </member>
+        <member name="P:Google.GData.Spreadsheets.ListEntry.Custom.XmlName">
+            <summary>
+            Returns the constant representing the XML element.
+            </summary>
+        </member>
+        <member name="T:Google.GData.Spreadsheets.ListEntry.CustomElementCollection">
+            <summary>Typed collection for Custom Extensions.</summary> 
+        </member>
+        <member name="F:Google.GData.Spreadsheets.ListEntry.CustomElementCollection.atomElement">
+            <summary>holds the owning feed</summary>
+        </member>
+        <member name="M:Google.GData.Spreadsheets.ListEntry.CustomElementCollection.#ctor(Google.GData.Client.AtomBase)">
+            <summary>constructor</summary> 
+        </member>
+        <member name="M:Google.GData.Spreadsheets.ListEntry.CustomElementCollection.Add(Google.GData.Spreadsheets.ListEntry.Custom)">
+            <summary>standard typed add method </summary> 
+        </member>
+        <member name="M:Google.GData.Spreadsheets.ListEntry.CustomElementCollection.IndexOf(Google.GData.Spreadsheets.ListEntry.Custom)">
+            <summary>standard typed indexOf method </summary> 
+        </member>
+        <member name="M:Google.GData.Spreadsheets.ListEntry.CustomElementCollection.Insert(System.Int32,Google.GData.Spreadsheets.ListEntry.Custom)">
+            <summary>standard typed insert method </summary> 
+        </member>
+        <member name="M:Google.GData.Spreadsheets.ListEntry.CustomElementCollection.Remove(Google.GData.Spreadsheets.ListEntry.Custom)">
+            <summary>standard typed remove method </summary> 
+        </member>
+        <member name="M:Google.GData.Spreadsheets.ListEntry.CustomElementCollection.Contains(Google.GData.Spreadsheets.ListEntry.Custom)">
+            <summary>standard typed Contains method </summary> 
+        </member>
+        <member name="M:Google.GData.Spreadsheets.ListEntry.CustomElementCollection.OnValidate(System.Object)">
+            <summary>standard typed OnValidate Override </summary> 
+        </member>
+        <member name="M:Google.GData.Spreadsheets.ListEntry.CustomElementCollection.OnClear">
+            <summary>standard override OnClear, to remove the objects from the extension list</summary> 
+        </member>
+        <member name="P:Google.GData.Spreadsheets.ListEntry.CustomElementCollection.Item(System.Int32)">
+            <summary>standard typed accessor method </summary> 
+        </member>
+        <member name="T:Google.GData.Spreadsheets.GDataSpreadsheetsNameTable">
+            <summary>
+            Name Table for string constants used in the Spreadsheets
+            GData feeds.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Spreadsheets.GDataSpreadsheetsNameTable.FeedSpreadsheet">
+            <summary>indicates a spreadsheet feed in the URI</summary>
+        </member>
+        <member name="F:Google.GData.Spreadsheets.GDataSpreadsheetsNameTable.FeedWorksheet">
+            <summary>indicates a worksheet feed in the URI</summary>
+        </member>
+        <member name="F:Google.GData.Spreadsheets.GDataSpreadsheetsNameTable.FeedList">
+            <summary>indicates a list feed in the URI</summary>
+        </member>
+        <member name="F:Google.GData.Spreadsheets.GDataSpreadsheetsNameTable.FeedCell">
+            <summary>indicates a cell feed in the URI</summary>
+        </member>
+        <member name="F:Google.GData.Spreadsheets.GDataSpreadsheetsNameTable.NSGSpreadsheets">
+            <summary>Spreadsheets namespace</summary>
+        </member>
+        <member name="F:Google.GData.Spreadsheets.GDataSpreadsheetsNameTable.NSGSpreadsheetsExtended">
+            <summary>Spreadsheets extended namespace</summary>
+        </member>
+        <member name="F:Google.GData.Spreadsheets.GDataSpreadsheetsNameTable.NSGSpreadsheetsPrefix">
+            <summary>Spreadsheets namespace prefix</summary>
+        </member>
+        <member name="F:Google.GData.Spreadsheets.GDataSpreadsheetsNameTable.Prefix">
+            <summary>Prefix for spreadsheets extensions if writing</summary>
+        </member>
+        <member name="F:Google.GData.Spreadsheets.GDataSpreadsheetsNameTable.ExtendedPrefix">
+            <summary>Prefix for spreadsheets custom extensions if writing</summary>
+        </member>
+        <member name="F:Google.GData.Spreadsheets.GDataSpreadsheetsNameTable.CellRel">
+            <summary>Link "rel" for cells feed</summary>
+        </member>
+        <member name="F:Google.GData.Spreadsheets.GDataSpreadsheetsNameTable.ListRel">
+            <summary>Link "rel" for list feed</summary>
+        </member>
+        <member name="F:Google.GData.Spreadsheets.GDataSpreadsheetsNameTable.WorksheetRel">
+            <summary>Link "rel" for worksheet feed</summary>
+        </member>
+        <member name="F:Google.GData.Spreadsheets.GDataSpreadsheetsNameTable.Spreadsheet">
+            <summary>The spreadsheet prefix </summary>
+        </member>
+        <member name="F:Google.GData.Spreadsheets.GDataSpreadsheetsNameTable.Cell">
+            <summary>The cell prefix </summary>
+        </member>
+        <member name="F:Google.GData.Spreadsheets.GDataSpreadsheetsNameTable.List">
+            <summary>The list prefix </summary>
+        </member>
+        <member name="F:Google.GData.Spreadsheets.GDataSpreadsheetsNameTable.Worksheet">
+            <summary>The worksheet prefix </summary>
+        </member>
+        <member name="F:Google.GData.Spreadsheets.GDataSpreadsheetsNameTable.Source">
+            <summary>The sources prefix </summary>
+        </member>
+        <member name="F:Google.GData.Spreadsheets.GDataSpreadsheetsNameTable.XmlCellElement">
+            <summary>Static string for parsing</summary>
+        </member>
+        <member name="F:Google.GData.Spreadsheets.GDataSpreadsheetsNameTable.XmlColCountElement">
+            <summary>Static string for parsing</summary>
+        </member>
+        <member name="F:Google.GData.Spreadsheets.GDataSpreadsheetsNameTable.XmlRowCountElement">
+            <summary>Static string for parsing</summary>
+        </member>
+        <member name="F:Google.GData.Spreadsheets.GDataSpreadsheetsNameTable.XmlAttributeRow">
+            <summary>String for row attribute</summary>
+        </member>
+        <member name="F:Google.GData.Spreadsheets.GDataSpreadsheetsNameTable.XmlAttributeColumn">
+            <summary>String for col attibute</summary>
+        </member>
+        <member name="F:Google.GData.Spreadsheets.GDataSpreadsheetsNameTable.XmlAttributeInputValue">
+            <summary>String for inputValue attibute</summary>
+        </member>
+        <member name="F:Google.GData.Spreadsheets.GDataSpreadsheetsNameTable.XmlAttributeNumericValue">
+            <summary>String for numericValue attribute</summary>
+        </member>
+        <member name="T:Google.Spreadsheets.Application">
+            <summary>the main object to access everything else with
+            
+            </summary> 
+        </member>
+        <member name="F:Google.Spreadsheets.Application.Name">
+            <summary>
+            the name of this application
+            </summary>
+        </member>
+        <member name="M:Google.Spreadsheets.Application.#ctor(System.String,System.String)">
+            <summary>
+            default constructor for client login. 
+            </summary>
+            <param name="user">the username to user</param>
+            <param name="password">the users password</param>
+            <returns></returns>
+        </member>
+        <member name="M:Google.Spreadsheets.Application.#ctor(System.String)">
+            <summary>
+            constructor for webapplications. Obtain the token using the authsub
+            helper methods
+            </summary>
+            <param name="token">Your authentication token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Google.Spreadsheets.Application.Refresh">
+            <summary>
+            this will reload the list of spreadsheets from the server and reset the 
+            currently active spreadsheet/worksheet
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Google.Spreadsheets.Application.ParseRangeString(System.String)">
+            
+              Parse a range given as, e.g., A2:D4 into numerical
+             coordinates. The letter indicates the column in use,
+             the number the row
+             
+        </member>
+        <member name="P:Google.Spreadsheets.Application.Spreadsheets">
+            <summary>
+             this returns a list of strings, with the names of each spreadsheet
+            this will do a roundtrip to the google servers to retrieve the list 
+            of spreadsheets if not done yet
+            </summary>
+            <returns>List of strings</returns>
+        </member>
+        <member name="P:Google.Spreadsheets.Application.CurrentSpreadsheet">
+            <summary>
+            this will return the current spreadsheetname that is being worked on, or, if set
+            see if there is a spreadsheet of that name, and if so, make this the current spreadsheet
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.Spreadsheets.Application.WorkSheets">
+            <summary>
+            returns a list of Worksheet names for the currently set spreadsheet,
+            or NULL if no spreadsheet was set
+            </summary>
+            <returns>NULL for no spreadsheet, an empty list for no worksheets in the 
+            spreadsheet or a list of names of the worksheets in the current spreadsheet</returns>
+        </member>
+        <member name="P:Google.Spreadsheets.Application.CurrentWorksheet">
+            <summary>
+            this will return the current worksheetname that is being worked on, or, if set
+            see if there is a worksheet of that name, and if so, make this the current worksheet
+            Note that this requires that a current spreadsheet is set
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.Spreadsheets.Application.CompleteRange">
+            <summary>
+            get the whole spreadsheet as a range, one line is one row, one cell is  
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Google.GData.Spreadsheets.CellEntry">
+            <summary>
+            Entry API customization class for defining entries in a Cells feed.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Spreadsheets.CellEntry.CELL_CATEGORY">
+            <summary>
+            Category used to label entries that contain Cell extension data.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Spreadsheets.CellEntry.#ctor">
+            <summary>
+            Constructs a new CellEntry instance with the appropriate category
+            to indicate that it is a cell.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Spreadsheets.CellEntry.#ctor(System.String)">
+            <summary>
+            Constructs a new CellEntry instance with the provided content.
+            </summary>
+            <param name="inputValue">The uncalculated content of the cell.</param>
+        </member>
+        <member name="M:Google.GData.Spreadsheets.CellEntry.#ctor(System.UInt32,System.UInt32)">
+            <summary>
+            create a CellEntry for a given row/column
+            </summary>
+            <param name="row"></param>
+            <param name="column"></param>
+        </member>
+        <member name="M:Google.GData.Spreadsheets.CellEntry.#ctor(System.UInt32,System.UInt32,System.String)">
+            <summary>
+            create a CellEntry for a given row/column and 
+            initial value
+            </summary>
+            <param name="row"></param>
+            <param name="column"></param>
+            <param name="inputValue">The uncalculated content of the cell.</param>
+        </member>
+        <member name="M:Google.GData.Spreadsheets.CellEntry.AddOtherNamespaces(System.Xml.XmlWriter)">
+            <summary>
+            add the spreadsheet NS
+            </summary>
+            <param name="writer">The XmlWrite, where we want to add default namespaces to</param>
+        </member>
+        <member name="M:Google.GData.Spreadsheets.CellEntry.SkipNode(System.Xml.XmlNode)">
+            <summary>
+            Checks if this is a namespace declaration that we already added
+            </summary>
+            <param name="node">XmlNode to check</param>
+            <returns>True if this node should be skipped</returns>
+        </member>
+        <member name="P:Google.GData.Spreadsheets.CellEntry.Cell">
+            <summary>
+            The cell element in this cell entry
+            </summary>
+        </member>
+        <member name="P:Google.GData.Spreadsheets.CellEntry.Row">
+            <summary>
+            The row the cell lies in
+            </summary>
+        </member>
+        <member name="P:Google.GData.Spreadsheets.CellEntry.Column">
+            <summary>
+            The column the cell lies in
+            </summary>
+        </member>
+        <member name="P:Google.GData.Spreadsheets.CellEntry.InputValue">
+            <summary>
+            The input (uncalculated) value for the cell
+            </summary>
+        </member>
+        <member name="P:Google.GData.Spreadsheets.CellEntry.NumericValue">
+            <summary>
+            The numeric (calculated) value for the cell
+            </summary>
+        </member>
+        <member name="P:Google.GData.Spreadsheets.CellEntry.Value">
+            <summary>
+            The numeric (calculated) value for the cell
+            </summary>
+        </member>
+        <member name="T:Google.GData.Spreadsheets.CellEntry.CellElement">
+            <summary>
+            GData schema extension describing a Cell in a spreadsheet.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Spreadsheets.CellEntry.CellElement.#ctor">
+            <summary>
+            default constructor for the Cell element
+            </summary>
+        </member>
+        <member name="P:Google.GData.Spreadsheets.CellEntry.CellElement.Row">
+            <summary>
+            The row the cell lies in
+            </summary>
+        </member>
+        <member name="P:Google.GData.Spreadsheets.CellEntry.CellElement.Column">
+            <summary>
+            The column the cell lies in
+            </summary>
+        </member>
+        <member name="P:Google.GData.Spreadsheets.CellEntry.CellElement.InputValue">
+            <summary>
+            The input (uncalculated) value for the cell
+            </summary>
+        </member>
+        <member name="P:Google.GData.Spreadsheets.CellEntry.CellElement.NumericValue">
+            <summary>
+            The numeric (calculated) value for the cell
+            </summary>
+        </member>
+    </members>
+</doc>

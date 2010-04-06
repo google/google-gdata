@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<atom:feed xmlns:atom='http://www.w3.org/2005/Atom'
+xmlns:openSearch='http://a9.com/-/spec/opensearchrss/1.0/'
+xmlns:gm='http://base.google.com/ns-metadata/1.0' xmlns:g='http://base.google.com/ns/1.0' xmlns:batch='http://schemas.google.com/gdata/batch'>
+  <atom:id>http://www.google.com/base/feeds/items</atom:id>
+  <atom:updated>2008-07-02T13:33:03.334Z</atom:updated>
+  <atom:title type='text'>Batch Feed</atom:title>
+  <atom:link rel='http://schemas.google.com/g/2005#feed'
+  type='application/atom+xml' href='http://www.google.com/base/feeds/items'/>
+  <atom:link rel='http://schemas.google.com/g/2005#post'
+  type='application/atom+xml' href='http://www.google.com/base/feeds/items'/>
+  <atom:link rel='http://schemas.google.com/g/2005#batch'
+  type='application/atom+xml' href='http://www.google.com/base/feeds/items/batch'/>
+  <atom:entry>
+    <atom:id>1</atom:id>
+    <atom:updated>2008-07-02T13:33:03.334Z</atom:updated>
+    <atom:title type='text'>Error</atom:title>
+    <atom:content type='text'>Invalid item</atom:content>
+    <batch:id>1</batch:id>
+    <batch:status code='400' reason='Invalid item' content-type='application/xml'>
+      <errors>
+        <error type="data" field="expiration_date" reason="Invalid type specified ('text') for field 'expiration_date'.  Please omit type or specify type 'datetimerange'." />
+        <error type="data" field="price_type" reason="Invalid price type" />
+      </errors>
+    </batch:status>
+    <batch:operation type='insert'/>
+  </atom:entry>
+</atom:feed>
