@@ -112,6 +112,35 @@ namespace Google.GData.Client.UnitTests.Analytics
         }
 
         /// <summary>
+        ///A test for Dynamic Advanced-Segment parsing
+        ///</summary>
+        [Test]
+        public void DynamicSegmentParseTest()
+        {
+            const string expected = "dynamic::ga:country%3D%3DCanada";
+            DataQuery target = new DataQuery();
+            //Force expected to be parsed
+            target.Uri = new Uri("http://test.com?segment=" + expected);
+            string actual = target.Segment;
+            Assert.AreEqual(expected, actual);
+        }
+
+        /// <summary>
+        ///A test for Indexed Advanced-Segment parsing (Advanced Segments saved via web interface)
+        ///</summary>
+        [Test]
+        public void IndexedSegmentParseTest()
+        {
+            const string expected = "gaid::-2";
+            DataQuery target = new DataQuery();
+            //Force expected to be parsed
+            target.Uri = new Uri("http://test.com?segment=" + expected);
+            string actual = target.Segment;
+            Assert.AreEqual(expected, actual);
+        }
+
+
+        /// <summary>
         ///A test for Sort parsing
         ///</summary>
         [Test]

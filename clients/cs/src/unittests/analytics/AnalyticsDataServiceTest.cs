@@ -26,7 +26,7 @@ using NUnit.Framework;
 
 namespace Google.GData.Client.UnitTests.Analytics
 {
-    [TestFixture]
+    [TestFixture, Category("Analytics")]
     public class AnalyticsDataServiceTest : BaseLiveTestClass
     {
         private const string DataFeedUrl = "http://www.google.com/analytics/feeds/data";

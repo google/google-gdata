@@ -23,6 +23,8 @@ using Google.GData.GoogleBase;
 using Google.Analytics;
 using NUnit.Framework;
 
+
+
 namespace Google.GData.Client.UnitTests.Analytics
 {
     /// <summary>
@@ -71,37 +73,58 @@ namespace Google.GData.Client.UnitTests.Analytics
         [Test]
         public void DataParseTest()
         {
-            string xml = "<?xml version='1.0' encoding='UTF-8'?>" +
-                "<feed xmlns='http://www.w3.org/2005/Atom' xmlns:openSearch='http://a9.com/-/spec/opensearch/1.1/' xmlns:dxp='http://schemas.google.com/analytics/2009' xmlns:gd='http://schemas.google.com/g/2005' gd:etag='W/&quot;A05PSHcycSp9ImA2WxJSGYQ.&quot;'>" +
-                "<id>http://www.google.com/analytics/feeds/data?ids=ga:123456&amp;dimensions=ga:browser&amp;metrics=ga:pageviews&amp;start-date=2009-04-28&amp;end-date=2009-05-10</id>" +
-                "<updated>2009-05-10T01:01:01.999-07:00</updated><title>Google Analytics Data for Profile 123456</title>" +
-                "<link rel='self' type='application/atom+xml' href='http://www.google.com/analytics/feeds/data?max-results=200&amp;sort=ga%3Abrowser%2Cga%3Apageviews&amp;end-date=2009-05-10&amp;start-date=2009-04-28&amp;metrics=ga%3Apageviews&amp;ids=ga%3A123456&amp;dimensions=ga%3Abrowser'/>" +
-                "<author><name>Google Analytics</name></author>" +
-                "<generator version='1.0'>Google Analytics</generator>" +
-                "<openSearch:totalResults>10</openSearch:totalResults><openSearch:startIndex>1</openSearch:startIndex><openSearch:itemsPerPage>200</openSearch:itemsPerPage>" +
-                "<dxp:startDate>2009-04-28</dxp:startDate>" +
-                "<dxp:endDate>2009-05-10</dxp:endDate>" +
-                "<dxp:aggregates>" +
-                "<dxp:metric confidenceInterval='0.0' name='ga:pageviews' type='integer' value='50599'/>" +
-                "</dxp:aggregates>" +
-                "<dxp:dataSource>" +
-                "<dxp:tableId>ga:123456</dxp:tableId>" +
-                "<dxp:tableName>www.test.com</dxp:tableName>" +
-                "<dxp:property name='ga:profileId' value='123456'/>" +
-                "<dxp:property name='ga:webPropertyId' value='UA-111111-1'/>" +
-                "<dxp:property name='ga:accountName' value='Test Account'/>" +
-                "</dxp:dataSource>" +
-                "<entry gd:etag='W/&quot;CQFFQX53eSp7ImA8WxPSGUw.&quot;'><id>http://www.google.com/analytics/feeds/data?ids=ga:123456&amp;ga:browser=Camino&amp;start-date=2009-04-28&amp;end-date=2009-05-10</id><updated>2009-05-09T17:00:00.001-07:00</updated><title>ga:browser=Camino</title><link rel='alternate' type='text/html' href='http://www.google.com/analytics'/><dxp:dimension name='ga:browser' value='Camino'/><dxp:metric confidenceInterval='0.0' name='ga:pageviews' type='integer' value='8'/></entry>" +
-                "<entry gd:etag='W/&quot;CQFFQX53eSp7ImA8WxPSGUw.&quot;'><id>http://www.google.com/analytics/feeds/data?ids=ga:123456&amp;ga:browser=Chrome&amp;start-date=2009-04-28&amp;end-date=2009-05-10</id><updated>2009-05-09T17:00:00.001-07:00</updated><title>ga:browser=Chrome</title><link rel='alternate' type='text/html' href='http://www.google.com/analytics'/><dxp:dimension name='ga:browser' value='Chrome'/><dxp:metric confidenceInterval='0.0' name='ga:pageviews' type='integer' value='894'/></entry>" +
-                "<entry gd:etag='W/&quot;CQFFQX53eSp7ImA8WxPSGUw.&quot;'><id>http://www.google.com/analytics/feeds/data?ids=ga:123456&amp;ga:browser=Firefox&amp;start-date=2009-04-28&amp;end-date=2009-05-10</id><updated>2009-05-09T17:00:00.001-07:00</updated><title>ga:browser=Firefox</title><link rel='alternate' type='text/html' href='http://www.google.com/analytics'/><dxp:dimension name='ga:browser' value='Firefox'/><dxp:metric confidenceInterval='0.0' name='ga:pageviews' type='integer' value='9969'/></entry>" +
-                "<entry gd:etag='W/&quot;CQFFQX53eSp7ImA8WxPSGUw.&quot;'><id>http://www.google.com/analytics/feeds/data?ids=ga:123456&amp;ga:browser=Internet%20Explorer&amp;start-date=2009-04-28&amp;end-date=2009-05-10</id><updated>2009-05-09T17:00:00.001-07:00</updated><title>ga:browser=Internet Explorer</title><link rel='alternate' type='text/html' href='http://www.google.com/analytics'/><dxp:dimension name='ga:browser' value='Internet Explorer'/><dxp:metric confidenceInterval='0.0' name='ga:pageviews' type='integer' value='36261'/></entry>" +
-                "<entry gd:etag='W/&quot;CQFFQX53eSp7ImA8WxPSGUw.&quot;'><id>http://www.google.com/analytics/feeds/data?ids=ga:123456&amp;ga:browser=Konqueror&amp;start-date=2009-04-28&amp;end-date=2009-05-10</id><updated>2009-05-09T17:00:00.001-07:00</updated><title>ga:browser=Konqueror</title><link rel='alternate' type='text/html' href='http://www.google.com/analytics'/><dxp:dimension name='ga:browser' value='Konqueror'/><dxp:metric confidenceInterval='0.0' name='ga:pageviews' type='integer' value='1'/></entry>" +
-                "<entry gd:etag='W/&quot;CQFFQX53eSp7ImA8WxPSGUw.&quot;'><id>http://www.google.com/analytics/feeds/data?ids=ga:123456&amp;ga:browser=Mozilla&amp;start-date=2009-04-28&amp;end-date=2009-05-10</id><updated>2009-05-09T17:00:00.001-07:00</updated><title>ga:browser=Mozilla</title><link rel='alternate' type='text/html' href='http://www.google.com/analytics'/><dxp:dimension name='ga:browser' value='Mozilla'/><dxp:metric confidenceInterval='0.0' name='ga:pageviews' type='integer' value='21'/></entry>" +
-                "<entry gd:etag='W/&quot;CQFFQX53eSp7ImA8WxPSGUw.&quot;'><id>http://www.google.com/analytics/feeds/data?ids=ga:123456&amp;ga:browser=Mozilla%20Compatible%20Agent&amp;start-date=2009-04-28&amp;end-date=2009-05-10</id><updated>2009-05-09T17:00:00.001-07:00</updated><title>ga:browser=Mozilla Compatible Agent</title><link rel='alternate' type='text/html' href='http://www.google.com/analytics'/><dxp:dimension name='ga:browser' value='Mozilla Compatible Agent'/><dxp:metric confidenceInterval='0.0' name='ga:pageviews' type='integer' value='11'/></entry>" +
-                "<entry gd:etag='W/&quot;CQFFQX53eSp7ImA8WxPSGUw.&quot;'><id>http://www.google.com/analytics/feeds/data?ids=ga:123456&amp;ga:browser=Netscape&amp;start-date=2009-04-28&amp;end-date=2009-05-10</id><updated>2009-05-09T17:00:00.001-07:00</updated><title>ga:browser=Netscape</title><link rel='alternate' type='text/html' href='http://www.google.com/analytics'/><dxp:dimension name='ga:browser' value='Netscape'/><dxp:metric confidenceInterval='0.0' name='ga:pageviews' type='integer' value='4'/></entry>" +
-                "<entry gd:etag='W/&quot;CQFFQX53eSp7ImA8WxPSGUw.&quot;'><id>http://www.google.com/analytics/feeds/data?ids=ga:123456&amp;ga:browser=Opera&amp;start-date=2009-04-28&amp;end-date=2009-05-10</id><updated>2009-05-09T17:00:00.001-07:00</updated><title>ga:browser=Opera</title><link rel='alternate' type='text/html' href='http://www.google.com/analytics'/><dxp:dimension name='ga:browser' value='Opera'/><dxp:metric confidenceInterval='0.0' name='ga:pageviews' type='integer' value='84'/></entry>" +
-                "<entry gd:etag='W/&quot;CQFFQX53eSp7ImA8WxPSGUw.&quot;'><id>http://www.google.com/analytics/feeds/data?ids=ga:123456&amp;ga:browser=Safari&amp;start-date=2009-04-28&amp;end-date=2009-05-10</id><updated>2009-05-09T17:00:00.001-07:00</updated><title>ga:browser=Safari</title><link rel='alternate' type='text/html' href='http://www.google.com/analytics'/><dxp:dimension name='ga:browser' value='Safari'/><dxp:metric confidenceInterval='0.0' name='ga:pageviews' type='integer' value='3346'/></entry>" +
-                "</feed>";
+            string xml = @"<?xml version='1.0' encoding='UTF-8'?>
+                <feed xmlns='http://www.w3.org/2005/Atom' xmlns:dxp='http://schemas.google.com/analytics/2009' xmlns:openSearch='http://a9.com/-/spec/opensearch/1.1/' xmlns:gd='http://schemas.google.com/g/2005' gd:etag='W/&quot;DUINSHcycSp7I2A9WxRWFEQ.&quot;' gd:kind='analytics#data'>
+                        <id>http://www.google.com/analytics/feeds/data?ids=ga:1174&amp;dimensions=ga:medium,ga:source&amp;metrics=ga:bounces,ga:visits&amp;filters=ga:medium%3D%3Dreferral&amp;start-date=2008-10-01&amp;end-date=2008-10-31</id>
+                        <updated>2008-10-31T16:59:59.999-07:00</updated>
+                        <title>Google Analytics Data for Profile 1174</title>
+                        <link rel='self' type='application/atom+xml' href='http://www.google.com/analytics/feeds/data?max-results=5&amp;sort=-ga%3Avisits&amp;end-date=2008-10-31&amp;start-date=2008-10-01&amp;metrics=ga%3Avisits%2Cga%3Abounces&amp;ids=ga%3A1174&amp;dimensions=ga%3Asource%2Cga%3Amedium&amp;filters=ga%3Amedium%3D%3Dreferral'/>
+                        <link rel='next' type='application/atom+xml' href='http://www.google.com/analytics/feeds/data?start-index=6&amp;max-results=5&amp;sort=-ga%3Avisits&amp;end-date=2008-10-31&amp;start-date=2008-10-01&amp;metrics=ga%3Avisits%2Cga%3Abounces&amp;ids=ga%3A1174&amp;dimensions=ga%3Asource%2Cga%3Amedium&amp;filters=ga%3Amedium%3D%3Dreferral'/>
+                        <author>
+                                <name>Google Analytics</name>
+                        </author>
+                        <generator version='1.0'>Google Analytics</generator>
+                        <openSearch:totalResults>6451</openSearch:totalResults>
+                        <openSearch:startIndex>1</openSearch:startIndex>
+                        <openSearch:itemsPerPage>5</openSearch:itemsPerPage>
+                        <dxp:aggregates>
+                                <dxp:metric confidenceInterval='0.0' name='ga:visits' type='integer' value='136540'/>
+                                <dxp:metric confidenceInterval='0.0' name='ga:bounces' type='integer' value='101535'/>
+                        </dxp:aggregates>
+                        <dxp:dataSource>
+                                <dxp:property name='ga:profileId' value='1174'/>
+                                <dxp:property name='ga:webPropertyId' value='UA-30481-1'/>
+                                <dxp:property name='ga:accountName' value='Google Store'/>
+                                <dxp:tableId>ga:1174</dxp:tableId>
+                                <dxp:tableName>www.googlestore.com</dxp:tableName>
+                        </dxp:dataSource>
+                        <dxp:endDate>2008-10-31</dxp:endDate>
+                        <dxp:startDate>2008-10-01</dxp:startDate>
+                        <dxp:segment id='gaid::-11' name='Mobile Traffic'>
+                          <dxp:definition>ga:operatingSystem==iPhone</dxp:definition>
+                        </dxp:segment>
+                        <entry gd:etag='W/&quot;C0UEQX47eSp7I2A9WxRWFEw.&quot;' gd:kind='analytics#datarow'>
+                                <id>http://www.google.com/analytics/feeds/data?ids=ga:1174&amp;ga:medium=referral&amp;ga:source=blogger.com&amp;filters=ga:medium%3D%3Dreferral&amp;start-date=2008-10-01&amp;end-date=2008-10-31</id>
+                                <updated>2008-10-30T17:00:00.001-07:00</updated>
+                                <title>ga:source=blogger.com | ga:medium=referral</title>
+                                <link rel='alternate' type='text/html' href='http://www.google.com/analytics'/>
+                                <dxp:dimension name='ga:source' value='blogger.com'/>
+                                <dxp:dimension name='ga:medium' value='referral'/>
+                                <dxp:metric confidenceInterval='0.0' name='ga:visits' type='integer' value='68140'/>
+                                <dxp:metric confidenceInterval='0.0' name='ga:bounces' type='integer' value='61095'/>
+                        </entry>
+                        <entry gd:etag='W/&quot;C0UEQX47eSp7I2A9WxRWFEw.&quot;' gd:kind='analytics#datarow'>
+                                <id>http://www.google.com/analytics/feeds/data?ids=ga:1174&amp;ga:medium=referral&amp;ga:source=google.com&amp;filters=ga:medium%3D%3Dreferral&amp;start-date=2008-10-01&amp;end-date=2008-10-31</id>
+                                <updated>2008-10-30T17:00:00.001-07:00</updated>
+                                <title>ga:source=google.com | ga:medium=referral</title>
+                                <link rel='alternate' type='text/html' href='http://www.google.com/analytics'/>
+                                <dxp:dimension name='ga:source' value='google.com'/>
+                                <dxp:dimension name='ga:medium' value='referral'/>
+                                <dxp:metric confidenceInterval='0.0' name='ga:visits' type='integer' value='29666'/>
+                                <dxp:metric confidenceInterval='0.0' name='ga:bounces' type='integer' value='14979'/>
+                        </entry>
+                </feed>
+            ";
 
             Google.GData.Analytics.DataFeed feed = Parse(xml);
 
@@ -112,65 +135,42 @@ namespace Google.GData.Client.UnitTests.Analytics
             Assert.IsNotNull(f.DataSource);
             Assert.IsNotNull(f.Entries);
 
-            Assert.AreEqual(50599, f.Aggregates.Metrics[0].IntegerValue);
+            Assert.AreEqual(136540, f.Aggregates.Metrics[0].IntegerValue);
             Assert.AreEqual("0.0", f.Aggregates.Metrics[0].ConfidenceInterval);
-            Assert.AreEqual("ga:pageviews", f.Aggregates.Metrics[0].Name);
+            Assert.AreEqual("ga:visits", f.Aggregates.Metrics[0].Name);
             Assert.AreEqual("integer", f.Aggregates.Metrics[0].Type);
 
-            Assert.AreEqual("ga:123456", f.DataSource.TableId);
-            Assert.AreEqual("www.test.com", f.DataSource.TableName);
-            Assert.AreEqual("123456", f.DataSource.ProfileId);
-            Assert.AreEqual("UA-111111-1", f.DataSource.WebPropertyId);
-            Assert.AreEqual("Test Account", f.DataSource.AccountName);
+            Assert.AreEqual("ga:1174", f.DataSource.TableId);
+            Assert.AreEqual("www.googlestore.com", f.DataSource.TableName);
+            Assert.AreEqual("1174", f.DataSource.ProfileId);
+            Assert.AreEqual("UA-30481-1", f.DataSource.WebPropertyId);
+            Assert.AreEqual("Google Store", f.DataSource.AccountName);
 
 
+            Assert.AreEqual(136540, Int32.Parse(feed.Aggregates.Metrics[0].Value));
 
-            Assert.AreEqual(50599, Int32.Parse(feed.Aggregates.Metrics[0].Value));
 
+            DataEntry blogger = feed.Entries[0] as DataEntry;
+            Assert.IsNotNull(blogger, "entry");
+            Assert.IsNotNull(blogger.Dimensions);
+            Assert.IsNotNull(blogger.Metrics);
 
-            DataEntry camino = feed.Entries[0] as DataEntry;
-            Assert.IsNotNull(camino, "entry");
-            Assert.IsNotNull(camino.Dimensions);
-            Assert.IsNotNull(camino.Metrics);
+            Assert.AreEqual("ga:source", blogger.Dimensions[0].Name);
+            Assert.AreEqual("blogger.com", blogger.Dimensions[0].Value);
 
-            Assert.AreEqual("ga:browser", camino.Dimensions[0].Name);
-            Assert.AreEqual("Camino", camino.Dimensions[0].Value);
+            Assert.AreEqual("ga:visits", blogger.Metrics[0].Name);
+            Assert.AreEqual(68140, int.Parse(blogger.Metrics[0].Value));
 
-            Assert.AreEqual("ga:pageviews", camino.Metrics[0].Name);
-            Assert.AreEqual(8, int.Parse(camino.Metrics[0].Value));
+            DataEntry google = feed.Entries[1] as DataEntry;
+            Assert.IsNotNull(google, "entry");
+            Assert.IsNotNull(google.Dimensions);
+            Assert.IsNotNull(google.Metrics);
 
-            DataEntry chrome = feed.Entries[1] as DataEntry;
-            Assert.IsNotNull(chrome, "entry");
-            Assert.IsNotNull(chrome.Dimensions);
-            Assert.IsNotNull(chrome.Metrics);
+            Assert.AreEqual("ga:source", google.Dimensions[0].Name);
+            Assert.AreEqual("google.com", google.Dimensions[0].Value);
 
-            Assert.AreEqual("ga:browser", chrome.Dimensions[0].Name);
-            Assert.AreEqual("Chrome", chrome.Dimensions[0].Value);
-
-            Assert.AreEqual("ga:pageviews", chrome.Metrics[0].Name);
-            Assert.AreEqual(894, int.Parse(chrome.Metrics[0].Value));
-
-            DataEntry fireFox = feed.Entries[2] as DataEntry;
-            Assert.IsNotNull(fireFox, "entry");
-            Assert.IsNotNull(fireFox.Dimensions);
-            Assert.IsNotNull(fireFox.Metrics);
-
-            Assert.AreEqual("ga:browser", fireFox.Dimensions[0].Name);
-            Assert.AreEqual("Firefox", fireFox.Dimensions[0].Value);
-
-            Assert.AreEqual("ga:pageviews", fireFox.Metrics[0].Name);
-            Assert.AreEqual(9969, int.Parse(fireFox.Metrics[0].Value));
-
-            DataEntry ie = feed.Entries[3] as DataEntry;
-            Assert.IsNotNull(ie, "entry");
-            Assert.IsNotNull(ie.Dimensions);
-            Assert.IsNotNull(ie.Metrics);
-
-            Assert.AreEqual("ga:browser", ie.Dimensions[0].Name);
-            Assert.AreEqual("Internet Explorer", ie.Dimensions[0].Value);
-
-            Assert.AreEqual("ga:pageviews", ie.Metrics[0].Name);
-            Assert.AreEqual(36261, int.Parse(ie.Metrics[0].Value));
+            Assert.AreEqual("ga:visits", google.Metrics[0].Name);
+            Assert.AreEqual(29666, int.Parse(google.Metrics[0].Value));
 
             foreach (DataEntry entry in feed.Entries)
             {
@@ -178,10 +178,10 @@ namespace Google.GData.Client.UnitTests.Analytics
                 Assert.IsNotNull(entry.Dimensions);
                 Assert.IsNotNull(entry.Metrics);
 
-                Assert.AreEqual("ga:browser", entry.Dimensions[0].Name);
+                Assert.AreEqual("ga:source", entry.Dimensions[0].Name);
                 Assert.IsNotEmpty(entry.Dimensions[0].Value);
 
-                Assert.AreEqual("ga:pageviews", entry.Metrics[0].Name);
+                Assert.AreEqual("ga:visits", entry.Metrics[0].Name);
                 Assert.Greater(int.Parse(entry.Metrics[0].Value), 0);
             }
 
@@ -191,12 +191,25 @@ namespace Google.GData.Client.UnitTests.Analytics
                 Assert.IsNotNull(d.Dimensions);
                 Assert.IsNotNull(d.Metrics);
 
-                Assert.AreEqual("ga:browser", d.Dimensions[0].Name);
+                Assert.AreEqual("ga:source", d.Dimensions[0].Name);
                 Assert.IsNotEmpty(d.Dimensions[0].Value);
 
-                Assert.AreEqual("ga:pageviews", d.Metrics[0].Name);
+                Assert.AreEqual("ga:visits", d.Metrics[0].Name);
                 Assert.Greater(int.Parse(d.Metrics[0].Value), 0);
             }
+
+            Assert.IsNotEmpty(feed.Segments);
+
+            Segment s = feed.Segments[0];
+            Assert.IsNotNull(s.Name);
+            Assert.AreEqual(s.Id, "gaid::-11");
+            Assert.IsNotNull(s.Id);
+            Assert.AreEqual(s.Name, "Mobile Traffic");
+            Assert.IsNotNull(s.Definition);
+            Assert.IsNotEmpty(s.Definition.Value);
+            Assert.AreEqual(s.Definition.Value, "ga:operatingSystem==iPhone");
+
+            
         }
 
         private static Google.GData.Analytics.DataFeed Parse(string xml)

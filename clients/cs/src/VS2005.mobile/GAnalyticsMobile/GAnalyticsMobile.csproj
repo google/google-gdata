@@ -86,6 +86,9 @@
     <Compile Include="..\..\analytics\AssemblyInfo.cs">
       <Link>AssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="..\..\analytics\customvariable.cs">
+      <Link>customvariable.cs</Link>
+    </Compile>
     <Compile Include="..\..\analytics\dataentry.cs">
       <Link>dataentry.cs</Link>
     </Compile>
@@ -95,8 +98,20 @@
     <Compile Include="..\..\analytics\dataquery.cs">
       <Link>dataquery.cs</Link>
     </Compile>
+    <Compile Include="..\..\analytics\definition.cs">
+      <Link>definition.cs</Link>
+    </Compile>
+    <Compile Include="..\..\analytics\destination.cs">
+      <Link>destination.cs</Link>
+    </Compile>
     <Compile Include="..\..\analytics\dimension.cs">
       <Link>dimension.cs</Link>
+    </Compile>
+    <Compile Include="..\..\analytics\engagement.cs">
+      <Link>engagement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\analytics\goal.cs">
+      <Link>goal.cs</Link>
     </Compile>
     <Compile Include="..\..\analytics\metric.cs">
       <Link>metric.cs</Link>
@@ -104,8 +119,14 @@
     <Compile Include="..\..\analytics\property.cs">
       <Link>property.cs</Link>
     </Compile>
+    <Compile Include="..\..\analytics\segment.cs">
+      <Link>segment.cs</Link>
+    </Compile>
     <Compile Include="..\..\analytics\sourceentry.cs">
       <Link>sourceentry.cs</Link>
+    </Compile>
+    <Compile Include="..\..\analytics\step.cs">
+      <Link>step.cs</Link>
     </Compile>
     <Compile Include="..\..\analytics\tableid.cs">
       <Link>tableid.cs</Link>

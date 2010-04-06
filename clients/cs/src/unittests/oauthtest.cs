@@ -28,6 +28,7 @@ using Google.GData.Extensions;
 using Google.GData.Calendar;
 using Google.GData.AccessControl;
 using Google.Contacts;
+using Google.Documents;
 using System.Collections.Generic;
 
 
@@ -141,8 +142,6 @@ namespace Google.GData.Client.LiveTests
      
             ContactsRequest cr = new ContactsRequest(rs);
 
-            List<Contact> list = new List<Contact>();
-
             Feed<Contact> f = cr.GetContacts();
 
             // modify one
@@ -164,6 +163,41 @@ namespace Google.GData.Client.LiveTests
             
         }
         /////////////////////////////////////////////////////////////////////////////
+
+        [Test]
+        public void OAuth2LeggedDocumentsTest()
+        {
+            Tracing.TraceMsg("Entering OAuth2LeggedDocumentsTest");
+
+
+            RequestSettings rs = new RequestSettings(this.ApplicationName, this.oAuthConsumerKey, this.oAuthConsumerSecrect,
+                                                     this.oAuthUser, this.oAuthDomain);
+
+            DocumentsRequest dr = new DocumentsRequest(rs);
+
+            Feed<Document> f = dr.GetDocuments();
+
+            // modify one
+            foreach (Document d in f.Entries)
+            {
+                string s = d.AtomEntry.EditUri.ToString();              
+                d.AtomEntry.EditUri = new AtomUri(s.Replace("@", "%40"));
+               
+                dr.Update(d);
+                AclQuery q = new AclQuery();
+                q.Uri = d.AccessControlList;
+                Feed<Google.AccessControl.Acl> facl = dr.Get<Google.AccessControl.Acl>(q);
+
+                foreach (Google.AccessControl.Acl a in facl.Entries)
+                {
+                    s = a.AclEntry.EditUri.ToString();
+                    a.AclEntry.EditUri = new AtomUri(s.Replace("@", "%40"));
+                    dr.Update(a);
+                }
+            }
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>runs an authentication test using OAUTH, inserts lot's of new contacts

@@ -16,6 +16,7 @@
 using System;
 using Google.GData.Client;
 using Google.GData.Extensions;
+using System.Collections.Generic;
 
 namespace Google.GData.Analytics
 {
@@ -28,6 +29,9 @@ namespace Google.GData.Analytics
     //////////////////////////////////////////////////////////////////////
     public class DataFeed : AbstractFeed
     {
+
+        private List<Segment> segments;
+
         /// <summary>
         ///  default constructor
         /// </summary>
@@ -37,6 +41,8 @@ namespace Google.GData.Analytics
         {
             AddExtension(new Aggregates());
             AddExtension(new DataSource());
+            AddExtension(new Segment());
+
         }
 
         /// <summary>
@@ -64,6 +70,21 @@ namespace Google.GData.Analytics
         public DataSource DataSource
         {
             get { return FindExtension(AnalyticsNameTable.XmlDataSourceElement, AnalyticsNameTable.gAnalyticsNamspace) as DataSource; }
+        }
+
+        /// <summary>
+        /// This field controls the segments.
+        /// </summary>
+        public List<Segment> Segments
+        {
+            get
+            {
+                if (segments == null)
+                {
+                    segments = FindExtensions<Segment>(AnalyticsNameTable.XmlSegmentElement, AnalyticsNameTable.gAnalyticsNamspace);
+                }
+                return segments;
+            }
         }
     }
 }
