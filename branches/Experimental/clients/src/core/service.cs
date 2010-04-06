@@ -740,6 +740,21 @@ namespace Google.GData.Client
             return CreateAndParseEntry(returnStream, uriTarget);
         }
 
+        /// <summary>
+        /// Updates the document content with the contents of a filestream
+        /// </summary>
+        /// <param name="putUri"></param>
+        /// <param name="stream"></param>
+        /// <param name="contentType"></param>
+        /// <param name="slugHeader"></param>
+        /// <param name="etag"></param>
+        /// <returns></returns>
+        public AtomEntry UpdateDocumentContent(Uri putUri, FileStream stream, string contentType, string slugHeader, string etag)
+        {
+            Stream returnStream = StreamSend(putUri, stream, GDataRequestType.Update, contentType, slugHeader, etag);
+            return CreateAndParseEntry(returnStream, putUri);
+        }
+
 
         /// <summary>
         /// used to create a feed based on a stream

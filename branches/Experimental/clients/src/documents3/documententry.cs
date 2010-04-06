@@ -55,6 +55,7 @@ namespace Google.GData.Documents {
         static string SPREADSHEET_KIND = DocumentsService.DocumentsNamespace + "#spreadsheet";
         static string PDF_KIND = DocumentsService.DocumentsNamespace + "#pdf";
         static string FOLDER_KIND = DocumentsService.DocumentsNamespace + "#folder";
+        static string FILE_KIND = DocumentsService.DocumentsNamespace + "#file";
         static string FORM_KIND = DocumentsService.DocumentsNamespace + "#form";
         static string PARENT_FOLDER_REL = DocumentsService.DocumentsNamespace + "#parent";
        
@@ -83,8 +84,10 @@ namespace Google.GData.Documents {
         public static AtomCategory PDF_CATEGORY =
             new AtomCategory(PDF_KIND, new AtomUri(BaseNameTable.gKind), "pdf");
         /// <summary>
-        /// a predefined atom category for starred documentss
+        /// a predefined atom category for files
         /// </summary>
+        public static AtomCategory FILE_CATEGORY =
+            new AtomCategory(FILE_KIND, new AtomUri(BaseNameTable.gKind), "file");
         /// <summary>
         /// a predefined atom category for Presentations
         /// </summary>
@@ -269,8 +272,23 @@ namespace Google.GData.Documents {
             {
                 this.ToggleCategory(DocumentEntry.PDF_CATEGORY, value);
             }
-        }        
-        
+        }
+
+        /// <summary>
+        /// Reflects if this entry is a file
+        /// </summary>
+        public bool IsFile
+        {
+            get
+            {
+                return this.Categories.Contains(DocumentEntry.FILE_CATEGORY);
+            }
+            set
+            {
+                this.ToggleCategory(DocumentEntry.FILE_CATEGORY, value);
+            }
+        }
+
         /// <summary>
         /// Reflects if this entry is starred
         /// </summary>
