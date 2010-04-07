@@ -217,7 +217,7 @@ namespace Google.GData.Client {
             parameters.Add(new QueryParameter(OAuthConsumerKeyKey, consumerKey));
 
             if (!string.IsNullOrEmpty(token)) {
-                parameters.Add(new QueryParameter(OAuthTokenKey, token));
+                parameters.Add(new QueryParameter(OAuthTokenKey, UrlEncode(token)));
             }
 
             parameters.Sort(new QueryParameterComparer());
