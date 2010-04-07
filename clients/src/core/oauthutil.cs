@@ -17,8 +17,10 @@
 */
 
 using System;
+using System.Collections.Generic;
 using System.Text;
 using System.Globalization;
+using System.Web;
 
 namespace Google.GData.Client
 {
@@ -28,6 +30,8 @@ namespace Google.GData.Client
     /// </summary>
     public class OAuthUtil : OAuthBase
     {
+        public static readonly OAuthUtil Instance = new OAuthUtil();
+
         /// <summary>
         /// Generate the timestamp for the signature        
         /// </summary>
@@ -69,13 +73,12 @@ namespace Google.GData.Client
 
         public static string GenerateHeader(Uri uri, String consumerKey, String consumerSecret, String token, String tokenSecret, String httpMethod)
         {
-            OAuthUtil oauthUtil = new OAuthUtil();
-            string timeStamp = oauthUtil.GenerateTimeStamp();
-            string nonce = oauthUtil.GenerateNonce();
+            string timeStamp = Instance.GenerateTimeStamp();
+            string nonce = Instance.GenerateNonce();
             string normalizedUrl; string normalizedRequestParameters;
 
   
-            string signature = oauthUtil.GenerateSignature(uri, consumerKey, consumerSecret, token, tokenSecret,
+            string signature = Instance.GenerateSignature(uri, consumerKey, consumerSecret, token, tokenSecret,
                 httpMethod.ToUpper(), timeStamp, nonce, out normalizedUrl, out normalizedRequestParameters);
            
             signature = System.Web.HttpUtility.UrlEncode(signature);
@@ -96,5 +99,164 @@ namespace Google.GData.Client
             return sb.ToString();
         }
 
+        /// <summary>
+        /// Calculates the signature base url as per section 9.1 of the OAuth Spec.
+        /// This is a concatenation of http method, request url, and other request
+        /// parameters.
+        /// 
+        /// See <a href="http://oauth.net/core/1.0/#anchor14">9.1 Signature Base String</a>.
+        /// </summary>
+        /// <param name="requestUrl">The URL of the request.</param>
+        /// <param name="httpMethod">The HTTP method, for example "GET" or "PUT"</param>
+        /// <param name="baseParameters">
+        /// The request parameters (see section 9.1.3 of the OAuth spec).
+        /// </param>
+        /// <returns>The base string to be used in the OAuth signature.</returns>
+        /// <exception cref="OAuthException">If the input URL is not formatted properly.</exception>
+        public string GenerateSignatureBaseString(
+            string requestUrl, string httpMethod, IDictionary<string, string> baseParameters)
+        {
+            return UrlEncode(httpMethod.ToUpper()) + '&'
+                    + UrlEncode(NormalizeUrl(requestUrl)) + '&'
+                    + UrlEncode(NormalizeParameters(requestUrl, baseParameters));
+        }
+
+
+        /// <summary>
+        /// Calculates the normalized request url, as per section 9.1.2 of the OAuth
+        /// Spec.  This removes the querystring from the url and the port (if it is
+        /// the standard http or https port).
+        /// 
+        /// See <a href="http://oauth.net/core/1.0/#rfc.section.9.1.2">9.1.2
+        /// Construct Request URL</a>.
+        /// </summary>
+        /// <param name="requestUrl">
+        /// The request URL to normalize (not <code>null</code>).
+        /// </param>
+        /// <returns>
+        /// The normalized requset URL, as per the rules in the link above.
+        /// </returns>
+        /// <exception cref="OAuthException">
+        /// If the input URL is not formatted properly.
+        /// </exception>
+        public static string NormalizeUrl(string requestUrl)
+        {
+            // validate the request url
+            if (string.IsNullOrEmpty(requestUrl))
+            {
+                throw new OAuthException("Request URL cannot be empty");
+            }
+
+            // parse the url into its constituent parts.
+            Uri uri;
+            try
+            {
+                uri = new Uri(requestUrl);
+            }
+            catch (UriFormatException e)
+            {
+                throw new OAuthException(e);
+            }
+
+            string authority = uri.Authority;
+            string scheme = uri.Scheme;
+            if (authority == null || scheme == null)
+            {
+                throw new OAuthException("Invalid Request URL");
+            }
+            authority = authority.ToLower();
+            scheme = scheme.ToLower();
+
+            // if this url contains the standard port, remove it
+            if ((scheme == "http" && uri.Port == 80)
+                || (scheme == "https" && uri.Port == 443))
+            {
+                int index = authority.LastIndexOf(":");
+                if (index >= 0)
+                {
+                    authority = authority.Substring(0, index);
+                }
+            }
+
+            // piece together the url without the querystring
+            return scheme + "://" + authority + uri.LocalPath;
+        }
+
+        /// <summary>
+        /// Calculates the normalized request parameters string to use in the base
+        /// string, as per section 9.1.1 of the OAuth Spec.
+        /// 
+        /// See <a href="http://oauth.net/core/1.0/#rfc.section.9.1.1">9.1.1
+        /// Normalize Request Parameters</a>.
+        /// </summary>
+        /// <param name="requestUrl">
+        /// The request url to normalize (not <code>null</code>)
+        /// </param>
+        /// <param name="requestParameters">
+        /// Key/value pairs of parameters in the request
+        /// </param>
+        /// <returns>The parameters normalized to a string.</returns>
+        public string NormalizeParameters(string requestUrl, IDictionary<string, string> requestParameters)
+        {
+            // Use a SortedDictionary to alphabetize the parameters by their key
+            SortedDictionary<string, string> sortedDictionary
+                = new SortedDictionary<string, string>(requestParameters);
+
+            // Add the query string to the base string (if one exists)
+            int c = requestUrl.IndexOf('?');
+            if (c > 0)
+            {
+                foreach (KeyValuePair<string, string> kvp
+                    in ParseQuerystring(requestUrl.Substring(c + 1)))
+                {
+                    sortedDictionary.Add(kvp.Key, kvp.Value);
+                }
+            }
+
+            // piece together the base string, encoding each key and value
+            StringBuilder paramString = new StringBuilder();
+            foreach (KeyValuePair<string, string> e in sortedDictionary)
+            {
+                if (e.Value.Length == 0)
+                {
+                    continue;
+                }
+                if (paramString.Length > 0)
+                {
+                    paramString.Append("&");
+                }
+                paramString.Append(UrlEncode(e.Key)).Append("=").Append(UrlEncode(e.Value));
+            }
+            return paramString.ToString();
+        }
+
+        /// <summary>
+        /// Parse a querystring into a map of key/value pairs.
+        /// </summary>
+        /// <param name="queryString">the string to parse (without the '?')</param>
+        /// <returns>key/value pairs mapping to the items in the querystring</returns>
+        public IDictionary<string, string> ParseQuerystring(string queryString)
+        {
+            IDictionary<string, string> map = new Dictionary<string, string>();
+            if (string.IsNullOrEmpty(queryString))
+            {
+                return map;
+            }
+
+            string[] parameters = queryString.Split('&');
+            foreach (string param in parameters)
+            {
+                string[] keyValuePair = param.Split(new[] { '=' }, 2);
+                string name = HttpUtility.UrlDecode(keyValuePair[0], Encoding.UTF8);
+                if (name == "")
+                {
+                    continue;
+                }
+                string value = keyValuePair.Length > 1
+                    ? HttpUtility.UrlDecode(keyValuePair[1], Encoding.UTF8) : "";
+                map[name] = value;
+            }
+            return map;
+        }
     }
 }

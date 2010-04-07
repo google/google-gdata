@@ -141,7 +141,7 @@ namespace Google.GData.Client {
         /// </summary>
         /// <param name="value">The value to Url encode</param>
         /// <returns>Returns a Url encoded string</returns>
-        protected string UrlEncode(string value) {
+        public string UrlEncode(string value) {
             StringBuilder result = new StringBuilder();
 
             foreach (char symbol in value) {
@@ -282,11 +282,8 @@ namespace Google.GData.Client {
                     return HttpUtility.UrlEncode(string.Format("{0}&{1}", consumerSecret, tokenSecret));
                 case SignatureTypes.HMACSHA1:					
 					string signatureBase = GenerateSignatureBase(url, consumerKey, token, tokenSecret, httpMethod, timeStamp, nonce, HMACSHA1SignatureType, out normalizedUrl, out normalizedRequestParameters);
-
-                    HMACSHA1 hmacsha1 = new HMACSHA1();
-                    hmacsha1.Key = Encoding.ASCII.GetBytes(string.Format("{0}&{1}", UrlEncode(consumerSecret), string.IsNullOrEmpty(tokenSecret) ? "" : UrlEncode(tokenSecret)));
-
-                    return GenerateSignatureUsingHash(signatureBase, hmacsha1);                                        
+                    string key = string.Format("{0}&{1}", UrlEncode(consumerSecret), string.IsNullOrEmpty(tokenSecret) ? "" : UrlEncode(tokenSecret));
+                    return new OAuthHmacSha1Signer().Sign(signatureBase, key);
                 case SignatureTypes.RSASHA1:
                     throw new NotImplementedException();
                 default:

@@ -152,11 +152,19 @@
     <Compile Include="gauthsubrequest.cs" />
     <Compile Include="gdatabatch.cs" />
     <Compile Include="goauthrequest.cs" />
+    <Compile Include="googleoauthhelper.cs" />
+    <Compile Include="googleoauthparameters.cs" />
     <Compile Include="HttpUtility.cs" />
+    <Compile Include="ioauthsigner.cs" />
     <Compile Include="logrequest.cs" />
     <Compile Include="mediaservice.cs" />
     <Compile Include="mediasource.cs" />
     <Compile Include="oauthbase.cs" />
+    <Compile Include="oauthexception.cs" />
+    <Compile Include="oauthhelper.cs" />
+    <Compile Include="oauthhmacsha1signer.cs" />
+    <Compile Include="oauthhttpclient.cs" />
+    <Compile Include="oauthparameters.cs" />
     <Compile Include="oauthuri.cs" />
     <Compile Include="oauthutil.cs" />
     <Compile Include="request.cs" />
@@ -166,6 +174,7 @@
     <Compile Include="simplecontainer.cs" />
     <Compile Include="simpleelement.cs" />
     <Compile Include="tracing.cs" />
+    <Compile Include="twoleggedoauthhelper.cs" />
     <Compile Include="utilities.cs" />
     <Compile Include="versioninterface.cs" />
     <Compile Include="xmlextension.cs" />
