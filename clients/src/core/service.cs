@@ -350,7 +350,7 @@ namespace Google.GData.Client
         /// <param name="queryUri">the URI to execute</param>
         /// <returns> a webresponse object</returns>
         //////////////////////////////////////////////////////////////////////
-        public Stream Query(Uri queryUri)
+        public virtual Stream Query(Uri queryUri)
         {
           return Query(queryUri, DateTime.MinValue);
         }
@@ -364,7 +364,7 @@ namespace Google.GData.Client
         /// precondition.</param>
         /// <returns> a webresponse object</returns>
         //////////////////////////////////////////////////////////////////////
-        public Stream Query(Uri queryUri, DateTime ifModifiedSince)
+        public virtual Stream Query(Uri queryUri, DateTime ifModifiedSince)
         {
             long l;
             return this.Query(queryUri, ifModifiedSince, null, out l);
@@ -379,7 +379,7 @@ namespace Google.GData.Client
         /// indicates the feed should be returned only if it has been modified </param>
         /// <returns> a webresponse object</returns>
         //////////////////////////////////////////////////////////////////////
-        public Stream Query(Uri queryUri, string etag)
+        public virtual Stream Query(Uri queryUri, string etag)
         {
             long l;
             return this.Query(queryUri, DateTime.MinValue, etag, out l);
@@ -452,7 +452,7 @@ namespace Google.GData.Client
         /// </summary>
         /// <param name="entryUri">The URI of the Atom entry.</param>
         /// <returns>AtomEntry representing the entry.</returns>
-        public AtomEntry Get(string entryUri)
+        public virtual AtomEntry Get(string entryUri)
         {
             FeedQuery query = new FeedQuery(entryUri);
             AtomFeed resultFeed = Query(query);
@@ -466,7 +466,7 @@ namespace Google.GData.Client
         /// <param name="feedQuery">the query parameters as a FeedQuery object </param>
         /// <returns>AtomFeed object tree</returns>
         //////////////////////////////////////////////////////////////////////
-        public AtomFeed Query(FeedQuery feedQuery)
+        public virtual AtomFeed Query(FeedQuery feedQuery)
         {
             AtomFeed feed = null;
             Tracing.TraceCall("Enter");
@@ -523,7 +523,7 @@ namespace Google.GData.Client
         /// <returns>AtomFeed object tree</returns>
         //////////////////////////////////////////////////////////////////////
         [Obsolete("FeedQuery has a modifiedSince property, use that instead")] 
-        public AtomFeed Query(FeedQuery feedQuery, DateTime ifModifiedSince)
+        public virtual AtomFeed Query(FeedQuery feedQuery, DateTime ifModifiedSince)
         {
             feedQuery.ModifiedSince = ifModifiedSince;
             return Query(feedQuery);
@@ -539,7 +539,7 @@ namespace Google.GData.Client
         /// <param name="serviceUri">the service to ask for an OpenSearchRss Description</param> 
         /// <returns> a webresponse object</returns>
         //////////////////////////////////////////////////////////////////////
-        public Stream QueryOpenSearchRssDescription(Uri serviceUri)
+        public virtual Stream QueryOpenSearchRssDescription(Uri serviceUri)
         {
             if (serviceUri == null)
             {
@@ -560,7 +560,7 @@ namespace Google.GData.Client
         /// <param name="entry">the old entry to update</param> 
         /// <returns> the new Entry, as returned from the server</returns>
         //////////////////////////////////////////////////////////////////////
-        public AtomEntry Update(AtomEntry entry)
+        public virtual AtomEntry Update(AtomEntry entry)
         {
             return this.Update(entry, null); 
         }
