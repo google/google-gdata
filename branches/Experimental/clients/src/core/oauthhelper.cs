@@ -202,7 +202,7 @@ namespace Google.GData.Client
             }
         }
 
-        public void GetUnauthorizedRequestToken(OAuthParameters oauthParameters)
+        public virtual void GetUnauthorizedRequestToken(OAuthParameters oauthParameters)
         {
             TwoLeggedOAuthHelper helper
                 = new TwoLeggedOAuthHelper(signer, oauthParameters);
@@ -271,7 +271,7 @@ namespace Google.GData.Client
         /// The full authorization url the user should visit.  The method also modifies the 
         /// oauthParameters object by adding the request token and token secret.
         /// </returns>
-        public string CreateUserAuthorizationUrl(OAuthParameters oauthParameters)
+        public virtual string CreateUserAuthorizationUrl(OAuthParameters oauthParameters)
         {
             // Format and return the user authorization url.
             KeyValuePair queryParams = new QueryKeyValuePair();
@@ -317,7 +317,7 @@ namespace Google.GData.Client
         /// <exception cref="OAuthException">
         /// if there is an error with the OAuth request.
         /// </exception>
-        public String GetAccessToken(OAuthParameters oauthParameters)
+        public virtual String GetAccessToken(OAuthParameters oauthParameters)
         {
             // STEP 1: Validate the input parameters
             TwoLeggedOAuthHelper helper
@@ -361,7 +361,7 @@ namespace Google.GData.Client
         /// <param name="oauthParameters">OAuth parameters for this request</param>
         /// <returns>the OAuth request url</returns>
         /// <exception cref="OAuthException"> if there is an error with the OAuth request</exception>
-        public Uri GetOAuthUrl(string baseUrl, string httpMethod, OAuthParameters oauthParameters) 
+        public virtual Uri GetOAuthUrl(string baseUrl, string httpMethod, OAuthParameters oauthParameters) 
         {
             TwoLeggedOAuthHelper helper
                 = new TwoLeggedOAuthHelper(signer, oauthParameters);

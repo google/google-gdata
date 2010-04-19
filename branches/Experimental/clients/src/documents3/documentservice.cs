@@ -99,7 +99,7 @@ namespace Google.GData.Documents {
         /// </summary>
         /// <param name="feedQuery"></param>
         /// <returns>EventFeed</returns>
-        public DocumentsFeed Query(DocumentsListQuery feedQuery) 
+        public virtual DocumentsFeed Query(DocumentsListQuery feedQuery) 
         {
             return base.Query(feedQuery) as DocumentsFeed;
         }
@@ -112,7 +112,7 @@ namespace Google.GData.Documents {
         /// <param name="fileName">The full path to the file.</param>
         /// <param name="documentName">The desired name of the document on the server.</param>
         /// <returns>A DocumentEntry describing the created document.</returns>
-        public DocumentEntry UploadDocument(string fileName, string documentName)
+        public virtual DocumentEntry UploadDocument(string fileName, string documentName)
         {
             return UploadDocument(fileName, documentName, true);
         }
@@ -125,7 +125,7 @@ namespace Google.GData.Documents {
         /// <param name="documentName">The desired name of the document on the server.</param>
         /// <param name="convert">set to true if the document hsould be converted to google docs</param>
         /// <returns>A DocumentEntry describing the created document.</returns>
-        public DocumentEntry UploadDocument(string fileName, string documentName, bool convert)
+        public virtual DocumentEntry UploadDocument(string fileName, string documentName, bool convert)
         {
             FileInfo fileInfo = new FileInfo(fileName);
             //convert the extension to caps and strip the "." off the front
@@ -147,7 +147,7 @@ namespace Google.GData.Documents {
         /// <param name="documentName">The desired name of the document on the server.</param>
         /// <param name="contentType">The mime type of the document</param>
         /// <returns>A DocumentEntry describing the created document.</returns>
-        public DocumentEntry UploadDocument(string fileName, string documentName, string contentType)
+        public virtual DocumentEntry UploadDocument(string fileName, string documentName, string contentType)
         {
             return UploadFile(fileName, documentName, contentType, true);
         }
@@ -160,7 +160,7 @@ namespace Google.GData.Documents {
         /// <param name="contentType">The mime type of the file</param>
         /// <param name="convert">Indiates if the document should be converted to a known type on the server</param>
         /// <returns>A DocumentEntry describing the created document.</returns>
-        public DocumentEntry UploadFile(string fileName, string documentName, string contentType, bool convert)
+        public virtual DocumentEntry UploadFile(string fileName, string documentName, string contentType, bool convert)
         {
             DocumentEntry entry = null;
 
@@ -209,7 +209,7 @@ namespace Google.GData.Documents {
         /// <param name="mediaUri"></param>
         /// <param name="etag"></param>
         /// <returns></returns>
-        public DocumentEntry UpdateDocument(string fileName, string documentName, AtomUri mediaUri, string etag)
+        public virtual DocumentEntry UpdateDocument(string fileName, string documentName, AtomUri mediaUri, string etag)
         {
             FileInfo fileInfo = new FileInfo(fileName);
             FileStream stream = fileInfo.Open(FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
@@ -250,7 +250,7 @@ namespace Google.GData.Documents {
         /// </summary>
         /// <param name="feedQuery"></param>
         /// <returns>EventFeed</returns>
-        public AclFeed Query(AclQuery feedQuery)
+        public virtual AclFeed Query(AclQuery feedQuery)
         {
             return base.Query(feedQuery) as AclFeed;
         }
