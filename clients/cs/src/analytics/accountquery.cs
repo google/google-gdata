@@ -27,7 +27,7 @@ namespace Google.GData.Analytics
         /// <summary>
         /// Analytics account service url, http and https 
         /// </summary>
-        public const string HttpFeedUrl = "http://www.google.com/analytics/feeds/accounts/default";
+        
         public const string HttpsFeedUrl = "https://www.google.com/analytics/feeds/accounts/default";
 
         /// <summary>
