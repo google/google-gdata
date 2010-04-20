@@ -618,6 +618,252 @@
         <member name="M:Google.GData.Apps.NicknameService.OnParsedNewFeed(System.Object,Google.GData.Client.ServiceEventArgs)">
             <param name="e"><code>ServiceEventArgs</code>, holds the feed</param>
         </member>
+        <member name="T:Google.GData.Apps.AdminSettings.AdminSettingsService">
+            <summary>
+            Base service for accessing Google Admin Settings item feeds from the
+            Google Apps Google Domain Settings API.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.#ctor(System.String,System.String)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="domain">The hosted domain in which the Google Mail Settings are
+            being set up</param>
+            <param name="applicationName">The name of the client application 
+            using this service.</param>
+        </member>
+        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.GetDefaultLanguage">
+            <summary>
+            Gets the domain's default language
+            </summary>        
+            <returns>a <code>AdminSettingsEntry</code> containing the results of the
+            operation</returns>
+        </member>
+        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.UpdateDefaultLanguage(System.String)">
+            <summary>
+            Updates the domain's default language
+            </summary>
+            <param name="defaultLanguage">the new default language for the domain</param>
+            <returns>a <code>AdminSettingsEntry</code> containing the results of the
+            operation</returns>
+        </member>
+        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.GetOrganizationName">
+            <summary>
+            Gets the domain's organization name
+            </summary>
+            <returns>a <code>AdminSettingsEntry</code> containing the results of the
+            operation</returns>
+        </member>
+        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.UpdateOrganizationName(System.String)">
+            <summary>
+            Updates the domain's organization name
+            </summary>
+            <param name="organizationName">the new organization name for the domain</param>
+            <returns>a <code>AdminSettingsEntry</code> containing the results of the
+            operation</returns>
+        </member>
+        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.GetMaximumNumberOfUsers">
+            <summary>
+            Gets the domain's Maximum Number Of Users
+            </summary>        
+            <returns>a <code>AdminSettingsEntry</code> containing the results of the
+            operation</returns>
+        </member>
+        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.GetCurrentNumberOfUsers">
+            <summary>
+            Gets the domain's Current Number Of Users
+            </summary>        
+            <returns>a <code>AdminSettingsEntry</code> containing the results of the
+            operation</returns>
+        </member>
+        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.GetIsVerified">
+            <summary>
+            Gets the domain's verification status
+            </summary>        
+            <returns>a <code>AdminSettingsEntry</code> containing the results of the
+            operation</returns>
+        </member>
+        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.GetSupportPIN">
+            <summary>
+            Gets the domain's Support PIN
+            </summary>        
+            <returns>a <code>AdminSettingsEntry</code> containing the results of the
+            operation</returns>
+        </member>
+        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.GetDomainEdition">
+            <summary>
+            Gets the domain's Google Apps Edition
+            </summary>        
+            <returns>a <code>AdminSettingsEntry</code> containing the results of the
+            operation</returns>
+        </member>
+        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.GetCustomerPIN">
+            <summary>
+            Gets the domain's Customers PIN
+            </summary>        
+            <returns>a <code>AdminSettingsEntry</code> containing the results of the
+            operation</returns>
+        </member>
+        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.GetCreationTime">
+            <summary>
+            Gets the domain's Creation Time
+            </summary>        
+            <returns>a <code>AdminSettingsEntry</code> containing the results of the
+            operation</returns>
+        </member>
+        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.GetCountryCode">
+            <summary>
+            Gets the domain's Country Code
+            </summary>        
+            <returns>a <code>AdminSettingsEntry</code> containing the results of the
+            operation</returns>
+        </member>
+        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.GetAdminSecondaryEmail">
+            <summary>
+            Gets the domain's Administrator Secondary Email address
+            </summary>        
+            <returns>a <code>AdminSettingsEntry</code> containing the results of the
+            operation</returns>
+        </member>
+        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.UpdateAdminSecondaryEmail(System.String)">
+            <summary>
+            Updates the domain's Administrator Secondary Email address
+            </summary>
+            <param name="adminSecondaryEmail">the new domain's admin Secondary Email domain</param>
+            <returns>a <code>AdminSettingsEntry</code> containing the results of the
+            operation</returns>
+        </member>
+        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.UpdateCustomLogo(System.String)">
+            <summary>
+            Updates the domain's Custom Logo
+            </summary>
+            <param name="base64EncodedLogoImage">base 64 encoded binary data of logo image</param>
+            <returns>a <code>AdminSettingsEntry</code> containing the results of the
+            operation</returns>
+        </member>
+        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.GetCnameVerificationStatus">
+            <summary>
+            Gets the domain's CNAME verification status
+            </summary>        
+            <returns>a <code>AdminSettingsEntry</code> containing the results of the
+            operation</returns>
+        </member>
+        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.UpdateCnameVerificationStatus">
+            <summary>
+            Updates the domain's CNAME verification status
+            </summary>        
+            <returns>a <code>AdminSettingsEntry</code> containing the results of the
+            operation</returns>
+        </member>
+        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.GetMxVerificationStatus">
+            <summary>
+            Gets the domain's MX verification status
+            </summary>        
+            <returns>a <code>AdminSettingsEntry</code> containing the results of the
+            operation</returns>
+        </member>
+        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.UpdateMxVerificationStatus">
+            <summary>
+            Updates the domain's MX verification status
+            </summary>        
+            <returns>a <code>AdminSettingsEntry</code> containing the results of the
+            operation</returns>
+        </member>
+        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.GetSsoSettings">
+            <summary>
+            Gets the domain's SSO settings
+            </summary>        
+            <returns>a <code>AdminSettingsEntry</code> containing the results of the
+            operation</returns>
+        </member>
+        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.UpdateSsoSettings(System.Boolean,System.String,System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            Updates the domain's SSO settings
+            </summary>        
+            <param name="enableSSO">Enable or Disable SSO for the domain</param>
+            <param name="samlSignonUri">http://www.example.com/sso/signon</param>
+            <param name="samlLogoutUri">http://www.example.com/sso/logout</param>
+            <param name="changePasswordUri">http://www.example.com/sso/changepassword</param>
+            <param name="ssoWhitelist">CIDR formated IP address</param>
+            <returns>a <code>AdminSettingsEntry</code> containing the results of the
+            operation</returns>
+        </member>
+        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.GetSsoSigningkey">
+            <summary>
+            Gets the domain's SSO Signing Key
+            </summary>        
+            <returns>a <code>AdminSettingsEntry</code> containing the results of the
+            operation</returns>
+        </member>
+        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.UpdateSsoSigningkey(System.String)">
+            <summary>
+            Updates the domain's SSO Signing Key
+            </summary>
+            <param name="base64EncodedSigningKey">yourBase64EncodedPublicKey</param>
+            <returns>a <code>AdminSettingsEntry</code> containing the results of the
+            operation</returns>
+        </member>
+        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.GetMigrationAccess">
+            <summary>
+            Gets the domain's Migration Access settings
+            </summary>        
+            <returns>a <code>AdminSettingsEntry</code> containing the results of the
+            operation</returns>
+        </member>
+        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.UpdateMigrationAccess(System.Boolean)">
+            <summary>
+            Updates the domain's Migration Access settings
+            </summary>
+            <param name="enableUserMigration">Enable or Disable User migration for the domain</param>
+            <returns>a <code>AdminSettingsEntry</code> containing the results of the
+            operation</returns>
+        </member>
+        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.GetEmailGateway">
+            <summary>
+            Gets the domain's Email Gateway settings
+            </summary>
+            <returns>a <code>AdminSettingsEntry</code> containing the results of the
+            operation</returns>
+        </member>
+        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.UpdateEmailGateway(System.String,System.String)">
+            <summary>
+            Updates the domain's Email Gateway settings
+            </summary>
+            <param name="smartHost">Either the IP address or hostname of your SMTP server.
+            Google Apps routes outgoing mail to this server.</param>
+            <param name="smtpMode"> The default value is SMTP. Another value, SMTP_TLS,
+            secures a connection with TLS when delivering the message. </param>
+            <returns>a <code>AdminSettingsEntry</code> containing the results of the
+            operation</returns>
+        </member>
+        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.GetEmailRouting">
+            <summary>
+            Gets the domain's Email Routing settings
+            </summary>
+            <returns>a <code>AdminSettingsFeed</code> containing the results of the
+            operation</returns>
+        </member>
+        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.OnParsedNewGoogleMailSettingsItemEntry(System.Object,Google.GData.Client.FeedParserEventArgs)">
+            <summary>
+            Event handler. Called when a new Google Domain Settings entry is parsed.
+            </summary>
+            <param name="sender">the object that's sending the evet</param>
+            <param name="e">FeedParserEventArguments, holds the feedentry</param>
+        </member>
+        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.OnNewFeed(System.Object,Google.GData.Client.ServiceEventArgs)">
+            <summary>
+            Overridden so that new feeds are returned as <code>AppsExtendedFeed</code>s
+            instead of base <code>AtomFeed</code>s.
+            </summary>
+            <param name="sender"> the object which sent the event</param>
+            <param name="e">FeedParserEventArguments, holds the FeedEntry</param> 
+        </member>
+        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsService.Domain">
+            <summary>
+            Accessor for Domain property.
+            </summary>
+        </member>
         <member name="T:Google.GData.Apps.NicknameEntry">
             <summary>
             A Google Apps nickname entry.  A NicknameEntry identifies a
@@ -1406,6 +1652,172 @@
             </summary>
             <returns>the new new <code>EmailListEntry</code></returns>
         </member>
+        <member name="T:Google.GData.Apps.AdminSettings.AdminSettingsEntry">
+            <summary>
+            A Google Apps Google Admin Settings entry.    
+            </summary>
+        </member>
+        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsEntry.#ctor">
+            <summary>
+            Constructs a new <code>AdminSettingsEntry</code> object.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsEntry.Update">
+            <summary>
+            typed override of the Update method
+            </summary>
+            <returns>AdminSettingsEntry</returns>
+        </member>
+        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.DefaultLanguage">
+            <summary>
+            DefaultLanguage Property accessor
+            </summary>
+        </member>
+        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.OrganizationName">
+            <summary>
+            OrganizationName Property accessor
+            </summary>
+        </member>
+        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.MaximumNumberOfUsers">
+            <summary>
+            MaximumNumberOfUsers Property accessor
+            </summary>
+        </member>
+        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.CurrentNumberOfUsers">
+            <summary>
+            MaximumNumberOfUsers Property accessor
+            </summary>
+        </member>
+        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.IsVerified">
+            <summary>
+            IsVerified Property accessor
+            </summary>
+        </member>
+        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.SupportPIN">
+            <summary>
+            SupportPIN Property accessor
+            </summary>
+        </member>
+        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.Edition">
+            <summary>
+            Edition Property accessor
+            </summary>
+        </member>
+        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.CustomerPIN">
+            <summary>
+            CustomerPIN Property accessor
+            </summary>
+        </member>
+        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.CreationTime">
+            <summary>
+            CreationTime Property accessor
+            </summary>
+        </member>
+        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.CountryCode">
+            <summary>
+            CountryCode Property accessor
+            </summary>
+        </member>
+        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.AdminSecondaryEmail">
+            <summary>
+            AdminSecondaryEmail Property accessor
+            </summary>
+        </member>
+        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.LogoImage">
+            <summary>
+            LogoImage Property accessor
+            </summary>
+        </member>
+        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.RecordName">
+            <summary>
+            RecordName Property accessor
+            </summary>
+        </member>
+        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.Verified">
+            <summary>
+            Verified Property accessor
+            </summary>
+        </member>
+        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.VerifiedMethod">
+            <summary>
+            VerifiedMethod Property accessor
+            </summary>
+        </member>
+        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.SamlSignonUri">
+            <summary>
+            MaximumNumberOfUsers Property accessor
+            </summary>
+        </member>
+        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.SamlLogoutUri">
+            <summary>
+            SamlLogoutUri Property accessor
+            </summary>
+        </member>
+        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.ChangePasswordUri">
+            <summary>
+            ChangePasswordUri Property accessor
+            </summary>
+        </member>
+        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.EnableSSO">
+            <summary>
+            EnableSSO Property accessor
+            </summary>
+        </member>
+        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.SsoWhitelist">
+            <summary>
+            SsoWhitelist Property accessor
+            </summary>
+        </member>
+        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.UseDomainSpecificIssuer">
+            <summary>
+            UseDomainSpecificIssuer Property accessor
+            </summary>
+        </member>
+        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.SigningKey">
+            <summary>
+            SigningKey Property accessor
+            </summary>
+        </member>
+        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.EnableUserMigration">
+            <summary>
+            EnableUserMigration Property accessor
+            </summary>
+        </member>
+        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.SmartHost">
+            <summary>
+            SmartHost Property accessor
+            </summary>
+        </member>
+        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.SmtpMode">
+            <summary>
+            SmtpMode Property accessor
+            </summary>
+        </member>
+        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.RouteDestination">
+            <summary>
+            RouteDestination Property accessor
+            </summary>
+        </member>
+        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.RouteRewriteTo">
+            <summary>
+            RouteRewriteTo Property accessor
+            </summary>
+        </member>
+        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.RouteEnabled">
+            <summary>
+            RouteEnabled Property accessor
+            </summary>
+        </member>
+        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.BounceNotifications">
+            <summary>
+            BounceNotifications Property accessor
+            </summary>
+        </member>
+        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.AccountHandling">
+            <summary>
+            AccountHandling Property accessor
+            </summary>
+        </member>
         <member name="T:Google.GData.Apps.UserFeed">
             <summary>
             Feed API customization class for defining user account feed.
@@ -1465,6 +1877,12 @@
             The recipient element in this entry.
             </summary>
         </member>
+        <member name="T:Google.GData.Apps.AdminSettings.AdminSettingsFeed">
+            <summary>
+            Feed API customization class for defining the Google
+            Admin Settings feed.
+            </summary>
+        </member>
         <member name="T:Google.GData.Apps.AppsExtendedFeed">
             <summary>
             Feed API customization class for defining the Google Apps
@@ -1491,6 +1909,19 @@
             </summary>
             <param name="e"></param>
             <param name="parser"></param>
+        </member>
+        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsFeed.#ctor(System.Uri,Google.GData.Client.IService)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="uriBase">The uri for the migration feed.</param>
+            <param name="iService">The GoogleMailSettings service.</param>
+        </member>
+        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsFeed.CreateFeedEntry">
+            <summary>
+            Overridden.  Returns a new <code>AdminSettingsEntry</code>.
+            </summary>
+            <returns>the new new <code>AdminSettingtEntry</code></returns>
         </member>
         <!-- Badly formed XML comment ignored for member "T:Google.GData.Apps.UserQuery" -->
         <member name="M:Google.GData.Apps.UserQuery.#ctor(System.String)">

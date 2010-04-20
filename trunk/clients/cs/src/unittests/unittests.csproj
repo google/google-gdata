@@ -119,6 +119,10 @@
       <Project>{4E97E7C2-D30C-48ED-9C3D-FFA2127099AA}</Project>
       <Name>Documents3</Name>
     </ProjectReference>
+    <ProjectReference Include="..\webmastertools\WebmasterTools.csproj">
+      <Project>{321BC361-7817-4471-8E7D-8B9D09EC3B48}</Project>
+      <Name>WebmasterTools</Name>
+    </ProjectReference>
     <ProjectReference Include="..\youtube\YouTube.csproj">
       <Project>{2C497F73-7C10-4DC6-A680-CAA9DF442E91}</Project>
       <Name>YouTube</Name>
@@ -329,6 +333,11 @@
     <Compile Include="spreadsheets\spreadsheetlive.cs" />
     <Compile Include="spreadsheets\spreadsheets.cs" />
     <Compile Include="unittests.cs" />
+    <Compile Include="webmastertools\WebmasterToolsDeleteTests.cs" />
+    <Compile Include="webmastertools\WebmasterToolsInsertTests.cs" />
+    <Compile Include="webmastertools\WebmasterToolsRequestTests.cs" />
+    <Compile Include="webmastertools\WebmasterToolsServiceTest.cs" />
+    <Compile Include="webmastertools\WebmasterToolsUpdateTests.cs" />
     <Compile Include="worksheetentrytest.cs" />
     <Compile Include="writetest.cs" />
     <Compile Include="youtubetest.cs" />
