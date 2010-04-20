@@ -721,7 +721,7 @@
             A subclass of FeedQuery, to create an Analytics Account query URI.
             </summary> 
         </member>
-        <member name="F:Google.GData.Analytics.AccountQuery.HttpFeedUrl">
+        <member name="F:Google.GData.Analytics.AccountQuery.HttpsFeedUrl">
             <summary>
             Analytics account service url, http and https 
             </summary>
