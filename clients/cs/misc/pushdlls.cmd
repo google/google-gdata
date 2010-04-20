@@ -27,6 +27,7 @@ xcopy /y ..\src\youtube\bin\Release\*.dll ..\lib\Release\*.*
 xcopy /y ..\src\ghealth\bin\Release\*.dll ..\lib\Release\*.*
 xcopy /y ..\src\blogger\bin\Release\*.dll ..\lib\Release\*.*
 xcopy /y ..\src\analytics\bin\Release\*.dll ..\lib\Release\*.*
+xcopy /y ..\src\WebmasterTools\bin\Release\*.dll ..\lib\Release\*.*
 
 # copy the debug DLLS
 xcopy /y ..\src\core\bin\Debug\*.dll ..\lib\Debug\*.*
@@ -45,6 +46,7 @@ xcopy /y ..\src\ghealth\bin\Debug\*.dll ..\lib\Debug\*.*
 xcopy /y ..\src\unittests\bin\Debug\*.dll ..\lib\Debug\*.*
 xcopy /y ..\src\blogger\bin\Debug\*.dll ..\lib\Debug\*.*
 xcopy /y ..\src\analytics\bin\Debug\*.dll ..\lib\Debug\*.*
+xcopy /y ..\src\WebmasterTools\bin\Debug\*.dll ..\lib\Debug\*.*
 
 #copy the setup
 xcopy /y "..\src\youtube\YouTube SDK\YouTube SDK\Release\YouTube SDK.msi" ..\lib\Setup\*.*
@@ -111,11 +113,6 @@ xcopy /y ..\src\youtube\bin\*.xml ..\docs\*.*
 xcopy /y ..\src\ghealth\bin\*.xml ..\docs\*.*
 xcopy /y ..\src\blogger\bin\*.xml ..\docs\*.*
 xcopy /y ..\src\analytics\bin\*.xml ..\docs\*.*
-
-#copy the Merge module files
-
-xcopy /y ..\src\MergeModules\CoreMergeModule\Release\*.msm ..\lib\MergeModules\*.*
-xcopy /y ..\src\MergeModules\YouTubeMergeModule\Release\*.msm ..\lib\MergeModules\*.*
 
 cd ..\lib\release\
 
