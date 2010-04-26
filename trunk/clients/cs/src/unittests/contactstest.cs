@@ -527,7 +527,7 @@ namespace Google.GData.Client.LiveTests
             foreach (Contact c in f.Entries)
             {
                 ExtendedProperty e = c.ExtendedProperties[0];
-                Assert.NotNull(e);
+                Assert.IsTrue(e != null);
                 newEntry = c;
             }
 
