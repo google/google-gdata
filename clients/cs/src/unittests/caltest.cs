@@ -1174,6 +1174,7 @@ namespace Google.GData.Client.LiveTests
                 newCalendar.Summary.Text = "some unique summary" + Guid.NewGuid().ToString();
                 newCalendar.TimeZone = "America/Los_Angeles";
                 newCalendar.Hidden = false;
+                newCalendar.Selected = true;
                 newCalendar.Color = "#2952A3";
                 newCalendar.Location = new Where("", "", "Test City");
 
