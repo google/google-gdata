@@ -37,10 +37,7 @@ namespace Google.GData.WebmasterTools
         /// <summary>prefix for gWebmasterToolsNamspace if writing</summary>
         public const string gWebmasterToolsPrefix = "wt";
         public const string mWebmasterToolsPrefix = "mobile";
-        /** Wt (Wt) namespace prefix */
-        public const string WtPrefix = gWebmasterToolsPrefix + "#";
-        public const string MobilePrefix = mWebmasterToolsPrefix + "#";
-
+      
         /// Sites feed
         /// <summary>xmlelement for wt:crawl-rate</summary> 
         public const string XmlCrawlRateElement = "crawl-rate";
@@ -121,14 +118,14 @@ namespace Google.GData.WebmasterTools
         /// default constructor
         /// </summary>
         public CrawlRate()
-            : base(WebmasterToolsNameTable.XmlCrawlRateElement, WebmasterToolsNameTable.WtPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace)
+            : base(WebmasterToolsNameTable.XmlCrawlRateElement, WebmasterToolsNameTable.gWebmasterToolsPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace)
         { }
         /// <summary>
         /// constructor taking the initial value
         /// </summary>
         /// <param name="initValue"></param>
         public CrawlRate(string initValue)
-            : base(WebmasterToolsNameTable.XmlCrawlRateElement, WebmasterToolsNameTable.WtPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace, initValue)
+            : base(WebmasterToolsNameTable.XmlCrawlRateElement, WebmasterToolsNameTable.gWebmasterToolsPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace, initValue)
         { }
     }
 
@@ -141,14 +138,14 @@ namespace Google.GData.WebmasterTools
         /// default constructor
         /// </summary>
         public GeoLocation()
-            : base(WebmasterToolsNameTable.XmlGeoLocationElement, WebmasterToolsNameTable.WtPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace)
+            : base(WebmasterToolsNameTable.XmlGeoLocationElement, WebmasterToolsNameTable.gWebmasterToolsPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace)
         { }
         /// <summary>
         /// constructor taking the initial value
         /// </summary>
         /// <param name="initValue"></param>
         public GeoLocation(string initValue)
-            : base(WebmasterToolsNameTable.XmlGeoLocationElement, WebmasterToolsNameTable.WtPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace, initValue)
+            : base(WebmasterToolsNameTable.XmlGeoLocationElement, WebmasterToolsNameTable.gWebmasterToolsPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace, initValue)
         { }
     }
 
@@ -161,14 +158,14 @@ namespace Google.GData.WebmasterTools
         /// default constructor
         /// </summary>
         public PreferredDomain()
-            : base(WebmasterToolsNameTable.XmlPreferredDomainElement, WebmasterToolsNameTable.WtPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace)
+            : base(WebmasterToolsNameTable.XmlPreferredDomainElement, WebmasterToolsNameTable.gWebmasterToolsPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace)
         { }
         /// <summary>
         /// constructor taking the initial value
         /// </summary>
         /// <param name="initValue"></param>
         public PreferredDomain(string initValue)
-            : base(WebmasterToolsNameTable.XmlPreferredDomainElement, WebmasterToolsNameTable.WtPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace, initValue)
+            : base(WebmasterToolsNameTable.XmlPreferredDomainElement, WebmasterToolsNameTable.gWebmasterToolsPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace, initValue)
         { }
     }
 
@@ -181,7 +178,7 @@ namespace Google.GData.WebmasterTools
         /// default constructor
         /// </summary>
         public VerificationMethod()
-            : base(WebmasterToolsNameTable.XmlVerificationMethodElement, WebmasterToolsNameTable.WtPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace)
+            : base(WebmasterToolsNameTable.XmlVerificationMethodElement, WebmasterToolsNameTable.gWebmasterToolsPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace)
         {
             this.Attributes.Add(WebmasterToolsNameTable.XmlAttributeType, null);
             this.Attributes.Add(WebmasterToolsNameTable.XmlAttributeInUse, null);
@@ -192,7 +189,7 @@ namespace Google.GData.WebmasterTools
         /// <param name="type"></param>
         /// <param name="inUse"></param>
         public VerificationMethod(String type, String inUse)
-            : base(WebmasterToolsNameTable.XmlVerificationMethodElement, WebmasterToolsNameTable.WtPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace)
+            : base(WebmasterToolsNameTable.XmlVerificationMethodElement, WebmasterToolsNameTable.gWebmasterToolsPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace)
         {
             this.Attributes.Add(WebmasterToolsNameTable.XmlAttributeType, type);
             this.Attributes.Add(WebmasterToolsNameTable.XmlAttributeInUse, inUse);
@@ -240,14 +237,14 @@ namespace Google.GData.WebmasterTools
         /// default constructor
         /// </summary>
         public Verified()
-            : base(WebmasterToolsNameTable.XmlVerifiedElement, WebmasterToolsNameTable.WtPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace)
+            : base(WebmasterToolsNameTable.XmlVerifiedElement, WebmasterToolsNameTable.gWebmasterToolsPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace)
         { }
         /// <summary>
         /// constructor taking the initial value
         /// </summary>
         /// <param name="initValue"></param>
         public Verified(string initValue)
-            : base(WebmasterToolsNameTable.XmlVerifiedElement, WebmasterToolsNameTable.WtPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace, initValue)
+            : base(WebmasterToolsNameTable.XmlVerifiedElement, WebmasterToolsNameTable.gWebmasterToolsPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace, initValue)
         { }
     }
 
@@ -260,14 +257,14 @@ namespace Google.GData.WebmasterTools
         /// default constructor
         /// </summary>
         public Date()
-            : base(WebmasterToolsNameTable.XmlDateElement, WebmasterToolsNameTable.WtPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace)
+            : base(WebmasterToolsNameTable.XmlDateElement, WebmasterToolsNameTable.gWebmasterToolsPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace)
         { }
         /// <summary>
         /// constructor taking the initial value
         /// </summary>
         /// <param name="initValue"></param>
         public Date(string initValue)
-            : base(WebmasterToolsNameTable.XmlDateElement, WebmasterToolsNameTable.WtPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace, initValue)
+            : base(WebmasterToolsNameTable.XmlDateElement, WebmasterToolsNameTable.gWebmasterToolsPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace, initValue)
         { }
     }
 
@@ -277,7 +274,7 @@ namespace Google.GData.WebmasterTools
         /// default constructor
         /// </summary>
         public Keyword()
-            : base(WebmasterToolsNameTable.XmlKeywordElement, WebmasterToolsNameTable.WtPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace)
+            : base(WebmasterToolsNameTable.XmlKeywordElement, WebmasterToolsNameTable.gWebmasterToolsPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace)
         {
             this.Attributes.Add(WebmasterToolsNameTable.XmlAttributeSource, null);
         }
@@ -286,7 +283,7 @@ namespace Google.GData.WebmasterTools
         /// </summary>
         /// <param name="value"></param>
         public Keyword(String value)
-            : base(WebmasterToolsNameTable.XmlKeywordElement, WebmasterToolsNameTable.WtPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace)
+            : base(WebmasterToolsNameTable.XmlKeywordElement, WebmasterToolsNameTable.gWebmasterToolsPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace)
         {
             this.Attributes.Add(WebmasterToolsNameTable.XmlAttributeSource, value);
         }
@@ -298,14 +295,14 @@ namespace Google.GData.WebmasterTools
         /// default constructor
         /// </summary>
         public Mobile()
-            : base(WebmasterToolsNameTable.XmlMobileElement, WebmasterToolsNameTable.MobilePrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace)
+            : base(WebmasterToolsNameTable.XmlMobileElement, WebmasterToolsNameTable.mWebmasterToolsPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace)
         { }
         /// <summary>
         /// constructor taking the initial value
         /// </summary>
         /// <param name="initValue"></param>
         public Mobile(string initValue)
-            : base(WebmasterToolsNameTable.XmlMobileElement, WebmasterToolsNameTable.MobilePrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace, initValue)
+            : base(WebmasterToolsNameTable.XmlMobileElement, WebmasterToolsNameTable.mWebmasterToolsPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace, initValue)
         { }
     }
 
@@ -315,14 +312,14 @@ namespace Google.GData.WebmasterTools
         /// default constructor
         /// </summary>
         public SitemapLastDownloaded()
-            : base(WebmasterToolsNameTable.XmlSitemapLastDownloadedElement, WebmasterToolsNameTable.WtPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace)
+            : base(WebmasterToolsNameTable.XmlSitemapLastDownloadedElement, WebmasterToolsNameTable.gWebmasterToolsPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace)
         {}
         /// <summary>
         /// constructor taking the initial value
         /// </summary>
         /// <param name="initValue"></param>
         public SitemapLastDownloaded(string initValue)
-            : base(WebmasterToolsNameTable.XmlSitemapLastDownloadedElement, WebmasterToolsNameTable.WtPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace, initValue)
+            : base(WebmasterToolsNameTable.XmlSitemapLastDownloadedElement, WebmasterToolsNameTable.gWebmasterToolsPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace, initValue)
         { }
     }
 
@@ -332,14 +329,14 @@ namespace Google.GData.WebmasterTools
         /// default constructor
         /// </summary>
         public SitemapMobile()
-            : base(WebmasterToolsNameTable.XmlSitemapMobileElement, WebmasterToolsNameTable.WtPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace)
+            : base(WebmasterToolsNameTable.XmlSitemapMobileElement, WebmasterToolsNameTable.gWebmasterToolsPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace)
         { }
         /// <summary>
         /// constructor taking the initial value
         /// </summary>
         /// <param name="initValue"></param>
         public SitemapMobile(string initValue)
-            : base(WebmasterToolsNameTable.XmlSitemapMobileElement, WebmasterToolsNameTable.WtPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace, initValue)
+            : base(WebmasterToolsNameTable.XmlSitemapMobileElement, WebmasterToolsNameTable.gWebmasterToolsPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace, initValue)
         { }
     }
 
@@ -349,14 +346,14 @@ namespace Google.GData.WebmasterTools
         /// default constructor
         /// </summary>
         public SitemapMobileMarkupLanguage()
-            : base(WebmasterToolsNameTable.XmlSitemapMobileMarkupLanguageElement, WebmasterToolsNameTable.WtPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace)
+            : base(WebmasterToolsNameTable.XmlSitemapMobileMarkupLanguageElement, WebmasterToolsNameTable.gWebmasterToolsPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace)
         { }
         /// <summary>
         /// constructor taking the initial value
         /// </summary>
         /// <param name="initValue"></param>
         public SitemapMobileMarkupLanguage(string initValue)
-            : base(WebmasterToolsNameTable.XmlSitemapMobileMarkupLanguageElement, WebmasterToolsNameTable.WtPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace, initValue)
+            : base(WebmasterToolsNameTable.XmlSitemapMobileMarkupLanguageElement, WebmasterToolsNameTable.gWebmasterToolsPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace, initValue)
         { }
     }
 
@@ -366,14 +363,14 @@ namespace Google.GData.WebmasterTools
         /// default constructor
         /// </summary>
         public SitemapNews()
-            : base(WebmasterToolsNameTable.XmlSitemapNewsElement, WebmasterToolsNameTable.WtPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace)
+            : base(WebmasterToolsNameTable.XmlSitemapNewsElement, WebmasterToolsNameTable.gWebmasterToolsPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace)
         { }
         /// <summary>
         /// constructor taking the initial value
         /// </summary>
         /// <param name="initValue"></param>
         public SitemapNews(string initValue)
-            : base(WebmasterToolsNameTable.XmlSitemapNewsElement, WebmasterToolsNameTable.WtPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace, initValue)
+            : base(WebmasterToolsNameTable.XmlSitemapNewsElement, WebmasterToolsNameTable.gWebmasterToolsPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace, initValue)
         { }
     }
 
@@ -383,14 +380,14 @@ namespace Google.GData.WebmasterTools
         /// default constructor
         /// </summary>
         public SitemapNewsPublicationLabel()
-            : base(WebmasterToolsNameTable.XmlSitemapNewsPublicationLabelElement, WebmasterToolsNameTable.WtPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace)
+            : base(WebmasterToolsNameTable.XmlSitemapNewsPublicationLabelElement, WebmasterToolsNameTable.gWebmasterToolsPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace)
         { }
         /// <summary>
         /// constructor taking the initial value
         /// </summary>
         /// <param name="initValue"></param>
         public SitemapNewsPublicationLabel(string initValue)
-            : base(WebmasterToolsNameTable.XmlSitemapNewsPublicationLabelElement, WebmasterToolsNameTable.WtPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace, initValue)
+            : base(WebmasterToolsNameTable.XmlSitemapNewsPublicationLabelElement, WebmasterToolsNameTable.gWebmasterToolsPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace, initValue)
         { }
     }
 
@@ -400,14 +397,14 @@ namespace Google.GData.WebmasterTools
         /// default constructor
         /// </summary>
         public SitemapType()
-            : base(WebmasterToolsNameTable.XmlSitemapTypeElement, WebmasterToolsNameTable.WtPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace)
+            : base(WebmasterToolsNameTable.XmlSitemapTypeElement, WebmasterToolsNameTable.gWebmasterToolsPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace)
         { }
         /// <summary>
         /// constructor taking the initial value
         /// </summary>
         /// <param name="initValue"></param>
         public SitemapType(string initValue)
-            : base(WebmasterToolsNameTable.XmlSitemapTypeElement, WebmasterToolsNameTable.WtPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace, initValue)
+            : base(WebmasterToolsNameTable.XmlSitemapTypeElement, WebmasterToolsNameTable.gWebmasterToolsPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace, initValue)
         { }
     }
 
@@ -417,14 +414,14 @@ namespace Google.GData.WebmasterTools
         /// default constructor
         /// </summary>
         public SitemapUrlCount()
-            : base(WebmasterToolsNameTable.XmlSitemapUrlCountElement, WebmasterToolsNameTable.WtPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace)
+            : base(WebmasterToolsNameTable.XmlSitemapUrlCountElement, WebmasterToolsNameTable.gWebmasterToolsPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace)
         { }
         /// <summary>
         /// constructor taking the initial value
         /// </summary>
         /// <param name="initValue"></param>
         public SitemapUrlCount(string initValue)
-            : base(WebmasterToolsNameTable.XmlSitemapUrlCountElement, WebmasterToolsNameTable.WtPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace, initValue)
+            : base(WebmasterToolsNameTable.XmlSitemapUrlCountElement, WebmasterToolsNameTable.gWebmasterToolsPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace, initValue)
         { }
     }
 
@@ -434,14 +431,14 @@ namespace Google.GData.WebmasterTools
         /// default constructor
         /// </summary>
         public Body()
-            : base(WebmasterToolsNameTable.XmlBodyElement, WebmasterToolsNameTable.WtPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace)
+            : base(WebmasterToolsNameTable.XmlBodyElement, WebmasterToolsNameTable.gWebmasterToolsPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace)
         { }
         /// <summary>
         /// constructor taking the initial value
         /// </summary>
         /// <param name="initValue"></param>
         public Body(string initValue)
-            : base(WebmasterToolsNameTable.XmlBodyElement, WebmasterToolsNameTable.WtPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace, initValue)
+            : base(WebmasterToolsNameTable.XmlBodyElement, WebmasterToolsNameTable.gWebmasterToolsPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace, initValue)
         { }
     }
 
@@ -451,7 +448,7 @@ namespace Google.GData.WebmasterTools
         /// default constructor
         /// </summary>
         public Language()
-            : base(WebmasterToolsNameTable.XmlVerificationMethodElement, WebmasterToolsNameTable.WtPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace)
+            : base(WebmasterToolsNameTable.XmlVerificationMethodElement, WebmasterToolsNameTable.gWebmasterToolsPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace)
         {
             this.Attributes.Add(WebmasterToolsNameTable.XmlAttributeLanguage, null);
         }
@@ -460,7 +457,7 @@ namespace Google.GData.WebmasterTools
         /// </summary>
         /// <param name="value"></param>
         public Language(String value)
-            : base(WebmasterToolsNameTable.XmlAttributeLanguage, WebmasterToolsNameTable.WtPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace)
+            : base(WebmasterToolsNameTable.XmlAttributeLanguage, WebmasterToolsNameTable.gWebmasterToolsPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace)
         {
             this.Attributes.Add(WebmasterToolsNameTable.XmlAttributeLanguage, value);
         }
@@ -488,14 +485,14 @@ namespace Google.GData.WebmasterTools
         /// default constructor
         /// </summary>
         public Read()
-            : base(WebmasterToolsNameTable.XmlReadElement, WebmasterToolsNameTable.WtPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace)
+            : base(WebmasterToolsNameTable.XmlReadElement, WebmasterToolsNameTable.gWebmasterToolsPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace)
         { }
         /// <summary>
         /// constructor taking the initial value
         /// </summary>
         /// <param name="initValue"></param>
         public Read(string initValue)
-            : base(WebmasterToolsNameTable.XmlReadElement, WebmasterToolsNameTable.WtPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace, initValue)
+            : base(WebmasterToolsNameTable.XmlReadElement, WebmasterToolsNameTable.gWebmasterToolsPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace, initValue)
         { }
     }
 
@@ -505,7 +502,7 @@ namespace Google.GData.WebmasterTools
         /// default constructor
         /// </summary>
         public Subject()
-            : base(WebmasterToolsNameTable.XmlSubjectElement, WebmasterToolsNameTable.WtPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace)
+            : base(WebmasterToolsNameTable.XmlSubjectElement, WebmasterToolsNameTable.gWebmasterToolsPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace)
         {
             this.Attributes.Add(WebmasterToolsNameTable.XmlSubjectElement, null);
         }
@@ -515,7 +512,7 @@ namespace Google.GData.WebmasterTools
         /// </summary>
         /// <param name="value"></param>
         public Subject(String value)
-            : base(WebmasterToolsNameTable.XmlSubjectElement, WebmasterToolsNameTable.WtPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace)
+            : base(WebmasterToolsNameTable.XmlSubjectElement, WebmasterToolsNameTable.gWebmasterToolsPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace)
         {
             this.Attributes.Add(WebmasterToolsNameTable.XmlSubjectElement, value);
         }
@@ -546,14 +543,14 @@ namespace Google.GData.WebmasterTools
         /// default constructor
         /// </summary>
         public CrawlType()
-            : base(WebmasterToolsNameTable.XmlCrawlTypeElement, WebmasterToolsNameTable.WtPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace)
+            : base(WebmasterToolsNameTable.XmlCrawlTypeElement, WebmasterToolsNameTable.gWebmasterToolsPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace)
         { }
         /// <summary>
         /// constructor taking the initial value
         /// </summary>
         /// <param name="initValue"></param>
         public CrawlType(string initValue)
-            : base(WebmasterToolsNameTable.XmlCrawlTypeElement, WebmasterToolsNameTable.WtPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace, initValue)
+            : base(WebmasterToolsNameTable.XmlCrawlTypeElement, WebmasterToolsNameTable.gWebmasterToolsPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace, initValue)
         { }
     }
 
@@ -566,14 +563,14 @@ namespace Google.GData.WebmasterTools
         /// default constructor
         /// </summary>
         public IssueType()
-            : base(WebmasterToolsNameTable.XmlIssueTypeElement, WebmasterToolsNameTable.WtPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace)
+            : base(WebmasterToolsNameTable.XmlIssueTypeElement, WebmasterToolsNameTable.gWebmasterToolsPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace)
         { }
         /// <summary>
         /// constructor taking the initial value
         /// </summary>
         /// <param name="initValue"></param>
         public IssueType(string initValue)
-            : base(WebmasterToolsNameTable.XmlIssueTypeElement, WebmasterToolsNameTable.WtPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace, initValue)
+            : base(WebmasterToolsNameTable.XmlIssueTypeElement, WebmasterToolsNameTable.gWebmasterToolsPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace, initValue)
         { }
     }
 
@@ -586,14 +583,14 @@ namespace Google.GData.WebmasterTools
         /// default constructor
         /// </summary>
         public IssueDetail()
-            : base(WebmasterToolsNameTable.XmlIssueDetailElement, WebmasterToolsNameTable.WtPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace)
+            : base(WebmasterToolsNameTable.XmlIssueDetailElement, WebmasterToolsNameTable.gWebmasterToolsPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace)
         { }
         /// <summary>
         /// constructor taking the initial value
         /// </summary>
         /// <param name="initValue"></param>
         public IssueDetail(string initValue)
-            : base(WebmasterToolsNameTable.XmlIssueDetailElement, WebmasterToolsNameTable.WtPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace, initValue)
+            : base(WebmasterToolsNameTable.XmlIssueDetailElement, WebmasterToolsNameTable.gWebmasterToolsPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace, initValue)
         { }
     }
 
@@ -606,14 +603,14 @@ namespace Google.GData.WebmasterTools
         /// default constructor
         /// </summary>
         public LinkedFrom()
-            : base(WebmasterToolsNameTable.XmlLinkedFromElement, WebmasterToolsNameTable.WtPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace)
+            : base(WebmasterToolsNameTable.XmlLinkedFromElement, WebmasterToolsNameTable.gWebmasterToolsPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace)
         { }
         /// <summary>
         /// constructor taking the initial value
         /// </summary>
         /// <param name="initValue"></param>
         public LinkedFrom(string initValue)
-            : base(WebmasterToolsNameTable.XmlLinkedFromElement, WebmasterToolsNameTable.WtPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace, initValue)
+            : base(WebmasterToolsNameTable.XmlLinkedFromElement, WebmasterToolsNameTable.gWebmasterToolsPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace, initValue)
         { }
     }
 
@@ -626,14 +623,14 @@ namespace Google.GData.WebmasterTools
         /// default constructor
         /// </summary>
         public DateDetected()
-            : base(WebmasterToolsNameTable.XmlDateDetectedElement, WebmasterToolsNameTable.WtPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace)
+            : base(WebmasterToolsNameTable.XmlDateDetectedElement, WebmasterToolsNameTable.gWebmasterToolsPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace)
         { }
         /// <summary>
         /// constructor taking the initial value
         /// </summary>
         /// <param name="initValue"></param>
         public DateDetected(string initValue)
-            : base(WebmasterToolsNameTable.XmlDateDetectedElement, WebmasterToolsNameTable.WtPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace, initValue)
+            : base(WebmasterToolsNameTable.XmlDateDetectedElement, WebmasterToolsNameTable.gWebmasterToolsPrefix, WebmasterToolsNameTable.gWebmasterToolsNamspace, initValue)
         { }
     }
 }

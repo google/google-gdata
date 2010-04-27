@@ -662,6 +662,13 @@ namespace Google.GData.Client
 
                     }
 
+                    // 3 lines of debug code
+                    // this.requestCopy.Seek(0, SeekOrigin.Begin);
+
+                    // StreamReader reader = new StreamReader( this.requestCopy );
+                    // string text = reader.ReadToEnd();
+
+
                     this.requestCopy.Seek(0, SeekOrigin.Begin);
 
 #if WindowsCE || PocketPC
