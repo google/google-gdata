@@ -63,20 +63,30 @@ namespace unittests.webmastertools
             WebmasterToolsService service = new WebmasterToolsService(this.ApplicationName);
             service.Credentials = new GDataCredentials(this.userName, this.passWord);
 
-            SitesQuery q = new SitesQuery();
-            SitesFeed sf = service.Query(q);
+            try
+            {
 
-            SitesEntry entry = new SitesEntry();
-            string siteUrl = "http://www.example.dk/";
-            entry.Content.Src = siteUrl;
-            entry.Content.Type = "text/plain";
-            SitesEntry newEntry = service.Insert(new Uri(SitesQuery.HttpsFeedUrl), entry);
+                SitesQuery q = new SitesQuery();
+                SitesFeed sf = service.Query(q);
 
-            newEntry.GeoLocation = "US";
-            SitesEntry updatedEntry = newEntry.Update();
+                SitesEntry entry = new SitesEntry();
+                string siteUrl = "http://www.example.dk/";
+                entry.Content.Src = siteUrl;
+                entry.Content.Type = "text/plain";
+                SitesEntry newEntry = service.Insert(new Uri(SitesQuery.HttpsFeedUrl), entry);
 
-            Assert.IsTrue(updatedEntry != null);
-            Assert.IsTrue(updatedEntry.GeoLocation == "US");
+                newEntry.GeoLocation = "US";
+                SitesEntry updatedEntry = newEntry.Update();
+
+                Assert.IsTrue(updatedEntry != null);
+                Assert.IsTrue(updatedEntry.GeoLocation == "US");
+            }
+            finally
+            {
+                Uri deleteUrl = SitesQuery.CreateCustomUri("http://www.example.dk");
+                service.Delete(deleteUrl, null);
+            }
+
         }
 
         [Test]
@@ -85,17 +95,24 @@ namespace unittests.webmastertools
             RequestSettings settings = new RequestSettings("NETUnittests", this.userName, this.passWord);
             WebmasterToolsRequest f = new WebmasterToolsRequest(settings);
 
-            Sites site = new Sites();
-            site.AtomEntry = new AtomEntry();
-            site.AtomEntry.Content.Src = "http://www.example.com/";
-            site.AtomEntry.Content.Type = "text/plain";
-            Sites newSite = f.AddSite(site);
+            try
+            {
 
-            newSite.GeoLocation = "US";
-            //Sites updatedSite = f.Update(newSite);
-            SitesEntry updatedSite = f.UpdateSiteEntry(newSite, "http%3A%2F%2Fwww%2Eexample%2Ecom%2F");
+                Sites site = new Sites("http://www.example.com", "text/plain");
+                Sites newSite = f.AddSite(site);
 
-            Assert.IsNotNull(updatedSite);
+                newSite.GeoLocation = "US";
+                //Sites updatedSite = f.Update(newSite);
+                Sites updatedSite = f.UpdateSiteEntry(newSite, "http://www.example.com");
+
+                Assert.IsNotNull(updatedSite);
+            }
+            finally
+            {
+                Uri deleteUrl = SitesQuery.CreateCustomUri("http://www.example.com");
+                f.Delete(deleteUrl, null);
+            }
+
         }
 
         [Test]

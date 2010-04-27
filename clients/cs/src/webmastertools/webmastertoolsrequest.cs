@@ -18,6 +18,7 @@
  */
 
 using System;
+using System.Reflection;
 using Google.GData.Client;
 using Google.GData.WebmasterTools;
 
@@ -246,6 +247,18 @@ namespace Google.WebmasterTools
 
     public class Sites : Entry
     {
+        public Sites()
+            : base()
+        { }
+
+        public Sites(string src, string type)
+        {
+            EnsureInnerObject();
+            this.AtomEntry.Content.Src = src;
+            this.AtomEntry.Content.Type = type;
+        }
+          
+
         /// <summary>
         /// creates the sites object when needed
         /// </summary>
@@ -459,20 +472,29 @@ namespace Google.WebmasterTools
             return site;
         }
 
+        
+
+        
         /// <summary>
         /// updates a site entry
         /// </summary>
         /// <param name="entry">the entry to update</param>
         /// <param name="siteId">the id of the site</param>
         /// <returns>the updated site entry</returns>
-        public SitesEntry UpdateSiteEntry(Sites entry, string siteId)
+        public Sites UpdateSiteEntry(Sites entry, string siteId)
         {
-            SitesEntry sites = null;
+            Sites sites = null;
             if (entry != null)
             {
-                Uri target = CreateUri(SitesQuery.CreateCustomUri(siteId));
+                Uri target = CreateUri(SitesQuery.CreateCustomUri(siteId).AbsoluteUri);
+                
                 entry.AtomEntry.EditUri = target;
-                sites = this.Service.Update(entry.SitesEntry);
+                SitesEntry se = this.Service.Update(entry.SitesEntry);
+                if (se != null)
+                {
+                    sites = new Sites();
+                    sites.AtomEntry = se;
+                }
             }
             return sites;
         }

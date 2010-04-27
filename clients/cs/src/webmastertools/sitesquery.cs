@@ -16,7 +16,7 @@
 /* 
  * Created by Morten Christensen, http://blog.sitereactor.dk | http://twitter.com/sitereactor
  */
-
+using System;
 using Google.GData.Client;
 
 namespace Google.GData.WebmasterTools
@@ -50,9 +50,15 @@ namespace Google.GData.WebmasterTools
         /// </summary>
         /// <param name="siteId"></param>
         /// <returns>string</returns>
-        public static string CreateCustomUri(string siteId)
+        public static Uri CreateCustomUri(string siteId)
         {
-            return Utilities.EncodeSlugHeader(WebmasterToolsNameTable.BaseUserUri + "sites/" + siteId);
+            // siteID has to be double or tripple encoded otherwise .NET will ruin the URI
+            siteId = Utilities.EncodeString(siteId);
+            siteId = Utilities.UriEncodeReserved(siteId);
+            siteId = Utilities.UriEncodeReserved(siteId);
+            siteId = Utilities.EncodeSlugHeader(WebmasterToolsNameTable.BaseUserUri + "sites/" + siteId);
+
+            return new Uri(siteId);
         }
     }
 }

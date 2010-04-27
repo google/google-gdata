@@ -67,8 +67,8 @@ namespace unittests.webmastertools
 
             int before = beforeFeed.Entries.Count;
 
-            string deleteUrl = SitesQuery.CreateCustomUri("http%3A%2F%2Fwww%2Eexample%2Ecom%2F");
-            service.Delete(new Uri(deleteUrl));
+            Uri deleteUrl = SitesQuery.CreateCustomUri("http://www.example.com");
+            service.Delete(deleteUrl);
 
             SitesFeed afterFeed = service.Query(feedQuery);
             int after = afterFeed.Entries.Count;
