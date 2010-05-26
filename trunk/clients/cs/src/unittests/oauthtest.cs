@@ -41,9 +41,11 @@ namespace Google.GData.Client.LiveTests
     public class OAuthTestSuite : BaseLiveTestClass
     {
         protected string oAuthConsumerKey;
-        protected string oAuthConsumerSecrect;
+        protected string oAuthConsumerSecret;
         protected string oAuthDomain;
         protected string oAuthUser;
+        protected string oAuthToken;
+        protected string oAuthTokenSecret;
 
 
         //////////////////////////////////////////////////////////////////////
@@ -90,7 +92,7 @@ namespace Google.GData.Client.LiveTests
              }
             if (unitTestConfiguration.Contains("OAUTHCONSUMERSECRET") == true)
             {
-                this.oAuthConsumerSecrect = (string)unitTestConfiguration["OAUTHCONSUMERSECRET"];
+                this.oAuthConsumerSecret = (string)unitTestConfiguration["OAUTHCONSUMERSECRET"];
             }
             if (unitTestConfiguration.Contains("OAUTHDOMAIN") == true)
             {
@@ -100,6 +102,173 @@ namespace Google.GData.Client.LiveTests
             {
                 this.oAuthUser = (string)unitTestConfiguration["OAUTHUSER"];
             }
+            if (unitTestConfiguration.Contains("OAUTHTOKEN") == true)
+            {
+                this.oAuthToken = (string)unitTestConfiguration["OAUTHTOKEN"];
+            }
+            if (unitTestConfiguration.Contains("OAUTHTOKENSECRET") == true)
+            {
+                this.oAuthTokenSecret = (string)unitTestConfiguration["OAUTHTOKENSECRET"];
+            }
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Verifies the signature generation</summary> 
+        //////////////////////////////////////////////////////////////////////
+        [Test]
+        public void OAuthBaseSignatureTest()
+        {
+            Tracing.TraceMsg("Entering OAuthBaseSignatureTest");
+
+            Uri uri = new Uri("http://photos.example.net/photos?file=vacation.jpg&size=original");
+
+            string sig = OAuthBase.GenerateSignatureBase(uri,
+                                            "dpf43f3p2l4k3l03",
+                                            "nnch734d00sl2jdk",
+                                            null,
+                                            "GET",
+                                            "1191242096",
+                                            "kllo9940pd9333jh",
+                                            "HMAC-SHA1");
+            Assert.AreEqual("GET&http%3A%2F%2Fphotos.example.net%2Fphotos&file%3Dvacation.jpg%26oauth_consumer_key%3Ddpf43f3p2l4k3l03%26oauth_nonce%3Dkllo9940pd9333jh%26oauth_signature_method%3DHMAC-SHA1%26oauth_timestamp%3D1191242096%26oauth_token%3Dnnch734d00sl2jdk%26oauth_version%3D1.0%26size%3Doriginal",
+                             sig);
+
+
+            uri = new Uri("https://www.google.com/calendar/feeds/default/owncalendars/full");
+
+            sig = OAuthBase.GenerateSignatureBase(uri,
+                                                    this.oAuthConsumerKey,
+                                                    "1/ZTmkWjywYI5qJhcuwjHi8Xx9he7Gu7FXuX9OXXpM_Ac",
+                                                    "pHqmVqazj2mdG9EVyW1OzVix",
+                                                    "GET",
+                                                    "1274286639",
+                                                    "bdcc500c4dbdb2fd8d6bf3e3346007c7",
+                                                    "HMAC-SHA1");
+
+            Assert.AreEqual("GET&https%3A%2F%2Fwww.google.com%2Fcalendar%2Ffeeds%2Fdefault%2Fowncalendars%2Ffull&oauth_consumer_key%3Dmantek.org%26oauth_nonce%3Dbdcc500c4dbdb2fd8d6bf3e3346007c7%26oauth_signature_method%3DHMAC-SHA1%26oauth_timestamp%3D1274286639%26oauth_token%3D1%252FZTmkWjywYI5qJhcuwjHi8Xx9he7Gu7FXuX9OXXpM_Ac%26oauth_version%3D1.0",
+                                sig);
+
+
+            uri = new Uri("http://example.com/request?b5=%3D%253D&a3=a&c%40=&a2=r%20b&c2&a3=2+q");
+            sig = OAuthBase.GenerateSignatureBase(uri,
+                                                    "9djdj82h48djs9d2",
+                                                    "kkk9d7dh3k39sjv7",
+                                                    null,
+                                                    "GET",
+                                                    "137131201",
+                                                    "7d8f3e4a",
+                                                    "HMAC-SHA1");
+
+            Assert.AreEqual("GET&http%3A%2F%2Fexample.com%2Frequest&a2%3Dr%2520b%26a3%3D2%2520q%26a3%3Da%26b5%3D%253D%25253D%26c%2540%3D%26c2%3D%26oauth_consumer_key%3D9djdj82h48djs9d2%26oauth_nonce%3D7d8f3e4a%26oauth_signature_method%3DHMAC-SHA1%26oauth_timestamp%3D137131201%26oauth_token%3Dkkk9d7dh3k39sjv7%26oauth_version%3D1.0", sig);
+
+
+
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Verifies the signature generation</summary> 
+        //////////////////////////////////////////////////////////////////////
+        [Test]
+        public void OAuthBaseGenerateOAuthSignatureTest()
+        {
+            Tracing.TraceMsg("Entering OAuthBaseGenerateOAuthSignatureTest");
+
+            string sig;
+
+            sig = OAuthBase.GenerateOAuthSignatureEncoded("djr9rjt0jd78jf88", "");
+            Assert.AreEqual("djr9rjt0jd78jf88%26", sig);
+
+            sig = OAuthBase.GenerateOAuthSignatureEncoded("djr9rjt0jd78jf88", "jjd99$tj88uiths3");
+            Assert.AreEqual("djr9rjt0jd78jf88%26jjd99%2524tj88uiths3", sig);
+
+
+            sig = OAuthBase.GenerateOAuthSignatureEncoded("djr9rjt0jd78jf88", "jjd999tj88uiths3");
+            Assert.AreEqual("djr9rjt0jd78jf88%26jjd999tj88uiths3", sig);
+        }
+        /////////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>Verifies the signed signature generation</summary> 
+        //////////////////////////////////////////////////////////////////////
+        [Test]
+        public void OAuthBaseSigningTest()
+        {
+            Tracing.TraceMsg("Entering OAuthBaseSignatureTest");
+
+
+            Uri uri = new Uri("http://photos.example.net/photos?file=vacation.jpg&size=original");
+
+            string sig = OAuthBase.GenerateSignature(uri,
+                                            "dpf43f3p2l4k3l03",
+                                            "kd94hf93k423kf44",
+                                            "nnch734d00sl2jdk",
+                                            "pfkkdhi9sl3r4s00",
+                                            "GET",
+                                            "1191242096",
+                                            "kllo9940pd9333jh",
+                                            OAuthBase.SignatureTypes.HMACSHA1);
+
+            Assert.AreEqual("tR3+Ty81lMeYAr/Fid0kMTYa/WM=",
+                             sig);
+
+
+            uri = new Uri("https://www.google.com/calendar/feeds/default/owncalendars/full");
+
+            sig = OAuthBase.GenerateSignatureBase(uri,
+                                            this.oAuthConsumerKey,
+                                             "1/NOQv9YTpvvzo8aFC9WpDuRxDl58cSF7JJaDQV1LnXgs",
+                                            "MS3p04xWG7MkEyUwk91D1xEU",
+                                            "GET",
+                                            "1274791118",
+                                            "f425726b32231fb9a363957f44e00227",
+                                            "HMAC-SHA1");
+
+
+            Assert.AreEqual("GET&https%3A%2F%2Fwww.google.com%2Fcalendar%2Ffeeds%2Fdefault%2Fowncalendars%2Ffull&oauth_consumer_key%3Dmantek.org%26oauth_nonce%3Df425726b32231fb9a363957f44e00227%26oauth_signature_method%3DHMAC-SHA1%26oauth_timestamp%3D1274791118%26oauth_token%3D1%252FNOQv9YTpvvzo8aFC9WpDuRxDl58cSF7JJaDQV1LnXgs%26oauth_version%3D1.0",
+                sig);
+
+            sig = OAuthBase.GenerateSignature(uri,
+                                this.oAuthConsumerKey,
+                                this.oAuthConsumerSecret,
+                                "1/NOQv9YTpvvzo8aFC9WpDuRxDl58cSF7JJaDQV1LnXgs",
+                                "MS3p04xWG7MkEyUwk91D1xEU",
+                                "GET",
+                                "1274791118",
+                                "f425726b32231fb9a363957f44e00227",
+                                OAuthBase.SignatureTypes.HMACSHA1);
+
+
+            Assert.AreEqual("NrqbCmBZ4GePYLeAg6m4WHjvD1w=", sig);
+
+            uri = new Uri("http://www.google.com/calendar/feeds/default/owncalendars/full?xoauth_requestor_id=admin%40mantek.org");
+
+            sig = OAuthBase.GenerateSignature(uri,
+                           this.oAuthConsumerKey,
+                           this.oAuthConsumerSecret,
+                           null,
+                           null,
+                           "GET",
+                           "1274791118",
+                           "f425726b32231fb9a363957f44e00227",
+                           OAuthBase.SignatureTypes.HMACSHA1);
+
+            Assert.AreEqual("f4mWCiT6IR6Ybq7fq9zc7860xE4=", sig);
+
+            sig = OAuthBase.GenerateSignature(uri,
+                           this.oAuthConsumerKey,
+                           this.oAuthConsumerSecret,
+                           null,
+                           null,
+                           "GET",
+                           "1274809835",
+                           "c198e3abc8bfb1b11ea9a79987e80252",
+                           OAuthBase.SignatureTypes.HMACSHA1);
+
+            Assert.AreEqual("omsn9/am4uIQZdDxmuWzeEap3hE=", sig);
+
+
         }
         /////////////////////////////////////////////////////////////////////////////
 
@@ -117,7 +286,7 @@ namespace Google.GData.Client.LiveTests
 
             GOAuthRequestFactory requestFactory = new GOAuthRequestFactory("cl", "OAuthTestcode");
             requestFactory.ConsumerKey = this.oAuthConsumerKey;
-            requestFactory.ConsumerSecret = this.oAuthConsumerSecrect;
+            requestFactory.ConsumerSecret = this.oAuthConsumerSecret;
             service.RequestFactory = requestFactory;
 
             CalendarEntry calendar = new CalendarEntry();
@@ -131,13 +300,16 @@ namespace Google.GData.Client.LiveTests
         }
         /////////////////////////////////////////////////////////////////////////////
 
+
+
+
         [Test]
         public void OAuth2LeggedContactsTest()
         {
             Tracing.TraceMsg("Entering OAuth2LeggedContactsTest");
   
         
-            RequestSettings rs = new RequestSettings(this.ApplicationName, this.oAuthConsumerKey, this.oAuthConsumerSecrect,
+            RequestSettings rs = new RequestSettings(this.ApplicationName, this.oAuthConsumerKey, this.oAuthConsumerSecret,
                                                      this.oAuthUser, this.oAuthDomain);
      
             ContactsRequest cr = new ContactsRequest(rs);
@@ -170,7 +342,7 @@ namespace Google.GData.Client.LiveTests
             Tracing.TraceMsg("Entering OAuth2LeggedDocumentsTest");
 
 
-            RequestSettings rs = new RequestSettings(this.ApplicationName, this.oAuthConsumerKey, this.oAuthConsumerSecrect,
+            RequestSettings rs = new RequestSettings(this.ApplicationName, this.oAuthConsumerKey, this.oAuthConsumerSecret,
                                                      this.oAuthUser, this.oAuthDomain);
 
             DocumentsRequest dr = new DocumentsRequest(rs);
@@ -210,7 +382,7 @@ namespace Google.GData.Client.LiveTests
             Tracing.TraceMsg("Entering OAuth2LeggedModelContactsBatchInsertTest");
 
 
-            RequestSettings rs = new RequestSettings(this.ApplicationName, this.oAuthConsumerKey, this.oAuthConsumerSecrect,
+            RequestSettings rs = new RequestSettings(this.ApplicationName, this.oAuthConsumerKey, this.oAuthConsumerSecret,
                                                this.oAuthUser, this.oAuthDomain);
 
             ContactsTestSuite.DeleteAllContacts(rs);
@@ -292,6 +464,38 @@ namespace Google.GData.Client.LiveTests
         }
         /////////////////////////////////////////////////////////////////////////////
 
+
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>runs an authentication test with 2 legged oauth</summary> 
+        //////////////////////////////////////////////////////////////////////
+        [Test]
+        public void OAuth3LeggedAuthenticationTest()
+        {
+            Tracing.TraceMsg("Entering OAuth3LeggedAuthenticationTest");
+
+            CalendarService service = new CalendarService("OAuthTestcode");
+
+            GOAuthRequestFactory requestFactory = new GOAuthRequestFactory("cl", "OAuthTestcode");
+            requestFactory.ConsumerKey = this.oAuthConsumerKey;
+            requestFactory.ConsumerSecret = this.oAuthConsumerSecret;
+            requestFactory.Token = this.oAuthToken;
+            requestFactory.TokenSecret = this.oAuthTokenSecret;
+            service.RequestFactory = requestFactory;
+
+            CalendarEntry calendar = new CalendarEntry();
+            calendar.Title.Text = "Test OAuth";
+
+            Uri postUri = new Uri("https://www.google.com/calendar/feeds/default/owncalendars/full");
+            CalendarEntry createdCalendar = (CalendarEntry)service.Insert(postUri, calendar);
+
+            // delete the guy again
+
+            createdCalendar.Delete();
+
+
+        }
+        /////////////////////////////////////////////////////////////////////////////
 
       
     }

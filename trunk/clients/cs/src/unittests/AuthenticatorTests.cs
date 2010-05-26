@@ -112,7 +112,7 @@ namespace Google.GData.Client.LiveTests
 
             OAuth2LeggedAuthenticator auth = new OAuth2LeggedAuthenticator(this.ApplicationName,
                 this.oAuthConsumerKey,
-                this.oAuthConsumerSecrect,
+                this.oAuthConsumerSecret,
                 this.oAuthUser,
                 this.oAuthDomain);
 
@@ -130,5 +130,35 @@ namespace Google.GData.Client.LiveTests
             Assert.IsTrue(response.StatusCode == HttpStatusCode.OK);
         }
         /////////////////////////////////////////////////////////////////////////////
+
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>runs an authentication test with 2 legged oauth</summary> 
+        //////////////////////////////////////////////////////////////////////
+        [Test]
+        public void OAuth3LeggedAuthenticatorTest()
+        {
+            Tracing.TraceMsg("Entering OAuth3LeggedAuthenticationTest");
+
+            OAuth3LeggedAuthenticator auth = new OAuth3LeggedAuthenticator(this.ApplicationName,
+                this.oAuthConsumerKey,
+                this.oAuthConsumerSecret,
+                this.oAuthToken,
+                this.oAuthTokenSecret);
+
+            HttpWebRequest request = auth.CreateHttpWebRequest("GET", new Uri("https://www.google.com/calendar/feeds/default/owncalendars/full"));
+            HttpWebResponse response = request.GetResponse() as HttpWebResponse;
+
+            if (response.StatusCode == HttpStatusCode.Redirect)
+            {
+                request = WebRequest.Create(response.Headers["Location"]) as HttpWebRequest;
+                auth.ApplyAuthenticationToRequest(request);
+
+                response = request.GetResponse() as HttpWebResponse;
+
+            }
+            Assert.IsTrue(response.StatusCode == HttpStatusCode.OK);
+        }
+        /////////////////////////////////////////////////////////////////////////////
+ 
     }
 }
