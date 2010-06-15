@@ -243,17 +243,29 @@ namespace Google.GData.Apps.Groups
         }
 
         /// <summary>
-        /// Retrieves all members of the group
+        /// Retrieves all non-suspened members of the group
         /// </summary>
         /// <param name="groupId">Groups's id</param>
-        /// <param name="expandSubgroups">When set to false, will return only direct/immediate
-        /// members, as opposed to all transitive members.</param>
         /// <returns>a <code>AppsExtendedFeed</code> containing all the <code>AppsExtendedEntry</code>
         /// from the Domain</returns>
         public AppsExtendedFeed RetrieveAllMembers(String groupId)
         {
+            return RetrieveAllMembers(groupId, false);
+        }
+
+        /// <summary>
+        /// Retrieves all members of the group
+        /// </summary>
+        /// <param name="groupId">Groups's id</param>
+        /// <param name="includeSuspendedUsers">When set to true, will also return suspended users that
+        /// are members of the group.</param>
+        /// <returns>a <code>AppsExtendedFeed</code> containing all the <code>AppsExtendedEntry</code>
+        /// from the Domain</returns>
+        public AppsExtendedFeed RetrieveAllMembers(String groupId, Boolean includeSuspendedUsers)
+        {
             Uri getGroupMembersUri = new Uri(AppsGroupsNameTable.AppsGoogleGroupsBaseFeedUri + "/"
-               + domain + "/" + groupId + "/" + memberUriSuffix);
+               + domain + "/" + groupId + "/" + memberUriSuffix + "?includeSuspendedUsers="
+               + includeSuspendedUsers);
             return QueryGroups(getGroupMembersUri);
         }
 
