@@ -1412,11 +1412,19 @@
         </member>
         <member name="M:Google.GData.Apps.Groups.GroupsService.RetrieveAllMembers(System.String)">
             <summary>
+            Retrieves all non-suspened members of the group
+            </summary>
+            <param name="groupId">Groups's id</param>
+            <returns>a <code>AppsExtendedFeed</code> containing all the <code>AppsExtendedEntry</code>
+            from the Domain</returns>
+        </member>
+        <member name="M:Google.GData.Apps.Groups.GroupsService.RetrieveAllMembers(System.String,System.Boolean)">
+            <summary>
             Retrieves all members of the group
             </summary>
             <param name="groupId">Groups's id</param>
-            <param name="expandSubgroups">When set to false, will return only direct/immediate
-            members, as opposed to all transitive members.</param>
+            <param name="includeSuspendedUsers">When set to true, will also return suspended users that
+            are members of the group.</param>
             <returns>a <code>AppsExtendedFeed</code> containing all the <code>AppsExtendedEntry</code>
             from the Domain</returns>
         </member>
