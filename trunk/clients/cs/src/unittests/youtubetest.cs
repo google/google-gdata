@@ -909,7 +909,9 @@ namespace Google.GData.Client.LiveTests
             {
                 f.Delete(s);
             }
-
+        
+            feed = f.GetSubscriptionsFeed(null);
+        
             foreach (Subscription s in feed.Entries)
             {
                 Assert.IsTrue(s.PlaylistId != null, "There should be a PlaylistId");

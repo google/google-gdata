@@ -488,9 +488,6 @@ namespace Google.GData.Client.LiveTests
         /// </summary>
         [Test] public void ModelTestArbitraryDownload()
         {
-            const string folderTitle = "That is a new & weird folder";
-            const string docTitle = "that's the doc";
-    
             RequestSettings settings = new RequestSettings(this.ApplicationName, this.userName, this.passWord);
             // settings.PageSize = 15;
             DocumentsRequest r = new DocumentsRequest(settings);

@@ -63,7 +63,6 @@ public static class ListVideos
         if (request == null)
         {
             YouTubeRequestSettings settings = new YouTubeRequestSettings("YouTubeAspSample",
-                                            "ytapi-FrankMantek-TestaccountforGD-sjgv537n-0",
                                             "AI39si4v3E6oIYiI60ndCNDqnPP5lCqO28DSvvDPnQt-Mqia5uPz2e4E-gMSBVwHXwyn_LF1tWox4LyM-0YQd2o4i_3GcXxa2Q",
                                             HttpContext.Current.Session["token"] as string
                                             );
