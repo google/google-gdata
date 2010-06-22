@@ -5,20 +5,20 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "YouTubeSample", "YouTubeSam
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFramework = "3.5"
 		Debug.AspNetCompiler.VirtualPath = "/YouTubeSample"
-		Debug.AspNetCompiler.PhysicalPath = ".\YouTubeSample\"
+		Debug.AspNetCompiler.PhysicalPath = "YouTubeSample\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\YouTubeSample\"
 		Debug.AspNetCompiler.Updateable = "true"
 		Debug.AspNetCompiler.ForceOverwrite = "true"
 		Debug.AspNetCompiler.FixedNames = "false"
 		Debug.AspNetCompiler.Debug = "True"
 		Release.AspNetCompiler.VirtualPath = "/YouTubeSample"
-		Release.AspNetCompiler.PhysicalPath = ".\YouTubeSample\"
+		Release.AspNetCompiler.PhysicalPath = "YouTubeSample\"
 		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\YouTubeSample\"
 		Release.AspNetCompiler.Updateable = "true"
 		Release.AspNetCompiler.ForceOverwrite = "true"
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
-		VWDPort = "1390"
+		VWDPort = "54060"
 		DefaultWebSiteLanguage = "Visual C#"
 	EndProjectSection
 EndProject

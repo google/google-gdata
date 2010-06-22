@@ -6,11 +6,12 @@
 </head>
 <body>
   <h1>This document lists the changes in the different releases</h1>
-  <h2>1.5.0.0</h2>
+  <h2>1.6.0.0</h2>
   <ul>
     <li>Features</li>
     <li style="list-style: none">
       <ul>
+        <li>Bugfixes and unittests for OAuth support. As far as we know, OAuth, in all variations works fine now</li>
         <li>Added support for the new analytics api by Morten Christensen (http://blog.sitereactor.dk) (see details below). You can find this in the Google.GData.Analytics namespace.</li>
         <li>Added AnalyticsService extends the basic Service abstraction to define a service that is preconfigured for access to the Google Analytics data API.</li>
         <li>Added AccountQuery and DataQuery subclasses of FeedQuery, to create an Analytics Account and Data query URI.</li>
@@ -24,16 +25,13 @@
         <li>Documentlist: Added support for writersCanInvite</li>
         <li>Documentlist: Added support for resourceId</li>
         <li>Documentlist: Added a property to get the ACL URI directly on the Document object</li>
+        <li>ResumableUpload: Added support for a generic resumable upload component, and a complex YouTube sample for this</li>
       </ul>
     </li>
     <li>Bugfixes/changes</li>
     <li style="list-style: none">
       <ul>
-        <li>Fixed issue 230: MediaContent.Type and MediaContent.Duration were reversed.</li>
-        <li>Changed AllowWriteStreamBuffering to FALSE as a default for requests using the GAuthRequest base classes, as data was already buffered anyhow.</li>
-        <li>Fixed issue 268, correct mimetypes for docx and xlsx in the documentservice</li>
-        <li>Fixed a stackoverflow error when you set the BaseUri property on the DocumentService/li&gt;</li>
-        <li>Fixed bug 256, changing explict lib references on linux to just major version references</li>
+        <li>For a complete list of bugfixes included in this release, click <a href="http://code.google.com/p/google-gdata/issues/list?can=1&q=status:Fixed+modified-after:2009/04/15+modified-before:2010/06/15&colspec=ID+Type+Status+Priority+Milestone+Owner+Summary&cells=tiles">here</a>
         <li>Atom Content handling was still weird/wrong/incomplete. I changed this again, hopefully for the last time:
         <ul>
         <li>
