@@ -386,7 +386,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Google.GData.Extensions, Version=1.5.0.0, Culture=neutral, PublicKeyToken=0b4c5df2ebf20876, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Google.GData.Extensions, Version=1.6.0.0, Culture=neutral, PublicKeyToken=0b4c5df2ebf20876, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_15F0180D6C71FA925E2C814A1417F93F"
@@ -539,7 +539,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Google.GData.Client, Version=1.5.0.0, Culture=neutral, PublicKeyToken=04a59ca9b0273830, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Google.GData.Client, Version=1.6.0.0, Culture=neutral, PublicKeyToken=04a59ca9b0273830, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_A03FB2E061CCEE14A2FFA98C04B2EA3D"
@@ -590,7 +590,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Google.GData.YouTube, Version=1.5.0.0, Culture=neutral, PublicKeyToken=af04a32718ae8833, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Google.GData.YouTube, Version=1.6.0.0, Culture=neutral, PublicKeyToken=af04a32718ae8833, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_C72FA00C8337A2A6BA3AB13DCBE77577"
@@ -783,14 +783,14 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Google YouTube SDK for .NET"
-        "ProductCode" = "8:{97B22885-FD1A-4F38-98E0-FC9DD5202308}"
-        "PackageCode" = "8:{78F9BCAD-C275-446F-800E-D2E3FEEC7D83}"
+        "ProductCode" = "8:{82359695-DE3D-45EF-8B69-DD52E925762A}"
+        "PackageCode" = "8:{0A4BEA4D-04E8-4207-AD37-99277F7B3B5D}"
         "UpgradeCode" = "8:{E76F8186-A869-4D4D-A4C6-096DA452F28B}"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.0.0"
+        "ProductVersion" = "8:1.6"
         "Manufacturer" = "8:Google"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:http://code.google.com/apis/youtube"
