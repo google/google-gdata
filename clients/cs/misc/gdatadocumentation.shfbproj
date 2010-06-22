@@ -15,28 +15,29 @@
     <Name>Documentation</Name>
     <!-- SHFB properties -->
     <OutputPath>D:\gdata.doc\</OutputPath>
-    <HtmlHelpName>Documentation</HtmlHelpName>
+    <HtmlHelpName>Google.GData.Documentation</HtmlHelpName>
     <DocumentationSources>
       <DocumentationSource sourceFile="..\docs\analytics.xml" />
-<DocumentationSource sourceFile="..\docs\blogger.xml" />
-<DocumentationSource sourceFile="..\docs\gacl.xml" />
-<DocumentationSource sourceFile="..\docs\gapps.xml" />
-<DocumentationSource sourceFile="..\docs\gcal.xml" />
-<DocumentationSource sourceFile="..\docs\gcontacts.xml" />
-<DocumentationSource sourceFile="..\docs\gdata.xml" />
-<DocumentationSource sourceFile="..\docs\gdocuments.xml" />
-<DocumentationSource sourceFile="..\docs\gextension.xml" />
-<DocumentationSource sourceFile="..\lib\Release\Google.GData.AccessControl.dll" />
-<DocumentationSource sourceFile="..\lib\Release\Google.GData.Analytics.dll" />
-<DocumentationSource sourceFile="..\lib\Release\Google.GData.Apps.dll" />
-<DocumentationSource sourceFile="..\lib\Release\Google.GData.Blogger.dll" />
-<DocumentationSource sourceFile="..\lib\Release\Google.GData.Calendar.dll" />
-<DocumentationSource sourceFile="..\lib\Release\Google.GData.Client.dll" />
-<DocumentationSource sourceFile="..\lib\Release\Google.GData.Contacts.dll" />
-<DocumentationSource sourceFile="..\lib\Release\Google.GData.Documents.dll" />
-<DocumentationSource sourceFile="..\lib\Release\Google.GData.Extensions.dll" />
-<DocumentationSource sourceFile="..\lib\Release\Google.GData.Photos.dll" />
-<DocumentationSource sourceFile="..\docs\gphotos.xml" /></DocumentationSources>
+      <DocumentationSource sourceFile="..\docs\blogger.xml" />
+      <DocumentationSource sourceFile="..\docs\gacl.xml" />
+      <DocumentationSource sourceFile="..\docs\gapps.xml" />
+      <DocumentationSource sourceFile="..\docs\gcal.xml" />
+      <DocumentationSource sourceFile="..\docs\gcontacts.xml" />
+      <DocumentationSource sourceFile="..\docs\gdata.xml" />
+      <DocumentationSource sourceFile="..\docs\gdocuments.xml" />
+      <DocumentationSource sourceFile="..\docs\gextension.xml" />
+      <DocumentationSource sourceFile="..\lib\Release\Google.GData.AccessControl.dll" />
+      <DocumentationSource sourceFile="..\lib\Release\Google.GData.Analytics.dll" />
+      <DocumentationSource sourceFile="..\lib\Release\Google.GData.Apps.dll" />
+      <DocumentationSource sourceFile="..\lib\Release\Google.GData.Blogger.dll" />
+      <DocumentationSource sourceFile="..\lib\Release\Google.GData.Calendar.dll" />
+      <DocumentationSource sourceFile="..\lib\Release\Google.GData.Client.dll" />
+      <DocumentationSource sourceFile="..\lib\Release\Google.GData.Contacts.dll" />
+      <DocumentationSource sourceFile="..\lib\Release\Google.GData.Documents.dll" />
+      <DocumentationSource sourceFile="..\lib\Release\Google.GData.Extensions.dll" />
+      <DocumentationSource sourceFile="..\lib\Release\Google.GData.Photos.dll" />
+      <DocumentationSource sourceFile="..\docs\gphotos.xml" />
+    </DocumentationSources>
     <NamespaceSummaries>
       <NamespaceSummaryItem name="Google.Analytics" isDocumented="True" xmlns="">With Google Analytics, you can gather, view, and analyze data about your website traffic. By embedding our basic JavaScript snippet into your pages, you see which content gets the most visits, average page views and time on site for visits, which ads are driving the most visitors to your site, and more. You can also use the simple administrative interface to set up goals and filters to control what data goes into your reports based on your business needs. The best part: this sophisticated, full-featured web analytics package is free</NamespaceSummaryItem>
       <NamespaceSummaryItem name="Google.Contacts" isDocumented="True" xmlns="">The Google Contacts Data API allows client applications to view and update Contacts content in the form of Google Data API feeds. Your client application can request a list of a user's contacts, edit or delete content in an existing contact, and query the content in an existing contact.
@@ -90,6 +91,13 @@ Used PWA to power digital photo frames.</NamespaceSummaryItem>
     <HelpFileFormat>HtmlHelp1, Website</HelpFileFormat>
     <WorkingPath>
     </WorkingPath>
+    <Preliminary>False</Preliminary>
+    <MissingTags>Summary, Parameter, Returns, AutoDocumentCtors, TypeParameter, AutoDocumentDispose</MissingTags>
+    <IndentHtml>True</IndentHtml>
+    <HelpAttributes>
+    </HelpAttributes>
+    <SdkLinkTarget>Top</SdkLinkTarget>
+    <SdkLinkType>Index</SdkLinkType>
   </PropertyGroup>
   <!-- There are no properties for these two groups but they need to appear in
        order for Visual Studio to perform the build. -->
@@ -98,16 +106,20 @@ Used PWA to power digital photo frames.</NamespaceSummaryItem>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="BatchSupport.html" />
-    <Content Include="YouTubeLinqExamples.html" />
-    <Content Include="YouTubeIntroduction.html" />
-    <Content Include="UsingProxies.html" />
-    <Content Include="UsingAuthsub.html" />
-    <Content Include="UnderstandingUnknown.html" />
-    <Content Include="Multithreadedoperations.html" />
+    <Content Include="Additonal Content\BatchSupport.html" />
+    <Content Include="RELEASE_NOTES.HTML" />
+    <Content Include="Additonal Content\YouTubeLinqExamples.html" />
+    <Content Include="Additonal Content\YouTubeIntroduction.html" />
+    <Content Include="Additonal Content\UsingProxies.html" />
+    <Content Include="Additonal Content\UsingAuthsub.html" />
+    <Content Include="Additonal Content\UnderstandingUnknown.html" />
+    <Content Include="Additonal Content\Multithreadedoperations.html" />
     <Content Include="License.html" />
     <Content Include="GettingStarted.html" />
-    <Content Include="ExecRequest.html" />
+    <Content Include="Additonal Content\ExecRequest.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Additonal Content\" />
   </ItemGroup>
   <!-- Import the SHFB build targets -->
   <Import Project="$(SHFBROOT)\SandcastleHelpFileBuilder.targets" />
