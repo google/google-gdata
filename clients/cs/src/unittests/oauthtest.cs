@@ -497,6 +497,44 @@ namespace Google.GData.Client.LiveTests
         }
         /////////////////////////////////////////////////////////////////////////////
 
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>runs an authentication test with 2 legged oauth</summary> 
+        //////////////////////////////////////////////////////////////////////
+        [Test]
+        public void OAuth3LeggedModelAuthenticationTest()
+        {
+
+            Tracing.TraceMsg("Entering OAuth3LeggedModelAuthenticationTest");
+
+
+            RequestSettings rs = new RequestSettings(this.ApplicationName, this.oAuthConsumerKey, this.oAuthConsumerSecret,
+                                                     this.oAuthToken, this.oAuthTokenSecret, null, null);
+
+            ContactsRequest cr = new ContactsRequest(rs);
+
+            Feed<Contact> f = cr.GetContacts();
+
+            // modify one
+            foreach (Contact c in f.Entries)
+            {
+                c.Title = "new title";
+                cr.Update(c);
+                break;
+            }
+
+
+            Contact entry = new Contact();
+            entry.AtomEntry = ObjectModelHelper.CreateContactEntry(1);
+            entry.PrimaryEmail.Address = "joe@doe.com";
+            Contact e = cr.Insert(f, entry);
+
+
+            cr.Delete(e);
+    
+        }
+        /////////////////////////////////////////////////////////////////////////////
+
+
       
     }
 }
