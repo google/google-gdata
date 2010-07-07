@@ -54,15 +54,13 @@ for the default objects created. This is the way the CalendarFeed/EventEntry
 are implemented, and all other extensions as well.
 
 But, this is a more advanced topic for another time. Back to the ExtensionElments
-collection. Everything in that collection is potentially persisted. If it is an
-XmlNode object, or if it is inheriting from IExtensionElement, it will be saved 
-into the xml stream when it's owner is persisted.
+collection. Everything in that collection is potentially persisted. is inheriting from IExtensionElement, it will be saved into the xml stream when it's owner is persisted.
 
 Hence to figure out if a certain attribute is set you can do something like this:
 
 {{{
     foreach (Object obj in entry.ExtensionElements) 
-      if obj is XmlNode
+      if obj is XmlExtension
          ... check whatever it is you are looking for
       
 }}}   
@@ -77,8 +75,9 @@ If also means that the following code:
               </app:control>");
 
      XmlNode node = doc.DocumentElement;
+     XmlExtension x = new XmlExtension(node);
       AtomEntry entry = .... 
-      entry.ExtensionElements.Add(node);
+      entry.ExtensionElements.Add(x);
       
       entry.Update();
    
