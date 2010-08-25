@@ -1,6 +1,5 @@
 @echo off
 set shfb_home=%ProgramFiles%\EWSoftware\Sandcastle Help File Builder
-set src_home=..\src\VS2003
 set out_dir=..\lib
 set doc_dir=..\docs
 set target_dir=..\..\..\..\docs
