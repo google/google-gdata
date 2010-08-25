@@ -1,0 +1,90 @@
+Building the SDK
+
+Building the .NET SDK for Google Data APIs is pretty straightforward. After you get the whole repository, you 
+only need to open the the solution file "Google Data API SDK.sln" in the trunk/clients/cs/src/ directory. 
+
+Building this for debug and release results in the appropriate targets. They are in the default output 
+directories setup by Visual Studio though, and not in the distribution directories. 
+
+Note, that the over 250K lines of source code in this project were developed over 5 years. Yes, if you redo 
+everything it's going to be much prettier, but redoing 250K lines of code is quiet a task. 
+
+Requirements
+
+To use everything available to you, you need:
+
+ILMerge
+SandCastle 
+SandCastleHelpFileBuilder
+Python
+
+Versioning:
+
+In trunk/clients/cs/version you find AssemblyVersion.cs. This is the version masterfile that is included from 
+all other places. Change this to 1.8.0.0 etc to make a build with a stable version number, after you released this,
+change it to 1.8.0.* again, so that subsequent builds create higher version numbers.
+
+
+Building the MOBILE version of the SDK
+
+Another solution file, for windows mobile, exists in trunk/clients/cs/src/VS2005.mobile/GDataMobile.sln". 
+This file will only build the subset of DLLs for the Windows Mobile release. 
+
+Building the Samples
+
+Open the "Google Data APIs Samples.sln" solution file in trunk/clients/cs/samples and you will
+build all related samples, beside one, the "YouTubeSample.sln" in the same directory. YouTubeSample is a 
+webservice application, as such it deserved a seperate solution. 
+
+Batch jobs to help
+
+In the trunk/clients/cs/misc directory you will find some batch jobs to help building.
+
+pushdlls.cmd 
+
+This batch builds release, mobile and debug DLLs, as well as all samples, and place them in the appropriate 
+directories. It will also run ILMerge on 3 of the samples to make them simple .exe files with no dependencies. 
+
+Assuming pushdlls is successful, you have a lot of updated DLLs in /trunk/clients/cs/lib and the subdirectories. 
+Normally you run this command to update all the DLLs at the location they are supposed to be in the repository, then
+you submit them from this place.
+
+
+Documentation
+
+TO BUILD DOCS YOU NEED TO ENLIST NOT JUST IN TRUNK, BUT IN DOCS on the same level.
+
+The documentation is build using the sandcastle help builder system, released by Microsoft in 2008. The
+project file is gdatadocumentation.shfbproj in \trunk\clients\cs\misc. To help with this,
+you can use the pushdoc.cmd file located in the same directory. This will kick of the building of the 
+helpfile, and then copy the .CHM and the created HTML files to the \docs\ part of the subversion repository.
+
+Now, to update the HTML part of the documentation, that's kind of tricky. In the past our hosting system was 
+not robust enough to handle one directory, containing several thousand help files. To overcome that I wrote a python
+script that splits the documentation across directories, updating the indexes and links accordingly. You run this
+by using splitdocs.py in the /trunk/clints/cs/misc directory. When that's all done, and you verified that
+the docs work, you can submit this in the docs dir. Note, that this takes a while. The index.html file produced
+by the python script is the one that is linked to from the codesite page. 
+
+Also tricky is to not forget to set all newly created HTML pages to be of type text/html in subversion, so that
+they conform to browser standards and are displayed as HTML pages. 
+
+Setup
+
+Setup is the last thing you build. You first go and change the version number to a fix/round number as described above.
+Then you use pushdlls, run the unittests etc. When this is all fine, you build documentation and checkin everything. 
+
+Now you use pushsetuptree.cmd in trunk/clients/cs/misc to pretty much get a fresh tree out of subversion. Then you open 
+another project, in trunk/clients/cs/setup, called Google Data API Setup.sln. You will need to ADD or DELETE all modified 
+files from the projects. Yes, by now, you can create setups differently, but in VS2003, when this whole thing started, this
+was the best way to do it, and i was always to lazy to change the process to something slightly more elegant, but with no other
+real benefits. 
+
+Build the setup, check it in, and then put it on the codesite download page, following the naming conventions used there.
+The created setup does NOT include the source code anymore.
+
+
+Linux release
+
+There is a demand for linux releases. To do this, use the maketar.sh setup script, and then upload the files to codesite, 
+following the naming conventions used there.
