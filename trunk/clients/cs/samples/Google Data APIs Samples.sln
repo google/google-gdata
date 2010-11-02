@@ -46,6 +46,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Analytics_DataFeed_Sample",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gapps_orgmanagement_sample", "gapps_orgmanagement_sample\gapps_orgmanagement_sample.csproj", "{30E8E083-41DE-4E34-8F2D-A9FBF01CCE03}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gapps_multidomain_sample", "gapps_multidomain_sample\gapps_multidomain_sample.csproj", "{ED8392F9-96FB-40B8-AE94-4628C1FBCAF7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		ASP|Any CPU = ASP|Any CPU
@@ -238,6 +240,14 @@ Global
 		{30E8E083-41DE-4E34-8F2D-A9FBF01CCE03}.DocListUploader - Release|Any CPU.Build.0 = Release|Any CPU
 		{30E8E083-41DE-4E34-8F2D-A9FBF01CCE03}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{30E8E083-41DE-4E34-8F2D-A9FBF01CCE03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED8392F9-96FB-40B8-AE94-4628C1FBCAF7}.ASP|Any CPU.ActiveCfg = Release|Any CPU
+		{ED8392F9-96FB-40B8-AE94-4628C1FBCAF7}.ASP|Any CPU.Build.0 = Release|Any CPU
+		{ED8392F9-96FB-40B8-AE94-4628C1FBCAF7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED8392F9-96FB-40B8-AE94-4628C1FBCAF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED8392F9-96FB-40B8-AE94-4628C1FBCAF7}.DocListUploader - Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED8392F9-96FB-40B8-AE94-4628C1FBCAF7}.DocListUploader - Release|Any CPU.Build.0 = Release|Any CPU
+		{ED8392F9-96FB-40B8-AE94-4628C1FBCAF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED8392F9-96FB-40B8-AE94-4628C1FBCAF7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
