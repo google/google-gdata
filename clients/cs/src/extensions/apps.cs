@@ -391,7 +391,7 @@ namespace Google.GData.Extensions.Apps
     }
 
     /// <summary>
-    /// Name table for Google Apps extensions specific to the Groups Provisioning
+    /// Name table for Google Apps extensions specific to the Organization Units Provisioning
     /// </summary>
     public class AppsOrganizationNameTable : AppsNameTable
     {
@@ -406,8 +406,25 @@ namespace Google.GData.Extensions.Apps
         public const string OldOrgUnitPath = "oldOrgUnitPath";
         public const string NewOrgUnitPath = "orgUnitPath";
         public const string ParentOrgUnitPath = "parentOrgUnitPath";
-        
     }
+
+	/// <summary>
+	/// Name table for Google Apps extensions specific to the Multidomain Provisioning
+	/// </summary>
+	public class AppsMultiDomainNameTable : AppsNameTable {
+		public const string AppsMultiDomainAliasBaseFeedUri = "https://apps-apis.google.com/a/feeds/alias/2.0";
+		public const string AppsMultiDomainUserBaseFeedUri = "https://apps-apis.google.com/a/feeds/user/2.0";
+		public const string AliasEmail = "aliasEmail";
+		public const string FirstName = "firstName";
+		public const string IpWhitelisted = "ipWhitelisted";
+		public const string IsAdmin = "isAdmin";
+		public const string IsChangePasswordAtNextLogin = "isChangePasswordAtNextLogin";
+		public const string IsSuspended = "isSuspended";
+		public const string LastName = "lastName";
+		public const string NewEmail = "newEmail";
+		public const string Password = "password";
+		public const string UserEmail = "userEmail";
+	}
 
     /// <summary>
     /// Extension element sed to model a Google Apps email list.

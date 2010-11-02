@@ -147,6 +147,7 @@
     <Compile Include="mailitementry.cs" />
     <Compile Include="mailitemfeed.cs" />
     <Compile Include="mailitemservice.cs" />
+    <Compile Include="multidomainmanagementservice.cs" />
     <Compile Include="nicknameentry.cs" />
     <Compile Include="nicknamefeed.cs" />
     <Compile Include="nicknamequery.cs" />
