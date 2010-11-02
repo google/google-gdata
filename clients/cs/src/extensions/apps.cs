@@ -391,6 +391,25 @@ namespace Google.GData.Extensions.Apps
     }
 
     /// <summary>
+    /// Name table for Google Apps extensions specific to the Groups Provisioning
+    /// </summary>
+    public class AppsOrganizationNameTable : AppsNameTable
+    {
+        public const string AppsOrgUnitBaseFeedUri = "https://apps-apis.google.com/a/feeds/orgunit/2.0";
+        public const string AppsOrgUserBaseFeedUri = "https://apps-apis.google.com/a/feeds/orguser/2.0";
+        public const string AppsCustomerBaseFeedUri = "https://apps-apis.google.com/a/feeds/customer/2.0";
+        public const string CustomerId = "customerId";
+        public const string Description = "description";
+        public const string OrgUnitName = "name";
+        public const string BlockInheritance = "blockInheritance";
+        public const string UsersToMove = "usersToMove";
+        public const string OldOrgUnitPath = "oldOrgUnitPath";
+        public const string NewOrgUnitPath = "orgUnitPath";
+        public const string ParentOrgUnitPath = "parentOrgUnitPath";
+        
+    }
+
+    /// <summary>
     /// Extension element sed to model a Google Apps email list.
     /// Has attribute "name".
     /// </summary>

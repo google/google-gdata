@@ -102,6 +102,7 @@
     <Reference Include="System.Data">
       <Name>System.Data</Name>
     </Reference>
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml">
       <Name>System.XML</Name>
     </Reference>
@@ -125,6 +126,7 @@
     <Compile Include="appsexception.cs" />
     <Compile Include="appsextendedentry.cs" />
     <Compile Include="appsextendedfeed.cs" />
+    <Compile Include="appspropertyservice.cs" />
     <Compile Include="appsservice.cs" />
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="adminsettingsentry.cs" />
@@ -149,6 +151,7 @@
     <Compile Include="nicknamefeed.cs" />
     <Compile Include="nicknamequery.cs" />
     <Compile Include="nicknameservice.cs" />
+    <Compile Include="orgmanagementservice.cs" />
     <Compile Include="userentry.cs" />
     <Compile Include="userfeed.cs" />
     <Compile Include="userquery.cs" />
