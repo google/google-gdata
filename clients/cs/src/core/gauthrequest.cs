@@ -114,18 +114,28 @@ namespace Google.GData.Client
         private string captchaAnswer;       // indicates the captcha Answer in a challenge
         private string captchaToken;        // indicates the captchaToken in a challenge
 
-        
+		private const int RetryCount = 3;	// default retry count for failed requests       
                                          
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>default constructor</summary> 
         //////////////////////////////////////////////////////////////////////
-        public GDataGAuthRequestFactory(string service, string applicationName) : base(applicationName)
+		public GDataGAuthRequestFactory(string service, string applicationName)
+			: this(service, applicationName, RetryCount)
         {
-    	    this.Service = service;
-    	    this.ApplicationName = applicationName;
         }
         /////////////////////////////////////////////////////////////////////////////
+
+		//////////////////////////////////////////////////////////////////////
+		/// <summary>overloaded constructor</summary> 
+		//////////////////////////////////////////////////////////////////////
+		public GDataGAuthRequestFactory(string service, string applicationName, int numberOfRetries)
+			: base(applicationName) {
+			this.Service = service;
+			this.ApplicationName = applicationName;
+			this.NumberOfRetries = numberOfRetries;
+		}
+		/////////////////////////////////////////////////////////////////////////////
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>default constructor</summary> 
