@@ -5,12 +5,13 @@ devenv /rebuild Release "..\src\Google Data API SDK.sln"
 if errorlevel 1 goto buildError
 devenv /rebuild Debug "..\src\Google Data API SDK.sln"
 if errorlevel 1 goto buildError
-devenv /rebuild Release ..\src\VS2005.mobile\gdatamobile.sln
+devenv /rebuild Release "..\src\VS2005.mobile\gdatamobile.sln"
 if errorlevel 1 goto buildError
-devenv /rebuild Release ..\src\VS2005.mobile\gdatamobile.sln
+devenv /rebuild Debug "..\src\VS2005.mobile\gdatamobile.sln"
 if errorlevel 1 goto buildError
 devenv /rebuild Release "..\src\youtube\YouTube SDK\YouTube SDK.sln"
 if errorlevel 1 goto buildError
+
 # copy the DLLS
 xcopy /y ..\src\core\bin\Release\*.dll ..\lib\Release\*.*
 xcopy /y ..\src\gbase\bin\Release\*.dll ..\lib\Release\*.*
@@ -48,18 +49,14 @@ xcopy /y ..\src\blogger\bin\Debug\*.dll ..\lib\Debug\*.*
 xcopy /y ..\src\analytics\bin\Debug\*.dll ..\lib\Debug\*.*
 xcopy /y ..\src\WebmasterTools\bin\Debug\*.dll ..\lib\Debug\*.*
 
-#copy the setup
+# copy the YouTube setup
 xcopy /y "..\src\youtube\YouTube SDK\YouTube SDK\Release\YouTube SDK.msi" ..\lib\Setup\*.*
-
 
 # copy asp dlls for the youtube sample
 xcopy /y ..\src\gdata\bin\asp\*.dll ..\samples\YouTubeSample\bin\*.*
-xcopy /y ..\src\gdata\bin\asp\*.dll ..\samples\YouTubeSample\bin\*.*
 xcopy /y ..\src\youtube\bin\asp\*.dll ..\samples\YouTubeSample\bin\*.*
- 
 
-
-#copy the mobile DLLS
+# copy the mobile DLLS
 xcopy /y ..\src\VS2005.mobile\GBaseMobile\bin\Release\*.dll ..\lib\Mobile\WindowsMobile\*.*
 xcopy /y ..\src\VS2005.mobile\GCalendarMobile\bin\Release\*.dll ..\lib\Mobile\WindowsMobile\*.*
 xcopy /y ..\src\VS2005.mobile\GCodeSearchMobile\bin\Release\*.dll ..\lib\Mobile\WindowsMobile\*.*
@@ -75,8 +72,8 @@ xcopy /y ..\src\VS2005.mobile\GHealthMobile\bin\Release\*.dll ..\lib\Mobile\Wind
 xcopy /y ..\src\VS2005.mobile\GYouTubeMobile\bin\Release\*.dll ..\lib\Mobile\WindowsMobile\*.*
 xcopy /y ..\src\VS2005.mobile\GBloggerMobile\bin\Release\*.dll ..\lib\Mobile\WindowsMobile\*.*
 xcopy /y ..\src\VS2005.mobile\GAnalyticsMobile\bin\Release\*.dll ..\lib\Mobile\WindowsMobile\*.*
-		
 
+# build the Samples
 devenv /rebuild Release "..\samples\Google Data APIs Samples.sln" 
 
 # copy all exe files
@@ -87,15 +84,16 @@ xcopy /y ..\samples\CodeSearch\bin\Release\*.exe ..\lib\Release\*.*
 xcopy /y ..\samples\spreadsheets\bin\Release\*.exe ..\lib\Release\*.*
 xcopy /y ..\samples\gbase\bin\Release\*.exe ..\lib\Release\*.*
 xcopy /y ..\samples\gbase\*.exe ..\lib\Release\*.*
-xcopy /y ..\samples\\appsforyourdomain\bin\Release\*.exe ..\lib\Release\*.*
+xcopy /y ..\samples\appsforyourdomain\bin\Release\*.exe ..\lib\Release\*.*
 xcopy /y ..\samples\ExecRequest\bin\Release\*.exe ..\lib\Release\*.*
 xcopy /y ..\samples\PhotoBrowser\bin\Release\*.exe ..\lib\Release\*.*
 xcopy /y ..\samples\DocListUploader\bin\Release\*.exe ..\lib\Release\*.*
 xcopy /y ..\samples\health\bin\Release\*.exe ..\lib\Release\*.*
 xcopy /y ..\samples\YouTubeNotifier\bin\Release\*.exe ..\lib\Release\*.*
 xcopy /y ..\samples\DocListExporter\bin\Release\*.exe ..\lib\Release\*.*
-
-
+xcopy /y ..\samples\gapps_google_mail_settings_sample\bin\Release\*.exe ..\lib\Release\*.*
+xcopy /y ..\samples\gapps_multidomain_sample\bin\Release\*.exe ..\lib\Release\*.*
+xcopy /y ..\samples\gapps_orgmanagement_sample\bin\Release\*.exe ..\lib\Release\*.*
 
 # copy the xml doc files
 xcopy /y ..\src\gdata\bin\*.xml ..\docs\*.*
@@ -125,7 +123,6 @@ rem run ILMerge on DocListExport.exe
 ilmerge DocListExport.exe Google.GData.Client.Dll Google.GData.Extensions.Dll Google.GData.AccessControl.Dll Google.GData.Documents.dll /out:DocListExporter.exe
 del DocListExport.exe
 
-
 rem run ILMerge on YouTubeNotifier.exe
 ilmerge NotifierForYT.exe Google.GData.Client.Dll Google.GData.Extensions.Dll Google.GData.YouTube.Dll /out:nfyt.exe
 del NotifierForYT.exe
@@ -138,6 +135,3 @@ echo "Error in building"
 
 :doneBuilding
 cd .\..\..\misc
-
-
-

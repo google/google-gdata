@@ -4,6 +4,135 @@
         <name>Google.GData.Health</name>
     </assembly>
     <members>
+        <member name="T:Google.GData.Health.HealthService">
+            <summary>
+            The Google Health Data API allows applications to view and send health data in the form of Google Data feeds. 
+            The HealthService class encapsulates authentication to the Google HealthService.
+            </summary>
+        </member>
+        <member name="T:Google.GData.Health.BaseHealthService">
+            <summary>
+            The Google Health Data API allows applications to view and send health data in the form of Google Data feeds. 
+            The HealthService class encapsulates authentication to the Google HealthService.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Health.BaseHealthService.ServiceName">
+            <summary>The Calendar service's name</summary> 
+        </member>
+        <member name="F:Google.GData.Health.BaseHealthService.BaseAddress">
+            <summary>The base Google Health Feeds address.</summary>
+        </member>
+        <member name="F:Google.GData.Health.BaseHealthService.ProfileListFeed">
+            <summary>The Google Health Profile list feed.</summary>
+        </member>
+        <member name="F:Google.GData.Health.BaseHealthService.ProfileFeed">
+            <summary>The Google Health Profile UI feed</summary>
+        </member>
+        <member name="F:Google.GData.Health.BaseHealthService.RegisterFeed">
+            <summary>The Google Health Register UI feed</summary>
+        </member>
+        <member name="F:Google.GData.Health.BaseHealthService.DefaultProfileFeed">
+            <summary>The Google Health Default Profile UI feed</summary>
+        </member>
+        <member name="F:Google.GData.Health.BaseHealthService.DefaultRegisterFeed">
+            <summary>The Google Health Default Register UI feed</summary>
+        </member>
+        <member name="M:Google.GData.Health.BaseHealthService.#ctor(System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            default constructor
+            </summary>
+            <param name="applicationName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Google.GData.Health.BaseHealthService.Query(Google.GData.Health.HealthQuery)">
+            <summary>
+            overloaded to create typed version of Query
+            </summary>
+            <param name="feedQuery"></param>
+            <returns>EventFeed</returns>
+        </member>
+        <member name="M:Google.GData.Health.BaseHealthService.GetProfiles">
+            <summary>
+            Queries the Google Health Profile list feed. This is related to the 
+            ClientLogin queries using ClientLogin.
+            </summary>
+            <returns>The list of profiles for the authenticated client.</returns>
+        </member>
+        <member name="M:Google.GData.Health.BaseHealthService.GetNotices(System.String)">
+            <summary>
+            Queries the Google Health Profile Register feed for the list of notices. This 
+            is for ClientLogin related queries.
+            </summary>
+            <param name="profileId">The profile to query against.</param>
+            <returns>The list of notices available on this profile.</returns>
+        </member>
+        <member name="M:Google.GData.Health.BaseHealthService.GetCareRecordsDigest(System.String)">
+            <summary>
+            Queries the profile feed for the list of available CCR records with digest enabled. Available 
+            for ClientLogin related queries.
+            </summary>
+            <param name="profileId">The profile to query against.</param>
+            <returns>The list of CCR records available.</returns>
+        </member>
+        <member name="M:Google.GData.Health.BaseHealthService.GetCareRecords(System.String,System.Boolean)">
+            <summary>
+            Queries the profile feed for the list of available CCR records. Available 
+            for ClientLogin related queries.
+            </summary>
+            <param name="profileId">The profile to query against.</param>
+            <param name="digest">True to aggregate all CCR into a single CCR element, false otherwise.</param>
+            <returns>The list of CCR records available.</returns>
+        </member>
+        <member name="M:Google.GData.Health.BaseHealthService.PostNotice(Google.GData.Health.Notice,System.String)">
+            <summary>
+            Posts a notice to the particular profile on the register feed. Available 
+            under ClientLogin only.
+            </summary>
+            <param name="notice"></param>
+            <param name="profileId"></param>
+        </member>
+        <member name="M:Google.GData.Health.BaseHealthService.PostNotice(Google.GData.Health.Notice)">
+            <summary>
+            Posts a notice to the default profile on the register feed. Usable 
+            for the AuthSub profile feed.
+            </summary>
+            <param name="notice"></param>
+        </member>
+        <member name="M:Google.GData.Health.BaseHealthService.OnNewFeed(System.Object,Google.GData.Client.ServiceEventArgs)">
+            <summary>eventchaining. We catch this by from the base service, which 
+            would not by default create an atomFeed</summary> 
+            <param name="sender"> the object which send the event</param>
+            <param name="e">FeedParserEventArguments, holds the feedentry</param> 
+            <returns> </returns>
+        </member>
+        <member name="F:Google.GData.Health.HealthService.ServiceName">
+            <summary>The Calendar service's name</summary> 
+        </member>
+        <member name="F:Google.GData.Health.HealthService.BaseAddress">
+            <summary>The base Google Health Feeds address.</summary>
+        </member>
+        <member name="F:Google.GData.Health.HealthService.ProfileListFeed">
+            <summary>The Google Health Profile list feed.</summary>
+        </member>
+        <member name="F:Google.GData.Health.HealthService.ProfileFeed">
+            <summary>The Google Health Profile UI feed</summary>
+        </member>
+        <member name="F:Google.GData.Health.HealthService.RegisterFeed">
+            <summary>The Google Health Register UI feed</summary>
+        </member>
+        <member name="F:Google.GData.Health.HealthService.DefaultProfileFeed">
+            <summary>The Google Health Default Profile UI feed</summary>
+        </member>
+        <member name="F:Google.GData.Health.HealthService.DefaultRegisterFeed">
+            <summary>The Google Health Default Register UI feed</summary>
+        </member>
+        <member name="M:Google.GData.Health.HealthService.#ctor(System.String)">
+            <summary>
+            Constructs the Google Health Service using the 
+            primary Health Feeds address.
+            </summary>
+            <param name="applicationName">The name of the application leveraging the service.</param>
+        </member>
         <member name="T:ASTM.Org.CCR.ContinuityOfCareRecord">
             <remarks/>
         </member>
@@ -1822,101 +1951,6 @@
             The HealthService class encapsulates authentication to the Google HealthService.
             </summary>
         </member>
-        <member name="T:Google.GData.Health.BaseHealthService">
-            <summary>
-            The Google Health Data API allows applications to view and send health data in the form of Google Data feeds. 
-            The HealthService class encapsulates authentication to the Google HealthService.
-            </summary>
-        </member>
-        <member name="F:Google.GData.Health.BaseHealthService.ServiceName">
-            <summary>The Calendar service's name</summary> 
-        </member>
-        <member name="F:Google.GData.Health.BaseHealthService.BaseAddress">
-            <summary>The base Google Health Feeds address.</summary>
-        </member>
-        <member name="F:Google.GData.Health.BaseHealthService.ProfileListFeed">
-            <summary>The Google Health Profile list feed.</summary>
-        </member>
-        <member name="F:Google.GData.Health.BaseHealthService.ProfileFeed">
-            <summary>The Google Health Profile UI feed</summary>
-        </member>
-        <member name="F:Google.GData.Health.BaseHealthService.RegisterFeed">
-            <summary>The Google Health Register UI feed</summary>
-        </member>
-        <member name="F:Google.GData.Health.BaseHealthService.DefaultProfileFeed">
-            <summary>The Google Health Default Profile UI feed</summary>
-        </member>
-        <member name="F:Google.GData.Health.BaseHealthService.DefaultRegisterFeed">
-            <summary>The Google Health Default Register UI feed</summary>
-        </member>
-        <member name="M:Google.GData.Health.BaseHealthService.#ctor(System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
-            <summary>
-            default constructor
-            </summary>
-            <param name="applicationName"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Google.GData.Health.BaseHealthService.Query(Google.GData.Health.HealthQuery)">
-            <summary>
-            overloaded to create typed version of Query
-            </summary>
-            <param name="feedQuery"></param>
-            <returns>EventFeed</returns>
-        </member>
-        <member name="M:Google.GData.Health.BaseHealthService.GetProfiles">
-            <summary>
-            Queries the Google Health Profile list feed. This is related to the 
-            ClientLogin queries using ClientLogin.
-            </summary>
-            <returns>The list of profiles for the authenticated client.</returns>
-        </member>
-        <member name="M:Google.GData.Health.BaseHealthService.GetNotices(System.String)">
-            <summary>
-            Queries the Google Health Profile Register feed for the list of notices. This 
-            is for ClientLogin related queries.
-            </summary>
-            <param name="profileId">The profile to query against.</param>
-            <returns>The list of notices available on this profile.</returns>
-        </member>
-        <member name="M:Google.GData.Health.BaseHealthService.GetCareRecordsDigest(System.String)">
-            <summary>
-            Queries the profile feed for the list of available CCR records with digest enabled. Available 
-            for ClientLogin related queries.
-            </summary>
-            <param name="profileId">The profile to query against.</param>
-            <returns>The list of CCR records available.</returns>
-        </member>
-        <member name="M:Google.GData.Health.BaseHealthService.GetCareRecords(System.String,System.Boolean)">
-            <summary>
-            Queries the profile feed for the list of available CCR records. Available 
-            for ClientLogin related queries.
-            </summary>
-            <param name="profileId">The profile to query against.</param>
-            <param name="digest">True to aggregate all CCR into a single CCR element, false otherwise.</param>
-            <returns>The list of CCR records available.</returns>
-        </member>
-        <member name="M:Google.GData.Health.BaseHealthService.PostNotice(Google.GData.Health.Notice,System.String)">
-            <summary>
-            Posts a notice to the particular profile on the register feed. Available 
-            under ClientLogin only.
-            </summary>
-            <param name="notice"></param>
-            <param name="profileId"></param>
-        </member>
-        <member name="M:Google.GData.Health.BaseHealthService.PostNotice(Google.GData.Health.Notice)">
-            <summary>
-            Posts a notice to the default profile on the register feed. Usable 
-            for the AuthSub profile feed.
-            </summary>
-            <param name="notice"></param>
-        </member>
-        <member name="M:Google.GData.Health.BaseHealthService.OnNewFeed(System.Object,Google.GData.Client.ServiceEventArgs)">
-            <summary>eventchaining. We catch this by from the base service, which 
-            would not by default create an atomFeed</summary> 
-            <param name="sender"> the object which send the event</param>
-            <param name="e">FeedParserEventArguments, holds the feedentry</param> 
-            <returns> </returns>
-        </member>
         <member name="F:Google.GData.Health.H9Service.ServiceName">
             <summary>The Google Health service's name</summary> 
         </member>
@@ -2149,60 +2183,6 @@
             Gets whether the notice content type to html.
             </summary>
         </member>
-        <member name="T:Google.GData.Health.Profile">
-            <summary>
-            Represents a simple user profile in Google Health.
-            </summary>
-        </member>
-        <member name="P:Google.GData.Health.Profile.Name">
-            <summary>
-            Gets or sets the profile name.
-            </summary>
-        </member>
-        <member name="P:Google.GData.Health.Profile.ID">
-            <summary>
-            Gets or sets the profile id.
-            </summary>
-        </member>
-        <member name="P:Google.GData.Health.Profile.Authors">
-            <summary>
-            Gets or sets the authors of this profile.
-            </summary>
-        </member>
-        <member name="T:Google.GData.Health.HealthService">
-            <summary>
-            The Google Health Data API allows applications to view and send health data in the form of Google Data feeds. 
-            The HealthService class encapsulates authentication to the Google HealthService.
-            </summary>
-        </member>
-        <member name="F:Google.GData.Health.HealthService.ServiceName">
-            <summary>The Calendar service's name</summary> 
-        </member>
-        <member name="F:Google.GData.Health.HealthService.BaseAddress">
-            <summary>The base Google Health Feeds address.</summary>
-        </member>
-        <member name="F:Google.GData.Health.HealthService.ProfileListFeed">
-            <summary>The Google Health Profile list feed.</summary>
-        </member>
-        <member name="F:Google.GData.Health.HealthService.ProfileFeed">
-            <summary>The Google Health Profile UI feed</summary>
-        </member>
-        <member name="F:Google.GData.Health.HealthService.RegisterFeed">
-            <summary>The Google Health Register UI feed</summary>
-        </member>
-        <member name="F:Google.GData.Health.HealthService.DefaultProfileFeed">
-            <summary>The Google Health Default Profile UI feed</summary>
-        </member>
-        <member name="F:Google.GData.Health.HealthService.DefaultRegisterFeed">
-            <summary>The Google Health Default Register UI feed</summary>
-        </member>
-        <member name="M:Google.GData.Health.HealthService.#ctor(System.String)">
-            <summary>
-            Constructs the Google Health Service using the 
-            primary Health Feeds address.
-            </summary>
-            <param name="applicationName">The name of the application leveraging the service.</param>
-        </member>
         <member name="T:Google.GData.Health.HealthFeed">
             <summary>
             The Google Health Data API allows applications to view and send health data in the form of Google Data feeds. 
@@ -2228,6 +2208,26 @@
             </summary>
             <param name="e"></param>
             <param name="parser">the atom feed parser used</param>
+        </member>
+        <member name="T:Google.GData.Health.Profile">
+            <summary>
+            Represents a simple user profile in Google Health.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Health.Profile.Name">
+            <summary>
+            Gets or sets the profile name.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Health.Profile.ID">
+            <summary>
+            Gets or sets the profile id.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Health.Profile.Authors">
+            <summary>
+            Gets or sets the authors of this profile.
+            </summary>
         </member>
         <!-- Badly formed XML comment ignored for member "T:Google.GData.Health.HealthQuery" -->
         <member name="F:Google.GData.Health.HealthQuery.HealthFeeds">

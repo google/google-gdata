@@ -24,53 +24,6 @@
             </summary>
             <returns>AtomEntry</returns>
         </member>
-        <member name="T:Google.GData.Blogger.BloggerQuery">
-            <summary>
-            A subclass of FeedQuery, to create a Blogger query URI.
-            </summary> 
-        </member>
-        <member name="F:Google.GData.Blogger.BloggerQuery.OrderByUpdated">
-            <summary>
-            constant string for the order by updated query
-            </summary>
-        </member>
-        <member name="F:Google.GData.Blogger.BloggerQuery.OrderByPublished">
-            <summary>
-            constant string for the order by published query
-            </summary>
-        </member>
-        <member name="M:Google.GData.Blogger.BloggerQuery.#ctor">
-            <summary>
-            default constructor, does nothing 
-            </summary>
-        </member>
-        <member name="M:Google.GData.Blogger.BloggerQuery.#ctor(System.String)">
-            <summary>
-            base constructor, with initial queryUri
-            </summary>
-            <param name="queryUri">the query to use</param>
-        </member>
-        <member name="M:Google.GData.Blogger.BloggerQuery.ParseUri(System.Uri)">
-            <summary>protected void ParseUri</summary> 
-            <param name="targetUri">takes an incoming Uri string and parses all the properties out of it</param>
-            <returns>throws a query exception when it finds something wrong with the input, otherwise returns a baseuri</returns>
-        </member>
-        <member name="M:Google.GData.Blogger.BloggerQuery.CalculateQuery(System.String)">
-            <summary>Creates the partial URI query string based on all
-             set properties.</summary> 
-            <returns> string => the query part of the URI </returns>
-        </member>
-        <member name="P:Google.GData.Blogger.BloggerQuery.OrderBy">
-            <summary>You can add orderby=published or orderby=updated to a GData query 
-            to get the posts sorted in that order. 
-            Some notes: 
-            - updated is the default 
-            - This has no effect on comments feeds, whose updated and published 
-                dates are the same 
-            - Pagination in the by-updated feed is limited to the most recently 
-                published 500 posts. </summary>
-            <returns> </returns>
-        </member>
         <member name="T:Google.GData.Blogger.BloggerService">
             <summary>
             The CalendarService class extends the basic Service abstraction
@@ -123,6 +76,53 @@
         <member name="P:Google.GData.Blogger.BloggerEntry.PostUri">
             <summary>Allows you to retrieve the Post Uri value for a blogger entry. 
             This is relevant in the "feeds of blogs"</summary> 
+            <returns> </returns>
+        </member>
+        <member name="T:Google.GData.Blogger.BloggerQuery">
+            <summary>
+            A subclass of FeedQuery, to create a Blogger query URI.
+            </summary> 
+        </member>
+        <member name="F:Google.GData.Blogger.BloggerQuery.OrderByUpdated">
+            <summary>
+            constant string for the order by updated query
+            </summary>
+        </member>
+        <member name="F:Google.GData.Blogger.BloggerQuery.OrderByPublished">
+            <summary>
+            constant string for the order by published query
+            </summary>
+        </member>
+        <member name="M:Google.GData.Blogger.BloggerQuery.#ctor">
+            <summary>
+            default constructor, does nothing 
+            </summary>
+        </member>
+        <member name="M:Google.GData.Blogger.BloggerQuery.#ctor(System.String)">
+            <summary>
+            base constructor, with initial queryUri
+            </summary>
+            <param name="queryUri">the query to use</param>
+        </member>
+        <member name="M:Google.GData.Blogger.BloggerQuery.ParseUri(System.Uri)">
+            <summary>protected void ParseUri</summary> 
+            <param name="targetUri">takes an incoming Uri string and parses all the properties out of it</param>
+            <returns>throws a query exception when it finds something wrong with the input, otherwise returns a baseuri</returns>
+        </member>
+        <member name="M:Google.GData.Blogger.BloggerQuery.CalculateQuery(System.String)">
+            <summary>Creates the partial URI query string based on all
+             set properties.</summary> 
+            <returns> string => the query part of the URI </returns>
+        </member>
+        <member name="P:Google.GData.Blogger.BloggerQuery.OrderBy">
+            <summary>You can add orderby=published or orderby=updated to a GData query 
+            to get the posts sorted in that order. 
+            Some notes: 
+            - updated is the default 
+            - This has no effect on comments feeds, whose updated and published 
+                dates are the same 
+            - Pagination in the by-updated feed is limited to the most recently 
+                published 500 posts. </summary>
             <returns> </returns>
         </member>
     </members>

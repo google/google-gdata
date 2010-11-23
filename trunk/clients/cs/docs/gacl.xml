@@ -4,6 +4,80 @@
         <name>Google.GData.AccessControl</name>
     </assembly>
     <members>
+        <member name="M:Google.AccessControl.Acl.EnsureInnerObject">
+            <summary>
+            creates the inner contact object when needed
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.AccessControl.Acl.AclEntry">
+            <summary>
+            readonly accessor for the AclEntry that is underneath this object.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Google.GData.AccessControl.AclScope">
+            <summary>
+            GData schema extension describing an account role
+            </summary>
+        </member>
+        <member name="F:Google.GData.AccessControl.AclScope.SCOPE_USER">
+            <summary>string constant for the user scope</summary>
+        </member>
+        <member name="F:Google.GData.AccessControl.AclScope.SCOPE_DOMAIN">
+            <summary>string constant for the user scope</summary>
+        </member>
+        <member name="F:Google.GData.AccessControl.AclScope.SCOPE_DEFAULT">
+            <summary>string constant for the user scope</summary>
+        </member>
+        <member name="M:Google.GData.AccessControl.AclScope.#ctor">
+            <summary>
+            default constructor
+            </summary>
+        </member>
+        <member name="M:Google.GData.AccessControl.AclScope.#ctor(System.String)">
+            <summary>
+            default constructor with an init value
+            </summary>
+            <param name="initValue"></param>
+        </member>
+        <member name="M:Google.GData.AccessControl.AclScope.#ctor(System.String,System.String)">
+            <summary>
+            constructor taking an initial value and a name
+            </summary>
+            <param name="initValue"></param>
+            <param name="initName"></param>
+        </member>
+        <member name="P:Google.GData.AccessControl.AclScope.Type">
+            <summary>accessor method public string Type</summary> 
+            <returns> </returns>
+        </member>
+        <member name="T:Google.GData.AccessControl.AclEntry">
+            <summary>
+            Entry API customization class for defining entries in an AccessControl feed.
+            </summary>
+        </member>
+        <member name="F:Google.GData.AccessControl.AclEntry.ACL_CATEGORY">
+            <summary>
+            Category used to label entries that contain AccessControl extension data.
+            </summary>
+        </member>
+        <member name="M:Google.GData.AccessControl.AclEntry.#ctor">
+            <summary>
+            Constructs a new AccessControlEntry instance with the appropriate category
+            to indicate that it is an AccessControlEntry.
+            </summary>
+        </member>
+        <member name="P:Google.GData.AccessControl.AclEntry.Role">
+            <summary>
+             property accessor for the AclRole
+            </summary>
+        </member>
+        <member name="P:Google.GData.AccessControl.AclEntry.Scope">
+            <summary>
+             property accessor for the AclScope
+            </summary>
+        </member>
         <member name="T:Google.GData.AccessControl.AclNameTable">
             <summary>Google Access Control List namespace</summary>
         </member>
@@ -131,80 +205,6 @@
              constructor with a default string value
             </summary>
             <param name="value">transparency value</param>
-        </member>
-        <member name="M:Google.AccessControl.Acl.EnsureInnerObject">
-            <summary>
-            creates the inner contact object when needed
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="P:Google.AccessControl.Acl.AclEntry">
-            <summary>
-            readonly accessor for the AclEntry that is underneath this object.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="T:Google.GData.AccessControl.AclScope">
-            <summary>
-            GData schema extension describing an account role
-            </summary>
-        </member>
-        <member name="F:Google.GData.AccessControl.AclScope.SCOPE_USER">
-            <summary>string constant for the user scope</summary>
-        </member>
-        <member name="F:Google.GData.AccessControl.AclScope.SCOPE_DOMAIN">
-            <summary>string constant for the user scope</summary>
-        </member>
-        <member name="F:Google.GData.AccessControl.AclScope.SCOPE_DEFAULT">
-            <summary>string constant for the user scope</summary>
-        </member>
-        <member name="M:Google.GData.AccessControl.AclScope.#ctor">
-            <summary>
-            default constructor
-            </summary>
-        </member>
-        <member name="M:Google.GData.AccessControl.AclScope.#ctor(System.String)">
-            <summary>
-            default constructor with an init value
-            </summary>
-            <param name="initValue"></param>
-        </member>
-        <member name="M:Google.GData.AccessControl.AclScope.#ctor(System.String,System.String)">
-            <summary>
-            constructor taking an initial value and a name
-            </summary>
-            <param name="initValue"></param>
-            <param name="initName"></param>
-        </member>
-        <member name="P:Google.GData.AccessControl.AclScope.Type">
-            <summary>accessor method public string Type</summary> 
-            <returns> </returns>
-        </member>
-        <member name="T:Google.GData.AccessControl.AclEntry">
-            <summary>
-            Entry API customization class for defining entries in an AccessControl feed.
-            </summary>
-        </member>
-        <member name="F:Google.GData.AccessControl.AclEntry.ACL_CATEGORY">
-            <summary>
-            Category used to label entries that contain AccessControl extension data.
-            </summary>
-        </member>
-        <member name="M:Google.GData.AccessControl.AclEntry.#ctor">
-            <summary>
-            Constructs a new AccessControlEntry instance with the appropriate category
-            to indicate that it is an AccessControlEntry.
-            </summary>
-        </member>
-        <member name="P:Google.GData.AccessControl.AclEntry.Role">
-            <summary>
-             property accessor for the AclRole
-            </summary>
-        </member>
-        <member name="P:Google.GData.AccessControl.AclEntry.Scope">
-            <summary>
-             property accessor for the AclScope
-            </summary>
         </member>
     </members>
 </doc>

@@ -1,7 +1,7 @@
 ﻿<project schemaVersion="1.6.0.2">
     <assemblies>
         <assembly assemblyPath="..\lib\Release\Google.GData.AccessControl.dll" xmlCommentsPath="..\docs\gacl.xml" commentsOnly="False" />
-        <assembly assemblyPath="..\..\..\..\..\googlegdata\clients\cs\lib\Release\Google.GData.Analytics.dll" xmlCommentsPath="..\docs\analytics.xml" commentsOnly="False" />
+        <assembly assemblyPath="..\lib\Release\Google.GData.Analytics.dll" xmlCommentsPath="..\docs\analytics.xml" commentsOnly="False" />
         <assembly assemblyPath="..\lib\Release\Google.GData.Apps.dll" xmlCommentsPath="..\docs\gapps.xml" commentsOnly="False" />
         <assembly assemblyPath="..\lib\Release\Google.GData.Calendar.dll" xmlCommentsPath="..\docs\gcal.xml" commentsOnly="False" />
         <assembly assemblyPath="..\lib\Release\Google.GData.Client.dll" xmlCommentsPath="..\docs\gdata.xml" commentsOnly="False" />
@@ -142,7 +142,7 @@ Creating and deleting a feed is left up to the service; the GData protocol does 
     <VisibleItems>InheritedMembers, InheritedFrameworkMembers, Protected, SealedProtected</VisibleItems>
     <HtmlHelp1xCompilerPath path="" />
     <HtmlHelp2xCompilerPath path="" />
-    <OutputPath>D:\TempHTML\</OutputPath>
+    <OutputPath>c:\TempHTML\</OutputPath>
     <SandcastlePath path="" />
     <WorkingPath path="" />
     <CleanIntermediates>True</CleanIntermediates>
