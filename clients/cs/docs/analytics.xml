@@ -4,6 +4,134 @@
         <name>Google.GData.Analytics</name>
     </assembly>
     <members>
+        <member name="P:Google.GData.Analytics.CustomVariable.Index">
+            <summary>Accessor for "Index" attribute.</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Analytics.CustomVariable.Name">
+            <summary>Accessor for "Name" attribute.</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Analytics.CustomVariable.Scope">
+            <summary>Accessor for "Scope" attribute.</summary> 
+            <returns> </returns>
+        </member>
+        <member name="T:Google.GData.Analytics.Metric">
+            <summary>
+            GData schema extension describing a metric.
+            A metric is part of a DataEntry (entry).
+            One element for each metric in the query.
+            A metric contains the following attributes:
+            # namethe name of the metric
+            # typeeither integer or string
+            # valuethe aggregate value for the query for that metric (e.g. 24 for 24 pageviews)
+            # cithe confidence interval, or range of values likely to include the correct value.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Analytics.Metric.#ctor">
+            <summary>
+            Constructs an empty Metric instance
+            </summary>
+        </member>
+        <member name="M:Google.GData.Analytics.Metric.#ctor(System.String,System.String,System.String,System.String)">
+            <summary>
+            default constructor, takes 4 parameters
+            </summary>
+            <param name="confidenceInterval">the confidenceInterval property value</param>
+            <param name="name">the name property value</param>
+            <param name="type">the type property value</param>
+            <param name="value">the value property value</param>
+        </member>
+        <member name="P:Google.GData.Analytics.Metric.ConfidenceInterval">
+            <summary>Accessor for "confidenceInterval" attribute.</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Analytics.Metric.Type">
+            <summary>Accessor for "type" attribute.</summary> 
+            <returns> </returns>
+        </member>
+        <member name="T:Google.GData.Analytics.DataFeed">
+            <summary>DataFeed, entry
+            Returns DataEntry containing:
+            id, updated, title, dxp:dimension, dxp:metric.
+            Added Extension dxp:aggregates, which contains a list of dxp:metric.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Analytics.DataFeed.#ctor(System.Uri,Google.GData.Client.IService)">
+            <summary>
+             default constructor
+            </summary>
+            <param name="uriBase">the base URI of the feedEntry</param>
+            <param name="iService">the Service to use</param>
+        </member>
+        <member name="M:Google.GData.Analytics.DataFeed.CreateFeedEntry">
+            <summary>
+            This needs to get implemented by subclasses
+            </summary>
+            <returns>AtomEntry</returns>
+        </member>
+        <member name="P:Google.GData.Analytics.DataFeed.Aggregates">
+            <summary>
+            returns the Aggregates object for the DataFeed. 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.GData.Analytics.DataFeed.DataSource">
+            <summary>
+            returns the DataSource object for the DataFeed. 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.GData.Analytics.DataFeed.Segments">
+            <summary>
+            This field controls the segments.
+            </summary>
+        </member>
+        <member name="T:Google.GData.Analytics.AccountQuery">
+            <summary>
+            A subclass of FeedQuery, to create an Analytics Account query URI.
+            </summary> 
+        </member>
+        <member name="F:Google.GData.Analytics.AccountQuery.HttpsFeedUrl">
+            <summary>
+            Analytics account service url, http and https 
+            </summary>
+        </member>
+        <member name="M:Google.GData.Analytics.AccountQuery.#ctor">
+            <summary>
+            default constructor, does nothing 
+            </summary>
+        </member>
+        <member name="M:Google.GData.Analytics.AccountQuery.#ctor(System.String)">
+            <summary>
+            base constructor, with initial queryUri
+            </summary>
+            <param name="queryUri">the query to use</param>
+        </member>
+        <member name="P:Google.GData.Analytics.Goal.Name">
+            <summary>Accessor for "name" attribute.</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Analytics.Goal.Number">
+            <summary>Accessor for "Number" attribute.</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Analytics.Goal.Active">
+            <summary>Accessor for "Active" attribute.</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Analytics.Goal.Value">
+            <summary>Accessor for "value" attribute.</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Analytics.Goal.Destination">
+            <summary>Accessor for "Destination" sub-element.</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Analytics.Goal.Engagement">
+            <summary>Accessor for "Engagement" sub-element.</summary> 
+            <returns> </returns>
+        </member>
         <member name="T:Google.Analytics.Account">
             <summary>
             simple class to cover the AcountEntry specific extensions. Gives you access to all Account
@@ -151,152 +279,183 @@
             <param name="q"></param>
             <returns></returns>
         </member>
-        <member name="P:Google.GData.Analytics.Goal.Name">
+        <member name="T:Google.GData.Analytics.TableName">
+            <summary>
+            GData schema extension describing a tableName.
+            Part of a feedentry (DataEntry SourceEntry/dxp:dataSource).
+            dxp:tableName  The name of the profile as it appears in the Analytics administrative UI.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Analytics.TableName.#ctor">
+            <summary>
+            Constructs an empty TableName instance
+            </summary>
+        </member>
+        <member name="M:Google.GData.Analytics.TableName.#ctor(System.String)">
+            <summary>
+            default constructor, takes 1 parameters
+            </summary>
+            <param name="value">the value property value</param>
+        </member>
+        <member name="P:Google.GData.Analytics.Step.Name">
             <summary>Accessor for "name" attribute.</summary> 
             <returns> </returns>
         </member>
-        <member name="P:Google.GData.Analytics.Goal.Number">
+        <member name="P:Google.GData.Analytics.Step.Number">
             <summary>Accessor for "Number" attribute.</summary> 
             <returns> </returns>
         </member>
-        <member name="P:Google.GData.Analytics.Goal.Active">
-            <summary>Accessor for "Active" attribute.</summary> 
+        <member name="P:Google.GData.Analytics.Step.Path">
+            <summary>Accessor for "Path" attribute.</summary> 
             <returns> </returns>
         </member>
-        <member name="P:Google.GData.Analytics.Goal.Value">
-            <summary>Accessor for "value" attribute.</summary> 
-            <returns> </returns>
-        </member>
-        <member name="P:Google.GData.Analytics.Goal.Destination">
-            <summary>Accessor for "Destination" sub-element.</summary> 
-            <returns> </returns>
-        </member>
-        <member name="P:Google.GData.Analytics.Goal.Engagement">
-            <summary>Accessor for "Engagement" sub-element.</summary> 
-            <returns> </returns>
-        </member>
-        <member name="T:Google.GData.Analytics.DataFeed">
-            <summary>DataFeed, entry
-            Returns DataEntry containing:
-            id, updated, title, dxp:dimension, dxp:metric.
-            Added Extension dxp:aggregates, which contains a list of dxp:metric.
-            </summary>
-        </member>
-        <member name="M:Google.GData.Analytics.DataFeed.#ctor(System.Uri,Google.GData.Client.IService)">
+        <member name="T:Google.GData.Analytics.DataEntry">
             <summary>
-             default constructor
+            DataEntry API customization class for defining entries in a data feed.
             </summary>
-            <param name="uriBase">the base URI of the feedEntry</param>
-            <param name="iService">the Service to use</param>
         </member>
-        <member name="M:Google.GData.Analytics.DataFeed.CreateFeedEntry">
+        <member name="F:Google.GData.Analytics.DataEntry.dimensions">
             <summary>
-            This needs to get implemented by subclasses
-            </summary>
-            <returns>AtomEntry</returns>
-        </member>
-        <member name="P:Google.GData.Analytics.DataFeed.Aggregates">
-            <summary>
-            returns the Aggregates object for the DataFeed. 
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="P:Google.GData.Analytics.DataFeed.DataSource">
-            <summary>
-            returns the DataSource object for the DataFeed. 
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="P:Google.GData.Analytics.DataFeed.Segments">
-            <summary>
-            This field controls the segments.
+            Lazy loading for the dimensions and metrics.
             </summary>
         </member>
-        <member name="T:Google.GData.Analytics.AccountFeed">
-            <summary>
-            This is the Google Analytics Account feed that lets you access
-            the analytics account you own.
-            </summary>
-        </member>
-        <member name="M:Google.GData.Analytics.AccountFeed.#ctor(System.Uri,Google.GData.Client.IService)">
-            <summary>
-             default constructor
-            </summary>
-            <param name="uriBase">the base URI of the feedEntry</param>
-            <param name="iService">the Service to use</param>
-        </member>
-        <member name="M:Google.GData.Analytics.AccountFeed.CreateFeedEntry">
-            <summary>
-            This needs to get implemented by subclasses
-            </summary>
-            <returns>AtomEntry</returns>
-        </member>
-        <member name="M:Google.GData.Analytics.AccountFeed.HandleExtensionElements(Google.GData.Client.ExtensionElementEventArgs,Google.GData.Client.AtomFeedParser)">
-            <summary>
-            Is called after we already handled the custom entry, to handle all 
-            other potential parsing tasks
-            </summary>
-            <param name="e"></param>
-            <param name="parser">the atom feed parser used</param>
-        </member>
-        <member name="P:Google.GData.Analytics.AccountFeed.Segments">
-            <summary>
-            This field controls the segments.
-            </summary>
-        </member>
-        <member name="T:Google.GData.Analytics.DataSource">
-            <summary>
-            dxp:dataSource: summary information about the Analytics source of the data.
-            It contains the following extensions:
-            dxp:tableId  The unique, namespaced profile ID of the source, such as ga:1174
-            dxp:tableName  The name of the profile as it appears in the Analytics administrative UI
-            dxp:property
-            </summary>
-        </member>
-        <member name="M:Google.GData.Analytics.DataSource.#ctor">
+        <member name="M:Google.GData.Analytics.DataEntry.#ctor">
             <summary>
             Constructs a new DataEntry.
             </summary>
         </member>
-        <member name="M:Google.GData.Analytics.DataSource.FindPropertyValue(System.String)">
+        <member name="M:Google.GData.Analytics.DataEntry.getDataExtension(System.String)">
             <summary>
-            searches through the property list to find a specific one
+            Basic method for retrieving Data extension elements.
             </summary>
-            <param name="name"></param>
-            <returns></returns>
+            <param name="extension">The name of the extension element to look for</param>
+            <returns>SimpleAttribute, or NULL if the extension was not found</returns>
         </member>
-        <member name="P:Google.GData.Analytics.DataSource.TableId">
+        <member name="M:Google.GData.Analytics.DataEntry.getAccountExtensionValue(System.String)">
             <summary>
-            This field controls the tableId (ProfileId).
+            Base method for retrieving Data extension element values.
+            </summary>
+            <param name="extension">The name of the Data extension element to look for</param>
+            <returns>value as string, or NULL if the extension was not found</returns>
+        </member>
+        <member name="M:Google.GData.Analytics.DataEntry.setDataExtension(System.String,System.String)">
+            <summary>
+            Base method for setting Data extension element values.
+            </summary>
+            <param name="extension">the name of the extension to look for</param>
+            <param name="newValue">the new value for this extension element</param>
+            <returns>SimpleAttribute, either a brand new one, or the one
+            returned by the service</returns>
+        </member>
+        <member name="P:Google.GData.Analytics.DataEntry.Dimensions">
+            <summary>
+            This field controls the dimensions.
             </summary>
         </member>
-        <member name="P:Google.GData.Analytics.DataSource.TableName">
+        <member name="P:Google.GData.Analytics.DataEntry.Metrics">
             <summary>
-            This field controls the tableName.
+            This field controls the metrics.
             </summary>
         </member>
-        <member name="P:Google.GData.Analytics.DataSource.Properties">
+        <member name="T:Google.GData.Analytics.Property">
             <summary>
-            This field controls the properties.
+            GData schema extension describing a property.
+            Property is part of the feedentry (Data and Account feed).
+            Is a dxp:property element containing a name attribute with following
+            possible values:
+            ga:profileIdThe profile ID of the source, such as 1174
+            ga:webPropertyIdThe web property ID of the source, such as UA-30481-1
+            ga:accountNameThe name of the account as it appears in the Analytics interface.
             </summary>
         </member>
-        <member name="P:Google.GData.Analytics.DataSource.ProfileId">
+        <member name="M:Google.GData.Analytics.Property.#ctor">
             <summary>
-            The numeric id of the profile
+            Constructs an empty Property instance
             </summary>
-            <returns></returns>
         </member>
-        <member name="P:Google.GData.Analytics.DataSource.WebPropertyId">
+        <member name="M:Google.GData.Analytics.Property.#ctor(System.String,System.String)">
             <summary>
-            The web property ID associated with the profile.
+            default constructor, takes 2 parameters
             </summary>
-            <returns></returns>
+            <param name="name">name property value</param>
+            <param name="value">the value property value</param>
         </member>
-        <member name="P:Google.GData.Analytics.DataSource.AccountName">
+        <member name="T:Google.GData.Analytics.Dimension">
             <summary>
-            The name of the account associated with the profile
+            GData schema extension describing a dimension.
+            A dimension is part of a DataEntry (entry).
+            dxp:dimensionone element for each dimension in the query, 
+            which includes the name and value of the dimension
             </summary>
-            <returns></returns>
+        </member>
+        <member name="M:Google.GData.Analytics.Dimension.#ctor">
+            <summary>
+            default constructor for an extended property
+            </summary>
+        </member>
+        <member name="M:Google.GData.Analytics.Dimension.#ctor(System.String,System.String)">
+            <summary>
+            default constructor with a value and a key name
+            </summary>
+            <param name="initValue">initial value</param>
+            <param name="initName">name for the key</param>
+        </member>
+        <member name="P:Google.GData.Analytics.Destination.Steps">
+            <summary>Accessor for "Step" sub-element.</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Analytics.Destination.CaseSensitive">
+            <summary>Accessor for "caseSensitive" attribute.</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Analytics.Destination.Expression">
+            <summary>Accessor for "expression" attribute.</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Analytics.Destination.MatchType">
+            <summary>Accessor for "matchType" attribute.</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Analytics.Destination.Step1Required">
+            <summary>Accessor for "step1Required" attribute.</summary> 
+            <returns> </returns>
+        </member>
+        <member name="T:Google.GData.Analytics.TableId">
+            <summary>
+            GData schema extension describing a tableId.
+            Part of a feedentry (account feed entry or DataEntry SourceEntry/dxp:dataSource).
+            dxp:tableId  The unique, namespaced ID to be used when requesting data from a profile.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Analytics.TableId.#ctor">
+            <summary>
+            Constructs an empty TableId instance
+            </summary>
+        </member>
+        <member name="M:Google.GData.Analytics.TableId.#ctor(System.String)">
+            <summary>
+            default constructor, takes 1 parameters
+            </summary>
+            <param name="value">the value property value</param>
+        </member>
+        <member name="T:Google.GData.Analytics.Segment">
+            <summary>
+            GData schema extension describing a Segment.
+            Segment is part of Data Feed 
+            </summary>    
+            
+        </member>
+        <member name="P:Google.GData.Analytics.Segment.Name">
+            <summary>Accessor for "name" attribute.</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Analytics.Segment.Id">
+            <summary>Accessor for "name" attribute.</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Analytics.Segment.Definition">
+            <summary>Accessor for "definition" attribute.</summary> 
+            <returns> </returns>
         </member>
         <member name="T:Google.GData.Analytics.Aggregates">
             <summary>
@@ -356,24 +515,6 @@
             This field controls the goals.
             </summary>
         </member>
-        <member name="T:Google.GData.Analytics.TableId">
-            <summary>
-            GData schema extension describing a tableId.
-            Part of a feedentry (account feed entry or DataEntry SourceEntry/dxp:dataSource).
-            dxp:tableId  The unique, namespaced ID to be used when requesting data from a profile.
-            </summary>
-        </member>
-        <member name="M:Google.GData.Analytics.TableId.#ctor">
-            <summary>
-            Constructs an empty TableId instance
-            </summary>
-        </member>
-        <member name="M:Google.GData.Analytics.TableId.#ctor(System.String)">
-            <summary>
-            default constructor, takes 1 parameters
-            </summary>
-            <param name="value">the value property value</param>
-        </member>
         <member name="P:Google.GData.Analytics.Engagement.Comparison">
             <summary>Accessor for "Comparison" attribute.</summary> 
             <returns> </returns>
@@ -385,158 +526,6 @@
         <member name="P:Google.GData.Analytics.Engagement.Type">
             <summary>Accessor for "type" attribute.</summary> 
             <returns> </returns>
-        </member>
-        <member name="T:Google.GData.Analytics.TableName">
-            <summary>
-            GData schema extension describing a tableName.
-            Part of a feedentry (DataEntry SourceEntry/dxp:dataSource).
-            dxp:tableName  The name of the profile as it appears in the Analytics administrative UI.
-            </summary>
-        </member>
-        <member name="M:Google.GData.Analytics.TableName.#ctor">
-            <summary>
-            Constructs an empty TableName instance
-            </summary>
-        </member>
-        <member name="M:Google.GData.Analytics.TableName.#ctor(System.String)">
-            <summary>
-            default constructor, takes 1 parameters
-            </summary>
-            <param name="value">the value property value</param>
-        </member>
-        <member name="P:Google.GData.Analytics.Step.Name">
-            <summary>Accessor for "name" attribute.</summary> 
-            <returns> </returns>
-        </member>
-        <member name="P:Google.GData.Analytics.Step.Number">
-            <summary>Accessor for "Number" attribute.</summary> 
-            <returns> </returns>
-        </member>
-        <member name="P:Google.GData.Analytics.Step.Path">
-            <summary>Accessor for "Path" attribute.</summary> 
-            <returns> </returns>
-        </member>
-        <member name="T:Google.GData.Analytics.Segment">
-            <summary>
-            GData schema extension describing a Segment.
-            Segment is part of Data Feed 
-            </summary>    
-            
-        </member>
-        <member name="P:Google.GData.Analytics.Segment.Name">
-            <summary>Accessor for "name" attribute.</summary> 
-            <returns> </returns>
-        </member>
-        <member name="P:Google.GData.Analytics.Segment.Id">
-            <summary>Accessor for "name" attribute.</summary> 
-            <returns> </returns>
-        </member>
-        <member name="P:Google.GData.Analytics.Segment.Definition">
-            <summary>Accessor for "definition" attribute.</summary> 
-            <returns> </returns>
-        </member>
-        <member name="T:Google.GData.Analytics.DataEntry">
-            <summary>
-            DataEntry API customization class for defining entries in a data feed.
-            </summary>
-        </member>
-        <member name="F:Google.GData.Analytics.DataEntry.dimensions">
-            <summary>
-            Lazy loading for the dimensions and metrics.
-            </summary>
-        </member>
-        <member name="M:Google.GData.Analytics.DataEntry.#ctor">
-            <summary>
-            Constructs a new DataEntry.
-            </summary>
-        </member>
-        <member name="M:Google.GData.Analytics.DataEntry.getDataExtension(System.String)">
-            <summary>
-            Basic method for retrieving Data extension elements.
-            </summary>
-            <param name="extension">The name of the extension element to look for</param>
-            <returns>SimpleAttribute, or NULL if the extension was not found</returns>
-        </member>
-        <member name="M:Google.GData.Analytics.DataEntry.getAccountExtensionValue(System.String)">
-            <summary>
-            Base method for retrieving Data extension element values.
-            </summary>
-            <param name="extension">The name of the Data extension element to look for</param>
-            <returns>value as string, or NULL if the extension was not found</returns>
-        </member>
-        <member name="M:Google.GData.Analytics.DataEntry.setDataExtension(System.String,System.String)">
-            <summary>
-            Base method for setting Data extension element values.
-            </summary>
-            <param name="extension">the name of the extension to look for</param>
-            <param name="newValue">the new value for this extension element</param>
-            <returns>SimpleAttribute, either a brand new one, or the one
-            returned by the service</returns>
-        </member>
-        <member name="P:Google.GData.Analytics.DataEntry.Dimensions">
-            <summary>
-            This field controls the dimensions.
-            </summary>
-        </member>
-        <member name="P:Google.GData.Analytics.DataEntry.Metrics">
-            <summary>
-            This field controls the metrics.
-            </summary>
-        </member>
-        <member name="P:Google.GData.Analytics.CustomVariable.Index">
-            <summary>Accessor for "Index" attribute.</summary> 
-            <returns> </returns>
-        </member>
-        <member name="P:Google.GData.Analytics.CustomVariable.Name">
-            <summary>Accessor for "Name" attribute.</summary> 
-            <returns> </returns>
-        </member>
-        <member name="P:Google.GData.Analytics.CustomVariable.Scope">
-            <summary>Accessor for "Scope" attribute.</summary> 
-            <returns> </returns>
-        </member>
-        <member name="T:Google.GData.Analytics.Property">
-            <summary>
-            GData schema extension describing a property.
-            Property is part of the feedentry (Data and Account feed).
-            Is a dxp:property element containing a name attribute with following
-            possible values:
-            ga:profileIdThe profile ID of the source, such as 1174
-            ga:webPropertyIdThe web property ID of the source, such as UA-30481-1
-            ga:accountNameThe name of the account as it appears in the Analytics interface.
-            </summary>
-        </member>
-        <member name="M:Google.GData.Analytics.Property.#ctor">
-            <summary>
-            Constructs an empty Property instance
-            </summary>
-        </member>
-        <member name="M:Google.GData.Analytics.Property.#ctor(System.String,System.String)">
-            <summary>
-            default constructor, takes 2 parameters
-            </summary>
-            <param name="name">name property value</param>
-            <param name="value">the value property value</param>
-        </member>
-        <member name="T:Google.GData.Analytics.Dimension">
-            <summary>
-            GData schema extension describing a dimension.
-            A dimension is part of a DataEntry (entry).
-            dxp:dimensionone element for each dimension in the query, 
-            which includes the name and value of the dimension
-            </summary>
-        </member>
-        <member name="M:Google.GData.Analytics.Dimension.#ctor">
-            <summary>
-            default constructor for an extended property
-            </summary>
-        </member>
-        <member name="M:Google.GData.Analytics.Dimension.#ctor(System.String,System.String)">
-            <summary>
-            default constructor with a value and a key name
-            </summary>
-            <param name="initValue">initial value</param>
-            <param name="initName">name for the key</param>
         </member>
         <member name="F:Google.GData.Analytics.AnalyticsNameTable.gaPrefix">
             <summary>prefix for GA namespace if writing</summary>
@@ -682,80 +671,91 @@
             <param name="e">FeedParserEventArguments, holds the feedentry</param> 
             <returns> </returns>
         </member>
-        <member name="T:Google.GData.Analytics.Metric">
+        <member name="T:Google.GData.Analytics.AccountFeed">
             <summary>
-            GData schema extension describing a metric.
-            A metric is part of a DataEntry (entry).
-            One element for each metric in the query.
-            A metric contains the following attributes:
-            # namethe name of the metric
-            # typeeither integer or string
-            # valuethe aggregate value for the query for that metric (e.g. 24 for 24 pageviews)
-            # cithe confidence interval, or range of values likely to include the correct value.
+            This is the Google Analytics Account feed that lets you access
+            the analytics account you own.
             </summary>
         </member>
-        <member name="M:Google.GData.Analytics.Metric.#ctor">
+        <member name="M:Google.GData.Analytics.AccountFeed.#ctor(System.Uri,Google.GData.Client.IService)">
             <summary>
-            Constructs an empty Metric instance
+             default constructor
+            </summary>
+            <param name="uriBase">the base URI of the feedEntry</param>
+            <param name="iService">the Service to use</param>
+        </member>
+        <member name="M:Google.GData.Analytics.AccountFeed.CreateFeedEntry">
+            <summary>
+            This needs to get implemented by subclasses
+            </summary>
+            <returns>AtomEntry</returns>
+        </member>
+        <member name="M:Google.GData.Analytics.AccountFeed.HandleExtensionElements(Google.GData.Client.ExtensionElementEventArgs,Google.GData.Client.AtomFeedParser)">
+            <summary>
+            Is called after we already handled the custom entry, to handle all 
+            other potential parsing tasks
+            </summary>
+            <param name="e"></param>
+            <param name="parser">the atom feed parser used</param>
+        </member>
+        <member name="P:Google.GData.Analytics.AccountFeed.Segments">
+            <summary>
+            This field controls the segments.
             </summary>
         </member>
-        <member name="M:Google.GData.Analytics.Metric.#ctor(System.String,System.String,System.String,System.String)">
+        <member name="T:Google.GData.Analytics.DataSource">
             <summary>
-            default constructor, takes 4 parameters
-            </summary>
-            <param name="confidenceInterval">the confidenceInterval property value</param>
-            <param name="name">the name property value</param>
-            <param name="type">the type property value</param>
-            <param name="value">the value property value</param>
-        </member>
-        <member name="P:Google.GData.Analytics.Metric.ConfidenceInterval">
-            <summary>Accessor for "confidenceInterval" attribute.</summary> 
-            <returns> </returns>
-        </member>
-        <member name="P:Google.GData.Analytics.Metric.Type">
-            <summary>Accessor for "type" attribute.</summary> 
-            <returns> </returns>
-        </member>
-        <member name="T:Google.GData.Analytics.AccountQuery">
-            <summary>
-            A subclass of FeedQuery, to create an Analytics Account query URI.
-            </summary> 
-        </member>
-        <member name="F:Google.GData.Analytics.AccountQuery.HttpsFeedUrl">
-            <summary>
-            Analytics account service url, http and https 
+            dxp:dataSource: summary information about the Analytics source of the data.
+            It contains the following extensions:
+            dxp:tableId  The unique, namespaced profile ID of the source, such as ga:1174
+            dxp:tableName  The name of the profile as it appears in the Analytics administrative UI
+            dxp:property
             </summary>
         </member>
-        <member name="M:Google.GData.Analytics.AccountQuery.#ctor">
+        <member name="M:Google.GData.Analytics.DataSource.#ctor">
             <summary>
-            default constructor, does nothing 
+            Constructs a new DataEntry.
             </summary>
         </member>
-        <member name="M:Google.GData.Analytics.AccountQuery.#ctor(System.String)">
+        <member name="M:Google.GData.Analytics.DataSource.FindPropertyValue(System.String)">
             <summary>
-            base constructor, with initial queryUri
+            searches through the property list to find a specific one
             </summary>
-            <param name="queryUri">the query to use</param>
+            <param name="name"></param>
+            <returns></returns>
         </member>
-        <member name="P:Google.GData.Analytics.Destination.Steps">
-            <summary>Accessor for "Step" sub-element.</summary> 
-            <returns> </returns>
+        <member name="P:Google.GData.Analytics.DataSource.TableId">
+            <summary>
+            This field controls the tableId (ProfileId).
+            </summary>
         </member>
-        <member name="P:Google.GData.Analytics.Destination.CaseSensitive">
-            <summary>Accessor for "caseSensitive" attribute.</summary> 
-            <returns> </returns>
+        <member name="P:Google.GData.Analytics.DataSource.TableName">
+            <summary>
+            This field controls the tableName.
+            </summary>
         </member>
-        <member name="P:Google.GData.Analytics.Destination.Expression">
-            <summary>Accessor for "expression" attribute.</summary> 
-            <returns> </returns>
+        <member name="P:Google.GData.Analytics.DataSource.Properties">
+            <summary>
+            This field controls the properties.
+            </summary>
         </member>
-        <member name="P:Google.GData.Analytics.Destination.MatchType">
-            <summary>Accessor for "matchType" attribute.</summary> 
-            <returns> </returns>
+        <member name="P:Google.GData.Analytics.DataSource.ProfileId">
+            <summary>
+            The numeric id of the profile
+            </summary>
+            <returns></returns>
         </member>
-        <member name="P:Google.GData.Analytics.Destination.Step1Required">
-            <summary>Accessor for "step1Required" attribute.</summary> 
-            <returns> </returns>
+        <member name="P:Google.GData.Analytics.DataSource.WebPropertyId">
+            <summary>
+            The web property ID associated with the profile.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.GData.Analytics.DataSource.AccountName">
+            <summary>
+            The name of the account associated with the profile
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:Google.GData.Analytics.DataQuery">
             <summary>

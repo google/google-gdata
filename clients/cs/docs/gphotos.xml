@@ -4,136 +4,6 @@
         <name>Google.GData.Photos</name>
     </assembly>
     <members>
-        <member name="T:Google.GData.Photos.TagEntry">
-            <summary>
-            Entry API customization class for defining entries in an Event feed.
-            </summary>
-        </member>
-        <member name="T:Google.GData.Photos.PicasaEntry">
-            <summary>
-            Entry API customization class for defining entries in an Event feed.
-            </summary>
-        </member>
-        <member name="F:Google.GData.Photos.PicasaEntry.PHOTO_CATEGORY">
-            <summary>
-            Category used to label entries that contain photo extension data.
-            </summary>
-        </member>
-        <member name="F:Google.GData.Photos.PicasaEntry.ALBUM_CATEGORY">
-            <summary>
-            Category used to label entries that contain photo extension data.
-            </summary>
-        </member>
-        <member name="F:Google.GData.Photos.PicasaEntry.COMMENT_CATEGORY">
-            <summary>
-            Category used to label entries that contain comment extension data.
-            </summary>
-        </member>
-        <member name="F:Google.GData.Photos.PicasaEntry.TAG_CATEGORY">
-            <summary>
-            Category used to label entries that contain photo extension data.
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.PicasaEntry.#ctor">
-            <summary>
-            Constructs a new PicasaEntry instance
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.PicasaEntry.GetPhotoExtension(System.String)">
-            <summary>
-            instead of having 20 extension elements
-            we have one string based getter
-            usage is: entry.getPhotoExtension("albumid") to get the element
-            </summary>
-            <param name="extension">the name of the extension to look for</param>
-            <returns>SimpleElement, or NULL if the extension was not found</returns>
-        </member>
-        <member name="M:Google.GData.Photos.PicasaEntry.GetPhotoExtensionValue(System.String)">
-            <summary>
-            instead of having 20 extension elements
-            we have one string based getter
-            usage is: entry.GetPhotoExtensionValue("albumid") to get the elements value
-            </summary>
-            <param name="extension">the name of the extension to look for</param>
-            <returns>value as string, or NULL if the extension was not found</returns>
-        </member>
-        <member name="M:Google.GData.Photos.PicasaEntry.SetPhotoExtensionValue(System.String,System.String)">
-            <summary>
-            instead of having 20 extension elements
-            we have one string based setter
-            usage is: entry.SetPhotoExtensionValue("albumid") to set the element
-            this will create the extension if it's not there
-            note, you can ofcourse, just get an existing one and work with that 
-            object: 
-                SimpleElement e = entry.getPhotoExtension("albumid");
-                e.Value = "new value";  
-            
-            or 
-               entry.SetPhotoExtensionValue("albumid", "new Value");
-            </summary>
-            <param name="extension">the name of the extension to look for</param>
-            <param name="newValue">the new value for this extension element</param>
-            <returns>SimpleElement, either a brand new one, or the one
-            returned by the service</returns>
-        </member>
-        <member name="P:Google.GData.Photos.PicasaEntry.Location">
-            <summary>
-            getter/setter for the GeoRssWhere extension element
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.PicasaEntry.Exif">
-            <summary>
-            getter/setter for the ExifTags extension element
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.PicasaEntry.Media">
-            <summary>
-            returns the media:rss group container element
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.PicasaEntry.IsPhoto">
-            <summary>
-            returns true if the entry is a photo entry
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.PicasaEntry.IsComment">
-            <summary>
-            returns true if the entry is a comment entry
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.PicasaEntry.IsAlbum">
-            <summary>
-            returns true if the entry is an album entry
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.PicasaEntry.IsTag">
-            <summary>
-            returns true if the entry is a tag entry
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.TagEntry.#ctor">
-            <summary>
-            Constructs a new EventEntry instance with the appropriate category
-            to indicate that it is an event.
-            </summary>
-        </member>
-        <member name="T:Google.GData.Photos.TagAccessor">
-            <summary>
-             accessor for a tag Entry
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.TagAccessor.#ctor(Google.GData.Photos.PicasaEntry)">
-            <summary>
-            constructs a tag accessor for the passed in entry
-            </summary>
-            <param name="entry"></param>
-        </member>
-        <member name="P:Google.GData.Photos.TagAccessor.Weight">
-            <summary>
-            The weight of the tag. The weight is the number of times the tag appears 
-            in photos under the current element. The default weight is 1.
-            </summary>
-        </member>
         <member name="T:Google.GData.Photos.KindQuery">
             <summary>
             A subclass of PicasaQuery, to create an Album query URI.
@@ -403,238 +273,6 @@
             base constructor, with initial queryUri
             </summary>
             <param name="queryUri">the query to use</param>
-        </member>
-        <member name="T:Google.GData.Photos.PhotoEntry">
-            <summary>
-            A photoEntry is a shallow subclass for a PicasaEntry to ease
-            access for photospecific properties
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.PhotoEntry.#ctor">
-            <summary>
-            Constructs a new EventEntry instance with the appropriate category
-            to indicate that it is an event.
-            </summary>
-        </member>
-        <member name="T:Google.GData.Photos.PhotoAccessor">
-            <summary>
-            this is a pure accessor class that can either take a photoentry or work with 
-            a picasaentry to get you convienience accessors
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.PhotoAccessor.#ctor(Google.GData.Photos.PicasaEntry)">
-            <summary>
-            constructs a photo accessor for the passed in entry
-            </summary>
-            <param name="entry"></param>
-        </member>
-        <member name="P:Google.GData.Photos.PhotoAccessor.PhotoTitle">
-            <summary>
-            The title of the photo
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.PhotoAccessor.PhotoSummary">
-            <summary>
-            The  summary of the Photo
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.PhotoAccessor.Checksum">
-            <summary>
-            The checksum on the photo. This optional field can be used by 
-            uploaders to associate a checksum with a photo to ease duplicate detection
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.PhotoAccessor.Height">
-            <summary>
-            The height of the photo in pixels
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.PhotoAccessor.Width">
-            <summary>
-            The width of the photo in pixels
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.PhotoAccessor.Rotation">
-            <summary>
-            The rotation of the photo in degrees, used to change the rotation of the photo. Will only be shown if 
-            the rotation has not already been applied to the requested images.
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.PhotoAccessor.Size">
-            <summary>
-            The size of the photo in bytes
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.PhotoAccessor.Timestamp">
-            <summary>
-            The photo's timestamp, represented as the number of milliseconds since 
-            January 1st, 1970. Contains the date of the photo either set externally
-            or retrieved from the Exif data.
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.PhotoAccessor.AlbumId">
-            <summary>
-            The albums ID
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.PhotoAccessor.CommentCount">
-            <summary>
-            the number of comments on a photo
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.PhotoAccessor.CommentingEnabled">
-            <summary>
-            is commenting enabled on a photo
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.PhotoAccessor.Id">
-            <summary>
-            the id of the photo
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.PhotoAccessor.Longitude">
-            <summary>
-            the Longitude  of the photo
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.PhotoAccessor.Latitude">
-            <summary>
-            the Longitude  of the photo
-            </summary>
-        </member>
-        <member name="T:Google.GData.Photos.AlbumEntry">
-            <summary>
-            Entry API customization class for defining entries in an Event feed.
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.AlbumEntry.#ctor">
-            <summary>
-            Constructs a new EventEntry instance with the appropriate category
-            to indicate that it is an event.
-            </summary>
-        </member>
-        <member name="T:Google.GData.Photos.AlbumAccessor">
-            <summary>
-             accessor for an AlbumEntry
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.AlbumAccessor.#ctor(Google.GData.Photos.PicasaEntry)">
-            <summary>
-            constructs a photo accessor for the passed in entry
-            </summary>
-            <param name="entry"></param>
-        </member>
-        <member name="P:Google.GData.Photos.AlbumAccessor.Access">
-            <summary>
-            The album's access level. In this document, access level is also 
-            referred to as "visibility." Valid values are public or private.
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.AlbumAccessor.AlbumAuthorNickname">
-            <summary>
-            The nickname of the author
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.AlbumAccessor.AlbumAuthor">
-            <summary>
-            The  author's name
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.AlbumAccessor.AlbumTitle">
-            <summary>
-            The title of the album
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.AlbumAccessor.AlbumSummary">
-            <summary>
-            The  summary of the album
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.AlbumAccessor.BytesUsed">
-            <summary>
-            The number of bytes of storage that this album uses.
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.AlbumAccessor.Location">
-            <summary>
-            The user-specified location associated with the album
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.AlbumAccessor.Longitude">
-            <summary>
-            the Longitude  of the photo
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.AlbumAccessor.Latitude">
-            <summary>
-            the Longitude  of the photo
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.AlbumAccessor.NumPhotos">
-            <summary>
-            The number of photos in the album.
-            </summary>
-            
-        </member>
-        <member name="P:Google.GData.Photos.AlbumAccessor.NumPhotosRemaining">
-            <summary>
-            The number of remaining photo uploads allowed in this album. 
-            This is equivalent to the user's maximum number of photos per 
-            album (gphoto:maxPhotosPerAlbum) minus the number of photos 
-            currently in the album (gphoto:numphotos).
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.AlbumAccessor.CommentCount">
-            <summary>
-            the number of comments on an album
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.AlbumAccessor.CommentingEnabled">
-            <summary>
-            is commenting enabled on an album
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.AlbumAccessor.Id">
-            <summary>
-            the id of the album
-            </summary>
-        </member>
-        <member name="T:Google.GData.Photos.CommentEntry">
-            <summary>
-            Entry API customization class for defining entries in an Event feed.
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.CommentEntry.#ctor">
-            <summary>
-            Constructs a new EventEntry instance with the appropriate category
-            to indicate that it is an event.
-            </summary>
-        </member>
-        <member name="T:Google.GData.Photos.CommentAccessor">
-            <summary>
-             accessor for a Comment Entry
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.CommentAccessor.#ctor(Google.GData.Photos.PicasaEntry)">
-            <summary>
-            constructs a photo accessor for the passed in entry
-            </summary>
-            <param name="entry"></param>
-        </member>
-        <member name="P:Google.GData.Photos.CommentAccessor.PhotoId">
-            <summary>
-            The ID of the photo associated with the current comment.
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.CommentAccessor.AlbumId">
-            <summary>
-            The albums ID
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.CommentAccessor.Id">
-            <summary>
-            the id of the comment
-            </summary>
         </member>
         <member name="T:Google.Picasa.PicasaEntity">
             <summary>
@@ -994,6 +632,303 @@
             <param name="sender"> the object which send the event</param>
             <param name="e">FeedParserEventArguments, holds the feedentry</param> 
             <returns> </returns>
+        </member>
+        <member name="T:Google.GData.Photos.PhotoEntry">
+            <summary>
+            A photoEntry is a shallow subclass for a PicasaEntry to ease
+            access for photospecific properties
+            </summary>
+        </member>
+        <member name="T:Google.GData.Photos.PicasaEntry">
+            <summary>
+            Entry API customization class for defining entries in an Event feed.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Photos.PicasaEntry.PHOTO_CATEGORY">
+            <summary>
+            Category used to label entries that contain photo extension data.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Photos.PicasaEntry.ALBUM_CATEGORY">
+            <summary>
+            Category used to label entries that contain photo extension data.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Photos.PicasaEntry.COMMENT_CATEGORY">
+            <summary>
+            Category used to label entries that contain comment extension data.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Photos.PicasaEntry.TAG_CATEGORY">
+            <summary>
+            Category used to label entries that contain photo extension data.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Photos.PicasaEntry.#ctor">
+            <summary>
+            Constructs a new PicasaEntry instance
+            </summary>
+        </member>
+        <member name="M:Google.GData.Photos.PicasaEntry.GetPhotoExtension(System.String)">
+            <summary>
+            instead of having 20 extension elements
+            we have one string based getter
+            usage is: entry.getPhotoExtension("albumid") to get the element
+            </summary>
+            <param name="extension">the name of the extension to look for</param>
+            <returns>SimpleElement, or NULL if the extension was not found</returns>
+        </member>
+        <member name="M:Google.GData.Photos.PicasaEntry.GetPhotoExtensionValue(System.String)">
+            <summary>
+            instead of having 20 extension elements
+            we have one string based getter
+            usage is: entry.GetPhotoExtensionValue("albumid") to get the elements value
+            </summary>
+            <param name="extension">the name of the extension to look for</param>
+            <returns>value as string, or NULL if the extension was not found</returns>
+        </member>
+        <member name="M:Google.GData.Photos.PicasaEntry.SetPhotoExtensionValue(System.String,System.String)">
+            <summary>
+            instead of having 20 extension elements
+            we have one string based setter
+            usage is: entry.SetPhotoExtensionValue("albumid") to set the element
+            this will create the extension if it's not there
+            note, you can ofcourse, just get an existing one and work with that 
+            object: 
+                SimpleElement e = entry.getPhotoExtension("albumid");
+                e.Value = "new value";  
+            
+            or 
+               entry.SetPhotoExtensionValue("albumid", "new Value");
+            </summary>
+            <param name="extension">the name of the extension to look for</param>
+            <param name="newValue">the new value for this extension element</param>
+            <returns>SimpleElement, either a brand new one, or the one
+            returned by the service</returns>
+        </member>
+        <member name="P:Google.GData.Photos.PicasaEntry.Location">
+            <summary>
+            getter/setter for the GeoRssWhere extension element
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.PicasaEntry.Exif">
+            <summary>
+            getter/setter for the ExifTags extension element
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.PicasaEntry.Media">
+            <summary>
+            returns the media:rss group container element
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.PicasaEntry.IsPhoto">
+            <summary>
+            returns true if the entry is a photo entry
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.PicasaEntry.IsComment">
+            <summary>
+            returns true if the entry is a comment entry
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.PicasaEntry.IsAlbum">
+            <summary>
+            returns true if the entry is an album entry
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.PicasaEntry.IsTag">
+            <summary>
+            returns true if the entry is a tag entry
+            </summary>
+        </member>
+        <member name="M:Google.GData.Photos.PhotoEntry.#ctor">
+            <summary>
+            Constructs a new EventEntry instance with the appropriate category
+            to indicate that it is an event.
+            </summary>
+        </member>
+        <member name="T:Google.GData.Photos.PhotoAccessor">
+            <summary>
+            this is a pure accessor class that can either take a photoentry or work with 
+            a picasaentry to get you convienience accessors
+            </summary>
+        </member>
+        <member name="M:Google.GData.Photos.PhotoAccessor.#ctor(Google.GData.Photos.PicasaEntry)">
+            <summary>
+            constructs a photo accessor for the passed in entry
+            </summary>
+            <param name="entry"></param>
+        </member>
+        <member name="P:Google.GData.Photos.PhotoAccessor.PhotoTitle">
+            <summary>
+            The title of the photo
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.PhotoAccessor.PhotoSummary">
+            <summary>
+            The  summary of the Photo
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.PhotoAccessor.Checksum">
+            <summary>
+            The checksum on the photo. This optional field can be used by 
+            uploaders to associate a checksum with a photo to ease duplicate detection
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.PhotoAccessor.Height">
+            <summary>
+            The height of the photo in pixels
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.PhotoAccessor.Width">
+            <summary>
+            The width of the photo in pixels
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.PhotoAccessor.Rotation">
+            <summary>
+            The rotation of the photo in degrees, used to change the rotation of the photo. Will only be shown if 
+            the rotation has not already been applied to the requested images.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.PhotoAccessor.Size">
+            <summary>
+            The size of the photo in bytes
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.PhotoAccessor.Timestamp">
+            <summary>
+            The photo's timestamp, represented as the number of milliseconds since 
+            January 1st, 1970. Contains the date of the photo either set externally
+            or retrieved from the Exif data.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.PhotoAccessor.AlbumId">
+            <summary>
+            The albums ID
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.PhotoAccessor.CommentCount">
+            <summary>
+            the number of comments on a photo
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.PhotoAccessor.CommentingEnabled">
+            <summary>
+            is commenting enabled on a photo
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.PhotoAccessor.Id">
+            <summary>
+            the id of the photo
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.PhotoAccessor.Longitude">
+            <summary>
+            the Longitude  of the photo
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.PhotoAccessor.Latitude">
+            <summary>
+            the Longitude  of the photo
+            </summary>
+        </member>
+        <member name="T:Google.GData.Photos.AlbumEntry">
+            <summary>
+            Entry API customization class for defining entries in an Event feed.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Photos.AlbumEntry.#ctor">
+            <summary>
+            Constructs a new EventEntry instance with the appropriate category
+            to indicate that it is an event.
+            </summary>
+        </member>
+        <member name="T:Google.GData.Photos.AlbumAccessor">
+            <summary>
+             accessor for an AlbumEntry
+            </summary>
+        </member>
+        <member name="M:Google.GData.Photos.AlbumAccessor.#ctor(Google.GData.Photos.PicasaEntry)">
+            <summary>
+            constructs a photo accessor for the passed in entry
+            </summary>
+            <param name="entry"></param>
+        </member>
+        <member name="P:Google.GData.Photos.AlbumAccessor.Access">
+            <summary>
+            The album's access level. In this document, access level is also 
+            referred to as "visibility." Valid values are public or private.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.AlbumAccessor.AlbumAuthorNickname">
+            <summary>
+            The nickname of the author
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.AlbumAccessor.AlbumAuthor">
+            <summary>
+            The  author's name
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.AlbumAccessor.AlbumTitle">
+            <summary>
+            The title of the album
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.AlbumAccessor.AlbumSummary">
+            <summary>
+            The  summary of the album
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.AlbumAccessor.BytesUsed">
+            <summary>
+            The number of bytes of storage that this album uses.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.AlbumAccessor.Location">
+            <summary>
+            The user-specified location associated with the album
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.AlbumAccessor.Longitude">
+            <summary>
+            the Longitude  of the photo
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.AlbumAccessor.Latitude">
+            <summary>
+            the Longitude  of the photo
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.AlbumAccessor.NumPhotos">
+            <summary>
+            The number of photos in the album.
+            </summary>
+            
+        </member>
+        <member name="P:Google.GData.Photos.AlbumAccessor.NumPhotosRemaining">
+            <summary>
+            The number of remaining photo uploads allowed in this album. 
+            This is equivalent to the user's maximum number of photos per 
+            album (gphoto:maxPhotosPerAlbum) minus the number of photos 
+            currently in the album (gphoto:numphotos).
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.AlbumAccessor.CommentCount">
+            <summary>
+            the number of comments on an album
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.AlbumAccessor.CommentingEnabled">
+            <summary>
+            is commenting enabled on an album
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.AlbumAccessor.Id">
+            <summary>
+            the id of the album
+            </summary>
         </member>
         <member name="T:Google.GData.Photos.GPhotoExtensions">
             <summary>
@@ -1668,6 +1603,71 @@
             </summary>
             <param name="e"></param>
             <param name="parser">the atom feed parser used</param>
+        </member>
+        <member name="T:Google.GData.Photos.TagEntry">
+            <summary>
+            Entry API customization class for defining entries in an Event feed.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Photos.TagEntry.#ctor">
+            <summary>
+            Constructs a new EventEntry instance with the appropriate category
+            to indicate that it is an event.
+            </summary>
+        </member>
+        <member name="T:Google.GData.Photos.TagAccessor">
+            <summary>
+             accessor for a tag Entry
+            </summary>
+        </member>
+        <member name="M:Google.GData.Photos.TagAccessor.#ctor(Google.GData.Photos.PicasaEntry)">
+            <summary>
+            constructs a tag accessor for the passed in entry
+            </summary>
+            <param name="entry"></param>
+        </member>
+        <member name="P:Google.GData.Photos.TagAccessor.Weight">
+            <summary>
+            The weight of the tag. The weight is the number of times the tag appears 
+            in photos under the current element. The default weight is 1.
+            </summary>
+        </member>
+        <member name="T:Google.GData.Photos.CommentEntry">
+            <summary>
+            Entry API customization class for defining entries in an Event feed.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Photos.CommentEntry.#ctor">
+            <summary>
+            Constructs a new EventEntry instance with the appropriate category
+            to indicate that it is an event.
+            </summary>
+        </member>
+        <member name="T:Google.GData.Photos.CommentAccessor">
+            <summary>
+             accessor for a Comment Entry
+            </summary>
+        </member>
+        <member name="M:Google.GData.Photos.CommentAccessor.#ctor(Google.GData.Photos.PicasaEntry)">
+            <summary>
+            constructs a photo accessor for the passed in entry
+            </summary>
+            <param name="entry"></param>
+        </member>
+        <member name="P:Google.GData.Photos.CommentAccessor.PhotoId">
+            <summary>
+            The ID of the photo associated with the current comment.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.CommentAccessor.AlbumId">
+            <summary>
+            The albums ID
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.CommentAccessor.Id">
+            <summary>
+            the id of the comment
+            </summary>
         </member>
     </members>
 </doc>
