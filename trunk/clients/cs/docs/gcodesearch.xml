@@ -4,6 +4,134 @@
         <name>Google.GData.CodeSearch</name>
     </assembly>
     <members>
+        <member name="T:Google.GData.CodeSearch.Package">
+            <summary>
+            GData schema extension describing a c:package
+            Contains a filename extension with the number of the package
+            and the packageuri extension with the its procedence.
+            </summary>
+        </member>
+        <member name="F:Google.GData.CodeSearch.Package.name">
+            <summary>
+            holds the name fo the package
+            </summary>
+        </member>
+        <member name="F:Google.GData.CodeSearch.Package.uri">
+            <summary>
+            holds the uri of the package
+            </summary>
+        </member>
+        <member name="M:Google.GData.CodeSearch.Package.ParsePackage(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
+            <summary>Parses an xml node to create a Package object.</summary> 
+            <param name="node">Package node</param>
+            <param name="parser">AtomFeedParser to use</param>
+            <returns>the created Package object</returns>
+        </member>
+        <member name="M:Google.GData.CodeSearch.Package.Save(System.Xml.XmlWriter)">
+            <summary>
+            Persistence method for the Package object
+            </summary>
+            <param name="writer">the xmlwriter to write into</param>
+            
+        </member>
+        <member name="M:Google.GData.CodeSearch.Package.CreateInstance(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
+            <summary>Parses an xml node to create a Package object.</summary> 
+            <param name="node">xml node</param>
+            <param name="parser">the atomfeedparser to use for deep dive parsing</param>
+            <returns>the created IExtensionElementFactory object</returns>
+        </member>
+        <member name="P:Google.GData.CodeSearch.Package.Name">
+            <summary>
+            public available attribute to hold the name of the package
+            </summary>
+        </member>
+        <member name="P:Google.GData.CodeSearch.Package.Uri">
+            <summary>
+             public available attribute to hold the uri of the package
+            </summary>
+        </member>
+        <member name="P:Google.GData.CodeSearch.Package.XmlName">
+            <summary>Returns the constant representing this XML element.</summary> 
+        </member>
+        <member name="P:Google.GData.CodeSearch.Package.Google#GData#Client#IExtensionElementFactory#XmlName">
+            <summary>Returns the constant representing this XML element.
+            </summary> 
+        </member>
+        <member name="P:Google.GData.CodeSearch.Package.XmlNameSpace">
+            <summary>Returns the constant representing this XML element.</summary> 
+        </member>
+        <member name="P:Google.GData.CodeSearch.Package.XmlPrefix">
+            <summary>Returns the constant representing this XML element.</summary> 
+        </member>
+        <member name="T:Google.GData.CodeSearch.GCodeSearchParserNameTable">
+            <summary>
+            Subclass of the nametable, has the extensions for the GNamespace
+            </summary>
+        </member>
+        <member name="F:Google.GData.CodeSearch.GCodeSearchParserNameTable.CSNamespace">
+            <summary>Google Codesearch namespace</summary> 
+        </member>
+        <member name="F:Google.GData.CodeSearch.GCodeSearchParserNameTable.CSPrefix">
+            <summary>prefix for codesearch</summary> 
+        </member>
+        <member name="F:Google.GData.CodeSearch.GCodeSearchParserNameTable.EVENT_FILE">
+            <summary> File element.</summary>
+        </member>
+        <member name="F:Google.GData.CodeSearch.GCodeSearchParserNameTable.ATTRIBUTE_URI">
+            <summary> Uri attribute.</summary>
+        </member>
+        <member name="F:Google.GData.CodeSearch.GCodeSearchParserNameTable.ATTRIBUTE_NAME">
+            <summary> FileName attribute.</summary>
+        </member>
+        <member name="F:Google.GData.CodeSearch.GCodeSearchParserNameTable.ATTRIBUTE_LINE_NUMBER">
+            <summary> Line attribute.</summary>
+        </member>
+        <member name="F:Google.GData.CodeSearch.GCodeSearchParserNameTable.EVENT_LINETEXT">
+            <summary> LineText element.</summary>
+        </member>
+        <member name="F:Google.GData.CodeSearch.GCodeSearchParserNameTable.EVENT_MATCH">
+            <summary> Match element.</summary>
+        </member>
+        <member name="F:Google.GData.CodeSearch.GCodeSearchParserNameTable.EVENT_PACKAGE">
+            <summary> Package element.</summary>
+        </member>
+        <member name="T:Google.GData.CodeSearch.CodeSearchEntry">
+            <summary>
+            Entry API customization class for defining entries in an CodeSearch feed.
+            </summary>
+        </member>
+        <member name="F:Google.GData.CodeSearch.CodeSearchEntry.CODESEARCH_CATEGORY">
+            <summary>
+            Category used to label entries that contain CodeSearch
+             extension data.
+            </summary>
+        </member>
+        <member name="M:Google.GData.CodeSearch.CodeSearchEntry.#ctor">
+            <summary>
+            Constructs a new CodeSearchEntry instance with
+             the appropriate category.
+            </summary>
+        </member>
+        <member name="M:Google.GData.CodeSearch.CodeSearchEntry.Parse(Google.GData.Client.ExtensionElementEventArgs,Google.GData.Client.AtomFeedParser)">
+            <summary>parses the inner state of the element</summary>
+            <param name="e">the Event arguments</param>
+            <param name="parser">the atomFeedParser that called this</param>
+        </member>
+        <member name="P:Google.GData.CodeSearch.CodeSearchEntry.FileElement">
+            <summary>
+             property accessor for the File element
+            </summary>
+        </member>
+        <member name="P:Google.GData.CodeSearch.CodeSearchEntry.PackageElement">
+            <summary>
+             property accessor for the Package element
+            </summary>
+        </member>
+        <member name="P:Google.GData.CodeSearch.CodeSearchEntry.Matches">
+            <summary>
+             property accessor for the MatchCollection
+            </summary>
+        </member>
         <member name="T:Google.GData.CodeSearch.MatchCollection">
             <summary>Typed collection for Match Extensions.</summary> 
         </member>
@@ -98,43 +226,6 @@
         <member name="P:Google.GData.CodeSearch.Match.XmlPrefix">
             <summary>Returns the constant representing this XML element.</summary> 
         </member>
-        <member name="T:Google.GData.CodeSearch.CodeSearchEntry">
-            <summary>
-            Entry API customization class for defining entries in an CodeSearch feed.
-            </summary>
-        </member>
-        <member name="F:Google.GData.CodeSearch.CodeSearchEntry.CODESEARCH_CATEGORY">
-            <summary>
-            Category used to label entries that contain CodeSearch
-             extension data.
-            </summary>
-        </member>
-        <member name="M:Google.GData.CodeSearch.CodeSearchEntry.#ctor">
-            <summary>
-            Constructs a new CodeSearchEntry instance with
-             the appropriate category.
-            </summary>
-        </member>
-        <member name="M:Google.GData.CodeSearch.CodeSearchEntry.Parse(Google.GData.Client.ExtensionElementEventArgs,Google.GData.Client.AtomFeedParser)">
-            <summary>parses the inner state of the element</summary>
-            <param name="e">the Event arguments</param>
-            <param name="parser">the atomFeedParser that called this</param>
-        </member>
-        <member name="P:Google.GData.CodeSearch.CodeSearchEntry.FileElement">
-            <summary>
-             property accessor for the File element
-            </summary>
-        </member>
-        <member name="P:Google.GData.CodeSearch.CodeSearchEntry.PackageElement">
-            <summary>
-             property accessor for the Package element
-            </summary>
-        </member>
-        <member name="P:Google.GData.CodeSearch.CodeSearchEntry.Matches">
-            <summary>
-             property accessor for the MatchCollection
-            </summary>
-        </member>
         <member name="T:Google.GData.CodeSearch.CodeSearchService">
             <summary>
             The CodeSearchService class extends the basic Service abstraction
@@ -157,38 +248,6 @@
             </summary>
             <param name="feedQuery">The CodeSearchQuery touse</param>
             <returns>the retrieved CodeSearchFeed</returns>
-        </member>
-        <member name="T:Google.GData.CodeSearch.GCodeSearchParserNameTable">
-            <summary>
-            Subclass of the nametable, has the extensions for the GNamespace
-            </summary>
-        </member>
-        <member name="F:Google.GData.CodeSearch.GCodeSearchParserNameTable.CSNamespace">
-            <summary>Google Codesearch namespace</summary> 
-        </member>
-        <member name="F:Google.GData.CodeSearch.GCodeSearchParserNameTable.CSPrefix">
-            <summary>prefix for codesearch</summary> 
-        </member>
-        <member name="F:Google.GData.CodeSearch.GCodeSearchParserNameTable.EVENT_FILE">
-            <summary> File element.</summary>
-        </member>
-        <member name="F:Google.GData.CodeSearch.GCodeSearchParserNameTable.ATTRIBUTE_URI">
-            <summary> Uri attribute.</summary>
-        </member>
-        <member name="F:Google.GData.CodeSearch.GCodeSearchParserNameTable.ATTRIBUTE_NAME">
-            <summary> FileName attribute.</summary>
-        </member>
-        <member name="F:Google.GData.CodeSearch.GCodeSearchParserNameTable.ATTRIBUTE_LINE_NUMBER">
-            <summary> Line attribute.</summary>
-        </member>
-        <member name="F:Google.GData.CodeSearch.GCodeSearchParserNameTable.EVENT_LINETEXT">
-            <summary> LineText element.</summary>
-        </member>
-        <member name="F:Google.GData.CodeSearch.GCodeSearchParserNameTable.EVENT_MATCH">
-            <summary> Match element.</summary>
-        </member>
-        <member name="F:Google.GData.CodeSearch.GCodeSearchParserNameTable.EVENT_PACKAGE">
-            <summary> Package element.</summary>
         </member>
         <member name="T:Google.GData.CodeSearch.CodeSearchFeed">
             <summary>
@@ -262,65 +321,6 @@
             <summary>Returns the constant representing this XML element.</summary> 
         </member>
         <member name="P:Google.GData.CodeSearch.File.XmlPrefix">
-            <summary>Returns the constant representing this XML element.</summary> 
-        </member>
-        <member name="T:Google.GData.CodeSearch.Package">
-            <summary>
-            GData schema extension describing a c:package
-            Contains a filename extension with the number of the package
-            and the packageuri extension with the its procedence.
-            </summary>
-        </member>
-        <member name="F:Google.GData.CodeSearch.Package.name">
-            <summary>
-            holds the name fo the package
-            </summary>
-        </member>
-        <member name="F:Google.GData.CodeSearch.Package.uri">
-            <summary>
-            holds the uri of the package
-            </summary>
-        </member>
-        <member name="M:Google.GData.CodeSearch.Package.ParsePackage(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
-            <summary>Parses an xml node to create a Package object.</summary> 
-            <param name="node">Package node</param>
-            <param name="parser">AtomFeedParser to use</param>
-            <returns>the created Package object</returns>
-        </member>
-        <member name="M:Google.GData.CodeSearch.Package.Save(System.Xml.XmlWriter)">
-            <summary>
-            Persistence method for the Package object
-            </summary>
-            <param name="writer">the xmlwriter to write into</param>
-            
-        </member>
-        <member name="M:Google.GData.CodeSearch.Package.CreateInstance(System.Xml.XmlNode,Google.GData.Client.AtomFeedParser)">
-            <summary>Parses an xml node to create a Package object.</summary> 
-            <param name="node">xml node</param>
-            <param name="parser">the atomfeedparser to use for deep dive parsing</param>
-            <returns>the created IExtensionElementFactory object</returns>
-        </member>
-        <member name="P:Google.GData.CodeSearch.Package.Name">
-            <summary>
-            public available attribute to hold the name of the package
-            </summary>
-        </member>
-        <member name="P:Google.GData.CodeSearch.Package.Uri">
-            <summary>
-             public available attribute to hold the uri of the package
-            </summary>
-        </member>
-        <member name="P:Google.GData.CodeSearch.Package.XmlName">
-            <summary>Returns the constant representing this XML element.</summary> 
-        </member>
-        <member name="P:Google.GData.CodeSearch.Package.Google#GData#Client#IExtensionElementFactory#XmlName">
-            <summary>Returns the constant representing this XML element.
-            </summary> 
-        </member>
-        <member name="P:Google.GData.CodeSearch.Package.XmlNameSpace">
-            <summary>Returns the constant representing this XML element.</summary> 
-        </member>
-        <member name="P:Google.GData.CodeSearch.Package.XmlPrefix">
             <summary>Returns the constant representing this XML element.</summary> 
         </member>
     </members>

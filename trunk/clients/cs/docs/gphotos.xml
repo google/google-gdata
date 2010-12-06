@@ -4,932 +4,6 @@
         <name>Google.GData.Photos</name>
     </assembly>
     <members>
-        <member name="T:Google.GData.Photos.KindQuery">
-            <summary>
-            A subclass of PicasaQuery, to create an Album query URI.
-            Provides public properties that describe the different
-            aspects of the URI, as well as a composite URI.
-            The AlbumQuery automatically set's the kind parameter to Album
-            </summary> 
-        </member>
-        <member name="T:Google.GData.Photos.PicasaQuery">
-            <summary>
-            A subclass of FeedQuery, to create an PicasaQuery query URI.
-            Provides public properties that describe the different
-            aspects of the URI, as well as a composite URI.
-            The PicasaQuery supports the following GData parameters:
-                start-index and max-results parameters. It does not currently support the other standard parameters.
-             in addition, the following parameters:
-                Parameter   Meaning     
-                 kind           what feed to retrieve
-                 access     Visibility parameter    
-                 thumbsize  Thumbnail size parameter 
-            </summary> 
-        </member>
-        <member name="F:Google.GData.Photos.PicasaQuery.kindsAsText">
-            <summary>
-            holds the kind parameters a query can have
-            </summary>
-        </member>
-        <member name="F:Google.GData.Photos.PicasaQuery.tags">
-            <summary>
-            holds the tag parameters a query can have
-            </summary>
-        </member>
-        <member name="F:Google.GData.Photos.PicasaQuery.picasaBaseUri">
-            <summary>
-            picasa base URI 
-            </summary>
-        </member>
-        <member name="F:Google.GData.Photos.PicasaQuery.picasaDefaultPostUri">
-            <summary>
-            picasa base URI for posting against the default album
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.PicasaQuery.#ctor">
-            <summary>
-            base constructor
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.PicasaQuery.#ctor(System.String)">
-            <summary>
-            base constructor, with initial queryUri
-            </summary>
-            <param name="queryUri">the query to use</param>
-        </member>
-        <member name="M:Google.GData.Photos.PicasaQuery.CreatePicasaUri(System.String)">
-            <summary>
-            convienience method to create an URI based on a userID for a picasafeed
-            </summary>
-            <param name="userID"></param>
-            <returns>string</returns>
-        </member>
-        <member name="M:Google.GData.Photos.PicasaQuery.CreatePicasaUri(System.String,System.String)">
-            <summary>
-            convienience method to create an URI based on a userID
-            and an album ID for a picasafeed
-            </summary>
-            <param name="userID"></param>
-            <param name="albumID"></param>
-            <returns>string</returns>
-        </member>
-        <member name="M:Google.GData.Photos.PicasaQuery.CreatePicasaUri(System.String,System.String,System.String)">
-            <summary>
-            Convenience method to create a URI based on a user id, albumID, and photoid
-            </summary>
-            <param name="userID">The username that owns the content</param>
-            <param name="albumID"></param>
-            <param name="photoID">The ID of the photo that contains the content</param>
-            <returns>A URI to a Picasa Web Albums feed</returns>
-        </member>
-        <member name="M:Google.GData.Photos.PicasaQuery.ParseUri(System.Uri)">
-            <summary>protected void ParseUri</summary> 
-            <param name="targetUri">takes an incoming Uri string and parses all the properties out of it</param>
-            <returns>throws a query exception when it finds something wrong with the input, otherwise returns a baseuri</returns>
-        </member>
-        <member name="M:Google.GData.Photos.PicasaQuery.Reset">
-            <summary>Resets object state to default, as if newly created.
-            </summary> 
-        </member>
-        <member name="M:Google.GData.Photos.PicasaQuery.CalculateQuery(System.String)">
-            <summary>Creates the partial URI query string based on all
-             set properties.</summary> 
-            <returns> string => the query part of the URI </returns>
-        </member>
-        <member name="P:Google.GData.Photos.PicasaQuery.KindParameter">
-            <summary>comma separated list of kinds to retrieve</summary>
-            <returns> </returns>
-        </member>
-        <member name="P:Google.GData.Photos.PicasaQuery.Tags">
-            <summary>
-            comma separated list of the tags to search for in the feed.
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.PicasaQuery.Access">
-            <summary>indicates the access</summary> 
-        </member>
-        <member name="P:Google.GData.Photos.PicasaQuery.Thumbsize">
-            <summary>indicates the thumbsize required</summary>
-            <returns> </returns>
-        </member>
-        <member name="T:Google.GData.Photos.PicasaQuery.Kinds">
-            <summary>
-            The kind parameter lets you request information about a particular kind 
-            of item. The parameter value should be a comma-separated list of requested kinds.
-            If you omit the kind parameter, Picasa Web Albums chooses a default kind 
-            depending on the level of feed you're requesting. For a user-based feed, 
-            the default kind is album; for an album-based feed, the default kind is 
-            photo; for a photo-based feed, the default kind is comment; for a community 
-            search feed, the default kind is photo. 
-            </summary>
-        </member>
-        <member name="F:Google.GData.Photos.PicasaQuery.Kinds.album">
-            <summary>
-            Feed includes some or all of the albums the specified 
-            user has in their gallery. Which albums are returned 
-            depends on the visibility value specified.
-            </summary>
-        </member>
-        <member name="F:Google.GData.Photos.PicasaQuery.Kinds.photo">
-            <summary>
-            Feed includes the photos in an album (album-based), 
-            recent photos uploaded by a user (user-based) or 
-            photos uploaded by all users (community search).
-            </summary>
-        </member>
-        <member name="F:Google.GData.Photos.PicasaQuery.Kinds.comment">
-            <summary>
-            Feed includes the comments that have been made on a photo.
-            </summary>
-        </member>
-        <member name="F:Google.GData.Photos.PicasaQuery.Kinds.tag">
-            <summary>
-            Includes all tags associated with the specified user, album, 
-            or photo. For user-based and album-based feeds, the tags 
-            include a weight value indicating how often they occurred.
-            </summary>
-        </member>
-        <member name="F:Google.GData.Photos.PicasaQuery.Kinds.none">
-            <summary>
-            using none implies the server default
-            </summary>
-        </member>
-        <member name="T:Google.GData.Photos.PicasaQuery.AccessLevel">
-            <summary>
-            describing the visibility level of picasa feeds
-            </summary>
-        </member>
-        <member name="F:Google.GData.Photos.PicasaQuery.AccessLevel.AccessUndefined">
-            <summary>
-            no parameter. Setting the accessLevel to undefined
-            implies the server default
-            </summary>
-        </member>
-        <member name="F:Google.GData.Photos.PicasaQuery.AccessLevel.AccessAll">
-            <summary>
-            Shows both public and private data.  	
-            Requires authentication. Default for authenticated users.
-            </summary>
-        </member>
-        <member name="F:Google.GData.Photos.PicasaQuery.AccessLevel.AccessPrivate">
-            <summary>
-            Shows only private data. Requires authentication.
-            </summary>
-        </member>
-        <member name="F:Google.GData.Photos.PicasaQuery.AccessLevel.AccessPublic">
-            <summary>
-            Shows only public data.  	
-            Does not require authentication. Default for unauthenticated users.
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.KindQuery.#ctor(Google.GData.Photos.PicasaQuery.Kinds)">
-            <summary>
-            base constructor
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.KindQuery.#ctor(System.String,Google.GData.Photos.PicasaQuery.Kinds)">
-            <summary>
-            base constructor, with initial queryUri
-            </summary>
-            <param name="queryUri">the query to use</param>
-            <param name="kind">the kind of query</param>
-        </member>
-        <member name="P:Google.GData.Photos.KindQuery.KindParameter">
-            <summary>read only: the kinds to retrieve</summary>
-            <returns>a comma separated string of Kinds </returns>
-        </member>
-        <member name="T:Google.GData.Photos.AlbumQuery">
-            <summary>
-            A subclass of PicasaQuery, to create an Album query URI.
-            Provides public properties that describe the different
-            aspects of the URI, as well as a composite URI.
-            The AlbumQuery automatically set's the kind parameter to Album
-            </summary> 
-        </member>
-        <member name="M:Google.GData.Photos.AlbumQuery.#ctor">
-            <summary>
-            base constructor
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.AlbumQuery.#ctor(System.String)">
-            <summary>
-            base constructor, with initial queryUri
-            </summary>
-            <param name="queryUri">the query to use</param>
-        </member>
-        <member name="T:Google.GData.Photos.PhotoQuery">
-            <summary>
-            A subclass of PicasaQuery, to create an Album query URI.
-            Provides public properties that describe the different
-            aspects of the URI, as well as a composite URI.
-            The PhotoQuery automatically set's the kind parameter to Photo
-            </summary> 
-        </member>
-        <member name="M:Google.GData.Photos.PhotoQuery.#ctor">
-            <summary>
-            base constructor
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.PhotoQuery.#ctor(System.String)">
-            <summary>
-            base constructor, with initial queryUri
-            </summary>
-            <param name="queryUri">the query to use</param>
-        </member>
-        <member name="T:Google.GData.Photos.CommentsQuery">
-            <summary>
-            A subclass of PicasaQuery, to create an Comments query URI.
-            Provides public properties that describe the different
-            aspects of the URI, as well as a composite URI.
-            The CommentsQuery automatically set's the kind parameter to Comment
-            </summary> 
-        </member>
-        <member name="M:Google.GData.Photos.CommentsQuery.#ctor">
-            <summary>
-            base constructor
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.CommentsQuery.#ctor(System.String)">
-            <summary>
-            base constructor, with initial queryUri
-            </summary>
-            <param name="queryUri">the query to use</param>
-        </member>
-        <member name="T:Google.GData.Photos.TagQuery">
-            <summary>
-            A subclass of PicasaQuery, to create an Comments query URI.
-            Provides public properties that describe the different
-            aspects of the URI, as well as a composite URI.
-            The TagQuery automatically set's the kind parameter to Tag
-            </summary> 
-        </member>
-        <member name="M:Google.GData.Photos.TagQuery.#ctor">
-            <summary>
-            base constructor
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.TagQuery.#ctor(System.String)">
-            <summary>
-            base constructor, with initial queryUri
-            </summary>
-            <param name="queryUri">the query to use</param>
-        </member>
-        <member name="T:Google.Picasa.PicasaEntity">
-            <summary>
-            as all picasa entries are "similiar" we have this abstract baseclass here as 
-            well, although it is not clear yet how this will benefit 
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="P:Google.Picasa.PicasaEntity.PicasaEntry">
-            <summary>
-            readonly accessor for the AlbumEntry that is underneath this object.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Google.Picasa.Album.EnsureInnerObject">
-            <summary>
-            needs to be subclassed to ensure the creation of the corrent AtomEntry based
-            object
-            </summary>
-        </member>
-        <member name="P:Google.Picasa.Album.Access">
-            <summary>
-            The album's access level. In this document, access level is also 
-            referred to as "visibility." Valid values are public or private.
-            </summary>
-        </member>
-        <member name="P:Google.Picasa.Album.AlbumAuthorNickname">
-            <summary>
-            The nickname of the author
-            </summary>
-        </member>
-        <member name="P:Google.Picasa.Album.BytesUsed">
-            <summary>
-            The number of bytes of storage that this album uses.
-            </summary>
-        </member>
-        <member name="P:Google.Picasa.Album.Location">
-            <summary>
-            The user-specified location associated with the album
-            </summary>
-        </member>
-        <member name="P:Google.Picasa.Album.Longitude">
-            <summary>
-            the Longitude  of the photo
-            </summary>
-        </member>
-        <member name="P:Google.Picasa.Album.Latitude">
-            <summary>
-            the Longitude  of the photo
-            </summary>
-        </member>
-        <member name="P:Google.Picasa.Album.NumPhotos">
-            <summary>
-            The number of photos in the album.
-            </summary>
-            
-        </member>
-        <member name="P:Google.Picasa.Album.NumPhotosRemaining">
-            <summary>
-            The number of remaining photo uploads allowed in this album. 
-            This is equivalent to the user's maximum number of photos per 
-            album (gphoto:maxPhotosPerAlbum) minus the number of photos 
-            currently in the album (gphoto:numphotos).
-            </summary>
-        </member>
-        <member name="P:Google.Picasa.Album.CommentCount">
-            <summary>
-            the number of comments on an album
-            </summary>
-        </member>
-        <member name="P:Google.Picasa.Album.CommentingEnabled">
-            <summary>
-            is commenting enabled on an album
-            </summary>
-        </member>
-        <member name="P:Google.Picasa.Album.Id">
-            <summary>
-            the id of the album
-            </summary>
-        </member>
-        <member name="T:Google.Picasa.Tag">
-            <summary>
-            The Tag is just a base PicasaEntity, beside the category it is not different 
-            from a standard atom entry
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Google.Picasa.Tag.EnsureInnerObject">
-            <summary>
-            needs to be subclassed to ensure the creation of the corrent AtomEntry based
-            object
-            </summary>
-        </member>
-        <member name="T:Google.Picasa.Comment">
-            <summary>
-            a comment object for a picasa photo
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Google.Picasa.Comment.EnsureInnerObject">
-            <summary>
-            needs to be subclassed to ensure the creation of the corrent AtomEntry based
-            object
-            </summary>
-        </member>
-        <member name="P:Google.Picasa.Comment.PhotoId">
-            <summary>
-            The ID of the photo associated with the current comment.
-            </summary>
-        </member>
-        <member name="P:Google.Picasa.Comment.AlbumId">
-            <summary>
-            The albums ID
-            </summary>
-        </member>
-        <member name="P:Google.Picasa.Comment.CommentId">
-            <summary>
-            the id of the comment
-            </summary>
-        </member>
-        <member name="T:Google.Picasa.Photo">
-            <summary>
-            represents a photo based on a PicasaEntry object
-            </summary>
-        </member>
-        <member name="M:Google.Picasa.Photo.EnsureInnerObject">
-            <summary>
-            creates the inner contact object when needed
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="P:Google.Picasa.Photo.PhotoUri">
-            <summary>
-            tries to construct an URI on the Url attribute in media.content
-            </summary>
-            <returns>a Uri object or null</returns>
-        </member>
-        <member name="P:Google.Picasa.Photo.Checksum">
-            <summary>
-            The checksum on the photo. This optional field can be used by 
-            uploaders to associate a checksum with a photo to ease duplicate detection
-            </summary>
-        </member>
-        <member name="P:Google.Picasa.Photo.Height">
-            <summary>
-            The height of the photo in pixels
-            </summary>
-        </member>
-        <member name="P:Google.Picasa.Photo.Width">
-            <summary>
-            The width of the photo in pixels
-            </summary>
-        </member>
-        <member name="P:Google.Picasa.Photo.Rotation">
-            <summary>
-            The rotation of the photo in degrees, used to change the rotation of the photo. Will only be shown if 
-            the rotation has not already been applied to the requested images.
-            </summary>
-        </member>
-        <member name="P:Google.Picasa.Photo.Size">
-            <summary>
-            The size of the photo in bytes
-            </summary>
-        </member>
-        <member name="P:Google.Picasa.Photo.Timestamp">
-            <summary>
-            The photo's timestamp, represented as the number of milliseconds since 
-            January 1st, 1970. Contains the date of the photo either set externally
-            or retrieved from the Exif data.
-            </summary>
-        </member>
-        <member name="P:Google.Picasa.Photo.AlbumId">
-            <summary>
-            The albums ID
-            </summary>
-        </member>
-        <member name="P:Google.Picasa.Photo.CommentCount">
-            <summary>
-            the number of comments on a photo
-            </summary>
-        </member>
-        <member name="P:Google.Picasa.Photo.CommentingEnabled">
-            <summary>
-            is commenting enabled on a photo
-            </summary>
-        </member>
-        <member name="P:Google.Picasa.Photo.Id">
-            <summary>
-            the id of the photo
-            </summary>
-        </member>
-        <member name="P:Google.Picasa.Photo.Longitude">
-            <summary>
-            the Longitude  of the photo
-            </summary>
-        </member>
-        <member name="P:Google.Picasa.Photo.Latitude">
-            <summary>
-            the Longitude  of the photo
-            </summary>
-        </member>
-        <member name="P:Google.Picasa.Photo.AlbumDescription">
-            <summary>
-            Description of the album this photo is in.
-            </summary>
-        </member>
-        <member name="P:Google.Picasa.Photo.Snippet">
-            <summary>
-            Snippet that matches the search text.
-            </summary>
-        </member>
-        <member name="P:Google.Picasa.Photo.SnippetType">
-            <summary>
-            Describes where the match with the search query was found, and thus where 
-            the snippet is from: the photo caption, the photo tags, the album title, 
-            the album description, or the album location.   
-            Possible values are PHOTO_DESCRIPTION, PHOTO_TAGS, ALBUM_TITLE, 
-            ALBUM_DESCRIPTION, or ALBUM_LOCATION.
-            </summary>
-        </member>
-        <member name="P:Google.Picasa.Photo.Truncated">
-            <summary>
-            Indicates whether search results are truncated or not. 
-            Possible values are 1 (results are truncated) or 0 (results are not truncated).
-            </summary>
-        </member>
-        <member name="T:Google.Picasa.PicasaRequest">
-            <summary>
-            The Picasa Web Albums Data API allows client applications to view and 
-            update albums, photos, and comments in the form of Google Data API feeds.
-            Your client application can use the Picasa Web Albums Data API to create 
-            new albums, upload photos, add comments, edit or delete existing albums,
-             photos, and comments, and query for items that match particular criteria.
-            </summary>
-             <example>
-                    The following code illustrates a possible use of   
-                     the <c>PicasaRequest</c> object:  
-                     <code>    
-                       RequestSettings settings = new RequestSettings("yourApp");
-                       settings.PageSize = 50; 
-                       settings.AutoPaging = true;
-                       PicasaRequest pr = new PicasaRequest(settings);
-                       Feed&lt;Photo&gt; feed = c.GetPhotos();
-                
-                    foreach (Photo p in feed.Entries)
-                    {
-                         Console.WriteLine(d.Title);
-                    }
-             </code>
-             </example>
-        </member>
-        <member name="M:Google.Picasa.PicasaRequest.#ctor(Google.GData.Client.RequestSettings)">
-            <summary>
-            default constructor for a PicasaRequest
-            </summary>
-            <param name="settings"></param>
-        </member>
-        <member name="M:Google.Picasa.PicasaRequest.GetAlbums">
-            <summary>
-            returns the list of Albums for the default user
-            </summary>
-        </member>
-        <member name="M:Google.Picasa.PicasaRequest.GetPhotos">
-            <summary>
-            returns a Feed of all photos for the authorized user
-            </summary>
-            <returns>a feed of everyting</returns>
-        </member>
-        <member name="M:Google.Picasa.PicasaRequest.GetPhotosInAlbum(System.String)">
-            <summary>
-            returns a feed of photos in that particular album for the default user
-            </summary>
-            <param name="albumId"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Google.Picasa.PicasaRequest.GetComments(System.String,System.String)">
-            <summary>
-            Returns the comments a single photo based on
-            the default user, the albumid and the photoid
-            </summary>
-            <param name="albumId">The Id of the Album</param>
-            <param name="photoId">The id of the photo</param>
-            <returns></returns>
-        </member>
-        <member name="M:Google.Picasa.PicasaRequest.GetTags">
-            <summary>
-            Get all Tags for the default user
-            </summary>
-            <returns></returns>
-        </member>
-        <!-- Badly formed XML comment ignored for member "M:Google.Picasa.PicasaRequest.Download(Google.Picasa.Photo)" -->
-        <member name="T:Google.GData.Photos.PicasaService">
-            <summary>
-            Picasa Web Albums provides a variety of representations of photo- 
-            and album-related data. There are three independent axes for 
-            specifying what you want when you request data: visibility, projection, and path/kind.
-            Visibility values let you request data at various levels of sharing. 
-            For example, a visibility value of public requests publicly visible data. 
-            For a list of values, see Visibility values, below. The default visibility 
-            depends on whether the request is authenticated or not.
-            Projection values let you indicate what elements and extensions 
-            should appear in the feed you're requesting. For example, a projection 
-            value of base indicates that the representation is a basic Atom feed 
-            without any extension elements, suitable for display in an Atom reader. 
-            You must specify a projection value. Path and kind values let you indicate what 
-            type of items you want information about. For example, a path of user/liz 
-            and a kind value of tag requests a feed of tags associated with the 
-            user whose username is liz. Path and kind values are separate parts of the 
-            URI, but they're used together to indicate the item type(s) desired. 
-            You must specify a path, but kind is optional; the default kind depends on the path.
-            To request a particular representation, you specify a visibility value, 
-            a projection value, and a path and kind in the URI that you send 
-            to Picasa Web Albums.
-            </summary>
-        </member>
-        <member name="F:Google.GData.Photos.PicasaService.GPicasaService">
-            <summary>The Calendar service's name</summary> 
-        </member>
-        <member name="M:Google.GData.Photos.PicasaService.#ctor(System.String)">
-            <summary>
-             default constructor
-            </summary>
-            <param name="applicationName">the applicationname</param>
-        </member>
-        <member name="M:Google.GData.Photos.PicasaService.InitVersionInformation">
-            <summary>
-            by default all services now use version 1 for the protocol.
-            this needs to be overridden by a service to specify otherwise. 
-            Picasa uses version 2
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Google.GData.Photos.PicasaService.Query(Google.GData.Photos.KindQuery)">
-            <summary>
-            overloaded to create typed version of Query
-            </summary>
-            <param name="feedQuery"></param>
-            <returns>EventFeed</returns>
-        </member>
-        <member name="M:Google.GData.Photos.PicasaService.Insert``1(System.Uri,``0)">
-            <summary>templated type safe verion of the interface</summary> 
-            <typeparam name="TEntry"></typeparam>
-            <param name="entry">the old entry to update</param> 
-            <param name="feedUri"></param>
-            <returns> the new Entry, as returned from the server</returns>
-        </member>
-        <member name="M:Google.GData.Photos.PicasaService.Insert``1(Google.GData.Client.AtomFeed,``0)">
-            <summary>templated type safe verion of the interface</summary> 
-            <typeparam name="TEntry"></typeparam>
-            <param name="entry">the entry to insert</param> 
-            <param name="feed">the feed that entry is getting inserted</param>
-            <returns> the new Entry, as returned from the server</returns>
-        </member>
-        <member name="M:Google.GData.Photos.PicasaService.OnNewFeed(System.Object,Google.GData.Client.ServiceEventArgs)">
-            <summary>eventchaining. We catch this by from the base service, which 
-            would not by default create an atomFeed</summary> 
-            <param name="sender"> the object which send the event</param>
-            <param name="e">FeedParserEventArguments, holds the feedentry</param> 
-            <returns> </returns>
-        </member>
-        <member name="T:Google.GData.Photos.PhotoEntry">
-            <summary>
-            A photoEntry is a shallow subclass for a PicasaEntry to ease
-            access for photospecific properties
-            </summary>
-        </member>
-        <member name="T:Google.GData.Photos.PicasaEntry">
-            <summary>
-            Entry API customization class for defining entries in an Event feed.
-            </summary>
-        </member>
-        <member name="F:Google.GData.Photos.PicasaEntry.PHOTO_CATEGORY">
-            <summary>
-            Category used to label entries that contain photo extension data.
-            </summary>
-        </member>
-        <member name="F:Google.GData.Photos.PicasaEntry.ALBUM_CATEGORY">
-            <summary>
-            Category used to label entries that contain photo extension data.
-            </summary>
-        </member>
-        <member name="F:Google.GData.Photos.PicasaEntry.COMMENT_CATEGORY">
-            <summary>
-            Category used to label entries that contain comment extension data.
-            </summary>
-        </member>
-        <member name="F:Google.GData.Photos.PicasaEntry.TAG_CATEGORY">
-            <summary>
-            Category used to label entries that contain photo extension data.
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.PicasaEntry.#ctor">
-            <summary>
-            Constructs a new PicasaEntry instance
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.PicasaEntry.GetPhotoExtension(System.String)">
-            <summary>
-            instead of having 20 extension elements
-            we have one string based getter
-            usage is: entry.getPhotoExtension("albumid") to get the element
-            </summary>
-            <param name="extension">the name of the extension to look for</param>
-            <returns>SimpleElement, or NULL if the extension was not found</returns>
-        </member>
-        <member name="M:Google.GData.Photos.PicasaEntry.GetPhotoExtensionValue(System.String)">
-            <summary>
-            instead of having 20 extension elements
-            we have one string based getter
-            usage is: entry.GetPhotoExtensionValue("albumid") to get the elements value
-            </summary>
-            <param name="extension">the name of the extension to look for</param>
-            <returns>value as string, or NULL if the extension was not found</returns>
-        </member>
-        <member name="M:Google.GData.Photos.PicasaEntry.SetPhotoExtensionValue(System.String,System.String)">
-            <summary>
-            instead of having 20 extension elements
-            we have one string based setter
-            usage is: entry.SetPhotoExtensionValue("albumid") to set the element
-            this will create the extension if it's not there
-            note, you can ofcourse, just get an existing one and work with that 
-            object: 
-                SimpleElement e = entry.getPhotoExtension("albumid");
-                e.Value = "new value";  
-            
-            or 
-               entry.SetPhotoExtensionValue("albumid", "new Value");
-            </summary>
-            <param name="extension">the name of the extension to look for</param>
-            <param name="newValue">the new value for this extension element</param>
-            <returns>SimpleElement, either a brand new one, or the one
-            returned by the service</returns>
-        </member>
-        <member name="P:Google.GData.Photos.PicasaEntry.Location">
-            <summary>
-            getter/setter for the GeoRssWhere extension element
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.PicasaEntry.Exif">
-            <summary>
-            getter/setter for the ExifTags extension element
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.PicasaEntry.Media">
-            <summary>
-            returns the media:rss group container element
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.PicasaEntry.IsPhoto">
-            <summary>
-            returns true if the entry is a photo entry
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.PicasaEntry.IsComment">
-            <summary>
-            returns true if the entry is a comment entry
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.PicasaEntry.IsAlbum">
-            <summary>
-            returns true if the entry is an album entry
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.PicasaEntry.IsTag">
-            <summary>
-            returns true if the entry is a tag entry
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.PhotoEntry.#ctor">
-            <summary>
-            Constructs a new EventEntry instance with the appropriate category
-            to indicate that it is an event.
-            </summary>
-        </member>
-        <member name="T:Google.GData.Photos.PhotoAccessor">
-            <summary>
-            this is a pure accessor class that can either take a photoentry or work with 
-            a picasaentry to get you convienience accessors
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.PhotoAccessor.#ctor(Google.GData.Photos.PicasaEntry)">
-            <summary>
-            constructs a photo accessor for the passed in entry
-            </summary>
-            <param name="entry"></param>
-        </member>
-        <member name="P:Google.GData.Photos.PhotoAccessor.PhotoTitle">
-            <summary>
-            The title of the photo
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.PhotoAccessor.PhotoSummary">
-            <summary>
-            The  summary of the Photo
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.PhotoAccessor.Checksum">
-            <summary>
-            The checksum on the photo. This optional field can be used by 
-            uploaders to associate a checksum with a photo to ease duplicate detection
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.PhotoAccessor.Height">
-            <summary>
-            The height of the photo in pixels
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.PhotoAccessor.Width">
-            <summary>
-            The width of the photo in pixels
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.PhotoAccessor.Rotation">
-            <summary>
-            The rotation of the photo in degrees, used to change the rotation of the photo. Will only be shown if 
-            the rotation has not already been applied to the requested images.
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.PhotoAccessor.Size">
-            <summary>
-            The size of the photo in bytes
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.PhotoAccessor.Timestamp">
-            <summary>
-            The photo's timestamp, represented as the number of milliseconds since 
-            January 1st, 1970. Contains the date of the photo either set externally
-            or retrieved from the Exif data.
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.PhotoAccessor.AlbumId">
-            <summary>
-            The albums ID
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.PhotoAccessor.CommentCount">
-            <summary>
-            the number of comments on a photo
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.PhotoAccessor.CommentingEnabled">
-            <summary>
-            is commenting enabled on a photo
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.PhotoAccessor.Id">
-            <summary>
-            the id of the photo
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.PhotoAccessor.Longitude">
-            <summary>
-            the Longitude  of the photo
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.PhotoAccessor.Latitude">
-            <summary>
-            the Longitude  of the photo
-            </summary>
-        </member>
-        <member name="T:Google.GData.Photos.AlbumEntry">
-            <summary>
-            Entry API customization class for defining entries in an Event feed.
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.AlbumEntry.#ctor">
-            <summary>
-            Constructs a new EventEntry instance with the appropriate category
-            to indicate that it is an event.
-            </summary>
-        </member>
-        <member name="T:Google.GData.Photos.AlbumAccessor">
-            <summary>
-             accessor for an AlbumEntry
-            </summary>
-        </member>
-        <member name="M:Google.GData.Photos.AlbumAccessor.#ctor(Google.GData.Photos.PicasaEntry)">
-            <summary>
-            constructs a photo accessor for the passed in entry
-            </summary>
-            <param name="entry"></param>
-        </member>
-        <member name="P:Google.GData.Photos.AlbumAccessor.Access">
-            <summary>
-            The album's access level. In this document, access level is also 
-            referred to as "visibility." Valid values are public or private.
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.AlbumAccessor.AlbumAuthorNickname">
-            <summary>
-            The nickname of the author
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.AlbumAccessor.AlbumAuthor">
-            <summary>
-            The  author's name
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.AlbumAccessor.AlbumTitle">
-            <summary>
-            The title of the album
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.AlbumAccessor.AlbumSummary">
-            <summary>
-            The  summary of the album
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.AlbumAccessor.BytesUsed">
-            <summary>
-            The number of bytes of storage that this album uses.
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.AlbumAccessor.Location">
-            <summary>
-            The user-specified location associated with the album
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.AlbumAccessor.Longitude">
-            <summary>
-            the Longitude  of the photo
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.AlbumAccessor.Latitude">
-            <summary>
-            the Longitude  of the photo
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.AlbumAccessor.NumPhotos">
-            <summary>
-            The number of photos in the album.
-            </summary>
-            
-        </member>
-        <member name="P:Google.GData.Photos.AlbumAccessor.NumPhotosRemaining">
-            <summary>
-            The number of remaining photo uploads allowed in this album. 
-            This is equivalent to the user's maximum number of photos per 
-            album (gphoto:maxPhotosPerAlbum) minus the number of photos 
-            currently in the album (gphoto:numphotos).
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.AlbumAccessor.CommentCount">
-            <summary>
-            the number of comments on an album
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.AlbumAccessor.CommentingEnabled">
-            <summary>
-            is commenting enabled on an album
-            </summary>
-        </member>
-        <member name="P:Google.GData.Photos.AlbumAccessor.Id">
-            <summary>
-            the id of the album
-            </summary>
-        </member>
         <member name="T:Google.GData.Photos.GPhotoExtensions">
             <summary>
             helper to instantiate all factories defined in here and attach 
@@ -1604,32 +678,106 @@
             <param name="e"></param>
             <param name="parser">the atom feed parser used</param>
         </member>
-        <member name="T:Google.GData.Photos.TagEntry">
+        <member name="T:Google.GData.Photos.PicasaEntry">
             <summary>
             Entry API customization class for defining entries in an Event feed.
             </summary>
         </member>
-        <member name="M:Google.GData.Photos.TagEntry.#ctor">
+        <member name="F:Google.GData.Photos.PicasaEntry.PHOTO_CATEGORY">
             <summary>
-            Constructs a new EventEntry instance with the appropriate category
-            to indicate that it is an event.
+            Category used to label entries that contain photo extension data.
             </summary>
         </member>
-        <member name="T:Google.GData.Photos.TagAccessor">
+        <member name="F:Google.GData.Photos.PicasaEntry.ALBUM_CATEGORY">
             <summary>
-             accessor for a tag Entry
+            Category used to label entries that contain photo extension data.
             </summary>
         </member>
-        <member name="M:Google.GData.Photos.TagAccessor.#ctor(Google.GData.Photos.PicasaEntry)">
+        <member name="F:Google.GData.Photos.PicasaEntry.COMMENT_CATEGORY">
             <summary>
-            constructs a tag accessor for the passed in entry
+            Category used to label entries that contain comment extension data.
             </summary>
-            <param name="entry"></param>
         </member>
-        <member name="P:Google.GData.Photos.TagAccessor.Weight">
+        <member name="F:Google.GData.Photos.PicasaEntry.TAG_CATEGORY">
             <summary>
-            The weight of the tag. The weight is the number of times the tag appears 
-            in photos under the current element. The default weight is 1.
+            Category used to label entries that contain photo extension data.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Photos.PicasaEntry.#ctor">
+            <summary>
+            Constructs a new PicasaEntry instance
+            </summary>
+        </member>
+        <member name="M:Google.GData.Photos.PicasaEntry.GetPhotoExtension(System.String)">
+            <summary>
+            instead of having 20 extension elements
+            we have one string based getter
+            usage is: entry.getPhotoExtension("albumid") to get the element
+            </summary>
+            <param name="extension">the name of the extension to look for</param>
+            <returns>SimpleElement, or NULL if the extension was not found</returns>
+        </member>
+        <member name="M:Google.GData.Photos.PicasaEntry.GetPhotoExtensionValue(System.String)">
+            <summary>
+            instead of having 20 extension elements
+            we have one string based getter
+            usage is: entry.GetPhotoExtensionValue("albumid") to get the elements value
+            </summary>
+            <param name="extension">the name of the extension to look for</param>
+            <returns>value as string, or NULL if the extension was not found</returns>
+        </member>
+        <member name="M:Google.GData.Photos.PicasaEntry.SetPhotoExtensionValue(System.String,System.String)">
+            <summary>
+            instead of having 20 extension elements
+            we have one string based setter
+            usage is: entry.SetPhotoExtensionValue("albumid") to set the element
+            this will create the extension if it's not there
+            note, you can ofcourse, just get an existing one and work with that 
+            object: 
+                SimpleElement e = entry.getPhotoExtension("albumid");
+                e.Value = "new value";  
+            
+            or 
+               entry.SetPhotoExtensionValue("albumid", "new Value");
+            </summary>
+            <param name="extension">the name of the extension to look for</param>
+            <param name="newValue">the new value for this extension element</param>
+            <returns>SimpleElement, either a brand new one, or the one
+            returned by the service</returns>
+        </member>
+        <member name="P:Google.GData.Photos.PicasaEntry.Location">
+            <summary>
+            getter/setter for the GeoRssWhere extension element
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.PicasaEntry.Exif">
+            <summary>
+            getter/setter for the ExifTags extension element
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.PicasaEntry.Media">
+            <summary>
+            returns the media:rss group container element
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.PicasaEntry.IsPhoto">
+            <summary>
+            returns true if the entry is a photo entry
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.PicasaEntry.IsComment">
+            <summary>
+            returns true if the entry is a comment entry
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.PicasaEntry.IsAlbum">
+            <summary>
+            returns true if the entry is an album entry
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.PicasaEntry.IsTag">
+            <summary>
+            returns true if the entry is a tag entry
             </summary>
         </member>
         <member name="T:Google.GData.Photos.CommentEntry">
@@ -1667,6 +815,858 @@
         <member name="P:Google.GData.Photos.CommentAccessor.Id">
             <summary>
             the id of the comment
+            </summary>
+        </member>
+        <member name="T:Google.GData.Photos.TagEntry">
+            <summary>
+            Entry API customization class for defining entries in an Event feed.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Photos.TagEntry.#ctor">
+            <summary>
+            Constructs a new EventEntry instance with the appropriate category
+            to indicate that it is an event.
+            </summary>
+        </member>
+        <member name="T:Google.GData.Photos.TagAccessor">
+            <summary>
+             accessor for a tag Entry
+            </summary>
+        </member>
+        <member name="M:Google.GData.Photos.TagAccessor.#ctor(Google.GData.Photos.PicasaEntry)">
+            <summary>
+            constructs a tag accessor for the passed in entry
+            </summary>
+            <param name="entry"></param>
+        </member>
+        <member name="P:Google.GData.Photos.TagAccessor.Weight">
+            <summary>
+            The weight of the tag. The weight is the number of times the tag appears 
+            in photos under the current element. The default weight is 1.
+            </summary>
+        </member>
+        <member name="T:Google.Picasa.PicasaEntity">
+            <summary>
+            as all picasa entries are "similiar" we have this abstract baseclass here as 
+            well, although it is not clear yet how this will benefit 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.Picasa.PicasaEntity.PicasaEntry">
+            <summary>
+            readonly accessor for the AlbumEntry that is underneath this object.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Google.Picasa.Album.EnsureInnerObject">
+            <summary>
+            needs to be subclassed to ensure the creation of the corrent AtomEntry based
+            object
+            </summary>
+        </member>
+        <member name="P:Google.Picasa.Album.Access">
+            <summary>
+            The album's access level. In this document, access level is also 
+            referred to as "visibility." Valid values are public or private.
+            </summary>
+        </member>
+        <member name="P:Google.Picasa.Album.AlbumAuthorNickname">
+            <summary>
+            The nickname of the author
+            </summary>
+        </member>
+        <member name="P:Google.Picasa.Album.BytesUsed">
+            <summary>
+            The number of bytes of storage that this album uses.
+            </summary>
+        </member>
+        <member name="P:Google.Picasa.Album.Location">
+            <summary>
+            The user-specified location associated with the album
+            </summary>
+        </member>
+        <member name="P:Google.Picasa.Album.Longitude">
+            <summary>
+            the Longitude  of the photo
+            </summary>
+        </member>
+        <member name="P:Google.Picasa.Album.Latitude">
+            <summary>
+            the Longitude  of the photo
+            </summary>
+        </member>
+        <member name="P:Google.Picasa.Album.NumPhotos">
+            <summary>
+            The number of photos in the album.
+            </summary>
+            
+        </member>
+        <member name="P:Google.Picasa.Album.NumPhotosRemaining">
+            <summary>
+            The number of remaining photo uploads allowed in this album. 
+            This is equivalent to the user's maximum number of photos per 
+            album (gphoto:maxPhotosPerAlbum) minus the number of photos 
+            currently in the album (gphoto:numphotos).
+            </summary>
+        </member>
+        <member name="P:Google.Picasa.Album.CommentCount">
+            <summary>
+            the number of comments on an album
+            </summary>
+        </member>
+        <member name="P:Google.Picasa.Album.CommentingEnabled">
+            <summary>
+            is commenting enabled on an album
+            </summary>
+        </member>
+        <member name="P:Google.Picasa.Album.Id">
+            <summary>
+            the id of the album
+            </summary>
+        </member>
+        <member name="T:Google.Picasa.Tag">
+            <summary>
+            The Tag is just a base PicasaEntity, beside the category it is not different 
+            from a standard atom entry
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Google.Picasa.Tag.EnsureInnerObject">
+            <summary>
+            needs to be subclassed to ensure the creation of the corrent AtomEntry based
+            object
+            </summary>
+        </member>
+        <member name="T:Google.Picasa.Comment">
+            <summary>
+            a comment object for a picasa photo
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Google.Picasa.Comment.EnsureInnerObject">
+            <summary>
+            needs to be subclassed to ensure the creation of the corrent AtomEntry based
+            object
+            </summary>
+        </member>
+        <member name="P:Google.Picasa.Comment.PhotoId">
+            <summary>
+            The ID of the photo associated with the current comment.
+            </summary>
+        </member>
+        <member name="P:Google.Picasa.Comment.AlbumId">
+            <summary>
+            The albums ID
+            </summary>
+        </member>
+        <member name="P:Google.Picasa.Comment.CommentId">
+            <summary>
+            the id of the comment
+            </summary>
+        </member>
+        <member name="T:Google.Picasa.Photo">
+            <summary>
+            represents a photo based on a PicasaEntry object
+            </summary>
+        </member>
+        <member name="M:Google.Picasa.Photo.EnsureInnerObject">
+            <summary>
+            creates the inner contact object when needed
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.Picasa.Photo.PhotoUri">
+            <summary>
+            tries to construct an URI on the Url attribute in media.content
+            </summary>
+            <returns>a Uri object or null</returns>
+        </member>
+        <member name="P:Google.Picasa.Photo.Checksum">
+            <summary>
+            The checksum on the photo. This optional field can be used by 
+            uploaders to associate a checksum with a photo to ease duplicate detection
+            </summary>
+        </member>
+        <member name="P:Google.Picasa.Photo.Height">
+            <summary>
+            The height of the photo in pixels
+            </summary>
+        </member>
+        <member name="P:Google.Picasa.Photo.Width">
+            <summary>
+            The width of the photo in pixels
+            </summary>
+        </member>
+        <member name="P:Google.Picasa.Photo.Rotation">
+            <summary>
+            The rotation of the photo in degrees, used to change the rotation of the photo. Will only be shown if 
+            the rotation has not already been applied to the requested images.
+            </summary>
+        </member>
+        <member name="P:Google.Picasa.Photo.Size">
+            <summary>
+            The size of the photo in bytes
+            </summary>
+        </member>
+        <member name="P:Google.Picasa.Photo.Timestamp">
+            <summary>
+            The photo's timestamp, represented as the number of milliseconds since 
+            January 1st, 1970. Contains the date of the photo either set externally
+            or retrieved from the Exif data.
+            </summary>
+        </member>
+        <member name="P:Google.Picasa.Photo.AlbumId">
+            <summary>
+            The albums ID
+            </summary>
+        </member>
+        <member name="P:Google.Picasa.Photo.CommentCount">
+            <summary>
+            the number of comments on a photo
+            </summary>
+        </member>
+        <member name="P:Google.Picasa.Photo.CommentingEnabled">
+            <summary>
+            is commenting enabled on a photo
+            </summary>
+        </member>
+        <member name="P:Google.Picasa.Photo.Id">
+            <summary>
+            the id of the photo
+            </summary>
+        </member>
+        <member name="P:Google.Picasa.Photo.Longitude">
+            <summary>
+            the Longitude  of the photo
+            </summary>
+        </member>
+        <member name="P:Google.Picasa.Photo.Latitude">
+            <summary>
+            the Longitude  of the photo
+            </summary>
+        </member>
+        <member name="P:Google.Picasa.Photo.AlbumDescription">
+            <summary>
+            Description of the album this photo is in.
+            </summary>
+        </member>
+        <member name="P:Google.Picasa.Photo.Snippet">
+            <summary>
+            Snippet that matches the search text.
+            </summary>
+        </member>
+        <member name="P:Google.Picasa.Photo.SnippetType">
+            <summary>
+            Describes where the match with the search query was found, and thus where 
+            the snippet is from: the photo caption, the photo tags, the album title, 
+            the album description, or the album location.   
+            Possible values are PHOTO_DESCRIPTION, PHOTO_TAGS, ALBUM_TITLE, 
+            ALBUM_DESCRIPTION, or ALBUM_LOCATION.
+            </summary>
+        </member>
+        <member name="P:Google.Picasa.Photo.Truncated">
+            <summary>
+            Indicates whether search results are truncated or not. 
+            Possible values are 1 (results are truncated) or 0 (results are not truncated).
+            </summary>
+        </member>
+        <member name="T:Google.Picasa.PicasaRequest">
+            <summary>
+            The Picasa Web Albums Data API allows client applications to view and 
+            update albums, photos, and comments in the form of Google Data API feeds.
+            Your client application can use the Picasa Web Albums Data API to create 
+            new albums, upload photos, add comments, edit or delete existing albums,
+             photos, and comments, and query for items that match particular criteria.
+            </summary>
+             <example>
+                    The following code illustrates a possible use of   
+                     the <c>PicasaRequest</c> object:  
+                     <code>    
+                       RequestSettings settings = new RequestSettings("yourApp");
+                       settings.PageSize = 50; 
+                       settings.AutoPaging = true;
+                       PicasaRequest pr = new PicasaRequest(settings);
+                       Feed&lt;Photo&gt; feed = c.GetPhotos();
+                
+                    foreach (Photo p in feed.Entries)
+                    {
+                         Console.WriteLine(d.Title);
+                    }
+             </code>
+             </example>
+        </member>
+        <member name="M:Google.Picasa.PicasaRequest.#ctor(Google.GData.Client.RequestSettings)">
+            <summary>
+            default constructor for a PicasaRequest
+            </summary>
+            <param name="settings"></param>
+        </member>
+        <member name="M:Google.Picasa.PicasaRequest.GetAlbums">
+            <summary>
+            returns the list of Albums for the default user
+            </summary>
+        </member>
+        <member name="M:Google.Picasa.PicasaRequest.GetPhotos">
+            <summary>
+            returns a Feed of all photos for the authorized user
+            </summary>
+            <returns>a feed of everyting</returns>
+        </member>
+        <member name="M:Google.Picasa.PicasaRequest.GetPhotosInAlbum(System.String)">
+            <summary>
+            returns a feed of photos in that particular album for the default user
+            </summary>
+            <param name="albumId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Google.Picasa.PicasaRequest.GetComments(System.String,System.String)">
+            <summary>
+            Returns the comments a single photo based on
+            the default user, the albumid and the photoid
+            </summary>
+            <param name="albumId">The Id of the Album</param>
+            <param name="photoId">The id of the photo</param>
+            <returns></returns>
+        </member>
+        <member name="M:Google.Picasa.PicasaRequest.GetTags">
+            <summary>
+            Get all Tags for the default user
+            </summary>
+            <returns></returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:Google.Picasa.PicasaRequest.Download(Google.Picasa.Photo)" -->
+        <member name="T:Google.GData.Photos.PicasaService">
+            <summary>
+            Picasa Web Albums provides a variety of representations of photo- 
+            and album-related data. There are three independent axes for 
+            specifying what you want when you request data: visibility, projection, and path/kind.
+            Visibility values let you request data at various levels of sharing. 
+            For example, a visibility value of public requests publicly visible data. 
+            For a list of values, see Visibility values, below. The default visibility 
+            depends on whether the request is authenticated or not.
+            Projection values let you indicate what elements and extensions 
+            should appear in the feed you're requesting. For example, a projection 
+            value of base indicates that the representation is a basic Atom feed 
+            without any extension elements, suitable for display in an Atom reader. 
+            You must specify a projection value. Path and kind values let you indicate what 
+            type of items you want information about. For example, a path of user/liz 
+            and a kind value of tag requests a feed of tags associated with the 
+            user whose username is liz. Path and kind values are separate parts of the 
+            URI, but they're used together to indicate the item type(s) desired. 
+            You must specify a path, but kind is optional; the default kind depends on the path.
+            To request a particular representation, you specify a visibility value, 
+            a projection value, and a path and kind in the URI that you send 
+            to Picasa Web Albums.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Photos.PicasaService.GPicasaService">
+            <summary>The Calendar service's name</summary> 
+        </member>
+        <member name="M:Google.GData.Photos.PicasaService.#ctor(System.String)">
+            <summary>
+             default constructor
+            </summary>
+            <param name="applicationName">the applicationname</param>
+        </member>
+        <member name="M:Google.GData.Photos.PicasaService.InitVersionInformation">
+            <summary>
+            by default all services now use version 1 for the protocol.
+            this needs to be overridden by a service to specify otherwise. 
+            Picasa uses version 2
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Google.GData.Photos.PicasaService.Query(Google.GData.Photos.KindQuery)">
+            <summary>
+            overloaded to create typed version of Query
+            </summary>
+            <param name="feedQuery"></param>
+            <returns>EventFeed</returns>
+        </member>
+        <member name="M:Google.GData.Photos.PicasaService.Insert``1(System.Uri,``0)">
+            <summary>templated type safe verion of the interface</summary> 
+            <typeparam name="TEntry"></typeparam>
+            <param name="entry">the old entry to update</param> 
+            <param name="feedUri"></param>
+            <returns> the new Entry, as returned from the server</returns>
+        </member>
+        <member name="M:Google.GData.Photos.PicasaService.Insert``1(Google.GData.Client.AtomFeed,``0)">
+            <summary>templated type safe verion of the interface</summary> 
+            <typeparam name="TEntry"></typeparam>
+            <param name="entry">the entry to insert</param> 
+            <param name="feed">the feed that entry is getting inserted</param>
+            <returns> the new Entry, as returned from the server</returns>
+        </member>
+        <member name="M:Google.GData.Photos.PicasaService.OnNewFeed(System.Object,Google.GData.Client.ServiceEventArgs)">
+            <summary>eventchaining. We catch this by from the base service, which 
+            would not by default create an atomFeed</summary> 
+            <param name="sender"> the object which send the event</param>
+            <param name="e">FeedParserEventArguments, holds the feedentry</param> 
+            <returns> </returns>
+        </member>
+        <member name="T:Google.GData.Photos.PicasaQuery">
+            <summary>
+            A subclass of FeedQuery, to create an PicasaQuery query URI.
+            Provides public properties that describe the different
+            aspects of the URI, as well as a composite URI.
+            The PicasaQuery supports the following GData parameters:
+                start-index and max-results parameters. It does not currently support the other standard parameters.
+             in addition, the following parameters:
+                Parameter   Meaning     
+                 kind           what feed to retrieve
+                 access     Visibility parameter    
+                 thumbsize  Thumbnail size parameter 
+            </summary> 
+        </member>
+        <member name="F:Google.GData.Photos.PicasaQuery.kindsAsText">
+            <summary>
+            holds the kind parameters a query can have
+            </summary>
+        </member>
+        <member name="F:Google.GData.Photos.PicasaQuery.tags">
+            <summary>
+            holds the tag parameters a query can have
+            </summary>
+        </member>
+        <member name="F:Google.GData.Photos.PicasaQuery.picasaBaseUri">
+            <summary>
+            picasa base URI 
+            </summary>
+        </member>
+        <member name="F:Google.GData.Photos.PicasaQuery.picasaDefaultPostUri">
+            <summary>
+            picasa base URI for posting against the default album
+            </summary>
+        </member>
+        <member name="M:Google.GData.Photos.PicasaQuery.#ctor">
+            <summary>
+            base constructor
+            </summary>
+        </member>
+        <member name="M:Google.GData.Photos.PicasaQuery.#ctor(System.String)">
+            <summary>
+            base constructor, with initial queryUri
+            </summary>
+            <param name="queryUri">the query to use</param>
+        </member>
+        <member name="M:Google.GData.Photos.PicasaQuery.CreatePicasaUri(System.String)">
+            <summary>
+            convienience method to create an URI based on a userID for a picasafeed
+            </summary>
+            <param name="userID"></param>
+            <returns>string</returns>
+        </member>
+        <member name="M:Google.GData.Photos.PicasaQuery.CreatePicasaUri(System.String,System.String)">
+            <summary>
+            convienience method to create an URI based on a userID
+            and an album ID for a picasafeed
+            </summary>
+            <param name="userID"></param>
+            <param name="albumID"></param>
+            <returns>string</returns>
+        </member>
+        <member name="M:Google.GData.Photos.PicasaQuery.CreatePicasaUri(System.String,System.String,System.String)">
+            <summary>
+            Convenience method to create a URI based on a user id, albumID, and photoid
+            </summary>
+            <param name="userID">The username that owns the content</param>
+            <param name="albumID"></param>
+            <param name="photoID">The ID of the photo that contains the content</param>
+            <returns>A URI to a Picasa Web Albums feed</returns>
+        </member>
+        <member name="M:Google.GData.Photos.PicasaQuery.ParseUri(System.Uri)">
+            <summary>protected void ParseUri</summary> 
+            <param name="targetUri">takes an incoming Uri string and parses all the properties out of it</param>
+            <returns>throws a query exception when it finds something wrong with the input, otherwise returns a baseuri</returns>
+        </member>
+        <member name="M:Google.GData.Photos.PicasaQuery.Reset">
+            <summary>Resets object state to default, as if newly created.
+            </summary> 
+        </member>
+        <member name="M:Google.GData.Photos.PicasaQuery.CalculateQuery(System.String)">
+            <summary>Creates the partial URI query string based on all
+             set properties.</summary> 
+            <returns> string => the query part of the URI </returns>
+        </member>
+        <member name="P:Google.GData.Photos.PicasaQuery.KindParameter">
+            <summary>comma separated list of kinds to retrieve</summary>
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Photos.PicasaQuery.Tags">
+            <summary>
+            comma separated list of the tags to search for in the feed.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.PicasaQuery.Access">
+            <summary>indicates the access</summary> 
+        </member>
+        <member name="P:Google.GData.Photos.PicasaQuery.Thumbsize">
+            <summary>indicates the thumbsize required</summary>
+            <returns> </returns>
+        </member>
+        <member name="T:Google.GData.Photos.PicasaQuery.Kinds">
+            <summary>
+            The kind parameter lets you request information about a particular kind 
+            of item. The parameter value should be a comma-separated list of requested kinds.
+            If you omit the kind parameter, Picasa Web Albums chooses a default kind 
+            depending on the level of feed you're requesting. For a user-based feed, 
+            the default kind is album; for an album-based feed, the default kind is 
+            photo; for a photo-based feed, the default kind is comment; for a community 
+            search feed, the default kind is photo. 
+            </summary>
+        </member>
+        <member name="F:Google.GData.Photos.PicasaQuery.Kinds.album">
+            <summary>
+            Feed includes some or all of the albums the specified 
+            user has in their gallery. Which albums are returned 
+            depends on the visibility value specified.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Photos.PicasaQuery.Kinds.photo">
+            <summary>
+            Feed includes the photos in an album (album-based), 
+            recent photos uploaded by a user (user-based) or 
+            photos uploaded by all users (community search).
+            </summary>
+        </member>
+        <member name="F:Google.GData.Photos.PicasaQuery.Kinds.comment">
+            <summary>
+            Feed includes the comments that have been made on a photo.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Photos.PicasaQuery.Kinds.tag">
+            <summary>
+            Includes all tags associated with the specified user, album, 
+            or photo. For user-based and album-based feeds, the tags 
+            include a weight value indicating how often they occurred.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Photos.PicasaQuery.Kinds.none">
+            <summary>
+            using none implies the server default
+            </summary>
+        </member>
+        <member name="T:Google.GData.Photos.PicasaQuery.AccessLevel">
+            <summary>
+            describing the visibility level of picasa feeds
+            </summary>
+        </member>
+        <member name="F:Google.GData.Photos.PicasaQuery.AccessLevel.AccessUndefined">
+            <summary>
+            no parameter. Setting the accessLevel to undefined
+            implies the server default
+            </summary>
+        </member>
+        <member name="F:Google.GData.Photos.PicasaQuery.AccessLevel.AccessAll">
+            <summary>
+            Shows both public and private data.  	
+            Requires authentication. Default for authenticated users.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Photos.PicasaQuery.AccessLevel.AccessPrivate">
+            <summary>
+            Shows only private data. Requires authentication.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Photos.PicasaQuery.AccessLevel.AccessPublic">
+            <summary>
+            Shows only public data.  	
+            Does not require authentication. Default for unauthenticated users.
+            </summary>
+        </member>
+        <member name="T:Google.GData.Photos.KindQuery">
+            <summary>
+            A subclass of PicasaQuery, to create an Album query URI.
+            Provides public properties that describe the different
+            aspects of the URI, as well as a composite URI.
+            The AlbumQuery automatically set's the kind parameter to Album
+            </summary> 
+        </member>
+        <member name="M:Google.GData.Photos.KindQuery.#ctor(Google.GData.Photos.PicasaQuery.Kinds)">
+            <summary>
+            base constructor
+            </summary>
+        </member>
+        <member name="M:Google.GData.Photos.KindQuery.#ctor(System.String,Google.GData.Photos.PicasaQuery.Kinds)">
+            <summary>
+            base constructor, with initial queryUri
+            </summary>
+            <param name="queryUri">the query to use</param>
+            <param name="kind">the kind of query</param>
+        </member>
+        <member name="P:Google.GData.Photos.KindQuery.KindParameter">
+            <summary>read only: the kinds to retrieve</summary>
+            <returns>a comma separated string of Kinds </returns>
+        </member>
+        <member name="T:Google.GData.Photos.AlbumQuery">
+            <summary>
+            A subclass of PicasaQuery, to create an Album query URI.
+            Provides public properties that describe the different
+            aspects of the URI, as well as a composite URI.
+            The AlbumQuery automatically set's the kind parameter to Album
+            </summary> 
+        </member>
+        <member name="M:Google.GData.Photos.AlbumQuery.#ctor">
+            <summary>
+            base constructor
+            </summary>
+        </member>
+        <member name="M:Google.GData.Photos.AlbumQuery.#ctor(System.String)">
+            <summary>
+            base constructor, with initial queryUri
+            </summary>
+            <param name="queryUri">the query to use</param>
+        </member>
+        <member name="T:Google.GData.Photos.PhotoQuery">
+            <summary>
+            A subclass of PicasaQuery, to create an Album query URI.
+            Provides public properties that describe the different
+            aspects of the URI, as well as a composite URI.
+            The PhotoQuery automatically set's the kind parameter to Photo
+            </summary> 
+        </member>
+        <member name="M:Google.GData.Photos.PhotoQuery.#ctor">
+            <summary>
+            base constructor
+            </summary>
+        </member>
+        <member name="M:Google.GData.Photos.PhotoQuery.#ctor(System.String)">
+            <summary>
+            base constructor, with initial queryUri
+            </summary>
+            <param name="queryUri">the query to use</param>
+        </member>
+        <member name="T:Google.GData.Photos.CommentsQuery">
+            <summary>
+            A subclass of PicasaQuery, to create an Comments query URI.
+            Provides public properties that describe the different
+            aspects of the URI, as well as a composite URI.
+            The CommentsQuery automatically set's the kind parameter to Comment
+            </summary> 
+        </member>
+        <member name="M:Google.GData.Photos.CommentsQuery.#ctor">
+            <summary>
+            base constructor
+            </summary>
+        </member>
+        <member name="M:Google.GData.Photos.CommentsQuery.#ctor(System.String)">
+            <summary>
+            base constructor, with initial queryUri
+            </summary>
+            <param name="queryUri">the query to use</param>
+        </member>
+        <member name="T:Google.GData.Photos.TagQuery">
+            <summary>
+            A subclass of PicasaQuery, to create an Comments query URI.
+            Provides public properties that describe the different
+            aspects of the URI, as well as a composite URI.
+            The TagQuery automatically set's the kind parameter to Tag
+            </summary> 
+        </member>
+        <member name="M:Google.GData.Photos.TagQuery.#ctor">
+            <summary>
+            base constructor
+            </summary>
+        </member>
+        <member name="M:Google.GData.Photos.TagQuery.#ctor(System.String)">
+            <summary>
+            base constructor, with initial queryUri
+            </summary>
+            <param name="queryUri">the query to use</param>
+        </member>
+        <member name="T:Google.GData.Photos.PhotoEntry">
+            <summary>
+            A photoEntry is a shallow subclass for a PicasaEntry to ease
+            access for photospecific properties
+            </summary>
+        </member>
+        <member name="M:Google.GData.Photos.PhotoEntry.#ctor">
+            <summary>
+            Constructs a new EventEntry instance with the appropriate category
+            to indicate that it is an event.
+            </summary>
+        </member>
+        <member name="T:Google.GData.Photos.PhotoAccessor">
+            <summary>
+            this is a pure accessor class that can either take a photoentry or work with 
+            a picasaentry to get you convienience accessors
+            </summary>
+        </member>
+        <member name="M:Google.GData.Photos.PhotoAccessor.#ctor(Google.GData.Photos.PicasaEntry)">
+            <summary>
+            constructs a photo accessor for the passed in entry
+            </summary>
+            <param name="entry"></param>
+        </member>
+        <member name="P:Google.GData.Photos.PhotoAccessor.PhotoTitle">
+            <summary>
+            The title of the photo
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.PhotoAccessor.PhotoSummary">
+            <summary>
+            The  summary of the Photo
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.PhotoAccessor.Checksum">
+            <summary>
+            The checksum on the photo. This optional field can be used by 
+            uploaders to associate a checksum with a photo to ease duplicate detection
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.PhotoAccessor.Height">
+            <summary>
+            The height of the photo in pixels
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.PhotoAccessor.Width">
+            <summary>
+            The width of the photo in pixels
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.PhotoAccessor.Rotation">
+            <summary>
+            The rotation of the photo in degrees, used to change the rotation of the photo. Will only be shown if 
+            the rotation has not already been applied to the requested images.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.PhotoAccessor.Size">
+            <summary>
+            The size of the photo in bytes
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.PhotoAccessor.Timestamp">
+            <summary>
+            The photo's timestamp, represented as the number of milliseconds since 
+            January 1st, 1970. Contains the date of the photo either set externally
+            or retrieved from the Exif data.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.PhotoAccessor.AlbumId">
+            <summary>
+            The albums ID
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.PhotoAccessor.CommentCount">
+            <summary>
+            the number of comments on a photo
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.PhotoAccessor.CommentingEnabled">
+            <summary>
+            is commenting enabled on a photo
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.PhotoAccessor.Id">
+            <summary>
+            the id of the photo
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.PhotoAccessor.Longitude">
+            <summary>
+            the Longitude  of the photo
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.PhotoAccessor.Latitude">
+            <summary>
+            the Longitude  of the photo
+            </summary>
+        </member>
+        <member name="T:Google.GData.Photos.AlbumEntry">
+            <summary>
+            Entry API customization class for defining entries in an Event feed.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Photos.AlbumEntry.#ctor">
+            <summary>
+            Constructs a new EventEntry instance with the appropriate category
+            to indicate that it is an event.
+            </summary>
+        </member>
+        <member name="T:Google.GData.Photos.AlbumAccessor">
+            <summary>
+             accessor for an AlbumEntry
+            </summary>
+        </member>
+        <member name="M:Google.GData.Photos.AlbumAccessor.#ctor(Google.GData.Photos.PicasaEntry)">
+            <summary>
+            constructs a photo accessor for the passed in entry
+            </summary>
+            <param name="entry"></param>
+        </member>
+        <member name="P:Google.GData.Photos.AlbumAccessor.Access">
+            <summary>
+            The album's access level. In this document, access level is also 
+            referred to as "visibility." Valid values are public or private.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.AlbumAccessor.AlbumAuthorNickname">
+            <summary>
+            The nickname of the author
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.AlbumAccessor.AlbumAuthor">
+            <summary>
+            The  author's name
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.AlbumAccessor.AlbumTitle">
+            <summary>
+            The title of the album
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.AlbumAccessor.AlbumSummary">
+            <summary>
+            The  summary of the album
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.AlbumAccessor.BytesUsed">
+            <summary>
+            The number of bytes of storage that this album uses.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.AlbumAccessor.Location">
+            <summary>
+            The user-specified location associated with the album
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.AlbumAccessor.Longitude">
+            <summary>
+            the Longitude  of the photo
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.AlbumAccessor.Latitude">
+            <summary>
+            the Longitude  of the photo
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.AlbumAccessor.NumPhotos">
+            <summary>
+            The number of photos in the album.
+            </summary>
+            
+        </member>
+        <member name="P:Google.GData.Photos.AlbumAccessor.NumPhotosRemaining">
+            <summary>
+            The number of remaining photo uploads allowed in this album. 
+            This is equivalent to the user's maximum number of photos per 
+            album (gphoto:maxPhotosPerAlbum) minus the number of photos 
+            currently in the album (gphoto:numphotos).
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.AlbumAccessor.CommentCount">
+            <summary>
+            the number of comments on an album
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.AlbumAccessor.CommentingEnabled">
+            <summary>
+            is commenting enabled on an album
+            </summary>
+        </member>
+        <member name="P:Google.GData.Photos.AlbumAccessor.Id">
+            <summary>
+            the id of the album
             </summary>
         </member>
     </members>

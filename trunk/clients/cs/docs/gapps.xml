@@ -4,115 +4,149 @@
         <name>Google.GData.Apps</name>
     </assembly>
     <members>
-        <!-- Badly formed XML comment ignored for member "T:Google.GData.Apps.UserQuery" -->
-        <member name="M:Google.GData.Apps.UserQuery.#ctor(System.String)">
+        <member name="T:Google.GData.Apps.AppsExtendedEntry">
             <summary>
-            Constructs a new UserQuery to retrieve all users
-            in the specified domain.
-            </summary>
-            <param name="domain">the domain to access</param>
-        </member>
-        <member name="M:Google.GData.Apps.UserQuery.#ctor(System.String,System.Boolean)">
-            <summary>
-            Constructs a new UserQuery to retrieve users in
-            the specified domain.  Use this constructor if you only
-            wish to retrieve the first 100 users, instead of the
-            entire list.
-            </summary>
-            <param name="domain">the domain to access</param>
-            <param name="retrieveAllUsers">true to retrieve all matches,
-            false to return a maximum of 100 users</param>
-        </member>
-        <member name="M:Google.GData.Apps.UserQuery.CalculateQuery(System.String)">
-            <summary>
-            Creates the URI query string based on all set properties.
-            </summary>
-            <returns>the URI query string</returns>
-        </member>
-        <member name="P:Google.GData.Apps.UserQuery.Domain">
-            <summary>
-            Accessor method for Domain.
+            A Google Apps extended entry for extended properties.
             </summary>
         </member>
-        <member name="P:Google.GData.Apps.UserQuery.StartUserName">
+        <member name="M:Google.GData.Apps.AppsExtendedEntry.#ctor">
             <summary>
-            Accessor method for StartUserName.  If set,
-            the query will return a feed of at most 100
-            users beginning at this username.
+            Constructs a new <code>AppsExtendedEntry</code> object.
             </summary>
         </member>
-        <member name="P:Google.GData.Apps.UserQuery.UserName">
+        <member name="M:Google.GData.Apps.AppsExtendedEntry.getPropetyValueByName(System.String)">
             <summary>
-            Accessor method for UserName.  If set, this
-            query will return a feed containing only the
-            specified user.  If both UserName and StartUserName
-            are null, the query returns the feed of all users
-            in the domain.
+            Gets a the Value of a PropertyElement by its Name
+            </summary>
+            <returns>a string containing the results of the execution</returns>
+        </member>
+        <member name="M:Google.GData.Apps.AppsExtendedEntry.getPropertyByName(System.String)">
+            <summary>
+            Gets a PropertyElement by its Name
+            </summary>
+            <returns>a <code>PropertyElement</code> containing the results of the
+            execution</returns>         
+        </member>
+        <member name="M:Google.GData.Apps.AppsExtendedEntry.getPropertyValueByName(System.String)">
+            <summary>
+            Gets a the Value of a PropertyElement by its Name
+            </summary>
+            <returns>a string containing the results of the execution</returns>
+        </member>
+        <member name="M:Google.GData.Apps.AppsExtendedEntry.Update">
+            <summary>
+            Updates this AppsExtendedEntry.
+            </summary>
+            <returns>the updated GroupsEntry</returns>
+        </member>
+        <member name="P:Google.GData.Apps.AppsExtendedEntry.Properties">
+            <summary>
+            Properties accessor
             </summary>
         </member>
-        <member name="P:Google.GData.Apps.UserQuery.RetrieveAllUsers">
+        <member name="T:Google.GData.Apps.EmailListService">
             <summary>
-            Accessor method for RetrieveAllUsers.  If false,
-            the query returns at most 100 matches; if it is
-            true (default), all matches are returned.
+            The EmailListService class extends the AppsService abstraction
+            to define a service that is preconfigured for access to Google Apps
+            email list feeds.
             </summary>
         </member>
-        <member name="T:Google.GData.Apps.EmailListQuery">
+        <member name="M:Google.GData.Apps.EmailListService.#ctor(System.String)">
             <summary>
-            A subclass of FeedQuery to query a Google Apps email list
-            feed URI.
-            
-            Provides public properties that describe the different
-            aspects of the URI, as well as a composite URI.
+            Constructor
+            </summary>
+            <param name="applicationName">The name of the client application 
+            using this service.</param>
+        </member>
+        <member name="M:Google.GData.Apps.EmailListService.Query(Google.GData.Apps.EmailListQuery)">
+            <summary>
+            overwritten Query method
+            </summary>
+            <param name="feedQuery">The FeedQuery to use</param>
+            <returns>the retrieved EmailListFeed</returns>
+        </member>
+        <member name="M:Google.GData.Apps.EmailListService.Insert(Google.GData.Apps.EmailListFeed,Google.GData.Apps.EmailListEntry)">
+            <summary>
+            Inserts a new email list entry into the specified feed.
+            </summary>
+            <param name="feed">the feed into which this entry should be inserted</param>
+            <param name="entry">the entry to insert</param>
+            <returns>the inserted entry</returns>
+        </member>
+        <member name="M:Google.GData.Apps.EmailListService.Insert(System.Uri,Google.GData.Apps.EmailListEntry)">
+            <summary>
+            Inserts a new email list entry into the feed at the
+            specified URI.
+            </summary>
+            <param name="feedUri">the URI of the feed into which this entry should be inserted</param>
+            <param name="entry">the entry to insert</param>
+            <returns>the inserted entry</returns>
+        </member>
+        <member name="M:Google.GData.Apps.EmailListService.Update(Google.GData.Client.AtomEntry)">
+            <summary>
+            Overrides the base Update() method to throw an
+            exception, because email list entries cannot be
+            updated.
+            </summary>
+            <param name="entry">the entry the user is trying to update</param>
+        </member>
+        <member name="M:Google.GData.Apps.EmailListService.Delete(System.Uri)">
+            <summary>
+            Overridden Delete method that throws AppsException
+            </summary>
+            <param name="uri">the URI to delete</param>
+        </member>
+        <member name="M:Google.GData.Apps.EmailListService.Delete(Google.GData.Apps.EmailListEntry)">
+            <summary>
+            Overridden Delete method that throws AppsException
+            </summary>
+            <param name="entry">the EmailListEntry to delete</param>
+        </member>
+        <member name="M:Google.GData.Apps.EmailListService.OnParsedNewEmailListEntry(System.Object,Google.GData.Client.FeedParserEventArgs)">
+            <summary>
+            Event handler. Called when a new list entry is parsed.
+            </summary>
+            <param name="sender">the object that's sending the evet</param>
+            <param name="e">FeedParserEventArguments, holds the feedentry</param>
+        </member>
+        <member name="M:Google.GData.Apps.EmailListService.OnParsedNewFeed(System.Object,Google.GData.Client.ServiceEventArgs)">
+            <param name="e"><code>ServiceEventArgs</code>, holds the feed</param>
+        </member>
+        <member name="T:Google.GData.Apps.EmailListEntry">
+            <summary>
+            A Google Apps email list entry.  An EmailListEntry object
+            contains information about a single email list.
             </summary>
         </member>
-        <member name="M:Google.GData.Apps.EmailListQuery.#ctor(System.String)">
+        <member name="F:Google.GData.Apps.EmailListEntry.EMAILLIST_CATEGORY">
             <summary>
-            Constructs a new EmailListQuery to retrieve all email lists
-            in the specified domain.
-            
-            In addition to calling the constructor, you may set either
-            Recipient or EmailListName (but not both) to restrict your query.
-            </summary>
-            <param name="domain">the domain to query</param>
-        </member>
-        <member name="M:Google.GData.Apps.EmailListQuery.CalculateQuery(System.String)">
-            <summary>
-            Creates the URI query string based on all set properties.
-            </summary>
-            <returns>the URI query string</returns>
-        </member>
-        <member name="P:Google.GData.Apps.EmailListQuery.Domain">
-            <summary>
-            Accessor method for Domain.
+            Category used to label entries that contain email list
+            extension data.
             </summary>
         </member>
-        <member name="P:Google.GData.Apps.EmailListQuery.Recipient">
+        <member name="M:Google.GData.Apps.EmailListEntry.#ctor">
             <summary>
-            Accessor method for Recipient.  If this property is
-            non-null, the query will retrieve all email list
-            subscriptions for the specified email address.
+            Constructs a new EmailListEntry instance with the appropriate category
+            to indicate that it is a email list.
             </summary>
         </member>
-        <member name="P:Google.GData.Apps.EmailListQuery.EmailListName">
+        <member name="M:Google.GData.Apps.EmailListEntry.#ctor(System.String)">
             <summary>
-            Accessor method for EmailListName.  If this property is
-            non-null, the query will retrieve only the specified
-            email list.
+            Constructs a new EmailListEntry instance with the specified list name.
+            </summary>
+            <param name="emailListName">the name of the email list</param>
+        </member>
+        <member name="M:Google.GData.Apps.EmailListEntry.Update">
+            <summary>
+            Overrides the base Update() method to throw a ClientFeedException,
+            because email list entries cannot be updated.  This exception
+            indicates that the client made an erroneous request to the email
+            list feed.
             </summary>
         </member>
-        <member name="P:Google.GData.Apps.EmailListQuery.StartEmailListName">
+        <member name="P:Google.GData.Apps.EmailListEntry.EmailList">
             <summary>
-            Accessor method for StartEmailListName.  If this property
-            is non-null, the query will retrieve a page of at most 100
-            email lists, starting with the specified email list.
-            </summary>
-        </member>
-        <member name="P:Google.GData.Apps.EmailListQuery.RetrieveAllEmailLists">
-            <summary>
-            Accessor method for RetrieveAllEmailLists.  If false,
-            the query returns at most 100 matches; if it is
-            true (default), all matches are returned.
+            The email list element in this entry.
             </summary>
         </member>
         <member name="T:Google.GData.Apps.MultiDomainManagementService">
@@ -247,32 +281,1055 @@
             <param name="domain">The alias's domain or the user's primary email address domain</param>
             <param name="userEmail">The user's email address</param>
         </member>
-        <member name="T:Google.GData.Apps.GoogleMailSettings.GoogleMailSettingsFeed">
+        <member name="T:Google.GData.Apps.Migration.MailItemEntry">
             <summary>
-            Feed API customization class for defining the Google Apps
-            Google Mail Settings API's feed.
+            A Google Apps mail item entry.  Represents a single email to be
+            migrated: its message contents, starred and read status, and any
+            labels to be applied to it.
             </summary>
         </member>
-        <member name="M:Google.GData.Apps.GoogleMailSettings.GoogleMailSettingsFeed.#ctor(System.Uri,Google.GData.Client.IService)">
+        <member name="F:Google.GData.Apps.Migration.MailItemEntry.MAIL_ITEM_CATEGORY">
+            <summary>
+            Category used to label entries that contain mail item
+            extension data.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Apps.Migration.MailItemEntry.#ctor">
+            <summary>
+            Constructs a new <code>MailItemEntry</code> object.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Apps.Migration.MailItemEntry.Rfc822Msg">
+            <summary>
+            Rfc822Msg property accessor
+            </summary>
+        </member>
+        <member name="P:Google.GData.Apps.Migration.MailItemEntry.Labels">
+            <summary>
+            Labels property accessor
+            </summary>
+        </member>
+        <member name="P:Google.GData.Apps.Migration.MailItemEntry.MailItemProperties">
+            <summary>
+            MailItemProperties accessor
+            </summary>
+        </member>
+        <member name="T:Google.GData.Apps.NicknameEntry">
+            <summary>
+            A Google Apps nickname entry.  A NicknameEntry identifies a
+            nickname and the user to whom the nickname is assigned.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Apps.NicknameEntry.NICKNAME_CATEGORY">
+            <summary>
+            Category used to label entries that contain nickname
+            extension data.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Apps.NicknameEntry.#ctor">
+            <summary>
+            Constructs a new NicknameEntry instance with the appropriate category
+            to indicate that it is a nickname.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Apps.NicknameEntry.Update">
+            <summary>
+            Overrides the base Update() method to throw an
+            exception, because nickname entries cannot be
+            updated.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Apps.NicknameEntry.Login">
+            <summary>
+            The login element in this entry.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Apps.NicknameEntry.Nickname">
+            <summary>
+            The nickname element in this entry.
+            </summary>
+        </member>
+        <member name="T:Google.GData.Apps.Migration.MailItemService">
+            <summary>
+            Base service for accessing mail item feeds from the
+            Google Apps Domain Migration API.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Apps.Migration.MailItemService.mailFeedUriSuffix">
+            <summary>
+            Feed for inserting mail messages.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Apps.Migration.MailItemService.batchFeedUriSuffix">
+            <summary>
+            Suffix to insert mail messages in a batch.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Apps.Migration.MailItemService.#ctor(System.String,System.String)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="domain">The hosted domain in which a migration is
+            being set up</param>
+            <param name="applicationName">The name of the client application 
+            using this service.</param>
+        </member>
+        <member name="M:Google.GData.Apps.Migration.MailItemService.Batch(System.String,System.String,Google.GData.Apps.Migration.MailItemEntry[])">
+            <summary>
+            Inserts one or more mail item entries in a single batched request.
+            Use this method to reduce HTTP overhead when inserting many emails
+            in a single transfer.
+            </summary>
+            <param name="domain">the domain into which to migrate mail</param>
+            <param name="entries">the mail messages to batch insert</param>
+            <param name="userName">the user for whom this should be done</param>
+            <returns>a <code>MailItemFeed</code> containing the results of the
+            batch insertion</returns>
+        </member>
+        <member name="M:Google.GData.Apps.Migration.MailItemService.Batch(System.String,System.String,System.Collections.Generic.List{Google.GData.Apps.Migration.MailItemEntry})">
+            <summary>
+            Inserts one or more mail item entries in a single batched request.
+            Use this method to reduce HTTP overhead when inserting many emails
+            in a single transfer.
+            </summary>
+            <param name="domain">the domain into which to migrate mail</param>
+            <param name="entries">the mail messages to batch insert</param>
+            <param name="userName">the user for whom this should be done</param>
+            <returns>a <code>MailItemFeed</code> containing the results of the
+            batch insertion</returns>
+        </member>
+        <member name="M:Google.GData.Apps.Migration.MailItemService.OnParsedNewMailItemEntry(System.Object,Google.GData.Client.FeedParserEventArgs)">
+            <summary>
+            Event handler. Called when a new migration entry is parsed.
+            </summary>
+            <param name="sender">the object that's sending the evet</param>
+            <param name="e">FeedParserEventArguments, holds the feedentry</param>
+        </member>
+        <member name="M:Google.GData.Apps.Migration.MailItemService.OnNewFeed(System.Object,Google.GData.Client.ServiceEventArgs)">
+            <summary>
+            Overridden so that new feeds are returned as <code>MailItemFeed</code>s
+            instead of base <code>AtomFeed</code>s.
+            </summary>
+            <param name="sender"> the object which sent the event</param>
+            <param name="e">FeedParserEventArguments, holds the FeedEntry</param> 
+        </member>
+        <member name="P:Google.GData.Apps.Migration.MailItemService.Domain">
+            <summary>
+            Accessor for Domain property.
+            </summary>
+        </member>
+        <member name="T:Google.GData.Apps.EmailListRecipientQuery">
+            <summary>
+            A subclass of FeedQuery to query a Google Apps email list
+            recipient feed URI.
+            
+            Provides public properties that describe the different
+            aspects of the URI, as well as a composite URI.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Apps.EmailListRecipientQuery.#ctor(System.String,System.String)">
+            <summary>
+            Constructs a new EmailListRecipientQuery to retrieve
+            the list of recipients for the specified email list on
+            the specified domain.
+            </summary>
+            <param name="domain">the domain to query</param>
+            <param name="emailListName">the email list whose recipients
+            we wish to retrieve</param>
+        </member>
+        <member name="M:Google.GData.Apps.EmailListRecipientQuery.CalculateQuery(System.String)">
+            <summary>
+            Creates the URI query string based on all set properties.
+            </summary>
+            <returns>the URI query string</returns>
+        </member>
+        <member name="P:Google.GData.Apps.EmailListRecipientQuery.Domain">
+            <summary>
+            Accessor method for Domain.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Apps.EmailListRecipientQuery.EmailListName">
+            <summary>
+            Accessor method for EmailListName.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Apps.EmailListRecipientQuery.RetrieveAllRecipients">
+            <summary>
+            Accessor method for RetrieveAllEmailLists.  If false,
+            the query returns at most 100 matches; if it is
+            true (default), all matches are returned.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Apps.EmailListRecipientQuery.Recipient">
+            <summary>
+            Accessor method for Recipient.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Apps.EmailListRecipientQuery.StartRecipient">
+            <summary>
+            Accessor method for StartRecipient.
+            </summary>
+        </member>
+        <member name="T:Google.GData.Apps.OrganizationService">
+            <summary>
+            Service class for managing organization units and users within Google Apps. 
+            
+            An OrgUnit path is the URL-encoding (e.g., using HttpUtility.UrlPathEncode) of an OrgUnit's lineage, 
+            concatenated together with the slash ('/') character.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Apps.OrganizationService.RetrieveCustomerId(System.String)">
+            <summary>
+            Retrieves the customer Id that will be used for all other operations.
+            </summary>
+            <param name="domain">the customer domain</param>
+            <returns></returns>
+        </member>
+        <member name="M:Google.GData.Apps.OrganizationService.CreateOrganizationUnit(System.String,System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            Create a new organization unit under the given parent.
+            </summary>
+            <param name="customerId">The unique Id of the customer retrieved through customer feed.</param>
+            <param name="orgUnitName">The new organization name.</param>
+            <param name="parentOrgUnitPath">The path of the parent organization unit where 
+            '/' denotes the root of the organization hierarchy. 
+            For any OrgUnits to be created directly under root, specify '/' as parent path.</param>
+            <param name="description">A description for the organization unit created.</param>
+            <param name="blockInheritance">If true, blocks inheritance of policies from 
+            parent units.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Google.GData.Apps.OrganizationService.RetrieveOrganizationUnit(System.String,System.String)">
+            <summary>
+            Retrieves an organization unit from the customer's domain.
+            </summary>
+            <param name="orgUnitPath">The path of the unit to be retrieved for e.g /corp</param>
+            <returns></returns>
+        </member>
+        <member name="M:Google.GData.Apps.OrganizationService.RetrieveAllOrganizationUnits(System.String)">
+            <summary>
+            Retrieves all organization units for the given customer account.
+            </summary>
+            <param name="customerId">The unique Id of the customer retrieved through customer feed.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Google.GData.Apps.OrganizationService.RetrieveChildOrganizationUnits(System.String,System.String)">
+            <summary>
+            Retrieves all the child units of the given organization unit.
+            </summary>
+            <param name="customerId">The unique Id of the customer retrieved through customer feed.</param>
+            <param name="orgUnitPath">The path of the unit to be retrieved for e.g /corp</param>
+            <returns></returns>
+        </member>
+        <member name="M:Google.GData.Apps.OrganizationService.DeleteOrganizationUnit(System.String,System.String)">
+            <summary>
+             Deletes the given organization unit. The unit must not have any OrgUsers or any
+            child OrgUnits for it to be deleted
+            </summary>
+            <param name="customerId">The unique Id of the customer retrieved through customer feed.</param>
+            <param name="orgUnitPath">The path of the unit to be retrieved for e.g /corp</param>
+        </member>
+        <member name="M:Google.GData.Apps.OrganizationService.UpdateOrganizationUnit(System.String,System.String,System.Collections.Generic.IDictionary{Google.GData.Apps.OrganizationService.OrgUnitProperty,System.String})">
+            <summary>
+            Updates the given organization attributes. 
+            attributes.USERS_TO_MOVE is a comma separated list of email addresses that are to be moved across orgUnits.
+            </summary>
+            <param name="customerId">The unique Id of the customer retrieved through customer feed.</param>
+            <param name="orgUnitPath">The path of the unit to be retrieved for e.g /corp</param>
+            <param name="attributes">A dictionary of <code>OrgUnitProperty</code> and values to be updated.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Google.GData.Apps.OrganizationService.UpdateOrganizationUser(System.String,System.String,System.String,System.String)">
+            <summary>
+            Updates the orgunit of an organization user.
+            </summary>
+            
+            <param name="customerId"></param>
+            <param name="orgUserEmail">The email address of the user</param>
+            <param name="oldOrgUnitPath">The old organization unit path.
+            If specified, validates the OrgUser's current path.</param>
+            <param name="newOrgUnitPath"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Google.GData.Apps.OrganizationService.UpdateOrganizationUser(System.String,System.String,System.String)">
+            <summary>
+            Updates the orgunit of an organization user.
+            </summary>
+            <param name="customerId"></param>
+            <param name="orgUserEmail">The email address of the user.</param>
+            <param name="newOrgUnitPath">The new organization unit path.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Google.GData.Apps.OrganizationService.RetrieveOrganizationUser(System.String,System.String)">
+            <summary>
+             Retrieves the details of a given organization user.
+            </summary>
+            <param name="customerId"></param>
+            <param name="orgUserEmail">The email address of the user</param>
+            <returns>AppsExtendedEntry</returns>
+        </member>
+        <member name="M:Google.GData.Apps.OrganizationService.RetrieveNextPageFromResumeKey(System.String)">
+            <summary>
+            Retrieves the next page of a paginated feed using resumeKey from the previous feed.
+            i.e. <code>atom:next</code>  link
+            </summary>
+            <param name="resumeKey"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Google.GData.Apps.OrganizationService.RetrieveAllOrganizationUsers(System.String)">
+            <summary>
+            Retrieves all users belongging to all org units. This may take a long time to execute for
+            domains with large number of users. Instead use pagination i.e. 
+            <code>RetrieveFirstPageOrganizationUsers</code>
+            followed by <code>RetrieveNextPageFromResumeKey</code>
+            </summary>
+            <param name="customerId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Google.GData.Apps.OrganizationService.RetrieveFirstPageOrganizationUsers(System.String)">
+            <summary>
+            Retrieves first page of results for all org users query.  For subsequent pages, 
+            follow up with <code>RetrieveNextPageFromResumeKey</code>
+            </summary>
+            <param name="customerId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Google.GData.Apps.OrganizationService.RetrieveAllOrganizationUsersByOrgUnit(System.String,System.String)">
+            <summary>
+            Retrieves all users by org unit. This may take a long time to execute for domains with 
+            large number of users. Instead use pagination i.e. 
+            <code>RetrieveFirstPageOfOrganizationUsersByOrgUnit</code>
+            followed by <code>RetrieveNextPageFromResumeKey</code>
+            </summary>
+            <param name="customerId">The unique Id of the customer retrieved through customer feed.</param>
+            <param name="orgUnitPath">The path of the unit to be retrieved for e.g /corp</param>
+            <returns></returns>
+        </member>
+        <member name="M:Google.GData.Apps.OrganizationService.RetrieveFirstPageOfOrganizationUsersByOrgUnit(System.String,System.String)">
+            <summary>
+            Retrieves first page of results for all org users by orgunit query.  For subsequent pages, 
+            follow up with <code>RetrieveNextPageFromResumeKey</code>
+            </summary>
+            <param name="customerId">The unique Id of the customer retrieved through customer feed.</param>
+            <param name="orgUnitPath">The path of the unit to be retrieved for e.g /corp</param>
+            <returns></returns>
+        </member>
+        <member name="T:Google.GData.Apps.AdminSettings.AdminSettingsService">
+            <summary>
+            Base service for accessing Google Admin Settings item feeds from the
+            Google Apps Google Domain Settings API.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.#ctor(System.String,System.String)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="domain">The hosted domain in which the Google Mail Settings are
+            being set up</param>
+            <param name="applicationName">The name of the client application 
+            using this service.</param>
+        </member>
+        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.GetDefaultLanguage">
+            <summary>
+            Gets the domain's default language
+            </summary>        
+            <returns>a <code>AdminSettingsEntry</code> containing the results of the
+            operation</returns>
+        </member>
+        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.UpdateDefaultLanguage(System.String)">
+            <summary>
+            Updates the domain's default language
+            </summary>
+            <param name="defaultLanguage">the new default language for the domain</param>
+            <returns>a <code>AdminSettingsEntry</code> containing the results of the
+            operation</returns>
+        </member>
+        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.GetOrganizationName">
+            <summary>
+            Gets the domain's organization name
+            </summary>
+            <returns>a <code>AdminSettingsEntry</code> containing the results of the
+            operation</returns>
+        </member>
+        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.UpdateOrganizationName(System.String)">
+            <summary>
+            Updates the domain's organization name
+            </summary>
+            <param name="organizationName">the new organization name for the domain</param>
+            <returns>a <code>AdminSettingsEntry</code> containing the results of the
+            operation</returns>
+        </member>
+        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.GetMaximumNumberOfUsers">
+            <summary>
+            Gets the domain's Maximum Number Of Users
+            </summary>        
+            <returns>a <code>AdminSettingsEntry</code> containing the results of the
+            operation</returns>
+        </member>
+        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.GetCurrentNumberOfUsers">
+            <summary>
+            Gets the domain's Current Number Of Users
+            </summary>        
+            <returns>a <code>AdminSettingsEntry</code> containing the results of the
+            operation</returns>
+        </member>
+        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.GetIsVerified">
+            <summary>
+            Gets the domain's verification status
+            </summary>        
+            <returns>a <code>AdminSettingsEntry</code> containing the results of the
+            operation</returns>
+        </member>
+        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.GetSupportPIN">
+            <summary>
+            Gets the domain's Support PIN
+            </summary>        
+            <returns>a <code>AdminSettingsEntry</code> containing the results of the
+            operation</returns>
+        </member>
+        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.GetDomainEdition">
+            <summary>
+            Gets the domain's Google Apps Edition
+            </summary>        
+            <returns>a <code>AdminSettingsEntry</code> containing the results of the
+            operation</returns>
+        </member>
+        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.GetCustomerPIN">
+            <summary>
+            Gets the domain's Customers PIN
+            </summary>        
+            <returns>a <code>AdminSettingsEntry</code> containing the results of the
+            operation</returns>
+        </member>
+        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.GetCreationTime">
+            <summary>
+            Gets the domain's Creation Time
+            </summary>        
+            <returns>a <code>AdminSettingsEntry</code> containing the results of the
+            operation</returns>
+        </member>
+        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.GetCountryCode">
+            <summary>
+            Gets the domain's Country Code
+            </summary>        
+            <returns>a <code>AdminSettingsEntry</code> containing the results of the
+            operation</returns>
+        </member>
+        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.GetAdminSecondaryEmail">
+            <summary>
+            Gets the domain's Administrator Secondary Email address
+            </summary>        
+            <returns>a <code>AdminSettingsEntry</code> containing the results of the
+            operation</returns>
+        </member>
+        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.UpdateAdminSecondaryEmail(System.String)">
+            <summary>
+            Updates the domain's Administrator Secondary Email address
+            </summary>
+            <param name="adminSecondaryEmail">the new domain's admin Secondary Email domain</param>
+            <returns>a <code>AdminSettingsEntry</code> containing the results of the
+            operation</returns>
+        </member>
+        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.UpdateCustomLogo(System.String)">
+            <summary>
+            Updates the domain's Custom Logo
+            </summary>
+            <param name="base64EncodedLogoImage">base 64 encoded binary data of logo image</param>
+            <returns>a <code>AdminSettingsEntry</code> containing the results of the
+            operation</returns>
+        </member>
+        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.GetCnameVerificationStatus">
+            <summary>
+            Gets the domain's CNAME verification status
+            </summary>        
+            <returns>a <code>AdminSettingsEntry</code> containing the results of the
+            operation</returns>
+        </member>
+        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.UpdateCnameVerificationStatus">
+            <summary>
+            Updates the domain's CNAME verification status
+            </summary>        
+            <returns>a <code>AdminSettingsEntry</code> containing the results of the
+            operation</returns>
+        </member>
+        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.GetMxVerificationStatus">
+            <summary>
+            Gets the domain's MX verification status
+            </summary>        
+            <returns>a <code>AdminSettingsEntry</code> containing the results of the
+            operation</returns>
+        </member>
+        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.UpdateMxVerificationStatus">
+            <summary>
+            Updates the domain's MX verification status
+            </summary>        
+            <returns>a <code>AdminSettingsEntry</code> containing the results of the
+            operation</returns>
+        </member>
+        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.GetSsoSettings">
+            <summary>
+            Gets the domain's SSO settings
+            </summary>        
+            <returns>a <code>AdminSettingsEntry</code> containing the results of the
+            operation</returns>
+        </member>
+        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.UpdateSsoSettings(System.Boolean,System.String,System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            Updates the domain's SSO settings
+            </summary>        
+            <param name="enableSSO">Enable or Disable SSO for the domain</param>
+            <param name="samlSignonUri">http://www.example.com/sso/signon</param>
+            <param name="samlLogoutUri">http://www.example.com/sso/logout</param>
+            <param name="changePasswordUri">http://www.example.com/sso/changepassword</param>
+            <param name="ssoWhitelist">CIDR formated IP address</param>
+            <returns>a <code>AdminSettingsEntry</code> containing the results of the
+            operation</returns>
+        </member>
+        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.GetSsoSigningkey">
+            <summary>
+            Gets the domain's SSO Signing Key
+            </summary>        
+            <returns>a <code>AdminSettingsEntry</code> containing the results of the
+            operation</returns>
+        </member>
+        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.UpdateSsoSigningkey(System.String)">
+            <summary>
+            Updates the domain's SSO Signing Key
+            </summary>
+            <param name="base64EncodedSigningKey">yourBase64EncodedPublicKey</param>
+            <returns>a <code>AdminSettingsEntry</code> containing the results of the
+            operation</returns>
+        </member>
+        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.GetMigrationAccess">
+            <summary>
+            Gets the domain's Migration Access settings
+            </summary>        
+            <returns>a <code>AdminSettingsEntry</code> containing the results of the
+            operation</returns>
+        </member>
+        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.UpdateMigrationAccess(System.Boolean)">
+            <summary>
+            Updates the domain's Migration Access settings
+            </summary>
+            <param name="enableUserMigration">Enable or Disable User migration for the domain</param>
+            <returns>a <code>AdminSettingsEntry</code> containing the results of the
+            operation</returns>
+        </member>
+        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.GetEmailGateway">
+            <summary>
+            Gets the domain's Email Gateway settings
+            </summary>
+            <returns>a <code>AdminSettingsEntry</code> containing the results of the
+            operation</returns>
+        </member>
+        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.UpdateEmailGateway(System.String,System.String)">
+            <summary>
+            Updates the domain's Email Gateway settings
+            </summary>
+            <param name="smartHost">Either the IP address or hostname of your SMTP server.
+            Google Apps routes outgoing mail to this server.</param>
+            <param name="smtpMode"> The default value is SMTP. Another value, SMTP_TLS,
+            secures a connection with TLS when delivering the message. </param>
+            <returns>a <code>AdminSettingsEntry</code> containing the results of the
+            operation</returns>
+        </member>
+        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.GetEmailRouting">
+            <summary>
+            Gets the domain's Email Routing settings
+            </summary>
+            <returns>a <code>AdminSettingsFeed</code> containing the results of the
+            operation</returns>
+        </member>
+        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.OnParsedNewGoogleMailSettingsItemEntry(System.Object,Google.GData.Client.FeedParserEventArgs)">
+            <summary>
+            Event handler. Called when a new Google Domain Settings entry is parsed.
+            </summary>
+            <param name="sender">the object that's sending the evet</param>
+            <param name="e">FeedParserEventArguments, holds the feedentry</param>
+        </member>
+        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.OnNewFeed(System.Object,Google.GData.Client.ServiceEventArgs)">
+            <summary>
+            Overridden so that new feeds are returned as <code>AppsExtendedFeed</code>s
+            instead of base <code>AtomFeed</code>s.
+            </summary>
+            <param name="sender"> the object which sent the event</param>
+            <param name="e">FeedParserEventArguments, holds the FeedEntry</param> 
+        </member>
+        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsService.Domain">
+            <summary>
+            Accessor for Domain property.
+            </summary>
+        </member>
+        <member name="T:Google.GData.Apps.AdminSettings.AdminSettingsFeed">
+            <summary>
+            Feed API customization class for defining the Google
+            Admin Settings feed.
+            </summary>
+        </member>
+        <member name="T:Google.GData.Apps.AppsExtendedFeed">
+            <summary>
+            Feed API customization class for defining the Google Apps
+            Exteded feed.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Apps.AppsExtendedFeed.#ctor(System.Uri,Google.GData.Client.IService)">
             <summary>
             Constructor
             </summary>
             <param name="uriBase">The uri for the migration feed.</param>
             <param name="iService">The GoogleMailSettings service.</param>
         </member>
-        <member name="M:Google.GData.Apps.GoogleMailSettings.GoogleMailSettingsFeed.CreateFeedEntry">
+        <member name="M:Google.GData.Apps.AppsExtendedFeed.CreateFeedEntry">
             <summary>
-            Overridden.  Creates a new <code>GoogleMailSettingsEntry</code>.
+            Overridden. Creates a new <code>AppsExtendedEntry</code>.
             </summary>
-            <returns>the new <code>GoogleMailSettingsEntry</code>.</returns>
+            <returns>the new <code>AppsExtendedEntry</code>.</returns>
         </member>
-        <member name="M:Google.GData.Apps.GoogleMailSettings.GoogleMailSettingsFeed.HandleExtensionElements(Google.GData.Client.ExtensionElementEventArgs,Google.GData.Client.AtomFeedParser)">
+        <member name="M:Google.GData.Apps.AppsExtendedFeed.HandleExtensionElements(Google.GData.Client.ExtensionElementEventArgs,Google.GData.Client.AtomFeedParser)">
             <summary>
             Gets called after we handled the custom entry, to handle other
             potential parsing tasks
             </summary>
             <param name="e"></param>
             <param name="parser"></param>
+        </member>
+        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsFeed.#ctor(System.Uri,Google.GData.Client.IService)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="uriBase">The uri for the migration feed.</param>
+            <param name="iService">The GoogleMailSettings service.</param>
+        </member>
+        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsFeed.CreateFeedEntry">
+            <summary>
+            Overridden.  Returns a new <code>AdminSettingsEntry</code>.
+            </summary>
+            <returns>the new new <code>AdminSettingtEntry</code></returns>
+        </member>
+        <member name="T:Google.GData.Apps.AppsException">
+            <summary>
+            The AppsException class defines an error resulting from
+            a Google Apps provisioning request.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Apps.AppsException.UnknownError">
+            <summary>
+            Google Apps error indicating that the request failed
+            for an unknown reason.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Apps.AppsException.UserDeletedRecently">
+            <summary>
+            Google Apps error indicating that the request instructs
+            Google to create a new user but uses the username of an
+            account that was deleted in the previous five days.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Apps.AppsException.UserSuspended">
+            <summary>
+            Google Apps error indicating that the user identified in
+            the request is suspended.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Apps.AppsException.DomainUserLimitExceeded">
+            <summary>
+            Google Apps error indicating that the specified domain has
+            already reached its quota of user accounts.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Apps.AppsException.DomainAliasLimitExceeded">
+            <summary>
+            Google Apps error indicating that the specified domain has
+            already reached its quota of aliases. Aliases include
+            nicknames and email lists. 
+            </summary>
+        </member>
+        <member name="F:Google.GData.Apps.AppsException.DomainSuspended">
+            <summary>
+            Google Apps error indicating that Google has suspended the
+            specified domain's access to Google Apps.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Apps.AppsException.DomainFeatureUnavailable">
+            <summary>
+            Google Apps error indicating that a particular feature
+            is not available for the domain.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Apps.AppsException.EntityExists">
+            <summary>
+            Google Apps error indicating that the request instructs
+            Google to create an entity that already exists.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Apps.AppsException.EntityDoesNotExist">
+            <summary>
+            Google Apps error indicating that the request asks Google
+            to retrieve an entity that does not exist.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Apps.AppsException.EntityNameIsReserved">
+            <summary>
+            Google Apps error indicating that the request instructs
+            Google to create an entity with a reserved name, such as
+            "abuse" or "postmaster".
+            </summary>
+        </member>
+        <member name="F:Google.GData.Apps.AppsException.EntityNameNotValid">
+            <summary>
+            Google Apps error indicating that the request provides an
+            invalid name for a requested resource.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Apps.AppsException.InvalidGivenName">
+            <summary>
+            Google Apps error indicating that the value in the API request 
+            for the user's first name, or given name, contains unaccepted
+            characters.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Apps.AppsException.InvalidFamilyName">
+            <summary>
+            Google Apps error indicating that the value in the API request
+            for the user's surname, or family name, contains unaccepted
+            characters.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Apps.AppsException.InvalidPassword">
+            <summary>
+            Google Apps error indicating that the value in the API request
+            for the user's password contains an invalid number of characters
+            or unaccepted characters.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Apps.AppsException.InvalidUsername">
+            <summary>
+            Google Apps error indicating that the value in the API request
+            for the user's username contains unaccepted characters.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Apps.AppsException.InvalidHashFunctionName">
+            <summary>
+            Google Apps error indicating that the specified password
+            hash function name is not supported.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Apps.AppsException.InvalidHashDigestLength">
+            <summary>
+            Google Apps error indicating that the password specified
+            does not comply with the hash function specified.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Apps.AppsException.InvalidEmailAddress">
+            <summary>
+            Google Apps error indicating that the email address 
+            specified is not valid.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Apps.AppsException.InvalidQueryParameterValue">
+            <summary>
+            Google Apps error indicating that the query parameter value
+            specified is not valid.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Apps.AppsException.TooManyRecipientsOnEmailList">
+            <summary>
+            Google Apps error indicating that the request instructs Google
+            to add users to an email list, but that list has already reached
+            the maximum number of subscribers.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Apps.AppsException.#ctor">
+            <summary>
+            Constructs a new AppsException with no properties set.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Apps.AppsException.#ctor(Google.GData.Client.GDataRequestException)">
+            <summary>
+            Constructs a new AppsException to be parsed from the specified
+            GDataRequestException.
+            </summary>
+            <param name="e"></param>
+            <seealso cref="M:Google.GData.Apps.AppsException.ParseAppsException(Google.GData.Client.GDataRequestException)"/>
+        </member>
+        <member name="M:Google.GData.Apps.AppsException.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Constructs a new AppsException with the specified properties.
+            </summary>
+            <param name="errorCode">the value of the ErrorCode property</param>
+            <param name="invalidInput">the value of the InvalidInput property</param>
+            <param name="reason">the value of the Reason property</param>
+        </member>
+        <member name="M:Google.GData.Apps.AppsException.ParseAppsException(Google.GData.Client.GDataRequestException)">
+            <summary>
+            Parses a GDataRequestException, which wraps the HTTP
+            error responses, into an AppsException.
+            </summary>
+            <param name="e">the GDataRequestException to parse</param>
+            <returns>a new AppsException object. The object's ErrorCode,
+            InvalidInput and Reason properties will be set if the XML
+            in the HTTP response could be parsed, or null otherwise.</returns>
+        </member>
+        <member name="P:Google.GData.Apps.AppsException.ErrorCode">
+            <summary>
+            Accessor for ErrorCode.  This property specifies the
+            type of error that caused an API request to fail.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Apps.AppsException.InvalidInput">
+            <summary>
+            Accessor for InvalidInput.  This property contains the
+            data that caused an API response to fail; it may not be
+            provided for all error types.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Apps.AppsException.Reason">
+            <summary>
+            Accessor for Reason.  This property contains a short
+            explanation of the error that occurred.
+            </summary>
+        </member>
+        <member name="T:Google.GData.Apps.UserEntry">
+            <summary>
+            A Google Apps user entry.  A UserEntry object encapsulates
+            the login, name and quota information for a single user.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Apps.UserEntry.USER_ACCOUNT_CATEGORY">
+            <summary>
+            Category used to label entries that contain user
+            extension data.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Apps.UserEntry.#ctor">
+            <summary>
+            Constructs a new UserEntry instance with the appropriate category
+            to indicate that it is a user account.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Apps.UserEntry.Update">
+            <summary>
+            Updates this UserEntry.
+            </summary>
+            <returns>the updated UserEntry</returns>
+        </member>
+        <member name="P:Google.GData.Apps.UserEntry.Login">
+            <summary>
+            The login element in this user account entry.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Apps.UserEntry.Quota">
+            <summary>
+            The quota element in this user account entry.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Apps.UserEntry.Name">
+            <summary>
+            The name element in this user account entry.
+            </summary>
+        </member>
+        <member name="T:Google.GData.Apps.Groups.GroupsService">
+            <summary>
+            Base service for accessing Google Groups item feeds from the
+            Google Apps Google Groups API.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Apps.Groups.GroupsService.memberUriSuffix">
+            <summary>
+            URL suffixes for the Google Groups tasks
+            </summary>
+        </member>
+        <member name="M:Google.GData.Apps.Groups.GroupsService.#ctor(System.String,System.String)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="domain">The hosted domain in which the Google Groups are
+            being set up</param>
+            <param name="applicationName">The name of the client application 
+            using this service.</param>
+        </member>
+        <member name="M:Google.GData.Apps.Groups.GroupsService.QueryGroups(System.Uri)">
+            <summary>
+            overwritten Query method
+            </summary>
+            <param name="uri">The URI for the query</param>
+            <returns>the retrieved AppsExtendedFeed</returns>
+        </member>
+        <member name="M:Google.GData.Apps.Groups.GroupsService.CreateGroup(System.String,System.String,System.String,System.String)">
+            <summary>
+            Creates a new group
+            </summary>
+            <param name="groupId">The groupId (required) argument identifies the ID of the new group.</param>
+            <param name="groupName">The groupName (required) argument identifies the name of the group to 
+            which the address is being added.</param>
+            <param name="description">The description argument provides a general description of the group.</param>
+            <param name="emailPermission">The emailPermission argument sets the permissions level of the group.</param>
+            <returns>a <code>AppsExtendedEntry</code> containing the results of the
+            creation</returns>
+        </member>
+        <member name="M:Google.GData.Apps.Groups.GroupsService.UpdateGroup(System.String,System.String,System.String,System.String)">
+            <summary>
+            Updates a group
+            </summary>
+            <param name="groupId">The groupId (required) argument identifies the ID of the new group.</param>
+            <param name="groupName">The groupName (required) argument identifies the name of the group to 
+            which the address is being added.</param>
+            <param name="description">The description argument provides a general description of the group.</param>
+            <param name="emailPermission">The emailPermission argument sets the permissions level of the group.</param>
+            <returns>a <code>AppsExtendedEntry</code> containing the results of the
+            update</returns>
+        </member>
+        <member name="M:Google.GData.Apps.Groups.GroupsService.RetrieveGroup(System.String)">
+            <summary>
+            Retrieves a group by its groupId
+            </summary>
+            <param name="groupId">The groupId argument identifies the group</param>       
+            <returns>a <code>AppsExtendedEntry</code> containing the results of the
+            query</returns>
+        </member>
+        <member name="M:Google.GData.Apps.Groups.GroupsService.RetrieveAllGroups">
+            <summary>
+            Retrieves all the groups
+            </summary>      
+            <returns>a <code>AppsExtendedFeed</code> containing all the <code>AppsExtendedEntry</code>
+            from the Domain</returns>
+        </member>
+        <member name="M:Google.GData.Apps.Groups.GroupsService.RetrievePageOfGroups(System.String)">
+            <summary>
+            Retrieves a page from all the groups
+            </summary>
+            <param name="startKey">resume key from the previous response (used for pagination)</param>
+            <returns>a <code>AppsExtendedFeed</code> containing all the <code>AppsExtendedEntry</code>
+            from the Domain</returns>
+        </member>
+        <member name="M:Google.GData.Apps.Groups.GroupsService.RetrieveGroups(System.String,System.Boolean)">
+            <summary>
+            Retrieves groups of a member or groups of another group.
+            </summary>
+            <param name="memberId">username or groupId to retrieve the groups</param>
+            <param name="directOnly">retrieve groups where the memberId is direct member or not</param>
+            <returns>a <code>AppsExtendedFeed</code> containing all the <code>AppsExtendedEntry</code>
+            from the Domain</returns>
+        </member>
+        <member name="M:Google.GData.Apps.Groups.GroupsService.DeleteGroup(System.String)">
+            <summary>
+            Deletes a group using its Id.
+            </summary>
+            <param name="groupId">Groups's id</param>
+        </member>
+        <member name="M:Google.GData.Apps.Groups.GroupsService.AddMemberToGroup(System.String,System.String)">
+            <summary>
+            Adds a member to a group
+            </summary>
+            <param name="memberId">username or groupId to retrieve the groups</param>
+            <param name="groupId">Groups's id</param>
+            <returns>a <code>AppsExtendedEntry</code> containing the results of the
+            creation</returns>
+        </member>
+        <member name="M:Google.GData.Apps.Groups.GroupsService.RetrieveAllMembers(System.String)">
+            <summary>
+            Retrieves all non-suspened members of the group
+            </summary>
+            <param name="groupId">Groups's id</param>
+            <returns>a <code>AppsExtendedFeed</code> containing all the <code>AppsExtendedEntry</code>
+            from the Domain</returns>
+        </member>
+        <member name="M:Google.GData.Apps.Groups.GroupsService.RetrieveAllMembers(System.String,System.Boolean)">
+            <summary>
+            Retrieves all members of the group
+            </summary>
+            <param name="groupId">Groups's id</param>
+            <param name="includeSuspendedUsers">When set to true, will also return suspended users that
+            are members of the group.</param>
+            <returns>a <code>AppsExtendedFeed</code> containing all the <code>AppsExtendedEntry</code>
+            from the Domain</returns>
+        </member>
+        <member name="M:Google.GData.Apps.Groups.GroupsService.RetrieveMember(System.String,System.String)">
+            <summary>
+            Retrieves the members of the group
+            </summary>
+            <param name="memberId">username or groupId to retrieve</param>
+            <param name="groupId">Groups's id</param>
+            <returns>a <code>AppsExtendedEntry</code> containing the results of the
+            query</returns>
+        </member>
+        <member name="M:Google.GData.Apps.Groups.GroupsService.IsMember(System.String,System.String)">
+            <summary>
+            Checks if a user or a group is member of a group
+            </summary>
+            <param name="memberId">username or groupId to check</param>
+            <param name="groupId">Groups's id</param>
+            <returns>a <code>Boolean</code></returns>
+        </member>
+        <member name="M:Google.GData.Apps.Groups.GroupsService.RemoveMemberFromGroup(System.String,System.String)">
+            <summary>
+            Remove a member from a group
+            </summary>
+            <param name="memberId">username or groupId to remove</param>
+            <param name="groupId">Groups's id</param>
+        </member>
+        <member name="M:Google.GData.Apps.Groups.GroupsService.AddOwnerToGroup(System.String,System.String)">
+            <summary>
+            Adds an owner to a group
+            </summary>
+            <param name="email">owner's Email to add to the group</param>
+            <param name="groupId">Groups's id</param>
+            <returns>a <code>AppsExtendedEntry</code> containing the results of the
+            creation</returns>
+        </member>
+        <member name="M:Google.GData.Apps.Groups.GroupsService.RetrieveGroupOwners(System.String)">
+            <summary>
+            Retrieves all owners of the group
+            </summary>
+            <param name="groupId">Groups's id</param>
+            <returns>a <code>AppsExtendedFeed</code> containing all the <code>AppsExtendedEntry</code>
+            from the Domain</returns>
+        </member>
+        <member name="M:Google.GData.Apps.Groups.GroupsService.RetrieveOwner(System.String,System.String)">
+            <summary>
+            Retrieves the owner of the group
+            </summary>
+            <param name="email">email of the owner to retrieve</param>
+            <param name="groupId">Groups's id</param>
+            <returns>a <code>AppsExtendedEntry</code> containing the results of the
+            query</returns>
+        </member>
+        <member name="M:Google.GData.Apps.Groups.GroupsService.IsOwner(System.String,System.String)">
+            <summary>
+            Checks if a user or a group is owner of a group.
+            </summary>
+            <param name="email">owner's Email to check</param>
+            <param name="groupId">Groups's id</param>
+            <returns>a <code>Boolean</code></returns>
+        </member>
+        <member name="M:Google.GData.Apps.Groups.GroupsService.RemoveOwnerFromGroup(System.String,System.String)">
+            <summary>
+            Remove a owner from a group.
+            </summary>
+            <param name="email">owner's Email to remove</param>
+            <param name="groupId">Groups's id</param>
+        </member>
+        <member name="M:Google.GData.Apps.Groups.GroupsService.OnParsedNewGroupsItemEntry(System.Object,Google.GData.Client.FeedParserEventArgs)">
+            <summary>
+            Event handler. Called when a new Google Groups entry is parsed.
+            </summary>
+            <param name="sender">the object that's sending the evet</param>
+            <param name="e">FeedParserEventArguments, holds the feedentry</param>
+        </member>
+        <member name="M:Google.GData.Apps.Groups.GroupsService.OnNewFeed(System.Object,Google.GData.Client.ServiceEventArgs)">
+            <summary>
+            Overridden so that new feeds are returned as <code>GoogleMailSettingsFeed</code>s
+            instead of base <code>AtomFeed</code>s.
+            </summary>
+            <param name="sender"> the object which sent the event</param>
+            <param name="e">FeedParserEventArguments, holds the FeedEntry</param> 
+        </member>
+        <member name="P:Google.GData.Apps.Groups.GroupsService.Domain">
+            <summary>
+            Accessor for Domain property.
+            </summary>
+            <param name="domain">The hosted domain in which the Google Groups are
+            being set up</param>
         </member>
         <member name="T:Google.GData.Apps.EmailListRecipientService">
             <summary>
@@ -346,6 +1403,196 @@
             <param name="sender">the object that's sending the evet</param>
             <param name="e"><code>ServiceEventArgs</code>, holds the feed</param>
         </member>
+        <member name="T:Google.GData.Apps.UserFeed">
+            <summary>
+            Feed API customization class for defining user account feed.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Apps.UserFeed.#ctor(System.Uri,Google.GData.Client.IService)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="uriBase">The uri for the user account feed.</param>
+            <param name="iService">The user account service.</param>
+        </member>
+        <member name="M:Google.GData.Apps.UserFeed.CreateFeedEntry">
+            <summary>
+            Overridden.  Returns a new <code>UserEntry</code>.
+            </summary>
+            <returns>the new <code>UserEntry</code></returns>
+        </member>
+        <member name="T:Google.GData.Apps.NicknameFeed">
+            <summary>
+            Feed API customization class for defining nickname feed.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Apps.NicknameFeed.#ctor(System.Uri,Google.GData.Client.IService)">
+            <summary>
+            Constructs a new NicknameFeed.
+            </summary>
+            <param name="uriBase">the URI of the feed</param>
+            <param name="iService">the service with which this
+            feed will be associated</param>
+        </member>
+        <member name="M:Google.GData.Apps.NicknameFeed.CreateFeedEntry">
+            <summary>
+            Overridden.  Returns a new <code>NicknameEntry</code>.
+            </summary>
+            <returns>the new <code>NicknameEntry</code></returns>
+        </member>
+        <member name="T:Google.GData.Apps.EmailListQuery">
+            <summary>
+            A subclass of FeedQuery to query a Google Apps email list
+            feed URI.
+            
+            Provides public properties that describe the different
+            aspects of the URI, as well as a composite URI.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Apps.EmailListQuery.#ctor(System.String)">
+            <summary>
+            Constructs a new EmailListQuery to retrieve all email lists
+            in the specified domain.
+            
+            In addition to calling the constructor, you may set either
+            Recipient or EmailListName (but not both) to restrict your query.
+            </summary>
+            <param name="domain">the domain to query</param>
+        </member>
+        <member name="M:Google.GData.Apps.EmailListQuery.CalculateQuery(System.String)">
+            <summary>
+            Creates the URI query string based on all set properties.
+            </summary>
+            <returns>the URI query string</returns>
+        </member>
+        <member name="P:Google.GData.Apps.EmailListQuery.Domain">
+            <summary>
+            Accessor method for Domain.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Apps.EmailListQuery.Recipient">
+            <summary>
+            Accessor method for Recipient.  If this property is
+            non-null, the query will retrieve all email list
+            subscriptions for the specified email address.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Apps.EmailListQuery.EmailListName">
+            <summary>
+            Accessor method for EmailListName.  If this property is
+            non-null, the query will retrieve only the specified
+            email list.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Apps.EmailListQuery.StartEmailListName">
+            <summary>
+            Accessor method for StartEmailListName.  If this property
+            is non-null, the query will retrieve a page of at most 100
+            email lists, starting with the specified email list.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Apps.EmailListQuery.RetrieveAllEmailLists">
+            <summary>
+            Accessor method for RetrieveAllEmailLists.  If false,
+            the query returns at most 100 matches; if it is
+            true (default), all matches are returned.
+            </summary>
+        </member>
+        <member name="T:Google.GData.Apps.NicknameService">
+            <summary>
+            The NicknameService class extends the AppsService abstraction
+            to define a service that is preconfigured for access to Google Apps
+            nickname feeds.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Apps.NicknameService.#ctor(System.String)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="applicationName">The name of the client application 
+            using this service.</param>
+        </member>
+        <member name="M:Google.GData.Apps.NicknameService.Query(Google.GData.Apps.NicknameQuery)">
+            <summary>
+            overwritten Query method
+            </summary>
+            <param name="feedQuery">The FeedQuery to use</param>
+            <returns>the retrieved NicknameFeed</returns>
+        </member>
+        <member name="M:Google.GData.Apps.NicknameService.Insert(Google.GData.Apps.NicknameFeed,Google.GData.Apps.NicknameEntry)">
+            <summary>
+            Inserts a new nickname entry into the specified feed.
+            </summary>
+            <param name="feed">the feed into which this entry should be inserted</param>
+            <param name="entry">the entry to insert</param>
+            <returns>the inserted entry</returns>
+        </member>
+        <member name="M:Google.GData.Apps.NicknameService.Insert(System.Uri,Google.GData.Apps.NicknameEntry)">
+            <summary>
+            Inserts a new nickname entry into the feed at the
+            specified URI.
+            </summary>
+            <param name="feedUri">the URI of the feed into which this entry should be inserted</param>
+            <param name="entry">the entry to insert</param>
+            <returns>the inserted entry</returns>
+        </member>
+        <member name="M:Google.GData.Apps.NicknameService.Update(Google.GData.Client.AtomEntry)">
+            <summary>
+            Overrides the base Update() method to throw an
+            exception, because nickname entries cannot be
+            updated.
+            </summary>
+            <param name="entry">the entry the user is trying to update</param>
+        </member>
+        <member name="M:Google.GData.Apps.NicknameService.Delete(System.Uri)">
+            <summary>
+            Overridden Delete method that throws AppsException
+            </summary>
+            <param name="uri">the URI to delete</param>
+        </member>
+        <member name="M:Google.GData.Apps.NicknameService.Delete(Google.GData.Apps.NicknameEntry)">
+            <summary>
+            Overridden Delete method that throws AppsException
+            </summary>
+            <param name="entry">the NicknameEntry to delete</param>
+        </member>
+        <member name="M:Google.GData.Apps.NicknameService.OnParsedNewNicknameEntry(System.Object,Google.GData.Client.FeedParserEventArgs)">
+            <summary>
+            Event handler. Called when a new list entry is parsed.
+            </summary>
+            <param name="sender">the object that's sending the evet</param>
+            <param name="e">FeedParserEventArguments, holds the feedentry</param>
+        </member>
+        <member name="M:Google.GData.Apps.NicknameService.OnParsedNewFeed(System.Object,Google.GData.Client.ServiceEventArgs)">
+            <param name="e"><code>ServiceEventArgs</code>, holds the feed</param>
+        </member>
+        <member name="T:Google.GData.Apps.GoogleMailSettings.GoogleMailSettingsFeed">
+            <summary>
+            Feed API customization class for defining the Google Apps
+            Google Mail Settings API's feed.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Apps.GoogleMailSettings.GoogleMailSettingsFeed.#ctor(System.Uri,Google.GData.Client.IService)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="uriBase">The uri for the migration feed.</param>
+            <param name="iService">The GoogleMailSettings service.</param>
+        </member>
+        <member name="M:Google.GData.Apps.GoogleMailSettings.GoogleMailSettingsFeed.CreateFeedEntry">
+            <summary>
+            Overridden.  Creates a new <code>GoogleMailSettingsEntry</code>.
+            </summary>
+            <returns>the new <code>GoogleMailSettingsEntry</code>.</returns>
+        </member>
+        <member name="M:Google.GData.Apps.GoogleMailSettings.GoogleMailSettingsFeed.HandleExtensionElements(Google.GData.Client.ExtensionElementEventArgs,Google.GData.Client.AtomFeedParser)">
+            <summary>
+            Gets called after we handled the custom entry, to handle other
+            potential parsing tasks
+            </summary>
+            <param name="e"></param>
+            <param name="parser"></param>
+        </member>
         <member name="T:Google.GData.Apps.EmailListRecipientFeed">
             <summary>
             Feed API customization class for defining email list recipient feed.
@@ -365,59 +1612,45 @@
             </summary>
             <returns>the new <code>EmailListRecipientEntry</code></returns>
         </member>
-        <member name="T:Google.GData.Apps.Migration.MailItemEntry">
+        <member name="T:Google.GData.Apps.EmailListFeed">
             <summary>
-            A Google Apps mail item entry.  Represents a single email to be
-            migrated: its message contents, starred and read status, and any
-            labels to be applied to it.
+            Feed API customization class for defining email list feed.
             </summary>
         </member>
-        <member name="F:Google.GData.Apps.Migration.MailItemEntry.MAIL_ITEM_CATEGORY">
+        <member name="M:Google.GData.Apps.EmailListFeed.#ctor(System.Uri,Google.GData.Client.IService)">
             <summary>
-            Category used to label entries that contain mail item
-            extension data.
+            Constructs a new EmailListFeed.
             </summary>
+            <param name="uriBase">the feed URI</param>
+            <param name="iService">the Service object with which
+            this feed is to be associated</param>
         </member>
-        <member name="M:Google.GData.Apps.Migration.MailItemEntry.#ctor">
+        <member name="M:Google.GData.Apps.EmailListFeed.CreateFeedEntry">
             <summary>
-            Constructs a new <code>MailItemEntry</code> object.
+            Overridden.  Returns a new <code>EmailListEntry</code>.
             </summary>
+            <returns>the new new <code>EmailListEntry</code></returns>
         </member>
-        <member name="P:Google.GData.Apps.Migration.MailItemEntry.Rfc822Msg">
-            <summary>
-            Rfc822Msg property accessor
-            </summary>
-        </member>
-        <member name="P:Google.GData.Apps.Migration.MailItemEntry.Labels">
-            <summary>
-            Labels property accessor
-            </summary>
-        </member>
-        <member name="P:Google.GData.Apps.Migration.MailItemEntry.MailItemProperties">
-            <summary>
-            MailItemProperties accessor
-            </summary>
-        </member>
-        <member name="T:Google.GData.Apps.AppsExtendedFeed">
+        <member name="T:Google.GData.Apps.Migration.MailItemFeed">
             <summary>
             Feed API customization class for defining the Google Apps
-            Exteded feed.
+            Domain Migration API's mail item feed.
             </summary>
         </member>
-        <member name="M:Google.GData.Apps.AppsExtendedFeed.#ctor(System.Uri,Google.GData.Client.IService)">
+        <member name="M:Google.GData.Apps.Migration.MailItemFeed.#ctor(System.Uri,Google.GData.Client.IService)">
             <summary>
             Constructor
             </summary>
             <param name="uriBase">The uri for the migration feed.</param>
-            <param name="iService">The GoogleMailSettings service.</param>
+            <param name="iService">The migration service.</param>
         </member>
-        <member name="M:Google.GData.Apps.AppsExtendedFeed.CreateFeedEntry">
+        <member name="M:Google.GData.Apps.Migration.MailItemFeed.CreateFeedEntry">
             <summary>
-            Overridden. Creates a new <code>AppsExtendedEntry</code>.
+            Overridden.  Creates a new <code>MailItemEntry</code>.
             </summary>
-            <returns>the new <code>AppsExtendedEntry</code>.</returns>
+            <returns>the new <code>MailItemEntry</code>.</returns>
         </member>
-        <member name="M:Google.GData.Apps.AppsExtendedFeed.HandleExtensionElements(Google.GData.Client.ExtensionElementEventArgs,Google.GData.Client.AtomFeedParser)">
+        <member name="M:Google.GData.Apps.Migration.MailItemFeed.HandleExtensionElements(Google.GData.Client.ExtensionElementEventArgs,Google.GData.Client.AtomFeedParser)">
             <summary>
             Gets called after we handled the custom entry, to handle other
             potential parsing tasks
@@ -425,306 +1658,64 @@
             <param name="e"></param>
             <param name="parser"></param>
         </member>
-        <member name="T:Google.GData.Apps.EmailListRecipientEntry">
+        <member name="T:Google.GData.Apps.NicknameQuery">
             <summary>
-            A Google Apps email list recipient entry.  This class
-            defines a single recipient on an email list using a Who
-            (gd:who) object.
+            A subclass of FeedQuery to query a Google Apps nickname
+            feed URI.
+            
+            Provides public properties that describe the different
+            aspects of the URI, as well as a composite URI.
             </summary>
         </member>
-        <member name="F:Google.GData.Apps.EmailListRecipientEntry.EMAILLIST_RECIPIENT_CATEGORY">
+        <member name="M:Google.GData.Apps.NicknameQuery.#ctor(System.String)">
             <summary>
-            Category used to label entries that contain email list
-            recipient extension data.
+            Constructs a new NicknameQuery to retrieve all nicknames
+            in the specified domain.
+            
+            In addition to calling the constructor, you may set at most
+            one of Nickname, StartNickname or UserName to restrict your
+            query.
+            </summary>
+            <param name="domain">the domain to query</param>
+        </member>
+        <member name="M:Google.GData.Apps.NicknameQuery.CalculateQuery(System.String)">
+            <summary>
+            Creates the URI query string based on all set properties.
+            </summary>
+            <returns>the URI query string</returns>
+        </member>
+        <member name="P:Google.GData.Apps.NicknameQuery.Domain">
+            <summary>
+            Accessor method for Domain.
             </summary>
         </member>
-        <member name="M:Google.GData.Apps.EmailListRecipientEntry.#ctor">
+        <member name="P:Google.GData.Apps.NicknameQuery.StartNickname">
             <summary>
-            Constructs a new EmailListRecipientEntry without
-            setting the Recipient property.
+            Accessor method for StartNickname.  If this property
+            is non-null, the query will return a feed of up to
+            100 nicknames beginning with StartNickname.
             </summary>
         </member>
-        <member name="M:Google.GData.Apps.EmailListRecipientEntry.#ctor(System.String)">
+        <member name="P:Google.GData.Apps.NicknameQuery.Nickname">
             <summary>
-            Constructs a new EmailListRecipientEntry, using
-            the specified email address to initialize the
-            Recipient property.
-            </summary>
-            <param name="recipientAddress">the recipient's
-            email address</param>
-        </member>
-        <member name="M:Google.GData.Apps.EmailListRecipientEntry.Update">
-            <summary>
-            Overrides the base Update() method to throw a ClientFeedException,
-            because email list recipient entries cannot be updated.  This exception
-            indicates that the client made an erroneous request to the email
-            list feed.
+            Accessor method for Nickname.  If this property is
+            non-null, the query will retrieve the specified
+            nickname.
             </summary>
         </member>
-        <member name="P:Google.GData.Apps.EmailListRecipientEntry.Recipient">
+        <member name="P:Google.GData.Apps.NicknameQuery.UserName">
             <summary>
-            The recipient element in this entry.
+            Accessor method for UserName.  If this property is
+            non-null, the query will retrieve all nicknames for
+            the specified user.
             </summary>
         </member>
-        <member name="T:Google.GData.Apps.AdminSettings.AdminSettingsEntry">
+        <member name="P:Google.GData.Apps.NicknameQuery.RetrieveAllNicknames">
             <summary>
-            A Google Apps Google Admin Settings entry.    
+            Accessor method for RetrieveAllNicknames.  If false,
+            the query returns at most 100 matches; if it is
+            true (default), all matches are returned.
             </summary>
-        </member>
-        <member name="T:Google.GData.Apps.AppsExtendedEntry">
-            <summary>
-            A Google Apps extended entry for extended properties.
-            </summary>
-        </member>
-        <member name="M:Google.GData.Apps.AppsExtendedEntry.#ctor">
-            <summary>
-            Constructs a new <code>AppsExtendedEntry</code> object.
-            </summary>
-        </member>
-        <member name="M:Google.GData.Apps.AppsExtendedEntry.getPropetyValueByName(System.String)">
-            <summary>
-            Gets a the Value of a PropertyElement by its Name
-            </summary>
-            <returns>a string containing the results of the execution</returns>
-        </member>
-        <member name="M:Google.GData.Apps.AppsExtendedEntry.getPropertyByName(System.String)">
-            <summary>
-            Gets a PropertyElement by its Name
-            </summary>
-            <returns>a <code>PropertyElement</code> containing the results of the
-            execution</returns>         
-        </member>
-        <member name="M:Google.GData.Apps.AppsExtendedEntry.getPropertyValueByName(System.String)">
-            <summary>
-            Gets a the Value of a PropertyElement by its Name
-            </summary>
-            <returns>a string containing the results of the execution</returns>
-        </member>
-        <member name="M:Google.GData.Apps.AppsExtendedEntry.Update">
-            <summary>
-            Updates this AppsExtendedEntry.
-            </summary>
-            <returns>the updated GroupsEntry</returns>
-        </member>
-        <member name="P:Google.GData.Apps.AppsExtendedEntry.Properties">
-            <summary>
-            Properties accessor
-            </summary>
-        </member>
-        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsEntry.#ctor">
-            <summary>
-            Constructs a new <code>AdminSettingsEntry</code> object.
-            </summary>
-        </member>
-        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsEntry.Update">
-            <summary>
-            typed override of the Update method
-            </summary>
-            <returns>AdminSettingsEntry</returns>
-        </member>
-        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.DefaultLanguage">
-            <summary>
-            DefaultLanguage Property accessor
-            </summary>
-        </member>
-        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.OrganizationName">
-            <summary>
-            OrganizationName Property accessor
-            </summary>
-        </member>
-        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.MaximumNumberOfUsers">
-            <summary>
-            MaximumNumberOfUsers Property accessor
-            </summary>
-        </member>
-        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.CurrentNumberOfUsers">
-            <summary>
-            MaximumNumberOfUsers Property accessor
-            </summary>
-        </member>
-        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.IsVerified">
-            <summary>
-            IsVerified Property accessor
-            </summary>
-        </member>
-        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.SupportPIN">
-            <summary>
-            SupportPIN Property accessor
-            </summary>
-        </member>
-        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.Edition">
-            <summary>
-            Edition Property accessor
-            </summary>
-        </member>
-        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.CustomerPIN">
-            <summary>
-            CustomerPIN Property accessor
-            </summary>
-        </member>
-        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.CreationTime">
-            <summary>
-            CreationTime Property accessor
-            </summary>
-        </member>
-        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.CountryCode">
-            <summary>
-            CountryCode Property accessor
-            </summary>
-        </member>
-        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.AdminSecondaryEmail">
-            <summary>
-            AdminSecondaryEmail Property accessor
-            </summary>
-        </member>
-        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.LogoImage">
-            <summary>
-            LogoImage Property accessor
-            </summary>
-        </member>
-        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.RecordName">
-            <summary>
-            RecordName Property accessor
-            </summary>
-        </member>
-        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.Verified">
-            <summary>
-            Verified Property accessor
-            </summary>
-        </member>
-        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.VerifiedMethod">
-            <summary>
-            VerifiedMethod Property accessor
-            </summary>
-        </member>
-        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.SamlSignonUri">
-            <summary>
-            MaximumNumberOfUsers Property accessor
-            </summary>
-        </member>
-        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.SamlLogoutUri">
-            <summary>
-            SamlLogoutUri Property accessor
-            </summary>
-        </member>
-        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.ChangePasswordUri">
-            <summary>
-            ChangePasswordUri Property accessor
-            </summary>
-        </member>
-        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.EnableSSO">
-            <summary>
-            EnableSSO Property accessor
-            </summary>
-        </member>
-        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.SsoWhitelist">
-            <summary>
-            SsoWhitelist Property accessor
-            </summary>
-        </member>
-        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.UseDomainSpecificIssuer">
-            <summary>
-            UseDomainSpecificIssuer Property accessor
-            </summary>
-        </member>
-        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.SigningKey">
-            <summary>
-            SigningKey Property accessor
-            </summary>
-        </member>
-        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.EnableUserMigration">
-            <summary>
-            EnableUserMigration Property accessor
-            </summary>
-        </member>
-        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.SmartHost">
-            <summary>
-            SmartHost Property accessor
-            </summary>
-        </member>
-        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.SmtpMode">
-            <summary>
-            SmtpMode Property accessor
-            </summary>
-        </member>
-        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.RouteDestination">
-            <summary>
-            RouteDestination Property accessor
-            </summary>
-        </member>
-        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.RouteRewriteTo">
-            <summary>
-            RouteRewriteTo Property accessor
-            </summary>
-        </member>
-        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.RouteEnabled">
-            <summary>
-            RouteEnabled Property accessor
-            </summary>
-        </member>
-        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.BounceNotifications">
-            <summary>
-            BounceNotifications Property accessor
-            </summary>
-        </member>
-        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.AccountHandling">
-            <summary>
-            AccountHandling Property accessor
-            </summary>
-        </member>
-        <member name="T:Google.GData.Apps.NicknameEntry">
-            <summary>
-            A Google Apps nickname entry.  A NicknameEntry identifies a
-            nickname and the user to whom the nickname is assigned.
-            </summary>
-        </member>
-        <member name="F:Google.GData.Apps.NicknameEntry.NICKNAME_CATEGORY">
-            <summary>
-            Category used to label entries that contain nickname
-            extension data.
-            </summary>
-        </member>
-        <member name="M:Google.GData.Apps.NicknameEntry.#ctor">
-            <summary>
-            Constructs a new NicknameEntry instance with the appropriate category
-            to indicate that it is a nickname.
-            </summary>
-        </member>
-        <member name="M:Google.GData.Apps.NicknameEntry.Update">
-            <summary>
-            Overrides the base Update() method to throw an
-            exception, because nickname entries cannot be
-            updated.
-            </summary>
-        </member>
-        <member name="P:Google.GData.Apps.NicknameEntry.Login">
-            <summary>
-            The login element in this entry.
-            </summary>
-        </member>
-        <member name="P:Google.GData.Apps.NicknameEntry.Nickname">
-            <summary>
-            The nickname element in this entry.
-            </summary>
-        </member>
-        <member name="T:Google.GData.Apps.AdminSettings.AdminSettingsFeed">
-            <summary>
-            Feed API customization class for defining the Google
-            Admin Settings feed.
-            </summary>
-        </member>
-        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsFeed.#ctor(System.Uri,Google.GData.Client.IService)">
-            <summary>
-            Constructor
-            </summary>
-            <param name="uriBase">The uri for the migration feed.</param>
-            <param name="iService">The GoogleMailSettings service.</param>
-        </member>
-        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsFeed.CreateFeedEntry">
-            <summary>
-            Overridden.  Returns a new <code>AdminSettingsEntry</code>.
-            </summary>
-            <returns>the new new <code>AdminSettingtEntry</code></returns>
         </member>
         <member name="T:Google.GData.Apps.AppsService">
             <summary>
@@ -1044,227 +2035,211 @@
             GroupsService accessor
             </summary>
         </member>
-        <member name="T:Google.GData.Apps.GoogleMailSettings.GoogleMailSettingsEntry">
+        <member name="T:Google.GData.Apps.EmailListRecipientEntry">
             <summary>
-            A Google Apps Google Mail Settings entry.
+            A Google Apps email list recipient entry.  This class
+            defines a single recipient on an email list using a Who
+            (gd:who) object.
             </summary>
         </member>
-        <member name="M:Google.GData.Apps.GoogleMailSettings.GoogleMailSettingsEntry.#ctor">
+        <member name="F:Google.GData.Apps.EmailListRecipientEntry.EMAILLIST_RECIPIENT_CATEGORY">
             <summary>
-            Constructs a new <code>GoogleMailSettingsEntry</code> object.
+            Category used to label entries that contain email list
+            recipient extension data.
             </summary>
         </member>
-        <member name="M:Google.GData.Apps.GoogleMailSettings.GoogleMailSettingsEntry.getPropertyByName(System.String)">
+        <member name="M:Google.GData.Apps.EmailListRecipientEntry.#ctor">
             <summary>
-            Gets a PropertyElement by its Name
-            </summary>
-            <returns>a <code>PropertyElement</code> containing the results of the
-            execution</returns>         
-        </member>
-        <member name="M:Google.GData.Apps.GoogleMailSettings.GoogleMailSettingsEntry.getPropetyValueByName(System.String)">
-            <summary>
-            Gets a the Value of a PropertyElement by its Name
-            </summary>
-            <returns>a string containing the results of the execution</returns>
-        </member>
-        <member name="M:Google.GData.Apps.GoogleMailSettings.GoogleMailSettingsEntry.getPropertyValueByName(System.String)">
-            <summary>
-            Gets a the Value of a PropertyElement by its Name
-            </summary>
-            <returns>a string containing the results of the execution</returns>
-        </member>
-        <member name="M:Google.GData.Apps.GoogleMailSettings.GoogleMailSettingsEntry.Update">
-            <summary>
-            Updates this GoogleMailSettingsEntry.
-            </summary>
-            <returns>the updated GoogleMailSettingsEntry</returns>
-        </member>
-        <member name="P:Google.GData.Apps.GoogleMailSettings.GoogleMailSettingsEntry.Properties">
-            <summary>
-            Properties accessor
+            Constructs a new EmailListRecipientEntry without
+            setting the Recipient property.
             </summary>
         </member>
-        <member name="T:Google.GData.Apps.AppsException">
+        <member name="M:Google.GData.Apps.EmailListRecipientEntry.#ctor(System.String)">
             <summary>
-            The AppsException class defines an error resulting from
-            a Google Apps provisioning request.
+            Constructs a new EmailListRecipientEntry, using
+            the specified email address to initialize the
+            Recipient property.
+            </summary>
+            <param name="recipientAddress">the recipient's
+            email address</param>
+        </member>
+        <member name="M:Google.GData.Apps.EmailListRecipientEntry.Update">
+            <summary>
+            Overrides the base Update() method to throw a ClientFeedException,
+            because email list recipient entries cannot be updated.  This exception
+            indicates that the client made an erroneous request to the email
+            list feed.
             </summary>
         </member>
-        <member name="F:Google.GData.Apps.AppsException.UnknownError">
+        <member name="P:Google.GData.Apps.EmailListRecipientEntry.Recipient">
             <summary>
-            Google Apps error indicating that the request failed
-            for an unknown reason.
+            The recipient element in this entry.
             </summary>
         </member>
-        <member name="F:Google.GData.Apps.AppsException.UserDeletedRecently">
+        <member name="T:Google.GData.Apps.AdminSettings.AdminSettingsEntry">
             <summary>
-            Google Apps error indicating that the request instructs
-            Google to create a new user but uses the username of an
-            account that was deleted in the previous five days.
+            A Google Apps Google Admin Settings entry.    
             </summary>
         </member>
-        <member name="F:Google.GData.Apps.AppsException.UserSuspended">
+        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsEntry.#ctor">
             <summary>
-            Google Apps error indicating that the user identified in
-            the request is suspended.
+            Constructs a new <code>AdminSettingsEntry</code> object.
             </summary>
         </member>
-        <member name="F:Google.GData.Apps.AppsException.DomainUserLimitExceeded">
+        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsEntry.Update">
             <summary>
-            Google Apps error indicating that the specified domain has
-            already reached its quota of user accounts.
+            typed override of the Update method
+            </summary>
+            <returns>AdminSettingsEntry</returns>
+        </member>
+        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.DefaultLanguage">
+            <summary>
+            DefaultLanguage Property accessor
             </summary>
         </member>
-        <member name="F:Google.GData.Apps.AppsException.DomainAliasLimitExceeded">
+        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.OrganizationName">
             <summary>
-            Google Apps error indicating that the specified domain has
-            already reached its quota of aliases. Aliases include
-            nicknames and email lists. 
+            OrganizationName Property accessor
             </summary>
         </member>
-        <member name="F:Google.GData.Apps.AppsException.DomainSuspended">
+        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.MaximumNumberOfUsers">
             <summary>
-            Google Apps error indicating that Google has suspended the
-            specified domain's access to Google Apps.
+            MaximumNumberOfUsers Property accessor
             </summary>
         </member>
-        <member name="F:Google.GData.Apps.AppsException.DomainFeatureUnavailable">
+        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.CurrentNumberOfUsers">
             <summary>
-            Google Apps error indicating that a particular feature
-            is not available for the domain.
+            MaximumNumberOfUsers Property accessor
             </summary>
         </member>
-        <member name="F:Google.GData.Apps.AppsException.EntityExists">
+        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.IsVerified">
             <summary>
-            Google Apps error indicating that the request instructs
-            Google to create an entity that already exists.
+            IsVerified Property accessor
             </summary>
         </member>
-        <member name="F:Google.GData.Apps.AppsException.EntityDoesNotExist">
+        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.SupportPIN">
             <summary>
-            Google Apps error indicating that the request asks Google
-            to retrieve an entity that does not exist.
+            SupportPIN Property accessor
             </summary>
         </member>
-        <member name="F:Google.GData.Apps.AppsException.EntityNameIsReserved">
+        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.Edition">
             <summary>
-            Google Apps error indicating that the request instructs
-            Google to create an entity with a reserved name, such as
-            "abuse" or "postmaster".
+            Edition Property accessor
             </summary>
         </member>
-        <member name="F:Google.GData.Apps.AppsException.EntityNameNotValid">
+        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.CustomerPIN">
             <summary>
-            Google Apps error indicating that the request provides an
-            invalid name for a requested resource.
+            CustomerPIN Property accessor
             </summary>
         </member>
-        <member name="F:Google.GData.Apps.AppsException.InvalidGivenName">
+        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.CreationTime">
             <summary>
-            Google Apps error indicating that the value in the API request 
-            for the user's first name, or given name, contains unaccepted
-            characters.
+            CreationTime Property accessor
             </summary>
         </member>
-        <member name="F:Google.GData.Apps.AppsException.InvalidFamilyName">
+        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.CountryCode">
             <summary>
-            Google Apps error indicating that the value in the API request
-            for the user's surname, or family name, contains unaccepted
-            characters.
+            CountryCode Property accessor
             </summary>
         </member>
-        <member name="F:Google.GData.Apps.AppsException.InvalidPassword">
+        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.AdminSecondaryEmail">
             <summary>
-            Google Apps error indicating that the value in the API request
-            for the user's password contains an invalid number of characters
-            or unaccepted characters.
+            AdminSecondaryEmail Property accessor
             </summary>
         </member>
-        <member name="F:Google.GData.Apps.AppsException.InvalidUsername">
+        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.LogoImage">
             <summary>
-            Google Apps error indicating that the value in the API request
-            for the user's username contains unaccepted characters.
+            LogoImage Property accessor
             </summary>
         </member>
-        <member name="F:Google.GData.Apps.AppsException.InvalidHashFunctionName">
+        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.RecordName">
             <summary>
-            Google Apps error indicating that the specified password
-            hash function name is not supported.
+            RecordName Property accessor
             </summary>
         </member>
-        <member name="F:Google.GData.Apps.AppsException.InvalidHashDigestLength">
+        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.Verified">
             <summary>
-            Google Apps error indicating that the password specified
-            does not comply with the hash function specified.
+            Verified Property accessor
             </summary>
         </member>
-        <member name="F:Google.GData.Apps.AppsException.InvalidEmailAddress">
+        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.VerifiedMethod">
             <summary>
-            Google Apps error indicating that the email address 
-            specified is not valid.
+            VerifiedMethod Property accessor
             </summary>
         </member>
-        <member name="F:Google.GData.Apps.AppsException.InvalidQueryParameterValue">
+        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.SamlSignonUri">
             <summary>
-            Google Apps error indicating that the query parameter value
-            specified is not valid.
+            MaximumNumberOfUsers Property accessor
             </summary>
         </member>
-        <member name="F:Google.GData.Apps.AppsException.TooManyRecipientsOnEmailList">
+        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.SamlLogoutUri">
             <summary>
-            Google Apps error indicating that the request instructs Google
-            to add users to an email list, but that list has already reached
-            the maximum number of subscribers.
+            SamlLogoutUri Property accessor
             </summary>
         </member>
-        <member name="M:Google.GData.Apps.AppsException.#ctor">
+        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.ChangePasswordUri">
             <summary>
-            Constructs a new AppsException with no properties set.
+            ChangePasswordUri Property accessor
             </summary>
         </member>
-        <member name="M:Google.GData.Apps.AppsException.#ctor(Google.GData.Client.GDataRequestException)">
+        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.EnableSSO">
             <summary>
-            Constructs a new AppsException to be parsed from the specified
-            GDataRequestException.
-            </summary>
-            <param name="e"></param>
-            <seealso cref="M:Google.GData.Apps.AppsException.ParseAppsException(Google.GData.Client.GDataRequestException)"/>
-        </member>
-        <member name="M:Google.GData.Apps.AppsException.#ctor(System.String,System.String,System.String)">
-            <summary>
-            Constructs a new AppsException with the specified properties.
-            </summary>
-            <param name="errorCode">the value of the ErrorCode property</param>
-            <param name="invalidInput">the value of the InvalidInput property</param>
-            <param name="reason">the value of the Reason property</param>
-        </member>
-        <member name="M:Google.GData.Apps.AppsException.ParseAppsException(Google.GData.Client.GDataRequestException)">
-            <summary>
-            Parses a GDataRequestException, which wraps the HTTP
-            error responses, into an AppsException.
-            </summary>
-            <param name="e">the GDataRequestException to parse</param>
-            <returns>a new AppsException object. The object's ErrorCode,
-            InvalidInput and Reason properties will be set if the XML
-            in the HTTP response could be parsed, or null otherwise.</returns>
-        </member>
-        <member name="P:Google.GData.Apps.AppsException.ErrorCode">
-            <summary>
-            Accessor for ErrorCode.  This property specifies the
-            type of error that caused an API request to fail.
+            EnableSSO Property accessor
             </summary>
         </member>
-        <member name="P:Google.GData.Apps.AppsException.InvalidInput">
+        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.SsoWhitelist">
             <summary>
-            Accessor for InvalidInput.  This property contains the
-            data that caused an API response to fail; it may not be
-            provided for all error types.
+            SsoWhitelist Property accessor
             </summary>
         </member>
-        <member name="P:Google.GData.Apps.AppsException.Reason">
+        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.UseDomainSpecificIssuer">
             <summary>
-            Accessor for Reason.  This property contains a short
-            explanation of the error that occurred.
+            UseDomainSpecificIssuer Property accessor
+            </summary>
+        </member>
+        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.SigningKey">
+            <summary>
+            SigningKey Property accessor
+            </summary>
+        </member>
+        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.EnableUserMigration">
+            <summary>
+            EnableUserMigration Property accessor
+            </summary>
+        </member>
+        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.SmartHost">
+            <summary>
+            SmartHost Property accessor
+            </summary>
+        </member>
+        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.SmtpMode">
+            <summary>
+            SmtpMode Property accessor
+            </summary>
+        </member>
+        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.RouteDestination">
+            <summary>
+            RouteDestination Property accessor
+            </summary>
+        </member>
+        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.RouteRewriteTo">
+            <summary>
+            RouteRewriteTo Property accessor
+            </summary>
+        </member>
+        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.RouteEnabled">
+            <summary>
+            RouteEnabled Property accessor
+            </summary>
+        </member>
+        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.BounceNotifications">
+            <summary>
+            BounceNotifications Property accessor
+            </summary>
+        </member>
+        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsEntry.AccountHandling">
+            <summary>
+            AccountHandling Property accessor
             </summary>
         </member>
         <member name="T:Google.GData.Apps.UserService">
@@ -1327,705 +2302,57 @@
         <member name="M:Google.GData.Apps.UserService.OnParsedNewFeed(System.Object,Google.GData.Client.ServiceEventArgs)">
             <param name="e"><code>ServiceEventArgs</code>, holds the feed</param>
         </member>
-        <member name="T:Google.GData.Apps.OrganizationService">
+        <!-- Badly formed XML comment ignored for member "T:Google.GData.Apps.UserQuery" -->
+        <member name="M:Google.GData.Apps.UserQuery.#ctor(System.String)">
             <summary>
-            Service class for managing organization units and users within Google Apps. 
-            
-            An OrgUnit path is the URL-encoding (e.g., using HttpUtility.UrlPathEncode) of an OrgUnit's lineage, 
-            concatenated together with the slash ('/') character.
+            Constructs a new UserQuery to retrieve all users
+            in the specified domain.
             </summary>
+            <param name="domain">the domain to access</param>
         </member>
-        <member name="M:Google.GData.Apps.OrganizationService.RetrieveCustomerId(System.String)">
+        <member name="M:Google.GData.Apps.UserQuery.#ctor(System.String,System.Boolean)">
             <summary>
-            Retrieves the customer Id that will be used for all other operations.
+            Constructs a new UserQuery to retrieve users in
+            the specified domain.  Use this constructor if you only
+            wish to retrieve the first 100 users, instead of the
+            entire list.
             </summary>
-            <param name="domain">the customer domain</param>
-            <returns></returns>
+            <param name="domain">the domain to access</param>
+            <param name="retrieveAllUsers">true to retrieve all matches,
+            false to return a maximum of 100 users</param>
         </member>
-        <member name="M:Google.GData.Apps.OrganizationService.CreateOrganizationUnit(System.String,System.String,System.String,System.String,System.Boolean)">
+        <member name="M:Google.GData.Apps.UserQuery.CalculateQuery(System.String)">
             <summary>
-            Create a new organization unit under the given parent.
+            Creates the URI query string based on all set properties.
             </summary>
-            <param name="customerId">The unique Id of the customer retrieved through customer feed.</param>
-            <param name="orgUnitName">The new organization name.</param>
-            <param name="parentOrgUnitPath">The path of the parent organization unit where 
-            '/' denotes the root of the organization hierarchy. 
-            For any OrgUnits to be created directly under root, specify '/' as parent path.</param>
-            <param name="description">A description for the organization unit created.</param>
-            <param name="blockInheritance">If true, blocks inheritance of policies from 
-            parent units.</param>
-            <returns></returns>
+            <returns>the URI query string</returns>
         </member>
-        <member name="M:Google.GData.Apps.OrganizationService.RetrieveOrganizationUnit(System.String,System.String)">
+        <member name="P:Google.GData.Apps.UserQuery.Domain">
             <summary>
-            Retrieves an organization unit from the customer's domain.
+            Accessor method for Domain.
             </summary>
-            <param name="orgUnitPath">The path of the unit to be retrieved for e.g /corp</param>
-            <returns></returns>
         </member>
-        <member name="M:Google.GData.Apps.OrganizationService.RetrieveAllOrganizationUnits(System.String)">
+        <member name="P:Google.GData.Apps.UserQuery.StartUserName">
             <summary>
-            Retrieves all organization units for the given customer account.
+            Accessor method for StartUserName.  If set,
+            the query will return a feed of at most 100
+            users beginning at this username.
             </summary>
-            <param name="customerId">The unique Id of the customer retrieved through customer feed.</param>
-            <returns></returns>
         </member>
-        <member name="M:Google.GData.Apps.OrganizationService.RetrieveChildOrganizationUnits(System.String,System.String)">
+        <member name="P:Google.GData.Apps.UserQuery.UserName">
             <summary>
-            Retrieves all the child units of the given organization unit.
+            Accessor method for UserName.  If set, this
+            query will return a feed containing only the
+            specified user.  If both UserName and StartUserName
+            are null, the query returns the feed of all users
+            in the domain.
             </summary>
-            <param name="customerId">The unique Id of the customer retrieved through customer feed.</param>
-            <param name="orgUnitPath">The path of the unit to be retrieved for e.g /corp</param>
-            <returns></returns>
         </member>
-        <member name="M:Google.GData.Apps.OrganizationService.DeleteOrganizationUnit(System.String,System.String)">
+        <member name="P:Google.GData.Apps.UserQuery.RetrieveAllUsers">
             <summary>
-             Deletes the given organization unit. The unit must not have any OrgUsers or any
-            child OrgUnits for it to be deleted
-            </summary>
-            <param name="customerId">The unique Id of the customer retrieved through customer feed.</param>
-            <param name="orgUnitPath">The path of the unit to be retrieved for e.g /corp</param>
-        </member>
-        <member name="M:Google.GData.Apps.OrganizationService.UpdateOrganizationUnit(System.String,System.String,System.Collections.Generic.IDictionary{Google.GData.Apps.OrganizationService.OrgUnitProperty,System.String})">
-            <summary>
-            Updates the given organization attributes. 
-            attributes.USERS_TO_MOVE is a comma separated list of email addresses that are to be moved across orgUnits.
-            </summary>
-            <param name="customerId">The unique Id of the customer retrieved through customer feed.</param>
-            <param name="orgUnitPath">The path of the unit to be retrieved for e.g /corp</param>
-            <param name="attributes">A dictionary of <code>OrgUnitProperty</code> and values to be updated.</param>
-            <returns></returns>
-        </member>
-        <member name="M:Google.GData.Apps.OrganizationService.UpdateOrganizationUser(System.String,System.String,System.String,System.String)">
-            <summary>
-            Updates the orgunit of an organization user.
-            </summary>
-            
-            <param name="customerId"></param>
-            <param name="orgUserEmail">The email address of the user</param>
-            <param name="oldOrgUnitPath">The old organization unit path.
-            If specified, validates the OrgUser's current path.</param>
-            <param name="newOrgUnitPath"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Google.GData.Apps.OrganizationService.UpdateOrganizationUser(System.String,System.String,System.String)">
-            <summary>
-            Updates the orgunit of an organization user.
-            </summary>
-            <param name="customerId"></param>
-            <param name="orgUserEmail">The email address of the user.</param>
-            <param name="newOrgUnitPath">The new organization unit path.</param>
-            <returns></returns>
-        </member>
-        <member name="M:Google.GData.Apps.OrganizationService.RetrieveOrganizationUser(System.String,System.String)">
-            <summary>
-             Retrieves the details of a given organization user.
-            </summary>
-            <param name="customerId"></param>
-            <param name="orgUserEmail">The email address of the user</param>
-            <returns>AppsExtendedEntry</returns>
-        </member>
-        <member name="M:Google.GData.Apps.OrganizationService.RetrieveNextPageFromResumeKey(System.String)">
-            <summary>
-            Retrieves the next page of a paginated feed using resumeKey from the previous feed.
-            i.e. <code>atom:next</code>  link
-            </summary>
-            <param name="resumeKey"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Google.GData.Apps.OrganizationService.RetrieveAllOrganizationUsers(System.String)">
-            <summary>
-            Retrieves all users belongging to all org units. This may take a long time to execute for
-            domains with large number of users. Instead use pagination i.e. 
-            <code>RetrieveFirstPageOrganizationUsers</code>
-            followed by <code>RetrieveNextPageFromResumeKey</code>
-            </summary>
-            <param name="customerId"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Google.GData.Apps.OrganizationService.RetrieveFirstPageOrganizationUsers(System.String)">
-            <summary>
-            Retrieves first page of results for all org users query.  For subsequent pages, 
-            follow up with <code>RetrieveNextPageFromResumeKey</code>
-            </summary>
-            <param name="customerId"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Google.GData.Apps.OrganizationService.RetrieveAllOrganizationUsersByOrgUnit(System.String,System.String)">
-            <summary>
-            Retrieves all users by org unit. This may take a long time to execute for domains with 
-            large number of users. Instead use pagination i.e. 
-            <code>RetrieveFirstPageOfOrganizationUsersByOrgUnit</code>
-            followed by <code>RetrieveNextPageFromResumeKey</code>
-            </summary>
-            <param name="customerId">The unique Id of the customer retrieved through customer feed.</param>
-            <param name="orgUnitPath">The path of the unit to be retrieved for e.g /corp</param>
-            <returns></returns>
-        </member>
-        <member name="M:Google.GData.Apps.OrganizationService.RetrieveFirstPageOfOrganizationUsersByOrgUnit(System.String,System.String)">
-            <summary>
-            Retrieves first page of results for all org users by orgunit query.  For subsequent pages, 
-            follow up with <code>RetrieveNextPageFromResumeKey</code>
-            </summary>
-            <param name="customerId">The unique Id of the customer retrieved through customer feed.</param>
-            <param name="orgUnitPath">The path of the unit to be retrieved for e.g /corp</param>
-            <returns></returns>
-        </member>
-        <member name="T:Google.GData.Apps.Groups.GroupsService">
-            <summary>
-            Base service for accessing Google Groups item feeds from the
-            Google Apps Google Groups API.
-            </summary>
-        </member>
-        <member name="F:Google.GData.Apps.Groups.GroupsService.memberUriSuffix">
-            <summary>
-            URL suffixes for the Google Groups tasks
-            </summary>
-        </member>
-        <member name="M:Google.GData.Apps.Groups.GroupsService.#ctor(System.String,System.String)">
-            <summary>
-            Constructor
-            </summary>
-            <param name="domain">The hosted domain in which the Google Groups are
-            being set up</param>
-            <param name="applicationName">The name of the client application 
-            using this service.</param>
-        </member>
-        <member name="M:Google.GData.Apps.Groups.GroupsService.QueryGroups(System.Uri)">
-            <summary>
-            overwritten Query method
-            </summary>
-            <param name="uri">The URI for the query</param>
-            <returns>the retrieved AppsExtendedFeed</returns>
-        </member>
-        <member name="M:Google.GData.Apps.Groups.GroupsService.CreateGroup(System.String,System.String,System.String,System.String)">
-            <summary>
-            Creates a new group
-            </summary>
-            <param name="groupId">The groupId (required) argument identifies the ID of the new group.</param>
-            <param name="groupName">The groupName (required) argument identifies the name of the group to 
-            which the address is being added.</param>
-            <param name="description">The description argument provides a general description of the group.</param>
-            <param name="emailPermission">The emailPermission argument sets the permissions level of the group.</param>
-            <returns>a <code>AppsExtendedEntry</code> containing the results of the
-            creation</returns>
-        </member>
-        <member name="M:Google.GData.Apps.Groups.GroupsService.UpdateGroup(System.String,System.String,System.String,System.String)">
-            <summary>
-            Updates a group
-            </summary>
-            <param name="groupId">The groupId (required) argument identifies the ID of the new group.</param>
-            <param name="groupName">The groupName (required) argument identifies the name of the group to 
-            which the address is being added.</param>
-            <param name="description">The description argument provides a general description of the group.</param>
-            <param name="emailPermission">The emailPermission argument sets the permissions level of the group.</param>
-            <returns>a <code>AppsExtendedEntry</code> containing the results of the
-            update</returns>
-        </member>
-        <member name="M:Google.GData.Apps.Groups.GroupsService.RetrieveGroup(System.String)">
-            <summary>
-            Retrieves a group by its groupId
-            </summary>
-            <param name="groupId">The groupId argument identifies the group</param>       
-            <returns>a <code>AppsExtendedEntry</code> containing the results of the
-            query</returns>
-        </member>
-        <member name="M:Google.GData.Apps.Groups.GroupsService.RetrieveAllGroups">
-            <summary>
-            Retrieves all the groups
-            </summary>      
-            <returns>a <code>AppsExtendedFeed</code> containing all the <code>AppsExtendedEntry</code>
-            from the Domain</returns>
-        </member>
-        <member name="M:Google.GData.Apps.Groups.GroupsService.RetrievePageOfGroups(System.String)">
-            <summary>
-            Retrieves a page from all the groups
-            </summary>
-            <param name="startKey">resume key from the previous response (used for pagination)</param>
-            <returns>a <code>AppsExtendedFeed</code> containing all the <code>AppsExtendedEntry</code>
-            from the Domain</returns>
-        </member>
-        <member name="M:Google.GData.Apps.Groups.GroupsService.RetrieveGroups(System.String,System.Boolean)">
-            <summary>
-            Retrieves groups of a member or groups of another group.
-            </summary>
-            <param name="memberId">username or groupId to retrieve the groups</param>
-            <param name="directOnly">retrieve groups where the memberId is direct member or not</param>
-            <returns>a <code>AppsExtendedFeed</code> containing all the <code>AppsExtendedEntry</code>
-            from the Domain</returns>
-        </member>
-        <member name="M:Google.GData.Apps.Groups.GroupsService.DeleteGroup(System.String)">
-            <summary>
-            Deletes a group using its Id.
-            </summary>
-            <param name="groupId">Groups's id</param>
-        </member>
-        <member name="M:Google.GData.Apps.Groups.GroupsService.AddMemberToGroup(System.String,System.String)">
-            <summary>
-            Adds a member to a group
-            </summary>
-            <param name="memberId">username or groupId to retrieve the groups</param>
-            <param name="groupId">Groups's id</param>
-            <returns>a <code>AppsExtendedEntry</code> containing the results of the
-            creation</returns>
-        </member>
-        <member name="M:Google.GData.Apps.Groups.GroupsService.RetrieveAllMembers(System.String)">
-            <summary>
-            Retrieves all non-suspened members of the group
-            </summary>
-            <param name="groupId">Groups's id</param>
-            <returns>a <code>AppsExtendedFeed</code> containing all the <code>AppsExtendedEntry</code>
-            from the Domain</returns>
-        </member>
-        <member name="M:Google.GData.Apps.Groups.GroupsService.RetrieveAllMembers(System.String,System.Boolean)">
-            <summary>
-            Retrieves all members of the group
-            </summary>
-            <param name="groupId">Groups's id</param>
-            <param name="includeSuspendedUsers">When set to true, will also return suspended users that
-            are members of the group.</param>
-            <returns>a <code>AppsExtendedFeed</code> containing all the <code>AppsExtendedEntry</code>
-            from the Domain</returns>
-        </member>
-        <member name="M:Google.GData.Apps.Groups.GroupsService.RetrieveMember(System.String,System.String)">
-            <summary>
-            Retrieves the members of the group
-            </summary>
-            <param name="memberId">username or groupId to retrieve</param>
-            <param name="groupId">Groups's id</param>
-            <returns>a <code>AppsExtendedEntry</code> containing the results of the
-            query</returns>
-        </member>
-        <member name="M:Google.GData.Apps.Groups.GroupsService.IsMember(System.String,System.String)">
-            <summary>
-            Checks if a user or a group is member of a group
-            </summary>
-            <param name="memberId">username or groupId to check</param>
-            <param name="groupId">Groups's id</param>
-            <returns>a <code>Boolean</code></returns>
-        </member>
-        <member name="M:Google.GData.Apps.Groups.GroupsService.RemoveMemberFromGroup(System.String,System.String)">
-            <summary>
-            Remove a member from a group
-            </summary>
-            <param name="memberId">username or groupId to remove</param>
-            <param name="groupId">Groups's id</param>
-        </member>
-        <member name="M:Google.GData.Apps.Groups.GroupsService.AddOwnerToGroup(System.String,System.String)">
-            <summary>
-            Adds an owner to a group
-            </summary>
-            <param name="email">owner's Email to add to the group</param>
-            <param name="groupId">Groups's id</param>
-            <returns>a <code>AppsExtendedEntry</code> containing the results of the
-            creation</returns>
-        </member>
-        <member name="M:Google.GData.Apps.Groups.GroupsService.RetrieveGroupOwners(System.String)">
-            <summary>
-            Retrieves all owners of the group
-            </summary>
-            <param name="groupId">Groups's id</param>
-            <returns>a <code>AppsExtendedFeed</code> containing all the <code>AppsExtendedEntry</code>
-            from the Domain</returns>
-        </member>
-        <member name="M:Google.GData.Apps.Groups.GroupsService.RetrieveOwner(System.String,System.String)">
-            <summary>
-            Retrieves the owner of the group
-            </summary>
-            <param name="email">email of the owner to retrieve</param>
-            <param name="groupId">Groups's id</param>
-            <returns>a <code>AppsExtendedEntry</code> containing the results of the
-            query</returns>
-        </member>
-        <member name="M:Google.GData.Apps.Groups.GroupsService.IsOwner(System.String,System.String)">
-            <summary>
-            Checks if a user or a group is owner of a group.
-            </summary>
-            <param name="email">owner's Email to check</param>
-            <param name="groupId">Groups's id</param>
-            <returns>a <code>Boolean</code></returns>
-        </member>
-        <member name="M:Google.GData.Apps.Groups.GroupsService.RemoveOwnerFromGroup(System.String,System.String)">
-            <summary>
-            Remove a owner from a group.
-            </summary>
-            <param name="email">owner's Email to remove</param>
-            <param name="groupId">Groups's id</param>
-        </member>
-        <member name="M:Google.GData.Apps.Groups.GroupsService.OnParsedNewGroupsItemEntry(System.Object,Google.GData.Client.FeedParserEventArgs)">
-            <summary>
-            Event handler. Called when a new Google Groups entry is parsed.
-            </summary>
-            <param name="sender">the object that's sending the evet</param>
-            <param name="e">FeedParserEventArguments, holds the feedentry</param>
-        </member>
-        <member name="M:Google.GData.Apps.Groups.GroupsService.OnNewFeed(System.Object,Google.GData.Client.ServiceEventArgs)">
-            <summary>
-            Overridden so that new feeds are returned as <code>GoogleMailSettingsFeed</code>s
-            instead of base <code>AtomFeed</code>s.
-            </summary>
-            <param name="sender"> the object which sent the event</param>
-            <param name="e">FeedParserEventArguments, holds the FeedEntry</param> 
-        </member>
-        <member name="P:Google.GData.Apps.Groups.GroupsService.Domain">
-            <summary>
-            Accessor for Domain property.
-            </summary>
-            <param name="domain">The hosted domain in which the Google Groups are
-            being set up</param>
-        </member>
-        <member name="T:Google.GData.Apps.AdminSettings.AdminSettingsService">
-            <summary>
-            Base service for accessing Google Admin Settings item feeds from the
-            Google Apps Google Domain Settings API.
-            </summary>
-        </member>
-        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.#ctor(System.String,System.String)">
-            <summary>
-            Constructor
-            </summary>
-            <param name="domain">The hosted domain in which the Google Mail Settings are
-            being set up</param>
-            <param name="applicationName">The name of the client application 
-            using this service.</param>
-        </member>
-        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.GetDefaultLanguage">
-            <summary>
-            Gets the domain's default language
-            </summary>        
-            <returns>a <code>AdminSettingsEntry</code> containing the results of the
-            operation</returns>
-        </member>
-        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.UpdateDefaultLanguage(System.String)">
-            <summary>
-            Updates the domain's default language
-            </summary>
-            <param name="defaultLanguage">the new default language for the domain</param>
-            <returns>a <code>AdminSettingsEntry</code> containing the results of the
-            operation</returns>
-        </member>
-        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.GetOrganizationName">
-            <summary>
-            Gets the domain's organization name
-            </summary>
-            <returns>a <code>AdminSettingsEntry</code> containing the results of the
-            operation</returns>
-        </member>
-        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.UpdateOrganizationName(System.String)">
-            <summary>
-            Updates the domain's organization name
-            </summary>
-            <param name="organizationName">the new organization name for the domain</param>
-            <returns>a <code>AdminSettingsEntry</code> containing the results of the
-            operation</returns>
-        </member>
-        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.GetMaximumNumberOfUsers">
-            <summary>
-            Gets the domain's Maximum Number Of Users
-            </summary>        
-            <returns>a <code>AdminSettingsEntry</code> containing the results of the
-            operation</returns>
-        </member>
-        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.GetCurrentNumberOfUsers">
-            <summary>
-            Gets the domain's Current Number Of Users
-            </summary>        
-            <returns>a <code>AdminSettingsEntry</code> containing the results of the
-            operation</returns>
-        </member>
-        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.GetIsVerified">
-            <summary>
-            Gets the domain's verification status
-            </summary>        
-            <returns>a <code>AdminSettingsEntry</code> containing the results of the
-            operation</returns>
-        </member>
-        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.GetSupportPIN">
-            <summary>
-            Gets the domain's Support PIN
-            </summary>        
-            <returns>a <code>AdminSettingsEntry</code> containing the results of the
-            operation</returns>
-        </member>
-        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.GetDomainEdition">
-            <summary>
-            Gets the domain's Google Apps Edition
-            </summary>        
-            <returns>a <code>AdminSettingsEntry</code> containing the results of the
-            operation</returns>
-        </member>
-        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.GetCustomerPIN">
-            <summary>
-            Gets the domain's Customers PIN
-            </summary>        
-            <returns>a <code>AdminSettingsEntry</code> containing the results of the
-            operation</returns>
-        </member>
-        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.GetCreationTime">
-            <summary>
-            Gets the domain's Creation Time
-            </summary>        
-            <returns>a <code>AdminSettingsEntry</code> containing the results of the
-            operation</returns>
-        </member>
-        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.GetCountryCode">
-            <summary>
-            Gets the domain's Country Code
-            </summary>        
-            <returns>a <code>AdminSettingsEntry</code> containing the results of the
-            operation</returns>
-        </member>
-        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.GetAdminSecondaryEmail">
-            <summary>
-            Gets the domain's Administrator Secondary Email address
-            </summary>        
-            <returns>a <code>AdminSettingsEntry</code> containing the results of the
-            operation</returns>
-        </member>
-        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.UpdateAdminSecondaryEmail(System.String)">
-            <summary>
-            Updates the domain's Administrator Secondary Email address
-            </summary>
-            <param name="adminSecondaryEmail">the new domain's admin Secondary Email domain</param>
-            <returns>a <code>AdminSettingsEntry</code> containing the results of the
-            operation</returns>
-        </member>
-        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.UpdateCustomLogo(System.String)">
-            <summary>
-            Updates the domain's Custom Logo
-            </summary>
-            <param name="base64EncodedLogoImage">base 64 encoded binary data of logo image</param>
-            <returns>a <code>AdminSettingsEntry</code> containing the results of the
-            operation</returns>
-        </member>
-        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.GetCnameVerificationStatus">
-            <summary>
-            Gets the domain's CNAME verification status
-            </summary>        
-            <returns>a <code>AdminSettingsEntry</code> containing the results of the
-            operation</returns>
-        </member>
-        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.UpdateCnameVerificationStatus">
-            <summary>
-            Updates the domain's CNAME verification status
-            </summary>        
-            <returns>a <code>AdminSettingsEntry</code> containing the results of the
-            operation</returns>
-        </member>
-        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.GetMxVerificationStatus">
-            <summary>
-            Gets the domain's MX verification status
-            </summary>        
-            <returns>a <code>AdminSettingsEntry</code> containing the results of the
-            operation</returns>
-        </member>
-        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.UpdateMxVerificationStatus">
-            <summary>
-            Updates the domain's MX verification status
-            </summary>        
-            <returns>a <code>AdminSettingsEntry</code> containing the results of the
-            operation</returns>
-        </member>
-        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.GetSsoSettings">
-            <summary>
-            Gets the domain's SSO settings
-            </summary>        
-            <returns>a <code>AdminSettingsEntry</code> containing the results of the
-            operation</returns>
-        </member>
-        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.UpdateSsoSettings(System.Boolean,System.String,System.String,System.String,System.String,System.Boolean)">
-            <summary>
-            Updates the domain's SSO settings
-            </summary>        
-            <param name="enableSSO">Enable or Disable SSO for the domain</param>
-            <param name="samlSignonUri">http://www.example.com/sso/signon</param>
-            <param name="samlLogoutUri">http://www.example.com/sso/logout</param>
-            <param name="changePasswordUri">http://www.example.com/sso/changepassword</param>
-            <param name="ssoWhitelist">CIDR formated IP address</param>
-            <returns>a <code>AdminSettingsEntry</code> containing the results of the
-            operation</returns>
-        </member>
-        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.GetSsoSigningkey">
-            <summary>
-            Gets the domain's SSO Signing Key
-            </summary>        
-            <returns>a <code>AdminSettingsEntry</code> containing the results of the
-            operation</returns>
-        </member>
-        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.UpdateSsoSigningkey(System.String)">
-            <summary>
-            Updates the domain's SSO Signing Key
-            </summary>
-            <param name="base64EncodedSigningKey">yourBase64EncodedPublicKey</param>
-            <returns>a <code>AdminSettingsEntry</code> containing the results of the
-            operation</returns>
-        </member>
-        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.GetMigrationAccess">
-            <summary>
-            Gets the domain's Migration Access settings
-            </summary>        
-            <returns>a <code>AdminSettingsEntry</code> containing the results of the
-            operation</returns>
-        </member>
-        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.UpdateMigrationAccess(System.Boolean)">
-            <summary>
-            Updates the domain's Migration Access settings
-            </summary>
-            <param name="enableUserMigration">Enable or Disable User migration for the domain</param>
-            <returns>a <code>AdminSettingsEntry</code> containing the results of the
-            operation</returns>
-        </member>
-        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.GetEmailGateway">
-            <summary>
-            Gets the domain's Email Gateway settings
-            </summary>
-            <returns>a <code>AdminSettingsEntry</code> containing the results of the
-            operation</returns>
-        </member>
-        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.UpdateEmailGateway(System.String,System.String)">
-            <summary>
-            Updates the domain's Email Gateway settings
-            </summary>
-            <param name="smartHost">Either the IP address or hostname of your SMTP server.
-            Google Apps routes outgoing mail to this server.</param>
-            <param name="smtpMode"> The default value is SMTP. Another value, SMTP_TLS,
-            secures a connection with TLS when delivering the message. </param>
-            <returns>a <code>AdminSettingsEntry</code> containing the results of the
-            operation</returns>
-        </member>
-        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.GetEmailRouting">
-            <summary>
-            Gets the domain's Email Routing settings
-            </summary>
-            <returns>a <code>AdminSettingsFeed</code> containing the results of the
-            operation</returns>
-        </member>
-        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.OnParsedNewGoogleMailSettingsItemEntry(System.Object,Google.GData.Client.FeedParserEventArgs)">
-            <summary>
-            Event handler. Called when a new Google Domain Settings entry is parsed.
-            </summary>
-            <param name="sender">the object that's sending the evet</param>
-            <param name="e">FeedParserEventArguments, holds the feedentry</param>
-        </member>
-        <member name="M:Google.GData.Apps.AdminSettings.AdminSettingsService.OnNewFeed(System.Object,Google.GData.Client.ServiceEventArgs)">
-            <summary>
-            Overridden so that new feeds are returned as <code>AppsExtendedFeed</code>s
-            instead of base <code>AtomFeed</code>s.
-            </summary>
-            <param name="sender"> the object which sent the event</param>
-            <param name="e">FeedParserEventArguments, holds the FeedEntry</param> 
-        </member>
-        <member name="P:Google.GData.Apps.AdminSettings.AdminSettingsService.Domain">
-            <summary>
-            Accessor for Domain property.
-            </summary>
-        </member>
-        <member name="T:Google.GData.Apps.UserEntry">
-            <summary>
-            A Google Apps user entry.  A UserEntry object encapsulates
-            the login, name and quota information for a single user.
-            </summary>
-        </member>
-        <member name="F:Google.GData.Apps.UserEntry.USER_ACCOUNT_CATEGORY">
-            <summary>
-            Category used to label entries that contain user
-            extension data.
-            </summary>
-        </member>
-        <member name="M:Google.GData.Apps.UserEntry.#ctor">
-            <summary>
-            Constructs a new UserEntry instance with the appropriate category
-            to indicate that it is a user account.
-            </summary>
-        </member>
-        <member name="M:Google.GData.Apps.UserEntry.Update">
-            <summary>
-            Updates this UserEntry.
-            </summary>
-            <returns>the updated UserEntry</returns>
-        </member>
-        <member name="P:Google.GData.Apps.UserEntry.Login">
-            <summary>
-            The login element in this user account entry.
-            </summary>
-        </member>
-        <member name="P:Google.GData.Apps.UserEntry.Quota">
-            <summary>
-            The quota element in this user account entry.
-            </summary>
-        </member>
-        <member name="P:Google.GData.Apps.UserEntry.Name">
-            <summary>
-            The name element in this user account entry.
-            </summary>
-        </member>
-        <member name="T:Google.GData.Apps.Migration.MailItemService">
-            <summary>
-            Base service for accessing mail item feeds from the
-            Google Apps Domain Migration API.
-            </summary>
-        </member>
-        <member name="F:Google.GData.Apps.Migration.MailItemService.mailFeedUriSuffix">
-            <summary>
-            Feed for inserting mail messages.
-            </summary>
-        </member>
-        <member name="F:Google.GData.Apps.Migration.MailItemService.batchFeedUriSuffix">
-            <summary>
-            Suffix to insert mail messages in a batch.
-            </summary>
-        </member>
-        <member name="M:Google.GData.Apps.Migration.MailItemService.#ctor(System.String,System.String)">
-            <summary>
-            Constructor
-            </summary>
-            <param name="domain">The hosted domain in which a migration is
-            being set up</param>
-            <param name="applicationName">The name of the client application 
-            using this service.</param>
-        </member>
-        <member name="M:Google.GData.Apps.Migration.MailItemService.Batch(System.String,System.String,Google.GData.Apps.Migration.MailItemEntry[])">
-            <summary>
-            Inserts one or more mail item entries in a single batched request.
-            Use this method to reduce HTTP overhead when inserting many emails
-            in a single transfer.
-            </summary>
-            <param name="domain">the domain into which to migrate mail</param>
-            <param name="entries">the mail messages to batch insert</param>
-            <param name="userName">the user for whom this should be done</param>
-            <returns>a <code>MailItemFeed</code> containing the results of the
-            batch insertion</returns>
-        </member>
-        <member name="M:Google.GData.Apps.Migration.MailItemService.Batch(System.String,System.String,System.Collections.Generic.List{Google.GData.Apps.Migration.MailItemEntry})">
-            <summary>
-            Inserts one or more mail item entries in a single batched request.
-            Use this method to reduce HTTP overhead when inserting many emails
-            in a single transfer.
-            </summary>
-            <param name="domain">the domain into which to migrate mail</param>
-            <param name="entries">the mail messages to batch insert</param>
-            <param name="userName">the user for whom this should be done</param>
-            <returns>a <code>MailItemFeed</code> containing the results of the
-            batch insertion</returns>
-        </member>
-        <member name="M:Google.GData.Apps.Migration.MailItemService.OnParsedNewMailItemEntry(System.Object,Google.GData.Client.FeedParserEventArgs)">
-            <summary>
-            Event handler. Called when a new migration entry is parsed.
-            </summary>
-            <param name="sender">the object that's sending the evet</param>
-            <param name="e">FeedParserEventArguments, holds the feedentry</param>
-        </member>
-        <member name="M:Google.GData.Apps.Migration.MailItemService.OnNewFeed(System.Object,Google.GData.Client.ServiceEventArgs)">
-            <summary>
-            Overridden so that new feeds are returned as <code>MailItemFeed</code>s
-            instead of base <code>AtomFeed</code>s.
-            </summary>
-            <param name="sender"> the object which sent the event</param>
-            <param name="e">FeedParserEventArguments, holds the FeedEntry</param> 
-        </member>
-        <member name="P:Google.GData.Apps.Migration.MailItemService.Domain">
-            <summary>
-            Accessor for Domain property.
+            Accessor method for RetrieveAllUsers.  If false,
+            the query returns at most 100 matches; if it is
+            true (default), all matches are returned.
             </summary>
         </member>
         <member name="T:Google.GData.Apps.GoogleMailSettings.GoogleMailSettingsService">
@@ -2179,372 +2506,45 @@
             Accessor for Domain property.
             </summary>
         </member>
-        <member name="T:Google.GData.Apps.EmailListEntry">
+        <member name="T:Google.GData.Apps.GoogleMailSettings.GoogleMailSettingsEntry">
             <summary>
-            A Google Apps email list entry.  An EmailListEntry object
-            contains information about a single email list.
+            A Google Apps Google Mail Settings entry.
             </summary>
         </member>
-        <member name="F:Google.GData.Apps.EmailListEntry.EMAILLIST_CATEGORY">
+        <member name="M:Google.GData.Apps.GoogleMailSettings.GoogleMailSettingsEntry.#ctor">
             <summary>
-            Category used to label entries that contain email list
-            extension data.
+            Constructs a new <code>GoogleMailSettingsEntry</code> object.
             </summary>
         </member>
-        <member name="M:Google.GData.Apps.EmailListEntry.#ctor">
+        <member name="M:Google.GData.Apps.GoogleMailSettings.GoogleMailSettingsEntry.getPropertyByName(System.String)">
             <summary>
-            Constructs a new EmailListEntry instance with the appropriate category
-            to indicate that it is a email list.
+            Gets a PropertyElement by its Name
             </summary>
+            <returns>a <code>PropertyElement</code> containing the results of the
+            execution</returns>         
         </member>
-        <member name="M:Google.GData.Apps.EmailListEntry.#ctor(System.String)">
+        <member name="M:Google.GData.Apps.GoogleMailSettings.GoogleMailSettingsEntry.getPropetyValueByName(System.String)">
             <summary>
-            Constructs a new EmailListEntry instance with the specified list name.
+            Gets a the Value of a PropertyElement by its Name
             </summary>
-            <param name="emailListName">the name of the email list</param>
+            <returns>a string containing the results of the execution</returns>
         </member>
-        <member name="M:Google.GData.Apps.EmailListEntry.Update">
+        <member name="M:Google.GData.Apps.GoogleMailSettings.GoogleMailSettingsEntry.getPropertyValueByName(System.String)">
             <summary>
-            Overrides the base Update() method to throw a ClientFeedException,
-            because email list entries cannot be updated.  This exception
-            indicates that the client made an erroneous request to the email
-            list feed.
+            Gets a the Value of a PropertyElement by its Name
             </summary>
+            <returns>a string containing the results of the execution</returns>
         </member>
-        <member name="P:Google.GData.Apps.EmailListEntry.EmailList">
+        <member name="M:Google.GData.Apps.GoogleMailSettings.GoogleMailSettingsEntry.Update">
             <summary>
-            The email list element in this entry.
+            Updates this GoogleMailSettingsEntry.
             </summary>
+            <returns>the updated GoogleMailSettingsEntry</returns>
         </member>
-        <member name="T:Google.GData.Apps.EmailListFeed">
+        <member name="P:Google.GData.Apps.GoogleMailSettings.GoogleMailSettingsEntry.Properties">
             <summary>
-            Feed API customization class for defining email list feed.
+            Properties accessor
             </summary>
-        </member>
-        <member name="M:Google.GData.Apps.EmailListFeed.#ctor(System.Uri,Google.GData.Client.IService)">
-            <summary>
-            Constructs a new EmailListFeed.
-            </summary>
-            <param name="uriBase">the feed URI</param>
-            <param name="iService">the Service object with which
-            this feed is to be associated</param>
-        </member>
-        <member name="M:Google.GData.Apps.EmailListFeed.CreateFeedEntry">
-            <summary>
-            Overridden.  Returns a new <code>EmailListEntry</code>.
-            </summary>
-            <returns>the new new <code>EmailListEntry</code></returns>
-        </member>
-        <member name="T:Google.GData.Apps.EmailListRecipientQuery">
-            <summary>
-            A subclass of FeedQuery to query a Google Apps email list
-            recipient feed URI.
-            
-            Provides public properties that describe the different
-            aspects of the URI, as well as a composite URI.
-            </summary>
-        </member>
-        <member name="M:Google.GData.Apps.EmailListRecipientQuery.#ctor(System.String,System.String)">
-            <summary>
-            Constructs a new EmailListRecipientQuery to retrieve
-            the list of recipients for the specified email list on
-            the specified domain.
-            </summary>
-            <param name="domain">the domain to query</param>
-            <param name="emailListName">the email list whose recipients
-            we wish to retrieve</param>
-        </member>
-        <member name="M:Google.GData.Apps.EmailListRecipientQuery.CalculateQuery(System.String)">
-            <summary>
-            Creates the URI query string based on all set properties.
-            </summary>
-            <returns>the URI query string</returns>
-        </member>
-        <member name="P:Google.GData.Apps.EmailListRecipientQuery.Domain">
-            <summary>
-            Accessor method for Domain.
-            </summary>
-        </member>
-        <member name="P:Google.GData.Apps.EmailListRecipientQuery.EmailListName">
-            <summary>
-            Accessor method for EmailListName.
-            </summary>
-        </member>
-        <member name="P:Google.GData.Apps.EmailListRecipientQuery.RetrieveAllRecipients">
-            <summary>
-            Accessor method for RetrieveAllEmailLists.  If false,
-            the query returns at most 100 matches; if it is
-            true (default), all matches are returned.
-            </summary>
-        </member>
-        <member name="P:Google.GData.Apps.EmailListRecipientQuery.Recipient">
-            <summary>
-            Accessor method for Recipient.
-            </summary>
-        </member>
-        <member name="P:Google.GData.Apps.EmailListRecipientQuery.StartRecipient">
-            <summary>
-            Accessor method for StartRecipient.
-            </summary>
-        </member>
-        <member name="T:Google.GData.Apps.UserFeed">
-            <summary>
-            Feed API customization class for defining user account feed.
-            </summary>
-        </member>
-        <member name="M:Google.GData.Apps.UserFeed.#ctor(System.Uri,Google.GData.Client.IService)">
-            <summary>
-            Constructor
-            </summary>
-            <param name="uriBase">The uri for the user account feed.</param>
-            <param name="iService">The user account service.</param>
-        </member>
-        <member name="M:Google.GData.Apps.UserFeed.CreateFeedEntry">
-            <summary>
-            Overridden.  Returns a new <code>UserEntry</code>.
-            </summary>
-            <returns>the new <code>UserEntry</code></returns>
-        </member>
-        <member name="T:Google.GData.Apps.NicknameQuery">
-            <summary>
-            A subclass of FeedQuery to query a Google Apps nickname
-            feed URI.
-            
-            Provides public properties that describe the different
-            aspects of the URI, as well as a composite URI.
-            </summary>
-        </member>
-        <member name="M:Google.GData.Apps.NicknameQuery.#ctor(System.String)">
-            <summary>
-            Constructs a new NicknameQuery to retrieve all nicknames
-            in the specified domain.
-            
-            In addition to calling the constructor, you may set at most
-            one of Nickname, StartNickname or UserName to restrict your
-            query.
-            </summary>
-            <param name="domain">the domain to query</param>
-        </member>
-        <member name="M:Google.GData.Apps.NicknameQuery.CalculateQuery(System.String)">
-            <summary>
-            Creates the URI query string based on all set properties.
-            </summary>
-            <returns>the URI query string</returns>
-        </member>
-        <member name="P:Google.GData.Apps.NicknameQuery.Domain">
-            <summary>
-            Accessor method for Domain.
-            </summary>
-        </member>
-        <member name="P:Google.GData.Apps.NicknameQuery.StartNickname">
-            <summary>
-            Accessor method for StartNickname.  If this property
-            is non-null, the query will return a feed of up to
-            100 nicknames beginning with StartNickname.
-            </summary>
-        </member>
-        <member name="P:Google.GData.Apps.NicknameQuery.Nickname">
-            <summary>
-            Accessor method for Nickname.  If this property is
-            non-null, the query will retrieve the specified
-            nickname.
-            </summary>
-        </member>
-        <member name="P:Google.GData.Apps.NicknameQuery.UserName">
-            <summary>
-            Accessor method for UserName.  If this property is
-            non-null, the query will retrieve all nicknames for
-            the specified user.
-            </summary>
-        </member>
-        <member name="P:Google.GData.Apps.NicknameQuery.RetrieveAllNicknames">
-            <summary>
-            Accessor method for RetrieveAllNicknames.  If false,
-            the query returns at most 100 matches; if it is
-            true (default), all matches are returned.
-            </summary>
-        </member>
-        <member name="T:Google.GData.Apps.NicknameFeed">
-            <summary>
-            Feed API customization class for defining nickname feed.
-            </summary>
-        </member>
-        <member name="M:Google.GData.Apps.NicknameFeed.#ctor(System.Uri,Google.GData.Client.IService)">
-            <summary>
-            Constructs a new NicknameFeed.
-            </summary>
-            <param name="uriBase">the URI of the feed</param>
-            <param name="iService">the service with which this
-            feed will be associated</param>
-        </member>
-        <member name="M:Google.GData.Apps.NicknameFeed.CreateFeedEntry">
-            <summary>
-            Overridden.  Returns a new <code>NicknameEntry</code>.
-            </summary>
-            <returns>the new <code>NicknameEntry</code></returns>
-        </member>
-        <member name="T:Google.GData.Apps.NicknameService">
-            <summary>
-            The NicknameService class extends the AppsService abstraction
-            to define a service that is preconfigured for access to Google Apps
-            nickname feeds.
-            </summary>
-        </member>
-        <member name="M:Google.GData.Apps.NicknameService.#ctor(System.String)">
-            <summary>
-            Constructor
-            </summary>
-            <param name="applicationName">The name of the client application 
-            using this service.</param>
-        </member>
-        <member name="M:Google.GData.Apps.NicknameService.Query(Google.GData.Apps.NicknameQuery)">
-            <summary>
-            overwritten Query method
-            </summary>
-            <param name="feedQuery">The FeedQuery to use</param>
-            <returns>the retrieved NicknameFeed</returns>
-        </member>
-        <member name="M:Google.GData.Apps.NicknameService.Insert(Google.GData.Apps.NicknameFeed,Google.GData.Apps.NicknameEntry)">
-            <summary>
-            Inserts a new nickname entry into the specified feed.
-            </summary>
-            <param name="feed">the feed into which this entry should be inserted</param>
-            <param name="entry">the entry to insert</param>
-            <returns>the inserted entry</returns>
-        </member>
-        <member name="M:Google.GData.Apps.NicknameService.Insert(System.Uri,Google.GData.Apps.NicknameEntry)">
-            <summary>
-            Inserts a new nickname entry into the feed at the
-            specified URI.
-            </summary>
-            <param name="feedUri">the URI of the feed into which this entry should be inserted</param>
-            <param name="entry">the entry to insert</param>
-            <returns>the inserted entry</returns>
-        </member>
-        <member name="M:Google.GData.Apps.NicknameService.Update(Google.GData.Client.AtomEntry)">
-            <summary>
-            Overrides the base Update() method to throw an
-            exception, because nickname entries cannot be
-            updated.
-            </summary>
-            <param name="entry">the entry the user is trying to update</param>
-        </member>
-        <member name="M:Google.GData.Apps.NicknameService.Delete(System.Uri)">
-            <summary>
-            Overridden Delete method that throws AppsException
-            </summary>
-            <param name="uri">the URI to delete</param>
-        </member>
-        <member name="M:Google.GData.Apps.NicknameService.Delete(Google.GData.Apps.NicknameEntry)">
-            <summary>
-            Overridden Delete method that throws AppsException
-            </summary>
-            <param name="entry">the NicknameEntry to delete</param>
-        </member>
-        <member name="M:Google.GData.Apps.NicknameService.OnParsedNewNicknameEntry(System.Object,Google.GData.Client.FeedParserEventArgs)">
-            <summary>
-            Event handler. Called when a new list entry is parsed.
-            </summary>
-            <param name="sender">the object that's sending the evet</param>
-            <param name="e">FeedParserEventArguments, holds the feedentry</param>
-        </member>
-        <member name="M:Google.GData.Apps.NicknameService.OnParsedNewFeed(System.Object,Google.GData.Client.ServiceEventArgs)">
-            <param name="e"><code>ServiceEventArgs</code>, holds the feed</param>
-        </member>
-        <member name="T:Google.GData.Apps.Migration.MailItemFeed">
-            <summary>
-            Feed API customization class for defining the Google Apps
-            Domain Migration API's mail item feed.
-            </summary>
-        </member>
-        <member name="M:Google.GData.Apps.Migration.MailItemFeed.#ctor(System.Uri,Google.GData.Client.IService)">
-            <summary>
-            Constructor
-            </summary>
-            <param name="uriBase">The uri for the migration feed.</param>
-            <param name="iService">The migration service.</param>
-        </member>
-        <member name="M:Google.GData.Apps.Migration.MailItemFeed.CreateFeedEntry">
-            <summary>
-            Overridden.  Creates a new <code>MailItemEntry</code>.
-            </summary>
-            <returns>the new <code>MailItemEntry</code>.</returns>
-        </member>
-        <member name="M:Google.GData.Apps.Migration.MailItemFeed.HandleExtensionElements(Google.GData.Client.ExtensionElementEventArgs,Google.GData.Client.AtomFeedParser)">
-            <summary>
-            Gets called after we handled the custom entry, to handle other
-            potential parsing tasks
-            </summary>
-            <param name="e"></param>
-            <param name="parser"></param>
-        </member>
-        <member name="T:Google.GData.Apps.EmailListService">
-            <summary>
-            The EmailListService class extends the AppsService abstraction
-            to define a service that is preconfigured for access to Google Apps
-            email list feeds.
-            </summary>
-        </member>
-        <member name="M:Google.GData.Apps.EmailListService.#ctor(System.String)">
-            <summary>
-            Constructor
-            </summary>
-            <param name="applicationName">The name of the client application 
-            using this service.</param>
-        </member>
-        <member name="M:Google.GData.Apps.EmailListService.Query(Google.GData.Apps.EmailListQuery)">
-            <summary>
-            overwritten Query method
-            </summary>
-            <param name="feedQuery">The FeedQuery to use</param>
-            <returns>the retrieved EmailListFeed</returns>
-        </member>
-        <member name="M:Google.GData.Apps.EmailListService.Insert(Google.GData.Apps.EmailListFeed,Google.GData.Apps.EmailListEntry)">
-            <summary>
-            Inserts a new email list entry into the specified feed.
-            </summary>
-            <param name="feed">the feed into which this entry should be inserted</param>
-            <param name="entry">the entry to insert</param>
-            <returns>the inserted entry</returns>
-        </member>
-        <member name="M:Google.GData.Apps.EmailListService.Insert(System.Uri,Google.GData.Apps.EmailListEntry)">
-            <summary>
-            Inserts a new email list entry into the feed at the
-            specified URI.
-            </summary>
-            <param name="feedUri">the URI of the feed into which this entry should be inserted</param>
-            <param name="entry">the entry to insert</param>
-            <returns>the inserted entry</returns>
-        </member>
-        <member name="M:Google.GData.Apps.EmailListService.Update(Google.GData.Client.AtomEntry)">
-            <summary>
-            Overrides the base Update() method to throw an
-            exception, because email list entries cannot be
-            updated.
-            </summary>
-            <param name="entry">the entry the user is trying to update</param>
-        </member>
-        <member name="M:Google.GData.Apps.EmailListService.Delete(System.Uri)">
-            <summary>
-            Overridden Delete method that throws AppsException
-            </summary>
-            <param name="uri">the URI to delete</param>
-        </member>
-        <member name="M:Google.GData.Apps.EmailListService.Delete(Google.GData.Apps.EmailListEntry)">
-            <summary>
-            Overridden Delete method that throws AppsException
-            </summary>
-            <param name="entry">the EmailListEntry to delete</param>
-        </member>
-        <member name="M:Google.GData.Apps.EmailListService.OnParsedNewEmailListEntry(System.Object,Google.GData.Client.FeedParserEventArgs)">
-            <summary>
-            Event handler. Called when a new list entry is parsed.
-            </summary>
-            <param name="sender">the object that's sending the evet</param>
-            <param name="e">FeedParserEventArguments, holds the feedentry</param>
-        </member>
-        <member name="M:Google.GData.Apps.EmailListService.OnParsedNewFeed(System.Object,Google.GData.Client.ServiceEventArgs)">
-            <param name="e"><code>ServiceEventArgs</code>, holds the feed</param>
         </member>
     </members>
 </doc>

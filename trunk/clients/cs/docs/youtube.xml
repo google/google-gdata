@@ -57,14 +57,9 @@
             </summary>
             <returns>AtomEntry</returns>
         </member>
-        <member name="T:Google.GData.YouTube.PlaylistEntry">
+        <member name="T:Google.GData.YouTube.ProfileEntry">
             <summary>
-            Entry API customization class for defining entries in an Playlist feed.
-            </summary>
-        </member>
-        <member name="T:Google.GData.YouTube.YouTubeEntry">
-            <summary>
-            Entry API customization class for defining entries in a YouTubeFeed feed.
+            A user profile contains information that the user lists on his YouTube profile page.
             </summary>
         </member>
         <member name="T:Google.GData.YouTube.YouTubeBaseEntry">
@@ -122,6 +117,162 @@
             is still supported
             </summary>
             <returns></returns>
+        </member>
+        <member name="F:Google.GData.YouTube.ProfileEntry.PROFILE_CATEGORY">
+            <summary>
+            Category used to label entries that friends
+            </summary>
+        </member>
+        <member name="M:Google.GData.YouTube.ProfileEntry.#ctor">
+            <summary>
+            Constructs a new ProfileEntry instance
+            </summary>
+        </member>
+        <member name="P:Google.GData.YouTube.ProfileEntry.Age">
+            <summary>
+            The yt:ag> tag specifies the user's age, which is calculated based on the birthdate provided 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.GData.YouTube.ProfileEntry.Company">
+            <summary>
+            The yt:company tag identifies the company that the user works for as entered by the user 
+            in the user's public YouTube profile
+            </summary>
+        </member>
+        <member name="P:Google.GData.YouTube.ProfileEntry.Books">
+            <summary>
+            The yt:books tag identifies the user's favorite books as entered in the user's YouTube public profile
+            </summary>
+        </member>
+        <member name="P:Google.GData.YouTube.ProfileEntry.Firstname">
+            <summary>
+            the users firstname per public profile
+            </summary>
+        </member>
+        <member name="P:Google.GData.YouTube.ProfileEntry.Lastname">
+            <summary>
+            the users lastname per public profile
+            </summary>
+        </member>
+        <member name="P:Google.GData.YouTube.ProfileEntry.Hobbies">
+            <summary>
+            the users hobbies per public profile
+            </summary>
+        </member>
+        <member name="P:Google.GData.YouTube.ProfileEntry.Gender">
+            <summary>
+            the users gender per public profile
+            </summary>
+        </member>
+        <member name="P:Google.GData.YouTube.ProfileEntry.Location">
+            <summary>
+            the users location per public profile
+            </summary>
+        </member>
+        <member name="P:Google.GData.YouTube.ProfileEntry.Movies">
+            <summary>
+            the users favorite movies per public profile
+            </summary>
+        </member>
+        <member name="P:Google.GData.YouTube.ProfileEntry.Music">
+            <summary>
+            the users favorite music per public profile
+            </summary>
+        </member>
+        <member name="P:Google.GData.YouTube.ProfileEntry.Occupation">
+            <summary>
+            the users occupation per public profile
+            </summary>
+        </member>
+        <member name="P:Google.GData.YouTube.ProfileEntry.School">
+            <summary>
+            the users school per public profile
+            </summary>
+        </member>
+        <member name="P:Google.GData.YouTube.ProfileEntry.UserName">
+            <summary>
+            getter/setter for UserName subelement
+            </summary>
+        </member>
+        <member name="P:Google.GData.YouTube.ProfileEntry.Relationship">
+            <summary>
+            The yt:relationship tag identifies the user's relationship status
+            </summary>
+        </member>
+        <member name="P:Google.GData.YouTube.ProfileEntry.Hometown">
+            <summary>
+            The yt:hometown tag identifies the user's hometown
+            </summary>
+        </member>
+        <member name="P:Google.GData.YouTube.ProfileEntry.Statistics">
+            <summary>
+            returns the yt:statistics element
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.GData.YouTube.ProfileEntry.FeedLinks">
+            <summary>
+             property accessor for the Thumbnails 
+            </summary>
+        </member>
+        <member name="P:Google.GData.YouTube.ProfileEntry.Description">
+            <summary>
+            getter/setter for Description subelement
+            </summary>
+        </member>
+        <member name="T:Google.GData.YouTube.FriendsEntry">
+            <summary>
+            An individual entry inside the FriendsFeed. It represents a contact of the user
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.FriendsEntry.FRIENDS_CATEGORY">
+            <summary>
+            Category used to label entries that friends
+            </summary>
+        </member>
+        <member name="M:Google.GData.YouTube.FriendsEntry.#ctor">
+            <summary>
+            Constructs a new FriendsEntry instance
+            </summary>
+        </member>
+        <member name="P:Google.GData.YouTube.FriendsEntry.Status">
+            <summary>
+            getter/setter for Status subelement
+            </summary>
+        </member>
+        <member name="P:Google.GData.YouTube.FriendsEntry.UserName">
+            <summary>
+            getter/setter for UserName subelement
+            </summary>
+        </member>
+        <member name="T:Google.GData.YouTube.MessageFeed">
+            <summary>
+            Messages can be sent between YouTube users, optionally including a video.
+            </summary>
+        </member>
+        <member name="M:Google.GData.YouTube.MessageFeed.#ctor(System.Uri,Google.GData.Client.IService)">
+            <summary>
+             default constructor
+            </summary>
+            <param name="uriBase">the base URI of the feedEntry</param>
+            <param name="iService">the Service to use</param>
+        </member>
+        <member name="M:Google.GData.YouTube.MessageFeed.CreateFeedEntry">
+            <summary>
+            this needs to get implemented by subclasses
+            </summary>
+            <returns>AtomEntry</returns>
+        </member>
+        <member name="T:Google.GData.YouTube.MessageEntry">
+            <summary>
+            Entry API customization class for defining entries in an messages feed.
+            </summary>
+        </member>
+        <member name="T:Google.GData.YouTube.YouTubeEntry">
+            <summary>
+            Entry API customization class for defining entries in a YouTubeFeed feed.
+            </summary>
         </member>
         <member name="M:Google.GData.YouTube.YouTubeEntry.#ctor">
             <summary>
@@ -221,110 +372,127 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="F:Google.GData.YouTube.PlaylistEntry.PLAYLIST_CATEGORY">
+        <member name="F:Google.GData.YouTube.MessageEntry.MESSAGE_CATEGORY">
             <summary>
             Category used to label entries as Playlistentries
             </summary>
         </member>
-        <member name="M:Google.GData.YouTube.PlaylistEntry.#ctor">
+        <member name="M:Google.GData.YouTube.MessageEntry.#ctor">
             <summary>
             Constructs a new PlayListEntry instance
             </summary>
         </member>
-        <member name="P:Google.GData.YouTube.PlaylistEntry.Position">
+        <member name="P:Google.GData.YouTube.MessageEntry.Description">
             <summary>
-            getter/setter for Position subelement
+            getter/setter for Description subelement
             </summary>
         </member>
-        <member name="T:Google.GData.YouTube.PlaylistsFeed">
+        <member name="T:Google.GData.YouTube.PlaylistFeed">
             <summary>
-            A user's playlists feed contains a list of the playlists created by
-             that user. If you are requesting the playlists feed for the currently
-             authenticated user, the feed will contain both public and private playlists. 
-            However, if you send an unauthenticated request or request playlists created 
-            by someone other than the currently authenticated user, the feed will only
-             contain public playlists.
-            In a playlists feed, each entry contains information about a single playlist, 
-            including the playlist title, description and author. The gd:feedLink tag 
-            in the entry identifies the URL that allows you to retrieve the playlist feed, 
-            which specifies information about the videos in the playlist.
+            The YouTube Data API allows applications to perform functions normally 
+            executed on the YouTube website. The API enables your application to search 
+            for YouTube videos and to retrieve standard video feeds, comments and video
+            responses. 
+            In addition, the API lets your application upload videos to YouTube or 
+            update existing videos. Your can also retrieve playlists, subscriptions, 
+            user profiles and more. Finally, your application can submit 
+            authenticated requests to enable users to create playlists, 
+            subscriptions, contacts and other account-specific entities.
             </summary>
         </member>
-        <member name="M:Google.GData.YouTube.PlaylistsFeed.#ctor(System.Uri,Google.GData.Client.IService)">
+        <member name="M:Google.GData.YouTube.PlaylistFeed.#ctor(System.Uri,Google.GData.Client.IService)">
             <summary>
              default constructor
             </summary>
             <param name="uriBase">the base URI of the feedEntry</param>
             <param name="iService">the Service to use</param>
         </member>
-        <member name="M:Google.GData.YouTube.PlaylistsFeed.CreateFeedEntry">
+        <member name="M:Google.GData.YouTube.PlaylistFeed.CreateFeedEntry">
             <summary>
             this needs to get implemented by subclasses
             </summary>
             <returns>AtomEntry</returns>
         </member>
-        <member name="T:Google.GData.YouTube.MessageFeed">
+        <member name="T:Google.GData.YouTube.SubscriptionEntry">
             <summary>
-            Messages can be sent between YouTube users, optionally including a video.
+            The gd:feedLink tag in the entry identifies the URL that allows 
+            you to retrieve videos for the subscription.
+            For one of the category tags in the entry, the scheme attribute
+            value will be http://gdata.youtube.com/schemas/2007/subscriptiontypes.cat. 
+            That tag's term attribute indicates whether the entry describes a 
+            subscription to a channel (term="channel"), another user's 
+            favorite videos list (term="favorites"), or to videos that match
+             specific keywords (term="query").
+            If the subscription is to another user's channel or list of favorite videos, 
+            the yt:username tag will identify the user who owns the channel or favorite video list.
+            If the subscription is to a keyword query, the yt:queryString element will
+            contain the subscribed-to query term.
             </summary>
         </member>
-        <member name="M:Google.GData.YouTube.MessageFeed.#ctor(System.Uri,Google.GData.Client.IService)">
+        <member name="F:Google.GData.YouTube.SubscriptionEntry.SUBSCRIPTION_CATEGORY">
             <summary>
-             default constructor
-            </summary>
-            <param name="uriBase">the base URI of the feedEntry</param>
-            <param name="iService">the Service to use</param>
-        </member>
-        <member name="M:Google.GData.YouTube.MessageFeed.CreateFeedEntry">
-            <summary>
-            this needs to get implemented by subclasses
-            </summary>
-            <returns>AtomEntry</returns>
-        </member>
-        <member name="T:Google.GData.YouTube.CommentsFeed">
-            <summary>
-            Each video entry contains a gd:comments tag, which encapsulates the 
-            URL to which you will send API requests to retrieve or append to the
-            list of comments for the video. 
+            Category used to label entries that are subscriptions
             </summary>
         </member>
-        <member name="M:Google.GData.YouTube.CommentsFeed.#ctor(System.Uri,Google.GData.Client.IService)">
+        <member name="M:Google.GData.YouTube.SubscriptionEntry.#ctor">
             <summary>
-             default constructor
-            </summary>
-            <param name="uriBase">the base URI of the feedEntry</param>
-            <param name="iService">the Service to use</param>
-        </member>
-        <member name="M:Google.GData.YouTube.CommentsFeed.CreateFeedEntry">
-            <summary>
-            this needs to get implemented by subclasses
-            </summary>
-            <returns>AtomEntry</returns>
-        </member>
-        <member name="T:Google.GData.YouTube.CommentEntry">
-            <summary>
-            Entry API customization class for defining comment entries in an comments feed.
+            Constructs a new YouTubeEntry instance
             </summary>
         </member>
-        <member name="M:Google.GData.YouTube.CommentEntry.#ctor">
+        <member name="P:Google.GData.YouTube.SubscriptionEntry.Type">
             <summary>
-            Constructs a new CommentEntry instance
+            get's and set's the associated atom:category
             </summary>
-        </member>
-        <member name="M:Google.GData.YouTube.CommentEntry.ReplyTo(Google.GData.YouTube.CommentEntry)">
-            <summary>
-            Adds a reply link to this commententry
-               -> this new entry will reply to the passed in entry when the comment is 
-               submitted. This will not protect from adding the same guy several times.
-            </summary>
-            <param name="theOriginalComment"></param>
             <returns></returns>
         </member>
-        <member name="P:Google.GData.YouTube.CommentEntry.Replies">
+        <member name="P:Google.GData.YouTube.SubscriptionEntry.UserName">
             <summary>
-            returns the list of reply links inside the entry. Not that modifying that list 
-            will not modify link collection. This is a readonly copy. But the items in that 
-            list are the same as in the linkcollection, so you can remove them from there
+            getter/setter for UserName subelement
+            </summary>
+        </member>
+        <member name="P:Google.GData.YouTube.SubscriptionEntry.QueryString">
+            <summary>
+            getter/setter for QueryString subelement
+            </summary>
+        </member>
+        <member name="P:Google.GData.YouTube.SubscriptionEntry.PlaylistId">
+            <summary>
+            getter/setter for PlaylistId subelement
+            </summary>
+        </member>
+        <member name="P:Google.GData.YouTube.SubscriptionEntry.PlaylistTitle">
+            <summary>
+            getter/setter for PlaylistTitle subelement
+            </summary>
+        </member>
+        <member name="T:Google.GData.YouTube.SubscriptionEntry.SubscriptionType">
+            <summary>
+            describes the subscription types for a subscription feed
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.SubscriptionEntry.SubscriptionType.channel">
+            <summary>
+            indicates a channel subscription
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.SubscriptionEntry.SubscriptionType.favorites">
+            <summary>
+            indicates a user favorites subscription
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.SubscriptionEntry.SubscriptionType.query">
+            <summary>
+            indicates a query based subscription
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.SubscriptionEntry.SubscriptionType.playlist">
+            <summary>
+            indicates a playlist based subscription
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.SubscriptionEntry.SubscriptionType.unknown">
+            <summary>
+            indicates an unknown state
             </summary>
         </member>
         <member name="T:Google.GData.YouTube.FriendsFeed">
@@ -351,6 +519,24 @@
             this needs to get implemented by subclasses
             </summary>
             <returns>AtomEntry</returns>
+        </member>
+        <member name="T:Google.GData.YouTube.YouTubeCategoryCollection">
+            <summary>
+             this is a helper class just for parsing the category document
+            </summary>
+        </member>
+        <member name="M:Google.GData.YouTube.YouTubeCategoryCollection.CreateAtomSubElement(System.Xml.XmlReader,Google.GData.Client.AtomFeedParser)">
+            <summary>
+            this is the subclassing method for AtomBase derived 
+            classes to overload what childelements should be created
+            needed to create CustomLink type objects, like WebContentLink etc
+            </summary>
+            <param name="reader">The XmlReader that tells us what we are working with</param>
+            <param name="parser">the parser is primarily used for nametable comparisons</param>
+            <returns>AtomBase</returns>
+        </member>
+        <member name="P:Google.GData.YouTube.YouTubeCategoryCollection.XmlName">
+            <summary>Returns the constant representing this XML element.</summary> 
         </member>
         <member name="M:Google.YouTube.Complaint.EnsureInnerObject">
             <summary>
@@ -881,6 +1067,39 @@
             <param name="inputStream"></param>
             <returns></returns>
         </member>
+        <member name="T:Google.GData.YouTube.SubscriptionFeed">
+            <summary>
+            A user's subscriptions feed contains a list of the channels, 
+            favorite video lists and search queries to which the user has subscribed.
+            In a subscriptions feed, each entry contains information about a single
+             subscription. Each entry contains the following key tags:
+            The gd:feedLink tag in the entry identifies the URL that allows 
+            you to retrieve videos for the subscription.
+            For one of the category tags in the entry, the scheme attribute
+            value will be http://gdata.youtube.com/schemas/2007/subscriptiontypes.cat. 
+            That tag's term attribute indicates whether the entry describes a 
+            subscription to a channel (term="channel"), another user's 
+            favorite videos list (term="favorites"), or to videos that match
+             specific keywords (term="query").
+            If the subscription is to another user's channel or list of favorite videos, 
+            the yt:username tag will identify the user who owns the channel or favorite video list.
+            If the subscription is to a keyword query, the yt:queryString element will
+            contain the subscribed-to query term.
+            </summary>
+        </member>
+        <member name="M:Google.GData.YouTube.SubscriptionFeed.#ctor(System.Uri,Google.GData.Client.IService)">
+            <summary>
+             default constructor
+            </summary>
+            <param name="uriBase">the base URI of the feedEntry</param>
+            <param name="iService">the Service to use</param>
+        </member>
+        <member name="M:Google.GData.YouTube.SubscriptionFeed.CreateFeedEntry">
+            <summary>
+            this needs to get implemented by subclasses
+            </summary>
+            <returns>AtomEntry</returns>
+        </member>
         <member name="T:Google.GData.YouTube.PlaylistsEntry">
             <summary>
             Entry API customization class for defining entries in an Playlist feed.
@@ -920,472 +1139,180 @@
             getter/setter for the private subelement. Indicates if the playlist is private
             </summary>
         </member>
-        <member name="T:Google.GData.YouTube.YouTubeQuery">
+        <member name="T:Google.GData.YouTube.ActivityType">
             <summary>
-            A subclass of FeedQuery, to create an YouTube query URI.
-            The YouTube Data API supports the following standard Google Data query parameters.
-            Name	Definition
-            alt	        The alt parameter specifies the format of the feed to be returned. 
-                        Valid values for this parameter are atom, rss and json. The default 
-                        value is atom and this document only explains the format of Atom responses.
-            author	    The author parameter restricts the search to videos uploaded by a 
-                        particular YouTube user. The Videos uploaded by a specific user 
-                        section discusses this parameter in more detail.
-            max-results	The max-results parameter specifies the maximum number of results 
-                        that should be included in the result set. This parameter works 
-                        in conjunction with the start-index parameter to determine which 
-                        results to return. For example, to request the second set of 10 
-                        results Ð i.e. results 11-20 Ð set the max-results parameter to 10 
-                        and the start-index parameter to 11. The default value of this 
-                        parameter for all Google Data APIs is 25, and the maximum value is 50. 
-                        However, for displaying lists of videos, we recommend that you 
-                        set the max-results parameter to 10.
-            start-index	The start-index parameter specifies the index of the first matching result 
-                        that should be included in the result set. This parameter uses a one-based 
-                        index, meaning the first result is 1, the second result is 2 and so forth. 
-                        This parameter works in conjunction with the max-results parameter to determine
-                        which results to return. For example, to request the second set of 10 
-                        results Ð i.e. results 11-20 Ð set the start-index parameter to 11 
-                        and the max-results parameter to 10.
-            Please see the Google Data APIs Protocol Reference for more information about standard Google 
-            Data API functionality or about these specific parameters.
-            Custom parameters for the YouTube Data API
-            In addition to the standard Google Data query parameters, the YouTube Data API defines 
-            the following API-specific query parameters. These parameters are only available on video
-            and playlist feeds.
-            Name	    Definition
-            orderby	    The orderby parameter specifies the value that will be used to sort videos in the
-                        search result set. Valid values for this parameter are relevance, published, viewCount 
-                        and rating. In addition, you can request results that are most relevant to a specific 
-                        language by setting the parameter value to relevance_lang_languageCode, where 
-                        languageCode is an ISO 639-1 two-letter language code. (Use the values zh-Hans for 
-                        simplified Chinese and zh-Hant for traditional Chinese.) In addition, please note that 
-                        results in other languages will still be returned if they are highly relevant to the 
-                        search query term.
-                        The default value for this parameter is relevance for a search results feed. For a
-                        playlist feed, the default ordering is based on the position of each video in the playlist. 
-                        For a user's playlists or subscriptions feed, the default ordering is arbitrary.
-            client	    The client parameter is an alphanumeric string that identifies your application. The 
-                        client parameter is an alternate way of specifying your client ID. You can also use the 
-                        X-GData-Client request header to specify your client ID. Your application does not need to
-                        specify your client ID twice by using both the client parameter and the X-GData-Client 
-                        request header, but it should provide your client ID using at least one of those two methods.
-            format	    The format parameter specifies that videos must be available in a particular video format. 
-                        Your request can specify any of the following formats:
-                Value	    Video Format
-                    1	    RTSP streaming URL for mobile video playback. H.263 video (up to 176x144) and AMR audio.
-                    5	    HTTP URL to the embeddable player (SWF) for this video. This format is not available for a
-                            video that is not embeddable. Developers commonly add format=5 to their queries to restrict
-                            results to videos that can be embedded on their sites.
-                    6	    RTSP streaming URL for mobile video playback. MPEG-4 SP video (up to 176x144) and AAC audio
-            lr	    The lr parameter restricts the search to videos that have a title, description or keywords in a
-                    specific language. Valid values for the lr parameter are ISO 639-1 two-letter language codes. 
-                    You can also use the values zh-Hans for simplified Chinese and zh-Hant for traditional Chinese. This
-                    parameter can be used when requesting any video feeds other than standard feeds.
-            restriction	The restriction parameter identifies the IP address that should be used to filter videos 
-                    that can only be played in specific countries. By default, the API filters out videos that cannot 
-                    be played in the country from which you send API requests. This restriction is based on your 
-                    client application's IP address.
-                    To request videos playable from a specific computer, include the restriction parameter 
-                    in your request and set the parameter value to the IP address of the computer where the videos
-                    will be played Ð e.g. restriction=255.255.255.255.
-                    To request videos that are playable in a specific country, include the restriction parameter in your 
-                    request and set the parameter value to the ISO 3166 two-letter country code of the country where 
-                    the videos will be played Ð e.g. restriction=DE.
-            time	The time parameter, which is only available for the top_rated, top_favorites, most_viewed, 
-                    most_discussed, most_linked and most_responded standard feeds, restricts the search to videos 
-                    uploaded within the specified time. Valid values for this parameter are today (1 day), 
-                    this_week (7 days), this_month (1 month) and all_time. The default value for this parameter is all_time.
+            enum to define different activities. 
             </summary>
         </member>
-        <member name="F:Google.GData.YouTube.YouTubeQuery.StandardFeeds">
+        <member name="F:Google.GData.YouTube.ActivityType.Rated">
             <summary>
-            the standard feeds URL
+            a user rated an entry
             </summary>
         </member>
-        <member name="F:Google.GData.YouTube.YouTubeQuery.DefaultVideoUri">
+        <member name="F:Google.GData.YouTube.ActivityType.Shared">
             <summary>
-            youTube base video URI 
+            a user shared a video
             </summary>
         </member>
-        <member name="F:Google.GData.YouTube.YouTubeQuery.BatchVideoUri">
+        <member name="F:Google.GData.YouTube.ActivityType.Uploaded">
             <summary>
-            youTube base video URI for batch operations 
+            a user uploaded a video
             </summary>
         </member>
-        <member name="F:Google.GData.YouTube.YouTubeQuery.MobileVideoUri">
+        <member name="F:Google.GData.YouTube.ActivityType.Favorited">
             <summary>
-            youTube base mobile video URI 
+            a user added something to his favorites
             </summary>
         </member>
-        <member name="F:Google.GData.YouTube.YouTubeQuery.TopRatedVideo">
+        <member name="F:Google.GData.YouTube.ActivityType.FriendAdded">
             <summary>
-            youTube base standard top rated video URI 
+            a user added a friend
             </summary>
         </member>
-        <member name="F:Google.GData.YouTube.YouTubeQuery.FavoritesVideo">
+        <member name="F:Google.GData.YouTube.ActivityType.SubscriptionAdded">
             <summary>
-            youTube base standard favorites video URI 
+            a user added something to his subscriptions
             </summary>
         </member>
-        <member name="F:Google.GData.YouTube.YouTubeQuery.MostViewedVideo">
+        <member name="F:Google.GData.YouTube.ActivityType.Commented">
             <summary>
-            youTube base standard most viewed video URI 
+            a user commented on something
             </summary>
         </member>
-        <member name="F:Google.GData.YouTube.YouTubeQuery.MostRecentVideo">
+        <member name="F:Google.GData.YouTube.ActivityType.Undefined">
             <summary>
-            youTube base standard most recent video URI 
+            undfined -> there was no Type for this entry
             </summary>
         </member>
-        <member name="F:Google.GData.YouTube.YouTubeQuery.MostPopular">
+        <member name="T:Google.GData.YouTube.ActivityEntry">
             <summary>
-            youTube base standard most popular video URI 
+            Entry API customization class for retrieving activies 
             </summary>
         </member>
-        <member name="F:Google.GData.YouTube.YouTubeQuery.MostDiscussedVideo">
+        <member name="F:Google.GData.YouTube.ActivityEntry.VIDEORATED_CATEGORY">
             <summary>
-            youTube base standard most discussed video URI 
+            Category used to label entries that indicate a user marking a video as a favorite
             </summary>
         </member>
-        <member name="F:Google.GData.YouTube.YouTubeQuery.MostLinkedVideo">
+        <member name="F:Google.GData.YouTube.ActivityEntry.VIDEOSHARED_CATEGORY">
             <summary>
-            youTube base standard most linked video URI 
+            Category used to label entries that indicate a user marking a video as a favorite
             </summary>
         </member>
-        <member name="F:Google.GData.YouTube.YouTubeQuery.MostRespondedVideo">
+        <member name="F:Google.GData.YouTube.ActivityEntry.VIDEOUPLOADED_CATEGORY">
             <summary>
-            youTube base standard most responded video URI 
+            Category used to label entries that indicate a user marking a video as a favorite
             </summary>
         </member>
-        <member name="F:Google.GData.YouTube.YouTubeQuery.RecentlyFeaturedVideo">
+        <member name="F:Google.GData.YouTube.ActivityEntry.VIDEOFAVORITED_CATEGORY">
             <summary>
-            youTube base standard recently featured video URI 
+            Category used to label entries that indicate a user marking a video as a favorite
             </summary>
         </member>
-        <member name="F:Google.GData.YouTube.YouTubeQuery.MobilePhonesVideo">
+        <member name="F:Google.GData.YouTube.ActivityEntry.VIDEOCOMMENTED_CATEGORY">
             <summary>
-            youTube base standard mobile phones video URI 
+            Category used to label entries that indicate a user commenting on a video
             </summary>
         </member>
-        <member name="F:Google.GData.YouTube.YouTubeQuery.DefaultUploads">
+        <member name="F:Google.GData.YouTube.ActivityEntry.FRIENDADDED_CATEGORY">
             <summary>
-            default users upload account
+            Category used to label entries that indicate a user added a friend
             </summary>
         </member>
-        <member name="F:Google.GData.YouTube.YouTubeQuery.BaseUserUri">
+        <member name="F:Google.GData.YouTube.ActivityEntry.USERSUBSCRIPTIONADDED_CATEGORY">
             <summary>
-            base uri for user based feeds
+            Category used to label entries that indicate a user added a subscripton
             </summary>
         </member>
-        <member name="M:Google.GData.YouTube.YouTubeQuery.#ctor">
+        <member name="M:Google.GData.YouTube.ActivityEntry.#ctor">
             <summary>
-            base constructor
+            Constructs a new EventEmtry instance
             </summary>
         </member>
-        <member name="M:Google.GData.YouTube.YouTubeQuery.#ctor(System.String)">
+        <member name="P:Google.GData.YouTube.ActivityEntry.Type">
             <summary>
-            base constructor, with initial queryUri
-            </summary>
-            <param name="queryUri">the query to use</param>
-        </member>
-        <member name="M:Google.GData.YouTube.YouTubeQuery.CreateSubscriptionUri(System.String)">
-            <summary>
-            convienience method to create an URI based on a userID
-            for the subscriptions
-            </summary>
-            <param name="userID"></param>
-            <returns>string</returns>
-        </member>
-        <member name="M:Google.GData.YouTube.YouTubeQuery.CreatePlaylistsUri(System.String)">
-            <summary>
-            convienience method to create an URI based on a userID
-            for the playlists of an user
-            </summary>
-            <param name="userID"></param>
-            <returns>string</returns>
-        </member>
-        <member name="M:Google.GData.YouTube.YouTubeQuery.CreateFavoritesUri(System.String)">
-            <summary>
-            convienience method to create an URI based on a userID
-            for the favorites of an user
-            </summary>
-            <param name="userID"></param>
-            <returns>string</returns>
-        </member>
-        <member name="M:Google.GData.YouTube.YouTubeQuery.CreateMessagesUri(System.String)">
-            <summary>
-            convienience method to create an URI based on a userID
-            for the messages of an user
-            </summary>
-            <param name="userID"></param>
-            <returns>string</returns>
-        </member>
-        <member name="M:Google.GData.YouTube.YouTubeQuery.CreateContactsUri(System.String)">
-            <summary>
-            convienience method to create an URI based on a userID
-            for the contacts of an user
-            </summary>
-            <param name="userID"></param>
-            <returns>string</returns>
-        </member>
-        <member name="M:Google.GData.YouTube.YouTubeQuery.CreateUserUri(System.String)">
-            <summary>
-            convienience method to create an URI based on a userID
-            for the uploaded videos of an user
-            </summary>
-            <param name="userID"></param>
-            <returns>string</returns>
-        </member>
-        <member name="M:Google.GData.YouTube.YouTubeQuery.CreateVideoWatchUri(System.String)">
-            <summary>
-            assuming you have a video ID, returns the watch uri as a string
-            </summary>
-            <param name="videoID"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Google.GData.YouTube.YouTubeQuery.CreateVideoUri(System.String)">
-            <summary>
-            assuming you have a video ID, returns the video feed uri as a string
-            </summary>
-            <param name="videoID"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Google.GData.YouTube.YouTubeQuery.GetYouTubeCategories">
-            <summary>
-            retrieves the youtubecategories collection from the default
-            location at http://gdata.youtube.com/schemas/2007/categories.cat
+             The type of Event, the user action that caused this.
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Google.GData.YouTube.YouTubeQuery.GetCategories(System.Uri,Google.GData.Client.AtomBase)">
+        <member name="P:Google.GData.YouTube.ActivityEntry.VideoId">
             <summary>
-            retrieves a category collection from the given URL
-            The owner should be a new Collection object, like:
-            <code>
-            	GetCategories(new Uri("http://gdata.youtube.com/schemas/2007/categories.cat"), 
-            				  new YouTubeCategoryCollection())
-            </code>
+             property accessor for the VideoID, if applicable
             </summary>
-            <returns></returns>
         </member>
-        <member name="M:Google.GData.YouTube.YouTubeQuery.ParseUri(System.Uri)">
-            <summary>protected void ParseUri</summary> 
-            <param name="targetUri">takes an incoming Uri string and parses all the properties out of it</param>
-            <returns>throws a query exception when it finds something wrong with the input, otherwise returns a baseuri</returns>
-        </member>
-        <member name="M:Google.GData.YouTube.YouTubeQuery.CalculateQuery(System.String)">
-            <summary>Creates the partial URI query string based on all
-             set properties.</summary> 
-            <returns> string => the query part of the URI </returns>
-        </member>
-        <member name="P:Google.GData.YouTube.YouTubeQuery.Formats">
+        <member name="P:Google.GData.YouTube.ActivityEntry.Username">
             <summary>
-            format	    The format parameter specifies that videos must be available in a particular video format. 
-                        Your request can specify any of the following formats:
-                Value	    Video Format
-                    1	    RTSP streaming URL for mobile video playback. H.263 video (up to 176x144) and AMR audio.
-                    5	    HTTP URL to the embeddable player (SWF) for this video. This format is not available for a
-                            video that is not embeddable. Developers commonly add format=5 to their queries to restrict
-                            results to videos that can be embedded on their sites.
-                    6	    RTSP streaming URL for mobile video playback. MPEG-4 SP video (up to 176x144) and AAC audio
+             property accessor for the UseName, if applicable
             </summary>
-            <returns> the list of formats</returns>
         </member>
-        <member name="P:Google.GData.YouTube.YouTubeQuery.Time">
-            <summary>accessor method public UploadTime Time</summary> 
+        <member name="P:Google.GData.YouTube.ActivityEntry.VideoLink">
+            <summary>returns the video relation link uri, which can be used to
+            retrieve the video entry</summary> 
             <returns> </returns>
         </member>
-        <member name="P:Google.GData.YouTube.YouTubeQuery.VQ">
-            <summary>The vq parameter, which is only supported for video feeds, 
-            specifies a search query term. YouTube will search all video 
-            metadata for videos matching the term. Video metadata includes
-             titles, keywords, descriptions, authors' usernames, and 
-            categories</summary> 
-            <returns> </returns>
-        </member>
-        <member name="P:Google.GData.YouTube.YouTubeQuery.OrderBy">
+        <member name="T:Google.GData.YouTube.CommentEntry">
             <summary>
-            The orderby parameter, which is only supported for video feeds, 
-            specifies the value that will be used to sort videos in the search
-             result set. Valid values for this parameter are relevance, 
-            published, viewCount and rating. In addition, you can request
-             results that are most relevant to a specific language by
-             setting the parameter value to relevance_lang_languageCode, 
-            where languageCode is an ISO 639-1 two-letter 
-            language code. (Use the values zh-Hans for simplified Chinese
-             and zh-Hant for traditional Chinese.) In addition, 
-            please note that results in other languages will still be 
-            returned if they are highly relevant to the search query term.
-            The default value for this parameter is relevance 
-            for a search results feed.
-            accessor method public string OrderBy</summary> 
-            <returns> </returns>
-        </member>
-        <member name="P:Google.GData.YouTube.YouTubeQuery.Client">
-            <summary>
-            The client parameter is an alphanumeric string that identifies your
-             application. The client parameter is an alternate way of specifying 
-            your client ID. You can also use the X-GData-Client request header to
-             specify your client ID. Your application does not need to 
-            specify your client ID twice by using both the client parameter and 
-            the X-GData-Client request header, but it should provide your 
-            client ID using at least one of those two methods.
-            Note that you should set this normally on the YouTubeService object,
-            this property is only included for completeness
-            </summary> 
-            <returns> </returns>
-        </member>
-        <member name="P:Google.GData.YouTube.YouTubeQuery.LR">
-            <summary>
-            The lr parameter restricts the search to videos that have a title, 
-            description or keywords in a specific language. Valid values for 
-            the lr parameter are ISO 639-1 two-letter language codes. You can
-            also use the values zh-Hans for simplified Chinese and zh-Hant
-             for traditional Chinese. This parameter can be used when requesting 
-            any video feeds other than standard feeds.
-            </summary> 
-        </member>
-        <!-- Badly formed XML comment ignored for member "P:Google.GData.YouTube.YouTubeQuery.SafeSearch" -->
-        <!-- Badly formed XML comment ignored for member "P:Google.GData.YouTube.YouTubeQuery.Location" -->
-        <member name="P:Google.GData.YouTube.YouTubeQuery.LocationRadius">
-            <summary>
-             The location-radius parameter, in conjunction with the location parameter, defines a geographic area. If the geographic coordinates associated with a video fall 
-            within that area, then the video may be included in search results.
-            <para>The location-radius parameter value must be a floating point number followed by a measurement unit. Valid measurement units are m, km, ft and mi. 
-            For example, valid parameter values include "1500m", "5km", "10000ft" and "0.75mi". The API will return an error if the radius is greater than 1000 kilometers.</para>
-             <seealso cref="P:Google.GData.YouTube.YouTubeQuery.Location"/>
+            Entry API customization class for defining comment entries in an comments feed.
             </summary>
+        </member>
+        <member name="M:Google.GData.YouTube.CommentEntry.#ctor">
+            <summary>
+            Constructs a new CommentEntry instance
+            </summary>
+        </member>
+        <member name="M:Google.GData.YouTube.CommentEntry.ReplyTo(Google.GData.YouTube.CommentEntry)">
+            <summary>
+            Adds a reply link to this commententry
+               -> this new entry will reply to the passed in entry when the comment is 
+               submitted. This will not protect from adding the same guy several times.
+            </summary>
+            <param name="theOriginalComment"></param>
             <returns></returns>
         </member>
-        <member name="P:Google.GData.YouTube.YouTubeQuery.Restriction">
+        <member name="P:Google.GData.YouTube.CommentEntry.Replies">
             <summary>
-            The restriction parameter identifies the IP address that should be 
-            used to filter videos that can only be played in specific countries. 
-            We recommend that you always use this parameter to specify the end 
-            user's IP address. (By default, the API filters out videos that
-             cannot be played in the country from which you send API requests. 
-            This restriction is based on your client application's IP address.)
-            To request videos playable from a specific computer, include the 
-            restriction parameter in your request and set the parameter value 
-            to the IP address of the computer where the videos will be 
-            played Ð e.g. restriction=255.255.255.255.
-            To request videos that are playable in a specific country, 
-            include the restriction parameter in your request and set 
-            the parameter value to the ISO 3166 two-letter country code 
-            of the country where the videos will be played
-             Ð e.g. restriction=DE.
-            </summary> 
-            <returns> </returns>
-        </member>
-        <member name="P:Google.GData.YouTube.YouTubeQuery.Uploader">
-            <summary>
-            The uploader parameter, which is only supported for search requests, lets you restrict a query to YouTube 
-            partner videos. A YouTube partner is a person or organization that has been accepted into and participates 
-            in the YouTube Partner Program.
-            <para>In an API response, a feed entry contains a partner video if the entry contains a media:credit tag for 
-            which the value of the yt:type attribute is partner.</para>
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="T:Google.GData.YouTube.YouTubeQuery.VideoFormat">
-            <summary>
-            describing the requested video format
+            returns the list of reply links inside the entry. Not that modifying that list 
+            will not modify link collection. This is a readonly copy. But the items in that 
+            list are the same as in the linkcollection, so you can remove them from there
             </summary>
         </member>
-        <member name="F:Google.GData.YouTube.YouTubeQuery.VideoFormat.FormatUndefined">
+        <member name="T:Google.GData.YouTube.ActivitiesFeed">
             <summary>
-            no parameter. Setting the accessLevel to undefined
-            implies the server default
+            An ActivitiesFeed contains activities for the friends of a particular youtube user
             </summary>
         </member>
-        <member name="F:Google.GData.YouTube.YouTubeQuery.VideoFormat.RTSP">
+        <member name="M:Google.GData.YouTube.ActivitiesFeed.#ctor(System.Uri,Google.GData.Client.IService)">
             <summary>
-            RTSP streaming URL for mobile video playback. H.263 video (up to 176x144) and AMR audio.
+             default constructor
+            </summary>
+            <param name="uriBase">the base URI of the feedEntry</param>
+            <param name="iService">the Service to use</param>
+        </member>
+        <member name="M:Google.GData.YouTube.ActivitiesFeed.CreateFeedEntry">
+            <summary>
+            this needs to get implemented by subclasses
+            </summary>
+            <returns>AtomEntry</returns>
+        </member>
+        <member name="T:Google.GData.YouTube.CommentsFeed">
+            <summary>
+            Each video entry contains a gd:comments tag, which encapsulates the 
+            URL to which you will send API requests to retrieve or append to the
+            list of comments for the video. 
             </summary>
         </member>
-        <member name="F:Google.GData.YouTube.YouTubeQuery.VideoFormat.Embeddable">
+        <member name="M:Google.GData.YouTube.CommentsFeed.#ctor(System.Uri,Google.GData.Client.IService)">
             <summary>
-            HTTP URL to the embeddable player
+             default constructor
             </summary>
+            <param name="uriBase">the base URI of the feedEntry</param>
+            <param name="iService">the Service to use</param>
         </member>
-        <member name="F:Google.GData.YouTube.YouTubeQuery.VideoFormat.Mobile">
+        <member name="M:Google.GData.YouTube.CommentsFeed.CreateFeedEntry">
             <summary>
-            SRTSP streaming URL for mobile video playback.
+            this needs to get implemented by subclasses
             </summary>
-        </member>
-        <member name="T:Google.GData.YouTube.YouTubeQuery.UploadTime">
-            <summary>
-            describing the requested video format
-            </summary>
-        </member>
-        <member name="F:Google.GData.YouTube.YouTubeQuery.UploadTime.UploadTimeUndefined">
-            <summary>
-            time undefined, default value for the server
-            </summary>
-        </member>
-        <member name="F:Google.GData.YouTube.YouTubeQuery.UploadTime.Today">
-            <summary>
-            today (1day)
-            </summary>
-        </member>
-        <member name="F:Google.GData.YouTube.YouTubeQuery.UploadTime.ThisWeek">
-            <summary>
-            This week (7days)
-            </summary>
-        </member>
-        <member name="F:Google.GData.YouTube.YouTubeQuery.UploadTime.ThisMonth">
-            <summary>
-            1 month
-            </summary>
-        </member>
-        <member name="F:Google.GData.YouTube.YouTubeQuery.UploadTime.AllTime">
-            <summary>all time</summary>
-        </member>
-        <member name="T:Google.GData.YouTube.YouTubeQuery.SafeSearchValues">
-            <summary>
-            describing the possible safe search values
-            <seealso cref="P:Google.GData.YouTube.YouTubeQuery.SafeSearch"/>
-            </summary>
-        </member>
-        <member name="F:Google.GData.YouTube.YouTubeQuery.SafeSearchValues.None">
-            <summary>no restriction</summary>
-        </member>
-        <member name="F:Google.GData.YouTube.YouTubeQuery.SafeSearchValues.Moderate">
-            <summary>moderate restriction</summary>
-        </member>
-        <member name="F:Google.GData.YouTube.YouTubeQuery.SafeSearchValues.Strict">
-            <summary>strict restriction</summary>
-        </member>
-        <!-- Badly formed XML comment ignored for member "T:Google.GData.YouTube.ActivitiesQuery" -->
-        <member name="F:Google.GData.YouTube.ActivitiesQuery.ActivityFeedUri">
-            <summary>
-            youTube events feed for friends activities  
-            </summary>
-        </member>
-        <member name="M:Google.GData.YouTube.ActivitiesQuery.#ctor">
-            <summary>
-            base constructor
-            </summary>
-        </member>
-        <!-- Badly formed XML comment ignored for member "T:Google.GData.YouTube.UserActivitiesQuery" -->
-        <member name="F:Google.GData.YouTube.UserActivitiesQuery.ActivityFeedUri">
-            <summary>
-            youTube events feed for friends activities  
-            </summary>
-        </member>
-        <member name="M:Google.GData.YouTube.UserActivitiesQuery.#ctor">
-            <summary>
-            base constructor
-            </summary>
-        </member>
-        <member name="M:Google.GData.YouTube.UserActivitiesQuery.CalculateQuery(System.String)">
-            <summary>Creates the partial URI query string based on all
-             set properties.</summary> 
-            <returns> string => the query part of the URI </returns>
-        </member>
-        <member name="P:Google.GData.YouTube.UserActivitiesQuery.Authors">
-            <summary>holds the list of authors we want to search for</summary> 
+            <returns>AtomEntry</returns>
         </member>
         <member name="T:Google.GData.YouTube.YouTubeNameTable">
             <summary>
@@ -2386,202 +2313,52 @@
             Property to access the token the browser must include in the form POST
             </summary>
         </member>
-        <member name="T:Google.GData.YouTube.ProfileEntry">
+        <member name="T:Google.GData.YouTube.PlaylistEntry">
             <summary>
-            A user profile contains information that the user lists on his YouTube profile page.
+            Entry API customization class for defining entries in an Playlist feed.
             </summary>
         </member>
-        <member name="F:Google.GData.YouTube.ProfileEntry.PROFILE_CATEGORY">
-            <summary>
-            Category used to label entries that friends
-            </summary>
-        </member>
-        <member name="M:Google.GData.YouTube.ProfileEntry.#ctor">
-            <summary>
-            Constructs a new ProfileEntry instance
-            </summary>
-        </member>
-        <member name="P:Google.GData.YouTube.ProfileEntry.Age">
-            <summary>
-            The yt:ag> tag specifies the user's age, which is calculated based on the birthdate provided 
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="P:Google.GData.YouTube.ProfileEntry.Company">
-            <summary>
-            The yt:company tag identifies the company that the user works for as entered by the user 
-            in the user's public YouTube profile
-            </summary>
-        </member>
-        <member name="P:Google.GData.YouTube.ProfileEntry.Books">
-            <summary>
-            The yt:books tag identifies the user's favorite books as entered in the user's YouTube public profile
-            </summary>
-        </member>
-        <member name="P:Google.GData.YouTube.ProfileEntry.Firstname">
-            <summary>
-            the users firstname per public profile
-            </summary>
-        </member>
-        <member name="P:Google.GData.YouTube.ProfileEntry.Lastname">
-            <summary>
-            the users lastname per public profile
-            </summary>
-        </member>
-        <member name="P:Google.GData.YouTube.ProfileEntry.Hobbies">
-            <summary>
-            the users hobbies per public profile
-            </summary>
-        </member>
-        <member name="P:Google.GData.YouTube.ProfileEntry.Gender">
-            <summary>
-            the users gender per public profile
-            </summary>
-        </member>
-        <member name="P:Google.GData.YouTube.ProfileEntry.Location">
-            <summary>
-            the users location per public profile
-            </summary>
-        </member>
-        <member name="P:Google.GData.YouTube.ProfileEntry.Movies">
-            <summary>
-            the users favorite movies per public profile
-            </summary>
-        </member>
-        <member name="P:Google.GData.YouTube.ProfileEntry.Music">
-            <summary>
-            the users favorite music per public profile
-            </summary>
-        </member>
-        <member name="P:Google.GData.YouTube.ProfileEntry.Occupation">
-            <summary>
-            the users occupation per public profile
-            </summary>
-        </member>
-        <member name="P:Google.GData.YouTube.ProfileEntry.School">
-            <summary>
-            the users school per public profile
-            </summary>
-        </member>
-        <member name="P:Google.GData.YouTube.ProfileEntry.UserName">
-            <summary>
-            getter/setter for UserName subelement
-            </summary>
-        </member>
-        <member name="P:Google.GData.YouTube.ProfileEntry.Relationship">
-            <summary>
-            The yt:relationship tag identifies the user's relationship status
-            </summary>
-        </member>
-        <member name="P:Google.GData.YouTube.ProfileEntry.Hometown">
-            <summary>
-            The yt:hometown tag identifies the user's hometown
-            </summary>
-        </member>
-        <member name="P:Google.GData.YouTube.ProfileEntry.Statistics">
-            <summary>
-            returns the yt:statistics element
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="P:Google.GData.YouTube.ProfileEntry.FeedLinks">
-            <summary>
-             property accessor for the Thumbnails 
-            </summary>
-        </member>
-        <member name="P:Google.GData.YouTube.ProfileEntry.Description">
-            <summary>
-            getter/setter for Description subelement
-            </summary>
-        </member>
-        <member name="T:Google.GData.YouTube.FriendsEntry">
-            <summary>
-            An individual entry inside the FriendsFeed. It represents a contact of the user
-            </summary>
-        </member>
-        <member name="F:Google.GData.YouTube.FriendsEntry.FRIENDS_CATEGORY">
-            <summary>
-            Category used to label entries that friends
-            </summary>
-        </member>
-        <member name="M:Google.GData.YouTube.FriendsEntry.#ctor">
-            <summary>
-            Constructs a new FriendsEntry instance
-            </summary>
-        </member>
-        <member name="P:Google.GData.YouTube.FriendsEntry.Status">
-            <summary>
-            getter/setter for Status subelement
-            </summary>
-        </member>
-        <member name="P:Google.GData.YouTube.FriendsEntry.UserName">
-            <summary>
-            getter/setter for UserName subelement
-            </summary>
-        </member>
-        <member name="T:Google.GData.YouTube.ActivitiesFeed">
-            <summary>
-            An ActivitiesFeed contains activities for the friends of a particular youtube user
-            </summary>
-        </member>
-        <member name="M:Google.GData.YouTube.ActivitiesFeed.#ctor(System.Uri,Google.GData.Client.IService)">
-            <summary>
-             default constructor
-            </summary>
-            <param name="uriBase">the base URI of the feedEntry</param>
-            <param name="iService">the Service to use</param>
-        </member>
-        <member name="M:Google.GData.YouTube.ActivitiesFeed.CreateFeedEntry">
-            <summary>
-            this needs to get implemented by subclasses
-            </summary>
-            <returns>AtomEntry</returns>
-        </member>
-        <member name="T:Google.GData.YouTube.PlaylistFeed">
-            <summary>
-            The YouTube Data API allows applications to perform functions normally 
-            executed on the YouTube website. The API enables your application to search 
-            for YouTube videos and to retrieve standard video feeds, comments and video
-            responses. 
-            In addition, the API lets your application upload videos to YouTube or 
-            update existing videos. Your can also retrieve playlists, subscriptions, 
-            user profiles and more. Finally, your application can submit 
-            authenticated requests to enable users to create playlists, 
-            subscriptions, contacts and other account-specific entities.
-            </summary>
-        </member>
-        <member name="M:Google.GData.YouTube.PlaylistFeed.#ctor(System.Uri,Google.GData.Client.IService)">
-            <summary>
-             default constructor
-            </summary>
-            <param name="uriBase">the base URI of the feedEntry</param>
-            <param name="iService">the Service to use</param>
-        </member>
-        <member name="M:Google.GData.YouTube.PlaylistFeed.CreateFeedEntry">
-            <summary>
-            this needs to get implemented by subclasses
-            </summary>
-            <returns>AtomEntry</returns>
-        </member>
-        <member name="T:Google.GData.YouTube.MessageEntry">
-            <summary>
-            Entry API customization class for defining entries in an messages feed.
-            </summary>
-        </member>
-        <member name="F:Google.GData.YouTube.MessageEntry.MESSAGE_CATEGORY">
+        <member name="F:Google.GData.YouTube.PlaylistEntry.PLAYLIST_CATEGORY">
             <summary>
             Category used to label entries as Playlistentries
             </summary>
         </member>
-        <member name="M:Google.GData.YouTube.MessageEntry.#ctor">
+        <member name="M:Google.GData.YouTube.PlaylistEntry.#ctor">
             <summary>
             Constructs a new PlayListEntry instance
             </summary>
         </member>
-        <member name="P:Google.GData.YouTube.MessageEntry.Description">
+        <member name="P:Google.GData.YouTube.PlaylistEntry.Position">
             <summary>
-            getter/setter for Description subelement
+            getter/setter for Position subelement
             </summary>
+        </member>
+        <member name="T:Google.GData.YouTube.PlaylistsFeed">
+            <summary>
+            A user's playlists feed contains a list of the playlists created by
+             that user. If you are requesting the playlists feed for the currently
+             authenticated user, the feed will contain both public and private playlists. 
+            However, if you send an unauthenticated request or request playlists created 
+            by someone other than the currently authenticated user, the feed will only
+             contain public playlists.
+            In a playlists feed, each entry contains information about a single playlist, 
+            including the playlist title, description and author. The gd:feedLink tag 
+            in the entry identifies the URL that allows you to retrieve the playlist feed, 
+            which specifies information about the videos in the playlist.
+            </summary>
+        </member>
+        <member name="M:Google.GData.YouTube.PlaylistsFeed.#ctor(System.Uri,Google.GData.Client.IService)">
+            <summary>
+             default constructor
+            </summary>
+            <param name="uriBase">the base URI of the feedEntry</param>
+            <param name="iService">the Service to use</param>
+        </member>
+        <member name="M:Google.GData.YouTube.PlaylistsFeed.CreateFeedEntry">
+            <summary>
+            this needs to get implemented by subclasses
+            </summary>
+            <returns>AtomEntry</returns>
         </member>
         <member name="T:Google.GData.YouTube.YouTubeService">
             <summary>
@@ -2712,198 +2489,472 @@
             <param name="e">FeedParserEventArguments, holds the feedentry</param> 
             <returns> </returns>
         </member>
-        <member name="T:Google.GData.YouTube.ActivityType">
+        <member name="T:Google.GData.YouTube.YouTubeQuery">
             <summary>
-            enum to define different activities. 
+            A subclass of FeedQuery, to create an YouTube query URI.
+            The YouTube Data API supports the following standard Google Data query parameters.
+            Name	Definition
+            alt	        The alt parameter specifies the format of the feed to be returned. 
+                        Valid values for this parameter are atom, rss and json. The default 
+                        value is atom and this document only explains the format of Atom responses.
+            author	    The author parameter restricts the search to videos uploaded by a 
+                        particular YouTube user. The Videos uploaded by a specific user 
+                        section discusses this parameter in more detail.
+            max-results	The max-results parameter specifies the maximum number of results 
+                        that should be included in the result set. This parameter works 
+                        in conjunction with the start-index parameter to determine which 
+                        results to return. For example, to request the second set of 10 
+                        results Ð i.e. results 11-20 Ð set the max-results parameter to 10 
+                        and the start-index parameter to 11. The default value of this 
+                        parameter for all Google Data APIs is 25, and the maximum value is 50. 
+                        However, for displaying lists of videos, we recommend that you 
+                        set the max-results parameter to 10.
+            start-index	The start-index parameter specifies the index of the first matching result 
+                        that should be included in the result set. This parameter uses a one-based 
+                        index, meaning the first result is 1, the second result is 2 and so forth. 
+                        This parameter works in conjunction with the max-results parameter to determine
+                        which results to return. For example, to request the second set of 10 
+                        results Ð i.e. results 11-20 Ð set the start-index parameter to 11 
+                        and the max-results parameter to 10.
+            Please see the Google Data APIs Protocol Reference for more information about standard Google 
+            Data API functionality or about these specific parameters.
+            Custom parameters for the YouTube Data API
+            In addition to the standard Google Data query parameters, the YouTube Data API defines 
+            the following API-specific query parameters. These parameters are only available on video
+            and playlist feeds.
+            Name	    Definition
+            orderby	    The orderby parameter specifies the value that will be used to sort videos in the
+                        search result set. Valid values for this parameter are relevance, published, viewCount 
+                        and rating. In addition, you can request results that are most relevant to a specific 
+                        language by setting the parameter value to relevance_lang_languageCode, where 
+                        languageCode is an ISO 639-1 two-letter language code. (Use the values zh-Hans for 
+                        simplified Chinese and zh-Hant for traditional Chinese.) In addition, please note that 
+                        results in other languages will still be returned if they are highly relevant to the 
+                        search query term.
+                        The default value for this parameter is relevance for a search results feed. For a
+                        playlist feed, the default ordering is based on the position of each video in the playlist. 
+                        For a user's playlists or subscriptions feed, the default ordering is arbitrary.
+            client	    The client parameter is an alphanumeric string that identifies your application. The 
+                        client parameter is an alternate way of specifying your client ID. You can also use the 
+                        X-GData-Client request header to specify your client ID. Your application does not need to
+                        specify your client ID twice by using both the client parameter and the X-GData-Client 
+                        request header, but it should provide your client ID using at least one of those two methods.
+            format	    The format parameter specifies that videos must be available in a particular video format. 
+                        Your request can specify any of the following formats:
+                Value	    Video Format
+                    1	    RTSP streaming URL for mobile video playback. H.263 video (up to 176x144) and AMR audio.
+                    5	    HTTP URL to the embeddable player (SWF) for this video. This format is not available for a
+                            video that is not embeddable. Developers commonly add format=5 to their queries to restrict
+                            results to videos that can be embedded on their sites.
+                    6	    RTSP streaming URL for mobile video playback. MPEG-4 SP video (up to 176x144) and AAC audio
+            lr	    The lr parameter restricts the search to videos that have a title, description or keywords in a
+                    specific language. Valid values for the lr parameter are ISO 639-1 two-letter language codes. 
+                    You can also use the values zh-Hans for simplified Chinese and zh-Hant for traditional Chinese. This
+                    parameter can be used when requesting any video feeds other than standard feeds.
+            restriction	The restriction parameter identifies the IP address that should be used to filter videos 
+                    that can only be played in specific countries. By default, the API filters out videos that cannot 
+                    be played in the country from which you send API requests. This restriction is based on your 
+                    client application's IP address.
+                    To request videos playable from a specific computer, include the restriction parameter 
+                    in your request and set the parameter value to the IP address of the computer where the videos
+                    will be played Ð e.g. restriction=255.255.255.255.
+                    To request videos that are playable in a specific country, include the restriction parameter in your 
+                    request and set the parameter value to the ISO 3166 two-letter country code of the country where 
+                    the videos will be played Ð e.g. restriction=DE.
+            time	The time parameter, which is only available for the top_rated, top_favorites, most_viewed, 
+                    most_discussed, most_linked and most_responded standard feeds, restricts the search to videos 
+                    uploaded within the specified time. Valid values for this parameter are today (1 day), 
+                    this_week (7 days), this_month (1 month) and all_time. The default value for this parameter is all_time.
             </summary>
         </member>
-        <member name="F:Google.GData.YouTube.ActivityType.Rated">
+        <member name="F:Google.GData.YouTube.YouTubeQuery.StandardFeeds">
             <summary>
-            a user rated an entry
+            the standard feeds URL
             </summary>
         </member>
-        <member name="F:Google.GData.YouTube.ActivityType.Shared">
+        <member name="F:Google.GData.YouTube.YouTubeQuery.DefaultVideoUri">
             <summary>
-            a user shared a video
+            youTube base video URI 
             </summary>
         </member>
-        <member name="F:Google.GData.YouTube.ActivityType.Uploaded">
+        <member name="F:Google.GData.YouTube.YouTubeQuery.BatchVideoUri">
             <summary>
-            a user uploaded a video
+            youTube base video URI for batch operations 
             </summary>
         </member>
-        <member name="F:Google.GData.YouTube.ActivityType.Favorited">
+        <member name="F:Google.GData.YouTube.YouTubeQuery.MobileVideoUri">
             <summary>
-            a user added something to his favorites
+            youTube base mobile video URI 
             </summary>
         </member>
-        <member name="F:Google.GData.YouTube.ActivityType.FriendAdded">
+        <member name="F:Google.GData.YouTube.YouTubeQuery.TopRatedVideo">
             <summary>
-            a user added a friend
+            youTube base standard top rated video URI 
             </summary>
         </member>
-        <member name="F:Google.GData.YouTube.ActivityType.SubscriptionAdded">
+        <member name="F:Google.GData.YouTube.YouTubeQuery.FavoritesVideo">
             <summary>
-            a user added something to his subscriptions
+            youTube base standard favorites video URI 
             </summary>
         </member>
-        <member name="F:Google.GData.YouTube.ActivityType.Commented">
+        <member name="F:Google.GData.YouTube.YouTubeQuery.MostViewedVideo">
             <summary>
-            a user commented on something
+            youTube base standard most viewed video URI 
             </summary>
         </member>
-        <member name="F:Google.GData.YouTube.ActivityType.Undefined">
+        <member name="F:Google.GData.YouTube.YouTubeQuery.MostRecentVideo">
             <summary>
-            undfined -> there was no Type for this entry
+            youTube base standard most recent video URI 
             </summary>
         </member>
-        <member name="T:Google.GData.YouTube.ActivityEntry">
+        <member name="F:Google.GData.YouTube.YouTubeQuery.MostPopular">
             <summary>
-            Entry API customization class for retrieving activies 
+            youTube base standard most popular video URI 
             </summary>
         </member>
-        <member name="F:Google.GData.YouTube.ActivityEntry.VIDEORATED_CATEGORY">
+        <member name="F:Google.GData.YouTube.YouTubeQuery.MostDiscussedVideo">
             <summary>
-            Category used to label entries that indicate a user marking a video as a favorite
+            youTube base standard most discussed video URI 
             </summary>
         </member>
-        <member name="F:Google.GData.YouTube.ActivityEntry.VIDEOSHARED_CATEGORY">
+        <member name="F:Google.GData.YouTube.YouTubeQuery.MostLinkedVideo">
             <summary>
-            Category used to label entries that indicate a user marking a video as a favorite
+            youTube base standard most linked video URI 
             </summary>
         </member>
-        <member name="F:Google.GData.YouTube.ActivityEntry.VIDEOUPLOADED_CATEGORY">
+        <member name="F:Google.GData.YouTube.YouTubeQuery.MostRespondedVideo">
             <summary>
-            Category used to label entries that indicate a user marking a video as a favorite
+            youTube base standard most responded video URI 
             </summary>
         </member>
-        <member name="F:Google.GData.YouTube.ActivityEntry.VIDEOFAVORITED_CATEGORY">
+        <member name="F:Google.GData.YouTube.YouTubeQuery.RecentlyFeaturedVideo">
             <summary>
-            Category used to label entries that indicate a user marking a video as a favorite
+            youTube base standard recently featured video URI 
             </summary>
         </member>
-        <member name="F:Google.GData.YouTube.ActivityEntry.VIDEOCOMMENTED_CATEGORY">
+        <member name="F:Google.GData.YouTube.YouTubeQuery.MobilePhonesVideo">
             <summary>
-            Category used to label entries that indicate a user commenting on a video
+            youTube base standard mobile phones video URI 
             </summary>
         </member>
-        <member name="F:Google.GData.YouTube.ActivityEntry.FRIENDADDED_CATEGORY">
+        <member name="F:Google.GData.YouTube.YouTubeQuery.DefaultUploads">
             <summary>
-            Category used to label entries that indicate a user added a friend
+            default users upload account
             </summary>
         </member>
-        <member name="F:Google.GData.YouTube.ActivityEntry.USERSUBSCRIPTIONADDED_CATEGORY">
+        <member name="F:Google.GData.YouTube.YouTubeQuery.BaseUserUri">
             <summary>
-            Category used to label entries that indicate a user added a subscripton
+            base uri for user based feeds
             </summary>
         </member>
-        <member name="M:Google.GData.YouTube.ActivityEntry.#ctor">
+        <member name="M:Google.GData.YouTube.YouTubeQuery.#ctor">
             <summary>
-            Constructs a new EventEmtry instance
+            base constructor
             </summary>
         </member>
-        <member name="P:Google.GData.YouTube.ActivityEntry.Type">
+        <member name="M:Google.GData.YouTube.YouTubeQuery.#ctor(System.String)">
             <summary>
-             The type of Event, the user action that caused this.
+            base constructor, with initial queryUri
+            </summary>
+            <param name="queryUri">the query to use</param>
+        </member>
+        <member name="M:Google.GData.YouTube.YouTubeQuery.CreateSubscriptionUri(System.String)">
+            <summary>
+            convienience method to create an URI based on a userID
+            for the subscriptions
+            </summary>
+            <param name="userID"></param>
+            <returns>string</returns>
+        </member>
+        <member name="M:Google.GData.YouTube.YouTubeQuery.CreatePlaylistsUri(System.String)">
+            <summary>
+            convienience method to create an URI based on a userID
+            for the playlists of an user
+            </summary>
+            <param name="userID"></param>
+            <returns>string</returns>
+        </member>
+        <member name="M:Google.GData.YouTube.YouTubeQuery.CreateFavoritesUri(System.String)">
+            <summary>
+            convienience method to create an URI based on a userID
+            for the favorites of an user
+            </summary>
+            <param name="userID"></param>
+            <returns>string</returns>
+        </member>
+        <member name="M:Google.GData.YouTube.YouTubeQuery.CreateMessagesUri(System.String)">
+            <summary>
+            convienience method to create an URI based on a userID
+            for the messages of an user
+            </summary>
+            <param name="userID"></param>
+            <returns>string</returns>
+        </member>
+        <member name="M:Google.GData.YouTube.YouTubeQuery.CreateContactsUri(System.String)">
+            <summary>
+            convienience method to create an URI based on a userID
+            for the contacts of an user
+            </summary>
+            <param name="userID"></param>
+            <returns>string</returns>
+        </member>
+        <member name="M:Google.GData.YouTube.YouTubeQuery.CreateUserUri(System.String)">
+            <summary>
+            convienience method to create an URI based on a userID
+            for the uploaded videos of an user
+            </summary>
+            <param name="userID"></param>
+            <returns>string</returns>
+        </member>
+        <member name="M:Google.GData.YouTube.YouTubeQuery.CreateVideoWatchUri(System.String)">
+            <summary>
+            assuming you have a video ID, returns the watch uri as a string
+            </summary>
+            <param name="videoID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Google.GData.YouTube.YouTubeQuery.CreateVideoUri(System.String)">
+            <summary>
+            assuming you have a video ID, returns the video feed uri as a string
+            </summary>
+            <param name="videoID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Google.GData.YouTube.YouTubeQuery.GetYouTubeCategories">
+            <summary>
+            retrieves the youtubecategories collection from the default
+            location at http://gdata.youtube.com/schemas/2007/categories.cat
             </summary>
             <returns></returns>
         </member>
-        <member name="P:Google.GData.YouTube.ActivityEntry.VideoId">
+        <member name="M:Google.GData.YouTube.YouTubeQuery.GetCategories(System.Uri,Google.GData.Client.AtomBase)">
             <summary>
-             property accessor for the VideoID, if applicable
+            retrieves a category collection from the given URL
+            The owner should be a new Collection object, like:
+            <code>
+            	GetCategories(new Uri("http://gdata.youtube.com/schemas/2007/categories.cat"), 
+            				  new YouTubeCategoryCollection())
+            </code>
             </summary>
+            <returns></returns>
         </member>
-        <member name="P:Google.GData.YouTube.ActivityEntry.Username">
+        <member name="M:Google.GData.YouTube.YouTubeQuery.ParseUri(System.Uri)">
+            <summary>protected void ParseUri</summary> 
+            <param name="targetUri">takes an incoming Uri string and parses all the properties out of it</param>
+            <returns>throws a query exception when it finds something wrong with the input, otherwise returns a baseuri</returns>
+        </member>
+        <member name="M:Google.GData.YouTube.YouTubeQuery.CalculateQuery(System.String)">
+            <summary>Creates the partial URI query string based on all
+             set properties.</summary> 
+            <returns> string => the query part of the URI </returns>
+        </member>
+        <member name="P:Google.GData.YouTube.YouTubeQuery.Formats">
             <summary>
-             property accessor for the UseName, if applicable
+            format	    The format parameter specifies that videos must be available in a particular video format. 
+                        Your request can specify any of the following formats:
+                Value	    Video Format
+                    1	    RTSP streaming URL for mobile video playback. H.263 video (up to 176x144) and AMR audio.
+                    5	    HTTP URL to the embeddable player (SWF) for this video. This format is not available for a
+                            video that is not embeddable. Developers commonly add format=5 to their queries to restrict
+                            results to videos that can be embedded on their sites.
+                    6	    RTSP streaming URL for mobile video playback. MPEG-4 SP video (up to 176x144) and AAC audio
             </summary>
+            <returns> the list of formats</returns>
         </member>
-        <member name="P:Google.GData.YouTube.ActivityEntry.VideoLink">
-            <summary>returns the video relation link uri, which can be used to
-            retrieve the video entry</summary> 
+        <member name="P:Google.GData.YouTube.YouTubeQuery.Time">
+            <summary>accessor method public UploadTime Time</summary> 
             <returns> </returns>
         </member>
-        <member name="T:Google.GData.YouTube.SubscriptionEntry">
-            <summary>
-            The gd:feedLink tag in the entry identifies the URL that allows 
-            you to retrieve videos for the subscription.
-            For one of the category tags in the entry, the scheme attribute
-            value will be http://gdata.youtube.com/schemas/2007/subscriptiontypes.cat. 
-            That tag's term attribute indicates whether the entry describes a 
-            subscription to a channel (term="channel"), another user's 
-            favorite videos list (term="favorites"), or to videos that match
-             specific keywords (term="query").
-            If the subscription is to another user's channel or list of favorite videos, 
-            the yt:username tag will identify the user who owns the channel or favorite video list.
-            If the subscription is to a keyword query, the yt:queryString element will
-            contain the subscribed-to query term.
-            </summary>
+        <member name="P:Google.GData.YouTube.YouTubeQuery.VQ">
+            <summary>The vq parameter, which is only supported for video feeds, 
+            specifies a search query term. YouTube will search all video 
+            metadata for videos matching the term. Video metadata includes
+             titles, keywords, descriptions, authors' usernames, and 
+            categories</summary> 
+            <returns> </returns>
         </member>
-        <member name="F:Google.GData.YouTube.SubscriptionEntry.SUBSCRIPTION_CATEGORY">
+        <member name="P:Google.GData.YouTube.YouTubeQuery.OrderBy">
             <summary>
-            Category used to label entries that are subscriptions
-            </summary>
+            The orderby parameter, which is only supported for video feeds, 
+            specifies the value that will be used to sort videos in the search
+             result set. Valid values for this parameter are relevance, 
+            published, viewCount and rating. In addition, you can request
+             results that are most relevant to a specific language by
+             setting the parameter value to relevance_lang_languageCode, 
+            where languageCode is an ISO 639-1 two-letter 
+            language code. (Use the values zh-Hans for simplified Chinese
+             and zh-Hant for traditional Chinese.) In addition, 
+            please note that results in other languages will still be 
+            returned if they are highly relevant to the search query term.
+            The default value for this parameter is relevance 
+            for a search results feed.
+            accessor method public string OrderBy</summary> 
+            <returns> </returns>
         </member>
-        <member name="M:Google.GData.YouTube.SubscriptionEntry.#ctor">
+        <member name="P:Google.GData.YouTube.YouTubeQuery.Client">
             <summary>
-            Constructs a new YouTubeEntry instance
-            </summary>
+            The client parameter is an alphanumeric string that identifies your
+             application. The client parameter is an alternate way of specifying 
+            your client ID. You can also use the X-GData-Client request header to
+             specify your client ID. Your application does not need to 
+            specify your client ID twice by using both the client parameter and 
+            the X-GData-Client request header, but it should provide your 
+            client ID using at least one of those two methods.
+            Note that you should set this normally on the YouTubeService object,
+            this property is only included for completeness
+            </summary> 
+            <returns> </returns>
         </member>
-        <member name="P:Google.GData.YouTube.SubscriptionEntry.Type">
+        <member name="P:Google.GData.YouTube.YouTubeQuery.LR">
             <summary>
-            get's and set's the associated atom:category
+            The lr parameter restricts the search to videos that have a title, 
+            description or keywords in a specific language. Valid values for 
+            the lr parameter are ISO 639-1 two-letter language codes. You can
+            also use the values zh-Hans for simplified Chinese and zh-Hant
+             for traditional Chinese. This parameter can be used when requesting 
+            any video feeds other than standard feeds.
+            </summary> 
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:Google.GData.YouTube.YouTubeQuery.SafeSearch" -->
+        <!-- Badly formed XML comment ignored for member "P:Google.GData.YouTube.YouTubeQuery.Location" -->
+        <member name="P:Google.GData.YouTube.YouTubeQuery.LocationRadius">
+            <summary>
+             The location-radius parameter, in conjunction with the location parameter, defines a geographic area. If the geographic coordinates associated with a video fall 
+            within that area, then the video may be included in search results.
+            <para>The location-radius parameter value must be a floating point number followed by a measurement unit. Valid measurement units are m, km, ft and mi. 
+            For example, valid parameter values include "1500m", "5km", "10000ft" and "0.75mi". The API will return an error if the radius is greater than 1000 kilometers.</para>
+             <seealso cref="P:Google.GData.YouTube.YouTubeQuery.Location"/>
             </summary>
             <returns></returns>
         </member>
-        <member name="P:Google.GData.YouTube.SubscriptionEntry.UserName">
+        <member name="P:Google.GData.YouTube.YouTubeQuery.Restriction">
             <summary>
-            getter/setter for UserName subelement
+            The restriction parameter identifies the IP address that should be 
+            used to filter videos that can only be played in specific countries. 
+            We recommend that you always use this parameter to specify the end 
+            user's IP address. (By default, the API filters out videos that
+             cannot be played in the country from which you send API requests. 
+            This restriction is based on your client application's IP address.)
+            To request videos playable from a specific computer, include the 
+            restriction parameter in your request and set the parameter value 
+            to the IP address of the computer where the videos will be 
+            played Ð e.g. restriction=255.255.255.255.
+            To request videos that are playable in a specific country, 
+            include the restriction parameter in your request and set 
+            the parameter value to the ISO 3166 two-letter country code 
+            of the country where the videos will be played
+             Ð e.g. restriction=DE.
+            </summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.YouTube.YouTubeQuery.Uploader">
+            <summary>
+            The uploader parameter, which is only supported for search requests, lets you restrict a query to YouTube 
+            partner videos. A YouTube partner is a person or organization that has been accepted into and participates 
+            in the YouTube Partner Program.
+            <para>In an API response, a feed entry contains a partner video if the entry contains a media:credit tag for 
+            which the value of the yt:type attribute is partner.</para>
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Google.GData.YouTube.YouTubeQuery.VideoFormat">
+            <summary>
+            describing the requested video format
             </summary>
         </member>
-        <member name="P:Google.GData.YouTube.SubscriptionEntry.QueryString">
+        <member name="F:Google.GData.YouTube.YouTubeQuery.VideoFormat.FormatUndefined">
             <summary>
-            getter/setter for QueryString subelement
+            no parameter. Setting the accessLevel to undefined
+            implies the server default
             </summary>
         </member>
-        <member name="P:Google.GData.YouTube.SubscriptionEntry.PlaylistId">
+        <member name="F:Google.GData.YouTube.YouTubeQuery.VideoFormat.RTSP">
             <summary>
-            getter/setter for PlaylistId subelement
+            RTSP streaming URL for mobile video playback. H.263 video (up to 176x144) and AMR audio.
             </summary>
         </member>
-        <member name="P:Google.GData.YouTube.SubscriptionEntry.PlaylistTitle">
+        <member name="F:Google.GData.YouTube.YouTubeQuery.VideoFormat.Embeddable">
             <summary>
-            getter/setter for PlaylistTitle subelement
+            HTTP URL to the embeddable player
             </summary>
         </member>
-        <member name="T:Google.GData.YouTube.SubscriptionEntry.SubscriptionType">
+        <member name="F:Google.GData.YouTube.YouTubeQuery.VideoFormat.Mobile">
             <summary>
-            describes the subscription types for a subscription feed
+            SRTSP streaming URL for mobile video playback.
             </summary>
         </member>
-        <member name="F:Google.GData.YouTube.SubscriptionEntry.SubscriptionType.channel">
+        <member name="T:Google.GData.YouTube.YouTubeQuery.UploadTime">
             <summary>
-            indicates a channel subscription
+            describing the requested video format
             </summary>
         </member>
-        <member name="F:Google.GData.YouTube.SubscriptionEntry.SubscriptionType.favorites">
+        <member name="F:Google.GData.YouTube.YouTubeQuery.UploadTime.UploadTimeUndefined">
             <summary>
-            indicates a user favorites subscription
+            time undefined, default value for the server
             </summary>
         </member>
-        <member name="F:Google.GData.YouTube.SubscriptionEntry.SubscriptionType.query">
+        <member name="F:Google.GData.YouTube.YouTubeQuery.UploadTime.Today">
             <summary>
-            indicates a query based subscription
+            today (1day)
             </summary>
         </member>
-        <member name="F:Google.GData.YouTube.SubscriptionEntry.SubscriptionType.playlist">
+        <member name="F:Google.GData.YouTube.YouTubeQuery.UploadTime.ThisWeek">
             <summary>
-            indicates a playlist based subscription
+            This week (7days)
             </summary>
         </member>
-        <member name="F:Google.GData.YouTube.SubscriptionEntry.SubscriptionType.unknown">
+        <member name="F:Google.GData.YouTube.YouTubeQuery.UploadTime.ThisMonth">
             <summary>
-            indicates an unknown state
+            1 month
             </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YouTubeQuery.UploadTime.AllTime">
+            <summary>all time</summary>
+        </member>
+        <member name="T:Google.GData.YouTube.YouTubeQuery.SafeSearchValues">
+            <summary>
+            describing the possible safe search values
+            <seealso cref="P:Google.GData.YouTube.YouTubeQuery.SafeSearch"/>
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YouTubeQuery.SafeSearchValues.None">
+            <summary>no restriction</summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YouTubeQuery.SafeSearchValues.Moderate">
+            <summary>moderate restriction</summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YouTubeQuery.SafeSearchValues.Strict">
+            <summary>strict restriction</summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "T:Google.GData.YouTube.ActivitiesQuery" -->
+        <member name="F:Google.GData.YouTube.ActivitiesQuery.ActivityFeedUri">
+            <summary>
+            youTube events feed for friends activities  
+            </summary>
+        </member>
+        <member name="M:Google.GData.YouTube.ActivitiesQuery.#ctor">
+            <summary>
+            base constructor
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "T:Google.GData.YouTube.UserActivitiesQuery" -->
+        <member name="F:Google.GData.YouTube.UserActivitiesQuery.ActivityFeedUri">
+            <summary>
+            youTube events feed for friends activities  
+            </summary>
+        </member>
+        <member name="M:Google.GData.YouTube.UserActivitiesQuery.#ctor">
+            <summary>
+            base constructor
+            </summary>
+        </member>
+        <member name="M:Google.GData.YouTube.UserActivitiesQuery.CalculateQuery(System.String)">
+            <summary>Creates the partial URI query string based on all
+             set properties.</summary> 
+            <returns> string => the query part of the URI </returns>
+        </member>
+        <member name="P:Google.GData.YouTube.UserActivitiesQuery.Authors">
+            <summary>holds the list of authors we want to search for</summary> 
         </member>
         <member name="T:Google.GData.YouTube.ComplaintEntry">
             <summary>
@@ -2964,57 +3015,6 @@
             <summary>
             The type of complaint is not set yet.
             </summary>
-        </member>
-        <member name="T:Google.GData.YouTube.YouTubeCategoryCollection">
-            <summary>
-             this is a helper class just for parsing the category document
-            </summary>
-        </member>
-        <member name="M:Google.GData.YouTube.YouTubeCategoryCollection.CreateAtomSubElement(System.Xml.XmlReader,Google.GData.Client.AtomFeedParser)">
-            <summary>
-            this is the subclassing method for AtomBase derived 
-            classes to overload what childelements should be created
-            needed to create CustomLink type objects, like WebContentLink etc
-            </summary>
-            <param name="reader">The XmlReader that tells us what we are working with</param>
-            <param name="parser">the parser is primarily used for nametable comparisons</param>
-            <returns>AtomBase</returns>
-        </member>
-        <member name="P:Google.GData.YouTube.YouTubeCategoryCollection.XmlName">
-            <summary>Returns the constant representing this XML element.</summary> 
-        </member>
-        <member name="T:Google.GData.YouTube.SubscriptionFeed">
-            <summary>
-            A user's subscriptions feed contains a list of the channels, 
-            favorite video lists and search queries to which the user has subscribed.
-            In a subscriptions feed, each entry contains information about a single
-             subscription. Each entry contains the following key tags:
-            The gd:feedLink tag in the entry identifies the URL that allows 
-            you to retrieve videos for the subscription.
-            For one of the category tags in the entry, the scheme attribute
-            value will be http://gdata.youtube.com/schemas/2007/subscriptiontypes.cat. 
-            That tag's term attribute indicates whether the entry describes a 
-            subscription to a channel (term="channel"), another user's 
-            favorite videos list (term="favorites"), or to videos that match
-             specific keywords (term="query").
-            If the subscription is to another user's channel or list of favorite videos, 
-            the yt:username tag will identify the user who owns the channel or favorite video list.
-            If the subscription is to a keyword query, the yt:queryString element will
-            contain the subscribed-to query term.
-            </summary>
-        </member>
-        <member name="M:Google.GData.YouTube.SubscriptionFeed.#ctor(System.Uri,Google.GData.Client.IService)">
-            <summary>
-             default constructor
-            </summary>
-            <param name="uriBase">the base URI of the feedEntry</param>
-            <param name="iService">the Service to use</param>
-        </member>
-        <member name="M:Google.GData.YouTube.SubscriptionFeed.CreateFeedEntry">
-            <summary>
-            this needs to get implemented by subclasses
-            </summary>
-            <returns>AtomEntry</returns>
         </member>
     </members>
 </doc>

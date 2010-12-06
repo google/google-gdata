@@ -4,10 +4,29 @@
         <name>Google.GData.Health</name>
     </assembly>
     <members>
-        <member name="T:Google.GData.Health.HealthService">
+        <member name="T:Google.GData.Health.Author">
             <summary>
-            The Google Health Data API allows applications to view and send health data in the form of Google Data feeds. 
-            The HealthService class encapsulates authentication to the Google HealthService.
+            Represents an simplified atom entry author.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Health.Author.Email">
+            <summary>
+            Gets or sets the email of the author.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Health.Author.Name">
+            <summary>
+            Gets or sets the name of the author.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Health.Author.Language">
+            <summary>
+            Gets or sets the language for this author.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Health.Author.Uri">
+            <summary>
+            Gets or sets the author's uri.
             </summary>
         </member>
         <member name="T:Google.GData.Health.BaseHealthService">
@@ -105,33 +124,227 @@
             <param name="e">FeedParserEventArguments, holds the feedentry</param> 
             <returns> </returns>
         </member>
-        <member name="F:Google.GData.Health.HealthService.ServiceName">
-            <summary>The Calendar service's name</summary> 
-        </member>
-        <member name="F:Google.GData.Health.HealthService.BaseAddress">
-            <summary>The base Google Health Feeds address.</summary>
-        </member>
-        <member name="F:Google.GData.Health.HealthService.ProfileListFeed">
-            <summary>The Google Health Profile list feed.</summary>
-        </member>
-        <member name="F:Google.GData.Health.HealthService.ProfileFeed">
-            <summary>The Google Health Profile UI feed</summary>
-        </member>
-        <member name="F:Google.GData.Health.HealthService.RegisterFeed">
-            <summary>The Google Health Register UI feed</summary>
-        </member>
-        <member name="F:Google.GData.Health.HealthService.DefaultProfileFeed">
-            <summary>The Google Health Default Profile UI feed</summary>
-        </member>
-        <member name="F:Google.GData.Health.HealthService.DefaultRegisterFeed">
-            <summary>The Google Health Default Register UI feed</summary>
-        </member>
-        <member name="M:Google.GData.Health.HealthService.#ctor(System.String)">
+        <member name="T:Google.GData.Health.Notice">
             <summary>
-            Constructs the Google Health Service using the 
-            primary Health Feeds address.
+            Represents a simple user profile's notice.
             </summary>
-            <param name="applicationName">The name of the application leveraging the service.</param>
+        </member>
+        <member name="M:Google.GData.Health.Notice.#ctor">
+            <summary>
+            Creates a notice with the default content type of text.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Health.Notice.Subject">
+            <summary>
+            Gets or sets the notice title.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Health.Notice.Content">
+            <summary>
+            Gets or sets the notice content.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Health.Notice.ContentType">
+            <summary>
+            Gets or sets the notice content type.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Health.Notice.Id">
+            <summary>
+            Gets the notice entry id.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Health.Notice.DateUpdated">
+            <summary>
+            Gets the notice entry last updated datetime.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Health.Notice.DatePublished">
+            <summary>
+            Gets the notice entry publishing datetime.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Health.Notice.CareRecord">
+            <summary>
+            Gets or sets the continuity of care record attached to this entry.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Health.Notice.IsHtml">
+            <summary>
+            Gets whether the notice content type to html.
+            </summary>
+        </member>
+        <member name="T:Google.GData.Health.HealthFeed">
+            <summary>
+            The Google Health Data API allows applications to view and send health data in the form of Google Data feeds. 
+            </summary>
+        </member>
+        <member name="M:Google.GData.Health.HealthFeed.#ctor(System.Uri,Google.GData.Client.IService)">
+            <summary>
+             default constructor
+            </summary>
+            <param name="uriBase">the base URI of the feedEntry</param>
+            <param name="iService">the Service to use</param>
+        </member>
+        <member name="M:Google.GData.Health.HealthFeed.CreateFeedEntry">
+            <summary>
+            this needs to get implemented by subclasses
+            </summary>
+            <returns>AtomEntry</returns>
+        </member>
+        <member name="M:Google.GData.Health.HealthFeed.HandleExtensionElements(Google.GData.Client.ExtensionElementEventArgs,Google.GData.Client.AtomFeedParser)">
+            <summary>
+            get's called after we already handled the custom entry, to handle all 
+            other potential parsing tasks
+            </summary>
+            <param name="e"></param>
+            <param name="parser">the atom feed parser used</param>
+        </member>
+        <member name="T:Google.GData.Health.HealthNameTable">
+            <summary>
+             contains the static strings for the health namespace
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="F:Google.GData.Health.HealthNameTable.CCR">
+            <summary> Continuity of Care Record namespace (CCR) namespace</summary>
+        </member>
+        <member name="F:Google.GData.Health.HealthNameTable.CCR_PREFIX">
+            <summary> Continuity of Care Record namespace (CCR) namespace prefix</summary>
+        </member>
+        <member name="F:Google.GData.Health.HealthNameTable.CCR_ALIAS">
+            <summary> Continuity of Care Record namespace (CCR) namespace alias</summary>
+        </member>
+        <member name="F:Google.GData.Health.HealthNameTable.ContinuityOfCareElement">
+            <summary>
+            the CCR element name
+            </summary>
+        </member>
+        <member name="F:Google.GData.Health.HealthNameTable.H9">
+            <summary> The h9 namespace (H9) namespace</summary>
+        </member>
+        <member name="F:Google.GData.Health.HealthNameTable.H9_PREFIX">
+            <summary> The h9 namespace (H9) namespace prefix</summary>
+        </member>
+        <member name="F:Google.GData.Health.HealthNameTable.H9_ALIAS">
+            <summary> The h9 namespace (H9) namespace alias</summary>
+        </member>
+        <member name="F:Google.GData.Health.HealthNameTable.H9KINDS">
+            <summary> The h9kinds namespace (H9KINDS) namespace</summary>
+        </member>
+        <member name="F:Google.GData.Health.HealthNameTable.H9KINDS_PREFIX">
+            <summary> The h9kinds namespace (H9KINDS) namespace prefix</summary>
+        </member>
+        <member name="F:Google.GData.Health.HealthNameTable.H9PROFILE">
+            <summary>the term for a profile entry</summary>
+        </member>
+        <member name="F:Google.GData.Health.HealthNameTable.H9REGISTER">
+            <summary>the term for a registry entry</summary>
+        </member>
+        <member name="F:Google.GData.Health.HealthNameTable.H9KINDS_ALIAS">
+            <summary> The h9kinds namespace (H9KINDS) namespace alias</summary>
+        </member>
+        <member name="F:Google.GData.Health.HealthNameTable.H9M">
+            <summary> The h9 metadata namespace (H9M) namespace</summary>
+        </member>
+        <member name="F:Google.GData.Health.HealthNameTable.H9M_PREFIX">
+            <summary> The h9 metadata namespace (H9M) namespace prefix</summary>
+        </member>
+        <member name="F:Google.GData.Health.HealthNameTable.H9M_ALIAS">
+            <summary> The h9 metadata namespace (H9M) namespace alias</summary>
+        </member>
+        <member name="F:Google.GData.Health.HealthNameTable.REL_COMPLETE_URL">
+            <summary> Link Rel for a complete url of an entry, indicating the smallest feed
+            containing the entry.</summary>
+        </member>
+        <member name="T:Google.GData.Health.HealthEntry">
+            <summary>
+            Entry API customization class for defining entries in an Event feed.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Health.HealthEntry.PROFILE_CATEGORY">
+            <summary>
+            Category used to label entries that contain photo extension data.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Health.HealthEntry.REGISTER_CATEGORY">
+            <summary>
+            Category used to label entries that contain photo extension data.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Health.HealthEntry.#ctor">
+            <summary>
+            Constructs a new HealthEntry instance with the appropriate category
+            to indicate that it is an Health Entry.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Health.HealthEntry.IsProfile">
+            <summary>
+            returns true if the entry is a profile entry
+            </summary>
+        </member>
+        <member name="P:Google.GData.Health.HealthEntry.IsRegister">
+            <summary>
+            returns true if the entry is a register entry
+            </summary>
+        </member>
+        <member name="P:Google.GData.Health.HealthEntry.CCR">
+            <summary>
+            get/sets the CCR node inside the extensions collection. If you want to find specific nodes
+            inside that CCR node, you need to use xpath with namespaces. That looks like this:
+            <code>
+            xmlDocument = new XmlDocument();
+            xmlDocument.ImportNode(healthEntry.CCR);
+            ccrNameManager = new XmlNamespaceManager(xmlDocument.NameTable);
+            ccrNameManager.AddNamespace("ccr", "urn:astm-org:CCR");
+            xmlNode node = xmlDocument.CCR.SelectSingleNode("//ccr:ProductName/ccr:Text", ccrNameManager);
+            </code>
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Google.GData.Health.ProfileEntry">
+            <summary>
+            shallow subclass to add the appropriate category for construction
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Google.GData.Health.ProfileEntry.#ctor">
+            <summary>
+            Constructs a new ProfileEntry instance with the appropriate category
+            to indicate that it is an event.
+            </summary>
+        </member>
+        <member name="T:Google.GData.Health.RegisterEntry">
+            <summary>
+            shallow subclass to add the appropriate category for construction
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Google.GData.Health.RegisterEntry.#ctor">
+            <summary>
+            Constructs a new RegisterEntry instance with the appropriate category
+            to indicate that it is an event.
+            </summary>
+        </member>
+        <member name="T:Google.GData.Health.Profile">
+            <summary>
+            Represents a simple user profile in Google Health.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Health.Profile.Name">
+            <summary>
+            Gets or sets the profile name.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Health.Profile.ID">
+            <summary>
+            Gets or sets the profile id.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Health.Profile.Authors">
+            <summary>
+            Gets or sets the authors of this profile.
+            </summary>
         </member>
         <member name="T:ASTM.Org.CCR.ContinuityOfCareRecord">
             <remarks/>
@@ -1982,253 +2195,6 @@
             </summary>
             <param name="applicationName">The name of the application leveraging the service.</param>
         </member>
-        <member name="T:Google.GData.Health.Author">
-            <summary>
-            Represents an simplified atom entry author.
-            </summary>
-        </member>
-        <member name="P:Google.GData.Health.Author.Email">
-            <summary>
-            Gets or sets the email of the author.
-            </summary>
-        </member>
-        <member name="P:Google.GData.Health.Author.Name">
-            <summary>
-            Gets or sets the name of the author.
-            </summary>
-        </member>
-        <member name="P:Google.GData.Health.Author.Language">
-            <summary>
-            Gets or sets the language for this author.
-            </summary>
-        </member>
-        <member name="P:Google.GData.Health.Author.Uri">
-            <summary>
-            Gets or sets the author's uri.
-            </summary>
-        </member>
-        <member name="T:Google.GData.Health.HealthNameTable">
-            <summary>
-             contains the static strings for the health namespace
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="F:Google.GData.Health.HealthNameTable.CCR">
-            <summary> Continuity of Care Record namespace (CCR) namespace</summary>
-        </member>
-        <member name="F:Google.GData.Health.HealthNameTable.CCR_PREFIX">
-            <summary> Continuity of Care Record namespace (CCR) namespace prefix</summary>
-        </member>
-        <member name="F:Google.GData.Health.HealthNameTable.CCR_ALIAS">
-            <summary> Continuity of Care Record namespace (CCR) namespace alias</summary>
-        </member>
-        <member name="F:Google.GData.Health.HealthNameTable.ContinuityOfCareElement">
-            <summary>
-            the CCR element name
-            </summary>
-        </member>
-        <member name="F:Google.GData.Health.HealthNameTable.H9">
-            <summary> The h9 namespace (H9) namespace</summary>
-        </member>
-        <member name="F:Google.GData.Health.HealthNameTable.H9_PREFIX">
-            <summary> The h9 namespace (H9) namespace prefix</summary>
-        </member>
-        <member name="F:Google.GData.Health.HealthNameTable.H9_ALIAS">
-            <summary> The h9 namespace (H9) namespace alias</summary>
-        </member>
-        <member name="F:Google.GData.Health.HealthNameTable.H9KINDS">
-            <summary> The h9kinds namespace (H9KINDS) namespace</summary>
-        </member>
-        <member name="F:Google.GData.Health.HealthNameTable.H9KINDS_PREFIX">
-            <summary> The h9kinds namespace (H9KINDS) namespace prefix</summary>
-        </member>
-        <member name="F:Google.GData.Health.HealthNameTable.H9PROFILE">
-            <summary>the term for a profile entry</summary>
-        </member>
-        <member name="F:Google.GData.Health.HealthNameTable.H9REGISTER">
-            <summary>the term for a registry entry</summary>
-        </member>
-        <member name="F:Google.GData.Health.HealthNameTable.H9KINDS_ALIAS">
-            <summary> The h9kinds namespace (H9KINDS) namespace alias</summary>
-        </member>
-        <member name="F:Google.GData.Health.HealthNameTable.H9M">
-            <summary> The h9 metadata namespace (H9M) namespace</summary>
-        </member>
-        <member name="F:Google.GData.Health.HealthNameTable.H9M_PREFIX">
-            <summary> The h9 metadata namespace (H9M) namespace prefix</summary>
-        </member>
-        <member name="F:Google.GData.Health.HealthNameTable.H9M_ALIAS">
-            <summary> The h9 metadata namespace (H9M) namespace alias</summary>
-        </member>
-        <member name="F:Google.GData.Health.HealthNameTable.REL_COMPLETE_URL">
-            <summary> Link Rel for a complete url of an entry, indicating the smallest feed
-            containing the entry.</summary>
-        </member>
-        <member name="T:Google.GData.Health.HealthEntry">
-            <summary>
-            Entry API customization class for defining entries in an Event feed.
-            </summary>
-        </member>
-        <member name="F:Google.GData.Health.HealthEntry.PROFILE_CATEGORY">
-            <summary>
-            Category used to label entries that contain photo extension data.
-            </summary>
-        </member>
-        <member name="F:Google.GData.Health.HealthEntry.REGISTER_CATEGORY">
-            <summary>
-            Category used to label entries that contain photo extension data.
-            </summary>
-        </member>
-        <member name="M:Google.GData.Health.HealthEntry.#ctor">
-            <summary>
-            Constructs a new HealthEntry instance with the appropriate category
-            to indicate that it is an Health Entry.
-            </summary>
-        </member>
-        <member name="P:Google.GData.Health.HealthEntry.IsProfile">
-            <summary>
-            returns true if the entry is a profile entry
-            </summary>
-        </member>
-        <member name="P:Google.GData.Health.HealthEntry.IsRegister">
-            <summary>
-            returns true if the entry is a register entry
-            </summary>
-        </member>
-        <member name="P:Google.GData.Health.HealthEntry.CCR">
-            <summary>
-            get/sets the CCR node inside the extensions collection. If you want to find specific nodes
-            inside that CCR node, you need to use xpath with namespaces. That looks like this:
-            <code>
-            xmlDocument = new XmlDocument();
-            xmlDocument.ImportNode(healthEntry.CCR);
-            ccrNameManager = new XmlNamespaceManager(xmlDocument.NameTable);
-            ccrNameManager.AddNamespace("ccr", "urn:astm-org:CCR");
-            xmlNode node = xmlDocument.CCR.SelectSingleNode("//ccr:ProductName/ccr:Text", ccrNameManager);
-            </code>
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="T:Google.GData.Health.ProfileEntry">
-            <summary>
-            shallow subclass to add the appropriate category for construction
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Google.GData.Health.ProfileEntry.#ctor">
-            <summary>
-            Constructs a new ProfileEntry instance with the appropriate category
-            to indicate that it is an event.
-            </summary>
-        </member>
-        <member name="T:Google.GData.Health.RegisterEntry">
-            <summary>
-            shallow subclass to add the appropriate category for construction
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Google.GData.Health.RegisterEntry.#ctor">
-            <summary>
-            Constructs a new RegisterEntry instance with the appropriate category
-            to indicate that it is an event.
-            </summary>
-        </member>
-        <member name="T:Google.GData.Health.Notice">
-            <summary>
-            Represents a simple user profile's notice.
-            </summary>
-        </member>
-        <member name="M:Google.GData.Health.Notice.#ctor">
-            <summary>
-            Creates a notice with the default content type of text.
-            </summary>
-        </member>
-        <member name="P:Google.GData.Health.Notice.Subject">
-            <summary>
-            Gets or sets the notice title.
-            </summary>
-        </member>
-        <member name="P:Google.GData.Health.Notice.Content">
-            <summary>
-            Gets or sets the notice content.
-            </summary>
-        </member>
-        <member name="P:Google.GData.Health.Notice.ContentType">
-            <summary>
-            Gets or sets the notice content type.
-            </summary>
-        </member>
-        <member name="P:Google.GData.Health.Notice.Id">
-            <summary>
-            Gets the notice entry id.
-            </summary>
-        </member>
-        <member name="P:Google.GData.Health.Notice.DateUpdated">
-            <summary>
-            Gets the notice entry last updated datetime.
-            </summary>
-        </member>
-        <member name="P:Google.GData.Health.Notice.DatePublished">
-            <summary>
-            Gets the notice entry publishing datetime.
-            </summary>
-        </member>
-        <member name="P:Google.GData.Health.Notice.CareRecord">
-            <summary>
-            Gets or sets the continuity of care record attached to this entry.
-            </summary>
-        </member>
-        <member name="P:Google.GData.Health.Notice.IsHtml">
-            <summary>
-            Gets whether the notice content type to html.
-            </summary>
-        </member>
-        <member name="T:Google.GData.Health.HealthFeed">
-            <summary>
-            The Google Health Data API allows applications to view and send health data in the form of Google Data feeds. 
-            </summary>
-        </member>
-        <member name="M:Google.GData.Health.HealthFeed.#ctor(System.Uri,Google.GData.Client.IService)">
-            <summary>
-             default constructor
-            </summary>
-            <param name="uriBase">the base URI of the feedEntry</param>
-            <param name="iService">the Service to use</param>
-        </member>
-        <member name="M:Google.GData.Health.HealthFeed.CreateFeedEntry">
-            <summary>
-            this needs to get implemented by subclasses
-            </summary>
-            <returns>AtomEntry</returns>
-        </member>
-        <member name="M:Google.GData.Health.HealthFeed.HandleExtensionElements(Google.GData.Client.ExtensionElementEventArgs,Google.GData.Client.AtomFeedParser)">
-            <summary>
-            get's called after we already handled the custom entry, to handle all 
-            other potential parsing tasks
-            </summary>
-            <param name="e"></param>
-            <param name="parser">the atom feed parser used</param>
-        </member>
-        <member name="T:Google.GData.Health.Profile">
-            <summary>
-            Represents a simple user profile in Google Health.
-            </summary>
-        </member>
-        <member name="P:Google.GData.Health.Profile.Name">
-            <summary>
-            Gets or sets the profile name.
-            </summary>
-        </member>
-        <member name="P:Google.GData.Health.Profile.ID">
-            <summary>
-            Gets or sets the profile id.
-            </summary>
-        </member>
-        <member name="P:Google.GData.Health.Profile.Authors">
-            <summary>
-            Gets or sets the authors of this profile.
-            </summary>
-        </member>
         <!-- Badly formed XML comment ignored for member "T:Google.GData.Health.HealthQuery" -->
         <member name="F:Google.GData.Health.HealthQuery.HealthFeeds">
             <summary>
@@ -2348,6 +2314,40 @@
             This parameter is only valid if grouped=true
             </summary> 
             <returns> </returns>
+        </member>
+        <member name="T:Google.GData.Health.HealthService">
+            <summary>
+            The Google Health Data API allows applications to view and send health data in the form of Google Data feeds. 
+            The HealthService class encapsulates authentication to the Google HealthService.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Health.HealthService.ServiceName">
+            <summary>The Calendar service's name</summary> 
+        </member>
+        <member name="F:Google.GData.Health.HealthService.BaseAddress">
+            <summary>The base Google Health Feeds address.</summary>
+        </member>
+        <member name="F:Google.GData.Health.HealthService.ProfileListFeed">
+            <summary>The Google Health Profile list feed.</summary>
+        </member>
+        <member name="F:Google.GData.Health.HealthService.ProfileFeed">
+            <summary>The Google Health Profile UI feed</summary>
+        </member>
+        <member name="F:Google.GData.Health.HealthService.RegisterFeed">
+            <summary>The Google Health Register UI feed</summary>
+        </member>
+        <member name="F:Google.GData.Health.HealthService.DefaultProfileFeed">
+            <summary>The Google Health Default Profile UI feed</summary>
+        </member>
+        <member name="F:Google.GData.Health.HealthService.DefaultRegisterFeed">
+            <summary>The Google Health Default Register UI feed</summary>
+        </member>
+        <member name="M:Google.GData.Health.HealthService.#ctor(System.String)">
+            <summary>
+            Constructs the Google Health Service using the 
+            primary Health Feeds address.
+            </summary>
+            <param name="applicationName">The name of the application leveraging the service.</param>
         </member>
     </members>
 </doc>

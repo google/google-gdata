@@ -76,15 +76,15 @@
   <ItemGroup>
     <Reference Include="Google.GData.Client, Version=1.4.2.33059, Culture=neutral, PublicKeyToken=04a59ca9b0273830, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\Debug\Google.GData.Client.dll</HintPath>
+      <HintPath>..\..\lib\Release\Google.GData.Client.dll</HintPath>
     </Reference>
     <Reference Include="Google.GData.Extensions, Version=1.4.2.33060, Culture=neutral, PublicKeyToken=0b4c5df2ebf20876, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\Debug\Google.GData.Extensions.dll</HintPath>
+      <HintPath>..\..\lib\Release\Google.GData.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="Google.GData.Photos, Version=1.4.2.33061, Culture=neutral, PublicKeyToken=a25b50f2e8e3887a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\Debug\Google.GData.Photos.dll</HintPath>
+      <HintPath>..\..\lib\Release\Google.GData.Photos.dll</HintPath>
     </Reference>
     <Reference Include="System">
       <Name>System</Name>

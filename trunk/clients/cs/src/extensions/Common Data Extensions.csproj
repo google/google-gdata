@@ -110,12 +110,6 @@
     <None Include="extensionkey.sn" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\core\Core Client.csproj">
-      <Project>{B6F6D938-0D45-42BA-8A67-55D92EF03995}</Project>
-      <Name>Core Client</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="..\..\version\AssemblyVersion.cs">
       <Link>AssemblyVersion.cs</Link>
     </Compile>
@@ -142,6 +136,12 @@
     <Compile Include="when.cs" />
     <Compile Include="where.cs" />
     <Compile Include="who.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\core\Core Client.csproj">
+      <Project>{B6F6D938-0D45-42BA-8A67-55D92EF03995}</Project>
+      <Name>Core Client</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
