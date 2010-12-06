@@ -116,16 +116,16 @@ xcopy /y ..\src\youtube\bin\*.xml ..\docs\*.*
 cd ..\lib\release\
 
 rem run ILMerge on PhotoBrowser.exe
-ilmerge Photobrowser.exe Google.GData.Client.Dll Google.GData.Extensions.Dll Google.GData.Photos.Dll /out:PhotoTool.exe
+ilmerge Photobrowser.exe Google.GData.Client.dll Google.GData.Extensions.dll Google.GData.Photos.dll /out:PhotoTool.exe
 del Photobrowser.exe
 del Phototool.pdb
 
 rem run ILMerge on DocListExport.exe
-ilmerge DocListExport.exe Google.GData.Client.Dll Google.GData.Extensions.Dll Google.GData.AccessControl.Dll Google.GData.Documents.dll /out:DocListExporter.exe
+ilmerge DocListExport.exe Google.GData.Client.dll Google.GData.Extensions.dll Google.GData.AccessControl.dll Google.GData.Documents.dll /out:DocListExporter.exe
 del DocListExport.exe
 
 rem run ILMerge on YouTubeNotifier.exe
-ilmerge NotifierForYT.exe Google.GData.Client.Dll Google.GData.Extensions.Dll Google.GData.YouTube.Dll /out:nfyt.exe
+ilmerge NotifierForYT.exe Google.GData.Client.dll Google.GData.Extensions.dll Google.GData.YouTube.dll /out:nfyt.exe
 del NotifierForYT.exe
 goto doneBuilding
 
