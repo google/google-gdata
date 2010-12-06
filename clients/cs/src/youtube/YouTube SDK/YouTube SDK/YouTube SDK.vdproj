@@ -46,13 +46,25 @@
         "Entry"
         {
         "MsmKey" = "8:_322A76F34E33F301D369254B7B0CEDA9"
+        "OwnerKey" = "8:_033CD4F500104AF3B9C26EE37CDF0B44"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_322A76F34E33F301D369254B7B0CEDA9"
         "OwnerKey" = "8:_8A0ECBB561E443E7B1A0D9917D6824D3"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_322A76F34E33F301D369254B7B0CEDA9"
-        "OwnerKey" = "8:_033CD4F500104AF3B9C26EE37CDF0B44"
+        "OwnerKey" = "8:_6B2C4504B47A486BBA1C140893EC1ED1"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_322A76F34E33F301D369254B7B0CEDA9"
+        "OwnerKey" = "8:_16DA434B78654991B0FDC9330887B943"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -82,31 +94,13 @@
         "Entry"
         {
         "MsmKey" = "8:_703A07B97332F97A33DC334460CF4F08"
-        "OwnerKey" = "8:_8A0ECBB561E443E7B1A0D9917D6824D3"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_703A07B97332F97A33DC334460CF4F08"
         "OwnerKey" = "8:_033CD4F500104AF3B9C26EE37CDF0B44"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_7505B823A1C272E53DE490AA13292B45"
-        "OwnerKey" = "8:_16DA434B78654991B0FDC9330887B943"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_7505B823A1C272E53DE490AA13292B45"
-        "OwnerKey" = "8:_F4DDCC90908278032EFB112E1A127043"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_7505B823A1C272E53DE490AA13292B45"
-        "OwnerKey" = "8:_6B2C4504B47A486BBA1C140893EC1ED1"
+        "MsmKey" = "8:_703A07B97332F97A33DC334460CF4F08"
+        "OwnerKey" = "8:_8A0ECBB561E443E7B1A0D9917D6824D3"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -148,13 +142,19 @@
         "Entry"
         {
         "MsmKey" = "8:_D38915815FD4B3BBDAFBC46CECD2E1D7"
+        "OwnerKey" = "8:_033CD4F500104AF3B9C26EE37CDF0B44"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_D38915815FD4B3BBDAFBC46CECD2E1D7"
         "OwnerKey" = "8:_8A0ECBB561E443E7B1A0D9917D6824D3"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_D38915815FD4B3BBDAFBC46CECD2E1D7"
-        "OwnerKey" = "8:_033CD4F500104AF3B9C26EE37CDF0B44"
+        "OwnerKey" = "8:_6B2C4504B47A486BBA1C140893EC1ED1"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -171,26 +171,8 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_F4DDCC90908278032EFB112E1A127043"
-        "OwnerKey" = "8:_6B2C4504B47A486BBA1C140893EC1ED1"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_6B2C4504B47A486BBA1C140893EC1ED1"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_033CD4F500104AF3B9C26EE37CDF0B44"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_31C8676338A60B23A6D0FC30C5D802BD"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -203,6 +185,30 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_8A0ECBB561E443E7B1A0D9917D6824D3"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_833C3019FD1144299EC887990861CF88"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_16DA434B78654991B0FDC9330887B943"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_033CD4F500104AF3B9C26EE37CDF0B44"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_31C8676338A60B23A6D0FC30C5D802BD"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -221,30 +227,6 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_322A76F34E33F301D369254B7B0CEDA9"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_833C3019FD1144299EC887990861CF88"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_F4DDCC90908278032EFB112E1A127043"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_16DA434B78654991B0FDC9330887B943"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_7505B823A1C272E53DE490AA13292B45"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -433,7 +415,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Google.GData.Client, Version=1.7.0.0, Culture=neutral, PublicKeyToken=04a59ca9b0273830, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Google.GData.Client, Version=1.7.0.1, Culture=neutral, PublicKeyToken=04a59ca9b0273830, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_322A76F34E33F301D369254B7B0CEDA9"
@@ -490,7 +472,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Google.GData.YouTube, Version=1.7.0.0, Culture=neutral, PublicKeyToken=af04a32718ae8833, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Google.GData.YouTube, Version=1.7.0.1, Culture=neutral, PublicKeyToken=af04a32718ae8833, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_703A07B97332F97A33DC334460CF4F08"
@@ -514,37 +496,6 @@
             "PackageAs" = "3:1"
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_7505B823A1C272E53DE490AA13292B45"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Google.GData.Client, Version=1.7.0.1, Culture=neutral, PublicKeyToken=04a59ca9b0273830, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_7505B823A1C272E53DE490AA13292B45"
-                    {
-                    "Name" = "8:Google.GData.Client.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:Google.GData.Client.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_1A6194C2083640AAB92D3E7B619531C0"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:TRUE"
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
@@ -629,7 +580,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Google.GData.Extensions, Version=1.7.0.0, Culture=neutral, PublicKeyToken=0b4c5df2ebf20876, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Google.GData.Extensions, Version=1.7.0.1, Culture=neutral, PublicKeyToken=0b4c5df2ebf20876, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_D38915815FD4B3BBDAFBC46CECD2E1D7"
@@ -674,37 +625,6 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_F4DDCC90908278032EFB112E1A127043"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Google.GData.Extensions, Version=1.7.0.1, Culture=neutral, PublicKeyToken=0b4c5df2ebf20876, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_F4DDCC90908278032EFB112E1A127043"
-                    {
-                    "Name" = "8:Google.GData.Extensions.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:Google.GData.Extensions.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_FF791871196B4BE69E4D4D95BCA7720C"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:TRUE"
-            "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
         }
@@ -1108,20 +1028,6 @@
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
             "Target" = "8:_033CD4F500104AF3B9C26EE37CDF0B44"
-            "Folder" = "8:_E8F954F8B7994CCB8FCCCBBD859565B4"
-            "WorkingFolder" = "8:_FF791871196B4BE69E4D4D95BCA7720C"
-            "Icon" = "8:"
-            "Feature" = "8:"
-            }
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_CAB4E72EEAF04F09A4923BCA144A1D91"
-            {
-            "Name" = "8:YouTube Notifier"
-            "Arguments" = "8:"
-            "Description" = "8:"
-            "ShowCmd" = "3:1"
-            "IconIndex" = "3:0"
-            "Transitive" = "11:FALSE"
-            "Target" = "8:_8A0ECBB561E443E7B1A0D9917D6824D3"
             "Folder" = "8:_E8F954F8B7994CCB8FCCCBBD859565B4"
             "WorkingFolder" = "8:_FF791871196B4BE69E4D4D95BCA7720C"
             "Icon" = "8:"
