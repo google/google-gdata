@@ -29,7 +29,7 @@ namespace unittests.webmastertools
 {
     public class WebmasterToolsUpdateTests : BaseLiveTestClass
     {
-        private TestContext TestContext1;
+        private Google.GData.Client.UnitTests.TestContext TestContext1;
 
         protected override void ReadConfigFile()
         {
@@ -51,7 +51,7 @@ namespace unittests.webmastertools
         ///Gets or sets the test context which provides
         ///information about and functionality for the current test run.
         ///</summary>
-        public TestContext TestContext
+        public Google.GData.Client.UnitTests.TestContext TestContext
         {
             get { return TestContext1; }
             set { TestContext1 = value; }

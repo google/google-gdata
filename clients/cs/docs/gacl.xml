@@ -16,6 +16,48 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="T:Google.GData.AccessControl.AclQuery">
+            <summary>
+            A subclass of FeedQuery, to create an ACL query URI.
+            currently only exists to allow a Service.Query overload that 
+            creates an ACL feed
+            </summary> 
+        </member>
+        <member name="M:Google.GData.AccessControl.AclQuery.#ctor">
+            <summary>default with no params</summary> 
+        </member>
+        <member name="M:Google.GData.AccessControl.AclQuery.#ctor(System.String)">
+            <summary>constructor taking a base URI constructor.</summary> 
+        </member>
+        <member name="T:Google.GData.AccessControl.AclFeed">
+            <summary>
+            AccessControlFeed customization class
+            the AccessControl feed does not expose anything in addition 
+            to the base feed, so the only customization is the creation of
+            AccessControlEntries
+            </summary>
+        </member>
+        <member name="M:Google.GData.AccessControl.AclFeed.#ctor(System.Uri,Google.GData.Client.IService)">
+            <summary>
+             default constructor
+            </summary>
+            <param name="uriBase">the base URI of the feed</param>
+            <param name="service">the Service to use</param>
+        </member>
+        <member name="M:Google.GData.AccessControl.AclFeed.CreateFeedEntry">
+            <summary>
+            returns a new entry for this feed
+            </summary>
+            <returns>AtomEntry</returns>
+        </member>
+        <member name="M:Google.GData.AccessControl.AclFeed.HandleExtensionElements(Google.GData.Client.ExtensionElementEventArgs,Google.GData.Client.AtomFeedParser)">
+            <summary>
+            get's called after we already handled the custom entry, to handle all 
+            other potential parsing tasks
+            </summary>
+            <param name="e">the Event arguments</param>
+            <param name="parser">the atom feed parser used</param>
+        </member>
         <member name="T:Google.GData.AccessControl.AclScope">
             <summary>
             GData schema extension describing an account role
@@ -78,82 +120,6 @@
              property accessor for the AclScope
             </summary>
         </member>
-        <member name="T:Google.GData.AccessControl.AclNameTable">
-            <summary>Google Access Control List namespace</summary>
-        </member>
-        <member name="F:Google.GData.AccessControl.AclNameTable.gAclNamespace">
-            <summary>default access control namespace</summary> 
-        </member>
-        <member name="F:Google.GData.AccessControl.AclNameTable.gAclPrefix">
-            <summary>default access control prefix</summary> 
-        </member>
-        <member name="F:Google.GData.AccessControl.AclNameTable.gAclCalPrefix">
-            <summary>
-            hash prefixed start for AclNamespace strings
-            </summary>
-        </member>
-        <member name="F:Google.GData.AccessControl.AclNameTable.gAclAlias">
-            <summary>default access control alias</summary> 
-        </member>
-        <member name="F:Google.GData.AccessControl.AclNameTable.LINK_REL_ACCESS_CONTROL_LIST">
-            <summary>Link that provides the URI for the access control list feed 
-            </summary> 
-        </member>
-        <member name="F:Google.GData.AccessControl.AclNameTable.LINK_REL_CONTROLLED_OBJECT">
-            <summary>UIR for the entry that is controlled by the ACL feed
-            </summary> 
-        </member>
-        <member name="F:Google.GData.AccessControl.AclNameTable.ACL_KIND">
-            <summary>access kind</summary> 
-        </member>
-        <member name="F:Google.GData.AccessControl.AclNameTable.XmlAclScopeElement">
-            <summary>the scope element</summary> 
-        </member>
-        <member name="F:Google.GData.AccessControl.AclNameTable.XmlAclRoleElement">
-            <summary>the role element</summary> 
-        </member>
-        <member name="T:Google.GData.AccessControl.AclQuery">
-            <summary>
-            A subclass of FeedQuery, to create an ACL query URI.
-            currently only exists to allow a Service.Query overload that 
-            creates an ACL feed
-            </summary> 
-        </member>
-        <member name="M:Google.GData.AccessControl.AclQuery.#ctor">
-            <summary>default with no params</summary> 
-        </member>
-        <member name="M:Google.GData.AccessControl.AclQuery.#ctor(System.String)">
-            <summary>constructor taking a base URI constructor.</summary> 
-        </member>
-        <member name="T:Google.GData.AccessControl.AclFeed">
-            <summary>
-            AccessControlFeed customization class
-            the AccessControl feed does not expose anything in addition 
-            to the base feed, so the only customization is the creation of
-            AccessControlEntries
-            </summary>
-        </member>
-        <member name="M:Google.GData.AccessControl.AclFeed.#ctor(System.Uri,Google.GData.Client.IService)">
-            <summary>
-             default constructor
-            </summary>
-            <param name="uriBase">the base URI of the feed</param>
-            <param name="service">the Service to use</param>
-        </member>
-        <member name="M:Google.GData.AccessControl.AclFeed.CreateFeedEntry">
-            <summary>
-            returns a new entry for this feed
-            </summary>
-            <returns>AtomEntry</returns>
-        </member>
-        <member name="M:Google.GData.AccessControl.AclFeed.HandleExtensionElements(Google.GData.Client.ExtensionElementEventArgs,Google.GData.Client.AtomFeedParser)">
-            <summary>
-            get's called after we already handled the custom entry, to handle all 
-            other potential parsing tasks
-            </summary>
-            <param name="e">the Event arguments</param>
-            <param name="parser">the atom feed parser used</param>
-        </member>
         <member name="T:Google.GData.AccessControl.AclRole">
             <summary>
             GData schema extension describing an account role
@@ -205,6 +171,40 @@
              constructor with a default string value
             </summary>
             <param name="value">transparency value</param>
+        </member>
+        <member name="T:Google.GData.AccessControl.AclNameTable">
+            <summary>Google Access Control List namespace</summary>
+        </member>
+        <member name="F:Google.GData.AccessControl.AclNameTable.gAclNamespace">
+            <summary>default access control namespace</summary> 
+        </member>
+        <member name="F:Google.GData.AccessControl.AclNameTable.gAclPrefix">
+            <summary>default access control prefix</summary> 
+        </member>
+        <member name="F:Google.GData.AccessControl.AclNameTable.gAclCalPrefix">
+            <summary>
+            hash prefixed start for AclNamespace strings
+            </summary>
+        </member>
+        <member name="F:Google.GData.AccessControl.AclNameTable.gAclAlias">
+            <summary>default access control alias</summary> 
+        </member>
+        <member name="F:Google.GData.AccessControl.AclNameTable.LINK_REL_ACCESS_CONTROL_LIST">
+            <summary>Link that provides the URI for the access control list feed 
+            </summary> 
+        </member>
+        <member name="F:Google.GData.AccessControl.AclNameTable.LINK_REL_CONTROLLED_OBJECT">
+            <summary>UIR for the entry that is controlled by the ACL feed
+            </summary> 
+        </member>
+        <member name="F:Google.GData.AccessControl.AclNameTable.ACL_KIND">
+            <summary>access kind</summary> 
+        </member>
+        <member name="F:Google.GData.AccessControl.AclNameTable.XmlAclScopeElement">
+            <summary>the scope element</summary> 
+        </member>
+        <member name="F:Google.GData.AccessControl.AclNameTable.XmlAclRoleElement">
+            <summary>the role element</summary> 
         </member>
     </members>
 </doc>
