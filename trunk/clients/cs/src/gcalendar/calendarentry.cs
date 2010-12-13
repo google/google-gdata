@@ -105,7 +105,12 @@ namespace Google.GData.Calendar
         {
             get
             {
-                return bool.Parse(getCalendarExtensionValue(GDataParserNameTable.XmlHiddenElement));
+				bool value;
+				if (!bool.TryParse(getCalendarExtensionValue(GDataParserNameTable.XmlHiddenElement), out value)) {
+					value = false;
+				}
+
+				return value;
             }
             set
             {
@@ -120,7 +125,12 @@ namespace Google.GData.Calendar
         {
             get
             {
-                return bool.Parse(getCalendarExtensionValue(GDataParserNameTable.XmlSelectedElement));
+				bool value;
+				if (!bool.TryParse(getCalendarExtensionValue(GDataParserNameTable.XmlSelectedElement), out value)) {
+					value = false;
+				}
+
+				return value;
             }
             set
             {
