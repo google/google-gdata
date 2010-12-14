@@ -410,7 +410,7 @@ namespace Google.Documents
             }
         }
         /// <summary>
-        /// called to set additonal proxies if required. Overloaded on the document service
+        /// called to set additional proxies if required. Overloaded on the document service
         /// </summary>
         /// <param name="proxy"></param>
         /// <returns></returns>
