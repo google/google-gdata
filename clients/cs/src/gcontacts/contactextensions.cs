@@ -1034,7 +1034,7 @@ namespace Google.GData.Contacts {
         /// </summary>
         /// <param name="initValue"/>
         public Sensitivity(string initValue)
-            : base(ContactsNameTable.OccupationElement, 
+            : base(ContactsNameTable.SensitivityElement, 
                    ContactsNameTable.contactsPrefix,
                    ContactsNameTable.NSContacts)
         {
