@@ -614,8 +614,14 @@ namespace Google.GData.Client
                 CopyRequestData();
                 base.Execute();
             }
-            catch (GDataRequestException)
+            catch (GDataRequestException re)
             {
+                if (((HttpWebResponse)re.Response).StatusCode != HttpStatusCode.InternalServerError)
+                {
+                    Tracing.TraceMsg("Not a server error. Possibly a Bad request or forbidden resource.");
+                    Tracing.TraceMsg("We don't want to retry non 500 errors.");
+                    throw;
+                }
                 if (retryCounter > this.factory.NumberOfRetries)
                 {
                     Tracing.TraceMsg("Number of retries exceeded");
@@ -629,7 +635,7 @@ namespace Google.GData.Client
             }
             catch (Exception e)
             {
-                Tracing.TraceCall("*** EXCEPTION " + e.GetType().Name + " CAUGTH ***");
+                Tracing.TraceCall("*** EXCEPTION " + e.GetType().Name + " CAUGHT ***");
                 throw; 
             }
             finally
