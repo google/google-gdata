@@ -427,6 +427,19 @@ namespace Google.GData.Extensions.Apps
 	}
 
     /// <summary>
+    /// Name table for Google Apps extensions specific to the Calendar Resources
+    /// </summary>
+    public class AppsCalendarResourceNameTable : AppsNameTable
+    {
+        public const string AppsCalendarResourceBaseFeedUri = "https://apps-apis.google.com/a/feeds/calendar/resource/2.0";
+        public const string resourceId = "resourceId";
+        public const string resourceCommonName = "resourceCommonName";
+        public const string resourceEmail = "resourceEmail";
+        public const string resourceDescription = "resourceDescription";
+        public const string resourceType = "resourceType";
+    }
+
+    /// <summary>
     /// Extension element sed to model a Google Apps email list.
     /// Has attribute "name".
     /// </summary>
