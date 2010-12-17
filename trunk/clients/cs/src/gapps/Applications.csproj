@@ -132,6 +132,7 @@
     <Compile Include="adminsettingsentry.cs" />
     <Compile Include="adminsettingsfeed.cs" />
     <Compile Include="adminsettingsservice.cs" />
+    <Compile Include="calendarresourceservice.cs" />
     <Compile Include="emaillistentry.cs" />
     <Compile Include="emaillistfeed.cs" />
     <Compile Include="emaillistquery.cs" />
