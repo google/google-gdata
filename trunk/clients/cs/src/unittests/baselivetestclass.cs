@@ -57,22 +57,22 @@ namespace Google.GData.Client.LiveTests
         {
             base.ReadConfigFile();
 
-            if (unitTestConfiguration.Contains("authHandler") == true)
+            if (unitTestConfiguration.Contains("authHandler"))
             {
                 this.strAuthHandler = (string) unitTestConfiguration["authHandler"];
                 Tracing.TraceInfo("Read authHandler value: " + this.strAuthHandler);
             }
-            if (unitTestConfiguration.Contains("userName") == true)
+            if (unitTestConfiguration.Contains("userName"))
             {
                 this.userName = (string) unitTestConfiguration["userName"];
                 Tracing.TraceInfo("Read userName value: " + this.userName);
             }
-            if (unitTestConfiguration.Contains("passWord") == true)
+            if (unitTestConfiguration.Contains("passWord"))
             {
                 this.passWord = (string) unitTestConfiguration["passWord"];
                 Tracing.TraceInfo("Read passWord value: " + this.passWord);
             }
-            if (unitTestConfiguration.Contains("wipeFeeds") == true)
+            if (unitTestConfiguration.Contains("wipeFeeds"))
             {
                 this.wipeFeeds = bool.Parse((string)unitTestConfiguration["wipeFeeds"]);
                 Tracing.TraceInfo("Wiping feeds option: " + this.wipeFeeds.ToString());

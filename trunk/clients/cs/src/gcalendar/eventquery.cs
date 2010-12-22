@@ -291,13 +291,13 @@ namespace Google.GData.Calendar {
                 newPath.AppendFormat(CultureInfo.InvariantCulture, "sortorder={0}", this.sortOrder.ToString()); 
                 paramInsertion = '&';
             }
-            if (this.futureEvents == true)
+            if (this.futureEvents)
             {
                 newPath.Append(paramInsertion);
                 newPath.AppendFormat(CultureInfo.InvariantCulture, "futureevents=true"); 
                 paramInsertion = '&';
             }
-            if (this.singleEvents == true)
+            if (this.singleEvents)
             {
                 newPath.Append(paramInsertion);
                 newPath.AppendFormat(CultureInfo.InvariantCulture, "singleevents=true"); 

@@ -39,17 +39,17 @@ namespace Google.GData.Client.LiveTests
         {
             base.InitTest();
 
-            if (unitTestConfiguration.Contains("domainName") == true)
+            if (unitTestConfiguration.Contains("domainName"))
             {
                 this.domainName = (string)unitTestConfiguration["domainName"];
                 Tracing.TraceInfo("Read userName value: " + this.domainName);
             }
-            if (unitTestConfiguration.Contains("domainAdminUsername") == true)
+            if (unitTestConfiguration.Contains("domainAdminUsername"))
             {
                 this.adminUsername = (string)unitTestConfiguration["domainAdminUsername"];
                 Tracing.TraceInfo("Read userName value: " + this.adminUsername);
             }
-            if (unitTestConfiguration.Contains("domainAdminPassword") == true)
+            if (unitTestConfiguration.Contains("domainAdminPassword"))
             {
                 this.adminPassword = (string)unitTestConfiguration["domainAdminPassword"];
                 Tracing.TraceInfo("Read userName value: " + this.adminPassword);

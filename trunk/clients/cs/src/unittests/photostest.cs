@@ -74,7 +74,7 @@ namespace Google.GData.Client.LiveTests
         {
             base.ReadConfigFile();
 
-            if (unitTestConfiguration.Contains("photosUri") == true)
+            if (unitTestConfiguration.Contains("photosUri"))
             {
                 this.defaultPhotosUri = (string) unitTestConfiguration["photosUri"];
                 Tracing.TraceInfo("Read photosUri value: " + this.defaultPhotosUri);

@@ -385,7 +385,7 @@ namespace Google.GData.Documents {
                 // v can either be 1/0 or true/false
                 bool ret = Utilities.XSDTrue == v;
                 
-                if (ret == false)
+                if (!ret)
                 {
                     ret = "0" == v;
                 }
@@ -393,7 +393,7 @@ namespace Google.GData.Documents {
             }
             set 
             {
-                String v = value == true ? Utilities.XSDTrue : Utilities.XSDFalse;
+                String v = value ? Utilities.XSDTrue : Utilities.XSDFalse;
                 SetStringValue<WritersCanInvite>(v,
                         DocumentslistNametable.WritersCanInvite,
                         DocumentslistNametable.NSDocumentslist);

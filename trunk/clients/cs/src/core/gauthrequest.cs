@@ -178,7 +178,7 @@ namespace Google.GData.Client
         ////////////////////////////////////////////////////////////////////////////////
         public override string UserAgent
         {
-            get { return (base.UserAgent + (this.UseGZip == true ? " (gzip)" : "")); }
+            get { return (base.UserAgent + (this.UseGZip ? " (gzip)" : "")); }
             set { base.UserAgent = value; }
         }
 
@@ -388,11 +388,11 @@ namespace Google.GData.Client
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing); 
-            if (this.disposed == true)
+            if (this.disposed)
             {
                 return;
             }
-            if (disposing == true)
+            if (disposing)
             {
                 if (this.requestCopy != null)
                 {
@@ -479,7 +479,7 @@ namespace Google.GData.Client
                 // we do not want this to autoredirect, our security header will be 
                 // lost in that case
                 http.AllowAutoRedirect = false;
-                if (this.factory.MethodOverride == true && 
+                if (this.factory.MethodOverride && 
                     http.Method != HttpMethods.Get &&
                     http.Method != HttpMethods.Post)
                 {
@@ -590,7 +590,7 @@ namespace Google.GData.Client
                 Tracing.TraceMsg("Got a redirect to: " + re.Location);
                 // only reset the base, the auth cookie is still valid
                 // and cookies are stored in the factory
-                if (this.factory.StrictRedirect == true)
+                if (this.factory.StrictRedirect)
                 {
                     HttpWebRequest http = this.Request as HttpWebRequest; 
                     if (http != null)
@@ -709,7 +709,7 @@ namespace Google.GData.Client
                                             this.Request.Method,
                                             this.asyncData.UserData);
                             current += oneLoop;
-                            if (this.asyncData.DataHandler.SendProgressData(asyncData, args) == false)
+                            if (!this.asyncData.DataHandler.SendProgressData(asyncData, args))
                                 break;         
                         }
 #endif

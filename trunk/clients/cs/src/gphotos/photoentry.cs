@@ -70,7 +70,7 @@ namespace Google.GData.Photos
         public PhotoAccessor(PicasaEntry entry)
         {
             this.entry = entry;
-            if (entry.IsPhoto == false)
+            if (!entry.IsPhoto)
             {
                 throw new ArgumentException("Entry is not a photo", "entry");
             }

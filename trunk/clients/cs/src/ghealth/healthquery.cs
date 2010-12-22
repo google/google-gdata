@@ -257,13 +257,13 @@ namespace Google.GData.Health {
             StringBuilder newPath = new StringBuilder(path, 2048);
             char paramInsertion = InsertionParameter(path); 
 
-            if (this.Digest == true)
+            if (this.Digest)
             {
                 newPath.Append(paramInsertion + "digest=true");
                 paramInsertion = '&';
             }
 
-            if (this.Grouped == true)
+            if (this.Grouped)
             {
                 newPath.Append(paramInsertion + "grouped=true");
                 paramInsertion = '&';

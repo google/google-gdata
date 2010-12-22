@@ -35,12 +35,12 @@ namespace unittests.webmastertools
         {
             base.ReadConfigFile();
 
-            if (unitTestConfiguration.Contains("userName") == true)
+            if (unitTestConfiguration.Contains("userName"))
             {
                 this.userName = (string)unitTestConfiguration["userName"];
                 Tracing.TraceInfo("Read userName value: " + this.userName);
             }
-            if (unitTestConfiguration.Contains("passWord") == true)
+            if (unitTestConfiguration.Contains("passWord"))
             {
                 this.passWord = (string)unitTestConfiguration["passWord"];
                 Tracing.TraceInfo("Read passWord value: " + this.passWord);

@@ -63,7 +63,7 @@ namespace Google.GData.Photos
         public AlbumAccessor(PicasaEntry entry)
         {
             this.entry = entry;
-            if (entry.IsAlbum == false)
+            if (!entry.IsAlbum)
             {
                 throw new ArgumentException("Entry is not a album", "entry");
             }

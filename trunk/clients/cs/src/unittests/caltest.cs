@@ -104,22 +104,22 @@ namespace Google.GData.Client.LiveTests
         {
             base.ReadConfigFile();
 
-            if (unitTestConfiguration.Contains("calendarURI") == true)
+            if (unitTestConfiguration.Contains("calendarURI"))
             {
                 this.defaultCalendarUri = (string) unitTestConfiguration["calendarURI"];
                 Tracing.TraceInfo("Read calendarURI value: " + this.defaultCalendarUri);
             }
-            if (unitTestConfiguration.Contains("aclFeedURI") == true)
+            if (unitTestConfiguration.Contains("aclFeedURI"))
             {
                 this.aclFeedUri = (string) unitTestConfiguration["aclFeedURI"];
                 Tracing.TraceInfo("Read aclFeed value: " + this.aclFeedUri);
             }
-            if (unitTestConfiguration.Contains("compositeURI") == true)
+            if (unitTestConfiguration.Contains("compositeURI"))
             {
                 this.defaultCompositeUri = (string) unitTestConfiguration["compositeURI"];
                 Tracing.TraceInfo("Read compositeURI value: " + this.defaultCompositeUri);
             }
-            if (unitTestConfiguration.Contains("ownCalendarsURI") == true)
+            if (unitTestConfiguration.Contains("ownCalendarsURI"))
             {
                 this.defaultOwnCalendarsUri = (string) unitTestConfiguration["ownCalendarsURI"];
                 Tracing.TraceInfo("Read ownCalendarsURI value: " + this.defaultOwnCalendarsUri);
@@ -708,7 +708,7 @@ namespace Google.GData.Client.LiveTests
 
                 foreach (AclEntry e in aclFeed.Entries ) 
                 {
-                    if (e.Scope.Value.StartsWith(this.userName) == false)
+                    if (!e.Scope.Value.StartsWith(this.userName))
                     {
                         e.Delete();
                     }

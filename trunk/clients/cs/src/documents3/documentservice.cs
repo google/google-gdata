@@ -157,7 +157,7 @@ namespace Google.GData.Documents {
             {
                 Uri postUri;
 
-                if (convert == false)
+                if (!convert)
                 {
                     postUri = new Uri(DocumentsListQuery.documentsBaseUri + "?convert=false");
                 }

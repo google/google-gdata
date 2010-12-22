@@ -486,19 +486,19 @@ namespace Google.GData.Documents {
 
             paramInsertion = AppendQueryPart(this.Title, "title", paramInsertion, newPath);            
 
-            if (this.TitleExact == true)
+            if (this.TitleExact)
             {
                 paramInsertion = AppendQueryPart("true", "title-exact", paramInsertion, newPath);            
             }
-            if (this.ShowFolders == true)
+            if (this.ShowFolders)
             {
                 paramInsertion = AppendQueryPart("true", "showfolders", paramInsertion, newPath);
             }
-            if (this.Ocr == true)
+            if (this.Ocr)
             {
                 paramInsertion = AppendQueryPart("true", "ocr", paramInsertion, newPath);
             }
-            if (this.ShowDeleted == true)
+            if (this.ShowDeleted)
             {
                 paramInsertion = AppendQueryPart("true", "showDeleted", paramInsertion, newPath);
             }

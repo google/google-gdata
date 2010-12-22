@@ -78,12 +78,12 @@ namespace Google.GData.Client.LiveTests
         {
             base.ReadConfigFile();
 
-            if (unitTestConfiguration.Contains("gBaseURI") == true)
+            if (unitTestConfiguration.Contains("gBaseURI"))
             {
                 this.gBaseURI = (string) unitTestConfiguration["gBaseURI"];
                 Tracing.TraceInfo("Read gBase URI value: " + this.gBaseURI);
             }
-            if (unitTestConfiguration.Contains("gBaseKey") == true)
+            if (unitTestConfiguration.Contains("gBaseKey"))
             {
                 this.gBaseKey = (string) unitTestConfiguration["gBaseKey"];
                 Tracing.TraceInfo("Read gBaseKey value: " + this.gBaseKey);
