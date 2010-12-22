@@ -454,7 +454,7 @@ namespace Google.GData.Calendar {
             {
                 SendNotifications n = FindExtension(GDataParserNameTable.XmlSendNotificationsElement,
                                      GDataParserNameTable.NSGCal) as SendNotifications;
-                if (value == true)
+                if (value)
                 {
                     if (n == null)
                     {
@@ -498,7 +498,7 @@ namespace Google.GData.Calendar {
             {
                 QuickAddElement q = FindExtension(GDataParserNameTable.XmlQuickAddElement,
                                      GDataParserNameTable.NSGCal) as QuickAddElement;
-                if (value == true)
+                if (value)
                 {
                     if (q == null)
                     {

@@ -42,18 +42,18 @@ namespace Google.GData.Client.UnitTests.Analytics
         {
             base.ReadConfigFile();
 
-            if (unitTestConfiguration.Contains("analyticsUserName") == true)
+            if (unitTestConfiguration.Contains("analyticsUserName"))
             {
                 this.userName = (string)unitTestConfiguration["analyticsUserName"];
                 Tracing.TraceInfo("Read userName value: " + this.userName);
             }
-            if (unitTestConfiguration.Contains("analyticsPassWord") == true)
+            if (unitTestConfiguration.Contains("analyticsPassWord"))
             {
                 this.passWord = (string)unitTestConfiguration["analyticsPassWord"];
                 Tracing.TraceInfo("Read passWord value: " + this.passWord);
             }
 
-            if (unitTestConfiguration.Contains("accountId") == true)
+            if (unitTestConfiguration.Contains("accountId"))
             {
                 this.accountId = (string)unitTestConfiguration["accountId"];
                 Tracing.TraceInfo("Read accountId value: " + this.accountId);

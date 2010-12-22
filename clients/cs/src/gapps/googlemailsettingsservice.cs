@@ -384,7 +384,7 @@ namespace Google.GData.Apps.GoogleMailSettings
             {
                 throw new ArgumentNullException("e");
             }
-            if (e.CreatingEntry == true)
+            if (e.CreatingEntry)
             {
                 e.Entry = new GoogleMailSettingsEntry();
             }

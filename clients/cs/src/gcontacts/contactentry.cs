@@ -153,7 +153,7 @@ namespace Google.GData.Contacts {
             {
                 foreach (EMail e in this.Emails)
                 {
-                    if (e.Primary == true)
+                    if (e.Primary)
                     {
                         return e;
                     }
@@ -173,7 +173,7 @@ namespace Google.GData.Contacts {
             {
                 foreach (PhoneNumber p in this.Phonenumbers)
                 {
-                    if (p.Primary == true)
+                    if (p.Primary)
                     {
                         return p;
                     }
@@ -193,7 +193,7 @@ namespace Google.GData.Contacts {
             {
                 foreach (StructuredPostalAddress p in this.PostalAddresses)
                 {
-                    if (p.Primary == true)
+                    if (p.Primary)
                     {
                         return p;
                     }
@@ -213,7 +213,7 @@ namespace Google.GData.Contacts {
             {
                 foreach (IMAddress im in this.IMs)
                 {
-                    if (im.Primary == true)
+                    if (im.Primary)
                     {
                         return im;
                     }

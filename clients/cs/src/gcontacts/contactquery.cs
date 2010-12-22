@@ -257,7 +257,7 @@ namespace Google.GData.Contacts {
                 newPath.AppendFormat(CultureInfo.InvariantCulture, "sortorder={0}", Utilities.UriEncodeReserved(this.SortOrder));
                 paramInsertion = '&';
             }
-            if (this.ShowDeleted == true)
+            if (this.ShowDeleted)
             {
                 newPath.Append(paramInsertion);
                 newPath.Append("showdeleted=true");

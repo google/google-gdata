@@ -522,7 +522,7 @@ namespace Google.GData.Client.ResumableUpload
                 try
                 {
                     response = UploadStreamPart(index, httpMethod, sessionUri, authentication, payload, mediaType, data);
-                    if (data != null && CheckIfOperationIsCancelled(data.UserData) == true)
+                    if (data != null && CheckIfOperationIsCancelled(data.UserData))
                     {
                         break;
                     }
@@ -551,7 +551,7 @@ namespace Google.GData.Client.ResumableUpload
                 {
                     response = null;
                 }
-            } while (isDone == false);
+            } while (!isDone);
             return returnResponse;
         }
 
@@ -649,7 +649,7 @@ namespace Google.GData.Client.ResumableUpload
                     // while we are writing along, send notifications out
                     if (data != null)
                     {
-                        if (CheckIfOperationIsCancelled(data.UserData) == true)
+                        if (CheckIfOperationIsCancelled(data.UserData))
                         {
                             break;
                         }
@@ -726,7 +726,7 @@ namespace Google.GData.Client.ResumableUpload
             }
             
             ISupportsEtag e = entry as ISupportsEtag;
-            if (e != null && Utilities.IsWeakETag(e) == false)
+            if (e != null && !Utilities.IsWeakETag(e))
             {
                 request.Headers.Add(GDataRequestFactory.IfMatch, e.Etag);
              }

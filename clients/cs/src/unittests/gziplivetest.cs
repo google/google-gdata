@@ -38,12 +38,12 @@ namespace Google.GData.Client.LiveTests
         {
             base.ReadConfigFile();
 
-            if (unitTestConfiguration.Contains("calendarURI") == true)
+            if (unitTestConfiguration.Contains("calendarURI"))
                 this.calendarUri = (string)unitTestConfiguration["calendarURI"];
         }
 
         [Test]
-        public void     TestGZipQuery()
+        public void TestGZipQuery()
         {
             IGDataRequest request = this.calendarService.RequestFactory.CreateRequest(GDataRequestType.Query, new Uri(calendarUri));
             Assert.IsTrue(request.UseGZip, "IGDataRequest.UseGZip property should be true.");

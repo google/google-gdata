@@ -69,7 +69,7 @@ namespace Google.GData.Client
         /// <summary>Little helper that checks if a string is XML persistable</summary> 
         public static bool IsPersistable(string toPersist)
         {
-            if (string.IsNullOrEmpty(toPersist) == false && toPersist.Trim().Length != 0)
+            if (!string.IsNullOrEmpty(toPersist) && toPersist.Trim().Length != 0)
             {
                 return true;
             }
@@ -273,11 +273,7 @@ namespace Google.GData.Client
             {
                 return true;
             }
-            if (eTag.StartsWith("W/") == true)
-            {
-                return true;
-            }
-            return false;
+			return eTag.StartsWith("W/");
         }
 
         /// <summary>
@@ -608,9 +604,9 @@ namespace Google.GData.Client
             string returnValue = null; 
             bool fNextOne=false; 
 
-            foreach (string token in tokens )
+            foreach (string token in tokens)
             {
-                if (fNextOne == true)
+                if (fNextOne)
                 {
                     returnValue = token; 
                     break;
@@ -1046,11 +1042,11 @@ namespace Google.GData.Client
 
          /// <summary>Constructor, takes a string and a delimiter set</summary> 
        public TokenCollection(string source, char delimiter, 
-                              bool seperateLines, int resultsPerLine)
+                              bool separateLines, int resultsPerLine)
        {
            if (source != null)
            {
-               if (seperateLines == true)
+			   if (separateLines)
                {
                    // first split the source into a line array
                    string [] lines = source.Split(new char[] {'\n'});

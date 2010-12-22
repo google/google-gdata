@@ -56,7 +56,7 @@ namespace Google.GData.Photos {
         public TagAccessor(PicasaEntry entry)
         {
             this.entry = entry;
-            if (entry.IsTag == false)
+            if (!entry.IsTag)
             {
                 throw new ArgumentException("Entry is not a tag", "entry");
             }

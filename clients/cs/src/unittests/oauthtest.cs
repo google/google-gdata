@@ -86,27 +86,27 @@ namespace Google.GData.Client.LiveTests
         {
             base.ReadConfigFile();
 
-            if (unitTestConfiguration.Contains("OAUTHCONSUMERKEY") == true)
+            if (unitTestConfiguration.Contains("OAUTHCONSUMERKEY"))
             {
                 this.oAuthConsumerKey = (string)unitTestConfiguration["OAUTHCONSUMERKEY"];
              }
-            if (unitTestConfiguration.Contains("OAUTHCONSUMERSECRET") == true)
+            if (unitTestConfiguration.Contains("OAUTHCONSUMERSECRET"))
             {
                 this.oAuthConsumerSecret = (string)unitTestConfiguration["OAUTHCONSUMERSECRET"];
             }
-            if (unitTestConfiguration.Contains("OAUTHDOMAIN") == true)
+            if (unitTestConfiguration.Contains("OAUTHDOMAIN"))
             {
                 this.oAuthDomain = (string)unitTestConfiguration["OAUTHDOMAIN"];
             }
-            if (unitTestConfiguration.Contains("OAUTHUSER") == true)
+            if (unitTestConfiguration.Contains("OAUTHUSER"))
             {
                 this.oAuthUser = (string)unitTestConfiguration["OAUTHUSER"];
             }
-            if (unitTestConfiguration.Contains("OAUTHTOKEN") == true)
+            if (unitTestConfiguration.Contains("OAUTHTOKEN"))
             {
                 this.oAuthToken = (string)unitTestConfiguration["OAUTHTOKEN"];
             }
-            if (unitTestConfiguration.Contains("OAUTHTOKENSECRET") == true)
+            if (unitTestConfiguration.Contains("OAUTHTOKENSECRET"))
             {
                 this.oAuthTokenSecret = (string)unitTestConfiguration["OAUTHTOKENSECRET"];
             }

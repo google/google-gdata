@@ -58,7 +58,7 @@ namespace Google.GData.Photos {
         public CommentAccessor(PicasaEntry entry)
         {
             this.entry = entry;
-            if (entry.IsComment == false)
+            if (!entry.IsComment)
             {
                 throw new ArgumentException("Entry is not a comment", "entry");
             }

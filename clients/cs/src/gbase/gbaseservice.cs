@@ -133,7 +133,7 @@ namespace Google.GData.GoogleBase
             {
                 RemoveWebKey(factory.CustomHeaders);
                 factory.CustomHeaders.Add(GoogleAuthentication.WebKey + this.devKey); 
-                if (this.authHandlerSet == true)
+                if (this.authHandlerSet)
                 {
                     factory.Handler = this.authHandler == null ? null : this.authHandler.ToString();
                 }

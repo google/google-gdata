@@ -75,7 +75,7 @@ namespace Google.GData.GoogleBase
             {
                 throw new ArgumentNullException("e");
             }
-            if (e.CreatingEntry == true)
+            if (e.CreatingEntry)
             {
                 e.Entry = new GBaseEntry();
             }

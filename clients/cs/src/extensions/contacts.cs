@@ -449,7 +449,7 @@ namespace Google.GData.Extensions
         public bool Primary
         {
             get {return ("true" == (this.Attributes[GDataParserNameTable.XmlAttributePrimary] as string));}
-            set {this.Attributes[GDataParserNameTable.XmlAttributePrimary] = value == true? Utilities.XSDTrue : Utilities.XSDFalse;}
+            set {this.Attributes[GDataParserNameTable.XmlAttributePrimary] = value ? Utilities.XSDTrue : Utilities.XSDFalse;}
         }
 
         //////////////////////////////////////////////////////////////////////
@@ -813,7 +813,7 @@ namespace Google.GData.Extensions
         public bool Primary
         {
             get {return ("true" == (this.Attributes[GDataParserNameTable.XmlAttributePrimary] as string));}
-            set {this.Attributes[GDataParserNameTable.XmlAttributePrimary] = value == true? Utilities.XSDTrue : Utilities.XSDFalse;}
+            set {this.Attributes[GDataParserNameTable.XmlAttributePrimary] = value ? Utilities.XSDTrue : Utilities.XSDFalse;}
         }
 
         /// <summary>
@@ -1459,7 +1459,7 @@ namespace Google.GData.Extensions
         public bool Primary
         {
             get {return ("true" == (this.Attributes[GDataParserNameTable.XmlAttributePrimary] as string));}
-            set {this.Attributes[GDataParserNameTable.XmlAttributePrimary] = value == true? Utilities.XSDTrue : Utilities.XSDFalse;}
+            set {this.Attributes[GDataParserNameTable.XmlAttributePrimary] = value ? Utilities.XSDTrue : Utilities.XSDFalse;}
         }
 
         //////////////////////////////////////////////////////////////////////

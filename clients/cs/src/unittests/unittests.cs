@@ -112,29 +112,29 @@ namespace Google.GData.Client.UnitTests
             if (unitTestConfiguration == null)
                 throw new FileNotFoundException("The DLL configuration file wasn't found, aborting.");
 
-            if (unitTestConfiguration.Contains("defHost") == true)
+            if (unitTestConfiguration.Contains("defHost"))
             {
                 this.defaultHost = (string) unitTestConfiguration["defHost"];
                 Tracing.TraceInfo("Read defaultHost value: " + this.defaultHost);
             }
-            if (unitTestConfiguration.Contains("defRemoteHost") == true)
+            if (unitTestConfiguration.Contains("defRemoteHost"))
             {
                 this.strRemoteHost = (string) unitTestConfiguration["defRemoteHost"];
                 Tracing.TraceInfo("Read default remote host value: " + this.strRemoteHost);
             }
-            if (unitTestConfiguration.Contains("iteration") == true)
+            if (unitTestConfiguration.Contains("iteration"))
             {
                 this.iIterations = int.Parse((string)unitTestConfiguration["iteration"]);
             }
-            if (unitTestConfiguration.Contains("resourcePath") == true)
+            if (unitTestConfiguration.Contains("resourcePath"))
             {
                 this.resourcePath =(string) unitTestConfiguration["resourcePath"];
             }
 
-            if (unitTestConfiguration.Contains("requestlogging") == true)
+            if (unitTestConfiguration.Contains("requestlogging"))
             {
                 bool flag = bool.Parse((string) unitTestConfiguration["requestlogging"]);
-                if (flag == false)
+                if (!flag)
                 {
                     // we are creating the logging factory by default. If 
                     // tester set's it off, create the standard factory. 
@@ -232,7 +232,7 @@ namespace Google.GData.Client.UnitTests
             {
                 throw new ArgumentNullException("e"); 
             }
-            if (e.CreatingEntry == true)
+            if (e.CreatingEntry)
             {
                 Tracing.TraceMsg("\t top level event dispatcher - new Entry"); 
                 e.Entry = new MyEntry();

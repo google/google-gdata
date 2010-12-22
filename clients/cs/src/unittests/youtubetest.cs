@@ -70,15 +70,15 @@ namespace Google.GData.Client.LiveTests
         {
             base.ReadConfigFile();
 
-            if (unitTestConfiguration.Contains("youTubeDevKey") == true)
+            if (unitTestConfiguration.Contains("youTubeDevKey"))
             {
                 this.ytDevKey = (string) unitTestConfiguration["youTubeDevKey"];
             }
-            if (unitTestConfiguration.Contains("youTubeUser") == true)
+            if (unitTestConfiguration.Contains("youTubeUser"))
             {
                 this.ytUser = (string) unitTestConfiguration["youTubeUser"];
             }
-            if (unitTestConfiguration.Contains("youTubePwd") == true)
+            if (unitTestConfiguration.Contains("youTubePwd"))
             {
                 this.ytPwd = (string) unitTestConfiguration["youTubePwd"];
             }
@@ -134,10 +134,10 @@ namespace Google.GData.Client.LiveTests
             YouTubeFeed feed = service.Query(query);
 
             int counter = 0; 
-            foreach (YouTubeEntry e in feed.Entries )
+            foreach (YouTubeEntry e in feed.Entries)
             {
                 Assert.IsTrue(e.Media.Title.Value != null, "There should be a title");
-                if (e.Private == true)
+                if (e.Private)
                 {
                     counter++;
                 }
@@ -731,12 +731,12 @@ namespace Google.GData.Client.LiveTests
             }
 
             Assert.IsTrue(privateVideo != null, "we should have one private video");
-            Assert.IsTrue(privateVideo.YouTubeEntry.Private == true, "that video should be private");
+            Assert.IsTrue(privateVideo.YouTubeEntry.Private, "that video should be private");
             privateVideo.YouTubeEntry.Private = false;
 
             Video ret = f.Update(privateVideo);
             Assert.IsTrue(ret != null, "we should have one private video");
-            Assert.IsTrue(ret.YouTubeEntry.Private == false, "that video should be not private");
+            Assert.IsTrue(!ret.YouTubeEntry.Private, "that video should be not private");
             
         }
         /////////////////////////////////////////////////////////////////////////////
@@ -756,7 +756,7 @@ namespace Google.GData.Client.LiveTests
             {
                 Assert.IsTrue(cat.Term != null);
                 Assert.IsTrue(cat.Assignable || cat.Deprecated || cat.Browsable != null);
-                if (cat.Assignable == true)
+                if (cat.Assignable)
                 {
                     Assert.IsTrue(cat.Browsable != null, "Assumption, if its assignable, it's browsable");
                 }
@@ -1124,19 +1124,19 @@ namespace Google.GData.Client.LiveTests
         {
             base.ReadConfigFile();
 
-            if (unitTestConfiguration.Contains("youTubeClientID") == true)
+            if (unitTestConfiguration.Contains("youTubeClientID"))
             {
                 this.ytClient = (string) unitTestConfiguration["youTubeClientID"];
             }
-            if (unitTestConfiguration.Contains("youTubeDevKey") == true)
+            if (unitTestConfiguration.Contains("youTubeDevKey"))
             {
                 this.ytDevKey = (string) unitTestConfiguration["youTubeDevKey"];
             }
-            if (unitTestConfiguration.Contains("youTubeUser") == true)
+            if (unitTestConfiguration.Contains("youTubeUser"))
             {
                 this.ytUser = (string) unitTestConfiguration["youTubeUser"];
             }
-            if (unitTestConfiguration.Contains("youTubePwd") == true)
+            if (unitTestConfiguration.Contains("youTubePwd"))
             {
                 this.ytPwd = (string) unitTestConfiguration["youTubePwd"];
             }

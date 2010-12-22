@@ -258,57 +258,57 @@ namespace Google.GData.Client.UnitTests
                 return theOne == theOther;
             }
             Tracing.TraceMsg("Comparing AuthorCollection");
-            if (ObjectModelHelper.IsPersonCollectionIdentical(theOne.Authors, theOther.Authors) == false)
+            if (!ObjectModelHelper.IsPersonCollectionIdentical(theOne.Authors, theOther.Authors))
             {
                 return false;
             }
             Tracing.TraceMsg("Comparing ContributorCollection");
-            if (ObjectModelHelper.IsPersonCollectionIdentical(theOne.Contributors, theOther.Contributors) == false)
+            if (!ObjectModelHelper.IsPersonCollectionIdentical(theOne.Contributors, theOther.Contributors))
             {
                 return false;
             }
             Tracing.TraceMsg("Comparing CategoryCollection");
-            if (ObjectModelHelper.IsCategoryCollectionIdentical(theOne.Categories, theOther.Categories) == false)
+            if (!ObjectModelHelper.IsCategoryCollectionIdentical(theOne.Categories, theOther.Categories))
             {
                 return false;
             }
             Tracing.TraceMsg("Comparing LinkCollection");
-            if (ObjectModelHelper.IsLinkCollectionIdentical(theOne.Links, theOther.Links) == false)
+            if (!ObjectModelHelper.IsLinkCollectionIdentical(theOne.Links, theOther.Links))
             {
                 return false;
             }
 
             Tracing.TraceMsg("Comparing Content");
-            if (ObjectModelHelper.IsContentIdentical(theOne.Content, theOther.Content) == false)
+            if (!ObjectModelHelper.IsContentIdentical(theOne.Content, theOther.Content))
             {
                 return false;
             }
 
             Tracing.TraceMsg("Comparing Source");
-            if (ObjectModelHelper.IsSourceIdentical(theOne.Source, theOther.Source) == false)
+            if (!ObjectModelHelper.IsSourceIdentical(theOne.Source, theOther.Source))
             {
                 return false;
             }
 
             Tracing.TraceMsg("Comparing Summary");
-            if (ObjectModelHelper.IsTextConstructIdentical(theOne.Summary, theOther.Summary) == false)
+            if (!ObjectModelHelper.IsTextConstructIdentical(theOne.Summary, theOther.Summary))
             {
                 return false;
             }
 
             Tracing.TraceMsg("Comparing Title");
-            if (ObjectModelHelper.IsTextConstructIdentical(theOne.Title, theOther.Title) == false)
+            if (!ObjectModelHelper.IsTextConstructIdentical(theOne.Title, theOther.Title))
             {
                 return false;
             }
             Tracing.TraceMsg("Comparing Rights");
-            if (ObjectModelHelper.IsTextConstructIdentical(theOne.Rights, theOther.Rights) == false)
+            if (!ObjectModelHelper.IsTextConstructIdentical(theOne.Rights, theOther.Rights))
             {
                 return false;
             }
 
             Tracing.TraceMsg("Comparing BaseLink");
-            if (ObjectModelHelper.IsBaseLinkIdentical(theOne.Id, theOther.Id) == false)
+            if (!ObjectModelHelper.IsBaseLinkIdentical(theOne.Id, theOther.Id))
             {
                 return false;
             }
@@ -350,7 +350,7 @@ namespace Google.GData.Client.UnitTests
             }
             for (int i = 0; i < theOne.Count; i++)
             {
-                if (IsPersonIdentical(theOne[i], theOther[i]) == false)
+                if (!IsPersonIdentical(theOne[i], theOther[i]))
                 {
                     return false;
                 }
@@ -381,7 +381,7 @@ namespace Google.GData.Client.UnitTests
             }
             for (int i = 0; i < theOne.Count; i++)
             {
-                if (IsCategoryIdentical(theOne[i], theOther[i]) == false)
+                if (!IsCategoryIdentical(theOne[i], theOther[i]))
                 {
                     return false;
                 }
@@ -412,7 +412,7 @@ namespace Google.GData.Client.UnitTests
             }
             for (int i = 0; i < theOne.Count; i++)
             {
-                if (IsLinkIdentical(theOne[i], theOther[i]) == false)
+                if (!IsLinkIdentical(theOne[i], theOther[i]))
                 {
                     return false;
                 }
@@ -464,7 +464,7 @@ namespace Google.GData.Client.UnitTests
                 return true;
             }
 
-            if (ObjectModelHelper.IsBaseIdentical(theOne, theOther) == false)
+            if (!ObjectModelHelper.IsBaseIdentical(theOne, theOther))
             {
                 Tracing.TraceInfo("IsPersonIdentical: comparing  base failed");
                 return false;
@@ -504,7 +504,7 @@ namespace Google.GData.Client.UnitTests
             }
 
 
-            if (ObjectModelHelper.IsBaseIdentical(theOne, theOther) == false)
+            if (!ObjectModelHelper.IsBaseIdentical(theOne, theOther))
             {
                 return false;
             }
@@ -540,7 +540,7 @@ namespace Google.GData.Client.UnitTests
             }
 
 
-            if (ObjectModelHelper.IsBaseIdentical(theOne, theOther) == false)
+            if (!ObjectModelHelper.IsBaseIdentical(theOne, theOther))
             {
                 return false;
             }
@@ -581,58 +581,58 @@ namespace Google.GData.Client.UnitTests
                 return true;
             }
 
-            if (ObjectModelHelper.IsBaseIdentical(theOne, theOther) == false)
+            if (!ObjectModelHelper.IsBaseIdentical(theOne, theOther))
             {
                 return false;
             }
 
             Tracing.TraceInfo("Source: comparing Authors collections");
-            if (ObjectModelHelper.IsPersonCollectionIdentical(theOne.Authors, theOther.Authors) == false)
+            if (!ObjectModelHelper.IsPersonCollectionIdentical(theOne.Authors, theOther.Authors))
             {
                 return false;
             }
 
             Tracing.TraceInfo("Source: comparing Contributors collections");
-            if (ObjectModelHelper.IsPersonCollectionIdentical(theOne.Contributors, theOther.Contributors) == false)
+            if (!ObjectModelHelper.IsPersonCollectionIdentical(theOne.Contributors, theOther.Contributors))
             {
                 return false;
             }
             Tracing.TraceInfo("Source: comparing categories collections");
-            if (ObjectModelHelper.IsCategoryCollectionIdentical(theOne.Categories, theOther.Categories) == false)
+            if (!ObjectModelHelper.IsCategoryCollectionIdentical(theOne.Categories, theOther.Categories))
             {
                 return false;
             }
             Tracing.TraceInfo("Source: comparing links collections");
-            if (ObjectModelHelper.IsLinkCollectionIdentical(theOne.Links, theOther.Links) == false)
+            if (!ObjectModelHelper.IsLinkCollectionIdentical(theOne.Links, theOther.Links))
             {
                 return false;
             }
 
-            if (ObjectModelHelper.IsTextConstructIdentical(theOne.Title, theOther.Title) == false)
+            if (!ObjectModelHelper.IsTextConstructIdentical(theOne.Title, theOther.Title))
             {
                 return false;
             }
-            if (ObjectModelHelper.IsTextConstructIdentical(theOne.Rights, theOther.Rights) == false)
+            if (!ObjectModelHelper.IsTextConstructIdentical(theOne.Rights, theOther.Rights))
             {
                 return false;
             }
-            if (ObjectModelHelper.IsTextConstructIdentical(theOne.Subtitle, theOther.Subtitle) == false)
+            if (!ObjectModelHelper.IsTextConstructIdentical(theOne.Subtitle, theOther.Subtitle))
             {
                 return false;
             }
-            if (ObjectModelHelper.IsBaseLinkIdentical(theOne.Id, theOther.Id) == false)
+            if (!ObjectModelHelper.IsBaseLinkIdentical(theOne.Id, theOther.Id))
             {
                 return false;
             }
-            if (ObjectModelHelper.IsGeneratorIdentical(theOne.Generator, theOther.Generator) == false)
+            if (!ObjectModelHelper.IsGeneratorIdentical(theOne.Generator, theOther.Generator))
             {
                 return false;
             }
-            if (ObjectModelHelper.IsBaseLinkIdentical(theOne.Icon, theOther.Icon) == false)
+            if (!ObjectModelHelper.IsBaseLinkIdentical(theOne.Icon, theOther.Icon))
             {
                 return false;
             }
-            if (ObjectModelHelper.IsBaseLinkIdentical(theOne.Logo, theOther.Logo) == false)
+            if (!ObjectModelHelper.IsBaseLinkIdentical(theOne.Logo, theOther.Logo))
             {
                 return false;
             }
@@ -656,7 +656,7 @@ namespace Google.GData.Client.UnitTests
                 return true;
             }
 
-            if (ObjectModelHelper.IsBaseIdentical(theOne, theOther) == false)
+            if (!ObjectModelHelper.IsBaseIdentical(theOne, theOther))
             {
                 return false;
             }
@@ -691,7 +691,7 @@ namespace Google.GData.Client.UnitTests
                 return true;
             }
 
-            if (ObjectModelHelper.IsBaseIdentical(theOne, theOther) == false)
+            if (!ObjectModelHelper.IsBaseIdentical(theOne, theOther))
             {
                 return false;
             }
@@ -727,7 +727,7 @@ namespace Google.GData.Client.UnitTests
                 return true;
             }
 
-            if (ObjectModelHelper.IsBaseIdentical(theOne, theOther) == false)
+            if (!ObjectModelHelper.IsBaseIdentical(theOne, theOther))
             {
                 return false;
             }
@@ -754,7 +754,7 @@ namespace Google.GData.Client.UnitTests
                 return true;
             }
 
-            if (ObjectModelHelper.IsBaseIdentical(theOne, theOther) == false)
+            if (!ObjectModelHelper.IsBaseIdentical(theOne, theOther))
             {
                 return false;
             }

@@ -71,14 +71,14 @@ namespace Google.GData.Spreadsheets
         /// <returns>true if this node should be skipped </returns>
         protected override bool SkipNode(XmlNode node)
         {
-            if (base.SkipNode(node) == true)
+            if (base.SkipNode(node))
             {
                 return true;
             }
 
-            return node.NodeType == XmlNodeType.Attribute
-            && (node.Name.StartsWith("xmlns") == true)
-            && (String.Compare(node.Value, GDataSpreadsheetsNameTable.NSGSpreadsheets) == 0);
+            return node.NodeType == XmlNodeType.Attribute &&
+				   node.Name.StartsWith("xmlns") && 
+				   (String.Compare(node.Value, GDataSpreadsheetsNameTable.NSGSpreadsheets) == 0);
         }
 
         /// <summary>

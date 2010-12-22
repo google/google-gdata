@@ -736,7 +736,7 @@ namespace Google.Documents
                 throw new ArgumentException("document.DocumentEntry.Content should not be null");
             }
             string url = document.DocumentEntry.Content.Src.ToString();
-            if (String.IsNullOrEmpty(exportFormat) == false)
+            if (!String.IsNullOrEmpty(exportFormat))
             {
                 char r = '?'; 
                 if (url.IndexOf('?') != -1)

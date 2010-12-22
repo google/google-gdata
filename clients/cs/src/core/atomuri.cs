@@ -110,7 +110,7 @@ namespace Google.GData.Client
 			if (obj == null)
 				return -1;
 
-            if (obj is AtomUri == false)
+            if (!(obj is AtomUri))
                 return -1; 
 
 			return String.Compare(this.ToString(), obj.ToString());

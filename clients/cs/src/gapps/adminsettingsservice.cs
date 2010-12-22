@@ -478,7 +478,7 @@ namespace Google.GData.Apps.AdminSettings
             {
                 throw new ArgumentNullException("e");
             }
-            if (e.CreatingEntry == true)
+            if (e.CreatingEntry)
             {
                 e.Entry = new AdminSettingsEntry();
             }

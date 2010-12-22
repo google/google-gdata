@@ -82,7 +82,7 @@ namespace Google.GData.Client.LiveTests
         {
             base.ReadConfigFile();
 
-            if (unitTestConfiguration.Contains("bloggerURI") == true)
+            if (unitTestConfiguration.Contains("bloggerURI"))
             {
                 this.bloggerURI = (string) unitTestConfiguration["bloggerURI"];
                 Tracing.TraceInfo("Read bloggerURI value: " + this.bloggerURI);
@@ -153,7 +153,7 @@ namespace Google.GData.Client.LiveTests
                     Tracing.TraceMsg("retrieved blogger entry");
 
                     Assert.IsTrue(sameGuy.Title.Text.Equals(newEntry.Title.Text), "both titles should be identical"); 
-                    Assert.IsTrue(sameGuy.IsDraft == true); 
+                    Assert.IsTrue(sameGuy.IsDraft); 
 
                 }
 
