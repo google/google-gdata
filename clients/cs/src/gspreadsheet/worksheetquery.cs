@@ -34,7 +34,7 @@ namespace Google.GData.Spreadsheets
         /// Constructor
         /// </summary>
         public WorksheetQuery(string key, string visibility, string projection) 
-        : base("http://spreadsheets.google.com/feeds/worksheets/"
+        : base("https://spreadsheets.google.com/feeds/worksheets/"
                + key + "/" + visibility + "/" + projection)
         {
         }

@@ -369,7 +369,7 @@ namespace NotifierForYT
                     // create a link for the user
                     l.Links[0].Start = l.Text.Length - act.Username.Length;
                     l.Links[0].Length = act.Username.Length;
-                    l.Links[0].LinkData = "http://www.youtube.com/user/" + act.Username;
+                    l.Links[0].LinkData = "https://www.youtube.com/user/" + act.Username;
                     l.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.Label_LinkClicked);
 
                 }

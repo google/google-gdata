@@ -108,7 +108,7 @@ namespace SampleApp
             this.CalendarURI.Name = "CalendarURI";
             this.CalendarURI.Size = new System.Drawing.Size(296, 20);
             this.CalendarURI.TabIndex = 1;
-            this.CalendarURI.Text = "http://www.google.com/calendar/feeds/default/private/full";
+            this.CalendarURI.Text = "https://www.google.com/calendar/feeds/default/private/full";
             // 
             // label1
             // 

@@ -56,7 +56,7 @@ namespace Google.GData.Contacts {
          /// <summary>
         /// contacts group base URI 
         /// </summary>
-        public const string groupsBaseUri = "http://www.google.com/m8/feeds/groups/";
+        public const string groupsBaseUri = "https://www.google.com/m8/feeds/groups/";
 
         /// <summary>
         /// sortoder value for sorting by lastmodified
@@ -304,7 +304,7 @@ namespace Google.GData.Contacts {
         /// <summary>
         /// contacts base URI 
         /// </summary>
-        public const string contactsBaseUri = "http://www.google.com/m8/feeds/contacts/";
+        public const string contactsBaseUri = "https://www.google.com/m8/feeds/contacts/";
 
         private string group;
 

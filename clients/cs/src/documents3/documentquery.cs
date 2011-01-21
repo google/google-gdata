@@ -65,38 +65,38 @@ namespace Google.GData.Documents {
         /// <summary>
         /// document feed base URI 
         /// </summary>
-        public static string documentsBaseUri = "http://docs.google.com/feeds/default/private/full";
+        public static string documentsBaseUri = "https://docs.google.com/feeds/default/private/full";
       
 
         /// <summary>
         /// document feed base URI with ACLs
         /// </summary>
-        public static string documentsAclUri = "http://docs.google.com/feeds/default/private/expandAcl";
+        public static string documentsAclUri = "https://docs.google.com/feeds/default/private/expandAcl";
 
         /// <summary>
         /// template to construct a folder URI for a folder ID
         /// </summary>
-        public static string foldersUriTemplate = "http://docs.google.com/feeds/default/private/full/{0}/contents";
+        public static string foldersUriTemplate = "https://docs.google.com/feeds/default/private/full/{0}/contents";
 
         /// <summary>
         /// template to get the ACLs for a resourceID
         /// </summary>
-        public static string aclsUriTemplate = "http://docs.google.com/feeds/default/private/full/{0}/acl";
+        public static string aclsUriTemplate = "https://docs.google.com/feeds/default/private/full/{0}/acl";
 
         /// <summary>
         /// template to get the media for a resourceID
         /// </summary>
-        public static string mediaUriTemplate = "http://docs.google.com/feeds/default/media/{0}";
+        public static string mediaUriTemplate = "https://docs.google.com/feeds/default/media/{0}";
 
         /// <summary>
         /// uri to get you all folders
         /// </summary>
-        public static string allFoldersUri = "http://docs.google.com/feeds/default/private/full/-/folder";
+        public static string allFoldersUri = "https://docs.google.com/feeds/default/private/full/-/folder";
 
         /// <summary>
         /// template to get a revisison for a given resourceID and revisionID
         /// </summary>
-        public static string revisionsUriTemplate = "http://docs.google.com/feeds/default/private/full/{0}/revisions/{1}";
+        public static string revisionsUriTemplate = "https://docs.google.com/feeds/default/private/full/{0}/revisions/{1}";
 
        
         /// <summary>

@@ -123,12 +123,12 @@ namespace Google.GData.Photos {
         /// <summary>
         /// picasa base URI 
         /// </summary>
-        public static string picasaBaseUri = "http://picasaweb.google.com/data/feed/api/user/";
+        public static string picasaBaseUri = "https://picasaweb.google.com/data/feed/api/user/";
 
         /// <summary>
         /// picasa base URI for posting against the default album
         /// </summary>
-        public static string picasaDefaultPostUri = "http://picasaweb.google.com/data/feed/api/user/default/albumid/default";
+        public static string picasaDefaultPostUri = "https://picasaweb.google.com/data/feed/api/user/default/albumid/default";
        
 
         /// <summary>

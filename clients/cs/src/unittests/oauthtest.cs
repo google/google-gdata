@@ -242,7 +242,7 @@ namespace Google.GData.Client.LiveTests
 
             Assert.AreEqual("NrqbCmBZ4GePYLeAg6m4WHjvD1w=", sig);
 
-            uri = new Uri("http://www.google.com/calendar/feeds/default/owncalendars/full?xoauth_requestor_id=admin%40mantek.org");
+            uri = new Uri("https://www.google.com/calendar/feeds/default/owncalendars/full?xoauth_requestor_id=admin%40mantek.org");
 
             sig = OAuthBase.GenerateSignature(uri,
                            this.oAuthConsumerKey,
@@ -292,7 +292,7 @@ namespace Google.GData.Client.LiveTests
             CalendarEntry calendar = new CalendarEntry();
             calendar.Title.Text = "Test OAuth";
 
-            OAuthUri postUri = new OAuthUri("http://www.google.com/calendar/feeds/default/owncalendars/full", this.oAuthUser,
+            OAuthUri postUri = new OAuthUri("https://www.google.com/calendar/feeds/default/owncalendars/full", this.oAuthUser,
                 this.oAuthDomain);
             CalendarEntry createdCalendar = (CalendarEntry)service.Insert(postUri, calendar);
 

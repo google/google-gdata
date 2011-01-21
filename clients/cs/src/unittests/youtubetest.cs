@@ -105,7 +105,7 @@ namespace Google.GData.Client.LiveTests
             Assert.AreEqual(query.Uri.AbsoluteUri, YouTubeQuery.DefaultVideoUri + "?format=1%2C6&time=this_week", "Video query should be identical");
 
             query = new YouTubeQuery();
-            query.Uri = new Uri("http://www.youtube.com/feeds?format=1&time=this_week&racy=included");
+            query.Uri = new Uri("https://www.youtube.com/feeds?format=1&time=this_week&racy=included");
 
             Assert.AreEqual(query.Time, YouTubeQuery.UploadTime.ThisWeek, "Should be this week");
             Assert.AreEqual(query.Formats[0], YouTubeQuery.VideoFormat.RTSP, "Should be RTSP");

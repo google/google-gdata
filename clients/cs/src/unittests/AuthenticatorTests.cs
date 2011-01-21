@@ -116,7 +116,7 @@ namespace Google.GData.Client.LiveTests
                 this.oAuthUser,
                 this.oAuthDomain);
 
-            HttpWebRequest request = auth.CreateHttpWebRequest("GET", new Uri("http://www.google.com/calendar/feeds/default/owncalendars/full"));
+            HttpWebRequest request = auth.CreateHttpWebRequest("GET", new Uri("https://www.google.com/calendar/feeds/default/owncalendars/full"));
             HttpWebResponse response = request.GetResponse() as HttpWebResponse;
 
             if (response.StatusCode == HttpStatusCode.Redirect)

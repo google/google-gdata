@@ -646,9 +646,9 @@ namespace Google.Documents
                     // spreadsheet has a different parameter
                     if (baseDomain == null)
                     {
-                        baseDomain = "http://spreadsheets.google.com/";
+                        baseDomain = "https://spreadsheets.google.com/";
                     }
-                    queryUri = baseDomain + "feeds/download/spreadsheets/Export?key=" + document.ResourceId + "&exportFormat="; 
+                    queryUri = baseDomain + "feeds/download/spreadsheets/Export?key=" + document.ResourceKey + "&exportFormat="; 
                     s = this.spreadsheetsService;
                     switch (type)
                     {
@@ -679,10 +679,10 @@ namespace Google.Documents
                 case Document.DocumentType.Presentation:
                     if (baseDomain == null)
                     {
-                        baseDomain = "http://docs.google.com/";
+                        baseDomain = "https://docs.google.com/";
                     }
 
-                    queryUri = baseDomain + "feeds/download/presentations/Export?docID=" + document.ResourceId + "&exportFormat="; 
+                    queryUri = baseDomain + "feeds/download/presentations/Export?docID=" + document.ResourceKey + "&exportFormat="; 
                     switch (type)
                     {
                         case Document.DownloadType.swf:
@@ -701,10 +701,10 @@ namespace Google.Documents
                 default:
                     if (baseDomain == null)
                     {
-                        baseDomain = "http://docs.google.com/";
+                        baseDomain = "https://docs.google.com/";
                     }
 
-                    queryUri = baseDomain + "feeds/download/documents/Export?docID=" + document.ResourceId + "&exportFormat=" + type.ToString(); 
+                    queryUri = baseDomain + "feeds/download/documents/Export?docID=" + document.ResourceKey + "&exportFormat=" + type.ToString(); 
                     break;
 
             }

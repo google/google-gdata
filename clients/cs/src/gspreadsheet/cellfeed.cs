@@ -94,7 +94,7 @@ namespace Google.GData.Spreadsheets
         /// returns an update URI for a given row/column combination
         /// in general that URI is based on the feeds POST feed plus the
         /// cell address in RnCn notation:
-        /// http://spreadsheets.google.com/feeds/cells/key/worksheetId/private/full/cell
+        /// https://spreadsheets.google.com/feeds/cells/key/worksheetId/private/full/cell
         /// </summary>
         /// <param name="row"></param>
         /// <param name="column"></param>
