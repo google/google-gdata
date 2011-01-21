@@ -63,7 +63,7 @@ namespace Google.GData.Spreadsheets
         /// <param name="visibility">public or private</param>
         /// <param name="projection">full, values, or basic</param>
         public CellQuery(string key, string worksheetId, string visibility, string projection) 
-        : base("http://spreadsheets.google.com/feeds/cells/" + key + "/" + worksheetId + "/" 
+        : base("https://spreadsheets.google.com/feeds/cells/" + key + "/" + worksheetId + "/" 
                + visibility + "/" + projection)
         {
             Reset();

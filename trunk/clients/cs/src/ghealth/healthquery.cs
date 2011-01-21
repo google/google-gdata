@@ -64,7 +64,7 @@ namespace Google.GData.Health {
         /// <summary>
         /// starting url template for health feeds
         /// </summary>
-        public const string HealthFeeds = "http://www.google.com/health/feeds/";
+        public const string HealthFeeds = "https://www.google.com/health/feeds/";
 
         /// <summary>
         /// the register feed used with AuthSub authentication
@@ -136,7 +136,7 @@ namespace Google.GData.Health {
         /// <summary>May only be used on the profile feed.
         /// Returns content as an aggregation of all entries into a single CCR entry, 
         /// which contains the collection of enclosed entries. Default is false. 
-        /// For example: http://www.google.com/health/feeds/profile/default?digest=true will 
+        /// For example: https://www.google.com/health/feeds/profile/default?digest=true will 
         /// return a digest version of the profile feed.
         /// </summary> 
         /// <returns> </returns>

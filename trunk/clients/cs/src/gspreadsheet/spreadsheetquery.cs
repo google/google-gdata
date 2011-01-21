@@ -34,7 +34,7 @@ namespace Google.GData.Spreadsheets
         /// Constructor
         /// </summary>
         public SpreadsheetQuery()
-        : base("http://spreadsheets.google.com/feeds/spreadsheets/private/full")
+        : base("https://spreadsheets.google.com/feeds/spreadsheets/private/full")
         {
         }
 
