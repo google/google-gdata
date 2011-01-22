@@ -648,7 +648,7 @@ namespace Google.Documents
                     {
                         baseDomain = "https://spreadsheets.google.com/";
                     }
-                    queryUri = baseDomain + "feeds/download/spreadsheets/Export?key=" + document.ResourceKey + "&exportFormat="; 
+                    queryUri = baseDomain + "feeds/download/spreadsheets/Export?key=" + document.ResourceId + "&exportFormat="; 
                     s = this.spreadsheetsService;
                     switch (type)
                     {
@@ -682,7 +682,7 @@ namespace Google.Documents
                         baseDomain = "https://docs.google.com/";
                     }
 
-                    queryUri = baseDomain + "feeds/download/presentations/Export?docID=" + document.ResourceKey + "&exportFormat="; 
+                    queryUri = baseDomain + "feeds/download/presentations/Export?docID=" + document.ResourceId + "&exportFormat="; 
                     switch (type)
                     {
                         case Document.DownloadType.swf:
@@ -704,7 +704,7 @@ namespace Google.Documents
                         baseDomain = "https://docs.google.com/";
                     }
 
-                    queryUri = baseDomain + "feeds/download/documents/Export?docID=" + document.ResourceKey + "&exportFormat=" + type.ToString(); 
+                    queryUri = baseDomain + "feeds/download/documents/Export?docID=" + document.ResourceId + "&exportFormat=" + type.ToString(); 
                     break;
 
             }

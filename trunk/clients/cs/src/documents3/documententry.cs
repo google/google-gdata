@@ -373,18 +373,6 @@ namespace Google.GData.Documents {
         }
 
         /// <summary>
-        /// Documents resource key.
-        /// </summary>
-        /// <returns></returns>
-        public string ResourceKey
-        {
-            get
-            {
-                return ResourceId.Substring(ResourceId.IndexOf(':'));
-            }
-        }
-
-        /// <summary>
         /// Identifies if a collaborator can modify the ACLs of the document
         /// </summary>
         /// <returns></returns>
