@@ -81,7 +81,7 @@ namespace Google.GData.Client.LiveTests
         {
             Tracing.TraceMsg("Entering ContactsAuthenticationTest");
 
-            ContactsQuery query = new ContactsQuery(ContactsQuery.CreateContactsUri(this.userName + "@googlemail.com"));
+            ContactsQuery query = new ContactsQuery(ContactsQuery.CreateContactsUri(this.userName));
             ContactsService service = new ContactsService("unittests");
 
             if (this.userName != null)
@@ -113,7 +113,7 @@ namespace Google.GData.Client.LiveTests
         {
             Tracing.TraceMsg("Entering GroupsAuthenticationTest");
 
-            GroupsQuery query = new GroupsQuery(ContactsQuery.CreateGroupsUri(this.userName + "@googlemail.com"));
+            GroupsQuery query = new GroupsQuery(ContactsQuery.CreateGroupsUri(this.userName));
             ContactsService service = new ContactsService("unittests");
 
             if (this.userName != null)
@@ -136,7 +136,7 @@ namespace Google.GData.Client.LiveTests
             GroupEntry insertedGroup2 = feed.Insert(g2);
 
             // now insert a new contact that belongs to that group
-            ContactsQuery q = new ContactsQuery(ContactsQuery.CreateContactsUri(this.userName + "@googlemail.com"));
+            ContactsQuery q = new ContactsQuery(ContactsQuery.CreateContactsUri(this.userName));
             ContactsFeed cf = service.Query(q);
             ContactEntry entry = ObjectModelHelper.CreateContactEntry(1);
             GroupMembership member = new GroupMembership();
@@ -181,7 +181,7 @@ namespace Google.GData.Client.LiveTests
         {
             Tracing.TraceMsg("Entering GroupsSystemTest");
 
-            GroupsQuery query = new GroupsQuery(ContactsQuery.CreateGroupsUri(this.userName + "@googlemail.com"));
+            GroupsQuery query = new GroupsQuery(ContactsQuery.CreateGroupsUri(this.userName));
             ContactsService service = new ContactsService("unittests");
 
             if (this.userName != null)
@@ -215,7 +215,7 @@ namespace Google.GData.Client.LiveTests
             GroupEntry insertedGroup2 = feed.Insert(g2);
 
             // now insert a new contact that belongs to that group
-            ContactsQuery q = new ContactsQuery(ContactsQuery.CreateContactsUri(this.userName + "@googlemail.com"));
+            ContactsQuery q = new ContactsQuery(ContactsQuery.CreateContactsUri(this.userName));
             ContactsFeed cf = service.Query(q);
             ContactEntry entry = ObjectModelHelper.CreateContactEntry(1);
             GroupMembership member = new GroupMembership();
@@ -262,7 +262,7 @@ namespace Google.GData.Client.LiveTests
             const int numberWithAdds = 60; 
             Tracing.TraceMsg("Entering InsertContactsTest");
 
-            ContactsQuery query = new ContactsQuery(ContactsQuery.CreateContactsUri(this.userName + "@googlemail.com"));
+            ContactsQuery query = new ContactsQuery(ContactsQuery.CreateContactsUri(this.userName));
             ContactsService service = new ContactsService("unittests");
 
 
@@ -401,7 +401,7 @@ namespace Google.GData.Client.LiveTests
             const int numberOfInserts = 37;
             Tracing.TraceMsg("Entering InsertContactsTest");
 
-            ContactsQuery query = new ContactsQuery(ContactsQuery.CreateContactsUri(this.userName + "@googlemail.com")); 
+            ContactsQuery query = new ContactsQuery(ContactsQuery.CreateContactsUri(this.userName)); 
             ContactsService service = new ContactsService("unittests");
 
             if (this.userName != null)
