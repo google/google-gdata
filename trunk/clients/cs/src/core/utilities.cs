@@ -884,7 +884,8 @@ namespace Google.GData.Client
                 accountType += GoogleAuthentication.AccountTypeDefault;
             }
           
-            WebResponse authResponse = null; 
+            WebResponse authResponse = null;
+            HttpWebResponse response = null;
 
             string authToken = null; 
             try
@@ -917,15 +918,18 @@ namespace Google.GData.Client
                 Stream requestStream = authRequest.GetRequestStream() ;
                 requestStream.Write(encodedData, 0, encodedData.Length); 
                 requestStream.Close();        
-                authResponse = authRequest.GetResponse(); 
-
+                authResponse = authRequest.GetResponse();
+                response = authResponse as HttpWebResponse;
             } 
             catch (WebException e)
             {
-                Tracing.TraceMsg("QueryAuthtoken failed " + e.Status + " " + e.Message); 
-                throw;
+                response = e.Response as HttpWebResponse;
+                if (response == null)
+                {
+                    Tracing.TraceMsg("QueryAuthtoken failed " + e.Status + " " + e.Message);
+                    throw;
+                }
             }
-            HttpWebResponse response = authResponse as HttpWebResponse;
             if (response != null)
             {
                  // check the content type, it must be text
@@ -967,7 +971,7 @@ namespace Google.GData.Client
         static LoggedException getAuthException(TokenCollection tokens,  HttpWebResponse response) 
         {
             String errorName = Utilities.FindToken(tokens, "Error");
-            int code= (int)response.StatusCode;
+            int code = (int)response.StatusCode;
             if (errorName == null || errorName.Length == 0)
             {
                // no error given by Gaia, return a standard GDataRequestException
