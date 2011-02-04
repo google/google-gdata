@@ -523,7 +523,7 @@ namespace Google.GData.Client
             GDataCredentials gdc = new GDataCredentials(gc.Username, gc.getPassword());
             gdc.CaptchaToken = this.factory.CaptchaToken;
             gdc.CaptchaAnswer = this.factory.CaptchaAnswer;
-            gdc.AccountType = this.factory.AccountType;
+            gdc.AccountType = gc.AccountType;
 
             try 
             {
