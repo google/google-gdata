@@ -36,7 +36,7 @@ ALLLIBS = \
 	
 UNINSTALLLIBS = $(basename $(ALLLIBS))
 
-FRAMEWORK_REFS = -r:System.dll -r:System.Xml.dll -r:System.Web.dll -r:System.Configuration.dll
+FRAMEWORK_REFS = -r:System.dll -r:System.Xml.dll -r:System.Configuration.dll
 
 PKGCONFIG_FILES = $(patsubst %.pc.in,%.pc,$(wildcard misc/*.pc.in))
 

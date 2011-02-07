@@ -98,7 +98,7 @@ namespace Google.GData.Apps
         {
             String uri = String.Format("{0}/{1}?get=children&orgUnitPath={2}",
                                        AppsOrganizationNameTable.AppsOrgUnitBaseFeedUri, customerId,
-                                       HttpUtility.UrlPathEncode(orgUnitPath));
+                                       HttpUtility.UrlEncode(orgUnitPath));
             return QueryExtendedFeed(new Uri(uri), true);
         }
 
@@ -271,7 +271,7 @@ namespace Google.GData.Apps
         {
             String uri = String.Format("{0}/{1}?get=children&orgUnitPath={2}",
                                        AppsOrganizationNameTable.AppsOrgUserBaseFeedUri, customerId,
-                                       HttpUtility.UrlPathEncode(orgUnitPath));
+                                       HttpUtility.UrlEncode(orgUnitPath));
             return QueryExtendedFeed(new Uri(uri), true);
         }
 
@@ -286,7 +286,7 @@ namespace Google.GData.Apps
         {
             String uri = String.Format("{0}/{1}?get=children&orgUnitPath={2}",
                                        AppsOrganizationNameTable.AppsOrgUserBaseFeedUri, customerId,
-                                       HttpUtility.UrlPathEncode(orgUnitPath));
+                                       HttpUtility.UrlEncode(orgUnitPath));
             return QueryExtendedFeed(new Uri(uri), false);
         }
     }
