@@ -412,7 +412,9 @@ namespace System.Web {
 				e = Encoding.UTF8;
 
 			long len = s.Length;
-#if NET_2_0			var bytes = new List <byte>();#else
+#if NET_2_0
+            var bytes = new List <byte>();
+#else
 			ArrayList bytes = new ArrayList();
 #endif
 			int xchar;
@@ -445,7 +447,9 @@ namespace System.Web {
 					WriteCharBytes(bytes, ch, e);
 			}
 
-#if NET_2_0			byte[] buf = bytes.ToArray ();#else
+#if NET_2_0
+            byte[] buf = bytes.ToArray ();
+#else
 			byte[] buf = (byte[])bytes.ToArray(typeof(byte));
 #endif
 
@@ -953,7 +957,9 @@ namespace System.Web {
 						// MS starts encoding with &# from 160 and stops at 255.
 						// We don't do that. One reason is the 65308/65310 unicode
 						// characters that look like '<' and '>'.
-#if TARGET_JVM					if (s [i] > 159 && s [i] < 256) {#else
+#if TARGET_JVM
+                        if (s [i] > 159 && s [i] < 256) {
+#else
 						if (s[i] > 159) {
 #endif
 							output.Append("&#");
