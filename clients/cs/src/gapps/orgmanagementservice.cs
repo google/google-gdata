@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Web;
 using Google.GData.Extensions.Apps;
+using Google.GData.Client;
 
 namespace Google.GData.Apps
 {
