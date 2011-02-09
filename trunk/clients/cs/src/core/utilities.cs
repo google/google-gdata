@@ -209,7 +209,7 @@ namespace Google.GData.Client
         /// <param name="value">the string to decode</param>
         public static string DecodedValue(string value) 
         {
-            return System.Web.HttpUtility.HtmlDecode(value);
+            return HttpUtility.HtmlDecode(value);
         }
 
         /// <summary>
@@ -219,7 +219,7 @@ namespace Google.GData.Client
         /// <param name="value">the string to decode</param>
         public static string UrlDecodedValue(string value)
         {
-            return System.Web.HttpUtility.UrlDecode(value);
+            return HttpUtility.UrlDecode(value);
         }
 
 

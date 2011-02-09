@@ -46,7 +46,7 @@ namespace Google.GData.Client
 #if WindowsCE || PocketPC
             this.strContent = uri.ToString(); 
 #else
-            this.strContent = System.Web.HttpUtility.UrlDecode(uri.ToString());
+            this.strContent = HttpUtility.UrlDecode(uri.ToString());
 #endif
         }
 

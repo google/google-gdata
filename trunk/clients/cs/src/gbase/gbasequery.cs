@@ -18,7 +18,6 @@ using System.IO;
 using System.Collections;
 using System.Text;
 using System.Net;
-using System.Web;
 using Google.GData.Client;
 
 namespace Google.GData.GoogleBase
@@ -195,7 +194,7 @@ namespace Google.GData.GoogleBase
                         switch (parameters[0])
                         {
                         case BqParameter:
-                            this.bq = System.Web.HttpUtility.UrlDecode(parameters[1]);
+                            this.bq = HttpUtility.UrlDecode(parameters[1]);
                             break;
 
                         case MaxValuesParameter:
@@ -203,7 +202,7 @@ namespace Google.GData.GoogleBase
                             break;
 
                         case OrderByParameter:
-                            this.orderby = System.Web.HttpUtility.UrlDecode(parameters[1]);
+                            this.orderby = HttpUtility.UrlDecode(parameters[1]);
                             break;
 
                         case SortOrderParameter:
@@ -215,7 +214,7 @@ namespace Google.GData.GoogleBase
                             break;
 
                         case ContentParameter:
-                            this.content = System.Web.HttpUtility.UrlDecode(parameters[1]);
+                            this.content = HttpUtility.UrlDecode(parameters[1]);
                             break;
                         }
                     }

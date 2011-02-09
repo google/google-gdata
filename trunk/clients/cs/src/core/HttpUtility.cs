@@ -36,19 +36,22 @@ using System.Globalization;
 using System.IO;
 using System.Security.Permissions;
 using System.Text;
-using System.Web.Util;
+using System;
+using System.Web;
+using Google.GData.Client.Util;
 
 #if NET_2_0
 using System.Collections.Generic;
 #endif
 
-namespace System.Web.Util {
+namespace Google.GData.Client.Util {
 	class Helpers {
 		public static readonly CultureInfo InvariantCulture = CultureInfo.InvariantCulture;
 	}
 }
 
-namespace System.Web {
+namespace Google.GData.Client
+{
 
 #if !MONOTOUCH
 	// CAS - no InheritanceDemand here as the class is sealed
