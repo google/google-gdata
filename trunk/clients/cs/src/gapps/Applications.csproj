@@ -140,8 +140,6 @@
     <Compile Include="emaillistrecipientquery.cs" />
     <Compile Include="emaillistrecipientservice.cs" />
     <Compile Include="emaillistservice.cs" />
-    <Compile Include="googlemailsettingsentry.cs" />
-    <Compile Include="googlemailsettingsfeed.cs" />
     <Compile Include="googlemailsettingsservice.cs" />
     <Compile Include="groupsservice.cs" />
     <Compile Include="mailitementry.cs" />

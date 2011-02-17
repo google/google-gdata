@@ -22,6 +22,11 @@ namespace GoogleAppsMailSettingsDemo
                 // Create a new Label for the user testUserName
                 service.CreateLabel(testUserName, "Test-Label");
 
+				// Retrieve all labels for the user testUserName
+				AppsExtendedFeed labels = service.RetrieveLabels(testUserName);
+				Console.WriteLine(String.Format("First label: {0}",
+					((AppsExtendedEntry)labels.Entries[0]).getPropertyValueByName("label")));
+
                 // Create a filter for emails from test@domain.com 
                 // for the user testUserName and applies the new label "Test-Label"
                 service.CreateFilter(testUserName, "test@"+domain, "", "", "", "", "", "Test-Label", "true", "");
@@ -29,21 +34,51 @@ namespace GoogleAppsMailSettingsDemo
                 // Create a new Send As for the user testUserName
                 service.CreateSendAs(testUserName, "Test email", testUserName+"@"+domain, "", "");
 
+				// Retrieve all send-as for user testUserName
+				AppsExtendedFeed sendas = service.RetrieveSendAs(testUserName);
+				Console.WriteLine(String.Format("First send-as: {0}",
+					((AppsExtendedEntry)sendas.Entries[0]).getPropertyValueByName("name")));
+
                 // Updates the forwarding rule to forward emails to 
-                // test@domain.com for the user testUserName amd keeps the email.
+                // test@domain for the user testUserName and keeps the email.
                 service.UpdateForwarding(testUserName, "true", "test@"+domain, "KEEP");
 
+				// Retrieve forwarding settings for user testUserName
+				AppsExtendedEntry forwarding = service.RetrieveForwarding(testUserName);
+				Console.WriteLine(String.Format("Forwarding to: {0}",
+					forwarding.getPropertyValueByName("forwardTo")));
+
                 // Deactivate POP for the user testUserName
-                service.UpdatePop(testUserName,"false", null, null);
+                service.UpdatePop(testUserName, "false", null, null);
+
+				// Retrieve POP settings for user testUserName
+				AppsExtendedEntry pop = service.RetrievePop(testUserName);
+				Console.WriteLine(String.Format("POP enabled: {0}",
+					pop.getPropertyValueByName("enable")));
 
                 // Activate IMAP for the user testUserName
                 service.UpdateImap(testUserName, "true");
 
+				// Retrieve IMAP settings for user testUserName
+				AppsExtendedEntry imap = service.RetrieveImap(testUserName);
+				Console.WriteLine(String.Format("IMAP enabled: {0}",
+					imap.getPropertyValueByName("enable")));
+
                 // Activate vacation autoresponse for the user testUserName
                 service.UpdateVacation(testUserName, "true", "vacation", "vacation text...", "true");
 
+				// Retrieve vacation responder settings for user testUserName
+				AppsExtendedEntry vacation = service.RetrieveVacation(testUserName);
+				Console.WriteLine(String.Format("Vacation responder message: {0}",
+					vacation.getPropertyValueByName("message")));
+
                 // Update the signature for the user testUserName
                 service.UpdateSignature(testUserName, "Signature text...");
+
+				// Retrieve signature for user testUserName
+				AppsExtendedEntry signature = service.RetrieveSignature(testUserName);
+				Console.WriteLine(String.Format("Signature: {0}",
+					signature.getPropertyValueByName("signature")));
 
                 // Update the language settings to French (fr) for the user testUserName
                 service.UpdateLanguage(testUserName, "fr");
@@ -63,11 +98,11 @@ namespace GoogleAppsMailSettingsDemo
 
         /// <summary>
         /// This console application demonstrates all the Google Apps
-        /// Google Mail Settings API calls. 
+        /// Mail Settings API calls. 
         /// </summary>
         /// <param name="args">Command-line arguments: args[0] is
         /// the domain, args[1] is the admin email address, args[2]
-        /// is the admin psasword, and args[3] is the username to be modified 
+        /// is the admin password, and args[3] is the username to be modified 
         /// by all actions. 
         /// 
         /// Example: GoogleMailSettingsDemo example.com admin@example.com my_password user_name</param>
@@ -85,7 +120,7 @@ namespace GoogleAppsMailSettingsDemo
                 testUserName = args[3];
 
                 GoogleMailSettingsService service = new GoogleMailSettingsService(domain, "apps-demo");
-                service.setUserCredentials( adminEmail, adminPassword);
+                service.setUserCredentials(adminEmail, adminPassword);
 
                 RunSample(service);
             }
