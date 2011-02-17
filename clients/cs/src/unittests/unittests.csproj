@@ -246,7 +246,6 @@
     <Compile Include="gapps\emaillistrecipientquerytest.cs" />
     <Compile Include="gapps\emaillisttest.cs" />
     <Compile Include="gapps\googleemailsettingsservicetest.cs" />
-    <Compile Include="gapps\googlemailsettingsentrytest.cs" />
     <Compile Include="gapps\groupsservicetest.cs" />
     <Compile Include="gapps\labelcollectiontest.cs" />
     <Compile Include="gapps\labeltest.cs" />

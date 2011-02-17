@@ -24,7 +24,7 @@ namespace Google.GData.Apps.GoogleMailSettings
     /// Base service for accessing Google Mail Settings item feeds from the
     /// Google Apps Google Mail Settings API.
     /// </summary>
-    public class GoogleMailSettingsService : Service
+	public class GoogleMailSettingsService : AppsPropertyService
     {
         /// <summary>
         /// URL suffixes for the Google Mail Settings tasks
@@ -74,16 +74,27 @@ namespace Google.GData.Apps.GoogleMailSettings
         /// <param name="label">the new Google Mail label</param>
         /// <returns>a <code>GoogleMailSettingsEntry</code> containing the results of the
         /// creation</returns>
-        public GoogleMailSettingsEntry CreateLabel(string userName, string label)
+		public AppsExtendedEntry CreateLabel(string userName, string label)
         {
             Uri labelUri = new Uri(AppsGoogleMailSettingsNameTable.AppsGoogleMailSettingsBaseFeedUri + "/"
                + domain + "/" + userName + labelFeedUriSuffix);
-            GoogleMailSettingsEntry entry = new GoogleMailSettingsEntry();
+			AppsExtendedEntry entry = new AppsExtendedEntry();
             entry.Properties.Add(
                 new PropertyElement(AppsGoogleMailSettingsNameTable.label,
                 label));
-            return base.Insert(labelUri, entry) as GoogleMailSettingsEntry;
+			return base.Insert(labelUri, entry) as AppsExtendedEntry;
         }
+
+		/// <summary>
+		/// Retrieves all labels and their settings in Google Mail for the given userName
+		/// </summary>
+		/// <param name="userName">The user for whom this should be done</param>
+		/// <returns>Feed containing all labels</returns>
+		public AppsExtendedFeed RetrieveLabels(string userName) {
+			string uri = AppsGoogleMailSettingsNameTable.AppsGoogleMailSettingsBaseFeedUri + "/"
+			    + domain + "/" + userName + labelFeedUriSuffix;
+			return QueryExtendedFeed(new Uri(uri), true);
+		}
 
         /// <summary>
         /// Creates a new Google Mail filter for the given userName
@@ -102,13 +113,13 @@ namespace Google.GData.Apps.GoogleMailSettings
         /// if the message matches the filter criteria</param>
         /// <returns>a <code>GoogleMailSettingsEntry</code> containing the results of the
         /// creation</returns>
-        public GoogleMailSettingsEntry CreateFilter(string userName, string from, string to,
+		public AppsExtendedEntry CreateFilter(string userName, string from, string to,
             string subject, string hasTheWords, string doesNotHaveTheWords, string hasAttachment,
             string label, string shouldMarkAsRead, string shouldArchive)
         {
             Uri fitlerUri = new Uri(AppsGoogleMailSettingsNameTable.AppsGoogleMailSettingsBaseFeedUri + "/"
                 + domain + "/" + userName + filterFeedUriSuffix);
-            GoogleMailSettingsEntry entry = new GoogleMailSettingsEntry();
+			AppsExtendedEntry entry = new AppsExtendedEntry();
             if (from != null && from != String.Empty)
                 entry.Properties.Add(
                     new PropertyElement(
@@ -147,7 +158,7 @@ namespace Google.GData.Apps.GoogleMailSettings
                 entry.Properties.Add(
                     new PropertyElement(
                     AppsGoogleMailSettingsNameTable.shouldArchive, shouldArchive));
-            return base.Insert(fitlerUri, entry) as GoogleMailSettingsEntry;
+			return base.Insert(fitlerUri, entry) as AppsExtendedEntry;
         }
 
         /// <summary>
@@ -160,12 +171,12 @@ namespace Google.GData.Apps.GoogleMailSettings
         /// <param name="makeDefault">Whether the new alias would be the default email address</param>
         /// <returns>a <code>GoogleMailSettingsEntry</code> containing the results of the
         /// creation</returns>
-        public GoogleMailSettingsEntry CreateSendAs(string userName, string name, string address, string replyTo,
+		public AppsExtendedEntry CreateSendAs(string userName, string name, string address, string replyTo,
             string makeDefault)
         {
             Uri sendaslUri = new Uri(AppsGoogleMailSettingsNameTable.AppsGoogleMailSettingsBaseFeedUri + "/"
                 + domain + "/" + userName + sendasFeedUriSuffix);
-            GoogleMailSettingsEntry entry = new GoogleMailSettingsEntry();
+			AppsExtendedEntry entry = new AppsExtendedEntry();
             entry.Properties.Add(
                 new PropertyElement(
                 AppsGoogleMailSettingsNameTable.name, name));
@@ -180,8 +191,19 @@ namespace Google.GData.Apps.GoogleMailSettings
                 entry.Properties.Add(
                     new PropertyElement(
                     AppsGoogleMailSettingsNameTable.makeDefault, makeDefault));
-            return base.Insert(sendaslUri, entry) as GoogleMailSettingsEntry;
+			return base.Insert(sendaslUri, entry) as AppsExtendedEntry;
         }
+
+		/// <summary>
+		/// Retrieves all send-as alias settings for the given userName
+		/// </summary>
+		/// <param name="userName">The user for whom this should be done</param>
+		/// <returns>Feed containing all send-as aliases</returns>
+		public AppsExtendedFeed RetrieveSendAs(string userName) {
+			string uri = AppsGoogleMailSettingsNameTable.AppsGoogleMailSettingsBaseFeedUri + "/"
+				+ domain + "/" + userName + sendasFeedUriSuffix;
+			return QueryExtendedFeed(new Uri(uri), true);
+		}
 
         /// <summary>
         /// Updates Google Mail's forwarding rule for the given userName
@@ -192,11 +214,11 @@ namespace Google.GData.Apps.GoogleMailSettings
         /// <param name="action">What Google Mail should do with its copy of the email after forwarding it on</param>
         /// <returns>a <code>GoogleMailSettingsEntry</code> containing the results of the
         /// creation</returns>
-        public GoogleMailSettingsEntry UpdateForwarding(string userName, string enable, string forwardTo, string action)
+		public AppsExtendedEntry UpdateForwarding(string userName, string enable, string forwardTo, string action)
         {
             Uri forwardingUri = new Uri(AppsGoogleMailSettingsNameTable.AppsGoogleMailSettingsBaseFeedUri + "/"
                 + domain + "/" + userName + forwardingFeedUriSuffix);
-            GoogleMailSettingsEntry entry = new GoogleMailSettingsEntry();
+			AppsExtendedEntry entry = new AppsExtendedEntry();
             entry.EditUri = forwardingUri;
             entry.Properties.Add(
                 new PropertyElement(
@@ -209,8 +231,19 @@ namespace Google.GData.Apps.GoogleMailSettings
                 entry.Properties.Add(
                     new PropertyElement(
                     AppsGoogleMailSettingsNameTable.action, action));
-            return base.Update((AtomEntry)entry) as GoogleMailSettingsEntry;
+			return base.Update((AtomEntry)entry) as AppsExtendedEntry;
         }
+
+		/// <summary>
+		/// Retrieves Google Mail's forwarding rule for the given userName
+		/// </summary>
+		/// <param name="userName">The user for whom this should be done</param>
+		/// <returns>Entry containing forwarding settings</returns>
+		public AppsExtendedEntry RetrieveForwarding(string userName) {
+			string uri = AppsGoogleMailSettingsNameTable.AppsGoogleMailSettingsBaseFeedUri + "/"
+				+ domain + "/" + userName + forwardingFeedUriSuffix;
+			return Get(uri) as AppsExtendedEntry;
+		}
 
         /// <summary>
         /// Updates Google Mail's POP settings for the given userName
@@ -222,11 +255,11 @@ namespace Google.GData.Apps.GoogleMailSettings
         /// it is retrieved using POP3</param>
         /// <returns>a <code>GoogleMailSettingsEntry</code> containing the results of the
         /// creation</returns>
-        public GoogleMailSettingsEntry UpdatePop(string userName, string enable, string enableFor, string action)
+		public AppsExtendedEntry UpdatePop(string userName, string enable, string enableFor, string action)
         {
             Uri popUri = new Uri(AppsGoogleMailSettingsNameTable.AppsGoogleMailSettingsBaseFeedUri + "/"
                 + domain + "/" + userName + popFeedUriSuffix);
-            GoogleMailSettingsEntry entry = new GoogleMailSettingsEntry();
+			AppsExtendedEntry entry = new AppsExtendedEntry();
             entry.EditUri = popUri;
             entry.Properties.Add(
                 new PropertyElement(
@@ -239,8 +272,19 @@ namespace Google.GData.Apps.GoogleMailSettings
                 entry.Properties.Add(
                     new PropertyElement(
                     AppsGoogleMailSettingsNameTable.action, action));
-            return base.Update((AtomEntry)entry) as GoogleMailSettingsEntry;
+			return base.Update((AtomEntry)entry) as AppsExtendedEntry;
         }
+
+		/// <summary>
+		/// Retrieves Google Mail's POP settings for the given userName
+		/// </summary>
+		/// <param name="userName">The user for whom this should be done</param>
+		/// <returns>Entry containing POP settings</returns>
+		public AppsExtendedEntry RetrievePop(string userName) {
+			string uri = AppsGoogleMailSettingsNameTable.AppsGoogleMailSettingsBaseFeedUri + "/"
+				+ domain + "/" + userName + popFeedUriSuffix;
+			return Get(uri) as AppsExtendedEntry;
+		}
 
         /// <summary>
         /// Updates Google Mail's IMAP settings for the given userName
@@ -249,17 +293,28 @@ namespace Google.GData.Apps.GoogleMailSettings
         /// <param name="enable">Whether to enable IMAP access</param>
         /// <returns>a <code>GoogleMailSettingsEntry</code> containing the results of the
         /// creation</returns>
-        public GoogleMailSettingsEntry UpdateImap(string userName, string enable)
+		public AppsExtendedEntry UpdateImap(string userName, string enable)
         {
             Uri imapUri = new Uri(AppsGoogleMailSettingsNameTable.AppsGoogleMailSettingsBaseFeedUri + "/"
                 + domain + "/" + userName + imapFeedUriSuffix);
-            GoogleMailSettingsEntry entry = new GoogleMailSettingsEntry();
+			AppsExtendedEntry entry = new AppsExtendedEntry();
             entry.EditUri = imapUri;
             entry.Properties.Add(
                 new PropertyElement(
                 AppsGoogleMailSettingsNameTable.enable, enable));
-            return base.Update((AtomEntry)entry) as GoogleMailSettingsEntry;
+			return base.Update((AtomEntry)entry) as AppsExtendedEntry;
         }
+
+		/// <summary>
+		/// Retrieves Google Mail's IMAP settings for the given userName
+		/// </summary>
+		/// <param name="userName">The user for whom this should be done</param>
+		/// <returns>Entry containing IMAP settings</returns>
+		public AppsExtendedEntry RetrieveImap(string userName) {
+			string uri = AppsGoogleMailSettingsNameTable.AppsGoogleMailSettingsBaseFeedUri + "/"
+				+ domain + "/" + userName + imapFeedUriSuffix;
+			return Get(uri) as AppsExtendedEntry;
+		}
 
         /// <summary>
         /// Updates Google Mail's vacation-responder settings for the given userName
@@ -271,12 +326,12 @@ namespace Google.GData.Apps.GoogleMailSettings
         /// <param name="contactsOnly">Wheter to only send the autoresponse to known contacts</param>
         /// <returns>a <code>GoogleMailSettingsEntry</code> containing the results of the
         /// creation</returns>
-        public GoogleMailSettingsEntry UpdateVacation(string userName, string enable, string subject,
+		public AppsExtendedEntry UpdateVacation(string userName, string enable, string subject,
             string message, string contactsOnly)
         {
             Uri vacationUri = new Uri(AppsGoogleMailSettingsNameTable.AppsGoogleMailSettingsBaseFeedUri + "/"
                 + domain + "/" + userName + vacationFeedUriSuffix);
-            GoogleMailSettingsEntry entry = new GoogleMailSettingsEntry();
+			AppsExtendedEntry entry = new AppsExtendedEntry();
             entry.EditUri = vacationUri;
             entry.Properties.Add(
                 new PropertyElement(
@@ -293,8 +348,19 @@ namespace Google.GData.Apps.GoogleMailSettings
                 entry.Properties.Add(
                     new PropertyElement(
                     AppsGoogleMailSettingsNameTable.contactsOnly, contactsOnly));
-            return base.Update((AtomEntry)entry) as GoogleMailSettingsEntry;
+			return base.Update((AtomEntry)entry) as AppsExtendedEntry;
         }
+
+		/// <summary>
+		/// Retrieves Google Mail's vacation-responder settings for the given userName
+		/// </summary>
+		/// <param name="userName">The user for whom this should be done</param>
+		/// <returns>Entry containing vacation-responder settings</returns>
+		public AppsExtendedEntry RetrieveVacation(string userName) {
+			string uri = AppsGoogleMailSettingsNameTable.AppsGoogleMailSettingsBaseFeedUri + "/"
+				+ domain + "/" + userName + vacationFeedUriSuffix;
+			return Get(uri) as AppsExtendedEntry;
+		}
 
         /// <summary>
         /// Updates Google Mail's signature for the given userName
@@ -303,19 +369,30 @@ namespace Google.GData.Apps.GoogleMailSettings
         /// <param name="signature">The signature to be appended to outgoing messages</param>
         /// <returns>a <code>GoogleMailSettingsEntry</code> containing the results of the
         /// creation</returns>
-        public GoogleMailSettingsEntry UpdateSignature(string userName, string signature)
+		public AppsExtendedEntry UpdateSignature(string userName, string signature)
         {
             Uri signatureUri = new Uri(AppsGoogleMailSettingsNameTable.AppsGoogleMailSettingsBaseFeedUri + "/"
                 + domain + "/" + userName + signatureFeedUriSuffix);
-            GoogleMailSettingsEntry entry = new GoogleMailSettingsEntry();
+			AppsExtendedEntry entry = new AppsExtendedEntry();
             entry.EditUri = signatureUri;
             if (signature == null)
                 signature = String.Empty;
             entry.Properties.Add(
                 new PropertyElement(
                 AppsGoogleMailSettingsNameTable.signature, signature));
-            return base.Update((AtomEntry)entry) as GoogleMailSettingsEntry;
+			return base.Update((AtomEntry)entry) as AppsExtendedEntry;
         }
+
+		/// <summary>
+		/// Retrieves Google Mail's signature for the given userName
+		/// </summary>
+		/// <param name="userName">The user for whom this should be done</param>
+		/// <returns>Entry containing signature</returns>
+		public AppsExtendedEntry RetrieveSignature(string userName) {
+			string uri = AppsGoogleMailSettingsNameTable.AppsGoogleMailSettingsBaseFeedUri + "/"
+				+ domain + "/" + userName + signatureFeedUriSuffix;
+			return Get(uri) as AppsExtendedEntry;
+		}
 
         /// <summary>
         /// Updates Google Mail's display language for the given userName
@@ -324,16 +401,16 @@ namespace Google.GData.Apps.GoogleMailSettings
         /// <param name="language">Google Mail's display language</param>
         /// <returns>a <code>GoogleMailSettingsEntry</code> containing the results of the
         /// creation</returns>
-        public GoogleMailSettingsEntry UpdateLanguage(string userName, string language)
+		public AppsExtendedEntry UpdateLanguage(string userName, string language)
         {
             Uri languageUri = new Uri(AppsGoogleMailSettingsNameTable.AppsGoogleMailSettingsBaseFeedUri + "/"
                 + domain + "/" + userName + languageFeedUriSuffix);
-            GoogleMailSettingsEntry entry = new GoogleMailSettingsEntry();
+			AppsExtendedEntry entry = new AppsExtendedEntry();
             entry.EditUri = languageUri;
             entry.Properties.Add(
                 new PropertyElement(
                 AppsGoogleMailSettingsNameTable.language, language));
-            return base.Update((AtomEntry)entry) as GoogleMailSettingsEntry;
+			return base.Update((AtomEntry)entry) as AppsExtendedEntry;
         }
 
         /// <summary>
@@ -343,12 +420,12 @@ namespace Google.GData.Apps.GoogleMailSettings
         /// <param name="label">the new Google Mail label</param>
         /// <returns>a <code>GoogleMailSettingsEntry</code> containing the results of the
         /// creation</returns>
-        public GoogleMailSettingsEntry UpdateGeneralSettings(string userName, string pageSize, string shortcuts,
+		public AppsExtendedEntry UpdateGeneralSettings(string userName, string pageSize, string shortcuts,
             string arrows, string snippets, string unicode)
         {
             Uri generalUri = new Uri(AppsGoogleMailSettingsNameTable.AppsGoogleMailSettingsBaseFeedUri + "/"
                 + domain + "/" + userName + generalFeedUriSuffix);
-            GoogleMailSettingsEntry entry = new GoogleMailSettingsEntry();
+			AppsExtendedEntry entry = new AppsExtendedEntry();
             entry.EditUri = generalUri;
             if (pageSize != null && pageSize != String.Empty)
                 entry.Properties.Add(
@@ -370,7 +447,7 @@ namespace Google.GData.Apps.GoogleMailSettings
                 entry.Properties.Add(
                    new PropertyElement(
                    AppsGoogleMailSettingsNameTable.unicode, unicode));
-            return base.Update((AtomEntry)entry) as GoogleMailSettingsEntry;
+			return base.Update((AtomEntry)entry) as AppsExtendedEntry;
         }
 
         /// <summary>
@@ -386,7 +463,7 @@ namespace Google.GData.Apps.GoogleMailSettings
             }
             if (e.CreatingEntry)
             {
-                e.Entry = new GoogleMailSettingsEntry();
+				e.Entry = new AppsExtendedEntry();
             }
         }
 
@@ -403,7 +480,7 @@ namespace Google.GData.Apps.GoogleMailSettings
             {
                 throw new ArgumentNullException("e");
             }
-            e.Feed = new GoogleMailSettingsFeed(e.Uri, e.Service);
+			e.Feed = new AppsExtendedFeed(e.Uri, e.Service);
         }
     }
 }
