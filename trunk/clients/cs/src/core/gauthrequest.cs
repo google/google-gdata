@@ -538,6 +538,7 @@ namespace Google.GData.Client
                                         this.factory.Service,
                                         this.factory.ApplicationName,
                                         this.factory.KeepAlive,
+										this.factory.Proxy,
                                         authHandler);
         }
         /////////////////////////////////////////////////////////////////////////////
