@@ -286,5 +286,19 @@ namespace Google.GData.Client.UnitTests.Core
             FeedQuery target = new FeedQuery(baseUri);
             Assert.AreEqual(target.Uri, new Uri(baseUri));
         }
+
+		/// <summary>
+		///A test for FeedQuery URI copy
+		///</summary>
+		[Test]
+		public void FeedQueryCopyUriTest() {
+			string baseUri = "http://www.test.com/";
+			FeedQuery source = new FeedQuery(baseUri);
+			source.Author = "Firstname Lastname";
+
+			FeedQuery target = new FeedQuery();
+			target.Uri = source.Uri;
+			Assert.AreEqual(source.Author, target.Author);
+		}
     }
 }

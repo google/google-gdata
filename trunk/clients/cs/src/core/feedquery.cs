@@ -587,9 +587,10 @@ namespace Google.GData.Client
                     }
                 }
 
-                char [] deli = {'?','&'}; 
+                char [] deli = {'?','&'};
 
-                tokens = new TokenCollection(targetUri.Query, deli); 
+                string source = HttpUtility.UrlDecode(targetUri.Query);
+                tokens = new TokenCollection(source, deli); 
                 foreach (String token in tokens )
                 {
                     if (token.Length > 0)
@@ -611,22 +612,22 @@ namespace Google.GData.Client
                                 this.NumberToRetrieve = int.Parse(parameters[1], CultureInfo.InvariantCulture);
                                 break;
                             case "updated-min":
-                                this.StartDate = DateTime.Parse(Utilities.UrlDecodedValue(parameters[1]), CultureInfo.InvariantCulture);
+                                this.StartDate = DateTime.Parse(parameters[1], CultureInfo.InvariantCulture);
                                 break;
                             case "updated-max":
-                                this.EndDate = DateTime.Parse(Utilities.UrlDecodedValue(parameters[1]), CultureInfo.InvariantCulture);
+                                this.EndDate = DateTime.Parse(parameters[1], CultureInfo.InvariantCulture);
                                 break;
                             case "published-min":
-                                this.MinPublication = DateTime.Parse(Utilities.UrlDecodedValue(parameters[1]), CultureInfo.InvariantCulture);
+                                this.MinPublication = DateTime.Parse(parameters[1], CultureInfo.InvariantCulture);
                                 break;
                             case "published-max":
-                                this.MaxPublication = DateTime.Parse(Utilities.UrlDecodedValue(parameters[1]), CultureInfo.InvariantCulture);
+                                this.MaxPublication = DateTime.Parse(parameters[1], CultureInfo.InvariantCulture);
                                 break;
                             case "category":
                                 ParseCategoryQueryString(parameters[1]);
                                 break;
                             case "xoauth_requestor_id":
-                            	this.OAuthRequestorId = Utilities.UrlDecodedValue(parameters[1]);
+                            	this.OAuthRequestorId = parameters[1];
                             	break;
                             default:
                                 break;
