@@ -184,7 +184,8 @@ namespace Google.GData.GoogleBase
             {
                 char[] deli = { '?', '&'};
 
-                TokenCollection tokens = new TokenCollection(targetUri.Query, deli);
+                string source = HttpUtility.UrlDecode(targetUri.Query);
+                TokenCollection tokens = new TokenCollection(source, deli);
                 foreach (String token in tokens)
                 {
                     if (token.Length > 0)
@@ -194,7 +195,7 @@ namespace Google.GData.GoogleBase
                         switch (parameters[0])
                         {
                         case BqParameter:
-                            this.bq = HttpUtility.UrlDecode(parameters[1]);
+                            this.bq = parameters[1];
                             break;
 
                         case MaxValuesParameter:
@@ -202,7 +203,7 @@ namespace Google.GData.GoogleBase
                             break;
 
                         case OrderByParameter:
-                            this.orderby = HttpUtility.UrlDecode(parameters[1]);
+                            this.orderby = parameters[1];
                             break;
 
                         case SortOrderParameter:
@@ -214,7 +215,7 @@ namespace Google.GData.GoogleBase
                             break;
 
                         case ContentParameter:
-                            this.content = HttpUtility.UrlDecode(parameters[1]);
+                            this.content = parameters[1];
                             break;
                         }
                     }

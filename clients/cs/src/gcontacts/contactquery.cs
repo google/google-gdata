@@ -202,7 +202,8 @@ namespace Google.GData.Contacts {
             {
                 char[] deli = { '?', '&' };
 
-                TokenCollection tokens = new TokenCollection(targetUri.Query, deli);
+                string source = HttpUtility.UrlDecode(targetUri.Query);
+                TokenCollection tokens = new TokenCollection(source, deli);
                 foreach (String token in tokens)
                 {
                     if (token.Length > 0)
@@ -377,7 +378,8 @@ namespace Google.GData.Contacts {
             {
                 char[] deli = { '?', '&' };
 
-                TokenCollection tokens = new TokenCollection(targetUri.Query, deli);
+                string source = HttpUtility.UrlDecode(targetUri.Query);
+                TokenCollection tokens = new TokenCollection(source, deli);
                 foreach (String token in tokens)
                 {
                     if (token.Length > 0)

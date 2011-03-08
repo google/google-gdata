@@ -89,7 +89,8 @@ namespace Google.GData.Client
             {
                 char[] delimiters = { '?', '&' };
 
-                TokenCollection tokens = new TokenCollection(targetUri.Query, delimiters);
+                string source = HttpUtility.UrlDecode(targetUri.Query);
+                TokenCollection tokens = new TokenCollection(source, delimiters);
                 foreach (String token in tokens)
                 {
                     if (token.Length > 0)

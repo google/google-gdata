@@ -420,7 +420,8 @@ namespace Google.GData.Documents {
             {
                 char[] deli = { '?', '&' };
 
-                TokenCollection tokens = new TokenCollection(targetUri.Query, deli);
+                string source = HttpUtility.UrlDecode(targetUri.Query);
+                TokenCollection tokens = new TokenCollection(source, deli);
                 foreach (String token in tokens)
                 {
                     if (token.Length > 0)
@@ -460,10 +461,10 @@ namespace Google.GData.Documents {
                                 this.ShowDeleted = bool.Parse(parameters[1]);
                                 break;
                             case "edited-min":
-                                this.EditedMin = DateTime.Parse(Utilities.UrlDecodedValue(parameters[1]), CultureInfo.InvariantCulture);
+                                this.EditedMin = DateTime.Parse(parameters[1], CultureInfo.InvariantCulture);
                                 break;
                             case "edited-max":
-                                this.EditedMax = DateTime.Parse(Utilities.UrlDecodedValue(parameters[1]), CultureInfo.InvariantCulture);
+                                this.EditedMax = DateTime.Parse(parameters[1], CultureInfo.InvariantCulture);
                                 break;
                           
                             }
