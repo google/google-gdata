@@ -203,21 +203,21 @@ namespace Google.GData.Spreadsheets.UnitTests
         [Test]
         public void SetReturnEmptyTrueTest()
         {
-            query.ReturnEmpty = ReturnEmtpyCells.yes;
-            Assert.IsTrue(query.ReturnEmpty == ReturnEmtpyCells.yes);
+            query.ReturnEmpty = ReturnEmptyCells.yes;
+            Assert.IsTrue(query.ReturnEmpty == ReturnEmptyCells.yes);
         }
 
         [Test]
         public void SetReturnEmptyFalseTest()
         {
-            query.ReturnEmpty = ReturnEmtpyCells.no;
-            Assert.IsTrue(query.ReturnEmpty == ReturnEmtpyCells.no);
+            query.ReturnEmpty = ReturnEmptyCells.no;
+            Assert.IsTrue(query.ReturnEmpty == ReturnEmptyCells.no);
         }
         [Test]
         public void SetReturnEmptyDefaultTest()
         {
-            query.ReturnEmpty = ReturnEmtpyCells.serverDefault;
-            Assert.IsTrue(query.ReturnEmpty == ReturnEmtpyCells.serverDefault);
+            query.ReturnEmpty = ReturnEmptyCells.serverDefault;
+            Assert.IsTrue(query.ReturnEmpty == ReturnEmptyCells.serverDefault);
         }
     }
 }

@@ -140,7 +140,7 @@ namespace Google.GData.Client.LiveTests
             Assert.IsTrue(newEntry.RowCount.Count == 10, "Row count should be equal 10");
             Assert.IsTrue(newEntry.Title.Text == "New Worksheet", "Titles should be identical");
 
-            CellFeed cells = newEntry.QueryCellFeed(ReturnEmtpyCells.yes);
+            CellFeed cells = newEntry.QueryCellFeed(ReturnEmptyCells.yes);
             Assert.IsTrue(cells != null, "There should be a cell feed for the new worksheet");
             Assert.IsTrue(cells.Entries.Count == 200, "There should be 200 cells");
             for (uint row = 1; row <= 10; row++)

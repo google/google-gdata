@@ -27,7 +27,7 @@ namespace Google.GData.Spreadsheets
     /// <summary>Enum to describe the different return empty parameters
     /// </summary> 
     //////////////////////////////////////////////////////////////////////
-    public enum ReturnEmtpyCells
+    public enum ReturnEmptyCells
     {
         /// <summary> do not create the parameter, do whatever the server does</summary>
         serverDefault,
@@ -53,7 +53,7 @@ namespace Google.GData.Spreadsheets
 
         private string range;
 
-        private ReturnEmtpyCells returnEmpty;
+        private ReturnEmptyCells returnEmpty;
 
         /// <summary>
         /// Constructor 
@@ -180,7 +180,7 @@ namespace Google.GData.Spreadsheets
         /// <summary>
         /// If true, then empty cells will be included in the feed.
         /// </summary>
-        public ReturnEmtpyCells ReturnEmpty
+        public ReturnEmptyCells ReturnEmpty
         {
             get
             {
@@ -235,7 +235,7 @@ namespace Google.GData.Spreadsheets
                                 this.Range = parameters[1];
                                 break;
                             case "return-empty":
-                                this.ReturnEmpty = (ReturnEmtpyCells) Enum.Parse(typeof(ReturnEmtpyCells), parameters[1]);
+                                this.ReturnEmpty = (ReturnEmptyCells)Enum.Parse(typeof(ReturnEmptyCells), parameters[1]);
                                 break;
                         }
                     }
@@ -271,11 +271,11 @@ namespace Google.GData.Spreadsheets
             paramInsertion = AppendQueryPart(this.MaximumColumn, uint.MaxValue, "max-col", paramInsertion, newPath);
             paramInsertion = AppendQueryPart(this.Range, "range", paramInsertion, newPath);
 
-            if (ReturnEmpty == ReturnEmtpyCells.yes)
+            if (ReturnEmpty == ReturnEmptyCells.yes)
             {
                 paramInsertion = AppendQueryPart("true", "return-empty", paramInsertion, newPath);
             } 
-            else if (ReturnEmpty == ReturnEmtpyCells.no)
+            else if (ReturnEmpty == ReturnEmptyCells.no)
             { 
                 paramInsertion = AppendQueryPart("false", "return-empty", paramInsertion, newPath);
             }

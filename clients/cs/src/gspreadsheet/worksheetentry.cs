@@ -137,7 +137,7 @@ namespace Google.GData.Spreadsheets
         /// <returns>The CellsFeed of the cells in this worksheet.</returns>
         public CellFeed QueryCellFeed() 
         {
-            return QueryCellFeed(ReturnEmtpyCells.serverDefault); 
+            return QueryCellFeed(ReturnEmptyCells.serverDefault); 
         }
 
         /// <summary>
@@ -145,7 +145,7 @@ namespace Google.GData.Spreadsheets
         /// </summary>
         /// <param name="returnEmpty">indicates if a full sheet should be returned</param> 
         /// <returns>The CellsFeed of the cells in this worksheet.</returns>
-        public CellFeed QueryCellFeed(ReturnEmtpyCells returnEmpty) 
+        public CellFeed QueryCellFeed(ReturnEmptyCells returnEmpty) 
         {
             CellQuery query = new CellQuery(this.CellFeedLink);
             query.ReturnEmpty = returnEmpty;
