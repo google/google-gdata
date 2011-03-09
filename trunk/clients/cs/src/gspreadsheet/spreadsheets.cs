@@ -222,7 +222,7 @@ namespace Google.Spreadsheets
             {
                 if (this.CurrentWorksheet != null)
                 {
-                    CellFeed cells = Application.we.QueryCellFeed(ReturnEmtpyCells.yes);
+                    CellFeed cells = Application.we.QueryCellFeed(ReturnEmptyCells.yes);
                     List<string> result = new List<string>();
 
                     foreach (CellEntry curCell in cells.Entries)

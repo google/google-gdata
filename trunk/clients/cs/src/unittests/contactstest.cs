@@ -389,7 +389,7 @@ namespace Google.GData.Client.LiveTests
             f = cr.GetContacts();
 
 
-            Assert.IsTrue(f.TotalResults == 0, "Feed should be emtpy now");
+            Assert.IsTrue(f.TotalResults == 0, "Feed should be empty now");
         }
 
         
