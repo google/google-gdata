@@ -85,6 +85,17 @@ namespace GoogleAppsMailSettingsDemo
 
                 // Update general settings for the user testUserName
                 service.UpdateGeneralSettings(testUserName, "50", "false", "false", "false", "false");
+
+                // Create a new Delegate for the user testUserName
+                service.CreateDelegate(testUserName, adminEmail);
+
+                // Retrieve all delegates for the user testUserName
+                AppsExtendedFeed delegates = service.RetrieveDelegates(testUserName);
+                Console.WriteLine(String.Format("First delegate: {0}",
+                    ((AppsExtendedEntry)delegates.Entries[0]).getPropertyValueByName("delegationId")));
+
+                // Delete the Delegate for the user testUserName
+                service.DeleteDelegate(testUserName, adminEmail);
             }
             catch (AppsException a)
             {

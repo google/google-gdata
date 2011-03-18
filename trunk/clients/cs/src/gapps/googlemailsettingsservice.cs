@@ -39,6 +39,7 @@ namespace Google.GData.Apps.GoogleMailSettings
         public const string signatureFeedUriSuffix = "/signature";
         public const string languageFeedUriSuffix = "/language";
         public const string generalFeedUriSuffix = "/general";
+        public const string delegationFeedUriSuffix = "/delegation";
 
         /// <summary>
         /// Constructor
@@ -72,7 +73,7 @@ namespace Google.GData.Apps.GoogleMailSettings
         /// </summary>
         /// <param name="userName">The user for whom this should be done</param>
         /// <param name="label">the new Google Mail label</param>
-        /// <returns>a <code>GoogleMailSettingsEntry</code> containing the results of the
+        /// <returns>a <code>AppsExtendedEntry</code> containing the results of the
         /// creation</returns>
 		public AppsExtendedEntry CreateLabel(string userName, string label)
         {
@@ -111,7 +112,7 @@ namespace Google.GData.Apps.GoogleMailSettings
         /// if the message matches the filter criteria</param>
         /// <param name="shouldArchive">Whether to automatically move the message to Archived state
         /// if the message matches the filter criteria</param>
-        /// <returns>a <code>GoogleMailSettingsEntry</code> containing the results of the
+        /// <returns>a <code>AppsExtendedEntry</code> containing the results of the
         /// creation</returns>
 		public AppsExtendedEntry CreateFilter(string userName, string from, string to,
             string subject, string hasTheWords, string doesNotHaveTheWords, string hasAttachment,
@@ -169,7 +170,7 @@ namespace Google.GData.Apps.GoogleMailSettings
         /// <param name="address">The email address which emails sent using the alias are from</param>
         /// <param name="replyTo">If set, this address will be included as the reply-to addres for the alias</param>
         /// <param name="makeDefault">Whether the new alias would be the default email address</param>
-        /// <returns>a <code>GoogleMailSettingsEntry</code> containing the results of the
+        /// <returns>a <code>AppsExtendedEntry</code> containing the results of the
         /// creation</returns>
 		public AppsExtendedEntry CreateSendAs(string userName, string name, string address, string replyTo,
             string makeDefault)
@@ -212,7 +213,7 @@ namespace Google.GData.Apps.GoogleMailSettings
         /// <param name="enable">Whether to enable forwarding of incoming mail</param>
         /// <param name="forwardTo">The email will be forwarded to this address</param>
         /// <param name="action">What Google Mail should do with its copy of the email after forwarding it on</param>
-        /// <returns>a <code>GoogleMailSettingsEntry</code> containing the results of the
+        /// <returns>a <code>AppsExtendedEntry</code> containing the results of the
         /// creation</returns>
 		public AppsExtendedEntry UpdateForwarding(string userName, string enable, string forwardTo, string action)
         {
@@ -253,7 +254,7 @@ namespace Google.GData.Apps.GoogleMailSettings
         /// <param name="enableFor">Whether to enable POP3 for all mail or mail from now on</param>
         /// <param name="action">What Google Mail should do with its copy of the email after 
         /// it is retrieved using POP3</param>
-        /// <returns>a <code>GoogleMailSettingsEntry</code> containing the results of the
+        /// <returns>a <code>AppsExtendedEntry</code> containing the results of the
         /// creation</returns>
 		public AppsExtendedEntry UpdatePop(string userName, string enable, string enableFor, string action)
         {
@@ -291,7 +292,7 @@ namespace Google.GData.Apps.GoogleMailSettings
         /// </summary>
         /// <param name="userName">The user for whom this should be done</param>
         /// <param name="enable">Whether to enable IMAP access</param>
-        /// <returns>a <code>GoogleMailSettingsEntry</code> containing the results of the
+        /// <returns>a <code>AppsExtendedEntry</code> containing the results of the
         /// creation</returns>
 		public AppsExtendedEntry UpdateImap(string userName, string enable)
         {
@@ -324,7 +325,7 @@ namespace Google.GData.Apps.GoogleMailSettings
         /// <param name="subject">The subject line of the vacacion responder autoresponse</param>
         /// <param name="message">The message body of the vacation responder autoresponse</param>
         /// <param name="contactsOnly">Wheter to only send the autoresponse to known contacts</param>
-        /// <returns>a <code>GoogleMailSettingsEntry</code> containing the results of the
+        /// <returns>a <code>AppsExtendedEntry</code> containing the results of the
         /// creation</returns>
 		public AppsExtendedEntry UpdateVacation(string userName, string enable, string subject,
             string message, string contactsOnly)
@@ -367,7 +368,7 @@ namespace Google.GData.Apps.GoogleMailSettings
         /// </summary>
         /// <param name="userName">The user for whom this should be done</param>
         /// <param name="signature">The signature to be appended to outgoing messages</param>
-        /// <returns>a <code>GoogleMailSettingsEntry</code> containing the results of the
+        /// <returns>a <code>AppsExtendedEntry</code> containing the results of the
         /// creation</returns>
 		public AppsExtendedEntry UpdateSignature(string userName, string signature)
         {
@@ -399,7 +400,7 @@ namespace Google.GData.Apps.GoogleMailSettings
         /// </summary>
         /// <param name="userName">The user for whom this should be done</param>
         /// <param name="language">Google Mail's display language</param>
-        /// <returns>a <code>GoogleMailSettingsEntry</code> containing the results of the
+        /// <returns>a <code>AppsExtendedEntry</code> containing the results of the
         /// creation</returns>
 		public AppsExtendedEntry UpdateLanguage(string userName, string language)
         {
@@ -418,7 +419,7 @@ namespace Google.GData.Apps.GoogleMailSettings
         /// </summary>
         /// <param name="userName">The user for whom this should be done</param>
         /// <param name="label">the new Google Mail label</param>
-        /// <returns>a <code>GoogleMailSettingsEntry</code> containing the results of the
+        /// <returns>a <code>AppsExtendedEntry</code> containing the results of the
         /// creation</returns>
 		public AppsExtendedEntry UpdateGeneralSettings(string userName, string pageSize, string shortcuts,
             string arrows, string snippets, string unicode)
@@ -448,6 +449,45 @@ namespace Google.GData.Apps.GoogleMailSettings
                    new PropertyElement(
                    AppsGoogleMailSettingsNameTable.unicode, unicode));
 			return base.Update((AtomEntry)entry) as AppsExtendedEntry;
+        }
+
+        /// <summary>
+        /// Creates a new Google Mail delegation for the given userName
+        /// </summary>
+        /// <param name="userName">The user that grants mailbox access to another user</param>
+        /// <param name="delegationId">Email address of the user receiving access</param>
+        /// <returns>a <code>AppsExtendedEntry</code> containing the results of the
+        /// creation</returns>
+        public AppsExtendedEntry CreateDelegate(string userName, string delegationId) {
+            Uri delegationUri = new Uri(AppsGoogleMailSettingsNameTable.AppsGoogleMailSettingsBaseFeedUri + "/"
+               + domain + "/" + userName + delegationFeedUriSuffix);
+            AppsExtendedEntry entry = new AppsExtendedEntry();
+            entry.Properties.Add(
+                new PropertyElement(AppsGoogleMailSettingsNameTable.delegationId,
+                delegationId));
+            return base.Insert(delegationUri, entry) as AppsExtendedEntry;
+        }
+
+        /// <summary>
+        /// Retrieves all Google Mail delegates for the given userName
+        /// </summary>
+        /// <param name="userName">The user for whom this should be done</param>
+        /// <returns>Feed containing all delegates</returns>
+        public AppsExtendedFeed RetrieveDelegates(string userName) {
+            string uri = AppsGoogleMailSettingsNameTable.AppsGoogleMailSettingsBaseFeedUri + "/"
+                + domain + "/" + userName + delegationFeedUriSuffix;
+            return QueryExtendedFeed(new Uri(uri), true);
+        }
+
+        /// <summary>
+        /// Deletes a Google Mail delegate for the given userName
+        /// </summary>
+        /// <param name="userName">The user for whom this should be done</param>
+        /// <param name="delegationId">Email address of the user we want to revoke access to</param>
+        public void DeleteDelegate(string userName, string delegationId) {
+            string uri = AppsGoogleMailSettingsNameTable.AppsGoogleMailSettingsBaseFeedUri + "/"
+                + domain + "/" + userName + delegationFeedUriSuffix + "/" + delegationId;
+            base.Delete(new Uri(uri));
         }
 
         /// <summary>
