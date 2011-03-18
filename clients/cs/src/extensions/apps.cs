@@ -299,6 +299,7 @@ namespace Google.GData.Extensions.Apps
         public const string arrows = "arrows";
         public const string snippets = "snippets";
         public const string unicode = "unicode";
+        public const string delegationId = "delegationId";
     }
 
     /// <summary>
