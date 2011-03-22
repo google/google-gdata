@@ -425,6 +425,7 @@ namespace Google.GData.Extensions.Apps
 		public const string NewEmail = "newEmail";
 		public const string Password = "password";
 		public const string UserEmail = "userEmail";
+        public const string HashFunction = "hashFunction";
 	}
 
     /// <summary>

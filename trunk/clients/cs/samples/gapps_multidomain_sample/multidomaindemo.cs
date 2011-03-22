@@ -52,7 +52,8 @@ namespace GoogleAppsConsoleApplication
         /// <param name="service"></param>
         private static void RunSample(MultiDomainManagementService service)
         {
-            const String testUserPassword = "password";
+            const String testUserHashFunction = "SHA-1";
+            const String testUserPassword = "51eea05d46317fadd5cad6787a8f562be90b4446";
             const String testUserFirstName = "Liz";
             const String testUserLastName = "Smith";
             const bool testUserIsAdmin = true;
@@ -65,7 +66,7 @@ namespace GoogleAppsConsoleApplication
                 // Create a new Domain User
                 Console.WriteLine("\n-----------Creating domain user-----------");
                 AppsExtendedEntry entry = service.CreateDomainUser(primaryDomain, testUserEmail, testUserPassword,
-                                                 testUserFirstName, testUserLastName, testUserIsAdmin);
+                    testUserHashFunction, testUserFirstName, testUserLastName, testUserIsAdmin);
                 Console.WriteLine("Created: " +
                                   entry.getPropertyValueByName(AppsMultiDomainNameTable.UserEmail));
 

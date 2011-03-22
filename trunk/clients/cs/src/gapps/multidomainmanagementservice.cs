@@ -33,6 +33,23 @@ namespace Google.GData.Apps
         public AppsExtendedEntry CreateDomainUser(String domain, String userEmail, String password,
             String firstName, String lastName, bool isAdmin)
         {
+            return CreateDomainUser(domain, userEmail, password, null, firstName, lastName, isAdmin);
+        }
+
+        /// <summary>
+        /// Creates a new user for the specified domain.
+        /// </summary>
+        /// <param name="domain">The domain to use to create the user</param>
+        /// <param name="userEmail">The user's email address</param>
+        /// <param name="password">The user's password</param>
+        /// <param name="hashFunction">The hashing function used for passwords (MD5/SHA-1)</param>
+        /// <param name="firstName">The user's first name</param>
+        /// <param name="lastName">The user's last name</param>
+        /// <param name="isAdmin">Whether the user is an administrator for the domain</param>
+        /// <returns>The created user</returns>
+        public AppsExtendedEntry CreateDomainUser(String domain, String userEmail, String password,
+            String hashFunction, String firstName, String lastName, bool isAdmin)
+        {
             Uri userUri = new Uri(String.Format("{0}/{1}",
                 AppsMultiDomainNameTable.AppsMultiDomainUserBaseFeedUri, domain));
 
@@ -42,6 +59,9 @@ namespace Google.GData.Apps
             entry.Properties.Add(new PropertyElement(AppsMultiDomainNameTable.FirstName, firstName));
             entry.Properties.Add(new PropertyElement(AppsMultiDomainNameTable.LastName, lastName));
             entry.Properties.Add(new PropertyElement(AppsMultiDomainNameTable.IsAdmin, isAdmin.ToString()));
+            if (!string.IsNullOrEmpty(hashFunction)) {
+                entry.Properties.Add(new PropertyElement(AppsMultiDomainNameTable.HashFunction, hashFunction));
+            }
             return Insert(userUri, entry);
         }
 
