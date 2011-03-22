@@ -117,7 +117,7 @@ namespace Google.Documents
             /// </summary>
             xls,
             /// <summary>
-            /// commma seperated value format
+            /// commma separated value format
             /// </summary>
             csv,
             /// <summary>
@@ -125,9 +125,17 @@ namespace Google.Documents
             /// </summary>
             ods,
             /// <summary>
-            /// tab seperated values format
+            /// tab separated values format
             /// </summary>
-            tsv
+            tsv,
+            /// <summary>
+            /// Scalable Vector Graphics format
+            /// </summary>
+            svg,
+            /// <summary>
+            /// jpeg format
+            /// </summary>
+            jpeg
         }
 
         /// <summary>
