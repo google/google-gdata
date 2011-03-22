@@ -53,6 +53,7 @@ namespace Google.GData.Documents {
         static string PRESENTATION_KIND = DocumentsService.DocumentsNamespace + "#presentation";
         static string DOCUMENT_KIND = DocumentsService.DocumentsNamespace + "#document";
         static string SPREADSHEET_KIND = DocumentsService.DocumentsNamespace + "#spreadsheet";
+        static string DRAWING_KIND = DocumentsService.DocumentsNamespace + "#drawing";
         static string PDF_KIND = DocumentsService.DocumentsNamespace + "#pdf";
         static string FOLDER_KIND = DocumentsService.DocumentsNamespace + "#folder";
         static string FORM_KIND = DocumentsService.DocumentsNamespace + "#form";
@@ -90,6 +91,11 @@ namespace Google.GData.Documents {
         /// </summary>
         public static AtomCategory PRESENTATION_CATEGORY =
             new AtomCategory(PRESENTATION_KIND, new AtomUri(BaseNameTable.gKind), "presentation");
+        /// <summary>
+        /// a predefined atom category for Drawings
+        /// </summary>
+        public static AtomCategory DRAWING_CATEGORY =
+            new AtomCategory(DRAWING_KIND, new AtomUri(BaseNameTable.gKind), "drawing");
         /// <summary>
         /// a predefined atom category for folders
         /// </summary>        
@@ -137,12 +143,6 @@ namespace Google.GData.Documents {
         public static AtomCategory SHARED_CATEGORY =
             new AtomCategory(SHARED_KIND, new AtomUri(BaseNameTable.gLabels), "shared-with-domain");
        
-       
-
-     
-
-
-
         /// <summary>
         /// Constructs a new EventEntry instance with the appropriate category
         /// to indicate that it is an event.
@@ -238,6 +238,18 @@ namespace Google.GData.Documents {
             set 
             {
                 this.ToggleCategory(DocumentEntry.PRESENTATION_CATEGORY, value);
+            }
+        }
+
+        /// <summary>
+        /// Reflects if this entry is a drawing document
+        /// </summary>
+        public bool IsDrawing {
+            get {
+                return this.Categories.Contains(DocumentEntry.DRAWING_CATEGORY);
+            }
+            set {
+                this.ToggleCategory(DocumentEntry.DRAWING_CATEGORY, value);
             }
         }
 

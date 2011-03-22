@@ -64,6 +64,10 @@ namespace Google.Documents
             /// </summary>
             Form,
             /// <summary>
+            /// a drawing
+            /// </summary>
+            Drawing,
+            /// <summary>
             /// something unknown to us
             /// </summary>
             Unknown
@@ -150,8 +154,6 @@ namespace Google.Documents
             }
         }
 
-
-
         /// <summary>
         /// readonly accessor for the DocumentEntry that is underneath this object.
         /// </summary>
@@ -193,6 +195,10 @@ namespace Google.Documents
                 else if (this.DocumentEntry.IsPresentation)
                 {
                     return Document.DocumentType.Presentation;
+                } 
+                else if (this.DocumentEntry.IsDrawing) 
+                {
+                    return Document.DocumentType.Drawing;
                 }
                 return Document.DocumentType.Unknown;
             }
