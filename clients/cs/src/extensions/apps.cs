@@ -415,6 +415,7 @@ namespace Google.GData.Extensions.Apps
 	public class AppsMultiDomainNameTable : AppsNameTable {
 		public const string AppsMultiDomainAliasBaseFeedUri = "https://apps-apis.google.com/a/feeds/alias/2.0";
 		public const string AppsMultiDomainUserBaseFeedUri = "https://apps-apis.google.com/a/feeds/user/2.0";
+        public const string AppsMultiDomainUserEmailBaseFeedUri = "https://apps-apis.google.com/a/feeds/user/userEmail/2.0";
 		public const string AliasEmail = "aliasEmail";
 		public const string FirstName = "firstName";
 		public const string IpWhitelisted = "ipWhitelisted";
