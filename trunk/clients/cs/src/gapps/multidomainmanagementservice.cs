@@ -134,7 +134,8 @@ namespace Google.GData.Apps
         {
             AppsExtendedEntry entry = new AppsExtendedEntry();
             String uri = String.Format("{0}/{1}/{2}",
-                                       AppsMultiDomainNameTable.AppsMultiDomainUserBaseFeedUri, domain, userEmail);
+                                       AppsMultiDomainNameTable.AppsMultiDomainUserEmailBaseFeedUri,
+                                       domain, userEmail);
             entry.EditUri = new Uri(uri);
             entry.Properties.Add(new PropertyElement(AppsMultiDomainNameTable.NewEmail, newEmail));
             return Update(entry);
