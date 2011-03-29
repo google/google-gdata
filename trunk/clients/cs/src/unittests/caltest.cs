@@ -1218,7 +1218,6 @@ namespace Google.GData.Client.LiveTests
         //////////////////////////////////////////////////////////////////////
         /// <summary>runs an enter all day event test</summary> 
         //////////////////////////////////////////////////////////////////////
-        [Ignore ("Currently broken on the server")]
         [Test] public void CalendarCommentTest()
         {
             Tracing.TraceMsg("Entering CalendarCommentTest");
