@@ -1228,6 +1228,7 @@ namespace Google.GData.Client
         /// <param name="s"></param>
         protected void PrepareService(Service s)
         {
+            System.Net.ServicePointManager.Expect100Continue = false;
             if (settings.Credentials != null)
             {
                 s.Credentials = settings.Credentials;

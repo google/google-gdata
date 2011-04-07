@@ -49,7 +49,7 @@ namespace Google.GData.YouTube {
         /// <summary>
         /// the YouTube authentication handler URL
         /// </summary>
-        public const string AuthenticationHandler = "https://www.google.com/youtube/accounts/ClientLogin";
+        public const string AuthenticationHandler = "https://www.google.com/accounts/ClientLogin";
         private string developerID;
 
 
