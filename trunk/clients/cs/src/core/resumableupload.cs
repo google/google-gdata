@@ -119,7 +119,7 @@ namespace Google.GData.Client.ResumableUpload
     {
         // chunksize in Megabytes
         private int chunkSize;
-        private long lastChunk = 0; // the index of the last chunk uploaded
+        private Dictionary<Uri, long> lastChunks = new Dictionary<Uri, long>(); // keeps track of the indexes of the last chunk for each upload
         private static long MB = 1024000;  
    
         /// <summary>
@@ -150,6 +150,7 @@ namespace Google.GData.Client.ResumableUpload
             if (chunkSize < 1)
                 throw new ArgumentException("chunkSize needs to be > 0");
             this.chunkSize = chunkSize;
+            System.Net.ServicePointManager.Expect100Continue = false;
         }
 
         /// <summary>
@@ -498,6 +499,7 @@ namespace Google.GData.Client.ResumableUpload
             HttpWebResponse returnResponse = null;
             // upload one part at a time
             int index = 0;
+            lastChunks.Add(sessionUri, 0);
             bool isDone = false;
 
 
@@ -552,6 +554,7 @@ namespace Google.GData.Client.ResumableUpload
                     response = null;
                 }
             } while (!isDone);
+            lastChunks.Remove(sessionUri);
             return returnResponse;
         }
 
@@ -565,7 +568,7 @@ namespace Google.GData.Client.ResumableUpload
 
             // write the data
             request.ContentType = mediaType;
-            CopyData(payload, request, partIndex, data);
+            CopyData(payload, request, partIndex, data, sessionUri);
     
             HttpWebResponse response = request.GetResponse() as HttpWebResponse;
 
@@ -593,11 +596,11 @@ namespace Google.GData.Client.ResumableUpload
         /// <summary>takes our copy of the stream, and puts it into the request stream
         /// returns FALSE when we are done by reaching the end of the input stream</summary> 
         //////////////////////////////////////////////////////////////////////
-        protected bool CopyData(Stream input, HttpWebRequest request, int partIndex, AsyncData data)
+        protected bool CopyData(Stream input, HttpWebRequest request, int partIndex, AsyncData data, Uri requestId)
         {
            
             long chunkCounter = 0;
-            long chunkStart = lastChunk;
+            long chunkStart = lastChunks[requestId];
             long chunkSizeMb = this.chunkSize * ResumableUploader.MB;
             long dataLength;
 
@@ -630,8 +633,8 @@ namespace Google.GData.Client.ResumableUpload
             // modify the content-range header        
             string contentRange = String.Format("bytes {0}-{1}/{2}", chunkStart, chunkEnd - 1, dataLength > 0 ? dataLength.ToString() : "*");
             request.Headers.Add(HttpRequestHeader.ContentRange, contentRange);
-            
-            lastChunk = chunkEnd; // save the last start index, need to add 503 error handling to this
+
+            lastChunks[requestId] = chunkEnd; // save the last start index, need to add 503 error handling to this
 
             // stream it into the real request stream
             using (Stream req = request.GetRequestStream())
