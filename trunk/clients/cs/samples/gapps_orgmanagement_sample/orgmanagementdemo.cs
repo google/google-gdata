@@ -53,7 +53,7 @@ namespace GoogleAppsConsoleApplication
         {
             try
             {
-                const String testOrgunit = "TestOrgUnitForSample";
+                const String testOrgunit = "TestOrgUnit For Sample";
                 const String testOrgunitDescription = "Test Organization";
 
                 // Retrieve customer Id
@@ -62,7 +62,7 @@ namespace GoogleAppsConsoleApplication
                     entry.getPropertyValueByName(AppsOrganizationNameTable.CustomerId);
                 Console.WriteLine("CustomerId: " + customerId);
 
-                // Delete, if all already exists
+                // Delete, if OU already exists
                 try
                 {
                     service.DeleteOrganizationUnit(customerId, testOrgunit);
@@ -76,8 +76,8 @@ namespace GoogleAppsConsoleApplication
                 entry = service.CreateOrganizationUnit(
                     customerId, testOrgunit, "/", testOrgunitDescription, false);
                
-                Console.WriteLine("Created: " + 
-                    entry.getPropertyValueByName(AppsOrganizationNameTable.OrgUnitName));
+                Console.WriteLine("Created: " +
+                    entry.getPropertyValueByName(AppsOrganizationNameTable.NewOrgUnitPath));
 
                 // Retrieve Organization Unit and list all properties
                 Console.WriteLine("\n-----------Retrieving organization unit---------");

@@ -71,7 +71,7 @@ namespace Google.GData.Apps
         {
             String uri = String.Format("{0}/{1}/{2}",
                                     AppsOrganizationNameTable.AppsOrgUnitBaseFeedUri,
-                                    customerId, orgUnitPath);
+                                    customerId, HttpUtility.UrlEncode(orgUnitPath));
 
             return Get(uri) as AppsExtendedEntry;
 
@@ -111,7 +111,7 @@ namespace Google.GData.Apps
         public void DeleteOrganizationUnit(String customerId, String orgUnitPath)
         {
             String uri = String.Format("{0}/{1}/{2}", AppsOrganizationNameTable.AppsOrgUnitBaseFeedUri, customerId,
-                                       orgUnitPath);
+                                       HttpUtility.UrlEncode(orgUnitPath));
             Delete(new Uri(uri));
         }
 
@@ -128,8 +128,8 @@ namespace Google.GData.Apps
             AppsExtendedEntry entry = new AppsExtendedEntry();
             String uri = String.Format("{0}/{1}/{2}",
                                        AppsOrganizationNameTable.AppsOrgUnitBaseFeedUri, customerId,
-                                       orgUnitPath);
-            entry.EditUri = new Uri(uri);
+                                       HttpUtility.UrlEncode(orgUnitPath));
+            entry.EditUri = new AtomUri(uri);
             foreach (KeyValuePair<OrgUnitProperty, String> mapEntry in attributes)
             {
                 String value = mapEntry.Value;
