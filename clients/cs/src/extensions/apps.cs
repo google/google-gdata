@@ -300,6 +300,9 @@ namespace Google.GData.Extensions.Apps
         public const string snippets = "snippets";
         public const string unicode = "unicode";
         public const string delegationId = "delegationId";
+        public const string shouldStar = "shouldStar";
+        public const string neverSpam = "neverSpam";
+        public const string shouldTrash = "shouldTrash";
     }
 
     /// <summary>

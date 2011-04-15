@@ -27,9 +27,13 @@ namespace GoogleAppsMailSettingsDemo
 				Console.WriteLine(String.Format("First label: {0}",
 					((AppsExtendedEntry)labels.Entries[0]).getPropertyValueByName("label")));
 
-                // Create a filter for emails from test@domain.com 
+                // Create a filter for emails from test@domain.com
                 // for the user testUserName and applies the new label "Test-Label"
                 service.CreateFilter(testUserName, "test@"+domain, "", "", "", "", "", "Test-Label", "true", "");
+
+                // Create a filter for emails having "important" in the subject
+                // for the user testUserName to never send them to Spam and star them
+                service.CreateFilter(testUserName, "", "", "important", "", "", "", "", "", "", "true", "true", "", "");
 
                 // Create a new Send As for the user testUserName
                 service.CreateSendAs(testUserName, "Test email", testUserName+"@"+domain, "", "");
