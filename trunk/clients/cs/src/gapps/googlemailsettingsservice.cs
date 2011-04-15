@@ -98,6 +98,30 @@ namespace Google.GData.Apps.GoogleMailSettings
 		}
 
         /// <summary>
+        /// Creates a new Google Mail filter for the given userName.
+        /// Method overloaded for backward compatibility.
+        /// </summary>
+        /// <param name="userName">The user for whom this should be done</param>
+        /// <param name="from">come-from email address to be filtered</param>
+        /// <param name="to">send-to email address to be filtered</param>
+        /// <param name="subject">a string the email must have on the subject line to be filtered</param>
+        /// <param name="hasTheWords">a string the email can have anywhere in its subject or body</param>
+        /// <param name="doesNotHaveTheWords">a string the email cannot have anywhere in its subject or body</param>
+        /// <param name="hasAttachment">a boolean representing whether or not the emails contains an attachment</param>
+        /// <param name="label">the name of the label to apply if the message matches the filter criteria</param>
+        /// <param name="shouldMarkAsRead">Whether to automatically mark the message as read
+        /// if it matches the filter criteria</param>
+        /// <param name="shouldArchive">Whether to automatically move the message to Archived state
+        /// if it matches the filter criteria</param>
+        /// <returns>a <code>AppsExtendedEntry</code> containing the results of the creation</returns>
+        public AppsExtendedEntry CreateFilter(string userName, string from, string to,
+            string subject, string hasTheWords, string doesNotHaveTheWords, string hasAttachment,
+            string label, string shouldMarkAsRead, string shouldArchive) {
+            return CreateFilter(userName, from, to, subject, hasTheWords, doesNotHaveTheWords, hasAttachment,
+            label, shouldMarkAsRead, shouldArchive, null, null, null, null);
+        }
+
+        /// <summary>
         /// Creates a new Google Mail filter for the given userName
         /// </summary>
         /// <param name="userName">The user for whom this should be done</param>
@@ -109,57 +133,81 @@ namespace Google.GData.Apps.GoogleMailSettings
         /// <param name="hasAttachment">a boolean representing whether or not the emails contains an attachment</param>
         /// <param name="label">the name of the label to apply if the message matches the filter criteria</param>
         /// <param name="shouldMarkAsRead">Whether to automatically mark the message as read
-        /// if the message matches the filter criteria</param>
+        /// if it matches the filter criteria</param>
         /// <param name="shouldArchive">Whether to automatically move the message to Archived state
-        /// if the message matches the filter criteria</param>
-        /// <returns>a <code>AppsExtendedEntry</code> containing the results of the
-        /// creation</returns>
+        /// if it matches the filter criteria</param>
+        /// <param name="shouldStar">Whether to automatically star the message
+        /// if it matches the filter criteria</param>
+        /// <param name="neverSpam">Whether to automatically move the message to Spam state
+        /// if it matches the filter criteria</param>
+        /// <param name="forwardTo">Whether to automatically forward the message to the given 
+        /// verified email address if it matches the filter criteria</param>
+        /// <param name="shouldTrash">Whether to automatically move the message to Trash state
+        /// if it matches the filter criteria</param>
+        /// <returns>a <code>AppsExtendedEntry</code> containing the results of the creation</returns>
 		public AppsExtendedEntry CreateFilter(string userName, string from, string to,
             string subject, string hasTheWords, string doesNotHaveTheWords, string hasAttachment,
-            string label, string shouldMarkAsRead, string shouldArchive)
+            string label, string shouldMarkAsRead, string shouldArchive,
+            string shouldStar, string neverSpam, string forwardTo, string shouldTrash)
         {
-            Uri fitlerUri = new Uri(AppsGoogleMailSettingsNameTable.AppsGoogleMailSettingsBaseFeedUri + "/"
+            Uri filterUri = new Uri(AppsGoogleMailSettingsNameTable.AppsGoogleMailSettingsBaseFeedUri + "/"
                 + domain + "/" + userName + filterFeedUriSuffix);
 			AppsExtendedEntry entry = new AppsExtendedEntry();
-            if (from != null && from != String.Empty)
+            if (!string.IsNullOrEmpty(from))
                 entry.Properties.Add(
                     new PropertyElement(
                     AppsGoogleMailSettingsNameTable.from, from));
-            if (to != null && to != String.Empty)
+            if (!string.IsNullOrEmpty(to))
                 entry.Properties.Add(
                     new PropertyElement(
                     AppsGoogleMailSettingsNameTable.to, to));
-            if (subject != null && subject != String.Empty)
+            if (!string.IsNullOrEmpty(subject))
                 entry.Properties.Add(
                     new PropertyElement(
                     AppsGoogleMailSettingsNameTable.subject, subject));
-            if (hasTheWords != null && hasTheWords != String.Empty)
+            if (!string.IsNullOrEmpty(hasTheWords))
                 entry.Properties.Add(
                     new PropertyElement(
                     AppsGoogleMailSettingsNameTable.hasTheWord, hasTheWords));
-            if (doesNotHaveTheWords != null && doesNotHaveTheWords != String.Empty)
+            if (!string.IsNullOrEmpty(doesNotHaveTheWords))
                 entry.Properties.Add(
                     new PropertyElement(
                     AppsGoogleMailSettingsNameTable.doesNotHaveTheWord,
                     doesNotHaveTheWords));
-            if (hasAttachment != null && hasAttachment != String.Empty)
+            if (!string.IsNullOrEmpty(hasAttachment))
                 entry.Properties.Add(
                     new PropertyElement(
                     AppsGoogleMailSettingsNameTable.hasAttachment, hasAttachment));
-            if (label != null && label != String.Empty)
+            if (!string.IsNullOrEmpty(label))
                 entry.Properties.Add(
                     new PropertyElement(
                     AppsGoogleMailSettingsNameTable.label, label));
-            if (shouldMarkAsRead != null && shouldMarkAsRead != String.Empty)
+            if (!string.IsNullOrEmpty(shouldMarkAsRead))
                 entry.Properties.Add(
                     new PropertyElement(
                     AppsGoogleMailSettingsNameTable.shouldMarkAsRead,
                     shouldMarkAsRead));
-            if (shouldArchive != null && shouldArchive != String.Empty)
+            if (!string.IsNullOrEmpty(shouldArchive))
                 entry.Properties.Add(
                     new PropertyElement(
                     AppsGoogleMailSettingsNameTable.shouldArchive, shouldArchive));
-			return base.Insert(fitlerUri, entry) as AppsExtendedEntry;
+            if (!string.IsNullOrEmpty(shouldStar))
+                entry.Properties.Add(
+                    new PropertyElement(
+                    AppsGoogleMailSettingsNameTable.shouldStar, shouldStar));
+            if (!string.IsNullOrEmpty(neverSpam))
+                entry.Properties.Add(
+                    new PropertyElement(
+                    AppsGoogleMailSettingsNameTable.neverSpam, neverSpam));
+            if (!string.IsNullOrEmpty(forwardTo))
+                entry.Properties.Add(
+                    new PropertyElement(
+                    AppsGoogleMailSettingsNameTable.forwardTo, forwardTo));
+            if (!string.IsNullOrEmpty(shouldTrash))
+                entry.Properties.Add(
+                    new PropertyElement(
+                    AppsGoogleMailSettingsNameTable.shouldTrash, shouldTrash));
+            return base.Insert(filterUri, entry) as AppsExtendedEntry;
         }
 
         /// <summary>
@@ -175,7 +223,7 @@ namespace Google.GData.Apps.GoogleMailSettings
 		public AppsExtendedEntry CreateSendAs(string userName, string name, string address, string replyTo,
             string makeDefault)
         {
-            Uri sendaslUri = new Uri(AppsGoogleMailSettingsNameTable.AppsGoogleMailSettingsBaseFeedUri + "/"
+            Uri sendasUri = new Uri(AppsGoogleMailSettingsNameTable.AppsGoogleMailSettingsBaseFeedUri + "/"
                 + domain + "/" + userName + sendasFeedUriSuffix);
 			AppsExtendedEntry entry = new AppsExtendedEntry();
             entry.Properties.Add(
@@ -184,15 +232,15 @@ namespace Google.GData.Apps.GoogleMailSettings
             entry.Properties.Add(
                 new PropertyElement(
                 AppsGoogleMailSettingsNameTable.address, address));
-            if (replyTo != null && replyTo != String.Empty)
+            if (!string.IsNullOrEmpty(replyTo))
                 entry.Properties.Add(
                     new PropertyElement(
                     AppsGoogleMailSettingsNameTable.replyTo, replyTo));
-            if (makeDefault != null && makeDefault != String.Empty)
+            if (!string.IsNullOrEmpty(makeDefault))
                 entry.Properties.Add(
                     new PropertyElement(
                     AppsGoogleMailSettingsNameTable.makeDefault, makeDefault));
-			return base.Insert(sendaslUri, entry) as AppsExtendedEntry;
+            return base.Insert(sendasUri, entry) as AppsExtendedEntry;
         }
 
 		/// <summary>
@@ -224,11 +272,11 @@ namespace Google.GData.Apps.GoogleMailSettings
             entry.Properties.Add(
                 new PropertyElement(
                 AppsGoogleMailSettingsNameTable.enable, enable));
-            if (forwardTo != null && forwardTo != String.Empty)
+            if (!string.IsNullOrEmpty(forwardTo))
                 entry.Properties.Add(
                     new PropertyElement(
                     AppsGoogleMailSettingsNameTable.forwardTo, forwardTo));
-            if (action != null && action != String.Empty)
+            if (!string.IsNullOrEmpty(action))
                 entry.Properties.Add(
                     new PropertyElement(
                     AppsGoogleMailSettingsNameTable.action, action));
@@ -265,11 +313,11 @@ namespace Google.GData.Apps.GoogleMailSettings
             entry.Properties.Add(
                 new PropertyElement(
                 AppsGoogleMailSettingsNameTable.enable, enable));
-            if (enableFor != null && enableFor != String.Empty)
+            if (!string.IsNullOrEmpty(enableFor))
                 entry.Properties.Add(
                     new PropertyElement(
                     AppsGoogleMailSettingsNameTable.enableFor, enableFor));
-            if (action != null && action != String.Empty)
+            if (!string.IsNullOrEmpty(action))
                 entry.Properties.Add(
                     new PropertyElement(
                     AppsGoogleMailSettingsNameTable.action, action));
@@ -337,15 +385,15 @@ namespace Google.GData.Apps.GoogleMailSettings
             entry.Properties.Add(
                 new PropertyElement(
                 AppsGoogleMailSettingsNameTable.enable, enable));
-            if (subject != null && subject != String.Empty)
+            if (!string.IsNullOrEmpty(subject))
                 entry.Properties.Add(
                     new PropertyElement(
                     AppsGoogleMailSettingsNameTable.subject, subject));
-            if (message != null && message != String.Empty)
+            if (!string.IsNullOrEmpty(message))
                 entry.Properties.Add(
                     new PropertyElement(
                     AppsGoogleMailSettingsNameTable.message, message));
-            if (contactsOnly != null && contactsOnly != String.Empty)
+            if (!string.IsNullOrEmpty(contactsOnly))
                 entry.Properties.Add(
                     new PropertyElement(
                     AppsGoogleMailSettingsNameTable.contactsOnly, contactsOnly));
@@ -428,23 +476,23 @@ namespace Google.GData.Apps.GoogleMailSettings
                 + domain + "/" + userName + generalFeedUriSuffix);
 			AppsExtendedEntry entry = new AppsExtendedEntry();
             entry.EditUri = generalUri;
-            if (pageSize != null && pageSize != String.Empty)
+            if (!string.IsNullOrEmpty(pageSize))
                 entry.Properties.Add(
                    new PropertyElement(
                    AppsGoogleMailSettingsNameTable.pageSize, pageSize));
-            if (shortcuts != null && shortcuts != String.Empty)
+            if (!string.IsNullOrEmpty(shortcuts))
                 entry.Properties.Add(
                    new PropertyElement(
                    AppsGoogleMailSettingsNameTable.shortcuts, shortcuts));
-            if (arrows != null && arrows != String.Empty)
+            if (!string.IsNullOrEmpty(arrows))
                 entry.Properties.Add(
                    new PropertyElement(
                    AppsGoogleMailSettingsNameTable.arrows, arrows));
-            if (snippets != null && snippets != String.Empty)
+            if (!string.IsNullOrEmpty(snippets))
                 entry.Properties.Add(
                    new PropertyElement(
                    AppsGoogleMailSettingsNameTable.snippets, snippets));
-            if (unicode != null && unicode != String.Empty)
+            if (!string.IsNullOrEmpty(unicode))
                 entry.Properties.Add(
                    new PropertyElement(
                    AppsGoogleMailSettingsNameTable.unicode, unicode));
@@ -463,7 +511,7 @@ namespace Google.GData.Apps.GoogleMailSettings
                + domain + "/" + userName + delegationFeedUriSuffix);
             AppsExtendedEntry entry = new AppsExtendedEntry();
             entry.Properties.Add(
-                new PropertyElement(AppsGoogleMailSettingsNameTable.delegationId,
+                new PropertyElement(AppsGoogleMailSettingsNameTable.address,
                 delegationId));
             return base.Insert(delegationUri, entry) as AppsExtendedEntry;
         }
