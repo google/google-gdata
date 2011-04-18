@@ -82,6 +82,7 @@ namespace Google.GData.Documents {
             DocumentTypes.Add("PPT", "application/vnd.ms-powerpoint");
             DocumentTypes.Add("PPS", "application/vnd.ms-powerpoint");
             DocumentTypes.Add("PDF", "application/pdf");
+            DocumentTypes.Add("PPTX", "application/vnd.openxmlformats-officedocument.presentationml.presentation");
         }
 
         /// <summary>

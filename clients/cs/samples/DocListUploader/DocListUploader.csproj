@@ -44,21 +44,21 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Google.GData.AccessControl, Version=1.6.1.26024, Culture=neutral, PublicKeyToken=b4b8eb9a7afc8328, processorArchitecture=MSIL">
+    <Reference Include="Google.GData.AccessControl, Version=1.7.0.19036, Culture=neutral, PublicKeyToken=b4b8eb9a7afc8328, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\Release\Google.GData.AccessControl.dll</HintPath>
+      <HintPath>..\..\src\documents3\bin\Debug\Google.GData.AccessControl.dll</HintPath>
     </Reference>
-    <Reference Include="Google.GData.Client, Version=1.6.1.26396, Culture=neutral, PublicKeyToken=04a59ca9b0273830, processorArchitecture=MSIL">
+    <Reference Include="Google.GData.Client, Version=1.7.0.23263, Culture=neutral, PublicKeyToken=04a59ca9b0273830, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\Release\Google.GData.Client.dll</HintPath>
+      <HintPath>..\..\src\documents3\bin\Debug\Google.GData.Client.dll</HintPath>
     </Reference>
-    <Reference Include="Google.GData.Documents, Version=1.6.1.26025, Culture=neutral, PublicKeyToken=e4daaad656f19bb9, processorArchitecture=MSIL">
+    <Reference Include="Google.GData.Documents, Version=1.7.0.19037, Culture=neutral, PublicKeyToken=e4daaad656f19bb9, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\Release\Google.GData.Documents.dll</HintPath>
+      <HintPath>..\..\src\documents3\bin\Debug\Google.GData.Documents.dll</HintPath>
     </Reference>
-    <Reference Include="Google.GData.Extensions, Version=1.6.1.26401, Culture=neutral, PublicKeyToken=0b4c5df2ebf20876, processorArchitecture=MSIL">
+    <Reference Include="Google.GData.Extensions, Version=1.7.0.19036, Culture=neutral, PublicKeyToken=0b4c5df2ebf20876, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\Release\Google.GData.Extensions.dll</HintPath>
+      <HintPath>..\..\src\documents3\bin\Debug\Google.GData.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
