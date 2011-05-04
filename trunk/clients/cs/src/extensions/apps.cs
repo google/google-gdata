@@ -446,6 +446,59 @@ namespace Google.GData.Extensions.Apps
     }
 
     /// <summary>
+    /// Name table for Google Apps extensions specific to the Audit API
+    /// </summary>
+    public class AuditNameTable : AppsNameTable {
+        public const string AuditBaseFeedUri = "https://apps-apis.google.com/a/feeds/compliance/audit";
+        public const string dateFormat = "yyyy-MM-dd HH:mm";
+        public const string publicKeyUri = "publickey";
+        public const string publicKeyProperty = "publicKey";
+        public const string requestId = "requestId"; 
+        public const string destUserName = "destUserName";
+        public const string beginDate = "beginDate";
+        public const string endDate = "endDate";
+        public const string incomingEmailMonitorLevel = "incomingEmailMonitorLevel";
+        public const string outgoingEmailMonitorLevel = "outgoingEmailMonitorLevel";
+        public const string draftMonitorLevel = "draftMonitorLevel";
+        public const string chatMonitorLevel = "chatMonitorLevel";
+        public const string mail = "mail";
+        public const string monitor = "monitor";
+        public const string searchQuery = "searchQuery";
+        public const string includeDeleted = "includeDeleted";
+        public const string packageContent = "packageContent";
+        public const string export = "export";
+        public const string fromDate = "fromDate";
+        public const string account = "account";
+        public const string userEmailAddress = "userEmailAddress";
+        public const string adminEmailAddress = "adminEmailAddress";
+        public const string requestDate = "requestDate";
+        public const string status = "status";
+        public const string numberOfFiles = "numberOfFiles";
+        public const string completedDate = "completedDate";
+        public const string fileUrl = "fileUrl";
+    }
+
+    /// <summary>
+    /// The amount of Audit information to be captured.
+    /// </summary>
+    public enum MonitorLevel {
+        FULL_MESSAGE,
+        HEADER_ONLY
+    }
+
+    /// <summary>
+    /// The status of a request.
+    /// </summary>
+    public enum RequestStatus {
+        PENDING,
+        COMPLETED,
+        ERROR,
+        EXPIRED,
+        MARKED_DELETE,
+        DELETED
+    }
+
+    /// <summary>
     /// Extension element sed to model a Google Apps email list.
     /// Has attribute "name".
     /// </summary>
