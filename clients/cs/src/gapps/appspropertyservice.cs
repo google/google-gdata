@@ -40,7 +40,7 @@ namespace Google.GData.Apps
             // proxy that filters out HTTP methods such as PUT and DELETE.
         }
 
-        private string domain;
+        protected string domain;
 
         /// <summary>
         /// Accessor for Domain property.
@@ -61,7 +61,7 @@ namespace Google.GData.Apps
             {
                 throw new ArgumentNullException("e");
             }
-            if (e.CreatingEntry)
+            if (e.CreatingEntry && !(e.Entry is AppsExtendedEntry))
             {
                 e.Entry = new AppsExtendedEntry();
             }
@@ -89,7 +89,7 @@ namespace Google.GData.Apps
             try
             {
                 Stream feedStream = base.Query(uri);
-                AppsExtendedFeed feed = new AppsExtendedFeed(uri, this);
+                AppsExtendedFeed feed = getFeed(uri, this);
                 feed.Parse(feedStream, AlternativeFormat.Atom);
                 feedStream.Close();
                 if (shouldGetAllPages)
@@ -130,6 +130,10 @@ namespace Google.GData.Apps
                 throw new ArgumentNullException("e");
             }
             e.Feed = new AppsExtendedFeed(e.Uri, e.Service);
+        }
+
+        protected virtual AppsExtendedFeed getFeed(Uri uri, IService service) {
+            return new AppsExtendedFeed(uri, service);
         }
     }
 }

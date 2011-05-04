@@ -88,6 +88,19 @@ namespace Google.GData.Apps
         }
 
         /// <summary>
+        /// Sets the Value of an existing PropertyElement by its Name or creates a new one
+        /// with the specified value.
+        /// </summary>
+        public void addOrUpdatePropertyValue(string name, string value) {
+            PropertyElement property = this.getPropertyByName(name);
+            if (property != null) {
+                property.Value = value;
+            } else {
+                this.Properties.Add(new PropertyElement(name, value));
+            }
+        }
+
+        /// <summary>
         /// Updates this AppsExtendedEntry.
         /// </summary>
         /// <returns>the updated GroupsEntry</returns>
