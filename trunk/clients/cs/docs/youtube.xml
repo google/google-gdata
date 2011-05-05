@@ -4,10 +4,16 @@
         <name>Google.GData.YouTube</name>
     </assembly>
     <members>
-        <member name="T:Google.GData.YouTube.ProfileFeed">
+        <member name="T:Google.GData.YouTube.FriendsFeed">
             <summary>
-            A user profile contains information that the user lists on his YouTube 
-            profile page.
+            A user's contacts feed lists all of the contacts for a specified user.
+            To request the currently logged-in user's contact list, send an HTTP
+             GET request to the following URL. 
+                http://gdata.youtube.com/feeds/api/users/default/contacts
+            To request another user's contact list, send an HTTP GET request to the following URL. 
+                http://gdata.youtube.com/feeds/api/users/username/contacts
+            In the URL above, you must replace the text username with the user's YouTube username.
+            Contacts can be classified as either Friends or Family.
             </summary>
         </member>
         <member name="T:Google.GData.YouTube.YouTubeFeed">
@@ -44,22 +50,169 @@
             <param name="e"></param>
             <param name="parser">the atom feed parser used</param>
         </member>
-        <member name="M:Google.GData.YouTube.ProfileFeed.#ctor(System.Uri,Google.GData.Client.IService)">
+        <member name="M:Google.GData.YouTube.FriendsFeed.#ctor(System.Uri,Google.GData.Client.IService)">
             <summary>
              default constructor
             </summary>
             <param name="uriBase">the base URI of the feedEntry</param>
             <param name="iService">the Service to use</param>
         </member>
-        <member name="M:Google.GData.YouTube.ProfileFeed.CreateFeedEntry">
+        <member name="M:Google.GData.YouTube.FriendsFeed.CreateFeedEntry">
             <summary>
             this needs to get implemented by subclasses
             </summary>
             <returns>AtomEntry</returns>
         </member>
-        <member name="T:Google.GData.YouTube.ProfileEntry">
+        <member name="T:Google.GData.YouTube.YouTubeService">
             <summary>
-            A user profile contains information that the user lists on his YouTube profile page.
+            The YouTube Data API allows applications to perform functions normally 
+            executed on the YouTube website. The API enables your application to search 
+            for YouTube videos and to retrieve standard video feeds, comments and video
+            responses. 
+            In addition, the API lets your application upload videos to YouTube or 
+            update existing videos. Your can also retrieve playlists, subscriptions, 
+            user profiles and more. Finally, your application can submit 
+            authenticated requests to enable users to create playlists, 
+            subscriptions, contacts and other account-specific entities.
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YouTubeService.DefaultCategory">
+            <summary>
+            default category for YouTube
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YouTubeService.AuthenticationHandler">
+            <summary>
+            the YouTube authentication handler URL
+            </summary>
+        </member>
+        <member name="M:Google.GData.YouTube.YouTubeService.#ctor(System.String,System.String,System.String)">
+            <summary>
+             default constructor
+            </summary>
+            <param name="applicationName">the applicationname</param>
+            <param name="client">the client identifier</param>
+            <param name="developerKey">the developerKey</param>/// 
+        </member>
+        <member name="M:Google.GData.YouTube.YouTubeService.#ctor(System.String)">
+            <summary>
+             readonly constructor 
+            </summary>
+            <param name="applicationName">the application identifier</param>
+        </member>
+        <member name="M:Google.GData.YouTube.YouTubeService.Query(Google.GData.YouTube.YouTubeQuery)">
+            <summary>
+            overloaded to create typed version of Query
+            </summary>
+            <param name="feedQuery"></param>
+            <returns>EventFeed</returns>
+        </member>
+        <member name="M:Google.GData.YouTube.YouTubeService.GetPlaylist(Google.GData.YouTube.YouTubeQuery)">
+            <summary>
+            returns a playlist feed based on a youtubeQuery
+            </summary>
+            <param name="feedQuery"></param>
+            <returns>EventFeed</returns>
+        </member>
+        <member name="M:Google.GData.YouTube.YouTubeService.GetFriends(Google.GData.YouTube.YouTubeQuery)">
+            <summary>
+            returns a playlist feed based on a youtubeQuery
+            </summary>
+            <param name="feedQuery"></param>
+            <returns>EventFeed</returns>
+        </member>
+        <member name="M:Google.GData.YouTube.YouTubeService.GetPlaylists(Google.GData.YouTube.YouTubeQuery)">
+            <summary>
+            returns a playlists feed based on a youtubeQuery
+            </summary>
+            <param name="feedQuery"></param>
+            <returns>EventFeed</returns>
+        </member>
+        <member name="M:Google.GData.YouTube.YouTubeService.GetSubscriptions(Google.GData.YouTube.YouTubeQuery)">
+            <summary>
+            returns a subscription feed based on a youtubeQuery
+            </summary>
+            <param name="feedQuery"></param>
+            <returns>EventFeed</returns>
+        </member>
+        <member name="M:Google.GData.YouTube.YouTubeService.GetMessages(Google.GData.YouTube.YouTubeQuery)">
+            <summary>
+            returns a message feed based on a youtubeQuery
+            </summary>
+            <param name="feedQuery"></param>
+            <returns>EventFeed</returns>
+        </member>
+        <member name="M:Google.GData.YouTube.YouTubeService.Query(Google.GData.YouTube.ActivitiesQuery)">
+            <summary>
+            overloaded to create typed version of Query. Returns an 
+            Activities feed
+            </summary>
+            <param name="feedQuery"></param>
+            <returns>ActivitiesFeed</returns>
+        </member>
+        <member name="M:Google.GData.YouTube.YouTubeService.Upload(System.String,Google.GData.YouTube.YouTubeEntry)">
+            <summary>
+            upload a new video to this users youtube account
+            </summary>
+            <param name="userName">the username (account) to use</param>
+            <param name="entry">the youtube entry</param>
+            <returns></returns>
+        </member>
+        <member name="M:Google.GData.YouTube.YouTubeService.Upload(Google.GData.YouTube.YouTubeEntry)">
+            <summary>
+            upload a new video to the default/authenticated account
+            </summary>
+            <param name="entry">the youtube entry</param>
+            <returns></returns>
+        </member>
+        <member name="M:Google.GData.YouTube.YouTubeService.InitVersionInformation">
+            <summary>
+            by default all services now use version 1 for the protocol.
+            this needs to be overridden by a service to specify otherwise. 
+            YouTube uses version 2
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Google.GData.YouTube.YouTubeService.FormUpload(Google.GData.YouTube.YouTubeEntry)">
+            <summary>
+            Method for browser-based upload, gets back a non-Atom response
+            </summary>
+            <param name="newEntry">The YouTubeEntry containing the metadata for a video upload</param>
+            <returns>A FormUploadToken object containing an upload token and POST url</returns>
+        </member>
+        <member name="M:Google.GData.YouTube.YouTubeService.OnRequestFactoryChanged">
+            <summary>
+            notifier if someone changes the requestfactory of the service
+            </summary>
+        </member>
+        <member name="M:Google.GData.YouTube.YouTubeService.OnNewFeed(System.Object,Google.GData.Client.ServiceEventArgs)">
+            <summary>eventchaining. We catch this by from the base service, which 
+            would not by default create an atomFeed</summary> 
+            <param name="sender"> the object which send the event</param>
+            <param name="e">FeedParserEventArguments, holds the feedentry</param> 
+            <returns> </returns>
+        </member>
+        <member name="T:Google.GData.YouTube.YouTubeCategoryCollection">
+            <summary>
+             this is a helper class just for parsing the category document
+            </summary>
+        </member>
+        <member name="M:Google.GData.YouTube.YouTubeCategoryCollection.CreateAtomSubElement(System.Xml.XmlReader,Google.GData.Client.AtomFeedParser)">
+            <summary>
+            this is the subclassing method for AtomBase derived 
+            classes to overload what childelements should be created
+            needed to create CustomLink type objects, like WebContentLink etc
+            </summary>
+            <param name="reader">The XmlReader that tells us what we are working with</param>
+            <param name="parser">the parser is primarily used for nametable comparisons</param>
+            <returns>AtomBase</returns>
+        </member>
+        <member name="P:Google.GData.YouTube.YouTubeCategoryCollection.XmlName">
+            <summary>Returns the constant representing this XML element.</summary> 
+        </member>
+        <member name="T:Google.GData.YouTube.YouTubeEntry">
+            <summary>
+            Entry API customization class for defining entries in a YouTubeFeed feed.
             </summary>
         </member>
         <member name="T:Google.GData.YouTube.YouTubeBaseEntry">
@@ -117,162 +270,6 @@
             is still supported
             </summary>
             <returns></returns>
-        </member>
-        <member name="F:Google.GData.YouTube.ProfileEntry.PROFILE_CATEGORY">
-            <summary>
-            Category used to label entries that friends
-            </summary>
-        </member>
-        <member name="M:Google.GData.YouTube.ProfileEntry.#ctor">
-            <summary>
-            Constructs a new ProfileEntry instance
-            </summary>
-        </member>
-        <member name="P:Google.GData.YouTube.ProfileEntry.Age">
-            <summary>
-            The yt:ag> tag specifies the user's age, which is calculated based on the birthdate provided 
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="P:Google.GData.YouTube.ProfileEntry.Company">
-            <summary>
-            The yt:company tag identifies the company that the user works for as entered by the user 
-            in the user's public YouTube profile
-            </summary>
-        </member>
-        <member name="P:Google.GData.YouTube.ProfileEntry.Books">
-            <summary>
-            The yt:books tag identifies the user's favorite books as entered in the user's YouTube public profile
-            </summary>
-        </member>
-        <member name="P:Google.GData.YouTube.ProfileEntry.Firstname">
-            <summary>
-            the users firstname per public profile
-            </summary>
-        </member>
-        <member name="P:Google.GData.YouTube.ProfileEntry.Lastname">
-            <summary>
-            the users lastname per public profile
-            </summary>
-        </member>
-        <member name="P:Google.GData.YouTube.ProfileEntry.Hobbies">
-            <summary>
-            the users hobbies per public profile
-            </summary>
-        </member>
-        <member name="P:Google.GData.YouTube.ProfileEntry.Gender">
-            <summary>
-            the users gender per public profile
-            </summary>
-        </member>
-        <member name="P:Google.GData.YouTube.ProfileEntry.Location">
-            <summary>
-            the users location per public profile
-            </summary>
-        </member>
-        <member name="P:Google.GData.YouTube.ProfileEntry.Movies">
-            <summary>
-            the users favorite movies per public profile
-            </summary>
-        </member>
-        <member name="P:Google.GData.YouTube.ProfileEntry.Music">
-            <summary>
-            the users favorite music per public profile
-            </summary>
-        </member>
-        <member name="P:Google.GData.YouTube.ProfileEntry.Occupation">
-            <summary>
-            the users occupation per public profile
-            </summary>
-        </member>
-        <member name="P:Google.GData.YouTube.ProfileEntry.School">
-            <summary>
-            the users school per public profile
-            </summary>
-        </member>
-        <member name="P:Google.GData.YouTube.ProfileEntry.UserName">
-            <summary>
-            getter/setter for UserName subelement
-            </summary>
-        </member>
-        <member name="P:Google.GData.YouTube.ProfileEntry.Relationship">
-            <summary>
-            The yt:relationship tag identifies the user's relationship status
-            </summary>
-        </member>
-        <member name="P:Google.GData.YouTube.ProfileEntry.Hometown">
-            <summary>
-            The yt:hometown tag identifies the user's hometown
-            </summary>
-        </member>
-        <member name="P:Google.GData.YouTube.ProfileEntry.Statistics">
-            <summary>
-            returns the yt:statistics element
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="P:Google.GData.YouTube.ProfileEntry.FeedLinks">
-            <summary>
-             property accessor for the Thumbnails 
-            </summary>
-        </member>
-        <member name="P:Google.GData.YouTube.ProfileEntry.Description">
-            <summary>
-            getter/setter for Description subelement
-            </summary>
-        </member>
-        <member name="T:Google.GData.YouTube.FriendsEntry">
-            <summary>
-            An individual entry inside the FriendsFeed. It represents a contact of the user
-            </summary>
-        </member>
-        <member name="F:Google.GData.YouTube.FriendsEntry.FRIENDS_CATEGORY">
-            <summary>
-            Category used to label entries that friends
-            </summary>
-        </member>
-        <member name="M:Google.GData.YouTube.FriendsEntry.#ctor">
-            <summary>
-            Constructs a new FriendsEntry instance
-            </summary>
-        </member>
-        <member name="P:Google.GData.YouTube.FriendsEntry.Status">
-            <summary>
-            getter/setter for Status subelement
-            </summary>
-        </member>
-        <member name="P:Google.GData.YouTube.FriendsEntry.UserName">
-            <summary>
-            getter/setter for UserName subelement
-            </summary>
-        </member>
-        <member name="T:Google.GData.YouTube.MessageFeed">
-            <summary>
-            Messages can be sent between YouTube users, optionally including a video.
-            </summary>
-        </member>
-        <member name="M:Google.GData.YouTube.MessageFeed.#ctor(System.Uri,Google.GData.Client.IService)">
-            <summary>
-             default constructor
-            </summary>
-            <param name="uriBase">the base URI of the feedEntry</param>
-            <param name="iService">the Service to use</param>
-        </member>
-        <member name="M:Google.GData.YouTube.MessageFeed.CreateFeedEntry">
-            <summary>
-            this needs to get implemented by subclasses
-            </summary>
-            <returns>AtomEntry</returns>
-        </member>
-        <member name="T:Google.GData.YouTube.MessageEntry">
-            <summary>
-            Entry API customization class for defining entries in an messages feed.
-            </summary>
-        </member>
-        <member name="T:Google.GData.YouTube.YouTubeEntry">
-            <summary>
-            Entry API customization class for defining entries in a YouTubeFeed feed.
-            </summary>
         </member>
         <member name="M:Google.GData.YouTube.YouTubeEntry.#ctor">
             <summary>
@@ -372,701 +369,6 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="F:Google.GData.YouTube.MessageEntry.MESSAGE_CATEGORY">
-            <summary>
-            Category used to label entries as Playlistentries
-            </summary>
-        </member>
-        <member name="M:Google.GData.YouTube.MessageEntry.#ctor">
-            <summary>
-            Constructs a new PlayListEntry instance
-            </summary>
-        </member>
-        <member name="P:Google.GData.YouTube.MessageEntry.Description">
-            <summary>
-            getter/setter for Description subelement
-            </summary>
-        </member>
-        <member name="T:Google.GData.YouTube.PlaylistFeed">
-            <summary>
-            The YouTube Data API allows applications to perform functions normally 
-            executed on the YouTube website. The API enables your application to search 
-            for YouTube videos and to retrieve standard video feeds, comments and video
-            responses. 
-            In addition, the API lets your application upload videos to YouTube or 
-            update existing videos. Your can also retrieve playlists, subscriptions, 
-            user profiles and more. Finally, your application can submit 
-            authenticated requests to enable users to create playlists, 
-            subscriptions, contacts and other account-specific entities.
-            </summary>
-        </member>
-        <member name="M:Google.GData.YouTube.PlaylistFeed.#ctor(System.Uri,Google.GData.Client.IService)">
-            <summary>
-             default constructor
-            </summary>
-            <param name="uriBase">the base URI of the feedEntry</param>
-            <param name="iService">the Service to use</param>
-        </member>
-        <member name="M:Google.GData.YouTube.PlaylistFeed.CreateFeedEntry">
-            <summary>
-            this needs to get implemented by subclasses
-            </summary>
-            <returns>AtomEntry</returns>
-        </member>
-        <member name="T:Google.GData.YouTube.SubscriptionEntry">
-            <summary>
-            The gd:feedLink tag in the entry identifies the URL that allows 
-            you to retrieve videos for the subscription.
-            For one of the category tags in the entry, the scheme attribute
-            value will be http://gdata.youtube.com/schemas/2007/subscriptiontypes.cat. 
-            That tag's term attribute indicates whether the entry describes a 
-            subscription to a channel (term="channel"), another user's 
-            favorite videos list (term="favorites"), or to videos that match
-             specific keywords (term="query").
-            If the subscription is to another user's channel or list of favorite videos, 
-            the yt:username tag will identify the user who owns the channel or favorite video list.
-            If the subscription is to a keyword query, the yt:queryString element will
-            contain the subscribed-to query term.
-            </summary>
-        </member>
-        <member name="F:Google.GData.YouTube.SubscriptionEntry.SUBSCRIPTION_CATEGORY">
-            <summary>
-            Category used to label entries that are subscriptions
-            </summary>
-        </member>
-        <member name="M:Google.GData.YouTube.SubscriptionEntry.#ctor">
-            <summary>
-            Constructs a new YouTubeEntry instance
-            </summary>
-        </member>
-        <member name="P:Google.GData.YouTube.SubscriptionEntry.Type">
-            <summary>
-            get's and set's the associated atom:category
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="P:Google.GData.YouTube.SubscriptionEntry.UserName">
-            <summary>
-            getter/setter for UserName subelement
-            </summary>
-        </member>
-        <member name="P:Google.GData.YouTube.SubscriptionEntry.QueryString">
-            <summary>
-            getter/setter for QueryString subelement
-            </summary>
-        </member>
-        <member name="P:Google.GData.YouTube.SubscriptionEntry.PlaylistId">
-            <summary>
-            getter/setter for PlaylistId subelement
-            </summary>
-        </member>
-        <member name="P:Google.GData.YouTube.SubscriptionEntry.PlaylistTitle">
-            <summary>
-            getter/setter for PlaylistTitle subelement
-            </summary>
-        </member>
-        <member name="T:Google.GData.YouTube.SubscriptionEntry.SubscriptionType">
-            <summary>
-            describes the subscription types for a subscription feed
-            </summary>
-        </member>
-        <member name="F:Google.GData.YouTube.SubscriptionEntry.SubscriptionType.channel">
-            <summary>
-            indicates a channel subscription
-            </summary>
-        </member>
-        <member name="F:Google.GData.YouTube.SubscriptionEntry.SubscriptionType.favorites">
-            <summary>
-            indicates a user favorites subscription
-            </summary>
-        </member>
-        <member name="F:Google.GData.YouTube.SubscriptionEntry.SubscriptionType.query">
-            <summary>
-            indicates a query based subscription
-            </summary>
-        </member>
-        <member name="F:Google.GData.YouTube.SubscriptionEntry.SubscriptionType.playlist">
-            <summary>
-            indicates a playlist based subscription
-            </summary>
-        </member>
-        <member name="F:Google.GData.YouTube.SubscriptionEntry.SubscriptionType.unknown">
-            <summary>
-            indicates an unknown state
-            </summary>
-        </member>
-        <member name="T:Google.GData.YouTube.FriendsFeed">
-            <summary>
-            A user's contacts feed lists all of the contacts for a specified user.
-            To request the currently logged-in user's contact list, send an HTTP
-             GET request to the following URL. 
-                http://gdata.youtube.com/feeds/api/users/default/contacts
-            To request another user's contact list, send an HTTP GET request to the following URL. 
-                http://gdata.youtube.com/feeds/api/users/username/contacts
-            In the URL above, you must replace the text username with the user's YouTube username.
-            Contacts can be classified as either Friends or Family.
-            </summary>
-        </member>
-        <member name="M:Google.GData.YouTube.FriendsFeed.#ctor(System.Uri,Google.GData.Client.IService)">
-            <summary>
-             default constructor
-            </summary>
-            <param name="uriBase">the base URI of the feedEntry</param>
-            <param name="iService">the Service to use</param>
-        </member>
-        <member name="M:Google.GData.YouTube.FriendsFeed.CreateFeedEntry">
-            <summary>
-            this needs to get implemented by subclasses
-            </summary>
-            <returns>AtomEntry</returns>
-        </member>
-        <member name="T:Google.GData.YouTube.YouTubeCategoryCollection">
-            <summary>
-             this is a helper class just for parsing the category document
-            </summary>
-        </member>
-        <member name="M:Google.GData.YouTube.YouTubeCategoryCollection.CreateAtomSubElement(System.Xml.XmlReader,Google.GData.Client.AtomFeedParser)">
-            <summary>
-            this is the subclassing method for AtomBase derived 
-            classes to overload what childelements should be created
-            needed to create CustomLink type objects, like WebContentLink etc
-            </summary>
-            <param name="reader">The XmlReader that tells us what we are working with</param>
-            <param name="parser">the parser is primarily used for nametable comparisons</param>
-            <returns>AtomBase</returns>
-        </member>
-        <member name="P:Google.GData.YouTube.YouTubeCategoryCollection.XmlName">
-            <summary>Returns the constant representing this XML element.</summary> 
-        </member>
-        <member name="M:Google.YouTube.Complaint.EnsureInnerObject">
-            <summary>
-            creates the inner contact object when needed
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="P:Google.YouTube.Complaint.ComplaintEntry">
-            <summary>
-            readonly accessor to the typed underlying atom object
-            </summary>
-        </member>
-        <member name="P:Google.YouTube.Complaint.Type">
-            <summary>
-            set's the type of the complaint
-            </summary>
-        </member>
-        <member name="P:Google.YouTube.Complaint.ComplaintDescription">
-            <summary>
-            sets the verbose part of the complain, stored in the yt:content element
-            </summary>
-        </member>
-        <member name="T:Google.YouTube.Comment">
-            <summary>
-            the Comment entry for a Comments Feed, a feed of Comment for YouTube
-            </summary>
-        </member>
-        <member name="M:Google.YouTube.Comment.EnsureInnerObject">
-            <summary>
-            creates the inner contact object when needed
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Google.YouTube.Comment.ReplyTo(Google.YouTube.Comment)">
-            <summary>
-            adds the replyToLinks to this comment
-            
-            </summary>
-            <param name="c">The comment this comment is replying to</param>
-        </member>
-        <member name="P:Google.YouTube.Comment.CommentEntry">
-            <summary>
-            readonly accessor to the underlying CommentEntry object.
-            </summary>
-        </member>
-        <member name="T:Google.YouTube.Subscription">
-            <summary>
-            the subscription entry for a subscriptionfeed Feed
-            </summary>
-        </member>
-        <member name="M:Google.YouTube.Subscription.EnsureInnerObject">
-            <summary>
-            creates the inner contact object when needed
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="P:Google.YouTube.Subscription.SubscriptionEntry">
-            <summary>
-            readonly accessor for the SubscriptionEntry that is underneath this object.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="P:Google.YouTube.Subscription.Type">
-            <summary>
-             returns the subscription type
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="P:Google.YouTube.Subscription.UserName">
-            <summary>
-            The user who is the owner of this subscription
-            </summary>
-        </member>
-        <member name="P:Google.YouTube.Subscription.QueryString">
-            <summary>
-            if the subscripiton is a keyword query, this will be the 
-            subscripted to query term
-            </summary>
-        </member>
-        <member name="P:Google.YouTube.Subscription.PlaylistId">
-            <summary>
-            the id of the playlist you are subscriped to
-            </summary>
-        </member>
-        <member name="P:Google.YouTube.Subscription.PlaylistTitle">
-            <summary>
-            the human readable name of the playlist you are subscribed to
-            </summary>
-        </member>
-        <member name="T:Google.YouTube.Activity">
-            <summary>
-            the Activity entry for an Activities Feed, a feed of activities for the friends/contacts
-            of the logged in user
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Google.YouTube.Activity.EnsureInnerObject">
-            <summary>
-            creates the inner contact object when needed
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="P:Google.YouTube.Activity.ActivityEntry">
-            <summary>
-            readonly accessor for the YouTubeEntry that is underneath this object.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="P:Google.YouTube.Activity.VideoId">
-            <summary>
-            specifies a unique ID that YouTube uses to identify a video.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="P:Google.YouTube.Activity.Type">
-            <summary>
-            the type of the activity
-            </summary>
-        </member>
-        <member name="P:Google.YouTube.Activity.Username">
-            <summary>
-            the username of the friend who was added,
-            or the user whom was subscribed to
-            </summary>
-        </member>
-        <member name="T:Google.YouTube.Playlist">
-            <summary>
-            the Playlist entry for a Playlist Feed, a feed of Playlist for YouTube
-            </summary>
-        </member>
-        <member name="M:Google.YouTube.Playlist.EnsureInnerObject">
-            <summary>
-            creates the inner contact object when needed
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="P:Google.YouTube.Playlist.PlaylistsEntry">
-            <summary>
-            returns the internal atomentry as a PlayListsEntry
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="P:Google.YouTube.Playlist.CountHint">
-            <summary>
-            specifies the number of entries in a playlist feed. This tag appears in the entries in a 
-            playlists feed, where each entry contains information about a single playlist.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="T:Google.YouTube.Video">
-            <summary>the Video Entry in feed&lt;Videos&gt; for YouTube
-            </summary> 
-        </member>
-        <member name="M:Google.YouTube.Video.EnsureInnerObject">
-            <summary>
-            creates the inner contact object when needed
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="P:Google.YouTube.Video.YouTubeEntry">
-            <summary>
-            readonly accessor for the YouTubeEntry that is underneath this object.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="P:Google.YouTube.Video.VideoId">
-            <summary>
-            specifies a unique ID that YouTube uses to identify a video.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="P:Google.YouTube.Video.Description">
-            <summary>
-            contains a summary or description of a video. This field is required in requests to 
-            upload or update a video's metadata. The description should be sentence-based, 
-            rather than a list of keywords, and may be displayed in search results. The description has a 
-            maximum length of 5000 characters and may contain all valid UTF-8 characters except &lt; and &gt; 
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="P:Google.YouTube.Video.Title">
-            <summary>
-            the title of the Video. Overloaded to keep entry.title and the media.title 
-             in sync. 
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="P:Google.YouTube.Video.Tags">
-            <summary>
-            returns the categories for the video
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="P:Google.YouTube.Video.Keywords">
-            <summary>
-            returns the keywords for the video, see MediaKeywords for more
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="P:Google.YouTube.Video.Thumbnails">
-            <summary>
-            returns the collection of thumbnails for the vido
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="P:Google.YouTube.Video.Contents">
-            <summary>
-            returns the collection of thumbnails for the vido
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="P:Google.YouTube.Video.WatchPage">
-            <summary>
-            specifies a URL where the full-length video is available through a media player that runs 
-            inside a web browser. In a YouTube Data API response, this specifies the URL for the page 
-            on YouTube's website that plays the video
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="P:Google.YouTube.Video.Uploader">
-            <summary>
-            identifies the owner of a video.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="P:Google.YouTube.Video.Media">
-            <summary>
-            access to the Media group subelement
-            </summary>
-        </member>
-        <member name="P:Google.YouTube.Video.ViewCount">
-            <summary>
-            returns the viewcount for the video
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="P:Google.YouTube.Video.CommmentCount">
-            <summary>
-            returns the number of comments for the video
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="P:Google.YouTube.Video.Rating">
-            <summary>
-            returns the rating for a video
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="P:Google.YouTube.Video.RatingAverage">
-            <summary>
-            returns the average rating for a video
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="P:Google.YouTube.Video.RatingsUri">
-            <summary>
-            returns the ratings Uri, to post a rating to.
-            </summary>
-        </member>
-        <member name="P:Google.YouTube.Video.ResponseUri">
-            <summary>
-            returns the response Uri, to post a video response to.
-            </summary>
-        </member>
-        <member name="P:Google.YouTube.Video.ComplaintUri">
-            <summary>
-            returns the complaint Uri, to post a comlaint to.
-            </summary>
-        </member>
-        <member name="P:Google.YouTube.Video.Private">
-            <summary>
-            boolean property shortcut to set the mediagroup/yt:private element. Setting this to true 
-            adds the element, if not already there (otherwise nothing happens)
-            setting this to false, removes it
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="P:Google.YouTube.Video.Status">
-            <summary>
-            The yt:state tag contains information that describes the status of a video. 
-            Video entries that contain a yt:state tag are not playable. 
-            For videos that failed to upload or were rejected after the upload process, the reasonCode 
-            attribute and the tag value provide insight into the reason for the upload problem. 
-            Deleted entries only appear in playlist and inbox feeds and are only visible to the playlist 
-            or inbox owner.
-            </summary>
-        </member>
-        <member name="T:Google.YouTube.PlayListMember">
-            <summary>
-            subclass of a video to represent a video that is part of a playlist
-            </summary>
-        </member>
-        <member name="M:Google.YouTube.PlayListMember.EnsureInnerObject">
-            <summary>
-            creates the inner contact object when needed
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="P:Google.YouTube.PlayListMember.PlaylistEntry">
-            <summary>
-            readonly accessor for the YouTubeEntry that is underneath this object.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="P:Google.YouTube.PlayListMember.Position">
-            <summary>
-            if the video is a playlist reference, get's and set's it's position in the playlist
-            </summary>
-        </member>
-        <member name="T:Google.YouTube.YouTubeRequestSettings">
-            <summary>
-            YouTube specific class for request settings,
-            adds support for developer key and clientid
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Google.YouTube.YouTubeRequestSettings.#ctor(System.String,System.String)">
-            <summary>
-            A constructor for a readonly scenario.
-            </summary>
-            <param name="applicationName">The name of the application</param>
-            <param name="developerKey">the developer key to use</param>
-            <returns></returns>
-        </member>
-        <member name="M:Google.YouTube.YouTubeRequestSettings.#ctor(System.String,System.String,System.String,System.String)">
-            <summary>
-            A constructor for a client login scenario
-            </summary>
-            <param name="applicationName">The name of the application</param>
-            <param name="developerKey">the developer key to use</param>
-            <param name="userName">the username</param>
-            <param name="passWord">the password</param>
-            <returns></returns>
-        </member>
-        <member name="M:Google.YouTube.YouTubeRequestSettings.#ctor(System.String,System.String,System.String)">
-            <summary>
-            a constructor for a web application authentication scenario        
-            </summary>
-            <param name="applicationName">The name of the application</param>
-            <param name="developerKey">the developer key to use</param>
-            <param name="authSubToken">the authentication token</param>
-            <returns></returns>
-        </member>
-        <member name="M:Google.YouTube.YouTubeRequestSettings.#ctor(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
-            <summary>
-             a constructor for OpenAuthentication login use cases using 2 or 3 legged oAuth
-            </summary>
-            <param name="applicationName">The name of the application</param>
-            <param name="developerKey">the developer key to use</param>
-            <param name="consumerKey">the consumerKey to use</param>
-            <param name="consumerSecret">the consumerSecret to use</param>
-            <param name="token">The token to be used</param>
-            <param name="tokenSecret">The tokenSecret to be used</param>
-            <param name="user">the username to use</param>
-            <param name="domain">the domain to use</param>
-            <returns></returns>
-        </member>
-        <member name="P:Google.YouTube.YouTubeRequestSettings.DeveloperKey">
-            <summary>
-            returns the developer key
-            </summary>
-            <returns></returns>
-        </member>
-        <!-- Badly formed XML comment ignored for member "T:Google.YouTube.YouTubeRequest" -->
-        <member name="M:Google.YouTube.YouTubeRequest.#ctor(Google.YouTube.YouTubeRequestSettings)">
-            <summary>
-            default constructor for a YouTubeRequest
-            </summary>
-            <param name="settings"></param>
-        </member>
-        <member name="M:Google.YouTube.YouTubeRequest.GetVideoFeed(System.String)">
-            <summary>
-            returns a Feed of vidoes for a given username
-            </summary>
-            <param name="user">the username</param>
-            <returns>a feed of Videos</returns>
-        </member>
-        <member name="M:Google.YouTube.YouTubeRequest.GetStandardFeed(System.String)">
-            <summary>
-             returns one of the youtube default feeds. 
-            </summary>
-            <param name="feedspec">the string representation of the URI to use</param>
-            <returns>a feed of Videos</returns>
-        </member>
-        <member name="M:Google.YouTube.YouTubeRequest.GetFavoriteFeed(System.String)">
-            <summary>
-            returns a Feed of favorite videos for a given username
-            </summary>
-            <param name="user">the username</param>
-            <returns>a feed of Videos</returns>
-        </member>
-        <member name="M:Google.YouTube.YouTubeRequest.GetSubscriptionsFeed(System.String)">
-            <summary>
-            returns a Feed of subscriptions for a given username
-            </summary>
-            <param name="user">the username</param>
-            <returns>a feed of Videos</returns>
-        </member>
-        <member name="M:Google.YouTube.YouTubeRequest.GetPlaylistsFeed(System.String)">
-            <summary>
-            returns a Feed of playlists  for a given username
-            </summary>
-            <param name="user">the username</param>
-            <returns>a feed of Videos</returns>
-        </member>
-        <member name="M:Google.YouTube.YouTubeRequest.GetRelatedVideos(Google.YouTube.Video)">
-            <summary>
-            returns the related videos for a given video
-            </summary>
-            <param name="v"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Google.YouTube.YouTubeRequest.GetResponseVideos(Google.YouTube.Video)">
-            <summary>
-             gets the response videos for a given video
-            </summary>
-            <param name="v"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Google.YouTube.YouTubeRequest.GetComments(Google.YouTube.Video)">
-            <summary>
-            get's the comments for a given video
-            </summary>
-            <param name="v"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Google.YouTube.YouTubeRequest.GetActivities">
-            <summary>
-            get's the activities that your contacts/friends did recently 
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Google.YouTube.YouTubeRequest.GetActivities(System.Collections.Generic.List{System.String})">
-            <summary>
-            get's the activities for the set of users you pass in
-            </summary>
-            <param name="youTubeUsers">The list of youtube user ids to use</param>
-            <returns></returns>
-        </member>
-        <member name="M:Google.YouTube.YouTubeRequest.GetActivities(System.Collections.Generic.List{System.String},System.DateTime)">
-            <summary>
-            get's the activities for the set of users you pass in
-            </summary>
-            <param name="youTubeUsers">The list of youtube user ids to use</param>
-            <returns></returns>
-        </member>
-        <member name="M:Google.YouTube.YouTubeRequest.GetActivities(System.DateTime)">
-            <summary>
-            get's the activities that your contacts/friends did recently, from the 
-            given datetime point
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Google.YouTube.YouTubeRequest.GetPlaylist(Google.YouTube.Playlist)">
-                       <summary>
-                        returns the feed of videos for a given playlist
-                       </summary>
-                        <example>
-                            The following code illustrates a possible use of   
-                            the <c>GetPlaylist</c> method:  
-                            <code>    
-                              YouTubeRequestSettings settings = new YouTubeRequestSettings("yourApp", "yourClient", "yourKey", "username", "pwd");
-                              YouTubeRequest f = new YouTubeRequest(settings);
-                              Feed&lt;Playlist&gt; feed = f.GetPlaylistsFeed(null);
-                            </code>
-                        </example>
-                        <param name="p">the playlist to get the videos for</param>
-                        <returns></returns>
-        </member>
-        <member name="M:Google.YouTube.YouTubeRequest.Upload(Google.YouTube.Video)">
-            <summary>
-            uploads or inserts a new video for the default authenticated user.
-            </summary>
-            <param name="v">the created video to be used</param>
-            <returns></returns>
-        </member>
-        <member name="M:Google.YouTube.YouTubeRequest.Upload(System.String,Google.YouTube.Video)">
-            <summary>
-            uploads or inserts a new video for a given user.
-            </summary>
-            <param name="userName">if this is null the default authenticated user will be used</param>
-            <param name="v">the created video to be used</param>
-            <returns></returns>
-        </member>
-        <member name="M:Google.YouTube.YouTubeRequest.CreateFormUploadToken(Google.YouTube.Video)">
-            <summary>
-            creates the form upload token for the passed in video
-            </summary>
-            <param name="v">the created video to be used</param>
-            <returns></returns>
-        </member>
-        <member name="M:Google.YouTube.YouTubeRequest.GetVideoForActivity(Google.YouTube.Activity)">
-            <summary>
-            returns the video this activity was related to
-            </summary>
-            <param name="activity"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Google.YouTube.YouTubeRequest.AddComment(Google.YouTube.Video,Google.YouTube.Comment)">
-            <summary>
-            adds a comment to a video
-            </summary>
-            <param name="v">the video you want to comment on</param>
-            <param name="c">the comment you want to post</param>
-            <returns></returns>
-        </member>
-        <member name="M:Google.YouTube.YouTubeRequest.AddToPlaylist(Google.YouTube.Playlist,Google.YouTube.PlayListMember)">
-            <summary>
-            adds a video to an existing playlist
-            </summary>
-            <param name="m">the new playlistmember</param>
-            <param name="p">the playlist to add tot</param>
-            <returns></returns>
-        </member>
-        <member name="M:Google.YouTube.YouTubeRequest.GetVideoMetaData(System.Collections.Generic.List{Google.YouTube.Activity})">
-            <summary>
-            Takes a list of activities, and get's the video meta data from youtube 
-            for those activites that identify a video
-            </summary>
-            <param name="list">a list of activities</param>
-            <returns>a video feed, with no entries, if there were no video related activities</returns>
-        </member>
-        <member name="M:Google.YouTube.YouTubeRequest.ParseVideo(System.IO.Stream)">
-            <summary>
-            returns a single Video (the first) from that stream. Usefull to parse insert/update 
-            response streams
-            </summary>
-            <param name="inputStream"></param>
-            <returns></returns>
-        </member>
         <member name="T:Google.GData.YouTube.SubscriptionFeed">
             <summary>
             A user's subscriptions feed contains a list of the channels, 
@@ -1100,155 +402,112 @@
             </summary>
             <returns>AtomEntry</returns>
         </member>
-        <member name="T:Google.GData.YouTube.PlaylistsEntry">
+        <member name="T:Google.GData.YouTube.PlaylistsFeed">
+            <summary>
+            A user's playlists feed contains a list of the playlists created by
+             that user. If you are requesting the playlists feed for the currently
+             authenticated user, the feed will contain both public and private playlists. 
+            However, if you send an unauthenticated request or request playlists created 
+            by someone other than the currently authenticated user, the feed will only
+             contain public playlists.
+            In a playlists feed, each entry contains information about a single playlist, 
+            including the playlist title, description and author. The gd:feedLink tag 
+            in the entry identifies the URL that allows you to retrieve the playlist feed, 
+            which specifies information about the videos in the playlist.
+            </summary>
+        </member>
+        <member name="M:Google.GData.YouTube.PlaylistsFeed.#ctor(System.Uri,Google.GData.Client.IService)">
+            <summary>
+             default constructor
+            </summary>
+            <param name="uriBase">the base URI of the feedEntry</param>
+            <param name="iService">the Service to use</param>
+        </member>
+        <member name="M:Google.GData.YouTube.PlaylistsFeed.CreateFeedEntry">
+            <summary>
+            this needs to get implemented by subclasses
+            </summary>
+            <returns>AtomEntry</returns>
+        </member>
+        <member name="T:Google.GData.YouTube.PlaylistEntry">
             <summary>
             Entry API customization class for defining entries in an Playlist feed.
             </summary>
         </member>
-        <member name="F:Google.GData.YouTube.PlaylistsEntry.PLAYLISTS_CATEGORY">
+        <member name="F:Google.GData.YouTube.PlaylistEntry.PLAYLIST_CATEGORY">
             <summary>
             Category used to label entries as Playlistentries
             </summary>
         </member>
-        <member name="M:Google.GData.YouTube.PlaylistsEntry.#ctor">
+        <member name="M:Google.GData.YouTube.PlaylistEntry.#ctor">
             <summary>
             Constructs a new PlayListEntry instance
             </summary>
         </member>
-        <member name="P:Google.GData.YouTube.PlaylistsEntry.Description">
+        <member name="P:Google.GData.YouTube.PlaylistEntry.Position">
             <summary>
-            getter/setter for Description subelement
+            getter/setter for Position subelement
             </summary>
         </member>
-        <member name="P:Google.GData.YouTube.PlaylistsEntry.FeedLink">
+        <member name="T:Google.GData.YouTube.ComplaintEntry">
             <summary>
-            getter/setter for the feedlink subelement
+            Entry API customization class for defining comment entries in an comments feed.
             </summary>
         </member>
-        <member name="P:Google.GData.YouTube.PlaylistsEntry.CountHint">
+        <member name="M:Google.GData.YouTube.ComplaintEntry.#ctor">
             <summary>
-            returns the int value of the countHint tag
-            <para>
-            yt:countHint specifies the number of entries in a playlist feed. The yt:countHint tag appears in the entries in a playlists feed, 
-            where each entry contains information about a single playlist.</para>
-            </summary>
-            <returns>-1 if no counthint was present, else the value</returns>
-        </member>
-        <member name="P:Google.GData.YouTube.PlaylistsEntry.Private">
-            <summary>
-            getter/setter for the private subelement. Indicates if the playlist is private
+            Constructs a new CommentEntry instance
             </summary>
         </member>
-        <member name="T:Google.GData.YouTube.ActivityType">
+        <member name="P:Google.GData.YouTube.ComplaintEntry.Complaint">
             <summary>
-            enum to define different activities. 
+            getter/setter for yt:content subelement
             </summary>
         </member>
-        <member name="F:Google.GData.YouTube.ActivityType.Rated">
+        <member name="P:Google.GData.YouTube.ComplaintEntry.Type">
             <summary>
-            a user rated an entry
+            gets and sets the associated atom:category
             </summary>
         </member>
-        <member name="F:Google.GData.YouTube.ActivityType.Shared">
+        <member name="T:Google.GData.YouTube.ComplaintEntry.ComplaintType">
             <summary>
-            a user shared a video
+            Describes the nature of the complaint
             </summary>
         </member>
-        <member name="F:Google.GData.YouTube.ActivityType.Uploaded">
+        <member name="F:Google.GData.YouTube.ComplaintEntry.ComplaintType.PORN">
             <summary>
-            a user uploaded a video
+            The video contains sexual content
             </summary>
         </member>
-        <member name="F:Google.GData.YouTube.ActivityType.Favorited">
+        <member name="F:Google.GData.YouTube.ComplaintEntry.ComplaintType.VIOLENCE">
             <summary>
-            a user added something to his favorites
+            The video contains violent or repulsive content
             </summary>
         </member>
-        <member name="F:Google.GData.YouTube.ActivityType.FriendAdded">
+        <member name="F:Google.GData.YouTube.ComplaintEntry.ComplaintType.HATE">
             <summary>
-            a user added a friend
+            The video contains hateful or abusive content
             </summary>
         </member>
-        <member name="F:Google.GData.YouTube.ActivityType.SubscriptionAdded">
+        <member name="F:Google.GData.YouTube.ComplaintEntry.ComplaintType.DANGEROUS">
             <summary>
-            a user added something to his subscriptions
+            The video contains harmful or dangerous acts
             </summary>
         </member>
-        <member name="F:Google.GData.YouTube.ActivityType.Commented">
+        <member name="F:Google.GData.YouTube.ComplaintEntry.ComplaintType.RIGHTS">
             <summary>
-            a user commented on something
+            The video infringes on the complainant's rights or copyright.
             </summary>
         </member>
-        <member name="F:Google.GData.YouTube.ActivityType.Undefined">
+        <member name="F:Google.GData.YouTube.ComplaintEntry.ComplaintType.SPAM">
             <summary>
-            undfined -> there was no Type for this entry
+            The video is clearly spam.
             </summary>
         </member>
-        <member name="T:Google.GData.YouTube.ActivityEntry">
+        <member name="F:Google.GData.YouTube.ComplaintEntry.ComplaintType.UNKNOWN">
             <summary>
-            Entry API customization class for retrieving activies 
+            The type of complaint is not set yet.
             </summary>
-        </member>
-        <member name="F:Google.GData.YouTube.ActivityEntry.VIDEORATED_CATEGORY">
-            <summary>
-            Category used to label entries that indicate a user marking a video as a favorite
-            </summary>
-        </member>
-        <member name="F:Google.GData.YouTube.ActivityEntry.VIDEOSHARED_CATEGORY">
-            <summary>
-            Category used to label entries that indicate a user marking a video as a favorite
-            </summary>
-        </member>
-        <member name="F:Google.GData.YouTube.ActivityEntry.VIDEOUPLOADED_CATEGORY">
-            <summary>
-            Category used to label entries that indicate a user marking a video as a favorite
-            </summary>
-        </member>
-        <member name="F:Google.GData.YouTube.ActivityEntry.VIDEOFAVORITED_CATEGORY">
-            <summary>
-            Category used to label entries that indicate a user marking a video as a favorite
-            </summary>
-        </member>
-        <member name="F:Google.GData.YouTube.ActivityEntry.VIDEOCOMMENTED_CATEGORY">
-            <summary>
-            Category used to label entries that indicate a user commenting on a video
-            </summary>
-        </member>
-        <member name="F:Google.GData.YouTube.ActivityEntry.FRIENDADDED_CATEGORY">
-            <summary>
-            Category used to label entries that indicate a user added a friend
-            </summary>
-        </member>
-        <member name="F:Google.GData.YouTube.ActivityEntry.USERSUBSCRIPTIONADDED_CATEGORY">
-            <summary>
-            Category used to label entries that indicate a user added a subscripton
-            </summary>
-        </member>
-        <member name="M:Google.GData.YouTube.ActivityEntry.#ctor">
-            <summary>
-            Constructs a new EventEmtry instance
-            </summary>
-        </member>
-        <member name="P:Google.GData.YouTube.ActivityEntry.Type">
-            <summary>
-             The type of Event, the user action that caused this.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="P:Google.GData.YouTube.ActivityEntry.VideoId">
-            <summary>
-             property accessor for the VideoID, if applicable
-            </summary>
-        </member>
-        <member name="P:Google.GData.YouTube.ActivityEntry.Username">
-            <summary>
-             property accessor for the UseName, if applicable
-            </summary>
-        </member>
-        <member name="P:Google.GData.YouTube.ActivityEntry.VideoLink">
-            <summary>returns the video relation link uri, which can be used to
-            retrieve the video entry</summary> 
-            <returns> </returns>
         </member>
         <member name="T:Google.GData.YouTube.CommentEntry">
             <summary>
@@ -1275,24 +534,6 @@
             will not modify link collection. This is a readonly copy. But the items in that 
             list are the same as in the linkcollection, so you can remove them from there
             </summary>
-        </member>
-        <member name="T:Google.GData.YouTube.ActivitiesFeed">
-            <summary>
-            An ActivitiesFeed contains activities for the friends of a particular youtube user
-            </summary>
-        </member>
-        <member name="M:Google.GData.YouTube.ActivitiesFeed.#ctor(System.Uri,Google.GData.Client.IService)">
-            <summary>
-             default constructor
-            </summary>
-            <param name="uriBase">the base URI of the feedEntry</param>
-            <param name="iService">the Service to use</param>
-        </member>
-        <member name="M:Google.GData.YouTube.ActivitiesFeed.CreateFeedEntry">
-            <summary>
-            this needs to get implemented by subclasses
-            </summary>
-            <returns>AtomEntry</returns>
         </member>
         <member name="T:Google.GData.YouTube.CommentsFeed">
             <summary>
@@ -2313,182 +1554,6 @@
             Property to access the token the browser must include in the form POST
             </summary>
         </member>
-        <member name="T:Google.GData.YouTube.PlaylistEntry">
-            <summary>
-            Entry API customization class for defining entries in an Playlist feed.
-            </summary>
-        </member>
-        <member name="F:Google.GData.YouTube.PlaylistEntry.PLAYLIST_CATEGORY">
-            <summary>
-            Category used to label entries as Playlistentries
-            </summary>
-        </member>
-        <member name="M:Google.GData.YouTube.PlaylistEntry.#ctor">
-            <summary>
-            Constructs a new PlayListEntry instance
-            </summary>
-        </member>
-        <member name="P:Google.GData.YouTube.PlaylistEntry.Position">
-            <summary>
-            getter/setter for Position subelement
-            </summary>
-        </member>
-        <member name="T:Google.GData.YouTube.PlaylistsFeed">
-            <summary>
-            A user's playlists feed contains a list of the playlists created by
-             that user. If you are requesting the playlists feed for the currently
-             authenticated user, the feed will contain both public and private playlists. 
-            However, if you send an unauthenticated request or request playlists created 
-            by someone other than the currently authenticated user, the feed will only
-             contain public playlists.
-            In a playlists feed, each entry contains information about a single playlist, 
-            including the playlist title, description and author. The gd:feedLink tag 
-            in the entry identifies the URL that allows you to retrieve the playlist feed, 
-            which specifies information about the videos in the playlist.
-            </summary>
-        </member>
-        <member name="M:Google.GData.YouTube.PlaylistsFeed.#ctor(System.Uri,Google.GData.Client.IService)">
-            <summary>
-             default constructor
-            </summary>
-            <param name="uriBase">the base URI of the feedEntry</param>
-            <param name="iService">the Service to use</param>
-        </member>
-        <member name="M:Google.GData.YouTube.PlaylistsFeed.CreateFeedEntry">
-            <summary>
-            this needs to get implemented by subclasses
-            </summary>
-            <returns>AtomEntry</returns>
-        </member>
-        <member name="T:Google.GData.YouTube.YouTubeService">
-            <summary>
-            The YouTube Data API allows applications to perform functions normally 
-            executed on the YouTube website. The API enables your application to search 
-            for YouTube videos and to retrieve standard video feeds, comments and video
-            responses. 
-            In addition, the API lets your application upload videos to YouTube or 
-            update existing videos. Your can also retrieve playlists, subscriptions, 
-            user profiles and more. Finally, your application can submit 
-            authenticated requests to enable users to create playlists, 
-            subscriptions, contacts and other account-specific entities.
-            </summary>
-        </member>
-        <member name="F:Google.GData.YouTube.YouTubeService.DefaultCategory">
-            <summary>
-            default category for YouTube
-            </summary>
-        </member>
-        <member name="F:Google.GData.YouTube.YouTubeService.AuthenticationHandler">
-            <summary>
-            the YouTube authentication handler URL
-            </summary>
-        </member>
-        <member name="M:Google.GData.YouTube.YouTubeService.#ctor(System.String,System.String,System.String)">
-            <summary>
-             default constructor
-            </summary>
-            <param name="applicationName">the applicationname</param>
-            <param name="client">the client identifier</param>
-            <param name="developerKey">the developerKey</param>/// 
-        </member>
-        <member name="M:Google.GData.YouTube.YouTubeService.#ctor(System.String)">
-            <summary>
-             readonly constructor 
-            </summary>
-            <param name="applicationName">the application identifier</param>
-        </member>
-        <member name="M:Google.GData.YouTube.YouTubeService.Query(Google.GData.YouTube.YouTubeQuery)">
-            <summary>
-            overloaded to create typed version of Query
-            </summary>
-            <param name="feedQuery"></param>
-            <returns>EventFeed</returns>
-        </member>
-        <member name="M:Google.GData.YouTube.YouTubeService.GetPlaylist(Google.GData.YouTube.YouTubeQuery)">
-            <summary>
-            returns a playlist feed based on a youtubeQuery
-            </summary>
-            <param name="feedQuery"></param>
-            <returns>EventFeed</returns>
-        </member>
-        <member name="M:Google.GData.YouTube.YouTubeService.GetFriends(Google.GData.YouTube.YouTubeQuery)">
-            <summary>
-            returns a playlist feed based on a youtubeQuery
-            </summary>
-            <param name="feedQuery"></param>
-            <returns>EventFeed</returns>
-        </member>
-        <member name="M:Google.GData.YouTube.YouTubeService.GetPlaylists(Google.GData.YouTube.YouTubeQuery)">
-            <summary>
-            returns a playlists feed based on a youtubeQuery
-            </summary>
-            <param name="feedQuery"></param>
-            <returns>EventFeed</returns>
-        </member>
-        <member name="M:Google.GData.YouTube.YouTubeService.GetSubscriptions(Google.GData.YouTube.YouTubeQuery)">
-            <summary>
-            returns a subscription feed based on a youtubeQuery
-            </summary>
-            <param name="feedQuery"></param>
-            <returns>EventFeed</returns>
-        </member>
-        <member name="M:Google.GData.YouTube.YouTubeService.GetMessages(Google.GData.YouTube.YouTubeQuery)">
-            <summary>
-            returns a message feed based on a youtubeQuery
-            </summary>
-            <param name="feedQuery"></param>
-            <returns>EventFeed</returns>
-        </member>
-        <member name="M:Google.GData.YouTube.YouTubeService.Query(Google.GData.YouTube.ActivitiesQuery)">
-            <summary>
-            overloaded to create typed version of Query. Returns an 
-            Activities feed
-            </summary>
-            <param name="feedQuery"></param>
-            <returns>ActivitiesFeed</returns>
-        </member>
-        <member name="M:Google.GData.YouTube.YouTubeService.Upload(System.String,Google.GData.YouTube.YouTubeEntry)">
-            <summary>
-            upload a new video to this users youtube account
-            </summary>
-            <param name="userName">the username (account) to use</param>
-            <param name="entry">the youtube entry</param>
-            <returns></returns>
-        </member>
-        <member name="M:Google.GData.YouTube.YouTubeService.Upload(Google.GData.YouTube.YouTubeEntry)">
-            <summary>
-            upload a new video to the default/authenticated account
-            </summary>
-            <param name="entry">the youtube entry</param>
-            <returns></returns>
-        </member>
-        <member name="M:Google.GData.YouTube.YouTubeService.InitVersionInformation">
-            <summary>
-            by default all services now use version 1 for the protocol.
-            this needs to be overridden by a service to specify otherwise. 
-            YouTube uses version 2
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Google.GData.YouTube.YouTubeService.FormUpload(Google.GData.YouTube.YouTubeEntry)">
-            <summary>
-            Method for browser-based upload, gets back a non-Atom response
-            </summary>
-            <param name="newEntry">The YouTubeEntry containing the metadata for a video upload</param>
-            <returns>A FormUploadToken object containing an upload token and POST url</returns>
-        </member>
-        <member name="M:Google.GData.YouTube.YouTubeService.OnRequestFactoryChanged">
-            <summary>
-            notifier if someone changes the requestfactory of the service
-            </summary>
-        </member>
-        <member name="M:Google.GData.YouTube.YouTubeService.OnNewFeed(System.Object,Google.GData.Client.ServiceEventArgs)">
-            <summary>eventchaining. We catch this by from the base service, which 
-            would not by default create an atomFeed</summary> 
-            <param name="sender"> the object which send the event</param>
-            <param name="e">FeedParserEventArguments, holds the feedentry</param> 
-            <returns> </returns>
-        </member>
         <member name="T:Google.GData.YouTube.YouTubeQuery">
             <summary>
             A subclass of FeedQuery, to create an YouTube query URI.
@@ -2956,64 +2021,999 @@
         <member name="P:Google.GData.YouTube.UserActivitiesQuery.Authors">
             <summary>holds the list of authors we want to search for</summary> 
         </member>
-        <member name="T:Google.GData.YouTube.ComplaintEntry">
+        <member name="T:Google.GData.YouTube.PlaylistsEntry">
             <summary>
-            Entry API customization class for defining comment entries in an comments feed.
+            Entry API customization class for defining entries in an Playlist feed.
             </summary>
         </member>
-        <member name="M:Google.GData.YouTube.ComplaintEntry.#ctor">
+        <member name="F:Google.GData.YouTube.PlaylistsEntry.PLAYLISTS_CATEGORY">
             <summary>
-            Constructs a new CommentEntry instance
+            Category used to label entries as Playlistentries
             </summary>
         </member>
-        <member name="P:Google.GData.YouTube.ComplaintEntry.Complaint">
+        <member name="M:Google.GData.YouTube.PlaylistsEntry.#ctor">
             <summary>
-            getter/setter for yt:content subelement
+            Constructs a new PlayListEntry instance
             </summary>
         </member>
-        <member name="P:Google.GData.YouTube.ComplaintEntry.Type">
+        <member name="P:Google.GData.YouTube.PlaylistsEntry.Description">
             <summary>
-            gets and sets the associated atom:category
+            getter/setter for Description subelement
             </summary>
         </member>
-        <member name="T:Google.GData.YouTube.ComplaintEntry.ComplaintType">
+        <member name="P:Google.GData.YouTube.PlaylistsEntry.FeedLink">
             <summary>
-            Describes the nature of the complaint
+            getter/setter for the feedlink subelement
             </summary>
         </member>
-        <member name="F:Google.GData.YouTube.ComplaintEntry.ComplaintType.PORN">
+        <member name="P:Google.GData.YouTube.PlaylistsEntry.CountHint">
             <summary>
-            The video contains sexual content
+            returns the int value of the countHint tag
+            <para>
+            yt:countHint specifies the number of entries in a playlist feed. The yt:countHint tag appears in the entries in a playlists feed, 
+            where each entry contains information about a single playlist.</para>
+            </summary>
+            <returns>-1 if no counthint was present, else the value</returns>
+        </member>
+        <member name="P:Google.GData.YouTube.PlaylistsEntry.Private">
+            <summary>
+            getter/setter for the private subelement. Indicates if the playlist is private
             </summary>
         </member>
-        <member name="F:Google.GData.YouTube.ComplaintEntry.ComplaintType.VIOLENCE">
+        <member name="M:Google.YouTube.Complaint.EnsureInnerObject">
             <summary>
-            The video contains violent or repulsive content
+            creates the inner contact object when needed
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.YouTube.Complaint.ComplaintEntry">
+            <summary>
+            readonly accessor to the typed underlying atom object
             </summary>
         </member>
-        <member name="F:Google.GData.YouTube.ComplaintEntry.ComplaintType.HATE">
+        <member name="P:Google.YouTube.Complaint.Type">
             <summary>
-            The video contains hateful or abusive content
+            set's the type of the complaint
             </summary>
         </member>
-        <member name="F:Google.GData.YouTube.ComplaintEntry.ComplaintType.DANGEROUS">
+        <member name="P:Google.YouTube.Complaint.ComplaintDescription">
             <summary>
-            The video contains harmful or dangerous acts
+            sets the verbose part of the complain, stored in the yt:content element
             </summary>
         </member>
-        <member name="F:Google.GData.YouTube.ComplaintEntry.ComplaintType.RIGHTS">
+        <member name="T:Google.YouTube.Comment">
             <summary>
-            The video infringes on the complainant's rights or copyright.
+            the Comment entry for a Comments Feed, a feed of Comment for YouTube
             </summary>
         </member>
-        <member name="F:Google.GData.YouTube.ComplaintEntry.ComplaintType.SPAM">
+        <member name="M:Google.YouTube.Comment.EnsureInnerObject">
             <summary>
-            The video is clearly spam.
+            creates the inner contact object when needed
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Google.YouTube.Comment.ReplyTo(Google.YouTube.Comment)">
+            <summary>
+            adds the replyToLinks to this comment
+            
+            </summary>
+            <param name="c">The comment this comment is replying to</param>
+        </member>
+        <member name="P:Google.YouTube.Comment.CommentEntry">
+            <summary>
+            readonly accessor to the underlying CommentEntry object.
             </summary>
         </member>
-        <member name="F:Google.GData.YouTube.ComplaintEntry.ComplaintType.UNKNOWN">
+        <member name="T:Google.YouTube.Subscription">
             <summary>
-            The type of complaint is not set yet.
+            the subscription entry for a subscriptionfeed Feed
+            </summary>
+        </member>
+        <member name="M:Google.YouTube.Subscription.EnsureInnerObject">
+            <summary>
+            creates the inner contact object when needed
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.YouTube.Subscription.SubscriptionEntry">
+            <summary>
+            readonly accessor for the SubscriptionEntry that is underneath this object.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.YouTube.Subscription.Type">
+            <summary>
+             returns the subscription type
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.YouTube.Subscription.UserName">
+            <summary>
+            The user who is the owner of this subscription
+            </summary>
+        </member>
+        <member name="P:Google.YouTube.Subscription.QueryString">
+            <summary>
+            if the subscripiton is a keyword query, this will be the 
+            subscripted to query term
+            </summary>
+        </member>
+        <member name="P:Google.YouTube.Subscription.PlaylistId">
+            <summary>
+            the id of the playlist you are subscriped to
+            </summary>
+        </member>
+        <member name="P:Google.YouTube.Subscription.PlaylistTitle">
+            <summary>
+            the human readable name of the playlist you are subscribed to
+            </summary>
+        </member>
+        <member name="T:Google.YouTube.Activity">
+            <summary>
+            the Activity entry for an Activities Feed, a feed of activities for the friends/contacts
+            of the logged in user
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Google.YouTube.Activity.EnsureInnerObject">
+            <summary>
+            creates the inner contact object when needed
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.YouTube.Activity.ActivityEntry">
+            <summary>
+            readonly accessor for the YouTubeEntry that is underneath this object.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.YouTube.Activity.VideoId">
+            <summary>
+            specifies a unique ID that YouTube uses to identify a video.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.YouTube.Activity.Type">
+            <summary>
+            the type of the activity
+            </summary>
+        </member>
+        <member name="P:Google.YouTube.Activity.Username">
+            <summary>
+            the username of the friend who was added,
+            or the user whom was subscribed to
+            </summary>
+        </member>
+        <member name="T:Google.YouTube.Playlist">
+            <summary>
+            the Playlist entry for a Playlist Feed, a feed of Playlist for YouTube
+            </summary>
+        </member>
+        <member name="M:Google.YouTube.Playlist.EnsureInnerObject">
+            <summary>
+            creates the inner contact object when needed
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.YouTube.Playlist.PlaylistsEntry">
+            <summary>
+            returns the internal atomentry as a PlayListsEntry
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.YouTube.Playlist.CountHint">
+            <summary>
+            specifies the number of entries in a playlist feed. This tag appears in the entries in a 
+            playlists feed, where each entry contains information about a single playlist.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Google.YouTube.Video">
+            <summary>the Video Entry in feed&lt;Videos&gt; for YouTube
+            </summary> 
+        </member>
+        <member name="M:Google.YouTube.Video.EnsureInnerObject">
+            <summary>
+            creates the inner contact object when needed
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.YouTube.Video.YouTubeEntry">
+            <summary>
+            readonly accessor for the YouTubeEntry that is underneath this object.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.YouTube.Video.VideoId">
+            <summary>
+            specifies a unique ID that YouTube uses to identify a video.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.YouTube.Video.Description">
+            <summary>
+            contains a summary or description of a video. This field is required in requests to 
+            upload or update a video's metadata. The description should be sentence-based, 
+            rather than a list of keywords, and may be displayed in search results. The description has a 
+            maximum length of 5000 characters and may contain all valid UTF-8 characters except &lt; and &gt; 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.YouTube.Video.Title">
+            <summary>
+            the title of the Video. Overloaded to keep entry.title and the media.title 
+             in sync. 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.YouTube.Video.Tags">
+            <summary>
+            returns the categories for the video
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.YouTube.Video.Keywords">
+            <summary>
+            returns the keywords for the video, see MediaKeywords for more
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.YouTube.Video.Thumbnails">
+            <summary>
+            returns the collection of thumbnails for the vido
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.YouTube.Video.Contents">
+            <summary>
+            returns the collection of thumbnails for the vido
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.YouTube.Video.WatchPage">
+            <summary>
+            specifies a URL where the full-length video is available through a media player that runs 
+            inside a web browser. In a YouTube Data API response, this specifies the URL for the page 
+            on YouTube's website that plays the video
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.YouTube.Video.Uploader">
+            <summary>
+            identifies the owner of a video.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.YouTube.Video.Media">
+            <summary>
+            access to the Media group subelement
+            </summary>
+        </member>
+        <member name="P:Google.YouTube.Video.ViewCount">
+            <summary>
+            returns the viewcount for the video
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.YouTube.Video.CommmentCount">
+            <summary>
+            returns the number of comments for the video
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.YouTube.Video.Rating">
+            <summary>
+            returns the rating for a video
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.YouTube.Video.RatingAverage">
+            <summary>
+            returns the average rating for a video
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.YouTube.Video.RatingsUri">
+            <summary>
+            returns the ratings Uri, to post a rating to.
+            </summary>
+        </member>
+        <member name="P:Google.YouTube.Video.ResponseUri">
+            <summary>
+            returns the response Uri, to post a video response to.
+            </summary>
+        </member>
+        <member name="P:Google.YouTube.Video.ComplaintUri">
+            <summary>
+            returns the complaint Uri, to post a comlaint to.
+            </summary>
+        </member>
+        <member name="P:Google.YouTube.Video.Private">
+            <summary>
+            boolean property shortcut to set the mediagroup/yt:private element. Setting this to true 
+            adds the element, if not already there (otherwise nothing happens)
+            setting this to false, removes it
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.YouTube.Video.Status">
+            <summary>
+            The yt:state tag contains information that describes the status of a video. 
+            Video entries that contain a yt:state tag are not playable. 
+            For videos that failed to upload or were rejected after the upload process, the reasonCode 
+            attribute and the tag value provide insight into the reason for the upload problem. 
+            Deleted entries only appear in playlist and inbox feeds and are only visible to the playlist 
+            or inbox owner.
+            </summary>
+        </member>
+        <member name="T:Google.YouTube.PlayListMember">
+            <summary>
+            subclass of a video to represent a video that is part of a playlist
+            </summary>
+        </member>
+        <member name="M:Google.YouTube.PlayListMember.EnsureInnerObject">
+            <summary>
+            creates the inner contact object when needed
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.YouTube.PlayListMember.PlaylistEntry">
+            <summary>
+            readonly accessor for the YouTubeEntry that is underneath this object.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.YouTube.PlayListMember.Position">
+            <summary>
+            if the video is a playlist reference, get's and set's it's position in the playlist
+            </summary>
+        </member>
+        <member name="T:Google.YouTube.YouTubeRequestSettings">
+            <summary>
+            YouTube specific class for request settings,
+            adds support for developer key and clientid
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Google.YouTube.YouTubeRequestSettings.#ctor(System.String,System.String)">
+            <summary>
+            A constructor for a readonly scenario.
+            </summary>
+            <param name="applicationName">The name of the application</param>
+            <param name="developerKey">the developer key to use</param>
+            <returns></returns>
+        </member>
+        <member name="M:Google.YouTube.YouTubeRequestSettings.#ctor(System.String,System.String,System.String,System.String)">
+            <summary>
+            A constructor for a client login scenario
+            </summary>
+            <param name="applicationName">The name of the application</param>
+            <param name="developerKey">the developer key to use</param>
+            <param name="userName">the username</param>
+            <param name="passWord">the password</param>
+            <returns></returns>
+        </member>
+        <member name="M:Google.YouTube.YouTubeRequestSettings.#ctor(System.String,System.String,System.String)">
+            <summary>
+            a constructor for a web application authentication scenario        
+            </summary>
+            <param name="applicationName">The name of the application</param>
+            <param name="developerKey">the developer key to use</param>
+            <param name="authSubToken">the authentication token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Google.YouTube.YouTubeRequestSettings.#ctor(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+             a constructor for OpenAuthentication login use cases using 2 or 3 legged oAuth
+            </summary>
+            <param name="applicationName">The name of the application</param>
+            <param name="developerKey">the developer key to use</param>
+            <param name="consumerKey">the consumerKey to use</param>
+            <param name="consumerSecret">the consumerSecret to use</param>
+            <param name="token">The token to be used</param>
+            <param name="tokenSecret">The tokenSecret to be used</param>
+            <param name="user">the username to use</param>
+            <param name="domain">the domain to use</param>
+            <returns></returns>
+        </member>
+        <member name="P:Google.YouTube.YouTubeRequestSettings.DeveloperKey">
+            <summary>
+            returns the developer key
+            </summary>
+            <returns></returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "T:Google.YouTube.YouTubeRequest" -->
+        <member name="M:Google.YouTube.YouTubeRequest.#ctor(Google.YouTube.YouTubeRequestSettings)">
+            <summary>
+            default constructor for a YouTubeRequest
+            </summary>
+            <param name="settings"></param>
+        </member>
+        <member name="M:Google.YouTube.YouTubeRequest.GetVideoFeed(System.String)">
+            <summary>
+            returns a Feed of vidoes for a given username
+            </summary>
+            <param name="user">the username</param>
+            <returns>a feed of Videos</returns>
+        </member>
+        <member name="M:Google.YouTube.YouTubeRequest.GetStandardFeed(System.String)">
+            <summary>
+             returns one of the youtube default feeds. 
+            </summary>
+            <param name="feedspec">the string representation of the URI to use</param>
+            <returns>a feed of Videos</returns>
+        </member>
+        <member name="M:Google.YouTube.YouTubeRequest.GetFavoriteFeed(System.String)">
+            <summary>
+            returns a Feed of favorite videos for a given username
+            </summary>
+            <param name="user">the username</param>
+            <returns>a feed of Videos</returns>
+        </member>
+        <member name="M:Google.YouTube.YouTubeRequest.GetSubscriptionsFeed(System.String)">
+            <summary>
+            returns a Feed of subscriptions for a given username
+            </summary>
+            <param name="user">the username</param>
+            <returns>a feed of Videos</returns>
+        </member>
+        <member name="M:Google.YouTube.YouTubeRequest.GetPlaylistsFeed(System.String)">
+            <summary>
+            returns a Feed of playlists  for a given username
+            </summary>
+            <param name="user">the username</param>
+            <returns>a feed of Videos</returns>
+        </member>
+        <member name="M:Google.YouTube.YouTubeRequest.GetRelatedVideos(Google.YouTube.Video)">
+            <summary>
+            returns the related videos for a given video
+            </summary>
+            <param name="v"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Google.YouTube.YouTubeRequest.GetResponseVideos(Google.YouTube.Video)">
+            <summary>
+             gets the response videos for a given video
+            </summary>
+            <param name="v"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Google.YouTube.YouTubeRequest.GetComments(Google.YouTube.Video)">
+            <summary>
+            get's the comments for a given video
+            </summary>
+            <param name="v"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Google.YouTube.YouTubeRequest.GetActivities">
+            <summary>
+            get's the activities that your contacts/friends did recently 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Google.YouTube.YouTubeRequest.GetActivities(System.Collections.Generic.List{System.String})">
+            <summary>
+            get's the activities for the set of users you pass in
+            </summary>
+            <param name="youTubeUsers">The list of youtube user ids to use</param>
+            <returns></returns>
+        </member>
+        <member name="M:Google.YouTube.YouTubeRequest.GetActivities(System.Collections.Generic.List{System.String},System.DateTime)">
+            <summary>
+            get's the activities for the set of users you pass in
+            </summary>
+            <param name="youTubeUsers">The list of youtube user ids to use</param>
+            <returns></returns>
+        </member>
+        <member name="M:Google.YouTube.YouTubeRequest.GetActivities(System.DateTime)">
+            <summary>
+            get's the activities that your contacts/friends did recently, from the 
+            given datetime point
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Google.YouTube.YouTubeRequest.GetPlaylist(Google.YouTube.Playlist)">
+                       <summary>
+                        returns the feed of videos for a given playlist
+                       </summary>
+                        <example>
+                            The following code illustrates a possible use of   
+                            the <c>GetPlaylist</c> method:  
+                            <code>    
+                              YouTubeRequestSettings settings = new YouTubeRequestSettings("yourApp", "yourClient", "yourKey", "username", "pwd");
+                              YouTubeRequest f = new YouTubeRequest(settings);
+                              Feed&lt;Playlist&gt; feed = f.GetPlaylistsFeed(null);
+                            </code>
+                        </example>
+                        <param name="p">the playlist to get the videos for</param>
+                        <returns></returns>
+        </member>
+        <member name="M:Google.YouTube.YouTubeRequest.Upload(Google.YouTube.Video)">
+            <summary>
+            uploads or inserts a new video for the default authenticated user.
+            </summary>
+            <param name="v">the created video to be used</param>
+            <returns></returns>
+        </member>
+        <member name="M:Google.YouTube.YouTubeRequest.Upload(System.String,Google.YouTube.Video)">
+            <summary>
+            uploads or inserts a new video for a given user.
+            </summary>
+            <param name="userName">if this is null the default authenticated user will be used</param>
+            <param name="v">the created video to be used</param>
+            <returns></returns>
+        </member>
+        <member name="M:Google.YouTube.YouTubeRequest.CreateFormUploadToken(Google.YouTube.Video)">
+            <summary>
+            creates the form upload token for the passed in video
+            </summary>
+            <param name="v">the created video to be used</param>
+            <returns></returns>
+        </member>
+        <member name="M:Google.YouTube.YouTubeRequest.GetVideoForActivity(Google.YouTube.Activity)">
+            <summary>
+            returns the video this activity was related to
+            </summary>
+            <param name="activity"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Google.YouTube.YouTubeRequest.AddComment(Google.YouTube.Video,Google.YouTube.Comment)">
+            <summary>
+            adds a comment to a video
+            </summary>
+            <param name="v">the video you want to comment on</param>
+            <param name="c">the comment you want to post</param>
+            <returns></returns>
+        </member>
+        <member name="M:Google.YouTube.YouTubeRequest.AddToPlaylist(Google.YouTube.Playlist,Google.YouTube.PlayListMember)">
+            <summary>
+            adds a video to an existing playlist
+            </summary>
+            <param name="m">the new playlistmember</param>
+            <param name="p">the playlist to add tot</param>
+            <returns></returns>
+        </member>
+        <member name="M:Google.YouTube.YouTubeRequest.GetVideoMetaData(System.Collections.Generic.List{Google.YouTube.Activity})">
+            <summary>
+            Takes a list of activities, and get's the video meta data from youtube 
+            for those activites that identify a video
+            </summary>
+            <param name="list">a list of activities</param>
+            <returns>a video feed, with no entries, if there were no video related activities</returns>
+        </member>
+        <member name="M:Google.YouTube.YouTubeRequest.ParseVideo(System.IO.Stream)">
+            <summary>
+            returns a single Video (the first) from that stream. Usefull to parse insert/update 
+            response streams
+            </summary>
+            <param name="inputStream"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Google.GData.YouTube.ProfileFeed">
+            <summary>
+            A user profile contains information that the user lists on his YouTube 
+            profile page.
+            </summary>
+        </member>
+        <member name="M:Google.GData.YouTube.ProfileFeed.#ctor(System.Uri,Google.GData.Client.IService)">
+            <summary>
+             default constructor
+            </summary>
+            <param name="uriBase">the base URI of the feedEntry</param>
+            <param name="iService">the Service to use</param>
+        </member>
+        <member name="M:Google.GData.YouTube.ProfileFeed.CreateFeedEntry">
+            <summary>
+            this needs to get implemented by subclasses
+            </summary>
+            <returns>AtomEntry</returns>
+        </member>
+        <member name="T:Google.GData.YouTube.ProfileEntry">
+            <summary>
+            A user profile contains information that the user lists on his YouTube profile page.
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.ProfileEntry.PROFILE_CATEGORY">
+            <summary>
+            Category used to label entries that friends
+            </summary>
+        </member>
+        <member name="M:Google.GData.YouTube.ProfileEntry.#ctor">
+            <summary>
+            Constructs a new ProfileEntry instance
+            </summary>
+        </member>
+        <member name="P:Google.GData.YouTube.ProfileEntry.Age">
+            <summary>
+            The yt:ag> tag specifies the user's age, which is calculated based on the birthdate provided 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.GData.YouTube.ProfileEntry.Company">
+            <summary>
+            The yt:company tag identifies the company that the user works for as entered by the user 
+            in the user's public YouTube profile
+            </summary>
+        </member>
+        <member name="P:Google.GData.YouTube.ProfileEntry.Books">
+            <summary>
+            The yt:books tag identifies the user's favorite books as entered in the user's YouTube public profile
+            </summary>
+        </member>
+        <member name="P:Google.GData.YouTube.ProfileEntry.Firstname">
+            <summary>
+            the users firstname per public profile
+            </summary>
+        </member>
+        <member name="P:Google.GData.YouTube.ProfileEntry.Lastname">
+            <summary>
+            the users lastname per public profile
+            </summary>
+        </member>
+        <member name="P:Google.GData.YouTube.ProfileEntry.Hobbies">
+            <summary>
+            the users hobbies per public profile
+            </summary>
+        </member>
+        <member name="P:Google.GData.YouTube.ProfileEntry.Gender">
+            <summary>
+            the users gender per public profile
+            </summary>
+        </member>
+        <member name="P:Google.GData.YouTube.ProfileEntry.Location">
+            <summary>
+            the users location per public profile
+            </summary>
+        </member>
+        <member name="P:Google.GData.YouTube.ProfileEntry.Movies">
+            <summary>
+            the users favorite movies per public profile
+            </summary>
+        </member>
+        <member name="P:Google.GData.YouTube.ProfileEntry.Music">
+            <summary>
+            the users favorite music per public profile
+            </summary>
+        </member>
+        <member name="P:Google.GData.YouTube.ProfileEntry.Occupation">
+            <summary>
+            the users occupation per public profile
+            </summary>
+        </member>
+        <member name="P:Google.GData.YouTube.ProfileEntry.School">
+            <summary>
+            the users school per public profile
+            </summary>
+        </member>
+        <member name="P:Google.GData.YouTube.ProfileEntry.UserName">
+            <summary>
+            getter/setter for UserName subelement
+            </summary>
+        </member>
+        <member name="P:Google.GData.YouTube.ProfileEntry.Relationship">
+            <summary>
+            The yt:relationship tag identifies the user's relationship status
+            </summary>
+        </member>
+        <member name="P:Google.GData.YouTube.ProfileEntry.Hometown">
+            <summary>
+            The yt:hometown tag identifies the user's hometown
+            </summary>
+        </member>
+        <member name="P:Google.GData.YouTube.ProfileEntry.Statistics">
+            <summary>
+            returns the yt:statistics element
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.GData.YouTube.ProfileEntry.FeedLinks">
+            <summary>
+             property accessor for the Thumbnails 
+            </summary>
+        </member>
+        <member name="P:Google.GData.YouTube.ProfileEntry.Description">
+            <summary>
+            getter/setter for Description subelement
+            </summary>
+        </member>
+        <member name="T:Google.GData.YouTube.FriendsEntry">
+            <summary>
+            An individual entry inside the FriendsFeed. It represents a contact of the user
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.FriendsEntry.FRIENDS_CATEGORY">
+            <summary>
+            Category used to label entries that friends
+            </summary>
+        </member>
+        <member name="M:Google.GData.YouTube.FriendsEntry.#ctor">
+            <summary>
+            Constructs a new FriendsEntry instance
+            </summary>
+        </member>
+        <member name="P:Google.GData.YouTube.FriendsEntry.Status">
+            <summary>
+            getter/setter for Status subelement
+            </summary>
+        </member>
+        <member name="P:Google.GData.YouTube.FriendsEntry.UserName">
+            <summary>
+            getter/setter for UserName subelement
+            </summary>
+        </member>
+        <member name="T:Google.GData.YouTube.MessageEntry">
+            <summary>
+            Entry API customization class for defining entries in an messages feed.
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.MessageEntry.MESSAGE_CATEGORY">
+            <summary>
+            Category used to label entries as Playlistentries
+            </summary>
+        </member>
+        <member name="M:Google.GData.YouTube.MessageEntry.#ctor">
+            <summary>
+            Constructs a new PlayListEntry instance
+            </summary>
+        </member>
+        <member name="P:Google.GData.YouTube.MessageEntry.Description">
+            <summary>
+            getter/setter for Description subelement
+            </summary>
+        </member>
+        <member name="T:Google.GData.YouTube.ActivityType">
+            <summary>
+            enum to define different activities. 
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.ActivityType.Rated">
+            <summary>
+            a user rated an entry
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.ActivityType.Shared">
+            <summary>
+            a user shared a video
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.ActivityType.Uploaded">
+            <summary>
+            a user uploaded a video
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.ActivityType.Favorited">
+            <summary>
+            a user added something to his favorites
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.ActivityType.FriendAdded">
+            <summary>
+            a user added a friend
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.ActivityType.SubscriptionAdded">
+            <summary>
+            a user added something to his subscriptions
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.ActivityType.Commented">
+            <summary>
+            a user commented on something
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.ActivityType.Undefined">
+            <summary>
+            undfined -> there was no Type for this entry
+            </summary>
+        </member>
+        <member name="T:Google.GData.YouTube.ActivityEntry">
+            <summary>
+            Entry API customization class for retrieving activies 
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.ActivityEntry.VIDEORATED_CATEGORY">
+            <summary>
+            Category used to label entries that indicate a user marking a video as a favorite
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.ActivityEntry.VIDEOSHARED_CATEGORY">
+            <summary>
+            Category used to label entries that indicate a user marking a video as a favorite
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.ActivityEntry.VIDEOUPLOADED_CATEGORY">
+            <summary>
+            Category used to label entries that indicate a user marking a video as a favorite
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.ActivityEntry.VIDEOFAVORITED_CATEGORY">
+            <summary>
+            Category used to label entries that indicate a user marking a video as a favorite
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.ActivityEntry.VIDEOCOMMENTED_CATEGORY">
+            <summary>
+            Category used to label entries that indicate a user commenting on a video
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.ActivityEntry.FRIENDADDED_CATEGORY">
+            <summary>
+            Category used to label entries that indicate a user added a friend
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.ActivityEntry.USERSUBSCRIPTIONADDED_CATEGORY">
+            <summary>
+            Category used to label entries that indicate a user added a subscripton
+            </summary>
+        </member>
+        <member name="M:Google.GData.YouTube.ActivityEntry.#ctor">
+            <summary>
+            Constructs a new EventEmtry instance
+            </summary>
+        </member>
+        <member name="P:Google.GData.YouTube.ActivityEntry.Type">
+            <summary>
+             The type of Event, the user action that caused this.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.GData.YouTube.ActivityEntry.VideoId">
+            <summary>
+             property accessor for the VideoID, if applicable
+            </summary>
+        </member>
+        <member name="P:Google.GData.YouTube.ActivityEntry.Username">
+            <summary>
+             property accessor for the UseName, if applicable
+            </summary>
+        </member>
+        <member name="P:Google.GData.YouTube.ActivityEntry.VideoLink">
+            <summary>returns the video relation link uri, which can be used to
+            retrieve the video entry</summary> 
+            <returns> </returns>
+        </member>
+        <member name="T:Google.GData.YouTube.ActivitiesFeed">
+            <summary>
+            An ActivitiesFeed contains activities for the friends of a particular youtube user
+            </summary>
+        </member>
+        <member name="M:Google.GData.YouTube.ActivitiesFeed.#ctor(System.Uri,Google.GData.Client.IService)">
+            <summary>
+             default constructor
+            </summary>
+            <param name="uriBase">the base URI of the feedEntry</param>
+            <param name="iService">the Service to use</param>
+        </member>
+        <member name="M:Google.GData.YouTube.ActivitiesFeed.CreateFeedEntry">
+            <summary>
+            this needs to get implemented by subclasses
+            </summary>
+            <returns>AtomEntry</returns>
+        </member>
+        <member name="T:Google.GData.YouTube.PlaylistFeed">
+            <summary>
+            The YouTube Data API allows applications to perform functions normally 
+            executed on the YouTube website. The API enables your application to search 
+            for YouTube videos and to retrieve standard video feeds, comments and video
+            responses. 
+            In addition, the API lets your application upload videos to YouTube or 
+            update existing videos. Your can also retrieve playlists, subscriptions, 
+            user profiles and more. Finally, your application can submit 
+            authenticated requests to enable users to create playlists, 
+            subscriptions, contacts and other account-specific entities.
+            </summary>
+        </member>
+        <member name="M:Google.GData.YouTube.PlaylistFeed.#ctor(System.Uri,Google.GData.Client.IService)">
+            <summary>
+             default constructor
+            </summary>
+            <param name="uriBase">the base URI of the feedEntry</param>
+            <param name="iService">the Service to use</param>
+        </member>
+        <member name="M:Google.GData.YouTube.PlaylistFeed.CreateFeedEntry">
+            <summary>
+            this needs to get implemented by subclasses
+            </summary>
+            <returns>AtomEntry</returns>
+        </member>
+        <member name="T:Google.GData.YouTube.MessageFeed">
+            <summary>
+            Messages can be sent between YouTube users, optionally including a video.
+            </summary>
+        </member>
+        <member name="M:Google.GData.YouTube.MessageFeed.#ctor(System.Uri,Google.GData.Client.IService)">
+            <summary>
+             default constructor
+            </summary>
+            <param name="uriBase">the base URI of the feedEntry</param>
+            <param name="iService">the Service to use</param>
+        </member>
+        <member name="M:Google.GData.YouTube.MessageFeed.CreateFeedEntry">
+            <summary>
+            this needs to get implemented by subclasses
+            </summary>
+            <returns>AtomEntry</returns>
+        </member>
+        <member name="T:Google.GData.YouTube.SubscriptionEntry">
+            <summary>
+            The gd:feedLink tag in the entry identifies the URL that allows 
+            you to retrieve videos for the subscription.
+            For one of the category tags in the entry, the scheme attribute
+            value will be http://gdata.youtube.com/schemas/2007/subscriptiontypes.cat. 
+            That tag's term attribute indicates whether the entry describes a 
+            subscription to a channel (term="channel"), another user's 
+            favorite videos list (term="favorites"), or to videos that match
+             specific keywords (term="query").
+            If the subscription is to another user's channel or list of favorite videos, 
+            the yt:username tag will identify the user who owns the channel or favorite video list.
+            If the subscription is to a keyword query, the yt:queryString element will
+            contain the subscribed-to query term.
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.SubscriptionEntry.SUBSCRIPTION_CATEGORY">
+            <summary>
+            Category used to label entries that are subscriptions
+            </summary>
+        </member>
+        <member name="M:Google.GData.YouTube.SubscriptionEntry.#ctor">
+            <summary>
+            Constructs a new YouTubeEntry instance
+            </summary>
+        </member>
+        <member name="P:Google.GData.YouTube.SubscriptionEntry.Type">
+            <summary>
+            get's and set's the associated atom:category
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.GData.YouTube.SubscriptionEntry.UserName">
+            <summary>
+            getter/setter for UserName subelement
+            </summary>
+        </member>
+        <member name="P:Google.GData.YouTube.SubscriptionEntry.QueryString">
+            <summary>
+            getter/setter for QueryString subelement
+            </summary>
+        </member>
+        <member name="P:Google.GData.YouTube.SubscriptionEntry.PlaylistId">
+            <summary>
+            getter/setter for PlaylistId subelement
+            </summary>
+        </member>
+        <member name="P:Google.GData.YouTube.SubscriptionEntry.PlaylistTitle">
+            <summary>
+            getter/setter for PlaylistTitle subelement
+            </summary>
+        </member>
+        <member name="T:Google.GData.YouTube.SubscriptionEntry.SubscriptionType">
+            <summary>
+            describes the subscription types for a subscription feed
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.SubscriptionEntry.SubscriptionType.channel">
+            <summary>
+            indicates a channel subscription
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.SubscriptionEntry.SubscriptionType.favorites">
+            <summary>
+            indicates a user favorites subscription
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.SubscriptionEntry.SubscriptionType.query">
+            <summary>
+            indicates a query based subscription
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.SubscriptionEntry.SubscriptionType.playlist">
+            <summary>
+            indicates a playlist based subscription
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.SubscriptionEntry.SubscriptionType.unknown">
+            <summary>
+            indicates an unknown state
             </summary>
         </member>
     </members>

@@ -4,26 +4,6 @@
         <name>Google.GData.Blogger</name>
     </assembly>
     <members>
-        <member name="T:Google.GData.Blogger.BloggerFeed">
-            <summary>
-            This is the Google Calendar feed that lets you access and manage
-            the calendars you own and also lets you subscribe or 
-            unsubscribe from calendars owned by others.
-            </summary>
-        </member>
-        <member name="M:Google.GData.Blogger.BloggerFeed.#ctor(System.Uri,Google.GData.Client.IService)">
-            <summary>
-             default constructor
-            </summary>
-            <param name="uriBase">the base URI of the feedEntry</param>
-            <param name="iService">the Service to use</param>
-        </member>
-        <member name="M:Google.GData.Blogger.BloggerFeed.CreateFeedEntry">
-            <summary>
-            This needs to get implemented by subclasses
-            </summary>
-            <returns>AtomEntry</returns>
-        </member>
         <member name="T:Google.GData.Blogger.BloggerQuery">
             <summary>
             A subclass of FeedQuery, to create a Blogger query URI.
@@ -124,6 +104,26 @@
             <summary>Allows you to retrieve the Post Uri value for a blogger entry. 
             This is relevant in the "feeds of blogs"</summary> 
             <returns> </returns>
+        </member>
+        <member name="T:Google.GData.Blogger.BloggerFeed">
+            <summary>
+            This is the Google Calendar feed that lets you access and manage
+            the calendars you own and also lets you subscribe or 
+            unsubscribe from calendars owned by others.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Blogger.BloggerFeed.#ctor(System.Uri,Google.GData.Client.IService)">
+            <summary>
+             default constructor
+            </summary>
+            <param name="uriBase">the base URI of the feedEntry</param>
+            <param name="iService">the Service to use</param>
+        </member>
+        <member name="M:Google.GData.Blogger.BloggerFeed.CreateFeedEntry">
+            <summary>
+            This needs to get implemented by subclasses
+            </summary>
+            <returns>AtomEntry</returns>
         </member>
     </members>
 </doc>

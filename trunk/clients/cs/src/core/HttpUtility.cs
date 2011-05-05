@@ -53,7 +53,7 @@ namespace Google.GData.Client.Util {
 namespace Google.GData.Client
 {
 
-#if !MONOTOUCH
+#if !MONOTOUCH && !WindowsCE && !PocketPC
 	// CAS - no InheritanceDemand here as the class is sealed
 	[AspNetHostingPermission(SecurityAction.LinkDemand, Level = AspNetHostingPermissionLevel.Minimal)]
 #endif
@@ -457,8 +457,12 @@ namespace Google.GData.Client
 #endif
 
 			bytes = null;
-			return e.GetString(buf);
-		}
+#if WindowsCE || PocketPC
+            return e.GetString(buf, 0, buf.Length);
+#else
+            return e.GetString(buf);
+#endif
+        }
 
 		public static string UrlDecode(byte[] bytes, Encoding e) {
 			if (bytes == null)
@@ -654,8 +658,12 @@ namespace Google.GData.Client
 			// avoided GetByteCount call
 			byte[] bytes = new byte[Enc.GetMaxByteCount(s.Length)];
 			int realLen = Enc.GetBytes(s, 0, s.Length, bytes, 0);
-			return Encoding.ASCII.GetString(UrlEncodeToBytes(bytes, 0, realLen));
-		}
+#if WindowsCE || PocketPC
+            return Encoding.ASCII.GetString(UrlEncodeToBytes(bytes, 0, realLen), 0 , realLen);
+#else
+            return Encoding.ASCII.GetString(UrlEncodeToBytes(bytes, 0, realLen));
+#endif
+        }
 
 		public static string UrlEncode(byte[] bytes) {
 			if (bytes == null)
@@ -664,8 +672,12 @@ namespace Google.GData.Client
 			if (bytes.Length == 0)
 				return "";
 
-			return Encoding.ASCII.GetString(UrlEncodeToBytes(bytes, 0, bytes.Length));
-		}
+#if WindowsCE || PocketPC
+            return Encoding.ASCII.GetString(UrlEncodeToBytes(bytes, 0, bytes.Length), 0, bytes.Length);
+#else
+            return Encoding.ASCII.GetString(UrlEncodeToBytes(bytes, 0, bytes.Length));
+#endif
+        }
 
 		public static string UrlEncode(byte[] bytes, int offset, int count) {
 			if (bytes == null)
@@ -674,8 +686,12 @@ namespace Google.GData.Client
 			if (bytes.Length == 0)
 				return "";
 
-			return Encoding.ASCII.GetString(UrlEncodeToBytes(bytes, offset, count));
-		}
+#if WindowsCE || PocketPC
+            return Encoding.ASCII.GetString(UrlEncodeToBytes(bytes, offset, count), offset, count);
+#else
+            return Encoding.ASCII.GetString(UrlEncodeToBytes(bytes, offset, count));
+#endif
+        }
 
 		public static byte[] UrlEncodeToBytes(string str) {
 			return UrlEncodeToBytes(str, Encoding.UTF8);
@@ -782,9 +798,12 @@ namespace Google.GData.Client
 		public static string UrlEncodeUnicode(string str) {
 			if (str == null)
 				return null;
-
-			return Encoding.ASCII.GetString(UrlEncodeUnicodeToBytes(str));
-		}
+#if WindowsCE || PocketPC
+            return Encoding.ASCII.GetString(UrlEncodeUnicodeToBytes(str), 0, str.Length);
+#else
+            return Encoding.ASCII.GetString(UrlEncodeUnicodeToBytes(str));
+#endif
+        }
 
 		public static byte[] UrlEncodeUnicodeToBytes(string str) {
 			if (str == null)
