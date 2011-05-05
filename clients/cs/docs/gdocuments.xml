@@ -4,6 +4,346 @@
         <name>Google.GData.Documents</name>
     </assembly>
     <members>
+        <member name="T:Google.GData.Documents.DocumentsFeed">
+            <summary>
+            Google Documents List feed URI takes the following form:
+                http://docs.google.com/feeds/documents/visibility/projection
+            The visibility parameter has two possible values: private and public. 
+            In almost all cases, your client should use private. 
+            The projection parameter indicates what information is included in the representation. 
+            For example, if your client specifies a projection of basic, it's requesting an Atom feed
+             without any GData extension elements. 
+            Currently, in the Documents List feed, only the private/full combination 
+            for visibility and projection is available. 
+            </summary>
+        </member>
+        <member name="M:Google.GData.Documents.DocumentsFeed.#ctor(System.Uri,Google.GData.Client.IService)">
+            <summary>
+             default constructor
+            </summary>
+            <param name="uriBase">the base URI of the feedEntry</param>
+            <param name="iService">the Service to use</param>
+        </member>
+        <member name="M:Google.GData.Documents.DocumentsFeed.CreateFeedEntry">
+            <summary>
+            this needs to get implemented by subclasses
+            </summary>
+            <returns>AtomEntry</returns>
+        </member>
+        <member name="M:Google.GData.Documents.DocumentsFeed.HandleExtensionElements(Google.GData.Client.ExtensionElementEventArgs,Google.GData.Client.AtomFeedParser)">
+            <summary>
+            get's called after we already handled the custom entry, to handle all 
+            other potential parsing tasks
+            </summary>
+            <param name="e"></param>
+            <param name="parser">the atom feed parser used</param>
+        </member>
+        <member name="T:Google.GData.Documents.DocumentslistNametable">
+            <summary>
+            Name Table for string constants used in the Documents list api
+            </summary>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentslistNametable.NSDocumentslist">
+            <summary>Document list namespace</summary>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentslistNametable.Prefix">
+            <summary>Document list prefix</summary>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentslistNametable.WritersCanInvite">
+            <summary>Writers can invite element</summary>
+        </member>
+        <member name="T:Google.GData.Documents.DocumentEntry">
+            <summary>
+            Entry API customization class for defining entries in an Event feed.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentEntry.DOCUMENT_CATEGORY">
+            <summary>
+            a predefined atom category for Documents
+            </summary>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentEntry.SPREADSHEET_CATEGORY">
+            <summary>
+            a predefined atom category for Spreadsheets
+            </summary>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentEntry.PDF_CATEGORY">
+            <summary>
+            a predefined atom category for PDF
+            </summary>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentEntry.PRESENTATION_CATEGORY">
+            <summary>
+            a predefined atom category for starred documentss
+            </summary>
+            <summary>
+            a predefined atom category for Presentations
+            </summary>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentEntry.DRAWING_CATEGORY">
+            <summary>
+            a predefined atom category for Drawings
+            </summary>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentEntry.FOLDER_CATEGORY">
+            <summary>
+            a predefined atom category for folders
+            </summary>        
+        </member>
+        <member name="F:Google.GData.Documents.DocumentEntry.FORM_CATEGORY">
+            <summary>
+            a predefined atom category for forms
+            </summary>        
+        </member>
+        <member name="F:Google.GData.Documents.DocumentEntry.STARRED_CATEGORY">
+            <summary>
+            a predefined atom category for starred documents
+            </summary>        
+        </member>
+        <member name="F:Google.GData.Documents.DocumentEntry.TRASHED_CATEGORY">
+            <summary>
+            a predefined atom category for trashed documents
+            </summary>        
+        </member>
+        <member name="F:Google.GData.Documents.DocumentEntry.HIDDEN_CATEGORY">
+            <summary>
+            a predefined atom category for hidden documents
+            </summary>        
+        </member>
+        <member name="F:Google.GData.Documents.DocumentEntry.VIEWED_CATEGORY">
+            <summary>
+            a predefined atom category for VIEWED documents
+            </summary>        
+        </member>
+        <member name="F:Google.GData.Documents.DocumentEntry.MINE_CATEGORY">
+            <summary>
+            a predefined atom category for owned by user documents
+            </summary>        
+        </member>
+        <member name="F:Google.GData.Documents.DocumentEntry.PRIVATE_CATEGORY">
+            <summary>
+            a predefined atom category for private documents
+            </summary>        
+        </member>
+        <member name="F:Google.GData.Documents.DocumentEntry.SHARED_CATEGORY">
+            <summary>
+            a predefined atom category for shared documents
+            </summary>        
+        </member>
+        <member name="M:Google.GData.Documents.DocumentEntry.#ctor">
+            <summary>
+            Constructs a new EventEntry instance with the appropriate category
+            to indicate that it is an event.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Documents.DocumentEntry.AddOtherNamespaces(System.Xml.XmlWriter)">
+            <summary>
+            add the documentslist NS
+            </summary>
+            <param name="writer">The XmlWrite, where we want to add default namespaces to</param>
+        </member>
+        <member name="M:Google.GData.Documents.DocumentEntry.SkipNode(System.Xml.XmlNode)">
+            <summary>
+            Checks if this is a namespace declaration that we already added
+            </summary>
+            <param name="node">XmlNode to check</param>
+            <returns>True if this node should be skipped</returns>
+        </member>
+        <member name="P:Google.GData.Documents.DocumentEntry.IsDocument">
+            <summary>
+            Reflects if this entry is a word processor document
+            </summary>
+        </member>
+        <member name="P:Google.GData.Documents.DocumentEntry.IsSpreadsheet">
+            <summary>
+            Reflects if this entry is a spreadsheet document
+            </summary>
+        </member>
+        <member name="P:Google.GData.Documents.DocumentEntry.IsPresentation">
+            <summary>
+            Reflects if this entry is a presentation document
+            </summary>
+        </member>
+        <member name="P:Google.GData.Documents.DocumentEntry.IsDrawing">
+            <summary>
+            Reflects if this entry is a drawing document
+            </summary>
+        </member>
+        <member name="P:Google.GData.Documents.DocumentEntry.IsForm">
+            <summary>
+            Reflects if this entry is a form
+            </summary>
+        </member>
+        <member name="P:Google.GData.Documents.DocumentEntry.IsPDF">
+            <summary>
+            Reflects if this entry is a PDF document
+            </summary>
+        </member>
+        <member name="P:Google.GData.Documents.DocumentEntry.IsStarred">
+            <summary>
+            Reflects if this entry is starred
+            </summary>
+        </member>
+        <member name="P:Google.GData.Documents.DocumentEntry.IsFolder">
+            <summary>
+            returns true if this is a folder
+            </summary>
+        </member>
+        <member name="P:Google.GData.Documents.DocumentEntry.AccessControlList">
+            <summary>
+            returns the string that should represent the Uri to the access control list
+            </summary>
+            <returns>the value of the hret attribute for the acl feedlink, or null if not found</returns>
+        </member>
+        <member name="P:Google.GData.Documents.DocumentEntry.RevisionDocument">
+            <summary>
+            returns the string that should represent the Uri to the revision document
+            </summary>
+            <returns>the value of the hret attribute for the revisons feedlink, or null if not found</returns>
+        </member>
+        <member name="P:Google.GData.Documents.DocumentEntry.ParentFolders">
+            <summary>
+            returns the href value of the parent link releationship
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.GData.Documents.DocumentEntry.ResourceId">
+            <summary>
+            Documents resource Identifier.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.GData.Documents.DocumentEntry.WritersCanInvite">
+            <summary>
+            Identifies if a collaborator can modify the ACLs of the document
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.GData.Documents.DocumentEntry.LastViewed">
+            <summary>
+            Returns the last viewed timestamp
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.GData.Documents.DocumentEntry.LastModified">
+            <summary>
+            returns the last modififiedBy Element
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.GData.Documents.DocumentEntry.QuotaUsed">
+            <summary>
+            returns the last quotabytesused Element
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Google.GData.Documents.WritersCanInvite">
+            <summary>
+            Determines if a collaborator can modify a documents ACL
+            </summary>
+        </member>
+        <member name="M:Google.GData.Documents.WritersCanInvite.#ctor">
+            <summary>
+            default constructor for gd:resourceid 
+            </summary>
+        </member>
+        <member name="T:Google.GData.Documents.DocumentsService">
+            <summary>
+            The Google Documents List data API allows client applications to upload 
+            documents to Google Documents and list them in the form of Google data 
+            API ("GData") feeds. Your client application can request a list of a user's 
+            documents, and query the content in an existing document.
+            Here are some of the things you can do with the Documents List data API:
+                Upload the word processing documents and spreadsheets on
+                    your computer to allow you to back them up or 
+                    collaborate online when editing.
+                Find all of your documents that contain specific keywords.
+                Get a list of spreadsheets which can be accessed through the Google Spreadsheets data API. 
+            </summary>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentsService.DocumentsNamespace">
+            <summary>
+            the documents namespace
+            </summary>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentsService.Revisions">
+            <summary>
+            revisions prefix
+            </summary>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentsService.DocumentTypes">
+            <summary>
+            A Hashtable that expresses the allowed content types.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Documents.DocumentsService.#cctor">
+            <summary>
+            Static constructor used to initialize GDocumentsAllowedTypes.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Documents.DocumentsService.#ctor(System.String)">
+            <summary>
+             default constructor
+            </summary>
+            <param name="applicationName">the applicationname</param>
+        </member>
+        <member name="M:Google.GData.Documents.DocumentsService.Query(Google.GData.Documents.DocumentsListQuery)">
+            <summary>
+            overloaded to create typed version of Query
+            </summary>
+            <param name="feedQuery"></param>
+            <returns>EventFeed</returns>
+        </member>
+        <member name="M:Google.GData.Documents.DocumentsService.UploadDocument(System.String,System.String)">
+            <summary>
+            Simple method to upload a document, presentation, or spreadsheet
+            based upon the file extension.
+            </summary>
+            <param name="fileName">The full path to the file.</param>
+            <param name="documentName">The desired name of the document on the server.</param>
+            <returns>A DocumentEntry describing the created document.</returns>
+        </member>
+        <member name="M:Google.GData.Documents.DocumentsService.UploadDocument(System.String,System.String,System.String)">
+            <summary>
+            Simple method to upload a document, presentation, or spreadsheet
+            </summary>
+            <param name="fileName">The full path to the file.</param>
+            <param name="documentName">The desired name of the document on the server.</param>
+            <param name="contentType">The mime type of the document</param>
+            <returns>A DocumentEntry describing the created document.</returns>
+        </member>
+        <member name="M:Google.GData.Documents.DocumentsService.UploadFile(System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            Simple method to upload an arbitrary file. 
+            </summary>
+            <param name="fileName">The full path to the file.</param>
+            <param name="documentName">The desired name of the file on the server.</param>
+            <param name="contentType">The mime type of the file</param>
+            <param name="convert">Indiates if the document should be converted to a known type on the server</param>
+            <returns>A DocumentEntry describing the created document.</returns>
+        </member>
+        <member name="M:Google.GData.Documents.DocumentsService.InitVersionInformation">
+            <summary>
+            by default all services now use version 1 for the protocol.
+            this needs to be overridden by a service to specify otherwise. 
+            Documents uses Version 3
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Google.GData.Documents.DocumentsService.Query(Google.GData.AccessControl.AclQuery)">
+            <summary>
+            overloaded to create typed version of Query
+            </summary>
+            <param name="feedQuery"></param>
+            <returns>EventFeed</returns>
+        </member>
+        <member name="M:Google.GData.Documents.DocumentsService.OnNewFeed(System.Object,Google.GData.Client.ServiceEventArgs)">
+            <summary>eventchaining. We catch this by from the base service, which 
+            would not by default create an atomFeed</summary> 
+            <param name="sender"> the object which send the event</param>
+            <param name="e">FeedParserEventArguments, holds the feedentry</param> 
+            <returns> </returns>
+        </member>
         <member name="T:Google.GData.Documents.DocumentsListQuery">
             <summary>
             A subclass of FeedQuery, to create an Documents query URI.
@@ -382,6 +722,11 @@
             a form
             </summary>
         </member>
+        <member name="F:Google.Documents.Document.DocumentType.Drawing">
+            <summary>
+            a drawing
+            </summary>
+        </member>
         <member name="F:Google.Documents.Document.DocumentType.Unknown">
             <summary>
             something unknown to us
@@ -447,7 +792,7 @@
         </member>
         <member name="F:Google.Documents.Document.DownloadType.csv">
             <summary>
-            commma seperated value format
+            commma separated value format
             </summary>
         </member>
         <member name="F:Google.Documents.Document.DownloadType.ods">
@@ -457,7 +802,17 @@
         </member>
         <member name="F:Google.Documents.Document.DownloadType.tsv">
             <summary>
-            tab seperated values format
+            tab separated values format
+            </summary>
+        </member>
+        <member name="F:Google.Documents.Document.DownloadType.svg">
+            <summary>
+            Scalable Vector Graphics format
+            </summary>
+        </member>
+        <member name="F:Google.Documents.Document.DownloadType.jpeg">
+            <summary>
+            jpeg format
             </summary>
         </member>
         <member name="T:Google.Documents.DocumentsRequest">
@@ -493,7 +848,7 @@
         </member>
         <member name="M:Google.Documents.DocumentsRequest.OnSetOtherProxies(System.Net.IWebProxy)">
             <summary>
-            called to set additonal proxies if required. Overloaded on the document service
+            called to set additional proxies if required. Overloaded on the document service
             </summary>
             <param name="proxy"></param>
             <returns></returns>
@@ -620,336 +975,6 @@
             DocumentsListQuery.documentsBaseUri
             </summary>
             <returns></returns>
-        </member>
-        <member name="T:Google.GData.Documents.DocumentslistNametable">
-            <summary>
-            Name Table for string constants used in the Documents list api
-            </summary>
-        </member>
-        <member name="F:Google.GData.Documents.DocumentslistNametable.NSDocumentslist">
-            <summary>Document list namespace</summary>
-        </member>
-        <member name="F:Google.GData.Documents.DocumentslistNametable.Prefix">
-            <summary>Document list prefix</summary>
-        </member>
-        <member name="F:Google.GData.Documents.DocumentslistNametable.WritersCanInvite">
-            <summary>Writers can invite element</summary>
-        </member>
-        <member name="T:Google.GData.Documents.DocumentEntry">
-            <summary>
-            Entry API customization class for defining entries in an Event feed.
-            </summary>
-        </member>
-        <member name="F:Google.GData.Documents.DocumentEntry.DOCUMENT_CATEGORY">
-            <summary>
-            a predefined atom category for Documents
-            </summary>
-        </member>
-        <member name="F:Google.GData.Documents.DocumentEntry.SPREADSHEET_CATEGORY">
-            <summary>
-            a predefined atom category for Spreadsheets
-            </summary>
-        </member>
-        <member name="F:Google.GData.Documents.DocumentEntry.PDF_CATEGORY">
-            <summary>
-            a predefined atom category for PDF
-            </summary>
-        </member>
-        <member name="F:Google.GData.Documents.DocumentEntry.PRESENTATION_CATEGORY">
-            <summary>
-            a predefined atom category for starred documentss
-            </summary>
-            <summary>
-            a predefined atom category for Presentations
-            </summary>
-        </member>
-        <member name="F:Google.GData.Documents.DocumentEntry.FOLDER_CATEGORY">
-            <summary>
-            a predefined atom category for folders
-            </summary>        
-        </member>
-        <member name="F:Google.GData.Documents.DocumentEntry.FORM_CATEGORY">
-            <summary>
-            a predefined atom category for forms
-            </summary>        
-        </member>
-        <member name="F:Google.GData.Documents.DocumentEntry.STARRED_CATEGORY">
-            <summary>
-            a predefined atom category for starred documents
-            </summary>        
-        </member>
-        <member name="F:Google.GData.Documents.DocumentEntry.TRASHED_CATEGORY">
-            <summary>
-            a predefined atom category for trashed documents
-            </summary>        
-        </member>
-        <member name="F:Google.GData.Documents.DocumentEntry.HIDDEN_CATEGORY">
-            <summary>
-            a predefined atom category for hidden documents
-            </summary>        
-        </member>
-        <member name="F:Google.GData.Documents.DocumentEntry.VIEWED_CATEGORY">
-            <summary>
-            a predefined atom category for VIEWED documents
-            </summary>        
-        </member>
-        <member name="F:Google.GData.Documents.DocumentEntry.MINE_CATEGORY">
-            <summary>
-            a predefined atom category for owned by user documents
-            </summary>        
-        </member>
-        <member name="F:Google.GData.Documents.DocumentEntry.PRIVATE_CATEGORY">
-            <summary>
-            a predefined atom category for private documents
-            </summary>        
-        </member>
-        <member name="F:Google.GData.Documents.DocumentEntry.SHARED_CATEGORY">
-            <summary>
-            a predefined atom category for shared documents
-            </summary>        
-        </member>
-        <member name="M:Google.GData.Documents.DocumentEntry.#ctor">
-            <summary>
-            Constructs a new EventEntry instance with the appropriate category
-            to indicate that it is an event.
-            </summary>
-        </member>
-        <member name="M:Google.GData.Documents.DocumentEntry.AddOtherNamespaces(System.Xml.XmlWriter)">
-            <summary>
-            add the documentslist NS
-            </summary>
-            <param name="writer">The XmlWrite, where we want to add default namespaces to</param>
-        </member>
-        <member name="M:Google.GData.Documents.DocumentEntry.SkipNode(System.Xml.XmlNode)">
-            <summary>
-            Checks if this is a namespace declaration that we already added
-            </summary>
-            <param name="node">XmlNode to check</param>
-            <returns>True if this node should be skipped</returns>
-        </member>
-        <member name="P:Google.GData.Documents.DocumentEntry.IsDocument">
-            <summary>
-            Reflects if this entry is a word processor document
-            </summary>
-        </member>
-        <member name="P:Google.GData.Documents.DocumentEntry.IsSpreadsheet">
-            <summary>
-            Reflects if this entry is a spreadsheet document
-            </summary>
-        </member>
-        <member name="P:Google.GData.Documents.DocumentEntry.IsPresentation">
-            <summary>
-            Reflects if this entry is a presentation document
-            </summary>
-        </member>
-        <member name="P:Google.GData.Documents.DocumentEntry.IsForm">
-            <summary>
-            Reflects if this entry is a form
-            </summary>
-        </member>
-        <member name="P:Google.GData.Documents.DocumentEntry.IsPDF">
-            <summary>
-            Reflects if this entry is a PDF document
-            </summary>
-        </member>
-        <member name="P:Google.GData.Documents.DocumentEntry.IsStarred">
-            <summary>
-            Reflects if this entry is starred
-            </summary>
-        </member>
-        <member name="P:Google.GData.Documents.DocumentEntry.IsFolder">
-            <summary>
-            returns true if this is a folder
-            </summary>
-        </member>
-        <member name="P:Google.GData.Documents.DocumentEntry.AccessControlList">
-            <summary>
-            returns the string that should represent the Uri to the access control list
-            </summary>
-            <returns>the value of the hret attribute for the acl feedlink, or null if not found</returns>
-        </member>
-        <member name="P:Google.GData.Documents.DocumentEntry.RevisionDocument">
-            <summary>
-            returns the string that should represent the Uri to the revision document
-            </summary>
-            <returns>the value of the hret attribute for the revisons feedlink, or null if not found</returns>
-        </member>
-        <member name="P:Google.GData.Documents.DocumentEntry.ParentFolders">
-            <summary>
-            returns the href value of the parent link releationship
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="P:Google.GData.Documents.DocumentEntry.ResourceId">
-            <summary>
-            Documents resource Identifier.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="P:Google.GData.Documents.DocumentEntry.WritersCanInvite">
-            <summary>
-            Identifies if a collaborator can modify the ACLs of the document
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="P:Google.GData.Documents.DocumentEntry.LastViewed">
-            <summary>
-            Returns the last viewed timestamp
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="P:Google.GData.Documents.DocumentEntry.LastModified">
-            <summary>
-            returns the last modififiedBy Element
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="P:Google.GData.Documents.DocumentEntry.QuotaUsed">
-            <summary>
-            returns the last quotabytesused Element
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="T:Google.GData.Documents.WritersCanInvite">
-            <summary>
-            Determines if a collaborator can modify a documents ACL
-            </summary>
-        </member>
-        <member name="M:Google.GData.Documents.WritersCanInvite.#ctor">
-            <summary>
-            default constructor for gd:resourceid 
-            </summary>
-        </member>
-        <member name="T:Google.GData.Documents.DocumentsService">
-            <summary>
-            The Google Documents List data API allows client applications to upload 
-            documents to Google Documents and list them in the form of Google data 
-            API ("GData") feeds. Your client application can request a list of a user's 
-            documents, and query the content in an existing document.
-            Here are some of the things you can do with the Documents List data API:
-                Upload the word processing documents and spreadsheets on
-                    your computer to allow you to back them up or 
-                    collaborate online when editing.
-                Find all of your documents that contain specific keywords.
-                Get a list of spreadsheets which can be accessed through the Google Spreadsheets data API. 
-            </summary>
-        </member>
-        <member name="F:Google.GData.Documents.DocumentsService.DocumentsNamespace">
-            <summary>
-            the documents namespace
-            </summary>
-        </member>
-        <member name="F:Google.GData.Documents.DocumentsService.Revisions">
-            <summary>
-            revisions prefix
-            </summary>
-        </member>
-        <member name="F:Google.GData.Documents.DocumentsService.DocumentTypes">
-            <summary>
-            A Hashtable that expresses the allowed content types.
-            </summary>
-        </member>
-        <member name="M:Google.GData.Documents.DocumentsService.#cctor">
-            <summary>
-            Static constructor used to initialize GDocumentsAllowedTypes.
-            </summary>
-        </member>
-        <member name="M:Google.GData.Documents.DocumentsService.#ctor(System.String)">
-            <summary>
-             default constructor
-            </summary>
-            <param name="applicationName">the applicationname</param>
-        </member>
-        <member name="M:Google.GData.Documents.DocumentsService.Query(Google.GData.Documents.DocumentsListQuery)">
-            <summary>
-            overloaded to create typed version of Query
-            </summary>
-            <param name="feedQuery"></param>
-            <returns>EventFeed</returns>
-        </member>
-        <member name="M:Google.GData.Documents.DocumentsService.UploadDocument(System.String,System.String)">
-            <summary>
-            Simple method to upload a document, presentation, or spreadsheet
-            based upon the file extension.
-            </summary>
-            <param name="fileName">The full path to the file.</param>
-            <param name="documentName">The desired name of the document on the server.</param>
-            <returns>A DocumentEntry describing the created document.</returns>
-        </member>
-        <member name="M:Google.GData.Documents.DocumentsService.UploadDocument(System.String,System.String,System.String)">
-            <summary>
-            Simple method to upload a document, presentation, or spreadsheet
-            </summary>
-            <param name="fileName">The full path to the file.</param>
-            <param name="documentName">The desired name of the document on the server.</param>
-            <param name="contentType">The mime type of the document</param>
-            <returns>A DocumentEntry describing the created document.</returns>
-        </member>
-        <member name="M:Google.GData.Documents.DocumentsService.UploadFile(System.String,System.String,System.String,System.Boolean)">
-            <summary>
-            Simple method to upload an arbitrary file. 
-            </summary>
-            <param name="fileName">The full path to the file.</param>
-            <param name="documentName">The desired name of the file on the server.</param>
-            <param name="contentType">The mime type of the file</param>
-            <param name="convert">Indiates if the document should be converted to a known type on the server</param>
-            <returns>A DocumentEntry describing the created document.</returns>
-        </member>
-        <member name="M:Google.GData.Documents.DocumentsService.InitVersionInformation">
-            <summary>
-            by default all services now use version 1 for the protocol.
-            this needs to be overridden by a service to specify otherwise. 
-            Documents uses Version 3
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Google.GData.Documents.DocumentsService.Query(Google.GData.AccessControl.AclQuery)">
-            <summary>
-            overloaded to create typed version of Query
-            </summary>
-            <param name="feedQuery"></param>
-            <returns>EventFeed</returns>
-        </member>
-        <member name="M:Google.GData.Documents.DocumentsService.OnNewFeed(System.Object,Google.GData.Client.ServiceEventArgs)">
-            <summary>eventchaining. We catch this by from the base service, which 
-            would not by default create an atomFeed</summary> 
-            <param name="sender"> the object which send the event</param>
-            <param name="e">FeedParserEventArguments, holds the feedentry</param> 
-            <returns> </returns>
-        </member>
-        <member name="T:Google.GData.Documents.DocumentsFeed">
-            <summary>
-            Google Documents List feed URI takes the following form:
-                http://docs.google.com/feeds/documents/visibility/projection
-            The visibility parameter has two possible values: private and public. 
-            In almost all cases, your client should use private. 
-            The projection parameter indicates what information is included in the representation. 
-            For example, if your client specifies a projection of basic, it's requesting an Atom feed
-             without any GData extension elements. 
-            Currently, in the Documents List feed, only the private/full combination 
-            for visibility and projection is available. 
-            </summary>
-        </member>
-        <member name="M:Google.GData.Documents.DocumentsFeed.#ctor(System.Uri,Google.GData.Client.IService)">
-            <summary>
-             default constructor
-            </summary>
-            <param name="uriBase">the base URI of the feedEntry</param>
-            <param name="iService">the Service to use</param>
-        </member>
-        <member name="M:Google.GData.Documents.DocumentsFeed.CreateFeedEntry">
-            <summary>
-            this needs to get implemented by subclasses
-            </summary>
-            <returns>AtomEntry</returns>
-        </member>
-        <member name="M:Google.GData.Documents.DocumentsFeed.HandleExtensionElements(Google.GData.Client.ExtensionElementEventArgs,Google.GData.Client.AtomFeedParser)">
-            <summary>
-            get's called after we already handled the custom entry, to handle all 
-            other potential parsing tasks
-            </summary>
-            <param name="e"></param>
-            <param name="parser">the atom feed parser used</param>
         </member>
     </members>
 </doc>

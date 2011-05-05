@@ -29,6 +29,7 @@ xcopy /y ..\src\ghealth\bin\Release\*.dll ..\lib\Release\*.*
 xcopy /y ..\src\blogger\bin\Release\*.dll ..\lib\Release\*.*
 xcopy /y ..\src\analytics\bin\Release\*.dll ..\lib\Release\*.*
 xcopy /y ..\src\WebmasterTools\bin\Release\*.dll ..\lib\Release\*.*
+xcopy /y ..\src\contentforshopping\bin\Release\*.dll ..\lib\Release\*.*
 
 # copy the debug DLLS
 xcopy /y ..\src\core\bin\Debug\*.dll ..\lib\Debug\*.*
@@ -47,6 +48,7 @@ xcopy /y ..\src\ghealth\bin\Debug\*.dll ..\lib\Debug\*.*
 xcopy /y ..\src\blogger\bin\Debug\*.dll ..\lib\Debug\*.*
 xcopy /y ..\src\analytics\bin\Debug\*.dll ..\lib\Debug\*.*
 xcopy /y ..\src\WebmasterTools\bin\Debug\*.dll ..\lib\Debug\*.*
+xcopy /y ..\src\contentforshopping\bin\Debug\*.dll ..\lib\Debug\*.*
 
 # copy the YouTube setup
 xcopy /y "..\src\youtube\YouTube SDK\YouTube SDK\Release\YouTube SDK.msi" ..\lib\Setup\*.*
@@ -88,12 +90,15 @@ xcopy /y ..\samples\ExecRequest\bin\Release\*.exe ..\lib\Release\*.*
 xcopy /y ..\samples\gapps_google_mail_settings_sample\bin\Release\*.exe ..\lib\Release\*.*
 xcopy /y ..\samples\gapps_multidomain_sample\bin\Release\*.exe ..\lib\Release\*.*
 xcopy /y ..\samples\gapps_orgmanagement_sample\bin\Release\*.exe ..\lib\Release\*.*
+xcopy /y ..\samples\gapps_calendar_resource_sample\bin\Release\*.exe ..\lib\Release\*.*
+xcopy /y ..\samples\gapps_audit_sample\bin\Release\*.exe ..\lib\Release\*.*
 xcopy /y ..\samples\gbase\bin\*.exe ..\lib\Release\*.*
 xcopy /y ..\samples\gbase\bin\Release\*.exe ..\lib\Release\*.*
 xcopy /y ..\samples\health\bin\Release\*.exe ..\lib\Release\*.*
 xcopy /y ..\samples\PhotoBrowser\bin\Release\*.exe ..\lib\Release\*.*
 xcopy /y ..\samples\spreadsheets\bin\Release\*.exe ..\lib\Release\*.*
 xcopy /y ..\samples\YouTubeNotifier\bin\Release\*.exe ..\lib\Release\*.*
+xcopy /y ..\samples\contentforshopping\bin\Release\*.exe ..\lib\Release\*.*
 
 # copy the xml doc files
 xcopy /y ..\src\analytics\bin\*.xml ..\docs\*.*
@@ -112,6 +117,7 @@ xcopy /y ..\src\gphotos\bin\*.xml ..\docs\*.*
 xcopy /y ..\src\gspreadsheets\bin\*.xml ..\docs\*.*
 xcopy /y ..\src\webmastertools\bin\*.xml ..\docs\*.*
 xcopy /y ..\src\youtube\bin\*.xml ..\docs\*.*
+xcopy /y ..\src\contentforshopping\bin\*.xml ..\docs\*.*
 
 cd ..\lib\release\
 

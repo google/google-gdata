@@ -33,17 +33,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Google.GData.Client, Version=1.7.0.22288, Culture=neutral, PublicKeyToken=04a59ca9b0273830, processorArchitecture=MSIL">
+    <Reference Include="Google.GData.Client, Version=1.8.0.0, Culture=neutral, PublicKeyToken=04a59ca9b0273830, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\src\contentforshopping\bin\Debug\Google.GData.Client.dll</HintPath>
+      <HintPath>..\..\lib\Release\Google.GData.Client.dll</HintPath>
     </Reference>
-    <Reference Include="Google.GData.ContentForShopping, Version=1.7.0.22690, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Google.GData.ContentForShopping, Version=1.8.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\src\contentforshopping\bin\Debug\Google.GData.ContentForShopping.dll</HintPath>
+      <HintPath>..\..\lib\Release\Google.GData.ContentForShopping.dll</HintPath>
     </Reference>
-    <Reference Include="Google.GData.Extensions, Version=1.7.0.22289, Culture=neutral, PublicKeyToken=0b4c5df2ebf20876, processorArchitecture=MSIL">
+    <Reference Include="Google.GData.Extensions, Version=1.8.0.0, Culture=neutral, PublicKeyToken=0b4c5df2ebf20876, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\src\contentforshopping\bin\Debug\Google.GData.Extensions.dll</HintPath>
+      <HintPath>..\..\lib\Release\Google.GData.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />

@@ -106,10 +106,13 @@ namespace Google.GData.Calendar
             get
             {
 				bool value;
+#if WindowsCE || PocketPC
+                value = bool.Parse(getCalendarExtensionValue(GDataParserNameTable.XmlHiddenElement));
+#else
 				if (!bool.TryParse(getCalendarExtensionValue(GDataParserNameTable.XmlHiddenElement), out value)) {
 					value = false;
 				}
-
+#endif
 				return value;
             }
             set
@@ -125,11 +128,14 @@ namespace Google.GData.Calendar
         {
             get
             {
-				bool value;
+                bool value;
+#if WindowsCE || PocketPC
+                value = bool.Parse(getCalendarExtensionValue(GDataParserNameTable.XmlSelectedElement));
+#else
 				if (!bool.TryParse(getCalendarExtensionValue(GDataParserNameTable.XmlSelectedElement), out value)) {
 					value = false;
 				}
-
+#endif
 				return value;
             }
             set
