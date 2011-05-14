@@ -5,13 +5,36 @@
 </head>
 <body>
   <h1>This document lists the changes in the different releases</h1>
+  <h2>1.8.0.0</h2>
+  <ul>
+    <li>Features</li>
+    <li style="list-style: none">
+      <ul>
+        <li>Added support for the Google Apps Audit API.</li>
+        <li>Added support for the Google Content for Shopping API.</li>
+        <li>Added support for the Google Calendar Resource API.</li>
+        <li>Extended the Email Settings API service to implement the new functionalities to retrieve the existing settings, support new filter actions and manage email delegation.</li>
+      </ul>
+    </li>
+    <li>Bugfixes/changes</li>
+    <li style="list-style: none">
+      <ul>
+        <li>Turned on SSL for Contacts, Documents, Health, Picasa, Spreadsheets, Youtube, Codesearch APIs.</li>
+        <li>Added support for PPTX files in DocumentService and updated DoclistUploader sample.</li>
+        <li>Fixed concurrent upload in ResumableUploader.</li>
+        <li>Extended CreateUser method for Multidomain Provisioning API to support hashed passwords.</li>
+        <li>Added support for SVG and JPEG in DownloadType.</li>
+        <li>Added support for Drawing objects in DocumentType.</li>
+      </ul>
+    </li>
+  </ul>
   <h2>1.7.0.0</h2>
   <ul>
     <li>Features</li>
     <li style="list-style: none">
       <ul>
         <li>Added support for Organization Units to the Provisioning API.</li>
-		<li>Added support for Multiple Domains to the Provisioning API.</li>
+        <li>Added support for Multiple Domains to the Provisioning API.</li>
         <li>Added default retry count for failed requests.</li>
       </ul>
     </li>
