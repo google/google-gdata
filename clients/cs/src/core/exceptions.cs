@@ -298,9 +298,23 @@ namespace Google.GData.Client
                 return (null);
 
             Stream responseStream = this.webResponse.GetResponseStream();
-            
-            if (responseStream == null)
-                return (null);
+
+			for (int i = 0; i < this.webResponse.Headers.Count; ++i) {
+				string headerVal = this.webResponse.Headers[i].ToLower();
+				if (headerVal.Contains("gzip")) {
+					responseStream = new System.IO.Compression.GZipStream(responseStream,
+						System.IO.Compression.CompressionMode.Decompress);
+					break;
+				}
+				if (headerVal.Contains("deflate")) {
+					responseStream = new System.IO.Compression.DeflateStream(responseStream,
+						System.IO.Compression.CompressionMode.Decompress);
+					break;
+				}
+			}
+
+			if (responseStream == null)
+				return (null);
 
             StreamReader reader = new StreamReader(responseStream);
             return (reader.ReadToEnd());
