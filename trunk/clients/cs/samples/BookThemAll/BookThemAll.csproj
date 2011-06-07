@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B5BA2D1F-D31D-464C-8556-0C34B4F00320}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>BookThemAll</RootNamespace>
+    <AssemblyName>BookThemAll</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <TargetFrameworkSubset>
+    </TargetFrameworkSubset>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Google.GData.AccessControl, Version=1.8.0.0, Culture=neutral, PublicKeyToken=b4b8eb9a7afc8328, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\Release\Google.GData.AccessControl.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="Google.GData.Extensions, Version=1.8.0.0, Culture=neutral, PublicKeyToken=0b4c5df2ebf20876">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\Release\Google.GData.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.GData.Apps, Version=1.8.0.0, Culture=neutral, PublicKeyToken=e6feebfe441b89cb">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\Release\Google.GData.Apps.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.GData.Client, Version=1.8.0.0, Culture=neutral, PublicKeyToken=04a59ca9b0273830">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\Release\Google.GData.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.GData.Calendar, Version=1.8.0.0, Culture=neutral, PublicKeyToken=aa6748391206b888">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\Release\Google.GData.Calendar.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Configuration" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BookThemAll.cs" />
+    <Compile Include="..\..\version\AssemblyVersion.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <None Include="README" />
+  </ItemGroup>
+</Project>

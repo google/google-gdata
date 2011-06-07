@@ -54,6 +54,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "contentforshopping_sample",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gapps_audit_sample", "gapps_audit_sample\gapps_audit_sample.csproj", "{C483632B-85BB-47E6-B87C-6598E95E82C7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookThemAll", "BookThemAll\BookThemAll.csproj", "{B5BA2D1F-D31D-464C-8556-0C34B4F00320}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		ASP|Any CPU = ASP|Any CPU
@@ -278,6 +280,14 @@ Global
 		{C483632B-85BB-47E6-B87C-6598E95E82C7}.DocListUploader - Release|Any CPU.Build.0 = Release|Any CPU
 		{C483632B-85BB-47E6-B87C-6598E95E82C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C483632B-85BB-47E6-B87C-6598E95E82C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5BA2D1F-D31D-464C-8556-0C34B4F00320}.ASP|Any CPU.ActiveCfg = Release|Any CPU
+		{B5BA2D1F-D31D-464C-8556-0C34B4F00320}.ASP|Any CPU.Build.0 = Release|Any CPU
+		{B5BA2D1F-D31D-464C-8556-0C34B4F00320}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5BA2D1F-D31D-464C-8556-0C34B4F00320}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5BA2D1F-D31D-464C-8556-0C34B4F00320}.DocListUploader - Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5BA2D1F-D31D-464C-8556-0C34B4F00320}.DocListUploader - Release|Any CPU.Build.0 = Release|Any CPU
+		{B5BA2D1F-D31D-464C-8556-0C34B4F00320}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5BA2D1F-D31D-464C-8556-0C34B4F00320}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
