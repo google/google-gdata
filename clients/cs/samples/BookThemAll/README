@@ -1,0 +1,9 @@
+# BookThemAll
+
+Sample .NET application using Calendar and Provisioning APIs
+
+Book next available time slot on the calendars of all domain group members
+
+# Usage
+
+    BookThemAll <domain> <admin> <password> <group>
