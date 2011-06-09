@@ -25,7 +25,7 @@ namespace Google.GData.ContentForShopping.Elements
         public Tax()
             : base(ContentForShoppingNameTable.Tax,
                 ContentForShoppingNameTable.scpDataPrefix,
-                ContentForShoppingNameTable.BaseNamespace)
+                ContentForShoppingNameTable.ProductsNamespace)
         {
             this.ExtensionFactories.Add(new TaxCountry());
             this.ExtensionFactories.Add(new TaxRegion());
