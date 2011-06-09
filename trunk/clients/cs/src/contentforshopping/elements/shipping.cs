@@ -25,7 +25,7 @@ namespace Google.GData.ContentForShopping.Elements
         public Shipping()
             : base(ContentForShoppingNameTable.Shipping,
                 ContentForShoppingNameTable.scpDataPrefix,
-                ContentForShoppingNameTable.BaseNamespace)
+                ContentForShoppingNameTable.ProductsNamespace)
         {
             this.ExtensionFactories.Add(new ShippingCountry());
             this.ExtensionFactories.Add(new ShippingRegion());
