@@ -158,7 +158,7 @@ namespace Google.Documents
         /// readonly accessor for the DocumentEntry that is underneath this object.
         /// </summary>
         /// <returns></returns>
-        public  DocumentEntry DocumentEntry
+        public DocumentEntry DocumentEntry
         {
             get
             {
@@ -247,9 +247,6 @@ namespace Google.Documents
             }
         }
 
-       
-
-
         /// <summary>
         /// returns the document resource id of the object. 
         /// this uses the gd:resourceId element
@@ -265,7 +262,7 @@ namespace Google.Documents
         }
 
         /// <summary>
-        /// returns if colaborators should be able to modify 
+        /// returns if collaborators should be able to modify 
         /// the documents ACL list
         /// </summary>
         /// <returns></returns>
@@ -611,7 +608,6 @@ namespace Google.Documents
             return Insert(new Uri(parent.AtomEntry.Content.AbsoluteUri), payload);
         }
 
-
         /// <summary>
         /// downloads a document. 
         /// </summary>
@@ -622,9 +618,6 @@ namespace Google.Documents
         {
             return this.Download(document, type, null, 0);
         }
-
-        
-        
 
         /// <summary>
         /// downloads a document. 
@@ -651,7 +644,10 @@ namespace Google.Documents
             // now figure out the parameters
             string queryUri = "";
 
-            Service s = this.Service; 
+            Service s = this.Service;
+
+            // ** CHANGE ** bug reported at http://code.google.com/p/google-gdata/issues/detail?id=509
+            // Get value of docID from resourceID as per http://code.google.com/apis/documents/docs/3.0/reference.html#ExportParameters
 
             switch (document.Type)
             {
@@ -662,7 +658,9 @@ namespace Google.Documents
                     {
                         baseDomain = "https://spreadsheets.google.com/";
                     }
-                    queryUri = baseDomain + "feeds/download/spreadsheets/Export?key=" + document.ResourceId + "&exportFormat="; 
+                    queryUri = baseDomain + "feeds/download/spreadsheets/Export?key=" +
+                        (document.ResourceId.Contains(":") ? document.ResourceId.Substring(document.ResourceId.IndexOf(":") + 1) : document.ResourceId) +
+                        "&exportFormat="; 
                     s = this.spreadsheetsService;
                     switch (type)
                     {
@@ -686,7 +684,6 @@ namespace Google.Documents
                             break;
                         default:
                             throw new ArgumentException("type is invalid for a spreadsheet");
-
                     }
                     break;
 
@@ -696,7 +693,10 @@ namespace Google.Documents
                         baseDomain = "https://docs.google.com/";
                     }
 
-                    queryUri = baseDomain + "feeds/download/presentations/Export?docID=" + document.ResourceId + "&exportFormat="; 
+                    queryUri = baseDomain + "feeds/download/presentations/Export?docID=" +
+                        (document.ResourceId.Contains(":") ? document.ResourceId.Substring(document.ResourceId.IndexOf(":") + 1) : document.ResourceId) +
+                        "&exportFormat=";
+
                     switch (type)
                     {
                         case Document.DownloadType.swf:
@@ -718,9 +718,10 @@ namespace Google.Documents
                         baseDomain = "https://docs.google.com/";
                     }
 
-                    queryUri = baseDomain + "feeds/download/documents/Export?docID=" + document.ResourceId + "&exportFormat=" + type.ToString(); 
+                    queryUri = baseDomain + "feeds/download/documents/Export?docID=" +
+                        (document.ResourceId.Contains(":") ? document.ResourceId.Substring(document.ResourceId.IndexOf(":") + 1) : document.ResourceId) +
+                        "&exportFormat=" + type.ToString(); 
                     break;
-
             }
 
             Uri target = new Uri(queryUri);
