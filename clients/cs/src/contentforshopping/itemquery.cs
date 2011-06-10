@@ -61,7 +61,7 @@ namespace Google.GData.ContentForShopping
         /// <returns>the URI query string</returns>
         protected override string CalculateQuery(string basePath)
         {
-            StringBuilder path = new StringBuilder(baseUri, 2048);
+            StringBuilder path = new StringBuilder(basePath, 2048);
 
             path.Append(accountId);
             path.Append("/items/");
@@ -69,7 +69,7 @@ namespace Google.GData.ContentForShopping
             path.Append("/");
             path.Append(projection);
 
-            return path.ToString();
+            return base.CalculateQuery(path.ToString());
         }
     }
 }
