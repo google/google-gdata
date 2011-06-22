@@ -276,7 +276,8 @@ namespace Google.GData.Client
         public Uri Uri
         {
             get {
-                String uriToUse = this.baseUri == null ? String.Empty : this.baseUri.Replace(this.UnusedProtocol, this.DefaultProtocol);
+                String computedBaseUri = GetBaseUri();
+                String uriToUse = computedBaseUri == null ? String.Empty : computedBaseUri.Replace(this.UnusedProtocol, this.DefaultProtocol);
                 return new Uri(CalculateQuery(uriToUse));
                 }
             
@@ -289,6 +290,13 @@ namespace Google.GData.Client
 #endif
         }
         /////////////////////////////////////////////////////////////////////////////
+
+        /// <summary>
+        /// Returns the base Uri for the feed.
+        /// </summary>
+        protected virtual string GetBaseUri() {
+            return this.baseUri;
+        }
 
 
         //////////////////////////////////////////////////////////////////////
