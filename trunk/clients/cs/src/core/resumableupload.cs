@@ -357,7 +357,7 @@ namespace Google.GData.Client.ResumableUpload
             if (initialUri == null)
                 throw new ArgumentException("payload did not contain a resumabled edit media Uri");
 
-            Uri resumeUri = InitiateUpload(initialUri, authentication, payload);
+            Uri resumeUri = InitiateUpload(initialUri, authentication, payload, HttpMethods.Put);
             
             // get the stream
             using (Stream s = payload.MediaSource.GetDataStream())
@@ -370,7 +370,7 @@ namespace Google.GData.Client.ResumableUpload
 
         private WebResponse Update(Authenticator authentication, Uri resumableUploadUri, Stream payload, string contentType, AsyncData data)
         {
-            Uri resumeUri = InitiateUpload(resumableUploadUri, authentication, contentType, null, GetStreamLength(payload));
+            Uri resumeUri = InitiateUpload(resumableUploadUri, authentication, contentType, null, GetStreamLength(payload), HttpMethods.Put);
             return UploadStream(HttpMethods.Put, resumeUri, authentication, payload, contentType, data);
         }
         
@@ -692,18 +692,10 @@ namespace Google.GData.Client.ResumableUpload
         /// <param name="authentication"></param>
         /// <param name="entry"></param>
         /// <returns>The uri to be used for the rest of the operation</returns>
-        public Uri InitiateUpload(Uri resumableUploadUri, Authenticator authentication, string contentType, string slug, long contentLength)
-        {
-            HttpWebRequest request = PrepareRequest(resumableUploadUri,
-                                                    authentication,
-                                                    slug, 
-                                                    contentType, 
-                                                    contentLength);
+        public Uri InitiateUpload(Uri resumableUploadUri, Authenticator authentication, string contentType, string slug, long contentLength) {
+            return InitiateUpload(resumableUploadUri, authentication, contentType, slug, contentLength, HttpMethods.Post);
 
-            WebResponse response = request.GetResponse();
-            return new Uri(response.Headers["Location"]);
         }
-
 
         /// <summary>
         /// retrieves the resumable URI for the rest of the operation. This will initiate the 
@@ -713,13 +705,47 @@ namespace Google.GData.Client.ResumableUpload
         /// <param name="authentication"></param>
         /// <param name="entry"></param>
         /// <returns>The uri to be used for the rest of the operation</returns>
-        public Uri InitiateUpload(Uri resumableUploadUri, Authenticator authentication, AbstractEntry entry)
+        public Uri InitiateUpload(Uri resumableUploadUri, Authenticator authentication, string contentType, string slug, long contentLength, string httpMethod)
+        {
+            HttpWebRequest request = PrepareRequest(resumableUploadUri,
+                                                    authentication,
+                                                    slug, 
+                                                    contentType, 
+                                                    contentLength,
+                                                    httpMethod);
+
+            WebResponse response = request.GetResponse();
+            return new Uri(response.Headers["Location"]);
+        }
+
+        /// <summary>
+        /// retrieves the resumable URI for the rest of the operation. This will initiate the 
+        /// communication with resumable upload server by posting against the starting URI
+        /// </summary>
+        /// <param name="resumableUploadUri"></param>
+        /// <param name="authentication"></param>
+        /// <param name="entry"></param>
+        /// <returns>The uri to be used for the rest of the operation</returns>
+        public Uri InitiateUpload(Uri resumableUploadUri, Authenticator authentication, AbstractEntry entry) {
+            return InitiateUpload(resumableUploadUri, authentication, entry, HttpMethods.Post);
+        }
+
+        /// <summary>
+        /// retrieves the resumable URI for the rest of the operation. This will initiate the 
+        /// communication with resumable upload server by posting against the starting URI
+        /// </summary>
+        /// <param name="resumableUploadUri"></param>
+        /// <param name="authentication"></param>
+        /// <param name="entry"></param>
+        /// <returns>The uri to be used for the rest of the operation</returns>
+        public Uri InitiateUpload(Uri resumableUploadUri, Authenticator authentication, AbstractEntry entry, string httpMethod)
         {
             HttpWebRequest request = PrepareRequest(resumableUploadUri,
                                                     authentication,
                                                     entry.MediaSource.Name,
                                                     entry.MediaSource.ContentType,
-                                                    entry.MediaSource.ContentLength);
+                                                    entry.MediaSource.ContentLength,
+                                                    httpMethod);
 
             IVersionAware v = entry as IVersionAware;
             if (v != null)
@@ -745,22 +771,28 @@ namespace Google.GData.Client.ResumableUpload
             return new Uri(response.Headers["Location"]);
         }
 
-        private HttpWebRequest PrepareRequest(Uri target, 
-                                              Authenticator authentication, 
-                                              string slug, 
-                                              string contentType, 
-                                              long contentLength)
-        {
-            HttpWebRequest request = authentication.CreateHttpWebRequest(HttpMethods.Post, target);
+        private HttpWebRequest PrepareRequest(Uri target,
+                                              Authenticator authentication,
+                                              string slug,
+                                              string contentType,
+                                              long contentLength) {
+            return PrepareRequest(target, authentication, slug, contentType, contentLength, HttpMethods.Post);
+        }
+
+        private HttpWebRequest PrepareRequest(Uri target,
+                                              Authenticator authentication,
+                                              string slug,
+                                              string contentType,
+                                              long contentLength,
+                                              string httpMethod) {
+            HttpWebRequest request = authentication.CreateHttpWebRequest(httpMethod, target);
             request.Headers.Add(GDataRequestFactory.SlugHeader + ": " + slug);
             request.Headers.Add(GDataRequestFactory.ContentOverrideHeader + ": " + contentType);
-            if (contentLength != -1)
-            {
+            if (contentLength != -1) {
                 request.Headers.Add(GDataRequestFactory.ContentLengthOverrideHeader + ": " + contentLength);
             }
 
             return request;
-        
         }
 
 
