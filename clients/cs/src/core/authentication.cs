@@ -494,7 +494,7 @@ namespace Google.GData.Client
             string queryToAppend = OAuth2LeggedAuthenticator.OAuthParameter + "=" + this.oAuthUser + "%40" + this.OAuthDomain;
 
             if (builder.Query != null && builder.Query.Length > 1)
-                builder.Query = builder.Query + "&" + queryToAppend; 
+                builder.Query = builder.Query.Substring(1) + "&" + queryToAppend;
             else
                 builder.Query = queryToAppend;
 
