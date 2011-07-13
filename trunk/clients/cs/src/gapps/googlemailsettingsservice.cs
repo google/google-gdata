@@ -33,6 +33,7 @@ namespace Google.GData.Apps.GoogleMailSettings
         public const string filterFeedUriSuffix = "/filter";
         public const string sendasFeedUriSuffix = "/sendas";
         public const string forwardingFeedUriSuffix = "/forwarding";
+        public const string webclipFeedUriSuffix = "/webclip";
         public const string popFeedUriSuffix = "/pop";
         public const string imapFeedUriSuffix = "/imap";
         public const string vacationFeedUriSuffix = "/vacation";
@@ -253,6 +254,23 @@ namespace Google.GData.Apps.GoogleMailSettings
 				+ domain + "/" + userName + sendasFeedUriSuffix;
 			return QueryExtendedFeed(new Uri(uri), true);
 		}
+
+        /// <summary>
+        /// Enables/disables Google Mail's web clip
+        /// </summary>
+        /// <param name="userName">The user for whom this should be done</param>
+        /// <param name="enable">Whether to enable web clip</param>
+        /// <returns>a <code>AppsExtendedEntry</code> containing the results of the creation</returns>
+        public AppsExtendedEntry UpdateWebclip(string userName, string enable) {
+            Uri webclipUri = new Uri(AppsGoogleMailSettingsNameTable.AppsGoogleMailSettingsBaseFeedUri + "/"
+                + domain + "/" + userName + forwardingFeedUriSuffix);
+            AppsExtendedEntry entry = new AppsExtendedEntry();
+            entry.EditUri = webclipUri;
+            entry.Properties.Add(
+                new PropertyElement(
+                AppsGoogleMailSettingsNameTable.enable, enable));
+            return base.Update((AtomEntry)entry) as AppsExtendedEntry;
+        }
 
         /// <summary>
         /// Updates Google Mail's forwarding rule for the given userName
