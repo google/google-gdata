@@ -47,6 +47,9 @@ namespace GoogleAppsMailSettingsDemo
                 // test@domain for the user testUserName and keeps the email.
                 service.UpdateForwarding(testUserName, "true", "test@"+domain, "KEEP");
 
+                // Disable web clip for the user testUserName.
+                service.UpdateWebclip(testUserName, "false");
+
 				// Retrieve forwarding settings for user testUserName
 				AppsExtendedEntry forwarding = service.RetrieveForwarding(testUserName);
 				Console.WriteLine(String.Format("Forwarding to: {0}",
