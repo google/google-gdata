@@ -292,6 +292,9 @@ namespace Google.GData.Extensions.Apps
         public const string enableFor = "enableFor";
         public const string message = "message";
         public const string contactsOnly = "contactsOnly";
+        public const string domainOnly = "domainOnly";
+        public const string startDate = "startDate";
+        public const string endDate = "endDate";
         public const string signature = "signature";
         public const string language = "language";
         public const string pageSize = "pageSize";

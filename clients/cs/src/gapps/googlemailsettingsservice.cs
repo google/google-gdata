@@ -376,7 +376,7 @@ namespace Google.GData.Apps.GoogleMailSettings
         /// <returns>a <code>AppsExtendedEntry</code> containing the results of the
         /// creation</returns>
 		public AppsExtendedEntry UpdateVacation(string userName, string enable, string subject,
-            string message, string contactsOnly)
+            string message, string contactsOnly, string domainOnly, string startDate, string endDate)
         {
             Uri vacationUri = new Uri(AppsGoogleMailSettingsNameTable.AppsGoogleMailSettingsBaseFeedUri + "/"
                 + domain + "/" + userName + vacationFeedUriSuffix);
@@ -397,6 +397,18 @@ namespace Google.GData.Apps.GoogleMailSettings
                 entry.Properties.Add(
                     new PropertyElement(
                     AppsGoogleMailSettingsNameTable.contactsOnly, contactsOnly));
+            if (!string.IsNullOrEmpty(domainOnly))
+                entry.Properties.Add(
+                    new PropertyElement(
+                    AppsGoogleMailSettingsNameTable.domainOnly, domainOnly));
+            if (!string.IsNullOrEmpty(startDate))
+                entry.Properties.Add(
+                    new PropertyElement(
+                    AppsGoogleMailSettingsNameTable.startDate, startDate));
+            if (!string.IsNullOrEmpty(endDate))
+                entry.Properties.Add(
+                    new PropertyElement(
+                    AppsGoogleMailSettingsNameTable.endDate, endDate));
 			return base.Update((AtomEntry)entry) as AppsExtendedEntry;
         }
 
