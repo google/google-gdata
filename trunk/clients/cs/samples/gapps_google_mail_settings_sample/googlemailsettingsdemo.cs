@@ -69,7 +69,7 @@ namespace GoogleAppsMailSettingsDemo
 					imap.getPropertyValueByName("enable")));
 
                 // Activate vacation autoresponse for the user testUserName
-                service.UpdateVacation(testUserName, "true", "vacation", "vacation text...", "true");
+                service.UpdateVacation(testUserName, "true", "vacation", "vacation text...", "false", "true", "2012-01-15", "2012-01-22");
 
 				// Retrieve vacation responder settings for user testUserName
 				AppsExtendedEntry vacation = service.RetrieveVacation(testUserName);
