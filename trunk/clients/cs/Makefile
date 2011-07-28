@@ -46,8 +46,6 @@ ACLREFS = $(addprefix -r:,$(ACLLIBS)) $(FRAMEWORK_REFS)
 
 
 samples =	\
-	gbase_queryexample.exe 		\
-	gbase_customertool.exe		\
 	execrequest.exe			\
 	gapps_appsdemo.exe \
 	gapps_migration_sample.exe \
@@ -61,7 +59,6 @@ all: $(ALLLIBS) tests $(samples) $(PKGCONFIG_FILES)
 
 core_sources = $(wildcard src/core/*.cs) $(wildcard version/*.cs)
 extensions_sources = $(wildcard src/extensions/*.cs) $(wildcard version/*.cs)
-gbase_sources = $(wildcard src/gbase/*.cs) $(wildcard version/*.cs)
 gcodesearch_sources = $(wildcard src/gcodesearch/*.cs) $(wildcard version/*.cs)
 gspreadsheet_sources = $(wildcard src/gspreadsheet/*.cs) $(wildcard version/*.cs)
 gcalendar_sources =  $(wildcard src/gcalendar/*.cs) $(wildcard version/*.cs)
@@ -74,7 +71,7 @@ youtube_sources = $(wildcard src/youtube/*.cs) $(wildcard version/*.cs)
 health_sources = $(wildcard src/ghealth/*.cs) $(wildcard version/*.cs)
 blogger_sources = $(wildcard src/blogger/*.cs) $(wildcard version/*.cs)
 analytics_sources = $(wildcard src/analytics/*.cs) $(wildcard version/*.cs)
-test_sources = $(wildcard src/unittests/*.cs) $(wildcard src/unittests/gbase/*.cs) $(wildcard src/unittests/gapps/*.cs)\
+test_sources = $(wildcard src/unittests/*.cs) $(wildcard src/unittests/gapps/*.cs)\
 				 $(wildcard src/unittests/spreadsheets/*.cs) $(wildcard src/unittests/youtube/*.cs)  $(wildcard src/version/*cs)\
 				 $(wildcard src/unittests/core/*.cs)  $(wildcard src/unittests/picasa/*.cs)
 
@@ -89,9 +86,6 @@ Google.GData.Calendar.dll: $(ACLLIBS) $(gcalendar_sources) src/gcalendar/calenda
 
 Google.GData.CodeSearch.dll: $(CORELIBS) $(gcodesearch_sources) src/gcodesearch/codesearch.sn
 	$(CSC) -target:library -out:$@ $(COREREFS) $(gcodesearch_sources) -keyfile:src/gcodesearch/codesearch.sn
-
-Google.GData.GoogleBase.dll: $(CORELIBS) $(gbase_sources) src/gbase/gbase.sn
-	$(CSC) -target:library -out:$@ $(COREREFS) $(gbase_sources) -keyfile:src/gbase/gbase.sn
 
 Google.GData.Spreadsheets.dll: $(CORELIBS) $(gspreadsheet_sources) src/gspreadsheet/spreadsheets.sn
 	$(CSC) -target:library -out:$@ $(COREREFS) $(gspreadsheet_sources) -keyfile:src/gspreadsheet/spreadsheets.sn
@@ -138,17 +132,6 @@ uninstall:
 
 tests: $(ALLLIBS)
 	$(CSC) $(DEFINES) -target:library -out:unittests.dll $(ALLREFS) -r:nunit.framework.dll $(test_sources)
-
-gbase_customertool_sources = samples/gbase/example.cs \
-	samples/gbase/customertool.cs	\
-	samples/gbase/commands.cs
-
-gbase_customertool.exe: $(ALLLIBS) $(gbase_customertool_sources)
-	$(CSC) -out:$@ $(ALLREFS) $(gbase_customertool_sources)
-
-gbase_queryexample_sources = samples/gbase/example.cs samples/gbase/queryexample.cs
-gbase_queryexample.exe: $(ALLLIBS) $(gbase_queryexample_sources)
-	$(CSC) -out:$@ $(ALLREFS) $(gbase_queryexample_sources)
 
 gapps_sample_sources = samples/appsforyourdomain/appsdemo.cs
 gapps_appsdemo.exe: $(ALLLIBS) $(gapps_sample_sources)

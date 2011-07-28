@@ -138,10 +138,6 @@
       <Project>{96CCB33A-3B32-480E-B83D-93F0309F7DD2}</Project>
       <Name>Applications</Name>
     </ProjectReference>
-    <ProjectReference Include="..\gbase\Base.csproj">
-      <Project>{C9B83904-8002-455C-AA48-C47CDF74F365}</Project>
-      <Name>Base</Name>
-    </ProjectReference>
     <ProjectReference Include="..\gcalendar\Calendar.csproj">
       <Project>{0AD0FA26-A071-4CAC-851C-05B6C26B9888}</Project>
       <Name>Calendar</Name>
@@ -262,21 +258,6 @@
     <Compile Include="gapps\rfc822msgtest.cs" />
     <Compile Include="gapps\userentrytest.cs" />
     <Compile Include="gapps\userquerytest.cs" />
-    <Compile Include="gbase.cs" />
-    <Compile Include="gbase\attributehistogramtest.cs" />
-    <Compile Include="gbase\datetimerangetest.cs" />
-    <Compile Include="gbase\gbaseattributecollectiontest.cs" />
-    <Compile Include="gbase\gbaseattributecollectionwithtypeconversiontest.cs" />
-    <Compile Include="gbase\gbaseattributetest.cs" />
-    <Compile Include="gbase\gbaseentrytest.cs" />
-    <Compile Include="gbase\gbasefeedtest.cs" />
-    <Compile Include="gbase\gbasequerytest.cs" />
-    <Compile Include="gbase\gbaseutilitiestest.cs" />
-    <Compile Include="gbase\itemtypedefinitiontest.cs" />
-    <Compile Include="gbase\locationtest.cs" />
-    <Compile Include="gbase\numberunittest.cs" />
-    <Compile Include="gbase\shippingtest.cs" />
-    <Compile Include="gbase\statstest.cs" />
     <Compile Include="gziplivetest.cs" />
     <Compile Include="gzipstreamtest.cs" />
     <Compile Include="objectmodelhelper.cs" />
