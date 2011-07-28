@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GExtensionsMobile", "GExten
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GCalendarMobile", "GCalendarMobile\GCalendarMobile.csproj", "{C44F844F-984D-4C6E-81EA-6DE3FC41B4BD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GBaseMobile", "GBaseMobile\GBaseMobile.csproj", "{797031DE-A242-4D97-871B-9557730E16C3}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GCodeSearchMobile", "GCodeSearchMobile\GCodeSearchMobile.csproj", "{939F0882-B43E-4963-AE09-A3B2A0FE736E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GSpreadSheetsMobile", "GSpreadSheetsMobile\GSpreadSheetsMobile.csproj", "{15CA401F-2D92-498B-A9DE-DD24B34ACE25}"
@@ -49,10 +47,6 @@ Global
 		{C44F844F-984D-4C6E-81EA-6DE3FC41B4BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C44F844F-984D-4C6E-81EA-6DE3FC41B4BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C44F844F-984D-4C6E-81EA-6DE3FC41B4BD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{797031DE-A242-4D97-871B-9557730E16C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{797031DE-A242-4D97-871B-9557730E16C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{797031DE-A242-4D97-871B-9557730E16C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{797031DE-A242-4D97-871B-9557730E16C3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{939F0882-B43E-4963-AE09-A3B2A0FE736E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{939F0882-B43E-4963-AE09-A3B2A0FE736E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{939F0882-B43E-4963-AE09-A3B2A0FE736E}.Release|Any CPU.ActiveCfg = Release|Any CPU

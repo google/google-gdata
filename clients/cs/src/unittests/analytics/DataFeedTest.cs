@@ -19,7 +19,6 @@ using System.Text;
 using Google.GData.Analytics;
 using Google.GData.Client;
 using Google.GData.Client.UnitTests;
-using Google.GData.GoogleBase;
 using Google.Analytics;
 using NUnit.Framework;
 

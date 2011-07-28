@@ -9,7 +9,6 @@
         <assembly assemblyPath="..\lib\Release\Google.GData.Contacts.dll" xmlCommentsPath="..\docs\gcontacts.xml" commentsOnly="False" />
         <assembly assemblyPath="..\lib\Release\Google.GData.Documents.dll" xmlCommentsPath="..\docs\gdocuments.xml" commentsOnly="False" />
         <assembly assemblyPath="..\lib\Release\Google.GData.Extensions.dll" xmlCommentsPath="..\docs\gextension.xml" commentsOnly="False" />
-        <assembly assemblyPath="..\lib\Release\Google.GData.GoogleBase.dll" xmlCommentsPath="..\docs\gbase.xml" commentsOnly="False" />
         <assembly assemblyPath="..\lib\Release\Google.GData.Health.dll" xmlCommentsPath="..\docs\health.xml" commentsOnly="False" />
         <assembly assemblyPath="..\lib\Release\Google.GData.Photos.dll" xmlCommentsPath="..\docs\gphotos.xml" commentsOnly="False" />
         <assembly assemblyPath="..\lib\Release\Google.GData.Spreadsheets.dll" xmlCommentsPath="..\docs\gspreadsheet.xml" commentsOnly="False" />
@@ -93,9 +92,6 @@ Picasa Web Albums uses the following media elements:
    6. media:keywords
    7. media:thumbnail
    8. media:title</namespaceSummaryItem>
-        <namespaceSummaryItem name="Google.GData.GoogleBase" isDocumented="True">The Google Base data API is designed to enable developers to do two things:   
-      Query Google Base data to create applications and mashups.
-      Input and manage Google Base items programmatically.</namespaceSummaryItem>
         <namespaceSummaryItem name="Google.GData.Health" isDocumented="True">The Google Health Data API allows client applications to view and send Health content in the form of Google Data API feeds. Your client application can use the Health Data API to create new medical records, request a list of medical records and query for medical records that match particular criteria. 
 
 Here are some of the things you can do with the Health Data API:

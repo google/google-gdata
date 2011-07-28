@@ -14,7 +14,6 @@ if errorlevel 1 goto buildError
 
 # copy the DLLS
 xcopy /y ..\src\core\bin\Release\*.dll ..\lib\Release\*.*
-xcopy /y ..\src\gbase\bin\Release\*.dll ..\lib\Release\*.*
 xcopy /y ..\src\extensions\bin\Release\*.dll ..\lib\Release\*.*
 xcopy /y ..\src\gspreadsheet\bin\Release\*.dll ..\lib\Release\*.*
 xcopy /y ..\src\gcalendar\bin\Release\*.dll ..\lib\Release\*.*
@@ -33,7 +32,6 @@ xcopy /y ..\src\contentforshopping\bin\Release\*.dll ..\lib\Release\*.*
 
 # copy the debug DLLS
 xcopy /y ..\src\core\bin\Debug\*.dll ..\lib\Debug\*.*
-xcopy /y ..\src\gbase\bin\Debug\*.dll ..\lib\Debug\*.*
 xcopy /y ..\src\extensions\bin\Debug\*.dll ..\lib\Debug\*.*
 xcopy /y ..\src\gspreadsheet\bin\Debug\*.dll ..\lib\Debug\*.*
 xcopy /y ..\src\gcalendar\bin\Debug\*.dll ..\lib\Debug\*.*
@@ -57,7 +55,6 @@ xcopy /y "..\src\youtube\YouTube SDK\YouTube SDK\Release\YouTube SDK.msi" ..\lib
 xcopy /y ..\src\youtube\bin\asp\*.dll ..\samples\YouTubeSample\bin\*.*
 
 # copy the mobile DLLS
-xcopy /y ..\src\VS2005.mobile\GBaseMobile\bin\Release\*.dll ..\lib\Mobile\WindowsMobile\*.*
 xcopy /y ..\src\VS2005.mobile\GCalendarMobile\bin\Release\*.dll ..\lib\Mobile\WindowsMobile\*.*
 xcopy /y ..\src\VS2005.mobile\GCodeSearchMobile\bin\Release\*.dll ..\lib\Mobile\WindowsMobile\*.*
 xcopy /y ..\src\VS2005.mobile\GDataMobile\bin\Release\*.dll ..\lib\Mobile\WindowsMobile\*.*
@@ -92,8 +89,6 @@ xcopy /y ..\samples\gapps_multidomain_sample\bin\Release\*.exe ..\lib\Release\*.
 xcopy /y ..\samples\gapps_orgmanagement_sample\bin\Release\*.exe ..\lib\Release\*.*
 xcopy /y ..\samples\gapps_calendar_resource_sample\bin\Release\*.exe ..\lib\Release\*.*
 xcopy /y ..\samples\gapps_audit_sample\bin\Release\*.exe ..\lib\Release\*.*
-xcopy /y ..\samples\gbase\bin\*.exe ..\lib\Release\*.*
-xcopy /y ..\samples\gbase\bin\Release\*.exe ..\lib\Release\*.*
 xcopy /y ..\samples\health\bin\Release\*.exe ..\lib\Release\*.*
 xcopy /y ..\samples\PhotoBrowser\bin\Release\*.exe ..\lib\Release\*.*
 xcopy /y ..\samples\spreadsheets\bin\Release\*.exe ..\lib\Release\*.*
@@ -108,7 +103,6 @@ xcopy /y ..\src\documents3\bin\*.xml ..\docs\*.*
 xcopy /y ..\src\extensions\bin\*.xml ..\docs\*.*
 xcopy /y ..\src\gacl\bin\*.xml ..\docs\*.*
 xcopy /y ..\src\gapps\bin\*.xml ..\docs\*.*
-xcopy /y ..\src\gbase\bin\*.xml ..\docs\*.*
 xcopy /y ..\src\gcalendar\bin\*.xml ..\docs\*.*
 xcopy /y ..\src\gcodesearch\bin\*.xml ..\docs\*.*
 xcopy /y ..\src\gcontacts\bin\*.xml ..\docs\*.*
