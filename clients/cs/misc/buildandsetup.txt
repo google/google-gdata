@@ -7,7 +7,7 @@ Building this for debug and release results in the appropriate targets. They are
 directories setup by Visual Studio though, and not in the distribution directories. 
 
 Note, that the over 250K lines of source code in this project were developed over 5 years. Yes, if you redo 
-everything it's going to be much prettier, but redoing 250K lines of code is quiet a task. 
+everything it's going to be much prettier, but redoing 250K lines of code is quite a task. 
 
 Requirements
 
