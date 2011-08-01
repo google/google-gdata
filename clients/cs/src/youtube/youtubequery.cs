@@ -188,21 +188,21 @@ namespace Google.GData.YouTube {
         /// <summary>
         /// the standard feeds URL
         /// </summary>
-        public const string StandardFeeds = "http://gdata.youtube.com/feeds/api/standardfeeds/";
+        public const string StandardFeeds = "https://gdata.youtube.com/feeds/api/standardfeeds/";
         /// <summary>
         /// youTube base video URI 
         /// </summary>
-        public const string DefaultVideoUri = "http://gdata.youtube.com/feeds/api/videos";
+        public const string DefaultVideoUri = "https://gdata.youtube.com/feeds/api/videos";
 
         /// <summary>
         /// youTube base video URI for batch operations 
         /// </summary>
-        public const string BatchVideoUri = "http://gdata.youtube.com/feeds/api/videos/batch";
+        public const string BatchVideoUri = "https://gdata.youtube.com/feeds/api/videos/batch";
 
         /// <summary>
         /// youTube base mobile video URI 
         /// </summary>
-        public const string MobileVideoUri = "http://gdata.youtube.com/feeds/mobile/videos";
+        public const string MobileVideoUri = "https://gdata.youtube.com/feeds/mobile/videos";
        
         /// <summary>
         /// youTube base standard top rated video URI 
@@ -257,12 +257,12 @@ namespace Google.GData.YouTube {
         /// <summary>
         /// default users upload account
         /// </summary>
-        public const string DefaultUploads = "http://gdata.youtube.com/feeds/api/users/default/uploads";
+        public const string DefaultUploads = "https://gdata.youtube.com/feeds/api/users/default/uploads";
 
         /// <summary>
         /// base uri for user based feeds
         /// </summary>
-        public const string BaseUserUri = "http://gdata.youtube.com/feeds/api/users/";
+        public const string BaseUserUri = "https://gdata.youtube.com/feeds/api/users/";
 
 
         /// <summary>

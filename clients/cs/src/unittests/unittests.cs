@@ -27,9 +27,6 @@ using Google.GData.Client.LiveTests;
 using Google.GData.Extensions;
 using Google.GData.Calendar;
 
-
-
-
 namespace Google.GData.Client.UnitTests
 {
     [TestFixture]
@@ -50,9 +47,9 @@ namespace Google.GData.Client.UnitTests
         /// <summary>holds the logging factory</summary> 
         protected IGDataRequestFactory factory; 
         /// <summary>holds the configuration of the test found in the dll.config file</summary>
-        protected IDictionary   unitTestConfiguration;
-        /// <summary>holds path to ressources (xml files, jpgs) that are used during the unittests</summary>
-        protected string resourcePath;
+        protected IDictionary unitTestConfiguration;
+        /// <summary>holds path to resources (xml files, jpgs) that are used during the unittests</summary>
+        protected string resourcePath = "";
 
 
         //////////////////////////////////////////////////////////////////////
@@ -105,7 +102,6 @@ namespace Google.GData.Client.UnitTests
         //////////////////////////////////////////////////////////////////////
         protected virtual void ReadConfigFile()
         {
-        
             this.unitTestConfiguration = (IDictionary) ConfigurationManager.GetSection("unitTestSection");
 
             // no need to go further if the configuration file is needed.
@@ -153,7 +149,6 @@ namespace Google.GData.Client.UnitTests
         [TearDown] public virtual void EndTest()
         {
             Tracing.ExitTracing();
-
         }
         /////////////////////////////////////////////////////////////////////////////
 
@@ -199,18 +194,17 @@ namespace Google.GData.Client.UnitTests
         //////////////////////////////////////////////////////////////////////
         protected string CreateUri(string fileAndPathName)
         {
-            string strUri= null;
+            string strUri = null;
 
             try
             {
-                UriBuilder temp = new UriBuilder("file", "localhost",0,  fileAndPathName);
+                UriBuilder temp = new UriBuilder("file", "localhost", 0, fileAndPathName);
                 strUri = temp.Uri.AbsoluteUri; 
             }
             catch (System.UriFormatException)
             {
-                UriBuilder temp = new UriBuilder("file", "",0,  fileAndPathName);
+                UriBuilder temp = new UriBuilder("file", "", 0, fileAndPathName);
                 strUri = temp.Uri.AbsoluteUri; 
-
             }
             return(strUri);
         }
