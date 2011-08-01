@@ -256,6 +256,10 @@ namespace Google.GData.YouTube {
         /// uploaded element string for playlist feeds
         /// </summary>
         public const string Uploaded = "uploaded";
+        /// <summary>
+        /// yt:rating element string
+        /// </summary>
+        public const string YtRating = "rating";
 
         /// <summary>
         /// title for a playlist
@@ -1276,8 +1280,7 @@ namespace Google.GData.YouTube {
         {}
     }
 
-
-      /// <summary>
+    /// <summary>
     /// Uploaded schema extension describing a YouTube uploaded date
     /// </summary>
     public class Uploaded : SimpleElement
@@ -1360,6 +1363,87 @@ namespace Google.GData.YouTube {
         {}
     }
 
+    /// <summary>
+    /// The yt:rating element contains information about the number of users who gave
+    /// the video a positive or negative rating as well as the totale number of ratings
+    /// that the video received.
+    /// </summary>
+    public class YtRating : SimpleElement {
+        /// <summary>the numLikes xml attribute </summary>
+        private const string numLikesAttribute = "numLikes";
+        /// <summary>the numDislikes xml attribute</summary>
+        private const string numDislikesAttribute = "numDislikes";
+        /// <summary>the value xml attribute</summary>
+        private const string valueAttribute = "value";
+        
+        /// <summary>the like video rating</summary>
+        public const string Like = "like";
+        /// <summary>the dislike video rating</summary>
+        public const string Dislikes = "dislikes";
+
+        /// <summary>
+        /// default constructor for yt:rating.
+        /// </summary>
+        public YtRating()
+            : base(YouTubeNameTable.YtRating,
+                   YouTubeNameTable.ytPrefix,
+                   YouTubeNameTable.NSYouTube) {
+            this.Attributes.Add(numLikesAttribute, null);
+            this.Attributes.Add(numDislikesAttribute, null);
+            this.Attributes.Add(valueAttribute, null);
+        }
+
+        /// <summary>
+        /// default constructor for yt:rating.
+        /// </summary>
+        public YtRating(string value)
+            : base(YouTubeNameTable.YtRating,
+                   YouTubeNameTable.ytPrefix,
+                   YouTubeNameTable.NSYouTube) {
+            this.Attributes.Add(numLikesAttribute, null);
+            this.Attributes.Add(numDislikesAttribute, null);
+            this.Attributes.Add(valueAttribute, value);
+        }
+
+        /// <summary>
+        /// convenience accessor for Likes Count.
+        /// </summary>
+        /// <returns></returns>
+        public string NumLikes {
+            get {
+                return this.Attributes[numLikesAttribute] as string;
+            }
+            set {
+                this.Attributes[numLikesAttribute] = value;
+            }
+        }
+
+        /// <summary>
+        /// convenience accessor for Dislikes Count.
+        /// </summary>
+        /// <returns></returns>
+        public string NumDislikes {
+            get {
+                return this.Attributes[numDislikesAttribute] as string;
+            }
+            set {
+                this.Attributes[numDislikesAttribute] = value;
+            }
+        }
+
+        /// <summary>
+        /// The positive ("like") or negative ("dislike") rating for the video.
+        /// </summary>
+        /// <returns></returns>
+        public string RatingValue {
+            get {
+                return this.Attributes[valueAttribute] as string;
+            }
+            set {
+                this.Attributes[valueAttribute] = value;
+            }
+        }
+    }
 
     /// <summary>
     /// Simple class to hold the response of a browser-based upload request
@@ -1430,7 +1514,4 @@ namespace Google.GData.YouTube {
         }
 
     }
-    
-
-
 }

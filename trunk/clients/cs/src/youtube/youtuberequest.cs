@@ -1059,7 +1059,7 @@ namespace Google.YouTube
         }
 
         /// <summary>
-        /// returns a Feed of vidoes for a given username
+        /// returns a Feed of videos for a given username
         /// </summary>
         /// <param name="user">the username</param>
         /// <returns>a feed of Videos</returns>
