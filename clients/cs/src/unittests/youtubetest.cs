@@ -86,7 +86,6 @@ namespace Google.GData.Client.LiveTests {
 
             Assert.AreEqual(query.Time, YouTubeQuery.UploadTime.ThisWeek, "Should be this week");
             Assert.AreEqual(query.Formats[0], YouTubeQuery.VideoFormat.RTSP, "Should be RTSP");
-
         }
 
         [Test]
@@ -215,38 +214,44 @@ namespace Google.GData.Client.LiveTests {
         [Test]
         public void YouTubeRatingsTest() {
             Tracing.TraceMsg("Entering YouTubeRatingsTest");
+            string videoOwner = "GoogleDevelopers";
 
-            YouTubeService service = new YouTubeService("NETUnittests", this.ytDevKey);
-            if (!string.IsNullOrEmpty(this.ytUser)) {
-                service.Credentials = new GDataCredentials(this.ytUser, this.ytPwd);
+            YouTubeRequestSettings settings = new YouTubeRequestSettings("NETUnittests", this.ytDevKey, this.ytUser, this.ytPwd);
+
+            YouTubeRequest f = new YouTubeRequest(settings);
+            // GetVideoFeed gets you a users video feed
+            Feed<Video> feed = f.GetVideoFeed(videoOwner);
+            // this will get you just the first 25 videos.
+
+            foreach (Video v in feed.Entries) {
+                Rating rating = new Rating();
+                rating.Value = 1;
+                v.YouTubeEntry.Rating = rating;
+                YouTubeEntry ratedEntry = f.Service.Insert(new Uri(v.YouTubeEntry.RatingsLink.ToString()), v.YouTubeEntry);
+                Assert.AreEqual(1, ratedEntry.Rating.Value, "Rating should be equal to 1");
+                break; // we can stop after one
             }
+        }
 
-            YouTubeEntry entry = new YouTubeEntry();
+        [Test]
+        public void YouTubeYtRatingsTest() {
+            Tracing.TraceMsg("Entering YouTubeYtRatingsTest");
+            string videoOwner = "GoogleDevelopers";
 
-            entry.MediaSource = new MediaFileSource(Path.Combine(this.resourcePath, "test_movie.mov"), "video/quicktime");
-            entry.Media = new YouTube.MediaGroup();
-            entry.Media.Description = new MediaDescription("This is a test");
-            entry.Media.Title = new MediaTitle("Sample upload");
-            entry.Media.Keywords = new MediaKeywords("math");
+            YouTubeRequestSettings settings = new YouTubeRequestSettings("NETUnittests", this.ytDevKey, this.ytUser, this.ytPwd);
 
-            // entry.Media.Categories
+            YouTubeRequest f = new YouTubeRequest(settings);
+            // GetVideoFeed gets you a users video feed
+            Feed<Video> feed = f.GetVideoFeed(videoOwner);
+            // this will get you just the first 25 videos.
 
-            MediaCategory category = new MediaCategory("Nonprofit");
-            category.Attributes["scheme"] = YouTubeService.DefaultCategory;
-
-            entry.Media.Categories.Add(category);
-
-            YouTubeEntry newEntry = service.Upload(this.ytUser, entry);
-
-            Assert.AreEqual(newEntry.Media.Description.Value, entry.Media.Description.Value, "Description should be equal");
-            Assert.AreEqual(newEntry.Media.Keywords.Value, entry.Media.Keywords.Value, "Keywords should be equal");
-
-            Rating rating = new Rating();
-            rating.Value = 1;
-            newEntry.Rating = rating;
-
-            YouTubeEntry ratedEntry = newEntry.Update();
-            ratedEntry.Delete();
+            foreach (Video v in feed.Entries) {
+                YtRating rating = new YtRating(YtRating.Like);
+                v.YouTubeEntry.YtRating = rating;
+                YouTubeEntry ratedEntry = f.Service.Insert(new Uri(v.YouTubeEntry.RatingsLink.ToString()), v.YouTubeEntry);
+                Assert.AreEqual(YtRating.Like, ratedEntry.YtRating.RatingValue, "YtRating should be equal to like");
+                break; // we can stop after one
+            }
         }
 
         [Test]
@@ -280,7 +285,7 @@ namespace Google.GData.Client.LiveTests {
             YouTubeRequestSettings settings = new YouTubeRequestSettings("NETUnittests", this.ytDevKey, this.ytUser, this.ytPwd);
 
             YouTubeRequest f = new YouTubeRequest(settings);
-            // GetVideoFeed get's you a users video feed
+            // GetVideoFeed gets you a users video feed
             Feed<Video> feed = f.GetVideoFeed(null);
             // this will get you just the first 25 videos. 
             foreach (Video v in feed.Entries) {
@@ -346,7 +351,7 @@ namespace Google.GData.Client.LiveTests {
             YouTubeRequestSettings settings = new YouTubeRequestSettings("NETUnittests", this.ytDevKey, this.ytUser, this.ytPwd);
 
             YouTubeRequest f = new YouTubeRequest(settings);
-            // GetVideoFeed get's you a users video feed
+            // GetVideoFeed gets you a users video feed
             Feed<Playlist> feed = f.GetPlaylistsFeed(playlistOwner);
             // this will get you just the first 25 playlists. 
 
