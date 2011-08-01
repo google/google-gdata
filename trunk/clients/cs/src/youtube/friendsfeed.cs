@@ -28,9 +28,9 @@ namespace Google.GData.YouTube {
     /// A user's contacts feed lists all of the contacts for a specified user.
     /// To request the currently logged-in user's contact list, send an HTTP
     ///  GET request to the following URL. 
-    ///     http://gdata.youtube.com/feeds/api/users/default/contacts
+    ///     https://gdata.youtube.com/feeds/api/users/default/contacts
     /// To request another user's contact list, send an HTTP GET request to the following URL. 
-    ///     http://gdata.youtube.com/feeds/api/users/username/contacts
+    ///     https://gdata.youtube.com/feeds/api/users/username/contacts
     /// In the URL above, you must replace the text username with the user's YouTube username.
     /// Contacts can be classified as either Friends or Family.
     /// </summary>
