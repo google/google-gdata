@@ -757,6 +757,58 @@ namespace Google.GData.Client.LiveTests {
             }
         }
 
+        [Test]
+        public void YouTubeAccessControlTest() {
+            Tracing.TraceMsg("Entering YouTubeAccessControlTest");
+
+            YouTubeRequestSettings settings = new YouTubeRequestSettings("NETUnittests", this.ytDevKey, this.ytUser, this.ytPwd);
+            YouTubeRequest f = new YouTubeRequest(settings);
+
+            Video v = new Video();
+            v.Title = "Sample upload";
+            v.Description = "This is a test with different access control values";
+
+            MediaCategory category = new MediaCategory("Nonprofit");
+            category.Attributes["scheme"] = YouTubeService.DefaultCategory;
+            v.Tags.Add(category);
+            v.Keywords = "math";
+            v.YouTubeEntry.MediaSource = new MediaFileSource(Path.Combine(this.resourcePath, "test_movie.mov"), "video/quicktime");
+
+            v.YouTubeEntry.AccessControls.Add(new YtAccessControl(YtAccessControl.RateAction, YtAccessControl.DeniedPermission));
+            v.YouTubeEntry.AccessControls.Add(new YtAccessControl(YtAccessControl.CommentAction, YtAccessControl.ModeratedPermission));
+
+            Video newVideo = f.Upload(this.ytUser, v);
+            ExtensionCollection<YtAccessControl> acl = newVideo.YouTubeEntry.AccessControls;
+            for (int i = 0; i < acl.Count; i++) {
+                YtAccessControl ac = acl[i];
+                switch (ac.Action) {
+                    case YtAccessControl.RateAction:
+                        Assert.AreEqual(ac.Permission, YtAccessControl.DeniedPermission, "Rating should be denied");
+                        break;
+                    case YtAccessControl.CommentAction:
+                        Assert.AreEqual(ac.Permission, YtAccessControl.ModeratedPermission, "Comments should be moderated");
+                        break;
+                    case YtAccessControl.CommentVoteAction:
+                        Assert.AreEqual(ac.Permission, YtAccessControl.AllowedPermission, "Comment rating should be allowed");
+                        break;
+                    case YtAccessControl.VideoRespondAction:
+                        Assert.AreEqual(ac.Permission, YtAccessControl.ModeratedPermission, "Video responses should be moderated");
+                        break;
+                    case YtAccessControl.ListAction:
+                        Assert.AreEqual(ac.Permission, YtAccessControl.AllowedPermission, "Video listing should be allowed");
+                        break;
+                    case YtAccessControl.EmbedAction:
+                        Assert.AreEqual(ac.Permission, YtAccessControl.AllowedPermission, "Video embed should be allowed");
+                        break;
+                    case YtAccessControl.SyndicateAction:
+                        Assert.AreEqual(ac.Permission, YtAccessControl.AllowedPermission, "Video syndicate should be allowed");
+                        break;
+                }
+            }
+
+            f.Delete(newVideo);
+        }
+
         private void VerifyActivity(Activity a) {
             switch (a.Type) {
                 case ActivityType.Favorited:

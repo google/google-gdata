@@ -260,6 +260,10 @@ namespace Google.GData.YouTube {
         /// yt:rating element string
         /// </summary>
         public const string YtRating = "rating";
+        /// <summary>
+        /// yt:accessControl element string
+        /// </summary>
+        public const string AccessControl = "accessControl";
 
         /// <summary>
         /// title for a playlist
@@ -508,7 +512,88 @@ namespace Google.GData.YouTube {
 
     }
 
+    /// <summary>
+    /// The yt:accessControl element indicates whether users are allowed to rate a video,
+    /// rate comments about the video, add a video response to the video or embed the
+    /// video on third-party websites.
+    /// </summary>
+    public class YtAccessControl : SimpleElement {
+        /// <summary>the action xml attribute</summary>
+        private const string actionAttribute = "action";
+        /// <summary>the permission xml attribute</summary>
+        private const string permissionAttribute = "permission";
 
+        /// <summary>the rate action</summary>
+        public const string RateAction = "rate";
+        /// <summary>the comment action</summary>
+        public const string CommentAction = "comment";
+        /// <summary>the commentVote action</summary>
+        public const string CommentVoteAction = "commentVote";
+        /// <summary>the videoRespond action</summary>
+        public const string VideoRespondAction = "videoRespond";
+        /// <summary>the list action</summary>
+        public const string ListAction = "list";
+        /// <summary>the embed action</summary>
+        public const string EmbedAction = "embed";
+        /// <summary>the syndicate action</summary>
+        public const string SyndicateAction = "syndicate";
+
+        /// <summary>the allowed permission</summary>
+        public const string AllowedPermission = "allowed";
+        /// <summary>the denied permission</summary>
+        public const string DeniedPermission = "denied";
+        /// <summary>the moderated permission</summary>
+        public const string ModeratedPermission = "moderated";
+
+        /// <summary>
+        /// default constructor for yt:accessControl.
+        /// </summary>
+        public YtAccessControl()
+            : base(YouTubeNameTable.AccessControl,
+                   YouTubeNameTable.ytPrefix,
+                   YouTubeNameTable.NSYouTube) {
+            this.Attributes.Add(actionAttribute, null);
+            this.Attributes.Add(permissionAttribute, null);
+        }
+
+        /// <summary>
+        /// alternative constructor for yt:accessControl that allows
+        /// to specify initial values.
+        /// </summary>
+        public YtAccessControl(string action, string permission)
+            : base(YouTubeNameTable.AccessControl,
+                   YouTubeNameTable.ytPrefix,
+                   YouTubeNameTable.NSYouTube) {
+            this.Attributes.Add(actionAttribute, action);
+            this.Attributes.Add(permissionAttribute, permission);
+        }
+
+        /// <summary>
+        /// convenience accessor for action.
+        /// </summary>
+        /// <returns></returns>
+        public string Action {
+            get {
+                return this.Attributes[actionAttribute] as string;
+            }
+            set {
+                this.Attributes[actionAttribute] = value;
+            }
+        }
+
+        /// <summary>
+        /// convenience accessor for permission.
+        /// </summary>
+        /// <returns></returns>
+        public string Permission {
+            get {
+                return this.Attributes[permissionAttribute] as string;
+            }
+            set {
+                this.Attributes[permissionAttribute] = value;
+            }
+        }
+    }
 
     /// <summary>
     /// id schema extension describing an ID.

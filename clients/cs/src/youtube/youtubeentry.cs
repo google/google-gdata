@@ -33,6 +33,8 @@ namespace Google.GData.YouTube {
     /// </summary>
     //////////////////////////////////////////////////////////////////////
     public class YouTubeEntry : YouTubeBaseEntry {
+        private ExtensionCollection<YtAccessControl> accessControls;
+
         /// <summary>
         /// Constructs a new YouTubeEntry instance
         /// </summary>
@@ -74,6 +76,19 @@ namespace Google.GData.YouTube {
             this.AddExtension(new Recorded());
             this.AddExtension(new Uploaded());
             this.AddExtension(new YtRating());
+            this.AddExtension(new YtAccessControl());
+        }
+
+        /// <summary>
+        ///  property accessor for the Access Control Collection 
+        /// </summary>
+        public ExtensionCollection<YtAccessControl> AccessControls {
+            get {
+                if (this.accessControls == null) {
+                    this.accessControls = new ExtensionCollection<YtAccessControl>(this);
+                }
+                return this.accessControls;
+            }
         }
 
         /// <summary>
