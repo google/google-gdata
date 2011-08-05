@@ -18,7 +18,7 @@ using System;
 using System.IO;
 using System.Collections;
 using System.Text;
-using System.Net; 
+using System.Net;
 using Google.GData.Client;
 using Google.GData.Extensions;
 using System.Collections.Generic;
@@ -35,15 +35,15 @@ namespace Google.GData.Client
 {
     //////////////////////////////////////////////////////////////////////
     /// <summary>a generic Feed class
-    /// </summary> 
+    /// </summary>
     //////////////////////////////////////////////////////////////////////
     public class Feed<T> where T: Entry, new()
     {
         AtomFeed af;
         bool paging;
-        int  maximum = -1; 
-        int  numberRetrieved=0; 
-        Service service; 
+        int  maximum = -1;
+        int  numberRetrieved=0;
+        Service service;
         FeedQuery query;
         RequestSettings settings;
 
@@ -54,7 +54,7 @@ namespace Google.GData.Client
         /// <param name="af"></param>
         public Feed(AtomFeed af)
         {
-            this.af = af; 
+            this.af = af;
         }
 
         /// <summary>
@@ -65,7 +65,7 @@ namespace Google.GData.Client
         public Feed(Service service, FeedQuery q)
         {
             this.service = service;
-            this.query = q; 
+            this.query = q;
         }
 
         /// <summary>
@@ -94,7 +94,7 @@ namespace Google.GData.Client
        /// <returns></returns>
        public bool AutoPaging
        {
-           get 
+           get
            {
                return this.paging;
            }
@@ -105,7 +105,7 @@ namespace Google.GData.Client
        }
 
 
-   
+
        /// <summary>
        /// returns the position in the real feed of the first entry in this feed
        /// </summary>
@@ -118,7 +118,7 @@ namespace Google.GData.Client
                {
                    return this.AtomFeed.StartIndex;
                }
-               return -1;  
+               return -1;
            }
        }
 
@@ -135,7 +135,7 @@ namespace Google.GData.Client
                {
                    return this.AtomFeed.ItemsPerPage;
                }
-               return -1; 
+               return -1;
            }
        }
 
@@ -151,13 +151,13 @@ namespace Google.GData.Client
                {
                    return this.AtomFeed.TotalResults;
                }
-               return -1; 
+               return -1;
            }
        }
 
 
        /// <summary>
-       /// the maxium number of entries to be retrieved. This is normally 
+       /// the maxium number of entries to be retrieved. This is normally
        /// setup using the RequestSettings when the feed is constructed.
        /// </summary>
        /// <returns></returns>
@@ -169,12 +169,12 @@ namespace Google.GData.Client
            }
            set
            {
-               this.maximum = value; 
+               this.maximum = value;
            }
        }
 
        /// <summary>
-       /// accessor for the RequestSettings used to construct the feed. Needed to 
+       /// accessor for the RequestSettings used to construct the feed. Needed to
        /// construct a query that takes auth into account
        /// </summary>
        internal RequestSettings Settings
@@ -196,38 +196,38 @@ namespace Google.GData.Client
         you got from the Requestobject and will remain constant.
         Unless you set AutoPaging to true, in that case:
         This will go back to the server and fetch data again if
-        needed. Example. If you pagesize is 30, you get an initial set of 
-        30 entries. While enumerating, when reaching 30, the code will go 
+        needed. Example. If you pagesize is 30, you get an initial set of
+        30 entries. While enumerating, when reaching 30, the code will go
         to the server and get the next 30 rows. It will continue to do so
         until the server reports no more rows available.
         Note that you should cache the entries returned in a list of your own
         if you want to access them more than once, as this one does no caching on
-        it's own. 
+        it's own.
         </summary>
          <example>
-                The following code illustrates a possible use of   
-                the <c>Entries</c> property:  
-                <code>    
+                The following code illustrates a possible use of
+                the <c>Entries</c> property:
+                <code>
                   YouTubeRequestSettings settings = new YouTubeRequestSettings("yourApp", "yourClient", "yourKey", "username", "pwd");
                   YouTubeRequest f = new YouTubeRequest(settings);
                   Feed&lt;Playlist&gt; feed = f.GetPlaylistsFeed(null);
                   foreach (Vidoe v in feed.Entries)
                 </code>
             </example>
-        <returns></returns> 
+        <returns></returns>
         */
         public IEnumerable<T> Entries
         {
             get
             {
                 bool looping;
-                
+
                 if (this.AtomFeed == null)
                     yield break;
 
                 AtomFeed originalFeed = this.AtomFeed;
 
-                this.numberRetrieved = 0; 
+                this.numberRetrieved = 0;
 
                 do
                 {
@@ -237,13 +237,13 @@ namespace Google.GData.Client
                         T t = new T();
                         if (t != null)
                         {
-                            t.AtomEntry = e; 
-                            this.numberRetrieved++; 
-                            yield return t; 
+                            t.AtomEntry = e;
+                            this.numberRetrieved++;
+                            yield return t;
                         }
                         if (this.Maximum > 0 && this.numberRetrieved >= this.Maximum)
                         {
-                            yield break; 
+                            yield break;
                         }
                     }
                     if (looping)
@@ -269,17 +269,17 @@ namespace Google.GData.Client
     /// <returns></returns>
     public abstract class Entry
     {
-        private AtomEntry e; 
+        private AtomEntry e;
 
         /// <summary>
-        ///  default public constructor, needed for generics. 
+        ///  default public constructor, needed for generics.
         /// </summary>
         /// <returns></returns>
         public Entry()
         {
         }
 
-        /// <summary>override for ToString, returns the Entries Title</summary> 
+        /// <summary>override for ToString, returns the Entries Title</summary>
         public override string ToString()
         {
             return this.Title;
@@ -306,9 +306,9 @@ namespace Google.GData.Client
             {
                 return this.e;
             }
-            set 
+            set
             {
-                this.e = value; 
+                this.e = value;
             }
         }
 
@@ -358,7 +358,7 @@ namespace Google.GData.Client
 
 
         /// <summary>
-        /// the title of the Entry. 
+        /// the title of the Entry.
         /// </summary>
         /// <returns></returns>
 #if WindowsCE || PocketPC
@@ -368,15 +368,15 @@ namespace Google.GData.Client
 #endif
         public virtual string Title
         {
-            get 
+            get
             {
                 EnsureInnerObject();
                 return this.e.Title.Text;
             }
-            set 
+            set
             {
                 EnsureInnerObject();
-                this.e.Title.Text = value; 
+                this.e.Title.Text = value;
             }
         }
 
@@ -415,8 +415,8 @@ namespace Google.GData.Client
         {
             get
             {
-                EnsureInnerObject(); 
-                return this.e.IsDraft; 
+                EnsureInnerObject();
+                return this.e.IsDraft;
             }
         }
 
@@ -433,7 +433,7 @@ namespace Google.GData.Client
             get
             {
                 EnsureInnerObject();
-                return this.e.EditUri == null; 
+                return this.e.EditUri == null;
             }
         }
 
@@ -461,7 +461,7 @@ namespace Google.GData.Client
             set
             {
                 EnsureInnerObject();
-                AtomPerson p = null; 
+                AtomPerson p = null;
                 if (this.e.Authors.Count == 0)
                 {
                     p = new AtomPerson(AtomPersonType.Author);
@@ -471,7 +471,7 @@ namespace Google.GData.Client
                 {
                     p = this.e.Authors[0];
                 }
-                p.Name = value; 
+                p.Name = value;
             }
         }
 
@@ -522,7 +522,7 @@ namespace Google.GData.Client
         }
 
         /// <summary>
-        /// just a thin layer on top of the existing updated of the 
+        /// just a thin layer on top of the existing updated of the
         /// underlying atomentry
         /// </summary>
 #if WindowsCE || PocketPC
@@ -589,7 +589,7 @@ namespace Google.GData.Client
         //////////////////////////////////////////////////////////////////////
         /// <summary>access the associated media element. Note, that setting this
         /// WILL cause subsequent updates to be done using MIME multipart posts
-        /// </summary> 
+        /// </summary>
         /// <returns> </returns>
         //////////////////////////////////////////////////////////////////////
 #if WindowsCE || PocketPC
@@ -599,7 +599,7 @@ namespace Google.GData.Client
 #endif
         public MediaSource MediaSource
         {
-            get 
+            get
             {
                 EnsureInnerObject();
                 AbstractEntry ae = this.e as AbstractEntry;
@@ -626,7 +626,7 @@ namespace Google.GData.Client
             //////////////////////////////////////////////////////////////////////
         /// <summary>access the associated media element. Note, that setting this
         /// WILL cause subsequent updates to be done using MIME multipart posts
-        /// </summary> 
+        /// </summary>
         /// <returns> </returns>
         //////////////////////////////////////////////////////////////////////
 #if WindowsCE || PocketPC
@@ -636,7 +636,7 @@ namespace Google.GData.Client
 #endif
         public string ETag
         {
-            get 
+            get
             {
                 EnsureInnerObject();
                 AbstractEntry ae = this.e as AbstractEntry;
@@ -660,10 +660,10 @@ namespace Google.GData.Client
         // end of accessor public MediaSource Media
     }
 
-   
+
     /// <summary>
     /// Base requestsettings class. Takes credentials, applicationsname
-    /// and supports pagesizes and autopaging. This class is used to initialize a 
+    /// and supports pagesizes and autopaging. This class is used to initialize a
     /// <seealso cref="FeedRequest&lt;T&gt;"/> object.
     /// </summary>
     /// <returns></returns>
@@ -679,12 +679,12 @@ namespace Google.GData.Client
 
         private AuthenticationType authType = AuthenticationType.none;
         private string applicationName;
-        private GDataCredentials credentials; 
-        private string authSubToken; 
+        private GDataCredentials credentials;
+        private string authSubToken;
         private int pageSize = -1;
-        private int max = -1; 
+        private int max = -1;
         private bool autoPage;
-        private int timeout = -1; 
+        private int timeout = -1;
         private string consumerKey;
         private string consumerSecret;
         private string oAuthUser;
@@ -694,7 +694,7 @@ namespace Google.GData.Client
         private AsymmetricAlgorithm privateKey;
         private Uri clientLoginHandler;
         private bool useSSL;
-      
+
 
         /// <summary>
         /// an unauthenticated use case
@@ -713,7 +713,7 @@ namespace Google.GData.Client
         /// <param name="userName">the user name</param>
         /// <param name="passWord">the password</param>
         /// <returns></returns>
-        public RequestSettings(string applicationName, string userName, string passWord) : 
+        public RequestSettings(string applicationName, string userName, string passWord) :
             this(applicationName, new GDataCredentials(userName, passWord))
         {
         }
@@ -727,9 +727,9 @@ namespace Google.GData.Client
         /// <param name="user">the username to use</param>
         /// <param name="domain">the domain to use</param>
         /// <returns></returns>
-        public RequestSettings(string applicationName, string consumerKey, 
-                               string consumerSecret, 
-                               string user, 
+        public RequestSettings(string applicationName, string consumerKey,
+                               string consumerSecret,
+                               string user,
                                string domain) : this(applicationName)
         {
             this.authType = AuthenticationType.oAuth;
@@ -738,7 +738,7 @@ namespace Google.GData.Client
             this.oAuthUser = user;
             this.oAuthDomain = domain;
         }
-        
+
         /// <summary>
         ///  a constructor for OpenAuthentication login use cases using 2 or 3 legged oAuth
         /// </summary>
@@ -750,11 +750,11 @@ namespace Google.GData.Client
         /// <param name="user">the username to use</param>
         /// <param name="domain">the domain to use</param>
         /// <returns></returns>
-        public RequestSettings(string applicationName, 
-                               string consumerKey, string consumerSecret, 
+        public RequestSettings(string applicationName,
+                               string consumerKey, string consumerSecret,
                                string token, string tokenSecret,
-                               string user, string domain) 
-                    : this(applicationName, consumerKey, consumerSecret, 
+                               string user, string domain)
+                    : this(applicationName, consumerKey, consumerSecret,
                            user, domain)
         {
             this.token = token;
@@ -771,7 +771,7 @@ namespace Google.GData.Client
         /// <returns></returns>
         public RequestSettings(string applicationName, GDataCredentials credentials)
         {
-            this.authType = AuthenticationType.clientLogin; 
+            this.authType = AuthenticationType.clientLogin;
             this.applicationName = applicationName;
             this.credentials = credentials;
         }
@@ -783,11 +783,11 @@ namespace Google.GData.Client
         /// <param name="applicationName"></param>
         /// <param name="authSubToken"></param>
         /// <returns></returns>
-        public RequestSettings(string applicationName, string authSubToken) 
+        public RequestSettings(string applicationName, string authSubToken)
                 : this(applicationName)
         {
             this.authType = AuthenticationType.authSub;
-            this.authSubToken = authSubToken; 
+            this.authSubToken = authSubToken;
         }
 
         /// <summary>
@@ -797,13 +797,13 @@ namespace Google.GData.Client
         /// <param name="authSubToken"></param>
         /// <param name="privateKey"></param>
         /// <returns></returns>
-        public RequestSettings(string applicationName, 
-                               string authSubToken, 
+        public RequestSettings(string applicationName,
+                               string authSubToken,
                                AsymmetricAlgorithm privateKey) : this(applicationName)
         {
             this.authType = AuthenticationType.authSub;
             this.privateKey = privateKey;
-            this.authSubToken = authSubToken; 
+            this.authSubToken = authSubToken;
         }
 
 
@@ -928,18 +928,18 @@ namespace Google.GData.Client
         }
 
         /// <summary>
-        /// the pagesize specifies how many entries should be retrieved per call. If not set, 
+        /// the pagesize specifies how many entries should be retrieved per call. If not set,
         /// the server default will be used. Set it either to -1 (for default) or any value &gt; 0
-        /// to set the pagesize to something the server should honor. Note, that this set's the 
-        /// max-results parameter on the query, and the server is free to ignore that and give you less 
-        /// entries than you have requested. 
+        /// to set the pagesize to something the server should honor. Note, that this set's the
+        /// max-results parameter on the query, and the server is free to ignore that and give you less
+        /// entries than you have requested.
         /// </summary>
         ///  <example>
-        ///         The following code illustrates a possible use of   
-        ///          the <c>PageSize</c> property:  
-        ///          <code>    
+        ///         The following code illustrates a possible use of
+        ///          the <c>PageSize</c> property:
+        ///          <code>
         ///           YouTubeRequestSettings settings = new YouTubeRequestSettings("yourApp", "yourClient", "yourKey", "username", "pwd");
-        ///            settings.PageSize = 50; 
+        ///            settings.PageSize = 50;
         ///  </code>
         ///  </example>
         /// <returns></returns>
@@ -956,17 +956,17 @@ namespace Google.GData.Client
         }
 
         /// <summary>
-        /// AutoPaging specifies if a feed iterator should return to the server to fetch more data 
-        /// automatically. If set to false, a loop over feed.Entries will stop when the currently 
+        /// AutoPaging specifies if a feed iterator should return to the server to fetch more data
+        /// automatically. If set to false, a loop over feed.Entries will stop when the currently
         /// fetched set of data reaches it's end.  This is false by default. <seealso cref="RequestSettings.Maximum"/>
-        /// 
+        ///
         /// </summary>
         ///  <example>
-        ///         The following code illustrates a possible use of   
-        ///          the <c>AutoPaging</c> property:  
-        ///          <code>    
+        ///         The following code illustrates a possible use of
+        ///          the <c>AutoPaging</c> property:
+        ///          <code>
         ///           YouTubeRequestSettings settings = new YouTubeRequestSettings("yourApp", "yourClient", "yourKey", "username", "pwd");
-        ///            settings.AutoPaging = true; 
+        ///            settings.AutoPaging = true;
         ///  </code>
         ///  </example>
         /// <returns></returns>
@@ -978,24 +978,24 @@ namespace Google.GData.Client
             }
             set
             {
-                this.autoPage = value; 
+                this.autoPage = value;
             }
         }
 
         /// <summary>
-        /// the Maximum specifies how many entries should be retrieved in total. This works together with 
-        /// <seealso cref="RequestSettings.AutoPaging"/>. If set, AutoPaging of a feed will stop when the 
-        /// specified amount of entries was iterated over. If Maximum is smaller than  PageSize (<seealso cref="RequestSettings.PageSize"/>), 
-        ///  an exception is thrown. The default is -1 (ignored). 
+        /// the Maximum specifies how many entries should be retrieved in total. This works together with
+        /// <seealso cref="RequestSettings.AutoPaging"/>. If set, AutoPaging of a feed will stop when the
+        /// specified amount of entries was iterated over. If Maximum is smaller than  PageSize (<seealso cref="RequestSettings.PageSize"/>),
+        ///  an exception is thrown. The default is -1 (ignored).
         /// </summary>
         ///  <example>
-        ///         The following code illustrates a possible use of   
-        ///          the <c>Maximum</c> property:  
-        ///          <code>    
+        ///         The following code illustrates a possible use of
+        ///          the <c>Maximum</c> property:
+        ///          <code>
         ///           YouTubeRequestSettings settings = new YouTubeRequestSettings("yourApp", "yourClient", "yourKey", "username", "pwd");
-        ///            settings.PageSize = 50; 
+        ///            settings.PageSize = 50;
         ///            settings.AutoPaging = true;
-        ///            settings.Maximum = 2000; 
+        ///            settings.Maximum = 2000;
         ///  </code>
         ///  </example>
         /// <returns></returns>
@@ -1009,7 +1009,7 @@ namespace Google.GData.Client
             {
                 if (value < this.PageSize)
                 {
-                    throw new ArgumentException("Maximum must be greater or equal to PageSize"); 
+                    throw new ArgumentException("Maximum must be greater or equal to PageSize");
                 }
                 this.max = value;
             }
@@ -1017,14 +1017,14 @@ namespace Google.GData.Client
 
 
         /// <summary>get's and set's the Timeout property used for the created
-        /// HTTPRequestObject in milliseconds. if you set it to -1 it will stick 
+        /// HTTPRequestObject in milliseconds. if you set it to -1 it will stick
         /// with the default of the HTPPRequestObject. From MSDN:
-        /// The number of milliseconds to wait before the request times out. 
-        /// The default is 100,000 milliseconds (100 seconds).</summary>   
+        /// The number of milliseconds to wait before the request times out.
+        /// The default is 100,000 milliseconds (100 seconds).</summary>
         ///  <example>
-        ///         The following code illustrates a possible use of   
-        ///          the <c>Timeout</c> property:  
-        ///          <code>    
+        ///         The following code illustrates a possible use of
+        ///          the <c>Timeout</c> property:
+        ///          <code>
         ///           YouTubeRequestSettings settings = new YouTubeRequestSettings("yourApp", "yourClient", "yourKey", "username", "pwd");
         ///            settings.Timout = 10000000;
         ///  </code>
@@ -1041,15 +1041,15 @@ namespace Google.GData.Client
                 this.timeout = value;
             }
         }
-        
-        
+
+
         /// <summary>get's and set's the SSL property used for the created
         /// HTTPRequestObject. If true, all requests done will use https
-        /// The default is false .</summary>   
+        /// The default is false .</summary>
         ///  <example>
-        ///         The following code illustrates a possible use of   
-        ///          the <c>Timeout</c> property:  
-        ///          <code>    
+        ///         The following code illustrates a possible use of
+        ///          the <c>Timeout</c> property:
+        ///          <code>
         ///           YouTubeRequestSettings settings = new YouTubeRequestSettings("yourApp", "yourClient", "yourKey", "username", "pwd");
         ///            settings.UseSSL = true;
         ///  </code>
@@ -1068,17 +1068,17 @@ namespace Google.GData.Client
         }
 
         //////////////////////////////////////////////////////////////////////
-        /// <summary>ClientLoginHandler - this is the URI that is used to 
+        /// <summary>ClientLoginHandler - this is the URI that is used to
         /// retrieve a client login authentication token
-        /// </summary> 
+        /// </summary>
         /// <returns> </returns>
         //////////////////////////////////////////////////////////////////////
         public Uri ClientLoginHandler
         {
             get {
 
-                return this.clientLoginHandler!=null ? 
-                       this.clientLoginHandler : new Uri(GoogleAuthentication.UriHandler); 
+                return this.clientLoginHandler!=null ?
+                       this.clientLoginHandler : new Uri(GoogleAuthentication.UriHandler);
             }
             set {this.clientLoginHandler = value;}
         }
@@ -1088,10 +1088,10 @@ namespace Google.GData.Client
 
 
         /// <summary>
-        /// Creates a HttpWebRequest object that can be used against a given service. 
-        /// for a RequestSetting object that is using client login, this might call 
+        /// Creates a HttpWebRequest object that can be used against a given service.
+        /// for a RequestSetting object that is using client login, this might call
         /// to get an authentication token from the service, if it is not already set.
-        /// 
+        ///
         /// if this uses client login, and you need to use a proxy, set the application wide
         /// proxy first using the GlobalProxySelection
         /// </summary>
@@ -1132,7 +1132,7 @@ namespace Google.GData.Client
         }
 
         private void EnsureClientLoginCredentials(HttpWebRequest request, string serviceName)
-        {          
+        {
             if (String.IsNullOrEmpty(this.Credentials.ClientToken))
             {
                 this.Credentials.ClientToken = Utilities.QueryClientLoginToken(this.Credentials,
@@ -1146,25 +1146,25 @@ namespace Google.GData.Client
                 string strHeader = GoogleAuthentication.Header + this.Credentials.ClientToken;
                 request.Headers.Add(strHeader);
             }
-        } 
+        }
 #if WindowsCE || PocketPC
 #else
         private void EnsureAuthSubCredentials(HttpWebRequest request)
         {
-            string header = AuthSubUtil.formAuthorizationHeader(this.Token, 
-                                                                this.PrivateKey, 
+            string header = AuthSubUtil.formAuthorizationHeader(this.Token,
+                                                                this.PrivateKey,
                                                                 request.RequestUri,
                                                                 request.Method);
             request.Headers.Add(header);
         }
 
-  
+
         private void EnsureOAuthCredentials(HttpWebRequest request)
         {
-            string oauthHeader = OAuthUtil.GenerateHeader(request.RequestUri, 
-                                                            this.ConsumerKey, 
-                                                            this.ConsumerSecret, 
-                                                            this.Token, 
+            string oauthHeader = OAuthUtil.GenerateHeader(request.RequestUri,
+                                                            this.ConsumerKey,
+                                                            this.ConsumerSecret,
+                                                            this.Token,
                                                             this.TokenSecret,
                                                             request.Method);
             request.Headers.Add(oauthHeader);
@@ -1182,7 +1182,7 @@ namespace Google.GData.Client
         /// returns the next feed chunk if there is more data
         /// </summary>
         Next,
-        /// <summary> 
+        /// <summary>
         /// returns the previous feed chunk if there is data before
         /// </summary>
         Prev,
@@ -1200,10 +1200,10 @@ namespace Google.GData.Client
     public abstract class FeedRequest<T> where T : Service
     {
         private RequestSettings settings;
-        private T atomService; 
+        private T atomService;
 
 
-       
+
 
         /// <summary>
         /// default constructor based on a RequestSettings object
@@ -1211,11 +1211,11 @@ namespace Google.GData.Client
         /// <param name="settings"></param>
         public FeedRequest(RequestSettings settings)
         {
-            this.settings = settings; 
+            this.settings = settings;
         }
 
         /// <summary>
-        /// prepares the created service based on the settings 
+        /// prepares the created service based on the settings
         /// </summary>
         protected void PrepareService()
         {
@@ -1239,7 +1239,7 @@ namespace Google.GData.Client
             {
                 GAuthSubRequestFactory authFactory = new GAuthSubRequestFactory(s.ServiceIdentifier, settings.Application);
                 authFactory.UserAgent = authFactory.UserAgent + "--IEnumerable";
-                authFactory.Token = settings.AuthSubToken; 
+                authFactory.Token = settings.AuthSubToken;
                 authFactory.PrivateKey = settings.PrivateKey;
                 s.RequestFactory = authFactory;
             }
@@ -1255,7 +1255,7 @@ namespace Google.GData.Client
 
 
             }
-            else 
+            else
             {
                 GDataGAuthRequestFactory authFactory = s.RequestFactory as GDataGAuthRequestFactory;
                 if (authFactory != null)
@@ -1286,11 +1286,11 @@ namespace Google.GData.Client
         /// <returns></returns>
         protected Y PrepareQuery<Y>(string uri) where Y: FeedQuery, new()
         {
-            Y query = new Y(); 
-            query.BaseAddress = uri; 
+            Y query = new Y();
+            query.BaseAddress = uri;
 
             PrepareQuery(query);
-            return query; 
+            return query;
         }
 
         /// <summary>
@@ -1304,7 +1304,7 @@ namespace Google.GData.Client
 
 
         /// <summary>
-        ///  should be used in subclasses to create URIs from strings, so that the OAuth parameters can be 
+        ///  should be used in subclasses to create URIs from strings, so that the OAuth parameters can be
         /// attached
         /// </summary>
         /// <param name="location"></param>
@@ -1313,19 +1313,20 @@ namespace Google.GData.Client
         {
             #if WindowsCE || PocketPC
                 return new Uri(location);
-            #else 
+            #else
 
-            Uri retUri = null; 
+            Uri retUri = null;
 
             if (this.settings.OAuthUser != null && location.IndexOf(OAuthUri.OAuthParameter) != 0)
             {
                 retUri = new OAuthUri(location, this.settings.OAuthUser, this.settings.OAuthDomain);
             }
-            else 
+            else
             {
                 retUri = new Uri(location);
             }
-            return retUri; 
+
+            return retUri;
             #endif
         }
 
@@ -1337,6 +1338,7 @@ namespace Google.GData.Client
         /// <returns></returns>
         protected virtual Feed<Y> PrepareFeed<Y>(FeedQuery q) where Y : Entry, new()
         {
+             PrepareQuery(q);
              Feed<Y> f = CreateFeed<Y>(q);
              f.Settings = this.settings;
              f.AutoPaging = this.settings.AutoPaging;
@@ -1353,7 +1355,7 @@ namespace Google.GData.Client
         /// <returns></returns>
         protected virtual Feed<Y> CreateFeed<Y>(FeedQuery q) where Y : Entry, new()
         {
-            return new Feed<Y>(this.atomService, q); 
+            return new Feed<Y>(this.atomService, q);
         }
 
         /// <summary>
@@ -1364,7 +1366,7 @@ namespace Google.GData.Client
         /// <returns></returns>
         public Feed<Y> Get<Y>(FeedQuery q) where Y: Entry, new()
         {
-            return PrepareFeed<Y>(q);  
+            return PrepareFeed<Y>(q);
         }
 
         /// <summary>
@@ -1381,7 +1383,7 @@ namespace Google.GData.Client
 
 
         /// <summary>
-        /// sets the proxy on the service to be used. 
+        /// sets the proxy on the service to be used.
         /// </summary>
         /// <returns></returns>
         public IWebProxy Proxy
@@ -1421,7 +1423,7 @@ namespace Google.GData.Client
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         protected Service AtomService
@@ -1439,9 +1441,9 @@ namespace Google.GData.Client
         /// autopaging, or want to move to previous parts of the feed, or get a refresh of the current feed
         /// </summary>
         ///  <example>
-        ///         The following code illustrates a possible use of   
-        ///          the <c>Get</c> method:  
-        ///          <code>    
+        ///         The following code illustrates a possible use of
+        ///          the <c>Get</c> method:
+        ///          <code>
         ///           YouTubeRequestSettings settings = new YouTubeRequestSettings("yourApp", "yourClient", "yourKey", "username", "pwd");
         ///            YouTubeRequest f = new YouTubeRequest(settings);
         ///             Feed&lt;Playlist&gt; feed = f.GetPlaylistsFeed(null);
@@ -1453,8 +1455,8 @@ namespace Google.GData.Client
         /// <returns></returns>
         public Feed<Y> Get<Y>(Feed<Y> feed, FeedRequestType operation) where Y: Entry, new()
         {
-            Feed<Y> f = null; 
-            string spec = null; 
+            Feed<Y> f = null;
+            string spec = null;
 
             if (feed == null)
             {
@@ -1469,13 +1471,13 @@ namespace Google.GData.Client
             switch (operation)
             {
                 case FeedRequestType.Next:
-                    spec = feed.AtomFeed.NextChunk; 
+                    spec = feed.AtomFeed.NextChunk;
                     break;
                 case FeedRequestType.Prev:
                     spec = feed.AtomFeed.PrevChunk;
                     break;
                 case FeedRequestType.Refresh:
-                    spec = feed.AtomFeed.Self; 
+                    spec = feed.AtomFeed.Self;
                     break;
             }
             if (!String.IsNullOrEmpty(spec))
@@ -1489,10 +1491,10 @@ namespace Google.GData.Client
                         q.Etag = ise.Etag;
                     }
                 }
-                f = PrepareFeed<Y>(q); 
+                f = PrepareFeed<Y>(q);
             }
 
-            return f; 
+            return f;
         }
 
 
@@ -1531,7 +1533,7 @@ namespace Google.GData.Client
         }
 
         /// <summary>
-        /// performs a batch operation. 
+        /// performs a batch operation.
         /// </summary>
         /// <param name="feed">the original feed, used to find the batch endpoing </param>
         /// <param name="entries">List of entries of type Y, that are to be batched</param>
@@ -1544,7 +1546,7 @@ namespace Google.GData.Client
 
 
         /// <summary>
-        /// performs a batch operation. 
+        /// performs a batch operation.
         /// </summary>
         /// <param name="feed">the original feed, used to find the batch endpoing </param>
         /// <param name="entries">List of entries of type Y, that are to be batched</param>
@@ -1568,7 +1570,7 @@ namespace Google.GData.Client
 
 
         /// <summary>
-        /// performs a batch operation. 
+        /// performs a batch operation.
         /// </summary>
         /// <param name="batchUri">the batch endpoint of the service</param>
         /// <param name="entries">List of entries of type Y, that are to be batched</param>
@@ -1618,9 +1620,9 @@ namespace Google.GData.Client
         /// requesting this resource again
         /// </summary>
         ///  <example>
-        ///         The following code illustrates a possible use of   
-        ///          the <c>Get</c> method:  
-        ///          <code>    
+        ///         The following code illustrates a possible use of
+        ///          the <c>Get</c> method:
+        ///          <code>
         ///           YouTubeRequestSettings settings = new YouTubeRequestSettings("yourApp", "yourClient", "yourKey", "username", "pwd");
         ///            YouTubeRequest f = new YouTubeRequest(settings);
         ///             Feed&lt;Playlist&gt; feed = f.GetPlaylistsFeed(null);
@@ -1651,9 +1653,9 @@ namespace Google.GData.Client
                 {
                     q.Etag = ise.Etag;
                 }
-                return Retrieve<Y>(q); 
+                return Retrieve<Y>(q);
             }
-            return null; 
+            return null;
         }
 
         /// <summary>
@@ -1667,9 +1669,9 @@ namespace Google.GData.Client
             if (!String.IsNullOrEmpty(spec))
             {
                 FeedQuery q = new FeedQuery(spec);
-                return Retrieve<Y>(q); 
+                return Retrieve<Y>(q);
             }
-            return null; 
+            return null;
         }
 
         /// <summary>
@@ -1683,7 +1685,7 @@ namespace Google.GData.Client
             Feed<Y> f = null;
             Y r = null;
             f = PrepareFeed<Y>(query);
-            // this should be a feed of one... 
+            // this should be a feed of one...
             foreach (Y y in f.Entries)
             {
                 r = y;
@@ -1693,7 +1695,7 @@ namespace Google.GData.Client
 
 
         /// <summary>
-        ///  sends the data back to the server. 
+        ///  sends the data back to the server.
         /// </summary>
         /// <returns>the reflected entry from the server if any given</returns>
         public Y Update<Y>(Y entry) where Y: Entry, new()
@@ -1705,17 +1707,17 @@ namespace Google.GData.Client
                 throw new ArgumentNullException("Entry.AtomEntry was null");
 
             Y r = null;
-     
+
             FeedQuery q = PrepareQuery<FeedQuery>(entry.AtomEntry.EditUri.ToString());
             Stream s = this.Service.EntrySend(q.Uri, entry.AtomEntry, GDataRequestType.Update, null);
             AtomEntry ae = this.Service.CreateAndParseEntry(s, new Uri(entry.AtomEntry.EditUri.ToString()));
-           
+
             if (ae != null)
             {
                 r = new Y();
                 r.AtomEntry = ae;
             }
-            return r; 
+            return r;
         }
 
         /// <summary>
@@ -1752,7 +1754,7 @@ namespace Google.GData.Client
 
             if (address == null)
                 throw new ArgumentNullException("Entry was null");
-          
+
             Y r = null;
             AtomEntry ae = this.Service.Insert(address, entry.AtomEntry);
             if (ae != null)
@@ -1763,7 +1765,7 @@ namespace Google.GData.Client
             return r;
         }
 
-        
+
 
         /// <summary>
         /// takes the given Entry and inserts its into the server
@@ -1782,7 +1784,7 @@ namespace Google.GData.Client
 
             Y r = null;
             FeedQuery q = PrepareQuery<FeedQuery>(feed.AtomFeed.Post);
-  
+
             AtomEntry ae = this.Service.Insert(q.Uri, entry.AtomEntry);
             if (ae != null)
             {
@@ -1793,13 +1795,13 @@ namespace Google.GData.Client
         }
 
         /// <summary>
-        /// the Settings property returns the RequestSettings object that was used to construct this FeedRequest. 
-        /// It can be used to alter properties like AutoPaging etc, inbetween Feed creations. 
+        /// the Settings property returns the RequestSettings object that was used to construct this FeedRequest.
+        /// It can be used to alter properties like AutoPaging etc, inbetween Feed creations.
         /// </summary>
         ///  <example>
-        ///         The following code illustrates a possible use of   
-        ///          the <c>Settings</c> property:  
-        ///          <code>   
+        ///         The following code illustrates a possible use of
+        ///          the <c>Settings</c> property:
+        ///          <code>
         ///         YouTubeRequestSettings settings = new YouTubeRequestSettings("NETUnittests", this.ytClient, this.ytDevKey, this.ytUser, this.ytPwd);
         ///         YouTubeRequest f = new YouTubeRequest(settings);
         ///         Feed&lt;Video&gt; feed = f.GetStandardFeed(YouTubeQuery.MostPopular);

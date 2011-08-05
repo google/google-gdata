@@ -50,6 +50,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gapps_audit_sample", "gapps
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookThemAll", "BookThemAll\BookThemAll.csproj", "{B5BA2D1F-D31D-464C-8556-0C34B4F00320}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "unshare_profiles", "unshare_profiles\unshare_profiles.csproj", "{54B7E6CE-7A55-4EEB-8273-CF8C28068E91}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		ASP|Any CPU = ASP|Any CPU
@@ -258,6 +260,14 @@ Global
 		{B5BA2D1F-D31D-464C-8556-0C34B4F00320}.DocListUploader - Release|Any CPU.Build.0 = Release|Any CPU
 		{B5BA2D1F-D31D-464C-8556-0C34B4F00320}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B5BA2D1F-D31D-464C-8556-0C34B4F00320}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54B7E6CE-7A55-4EEB-8273-CF8C28068E91}.ASP|Any CPU.ActiveCfg = Release|Any CPU
+		{54B7E6CE-7A55-4EEB-8273-CF8C28068E91}.ASP|Any CPU.Build.0 = Release|Any CPU
+		{54B7E6CE-7A55-4EEB-8273-CF8C28068E91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54B7E6CE-7A55-4EEB-8273-CF8C28068E91}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54B7E6CE-7A55-4EEB-8273-CF8C28068E91}.DocListUploader - Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54B7E6CE-7A55-4EEB-8273-CF8C28068E91}.DocListUploader - Release|Any CPU.Build.0 = Release|Any CPU
+		{54B7E6CE-7A55-4EEB-8273-CF8C28068E91}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54B7E6CE-7A55-4EEB-8273-CF8C28068E91}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
