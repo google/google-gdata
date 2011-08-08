@@ -12,11 +12,8 @@ using System.Configuration;
 using System.Collections.Specialized;
 using System.Collections.ObjectModel;
 using System.Collections;
-
 using YouTubeUploader.Properties;
-
 using System.Diagnostics;
-
 using Google.GData.Client;
 using Google.GData.Tools;
 
@@ -62,10 +59,8 @@ Note that the first couple of columns are identical to the input file's. The ide
  * and use the file to kick off a second round of uploads.
  * 
 */
-namespace YouTubeUploader
-{
-    public partial class YouTubeUploader : Form
-    {
+namespace YouTubeUploader {
+    public partial class YouTubeUploader : Form {
 
         private Authenticator youTubeAuthenticator;
         private const int COLUMN_MAX = 6;
@@ -82,36 +77,31 @@ namespace YouTubeUploader
         private const string CONFIG_USERNAME = "Username";
         private const string CONFIG_PASSWORD = "Password";
         private const string CONFIG_YTACCOUNT = "YoutubeAccount";
-    
-     
+
         private const string AutoStartString = "/autostart";
         private bool autoStart = false;
         private List<UserState> queue;
         private List<UserState> retryQueue;
-        
+
         private const string ApplicationName = "YouTubeUploader";
-        
+
         // this is the default devkey that has very limited allowance against the service
         // private const string DeveloperKeyDefault = "AI39si5Zg5AcJCNVptBgkZPLRY5DwgAgRZN3tYH9h3phjLq442KMal341c7HaxgBhOOmH0qDso6BgK65ji7VhsZ888evpZij_w";
         // this is a different devkey, uncomment this line and comment the above 
         private const string DeveloperKeyDefault = "AI39si5HV9zaLn4okq_gTqY4vARdZBf2_8D3bTkiK2FWgqaVVH9tITjBa6nyaAdg19Y4in-hnqcFTXu7i3d-2RIKSCvIMBARAg";
-        
+
         private string developerKey;
         private string csvFileName;
         private string outputFileName;
         private string youtubeAccount;
-     
+
         private GDataCredentials credentials;
-
-
         private Object flag = new Object();
-   
-        
+
         /// <summary>
         /// Default constructor
         /// </summary>
-        public YouTubeUploader()
-        {
+        public YouTubeUploader() {
             InitializeComponent();
             Bitmap b = Resources.gdata_youtube;
             IntPtr Hicon = b.GetHicon();
@@ -119,87 +109,65 @@ namespace YouTubeUploader
         }
 
         // the applications is done when both queues are empty
-        private bool Finished()
-        {
+        private bool Finished() {
             if (this.queue.Count == 0 &&
-                this.retryQueue.Count == 0)
-            {
+                this.retryQueue.Count == 0) {
                 return true;
             }
             return false;
         }
 
         // we set the application title different if we still have pending uploads
-        private void SetTitle()
-        {
-            if (NumberOfUploadsPending() > 0)
-            {
+        private void SetTitle() {
+            if (NumberOfUploadsPending() > 0) {
                 this.Text = YouTubeUploader.ApplicationName + " - " + NumberOfUploadsPending() + " uploads pending";
-            }
-            else
-            {
+            } else {
                 this.Text = YouTubeUploader.ApplicationName;
             }
         }
 
-
-
         // when the form loads, we want to load the application settings,
         // get the cmd line args, and process that 
-        private void YouTubeUploader_Load(object sender, EventArgs e)
-        {
+        private void YouTubeUploader_Load(object sender, EventArgs e) {
             LoadAppSettings();
             GetCmdLineArgs();
 
-            if (this.credentials != null)
-            {
-                try
-                {
+            if (this.credentials != null) {
+                try {
                     this.youTubeAuthenticator = new ClientLoginAuthenticator(YouTubeUploader.ApplicationName,
-                                    ServiceNames.YouTube, this.credentials);
+                        ServiceNames.YouTube, this.credentials);
                     this.youTubeAuthenticator.DeveloperKey = this.developerKey;
-
-                }
-                catch
-                {
+                } catch {
                     this.youTubeAuthenticator = null;
                 }
             }
 
-            if (this.youTubeAuthenticator == null) 
-            {
-                GoogleClientLogin loginDialog = new GoogleClientLogin("youremailhere@gmail.com"); 
+            if (this.youTubeAuthenticator == null) {
+                GoogleClientLogin loginDialog = new GoogleClientLogin("youremailhere@gmail.com");
                 loginDialog.ShowDialog();
 
-                if (loginDialog.Credentials != null)
-                {
-              
-                    this.youTubeAuthenticator = new ClientLoginAuthenticator(YouTubeUploader.ApplicationName, 
-                                    ServiceNames.YouTube, loginDialog.Credentials);
+                if (loginDialog.Credentials != null) {
+                    this.youTubeAuthenticator = new ClientLoginAuthenticator(YouTubeUploader.ApplicationName,
+                        ServiceNames.YouTube, loginDialog.Credentials);
                     this.youTubeAuthenticator.DeveloperKey = this.developerKey;
 
                     this.youtubeAccount = loginDialog.YoutubeAccount;
-
-                }
-                else
-                {
+                } else {
                     this.Close();
                 }
             }
 
-            if (this.csvFileName != null)
-            {
+            if (this.csvFileName != null) {
                 LoadCSVFile(this.csvFileName);
-                if (this.autoStart == true)
+                if (this.autoStart) {
                     Upload_Click(null, null);
+                }
             }
         }
 
         // helper to toggle the buttons (pending if we are processing uploads
         // when only cancel is active)
-        private void ToggleButtons(bool enabled)
-        {
-
+        private void ToggleButtons(bool enabled) {
             this.OpenCSVFile.Enabled = enabled;
             this.Upload.Enabled = enabled;
             this.MaxQueue.Enabled = enabled;
@@ -208,30 +176,25 @@ namespace YouTubeUploader
 
             EnableCancelButton(!enabled);
 
-            this.Upload.Enabled = enabled && NumberOfUploadsPending()>0;
+            this.Upload.Enabled = enabled && NumberOfUploadsPending() > 0;
         }
 
         // helper to make the cancel button visible and enabled (or not)
-        private void EnableCancelButton(bool value)
-        {
+        private void EnableCancelButton(bool value) {
             this.CancelAsync.Enabled = value;
             this.CancelAsync.Visible = value;
         }
 
-
-
         /// <summary>
-        ///  the number of pending uplods is the sum of the retry queue
-        ///  and the rows that have not been processed at all.
+        /// the number of pending uplods is the sum of the retry queue
+        /// and the rows that have not been processed at all.
         /// </summary>
         /// <returns></returns>
-        private int NumberOfUploadsPending()
-        {
+        private int NumberOfUploadsPending() {
             int count = this.retryQueue.Count;
 
             // this will go over all rows and tries to upload them
-            foreach (DataGridViewRow row in this.csvDisplayGrid.Rows)
-            {
+            foreach (DataGridViewRow row in this.csvDisplayGrid.Rows) {
                 if (row.Cells[COLUMNINDEX_STATUS].Tag == null)
                     count++;
             }
@@ -239,8 +202,7 @@ namespace YouTubeUploader
         }
 
         // Upload button was clicked. Modify UI state and fill the processing queue
-        private void Upload_Click(object sender, EventArgs e)
-        {
+        private void Upload_Click(object sender, EventArgs e) {
             ToggleButtons(false);
             EnsureRU();
 
@@ -253,63 +215,51 @@ namespace YouTubeUploader
             Trace.Unindent();
 
             // this will go over all rows and set the status
-            foreach (DataGridViewRow row in this.csvDisplayGrid.Rows)
-            {
-                if (row.Cells[COLUMNINDEX_STATUS].Value == null)
+            foreach (DataGridViewRow row in this.csvDisplayGrid.Rows) {
+                if (row.Cells[COLUMNINDEX_STATUS].Value == null) {
                     row.Cells[COLUMNINDEX_STATUS].Value = "Waiting to be uploaded....";
+                }
             }
-            // add a max of the first 3 rows to the upload queue
-        
-            // this will go over all rows and tries to upload them
-            foreach (DataGridViewRow row in this.csvDisplayGrid.Rows)
-            {
+
+            // this will go over all rows and try to upload them
+            foreach (DataGridViewRow row in this.csvDisplayGrid.Rows) {
                 UploadRow(row);
             }
 
             RetryRows();
 
-            if (Finished() == true)
-            {
+            if (Finished()) {
                 this.OnDone(null, null);
             }
         }
 
-        
-
         // returns true if a row was added to the queue
-        private bool UploadRow(DataGridViewRow row)
-        {
-            if (this.queue.Count >= (int) this.MaxQueue.Value)
+        private bool UploadRow(DataGridViewRow row) {
+            if (this.queue.Count >= (int)this.MaxQueue.Value) {
                 return false;
+            }
 
             UserState u = row.Cells[COLUMNINDEX_STATUS].Tag as UserState;
             // if this was already processed, don't. It will be either
             // in the queue already or moved to the retry queue
-            if (u != null)
+            if (u != null) {
                 return false;
+            }
 
             return InsertVideo(row, 1);
         }
 
-
-        
-
         // when we get a progress notification we remember a bunch of state info send
         // that info is needed to retry later
-        private void OnProgress(object sender, AsyncOperationProgressEventArgs e)
-        {
+        private void OnProgress(object sender, AsyncOperationProgressEventArgs e) {
             UserState u = e.UserState as UserState;
 
-            if (u != null && u.Row != null)
-            {
+            if (u != null && u.Row != null) {
                 string status = "";
-                if (u.RetryCounter > 1)
-                {
-                    status = "Retrying (" + (u.RetryCounter-1).ToString() + "), uploading: " + e.ProgressPercentage + "% done";
-                }
-                else
-                {
-                    status  = "Uploading: " + e.ProgressPercentage + "% done";
+                if (u.RetryCounter > 1) {
+                    status = "Retrying (" + (u.RetryCounter - 1).ToString() + "), uploading: " + e.ProgressPercentage + "% done";
+                } else {
+                    status = "Uploading: " + e.ProgressPercentage + "% done";
                 }
 
                 Trace.TraceInformation("OnProgress: " + status);
@@ -318,7 +268,7 @@ namespace YouTubeUploader
                 Trace.TraceInformation("Uri: " + e.Uri);
                 Trace.TraceInformation("Current position: " + e.Position);
                 Trace.Unindent();
-            
+
                 u.CurrentPosition = e.Position;
                 u.ResumeUri = e.Uri;
                 u.HttpVerb = e.HttpVerb;
@@ -326,33 +276,24 @@ namespace YouTubeUploader
             }
         }
 
-
         // send when an upload is done. This can mean it completed, it failed
         // or it was cancelled
-        private void OnDone(object sender, AsyncOperationCompletedEventArgs e)
-        {
-
-            if (e != null)
-            {
+        private void OnDone(object sender, AsyncOperationCompletedEventArgs e) {
+            if (e != null) {
                 UserState u = e.UserState as UserState;
 
                 Trace.TraceInformation("OnDone - Upload finished for :" + u.ResumeUri);
                 Trace.Indent();
 
-
-                if (u != null && u.Row != null)
-                {
-                    if (e.Cancelled == true)
-                    {
-                        Trace.TraceInformation("Cancelled. Current Pos = " + u.CurrentPosition); 
+                if (u != null && u.Row != null) {
+                    if (e.Cancelled) {
+                        Trace.TraceInformation("Cancelled. Current Pos = " + u.CurrentPosition);
                         u.Row.Cells[COLUMNINDEX_STATUS].Value = "Operation was cancelled";
                         // if it was cancelled, reset the retry counter
                         u.RetryCounter = 0;
                         u.Row.Cells[COLUMNINDEX_STATUS].Tag = u;
                         AddToRetryQueue(u);
-                    }
-                    else if (e.Error != null)
-                    {
+                    } else if (e.Error != null) {
                         Trace.TraceInformation("Error. Current Pos = " + u.CurrentPosition);
                         Trace.TraceInformation("Error was: " + e.Error.ToString() + " - " + e.Error.Message);
                         u.Error = e.Error.Message;
@@ -360,153 +301,123 @@ namespace YouTubeUploader
                         u.Row.Cells[COLUMNINDEX_STATUS].Value = "Tried (" + u.RetryCounter + ") - Last error was: " + u.Error;
                         u.Row.Cells[COLUMNINDEX_STATUS].Tag = u;
                         TryARetry(u);
-
-                    }
-                    else
-                    {
+                    } else {
                         ParseAndFinish(u, e.ResponseStream);
                     }
                 }
 
                 RemoveFromProcessingQueue(u);
 
-               
-                // only add new ones, if we did not have a cancelation
-
-                if (e.Cancelled == false)
-                {
+                // only add new ones, if we did not have a cancellation
+                if (!e.Cancelled) {
                     // now add a new row, if there is one
                     // this will go over all rows and tries to upload them
-                    foreach (DataGridViewRow row in this.csvDisplayGrid.Rows)
-                    {
-                        if (UploadRow(row) == true)
-                           break;
+                    foreach (DataGridViewRow row in this.csvDisplayGrid.Rows) {
+                        if (UploadRow(row)) {
+                            break;
+                        }
                     }
                 }
 
                 Trace.Unindent();
             }
 
-            if (Finished() == true)
-            {
+            if (Finished()) {
                 ToggleButtons(true);
-               
-                if (this.autoStart == true && this.outputFileName != null)
-                {
+
+                if (this.autoStart && this.outputFileName != null) {
                     SaveGridAsCSV(outputFileName);
                 }
             }
             SetTitle();
         }
 
-        
-
- 
-        private void csvDisplayGrid_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
-            {
+        private void csvDisplayGrid_CellMouseEnter(object sender, DataGridViewCellEventArgs e) {
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0) {
                 DataGridViewCell cell = this.csvDisplayGrid.Rows[e.RowIndex].Cells[e.ColumnIndex];
 
-                if (e.ColumnIndex == COLUMNINDEX_FILENAME)
-                {
+                if (e.ColumnIndex == COLUMNINDEX_FILENAME) {
                     string contentType = MediaFileSource.GetContentTypeForFileName(cell.Value.ToString());
                     cell.ToolTipText = "We assume this file is of type: " + contentType;
                 }
             }
         }
 
-        private void CancelAsync_Click(object sender, EventArgs e)
-        {
+        private void CancelAsync_Click(object sender, EventArgs e) {
             CancelProcessingQueue();
 
             ToggleButtons(true);
         }
 
-        private void GetCmdLineArgs()
-        {
+        private void GetCmdLineArgs() {
             string[] args = Environment.GetCommandLineArgs();
 
-            foreach (string arg in args)
-            {
+            foreach (string arg in args) {
                 this.autoStart = YouTubeUploader.AutoStartString.Equals(arg.ToLower());
-
             }
         }
 
-
         // the retry timer ticks once a minute.
-        private void RetryTimer_Tick(object sender, EventArgs e)
-        {
+        private void RetryTimer_Tick(object sender, EventArgs e) {
             // sometimes this message get's posted to us even 
             // though we disabled the retrytimer shortly before.
             // so better check if we are still supposed to process
-            if (this.RetryTimer.Enabled == true)
-            {
+            if (this.RetryTimer.Enabled) {
                 Trace.TraceInformation("Entering the retryTimer");
                 RetryRows();
             }
         }
 
         // opens up the wiki page with the documentation
-        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            try
-            {
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
+            try {
                 this.linkLabel1.LinkVisited = true;
                 System.Diagnostics.Process.Start("http://code.google.com/p/google-gdata/wiki/YouTubeUploader");
-            }
-            catch (Exception ex)
-            {
+            } catch (Exception ex) {
                 MessageBox.Show("Unable to open the documentation page: " + ex.Message);
             }
-
         }
 
-        private void LoadAppSettings()
-        {
-
+        private void LoadAppSettings() {
             // Get the AppSettings collection.
-            NameValueCollection appSettings = ConfigurationSettings.AppSettings;
+            NameValueCollection appSettings = ConfigurationManager.AppSettings;
 
-            if (appSettings[YouTubeUploader.CONFIG_DEVKEY] != null)
+            if (appSettings[YouTubeUploader.CONFIG_DEVKEY] != null) {
                 this.developerKey = appSettings[YouTubeUploader.CONFIG_DEVKEY];
-            else
+            } else {
                 this.developerKey = YouTubeUploader.DeveloperKeyDefault;
+            }
 
-            if (String.IsNullOrEmpty(this.developerKey))
-            {
+            if (String.IsNullOrEmpty(this.developerKey)) {
                 MessageBox.Show("You need to enter a developer key in the source code. Look for DeveloperKeyDefault and paste your key in");
                 this.Close();
             }
 
-            if (appSettings[YouTubeUploader.CONFIG_MAXTHREADS] != null)
+            if (appSettings[YouTubeUploader.CONFIG_MAXTHREADS] != null) {
                 this.MaxQueue.Value = Decimal.Parse(appSettings[YouTubeUploader.CONFIG_MAXTHREADS]);
-            else
+            } else {
                 this.MaxQueue.Value = 3;
+            }
 
-            if (appSettings[YouTubeUploader.CONFIG_RETRYCOUNT] != null)
+            if (appSettings[YouTubeUploader.CONFIG_RETRYCOUNT] != null) {
                 this.automaticRetries.Value = Decimal.Parse(appSettings[YouTubeUploader.CONFIG_RETRYCOUNT]);
-            else
+            } else {
                 this.automaticRetries.Value = 10;
+            }
 
-            if (appSettings[YouTubeUploader.CONFIG_CHUNKSIZE] != null)
+            if (appSettings[YouTubeUploader.CONFIG_CHUNKSIZE] != null) {
                 this.ChunkSize.Value = Decimal.Parse(appSettings[YouTubeUploader.CONFIG_CHUNKSIZE]);
-            else
+            } else {
                 this.ChunkSize.Value = 25;
+            }
 
             this.csvFileName = appSettings[YouTubeUploader.CONFIG_CSVFILE];
             this.outputFileName = appSettings[YouTubeUploader.CONFIG_OUTPUTFILE];
-            if (appSettings[YouTubeUploader.CONFIG_USERNAME] != null)
-            {
+            if (appSettings[YouTubeUploader.CONFIG_USERNAME] != null) {
                 this.credentials = new GDataCredentials(appSettings[YouTubeUploader.CONFIG_USERNAME],
-                                                        appSettings[YouTubeUploader.CONFIG_PASSWORD]);
+                    appSettings[YouTubeUploader.CONFIG_PASSWORD]);
             }
             this.youtubeAccount = appSettings[YouTubeUploader.CONFIG_YTACCOUNT];
-
         }
-
-
     }
-}
-    
+}    
