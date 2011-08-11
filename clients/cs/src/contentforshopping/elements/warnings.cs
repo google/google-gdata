@@ -12,31 +12,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 */
-
 using System;
-using Google.GData.Client;
 using Google.GData.Extensions;
 
-namespace Google.GData.ContentForShopping {
-    /// <summary>
-    /// Feed API customization class for defining Product feed.
-    /// </summary>
-    public class ProductFeed : AbstractFeed {
+namespace Google.GData.ContentForShopping.Elements {
+    public class Warnings : SimpleContainer {
+        private ExtensionCollection<Warning> warningList;
+
         /// <summary>
-        /// Constructor
+        /// default constructor for sc:warnings
         /// </summary>
-        /// <param name="uriBase">The uri for the product feed.</param>
-        /// <param name="iService">The ContentForShopping service.</param>
-        public ProductFeed(Uri uriBase, IService iService)
-            : base(uriBase, iService) {
+        public Warnings()
+            : base(ContentForShoppingNameTable.Warnings,
+            ContentForShoppingNameTable.scDataPrefix,
+            ContentForShoppingNameTable.BaseNamespace) {
+            this.ExtensionFactories.Add(new Warning());
         }
 
         /// <summary>
-        /// returns a new entry for this feed
+        /// Warning collection.
         /// </summary>
-        /// <returns>AtomEntry</returns>
-        public override AtomEntry CreateFeedEntry() {
-            return new ProductEntry();
+        public ExtensionCollection<Warning> Entries {
+            get {
+                if (this.warningList == null) {
+                    this.warningList = new ExtensionCollection<Warning>(this);
+                }
+                return this.warningList;
+            }
         }
     }
 }

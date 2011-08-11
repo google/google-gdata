@@ -62,6 +62,12 @@ namespace ContentForShoppingSample {
 			entry.ProductType = "Clothing & Accessories > Clothing > Outerwear > Sweaters";
 			entry.Quantity = 3;
 			entry.ShippingWeight = new ShippingWeight("lb", "0.1");
+            entry.ImageLink = new ImageLink("http://www.example.com/image.jpg");
+            entry.Availability = "available for order";
+            entry.Channel = "online";
+            entry.Gender = "female";
+            entry.Material = "wool";
+            entry.Pattern = "Red and blue stripes";
 
 			AtomLink link = new AtomLink();
 			link.HRef = "http://www.example.com";
@@ -105,9 +111,11 @@ namespace ContentForShoppingSample {
 			entry.TaxRules.Add(t1);
 			entry.TaxRules.Add(t2);
 
-			// Image Links
-			ImageLink il = new ImageLink("http://www.example.com/1.jpg");
-			entry.ImageLinks.Add(il);
+			// Additional Image Links
+            AdditionalImageLink il1 = new AdditionalImageLink("http://www.example.com/1.jpg");
+			entry.AdditionalImageLinks.Add(il1);
+            AdditionalImageLink il2 = new AdditionalImageLink("http://www.example.com/2.jpg");
+            entry.AdditionalImageLinks.Add(il2);
 
 			// Add the product to the server feed
 			Console.WriteLine("Inserting product");

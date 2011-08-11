@@ -18,20 +18,19 @@ using Google.GData.Client;
 using Google.GData.Extensions;
 using System.Globalization;
 using Google.GData.ContentForShopping.Elements;
+using Google.GData.Extensions.AppControl;
 
-namespace Google.GData.ContentForShopping
-{
+namespace Google.GData.ContentForShopping {
     /// <summary>
     /// Feed API customization class for defining Product feed.
     /// </summary>
-    public class ProductEntry : AbstractEntry
-    {
+    public class ProductEntry : AbstractEntry {
         private const string dateFormat8601 = "yyyy-MM-ddTHH:mm:ss.fffzzz";
-        
+
         /// <summary>
-        /// ImageLink collection
+        /// AdditionalImageLink collection
         /// </summary> 
-        private ExtensionCollection<ImageLink> imageLinks;
+        private ExtensionCollection<AdditionalImageLink> additionalImageLinks;
 
         /// <summary>
         /// Tax collection
@@ -59,68 +58,93 @@ namespace Google.GData.ContentForShopping
         private ExtensionCollection<Size> sizes;
 
         public ProductEntry()
-            : base()
-        {
+            : base() {
             this.AddExtension(new ProductId());
             this.AddExtension(new TargetCountry());
             this.AddExtension(new ContentLanguage());
             this.AddExtension(new ExpirationDate());
+            this.AddExtension(new AdditionalImageLink());
             this.AddExtension(new Adult());
+            this.AddExtension(new AgeGroup());
+            this.AddExtension(new Author());
+            this.AddExtension(new Availability());
             this.AddExtension(new Brand());
-            this.AddExtension(new Condition());
-            this.AddExtension(new Gtin());
-            this.AddExtension(new ProductType());
-            this.AddExtension(new Quantity());
-            this.AddExtension(new Price());
-            this.AddExtension(new ImageLink());
-            this.AddExtension(new Tax());
-            this.AddExtension(new Shipping());
-            this.AddExtension(new ShippingWeight());
+            this.AddExtension(new Channel());
             this.AddExtension(new Color());
+            this.AddExtension(new Condition());
             this.AddExtension(new Edition());
             this.AddExtension(new Feature());
             this.AddExtension(new FeaturedProduct());
+            this.AddExtension(new Gender());
             this.AddExtension(new Genre());
+            this.AddExtension(new GoogleProductCategory());
+            this.AddExtension(new Gtin());
+            this.AddExtension(new ImageLink());
+            this.AddExtension(new ItemGroupId());
             this.AddExtension(new Manufacturer());
+            this.AddExtension(new Material());
             this.AddExtension(new ModelNumber());
             this.AddExtension(new Mpn());
             this.AddExtension(new Pages());
+            this.AddExtension(new Pattern());
+            this.AddExtension(new Price());
+            this.AddExtension(new ProductReviewAverage());
+            this.AddExtension(new ProductReviewCount());
+            this.AddExtension(new ProductType());
             this.AddExtension(new ProductWeight());
-            this.AddExtension(new Publisher());
+            this.AddExtension(new Publisher()); 
+            this.AddExtension(new Quantity());
+            this.AddExtension(new Shipping());
+            this.AddExtension(new ShippingWeight());
             this.AddExtension(new Size());
+            this.AddExtension(new Tax());
             this.AddExtension(new Year());
+
+            // replacing the default app:control extension with the API-specific one
+            this.RemoveExtension(new AppControl());
+            this.AddExtension(new ProductControl());
+        }
+
+        /// <summary>
+        /// returns the Content for Shopping API-specific app:control element
+        /// </summary>
+        /// <returns></returns>
+        public new ProductControl AppControl {
+            get {
+                return FindExtension(BaseNameTable.XmlElementPubControl,
+                    BaseNameTable.NSAppPublishingFinal) as ProductControl;
+            }
+            set {
+                ReplaceExtension(BaseNameTable.XmlElementPubControl,
+                    BaseNameTable.NSAppPublishingFinal,
+                    value);
+            }
         }
 
         /// <summary>
         /// Product Identifier.
         /// </summary>
-        public string ProductId
-        {
-            get 
-            {
-				return GetStringValue<ProductId>(ContentForShoppingNameTable.ProductId,
-					ContentForShoppingNameTable.BaseNamespace);
+        public string ProductId {
+            get {
+                return GetStringValue<ProductId>(ContentForShoppingNameTable.ProductId,
+                    ContentForShoppingNameTable.BaseNamespace);
             }
-            set
-            {
+            set {
                 SetStringValue<ProductId>(value,
-					ContentForShoppingNameTable.ProductId,
-					ContentForShoppingNameTable.BaseNamespace);
+                    ContentForShoppingNameTable.ProductId,
+                    ContentForShoppingNameTable.BaseNamespace);
             }
         }
 
         /// <summary>
         /// Target Country.
         /// </summary>
-        public string TargetCountry
-        {
-            get
-            {
+        public string TargetCountry {
+            get {
                 return GetStringValue<TargetCountry>(ContentForShoppingNameTable.TargetCountry,
                     ContentForShoppingNameTable.BaseNamespace);
             }
-            set
-            {
+            set {
                 SetStringValue<TargetCountry>(value,
                     ContentForShoppingNameTable.TargetCountry,
                     ContentForShoppingNameTable.BaseNamespace);
@@ -130,15 +154,12 @@ namespace Google.GData.ContentForShopping
         /// <summary>
         /// Content Language.
         /// </summary>
-        public string ContentLanguage
-        {
-            get
-            {
+        public string ContentLanguage {
+            get {
                 return GetStringValue<ContentLanguage>(ContentForShoppingNameTable.ContentLanguage,
                     ContentForShoppingNameTable.BaseNamespace);
             }
-            set
-            {
+            set {
                 SetStringValue<ContentLanguage>(value,
                     ContentForShoppingNameTable.ContentLanguage,
                     ContentForShoppingNameTable.BaseNamespace);
@@ -148,16 +169,13 @@ namespace Google.GData.ContentForShopping
         /// <summary>
         /// Expiration Date.
         /// </summary>
-        public DateTime ExpirationDate
-        {
-            get
-            {
+        public DateTime ExpirationDate {
+            get {
                 string date = GetStringValue<ExpirationDate>(ContentForShoppingNameTable.ExpirationDate,
                     ContentForShoppingNameTable.BaseNamespace);
                 return DateTime.ParseExact(date, dateFormat8601, CultureInfo.InvariantCulture);
             }
-            set
-            {
+            set {
                 SetStringValue<ExpirationDate>(value.ToString(dateFormat8601),
                     ContentForShoppingNameTable.ExpirationDate,
                     ContentForShoppingNameTable.BaseNamespace);
@@ -167,21 +185,17 @@ namespace Google.GData.ContentForShopping
         /// <summary>
         /// Adult.
         /// </summary>
-        public bool Adult
-        {
-            get
-            {
+        public bool Adult {
+            get {
                 bool value;
                 if (!bool.TryParse(GetStringValue<Adult>(ContentForShoppingNameTable.Adult,
-                    ContentForShoppingNameTable.BaseNamespace), out value))
-                {
+                    ContentForShoppingNameTable.BaseNamespace), out value)) {
                     value = false;
                 }
 
                 return value;
             }
-            set
-            {
+            set {
                 SetStringValue<Adult>(value.ToString(),
                     ContentForShoppingNameTable.Adult,
                     ContentForShoppingNameTable.BaseNamespace);
@@ -189,17 +203,59 @@ namespace Google.GData.ContentForShopping
         }
 
         /// <summary>
+        /// AgeGroup.
+        /// </summary>
+        public string AgeGroup {
+            get {
+                return GetStringValue<AgeGroup>(ContentForShoppingNameTable.AgeGroup,
+                    ContentForShoppingNameTable.ProductsNamespace);
+            }
+            set {
+                SetStringValue<AgeGroup>(value,
+                    ContentForShoppingNameTable.AgeGroup,
+                    ContentForShoppingNameTable.ProductsNamespace);
+            }
+        }
+
+        /// <summary>
+        /// Author.
+        /// </summary>
+        public string Author {
+            get {
+                return GetStringValue<AgeGroup>(ContentForShoppingNameTable.Author,
+                    ContentForShoppingNameTable.ProductsNamespace);
+            }
+            set {
+                SetStringValue<Author>(value,
+                    ContentForShoppingNameTable.Author,
+                    ContentForShoppingNameTable.ProductsNamespace);
+            }
+        }
+
+        /// <summary>
+        /// Availability.
+        /// </summary>
+        public string Availability {
+            get {
+                return GetStringValue<Availability>(ContentForShoppingNameTable.Availability,
+                    ContentForShoppingNameTable.ProductsNamespace);
+            }
+            set {
+                SetStringValue<Availability>(value,
+                    ContentForShoppingNameTable.Availability,
+                    ContentForShoppingNameTable.ProductsNamespace);
+            }
+        }
+
+        /// <summary>
         /// FeaturedProduct.
         /// </summary>
-        public bool FeaturedProduct
-        {
-            get
-            {
+        public bool FeaturedProduct {
+            get {
                 return (GetStringValue<FeaturedProduct>(ContentForShoppingNameTable.FeaturedProduct,
                     ContentForShoppingNameTable.BaseNamespace) == "y");
             }
-            set
-            {
+            set {
                 string stringValue = value ? "y" : "n";
                 SetStringValue<FeaturedProduct>(stringValue,
                     ContentForShoppingNameTable.FeaturedProduct,
@@ -210,15 +266,12 @@ namespace Google.GData.ContentForShopping
         /// <summary>
         /// Brand.
         /// </summary>
-        public string Brand
-        {
-            get
-            {
+        public string Brand {
+            get {
                 return GetStringValue<Brand>(ContentForShoppingNameTable.Brand,
                     ContentForShoppingNameTable.ProductsNamespace);
             }
-            set
-            {
+            set {
                 SetStringValue<Brand>(value,
                     ContentForShoppingNameTable.Brand,
                     ContentForShoppingNameTable.ProductsNamespace);
@@ -226,17 +279,29 @@ namespace Google.GData.ContentForShopping
         }
 
         /// <summary>
+        /// Channel.
+        /// </summary>
+        public string Channel {
+            get {
+                return GetStringValue<Channel>(ContentForShoppingNameTable.Channel,
+                    ContentForShoppingNameTable.ProductsNamespace);
+            }
+            set {
+                SetStringValue<Channel>(value,
+                    ContentForShoppingNameTable.Channel,
+                    ContentForShoppingNameTable.ProductsNamespace);
+            }
+        }
+
+        /// <summary>
         /// Condition.
         /// </summary>
-        public string Condition
-        {
-            get
-            {
+        public string Condition {
+            get {
                 return GetStringValue<Condition>(ContentForShoppingNameTable.Condition,
                     ContentForShoppingNameTable.ProductsNamespace);
             }
-            set
-            {
+            set {
                 SetStringValue<Condition>(value,
                     ContentForShoppingNameTable.Condition,
                     ContentForShoppingNameTable.ProductsNamespace);
@@ -246,15 +311,12 @@ namespace Google.GData.ContentForShopping
         /// <summary>
         /// Gtin.
         /// </summary>
-        public string Gtin
-        {
-            get
-            {
+        public string Gtin {
+            get {
                 return GetStringValue<Gtin>(ContentForShoppingNameTable.Gtin,
                     ContentForShoppingNameTable.ProductsNamespace);
             }
-            set
-            {
+            set {
                 SetStringValue<Gtin>(value,
                     ContentForShoppingNameTable.Gtin,
                     ContentForShoppingNameTable.ProductsNamespace);
@@ -262,17 +324,29 @@ namespace Google.GData.ContentForShopping
         }
 
         /// <summary>
+        /// ItemGroupId.
+        /// </summary>
+        public string ItemGroupId {
+            get {
+                return GetStringValue<ItemGroupId>(ContentForShoppingNameTable.ItemGroupId,
+                    ContentForShoppingNameTable.ProductsNamespace);
+            }
+            set {
+                SetStringValue<ItemGroupId>(value,
+                    ContentForShoppingNameTable.ItemGroupId,
+                    ContentForShoppingNameTable.ProductsNamespace);
+            }
+        }
+
+        /// <summary>
         /// Product Type.
         /// </summary>
-        public string ProductType
-        {
-            get
-            {
+        public string ProductType {
+            get {
                 return GetStringValue<ProductType>(ContentForShoppingNameTable.ProductType,
                     ContentForShoppingNameTable.ProductsNamespace);
             }
-            set
-            {
+            set {
                 SetStringValue<ProductType>(value,
                     ContentForShoppingNameTable.ProductType,
                     ContentForShoppingNameTable.ProductsNamespace);
@@ -282,15 +356,12 @@ namespace Google.GData.ContentForShopping
         /// <summary>
         /// Edition.
         /// </summary>
-        public string Edition
-        {
-            get
-            {
+        public string Edition {
+            get {
                 return GetStringValue<Edition>(ContentForShoppingNameTable.Edition,
                     ContentForShoppingNameTable.ProductsNamespace);
             }
-            set
-            {
+            set {
                 SetStringValue<Edition>(value,
                     ContentForShoppingNameTable.Edition,
                     ContentForShoppingNameTable.ProductsNamespace);
@@ -298,17 +369,29 @@ namespace Google.GData.ContentForShopping
         }
 
         /// <summary>
+        /// Gender.
+        /// </summary>
+        public string Gender {
+            get {
+                return GetStringValue<Gender>(ContentForShoppingNameTable.Gender,
+                    ContentForShoppingNameTable.ProductsNamespace);
+            }
+            set {
+                SetStringValue<Gender>(value,
+                    ContentForShoppingNameTable.Gender,
+                    ContentForShoppingNameTable.ProductsNamespace);
+            }
+        }
+
+        /// <summary>
         /// Genre.
         /// </summary>
-        public string Genre
-        {
-            get
-            {
+        public string Genre {
+            get {
                 return GetStringValue<Genre>(ContentForShoppingNameTable.Genre,
                     ContentForShoppingNameTable.ProductsNamespace);
             }
-            set
-            {
+            set {
                 SetStringValue<Genre>(value,
                     ContentForShoppingNameTable.Genre,
                     ContentForShoppingNameTable.ProductsNamespace);
@@ -316,17 +399,29 @@ namespace Google.GData.ContentForShopping
         }
 
         /// <summary>
+        /// GoogleProductCategory.
+        /// </summary>
+        public string GoogleProductCategory {
+            get {
+                return GetStringValue<GoogleProductCategory>(ContentForShoppingNameTable.GoogleProductCategory,
+                    ContentForShoppingNameTable.ProductsNamespace);
+            }
+            set {
+                SetStringValue<GoogleProductCategory>(value,
+                    ContentForShoppingNameTable.GoogleProductCategory,
+                    ContentForShoppingNameTable.ProductsNamespace);
+            }
+        }
+
+        /// <summary>
         /// Manufacturer.
         /// </summary>
-        public string Manufacturer
-        {
-            get
-            {
+        public string Manufacturer {
+            get {
                 return GetStringValue<Manufacturer>(ContentForShoppingNameTable.Manufacturer,
                     ContentForShoppingNameTable.ProductsNamespace);
             }
-            set
-            {
+            set {
                 SetStringValue<Manufacturer>(value,
                     ContentForShoppingNameTable.Manufacturer,
                     ContentForShoppingNameTable.ProductsNamespace);
@@ -334,17 +429,29 @@ namespace Google.GData.ContentForShopping
         }
 
         /// <summary>
+        /// Material.
+        /// </summary>
+        public string Material {
+            get {
+                return GetStringValue<Material>(ContentForShoppingNameTable.Material,
+                    ContentForShoppingNameTable.ProductsNamespace);
+            }
+            set {
+                SetStringValue<Material>(value,
+                    ContentForShoppingNameTable.Material,
+                    ContentForShoppingNameTable.ProductsNamespace);
+            }
+        }
+
+        /// <summary>
         /// Model Number.
         /// </summary>
-        public string ModelNumber
-        {
-            get
-            {
+        public string ModelNumber {
+            get {
                 return GetStringValue<ModelNumber>(ContentForShoppingNameTable.ModelNumber,
                     ContentForShoppingNameTable.ProductsNamespace);
             }
-            set
-            {
+            set {
                 SetStringValue<ModelNumber>(value,
                     ContentForShoppingNameTable.ModelNumber,
                     ContentForShoppingNameTable.ProductsNamespace);
@@ -354,15 +461,12 @@ namespace Google.GData.ContentForShopping
         /// <summary>
         /// Manufacturer's Part Number.
         /// </summary>
-        public string Mpn
-        {
-            get
-            {
+        public string Mpn {
+            get {
                 return GetStringValue<Mpn>(ContentForShoppingNameTable.Mpn,
                     ContentForShoppingNameTable.ProductsNamespace);
             }
-            set
-            {
+            set {
                 SetStringValue<Mpn>(value,
                     ContentForShoppingNameTable.Mpn,
                     ContentForShoppingNameTable.ProductsNamespace);
@@ -372,15 +476,12 @@ namespace Google.GData.ContentForShopping
         /// <summary>
         /// Publisher.
         /// </summary>
-        public string Publisher
-        {
-            get
-            {
+        public string Publisher {
+            get {
                 return GetStringValue<Publisher>(ContentForShoppingNameTable.Publisher,
                     ContentForShoppingNameTable.ProductsNamespace);
             }
-            set
-            {
+            set {
                 SetStringValue<Publisher>(value,
                     ContentForShoppingNameTable.Publisher,
                     ContentForShoppingNameTable.ProductsNamespace);
@@ -390,15 +491,12 @@ namespace Google.GData.ContentForShopping
         /// <summary>
         /// Pages.
         /// </summary>
-        public int Pages
-        {
-            get
-            {
+        public int Pages {
+            get {
                 return Convert.ToInt32(GetStringValue<Pages>(ContentForShoppingNameTable.Pages,
                     ContentForShoppingNameTable.ProductsNamespace));
             }
-            set
-            {
+            set {
                 SetStringValue<Pages>(value.ToString(),
                     ContentForShoppingNameTable.Pages,
                     ContentForShoppingNameTable.ProductsNamespace);
@@ -406,17 +504,60 @@ namespace Google.GData.ContentForShopping
         }
 
         /// <summary>
+        /// Pattern.
+        /// </summary>
+        public string Pattern {
+            get {
+                return GetStringValue<Pattern>(ContentForShoppingNameTable.Pattern,
+                    ContentForShoppingNameTable.ProductsNamespace);
+            }
+            set {
+                SetStringValue<Pattern>(value,
+                    ContentForShoppingNameTable.Pattern,
+                    ContentForShoppingNameTable.ProductsNamespace);
+            }
+        }
+
+        /// <summary>
+        /// ProductReviewAverage.
+        /// </summary>
+        // TODO: use a float instead of a string
+        public string ProductReviewAverage {
+            get {
+                return GetStringValue<ProductReviewAverage>(ContentForShoppingNameTable.ProductReviewAverage,
+                    ContentForShoppingNameTable.ProductsNamespace);
+            }
+            set {
+                SetStringValue<ProductReviewAverage>(value,
+                    ContentForShoppingNameTable.ProductReviewAverage,
+                    ContentForShoppingNameTable.ProductsNamespace);
+            }
+        }
+
+        /// <summary>
+        /// ProductReviewCount.
+        /// </summary>
+        public int ProductReviewCount {
+            get {
+                return Convert.ToInt32(GetStringValue<ProductReviewCount>(ContentForShoppingNameTable.ProductReviewCount,
+                    ContentForShoppingNameTable.ProductsNamespace));
+            }
+            set {
+                SetStringValue<ProductReviewCount>(value.ToString(),
+                    ContentForShoppingNameTable.ProductReviewCount,
+                    ContentForShoppingNameTable.ProductsNamespace);
+            }
+        }
+
+        /// <summary>
         /// Year.
         /// </summary>
-        public int Year
-        {
-            get
-            {
+        public int Year {
+            get {
                 return Convert.ToInt32(GetStringValue<Year>(ContentForShoppingNameTable.Year,
                     ContentForShoppingNameTable.ProductsNamespace));
             }
-            set
-            {
+            set {
                 SetStringValue<Year>(value.ToString(),
                     ContentForShoppingNameTable.Year,
                     ContentForShoppingNameTable.ProductsNamespace);
@@ -426,15 +567,12 @@ namespace Google.GData.ContentForShopping
         /// <summary>
         /// Quantity.
         /// </summary>
-        public int Quantity
-        {
-            get
-            {
+        public int Quantity {
+            get {
                 return Convert.ToInt32(GetStringValue<Quantity>(ContentForShoppingNameTable.Quantity,
                     ContentForShoppingNameTable.ProductsNamespace));
             }
-            set
-            {
+            set {
                 SetStringValue<Quantity>(value.ToString(),
                     ContentForShoppingNameTable.Quantity,
                     ContentForShoppingNameTable.ProductsNamespace);
@@ -444,81 +582,81 @@ namespace Google.GData.ContentForShopping
         /// <summary>
         /// Price.
         /// </summary>
-        public Price Price
-        {
-            get
-            {
+        public Price Price {
+            get {
                 return FindExtension(ContentForShoppingNameTable.Price,
-                                     ContentForShoppingNameTable.ProductsNamespace) as Price;
+                    ContentForShoppingNameTable.ProductsNamespace) as Price;
             }
-            set
-            {
+            set {
                 ReplaceExtension(ContentForShoppingNameTable.Price,
-                                ContentForShoppingNameTable.ProductsNamespace,
-                                value);
+                    ContentForShoppingNameTable.ProductsNamespace,
+                    value);
             }
         }
 
         /// <summary>
         /// Shipping Weight.
         /// </summary>
-        public ShippingWeight ShippingWeight
-        {
-            get
-            {
+        public ShippingWeight ShippingWeight {
+            get {
                 return FindExtension(ContentForShoppingNameTable.ShippingWeight,
-                                     ContentForShoppingNameTable.ProductsNamespace) as ShippingWeight;
+                    ContentForShoppingNameTable.ProductsNamespace) as ShippingWeight;
             }
-            set
-            {
+            set {
                 ReplaceExtension(ContentForShoppingNameTable.ShippingWeight,
-                                ContentForShoppingNameTable.ProductsNamespace,
-                                value);
+                    ContentForShoppingNameTable.ProductsNamespace,
+                    value);
             }
         }
 
         /// <summary>
         /// Product Weight.
         /// </summary>
-        public ProductWeight ProductWeight
-        {
-            get
-            {
+        public ProductWeight ProductWeight {
+            get {
                 return FindExtension(ContentForShoppingNameTable.ProductWeight,
-                                     ContentForShoppingNameTable.ProductsNamespace) as ProductWeight;
+                    ContentForShoppingNameTable.ProductsNamespace) as ProductWeight;
             }
-            set
-            {
+            set {
                 ReplaceExtension(ContentForShoppingNameTable.ProductWeight,
-                                ContentForShoppingNameTable.ProductsNamespace,
-                                value);
+                    ContentForShoppingNameTable.ProductsNamespace,
+                    value);
             }
         }
 
         /// <summary>
-        /// ImageLink collection.
+        /// ImageLink.
         /// </summary>
-        public ExtensionCollection<ImageLink> ImageLinks
-        {
-            get
-            {
-                if (this.imageLinks == null)
-                {
-                    this.imageLinks = new ExtensionCollection<ImageLink>(this);
+        public ImageLink ImageLink {
+            get {
+                return FindExtension(ContentForShoppingNameTable.ImageLink,
+                    ContentForShoppingNameTable.BaseNamespace) as ImageLink;
+            }
+            set {
+                ReplaceExtension(ContentForShoppingNameTable.ImageLink,
+                    ContentForShoppingNameTable.BaseNamespace,
+                    value);
+            }
+        }
+
+        /// <summary>
+        /// AdditionalImageLink collection.
+        /// </summary>
+        public ExtensionCollection<AdditionalImageLink> AdditionalImageLinks {
+            get {
+                if (this.additionalImageLinks == null) {
+                    this.additionalImageLinks = new ExtensionCollection<AdditionalImageLink>(this);
                 }
-                return this.imageLinks;
+                return this.additionalImageLinks;
             }
         }
 
         /// <summary>
         /// Tax collection.
         /// </summary>
-        public ExtensionCollection<Tax> TaxRules
-        {
-            get
-            {
-                if (this.taxRules == null)
-                {
+        public ExtensionCollection<Tax> TaxRules {
+            get {
+                if (this.taxRules == null) {
                     this.taxRules = new ExtensionCollection<Tax>(this);
                 }
                 return this.taxRules;
@@ -528,12 +666,9 @@ namespace Google.GData.ContentForShopping
         /// <summary>
         /// Shipping collection.
         /// </summary>
-        public ExtensionCollection<Shipping> ShippingRules
-        {
-            get
-            {
-                if (this.shippingRules == null)
-                {
+        public ExtensionCollection<Shipping> ShippingRules {
+            get {
+                if (this.shippingRules == null) {
                     this.shippingRules = new ExtensionCollection<Shipping>(this);
                 }
                 return this.shippingRules;
@@ -543,12 +678,9 @@ namespace Google.GData.ContentForShopping
         /// <summary>
         /// Color collection.
         /// </summary>
-        public ExtensionCollection<Color> Colors
-        {
-            get
-            {
-                if (this.colors == null)
-                {
+        public ExtensionCollection<Color> Colors {
+            get {
+                if (this.colors == null) {
                     this.colors = new ExtensionCollection<Color>(this);
                 }
                 return this.colors;
@@ -558,12 +690,9 @@ namespace Google.GData.ContentForShopping
         /// <summary>
         /// Feature collection.
         /// </summary>
-        public ExtensionCollection<Feature> Features
-        {
-            get
-            {
-                if (this.features == null)
-                {
+        public ExtensionCollection<Feature> Features {
+            get {
+                if (this.features == null) {
                     this.features = new ExtensionCollection<Feature>(this);
                 }
                 return this.features;
@@ -573,12 +702,9 @@ namespace Google.GData.ContentForShopping
         /// <summary>
         /// Size collection.
         /// </summary>
-        public ExtensionCollection<Size> Sizes
-        {
-            get
-            {
-                if (this.sizes == null)
-                {
+        public ExtensionCollection<Size> Sizes {
+            get {
+                if (this.sizes == null) {
                     this.sizes = new ExtensionCollection<Size>(this);
                 }
                 return this.sizes;

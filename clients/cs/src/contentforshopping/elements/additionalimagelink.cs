@@ -12,31 +12,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 */
-
 using System;
-using Google.GData.Client;
 using Google.GData.Extensions;
 
-namespace Google.GData.ContentForShopping {
-    /// <summary>
-    /// Feed API customization class for defining Product feed.
-    /// </summary>
-    public class ProductFeed : AbstractFeed {
+namespace Google.GData.ContentForShopping.Elements {
+    public class AdditionalImageLink : SimpleElement {
         /// <summary>
-        /// Constructor
+        /// default constructor for sc:additional_image_link 
         /// </summary>
-        /// <param name="uriBase">The uri for the product feed.</param>
-        /// <param name="iService">The ContentForShopping service.</param>
-        public ProductFeed(Uri uriBase, IService iService)
-            : base(uriBase, iService) {
+        public AdditionalImageLink()
+            : base(ContentForShoppingNameTable.AdditionalImageLink,
+                ContentForShoppingNameTable.scDataPrefix,
+                ContentForShoppingNameTable.BaseNamespace) {
         }
 
         /// <summary>
-        /// returns a new entry for this feed
+        /// default constructor for sc:additional_image_link with an initial value
         /// </summary>
-        /// <returns>AtomEntry</returns>
-        public override AtomEntry CreateFeedEntry() {
-            return new ProductEntry();
+        public AdditionalImageLink(string value)
+            : base(ContentForShoppingNameTable.AdditionalImageLink,
+                ContentForShoppingNameTable.scDataPrefix,
+                ContentForShoppingNameTable.BaseNamespace,
+                value) {
         }
     }
 }

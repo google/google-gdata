@@ -12,11 +12,15 @@ namespace Google.GData.ContentForShopping
     public abstract class ItemQuery : FeedQuery
     {
         private const string itemFeedBaseUri = "https://content.googleapis.com/content/v1/";
+        private const string showWarningsParameter = "warnings";
+        private const string dryRunParameter = "dry-run";
 
         private readonly string dataType;
         private string accountId;
         private string projection;
         private string startToken;
+        private bool showWarnings;
+        private bool dryRun;
 
          /// <summary>
         /// Constructor
@@ -65,6 +69,22 @@ namespace Google.GData.ContentForShopping
         }
 
         /// <summary>
+        /// Accessor method for ShowWarnings.
+        /// </summary>
+        public bool ShowWarnings {
+            get { return showWarnings; }
+            set { showWarnings = value; }
+        }
+
+        /// <summary>
+        /// Accessor method for DryRun.
+        /// </summary>
+        public bool DryRun {
+            get { return dryRun; }
+            set { dryRun = value; }
+        }
+
+        /// <summary>
         /// Creates the URI query string based on all set properties.
         /// </summary>
         /// <returns>the URI query string</returns>
@@ -75,6 +95,16 @@ namespace Google.GData.ContentForShopping
             char paramInsertion = InsertionParameter(path);
 
             paramInsertion = AppendQueryPart(this.StartToken, "start-token", paramInsertion, newPath);
+            if (ShowWarnings) {
+                newPath.Append(paramInsertion);
+                newPath.Append(showWarningsParameter);
+                paramInsertion = '&';
+            }
+            if (DryRun) {
+                newPath.Append(paramInsertion);
+                newPath.Append(dryRunParameter);
+                paramInsertion = '&';
+            }
             return newPath.ToString();
         }
 
@@ -97,6 +127,12 @@ namespace Google.GData.ContentForShopping
                         switch (parameters[0]) {
                             case "start-token":
                                 StartToken = parameters[1];
+                                break;
+                            case showWarningsParameter:
+                                ShowWarnings = true;
+                                break;
+                            case dryRunParameter:
+                                DryRun = true;
                                 break;
                         }
                     }
