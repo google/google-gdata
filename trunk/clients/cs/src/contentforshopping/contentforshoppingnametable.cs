@@ -64,14 +64,39 @@ namespace Google.GData.ContentForShopping
         public const string ImageLink = "image_link";
 
         /// <summary>
+        /// XML element name for additional_image_link.
+        /// </summary>
+        public const string AdditionalImageLink = "additional_image_link";
+
+        /// <summary>
         /// XML element name for adult.
         /// </summary>
         public const string Adult = "adult";
 
         /// <summary>
+        /// XML element name for age_group.
+        /// </summary>
+        public const string AgeGroup = "age_group";
+
+        /// <summary>
+        /// XML element name for author.
+        /// </summary>
+        public const string Author = "author";
+
+        /// <summary>
+        /// XML element name for availability.
+        /// </summary>
+        public const string Availability = "availability";
+
+        /// <summary>
         /// XML element name for brand.
         /// </summary>
         public const string Brand = "brand";
+
+        /// <summary>
+        /// XML element name for channel.
+        /// </summary>
+        public const string Channel = "channel";
 
         /// <summary>
         /// XML element name for condition.
@@ -139,9 +164,29 @@ namespace Google.GData.ContentForShopping
         public const string Genre = "genre";
 
         /// <summary>
+        /// XML element name for gender.
+        /// </summary>
+        public const string Gender = "gender";
+
+        /// <summary>
+        /// XML element name for google_product_category.
+        /// </summary>
+        public const string GoogleProductCategory = "google_product_category";
+
+        /// <summary>
+        /// XML element name for item_group_id.
+        /// </summary>
+        public const string ItemGroupId = "item_group_id";
+
+        /// <summary>
         /// XML element name for manufacturer.
         /// </summary>
         public const string Manufacturer = "manufacturer";
+
+        /// <summary>
+        /// XML element name for material.
+        /// </summary>
+        public const string Material = "material";
 
         /// <summary>
         /// XML element name for model_number.
@@ -157,6 +202,21 @@ namespace Google.GData.ContentForShopping
         /// XML element name for pages.
         /// </summary>
         public const string Pages = "pages";
+
+        /// <summary>
+        /// XML element name for pattern.
+        /// </summary>
+        public const string Pattern = "pattern";
+
+        /// <summary>
+        /// XML element name for product_review_average.
+        /// </summary>
+        public const string ProductReviewAverage = "product_review_average";
+
+        /// <summary>
+        /// XML element name for product_review_count.
+        /// </summary>
+        public const string ProductReviewCount = "product_review_count";
 
         /// <summary>
         /// XML element name for feature.
@@ -227,5 +287,55 @@ namespace Google.GData.ContentForShopping
         /// XML element name for weight unit.
         /// </summary>
         public const string WeightUnit = "unit";
+
+        /// <summary>
+        /// XML element name for required destination.
+        /// </summary>
+        public const string RequiredDestination = "required_destination";
+
+        /// <summary>
+        /// XML element name for excluded destination.
+        /// </summary>
+        public const string ExcludedDestination = "excluded_destination";
+
+        /// <summary>
+        /// XML element name for dest.
+        /// </summary>
+        public const string Destination = "dest";
+
+        /// <summary>
+        /// XML element name for status.
+        /// </summary>
+        public const string Status = "status";
+
+        /// <summary>
+        /// XML element name for warnings.
+        /// </summary>
+        public const string Warnings = "warnings";
+
+        /// <summary>
+        /// XML element name for warning.
+        /// </summary>
+        public const string Warning = "warning";
+
+        /// <summary>
+        /// XML element name for warning code.
+        /// </summary>
+        public const string WarningCode = "code";
+
+        /// <summary>
+        /// XML element name for warning domain.
+        /// </summary>
+        public const string WarningDomain = "domain";
+
+        /// <summary>
+        /// XML element name for warning location.
+        /// </summary>
+        public const string WarningLocation = "location";
+
+        /// <summary>
+        /// XML element name for warning message.
+        /// </summary>
+        public const string WarningMessage = "message";
     }
 }
