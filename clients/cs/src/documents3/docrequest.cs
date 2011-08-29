@@ -764,7 +764,7 @@ namespace Google.Documents
 
             Service s = this.Service;
             // figure out if we need to use the spreadsheet service
-            if (url.IndexOf("spreadsheets.google.com") != -1)
+            if (document.Type == Document.DocumentType.Spreadsheet)
             {
                 s = this.spreadsheetsService;
             }
