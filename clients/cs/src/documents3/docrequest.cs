@@ -310,17 +310,17 @@ namespace Google.Documents
         }
 
         /// <summary>
-        /// returns the quota used by the object. 0 if not availabe
+        /// returns the quota used by the object. 0 if not available
         /// </summary>
         [CLSCompliant(false)]
-        public uint QuotaBytesUsed
+        public ulong QuotaBytesUsed
         {
             get
             {
                 EnsureInnerObject();
                 if (this.DocumentEntry.QuotaUsed != null)
                 {
-                    return this.DocumentEntry.QuotaUsed.UnsignedIntegerValue;
+                    return this.DocumentEntry.QuotaUsed.UnsignedLongValue;
                 }
                 return 0;
             }
