@@ -13,32 +13,24 @@
  * limitations under the License.
 */
 
-
 using System;
 using System.IO;
-using System.Collections;
-using System.Text;
-using System.Net; 
+using System.Net;
 using Google.GData.Client;
 using Google.GData.Extensions;
 using Google.GData.AccessControl;
 using Google.GData.Documents;
 using System.Collections.Generic;
 
-namespace Google.Documents
-{
-
+namespace Google.Documents {
     /// <summary>
     ///  the base class for all documents in the document service. A document can represent folders, documents, spreadsheets etc. 
     /// </summary>
-    public class Document : Entry
-    {
-
+    public class Document : Entry {
         /// <summary>
         /// descripes the type of the document entry
         /// </summary>
-        public enum DocumentType
-        {
+        public enum DocumentType {
             /// <summary>
             /// a document
             /// </summary>
@@ -68,7 +60,7 @@ namespace Google.Documents
             /// </summary>
             Drawing,
             /// <summary>
-            /// something unknown to us
+            /// an unknown document type
             /// </summary>
             Unknown
         }
@@ -76,8 +68,7 @@ namespace Google.Documents
         /// <summary>
         /// describes the download type, in what format you want to download the document
         /// </summary>
-        public enum DownloadType
-        {
+        public enum DownloadType {
             /// <summary>
             /// text file
             /// </summary>
@@ -87,7 +78,7 @@ namespace Google.Documents
             /// </summary>
             odt,
             /// <summary>
-            /// portable document format PFDF
+            /// portable document format PDF
             /// </summary>
             pdf,
             /// <summary>
@@ -106,7 +97,9 @@ namespace Google.Documents
             /// portable network graphics format
             /// </summary>
             png,
-            /// <summary>zip format</summary>
+            /// <summary>
+            /// zip format
+            /// </summary>
             zip,
             /// <summary>
             /// flash format
@@ -143,13 +136,11 @@ namespace Google.Documents
         }
 
         /// <summary>
-        /// creates the inner contact object when needed
+        /// creates the inner document entry object when needed
         /// </summary>
         /// <returns></returns>
-        protected override void EnsureInnerObject()
-        {
-            if (this.AtomEntry == null)
-            {
+        protected override void EnsureInnerObject() {
+            if (this.AtomEntry == null) {
                 this.AtomEntry = new DocumentEntry();
             }
         }
@@ -158,10 +149,8 @@ namespace Google.Documents
         /// readonly accessor for the DocumentEntry that is underneath this object.
         /// </summary>
         /// <returns></returns>
-        public DocumentEntry DocumentEntry
-        {
-            get
-            {
+        public DocumentEntry DocumentEntry {
+            get {
                 EnsureInnerObject();
                 return this.AtomEntry as DocumentEntry;
             }
@@ -171,42 +160,27 @@ namespace Google.Documents
         /// the type of the document entry
         /// </summary>
         /// <returns></returns>
-        public Document.DocumentType Type
-        {
-            get
-            {
+        public Document.DocumentType Type {
+            get {
                 EnsureInnerObject();
-                if (this.DocumentEntry.IsDocument)
-                {
+                if (this.DocumentEntry.IsDocument) {
                     return Document.DocumentType.Document;
-                } 
-                else if (this.DocumentEntry.IsPDF)
-                {
+                } else if (this.DocumentEntry.IsPDF) {
                     return Document.DocumentType.PDF;
-                }
-                else if (this.DocumentEntry.IsSpreadsheet)
-                {
+                } else if (this.DocumentEntry.IsSpreadsheet) {
                     return Document.DocumentType.Spreadsheet;
-                }
-                else if (this.DocumentEntry.IsFolder)
-                {
+                } else if (this.DocumentEntry.IsFolder) {
                     return Document.DocumentType.Folder;
-                }
-                else if (this.DocumentEntry.IsPresentation)
-                {
+                } else if (this.DocumentEntry.IsPresentation) {
                     return Document.DocumentType.Presentation;
-                } 
-                else if (this.DocumentEntry.IsDrawing) 
-                {
+                } else if (this.DocumentEntry.IsDrawing) {
                     return Document.DocumentType.Drawing;
                 }
                 return Document.DocumentType.Unknown;
             }
-            set
-            {
+            set {
                 EnsureInnerObject();
-                switch (value)
-                {
+                switch (value) {
                     case Document.DocumentType.Document:
                         this.DocumentEntry.IsDocument = true;
                         break;
@@ -229,18 +203,15 @@ namespace Google.Documents
         }
 
         /// <summary>
-        /// returns the href values of the parent link releationships
+        /// returns the href values of the parent link relationships
         /// can be used to retrieve the parent folder
         /// </summary>
         /// <returns></returns>
-        public List<string> ParentFolders
-        {
-            get
-            {
+        public List<string> ParentFolders {
+            get {
                 EnsureInnerObject();
                 List<string> strings = new List<string>();
-                foreach (AtomLink l in this.DocumentEntry.ParentFolders)
-                {
+                foreach (AtomLink l in this.DocumentEntry.ParentFolders) {
                     strings.Add(l.HRef.ToString());
                 }
                 return strings;
@@ -252,30 +223,25 @@ namespace Google.Documents
         /// this uses the gd:resourceId element
         /// </summary>
         /// <returns></returns>
-        public string ResourceId
-        {
-            get
-            {
+        public string ResourceId {
+            get {
                 EnsureInnerObject();
                 return this.DocumentEntry.ResourceId;
             }
         }
 
         /// <summary>
-        /// returns if collaborators should be able to modify 
-        /// the documents ACL list
+        /// returns true if collaborators are allowed to modify 
+        /// the document ACL list
         /// </summary>
         /// <returns></returns>
-        public bool WritersCanInvite
-        {
-            get
-            {
+        public bool WritersCanInvite {
+            get {
                 EnsureInnerObject();
                 return this.DocumentEntry.WritersCanInvite;
             }
-            set
-            {
-        
+            set {
+
                 EnsureInnerObject();
                 this.DocumentEntry.WritersCanInvite = value;
             }
@@ -285,25 +251,20 @@ namespace Google.Documents
         /// Returns the last viewed timestamp
         /// </summary>
         /// <returns></returns>
-        public DateTime LastViewed
-        {
-            get 
-            {
+        public DateTime LastViewed {
+            get {
                 EnsureInnerObject();
                 return this.DocumentEntry.LastViewed;
             }
         }
 
-
         /// <summary>
-        /// returns the last modifiedBy subobject, indicating
-        /// who edited the document last
+        /// returns the LastModifiedBy object indicating
+        /// who last edited the document
         /// </summary>
         /// <returns></returns>
-        public LastModifiedBy LastModified
-        {
-            get 
-            {
+        public LastModifiedBy LastModified {
+            get {
                 EnsureInnerObject();
                 return this.DocumentEntry.LastModified;
             }
@@ -313,28 +274,22 @@ namespace Google.Documents
         /// returns the quota used by the object. 0 if not available
         /// </summary>
         [CLSCompliant(false)]
-        public ulong QuotaBytesUsed
-        {
-            get
-            {
+        public ulong QuotaBytesUsed {
+            get {
                 EnsureInnerObject();
-                if (this.DocumentEntry.QuotaUsed != null)
-                {
+                if (this.DocumentEntry.QuotaUsed != null) {
                     return this.DocumentEntry.QuotaUsed.UnsignedLongValue;
                 }
                 return 0;
             }
         }
 
-
         /// <summary>
         /// returns the Uri to the access control list
         /// </summary>
         /// <returns>the value of the href attribute for the acl feedlink, or null if not found</returns>
-        public Uri AccessControlList
-        {
-            get
-            {
+        public Uri AccessControlList {
+            get {
                 EnsureInnerObject();
                 return this.DocumentEntry.AccessControlList != null ?
                     new Uri(this.DocumentEntry.AccessControlList) :
@@ -346,18 +301,15 @@ namespace Google.Documents
         /// returns the Uri to the revision document
         /// </summary>
         /// <returns>The value of the href attribute of the revisions feedlink, or null if not found</returns>
-        public Uri RevisionDocument
-        {
-            get
-            {
+        public Uri RevisionDocument {
+            get {
                 EnsureInnerObject();
                 return this.DocumentEntry.RevisionDocument != null ?
                     new Uri(this.DocumentEntry.RevisionDocument) :
                     null;
             }
         }
-     }
-
+    }
 
     //////////////////////////////////////////////////////////////////////
     /// <summary>
@@ -384,17 +336,16 @@ namespace Google.Documents
     ///  </code>
     ///  </example>
     //////////////////////////////////////////////////////////////////////
-    public class DocumentsRequest : FeedRequest<DocumentsService>
-    {
-
+    public class DocumentsRequest : FeedRequest<DocumentsService> {
         private string baseUri = DocumentsListQuery.documentsBaseUri;
-        private Service spreadsheetsService; 
+        private Service spreadsheetsService;
+
         /// <summary>
         /// default constructor for a DocumentsRequest
         /// </summary>
         /// <param name="settings"></param>
-        public DocumentsRequest(RequestSettings settings) : base(settings)
-        {
+        public DocumentsRequest(RequestSettings settings)
+            : base(settings) {
             this.Service = new DocumentsService(settings.Application);
             // we hardcode the service name here to avoid having a dependency 
             // on the spreadsheet dll for now.
@@ -409,14 +360,11 @@ namespace Google.Documents
         /// DocumentsListQuery.documentsBaseUri
         /// </summary>
         /// <returns></returns>
-        public string BaseUri
-        {
-            get
-            {
+        public string BaseUri {
+            get {
                 return this.baseUri;
             }
-            set
-            {
+            set {
                 this.baseUri = value;
             }
         }
@@ -425,100 +373,86 @@ namespace Google.Documents
         /// </summary>
         /// <param name="proxy"></param>
         /// <returns></returns>
-        protected override void OnSetOtherProxies(IWebProxy proxy)
-        {
+        protected override void OnSetOtherProxies(IWebProxy proxy) {
             base.OnSetOtherProxies(proxy);
-            GDataRequestFactory x= this.spreadsheetsService.RequestFactory as GDataRequestFactory;
-            if (x != null)
-            {
+            GDataRequestFactory x = this.spreadsheetsService.RequestFactory as GDataRequestFactory;
+            if (x != null) {
                 x.Proxy = proxy;
-            }
-            else
-            {
+            } else {
                 throw new ArgumentException("Can not set a proxy on the spreadsheet service");
             }
         }
 
-       
         /// <summary>
         /// returns a Feed of all documents and folders for the authorized user
         /// </summary>
         /// <returns>a feed of everyting</returns>
-        public Feed<Document> GetEverything()
-        {
+        public Feed<Document> GetEverything() {
             DocumentsListQuery q = PrepareQuery<DocumentsListQuery>(this.BaseUri);
-            q.ShowFolders = true; 
-            return PrepareFeed<Document>(q); 
+            q.ShowFolders = true;
+            return PrepareFeed<Document>(q);
         }
 
         /// <summary>
         /// returns a Feed of all documents for the authorized user
         /// </summary>
         /// <returns>a feed of Documents</returns>
-        public Feed<Document> GetDocuments()
-        {
+        public Feed<Document> GetDocuments() {
             TextDocumentQuery q = PrepareQuery<TextDocumentQuery>(this.BaseUri);
-            return PrepareFeed<Document>(q); 
+            return PrepareFeed<Document>(q);
         }
 
         /// <summary>
         /// returns a Feed of all presentations for the authorized user
         /// </summary>
         /// <returns>a feed of Documents</returns>
-        public Feed<Document> GetPresentations()
-        {
+        public Feed<Document> GetPresentations() {
             PresentationsQuery q = PrepareQuery<PresentationsQuery>(this.BaseUri);
-            return PrepareFeed<Document>(q); 
+            return PrepareFeed<Document>(q);
         }
 
         /// <summary>
         /// returns a Feed of all spreadsheets for the authorized user
         /// </summary>
         /// <returns>a feed of Documents</returns>
-        public Feed<Document> GetSpreadsheets()
-        {
+        public Feed<Document> GetSpreadsheets() {
             SpreadsheetQuery q = PrepareQuery<SpreadsheetQuery>(this.BaseUri);
-            return PrepareFeed<Document>(q); 
+            return PrepareFeed<Document>(q);
         }
 
         /// <summary>
         /// returns a Feed of all pdf files for the authorized user
         /// </summary>
         /// <returns>a feed of Documents</returns>
-        public Feed<Document> GetPDFs()
-        {
+        public Feed<Document> GetPDFs() {
             PDFsQuery q = PrepareQuery<PDFsQuery>(this.BaseUri);
-            return PrepareFeed<Document>(q); 
+            return PrepareFeed<Document>(q);
         }
 
         /// <summary>
         /// returns a Feed of all files that are owned by the authorized user
         /// </summary>
         /// <returns>a feed of Documents</returns>
-        public Feed<Document> GetMyDocuments()
-        {
+        public Feed<Document> GetMyDocuments() {
             DocumentsListQuery q = PrepareQuery<DocumentsListQuery>(this.BaseUri);
             q.Categories.Add(DocumentsListQuery.MINE);
             return PrepareFeed<Document>(q);
         }
 
-        
         /// <summary>
         /// returns a Feed of all folders for the authorized user
         /// </summary>
         /// <returns>a feed of Documents</returns>
-        public Feed<Document> GetFolders()
-        {
+        public Feed<Document> GetFolders() {
             DocumentsListQuery q = PrepareQuery<DocumentsListQuery>(DocumentsListQuery.allFoldersUri);
-            return PrepareFeed<Document>(q); 
+            return PrepareFeed<Document>(q);
         }
-        
+
         /// <summary>
         /// returns all items the user has viewed recently
         /// </summary>
         /// <returns></returns>
-        public Feed<Document> GetViewed()
-        {
+        public Feed<Document> GetViewed() {
             DocumentsListQuery q = PrepareQuery<DocumentsListQuery>(this.BaseUri);
             q.Categories.Add(DocumentsListQuery.VIEWED);
             return PrepareFeed<Document>(q);
@@ -528,8 +462,7 @@ namespace Google.Documents
         /// returns all forms for the authorized user
         ///  </summary>
         /// <returns></returns>
-        public Feed<Document> GetForms()
-        {
+        public Feed<Document> GetForms() {
             DocumentsListQuery q = PrepareQuery<DocumentsListQuery>(this.BaseUri);
             q.Categories.Add(DocumentsListQuery.FORMS);
             return PrepareFeed<Document>(q);
@@ -540,41 +473,34 @@ namespace Google.Documents
         /// </summary>
         /// <param name="folder"></param>
         /// <returns></returns>
-        public Feed<Document> GetFolderContent(Document folder)
-        {
-            if (folder.Type != Document.DocumentType.Folder)
-            {
+        public Feed<Document> GetFolderContent(Document folder) {
+            if (folder.Type != Document.DocumentType.Folder) {
                 throw new ArgumentException("The parameter folder is not a folder");
             }
 
-            string uri = String.Format(DocumentsListQuery.foldersUriTemplate, folder.ResourceId); 
+            string uri = String.Format(DocumentsListQuery.foldersUriTemplate, folder.ResourceId);
             DocumentsListQuery q = PrepareQuery<DocumentsListQuery>(uri);
-            return PrepareFeed<Document>(q); 
+            return PrepareFeed<Document>(q);
         }
 
-
-
         /// <summary>
-        /// this will create an empty document or folder, pending
+        /// this will create an empty document or folder, according to
         /// the content of the newDocument parameter
         /// </summary>
         /// <param name="newDocument"></param>
         /// <returns>the created document from the server</returns>
-        public Document CreateDocument(Document newDocument)
-        {
+        public Document CreateDocument(Document newDocument) {
             return Insert(new Uri(DocumentsListQuery.documentsBaseUri), newDocument);
         }
 
         /// <summary>
-        /// this will create an empty document or folder, pending
-        /// the content of the newDocument parameter. This will
-        /// append the convert=false paramter to allow for arbitrary file
-        /// uploads
+        /// this will create an empty document or folder, according to
+        /// the content of the newDocument parameter. This will append
+        /// the convert=false parameter to allow arbitrary file uploads
         /// </summary>
         /// <param name="newDocument"></param>
         /// <returns>the created document from the server</returns>
-        public Document CreateFile(Document newDocument)
-        {
+        public Document CreateFile(Document newDocument) {
             return Insert(new Uri(DocumentsListQuery.documentsBaseUri + "?convert=false"), newDocument);
         }
 
@@ -584,18 +510,16 @@ namespace Google.Documents
         /// <param name="parent">this has to be a folder</param>
         /// <param name="child">can be a folder or a document</param>
         /// <returns></returns>
-        public Document MoveDocumentTo(Document parent, Document child)
-        {
-            if (parent == null || child == null)
-            {
+        public Document MoveDocumentTo(Document parent, Document child) {
+            if (parent == null || child == null) {
                 throw new ArgumentNullException("parent or child can not be null");
             }
-            if (parent.AtomEntry.Content == null || parent.AtomEntry.Content.AbsoluteUri == null)
-            {
+
+            if (parent.AtomEntry.Content == null || parent.AtomEntry.Content.AbsoluteUri == null) {
                 throw new ArgumentException("parent has no content uri");
             }
-            if (parent.Type != Document.DocumentType.Folder)
-            {
+
+            if (parent.Type != Document.DocumentType.Folder) {
                 throw new ArgumentException("wrong parent type");
             }
 
@@ -614,8 +538,7 @@ namespace Google.Documents
         /// <param name="document">The document to download. It needs to have the document type set, as well as the id link</param>
         /// <param name="type">The output format of the document you want to download</param>
         /// <returns></returns>
-        public Stream Download(Document document, Document.DownloadType type)
-        {
+        public Stream Download(Document document, Document.DownloadType type) {
             return this.Download(document, type, null, 0);
         }
 
@@ -625,62 +548,43 @@ namespace Google.Documents
         /// <param name="document">The document to download. It needs to have the document type set, as well as the id link</param>
         /// <param name="type">The output format of the document you want to download</param>
         /// <param name="sheetNumber">When requesting a CSV or TSV file you must specify an additional parameter called 
-        /// gid which indicates which grid, or sheet, you wish to get (the index is 0 based, so gid 1 
+        /// gid which indicates which grid, or sheet, you wish to get (the index is 0-based, so gid 1 
         /// actually refers to the second sheet sheet on a given spreadsheet). </param>
-        /// <param name="baseDomain">if null, default is used. Otherwise needs to specify the domain to download from, ending with a slash</param>
+        /// <param name="baseDomain">OBSOLETE - if null, default is used. Otherwise needs to specify the domain to download from, ending with a slash</param>
         /// <returns></returns>
-        public Stream Download(Document document, Document.DownloadType type, string baseDomain, int sheetNumber)
-        {
-            if (document.Type == Document.DocumentType.Unknown)
-            {
+        public Stream Download(Document document, Document.DownloadType type, string baseDomain, int sheetNumber) {
+            if (document.Type == Document.DocumentType.Unknown) {
                 throw new ArgumentException("Document has an unknown type");
             }
 
-            if (document.Type == Document.DocumentType.Folder)
-            {
+            if (document.Type == Document.DocumentType.Folder) {
                 throw new ArgumentException("Document is a folder, can not be downloaded");
             }
 
-            // now figure out the parameters
-            string queryUri = "";
-
             Service s = this.Service;
+            string queryUri = this.BuildDocumentPartialExportUrl(document.DocumentEntry.Content.Src.ToString());
 
-            // ** CHANGE ** bug reported at http://code.google.com/p/google-gdata/issues/detail?id=509
-            // Get value of docID from resourceID as per http://code.google.com/apis/documents/docs/3.0/reference.html#ExportParameters
-
-            switch (document.Type)
-            {
-    
+            switch (document.Type) {
                 case Document.DocumentType.Spreadsheet:
-                    // spreadsheet has a different parameter
-                    if (baseDomain == null)
-                    {
-                        baseDomain = "https://spreadsheets.google.com/";
-                    }
-                    queryUri = baseDomain + "feeds/download/spreadsheets/Export?key=" +
-                        (document.ResourceId.Contains(":") ? document.ResourceId.Substring(document.ResourceId.IndexOf(":") + 1) : document.ResourceId) +
-                        "&exportFormat="; 
                     s = this.spreadsheetsService;
-                    switch (type)
-                    {
+                    switch (type) {
                         case Document.DownloadType.xls:
-                            queryUri+="xls";
+                            queryUri += "xls";
                             break;
                         case Document.DownloadType.csv:
-                            queryUri+="csv&gid="+sheetNumber.ToString();
+                            queryUri += "csv&gid=" + sheetNumber.ToString();
                             break;
                         case Document.DownloadType.pdf:
-                            queryUri+="pdf";
+                            queryUri += "pdf";
                             break;
                         case Document.DownloadType.ods:
-                            queryUri+="ods";
+                            queryUri += "ods";
                             break;
                         case Document.DownloadType.tsv:
-                            queryUri+="tsv&gid="+sheetNumber.ToString();;
+                            queryUri += "tsv&gid=" + sheetNumber.ToString(); ;
                             break;
                         case Document.DownloadType.html:
-                            queryUri+="html";
+                            queryUri += "html";
                             break;
                         default:
                             throw new ArgumentException("type is invalid for a spreadsheet");
@@ -688,46 +592,28 @@ namespace Google.Documents
                     break;
 
                 case Document.DocumentType.Presentation:
-                    if (baseDomain == null)
-                    {
-                        baseDomain = "https://docs.google.com/";
-                    }
-
-                    queryUri = baseDomain + "feeds/download/presentations/Export?docID=" +
-                        (document.ResourceId.Contains(":") ? document.ResourceId.Substring(document.ResourceId.IndexOf(":") + 1) : document.ResourceId) +
-                        "&exportFormat=";
-
-                    switch (type)
-                    {
+                    switch (type) {
                         case Document.DownloadType.swf:
-                            queryUri+="swf";
+                            queryUri += "swf";
                             break;
                         case Document.DownloadType.pdf:
-                            queryUri+="pdf";
+                            queryUri += "pdf";
                             break;
                         case Document.DownloadType.ppt:
-                            queryUri+="ppt";
+                            queryUri += "ppt";
                             break;
                         default:
                             throw new ArgumentException("type is invalid for a presentation");
                     }
                     break;
                 default:
-                    if (baseDomain == null)
-                    {
-                        baseDomain = "https://docs.google.com/";
-                    }
-
-                    queryUri = baseDomain + "feeds/download/documents/Export?docID=" +
-                        (document.ResourceId.Contains(":") ? document.ResourceId.Substring(document.ResourceId.IndexOf(":") + 1) : document.ResourceId) +
-                        "&exportFormat=" + type.ToString(); 
+                    queryUri += type.ToString();
                     break;
             }
 
             Uri target = new Uri(queryUri);
             return s.Query(target);
         }
-
 
         /// <summary>
         /// Downloads arbitrary documents, where the link to the document is inside the 
@@ -736,41 +622,43 @@ namespace Google.Documents
         /// <param name="document">a Document Entry</param>
         /// <param name="exportFormat">a string for the exportformat parameter or null</param>
         /// <returns></returns>
-        public Stream Download(Document document, string exportFormat)
-        {
-            if (document == null)
-            {
+        public Stream Download(Document document, string exportFormat) {
+            if (document == null) {
                 throw new ArgumentException("Document should not be null");
             }
-            if (document.DocumentEntry == null)
-            {
+
+            if (document.DocumentEntry == null) {
                 throw new ArgumentException("document.DocumentEntry should not be null");
             }
-            if (document.DocumentEntry.Content == null)
-            {
+
+            if (document.DocumentEntry.Content == null) {
                 throw new ArgumentException("document.DocumentEntry.Content should not be null");
             }
+
             string url = document.DocumentEntry.Content.Src.ToString();
-            if (!String.IsNullOrEmpty(exportFormat))
-            {
-                char r = '?'; 
-                if (url.IndexOf('?') != -1)
-                {
-                    r = '&';
-                }
-                
-                url += r + "exportFormat=" + exportFormat;
+            if (!String.IsNullOrEmpty(exportFormat)) {
+                url = BuildDocumentPartialExportUrl(url) + exportFormat;
             }
 
             Service s = this.Service;
             // figure out if we need to use the spreadsheet service
-            if (document.Type == Document.DocumentType.Spreadsheet)
-            {
+            if (document.Type == Document.DocumentType.Spreadsheet) {
                 s = this.spreadsheetsService;
             }
 
             Uri target = new Uri(url);
             return s.Query(target);
+        }
+
+        /// <summary>
+        /// helper function used by the Download methods
+        /// </summary>
+        private string BuildDocumentPartialExportUrl(string baseUrl) {
+            char r = '?';
+            if (baseUrl.IndexOf('?') != -1) {
+                r = '&';
+            }
+            return baseUrl + r + "exportFormat=";
         }
     }
 }
