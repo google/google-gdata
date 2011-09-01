@@ -63,7 +63,7 @@
         </member>
         <member name="M:Google.GData.Contacts.BaseContactEntry.#ctor">
             <summary>
-            Constructs a new BaseContactEntry instance 
+            Constructs a new BaseContactEntry instance
             to indicate that it is an event.
             </summary>
         </member>
@@ -110,28 +110,28 @@
         <member name="P:Google.GData.Contacts.ContactEntry.PrimaryEmail">
             <summary>
             convienience accessor to find the primary Email
-            there is no setter, to change this use the Primary Flag on 
+            there is no setter, to change this use the Primary Flag on
             an individual object
             </summary>
         </member>
         <member name="P:Google.GData.Contacts.ContactEntry.PrimaryPhonenumber">
             <summary>
             convienience accessor to find the primary Phonenumber
-            there is no setter, to change this use the Primary Flag on 
+            there is no setter, to change this use the Primary Flag on
             an individual object
             </summary>
         </member>
         <member name="P:Google.GData.Contacts.ContactEntry.PrimaryPostalAddress">
             <summary>
             convienience accessor to find the primary PostalAddress
-            there is no setter, to change this use the Primary Flag on 
+            there is no setter, to change this use the Primary Flag on
             an individual object
             </summary>
         </member>
         <member name="P:Google.GData.Contacts.ContactEntry.PrimaryIMAddress">
             <summary>
             convienience accessor to find the primary IMAddress
-            there is no setter, to change this use the Primary Flag on 
+            there is no setter, to change this use the Primary Flag on
             an individual object
             </summary>
         </member>
@@ -158,7 +158,7 @@
         </member>
         <member name="P:Google.GData.Contacts.ContactEntry.PostalAddresses">
             <summary>
-            Postal address split into components. It allows to store the address in locale independent format. 
+            Postal address split into components. It allows to store the address in locale independent format.
             The fields can be interpreted and used to generate formatted, locale dependent address
             </summary>
         </member>
@@ -215,7 +215,7 @@
         <member name="P:Google.GData.Contacts.ContactEntry.PhotoUri">
             <summary>
             retrieves the Uri of the Photo Link. To set this, you need to create an AtomLink object
-            and add/replace it in the atomlinks colleciton. 
+            and add/replace it in the atomlinks colleciton.
             </summary>
             <returns></returns>
         </member>
@@ -294,6 +294,12 @@
         <member name="P:Google.GData.Contacts.ContactEntry.ShortName">
             <summary>
             Contact's short name.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.GData.Contacts.ContactEntry.Status">
+            <summary>
+            Person's status.
             </summary>
             <returns></returns>
         </member>
@@ -470,7 +476,7 @@
         </member>
         <member name="F:Google.GData.Contacts.ContactsNameTable.MileageElement">
             <summary>
-            Specifies the mileage for the entity represented by the contact. Can be used for example to document distance needed for reimbursement purposes. 
+            Specifies the mileage for the entity represented by the contact. Can be used for example to document distance needed for reimbursement purposes.
             The value is not interpreted. The element cannot be repeated
             </summary>
         </member>
@@ -491,7 +497,7 @@
         </member>
         <member name="F:Google.GData.Contacts.ContactsNameTable.RelationElement">
             <summary>
-            Describes the relation to another entity. maybe repeated
+            Describes the relation to another entity. may be repeated
             </summary>
         </member>
         <member name="F:Google.GData.Contacts.ContactsNameTable.SensitivityElement">
@@ -502,6 +508,11 @@
         <member name="F:Google.GData.Contacts.ContactsNameTable.ShortNameElement">
             <summary>
             Specifies short name of the person represented by the contact. The element cannot be repeated.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Contacts.ContactsNameTable.StatusElement">
+            <summary>
+            Specifies status of the person.
             </summary>
         </member>
         <member name="F:Google.GData.Contacts.ContactsNameTable.SubjectElement">
@@ -516,7 +527,7 @@
         </member>
         <member name="F:Google.GData.Contacts.ContactsNameTable.WebsiteElement">
             <summary>
-            Websites associated with the contact. Maybe repeated
+            Websites associated with the contact. May be repeated
             </summary>
         </member>
         <member name="F:Google.GData.Contacts.ContactsNameTable.AttributeRel">
@@ -533,7 +544,7 @@
         </member>
         <member name="T:Google.GData.Contacts.GroupMembership">
             <summary>
-            an element is defined that represents a group to which the contact belongs   
+            an element is defined that represents a group to which the contact belongs
             </summary>
         </member>
         <member name="F:Google.GData.Contacts.GroupMembership.XmlAttributeHRef">
@@ -544,17 +555,17 @@
         </member>
         <member name="M:Google.GData.Contacts.GroupMembership.#ctor">
             <summary>
-            default constructor 
+            default constructor
             </summary>
         </member>
         <member name="P:Google.GData.Contacts.GroupMembership.HRef">
-            <summary>Identifies the group to which the contact belongs or belonged. 
+            <summary>Identifies the group to which the contact belongs or belonged.
             The group is referenced by its id.</summary>
         </member>
         <member name="P:Google.GData.Contacts.GroupMembership.Deleted">
-            <summary>Means, that the group membership was removed for the contact. 
-            This attribute will only be included if showdeleted is specified 
-            as query parameter, otherwise groupMembershipInfo for groups a contact 
+            <summary>Means, that the group membership was removed for the contact.
+            This attribute will only be included if showdeleted is specified
+            as query parameter, otherwise groupMembershipInfo for groups a contact
             does not belong to anymore is simply not returned.</summary>
         </member>
         <member name="T:Google.GData.Contacts.SystemGroup">
@@ -570,11 +581,11 @@
         </member>
         <member name="M:Google.GData.Contacts.SystemGroup.#ctor">
             <summary>
-            default constructor 
+            default constructor
             </summary>
         </member>
         <member name="P:Google.GData.Contacts.SystemGroup.Id">
-            <summary>Identifies the system group. Note that you still need 
+            <summary>Identifies the system group. Note that you still need
             to use the group entries href membership to retrieve the group
             </summary>
         </member>
@@ -617,7 +628,7 @@
             <param name="initValue"/>
         </member>
         <member name="P:Google.GData.Contacts.Birthday.When">
-            <summary>Birthday date, given in format YYYY-MM-DD (with the year), or --MM-DD (without the year)</summary> 
+            <summary>Birthday date, given in format YYYY-MM-DD (with the year), or --MM-DD (without the year)</summary>
             <returns> </returns>
         </member>
         <member name="T:Google.GData.Contacts.ContactsLink">
@@ -637,7 +648,7 @@
             </summary>
         </member>
         <member name="P:Google.GData.Contacts.ContactsLink.Href">
-            <summary>The URL of the the related link.</summary> 
+            <summary>The URL of the the related link.</summary>
             <returns> </returns>
         </member>
         <member name="T:Google.GData.Contacts.CalendarLink">
@@ -647,7 +658,7 @@
         </member>
         <member name="T:Google.GData.Contacts.DirectoryServer">
             <summary>
-            DirectoryServer schema extension 
+            DirectoryServer schema extension
             </summary>
         </member>
         <member name="M:Google.GData.Contacts.DirectoryServer.#ctor">
@@ -663,7 +674,7 @@
         </member>
         <member name="T:Google.GData.Contacts.Event">
             <summary>
-            Event schema extension 
+            Event schema extension
             </summary>
         </member>
         <member name="M:Google.GData.Contacts.Event.#ctor">
@@ -672,11 +683,11 @@
             </summary>
         </member>
         <member name="P:Google.GData.Contacts.Event.Relation">
-            <summary>Predefined calendar link type. Can be one of work, home or free-busy</summary> 
+            <summary>Predefined calendar link type. Can be one of work, home or free-busy</summary>
             <returns> </returns>
         </member>
         <member name="P:Google.GData.Contacts.Event.Label">
-            <summary>User-defined calendar link type.</summary> 
+            <summary>User-defined calendar link type.</summary>
             <returns> </returns>
         </member>
         <member name="P:Google.GData.Contacts.Event.When">
@@ -687,7 +698,7 @@
         </member>
         <member name="T:Google.GData.Contacts.ExternalId">
             <summary>
-            ExternalId schema extension 
+            ExternalId schema extension
             </summary>
         </member>
         <member name="M:Google.GData.Contacts.ExternalId.#ctor">
@@ -702,16 +713,16 @@
             <param name="initValue"/>
         </member>
         <member name="P:Google.GData.Contacts.ExternalId.Relation">
-            <summary>Predefined calendar link type. Can be one of work, home or free-busy</summary> 
+            <summary>Predefined calendar link type. Can be one of work, home or free-busy</summary>
             <returns> </returns>
         </member>
         <member name="P:Google.GData.Contacts.ExternalId.Label">
-            <summary>User-defined calendar link type.</summary> 
+            <summary>User-defined calendar link type.</summary>
             <returns> </returns>
         </member>
         <member name="T:Google.GData.Contacts.Gender">
             <summary>
-            Gender schema extension 
+            Gender schema extension
             </summary>
         </member>
         <member name="M:Google.GData.Contacts.Gender.#ctor">
@@ -727,7 +738,7 @@
         </member>
         <member name="T:Google.GData.Contacts.Hobby">
             <summary>
-            Hobby schema extension 
+            Hobby schema extension
             </summary>
         </member>
         <member name="M:Google.GData.Contacts.Hobby.#ctor">
@@ -743,7 +754,7 @@
         </member>
         <member name="T:Google.GData.Contacts.Initials">
             <summary>
-            Initials schema extension 
+            Initials schema extension
             </summary>
         </member>
         <member name="M:Google.GData.Contacts.Initials.#ctor">
@@ -759,7 +770,7 @@
         </member>
         <member name="T:Google.GData.Contacts.Jot">
             <summary>
-            Jot schema extension 
+            Jot schema extension
             </summary>
         </member>
         <member name="M:Google.GData.Contacts.Jot.#ctor">
@@ -768,12 +779,12 @@
             </summary>
         </member>
         <member name="P:Google.GData.Contacts.Jot.Relation">
-            <summary>Predefined calendar link type. Can be one of work, home or free-busy</summary> 
+            <summary>Predefined calendar link type. Can be one of work, home or free-busy</summary>
             <returns> </returns>
         </member>
         <member name="T:Google.GData.Contacts.Language">
             <summary>
-            Language schema extension 
+            Language schema extension
             </summary>
         </member>
         <member name="F:Google.GData.Contacts.Language.AttributeCode">
@@ -794,11 +805,11 @@
             <param name="initValue"/>
         </member>
         <member name="P:Google.GData.Contacts.Language.Label">
-            <summary>A freeform name of a language. Must not be empty or all whitespace..</summary> 
+            <summary>A freeform name of a language. Must not be empty or all whitespace..</summary>
             <returns> </returns>
         </member>
         <member name="P:Google.GData.Contacts.Language.Code">
-            <summary>A language code conforming to the IETF BCP 47 specification. .</summary> 
+            <summary>A language code conforming to the IETF BCP 47 specification. .</summary>
             <returns> </returns>
         </member>
         <member name="T:Google.GData.Contacts.MaidenName">
@@ -819,7 +830,7 @@
         </member>
         <member name="T:Google.GData.Contacts.Mileage">
             <summary>
-            Specifies the mileage for the entity represented by the contact. Can be used for example to 
+            Specifies the mileage for the entity represented by the contact. Can be used for example to
             document distance needed for reimbursement purposes. The value is not interpreted. The element cannot be repeated.
             </summary>
         </member>
@@ -883,12 +894,12 @@
             <param name="initValue"/>
         </member>
         <member name="P:Google.GData.Contacts.Priority.Relation">
-            <summary>Predefined calendar link type. Can be one of work, home or free-busy</summary> 
+            <summary>Predefined calendar link type. Can be one of work, home or free-busy</summary>
             <returns> </returns>
         </member>
         <member name="T:Google.GData.Contacts.Relation">
             <summary>
-            Relation schema extension 
+            Relation schema extension
             </summary>
         </member>
         <member name="M:Google.GData.Contacts.Relation.#ctor">
@@ -897,11 +908,11 @@
             </summary>
         </member>
         <member name="P:Google.GData.Contacts.Relation.Label">
-            <summary>A freeform name of a language. Must not be empty or all whitespace..</summary> 
+            <summary>A freeform name of a language. Must not be empty or all whitespace.</summary>
             <returns> </returns>
         </member>
         <member name="P:Google.GData.Contacts.Relation.Rel">
-            <summary>defines the link type.</summary> 
+            <summary>defines the link type.</summary>
             <returns> </returns>
         </member>
         <member name="T:Google.GData.Contacts.Sensitivity">
@@ -922,7 +933,7 @@
             <param name="initValue"/>
         </member>
         <member name="P:Google.GData.Contacts.Sensitivity.Relation">
-            <summary>returns the relationship value</summary> 
+            <summary>returns the relationship value</summary>
             <returns> </returns>
         </member>
         <member name="T:Google.GData.Contacts.ShortName">
@@ -940,6 +951,32 @@
             default constructor for ShortName with an initial value
             </summary>
             <param name="initValue"/>
+        </member>
+        <member name="T:Google.GData.Contacts.Status">
+            <summary>
+            Specifies the status element of the person.
+            </summary>
+        </member>
+        <member name="F:Google.GData.Contacts.Status.XmlAttributeIndexed">
+            <summary>
+            indexed attribute for the status element
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Google.GData.Contacts.Status.#ctor">
+            <summary>
+            default constructor for Status
+            </summary>
+        </member>
+        <member name="M:Google.GData.Contacts.Status.#ctor(System.Boolean)">
+            <summary>
+            default constructor for Status with an initial value
+            </summary>
+            <param name="initValue"/>
+        </member>
+        <member name="P:Google.GData.Contacts.Status.Indexed">
+            <summary>Indexed attribute.</summary>
+            <returns> </returns>
         </member>
         <member name="T:Google.GData.Contacts.Subject">
             <summary>
@@ -981,12 +1018,12 @@
             <param name="initKey"/>
         </member>
         <member name="P:Google.GData.Contacts.UserDefinedField.Key">
-            <summary>A simple string value used to name this field. Case-sensitive</summary> 
+            <summary>A simple string value used to name this field. Case-sensitive</summary>
             <returns> </returns>
         </member>
         <member name="T:Google.GData.Contacts.Website">
             <summary>
-            WebSite schema extension 
+            WebSite schema extension
             </summary>
         </member>
         <member name="M:Google.GData.Contacts.Website.#ctor">
