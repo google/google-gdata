@@ -59,6 +59,48 @@
             default constructor for scp:shipping_service
             </summary>
         </member>
+        <member name="M:Google.GData.ContentForShopping.Elements.Gender.#ctor">
+            <summary>
+            default constructor for scp:gender 
+            </summary>
+        </member>
+        <member name="M:Google.GData.ContentForShopping.Elements.GoogleProductCategory.#ctor">
+            <summary>
+            default constructor for scp:google_product_category 
+            </summary>
+        </member>
+        <member name="M:Google.GData.ContentForShopping.Elements.RequiredDestination.#ctor">
+            <summary>
+            default constructor for sc:required_destination 
+            </summary>
+        </member>
+        <member name="M:Google.GData.ContentForShopping.Elements.RequiredDestination.#ctor(System.String)">
+            <summary>
+            Constructs a new RequiredDestination instance with the specified values.
+            </summary>
+            <param name="destination">The required destination.</param>
+        </member>
+        <member name="P:Google.GData.ContentForShopping.Elements.RequiredDestination.Destination">
+            <summary>
+            Destination property accessor
+            </summary>
+        </member>
+        <member name="M:Google.GData.ContentForShopping.Elements.ExcludedDestination.#ctor">
+            <summary>
+            default constructor for sc:required_destination 
+            </summary>
+        </member>
+        <member name="M:Google.GData.ContentForShopping.Elements.ExcludedDestination.#ctor(System.String)">
+            <summary>
+            Constructs a new ExcludedDestination instance with the specified values.
+            </summary>
+            <param name="destination">The required destination.</param>
+        </member>
+        <member name="P:Google.GData.ContentForShopping.Elements.ExcludedDestination.Destination">
+            <summary>
+            Destination property accessor
+            </summary>
+        </member>
         <member name="M:Google.GData.ContentForShopping.Elements.ProductId.#ctor">
             <summary>
             default constructor for sc:id 
@@ -89,14 +131,19 @@
             default constructor for scp:shipping_region
             </summary>
         </member>
+        <member name="M:Google.GData.ContentForShopping.Elements.WarningLocation.#ctor">
+            <summary>
+            default constructor for sc:warning_location
+            </summary>
+        </member>
         <member name="T:Google.GData.ContentForShopping.ProductEntry">
             <summary>
             Feed API customization class for defining Product feed.
             </summary>
         </member>
-        <member name="F:Google.GData.ContentForShopping.ProductEntry.imageLinks">
+        <member name="F:Google.GData.ContentForShopping.ProductEntry.additionalImageLinks">
             <summary>
-            ImageLink collection
+            AdditionalImageLink collection
             </summary> 
         </member>
         <member name="F:Google.GData.ContentForShopping.ProductEntry.taxRules">
@@ -124,6 +171,12 @@
             Size collection
             </summary> 
         </member>
+        <member name="P:Google.GData.ContentForShopping.ProductEntry.AppControl">
+            <summary>
+            returns the Content for Shopping API-specific app:control element
+            </summary>
+            <returns></returns>
+        </member>
         <member name="P:Google.GData.ContentForShopping.ProductEntry.ProductId">
             <summary>
             Product Identifier.
@@ -149,6 +202,21 @@
             Adult.
             </summary>
         </member>
+        <member name="P:Google.GData.ContentForShopping.ProductEntry.AgeGroup">
+            <summary>
+            AgeGroup.
+            </summary>
+        </member>
+        <member name="P:Google.GData.ContentForShopping.ProductEntry.Author">
+            <summary>
+            Author.
+            </summary>
+        </member>
+        <member name="P:Google.GData.ContentForShopping.ProductEntry.Availability">
+            <summary>
+            Availability.
+            </summary>
+        </member>
         <member name="P:Google.GData.ContentForShopping.ProductEntry.FeaturedProduct">
             <summary>
             FeaturedProduct.
@@ -157,6 +225,11 @@
         <member name="P:Google.GData.ContentForShopping.ProductEntry.Brand">
             <summary>
             Brand.
+            </summary>
+        </member>
+        <member name="P:Google.GData.ContentForShopping.ProductEntry.Channel">
+            <summary>
+            Channel.
             </summary>
         </member>
         <member name="P:Google.GData.ContentForShopping.ProductEntry.Condition">
@@ -169,6 +242,11 @@
             Gtin.
             </summary>
         </member>
+        <member name="P:Google.GData.ContentForShopping.ProductEntry.ItemGroupId">
+            <summary>
+            ItemGroupId.
+            </summary>
+        </member>
         <member name="P:Google.GData.ContentForShopping.ProductEntry.ProductType">
             <summary>
             Product Type.
@@ -179,14 +257,29 @@
             Edition.
             </summary>
         </member>
+        <member name="P:Google.GData.ContentForShopping.ProductEntry.Gender">
+            <summary>
+            Gender.
+            </summary>
+        </member>
         <member name="P:Google.GData.ContentForShopping.ProductEntry.Genre">
             <summary>
             Genre.
             </summary>
         </member>
+        <member name="P:Google.GData.ContentForShopping.ProductEntry.GoogleProductCategory">
+            <summary>
+            GoogleProductCategory.
+            </summary>
+        </member>
         <member name="P:Google.GData.ContentForShopping.ProductEntry.Manufacturer">
             <summary>
             Manufacturer.
+            </summary>
+        </member>
+        <member name="P:Google.GData.ContentForShopping.ProductEntry.Material">
+            <summary>
+            Material.
             </summary>
         </member>
         <member name="P:Google.GData.ContentForShopping.ProductEntry.ModelNumber">
@@ -207,6 +300,21 @@
         <member name="P:Google.GData.ContentForShopping.ProductEntry.Pages">
             <summary>
             Pages.
+            </summary>
+        </member>
+        <member name="P:Google.GData.ContentForShopping.ProductEntry.Pattern">
+            <summary>
+            Pattern.
+            </summary>
+        </member>
+        <member name="P:Google.GData.ContentForShopping.ProductEntry.ProductReviewAverage">
+            <summary>
+            ProductReviewAverage.
+            </summary>
+        </member>
+        <member name="P:Google.GData.ContentForShopping.ProductEntry.ProductReviewCount">
+            <summary>
+            ProductReviewCount.
             </summary>
         </member>
         <member name="P:Google.GData.ContentForShopping.ProductEntry.Year">
@@ -234,9 +342,14 @@
             Product Weight.
             </summary>
         </member>
-        <member name="P:Google.GData.ContentForShopping.ProductEntry.ImageLinks">
+        <member name="P:Google.GData.ContentForShopping.ProductEntry.ImageLink">
             <summary>
-            ImageLink collection.
+            ImageLink.
+            </summary>
+        </member>
+        <member name="P:Google.GData.ContentForShopping.ProductEntry.AdditionalImageLinks">
+            <summary>
+            AdditionalImageLink collection.
             </summary>
         </member>
         <member name="P:Google.GData.ContentForShopping.ProductEntry.TaxRules">
@@ -274,6 +387,26 @@
             default constructor for sc:image_link with an initial value
             </summary>
         </member>
+        <member name="M:Google.GData.ContentForShopping.Elements.Material.#ctor">
+            <summary>
+            default constructor for scp:material 
+            </summary>
+        </member>
+        <member name="M:Google.GData.ContentForShopping.Elements.WarningDomain.#ctor">
+            <summary>
+            default constructor for sc:warning_domain
+            </summary>
+        </member>
+        <member name="M:Google.GData.ContentForShopping.Elements.AgeGroup.#ctor">
+            <summary>
+            default constructor for scp:age_group 
+            </summary>
+        </member>
+        <member name="M:Google.GData.ContentForShopping.Elements.Pattern.#ctor">
+            <summary>
+            default constructor for scp:pattern 
+            </summary>
+        </member>
         <member name="M:Google.GData.ContentForShopping.Elements.Quantity.#ctor">
             <summary>
             default constructor for scp:quantity 
@@ -306,6 +439,63 @@
             default constructor for scp:year 
             </summary>
         </member>
+        <member name="M:Google.GData.ContentForShopping.Elements.ProductReviewAverage.#ctor">
+            <summary>
+            default constructor for scp:product_review_average 
+            </summary>
+        </member>
+        <member name="M:Google.GData.ContentForShopping.Elements.Warning.#ctor">
+            <summary>
+            default constructor for sc:warning
+            </summary>
+        </member>
+        <member name="P:Google.GData.ContentForShopping.Elements.Warning.Code">
+            <summary>
+            returns the sc:code element
+            </summary>
+        </member>
+        <member name="P:Google.GData.ContentForShopping.Elements.Warning.Domain">
+            <summary>
+            returns the sc:domain element
+            </summary>
+        </member>
+        <member name="P:Google.GData.ContentForShopping.Elements.Warning.Location">
+            <summary>
+            returns the sc:location element
+            </summary>
+        </member>
+        <member name="P:Google.GData.ContentForShopping.Elements.Warning.Message">
+            <summary>
+            returns the sc:message element
+            </summary>
+        </member>
+        <member name="M:Google.GData.ContentForShopping.Elements.WarningMessage.#ctor">
+            <summary>
+            default constructor for sc:warning_message
+            </summary>
+        </member>
+        <member name="M:Google.GData.ContentForShopping.Elements.Status.#ctor">
+            <summary>
+            default constructor for sc:status
+            </summary>
+        </member>
+        <member name="M:Google.GData.ContentForShopping.Elements.Status.#ctor(System.String,System.String)">
+            <summary>
+            Constructs a new Status instance with the specified values.
+            </summary>
+            <param name="destination">destination</param>
+            <param name="status">status</param>
+        </member>
+        <member name="P:Google.GData.ContentForShopping.Elements.Status.Destination">
+            <summary>
+            Destination property accessor
+            </summary>
+        </member>
+        <member name="P:Google.GData.ContentForShopping.Elements.Status.Value">
+            <summary>
+            Status property accessor
+            </summary>
+        </member>
         <member name="M:Google.GData.ContentForShopping.Elements.TaxRegion.#ctor">
             <summary>
             default constructor for scp:tax_region 
@@ -314,6 +504,11 @@
         <member name="M:Google.GData.ContentForShopping.Elements.Mpn.#ctor">
             <summary>
             default constructor for scp:mpn 
+            </summary>
+        </member>
+        <member name="M:Google.GData.ContentForShopping.Elements.ItemGroupId.#ctor">
+            <summary>
+            default constructor for scp:item_group_id 
             </summary>
         </member>
         <member name="M:Google.GData.ContentForShopping.Elements.Gtin.#ctor">
@@ -389,6 +584,16 @@
         <member name="M:Google.GData.ContentForShopping.Elements.Manufacturer.#ctor">
             <summary>
             default constructor for scp:manufacturer 
+            </summary>
+        </member>
+        <member name="M:Google.GData.ContentForShopping.Elements.ProductReviewCount.#ctor">
+            <summary>
+            default constructor for scp:product_review_count 
+            </summary>
+        </member>
+        <member name="M:Google.GData.ContentForShopping.Elements.WarningCode.#ctor">
+            <summary>
+            default constructor for sc:warning_code
             </summary>
         </member>
         <member name="T:Google.GData.ContentForShopping.ContentForShoppingService">
@@ -472,6 +677,11 @@
             default constructor for scp:genre 
             </summary>
         </member>
+        <member name="M:Google.GData.ContentForShopping.Elements.Author.#ctor">
+            <summary>
+            default constructor for scp:author 
+            </summary>
+        </member>
         <member name="M:Google.GData.ContentForShopping.Elements.TargetCountry.#ctor">
             <summary>
             default constructor for sc:target_country 
@@ -517,6 +727,23 @@
             </summary>
             <returns>the URI query string</returns>
         </member>
+        <member name="M:Google.GData.ContentForShopping.ItemQuery.ParseUri(System.Uri)">
+            <summary>
+            Parses an incoming URI string and sets the instance variables of this object.
+            </summary>
+            <param name="targetUri">Takes an incoming Uri string and parses all the properties of it</param>
+            <returns>Throws a query exception when it finds something wrong with the input, otherwise returns a baseuri.</returns>
+        </member>
+        <member name="M:Google.GData.ContentForShopping.ItemQuery.Reset">
+            <summary>
+            Resets object state to default, as if newly created.
+            </summary>
+        </member>
+        <member name="M:Google.GData.ContentForShopping.ItemQuery.GetBaseUri">
+            <summary>
+            Returns the base Uri for the feed.
+            </summary>
+        </member>
         <member name="P:Google.GData.ContentForShopping.ItemQuery.AccountId">
             <summary>
             Accessor method for AccountId.
@@ -525,6 +752,21 @@
         <member name="P:Google.GData.ContentForShopping.ItemQuery.Projection">
             <summary>
             Accessor method for Projection.
+            </summary>
+        </member>
+        <member name="P:Google.GData.ContentForShopping.ItemQuery.StartToken">
+            <summary>
+            Accessor method for StartToken.
+            </summary>
+        </member>
+        <member name="P:Google.GData.ContentForShopping.ItemQuery.ShowWarnings">
+            <summary>
+            Accessor method for ShowWarnings.
+            </summary>
+        </member>
+        <member name="P:Google.GData.ContentForShopping.ItemQuery.DryRun">
+            <summary>
+            Accessor method for DryRun.
             </summary>
         </member>
         <member name="M:Google.GData.ContentForShopping.ProductQuery.#ctor">
@@ -545,6 +787,41 @@
         <member name="M:Google.GData.ContentForShopping.Elements.Publisher.#ctor">
             <summary>
             default constructor for scp:publisher 
+            </summary>
+        </member>
+        <member name="F:Google.GData.ContentForShopping.Elements.ProductControl.statusList">
+            <summary>
+            Status collection
+            </summary> 
+        </member>
+        <member name="M:Google.GData.ContentForShopping.Elements.ProductControl.#ctor">
+            <summary>
+            default constructor for app:control in the Content for Shopping API 
+            </summary>
+        </member>
+        <member name="M:Google.GData.ContentForShopping.Elements.ProductControl.VersionInfoChanged">
+            <summary>
+            we need to ignore version changes because the namespace is hard-coded
+            </summary>
+        </member>
+        <member name="P:Google.GData.ContentForShopping.Elements.ProductControl.RequiredDestination">
+            <summary>
+            returns the sc:required_destination element
+            </summary>
+        </member>
+        <member name="P:Google.GData.ContentForShopping.Elements.ProductControl.ExcludedDestination">
+            <summary>
+            returns the sc:excluded_destination element
+            </summary>
+        </member>
+        <member name="P:Google.GData.ContentForShopping.Elements.ProductControl.Warnings">
+            <summary>
+            returns the sc:warnings element
+            </summary>
+        </member>
+        <member name="P:Google.GData.ContentForShopping.Elements.ProductControl.StatusList">
+            <summary>
+            Status collection.
             </summary>
         </member>
         <member name="F:Google.GData.ContentForShopping.ContentForShoppingNameTable.BaseNamespace">
@@ -592,14 +869,39 @@
             XML element name for image_link.
             </summary>
         </member>
+        <member name="F:Google.GData.ContentForShopping.ContentForShoppingNameTable.AdditionalImageLink">
+            <summary>
+            XML element name for additional_image_link.
+            </summary>
+        </member>
         <member name="F:Google.GData.ContentForShopping.ContentForShoppingNameTable.Adult">
             <summary>
             XML element name for adult.
             </summary>
         </member>
+        <member name="F:Google.GData.ContentForShopping.ContentForShoppingNameTable.AgeGroup">
+            <summary>
+            XML element name for age_group.
+            </summary>
+        </member>
+        <member name="F:Google.GData.ContentForShopping.ContentForShoppingNameTable.Author">
+            <summary>
+            XML element name for author.
+            </summary>
+        </member>
+        <member name="F:Google.GData.ContentForShopping.ContentForShoppingNameTable.Availability">
+            <summary>
+            XML element name for availability.
+            </summary>
+        </member>
         <member name="F:Google.GData.ContentForShopping.ContentForShoppingNameTable.Brand">
             <summary>
             XML element name for brand.
+            </summary>
+        </member>
+        <member name="F:Google.GData.ContentForShopping.ContentForShoppingNameTable.Channel">
+            <summary>
+            XML element name for channel.
             </summary>
         </member>
         <member name="F:Google.GData.ContentForShopping.ContentForShoppingNameTable.Condition">
@@ -667,9 +969,29 @@
             XML element name for genre.
             </summary>
         </member>
+        <member name="F:Google.GData.ContentForShopping.ContentForShoppingNameTable.Gender">
+            <summary>
+            XML element name for gender.
+            </summary>
+        </member>
+        <member name="F:Google.GData.ContentForShopping.ContentForShoppingNameTable.GoogleProductCategory">
+            <summary>
+            XML element name for google_product_category.
+            </summary>
+        </member>
+        <member name="F:Google.GData.ContentForShopping.ContentForShoppingNameTable.ItemGroupId">
+            <summary>
+            XML element name for item_group_id.
+            </summary>
+        </member>
         <member name="F:Google.GData.ContentForShopping.ContentForShoppingNameTable.Manufacturer">
             <summary>
             XML element name for manufacturer.
+            </summary>
+        </member>
+        <member name="F:Google.GData.ContentForShopping.ContentForShoppingNameTable.Material">
+            <summary>
+            XML element name for material.
             </summary>
         </member>
         <member name="F:Google.GData.ContentForShopping.ContentForShoppingNameTable.ModelNumber">
@@ -685,6 +1007,21 @@
         <member name="F:Google.GData.ContentForShopping.ContentForShoppingNameTable.Pages">
             <summary>
             XML element name for pages.
+            </summary>
+        </member>
+        <member name="F:Google.GData.ContentForShopping.ContentForShoppingNameTable.Pattern">
+            <summary>
+            XML element name for pattern.
+            </summary>
+        </member>
+        <member name="F:Google.GData.ContentForShopping.ContentForShoppingNameTable.ProductReviewAverage">
+            <summary>
+            XML element name for product_review_average.
+            </summary>
+        </member>
+        <member name="F:Google.GData.ContentForShopping.ContentForShoppingNameTable.ProductReviewCount">
+            <summary>
+            XML element name for product_review_count.
             </summary>
         </member>
         <member name="F:Google.GData.ContentForShopping.ContentForShoppingNameTable.Feature">
@@ -757,6 +1094,56 @@
             XML element name for weight unit.
             </summary>
         </member>
+        <member name="F:Google.GData.ContentForShopping.ContentForShoppingNameTable.RequiredDestination">
+            <summary>
+            XML element name for required destination.
+            </summary>
+        </member>
+        <member name="F:Google.GData.ContentForShopping.ContentForShoppingNameTable.ExcludedDestination">
+            <summary>
+            XML element name for excluded destination.
+            </summary>
+        </member>
+        <member name="F:Google.GData.ContentForShopping.ContentForShoppingNameTable.Destination">
+            <summary>
+            XML element name for dest.
+            </summary>
+        </member>
+        <member name="F:Google.GData.ContentForShopping.ContentForShoppingNameTable.Status">
+            <summary>
+            XML element name for status.
+            </summary>
+        </member>
+        <member name="F:Google.GData.ContentForShopping.ContentForShoppingNameTable.Warnings">
+            <summary>
+            XML element name for warnings.
+            </summary>
+        </member>
+        <member name="F:Google.GData.ContentForShopping.ContentForShoppingNameTable.Warning">
+            <summary>
+            XML element name for warning.
+            </summary>
+        </member>
+        <member name="F:Google.GData.ContentForShopping.ContentForShoppingNameTable.WarningCode">
+            <summary>
+            XML element name for warning code.
+            </summary>
+        </member>
+        <member name="F:Google.GData.ContentForShopping.ContentForShoppingNameTable.WarningDomain">
+            <summary>
+            XML element name for warning domain.
+            </summary>
+        </member>
+        <member name="F:Google.GData.ContentForShopping.ContentForShoppingNameTable.WarningLocation">
+            <summary>
+            XML element name for warning location.
+            </summary>
+        </member>
+        <member name="F:Google.GData.ContentForShopping.ContentForShoppingNameTable.WarningMessage">
+            <summary>
+            XML element name for warning message.
+            </summary>
+        </member>
         <member name="M:Google.GData.ContentForShopping.Elements.Price.#ctor">
             <summary>
             default constructor for scp:price 
@@ -774,6 +1161,11 @@
             Unit property accessor
             </summary>
         </member>
+        <member name="M:Google.GData.ContentForShopping.Elements.Availability.#ctor">
+            <summary>
+            default constructor for scp:availability 
+            </summary>
+        </member>
         <member name="M:Google.GData.ContentForShopping.Elements.Color.#ctor">
             <summary>
             default constructor for scp:color 
@@ -788,6 +1180,31 @@
         <member name="M:Google.GData.ContentForShopping.Elements.Adult.#ctor">
             <summary>
             default constructor for sc:adult 
+            </summary>
+        </member>
+        <member name="M:Google.GData.ContentForShopping.Elements.AdditionalImageLink.#ctor">
+            <summary>
+            default constructor for sc:additional_image_link 
+            </summary>
+        </member>
+        <member name="M:Google.GData.ContentForShopping.Elements.AdditionalImageLink.#ctor(System.String)">
+            <summary>
+            default constructor for sc:additional_image_link with an initial value
+            </summary>
+        </member>
+        <member name="M:Google.GData.ContentForShopping.Elements.Warnings.#ctor">
+            <summary>
+            default constructor for sc:warnings
+            </summary>
+        </member>
+        <member name="P:Google.GData.ContentForShopping.Elements.Warnings.Entries">
+            <summary>
+            Warning collection.
+            </summary>
+        </member>
+        <member name="M:Google.GData.ContentForShopping.Elements.Channel.#ctor">
+            <summary>
+            default constructor for scp:channel 
             </summary>
         </member>
         <member name="M:Google.GData.ContentForShopping.Elements.ContentLanguage.#ctor">

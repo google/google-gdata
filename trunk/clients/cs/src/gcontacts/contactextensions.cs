@@ -18,23 +18,20 @@
 * Combined IExtensionElement and IExtensionElementFactory interfaces
 *
 */
-
 #define USE_TRACING
 
 using System;
 using Google.GData.Client;
 using Google.GData.Extensions;
 
-
 namespace Google.GData.Contacts {
-
     /// <summary>
     /// short table to hold the namespace and the prefix
     /// </summary>
-    public class ContactsNameTable
-    {
+    public class ContactsNameTable {
         /// <summary>static string to specify the Contacts namespace supported</summary>
         public const string NSContacts = "http://schemas.google.com/contact/2008";
+
         /// <summary>static string to specify the Google Contacts prefix used</summary>
         public const string contactsPrefix = "gContact";
 
@@ -130,7 +127,7 @@ namespace Google.GData.Contacts {
         public const string PriorityElement = "priority";
 
         /// <summary>
-        /// Describes the relation to another entity. maybe repeated
+        /// Describes the relation to another entity. may be repeated
         /// </summary>
         public const string RelationElement = "relation";
 
@@ -160,7 +157,7 @@ namespace Google.GData.Contacts {
         public const string UserDefinedFieldElement = "userDefinedField";
 
         /// <summary>
-        /// Websites associated with the contact. Maybe repeated
+        /// Websites associated with the contact. May be repeated
         /// </summary>
         public const string WebsiteElement = "website";
 
@@ -169,20 +166,18 @@ namespace Google.GData.Contacts {
         /// </summary>
         /// <returns></returns>
         public static string AttributeRel = "rel";
+
         /// <summary>
         /// label Attribute
         /// </summary>
         /// <returns></returns>
         public static string AttributeLabel = "label";
-   }
-
-
+    }
 
     /// <summary>
     /// an element is defined that represents a group to which the contact belongs
     /// </summary>
-    public class GroupMembership: SimpleElement
-    {
+    public class GroupMembership : SimpleElement {
         /// <summary>the  href attribute </summary>
         public const string XmlAttributeHRef = "href";
         /// <summary>the deleted attribute </summary>
@@ -192,49 +187,41 @@ namespace Google.GData.Contacts {
         /// default constructor
         /// </summary>
         public GroupMembership()
-        : base(ContactsNameTable.GroupMembershipInfo, ContactsNameTable.contactsPrefix, ContactsNameTable.NSContacts)
-        {
+            : base(ContactsNameTable.GroupMembershipInfo, ContactsNameTable.contactsPrefix, ContactsNameTable.NSContacts) {
             this.Attributes.Add(XmlAttributeHRef, null);
             this.Attributes.Add(XmlAttributeDeleted, null);
         }
 
-       /////////////////////////////////////////////////////////////////////
-       /// <summary>Identifies the group to which the contact belongs or belonged.
-       /// The group is referenced by its id.</summary>
-       //////////////////////////////////////////////////////////////////////
-       public string HRef
-       {
-           get
-           {
-               return this.Attributes[XmlAttributeHRef] as string;
-           }
-           set
-           {
-               this.Attributes[XmlAttributeHRef] = value;
-           }
-       }
+        /////////////////////////////////////////////////////////////////////
+        /// <summary>Identifies the group to which the contact belongs or belonged.
+        /// The group is referenced by its id.</summary>
+        //////////////////////////////////////////////////////////////////////
+        public string HRef {
+            get {
+                return this.Attributes[XmlAttributeHRef] as string;
+            }
+            set {
+                this.Attributes[XmlAttributeHRef] = value;
+            }
+        }
 
-       /////////////////////////////////////////////////////////////////////
-       /// <summary>Means, that the group membership was removed for the contact.
-       /// This attribute will only be included if showdeleted is specified
-       /// as query parameter, otherwise groupMembershipInfo for groups a contact
-       /// does not belong to anymore is simply not returned.</summary>
-       //////////////////////////////////////////////////////////////////////
-       public string Deleted
-       {
-           get
-           {
-               return this.Attributes[XmlAttributeDeleted] as string;
-           }
-       }
+        /////////////////////////////////////////////////////////////////////
+        /// <summary>Means, that the group membership was removed for the contact.
+        /// This attribute will only be included if showdeleted is specified
+        /// as query parameter, otherwise groupMembershipInfo for groups a contact
+        /// does not belong to anymore is simply not returned.</summary>
+        //////////////////////////////////////////////////////////////////////
+        public string Deleted {
+            get {
+                return this.Attributes[XmlAttributeDeleted] as string;
+            }
+        }
     }
-
 
     /// <summary>
     /// extension element to represent a system group
     /// </summary>
-    public class SystemGroup : SimpleElement
-    {
+    public class SystemGroup : SimpleElement {
         /// <summary>
         /// id attribute for the system group element
         /// </summary>
@@ -245,74 +232,60 @@ namespace Google.GData.Contacts {
         /// default constructor
         /// </summary>
         public SystemGroup()
-        : base(ContactsNameTable.SystemGroupElement, ContactsNameTable.contactsPrefix, ContactsNameTable.NSContacts)
-        {
+            : base(ContactsNameTable.SystemGroupElement, ContactsNameTable.contactsPrefix, ContactsNameTable.NSContacts) {
             this.Attributes.Add(XmlAttributeId, null);
         }
 
-       /////////////////////////////////////////////////////////////////////
-       /// <summary>Identifies the system group. Note that you still need
-       /// to use the group entries href membership to retrieve the group
-       /// </summary>
-       //////////////////////////////////////////////////////////////////////
-       public string Id
-       {
-           get
-           {
-               return this.Attributes[XmlAttributeId] as string;
-           }
-       }
+        /////////////////////////////////////////////////////////////////////
+        /// <summary>Identifies the system group. Note that you still need
+        /// to use the group entries href membership to retrieve the group
+        /// </summary>
+        //////////////////////////////////////////////////////////////////////
+        public string Id {
+            get {
+                return this.Attributes[XmlAttributeId] as string;
+            }
+        }
     }
 
     /// <summary>
     /// abstract class for a basecontactentry, used for contacts and groups
     /// </summary>
-    public abstract class BaseContactEntry : AbstractEntry, IContainsDeleted
-    {
+    public abstract class BaseContactEntry : AbstractEntry, IContainsDeleted {
         private ExtensionCollection<ExtendedProperty> xproperties;
-
 
         /// <summary>
         /// Constructs a new BaseContactEntry instance
         /// to indicate that it is an event.
         /// </summary>
         public BaseContactEntry()
-        : base()
-        {
+            : base() {
             Tracing.TraceMsg("Created BaseContactEntry Entry");
             this.AddExtension(new ExtendedProperty());
             this.AddExtension(new Deleted());
         }
 
-
         /// <summary>
         /// returns the extended properties on this object
         /// </summary>
         /// <returns></returns>
-        public ExtensionCollection<ExtendedProperty> ExtendedProperties
-        {
-            get
-            {
-                if (this.xproperties == null)
-                {
+        public ExtensionCollection<ExtendedProperty> ExtendedProperties {
+            get {
+                if (this.xproperties == null) {
                     this.xproperties = new ExtensionCollection<ExtendedProperty>(this);
                 }
                 return this.xproperties;
             }
         }
 
-
         /// <summary>
         /// if this is a previously deleted contact, returns true
         /// to delete a contact, use the delete method
         /// </summary>
-        public bool Deleted
-        {
-            get
-            {
+        public bool Deleted {
+            get {
                 if (FindExtension(GDataParserNameTable.XmlDeletedElement,
-                                     BaseNameTable.gNamespace) != null)
-                {
+                    BaseNameTable.gNamespace) != null) {
                     return true;
                 }
                 return false;
@@ -320,21 +293,17 @@ namespace Google.GData.Contacts {
         }
     }
 
-
-
     /// <summary>
     /// Specifies billing information of the entity represented by the contact. The element cannot be repeated
     /// </summary>
-    public class BillingInformation : SimpleElement
-    {
+    public class BillingInformation : SimpleElement {
         /// <summary>
         /// default constructor for BillingInformation
         /// </summary>
         public BillingInformation()
             : base(ContactsNameTable.BillingInformationElement,
-                   ContactsNameTable.contactsPrefix,
-                   ContactsNameTable.NSContacts)
-        {
+            ContactsNameTable.contactsPrefix,
+            ContactsNameTable.NSContacts) {
         }
 
         /// <summary>
@@ -343,18 +312,15 @@ namespace Google.GData.Contacts {
         /// <param name="initValue"/>
         public BillingInformation(string initValue)
             : base(ContactsNameTable.BillingInformationElement,
-                   ContactsNameTable.contactsPrefix,
-                   ContactsNameTable.NSContacts, initValue)
-        {
+            ContactsNameTable.contactsPrefix,
+            ContactsNameTable.NSContacts, initValue) {
         }
     }
 
     /// <summary>
     /// Stores birthday date of the person represented by the contact. The element cannot be repeated.
     /// </summary>
-    public class Birthday : SimpleElement
-    {
-
+    public class Birthday : SimpleElement {
         /// <summary>
         /// When Attribute
         /// </summary>
@@ -366,9 +332,8 @@ namespace Google.GData.Contacts {
         /// </summary>
         public Birthday()
             : base(ContactsNameTable.BirthdayElement,
-                   ContactsNameTable.contactsPrefix,
-                   ContactsNameTable.NSContacts)
-        {
+            ContactsNameTable.contactsPrefix,
+            ContactsNameTable.NSContacts) {
             this.Attributes.Add(AttributeWhen, null);
         }
 
@@ -378,9 +343,8 @@ namespace Google.GData.Contacts {
         /// <param name="initValue"/>
         public Birthday(string initValue)
             : base(ContactsNameTable.BirthdayElement,
-                   ContactsNameTable.contactsPrefix,
-                   ContactsNameTable.NSContacts)
-        {
+            ContactsNameTable.contactsPrefix,
+            ContactsNameTable.NSContacts) {
             this.Attributes.Add(AttributeWhen, initValue);
         }
 
@@ -388,28 +352,20 @@ namespace Google.GData.Contacts {
         /// <summary>Birthday date, given in format YYYY-MM-DD (with the year), or --MM-DD (without the year)</summary>
         /// <returns> </returns>
         //////////////////////////////////////////////////////////////////////
-        public string When
-        {
-           get
-            {
+        public string When {
+            get {
                 return this.Attributes[AttributeWhen] as string;
             }
-            set
-            {
+            set {
                 this.Attributes[AttributeWhen] = value;
             }
         }
     }
 
-
-
-
-
-     /// <summary>
+    /// <summary>
     /// Storage for URL of the contact's information. The element can be repeated.
     /// </summary>
-    public class ContactsLink : LinkAttributesElement
-    {
+    public class ContactsLink : LinkAttributesElement {
         /// <summary>
         /// href Attribute
         /// </summary>
@@ -420,60 +376,46 @@ namespace Google.GData.Contacts {
         /// default constructor for CalendarLink
         /// </summary>
         public ContactsLink(string elementName, string elementPrefix, string elementNamespace)
-            : base(elementName, elementPrefix, elementNamespace)
-        {
-             this.Attributes.Add(AttributeHref, null);
+            : base(elementName, elementPrefix, elementNamespace) {
+            this.Attributes.Add(AttributeHref, null);
         }
-
-
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>The URL of the the related link.</summary>
         /// <returns> </returns>
         //////////////////////////////////////////////////////////////////////
-        public string Href
-        {
-           get
-            {
+        public string Href {
+            get {
                 return this.Attributes[AttributeHref] as string;
             }
-            set
-            {
+            set {
                 this.Attributes[AttributeHref] = value;
             }
         }
     }
 
-
-
     /// <summary>
     /// Storage for URL of the contact's calendar. The element can be repeated.
     /// </summary>
-    public class CalendarLink : ContactsLink
-    {
-       public CalendarLink()
+    public class CalendarLink : ContactsLink {
+        public CalendarLink()
             : base(ContactsNameTable.CalendarLinkElement,
-                   ContactsNameTable.contactsPrefix,
-                   ContactsNameTable.NSContacts)
-        {
-
+            ContactsNameTable.contactsPrefix,
+            ContactsNameTable.NSContacts) {
         }
     }
-
 
     /// <summary>
     /// DirectoryServer schema extension
     /// </summary>
-    public class DirectoryServer : SimpleElement
-    {
+    public class DirectoryServer : SimpleElement {
         /// <summary>
         /// default constructor for DirectoryServer
         /// </summary>
         public DirectoryServer()
             : base(ContactsNameTable.DirectoryServerElement,
-                   ContactsNameTable.contactsPrefix,
-                   ContactsNameTable.NSContacts)
-        {
+            ContactsNameTable.contactsPrefix,
+            ContactsNameTable.NSContacts) {
         }
 
         /// <summary>
@@ -482,25 +424,22 @@ namespace Google.GData.Contacts {
         /// <param name="initValue"/>
         public DirectoryServer(string initValue)
             : base(ContactsNameTable.DirectoryServerElement,
-                   ContactsNameTable.contactsPrefix,
-                   ContactsNameTable.NSContacts, initValue)
-        {
+            ContactsNameTable.contactsPrefix,
+            ContactsNameTable.NSContacts, initValue) {
         }
     }
 
     /// <summary>
     /// Event schema extension
     /// </summary>
-    public class Event : SimpleContainer
-    {
+    public class Event : SimpleContainer {
         /// <summary>
         /// default constructor for Event
         /// </summary>
         public Event()
             : base(ContactsNameTable.EventElement,
-                   ContactsNameTable.contactsPrefix,
-                   ContactsNameTable.NSContacts)
-       {
+            ContactsNameTable.contactsPrefix,
+            ContactsNameTable.NSContacts) {
             this.Attributes.Add(ContactsNameTable.AttributeRel, null);
             this.Attributes.Add(ContactsNameTable.AttributeLabel, null);
             this.ExtensionFactories.Add(new When());
@@ -510,14 +449,11 @@ namespace Google.GData.Contacts {
         /// <summary>Predefined calendar link type. Can be one of work, home or free-busy</summary>
         /// <returns> </returns>
         //////////////////////////////////////////////////////////////////////
-        public string Relation
-        {
-           get
-            {
+        public string Relation {
+            get {
                 return this.Attributes[ContactsNameTable.AttributeRel] as string;
             }
-            set
-            {
+            set {
                 this.Attributes[ContactsNameTable.AttributeRel] = value;
             }
         }
@@ -526,14 +462,11 @@ namespace Google.GData.Contacts {
         /// <summary>User-defined calendar link type.</summary>
         /// <returns> </returns>
         //////////////////////////////////////////////////////////////////////
-        public string Label
-        {
-            get
-            {
+        public string Label {
+            get {
                 return this.Attributes[ContactsNameTable.AttributeLabel] as string;
             }
-            set
-            {
+            set {
                 this.Attributes[ContactsNameTable.AttributeLabel] = value;
             }
         }
@@ -542,40 +475,32 @@ namespace Google.GData.Contacts {
         /// exposes the When element for this event
         /// </summary>
         /// <returns></returns>
-        public When When
-        {
-            get
-            {
+        public When When {
+            get {
                 return FindExtension(GDataParserNameTable.XmlWhenElement,
-                                     BaseNameTable.gNamespace) as When;
+                    BaseNameTable.gNamespace) as When;
             }
-            set
-            {
+            set {
                 ReplaceExtension(GDataParserNameTable.XmlWhenElement,
-                                 BaseNameTable.gNamespace,
-                                 value);
+                    BaseNameTable.gNamespace,
+                    value);
             }
         }
-
-
     }
 
     /// <summary>
     /// ExternalId schema extension
     /// </summary>
-    public class ExternalId : SimpleAttribute
-    {
+    public class ExternalId : SimpleAttribute {
         /// <summary>
         /// default constructor for ExternalId
         /// </summary>
         public ExternalId()
             : base(ContactsNameTable.ExternalIdElement,
-                   ContactsNameTable.contactsPrefix,
-                   ContactsNameTable.NSContacts)
-        {
+            ContactsNameTable.contactsPrefix,
+            ContactsNameTable.NSContacts) {
             this.Attributes.Add(ContactsNameTable.AttributeRel, null);
             this.Attributes.Add(ContactsNameTable.AttributeLabel, null);
-
         }
 
         /// <summary>
@@ -584,25 +509,21 @@ namespace Google.GData.Contacts {
         /// <param name="initValue"/>
         public ExternalId(string initValue)
             : base(ContactsNameTable.ExternalIdElement,
-                   ContactsNameTable.contactsPrefix,
-                   ContactsNameTable.NSContacts, initValue)
-        {
+            ContactsNameTable.contactsPrefix,
+            ContactsNameTable.NSContacts, initValue) {
             this.Attributes.Add(ContactsNameTable.AttributeRel, null);
             this.Attributes.Add(ContactsNameTable.AttributeLabel, null);
         }
 
-         //////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////
         /// <summary>Predefined calendar link type. Can be one of work, home or free-busy</summary>
         /// <returns> </returns>
         //////////////////////////////////////////////////////////////////////
-        public string Relation
-        {
-           get
-            {
+        public string Relation {
+            get {
                 return this.Attributes[ContactsNameTable.AttributeRel] as string;
             }
-            set
-            {
+            set {
                 this.Attributes[ContactsNameTable.AttributeRel] = value;
             }
         }
@@ -611,14 +532,11 @@ namespace Google.GData.Contacts {
         /// <summary>User-defined calendar link type.</summary>
         /// <returns> </returns>
         //////////////////////////////////////////////////////////////////////
-        public string Label
-        {
-            get
-            {
+        public string Label {
+            get {
                 return this.Attributes[ContactsNameTable.AttributeLabel] as string;
             }
-            set
-            {
+            set {
                 this.Attributes[ContactsNameTable.AttributeLabel] = value;
             }
         }
@@ -627,16 +545,14 @@ namespace Google.GData.Contacts {
     /// <summary>
     /// Gender schema extension
     /// </summary>
-    public class Gender : SimpleAttribute
-    {
+    public class Gender : SimpleAttribute {
         /// <summary>
         /// default constructor for Gender
         /// </summary>
         public Gender()
             : base(ContactsNameTable.GenderElement,
-                   ContactsNameTable.contactsPrefix,
-                   ContactsNameTable.NSContacts)
-        {
+            ContactsNameTable.contactsPrefix,
+            ContactsNameTable.NSContacts) {
         }
 
         /// <summary>
@@ -645,25 +561,22 @@ namespace Google.GData.Contacts {
         /// <param name="initValue"/>
         public Gender(string initValue)
             : base(ContactsNameTable.GenderElement,
-                   ContactsNameTable.contactsPrefix,
-                   ContactsNameTable.NSContacts, initValue)
-        {
+            ContactsNameTable.contactsPrefix,
+            ContactsNameTable.NSContacts, initValue) {
         }
     }
 
     /// <summary>
     /// Hobby schema extension
     /// </summary>
-    public class Hobby : SimpleElement
-    {
+    public class Hobby : SimpleElement {
         /// <summary>
         /// default constructor for Hobby
         /// </summary>
         public Hobby()
             : base(ContactsNameTable.HobbyElement,
-                   ContactsNameTable.contactsPrefix,
-                   ContactsNameTable.NSContacts)
-        {
+            ContactsNameTable.contactsPrefix,
+            ContactsNameTable.NSContacts) {
         }
 
         /// <summary>
@@ -672,25 +585,22 @@ namespace Google.GData.Contacts {
         /// <param name="initValue"/>
         public Hobby(string initValue)
             : base(ContactsNameTable.HobbyElement,
-                   ContactsNameTable.contactsPrefix,
-                   ContactsNameTable.NSContacts, initValue)
-        {
+            ContactsNameTable.contactsPrefix,
+            ContactsNameTable.NSContacts, initValue) {
         }
     }
 
     /// <summary>
     /// Initials schema extension
     /// </summary>
-    public class Initials : SimpleElement
-    {
+    public class Initials : SimpleElement {
         /// <summary>
         /// default constructor for Initials
         /// </summary>
         public Initials()
             : base(ContactsNameTable.InitialsElement,
-                   ContactsNameTable.contactsPrefix,
-                   ContactsNameTable.NSContacts)
-        {
+            ContactsNameTable.contactsPrefix,
+            ContactsNameTable.NSContacts) {
         }
 
         /// <summary>
@@ -699,52 +609,43 @@ namespace Google.GData.Contacts {
         /// <param name="initValue"/>
         public Initials(string initValue)
             : base(ContactsNameTable.InitialsElement,
-                   ContactsNameTable.contactsPrefix,
-                   ContactsNameTable.NSContacts, initValue)
-        {
+            ContactsNameTable.contactsPrefix,
+            ContactsNameTable.NSContacts, initValue) {
         }
     }
 
     /// <summary>
     /// Jot schema extension
     /// </summary>
-    public class Jot : SimpleElement
-    {
+    public class Jot : SimpleElement {
         /// <summary>
         /// default constructor for Jot
         /// </summary>
         public Jot()
             : base(ContactsNameTable.JotElement,
-                   ContactsNameTable.contactsPrefix,
-                   ContactsNameTable.NSContacts)
-        {
+            ContactsNameTable.contactsPrefix,
+            ContactsNameTable.NSContacts) {
             this.Attributes.Add(ContactsNameTable.AttributeRel, null);
         }
-
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>Predefined calendar link type. Can be one of work, home or free-busy</summary>
         /// <returns> </returns>
         //////////////////////////////////////////////////////////////////////
-        public string Relation
-        {
-           get
-            {
+        public string Relation {
+            get {
                 return this.Attributes[ContactsNameTable.AttributeRel] as string;
             }
-            set
-            {
+            set {
                 this.Attributes[ContactsNameTable.AttributeRel] = value;
             }
         }
-
     }
 
     /// <summary>
     /// Language schema extension
     /// </summary>
-    public class Language : SimpleElement
-    {
+    public class Language : SimpleElement {
         /// <summary>
         /// the code attribute
         /// </summary>
@@ -756,9 +657,8 @@ namespace Google.GData.Contacts {
         /// </summary>
         public Language()
             : base(ContactsNameTable.LanguageElement,
-                   ContactsNameTable.contactsPrefix,
-                   ContactsNameTable.NSContacts)
-        {
+            ContactsNameTable.contactsPrefix,
+            ContactsNameTable.NSContacts) {
             this.Attributes.Add(ContactsNameTable.AttributeLabel, null);
             this.Attributes.Add(AttributeCode, null);
         }
@@ -769,9 +669,8 @@ namespace Google.GData.Contacts {
         /// <param name="initValue"/>
         public Language(string initValue)
             : base(ContactsNameTable.LanguageElement,
-                   ContactsNameTable.contactsPrefix,
-                   ContactsNameTable.NSContacts, initValue)
-        {
+            ContactsNameTable.contactsPrefix,
+            ContactsNameTable.NSContacts, initValue) {
             this.Attributes.Add(ContactsNameTable.AttributeLabel, null);
             this.Attributes.Add(AttributeCode, null);
         }
@@ -780,31 +679,24 @@ namespace Google.GData.Contacts {
         /// <summary>A freeform name of a language. Must not be empty or all whitespace..</summary>
         /// <returns> </returns>
         //////////////////////////////////////////////////////////////////////
-        public string Label
-        {
-            get
-            {
+        public string Label {
+            get {
                 return this.Attributes[ContactsNameTable.AttributeLabel] as string;
             }
-            set
-            {
+            set {
                 this.Attributes[ContactsNameTable.AttributeLabel] = value;
             }
         }
-
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>A language code conforming to the IETF BCP 47 specification. .</summary>
         /// <returns> </returns>
         //////////////////////////////////////////////////////////////////////
-        public string Code
-        {
-            get
-            {
+        public string Code {
+            get {
                 return this.Attributes[AttributeCode] as string;
             }
-            set
-            {
+            set {
                 this.Attributes[AttributeCode] = value;
             }
         }
@@ -813,16 +705,14 @@ namespace Google.GData.Contacts {
     /// <summary>
     /// Specifies maiden name of the person represented by the contact. The element cannot be repeated.
     /// </summary>
-    public class MaidenName : SimpleElement
-    {
+    public class MaidenName : SimpleElement {
         /// <summary>
         /// default constructor for MaidenName
         /// </summary>
         public MaidenName()
             : base(ContactsNameTable.MaidenNameElement,
-                   ContactsNameTable.contactsPrefix,
-                   ContactsNameTable.NSContacts)
-        {
+            ContactsNameTable.contactsPrefix,
+            ContactsNameTable.NSContacts) {
         }
 
         /// <summary>
@@ -831,9 +721,8 @@ namespace Google.GData.Contacts {
         /// <param name="initValue"/>
         public MaidenName(string initValue)
             : base(ContactsNameTable.MaidenNameElement,
-                   ContactsNameTable.contactsPrefix,
-                   ContactsNameTable.NSContacts, initValue)
-        {
+            ContactsNameTable.contactsPrefix,
+            ContactsNameTable.NSContacts, initValue) {
         }
     }
 
@@ -841,16 +730,14 @@ namespace Google.GData.Contacts {
     /// Specifies the mileage for the entity represented by the contact. Can be used for example to
     /// document distance needed for reimbursement purposes. The value is not interpreted. The element cannot be repeated.
     /// </summary>
-    public class Mileage : SimpleElement
-    {
+    public class Mileage : SimpleElement {
         /// <summary>
         /// default constructor for Mileage
         /// </summary>
         public Mileage()
             : base(ContactsNameTable.MileageElement,
-                   ContactsNameTable.contactsPrefix,
-                   ContactsNameTable.NSContacts)
-        {
+            ContactsNameTable.contactsPrefix,
+            ContactsNameTable.NSContacts) {
         }
 
         /// <summary>
@@ -859,25 +746,22 @@ namespace Google.GData.Contacts {
         /// <param name="initValue"/>
         public Mileage(string initValue)
             : base(ContactsNameTable.MileageElement,
-                   ContactsNameTable.contactsPrefix,
-                   ContactsNameTable.NSContacts, initValue)
-        {
+            ContactsNameTable.contactsPrefix,
+            ContactsNameTable.NSContacts, initValue) {
         }
     }
 
     /// <summary>
     /// Specifies the nickname of the person represented by the contact. The element cannot be repeated
     /// </summary>
-    public class Nickname : SimpleElement
-    {
+    public class Nickname : SimpleElement {
         /// <summary>
         /// default constructor for Nickname
         /// </summary>
         public Nickname()
             : base(ContactsNameTable.NicknameElement,
-                   ContactsNameTable.contactsPrefix,
-                   ContactsNameTable.NSContacts)
-        {
+            ContactsNameTable.contactsPrefix,
+            ContactsNameTable.NSContacts) {
         }
 
         /// <summary>
@@ -886,26 +770,22 @@ namespace Google.GData.Contacts {
         /// <param name="initValue"/>
         public Nickname(string initValue)
             : base(ContactsNameTable.NicknameElement,
-                   ContactsNameTable.contactsPrefix,
-                   ContactsNameTable.NSContacts, initValue)
-        {
+            ContactsNameTable.contactsPrefix,
+            ContactsNameTable.NSContacts, initValue) {
         }
     }
 
     /// <summary>
     /// Specifies the occupation/profession of the person specified by the contact. The element cannot be repeated.
     /// </summary>
-    public class Occupation : SimpleElement
-    {
+    public class Occupation : SimpleElement {
         /// <summary>
         /// default constructor for Occupation
         /// </summary>
         public Occupation()
             : base(ContactsNameTable.OccupationElement,
-                   ContactsNameTable.contactsPrefix,
-                   ContactsNameTable.NSContacts)
-        {
-
+            ContactsNameTable.contactsPrefix,
+            ContactsNameTable.NSContacts) {
         }
 
         /// <summary>
@@ -914,25 +794,22 @@ namespace Google.GData.Contacts {
         /// <param name="initValue"/>
         public Occupation(string initValue)
             : base(ContactsNameTable.OccupationElement,
-                   ContactsNameTable.contactsPrefix,
-                   ContactsNameTable.NSContacts, initValue)
-        {
+            ContactsNameTable.contactsPrefix,
+            ContactsNameTable.NSContacts, initValue) {
         }
     }
 
     /// <summary>
     /// Classifies importance of the contact into 3 categories, low, normal and high
     /// </summary>
-    public class Priority : SimpleElement
-    {
+    public class Priority : SimpleElement {
         /// <summary>
         /// default constructor for Priority
         /// </summary>
         public Priority()
             : base(ContactsNameTable.PriorityElement,
-                   ContactsNameTable.contactsPrefix,
-                   ContactsNameTable.NSContacts)
-        {
+            ContactsNameTable.contactsPrefix,
+            ContactsNameTable.NSContacts) {
             this.Attributes.Add(ContactsNameTable.AttributeRel, null);
         }
 
@@ -942,9 +819,8 @@ namespace Google.GData.Contacts {
         /// <param name="initValue"/>
         public Priority(string initValue)
             : base(ContactsNameTable.OccupationElement,
-                   ContactsNameTable.contactsPrefix,
-                   ContactsNameTable.NSContacts)
-        {
+            ContactsNameTable.contactsPrefix,
+            ContactsNameTable.NSContacts) {
             this.Attributes.Add(ContactsNameTable.AttributeRel, initValue);
         }
 
@@ -952,66 +828,53 @@ namespace Google.GData.Contacts {
         /// <summary>Predefined calendar link type. Can be one of work, home or free-busy</summary>
         /// <returns> </returns>
         //////////////////////////////////////////////////////////////////////
-        public string Relation
-        {
-           get
-            {
+        public string Relation {
+            get {
                 return this.Attributes[ContactsNameTable.AttributeRel] as string;
             }
-            set
-            {
+            set {
                 this.Attributes[ContactsNameTable.AttributeRel] = value;
             }
         }
     }
 
-
-
     /// <summary>
     /// Relation schema extension
     /// </summary>
-    public class Relation : SimpleElement
-    {
+    public class Relation : SimpleElement {
         /// <summary>
         /// default constructor for Relation
         /// </summary>
         public Relation()
             : base(ContactsNameTable.RelationElement,
-                   ContactsNameTable.contactsPrefix,
-                   ContactsNameTable.NSContacts)
-        {
+            ContactsNameTable.contactsPrefix,
+            ContactsNameTable.NSContacts) {
             this.Attributes.Add(ContactsNameTable.AttributeLabel, null);
             this.Attributes.Add(ContactsNameTable.AttributeRel, null);
-       }
+        }
 
-         //////////////////////////////////////////////////////////////////////
-        /// <summary>A freeform name of a language. Must not be empty or all whitespace..</summary>
+        //////////////////////////////////////////////////////////////////////
+        /// <summary>A freeform name of a language. Must not be empty or all whitespace.</summary>
         /// <returns> </returns>
         //////////////////////////////////////////////////////////////////////
-        public string Label
-        {
-            get
-            {
+        public string Label {
+            get {
                 return this.Attributes[ContactsNameTable.AttributeLabel] as string;
             }
-            set
-            {
+            set {
                 this.Attributes[ContactsNameTable.AttributeLabel] = value;
             }
         }
 
-         //////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////
         /// <summary>defines the link type.</summary>
         /// <returns> </returns>
         //////////////////////////////////////////////////////////////////////
-        public string Rel
-        {
-           get
-            {
+        public string Rel {
+            get {
                 return this.Attributes[ContactsNameTable.AttributeRel] as string;
             }
-            set
-            {
+            set {
                 this.Attributes[ContactsNameTable.AttributeRel] = value;
             }
         }
@@ -1021,16 +884,14 @@ namespace Google.GData.Contacts {
     /// Classifies sensitivity of the contact into the following categories:
     /// confidential, normal, personal or private
     /// </summary>
-    public class Sensitivity : SimpleElement
-    {
+    public class Sensitivity : SimpleElement {
         /// <summary>
         /// default constructor for Sensitivity
         /// </summary>
         public Sensitivity()
             : base(ContactsNameTable.SensitivityElement,
-                   ContactsNameTable.contactsPrefix,
-                   ContactsNameTable.NSContacts)
-        {
+            ContactsNameTable.contactsPrefix,
+            ContactsNameTable.NSContacts) {
             this.Attributes.Add(ContactsNameTable.AttributeRel, null);
         }
 
@@ -1040,9 +901,8 @@ namespace Google.GData.Contacts {
         /// <param name="initValue"/>
         public Sensitivity(string initValue)
             : base(ContactsNameTable.SensitivityElement,
-                   ContactsNameTable.contactsPrefix,
-                   ContactsNameTable.NSContacts)
-        {
+            ContactsNameTable.contactsPrefix,
+            ContactsNameTable.NSContacts) {
             this.Attributes.Add(ContactsNameTable.AttributeRel, initValue);
         }
 
@@ -1050,33 +910,27 @@ namespace Google.GData.Contacts {
         /// <summary>returns the relationship value</summary>
         /// <returns> </returns>
         //////////////////////////////////////////////////////////////////////
-        public string Relation
-        {
-           get
-            {
+        public string Relation {
+            get {
                 return this.Attributes[ContactsNameTable.AttributeRel] as string;
             }
-            set
-            {
+            set {
                 this.Attributes[ContactsNameTable.AttributeRel] = value;
             }
         }
     }
 
-
     /// <summary>
     /// Specifies short name of the person represented by the contact. The element cannot be repeated.
     /// </summary>
-    public class ShortName : SimpleElement
-    {
+    public class ShortName : SimpleElement {
         /// <summary>
         /// default constructor for ShortName
         /// </summary>
         public ShortName()
             : base(ContactsNameTable.ShortNameElement,
-                   ContactsNameTable.contactsPrefix,
-                   ContactsNameTable.NSContacts)
-        {
+            ContactsNameTable.contactsPrefix,
+            ContactsNameTable.NSContacts) {
         }
 
         /// <summary>
@@ -1085,17 +939,15 @@ namespace Google.GData.Contacts {
         /// <param name="initValue"/>
         public ShortName(string initValue)
             : base(ContactsNameTable.ShortNameElement,
-                   ContactsNameTable.contactsPrefix,
-                   ContactsNameTable.NSContacts, initValue)
-        {
+            ContactsNameTable.contactsPrefix,
+            ContactsNameTable.NSContacts, initValue) {
         }
     }
 
     /// <summary>
     /// Specifies the status element of the person.
     /// </summary>
-    public class Status : SimpleElement
-    {
+    public class Status : SimpleElement {
         /// <summary>
         /// indexed attribute for the status element
         /// </summary>
@@ -1107,9 +959,8 @@ namespace Google.GData.Contacts {
         /// </summary>
         public Status()
             : base(ContactsNameTable.StatusElement,
-                   ContactsNameTable.contactsPrefix,
-                   ContactsNameTable.NSContacts)
-        {
+            ContactsNameTable.contactsPrefix,
+            ContactsNameTable.NSContacts) {
             this.Attributes.Add(XmlAttributeIndexed, null);
         }
 
@@ -1119,9 +970,8 @@ namespace Google.GData.Contacts {
         /// <param name="initValue"/>
         public Status(bool initValue)
             : base(ContactsNameTable.StatusElement,
-                   ContactsNameTable.contactsPrefix,
-                   ContactsNameTable.NSContacts)
-        {
+            ContactsNameTable.contactsPrefix,
+            ContactsNameTable.NSContacts) {
             this.Attributes.Add(XmlAttributeIndexed, initValue ? Utilities.XSDTrue : Utilities.XSDFalse);
         }
 
@@ -1129,19 +979,19 @@ namespace Google.GData.Contacts {
         /// <summary>Indexed attribute.</summary>
         /// <returns> </returns>
         //////////////////////////////////////////////////////////////////////
-        public bool Indexed
-        {
-            get
-            {
+        public bool Indexed {
+            get {
                 bool result;
-
-                if (Boolean.TryParse(this.Attributes[XmlAttributeIndexed] as string, out result))
-                    return result;
-                else
-                    return false;
+#if WindowsCE || PocketPC
+                result = Boolean.Parse(this.Attributes[XmlAttributeIndexed].ToString());
+#else
+                if (!Boolean.TryParse(this.Attributes[XmlAttributeIndexed] as string, out result)) {
+                    result = false;
+                }
+#endif
+                return result;
             }
-            set
-            {
+            set {
                 this.Attributes[XmlAttributeIndexed] = value ? Utilities.XSDTrue : Utilities.XSDFalse;
             }
         }
@@ -1150,16 +1000,14 @@ namespace Google.GData.Contacts {
     /// <summary>
     /// Specifies the subject of the contact. The element cannot be repeated.
     /// </summary>
-    public class Subject : SimpleElement
-    {
+    public class Subject : SimpleElement {
         /// <summary>
         /// default constructor for Subject
         /// </summary>
         public Subject()
             : base(ContactsNameTable.SubjectElement,
-                   ContactsNameTable.contactsPrefix,
-                   ContactsNameTable.NSContacts)
-        {
+            ContactsNameTable.contactsPrefix,
+            ContactsNameTable.NSContacts) {
         }
 
         /// <summary>
@@ -1168,17 +1016,15 @@ namespace Google.GData.Contacts {
         /// <param name="initValue"/>
         public Subject(string initValue)
             : base(ContactsNameTable.SubjectElement,
-                   ContactsNameTable.contactsPrefix,
-                   ContactsNameTable.NSContacts, initValue)
-        {
+            ContactsNameTable.contactsPrefix,
+            ContactsNameTable.NSContacts, initValue) {
         }
     }
 
     /// <summary>
     /// Represents an arbitrary key-value pair attached to the contact.
     /// </summary>
-    public class UserDefinedField : SimpleAttribute
-    {
+    public class UserDefinedField : SimpleAttribute {
         /// <summary>
         /// key attribute
         /// </summary>
@@ -1190,9 +1036,8 @@ namespace Google.GData.Contacts {
         /// </summary>
         public UserDefinedField()
             : base(ContactsNameTable.UserDefinedFieldElement,
-                   ContactsNameTable.contactsPrefix,
-                   ContactsNameTable.NSContacts)
-        {
+            ContactsNameTable.contactsPrefix,
+            ContactsNameTable.NSContacts) {
             this.Attributes.Add(AttributeKey, null);
         }
 
@@ -1203,9 +1048,8 @@ namespace Google.GData.Contacts {
         /// <param name="initKey"/>
         public UserDefinedField(string initValue, string initKey)
             : base(ContactsNameTable.UserDefinedFieldElement,
-                   ContactsNameTable.contactsPrefix,
-                   ContactsNameTable.NSContacts, initValue)
-        {
+            ContactsNameTable.contactsPrefix,
+            ContactsNameTable.NSContacts, initValue) {
             this.Attributes.Add(AttributeKey, initKey);
         }
 
@@ -1213,34 +1057,27 @@ namespace Google.GData.Contacts {
         /// <summary>A simple string value used to name this field. Case-sensitive</summary>
         /// <returns> </returns>
         //////////////////////////////////////////////////////////////////////
-        public string Key
-        {
-           get
-            {
+        public string Key {
+            get {
                 return this.Attributes[AttributeKey] as string;
             }
-            set
-            {
+            set {
                 this.Attributes[AttributeKey] = value;
             }
         }
-
     }
 
     /// <summary>
     /// WebSite schema extension
     /// </summary>
-    public class Website : ContactsLink
-    {
+    public class Website : ContactsLink {
         /// <summary>
         /// default constructor for WebSite
         /// </summary>
         public Website()
             : base(ContactsNameTable.WebsiteElement,
-                   ContactsNameTable.contactsPrefix,
-                   ContactsNameTable.NSContacts)
-        {
+            ContactsNameTable.contactsPrefix,
+            ContactsNameTable.NSContacts) {
         }
-     }
-
+    }
 }

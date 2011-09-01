@@ -9,9 +9,9 @@
             A user's contacts feed lists all of the contacts for a specified user.
             To request the currently logged-in user's contact list, send an HTTP
              GET request to the following URL. 
-                http://gdata.youtube.com/feeds/api/users/default/contacts
+                https://gdata.youtube.com/feeds/api/users/default/contacts
             To request another user's contact list, send an HTTP GET request to the following URL. 
-                http://gdata.youtube.com/feeds/api/users/username/contacts
+                https://gdata.youtube.com/feeds/api/users/username/contacts
             In the URL above, you must replace the text username with the user's YouTube username.
             Contacts can be classified as either Friends or Family.
             </summary>
@@ -192,24 +192,6 @@
             <param name="e">FeedParserEventArguments, holds the feedentry</param> 
             <returns> </returns>
         </member>
-        <member name="T:Google.GData.YouTube.YouTubeCategoryCollection">
-            <summary>
-             this is a helper class just for parsing the category document
-            </summary>
-        </member>
-        <member name="M:Google.GData.YouTube.YouTubeCategoryCollection.CreateAtomSubElement(System.Xml.XmlReader,Google.GData.Client.AtomFeedParser)">
-            <summary>
-            this is the subclassing method for AtomBase derived 
-            classes to overload what childelements should be created
-            needed to create CustomLink type objects, like WebContentLink etc
-            </summary>
-            <param name="reader">The XmlReader that tells us what we are working with</param>
-            <param name="parser">the parser is primarily used for nametable comparisons</param>
-            <returns>AtomBase</returns>
-        </member>
-        <member name="P:Google.GData.YouTube.YouTubeCategoryCollection.XmlName">
-            <summary>Returns the constant representing this XML element.</summary> 
-        </member>
         <member name="T:Google.GData.YouTube.YouTubeEntry">
             <summary>
             Entry API customization class for defining entries in a YouTubeFeed feed.
@@ -287,6 +269,11 @@
             </summary>
             <returns>the updated YouTubeEntry or null</returns>
         </member>
+        <member name="P:Google.GData.YouTube.YouTubeEntry.AccessControls">
+            <summary>
+             property accessor for the Access Control Collection 
+            </summary>
+        </member>
         <member name="P:Google.GData.YouTube.YouTubeEntry.Location">
             <summary>
             getter/setter for the GeoRssWhere extension element
@@ -311,6 +298,13 @@
         <member name="P:Google.GData.YouTube.YouTubeEntry.Rating">
             <summary>
             returns the gd:rating element
+            </summary>
+            <returns></returns>
+            [Obsolete("This is deprecated and replaced by YtRating")]
+        </member>
+        <member name="P:Google.GData.YouTube.YouTubeEntry.YtRating">
+            <summary>
+            returns the yt:rating element
             </summary>
             <returns></returns>
         </member>
@@ -368,6 +362,24 @@
             it returns if the mediagroup:yt:private element exists, or not
             </summary>
             <returns></returns>
+        </member>
+        <member name="T:Google.GData.YouTube.YouTubeCategoryCollection">
+            <summary>
+             this is a helper class for parsing the category document
+            </summary>
+        </member>
+        <member name="M:Google.GData.YouTube.YouTubeCategoryCollection.CreateAtomSubElement(System.Xml.XmlReader,Google.GData.Client.AtomFeedParser)">
+            <summary>
+            this is the subclassing method for AtomBase derived 
+            classes to overload what childelements should be created
+            needed to create CustomLink type objects, like WebContentLink etc
+            </summary>
+            <param name="reader">The XmlReader that tells us what we are working with</param>
+            <param name="parser">the parser is primarily used for nametable comparisons</param>
+            <returns>AtomBase</returns>
+        </member>
+        <member name="P:Google.GData.YouTube.YouTubeCategoryCollection.XmlName">
+            <summary>Returns the constant representing this XML element.</summary> 
         </member>
         <member name="T:Google.GData.YouTube.SubscriptionFeed">
             <summary>
@@ -837,6 +849,16 @@
             uploaded element string for playlist feeds
             </summary>
         </member>
+        <member name="F:Google.GData.YouTube.YouTubeNameTable.YtRating">
+            <summary>
+            yt:rating element string
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YouTubeNameTable.AccessControl">
+            <summary>
+            yt:accessControl element string
+            </summary>
+        </member>
         <member name="F:Google.GData.YouTube.YouTubeNameTable.PlaylistTitle">
             <summary>
             title for a playlist
@@ -924,6 +946,72 @@
         <member name="P:Google.GData.YouTube.MediaContent.Format">
             <summary>
              returns the type of the credit element
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Google.GData.YouTube.YtAccessControl">
+            <summary>
+            The yt:accessControl element indicates whether users are allowed to rate a video,
+            rate comments about the video, add a video response to the video or embed the
+            video on third-party websites.
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YtAccessControl.actionAttribute">
+            <summary>the action xml attribute</summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YtAccessControl.permissionAttribute">
+            <summary>the permission xml attribute</summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YtAccessControl.RateAction">
+            <summary>the rate action</summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YtAccessControl.CommentAction">
+            <summary>the comment action</summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YtAccessControl.CommentVoteAction">
+            <summary>the commentVote action</summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YtAccessControl.VideoRespondAction">
+            <summary>the videoRespond action</summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YtAccessControl.ListAction">
+            <summary>the list action</summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YtAccessControl.EmbedAction">
+            <summary>the embed action</summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YtAccessControl.SyndicateAction">
+            <summary>the syndicate action</summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YtAccessControl.AllowedPermission">
+            <summary>the allowed permission</summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YtAccessControl.DeniedPermission">
+            <summary>the denied permission</summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YtAccessControl.ModeratedPermission">
+            <summary>the moderated permission</summary>
+        </member>
+        <member name="M:Google.GData.YouTube.YtAccessControl.#ctor">
+            <summary>
+            default constructor for yt:accessControl.
+            </summary>
+        </member>
+        <member name="M:Google.GData.YouTube.YtAccessControl.#ctor(System.String,System.String)">
+            <summary>
+            alternative constructor for yt:accessControl that allows
+            to specify initial values.
+            </summary>
+        </member>
+        <member name="P:Google.GData.YouTube.YtAccessControl.Action">
+            <summary>
+            convenience accessor for action.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.GData.YouTube.YtAccessControl.Permission">
+            <summary>
+            convenience accessor for permission.
             </summary>
             <returns></returns>
         </member>
@@ -1515,6 +1603,56 @@
             constructor with an init value
             </summary>
             <param name="initValue"></param>
+        </member>
+        <member name="T:Google.GData.YouTube.YtRating">
+            <summary>
+            The yt:rating element contains information about the number of users who gave
+            the video a positive or negative rating as well as the totale number of ratings
+            that the video received.
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YtRating.numLikesAttribute">
+            <summary>the numLikes xml attribute </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YtRating.numDislikesAttribute">
+            <summary>the numDislikes xml attribute</summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YtRating.valueAttribute">
+            <summary>the value xml attribute</summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YtRating.Like">
+            <summary>the like video rating</summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YtRating.Dislikes">
+            <summary>the dislike video rating</summary>
+        </member>
+        <member name="M:Google.GData.YouTube.YtRating.#ctor">
+            <summary>
+            default constructor for yt:rating.
+            </summary>
+        </member>
+        <member name="M:Google.GData.YouTube.YtRating.#ctor(System.String)">
+            <summary>
+            default constructor for yt:rating.
+            </summary>
+        </member>
+        <member name="P:Google.GData.YouTube.YtRating.NumLikes">
+            <summary>
+            convenience accessor for Likes Count.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.GData.YouTube.YtRating.NumDislikes">
+            <summary>
+            convenience accessor for Dislikes Count.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.GData.YouTube.YtRating.RatingValue">
+            <summary>
+            The positive ("like") or negative ("dislike") rating for the video.
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:Google.GData.YouTube.FormUploadToken">
             <summary>
@@ -2431,7 +2569,7 @@
         </member>
         <member name="M:Google.YouTube.YouTubeRequest.GetVideoFeed(System.String)">
             <summary>
-            returns a Feed of vidoes for a given username
+            returns a Feed of videos for a given username
             </summary>
             <param name="user">the username</param>
             <returns>a feed of Videos</returns>

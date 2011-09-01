@@ -2057,6 +2057,14 @@
             <param name="userName">The user for whom this should be done</param>
             <returns>Feed containing all send-as aliases</returns>
         </member>
+        <member name="M:Google.GData.Apps.GoogleMailSettings.GoogleMailSettingsService.UpdateWebclip(System.String,System.String)">
+            <summary>
+            Enables/disables Google Mail's web clip
+            </summary>
+            <param name="userName">The user for whom this should be done</param>
+            <param name="enable">Whether to enable web clip</param>
+            <returns>a <code>AppsExtendedEntry</code> containing the results of the creation</returns>
+        </member>
         <member name="M:Google.GData.Apps.GoogleMailSettings.GoogleMailSettingsService.UpdateForwarding(System.String,System.String,System.String,System.String)">
             <summary>
             Updates Google Mail's forwarding rule for the given userName
@@ -2110,7 +2118,7 @@
             <param name="userName">The user for whom this should be done</param>
             <returns>Entry containing IMAP settings</returns>
         </member>
-        <member name="M:Google.GData.Apps.GoogleMailSettings.GoogleMailSettingsService.UpdateVacation(System.String,System.String,System.String,System.String,System.String)">
+        <member name="M:Google.GData.Apps.GoogleMailSettings.GoogleMailSettingsService.UpdateVacation(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
             <summary>
             Updates Google Mail's vacation-responder settings for the given userName
             </summary>

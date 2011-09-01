@@ -1,0 +1,967 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Google.GData.WebmasterTools</name>
+    </assembly>
+    <members>
+        <member name="M:Google.GData.WebmasterTools.SitemapsFeed.CreateFeedEntry">
+            <summary>
+            this needs to get implemented by subclasses
+            </summary>
+            <returns>AtomEntry</returns>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.SitemapsFeed.HandleExtensionElements(Google.GData.Client.ExtensionElementEventArgs,Google.GData.Client.AtomFeedParser)">
+            <summary>
+            Is called after we already handled the custom entry, to handle all 
+            other potential parsing tasks
+            </summary>
+            <param name="e"></param>
+            <param name="parser">the atom feed parser used</param>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.SitemapsEntry.#ctor">
+            <summary>
+            Constructs a new SitemapsEntry instance
+            </summary>
+        </member>
+        <member name="P:Google.GData.WebmasterTools.SitemapsEntry.Mobile">
+            <summary>
+            getter/setter for Mobile subelement
+            </summary>
+        </member>
+        <member name="P:Google.GData.WebmasterTools.SitemapsEntry.SitemapLastDownloaded">
+            <summary>
+            getter/setter for SitemapLastDownloaded subelement
+            </summary>
+        </member>
+        <member name="P:Google.GData.WebmasterTools.SitemapsEntry.SitemapMobile">
+            <summary>
+            getter/setter for SitemapMobile subelement
+            </summary>
+        </member>
+        <member name="P:Google.GData.WebmasterTools.SitemapsEntry.SitemapMobileMarkupLanguage">
+            <summary>
+            getter/setter for SitemapMobileMarkupLanguage subelement
+            </summary>
+        </member>
+        <member name="P:Google.GData.WebmasterTools.SitemapsEntry.SitemapNews">
+            <summary>
+            getter/setter for SitemapNews subelement
+            </summary>
+        </member>
+        <member name="P:Google.GData.WebmasterTools.SitemapsEntry.SitemapNewsPublicationLabel">
+            <summary>
+            getter/setter for SitemapNewsPublicationLabel subelement
+            </summary>
+        </member>
+        <member name="P:Google.GData.WebmasterTools.SitemapsEntry.SitemapType">
+            <summary>
+            getter/setter for SitemapType subelement
+            </summary>
+        </member>
+        <member name="P:Google.GData.WebmasterTools.SitemapsEntry.SitemapUrlCount">
+            <summary>
+            getter/setter for SitemapUrlCount subelement
+            </summary>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.KeywordsEntry.#ctor">
+            <summary>
+            Constructs a new KeywordsEntry instance
+            </summary>
+        </member>
+        <member name="P:Google.GData.WebmasterTools.KeywordsEntry.Keyword">
+            <summary>
+            getter/setter for Keyword subelement
+            </summary>
+        </member>
+        <member name="F:Google.GData.WebmasterTools.WebmasterToolsNameTable.BaseUserUri">
+            <summary>
+            base uri for user based feeds
+            </summary>
+        </member>
+        <member name="F:Google.GData.WebmasterTools.WebmasterToolsNameTable.gWebmasterToolsPrefix">
+            <summary>prefix for gWebmasterToolsNamspace if writing</summary>
+        </member>
+        <member name="F:Google.GData.WebmasterTools.WebmasterToolsNameTable.XmlCrawlRateElement">
+            Sites feed
+            <summary>xmlelement for wt:crawl-rate</summary> 
+        </member>
+        <member name="F:Google.GData.WebmasterTools.WebmasterToolsNameTable.XmlGeoLocationElement">
+            <summary>xmlelement for wt:geolocation</summary>
+        </member>
+        <member name="F:Google.GData.WebmasterTools.WebmasterToolsNameTable.XmlPreferredDomainElement">
+            <summary>xmlelement for wt:preferred-domain</summary>
+        </member>
+        <member name="F:Google.GData.WebmasterTools.WebmasterToolsNameTable.XmlVerificationMethodElement">
+            <summary>xmlelement for wt:verification-method</summary>
+        </member>
+        <member name="F:Google.GData.WebmasterTools.WebmasterToolsNameTable.XmlAttributeType">
+            <summary>xml attribute type for wt:verification-method</summary> 
+        </member>
+        <member name="F:Google.GData.WebmasterTools.WebmasterToolsNameTable.XmlAttributeInUse">
+            <summary>xml attribute in-use for wt:verification-method</summary> 
+        </member>
+        <member name="F:Google.GData.WebmasterTools.WebmasterToolsNameTable.XmlVerifiedElement">
+            <summary>xmlelement for wt:verified</summary>
+        </member>
+        <member name="F:Google.GData.WebmasterTools.WebmasterToolsNameTable.XmlDateElement">
+            <summary>xmlelement for wt:date</summary>
+        </member>
+        <member name="F:Google.GData.WebmasterTools.WebmasterToolsNameTable.XmlKeywordElement">
+            Keywords feed
+            <summary>xmlelement for wt:keyword</summary> 
+        </member>
+        <member name="F:Google.GData.WebmasterTools.WebmasterToolsNameTable.XmlAttributeSource">
+            <summary>xml attribute source for wt:keyword</summary> 
+        </member>
+        <member name="F:Google.GData.WebmasterTools.WebmasterToolsNameTable.XmlMobileElement">
+            Sitemaps feed
+            <summary>xmlelement for mobile:mobile</summary>
+        </member>
+        <member name="F:Google.GData.WebmasterTools.WebmasterToolsNameTable.XmlSitemapLastDownloadedElement">
+            <summary>xmlelement for wt:sitemap-last-downloaded</summary>
+        </member>
+        <member name="F:Google.GData.WebmasterTools.WebmasterToolsNameTable.XmlSitemapMobileElement">
+            <summary>xmlelement for wt:sitemap-mobile</summary>
+        </member>
+        <member name="F:Google.GData.WebmasterTools.WebmasterToolsNameTable.XmlSitemapMobileMarkupLanguageElement">
+            <summary>xmlelement for wt:sitemap-mobile-markup-language</summary>
+        </member>
+        <member name="F:Google.GData.WebmasterTools.WebmasterToolsNameTable.XmlSitemapNewsElement">
+            <summary>xmlelement for wt:sitemap-news</summary>
+        </member>
+        <member name="F:Google.GData.WebmasterTools.WebmasterToolsNameTable.XmlSitemapNewsPublicationLabelElement">
+            <summary>xmlelement for wt:sitemap-news-publication-label</summary>
+        </member>
+        <member name="F:Google.GData.WebmasterTools.WebmasterToolsNameTable.XmlSitemapTypeElement">
+            <summary>xmlelement for wt:sitemap-type</summary>
+        </member>
+        <member name="F:Google.GData.WebmasterTools.WebmasterToolsNameTable.XmlSitemapUrlCountElement">
+            <summary>xmlelement for wt:sitemap-url-count</summary>
+        </member>
+        <member name="F:Google.GData.WebmasterTools.WebmasterToolsNameTable.XmlBodyElement">
+            Messages feed
+            <summary>xmlelement for wt:body</summary>
+        </member>
+        <member name="F:Google.GData.WebmasterTools.WebmasterToolsNameTable.XmlLanguageElement">
+            wt:date already exists
+            <summary>xmlelement for wt:language</summary>
+        </member>
+        <member name="F:Google.GData.WebmasterTools.WebmasterToolsNameTable.XmlAttributeLanguage">
+            <summary>xml attribute language for wt:language</summary> 
+        </member>
+        <member name="F:Google.GData.WebmasterTools.WebmasterToolsNameTable.XmlReadElement">
+            <summary>xmlelement for wt:read</summary>
+        </member>
+        <member name="F:Google.GData.WebmasterTools.WebmasterToolsNameTable.XmlSubjectElement">
+            <summary>xmlelement for wt:subject</summary>
+        </member>
+        <member name="F:Google.GData.WebmasterTools.WebmasterToolsNameTable.XmlAttributeSubject">
+            <summary>xml attribute subject for wt:subject</summary>
+        </member>
+        <member name="F:Google.GData.WebmasterTools.WebmasterToolsNameTable.XmlCrawlTypeElement">
+            Crawl Issues feed
+            <summary>xmlelement for wt:crawl-type</summary>
+        </member>
+        <member name="F:Google.GData.WebmasterTools.WebmasterToolsNameTable.XmlIssueTypeElement">
+            <summary>xmlelement for wt:issue-type</summary>
+        </member>
+        <member name="F:Google.GData.WebmasterTools.WebmasterToolsNameTable.XmlIssueDetailElement">
+            <summary>xmlelement for wt:issue-detail</summary>
+        </member>
+        <member name="F:Google.GData.WebmasterTools.WebmasterToolsNameTable.XmlLinkedFromElement">
+            <summary>xmlelement for wt:linked-from</summary>
+        </member>
+        <member name="F:Google.GData.WebmasterTools.WebmasterToolsNameTable.XmlDateDetectedElement">
+            <summary>xmlelement for wt:date-detected</summary>
+        </member>
+        <member name="T:Google.GData.WebmasterTools.CrawlRate">
+            <summary>
+            wt:crawl-rate schema extension describing a Webmaster Tools Crawl Rate
+            </summary>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.CrawlRate.#ctor">
+            <summary>
+            default constructor
+            </summary>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.CrawlRate.#ctor(System.String)">
+            <summary>
+            constructor taking the initial value
+            </summary>
+            <param name="initValue"></param>
+        </member>
+        <member name="T:Google.GData.WebmasterTools.GeoLocation">
+            <summary>
+            wt:geolocation schema extension describing a Webmaster Tools Geolocation
+            </summary>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.GeoLocation.#ctor">
+            <summary>
+            default constructor
+            </summary>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.GeoLocation.#ctor(System.String)">
+            <summary>
+            constructor taking the initial value
+            </summary>
+            <param name="initValue"></param>
+        </member>
+        <member name="T:Google.GData.WebmasterTools.PreferredDomain">
+            <summary>
+            wt:perferred-domain schema extension describing a Webmaster Tools Perferred Domain
+            </summary>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.PreferredDomain.#ctor">
+            <summary>
+            default constructor
+            </summary>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.PreferredDomain.#ctor(System.String)">
+            <summary>
+            constructor taking the initial value
+            </summary>
+            <param name="initValue"></param>
+        </member>
+        <member name="T:Google.GData.WebmasterTools.VerificationMethod">
+            <summary>
+            wt:verification-method schema extension describing a Webmaster Tools Verification Method
+            </summary>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.VerificationMethod.#ctor">
+            <summary>
+            default constructor
+            </summary>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.VerificationMethod.#ctor(System.String,System.String)">
+            <summary>
+            constructor taking the initial value
+            </summary>
+            <param name="type"></param>
+            <param name="inUse"></param>
+        </member>
+        <member name="P:Google.GData.WebmasterTools.VerificationMethod.Type">
+            <summary>convienience accessor for the Type attribute</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.WebmasterTools.VerificationMethod.InUse">
+            <summary>convienience accessor for the In Use attribute</summary> 
+            <returns> </returns>
+        </member>
+        <member name="T:Google.GData.WebmasterTools.Verified">
+            <summary>
+            wt:verified schema extension describing a Webmaster Tools Verified
+            </summary>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.Verified.#ctor">
+            <summary>
+            default constructor
+            </summary>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.Verified.#ctor(System.String)">
+            <summary>
+            constructor taking the initial value
+            </summary>
+            <param name="initValue"></param>
+        </member>
+        <member name="T:Google.GData.WebmasterTools.Date">
+            <summary>
+            wt:date schema extension describing a Webmaster Tools Date
+            </summary>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.Date.#ctor">
+            <summary>
+            default constructor
+            </summary>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.Date.#ctor(System.String)">
+            <summary>
+            constructor taking the initial value
+            </summary>
+            <param name="initValue"></param>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.Keyword.#ctor">
+            <summary>
+            default constructor
+            </summary>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.Keyword.#ctor(System.String)">
+            <summary>
+            constructor taking the initial value
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.Mobile.#ctor">
+            <summary>
+            default constructor
+            </summary>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.Mobile.#ctor(System.String)">
+            <summary>
+            constructor taking the initial value
+            </summary>
+            <param name="initValue"></param>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.SitemapLastDownloaded.#ctor">
+            <summary>
+            default constructor
+            </summary>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.SitemapLastDownloaded.#ctor(System.String)">
+            <summary>
+            constructor taking the initial value
+            </summary>
+            <param name="initValue"></param>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.SitemapMobile.#ctor">
+            <summary>
+            default constructor
+            </summary>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.SitemapMobile.#ctor(System.String)">
+            <summary>
+            constructor taking the initial value
+            </summary>
+            <param name="initValue"></param>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.SitemapMobileMarkupLanguage.#ctor">
+            <summary>
+            default constructor
+            </summary>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.SitemapMobileMarkupLanguage.#ctor(System.String)">
+            <summary>
+            constructor taking the initial value
+            </summary>
+            <param name="initValue"></param>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.SitemapNews.#ctor">
+            <summary>
+            default constructor
+            </summary>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.SitemapNews.#ctor(System.String)">
+            <summary>
+            constructor taking the initial value
+            </summary>
+            <param name="initValue"></param>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.SitemapNewsPublicationLabel.#ctor">
+            <summary>
+            default constructor
+            </summary>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.SitemapNewsPublicationLabel.#ctor(System.String)">
+            <summary>
+            constructor taking the initial value
+            </summary>
+            <param name="initValue"></param>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.SitemapType.#ctor">
+            <summary>
+            default constructor
+            </summary>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.SitemapType.#ctor(System.String)">
+            <summary>
+            constructor taking the initial value
+            </summary>
+            <param name="initValue"></param>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.SitemapUrlCount.#ctor">
+            <summary>
+            default constructor
+            </summary>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.SitemapUrlCount.#ctor(System.String)">
+            <summary>
+            constructor taking the initial value
+            </summary>
+            <param name="initValue"></param>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.Body.#ctor">
+            <summary>
+            default constructor
+            </summary>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.Body.#ctor(System.String)">
+            <summary>
+            constructor taking the initial value
+            </summary>
+            <param name="initValue"></param>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.Language.#ctor">
+            <summary>
+            default constructor
+            </summary>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.Language.#ctor(System.String)">
+            <summary>
+            constructor taking the initial value
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="P:Google.GData.WebmasterTools.Language.LanguageAttribute">
+            <summary>convienience accessor for the Language attribute</summary> 
+            <returns> </returns>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.Read.#ctor">
+            <summary>
+            default constructor
+            </summary>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.Read.#ctor(System.String)">
+            <summary>
+            constructor taking the initial value
+            </summary>
+            <param name="initValue"></param>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.Subject.#ctor">
+            <summary>
+            default constructor
+            </summary>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.Subject.#ctor(System.String)">
+            <summary>
+            constructor taking the initial value
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="P:Google.GData.WebmasterTools.Subject.SubjectAttribute">
+            <summary>convienience accessor for the Subject attribute</summary> 
+            <returns> </returns>
+        </member>
+        <member name="T:Google.GData.WebmasterTools.CrawlType">
+            <summary>
+            wt:crawl-type schema extension describing a Webmaster Tools Crawl Type
+            </summary>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.CrawlType.#ctor">
+            <summary>
+            default constructor
+            </summary>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.CrawlType.#ctor(System.String)">
+            <summary>
+            constructor taking the initial value
+            </summary>
+            <param name="initValue"></param>
+        </member>
+        <member name="T:Google.GData.WebmasterTools.IssueType">
+            <summary>
+            wt:issue-type schema extension describing a Webmaster Tools Issue Type
+            </summary>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.IssueType.#ctor">
+            <summary>
+            default constructor
+            </summary>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.IssueType.#ctor(System.String)">
+            <summary>
+            constructor taking the initial value
+            </summary>
+            <param name="initValue"></param>
+        </member>
+        <member name="T:Google.GData.WebmasterTools.IssueDetail">
+            <summary>
+            wt:issue-detail schema extension describing a Webmaster Tools Issue Detail
+            </summary>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.IssueDetail.#ctor">
+            <summary>
+            default constructor
+            </summary>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.IssueDetail.#ctor(System.String)">
+            <summary>
+            constructor taking the initial value
+            </summary>
+            <param name="initValue"></param>
+        </member>
+        <member name="T:Google.GData.WebmasterTools.LinkedFrom">
+            <summary>
+            wt:linked-from schema extension describing a Webmaster Tools Linked From
+            </summary>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.LinkedFrom.#ctor">
+            <summary>
+            default constructor
+            </summary>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.LinkedFrom.#ctor(System.String)">
+            <summary>
+            constructor taking the initial value
+            </summary>
+            <param name="initValue"></param>
+        </member>
+        <member name="T:Google.GData.WebmasterTools.DateDetected">
+            <summary>
+            wt:date-detected schema extension describing a Webmaster Tools Date Detected
+            </summary>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.DateDetected.#ctor">
+            <summary>
+            default constructor
+            </summary>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.DateDetected.#ctor(System.String)">
+            <summary>
+            constructor taking the initial value
+            </summary>
+            <param name="initValue"></param>
+        </member>
+        <member name="F:Google.GData.WebmasterTools.MessagesQuery.HttpsFeedUrl">
+            <summary>
+             service url, http and https 
+            </summary>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.MessagesQuery.#ctor">
+            <summary>
+            default constructor, does nothing 
+            </summary>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.MessagesQuery.#ctor(System.String)">
+            <summary>
+            base constructor, with initial queryUri
+            </summary>
+            <param name="queryUri">the query to use</param>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.SitesEntry.#ctor">
+            <summary>
+            Constructs a new SitesEntry instance
+            </summary>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.SitesEntry.Update">
+            <summary>
+            typed override of the Update method
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.GData.WebmasterTools.SitesEntry.CrawlRate">
+            <summary>
+            getter/setter for Crawl Rate subelement
+            </summary>
+        </member>
+        <member name="P:Google.GData.WebmasterTools.SitesEntry.GeoLocation">
+            <summary>
+            getter/setter for Geolocation subelement
+            </summary>
+        </member>
+        <member name="P:Google.GData.WebmasterTools.SitesEntry.PreferredDomain">
+            <summary>
+            getter/setter for Preferred-Domain subelement
+            </summary>
+        </member>
+        <member name="P:Google.GData.WebmasterTools.SitesEntry.VerificationMethod">
+            <summary>
+            getter/setter for Verification-Method subelement
+            </summary>
+        </member>
+        <member name="P:Google.GData.WebmasterTools.SitesEntry.Verified">
+            <summary>
+            getter/setter for Verified subelement
+            </summary>
+        </member>
+        <member name="F:Google.GData.WebmasterTools.WebmasterToolsService.GWebmasterToolsService">
+            <summary>The Webmaster Tools service's name</summary> 
+        </member>
+        <member name="M:Google.GData.WebmasterTools.WebmasterToolsService.#ctor(System.String)">
+            <summary>
+             default constructor
+            </summary>
+            <param name="applicationName">the applicationname</param>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.WebmasterToolsService.Query(Google.GData.WebmasterTools.CrawlIssuesQuery)">
+            <summary>
+            overloaded to create typed version of Query
+            </summary>
+            <param name="feedQuery"></param>
+            <returns>CrawlIssuesFeed</returns>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.WebmasterToolsService.Query(Google.GData.WebmasterTools.KeywordsQuery)">
+            <summary>
+            overloaded to create typed version of Query
+            </summary>
+            <param name="feedQuery"></param>
+            <returns>KeywordsFeed</returns>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.WebmasterToolsService.Query(Google.GData.WebmasterTools.MessagesQuery)">
+            <summary>
+            overloaded to create typed version of Query
+            </summary>
+            <param name="feedQuery"></param>
+            <returns>MessagesFeed</returns>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.WebmasterToolsService.Query(Google.GData.WebmasterTools.SitemapsQuery)">
+            <summary>
+            overloaded to create typed version of Query
+            </summary>
+            <param name="feedQuery"></param>
+            <returns>SitemapsFeed</returns>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.WebmasterToolsService.Query(Google.GData.WebmasterTools.SitesQuery)">
+            <summary>
+            overloaded to create typed version of Query
+            </summary>
+            <param name="feedQuery"></param>
+            <returns>SitesFeed</returns>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.WebmasterToolsService.InitVersionInformation">
+            <summary>
+            by default all services now use version 1 for the protocol.
+            this needs to be overridden by a service to specify otherwise. 
+            YouTube uses version 2
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.WebmasterToolsService.OnNewFeed(System.Object,Google.GData.Client.ServiceEventArgs)">
+            <summary>eventchaining. We catch this by from the base service, which 
+            would not by default create an atomFeed</summary> 
+            <param name="sender"> the object which send the event</param>
+            <param name="e">FeedParserEventArguments, holds the feedentry</param> 
+            <returns> </returns>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.MessagesFeed.CreateFeedEntry">
+            <summary>
+            this needs to get implemented by subclasses
+            </summary>
+            <returns>AtomEntry</returns>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.MessagesFeed.HandleExtensionElements(Google.GData.Client.ExtensionElementEventArgs,Google.GData.Client.AtomFeedParser)">
+            <summary>
+            Is called after we already handled the custom entry, to handle all 
+            other potential parsing tasks
+            </summary>
+            <param name="e"></param>
+            <param name="parser">the atom feed parser used</param>
+        </member>
+        <member name="F:Google.GData.WebmasterTools.CrawlIssuesQuery.HttpsFeedUrl">
+            <summary>
+             service url, http and https 
+            </summary>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.CrawlIssuesQuery.#ctor">
+            <summary>
+            default constructor, does nothing 
+            </summary>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.CrawlIssuesQuery.#ctor(System.String)">
+            <summary>
+            base constructor, with initial queryUri
+            </summary>
+            <param name="queryUri">the query to use</param>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.CrawlIssuesQuery.CreateCustomUri(System.String)">
+            <summary>
+            convienience method to create an URI based on a siteID
+            </summary>
+            <param name="siteID"></param>
+            <returns>string</returns>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.SitesFeed.CreateFeedEntry">
+            <summary>
+            this needs to get implemented by subclasses
+            </summary>
+            <returns>AtomEntry</returns>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.SitesFeed.HandleExtensionElements(Google.GData.Client.ExtensionElementEventArgs,Google.GData.Client.AtomFeedParser)">
+            <summary>
+            Is called after we already handled the custom entry, to handle all 
+            other potential parsing tasks
+            </summary>
+            <param name="e"></param>
+            <param name="parser">the atom feed parser used</param>
+        </member>
+        <member name="F:Google.GData.WebmasterTools.SitemapsQuery.HttpsFeedUrl">
+            <summary>
+             service url, http and https 
+            </summary>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.SitemapsQuery.#ctor">
+            <summary>
+            default constructor, does nothing 
+            </summary>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.SitemapsQuery.#ctor(System.String)">
+            <summary>
+            base constructor, with initial queryUri
+            </summary>
+            <param name="queryUri">the query to use</param>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.SitemapsQuery.CreateCustomUri(System.String)">
+            <summary>
+            convienience method to create an URI based on a siteID
+            </summary>
+            <param name="siteId"></param>
+            <returns>string</returns>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.KeywordsQuery.#ctor">
+            <summary>
+            default constructor, does nothing 
+            </summary>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.KeywordsQuery.#ctor(System.String)">
+            <summary>
+            base constructor, with initial queryUri
+            </summary>
+            <param name="queryUri">the query to use</param>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.KeywordsQuery.CreateCustomUri(System.String)">
+            <summary>
+            convienience method to create an URI based on a siteID
+            </summary>
+            <param name="siteId"></param>
+            <returns>string</returns>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.KeywordsFeed.CreateFeedEntry">
+            <summary>
+            this needs to get implemented by subclasses
+            </summary>
+            <returns>AtomEntry</returns>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.KeywordsFeed.HandleExtensionElements(Google.GData.Client.ExtensionElementEventArgs,Google.GData.Client.AtomFeedParser)">
+            <summary>
+            Is called after we already handled the custom entry, to handle all 
+            other potential parsing tasks
+            </summary>
+            <param name="e"></param>
+            <param name="parser">the atom feed parser used</param>
+        </member>
+        <member name="F:Google.GData.WebmasterTools.SitesQuery.HttpsFeedUrl">
+            <summary>
+             service url, http and https 
+            </summary>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.SitesQuery.#ctor">
+            <summary>
+            default constructor, does nothing 
+            </summary>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.SitesQuery.#ctor(System.String)">
+            <summary>
+            base constructor, with initial queryUri
+            </summary>
+            <param name="queryUri">the query to use</param>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.SitesQuery.CreateCustomUri(System.String)">
+            <summary>
+            convienience method to create an URI based on a siteID
+            </summary>
+            <param name="siteId"></param>
+            <returns>string</returns>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.CrawlIssuesFeed.CreateFeedEntry">
+            <summary>
+            this needs to get implemented by subclasses
+            </summary>
+            <returns>AtomEntry</returns>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.CrawlIssuesFeed.HandleExtensionElements(Google.GData.Client.ExtensionElementEventArgs,Google.GData.Client.AtomFeedParser)">
+            <summary>
+            Is called after we already handled the custom entry, to handle all 
+            other potential parsing tasks
+            </summary>
+            <param name="e"></param>
+            <param name="parser">the atom feed parser used</param>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.MessagesEntry.#ctor">
+            <summary>
+            Constructs a new MessagesEntry instance
+            </summary>
+        </member>
+        <member name="P:Google.GData.WebmasterTools.MessagesEntry.Body">
+            <summary>
+            getter/setter for Body subelement
+            </summary>
+        </member>
+        <member name="P:Google.GData.WebmasterTools.MessagesEntry.Date">
+            <summary>
+            getter/setter for Date subelement
+            </summary>
+        </member>
+        <member name="P:Google.GData.WebmasterTools.MessagesEntry.LanguageElement">
+            <summary>
+            getter/setter for Language subelement
+            </summary>
+        </member>
+        <member name="P:Google.GData.WebmasterTools.MessagesEntry.Read">
+            <summary>
+            getter/setter for Read subelement
+            </summary>
+        </member>
+        <member name="P:Google.GData.WebmasterTools.MessagesEntry.Subject">
+            <summary>
+            getter/setter for Subject subelement
+            </summary>
+        </member>
+        <member name="M:Google.WebmasterTools.CrawlIssues.EnsureInnerObject">
+            <summary>
+            creates the crawlissues object when needed
+            </summary>
+        </member>
+        <member name="P:Google.WebmasterTools.CrawlIssues.CrawlIssuesEntry">
+            <summary>
+            readonly accessor to the typed underlying atom object
+            </summary>
+        </member>
+        <member name="M:Google.WebmasterTools.Keywords.EnsureInnerObject">
+            <summary>
+            creates the keywords object when needed
+            </summary>
+        </member>
+        <member name="P:Google.WebmasterTools.Keywords.KeywordsEntry">
+            <summary>
+            readonly accessor to the typed underlying atom object
+            </summary>
+        </member>
+        <member name="M:Google.WebmasterTools.Messages.EnsureInnerObject">
+            <summary>
+            creates the messages object when needed
+            </summary>
+        </member>
+        <member name="P:Google.WebmasterTools.Messages.MessagesEntry">
+            <summary>
+            readonly accessor to the typed underlying atom object
+            </summary>
+        </member>
+        <member name="M:Google.WebmasterTools.Sitemap.EnsureInnerObject">
+            <summary>
+            creates the inner contact object when needed
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.WebmasterTools.Sitemap.SitemapsEntry">
+            <summary>
+            readonly accessor to the typed underlying atom object
+            </summary>
+        </member>
+        <member name="M:Google.WebmasterTools.Sites.EnsureInnerObject">
+            <summary>
+            creates the sites object when needed
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.WebmasterTools.Sites.SitesEntry">
+            <summary>
+            readonly accessor to the typed underlying atom object
+            </summary>
+        </member>
+        <member name="P:Google.WebmasterTools.Sites.CrawlRate">
+            <summary>
+            getter/setter for Crawl Rate subelement
+            </summary>
+        </member>
+        <member name="P:Google.WebmasterTools.Sites.GeoLocation">
+            <summary>
+            getter/setter for Geolocation subelement
+            </summary>
+        </member>
+        <member name="P:Google.WebmasterTools.Sites.PreferredDomain">
+            <summary>
+            getter/setter for Preferred-Domain subelement
+            </summary>
+        </member>
+        <member name="P:Google.WebmasterTools.Sites.VerificationMethod">
+            <summary>
+            getter/setter for Verification-Method subelement
+            </summary>
+        </member>
+        <member name="P:Google.WebmasterTools.Sites.Verified">
+            <summary>
+            getter/setter for Verified subelement
+            </summary>
+        </member>
+        <member name="M:Google.WebmasterTools.WebmasterToolsRequest.#ctor(Google.GData.Client.RequestSettings)">
+            <summary>
+            default constructor for a WebmasterToolsRequest
+            </summary>
+            <param name="settings"></param>
+        </member>
+        <member name="M:Google.WebmasterTools.WebmasterToolsRequest.GetCrawlIssues(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="siteId">the id of the site</param>
+            <returns>a feed of CrawlIssues objects</returns>
+        </member>
+        <member name="M:Google.WebmasterTools.WebmasterToolsRequest.GetKeywords(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="siteId">the id of the site</param>
+            <returns>a feed of Keywords objects</returns>
+        </member>
+        <member name="M:Google.WebmasterTools.WebmasterToolsRequest.GetMessages">
+            <summary>
+            
+            </summary>
+            <returns>a feed of Messages objects</returns>
+        </member>
+        <member name="M:Google.WebmasterTools.WebmasterToolsRequest.GetSitemaps(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="siteId">the id of the site</param>
+            <returns>a feed of Sitemap objects</returns>
+        </member>
+        <member name="M:Google.WebmasterTools.WebmasterToolsRequest.AddSitemap(System.String,Google.WebmasterTools.Sitemap)">
+            <summary>
+            
+            </summary>
+            <param name="siteId">the id of the site</param>
+            <param name="sitemap"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Google.WebmasterTools.WebmasterToolsRequest.GetSites">
+            <summary>
+            returns a Feed of sites for the authenticated user
+            </summary>
+            <returns>a feed of Sites objects</returns>
+        </member>
+        <member name="M:Google.WebmasterTools.WebmasterToolsRequest.AddSite(Google.WebmasterTools.Sites)">
+            <summary>
+            add a new site to account
+            </summary>
+            <param name="s">the sites to add</param>
+            <returns>the created site</returns>
+        </member>
+        <member name="M:Google.WebmasterTools.WebmasterToolsRequest.UpdateSiteEntry(Google.WebmasterTools.Sites,System.String)">
+            <summary>
+            updates a site entry
+            </summary>
+            <param name="entry">the entry to update</param>
+            <param name="siteId">the id of the site</param>
+            <returns>the updated site entry</returns>
+        </member>
+        <member name="M:Google.GData.WebmasterTools.CrawlIssuesEntry.#ctor">
+            <summary>
+            Constructs a new CrawlIssuesEntry instance
+            </summary>
+        </member>
+        <member name="P:Google.GData.WebmasterTools.CrawlIssuesEntry.CrawlType">
+            <summary>
+            getter/setter for CrawlType subelement
+            </summary>
+        </member>
+        <member name="P:Google.GData.WebmasterTools.CrawlIssuesEntry.IssueType">
+            <summary>
+            getter/setter for IssueType subelement
+            </summary>
+        </member>
+        <member name="P:Google.GData.WebmasterTools.CrawlIssuesEntry.IssueDetail">
+            <summary>
+            getter/setter for IssueDetail subelement
+            </summary>
+        </member>
+        <member name="P:Google.GData.WebmasterTools.CrawlIssuesEntry.LinkedFrom">
+            <summary>
+            getter/setter for LinkedFrom subelement
+            </summary>
+        </member>
+        <member name="P:Google.GData.WebmasterTools.CrawlIssuesEntry.DateDetected">
+            <summary>
+            getter/setter for DateDetected subelement
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -620,7 +620,7 @@
         </member>
         <member name="M:Google.Documents.Document.EnsureInnerObject">
             <summary>
-            creates the inner contact object when needed
+            creates the inner document entry object when needed
             </summary>
             <returns></returns>
         </member>
@@ -638,7 +638,7 @@
         </member>
         <member name="P:Google.Documents.Document.ParentFolders">
             <summary>
-            returns the href values of the parent link releationships
+            returns the href values of the parent link relationships
             can be used to retrieve the parent folder
             </summary>
             <returns></returns>
@@ -652,8 +652,8 @@
         </member>
         <member name="P:Google.Documents.Document.WritersCanInvite">
             <summary>
-            returns if colaborators should be able to modify 
-            the documents ACL list
+            returns true if collaborators are allowed to modify 
+            the document ACL list
             </summary>
             <returns></returns>
         </member>
@@ -665,14 +665,14 @@
         </member>
         <member name="P:Google.Documents.Document.LastModified">
             <summary>
-            returns the last modifiedBy subobject, indicating
-            who edited the document last
+            returns the LastModifiedBy object indicating
+            who last edited the document
             </summary>
             <returns></returns>
         </member>
         <member name="P:Google.Documents.Document.QuotaBytesUsed">
             <summary>
-            returns the quota used by the object. 0 if not availabe
+            returns the quota used by the object. 0 if not available
             </summary>
         </member>
         <member name="P:Google.Documents.Document.AccessControlList">
@@ -729,7 +729,7 @@
         </member>
         <member name="F:Google.Documents.Document.DocumentType.Unknown">
             <summary>
-            something unknown to us
+            an unknown document type
             </summary>
         </member>
         <member name="T:Google.Documents.Document.DownloadType">
@@ -749,7 +749,7 @@
         </member>
         <member name="F:Google.Documents.Document.DownloadType.pdf">
             <summary>
-            portable document format PFDF
+            portable document format PDF
             </summary>
         </member>
         <member name="F:Google.Documents.Document.DownloadType.html">
@@ -773,7 +773,9 @@
             </summary>
         </member>
         <member name="F:Google.Documents.Document.DownloadType.zip">
-            <summary>zip format</summary>
+            <summary>
+            zip format
+            </summary>
         </member>
         <member name="F:Google.Documents.Document.DownloadType.swf">
             <summary>
@@ -916,7 +918,7 @@
         </member>
         <member name="M:Google.Documents.DocumentsRequest.CreateDocument(Google.Documents.Document)">
             <summary>
-            this will create an empty document or folder, pending
+            this will create an empty document or folder, according to
             the content of the newDocument parameter
             </summary>
             <param name="newDocument"></param>
@@ -924,10 +926,9 @@
         </member>
         <member name="M:Google.Documents.DocumentsRequest.CreateFile(Google.Documents.Document)">
             <summary>
-            this will create an empty document or folder, pending
-            the content of the newDocument parameter. This will
-            append the convert=false paramter to allow for arbitrary file
-            uploads
+            this will create an empty document or folder, according to
+            the content of the newDocument parameter. This will append
+            the convert=false parameter to allow arbitrary file uploads
             </summary>
             <param name="newDocument"></param>
             <returns>the created document from the server</returns>
@@ -955,9 +956,9 @@
             <param name="document">The document to download. It needs to have the document type set, as well as the id link</param>
             <param name="type">The output format of the document you want to download</param>
             <param name="sheetNumber">When requesting a CSV or TSV file you must specify an additional parameter called 
-            gid which indicates which grid, or sheet, you wish to get (the index is 0 based, so gid 1 
+            gid which indicates which grid, or sheet, you wish to get (the index is 0-based, so gid 1 
             actually refers to the second sheet sheet on a given spreadsheet). </param>
-            <param name="baseDomain">if null, default is used. Otherwise needs to specify the domain to download from, ending with a slash</param>
+            <param name="baseDomain">OBSOLETE - if null, default is used. Otherwise needs to specify the domain to download from, ending with a slash</param>
             <returns></returns>
         </member>
         <member name="M:Google.Documents.DocumentsRequest.Download(Google.Documents.Document,System.String)">
@@ -968,6 +969,11 @@
             <param name="document">a Document Entry</param>
             <param name="exportFormat">a string for the exportformat parameter or null</param>
             <returns></returns>
+        </member>
+        <member name="M:Google.Documents.DocumentsRequest.BuildDocumentPartialExportUrl(System.String)">
+            <summary>
+            helper function used by the Download methods
+            </summary>
         </member>
         <member name="P:Google.Documents.DocumentsRequest.BaseUri">
             <summary>
