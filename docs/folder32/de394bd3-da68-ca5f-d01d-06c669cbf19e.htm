@@ -97,7 +97,7 @@
         </tr>
         <tr id="headerTableRow3">
           <td align="left">
-            <a  href="../folder32/cc81b247-7a22-9ddc-531d-07c92ec77c81.htm">OAuthUtil Class</a> <a  href="#constructorTableToggle" onclick="OpenSection(constructorTableToggle)">Constructors</a> <a  href="#methodTableToggle" onclick="OpenSection(methodTableToggle)">Methods</a> <a  href="#fieldTableToggle" onclick="OpenSection(fieldTableToggle)">Fields</a> <a  href="#seeAlsoToggle" onclick="OpenSection(seeAlsoToggle)">See Also</a> <span id="headfeedbackarea" class="feedbackhead"><a  href="javascript:SubmitFeedback('','Google GData Documentation','','','','%0\dYour%20feedback%20is%20used%20to%20improve%20the%20documentation%20and%20the%20product.%20Your%20e-mail%20address%20will%20not%20be%20used%20for%20any%20other%20purpose%20and%20is%20disposed%20of%20after%20the%20issue%20you%20report%20is%20resolved.%20%20While%20working%20to%20resolve%20the%20issue%20that%20you%20report,%20you%20may%20be%20contacted%20via%20e-mail%20to%20get%20further%20details%20or%20clarification%20on%20the%20feedback%20you%20sent.%20After%20the%20issue%20you%20report%20has%20been%20addressed,%20you%20may%20receive%20an%20e-mail%20to%20let%20you%20know%20that%20your%20feedback%20has%20been%20addressed.%0\A%0\d','Customer%20Feedback');">Send Feedback</a></span></td>
+            <a  href="../folder32/cc81b247-7a22-9ddc-531d-07c92ec77c81.htm">OAuthUtil Class</a> <a  href="#constructorTableToggle" onclick="OpenSection(constructorTableToggle)">Constructors</a> <a  href="#methodTableToggle" onclick="OpenSection(methodTableToggle)">Methods</a> <a  href="#seeAlsoToggle" onclick="OpenSection(seeAlsoToggle)">See Also</a> <span id="headfeedbackarea" class="feedbackhead"><a  href="javascript:SubmitFeedback('','Google GData Documentation','','','','%0\dYour%20feedback%20is%20used%20to%20improve%20the%20documentation%20and%20the%20product.%20Your%20e-mail%20address%20will%20not%20be%20used%20for%20any%20other%20purpose%20and%20is%20disposed%20of%20after%20the%20issue%20you%20report%20is%20resolved.%20%20While%20working%20to%20resolve%20the%20issue%20that%20you%20report,%20you%20may%20be%20contacted%20via%20e-mail%20to%20get%20further%20details%20or%20clarification%20on%20the%20feedback%20you%20sent.%20After%20the%20issue%20you%20report%20has%20been%20addressed,%20you%20may%20receive%20an%20e-mail%20to%20let%20you%20know%20that%20your%20feedback%20has%20been%20addressed.%0\A%0\d','Customer%20Feedback');">Send Feedback</a></span></td>
         </tr>
       </table>
       <table id="gradientTable">
@@ -153,6 +153,23 @@
               <th class="nameColumn">Name</th>
               <th class="descriptionColumn">Description</th>
             </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method">
+                <img src="../icons/static.gif" alt="Static member" title="Static member">
+              </td>
+              <td>
+                <a  href="../folder64/9318c785-9a42-395b-695a-293eabe0f43e.htm">CreateUserAuthorizationUrl</a>
+              </td>
+              <td>
+                <div class="summary">
+            Generates the url which the user should visit in order to authenticate and
+            authorize with the Service Provider.
+            When successful, updates the OAuthParameter instance passed as parameter by setting
+            Token and TokenSecret.
+            </div>
+              </td>
+            </tr>
             <tr data="public;inherited;notNetfw;">
               <td>
                 <img src="../icons/pubmethod.gif" alt="Public method" title="Public method">
@@ -183,6 +200,20 @@
                 <img src="../icons/static.gif" alt="Static member" title="Static member">
               </td>
               <td>
+                <a  href="../folder64/3a63b002-91af-55a9-3dd5-b6d21780613e.htm">GenerateHeader(Uri, String, OAuthParameters)</a>
+              </td>
+              <td>
+                <div class="summary">
+            Generates an OAuth header.
+            </div>
+              </td>
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method">
+                <img src="../icons/static.gif" alt="Static member" title="Static member">
+              </td>
+              <td>
                 <a  href="../folder32/41a1232d-2565-320b-5494-99c12abd9611.htm">GenerateHeader(Uri, String, String, String)</a>
               </td>
               <td>
@@ -200,42 +231,26 @@
                 <a  href="../folder32/3d34c7d8-491c-6fd7-be12-c83d94745af3.htm">GenerateHeader(Uri, String, String, String, String, String)</a>
               </td>
               <td>
+                <div class="summary">
+            Generates an OAuth header.
+            </div>
+              </td>
             </tr>
-            <tr data="public;declared;notNetfw;">
+            <tr data="public;static;declared;notNetfw;">
               <td>
                 <img src="../icons/pubmethod.gif" alt="Public method" title="Public method">
+                <img src="../icons/static.gif" alt="Static member" title="Static member">
               </td>
               <td>
-                <a  href="../folder32/eef6d3c7-98f5-667a-d744-75a84c318065.htm">GenerateNonce</a>
+                <a  href="../folder64/70a463ae-f15b-bdc3-6afd-2a0e1d01a8a6.htm">GetAccessToken</a>
               </td>
               <td>
                 <div class="summary">
-            Generate a nonce
-            </div> (Overrides <a  href="../folder31/640056e0-f6c4-c43f-aa3e-bd225f95c20e.htm">OAuthBase<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>GenerateNonce<span class="languageSpecificText"><span class="cs">()</span><span class="cpp">()</span><span class="nu">()</span><span class="fs">()</span></span></a>.)</td>
-            </tr>
-            <tr data="public;inherited;notNetfw;">
-              <td>
-                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method">
+            Exchanges the user-authorized request token for an access token.
+            When successful, updates the OAuthParameter instance passed as parameter by setting
+            Token and TokenSecret.
+            </div>
               </td>
-              <td>
-                <a  href="../folder31/4e502a06-da5d-076f-163c-25274083bc1c.htm">GenerateSignature(Uri, String, String, String, String, String, String, String)</a>
-              </td>
-              <td>
-                <div class="summary">
-            Generates a signature using the HMAC-SHA1 algorithm
-            </div> (Inherited from <a  href="../folder31/dc6170db-ed66-bf65-91e5-4e688865761f.htm">OAuthBase</a>.)</td>
-            </tr>
-            <tr data="public;declared;notNetfw;">
-              <td>
-                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method">
-              </td>
-              <td>
-                <a  href="../folder32/d2f31130-b1eb-dcc8-4570-9ff098785eaa.htm">GenerateTimeStamp</a>
-              </td>
-              <td>
-                <div class="summary">
-            Generate the timestamp for the signature        
-            </div> (Overrides <a  href="../folder31/a92e3dcf-20f4-1b1a-1fa7-41c6850aff68.htm">OAuthBase<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>GenerateTimeStamp<span class="languageSpecificText"><span class="cs">()</span><span class="cpp">()</span><span class="nu">()</span><span class="fs">()</span></span></a>.)</td>
             </tr>
             <tr data="public;inherited;notNetfw;">
               <td>
@@ -261,6 +276,22 @@
                     Gets the <a  href="http://msdn2.microsoft.com/en-us/library/42892f65" target="_top">Type</a> of the current instance.
                 </div> (Inherited from <a  href="http://msdn2.microsoft.com/en-us/library/e5kfa45b" target="_top">Object</a>.)</td>
             </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method">
+                <img src="../icons/static.gif" alt="Static member" title="Static member">
+              </td>
+              <td>
+                <a  href="../folder64/27ea20cd-aeb2-1ba1-e6ee-cda6d8d82332.htm">GetUnauthorizedRequestToken</a>
+              </td>
+              <td>
+                <div class="summary">
+            Contacts Google for a request token, first step of the OAuth authentication process.
+            When successful, updates the OAuthParameter instance passed as parameter by setting
+            Token and TokenSecret.
+            </div>
+              </td>
+            </tr>
             <tr data="protected;inherited;notNetfw;">
               <td>
                 <img src="../icons/protmethod.gif" alt="Protected method" title="Protected method">
@@ -285,30 +316,21 @@
                     Returns a <a  href="http://msdn2.microsoft.com/en-us/library/s1wwdcbf" target="_top">String</a> that represents the current <a  href="http://msdn2.microsoft.com/en-us/library/e5kfa45b" target="_top">Object</a>.
                 </div> (Inherited from <a  href="http://msdn2.microsoft.com/en-us/library/e5kfa45b" target="_top">Object</a>.)</td>
             </tr>
-          </table>
-        </div>
-        <h1 class="heading">
-          <span onclick="ExpandCollapse(fieldTableToggle)" style="cursor:default;" onkeypress="ExpandCollapse_CheckKey(fieldTableToggle, event)" tabindex="0">
-            <img id="fieldTableToggle" class="toggle" name="toggleSwitch" src="../icons/collapse_all.gif">Fields</span>
-        </h1>
-        <div id="fieldTableSection" class="section" name="collapseableSection" style="">
-          <table id="memberList" class="members" frame="lhs" cellpadding="2">
-            <col width="10%">
-            <tr>
-              <th class="iconColumn">
-               
-            </th>
-              <th class="nameColumn">Name</th>
-              <th class="descriptionColumn">Description</th>
-            </tr>
-            <tr data="protected;inherited;notNetfw;">
+            <tr data="public;static;declared;notNetfw;">
               <td>
-                <img src="../icons/protfield.gif" alt="Protected field" title="Protected field">
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method">
+                <img src="../icons/static.gif" alt="Static member" title="Static member">
               </td>
               <td>
-                <a  href="../folder31/9529d125-8a0e-5713-37b7-d5d6644f5606.htm">random</a>
+                <a  href="../folder64/a8e99a62-827b-a5e9-4222-df8f5d9ec8c1.htm">UpdateOAuthParametersFromCallback</a>
               </td>
-              <td> (Inherited from <a  href="../folder31/dc6170db-ed66-bf65-91e5-4e688865761f.htm">OAuthBase</a>.)</td>
+              <td>
+                <div class="summary">
+            Helper method which parses a querystring for the OAuth related parameters.
+            It updates the OAuthParameter instance passed as parameter by setting
+            Token, TokenSecret and Verifier (if present).
+            </div>
+              </td>
             </tr>
           </table>
         </div>

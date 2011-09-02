@@ -242,13 +242,13 @@
               </td>
               <td>
                 <div class="summary">
-            Creates a HttpWebRequest object that can be used against a given service. 
-            for a RequestSetting object that is using client login, this might call 
-            to get an authentication token from the service, if it is not already set.
+             Creates a HttpWebRequest object that can be used against a given service.
+             for a RequestSetting object that is using client login, this might call
+             to get an authentication token from the service, if it is not already set.
             
-            if this uses client login, and you need to use a proxy, set the application wide
-            proxy first using the GlobalProxySelection
-            </div>
+             If this uses client login, and you need to use a proxy, set the application-wide
+             proxy first using the GlobalProxySelection
+             </div>
               </td>
             </tr>
             <tr data="public;inherited;notNetfw;">
@@ -374,9 +374,9 @@
               </td>
               <td>
                 <div class="summary">
-            AutoPaging specifies if a feed iterator should return to the server to fetch more data 
-            automatically. If set to false, a loop over feed.Entries will stop when the currently 
-            fetched set of data reaches it's end.  This is false by default. </div>
+             AutoPaging specifies if a feed iterator should return to the server to fetch more data
+             automatically. If set to false, a loop over feed.Entries will stop when the currently
+             fetched set of data reaches it's end.  This is false by default. </div>
               </td>
             </tr>
             <tr data="public;declared;notNetfw;">
@@ -387,7 +387,7 @@
                 <a  href="../folder32/74b97392-3ad2-1d75-ab7d-35b778b313e0.htm">ClientLoginHandler</a>
               </td>
               <td>
-                <div class="summary">ClientLoginHandler - this is the URI that is used to 
+                <div class="summary">ClientLoginHandler - this is the URI that is used to
             retrieve a client login authentication token
             </div>
               </td>
@@ -440,10 +440,10 @@
               </td>
               <td>
                 <div class="summary">
-            the Maximum specifies how many entries should be retrieved in total. This works together with 
-            . If set, AutoPaging of a feed will stop when the 
-            specified amount of entries was iterated over. If Maximum is smaller than  PageSize (), 
-             an exception is thrown. The default is -1 (ignored). 
+            the Maximum specifies how many entries should be retrieved in total. This works together with
+            . If set, AutoPaging of a feed will stop when the
+            specified amount of entries was iterated over. If Maximum is smaller than  PageSize (),
+             an exception is thrown. The default is -1 (ignored).
             </div>
               </td>
             </tr>
@@ -482,11 +482,11 @@
               </td>
               <td>
                 <div class="summary">
-            the pagesize specifies how many entries should be retrieved per call. If not set, 
+            the pagesize specifies how many entries should be retrieved per call. If not set,
             the server default will be used. Set it either to -1 (for default) or any value &gt; 0
-            to set the pagesize to something the server should honor. Note, that this set's the 
-            max-results parameter on the query, and the server is free to ignore that and give you less 
-            entries than you have requested. 
+            to set the pagesize to something the server should honor. Note, that this set's the
+            max-results parameter on the query, and the server is free to ignore that and give you less
+            entries than you have requested.
             </div>
               </td>
             </tr>
@@ -511,10 +511,10 @@
                 <a  href="../folder32/e3983be1-22aa-4a04-44fc-22791e70ad9e.htm">Timeout</a>
               </td>
               <td>
-                <div class="summary">get's and set's the Timeout property used for the created
-            HTTPRequestObject in milliseconds. if you set it to -1 it will stick 
-            with the default of the HTPPRequestObject. From MSDN:
-            The number of milliseconds to wait before the request times out. 
+                <div class="summary">gets and sets the Timeout property used for the created
+            HTTPRequestObject in milliseconds. if you set it to -1 it will stick
+            with the default of the HTTPRequestObject. From MSDN:
+            The number of milliseconds to wait before the request times out.
             The default is 100,000 milliseconds (100 seconds).</div>
               </td>
             </tr>
@@ -552,9 +552,9 @@
                 <a  href="../folder32/42058793-0d49-d33e-9926-1df6837f2efa.htm">UseSSL</a>
               </td>
               <td>
-                <div class="summary">get's and set's the SSL property used for the created
-            HTTPRequestObject. If true, all requests done will use https
-            The default is false .</div>
+                <div class="summary">gets and sets the SSL property used for the created
+            HTTPRequestObject. If true, all requests will use https
+            The default is false.</div>
               </td>
             </tr>
           </table>

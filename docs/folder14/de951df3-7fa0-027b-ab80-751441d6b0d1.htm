@@ -1201,7 +1201,9 @@
                 <a  href="../folder29/866ec9a2-e7b4-290a-3d07-661af128cfb5.htm">GOAuthRequest</a>
               </td>
               <td>
-                <div class="summary">GOAuthSubRequest implementation</div>
+                <div class="summary">
+            GOAuthSubRequest implementation.
+            </div>
               </td>
             </tr>
             <tr data="class; public">
@@ -1214,7 +1216,7 @@
               <td>
                 <div class="summary">
             A request factory to generate an authorization header suitable for use
-            with two-legged OAuth.
+            with OAuth.
             </div>
               </td>
             </tr>
@@ -1397,32 +1399,20 @@
             The original OAuth code from http://eran.sandler.co.il/, hosted at http://oauth.net
             Modified only to change namespace.
             Written by Eran Sandler (http://eran.sandler.co.il)
+            Edited by Claudio Cherubino and Alain Vongsouvanh
             </div>
               </td>
             </tr>
             <tr data="class; public">
               <td>
-                <img src="../icons/protclass.gif" alt="Protected class" title="Protected class">
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class">
               </td>
               <td>
-                <a  href="../folder31/79756318-889a-73a0-21f1-8ef02950c74e.htm">OAuthBase<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>QueryParameter</a>
-              </td>
-              <td>
-                <div class="summary">
-            Provides an internal structure to sort the query parameter
-            </div>
-              </td>
-            </tr>
-            <tr data="class; public">
-              <td>
-                <img src="../icons/protclass.gif" alt="Protected class" title="Protected class">
-              </td>
-              <td>
-                <a  href="../folder32/ab6670b8-b68b-b2f2-6e39-c54ac658248d.htm">OAuthBase<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>QueryParameterComparer</a>
+                <a  href="../folder63/a4d0dbca-01cc-dc67-4f66-7504f10db710.htm">OAuthParameters</a>
               </td>
               <td>
                 <div class="summary">
-            Comparer class used to perform the sorting of the query parameters
+            Stores the parameters used to make OAuth requests
             </div>
               </td>
             </tr>
@@ -1448,7 +1438,7 @@
               <td>
                 <div class="summary">
             Provides a means to generate an OAuth signature suitable for use
-            with Google two-legged OAuth requests.
+            with Google OAuth requests.
             </div>
               </td>
             </tr>
@@ -1487,7 +1477,7 @@
               <td>
                 <div class="summary">
             Base requestsettings class. Takes credentials, applicationsname
-            and supports pagesizes and autopaging. This class is used to initialize a 
+            and supports pagesizes and autopaging. This class is used to initialize a
              object.
             </div>
               </td>
@@ -1512,7 +1502,7 @@
                 <a  href="../folder32/fad7e876-2574-95a0-9ef7-f5d7616fcabf.htm">Service</a>
               </td>
               <td>
-                <div class="summary">async functionallity of the Service implementation
+                <div class="summary">async functionality of the Service implementation
             </div>
               </td>
             </tr>
@@ -1643,6 +1633,15 @@
        </th>
               <th class="nameColumn">Interface</th>
               <th class="descriptionColumn">Description</th>
+            </tr>
+            <tr data="interface; public">
+              <td>
+                <img src="../icons/pubinterface.gif" alt="Public interface" title="Public interface">
+              </td>
+              <td>
+                <a  href="../folder63/3dbea6e4-eeb0-a50a-99aa-56b061b601de.htm">IAsyncEntryData</a>
+              </td>
+              <td>
             </tr>
             <tr data="interface; public">
               <td>
@@ -1788,7 +1787,7 @@
                 <a  href="../folder15/962f61ff-fac9-a57e-d3c8-27ab7f05493c.htm">AsyncOperationCompletedEventHandler</a>
               </td>
               <td>
-                <div class="summary">Delegate declaration for the feed creation in a service</div>
+                <div class="summary">Delegate declaration for the operation completed event in a service</div>
               </td>
             </tr>
             <tr data="delegate; public">
@@ -1799,7 +1798,7 @@
                 <a  href="../folder15/e01d54cc-5bd7-7e45-f5fe-24681d2952ec.htm">AsyncOperationProgressEventHandler</a>
               </td>
               <td>
-                <div class="summary">Delegate declaration for the feed creation in a service</div>
+                <div class="summary">Delegate declaration for the operation progress update event in a service</div>
               </td>
             </tr>
             <tr data="delegate; public">
@@ -1930,19 +1929,6 @@
               </td>
               <td>
                 <div class="summary">enum to describe the different operations on the GDataRequest
-            </div>
-              </td>
-            </tr>
-            <tr data="enumeration; public">
-              <td>
-                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration">
-              </td>
-              <td>
-                <a  href="../folder32/0c632782-5974-0b13-c29d-82d8bdb36ce9.htm">OAuthBase<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>SignatureTypes</a>
-              </td>
-              <td>
-                <div class="summary">
-            Provides a predefined set of algorithms that are supported officially by the protocol
             </div>
               </td>
             </tr>
