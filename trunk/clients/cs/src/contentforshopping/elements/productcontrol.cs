@@ -32,6 +32,7 @@ namespace Google.GData.ContentForShopping.Elements {
             this.ExtensionFactories.Add(new RequiredDestination());
             this.ExtensionFactories.Add(new ExcludedDestination());
             this.ExtensionFactories.Add(new Warnings());
+            this.ExtensionFactories.Add(new Status());
         }
 
         /// <summary>
