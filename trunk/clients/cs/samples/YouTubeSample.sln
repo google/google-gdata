@@ -1,9 +1,9 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "YouTubeSample", "YouTubeSample\", "{6EC1E1BD-4D9E-4306-B9DA-6F9A096D17C8}"
 	ProjectSection(WebsiteProperties) = preProject
-		TargetFramework = "3.5"
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv3.5"
 		Debug.AspNetCompiler.VirtualPath = "/YouTubeSample"
 		Debug.AspNetCompiler.PhysicalPath = "YouTubeSample\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\YouTubeSample\"

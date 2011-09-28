@@ -1,5 +1,5 @@
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gapps_migration_sample", "appsforyourdomain\gapps_migration_sample.csproj", "{5B456106-A6A7-4EAA-B32C-5EDB92FC2453}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gapps_sample", "appsforyourdomain\gapps_sample.csproj", "{25DF4CCD-68C9-400E-87FF-8FCFAF76C998}"
