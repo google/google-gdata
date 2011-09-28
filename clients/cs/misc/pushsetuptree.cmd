@@ -15,7 +15,6 @@ xcopy exporttree\*.url setuptree\*.*
 xcopy /E exporttree\lib\Release\*.dll setuptree\Redist\*.*
 xcopy /E exporttree\lib\Release\*.exe setuptree\Samples\*.exe
 xcopy /E exporttree\lib\ASP.NET\*.* setuptree\Redist\ASP.NET\*.*
-xcopy /E exporttree\lib\Mobile\*.* setuptree\Redist\Mobile\*.*
 xcopy /E exporttree\misc\icons\*.* setuptree\Icons\*.* 
 rd /S /Q exporttree
 

@@ -5,10 +5,6 @@ devenv /rebuild Release "..\src\Google Data API SDK.sln"
 if errorlevel 1 goto buildError
 devenv /rebuild Debug "..\src\Google Data API SDK.sln"
 if errorlevel 1 goto buildError
-devenv /rebuild Release "..\src\VS2005.mobile\gdatamobile.sln"
-if errorlevel 1 goto buildError
-devenv /rebuild Debug "..\src\VS2005.mobile\gdatamobile.sln"
-if errorlevel 1 goto buildError
 devenv /rebuild Release "..\src\youtube\YouTube SDK\YouTube SDK.sln"
 if errorlevel 1 goto buildError
 
@@ -53,22 +49,6 @@ xcopy /y "..\src\youtube\YouTube SDK\YouTube SDK\Release\YouTube SDK.msi" ..\lib
 
 # copy asp dlls for the youtube sample
 xcopy /y ..\src\youtube\bin\asp\*.dll ..\samples\YouTubeSample\bin\*.*
-
-# copy the mobile DLLS
-xcopy /y ..\src\VS2005.mobile\GCalendarMobile\bin\Release\*.dll ..\lib\Mobile\WindowsMobile\*.*
-xcopy /y ..\src\VS2005.mobile\GCodeSearchMobile\bin\Release\*.dll ..\lib\Mobile\WindowsMobile\*.*
-xcopy /y ..\src\VS2005.mobile\GDataMobile\bin\Release\*.dll ..\lib\Mobile\WindowsMobile\*.*
-xcopy /y ..\src\VS2005.mobile\GSpreadSheetsMobile\bin\Release\*.dll ..\lib\Mobile\WindowsMobile\*.*
-xcopy /y ..\src\VS2005.mobile\GExtensionsMobile\bin\Release\*.dll ..\lib\Mobile\WindowsMobile\*.*
-xcopy /y ..\src\VS2005.mobile\GAppsMobile\bin\Release\*.dll ..\lib\Mobile\WindowsMobile\*.*
-xcopy /y ..\src\VS2005.mobile\GAclMobile\bin\Release\*.dll ..\lib\Mobile\WindowsMobile\*.*
-xcopy /y ..\src\VS2005.mobile\GPhotosMobile\bin\Release\*.dll ..\lib\Mobile\WindowsMobile\*.*
-xcopy /y ..\src\VS2005.mobile\GDocListMobile\bin\Release\*.dll ..\lib\Mobile\WindowsMobile\*.*
-xcopy /y ..\src\VS2005.mobile\GContactsMobile\bin\Release\*.dll ..\lib\Mobile\WindowsMobile\*.*
-xcopy /y ..\src\VS2005.mobile\GHealthMobile\bin\Release\*.dll ..\lib\Mobile\WindowsMobile\*.*
-xcopy /y ..\src\VS2005.mobile\GYouTubeMobile\bin\Release\*.dll ..\lib\Mobile\WindowsMobile\*.*
-xcopy /y ..\src\VS2005.mobile\GBloggerMobile\bin\Release\*.dll ..\lib\Mobile\WindowsMobile\*.*
-xcopy /y ..\src\VS2005.mobile\GAnalyticsMobile\bin\Release\*.dll ..\lib\Mobile\WindowsMobile\*.*
 
 # build the Samples
 devenv /rebuild Release "..\samples\Google Data APIs Samples.sln" 

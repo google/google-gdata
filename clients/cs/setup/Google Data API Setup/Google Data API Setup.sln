@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Google Data API Setup", "Google Data API Setup.vdproj", "{2A67B086-577C-4868-8DA6-C075A4DA6BE0}"
 EndProject
 Global
