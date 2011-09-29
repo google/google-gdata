@@ -433,7 +433,9 @@ namespace Google.GData.Client.ResumableUpload {
             HttpWebResponse returnResponse = null;
             // upload one part at a time
             int index = 0;
-            lastChunks.Add(sessionUri, 0);
+            if (!lastChunks.ContainsKey(sessionUri)) {
+                lastChunks.Add(sessionUri, 0);
+            }
             bool isDone = false;
 
             // if the stream passed as parameter is NOT at the beginning, we assume
