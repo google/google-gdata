@@ -18,12 +18,7 @@ using System.Security.Permissions;
 
 [assembly: AssemblyDelaySign(false)]
 [assembly: AssemblyKeyName("")]
-
-#if WindowsCE || PocketPC
-#else 
-    [assembly: SecurityPermission(SecurityAction.RequestMinimum, Execution=true)]
-#endif
-
+[assembly: SecurityPermission(SecurityAction.RequestMinimum, Execution=true)]
 [assembly: AssemblyTitle("Google Data API Core Library")]
 
 

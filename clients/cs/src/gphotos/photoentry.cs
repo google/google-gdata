@@ -23,15 +23,10 @@ using Google.GData.Extensions;
 using Google.GData.Extensions.MediaRss;
 using Google.GData.Extensions.Exif;
 using Google.GData.Extensions.Location;
-#if WindowsCE || PocketPC
-#else
 using System.ComponentModel;
-#endif
 
 namespace Google.GData.Photos 
 {
-
-
     //////////////////////////////////////////////////////////////////////
     /// <summary>
     /// A photoEntry is a shallow subclass for a PicasaEntry to ease
@@ -40,7 +35,6 @@ namespace Google.GData.Photos
     //////////////////////////////////////////////////////////////////////
     public class PhotoEntry : PicasaEntry
     {
-  
         /// <summary>
         /// Constructs a new EventEntry instance with the appropriate category
         /// to indicate that it is an event.
@@ -60,7 +54,6 @@ namespace Google.GData.Photos
     [Obsolete("Use Google.Picasa.Photo instead. This code will be removed soon")] 
     public class PhotoAccessor
     {
-
         private PicasaEntry entry;
 
         /// <summary>
@@ -77,15 +70,11 @@ namespace Google.GData.Photos
         }
 
 
-
         /// <summary>
         /// The title of the photo
         /// </summary>
-#if WindowsCE || PocketPC
-#else
         [Category("Base Photo Data"),
         Description("Specifies the name of the photo.")]
-#endif
         public string PhotoTitle
         {
             get 
@@ -102,11 +91,8 @@ namespace Google.GData.Photos
         /// <summary>
         /// The  summary of the Photo
         /// </summary>
-#if WindowsCE || PocketPC
-#else
         [Category("Base Photo Data"),
         Description("Specifies the summary of the Photo.")]
-#endif
         public string PhotoSummary
         {
             get 
@@ -124,11 +110,8 @@ namespace Google.GData.Photos
         /// The checksum on the photo. This optional field can be used by 
         /// uploaders to associate a checksum with a photo to ease duplicate detection
         /// </summary>
-#if WindowsCE || PocketPC
-#else
         [Category("Meta Photo Data"),
         Description("The checksum on the photo.")]
-#endif
         public string Checksum 
         {
             get 
@@ -146,11 +129,8 @@ namespace Google.GData.Photos
         /// <summary>
         /// The height of the photo in pixels
         /// </summary>
-#if WindowsCE || PocketPC
-#else
         [Category("Basic Photo Data"),
         Description("The height of the photo in pixels.")]
-#endif
         public int Height 
         {
             get 
@@ -166,11 +146,8 @@ namespace Google.GData.Photos
         /// <summary>
         /// The width of the photo in pixels
         /// </summary>
-#if WindowsCE || PocketPC
-#else
         [Category("Basic Photo Data"),
         Description("The width of the photo in pixels.")]
-#endif
         public int Width 
         {
             get 
@@ -183,18 +160,12 @@ namespace Google.GData.Photos
             }
         }
 
-
-
-
         /// <summary>
         /// The rotation of the photo in degrees, used to change the rotation of the photo. Will only be shown if 
         /// the rotation has not already been applied to the requested images.
         /// </summary>
-#if WindowsCE || PocketPC
-#else
         [Category("Basic Photo Data"),
         Description("The rotation of the photo in degrees.")]
-#endif
         public int Rotation 
         {
             get 
@@ -210,11 +181,8 @@ namespace Google.GData.Photos
         /// <summary>
         /// The size of the photo in bytes
         /// </summary>
-#if WindowsCE || PocketPC
-#else
         [Category("Basic Photo Data"),
         Description("The size of the photo in bytes.")]
-#endif
         public long Size 
         {
             get 
@@ -233,11 +201,8 @@ namespace Google.GData.Photos
         /// January 1st, 1970. Contains the date of the photo either set externally
         /// or retrieved from the Exif data.
         /// </summary>
-#if WindowsCE || PocketPC
-#else
         [Category("Meta Photo Data"),
         Description("The photo's timestamp")]
-#endif
         [CLSCompliant(false)]
         public ulong Timestamp 
         {
@@ -251,17 +216,11 @@ namespace Google.GData.Photos
             }
         }
 
-
- 
-
         /// <summary>
         /// The albums ID
         /// </summary>
-#if WindowsCE || PocketPC
-#else
         [Category("Meta Photo Data"),
         Description("The albums ID.")]
-#endif
         public string AlbumId 
         {
             get 
@@ -277,11 +236,8 @@ namespace Google.GData.Photos
         /// <summary>
         /// the number of comments on a photo
         /// </summary>
-#if WindowsCE || PocketPC
-#else
         [Category("Commenting"),
         Description("the number of comments on a photo.")]
-#endif
         [CLSCompliant(false)]
         public uint CommentCount 
         {
@@ -298,11 +254,8 @@ namespace Google.GData.Photos
         /// <summary>
         /// is commenting enabled on a photo
         /// </summary>
-#if WindowsCE || PocketPC
-#else
         [Category("Commenting"),
         Description("is commenting enabled on a photo.")]
-#endif
         public bool CommentingEnabled 
         {
             get 
@@ -319,11 +272,8 @@ namespace Google.GData.Photos
         /// <summary>
         /// the id of the photo
         /// </summary>
-#if WindowsCE || PocketPC
-#else
         [Category("Meta Photo Data"),
         Description("the id of the photo.")]
-#endif
         public string Id 
         {
             get 
@@ -339,11 +289,8 @@ namespace Google.GData.Photos
         /// <summary>
         /// the Longitude  of the photo
         /// </summary>
-#if WindowsCE || PocketPC
-#else
         [Category("Location Photo Data"),
         Description("The longitude of the photo.")]
-#endif
         public double Longitude 
         {
             get 
@@ -370,11 +317,8 @@ namespace Google.GData.Photos
         /// <summary>
         /// the Longitude  of the photo
         /// </summary>
-#if WindowsCE || PocketPC
-#else
         [Category("Location Photo Data"),
         Description("The Latitude of the photo.")]
-#endif
         public double Latitude 
         {
             get 

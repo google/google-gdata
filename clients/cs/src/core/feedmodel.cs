@@ -24,10 +24,7 @@ using Google.GData.Extensions;
 using System.Collections.Generic;
 using Google.GData.Extensions.AppControl;
 using System.Security.Cryptography;
-#if WindowsCE || PocketPC
-#else
 using System.ComponentModel;
-#endif
 
 namespace Google.GData.Client {
     //////////////////////////////////////////////////////////////////////
@@ -250,11 +247,8 @@ namespace Google.GData.Client {
         ///  the original AtomEntry object that this object is standing in for
         /// </summary>
         /// <returns></returns>
-#if WindowsCE || PocketPC
-#else
         [Category("Basic Entry Data"),
         Description("The original AtomEntry object that this object is standing in for")]
-#endif
         public AtomEntry AtomEntry {
             get {
                 return this.e;
@@ -267,11 +261,8 @@ namespace Google.GData.Client {
         /// <summary>
         /// returns the Id of an entry
         /// </summary>
-#if WindowsCE || PocketPC
-#else
         [Category("Basic Entry Data"),
         Description("The unique Id of the entry")]
-#endif
         public string Id {
             get {
                 EnsureInnerObject();
@@ -287,11 +278,8 @@ namespace Google.GData.Client {
         /// returns the value of the self uri as a string
         /// </summary>
         /// <returns></returns>
-#if WindowsCE || PocketPC
-#else
         [Category("Basic Entry Data"),
         Description("The value of the self uri as a string")]
-#endif
         public string Self {
             get {
                 EnsureInnerObject();
@@ -306,11 +294,8 @@ namespace Google.GData.Client {
         /// the title of the Entry.
         /// </summary>
         /// <returns></returns>
-#if WindowsCE || PocketPC
-#else
         [Category("Basic Entry Data"),
         Description("Specifies the title of the entry.")]
-#endif
         public virtual string Title {
             get {
                 EnsureInnerObject();
@@ -325,11 +310,8 @@ namespace Google.GData.Client {
         /// <summary>
         /// returns the appControl sublement
         /// </summary>
-#if WindowsCE || PocketPC
-#else
         [Category("Basic Entry Data"),
         Description("The AppControl subobject.")]
-#endif
         public AppControl AppControl {
             get {
                 EnsureInnerObject();
@@ -344,11 +326,8 @@ namespace Google.GData.Client {
         /// <summary>
         /// returns the appControl sublement
         /// </summary>
-#if WindowsCE || PocketPC
-#else
         [Category("Basic Entry Data"),
         Description("Specifies if the entry is considered a draft entry.")]
-#endif
         public bool IsDraft {
             get {
                 EnsureInnerObject();
@@ -359,11 +338,8 @@ namespace Google.GData.Client {
         /// <summary>
         /// returns true, if the entry has an edit link
         /// </summary>
-#if WindowsCE || PocketPC
-#else
         [Category("Basic Entry Data"),
         Description("If then entry has no edit uri, it is considered read only.")]
-#endif
         public bool ReadOnly {
             get {
                 EnsureInnerObject();
@@ -375,11 +351,8 @@ namespace Google.GData.Client {
         ///  returns the first author name in the atom.entry.authors collection
         /// </summary>
         /// <returns></returns>
-#if WindowsCE || PocketPC
-#else
         [Category("Basic Entry Data"),
         Description("returns the first author name in the atom.entry.authors collection.")]
-#endif
         public string Author {
             get {
                 EnsureInnerObject();
@@ -405,11 +378,8 @@ namespace Google.GData.Client {
         /// returns the string representation of the atom.content element
         /// </summary>
         /// <returns></returns>
-#if WindowsCE || PocketPC
-#else
         [Category("Basic Entry Data"),
         Description("returns the string representation of the atom.content element.")]
-#endif
         public string Content {
             get {
                 EnsureInnerObject();
@@ -425,11 +395,8 @@ namespace Google.GData.Client {
         /// returns the string representation of the atom.Summary element
         /// </summary>
         /// <returns></returns>
-#if WindowsCE || PocketPC
-#else
         [Category("Basic Entry Data"),
         Description("returns the string representation of the atom.Summary element.")]
-#endif
         public string Summary {
             get {
                 EnsureInnerObject();
@@ -445,11 +412,8 @@ namespace Google.GData.Client {
         /// just a thin layer on top of the existing updated of the
         /// underlying atomentry
         /// </summary>
-#if WindowsCE || PocketPC
-#else
         [Category("Basic Entry Data"),
         Description("The datetime at which the entry was updated the last time.")]
-#endif
         public DateTime Updated {
             get {
                 EnsureInnerObject();
@@ -465,11 +429,8 @@ namespace Google.GData.Client {
         /// this returns the batch data for the inner atom object
         /// </summary>
         /// <returns></returns>
-#if WindowsCE || PocketPC
-#else
         [Category("Basic Entry Data"),
         Description("The batchdata subobject.")]
-#endif
         public GDataBatchEntryData BatchData {
             get {
                 EnsureInnerObject();
@@ -485,11 +446,8 @@ namespace Google.GData.Client {
         /// returns the categories for the entry
         /// </summary>
         /// <returns></returns>
-#if WindowsCE || PocketPC
-#else
         [Category("Basic Entry Data"),
         Description("The Categories collection.")]
-#endif
         public AtomCategoryCollection Categories {
             get {
                 EnsureInnerObject();
@@ -503,11 +461,8 @@ namespace Google.GData.Client {
         /// </summary>
         /// <returns> </returns>
         //////////////////////////////////////////////////////////////////////
-#if WindowsCE || PocketPC
-#else
         [Category("Media Data"),
         Description("The Mediasource subobject.")]
-#endif
         public MediaSource MediaSource {
             get {
                 EnsureInnerObject();
@@ -536,11 +491,8 @@ namespace Google.GData.Client {
         /// </summary>
         /// <returns> </returns>
         //////////////////////////////////////////////////////////////////////
-#if WindowsCE || PocketPC
-#else
         [Category("State Data"),
         Description("The etag information.")]
-#endif
         public string ETag {
             get {
                 EnsureInnerObject();
@@ -964,15 +916,13 @@ namespace Google.GData.Client {
             if (this.authType == AuthenticationType.clientLogin) {
                 EnsureClientLoginCredentials(request, serviceName);
             }
-#if WindowsCE || PocketPC
-#else
+
             if (this.authType == AuthenticationType.authSub) {
                 EnsureAuthSubCredentials(request);
             }
             if (this.authType == AuthenticationType.oAuth) {
                 EnsureOAuthCredentials(request);
             }
-#endif
             return request;
         }
 
@@ -991,8 +941,7 @@ namespace Google.GData.Client {
                 request.Headers.Add(strHeader);
             }
         }
-#if WindowsCE || PocketPC
-#else
+
         private void EnsureAuthSubCredentials(HttpWebRequest request) {
             string header = AuthSubUtil.formAuthorizationHeader(
                 this.Token,
@@ -1012,7 +961,6 @@ namespace Google.GData.Client {
                 request.Method);
             request.Headers.Add(oauthHeader);
         }
-#endif
     }
 
     /// <summary>
@@ -1065,8 +1013,6 @@ namespace Google.GData.Client {
             if (settings.Credentials != null) {
                 s.Credentials = settings.Credentials;
             }
-#if WindowsCE || PocketPC
-#else
             if (settings.AuthSubToken != null) {
                 GAuthSubRequestFactory authFactory = new GAuthSubRequestFactory(s.ServiceIdentifier, settings.Application);
                 authFactory.UserAgent = authFactory.UserAgent + "--IEnumerable";
@@ -1096,7 +1042,6 @@ namespace Google.GData.Client {
             }
 
             s.RequestFactory.UseSSL = settings.UseSSL;
-#endif
         }
 
         /// <summary>
@@ -1128,9 +1073,6 @@ namespace Google.GData.Client {
         /// <param name="location"></param>
         /// <returns></returns>
         protected Uri CreateUri(string location) {
-#if WindowsCE || PocketPC
-                return new Uri(location);
-#else
             Uri retUri = null;
 
             if (this.settings.OAuthUser != null && location.IndexOf(OAuthUri.OAuthParameter) != 0) {
@@ -1140,7 +1082,6 @@ namespace Google.GData.Client {
             }
 
             return retUri;
-#endif
         }
 
         /// <summary>

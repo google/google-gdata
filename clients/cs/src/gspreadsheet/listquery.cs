@@ -149,8 +149,6 @@ namespace Google.GData.Spreadsheets
                 }
             }
         }
-#if WindowsCE || PocketPC
-#else
 
         /// <summary>
         /// Parses an incoming URI string and sets the instance variables
@@ -201,7 +199,7 @@ namespace Google.GData.Spreadsheets
             }
             return this.Uri;
         }
-#endif
+
         /// <summary>
         /// Resets object state to default, as if newly created.
         /// </summary>

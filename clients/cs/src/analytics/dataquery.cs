@@ -277,8 +277,6 @@ namespace Google.GData.Analytics
         }
         // end of accessor public bool PrettyPrint
 		
-#if WindowsCE || PocketPC
-#else
         //////////////////////////////////////////////////////////////////////
         /// <summary>protected void ParseUri</summary> 
         /// <param name="targetUri">takes an incoming Uri string and parses 
@@ -336,7 +334,6 @@ namespace Google.GData.Analytics
             }
             return this.Uri;
         }
-#endif
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>Creates the partial URI query string based on all

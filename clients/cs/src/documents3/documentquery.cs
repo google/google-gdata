@@ -403,11 +403,6 @@ namespace Google.GData.Documents {
         }
         /////////////////////////////////////////////////////////////////////////////
 
-
-       
-
-#if WindowsCE || PocketPC
-#else
         //////////////////////////////////////////////////////////////////////
         /// <summary>Parses custom properties out of the incoming URI</summary> 
         /// <param name="targetUri">A URI representing a query on a feed</param>
@@ -473,7 +468,7 @@ namespace Google.GData.Documents {
             }
             return this.Uri;
         }
-#endif
+
         //////////////////////////////////////////////////////////////////////
         /// <summary>Creates the partial URI query string based on all
         ///  set properties.</summary> 

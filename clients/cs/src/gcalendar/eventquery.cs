@@ -177,9 +177,6 @@ namespace Google.GData.Calendar {
             set { recurrenceEnd = value;}
         }
 
-
-#if WindowsCE || PocketPC
-#else
         //////////////////////////////////////////////////////////////////////
         /// <summary>protected void ParseUri</summary> 
         /// <param name="targetUri">takes an incoming Uri string and parses all the properties out of it</param>
@@ -232,7 +229,6 @@ namespace Google.GData.Calendar {
             }
             return this.Uri;
         }
-#endif
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>Resets object state to default, as if newly created.
@@ -304,7 +300,6 @@ namespace Google.GData.Calendar {
                 newPath.AppendFormat(CultureInfo.InvariantCulture, "singleevents=true"); 
                 paramInsertion = '&';
             }
-
 
             return newPath.ToString();
         }

@@ -280,14 +280,10 @@ namespace Google.GData.Client
                 String uriToUse = computedBaseUri == null ? String.Empty : computedBaseUri.Replace(this.UnusedProtocol, this.DefaultProtocol);
                 return new Uri(CalculateQuery(uriToUse));
                 }
-            
-#if WindowsCE || PocketPC
-#else
             set 
                 {
                 ParseUri(value);
                 }
-#endif
         }
         /////////////////////////////////////////////////////////////////////////////
 
@@ -310,8 +306,6 @@ namespace Google.GData.Client
         }
         // end of accessor public bool CategoryQueriesAsParameter
 
-#if WindowsCE || PocketPC
-#else
         //////////////////////////////////////////////////////////////////////
         /// <summary>Passing in a complete URI, we strip all the
         /// GData query-related things and then treat the rest
@@ -329,7 +323,6 @@ namespace Google.GData.Client
             service = new Service();
         }
         /////////////////////////////////////////////////////////////////////////////
-#endif
 
         /// <summary>
         /// indicates if constructed feed URIs should use http or https
@@ -550,8 +543,6 @@ namespace Google.GData.Client
         }
         /////////////////////////////////////////////////////////////////////////////
 
-#if WindowsCE || PocketPC
-#else
         //////////////////////////////////////////////////////////////////////
         /// <summary>protected void ParseUri</summary> 
         /// <param name="targetUri">takes an incoming Uri string and parses all the properties out of it</param>
@@ -721,7 +712,7 @@ namespace Google.GData.Client
             
         }
         /////////////////////////////////////////////////////////////////////////////
-#endif 
+ 
         //////////////////////////////////////////////////////////////////////
         /// <summary>Takes an incoming URI segment and removes leading/trailing slashes.</summary> 
         /// <param name="part">the URI segment to clean</param>
