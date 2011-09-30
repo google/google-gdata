@@ -35,34 +35,6 @@ using System.Collections.Specialized;
 //  </summary>
 ////////////////////////////////////////////////////////////////////
 namespace Google.GData.Client {
-
-#if WindowsCE || PocketPC
-    public class AsyncData : Object
-    {
-    }
-    public class AsyncSendData : AsyncData
-    {
-    }
-    public class AsyncQueryData : AsyncData
-    {
-    }
-    public class AsyncDataHandler : Object
-    { }
-
-    //////////////////////////////////////////////////////////////////////
-    /// <summary>async functionallity of the Service implementation
-    /// </summary> 
-    //////////////////////////////////////////////////////////////////////
-    public partial class Service : IService, IVersionAware
-    {
-        private void InitDelegates()
-        {
-        }
-    }
-}
-
-#else
-
     /// <summary>Delegate declaration for the operation completed event in a service</summary> 
     public delegate void AsyncOperationCompletedEventHandler(object sender, AsyncOperationCompletedEventArgs e);
 
@@ -529,4 +501,3 @@ namespace Google.GData.Client {
         }
     }
 }
-#endif

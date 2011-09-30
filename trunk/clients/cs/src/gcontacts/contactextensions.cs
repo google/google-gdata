@@ -982,13 +982,9 @@ namespace Google.GData.Contacts {
         public bool Indexed {
             get {
                 bool result;
-#if WindowsCE || PocketPC
-                result = Boolean.Parse(this.Attributes[XmlAttributeIndexed].ToString());
-#else
                 if (!Boolean.TryParse(this.Attributes[XmlAttributeIndexed] as string, out result)) {
                     result = false;
                 }
-#endif
                 return result;
             }
             set {

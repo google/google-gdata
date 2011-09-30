@@ -25,17 +25,10 @@ using Google.GData.Photos;
 using Google.GData.Extensions.MediaRss;
 using System.Collections.Generic;
 using Google.GData.Extensions.Location;
-
-#if WindowsCE || PocketPC
-#else
 using System.ComponentModel;
-#endif
-
 
 namespace Google.Picasa
 {
-
-
     /// <summary>
     /// as all picasa entries are "similiar" we have this abstract baseclass here as 
     /// well, although it is not clear yet how this will benefit 
@@ -77,11 +70,8 @@ namespace Google.Picasa
         /// The album's access level. In this document, access level is also 
         /// referred to as "visibility." Valid values are public or private.
         /// </summary>
-#if WindowsCE || PocketPC
-#else
         [Category("Meta Album Data"),
         Description("Specifies the access for the album.")]
-#endif
         public string Access 
         {
             get 
@@ -98,11 +88,8 @@ namespace Google.Picasa
         /// <summary>
         /// The nickname of the author
         /// </summary>
-#if WindowsCE || PocketPC
-#else
         [Category("Base Album Data"),
         Description("Specifies the author's nickname")]
-#endif
         public string AlbumAuthorNickname
         {
             get 
@@ -118,11 +105,8 @@ namespace Google.Picasa
         /// <summary>
         /// The number of bytes of storage that this album uses.
         /// </summary>
-#if WindowsCE || PocketPC
-#else
         [Category("Meta Album Data"),
         Description("Specifies the bytes used for the album.")]
-#endif
         [CLSCompliant(false)]
         public uint BytesUsed 
         {
@@ -139,11 +123,8 @@ namespace Google.Picasa
         /// <summary>
         /// The user-specified location associated with the album
         /// </summary>
-#if WindowsCE || PocketPC
-#else
         [Category("Location Data"),
         Description("Specifies the location for the album.")]
-#endif
         public string Location 
         {
             get 
@@ -159,11 +140,8 @@ namespace Google.Picasa
         /// <summary>
         /// the Longitude  of the photo
         /// </summary>
-#if WindowsCE || PocketPC
-#else
         [Category("Location Data"),
         Description("The longitude of the photo.")]
-#endif
         public double Longitude 
         {
             get 
@@ -190,11 +168,8 @@ namespace Google.Picasa
         /// <summary>
         /// the Longitude  of the photo
         /// </summary>
-#if WindowsCE || PocketPC
-#else
         [Category("Location Data"),
         Description("The Latitude of the photo.")]
-#endif
         public double Latitude 
         {
             get 
@@ -222,11 +197,8 @@ namespace Google.Picasa
         /// The number of photos in the album.
         /// </summary>
         /// 
-#if WindowsCE || PocketPC
-#else
         [Category("Meta Album Data"),
         Description("Specifies the number of photos in the album.")]
-#endif
         [CLSCompliant(false)]
         public uint NumPhotos 
         {
@@ -246,12 +218,8 @@ namespace Google.Picasa
         /// album (gphoto:maxPhotosPerAlbum) minus the number of photos 
         /// currently in the album (gphoto:numphotos).
         /// </summary>
-        
-#if WindowsCE || PocketPC
-#else
         [Category("Meta Album Data"),
         Description("Specifies the number of remaining photo uploads for the album.")]
-#endif
         [CLSCompliant(false)]
         public uint NumPhotosRemaining
         {
@@ -269,11 +237,8 @@ namespace Google.Picasa
         /// <summary>
         /// the number of comments on an album
         /// </summary>
-#if WindowsCE || PocketPC
-#else
         [Category("Commenting"),
         Description("Specifies the number of comments for the album.")]
-#endif
         [CLSCompliant(false)]
         public uint CommentCount 
         {
@@ -290,12 +255,8 @@ namespace Google.Picasa
         /// <summary>
         /// is commenting enabled on an album
         /// </summary>
-        
-#if WindowsCE || PocketPC
-#else
         [Category("Commenting"),
         Description("Comments enabled?")]
-#endif
         public bool CommentingEnabled 
         {
             get 
@@ -311,12 +272,8 @@ namespace Google.Picasa
         /// <summary>
         /// the id of the album
         /// </summary>
-        
-#if WindowsCE || PocketPC
-#else
         [Category("Base Album Data"),
         Description("Specifies the id for the album.")]
-#endif
         public string Id 
         {
             get 
@@ -373,11 +330,8 @@ namespace Google.Picasa
         /// <summary>
         /// The ID of the photo associated with the current comment.
         /// </summary>
-#if WindowsCE || PocketPC
-#else
         [Category("Base Comment Data"),
         Description("The ID of the photo associated with the current comment.")]
-#endif
         public string PhotoId 
         {
             get 
@@ -393,11 +347,8 @@ namespace Google.Picasa
         /// <summary>
         /// The albums ID
         /// </summary>
-#if WindowsCE || PocketPC
-#else
         [Category("Base Comment Data"),
         Description("The ID of the album associated with the current comment.")]
-#endif
         public string AlbumId 
         {
             get 
@@ -413,11 +364,8 @@ namespace Google.Picasa
         /// <summary>
         /// the id of the comment
         /// </summary>
-#if WindowsCE || PocketPC
-#else
         [Category("Base Comment Data"),
         Description("The ID of the comment itself.")]
-#endif
         public string CommentId 
         {
             get 
@@ -448,18 +396,12 @@ namespace Google.Picasa
             }
         }
 
-
-
-    
         /// <summary>
         /// tries to construct an URI on the Url attribute in media.content
         /// </summary>
         /// <returns>a Uri object or null</returns>
-#if WindowsCE || PocketPC
-#else
         [Category("Base Photo Data"),
         Description("Returns the URL to the photo media.")]
-#endif
         public Uri PhotoUri
         {
             get
@@ -479,18 +421,12 @@ namespace Google.Picasa
             }
         }
 
-
-
- 
         /// <summary>
         /// The checksum on the photo. This optional field can be used by 
         /// uploaders to associate a checksum with a photo to ease duplicate detection
         /// </summary>
-#if WindowsCE || PocketPC
-#else
         [Category("Meta Photo Data"),
         Description("The checksum on the photo.")]
-#endif
         public string Checksum 
         {
             get 
@@ -504,15 +440,11 @@ namespace Google.Picasa
         }
 
       
-
         /// <summary>
         /// The height of the photo in pixels
         /// </summary>
-#if WindowsCE || PocketPC
-#else
         [Category("Basic Photo Data"),
         Description("The height of the photo in pixels.")]
-#endif
         public int Height 
         {
             get 
@@ -528,11 +460,8 @@ namespace Google.Picasa
         /// <summary>
         /// The width of the photo in pixels
         /// </summary>
-#if WindowsCE || PocketPC
-#else
         [Category("Basic Photo Data"),
         Description("The width of the photo in pixels.")]
-#endif
         public int Width 
         {
             get 
@@ -545,18 +474,12 @@ namespace Google.Picasa
             }
         }
 
-
-  
-
         /// <summary>
         /// The rotation of the photo in degrees, used to change the rotation of the photo. Will only be shown if 
         /// the rotation has not already been applied to the requested images.
         /// </summary>
-#if WindowsCE || PocketPC
-#else
         [Category("Basic Photo Data"),
         Description("The rotation of the photo in degrees.")]
-#endif
         public int Rotation 
         {
             get 
@@ -572,11 +495,8 @@ namespace Google.Picasa
         /// <summary>
         /// The size of the photo in bytes
         /// </summary>
-#if WindowsCE || PocketPC
-#else
         [Category("Basic Photo Data"),
         Description("The size of the photo in bytes.")]
-#endif
         public long Size 
         {
             get 
@@ -595,11 +515,8 @@ namespace Google.Picasa
         /// January 1st, 1970. Contains the date of the photo either set externally
         /// or retrieved from the Exif data.
         /// </summary>
-#if WindowsCE || PocketPC
-#else
         [Category("Meta Photo Data"),
         Description("The photo's timestamp")]
-#endif
         [CLSCompliant(false)]
         public ulong Timestamp 
         {
@@ -612,17 +529,12 @@ namespace Google.Picasa
                 this.PicasaEntry.SetPhotoExtensionValue(GPhotoNameTable.Timestamp, Convert.ToString(value));
             }
         }
-
-
  
         /// <summary>
         /// The albums ID
         /// </summary>
-#if WindowsCE || PocketPC
-#else
         [Category("Meta Photo Data"),
         Description("The albums ID.")]
-#endif
         public string AlbumId 
         {
             get 
@@ -638,11 +550,8 @@ namespace Google.Picasa
         /// <summary>
         /// the number of comments on a photo
         /// </summary>
-#if WindowsCE || PocketPC
-#else
         [Category("Commenting"),
         Description("the number of comments on a photo.")]
-#endif
         [CLSCompliant(false)]
         public uint CommentCount 
         {
@@ -659,11 +568,8 @@ namespace Google.Picasa
         /// <summary>
         /// is commenting enabled on a photo
         /// </summary>
-#if WindowsCE || PocketPC
-#else
         [Category("Commenting"),
         Description("is commenting enabled on a photo.")]
-#endif
         public bool CommentingEnabled 
         {
             get 
@@ -680,11 +586,8 @@ namespace Google.Picasa
         /// <summary>
         /// the id of the photo
         /// </summary>
-#if WindowsCE || PocketPC
-#else
         [Category("Meta Photo Data"),
         Description("the id of the photo.")]
-#endif
         public string Id 
         {
             get 
@@ -700,11 +603,8 @@ namespace Google.Picasa
         /// <summary>
         /// the Longitude  of the photo
         /// </summary>
-#if WindowsCE || PocketPC
-#else
         [Category("Location Photo Data"),
         Description("The longitude of the photo.")]
-#endif
         public double Longitude 
         {
             get 
@@ -731,11 +631,8 @@ namespace Google.Picasa
         /// <summary>
         /// the Longitude  of the photo
         /// </summary>
-#if WindowsCE || PocketPC
-#else
         [Category("Location Photo Data"),
         Description("The Latitude of the photo.")]
-#endif
         public double Latitude 
         {
             get 
@@ -762,11 +659,8 @@ namespace Google.Picasa
         /// <summary>
         /// Description of the album this photo is in.
         /// </summary>
-#if WindowsCE || PocketPC
-#else
         [Category("Base Photo Data"),
         Description("Description of the album this photo is in.")]
-#endif
         public string AlbumDescription
         {
             get 
@@ -782,11 +676,8 @@ namespace Google.Picasa
         /// <summary>
         /// Snippet that matches the search text.
         /// </summary>
-#if WindowsCE || PocketPC
-#else
         [Category("Search Photo Data"),
         Description("Snippet that matches the search text.")]
-#endif
         public string Snippet
         {
             get 
@@ -803,11 +694,8 @@ namespace Google.Picasa
         /// Possible values are PHOTO_DESCRIPTION, PHOTO_TAGS, ALBUM_TITLE, 
         /// ALBUM_DESCRIPTION, or ALBUM_LOCATION.
         /// </summary>
-#if WindowsCE || PocketPC
-#else
         [Category("Search Photo Data"),
         Description("Describes where the match with the search query was found.")]
-#endif
         public string SnippetType
         {
             get 
@@ -821,11 +709,8 @@ namespace Google.Picasa
         /// Indicates whether search results are truncated or not. 
         /// Possible values are 1 (results are truncated) or 0 (results are not truncated).
         /// </summary>
-#if WindowsCE || PocketPC
-#else
         [Category("Search Photo Data"),
         Description("Indicates whether search results are truncated or not.")]
-#endif
         public string Truncated
         {
             get 
@@ -833,8 +718,6 @@ namespace Google.Picasa
                 return this.PicasaEntry.GetPhotoExtensionValue(GPhotoNameTable.Truncated);
             }
         }
-
-
 
         private void EnsureMediaContent()
         {
@@ -878,7 +761,6 @@ namespace Google.Picasa
     //////////////////////////////////////////////////////////////////////
     public class PicasaRequest : FeedRequest<PicasaService>
     {
-
         /// <summary>
         /// default constructor for a PicasaRequest
         /// </summary>

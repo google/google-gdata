@@ -675,10 +675,6 @@ namespace Google.GData.YouTube {
             return collection;
         }
 
-
-   
-#if WindowsCE || PocketPC
-#else
         //////////////////////////////////////////////////////////////////////
         /// <summary>protected void ParseUri</summary> 
         /// <param name="targetUri">takes an incoming Uri string and parses all the properties out of it</param>
@@ -789,7 +785,6 @@ namespace Google.GData.YouTube {
             }
             return this.Uri;
         }
-#endif
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>Creates the partial URI query string based on all

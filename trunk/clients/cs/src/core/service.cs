@@ -318,8 +318,6 @@ namespace Google.GData.Client
             {
                 factory.GAuthToken = token;
             }
-#if WindowsCE || PocketPC
-#else
             else 
             {
                 GAuthSubRequestFactory f = this.factory as GAuthSubRequestFactory;
@@ -328,7 +326,6 @@ namespace Google.GData.Client
                     f.Token = token;
                 }
             }
-#endif
         }
 
         /// <summary>

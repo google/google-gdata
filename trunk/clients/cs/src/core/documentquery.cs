@@ -73,9 +73,6 @@ namespace Google.GData.Client
             }
         }
 
-#if WindowsCE || PocketPC
-#else
-
         /// <summary>
         /// Parses an incoming URI string and sets the instance variables
         /// of this object.
@@ -113,7 +110,7 @@ namespace Google.GData.Client
             }
             return this.Uri;
         }
-#endif 
+        
         /// <summary>
         /// Resets object state to default, as if newly created.
         /// </summary>

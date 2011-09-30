@@ -33,9 +33,6 @@ using System.Collections.Specialized;
 //  </summary>
 ////////////////////////////////////////////////////////////////////
 namespace Google.GData.Client {
-#if WindowsCE || PocketPC
-#else
-
     public class AsyncSendData : AsyncData, IAsyncEntryData {
         private AtomEntry entry;
         private GDataRequestType type;
@@ -448,5 +445,4 @@ namespace Google.GData.Client {
             completionMethodDelegate(data);
         }
     }
-#endif
 }

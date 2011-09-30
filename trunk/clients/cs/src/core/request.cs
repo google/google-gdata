@@ -210,8 +210,6 @@ namespace Google.GData.Client {
             set { this.useGZip = value; }
         }
 
-#if WindowsCE || PocketPC
-#else
         private CookieContainer cookies;
         //////////////////////////////////////////////////////////////////////
         /// <summary>The cookie container that is used for requests. Note 
@@ -228,7 +226,6 @@ namespace Google.GData.Client {
             }
             set { this.cookies = value; }
         }
-#endif
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>sets and gets the Content Type, used for binary transfers</summary> 
@@ -573,10 +570,8 @@ namespace Google.GData.Client {
                     web.ContentType = this.ContentType;
                     web.UserAgent = this.factory.UserAgent;
                     web.KeepAlive = this.factory.KeepAlive;
-#if WindowsCE || PocketPC
-#else
                     web.CookieContainer = this.factory.Cookies;
-#endif
+
                     // add all custom headers
                     if (this.factory.hasCustomHeaders) {
                         foreach (string s in this.factory.CustomHeaders) {

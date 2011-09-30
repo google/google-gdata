@@ -228,9 +228,6 @@ namespace Google.GData.Photos {
         }
         // end of accessor public Thumbsize
 
-   
-#if WindowsCE || PocketPC
-#else
         //////////////////////////////////////////////////////////////////////
         /// <summary>protected void ParseUri</summary> 
         /// <param name="targetUri">takes an incoming Uri string and parses all the properties out of it</param>
@@ -284,7 +281,6 @@ namespace Google.GData.Photos {
             }
             return this.Uri;
         }
-#endif
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>Resets object state to default, as if newly created.

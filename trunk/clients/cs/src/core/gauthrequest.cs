@@ -569,16 +569,10 @@ namespace Google.GData.Client {
 
                     this.requestCopy.Seek(0, SeekOrigin.Begin);
 
-#if WindowsCE || PocketPC
-#else
                     long bytesWritten = 0;
                     double current = 0;
-#endif
                     while ((numBytes = this.requestCopy.Read(bytes, 0, size)) > 0) {
                         req.Write(bytes, 0, numBytes);
-
-#if WindowsCE || PocketPC
-#else
                         bytesWritten += numBytes;
                         if (this.asyncData != null && this.asyncData.Delegate != null &&
                             this.asyncData.DataHandler != null) {
@@ -592,7 +586,6 @@ namespace Google.GData.Client {
                             if (!this.asyncData.DataHandler.SendProgressData(asyncData, args))
                                 break;
                         }
-#endif
                     }
                 } finally {
                     req.Close();

@@ -188,8 +188,6 @@ namespace Google.GData.Contacts {
             return Utilities.UriEncodeReserved(user)+ "/"; 
         }
    
-#if WindowsCE || PocketPC
-#else
         //////////////////////////////////////////////////////////////////////
         /// <summary>protected void ParseUri</summary> 
         /// <param name="targetUri">takes an incoming Uri string and parses all the properties out of it</param>
@@ -232,7 +230,6 @@ namespace Google.GData.Contacts {
             }
             return this.Uri;
         }
-#endif
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>Creates the partial URI query string based on all
@@ -362,10 +359,6 @@ namespace Google.GData.Contacts {
         }
         // end of accessor public string SortOder
    
-
-   
-#if WindowsCE || PocketPC
-#else
         //////////////////////////////////////////////////////////////////////
         /// <summary>protected void ParseUri</summary> 
         /// <param name="targetUri">takes an incoming Uri string and parses all the properties out of it</param>
@@ -399,8 +392,6 @@ namespace Google.GData.Contacts {
             }
             return this.Uri;
         }
-#endif
-
 
         //////////////////////////////////////////////////////////////////////
         /// <summary>Creates the partial URI query string based on all

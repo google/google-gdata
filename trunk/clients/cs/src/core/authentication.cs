@@ -250,8 +250,6 @@ namespace Google.GData.Client {
         }
     }
 
-#if WindowsCE || PocketPC
-#else
     public class AuthSubAuthenticator : Authenticator {
         private string authSubToken;
         private AsymmetricAlgorithm privateKey;
@@ -502,5 +500,4 @@ namespace Google.GData.Client {
             request.Headers.Add(oauthHeader);
         }
     }
-#endif
 }

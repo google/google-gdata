@@ -20,11 +20,7 @@ using System.Collections;
 using Google.GData.Client;
 using Google.GData.Extensions;
 using Google.GData.Extensions.Location;
-#if WindowsCE || PocketPC
-#else
 using System.ComponentModel;
-#endif
-
 
 namespace Google.GData.Photos 
 {
@@ -73,11 +69,8 @@ namespace Google.GData.Photos
         /// The album's access level. In this document, access level is also 
         /// referred to as "visibility." Valid values are public or private.
         /// </summary>
-#if WindowsCE || PocketPC
-#else
         [Category("Meta Album Data"),
         Description("Specifies the access for the album.")]
-#endif
         public string Access 
         {
             get 
@@ -90,15 +83,11 @@ namespace Google.GData.Photos
             }
         }
         
-        
         /// <summary>
         /// The nickname of the author
         /// </summary>
-#if WindowsCE || PocketPC
-#else
         [Category("Base Album Data"),
         Description("Specifies the author's nickname")]
-#endif
         public string AlbumAuthorNickname
         {
             get 
@@ -114,11 +103,8 @@ namespace Google.GData.Photos
         /// <summary>
         /// The  author's name
         /// </summary>
-#if WindowsCE || PocketPC
-#else
         [Category("Base Album Data"),
         Description("Specifies the author's name")]
-#endif
         public string AlbumAuthor
         {
             get 
@@ -155,11 +141,8 @@ namespace Google.GData.Photos
         /// <summary>
         /// The title of the album
         /// </summary>
-#if WindowsCE || PocketPC
-#else
         [Category("Base Album Data"),
         Description("Specifies the name of the album.")]
-#endif
         public string AlbumTitle
         {
             get 
@@ -175,11 +158,8 @@ namespace Google.GData.Photos
         /// <summary>
         /// The  summary of the album
         /// </summary>
-#if WindowsCE || PocketPC
-#else
         [Category("Base Album Data"),
         Description("Specifies the summary of the album.")]
-#endif
         public string AlbumSummary
         {
             get 
@@ -195,11 +175,8 @@ namespace Google.GData.Photos
         /// <summary>
         /// The number of bytes of storage that this album uses.
         /// </summary>
-#if WindowsCE || PocketPC
-#else
         [Category("Meta Album Data"),
         Description("Specifies the bytes used for the album.")]
-#endif
         [CLSCompliant(false)]
         public uint BytesUsed 
         {
@@ -216,11 +193,8 @@ namespace Google.GData.Photos
         /// <summary>
         /// The user-specified location associated with the album
         /// </summary>
-#if WindowsCE || PocketPC
-#else
         [Category("Location Data"),
         Description("Specifies the location for the album.")]
-#endif
         public string Location 
         {
             get 
@@ -236,11 +210,8 @@ namespace Google.GData.Photos
         /// <summary>
         /// the Longitude  of the photo
         /// </summary>
-#if WindowsCE || PocketPC
-#else
         [Category("Location Data"),
         Description("The longitude of the photo.")]
-#endif
         public double Longitude 
         {
             get 
@@ -267,11 +238,8 @@ namespace Google.GData.Photos
         /// <summary>
         /// the Longitude  of the photo
         /// </summary>
-#if WindowsCE || PocketPC
-#else
         [Category("Location Data"),
         Description("The Latitude of the photo.")]
-#endif
         public double Latitude 
         {
             get 
@@ -299,11 +267,8 @@ namespace Google.GData.Photos
         /// The number of photos in the album.
         /// </summary>
         /// 
-#if WindowsCE || PocketPC
-#else
         [Category("Meta Album Data"),
         Description("Specifies the number of photos in the album.")]
-#endif
         [CLSCompliant(false)]
         public uint NumPhotos 
         {
@@ -323,12 +288,8 @@ namespace Google.GData.Photos
         /// album (gphoto:maxPhotosPerAlbum) minus the number of photos 
         /// currently in the album (gphoto:numphotos).
         /// </summary>
-        
-#if WindowsCE || PocketPC
-#else
         [Category("Meta Album Data"),
         Description("Specifies the number of remaining photo uploads for the album.")]
-#endif
         [CLSCompliant(false)]
         public uint NumPhotosRemaining
         {
@@ -342,15 +303,11 @@ namespace Google.GData.Photos
             }
         }
 
-
         /// <summary>
         /// the number of comments on an album
         /// </summary>
-#if WindowsCE || PocketPC
-#else
         [Category("Commenting"),
         Description("Specifies the number of comments for the album.")]
-#endif
         [CLSCompliant(false)]
         public uint CommentCount 
         {
@@ -367,12 +324,8 @@ namespace Google.GData.Photos
         /// <summary>
         /// is commenting enabled on an album
         /// </summary>
-        
-#if WindowsCE || PocketPC
-#else
         [Category("Commenting"),
         Description("Comments enabled?")]
-#endif
         public bool CommentingEnabled 
         {
             get 
@@ -388,12 +341,8 @@ namespace Google.GData.Photos
         /// <summary>
         /// the id of the album
         /// </summary>
-        
-#if WindowsCE || PocketPC
-#else
         [Category("Base Album Data"),
         Description("Specifies the id for the album.")]
-#endif
         public string Id 
         {
             get 
