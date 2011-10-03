@@ -37,11 +37,8 @@ using System.Runtime.InteropServices;
 
 [assembly: ComVisible(false)]
 [assembly: CLSCompliant(true)]
-#if WindowsCE || PocketPC
-#else
 [assembly:AllowPartiallyTrustedCallers]
 [assembly: AssemblyDescription("Release Build: This assembly is marked as partially trustable. Use on your webserver at your own risk")]
-#endif
 
 //
 // Version information for an assembly consists of the following four values:

@@ -18,7 +18,6 @@ namespace GoogleAppsConsoleApplication
         // your domain.
         private static string testUserName = "testUserName" + new Random().Next().ToString();
         private const string testNickname = "testNickname";
-        private const string testEmailList = "testEmailList";
         private static string testGroup = "testGroup" + new Random().Next().ToString();
 
         private static void UserOperations(AppsService service)
@@ -88,54 +87,6 @@ namespace GoogleAppsConsoleApplication
                 feed.Entries.Count, entry.Nickname.Name);
         }
 
-        /* Deprecated: EmailList
-        private static void EmailListOperations(AppsService service)
-        {
-            // Create a new email list.
-            EmailListEntry insertedEntry = service.CreateEmailList(testEmailList);
-            Console.WriteLine("Created new email list '{0}'", insertedEntry.EmailList.Name);
-
-            // Retrieve the newly-created email list.
-            EmailListEntry entry = service.RetrieveEmailList(testEmailList);
-            Console.WriteLine("Retrieved email list '{0}'", entry.EmailList.Name);
-
-            // Retrieve a page of email lists.
-            EmailListFeed feed = service.RetrievePageOfEmailLists(testEmailList);
-            entry = feed.Entries[0] as EmailListEntry;
-            Console.WriteLine("Retrieved page of {0} email lists in the domain, beginning with '{1}'",
-                feed.Entries.Count, entry.EmailList.Name);
-
-            // Retrieve the feed of all email lists in the domain.
-            feed = service.RetrieveAllEmailLists();
-            entry = feed.Entries[0] as EmailListEntry;
-            Console.WriteLine("Retrieved all {0} email lists in the domain, beginning with '{1}'",
-                feed.Entries.Count, entry.EmailList.Name);
-        }
-         */ 
-
-        /* Deprecated: EmailList
-        private static void EmailListRecipientOperations(AppsService service)
-        {
-            // Add a recipient to an email list.
-            EmailListRecipientEntry insertedEntry = service.AddRecipientToEmailList(testUserName +
-                "@" + domain, testEmailList);
-            Console.WriteLine("Added recipient {0} to email list {1}", insertedEntry.Recipient.Email,
-                testEmailList);
-
-            // Retrieve the list of recipients on the email list (since the list
-            // was just created, it will only have one entry).
-            EmailListRecipientFeed feed = service.RetrieveAllRecipients(testEmailList);
-            EmailListRecipientEntry entry = feed.Entries[0] as EmailListRecipientEntry;
-            Console.WriteLine("Retrieved recipient {0} on email list {1}", entry.Recipient.Email,
-                testEmailList);
-
-            // Remove this recipient from the email list.
-            service.RemoveRecipientFromEmailList(testUserName + "@" + domain, testEmailList);
-            Console.WriteLine("Removed recipient {0} from email list {1}", testUserName,
-                testEmailList);
-        }
-         */
-
         private static void GroupOperations(AppsService service)
         {
             // Create a new group.
@@ -189,10 +140,6 @@ namespace GoogleAppsConsoleApplication
             // Delete the nickname that was created.
             service.DeleteNickname(testNickname);
             Console.WriteLine("Deleted nickname {0}", testNickname);
-
-            // Delete the email list that was created.
-            //service.DeleteEmailList(testEmailList);
-            Console.WriteLine("Deleted email list {0}", testEmailList);
 
             // Delete the user that was created.
             service.DeleteUser(testUserName);

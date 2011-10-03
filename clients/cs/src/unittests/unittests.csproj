@@ -256,11 +256,6 @@
     <Compile Include="gapps\appsexceptiontest.cs" />
     <Compile Include="gapps\appsextendedentrytest.cs" />
     <Compile Include="gapps\appsservicetest.cs" />
-    <Compile Include="gapps\emaillistentrytest.cs" />
-    <Compile Include="gapps\emaillistquerytest.cs" />
-    <Compile Include="gapps\emaillistrecipiententrytest.cs" />
-    <Compile Include="gapps\emaillistrecipientquerytest.cs" />
-    <Compile Include="gapps\emaillisttest.cs" />
     <Compile Include="gapps\googleemailsettingsservicetest.cs" />
     <Compile Include="gapps\groupsservicetest.cs" />
     <Compile Include="gapps\labelcollectiontest.cs" />
