@@ -19,17 +19,13 @@ using Google.GData.Client;
 using Google.GData.Extensions;
 using Google.GData.Extensions.Apps;
 
-namespace Google.GData.Apps
-{
+namespace Google.GData.Apps {
     /// <summary>
     /// The AppsService class provides a simpler interface
     /// for executing common Google Apps provisioning
     /// requests.
     /// </summary>
-    public class AppsService
-    {
-        private EmailListRecipientService emailListRecipientService;
-        private EmailListService emailListService;
+    public class AppsService {
         private NicknameService nicknameService;
         private UserService userAccountService;
         private GroupsService groupsService;
@@ -44,16 +40,9 @@ namespace Google.GData.Apps
         /// <param name="domain">the domain to access</param>
         /// <param name="adminEmailAddress">the administrator's email address</param>
         /// <param name="adminPassword">the administrator's password</param>
-        public AppsService(string domain, string adminEmailAddress, string adminPassword)
-        {
+        public AppsService(string domain, string adminEmailAddress, string adminPassword) {
             this.domain = domain;
             this.applicationName = "apps-" + domain;
-
-            emailListRecipientService = new EmailListRecipientService(applicationName);
-            emailListRecipientService.setUserCredentials(adminEmailAddress, adminPassword);
-
-            emailListService = new EmailListService(applicationName);
-            emailListService.setUserCredentials(adminEmailAddress, adminPassword);
 
             nicknameService = new NicknameService(applicationName);
             nicknameService.setUserCredentials(adminEmailAddress, adminPassword);
@@ -71,16 +60,9 @@ namespace Google.GData.Apps
         /// </summary>
         /// <param name="domain">the domain to access</param>
         /// <param name="authenticationToken">the administrator's Authentication Token</param>
-        public AppsService(string domain, string authenticationToken)
-        {
+        public AppsService(string domain, string authenticationToken) {
             this.domain = domain;
             this.applicationName = "apps-" + domain;
-
-            emailListRecipientService = new EmailListRecipientService(applicationName);
-            emailListRecipientService.SetAuthenticationToken(authenticationToken);
-
-            emailListService = new EmailListService(applicationName);
-            emailListService.SetAuthenticationToken(authenticationToken);
 
             nicknameService = new NicknameService(applicationName);
             nicknameService.SetAuthenticationToken(authenticationToken);
@@ -96,26 +78,22 @@ namespace Google.GData.Apps
         /// default is true
         /// </summary>
         /// <param name="keepAlive">bool to set if the connection should be keptalive</param>
-        public void KeepAlive(bool keepAlive)
-        {
-            ((GDataRequestFactory)emailListRecipientService.RequestFactory).KeepAlive = keepAlive;
-            ((GDataRequestFactory)emailListService.RequestFactory).KeepAlive = keepAlive;
+        public void KeepAlive(bool keepAlive) {
             ((GDataRequestFactory)nicknameService.RequestFactory).KeepAlive = keepAlive;
             ((GDataRequestFactory)userAccountService.RequestFactory).KeepAlive = keepAlive;
             ((GDataRequestFactory)groupsService.RequestFactory).KeepAlive = keepAlive;
         }
 
         /// <summary>
-        /// Generates a new Authentication Toklen for AppsService 
+        /// Generates a new Authentication Token for AppsService 
         /// with the specified credentials for accessing provisioning feeds on the specified domain.
         /// </summary>
         /// <param name="domain">the domain to access</param>
         /// <param name="adminEmailAddress">the administrator's email address</param>
         /// <param name="adminPassword">the administrator's password</param>
         /// <returns>the newly generated authentication token</returns>
-        public static String GetNewAuthenticationToken(string domain, string adminEmailAddress, string adminPassword)
-        {
-            Service service = new Service(AppsNameTable.GAppsService,"apps-"+domain);
+        public static String GetNewAuthenticationToken(string domain, string adminEmailAddress, string adminPassword) {
+            Service service = new Service(AppsNameTable.GAppsService, "apps-" + domain);
             service.setUserCredentials(adminEmailAddress, adminPassword);
             return service.QueryClientLoginToken();
         }
@@ -123,8 +101,7 @@ namespace Google.GData.Apps
         /// <summary>
         /// ApplicationName property accessor
         /// </summary>
-        public string ApplicationName
-        {
+        public string ApplicationName {
             get { return applicationName; }
             set { applicationName = value; }
         }
@@ -132,8 +109,7 @@ namespace Google.GData.Apps
         /// <summary>
         /// Domain property accessor
         /// </summary>
-        public string Domain
-        {
+        public string Domain {
             get { return domain; }
             set { domain = value; }
         }
@@ -141,8 +117,7 @@ namespace Google.GData.Apps
         /// <summary>
         /// GroupsService accessor
         /// </summary>
-        public GroupsService Groups
-        {
+        public GroupsService Groups {
             get { return groupsService; }
         }
 
@@ -155,10 +130,9 @@ namespace Google.GData.Apps
         /// <param name="password">the account's password</param>
         /// <returns>the newly created UserEntry</returns>
         public UserEntry CreateUser(string username,
-                                           string givenName,
-                                           string familyName,
-                                           string password)
-        {
+            string givenName,
+            string familyName,
+            string password) {
             UserEntry entry = new UserEntry();
 
             entry.Name = new NameElement(familyName, givenName);
@@ -179,11 +153,10 @@ namespace Google.GData.Apps
         /// <param name="quotaLimitInMb">the account's quota, in MB</param>
         /// <returns>the newly created UserEntry</returns>
         public UserEntry CreateUser(string username,
-                                           string givenName,
-                                           string familyName,
-                                           string password,
-                                           int quotaLimitInMb)
-        {
+            string givenName,
+            string familyName,
+            string password,
+            int quotaLimitInMb) {
             UserEntry entry = new UserEntry();
 
             entry.Name = new NameElement(familyName, givenName);
@@ -205,11 +178,10 @@ namespace Google.GData.Apps
         /// <param name="passwordHashFunction">the name of the hash function to hash the password</param>
         /// <returns>the newly created UserEntry</returns>
         public UserEntry CreateUser(string username,
-                                           string givenName,
-                                           string familyName,
-                                           string password,
-                                           string passwordHashFunction)
-        {
+            string givenName,
+            string familyName,
+            string password,
+            string passwordHashFunction) {
             UserEntry entry = new UserEntry();
 
             entry.Name = new NameElement(familyName, givenName);
@@ -231,12 +203,11 @@ namespace Google.GData.Apps
         /// <param name="quotaLimitInMb">the account's quota, in MB</param>
         /// <returns>the newly created UserEntry</returns>
         public UserEntry CreateUser(string username,
-                                           string givenName,
-                                           string familyName,
-                                           string password,
-                                           string passwordHashFunction,
-                                           int quotaLimitInMb)
-        {
+            string givenName,
+            string familyName,
+            string password,
+            string passwordHashFunction,
+            int quotaLimitInMb) {
             UserEntry entry = new UserEntry();
 
             entry.Name = new NameElement(familyName, givenName);
@@ -252,8 +223,7 @@ namespace Google.GData.Apps
         /// Retrieves all user account entries on this domain.
         /// </summary>
         /// <returns>the feed containing all user account entries</returns>
-        public UserFeed RetrieveAllUsers()
-        {
+        public UserFeed RetrieveAllUsers() {
             UserQuery query = new UserQuery(domain);
             return userAccountService.Query(query);
         }
@@ -266,8 +236,7 @@ namespace Google.GData.Apps
         /// <param name="startUsername">the first username that should appear
         /// in your result set</param>
         /// <returns>the feed containing the matching user account entries</returns>
-        public UserFeed RetrievePageOfUsers(string startUsername)
-        {
+        public UserFeed RetrievePageOfUsers(string startUsername) {
             UserQuery query = new UserQuery(domain);
             query.StartUserName = startUsername;
             query.RetrieveAllUsers = false;
@@ -280,8 +249,7 @@ namespace Google.GData.Apps
         /// </summary>
         /// <param name="username">the username to retrieve</param>
         /// <returns>the UserEntry for this user</returns>
-        public UserEntry RetrieveUser(string username)
-        {
+        public UserEntry RetrieveUser(string username) {
             UserQuery query = new UserQuery(domain);
             query.UserName = username;
 
@@ -299,44 +267,38 @@ namespace Google.GData.Apps
         /// can include the user's first name, last name, username and
         /// password.</param>
         /// <returns>the updated UserEntry</returns>
-        public UserEntry UpdateUser(UserEntry entry)
-        {
+        public UserEntry UpdateUser(UserEntry entry) {
             return entry.Update();
         }
 
         /// <summary>
-        /// the appsservice is an application object holding several
+        /// the AppsService is an application object holding several
         /// real services object. To allow the setting of advanced http properties,
         /// proxies and other things, we allow setting the factory class that is used. 
         /// 
         /// a getter does not make a lot of sense here, as which of the several factories in use
         /// are we getting? It also would give the illusion that you could get one object and then
-        /// modify it's settings. 
+        /// modify its settings. 
         /// </summary>
         /// <param name="factory">The factory to use for the AppsService</param>
         /// <returns></returns>
-        public void  SetRequestFactory(IGDataRequestFactory factory)
-        {
-            if (factory == null)
-            {
+        public void SetRequestFactory(IGDataRequestFactory factory) {
+            if (factory == null) {
                 throw new ArgumentNullException("factory", "The factory object should not be NULL");
             }
-            emailListRecipientService.RequestFactory = factory;
-            emailListService.RequestFactory = factory;
+
             nicknameService.RequestFactory = factory;
             userAccountService.RequestFactory = factory;
             groupsService.RequestFactory = factory;
         }
-
 
         /// <summary>
         /// this creates a default AppsService Factory object that can be used to 
         /// be modified and then set using SetRequestFactory()
         /// </summary>
         /// <returns></returns>
-        public IGDataRequestFactory CreateRequestFactory()
-        {
-            return  new GDataGAuthRequestFactory(AppsNameTable.GAppsService, this.applicationName);
+        public IGDataRequestFactory CreateRequestFactory() {
+            return new GDataGAuthRequestFactory(AppsNameTable.GAppsService, this.applicationName);
         }
 
         /// <summary>
@@ -344,8 +306,7 @@ namespace Google.GData.Apps
         /// </summary>
         /// <param name="username">the username whose account you wish to suspend</param>
         /// <returns>the updated UserEntry</returns>
-        public UserEntry SuspendUser(string username)
-        {
+        public UserEntry SuspendUser(string username) {
             UserEntry entry = RetrieveUser(username);
             entry.Login.Suspended = true;
             return UpdateUser(entry);
@@ -356,8 +317,7 @@ namespace Google.GData.Apps
         /// </summary>
         /// <param name="username">the username whose account you wish to restore</param>
         /// <returns>the updated UserEntry</returns>
-        public UserEntry RestoreUser(string username)
-        {
+        public UserEntry RestoreUser(string username) {
             UserEntry entry = RetrieveUser(username);
             entry.Login.Suspended = false;
             return UpdateUser(entry);
@@ -369,8 +329,7 @@ namespace Google.GData.Apps
         /// </summary>
         /// <param name="username">the user to make an administrator</param>
         /// <returns>the updated UserEntry</returns>
-        public UserEntry AddAdminPrivilege(string username)
-        {
+        public UserEntry AddAdminPrivilege(string username) {
             UserEntry entry = RetrieveUser(username);
             entry.Login.Admin = true;
             return UpdateUser(entry);
@@ -382,8 +341,7 @@ namespace Google.GData.Apps
         /// </summary>
         /// <param name="username">the user from which to revoke admin privileges</param>
         /// <returns>the updated UserEntry</returns>
-        public UserEntry RemoveAdminPrivilege(string username)
-        {
+        public UserEntry RemoveAdminPrivilege(string username) {
             UserEntry entry = RetrieveUser(username);
             entry.Login.Admin = false;
             return UpdateUser(entry);
@@ -396,8 +354,7 @@ namespace Google.GData.Apps
         /// <param name="username">the user who must change his/her password upon
         /// logging in next</param>
         /// <returns>the updated UserEntry</returns>
-        public UserEntry ForceUserToChangePassword(string username)
-        {
+        public UserEntry ForceUserToChangePassword(string username) {
             UserEntry entry = RetrieveUser(username);
             entry.Login.ChangePasswordAtNextLogin = true;
             return UpdateUser(entry);
@@ -407,8 +364,7 @@ namespace Google.GData.Apps
         /// Deletes a user account.
         /// </summary>
         /// <param name="username">the username whose account you wish to delete</param>
-        public void DeleteUser(string username)
-        {
+        public void DeleteUser(string username) {
             UserQuery query = new UserQuery(domain);
             query.UserName = username;
 
@@ -421,8 +377,7 @@ namespace Google.GData.Apps
         /// <param name="username">the user account for which you are creating a nickname</param>
         /// <param name="nickname">the nickname for the user account</param>
         /// <returns>the newly created NicknameEntry object</returns>
-        public NicknameEntry CreateNickname(string username, string nickname)
-        {
+        public NicknameEntry CreateNickname(string username, string nickname) {
             NicknameQuery query = new NicknameQuery(Domain);
 
             NicknameEntry entry = new NicknameEntry();
@@ -436,8 +391,7 @@ namespace Google.GData.Apps
         /// Retrieves all nicknames on this domain.
         /// </summary>
         /// <returns>the feed containing all nickname entries</returns>
-        public NicknameFeed RetrieveAllNicknames()
-        {
+        public NicknameFeed RetrieveAllNicknames() {
             NicknameQuery query = new NicknameQuery(Domain);
             return nicknameService.Query(query);
         }
@@ -450,8 +404,7 @@ namespace Google.GData.Apps
         /// <param name="startNickname">the first nickname that should appear
         /// in your result set</param>
         /// <returns>the feed containing the matching nickname entries</returns>
-        public NicknameFeed RetrievePageOfNicknames(string startNickname)
-        {
+        public NicknameFeed RetrievePageOfNicknames(string startNickname) {
             NicknameQuery query = new NicknameQuery(domain);
             query.StartNickname = startNickname;
             query.RetrieveAllNicknames = false;
@@ -464,8 +417,7 @@ namespace Google.GData.Apps
         /// </summary>
         /// <param name="username">the username for which you wish to retrieve nicknames</param>
         /// <returns>the feed containing all nickname entries for this user</returns>
-        public NicknameFeed RetrieveNicknames(string username)
-        {
+        public NicknameFeed RetrieveNicknames(string username) {
             NicknameQuery query = new NicknameQuery(Domain);
             query.UserName = username;
 
@@ -477,8 +429,7 @@ namespace Google.GData.Apps
         /// </summary>
         /// <param name="nickname">the nickname to retrieve</param>
         /// <returns>the resulting NicknameEntry</returns>
-        public NicknameEntry RetrieveNickname(string nickname)
-        {
+        public NicknameEntry RetrieveNickname(string nickname) {
             NicknameQuery query = new NicknameQuery(Domain);
             query.Nickname = nickname;
 
@@ -493,153 +444,11 @@ namespace Google.GData.Apps
         /// Deletes the specified nickname.
         /// </summary>
         /// <param name="nickname">the nickname that you wish to delete</param>
-        public void DeleteNickname(string nickname)
-        {
+        public void DeleteNickname(string nickname) {
             NicknameQuery query = new NicknameQuery(Domain);
             query.Nickname = nickname;
 
             nicknameService.Delete(query.Uri);
-        }
-
-        /// <summary>
-        /// Creates a new email list on this domain.
-        /// </summary>
-        /// <param name="emailList">the name of the email list that you wish to create.</param>
-        /// <returns>the newly created EmailListEntry</returns>
-        public EmailListEntry CreateEmailList(string emailList)
-        {
-            EmailListQuery query = new EmailListQuery(Domain);
-            EmailListEntry entry = new EmailListEntry(emailList);
-
-            return emailListService.Insert(query.Uri, entry);
-        }
-
-        /// <summary>
-        /// Retrieves all email lists on the domain.
-        /// </summary>
-        /// <returns>the feed containing all email list entries</returns>
-        public EmailListFeed RetrieveAllEmailLists()
-        {
-            EmailListQuery query = new EmailListQuery(Domain);
-
-            return emailListService.Query(query);
-        }
-
-        /// <summary>
-        /// Retrieves a page of at most 100 email list names beginning with the
-        /// specified email list name.  Email lists are ordered case-insensitively
-        /// by ASCII value.
-        /// </summary>
-        /// <param name="startEmailListName">the first email list name that should
-        /// appear in your result set</param>
-        /// <returns>the feed containing the matching email list entries</returns>
-        public EmailListFeed RetrievePageOfEmailLists(string startEmailListName)
-        {
-            EmailListQuery query = new EmailListQuery(Domain);
-            query.StartEmailListName = startEmailListName;
-            query.RetrieveAllEmailLists = false;
-
-            return emailListService.Query(query);
-        }
-
-        /// <summary>
-        /// Retrieves the specified email list.
-        /// </summary>
-        /// <param name="emailList">is the name of the email list that you wish to retrieve</param>
-        /// <returns>the resulting EmailListEntry</returns>
-        public EmailListEntry RetrieveEmailList(string emailList)
-        {
-            EmailListQuery query = new EmailListQuery(Domain);
-            query.EmailListName = emailList;
-
-            EmailListFeed feed = emailListService.Query(query);
-
-            // It's safe to access Entries[0] here, because the service will have
-            // already thrown an exception if the email list name was invalid.
-            return feed.Entries[0] as EmailListEntry;
-        }
-
-        /// <summary>
-        /// Retrieves all email lists to which the specified user subscribes.
-        /// </summary>
-        /// <param name="recipient">the username or email address of a hosted user
-        /// for which you wish to retrieve email list subscriptions</param>
-        /// <returns>the feed containing all matching email list entries</returns>
-        public EmailListFeed RetrieveEmailLists(string recipient)
-        {
-            EmailListQuery query = new EmailListQuery(Domain);
-            query.Recipient = recipient;
-
-            return emailListService.Query(query);
-        }
-
-        /// <summary>
-        /// Deletes the specified email list.
-        /// </summary>
-        /// <param name="emailList">the name of the email list that you wish to delete</param>
-        public void DeleteEmailList(string emailList)
-        {
-            EmailListQuery query = new EmailListQuery(Domain);
-            query.EmailListName = emailList;
-
-            emailListService.Delete(query.Uri);
-        }
-
-        /// <summary>
-        /// Adds the specified recipient to an email list.
-        /// </summary>
-        /// <param name="recipientAddress">the email address that is being added</param>
-        /// <param name="emailList">the email address to which the address is being added</param>
-        /// <returns>the newly inserted EmailListRecipientEntry</returns>
-        public EmailListRecipientEntry AddRecipientToEmailList(string recipientAddress, string emailList)
-        {
-            EmailListRecipientQuery query = new EmailListRecipientQuery(Domain, emailList);
-            EmailListRecipientEntry entry = new EmailListRecipientEntry(recipientAddress);
-
-            return emailListRecipientService.Insert(query.Uri, entry);
-        }
-
-        /// <summary>
-        /// Retrieves list of all of the subscribers to an email list.
-        /// </summary>
-        /// <param name="emailList">the name of the email list for which you wish to
-        /// retrieve a subscriber list</param>
-        /// <returns>a feed containing all of the subscribers to this email list</returns>
-        public EmailListRecipientFeed RetrieveAllRecipients(string emailList)
-        {
-            EmailListRecipientQuery query = new EmailListRecipientQuery(Domain, emailList);
-
-            return emailListRecipientService.Query(query);
-        }
-
-        /// <summary>
-        /// Retrieves a page of at most 100 subscribers to an email list.
-        /// Email addresses are ordered case-insensitively by ASCII value.
-        /// </summary>
-        /// <param name="emailList">the name of the email list for which you
-        /// are retrieving recipients</param>
-        /// <param name="startRecipient">the first email address that should
-        /// appear in your result set</param>
-        /// <returns>a feed containing the matching subscribers</returns>
-        public EmailListRecipientFeed RetrievePageOfRecipients(string emailList, string startRecipient)
-        {
-            EmailListRecipientQuery query = new EmailListRecipientQuery(Domain, emailList);
-            query.StartRecipient = startRecipient;
-
-            return emailListRecipientService.Query(query);
-        }
-
-        /// <summary>
-        /// Removes the specified recipient from an email list.
-        /// </summary>
-        /// <param name="recipientAddress">the email address that is being removed</param>
-        /// <param name="emailList">the email address from which the address is being removed</param>
-        public void RemoveRecipientFromEmailList(string recipientAddress, string emailList)
-        {
-            EmailListRecipientQuery query = new EmailListRecipientQuery(Domain, emailList);
-            query.Recipient = recipientAddress;
-
-            emailListRecipientService.Delete(query.Uri);
         }
     }
 }

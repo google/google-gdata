@@ -157,14 +157,6 @@
     <Compile Include="genericfeed.cs" />
     <Compile Include="mailboxdumprequest.cs" />
     <Compile Include="mailmonitor.cs" />
-    <Compile Include="emaillistentry.cs" />
-    <Compile Include="emaillistfeed.cs" />
-    <Compile Include="emaillistquery.cs" />
-    <Compile Include="emaillistrecipiententry.cs" />
-    <Compile Include="emaillistrecipientfeed.cs" />
-    <Compile Include="emaillistrecipientquery.cs" />
-    <Compile Include="emaillistrecipientservice.cs" />
-    <Compile Include="emaillistservice.cs" />
     <Compile Include="googlemailsettingsservice.cs" />
     <Compile Include="groupsservice.cs" />
     <Compile Include="mailitementry.cs" />
