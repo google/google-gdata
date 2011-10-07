@@ -16,140 +16,207 @@
 * Oct 13 2008  Joe Feser       joseph.feser@gmail.com
 * Converted ArrayLists and other .NET 1.1 collections to use Generics
 * Combined IExtensionElement and IExtensionElementFactory interfaces
-* 
+*
 */
 using System;
 using System.Xml;
-using System.IO; 
+using System.IO;
 using System.Collections;
 using Google.GData.Client;
 using Google.GData.Extensions;
 
 namespace Google.GData.Calendar {
-
-
-    // a few new subelements
-
     //////////////////////////////////////////////////////////////////////
-    /// <summary>subelements definition for the event entry thar are calendar specific
-    /// </summary> 
+    /// <summary>subelements definition for calendar-specific event entries
+    /// </summary>
     //////////////////////////////////////////////////////////////////////
-    public class GCalNameTable
-    {
+    public class GCalNameTable {
         /// <summary>syncEvent</summary>
-        public const string XmlSyncEventElement = "syncEvent"; 
+        public const string XmlSyncEventElement = "syncEvent";
         /// <summary>sequence element</summary>
-        public const string XmlSequenceElement = "sequence"; 
+        public const string XmlSequenceElement = "sequence";
         /// <summary>uid element</summary>
-        public const string XmlUidElement = "uid"; 
+        public const string XmlUidElement = "uid";
+        /// <summary>guestsCanModify element</summary>
+        public const string XmlGuestsCanModifyElement = "guestsCanModify";
+        /// <summary>guestsCanInviteOthers element</summary>
+        public const string XmlGuestsCanInviteOthersElement = "guestsCanInviteOthers";
+        /// <summary>guestsCanSeeGuests element</summary>
+        public const string XmlGuestsCanSeeGuestsElement = "guestsCanSeeGuests";
     }
-    //end of public class GCalEventTable
 
-
-     /// <summary>
-    /// Indicates whether this is a sync scenario where we allow setting the gCal:uid, the gCal:sequence, 
+    /// <summary>
+    /// Indicates whether this is a sync scenario where we allow setting the gCal:uid, the gCal:sequence,
     /// and the organizer of an event. This element makes sense only when inserting and updating
     ///  events. This element should primarily be used in a sync scenario.
     /// </summary>
-    public class GCalSyncEvent : SimpleAttribute
-    {
+    public class GCalSyncEvent : SimpleAttribute {
         /// <summary>
         /// default calendar access level constructor
-        /// </summary>        
+        /// </summary>
         public GCalSyncEvent()
-            : base(GCalNameTable.XmlSyncEventElement, GDataParserNameTable.gCalPrefix, 
-              GDataParserNameTable.NSGCal)
-        {
+            : base(GCalNameTable.XmlSyncEventElement,
+            GDataParserNameTable.gCalPrefix,
+            GDataParserNameTable.NSGCal) {
         }
 
         /// <summary>
         /// default calendar acccess level
-        ///  constructor with an initial value
+        /// constructor with an initial value
         /// </summary>
         /// <param name="initValue"></param>
         public GCalSyncEvent(string initValue)
-            : base(GCalNameTable.XmlSyncEventElement, GDataParserNameTable.gCalPrefix, 
-            GDataParserNameTable.NSGCal, initValue)
-        {
+            : base(GCalNameTable.XmlSyncEventElement,
+            GDataParserNameTable.gCalPrefix,
+            GDataParserNameTable.NSGCal,
+            initValue) {
         }
     }
 
-     /// <summary>
+    /// <summary>
     /// Indicates the globally unique identifier (UID) of the event as defined in Section 4.8.4.7 of RFC 2445.
     /// </summary>
-    public class GCalUid : SimpleAttribute
-    {
+    public class GCalUid : SimpleAttribute {
         /// <summary>
         /// default calendar access level constructor
-        /// </summary>        
+        /// </summary>
         public GCalUid()
-            : base(GCalNameTable.XmlUidElement, GDataParserNameTable.gCalPrefix, 
-              GDataParserNameTable.NSGCal)
-        {
+            : base(GCalNameTable.XmlUidElement,
+            GDataParserNameTable.gCalPrefix,
+            GDataParserNameTable.NSGCal) {
         }
 
         /// <summary>
         /// default calendar acccess level
-        ///  constructor with an initial value
+        /// constructor with an initial value
         /// </summary>
         /// <param name="initValue"></param>
         public GCalUid(string initValue)
-            : base(GCalNameTable.XmlUidElement, GDataParserNameTable.gCalPrefix, 
-            GDataParserNameTable.NSGCal, initValue)
-        {
+            : base(GCalNameTable.XmlUidElement,
+            GDataParserNameTable.gCalPrefix,
+            GDataParserNameTable.NSGCal,
+            initValue) {
         }
     }
 
-
     /// <summary>
-    /// Indicates the revision sequence number of the event as defined in Section 4.8.7.4 of RFC 2445. Must be non-negative.
+    /// Indicates the revision sequence number of the event as defined in Section 4.8.7.4 of RFC 2445.
+    /// Must be non-negative.
     /// </summary>
-    public class GCalSequence : SimpleAttribute
-    {
+    public class GCalSequence : SimpleAttribute {
         /// <summary>
         /// default calendar access level constructor
-        /// </summary>        
+        /// </summary>
         public GCalSequence()
-            : base(GCalNameTable.XmlSequenceElement, GDataParserNameTable.gCalPrefix, 
-              GDataParserNameTable.NSGCal)
-        {
+            : base(GCalNameTable.XmlSequenceElement,
+            GDataParserNameTable.gCalPrefix,
+            GDataParserNameTable.NSGCal) {
         }
 
         /// <summary>
         /// default calendar acccess level
-        ///  constructor with an initial value
+        /// constructor with an initial value
         /// </summary>
         /// <param name="initValue"></param>
         public GCalSequence(string initValue)
-            : base(GCalNameTable.XmlSequenceElement, GDataParserNameTable.gCalPrefix, 
-            GDataParserNameTable.NSGCal, initValue)
-        {
+            : base(GCalNameTable.XmlSequenceElement,
+            GDataParserNameTable.gCalPrefix,
+            GDataParserNameTable.NSGCal,
+            initValue) {
         }
     }
 
+    /// <summary>
+    /// Indicates whether or not guests can modify the event.
+    /// </summary>
+    public class GCalGuestsCanModify : SimpleAttribute {
+        /// <summary>
+        /// default constructor
+        /// </summary>
+        public GCalGuestsCanModify()
+            : base(GCalNameTable.XmlGuestsCanModifyElement,
+            GDataParserNameTable.gCalPrefix,
+            GDataParserNameTable.NSGCal) {
+        }
 
-    //////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// constructor with an initial value
+        /// </summary>
+        /// <param name="initValue"></param>
+        public GCalGuestsCanModify(string initValue)
+            : base(GCalNameTable.XmlGuestsCanModifyElement,
+            GDataParserNameTable.gCalPrefix,
+            GDataParserNameTable.NSGCal,
+            initValue) {
+        }
+    }
+
+    /// <summary>
+    /// Indicates whether or not guests can invite other guests.
+    /// </summary>
+    public class GCalGuestsCanInviteOthers : SimpleAttribute {
+        /// <summary>
+        /// default constructor
+        /// </summary>
+        public GCalGuestsCanInviteOthers()
+            : base(GCalNameTable.XmlGuestsCanInviteOthersElement,
+            GDataParserNameTable.gCalPrefix,
+            GDataParserNameTable.NSGCal) {
+        }
+
+        /// <summary>
+        /// constructor with an initial value
+        /// </summary>
+        /// <param name="initValue"></param>
+        public GCalGuestsCanInviteOthers(string initValue)
+            : base(GCalNameTable.XmlGuestsCanInviteOthersElement,
+            GDataParserNameTable.gCalPrefix,
+            GDataParserNameTable.NSGCal,
+            initValue) {
+        }
+    }
+
+    /// <summary>
+    /// Indicates whether or not guests can see other guests.
+    /// </summary>
+    public class GCalGuestsCanSeeGuests : SimpleAttribute {
+        /// <summary>
+        /// default constructor
+        /// </summary>
+        public GCalGuestsCanSeeGuests()
+            : base(GCalNameTable.XmlGuestsCanSeeGuestsElement,
+            GDataParserNameTable.gCalPrefix,
+            GDataParserNameTable.NSGCal) {
+        }
+
+        /// <summary>
+        /// constructor with an initial value
+        /// </summary>
+        /// <param name="initValue"></param>
+        public GCalGuestsCanSeeGuests(string initValue)
+            : base(GCalNameTable.XmlGuestsCanSeeGuestsElement,
+            GDataParserNameTable.gCalPrefix,
+            GDataParserNameTable.NSGCal,
+            initValue) {
+        }
+    }
+
     /// <summary>
     /// Entry API customization class for defining entries in an Event feed.
     /// </summary>
-    //////////////////////////////////////////////////////////////////////
-    public class EventEntry : AbstractEntry
-    {
-
-
+    public class EventEntry : AbstractEntry {
         /// <summary>
         /// Category used to label entries that contain Event extension data.
         /// </summary>
         public static AtomCategory EVENT_CATEGORY =
-        new AtomCategory(GDataParserNameTable.Event, new AtomUri(BaseNameTable.gKind));
+            new AtomCategory(GDataParserNameTable.Event, new AtomUri(BaseNameTable.gKind));
 
         /// <summary>
         /// Constructs a new EventEntry instance with the appropriate category
         /// to indicate that it is an event.
         /// </summary>
         public EventEntry()
-        : base()
-        {
+            : base() {
             Categories.Add(EVENT_CATEGORY);
             addEventEntryExtensions();
         }
@@ -158,8 +225,8 @@ namespace Google.GData.Calendar {
         /// Constructs a new EventEntry instance with provided data.
         /// </summary>
         /// <param name="title">The descriptive title of the event ("What" in the UI)</param>
-        public EventEntry(string title) : this()
-        {
+        public EventEntry(string title)
+            : this() {
             this.Title.Text = title;
         }
 
@@ -167,10 +234,10 @@ namespace Google.GData.Calendar {
         /// Constructs a new EventEntry instance with provided data.
         /// </summary>
         /// <param name="title">The descriptive title of the event ("What" in the UI)</param>
-        /// <param name="description">A longer description of the event 
+        /// <param name="description">A longer description of the event
         /// ("Description" in the UI)</param>
-        public EventEntry(string title, string description) : this(title)
-        {
+        public EventEntry(string title, string description)
+            : this(title) {
             this.Content.Content = description;
         }
 
@@ -178,23 +245,20 @@ namespace Google.GData.Calendar {
         /// Constructs a new EventEntry instance with provided data.
         /// </summary>
         /// <param name="title">The descriptive title of the event ("What" in the UI)</param>
-        /// <param name="description">A longer description of the event 
+        /// <param name="description">A longer description of the event
         /// ("Description" in the UI)</param>
         /// <param name="location">The location of the event ("Where" in the UI)</param>
         public EventEntry(string title, string description, string location)
-            : this(title, description)
-        {
+            : this(title, description) {
             Where eventLocation = new Where();
             eventLocation.ValueString = location;
             this.Locations.Add(eventLocation);
-            
         }
 
         /// <summary>
         ///  helper method to add extensions to the evententry
         /// </summary>
-        private void addEventEntryExtensions()
-        {
+        private void addEventEntryExtensions() {
             this.AddExtension(new Reminder());
             this.AddExtension(new Where());
             this.AddExtension(new Who());
@@ -211,29 +275,30 @@ namespace Google.GData.Calendar {
             this.AddExtension(new GCalSequence());
             this.AddExtension(new GCalUid());
             this.AddExtension(new GCalSyncEvent());
+            this.AddExtension(new GCalGuestsCanSeeGuests());
+            this.AddExtension(new GCalGuestsCanInviteOthers());
+            this.AddExtension(new GCalGuestsCanModify());
         }
 
         /// <summary>
-        /// Constructs a new EventStatus  instance
+        /// Constructs a new EventStatus instance
         /// </summary>
-        public class EventStatus : EnumConstruct
-        {
+        public class EventStatus : EnumConstruct {
             /// <summary>
-            ///  default constructor
+            /// default constructor
             /// </summary>
             public EventStatus()
-            : base(GDataParserNameTable.XmlEventStatusElement)
-            {
+                : base(GDataParserNameTable.XmlEventStatusElement) {
             }
 
             /// <summary>
-            ///  EventStatus constructor 
+            /// EventStatus constructor
             /// </summary>
             /// <param name="value">indicates the default status</param>
             public EventStatus(string value)
-            : base(GDataParserNameTable.XmlEventStatusElement, value)
-            {
+                : base(GDataParserNameTable.XmlEventStatusElement, value) {
             }
+
             /// <summary>string constant for a confirmed event</summary>
             public const string CONFIRMED_VALUE = BaseNameTable.gNamespacePrefix + "event.confirmed";
             /// <summary>string constant for a tentative accepted event</summary>
@@ -252,23 +317,20 @@ namespace Google.GData.Calendar {
         /// <summary>
         /// Visibility class indicates the visibility of an eventNode
         /// </summary>
-        public class Visibility : EnumConstruct
-        {
+        public class Visibility : EnumConstruct {
             /// <summary>
             ///  default constructor
             /// </summary>
             public Visibility()
-            : base(GDataParserNameTable.XmlVisibilityElement)
-            {
+                : base(GDataParserNameTable.XmlVisibilityElement) {
             }
 
             /// <summary>
-            ///  Visibility constructor with a string to indicate default value
+            /// Visibility constructor with a string to indicate default value
             /// </summary>
             /// <param name="value">the default visibility value</param>
             public Visibility(string value)
-            : base(GDataParserNameTable.XmlVisibilityElement, value)
-            {
+                : base(GDataParserNameTable.XmlVisibilityElement, value) {
             }
 
             /// <summary>string constant for the default visibility value</summary>
@@ -291,25 +353,22 @@ namespace Google.GData.Calendar {
         }
 
         /// <summary>
-        ///  the Transparency of an event class
+        /// the Transparency of an event class
         /// </summary>
-        public class Transparency : EnumConstruct
-        {
+        public class Transparency : EnumConstruct {
             /// <summary>
             ///  default constructor
             /// </summary>
             public Transparency()
-            : base(GDataParserNameTable.XmlTransparencyElement)
-            {
+                : base(GDataParserNameTable.XmlTransparencyElement) {
             }
 
             /// <summary>
-            ///  constructor with a default string value
+            /// constructor with a default string value
             /// </summary>
             /// <param name="value">transparency value</param>
             public Transparency(string value)
-            : base(GDataParserNameTable.XmlTransparencyElement, value)
-            {
+                : base(GDataParserNameTable.XmlTransparencyElement, value) {
             }
 
             /// <summary>string constant for the opaque transparency value</summary>
@@ -324,78 +383,68 @@ namespace Google.GData.Calendar {
         }
 
         /// <summary>
-        ///  indicates if an eventupdate should reissue notifications
+        /// indicates if an eventupdate should reissue notifications
         /// false by default
         /// </summary>
-        public class SendNotifications : EnumConstruct
-        {
+        public class SendNotifications : EnumConstruct {
             /// <summary>
             ///  default constructor
             /// </summary>
             public SendNotifications()
-            : base(GDataParserNameTable.XmlSendNotificationsElement,
-                   GDataParserNameTable.gCalPrefix,
-                   GDataParserNameTable.NSGCal)
-            {
+                : base(GDataParserNameTable.XmlSendNotificationsElement,
+                GDataParserNameTable.gCalPrefix,
+                GDataParserNameTable.NSGCal) {
             }
 
             /// <summary>
-            ///  constructor with a default string value
+            /// constructor with a default string value
             /// </summary>
             /// <param name="value">transparency value</param>
             public SendNotifications(string value)
-            : base(GDataParserNameTable.XmlSendNotificationsElement,
-                   GDataParserNameTable.gCalPrefix,
-                   GDataParserNameTable.NSGCal, value)
-            {
+                : base(GDataParserNameTable.XmlSendNotificationsElement,
+                GDataParserNameTable.gCalPrefix,
+                GDataParserNameTable.NSGCal,
+                value) {
             }
         }
 
-         /// <summary>
-        ///  indicates if this new entry should be a quickadd
+        /// <summary>
+        /// indicates if this new entry should be a quickadd
         /// false by default
         /// </summary>
-        public class QuickAddElement : EnumConstruct
-        {
+        public class QuickAddElement : EnumConstruct {
             /// <summary>
             ///  default constructor
             /// </summary>
             public QuickAddElement()
-            : base(GDataParserNameTable.XmlQuickAddElement,
-                   GDataParserNameTable.gCalPrefix,
-                   GDataParserNameTable.NSGCal)
-            {
+                : base(GDataParserNameTable.XmlQuickAddElement,
+                GDataParserNameTable.gCalPrefix,
+                GDataParserNameTable.NSGCal) {
             }
 
             /// <summary>
-            ///  constructor with a default string value
+            /// constructor with a default string value
             /// </summary>
             /// <param name="value">transparency value</param>
             public QuickAddElement(string value)
-            : base(GDataParserNameTable.XmlQuickAddElement, value)
-            {
+                : base(GDataParserNameTable.XmlQuickAddElement, value) {
             }
         }
 
-
-
-#region EventEntry Attributes
+        #region EventEntry Attributes
 
         private ExtensionCollection<When> times;
         private ExtensionCollection<Where> locations;
         private ExtensionCollection<Who> participants;
-#endregion
+        #endregion
 
-#region Public Methods
+        #region Public Methods
         /// <summary>
-        ///  property accessor for the WhenCollection
+        /// property accessor for the WhenCollection
         /// </summary>
-        public ExtensionCollection<When> Times
-        {
-            get 
-            {
-                if (this.times == null)
-                {
+        public ExtensionCollection<When> Times {
+            get {
+                if (this.times == null) {
                     this.times = new ExtensionCollection<When>(this);
                 }
                 return this.times;
@@ -403,14 +452,11 @@ namespace Google.GData.Calendar {
         }
 
         /// <summary>
-        ///  property accessor for the WhereCollection
+        /// property accessor for the WhereCollection
         /// </summary>
-        public ExtensionCollection<Where> Locations
-        {
-            get 
-            {
-                if (this.locations == null)
-                {
+        public ExtensionCollection<Where> Locations {
+            get {
+                if (this.locations == null) {
                     this.locations = new ExtensionCollection<Where>(this);
                 }
                 return this.locations;
@@ -418,15 +464,12 @@ namespace Google.GData.Calendar {
         }
 
         /// <summary>
-        ///  property accessor for the whos in the event
+        /// property accessor for the whos in the event
         /// </summary>
-        public ExtensionCollection<Who> Participants
-        {
-            get 
-            {
-                if (this.participants == null)
-                {
-                    this.participants = new ExtensionCollection<Who>(this); 
+        public ExtensionCollection<Who> Participants {
+            get {
+                if (this.participants == null) {
+                    this.participants = new ExtensionCollection<Who>(this);
                 }
                 return this.participants;
             }
@@ -434,83 +477,70 @@ namespace Google.GData.Calendar {
 
 
         /// <summary>
-        ///  property accessor for the Eventnotifications
-        ///  set this to True for notfications to be send 
+        /// property accessor for the Event notifications
+        /// set this to True for notifications to be sent
         /// </summary>
-        public bool Notifications
-        {
-            get 
-            { 
-                SendNotifications n = FindExtension(GDataParserNameTable.XmlSendNotificationsElement,
-                                     GDataParserNameTable.NSGCal) as SendNotifications;
+        public bool Notifications {
+            get {
+                SendNotifications n = 
+                    FindExtension(GDataParserNameTable.XmlSendNotificationsElement,
+                    GDataParserNameTable.NSGCal) as SendNotifications;
 
-                if (n == null)
-                {
+                if (n == null) {
                     return false;
                 }
-                return n.Value == Utilities.XSDTrue; 
+                return n.Value == Utilities.XSDTrue;
             }
-            set
-            {
-                SendNotifications n = FindExtension(GDataParserNameTable.XmlSendNotificationsElement,
-                                     GDataParserNameTable.NSGCal) as SendNotifications;
-                if (value)
-                {
-                    if (n == null)
-                    {
-                        n = new SendNotifications(); 
+            set {
+                SendNotifications n =
+                    FindExtension(GDataParserNameTable.XmlSendNotificationsElement,
+                    GDataParserNameTable.NSGCal) as SendNotifications;
+
+                if (value) {
+                    if (n == null) {
+                        n = new SendNotifications();
                         ExtensionElements.Add(n);
                     }
                     n.Value = Utilities.XSDTrue;
-                }
-                else 
-                {
-                    if (n != null)
-                    {
+                } else {
+                    if (n != null) {
                         DeleteExtensions(GDataParserNameTable.XmlSendNotificationsElement,
-                                     GDataParserNameTable.NSGCal);
+                            GDataParserNameTable.NSGCal);
                     }
                 }
             }
         }
 
-
         /// <summary>
-        ///  property accessor QuickAdd
-        /// To create an event using Google Calendar's quick add feature, set the event 
-        /// entry's content to the quick add string you'd like to use. Then add a 
+        /// property accessor QuickAdd
+        /// To create an event using Google Calendar's quick add feature, set the event
+        /// entry's content to the quick add string you'd like to use. Then add a
         /// gCal:quickadd element with a value attribute set to true
         /// </summary>
-        public bool QuickAdd
-        {
-            get 
-            { 
-                QuickAddElement q = FindExtension(GDataParserNameTable.XmlQuickAddElement,
-                                     GDataParserNameTable.NSGCal) as QuickAddElement;
+        public bool QuickAdd {
+            get {
+                QuickAddElement q = 
+                    FindExtension(GDataParserNameTable.XmlQuickAddElement,
+                    GDataParserNameTable.NSGCal) as QuickAddElement;
 
-                if (q == null)
-                {
+                if (q == null) {
                     return false;
                 }
-                return q.Value == Utilities.XSDTrue; 
+                return q.Value == Utilities.XSDTrue;
             }
-            set
-            {
-                QuickAddElement q = FindExtension(GDataParserNameTable.XmlQuickAddElement,
-                                     GDataParserNameTable.NSGCal) as QuickAddElement;
-                if (value)
-                {
-                    if (q == null)
-                    {
-                        q = new QuickAddElement(); 
+            set {
+                QuickAddElement q =
+                    FindExtension(GDataParserNameTable.XmlQuickAddElement,
+                    GDataParserNameTable.NSGCal) as QuickAddElement;
+
+                if (value) {
+                    if (q == null) {
+                        q = new QuickAddElement();
                         ExtensionElements.Add(q);
                     }
                     q.Value = Utilities.XSDTrue;
-                }
-                else 
-                {
-                    if (q != null)
-                    {
+                } else {
+                    if (q != null) {
                         DeleteExtensions(GDataParserNameTable.XmlQuickAddElement,
                                      GDataParserNameTable.NSGCal);
                     }
@@ -518,158 +548,126 @@ namespace Google.GData.Calendar {
             }
         }
 
-
-
         /// <summary>
-        ///  property accessor for the EventStatus
+        /// property accessor for the EventStatus
         /// </summary>
-        public EventStatus Status
-        {
-            get 
-            { 
+        public EventStatus Status {
+            get {
                 return FindExtension(GDataParserNameTable.XmlEventStatusElement,
-                                     GDataParserNameTable.gNamespace) as EventStatus;
+                    GDataParserNameTable.gNamespace) as EventStatus;
             }
-            set
-            {
+            set {
                 ReplaceExtension(GDataParserNameTable.XmlEventStatusElement,
-                                     GDataParserNameTable.gNamespace, value);
+                    GDataParserNameTable.gNamespace, value);
             }
         }
 
-
         /// <summary>
-        ///  property accessor for the Event Visibility 
+        /// property accessor for the Event Visibility
         /// </summary>
-        public Visibility EventVisibility
-        {
-            get 
-            { 
+        public Visibility EventVisibility {
+            get {
                 return FindExtension(GDataParserNameTable.XmlVisibilityElement,
-                                     GDataParserNameTable.gNamespace) as Visibility;
+                    GDataParserNameTable.gNamespace) as Visibility;
             }
-            set
-            {
+            set {
                 ReplaceExtension(GDataParserNameTable.XmlVisibilityElement,
-                                     GDataParserNameTable.gNamespace, value);
+                    GDataParserNameTable.gNamespace, value);
             }
         }
 
         /// <summary>
-        ///  property accessor for the EventTransparency
+        /// property accessor for the EventTransparency
         /// </summary>
-        public Transparency EventTransparency
-        {
-            get 
-            { 
+        public Transparency EventTransparency {
+            get {
                 return FindExtension(GDataParserNameTable.XmlTransparencyElement,
-                                     GDataParserNameTable.gNamespace) as Transparency;
+                    GDataParserNameTable.gNamespace) as Transparency;
             }
-            set
-            {
+            set {
                 ReplaceExtension(GDataParserNameTable.XmlTransparencyElement,
-                                     GDataParserNameTable.gNamespace, value);
+                    GDataParserNameTable.gNamespace, value);
             }
         }
 
         /// <summary>
-        ///  property accessor for the Recurrence
+        /// property accessor for the Recurrence
         /// </summary>
-        public Recurrence Recurrence
-        {
-            get 
-            { 
+        public Recurrence Recurrence {
+            get {
                 return FindExtension(GDataParserNameTable.XmlRecurrenceElement,
-                                     GDataParserNameTable.gNamespace) as Recurrence;
+                    GDataParserNameTable.gNamespace) as Recurrence;
             }
-            set
-            {
+            set {
                 ReplaceExtension(GDataParserNameTable.XmlRecurrenceElement,
-                                     GDataParserNameTable.gNamespace, value);
+                    GDataParserNameTable.gNamespace, value);
             }
         }
 
-      /// <summary>
-      ///  property accessor for the RecurrenceException
-      /// </summary>
-      public RecurrenceException RecurrenceException
-      {
-            get 
-            { 
+        /// <summary>
+        /// property accessor for the RecurrenceException
+        /// </summary>
+        public RecurrenceException RecurrenceException {
+            get {
                 return FindExtension(GDataParserNameTable.XmlRecurrenceExceptionElement,
-                                     GDataParserNameTable.gNamespace) as RecurrenceException;
+                    GDataParserNameTable.gNamespace) as RecurrenceException;
             }
-            set
-            {
+            set {
                 ReplaceExtension(GDataParserNameTable.XmlRecurrenceExceptionElement,
-                                     GDataParserNameTable.gNamespace, value);
+                    GDataParserNameTable.gNamespace, value);
             }
-      }
+        }
 
         /// <summary>
         /// property accessor for the OriginalEvent
         /// </summary>
-        public OriginalEvent OriginalEvent
-        {
-            get 
-            { 
+        public OriginalEvent OriginalEvent {
+            get {
                 return FindExtension(GDataParserNameTable.XmlOriginalEventElement,
-                                     GDataParserNameTable.gNamespace) as OriginalEvent;
+                    GDataParserNameTable.gNamespace) as OriginalEvent;
             }
-            set
-            {
+            set {
                 ReplaceExtension(GDataParserNameTable.XmlOriginalEventElement,
-                                     GDataParserNameTable.gNamespace, value);
+                    GDataParserNameTable.gNamespace, value);
             }
         }
 
         /// <summary>
-        ///  property accessor for the Comments
+        /// property accessor for the Comments
         /// </summary>
-        public Comments Comments
-        {
-            get 
-            { 
+        public Comments Comments {
+            get {
                 return FindExtension(GDataParserNameTable.XmlCommentsElement,
-                                 GDataParserNameTable.gNamespace) as Comments;
+                    GDataParserNameTable.gNamespace) as Comments;
             }
-            set
-            {
+            set {
                 ReplaceExtension(GDataParserNameTable.XmlCommentsElement,
-                                     GDataParserNameTable.gNamespace, value);
+                    GDataParserNameTable.gNamespace, value);
             }
         }
-
 
         /// <summary>
         /// returns the first reminder of the Times collection
         /// </summary>
         /// <returns>When object for the reminder or NULL</returns>
-        protected When GetFirstReminder()
-        {
-            return this.Times != null && this.Times.Count > 0 ? this.Times[0] : null; 
+        protected When GetFirstReminder() {
+            return this.Times != null && this.Times.Count > 0 ? this.Times[0] : null;
         }
-
 
         /// <summary>
         /// returns the FIRST reminder for backwards compatibility
         /// if set, will REMOVE all reminders, but this one (array of one)
         /// </summary>
-        public Reminder Reminder 
-        {
-            get 
-            {
-                if (this.Reminders != null && this.Reminders.Count > 0)
-                {
+        public Reminder Reminder {
+            get {
+                if (this.Reminders != null && this.Reminders.Count > 0) {
                     return this.Reminders[0];
                 }
                 return null;
             }
-            set 
-            {
+            set {
                 this.Reminders.Clear();
-                if (value != null)
-                {
+                if (value != null) {
                     this.Reminders.Add(value);
                 }
             }
@@ -678,37 +676,30 @@ namespace Google.GData.Calendar {
         /// <summary>
         /// property accessor for the Reminder
         /// </summary>
-        public ExtensionCollection<Reminder> Reminders
-        {
-            get 
-            { 
+        public ExtensionCollection<Reminder> Reminders {
+            get {
                 // if we are a recurrent event, reminder is on the entry/toplevel
-                if (this.Recurrence != null)
-                {
+                if (this.Recurrence != null) {
                     //TODO could not get the generic overload to work. we for now just copy the list a few times.
                     ExtensionList list = new ExtensionList(this);
 
                     FindExtensions(GDataParserNameTable.XmlReminderElement,
-                                      BaseNameTable.gNamespace, list);
+                        BaseNameTable.gNamespace, list);
 
                     ExtensionCollection<Reminder> collection = new ExtensionCollection<Reminder>(this);
-                    foreach (Reminder var in list)
-                    {
+                    foreach (Reminder var in list) {
                         collection.Add(var);
                     }
 
                     return collection;
-                } 
-                else
-                {
+                } else {
                     // in the non recurrent case, it's on the first when element
-                    When w = GetFirstReminder(); 
-                    if (w != null)
-                    {
-                        return w.Reminders; 
+                    When w = GetFirstReminder();
+                    if (w != null) {
+                        return w.Reminders;
                     }
                 }
-                return null; 
+                return null;
             }
         }
 
@@ -716,116 +707,132 @@ namespace Google.GData.Calendar {
         /// as eventId is a commonly used part in the calendar world, we expose it
         /// here. In general the EventId is the last part of the AtomId
         /// </summary>
-        public string EventId 
-        {
-            get 
-            {
-                string[] elements = this.Id.AbsoluteUri.Split(new char[] {'/'});
-                if (elements != null && elements.Length > 0)
-                {
+        public string EventId {
+            get {
+                string[] elements = this.Id.AbsoluteUri.Split(new char[] { '/' });
+                if (elements != null && elements.Length > 0) {
                     return elements[elements.Length - 1];
                 }
                 return null;
             }
         }
 
-
         /// <summary>
         /// Property to retrieve/set an associated WebContentLink
         /// </summary>
-        public WebContentLink WebContentLink
-        {
-            get
-            {
-                return this.Links.FindService(WebContentLink.WEB_CONTENT_REL, 
+        public WebContentLink WebContentLink {
+            get {
+                return this.Links.FindService(WebContentLink.WEB_CONTENT_REL,
                     null) as WebContentLink;
             }
-            set
-            {
+            set {
                 this.Links.Add(value);
             }
         }
 
-
         /// <summary>
-        ///  property accessor for the SyncEvent element
+        /// property accessor for the SyncEvent element
         /// </summary>
-        public GCalSyncEvent  SyncEvent
-        {
-            get 
-            { 
+        public GCalSyncEvent SyncEvent {
+            get {
                 return FindExtension(GCalNameTable.XmlSyncEventElement,
-                                     GDataParserNameTable.NSGCal) as GCalSyncEvent;
+                    GDataParserNameTable.NSGCal) as GCalSyncEvent;
             }
-            set
-            {
+            set {
                 ReplaceExtension(GCalNameTable.XmlSyncEventElement,
-                                     GDataParserNameTable.NSGCal, value);
+                    GDataParserNameTable.NSGCal, value);
             }
         }
 
         /// <summary>
-        ///  property accessor for the uid element
+        /// property accessor for the uid element
         /// </summary>
-        public GCalUid  Uid
-        {
-            get 
-            { 
+        public GCalUid Uid {
+            get {
                 return FindExtension(GCalNameTable.XmlUidElement,
-                                     GDataParserNameTable.NSGCal) as GCalUid;
+                    GDataParserNameTable.NSGCal) as GCalUid;
             }
-            set
-            {
+            set {
                 ReplaceExtension(GCalNameTable.XmlUidElement,
-                                     GDataParserNameTable.NSGCal, value);
+                    GDataParserNameTable.NSGCal, value);
             }
         }
-                /// <summary>
-        ///  property accessor for the SyncEvent element
+        /// <summary>
+        /// property accessor for the SyncEvent element
         /// </summary>
-        public GCalSequence  Sequence
-        {
-            get 
-            { 
+        public GCalSequence Sequence {
+            get {
                 return FindExtension(GCalNameTable.XmlSequenceElement,
-                                     GDataParserNameTable.NSGCal) as GCalSequence;
+                    GDataParserNameTable.NSGCal) as GCalSequence;
             }
-            set
-            {
+            set {
                 ReplaceExtension(GCalNameTable.XmlSequenceElement,
-                                     GDataParserNameTable.NSGCal, value);
+                    GDataParserNameTable.NSGCal, value);
             }
         }
-
-
-
-#endregion
 
         /// <summary>
-        /// this is the subclassing method for AtomBase derived 
+        /// property accessor for the GuestsCanSeeGuests element
+        /// </summary>
+        public GCalGuestsCanSeeGuests GuestsCanSeeGuests {
+            get {
+                return FindExtension(GCalNameTable.XmlGuestsCanSeeGuestsElement,
+                    GDataParserNameTable.NSGCal) as GCalGuestsCanSeeGuests;
+            }
+            set {
+                ReplaceExtension(GCalNameTable.XmlGuestsCanSeeGuestsElement,
+                    GDataParserNameTable.NSGCal, value);
+            }
+        }
+
+        /// <summary>
+        /// property accessor for the GuestsCanInviteOthers element
+        /// </summary>
+        public GCalGuestsCanInviteOthers GuestsCanInviteOthers {
+            get {
+                return FindExtension(GCalNameTable.XmlGuestsCanInviteOthersElement,
+                    GDataParserNameTable.NSGCal) as GCalGuestsCanInviteOthers;
+            }
+            set {
+                ReplaceExtension(GCalNameTable.XmlGuestsCanInviteOthersElement,
+                    GDataParserNameTable.NSGCal, value);
+            }
+        }
+
+        /// <summary>
+        /// property accessor for the GuestsCanModify element
+        /// </summary>
+        public GCalGuestsCanModify GuestsCanModify {
+            get {
+                return FindExtension(GCalNameTable.XmlGuestsCanModifyElement,
+                    GDataParserNameTable.NSGCal) as GCalGuestsCanModify;
+            }
+            set {
+                ReplaceExtension(GCalNameTable.XmlGuestsCanModifyElement,
+                    GDataParserNameTable.NSGCal, value);
+            }
+        }
+
+        #endregion
+
+        /// <summary>
+        /// this is the subclassing method for AtomBase derived
         /// classes to overload what childelements should be created
         /// needed to create CustomLink type objects, like WebContentLink etc
         /// </summary>
         /// <param name="reader">The XmlReader that tells us what we are working with</param>
         /// <param name="parser">the parser is primarily used for nametable comparisons</param>
         /// <returns>AtomBase</returns>
-        public override AtomBase CreateAtomSubElement(XmlReader reader, AtomFeedParser parser)
-        {
+        public override AtomBase CreateAtomSubElement(XmlReader reader, AtomFeedParser parser) {
             Object localname = reader.LocalName;
 
-            if ((localname.Equals(parser.Nametable.Link)))
-            {
-                if (reader.GetAttribute(GDataParserNameTable.XmlAttributeRel) == 
-                    WebContentLink.WEB_CONTENT_REL)
-                {
+            if (localname.Equals(parser.Nametable.Link)) {
+                if (reader.GetAttribute(GDataParserNameTable.XmlAttributeRel) ==
+                    WebContentLink.WEB_CONTENT_REL) {
                     return new WebContentLink(false);
                 }
             }
             return base.CreateAtomSubElement(reader, parser);
-            
         }
     }
 }
-
-
-
