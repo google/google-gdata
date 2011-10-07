@@ -7,53 +7,52 @@ VERSION=$(shell egrep AssemblyVersion version/AssemblyVersion.cs | egrep -o \([[
 PREFIX=/usr/local
 PKGCONFIGDIR = $(PREFIX)/lib/pkgconfig
 
-CORELIBS=\
-	Google.GData.Client.dll		\
-	Google.GData.Extensions.dll 	
+CORELIBS= \
+  Google.GData.Client.dll \
+  Google.GData.Extensions.dll
 
-ACLLIBS=\
-	Google.GData.Client.dll		\
-	Google.GData.Extensions.dll 	\
-	Google.GData.AccessControl.dll
+ACLLIBS= \
+  Google.GData.Client.dll \
+  Google.GData.Extensions.dll \
+  Google.GData.AccessControl.dll
 
 
 ALLLIBS = \
-	Google.GData.Calendar.dll	\
-	Google.GData.Client.dll		\
-	Google.GData.CodeSearch.dll	\
-	Google.GData.Extensions.dll	\
-	Google.GData.GoogleBase.dll	\
-	Google.GData.Spreadsheets.dll	\
-	Google.GData.Apps.dll		\
-	Google.GData.Photos.dll		\
-	Google.GData.Documents.dll 	\
-	Google.GData.AccessControl.dll 	\
-	Google.GData.Contacts.dll	\
-	Google.GData.YouTube.dll	\
-	Google.GData.Health.dll \
-	Google.GData.Blogger.dll \
-	Google.GData.Analytics.dll \
-	
+  Google.GData.Calendar.dll \
+  Google.GData.Client.dll \
+  Google.GData.CodeSearch.dll \
+  Google.GData.Extensions.dll \
+  Google.GData.Spreadsheets.dll \
+  Google.GData.Apps.dll \
+  Google.GData.Photos.dll \
+  Google.GData.Documents.dll \
+  Google.GData.AccessControl.dll \
+  Google.GData.Contacts.dll \
+  Google.GData.YouTube.dll \
+  Google.GData.Health.dll \
+  Google.GData.Blogger.dll \
+  Google.GData.Analytics.dll
+
 UNINSTALLLIBS = $(basename $(ALLLIBS))
 
 FRAMEWORK_REFS = -r:System.dll -r:System.Xml.dll -r:System.Configuration.dll
 
 PKGCONFIG_FILES = $(patsubst %.pc.in,%.pc,$(wildcard misc/*.pc.in))
 
-COREREFS = $(addprefix -r:,$(CORELIBS)) $(FRAMEWORK_REFS) 
+COREREFS = $(addprefix -r:,$(CORELIBS)) $(FRAMEWORK_REFS)
 ALLREFS = $(addprefix -r:,$(ALLLIBS)) $(FRAMEWORK_REFS)
 ACLREFS = $(addprefix -r:,$(ACLLIBS)) $(FRAMEWORK_REFS)
 
 
-samples =	\
-	execrequest.exe			\
-	gapps_appsdemo.exe \
-	gapps_migration_sample.exe \
-	gblogger_demo.exe \
-	gcal_demo.exe \
-	gspreadsheet_demo.exe \
-	PhotoTool.exe \
-	HealthTool.exe \
+samples = \
+  execrequest.exe \
+  gapps_appsdemo.exe \
+  gapps_migration_sample.exe \
+  gblogger_demo.exe \
+  gcal_demo.exe \
+  gspreadsheet_demo.exe \
+  PhotoTool.exe \
+  HealthTool.exe
 
 all: $(ALLLIBS) tests $(samples) $(PKGCONFIG_FILES)
 
@@ -72,8 +71,8 @@ health_sources = $(wildcard src/ghealth/*.cs) $(wildcard version/*.cs)
 blogger_sources = $(wildcard src/blogger/*.cs) $(wildcard version/*.cs)
 analytics_sources = $(wildcard src/analytics/*.cs) $(wildcard version/*.cs)
 test_sources = $(wildcard src/unittests/*.cs) $(wildcard src/unittests/gapps/*.cs)\
-				 $(wildcard src/unittests/spreadsheets/*.cs) $(wildcard src/unittests/youtube/*.cs)  $(wildcard src/version/*cs)\
-				 $(wildcard src/unittests/core/*.cs)  $(wildcard src/unittests/picasa/*.cs)
+         $(wildcard src/unittests/spreadsheets/*.cs) $(wildcard src/unittests/youtube/*.cs)  $(wildcard src/version/*cs)\
+         $(wildcard src/unittests/core/*.cs)  $(wildcard src/unittests/picasa/*.cs)
 
 Google.GData.Client.dll: $(core_sources) src/core/clientkey.sn
 	$(CSC) $(DEFINES) -target:library -out:$@ $(core_sources) $(FRAMEWORK_REFS) -keyfile:src/core/clientkey.sn
@@ -124,7 +123,7 @@ clean:
 install: all
 	for i in $(ALLLIBS); do gacutil -i $$i -package GData-Sharp -root "$(DESTDIR)$(PREFIX)/lib"; done
 	install -d "$(DESTDIR)$(PKGCONFIGDIR)"
-	install -m 644 -t "$(DESTDIR)$(PKGCONFIGDIR)" $(PKGCONFIG_FILES) 
+	install -m 644 -t "$(DESTDIR)$(PKGCONFIGDIR)" $(PKGCONFIG_FILES)
 
 uninstall:
 	for i in $(UNINSTALLLIBS); do gacutil -u $$i -package GData-Sharp -root "$(DESTDIR)$(PREFIX)/lib"; done
@@ -160,7 +159,7 @@ gspreadsheet_demo.exe: $(ALLLIBS) $(gspreadsheet_demo_sources)
 PhotoTool_sources = $(wildcard samples/PhotoBrowser/*.cs)
 PhotoTool.exe: $(ALLLIBS) $(PhotoTool_sources)
 	$(CSC) -out:$@ $(ALLREFS) -r:System.Windows.Forms -r:System.Drawing -r:System.Data $(PhotoTool_sources)
-	
+
 healthtool_sources = $(wildcard samples/health/*.cs)
 HealthTool.exe: $(ALLLIBS) $(healthtool_sources)
 	$(CSC) -out:$@ $(ALLREFS) $(healthtool_sources)
