@@ -70,6 +70,26 @@ namespace Google.GData.Apps
         /// <summary>
         /// Returns a single page of the feed at the specified URI.
         /// </summary>
+        /// <param name="uri">the string containing the URI of the feed</param>
+        /// <returns></returns>
+        public AppsExtendedFeed QueryExtendedFeed(String uri) {
+            //By default, get a single page
+            return QueryExtendedFeed(new Uri(uri), false);
+        }
+
+        /// <summary>
+        /// Returns a single page of the feed at the specified URI.
+        /// </summary>
+        /// <param name="uri">the string containing the URI of the feed</param>
+        /// <param name="shouldGetAllPages">if true, returns all the pages</param>
+        /// <returns></returns>
+        public AppsExtendedFeed QueryExtendedFeed(String uri, Boolean shouldGetAllPages) {
+            return QueryExtendedFeed(new Uri(uri), shouldGetAllPages);
+        }
+
+        /// <summary>
+        /// Returns a single page of the feed at the specified URI.
+        /// </summary>
         /// <param name="uri">the URI of the feed</param>
         /// <returns></returns>
         public AppsExtendedFeed QueryExtendedFeed(Uri uri)

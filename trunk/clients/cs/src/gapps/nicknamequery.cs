@@ -26,8 +26,7 @@ using System.Collections;
 using Google.GData.Client;
 using Google.GData.Extensions.Apps;
 
-namespace Google.GData.Apps
-{
+namespace Google.GData.Apps {
     /// <summary>
     /// A subclass of FeedQuery to query a Google Apps nickname
     /// feed URI.
@@ -35,8 +34,7 @@ namespace Google.GData.Apps
     /// Provides public properties that describe the different
     /// aspects of the URI, as well as a composite URI.
     /// </summary>
-    public class NicknameQuery : FeedQuery
-    {
+    public class NicknameQuery : FeedQuery {
         private const string feedUriExtension = "/nickname/2.0";
 
         private string domain;
@@ -54,8 +52,7 @@ namespace Google.GData.Apps
         /// query.
         /// </summary>
         /// <param name="domain">the domain to query</param>
-        public NicknameQuery(string domain)
-        {
+        public NicknameQuery(string domain) {
             this.domain = domain;
             this.nickname = null;
             this.startNickname = null;
@@ -66,8 +63,7 @@ namespace Google.GData.Apps
         /// <summary>
         /// Accessor method for Domain.
         /// </summary>
-        public string Domain
-        {
+        public string Domain {
             get { return domain; }
             set { domain = value; }
         }
@@ -77,16 +73,12 @@ namespace Google.GData.Apps
         /// is non-null, the query will return a feed of up to
         /// 100 nicknames beginning with StartNickname.
         /// </summary>
-        public string StartNickname
-        {
+        public string StartNickname {
             get { return startNickname; }
             set {
-                if (nickname != null || userName != null)
-                {
+                if (!string.IsNullOrEmpty(nickname) || !string.IsNullOrEmpty(userName)) {
                     throw new GDataRequestException("At most one of Nickname, StartNickname and UserName may be set.");
-                }
-                else
-                {
+                } else {
                     startNickname = value;
                 }
             }
@@ -97,17 +89,12 @@ namespace Google.GData.Apps
         /// non-null, the query will retrieve the specified
         /// nickname.
         /// </summary>
-        public string Nickname
-        {
+        public string Nickname {
             get { return nickname; }
-            set
-            {
-                if (startNickname != null || userName != null)
-                {
+            set {
+                if (!string.IsNullOrEmpty(startNickname) || !string.IsNullOrEmpty(userName)) {
                     throw new GDataRequestException("At most one of Nickname, StartNickname and UserName may be set.");
-                }
-                else
-                {
+                } else {
                     nickname = value;
                 }
             }
@@ -118,17 +105,12 @@ namespace Google.GData.Apps
         /// non-null, the query will retrieve all nicknames for
         /// the specified user.
         /// </summary>
-        public string UserName
-        {
+        public string UserName {
             get { return userName; }
-            set 
-            {
-                if (startNickname != null || nickname != null)
-                {
+            set {
+                if (!string.IsNullOrEmpty(startNickname) || !string.IsNullOrEmpty(nickname)) {
                     throw new GDataRequestException("At most one of Nickname, StartNickname and UserName may be set.");
-                }
-                else
-                {
+                } else {
                     userName = value;
                 }
             }
@@ -139,8 +121,7 @@ namespace Google.GData.Apps
         /// the query returns at most 100 matches; if it is
         /// true (default), all matches are returned.
         /// </summary>
-        public bool RetrieveAllNicknames
-        {
+        public bool RetrieveAllNicknames {
             get { return retrieveAllNicknames; }
             set { retrieveAllNicknames = value; }
         }
@@ -149,24 +130,19 @@ namespace Google.GData.Apps
         /// Creates the URI query string based on all set properties.
         /// </summary>
         /// <returns>the URI query string</returns>
-        protected override string CalculateQuery(string basePath)
-        {
+        protected override string CalculateQuery(string basePath) {
             StringBuilder path = new StringBuilder(AppsNameTable.appsBaseFeedUri, 2048);
 
             path.Append(domain);
             path.Append(feedUriExtension);
 
-            if (UserName != null)
-            {
+            if (UserName != null) {
                 path.Append("?username=");
                 path.Append(UserName);
-            }
-            else if (Nickname != null)
-            {
+            } else if (Nickname != null) {
                 path.Append("/");
                 path.Append(Nickname);
-            }
-            else if (StartNickname != null) {
+            } else if (StartNickname != null) {
                 path.Append("?startNickname=");
                 path.Append(StartNickname);
             }

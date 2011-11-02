@@ -23,7 +23,6 @@ namespace Google.GData.Client.LiveTests
         private AppsService         service;
 
         private string              randomUserName;
-        private string              randomEmailListName;
 
         private const string        FirstName = "testFirstname";
         private const string        LastName = "testLastname";
@@ -58,7 +57,6 @@ namespace Google.GData.Client.LiveTests
             this.service = new AppsService(this.domainName, this.adminUsername + "@" + this.domainName, this.adminPassword);
 
             this.randomUserName = "test_user_" + Guid.NewGuid().ToString();
-            this.randomEmailListName = "test_emaillist_" + Guid.NewGuid().ToString();
         }
 
         #region Users test functions
