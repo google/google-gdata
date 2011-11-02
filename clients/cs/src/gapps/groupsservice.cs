@@ -20,20 +20,12 @@ using Google.GData.Apps;
 using Google.GData.Client;
 using Google.GData.Extensions.Apps;
 
-namespace Google.GData.Apps.Groups
-{
+namespace Google.GData.Apps.Groups {
     /// <summary>
     /// Base service for accessing Google Groups item feeds from the
     /// Google Apps Google Groups API.
     /// </summary>
-    public class GroupsService : Service
-    {
-        /// <summary>
-        /// URL suffixes for the Google Groups tasks
-        /// </summary>
-        public const String memberUriSuffix = "member";
-        public const String ownerUriSuffix = "owner";
-
+    public class GroupsService : AppsPropertyService {
         /// <summary>
         /// Constructor
         /// </summary>
@@ -42,402 +34,308 @@ namespace Google.GData.Apps.Groups
         /// <param name="applicationName">The name of the client application 
         /// using this service.</param>
         public GroupsService(String domain, String applicationName)
-            : base(AppsNameTable.GAppsService, applicationName)
-        {
-            this.domain = domain;
-            this.NewAtomEntry += new FeedParserEventHandler(this.OnParsedNewGroupsItemEntry);
+            : base(domain, applicationName) {
             this.NewFeed += new ServiceEventHandler(this.OnNewFeed);
-            // You can set factory.methodOverride = true if you are behind a 
-            // proxy that filters out HTTP methods such as PUT and DELETE.
-        }
-
-        private String domain;        
-
-        /// <summary>
-        /// Accessor for Domain property.
-        /// </summary>
-        /// <param name="domain">The hosted domain in which the Google Groups are
-        /// being set up</param>
-        public String Domain
-        {
-            get { return domain; }
-            set { domain = value; }
         }
 
         /// <summary>
-        /// overwritten Query method
+        /// Retrieves a group in the domain.
         /// </summary>
-        /// <param name="uri">The URI for the query</param>
-        /// <returns>the retrieved AppsExtendedFeed</returns>
-        public AppsExtendedFeed QueryGroups(Uri uri)
-        {
-            try
-            {
-                Stream feedStream = Query(uri);
-                AppsExtendedFeed feed = new AppsExtendedFeed(uri, this);
-                feed.Parse(feedStream, AlternativeFormat.Atom);
-                feedStream.Close();
-                if (true)
-                {
-                    AtomLink next, prev = null;
-                    while ((next = feed.Links.FindService("next", null)) != null && next != prev)
-                    {
-                        feedStream = Query(new Uri(next.HRef.ToString()));
-                        feed.Parse(feedStream, AlternativeFormat.Atom);
-                        feedStream.Close();
-                        prev = next;
-                    }
-                }
-                return feed;
+        /// <param name="groupId">The ID of the group to be retrieved</param>
+        /// <returns>The requested group</returns>
+        public GroupEntry RetrieveGroup(String groupId) {
+            String requestUri = String.Format("{0}/{1}/{2}",
+                AppsGroupsNameTable.AppsGoogleGroupsBaseFeedUri,
+                domain,
+                groupId);
+
+            return Get(requestUri) as GroupEntry;
+        }
+
+        /// <summary>
+        /// Retrieves all groups in the domain.
+        /// </summary>
+        /// <returns>The details of the existing groups for the domain</returns>
+        public GroupFeed RetrieveAllGroups() {
+            String requestUri = String.Format("{0}/{1}",
+                AppsGroupsNameTable.AppsGoogleGroupsBaseFeedUri,
+                domain);
+
+            return QueryExtendedFeed(requestUri, true) as GroupFeed;
+        }
+
+        /// <summary>
+        /// Retrieves all groups for a member.
+        /// </summary>
+        /// <param name="memberId">The user for which you want to retrieve group subscriptions</param>
+        /// <param name="directOnly">Whether to identify only members with direct association with the group</param>
+        /// <returns>The details of the existing groups for the member</returns>
+        public GroupFeed RetrieveGroups(String memberId, bool directOnly) {
+            String requestUri = String.Format("{0}/{1}?{2}={3}&{4}={5}",
+                AppsGroupsNameTable.AppsGoogleGroupsBaseFeedUri,
+                domain,
+                AppsGroupsNameTable.member,
+                memberId,
+                AppsGroupsNameTable.directOnly,
+                directOnly.ToString());
+
+            return QueryExtendedFeed(requestUri, true) as GroupFeed;
+        }
+
+        /// <summary>
+        /// Creates a new group for the domain.
+        /// </summary>
+        /// <param name="groupId">The ID of the group</param>
+        /// <param name="groupName">The name of the group</param>
+        /// <param name="description">The general description of the group</param>
+        /// <param name="emailPermission">The permission level of the group</param>
+        /// <returns>The entry being created</returns>
+        public GroupEntry CreateGroup(String groupId, String groupName, String description, PermissionLevel? emailPermission) {
+            String requestUri = String.Format("{0}/{1}",
+                AppsGroupsNameTable.AppsGoogleGroupsBaseFeedUri,
+                domain);
+
+            GroupEntry entry = new GroupEntry();
+            entry.GroupId = groupId;
+            entry.GroupName = groupName;
+            
+            if (!string.IsNullOrEmpty(description)) {
+                entry.Description = description;
             }
-            catch (GDataRequestException e)
-            {
-                AppsException a = AppsException.ParseAppsException(e);
-                throw (a == null ? e : a);
+
+            if (emailPermission != null) {
+                entry.EmailPermission = (PermissionLevel)emailPermission;
             }
+
+            return Insert(requestUri, entry);
         }
 
         /// <summary>
-        /// Creates a new group
+        /// Updates an existing group in the domain.
         /// </summary>
-        /// <param name="groupId">The groupId (required) argument identifies the ID of the new group.</param>
-        /// <param name="groupName">The groupName (required) argument identifies the name of the group to 
-        /// which the address is being added.</param>
-        /// <param name="description">The description argument provides a general description of the group.</param>
-        /// <param name="emailPermission">The emailPermission argument sets the permissions level of the group.</param>
-        /// <returns>a <code>AppsExtendedEntry</code> containing the results of the
+        /// <param name="groupId">The ID of the group to be updated</param>
+        /// <param name="groupName">The name of the group</param>
+        /// <param name="description">The general description of the group</param>
+        /// <param name="emailPermission">The permission level of the group</param>
+        /// <returns>The updated entry</returns>
+        public GroupEntry UpdateGroup(String groupId, String groupName, String description, PermissionLevel? emailPermission) {
+            String requestUri = String.Format("{0}/{1}/{2}",
+                AppsGroupsNameTable.AppsGoogleGroupsBaseFeedUri,
+                domain,
+                groupId);
+
+            GroupEntry entry = new GroupEntry();
+            entry.EditUri = requestUri;
+            entry.GroupId = groupId;
+            entry.GroupName = groupName;
+
+            if (!string.IsNullOrEmpty(description)) {
+                entry.Description = description;
+            }
+
+            if (emailPermission != null) {
+                entry.EmailPermission = (PermissionLevel)emailPermission;
+            }
+
+            return Update(entry);
+        }
+
+        /// <summary>
+        /// Deletes a group in the domain.
+        /// </summary>
+        /// <param name="groupId">The ID of the group to be deleted</param>
+        public void DeleteGroup(String groupId) {
+            String requestUri = String.Format("{0}/{1}/{2}",
+                AppsGroupsNameTable.AppsGoogleGroupsBaseFeedUri,
+                domain,
+                groupId);
+
+            Delete(requestUri);
+        }
+
+        /// <summary>
+        /// Adds a member to a group.
+        /// </summary>
+        /// <param name="memberId">Username of the member that is being added to the group</param>
+        /// <param name="groupId">The group to which the member is being added</param>
+        /// <returns>a <code>MemberEntry</code> containing the results of the
         /// creation</returns>
-        public AppsExtendedEntry CreateGroup(String groupId, String groupName, String description, String emailPermission)
-        {
-            Uri createGroupUri = new Uri(AppsGroupsNameTable.AppsGoogleGroupsBaseFeedUri + "/"
-               + domain);
-            AppsExtendedEntry entry = new AppsExtendedEntry();
-            entry.Properties.Add(
-                new PropertyElement(AppsGroupsNameTable.groupId, groupId));
-            entry.Properties.Add(
-                new PropertyElement(AppsGroupsNameTable.groupName, groupName));
-            if (description != null && description != String.Empty)
-                entry.Properties.Add(
-                    new PropertyElement(AppsGroupsNameTable.description, description));
-            if (emailPermission != null && emailPermission != String.Empty)
-                entry.Properties.Add(
-                    new PropertyElement(AppsGroupsNameTable.emailPermission, emailPermission));
-            return base.Insert(createGroupUri, entry) as AppsExtendedEntry;
+        public MemberEntry AddMemberToGroup(String memberId, String groupId) {
+            String requestUri = String.Format("{0}/{1}/{2}/{3}",
+                AppsGroupsNameTable.AppsGoogleGroupsBaseFeedUri,
+                domain,
+                groupId,
+                AppsGroupsNameTable.member);
+
+            MemberEntry entry = new MemberEntry();
+            entry.MemberId = memberId;
+
+            return Insert(requestUri, entry);
         }
 
         /// <summary>
-        /// Updates a group
+        /// Retrieves all members of a group.
         /// </summary>
-        /// <param name="groupId">The groupId (required) argument identifies the ID of the new group.</param>
-        /// <param name="groupName">The groupName (required) argument identifies the name of the group to 
-        /// which the address is being added.</param>
-        /// <param name="description">The description argument provides a general description of the group.</param>
-        /// <param name="emailPermission">The emailPermission argument sets the permissions level of the group.</param>
-        /// <returns>a <code>AppsExtendedEntry</code> containing the results of the
-        /// update</returns>
-        public AppsExtendedEntry UpdateGroup(String groupId, String groupName, String description, String emailPermission)
-        {
-            Uri updateGroupUri = new Uri(AppsGroupsNameTable.AppsGoogleGroupsBaseFeedUri + "/"
-               + domain + "/" + groupId);
-            AppsExtendedEntry entry = new AppsExtendedEntry();
-            entry.EditUri = updateGroupUri;
-            entry.Properties.Add(
-                new PropertyElement(
-                AppsGroupsNameTable.groupId, groupId));
-            if (groupName != null && groupName != String.Empty)
-                entry.Properties.Add(
-                    new PropertyElement(
-                    AppsGroupsNameTable.groupName, groupName));
-            if (description != null && description != String.Empty)
-                entry.Properties.Add(
-                    new PropertyElement(
-                    AppsGroupsNameTable.description, description));
-            if (emailPermission != null && emailPermission != String.Empty)
-                entry.Properties.Add(
-                    new PropertyElement(
-                    AppsGroupsNameTable.emailPermission, emailPermission));
-            return base.Update((AtomEntry)entry) as AppsExtendedEntry;
+        /// <param name="groupId">The ID of the group for which you wish to retrieve a member list</param>
+        /// <param name="includeSuspendedUsers">Whether to include suspended users</param>
+        /// <returns>The list of members for the group</returns>
+        public MemberFeed RetrieveAllMembers(String groupId, Boolean includeSuspendedUsers) {
+            String requestUri = String.Format("{0}/{1}/{2}/{3}?{4}={5}",
+                AppsGroupsNameTable.AppsGoogleGroupsBaseFeedUri,
+                domain,
+                groupId,
+                AppsGroupsNameTable.member,
+                AppsGroupsNameTable.includeSuspendedUsers,
+                includeSuspendedUsers.ToString());
+
+            return QueryExtendedFeed(requestUri, true) as MemberFeed;
         }
 
         /// <summary>
-        /// Retrieves a group by its groupId
+        /// Retrieves a group member.
         /// </summary>
-        /// <param name="groupId">The groupId argument identifies the group</param>       
-        /// <returns>a <code>AppsExtendedEntry</code> containing the results of the
-        /// query</returns>
-        public AppsExtendedEntry RetrieveGroup(String groupId)
-        {
-            Uri getGroupUri = new Uri(AppsGroupsNameTable.AppsGoogleGroupsBaseFeedUri + "/"
-                + domain + "/" + groupId);
-            AppsExtendedFeed AppsExtendedFeed = QueryGroups(getGroupUri);
-            if (AppsExtendedFeed.Entries.Count > 0)
-                return AppsExtendedFeed.Entries[0] as AppsExtendedEntry;
-            return null;
+        /// <param name="memberId">Username of the member that is being retrieved from the group</param>
+        /// <param name="groupId">The ID of the group for which you wish to retrieve a member</param>
+        /// <returns>The retrieved group member</returns>
+        public MemberEntry RetrieveMember(String memberId, String groupId) {
+            String requestUri = String.Format("{0}/{1}/{2}/{3}/{4}",
+                AppsGroupsNameTable.AppsGoogleGroupsBaseFeedUri,
+                domain,
+                groupId,
+                AppsGroupsNameTable.member,
+                memberId);
+
+            return Get(requestUri) as MemberEntry;
         }
 
         /// <summary>
-        /// Retrieves all the groups
-        /// </summary>      
-        /// <returns>a <code>AppsExtendedFeed</code> containing all the <code>AppsExtendedEntry</code>
-        /// from the Domain</returns>
-        public AppsExtendedFeed RetrieveAllGroups()
-        {
-            Uri getDomainGroupsUri = new Uri(AppsGroupsNameTable.AppsGoogleGroupsBaseFeedUri + "/"
-               + domain);
-            return QueryGroups(getDomainGroupsUri);
-        }
-
-        /// <summary>
-        /// Retrieves a page from all the groups
+        /// Removes a member from a group
         /// </summary>
-        /// <param name="startKey">resume key from the previous response (used for pagination)</param>
-        /// <returns>a <code>AppsExtendedFeed</code> containing all the <code>AppsExtendedEntry</code>
-        /// from the Domain</returns>
-        public AppsExtendedFeed RetrievePageOfGroups(String startKey)
-        {
-            Uri getDomainGroupsUri = new Uri(AppsGroupsNameTable.AppsGoogleGroupsBaseFeedUri + "/"
-                + domain + "?start=" + startKey);
-            return QueryGroups(getDomainGroupsUri);
+        /// <param name="memberId">Username of the member that is being removed from the group</param>
+        /// <param name="groupId">The group from which the member is being removed</param>
+        public void RemoveMemberFromGroup(String memberId, String groupId) {
+            String requestUri = String.Format("{0}/{1}/{2}/{3}/{4}",
+                AppsGroupsNameTable.AppsGoogleGroupsBaseFeedUri,
+                domain,
+                groupId,
+                AppsGroupsNameTable.member,
+                memberId);
+
+            Delete(requestUri);
         }
 
         /// <summary>
-        /// Retrieves groups of a member or groups of another group.
+        /// Adds an owner to a group.
         /// </summary>
-        /// <param name="memberId">username or groupId to retrieve the groups</param>
-        /// <param name="directOnly">retrieve groups where the memberId is direct member or not</param>
-        /// <returns>a <code>AppsExtendedFeed</code> containing all the <code>AppsExtendedEntry</code>
-        /// from the Domain</returns>
-        public AppsExtendedFeed RetrieveGroups(String memberId, Boolean directOnly)
-        {
-            Uri getGroupUri = new Uri(AppsGroupsNameTable.AppsGoogleGroupsBaseFeedUri + "/"
-               + domain + "?member=" + memberId + "&directOnly=" + directOnly.ToString());
-            return QueryGroups(getGroupUri);
-        }
-
-        /// <summary>
-        /// Deletes a group using its Id.
-        /// </summary>
-        /// <param name="groupId">Groups's id</param>
-        public void DeleteGroup(String groupId)
-        {
-            Uri deleteGroupUri = new Uri(AppsGroupsNameTable.AppsGoogleGroupsBaseFeedUri + "/"
-               + domain + "/" + groupId);
-            base.Delete(deleteGroupUri);
-        }
-
-        /// <summary>
-        /// Adds a member to a group
-        /// </summary>
-        /// <param name="memberId">username or groupId to retrieve the groups</param>
-        /// <param name="groupId">Groups's id</param>
-        /// <returns>a <code>AppsExtendedEntry</code> containing the results of the
+        /// <param name="ownerEmail">Email of the owner that is being added to the group</param>
+        /// <param name="groupId">The group to which the member is being added</param>
+        /// <returns>a <code>OwnerEntry</code> containing the results of the
         /// creation</returns>
-        public AppsExtendedEntry AddMemberToGroup(String memberId, String groupId)
-        {
-            Uri addMemberToGroupUri = new Uri(AppsGroupsNameTable.AppsGoogleGroupsBaseFeedUri + "/"
-               + domain + "/" + groupId + "/" + memberUriSuffix);
-            AppsExtendedEntry entry = new AppsExtendedEntry();
-            entry.Properties.Add(
-                new PropertyElement(AppsGroupsNameTable.memberId, memberId));
-            return base.Insert(addMemberToGroupUri, entry) as AppsExtendedEntry;
+        public OwnerEntry AddOwnerToGroup(String ownerEmail, String groupId) {
+            String requestUri = String.Format("{0}/{1}/{2}/{3}",
+                AppsGroupsNameTable.AppsGoogleGroupsBaseFeedUri,
+                domain,
+                groupId,
+                AppsGroupsNameTable.owner);
+
+            OwnerEntry entry = new OwnerEntry();
+            entry.Email = ownerEmail;
+
+            return Insert(requestUri, entry);
         }
 
         /// <summary>
-        /// Retrieves all non-suspened members of the group
+        /// Retrieves a group owner.
         /// </summary>
-        /// <param name="groupId">Groups's id</param>
-        /// <returns>a <code>AppsExtendedFeed</code> containing all the <code>AppsExtendedEntry</code>
-        /// from the Domain</returns>
-        public AppsExtendedFeed RetrieveAllMembers(String groupId)
-        {
-            return RetrieveAllMembers(groupId, false);
+        /// <param name="ownerEmail">Email of the owner that is being retrieved from the group</param>
+        /// <param name="groupId">The ID of the group for which you wish to retrieve an owner</param>
+        /// <returns>The retrieved group owner</returns>
+        public OwnerEntry RetrieveOwner(String ownerEmail, String groupId) {
+            String requestUri = String.Format("{0}/{1}/{2}/{3}/{4}",
+                AppsGroupsNameTable.AppsGoogleGroupsBaseFeedUri,
+                domain,
+                groupId,
+                AppsGroupsNameTable.owner,
+                ownerEmail);
+
+            return Get(requestUri) as OwnerEntry;
         }
 
         /// <summary>
-        /// Retrieves all members of the group
+        /// Retrieves all owners of a group.
         /// </summary>
-        /// <param name="groupId">Groups's id</param>
-        /// <param name="includeSuspendedUsers">When set to true, will also return suspended users that
-        /// are members of the group.</param>
-        /// <returns>a <code>AppsExtendedFeed</code> containing all the <code>AppsExtendedEntry</code>
-        /// from the Domain</returns>
-        public AppsExtendedFeed RetrieveAllMembers(String groupId, Boolean includeSuspendedUsers)
-        {
-            Uri getGroupMembersUri = new Uri(AppsGroupsNameTable.AppsGoogleGroupsBaseFeedUri + "/"
-               + domain + "/" + groupId + "/" + memberUriSuffix + "?includeSuspendedUsers="
-               + includeSuspendedUsers);
-            return QueryGroups(getGroupMembersUri);
+        /// <param name="groupId">The ID of the group for which you wish to retrieve the owner list</param>
+        /// <returns>The list of owners for the group</returns>
+        public OwnerFeed RetrieveAllOwners(String groupId) {
+            String requestUri = String.Format("{0}/{1}/{2}/{3}",
+                AppsGroupsNameTable.AppsGoogleGroupsBaseFeedUri,
+                domain,
+                groupId,
+                AppsGroupsNameTable.owner);
+
+            return QueryExtendedFeed(requestUri, true) as OwnerFeed;
         }
 
         /// <summary>
-        /// Retrieves the members of the group
+        /// Removes an owner from a group
         /// </summary>
-        /// <param name="memberId">username or groupId to retrieve</param>
-        /// <param name="groupId">Groups's id</param>
-        /// <returns>a <code>AppsExtendedEntry</code> containing the results of the
-        /// query</returns>
-        public AppsExtendedEntry RetrieveMember(String memberId, String groupId)
-        {
-            Uri memberUri = new Uri(AppsGroupsNameTable.AppsGoogleGroupsBaseFeedUri + "/"
-                    + domain + "/" + groupId + "/" + memberUriSuffix + "/" + memberId);
-            AppsExtendedFeed AppsExtendedFeed = QueryGroups(memberUri);
-            if (AppsExtendedFeed.Entries.Count == 0)
-                return null;
-            else
-                return AppsExtendedFeed.Entries[0] as AppsExtendedEntry;
+        /// <param name="ownerEmail">Email of the owner that is being removed from the group</param>
+        /// <param name="groupId">The group from which the owner is being removed</param>
+        public void RemoveOwnerFromGroup(String ownerEmail, String groupId) {
+            String requestUri = String.Format("{0}/{1}/{2}/{3}/{4}",
+                AppsGroupsNameTable.AppsGoogleGroupsBaseFeedUri,
+                domain,
+                groupId,
+                AppsGroupsNameTable.owner,
+                ownerEmail);
+
+            Delete(requestUri);
         }
 
         /// <summary>
-        /// Checks if a user or a group is member of a group
-        /// </summary>
-        /// <param name="memberId">username or groupId to check</param>
-        /// <param name="groupId">Groups's id</param>
-        /// <returns>a <code>Boolean</code></returns>
-        public Boolean IsMember(String memberId, String groupId)
-        {
-            try
-            {
-                Uri isMemberUri = new Uri(AppsGroupsNameTable.AppsGoogleGroupsBaseFeedUri + "/"
-                    + domain + "/" + groupId + "/" + memberUriSuffix + "/" + memberId);
-                AppsExtendedFeed AppsExtendedFeed = QueryGroups(isMemberUri);
-                return (AppsExtendedFeed.Entries.Count > 0);
-            }
-            catch (AppsException appsException)
-            {
-                if (appsException.ErrorCode.Equals("1301"))
-                    return false;
-                else
-                    throw appsException;
-            }
-        }
-
-        /// <summary>
-        /// Remove a member from a group
-        /// </summary>
-        /// <param name="memberId">username or groupId to remove</param>
-        /// <param name="groupId">Groups's id</param>
-        public void RemoveMemberFromGroup(String memberId, String groupId)
-        {
-            Uri removeMemberUri = new Uri(AppsGroupsNameTable.AppsGoogleGroupsBaseFeedUri + "/"
-                + domain + "/" + groupId + "/" + memberUriSuffix + "/" + memberId);
-            base.Delete(removeMemberUri);
-        }
-
-        /// <summary>
-        /// Adds an owner to a group
-        /// </summary>
-        /// <param name="email">owner's Email to add to the group</param>
-        /// <param name="groupId">Groups's id</param>
-        /// <returns>a <code>AppsExtendedEntry</code> containing the results of the
-        /// creation</returns>
-        public AppsExtendedEntry AddOwnerToGroup(String email, String groupId)
-        {
-            Uri addMemberToGroupUri = new Uri(AppsGroupsNameTable.AppsGoogleGroupsBaseFeedUri + "/"
-               + domain + "/" + groupId + "/" + ownerUriSuffix);
-            AppsExtendedEntry entry = new AppsExtendedEntry();
-            entry.Properties.Add(
-                new PropertyElement(AppsGroupsNameTable.email, email));
-            return base.Insert(addMemberToGroupUri, entry) as AppsExtendedEntry;
-        }
-
-        /// <summary>
-        /// Retrieves all owners of the group
-        /// </summary>
-        /// <param name="groupId">Groups's id</param>
-        /// <returns>a <code>AppsExtendedFeed</code> containing all the <code>AppsExtendedEntry</code>
-        /// from the Domain</returns>
-        public AppsExtendedFeed RetrieveGroupOwners(String groupId)
-        {
-            Uri getGroupOwnersUri = new Uri(AppsGroupsNameTable.AppsGoogleGroupsBaseFeedUri + "/"
-               + domain + "/" + groupId + "/" + ownerUriSuffix);
-            return QueryGroups(getGroupOwnersUri);
-        }
-
-        /// <summary>
-        /// Retrieves the owner of the group
-        /// </summary>
-        /// <param name="email">email of the owner to retrieve</param>
-        /// <param name="groupId">Groups's id</param>
-        /// <returns>a <code>AppsExtendedEntry</code> containing the results of the
-        /// query</returns>
-        public AppsExtendedEntry RetrieveOwner(String email, String groupId)
-        {
-            Uri ownerUri = new Uri(AppsGroupsNameTable.AppsGoogleGroupsBaseFeedUri + "/"
-                    + domain + "/" + groupId + "/" + ownerUriSuffix + "/" + email);
-            AppsExtendedFeed AppsExtendedFeed = QueryGroups(ownerUri);
-            if (AppsExtendedFeed.Entries.Count == 0)
-                return null;
-            else
-                return AppsExtendedFeed.Entries[0] as AppsExtendedEntry;
-        }
-
-        /// <summary>
-        /// Checks if a user or a group is owner of a group.
-        /// </summary>
-        /// <param name="email">owner's Email to check</param>
-        /// <param name="groupId">Groups's id</param>
-        /// <returns>a <code>Boolean</code></returns>
-        public Boolean IsOwner(String email, String groupId)
-        {
-            try
-            {
-                Uri isOwnerUri = new Uri(AppsGroupsNameTable.AppsGoogleGroupsBaseFeedUri + "/"
-                    + domain + "/" + groupId + "/" + ownerUriSuffix + "/" + email);
-                AppsExtendedFeed AppsExtendedFeed = QueryGroups(isOwnerUri);
-                return (AppsExtendedFeed.Entries.Count > 0);
-            }
-            catch (AppsException appsException)
-            {
-                if (appsException.ErrorCode.Equals("1301"))
-                    return false;
-                else
-                    throw appsException;
-            }
-        }
-
-        /// <summary>
-        /// Remove a owner from a group.
-        /// </summary>
-        /// <param name="email">owner's Email to remove</param>
-        /// <param name="groupId">Groups's id</param>
-        public void RemoveOwnerFromGroup(String email, String groupId)
-        {
-            Uri removeOwnerUri = new Uri(AppsGroupsNameTable.AppsGoogleGroupsBaseFeedUri + "/"
-                + domain + "/" + groupId + "/" + ownerUriSuffix + "/" + email);
-            base.Delete(removeOwnerUri);
-        }
-
-        /// <summary>
-        /// Event handler. Called when a new Google Groups entry is parsed.
-        /// </summary>
-        /// <param name="sender">the object that's sending the evet</param>
-        /// <param name="e">FeedParserEventArguments, holds the feedentry</param>
-        protected void OnParsedNewGroupsItemEntry(object sender, FeedParserEventArgs e)
-        {
-            if (e == null)
-            {
-                throw new ArgumentNullException("e");
-            }
-            if (e.CreatingEntry)
-            {
-                e.Entry = new AppsExtendedEntry();
-            }
-        }
-
-        /// <summary>
-        /// Overridden so that new feeds are returned as <code>GoogleMailSettingsFeed</code>s
+        /// Overridden so that new feeds are returned as <code>AppsExtendedFeed</code>s
         /// instead of base <code>AtomFeed</code>s.
         /// </summary>
         /// <param name="sender"> the object which sent the event</param>
         /// <param name="e">FeedParserEventArguments, holds the FeedEntry</param> 
-        protected void OnNewFeed(object sender, ServiceEventArgs e)
-        {
+        protected void OnNewFeed(object sender, ServiceEventArgs e) {
             Tracing.TraceMsg("Created new Google Groups Item Feed");
-            if (e == null)
-            {
+            
+            if (e == null) {
                 throw new ArgumentNullException("e");
             }
-            e.Feed = new AppsExtendedFeed(e.Uri, e.Service);
+            
+            e.Feed = getFeed(e.Uri, e.Service);
+        }
+
+        protected override AppsExtendedFeed getFeed(Uri uri, IService service) {
+            String baseUri = uri.ToString();
+            if (baseUri.Contains("/member")) {
+                return new MemberFeed(uri, service);
+            } else if (baseUri.Contains("/owner")) {
+                return new OwnerFeed(uri, service);
+            } else {
+                return new GroupFeed(uri, service);
+            }
+        }
+    }
+
+    public class GroupFeed : GenericFeed<GroupEntry> {
+        public GroupFeed(Uri uriBase, IService iService)
+            : base(uriBase, iService) {
+        }
+    }
+
+    public class MemberFeed : GenericFeed<MemberEntry> {
+        public MemberFeed(Uri uriBase, IService iService)
+            : base(uriBase, iService) {
+        }
+    }
+
+    public class OwnerFeed : GenericFeed<OwnerEntry> {
+        public OwnerFeed(Uri uriBase, IService iService)
+            : base(uriBase, iService) {
         }
     }
 }
+

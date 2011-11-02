@@ -1,4 +1,4 @@
-/* Copyright (c) 2007 Google Inc.
+/* Copyright (c) 2011 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,34 +14,35 @@
 */
 
 using System;
-using System.Text;
 using System.Xml;
+using System.IO;
+using System.Collections;
 using Google.GData.Client;
-using Google.GData.Extensions;
 using Google.GData.Extensions.Apps;
 
 namespace Google.GData.Apps {
     /// <summary>
-    /// Feed API customization class for defining nickname feed.
+    /// A Google Apps Owner entry.
     /// </summary>
-    public class NicknameFeed : AbstractFeed {
+    public class OwnerEntry : AppsExtendedEntry {
         /// <summary>
-        /// Constructs a new NicknameFeed.
+        /// Constructs a new <code>OwnerEntry</code> object.
         /// </summary>
-        /// <param name="uriBase">the URI of the feed</param>
-        /// <param name="iService">the service with which this
-        /// feed will be associated</param>
-        public NicknameFeed(Uri uriBase, IService iService)
-            : base(uriBase, iService) {
-            GAppsExtensions.AddProvisioningExtensions(this);
+        public OwnerEntry()
+            : base() {
         }
 
         /// <summary>
-        /// Overridden.  Returns a new <code>NicknameEntry</code>.
+        /// Email Property accessor
         /// </summary>
-        /// <returns>the new <code>NicknameEntry</code></returns>
-        public override AtomEntry CreateFeedEntry() {
-            return new NicknameEntry();
+        public string Email {
+            get {
+                PropertyElement property = this.getPropertyByName(AppsGroupsNameTable.email);
+                return property != null ? property.Value : null;
+            }
+            set {
+                this.addOrUpdatePropertyValue(AppsGroupsNameTable.email, value);
+            }
         }
     }
 }

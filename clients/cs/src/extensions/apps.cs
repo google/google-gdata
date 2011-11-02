@@ -38,7 +38,6 @@ namespace Google.GData.Extensions.Apps
         /// e.g. <code>UserEntry</code> or <code>UserFeed</code></param>
         public static void AddProvisioningExtensions(AtomBase baseObject)
         {
-            baseObject.AddExtension(new EmailListElement());
             baseObject.AddExtension(new LoginElement());
             baseObject.AddExtension(new NameElement());
             baseObject.AddExtension(new NicknameElement());
@@ -100,16 +99,6 @@ namespace Google.GData.Extensions.Apps
         public const string Nickname = AppsNamespace + "#nickname";
 
         /// <summary>
-        /// Category term for an email list entry.
-        /// </summary>
-        public const string EmailList = AppsNamespace + "#emailList";
-
-        /// <summary>
-        /// Category term for an email list recipient entry.
-        /// </summary>
-        public const string EmailListRecipient = EmailList + ".recipient";
-
-        /// <summary>
         /// XML element name for user login information.
         /// </summary>
         public const string AppsLogin = "login";
@@ -153,16 +142,6 @@ namespace Google.GData.Extensions.Apps
         /// XML attribute for the changePasswordAtNextLogin flag of a login element.
         /// </summary>
         public const string AppsLoginChangePasswordAtNextLogin = "changePasswordAtNextLogin";
-
-        /// <summary>
-        /// XML element name for email list data.
-        /// </summary>
-        public const string AppsEmailList = "emailList";
-
-        /// <summary>
-        /// XML attribute for the name of an email list.
-        /// </summary>
-        public const string AppsEmailListName = "name";
 
         /// <summary>
         /// XML element name for nickname data.
@@ -390,11 +369,25 @@ namespace Google.GData.Extensions.Apps
         public const string description = "description";
         public const string emailPermission = "emailPermission";
         public const string directMember = "directMember";
+        public const string directOnly = "directOnly";
+        public const string includeSuspendedUsers = "includeSuspendedUsers";
         public const string role = "role";
+        public const string member = "member";
+        public const string owner = "owner";
         public const string memberId = "memberId";
         public const string memberType = "memberType";
         public const string email = "email";
         public const string type = "type";
+    }
+
+    /// <summary>
+    /// The permission level for a Google Group.
+    /// </summary>
+    public enum PermissionLevel {
+        Owner,
+        Member,
+        Domain,
+        Anyone
     }
 
     /// <summary>
@@ -499,44 +492,6 @@ namespace Google.GData.Extensions.Apps
         EXPIRED,
         MARKED_DELETE,
         DELETED
-    }
-
-    /// <summary>
-    /// Extension element sed to model a Google Apps email list.
-    /// Has attribute "name".
-    /// </summary>
-    public class EmailListElement : ExtensionBase
-    {
-        /// <summary>
-        /// Constructs an empty EmailListElement instance.
-        /// </summary>
-        public EmailListElement()
-            : base(AppsNameTable.AppsEmailList,
-                   AppsNameTable.AppsPrefix,
-                   AppsNameTable.AppsNamespace)
-        {
-        }
-
-        /// <summary>
-        /// Constructs a new EmailListElement instance with the specified value.
-        /// </summary>
-        /// <param name="name">the name attribute of this EmailListElement</param>
-        public EmailListElement(string name)
-            : base(AppsNameTable.AppsEmailList,
-                   AppsNameTable.AppsPrefix,
-                   AppsNameTable.AppsNamespace)
-        {
-            this.Name = name;
-        }
-
-        /// <summary>
-        /// Name property accessor.
-        /// </summary>
-        public string Name
-        {
-            get { return Convert.ToString(this.Attributes[AppsNameTable.AppsEmailListName]); }
-            set { this.Attributes[AppsNameTable.AppsEmailListName] = value; }
-        }
     }
 
     /// <summary>

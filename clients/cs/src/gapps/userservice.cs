@@ -23,25 +23,22 @@ using Google.GData.Client;
 
 using Google.GData.Extensions.Apps;
 
-namespace Google.GData.Apps
-{
+namespace Google.GData.Apps {
     /// <summary>
     /// The UserService class extends the AppsService abstraction
     /// to define a service that is preconfigured for access to Google Apps
     /// user accounts feeds.
     /// </summary>
-    public class UserService : Service
-    {
+    public class UserService : Service {
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="applicationName">The name of the client application 
         /// using this service.</param>
         public UserService(string applicationName)
-            : base(AppsNameTable.GAppsService, applicationName)
-        {
-            this.NewAtomEntry += new FeedParserEventHandler(this.OnParsedNewUserEntry);
+            : base(AppsNameTable.GAppsService, applicationName) {
 
+            this.NewAtomEntry += new FeedParserEventHandler(this.OnParsedNewUserEntry);
             this.NewFeed += new ServiceEventHandler(this.OnParsedNewFeed);
 
             // You can set factory.methodOverride = true if you are behind a 
@@ -53,20 +50,16 @@ namespace Google.GData.Apps
         /// </summary>
         /// <param name="feedQuery">The FeedQuery to use</param>
         /// <returns>the retrieved UserFeed</returns>
-        public UserFeed Query(UserQuery feedQuery)
-        {
-            try
-            {
+        public UserFeed Query(UserQuery feedQuery) {
+            try {
                 Stream feedStream = Query(feedQuery.Uri);
                 UserFeed feed = new UserFeed(feedQuery.Uri, this);
                 feed.Parse(feedStream, AlternativeFormat.Atom);
                 feedStream.Close();
 
-                if (feedQuery.RetrieveAllUsers)
-                {
+                if (feedQuery.RetrieveAllUsers) {
                     AtomLink next, prev = null;
-                    while ((next = feed.Links.FindService("next", null)) != null && next != prev)
-                    {
+                    while ((next = feed.Links.FindService("next", null)) != null && next != prev) {
                         feedStream = Query(new Uri(next.HRef.ToString()));
                         feed.Parse(feedStream, AlternativeFormat.Atom);
                         feedStream.Close();
@@ -76,11 +69,9 @@ namespace Google.GData.Apps
                 }
 
                 return feed;
-            }
-            catch (GDataRequestException e)
-            {
+            } catch (GDataRequestException e) {
                 AppsException a = AppsException.ParseAppsException(e);
-                throw (a == null ? e : a);
+                throw a ?? e;
             }
         }
 
@@ -90,16 +81,12 @@ namespace Google.GData.Apps
         /// <param name="feed">the feed into which this entry should be inserted</param>
         /// <param name="entry">the entry to insert</param>
         /// <returns>the inserted entry</returns>
-        public UserEntry Insert(UserFeed feed, UserEntry entry)
-        {
-            try
-            {
+        public UserEntry Insert(UserFeed feed, UserEntry entry) {
+            try {
                 return base.Insert(feed, entry) as UserEntry;
-            }
-            catch (GDataRequestException e)
-            {
+            } catch (GDataRequestException e) {
                 AppsException a = AppsException.ParseAppsException(e);
-                throw (a == null ? e : a);
+                throw a ?? e;
             }
         }
 
@@ -110,16 +97,12 @@ namespace Google.GData.Apps
         /// <param name="feedUri">the URI of the feed into which this entry should be inserted</param>
         /// <param name="entry">the entry to insert</param>
         /// <returns>the inserted entry</returns>
-        public UserEntry Insert(Uri feedUri, UserEntry entry)
-        {
-            try
-            {
+        public UserEntry Insert(Uri feedUri, UserEntry entry) {
+            try {
                 return base.Insert(feedUri, entry) as UserEntry;
-            }
-            catch (GDataRequestException e)
-            {
+            } catch (GDataRequestException e) {
                 AppsException a = AppsException.ParseAppsException(e);
-                throw (a == null ? e : a);
+                throw a ?? e;
             }
         }
 
@@ -127,16 +110,12 @@ namespace Google.GData.Apps
         /// Overridden Delete method that throws AppsException
         /// </summary>
         /// <param name="uri">the URI to delete</param>
-        public new void Delete(Uri uri)
-        {
-            try
-            {
+        public new void Delete(Uri uri) {
+            try {
                 base.Delete(uri);
-            }
-            catch (GDataRequestException e)
-            {
+            } catch (GDataRequestException e) {
                 AppsException a = AppsException.ParseAppsException(e);
-                throw (a == null ? e : a);
+                throw a ?? e;
             }
         }
 
@@ -144,64 +123,43 @@ namespace Google.GData.Apps
         /// Overridden Delete method that throws AppsException
         /// </summary>
         /// <param name="entry">the entry to delete</param>
-        public void Delete(UserEntry entry)
-        {
-            try
-            {
+        public void Delete(UserEntry entry) {
+            try {
                 base.Delete(entry);
-            }
-            catch (GDataRequestException e)
-            {
+            } catch (GDataRequestException e) {
                 AppsException a = AppsException.ParseAppsException(e);
-                throw (a == null ? e : a);
+                throw a ?? e;
             }
         }
 
         /// <summary>
         /// Event handler. Called when a new list entry is parsed.
         /// </summary>
-        /// <param name="sender">the object that's sending the evet</param>
+        /// <param name="sender">the object that's sending the event</param>
         /// <param name="e">FeedParserEventArguments, holds the feedentry</param>
-        protected void OnParsedNewUserEntry(object sender, FeedParserEventArgs e)
-        {
-            if (e == null)
-            {
+        protected void OnParsedNewUserEntry(object sender, FeedParserEventArgs e) {
+            if (e == null) {
                 throw new ArgumentNullException("e");
             }
-            if (e.CreatingEntry)
-            {
+
+            if (e.CreatingEntry) {
                 e.Entry = new UserEntry();
             }
         }
 
-
-
         /// <summary>
-
-        /// Feed handler.  Instantiates a new <code>UserFeed</code>.
-
+        /// Feed handler. Instantiates a new <code>UserFeed</code>.
         /// </summary>
-
-        /// <param name="sender">the object that's sending the evet</param>
-
+        /// <param name="sender">the object that's sending the event</param>
         /// <param name="e"><code>ServiceEventArgs</code>, holds the feed</param>
-
-        protected void OnParsedNewFeed(object sender, ServiceEventArgs e)
-
-        {
-
+        protected void OnParsedNewFeed(object sender, ServiceEventArgs e) {
             Tracing.TraceMsg("Created new user feed");
 
-            if (e == null)
-
-            {
-
+            if (e == null) {
                 throw new ArgumentNullException("e");
-
             }
 
             e.Feed = new UserFeed(e.Uri, e.Service);
-
         }
     }
 }

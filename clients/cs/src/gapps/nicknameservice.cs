@@ -23,29 +23,22 @@ using Google.GData.Client;
 
 using Google.GData.Extensions.Apps;
 
-namespace Google.GData.Apps
-{
+namespace Google.GData.Apps {
     /// <summary>
     /// The NicknameService class extends the AppsService abstraction
     /// to define a service that is preconfigured for access to Google Apps
     /// nickname feeds.
     /// </summary>
-    public class NicknameService : Service
-    {
+    public class NicknameService : Service {
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="applicationName">The name of the client application 
         /// using this service.</param>
         public NicknameService(string applicationName)
-            : base(AppsNameTable.GAppsService, applicationName)
-        {
+            : base(AppsNameTable.GAppsService, applicationName) {
             this.NewAtomEntry += new FeedParserEventHandler(this.OnParsedNewNicknameEntry);
-
             this.NewFeed += new ServiceEventHandler(this.OnParsedNewFeed);
-
-            // You can set factory.methodOverride = true if you are behind a 
-            // proxy that filters out HTTP methods such as PUT and DELETE.
         }
 
         /// <summary>
@@ -53,20 +46,16 @@ namespace Google.GData.Apps
         /// </summary>
         /// <param name="feedQuery">The FeedQuery to use</param>
         /// <returns>the retrieved NicknameFeed</returns>
-        public NicknameFeed Query(NicknameQuery feedQuery)
-        {
-            try
-            {
+        public NicknameFeed Query(NicknameQuery feedQuery) {
+            try {
                 Stream feedStream = Query(feedQuery.Uri);
                 NicknameFeed feed = new NicknameFeed(feedQuery.Uri, this);
                 feed.Parse(feedStream, AlternativeFormat.Atom);
                 feedStream.Close();
 
-                if (feedQuery.RetrieveAllNicknames)
-                {
+                if (feedQuery.RetrieveAllNicknames) {
                     AtomLink next, prev = null;
-                    while ((next = feed.Links.FindService("next", null)) != null && next != prev)
-                    {
+                    while ((next = feed.Links.FindService("next", null)) != null && next != prev) {
                         feedStream = Query(new Uri(next.HRef.ToString()));
                         feed.Parse(feedStream, AlternativeFormat.Atom);
                         feedStream.Close();
@@ -76,11 +65,9 @@ namespace Google.GData.Apps
                 }
 
                 return feed;
-            }
-            catch (GDataRequestException e)
-            {
+            } catch (GDataRequestException e) {
                 AppsException a = AppsException.ParseAppsException(e);
-                throw (a == null ? e : a);
+                throw a ?? e;
             }
         }
 
@@ -90,16 +77,12 @@ namespace Google.GData.Apps
         /// <param name="feed">the feed into which this entry should be inserted</param>
         /// <param name="entry">the entry to insert</param>
         /// <returns>the inserted entry</returns>
-        public NicknameEntry Insert(NicknameFeed feed, NicknameEntry entry)
-        {
-            try
-            {
+        public NicknameEntry Insert(NicknameFeed feed, NicknameEntry entry) {
+            try {
                 return base.Insert(feed, entry) as NicknameEntry;
-            }
-            catch (GDataRequestException e)
-            {
+            } catch (GDataRequestException e) {
                 AppsException a = AppsException.ParseAppsException(e);
-                throw (a == null ? e : a);
+                throw a ?? e;
             }
         }
 
@@ -110,16 +93,12 @@ namespace Google.GData.Apps
         /// <param name="feedUri">the URI of the feed into which this entry should be inserted</param>
         /// <param name="entry">the entry to insert</param>
         /// <returns>the inserted entry</returns>
-        public NicknameEntry Insert(Uri feedUri, NicknameEntry entry)
-        {
-            try
-            {
+        public NicknameEntry Insert(Uri feedUri, NicknameEntry entry) {
+            try {
                 return base.Insert(feedUri, entry) as NicknameEntry;
-            }
-            catch (GDataRequestException e)
-            {
+            } catch (GDataRequestException e) {
                 AppsException a = AppsException.ParseAppsException(e);
-                throw (a == null ? e : a);
+                throw a ?? e;
             }
         }
 
@@ -129,8 +108,7 @@ namespace Google.GData.Apps
         /// updated.
         /// </summary>
         /// <param name="entry">the entry the user is trying to update</param>
-        public new AtomEntry Update(AtomEntry entry)
-        {
+        public new AtomEntry Update(AtomEntry entry) {
             throw new GDataRequestException("Nickname entries cannot be updated.");
         }
 
@@ -138,16 +116,12 @@ namespace Google.GData.Apps
         /// Overridden Delete method that throws AppsException
         /// </summary>
         /// <param name="uri">the URI to delete</param>
-        public new void Delete(Uri uri)
-        {
-            try
-            {
+        public new void Delete(Uri uri) {
+            try {
                 base.Delete(uri);
-            }
-            catch (GDataRequestException e)
-            {
+            } catch (GDataRequestException e) {
                 AppsException a = AppsException.ParseAppsException(e);
-                throw (a == null ? e : a);
+                throw a ?? e;
             }
         }
 
@@ -155,14 +129,10 @@ namespace Google.GData.Apps
         /// Overridden Delete method that throws AppsException
         /// </summary>
         /// <param name="entry">the NicknameEntry to delete</param>
-        public void Delete(NicknameEntry entry)
-        {
-            try
-            {
+        public void Delete(NicknameEntry entry) {
+            try {
                 base.Delete(entry);
-            }
-            catch (GDataRequestException e)
-            {
+            } catch (GDataRequestException e) {
                 AppsException a = AppsException.ParseAppsException(e);
                 throw (a == null ? e : a);
             }
@@ -173,46 +143,28 @@ namespace Google.GData.Apps
         /// </summary>
         /// <param name="sender">the object that's sending the evet</param>
         /// <param name="e">FeedParserEventArguments, holds the feedentry</param>
-        protected void OnParsedNewNicknameEntry(object sender, FeedParserEventArgs e)
-        {
-            if (e == null)
-            {
+        protected void OnParsedNewNicknameEntry(object sender, FeedParserEventArgs e) {
+            if (e == null) {
                 throw new ArgumentNullException("e");
             }
-            if (e.CreatingEntry)
-            {
+            if (e.CreatingEntry) {
                 e.Entry = new NicknameEntry();
             }
         }
 
-
-
         /// <summary>
-
-        /// Feed handler.  Instantiates a new <code>NicknameFeed</code>.
-
+        /// Feed handler. Instantiates a new <code>NicknameFeed</code>.
         /// </summary>
-
-        /// <param name="sender">the object that's sending the evet</param>
-
+        /// <param name="sender">the object that's sending the event</param>
         /// <param name="e"><code>ServiceEventArgs</code>, holds the feed</param>
-
-        protected void OnParsedNewFeed(object sender, ServiceEventArgs e)
-
-        {
-
+        protected void OnParsedNewFeed(object sender, ServiceEventArgs e) {
             Tracing.TraceMsg("Created new nickname feed");
 
-            if (e == null)
-
-            {
-
+            if (e == null) {
                 throw new ArgumentNullException("e");
-
             }
 
             e.Feed = new NicknameFeed(e.Uri, e.Service);
-
         }
     }
 }

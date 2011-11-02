@@ -20,29 +20,26 @@ using System.Collections;
 using Google.GData.Client;
 using Google.GData.Extensions.Apps;
 
-namespace Google.GData.Apps
-{
+namespace Google.GData.Apps {
     /// <summary>
     /// A Google Apps nickname entry.  A NicknameEntry identifies a
     /// nickname and the user to whom the nickname is assigned.
     /// </summary>
-    public class NicknameEntry : AbstractEntry
-    {
+    public class NicknameEntry : AbstractEntry {
         /// <summary>
         /// Category used to label entries that contain nickname
         /// extension data.
         /// </summary>
         public static AtomCategory NICKNAME_CATEGORY =
             new AtomCategory(AppsNameTable.Nickname,
-                             new AtomUri(BaseNameTable.gKind));
+                new AtomUri(BaseNameTable.gKind));
 
         /// <summary>
         /// Constructs a new NicknameEntry instance with the appropriate category
         /// to indicate that it is a nickname.
         /// </summary>
         public NicknameEntry()
-            : base()
-        {
+            : base() {
             Categories.Add(NICKNAME_CATEGORY);
 
             GAppsExtensions.AddProvisioningExtensions(this);
@@ -51,36 +48,30 @@ namespace Google.GData.Apps
         /// <summary>
         /// The login element in this entry.
         /// </summary>
-        public LoginElement Login
-        {
-            get
-            {
+        public LoginElement Login {
+            get {
                 return FindExtension(AppsNameTable.AppsLogin,
-                                     AppsNameTable.AppsNamespace) as LoginElement;
+                    AppsNameTable.AppsNamespace) as LoginElement;
             }
-            set
-            {
+            set {
                 ReplaceExtension(AppsNameTable.AppsLogin,
-                                 AppsNameTable.AppsNamespace,
-                                 value);
+                    AppsNameTable.AppsNamespace,
+                    value);
             }
         }
 
         /// <summary>
         /// The nickname element in this entry.
         /// </summary>
-        public NicknameElement Nickname
-        {
-            get
-            {
+        public NicknameElement Nickname {
+            get {
                 return FindExtension(AppsNameTable.AppsNickname,
-                                     AppsNameTable.AppsNamespace) as NicknameElement;
+                    AppsNameTable.AppsNamespace) as NicknameElement;
             }
-            set
-            {
+            set {
                 ReplaceExtension(AppsNameTable.AppsNickname,
-                                 AppsNameTable.AppsNamespace,
-                                 value);
+                    AppsNameTable.AppsNamespace,
+                    value);
             }
         }
 
@@ -89,8 +80,7 @@ namespace Google.GData.Apps
         /// exception, because nickname entries cannot be
         /// updated.
         /// </summary>
-        public new void Update()
-        {
+        public new void Update() {
             throw new GDataRequestException("Nickname entries cannot be updated.");
         }
     }

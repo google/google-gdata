@@ -28,7 +28,7 @@ namespace Google.GData.Apps.UnitTests
         [Test]
         public void GetDomainTest()
         {
-            Assert.AreEqual("example.com", service.Domain, "Domain should initially be example.com");
+            Assert.AreEqual("example.com", service.DomainName, "Domain should initially be example.com");
         }
     }
 }

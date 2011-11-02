@@ -154,6 +154,9 @@
     <Compile Include="calendarresourceservice.cs" />
     <Compile Include="auditservice.cs" />
     <Compile Include="accountinfo.cs" />
+    <Compile Include="ownerentry.cs" />
+    <Compile Include="memberentry.cs" />
+    <Compile Include="groupentry.cs" />
     <Compile Include="genericfeed.cs" />
     <Compile Include="mailboxdumprequest.cs" />
     <Compile Include="mailmonitor.cs" />
