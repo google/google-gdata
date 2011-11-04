@@ -467,7 +467,7 @@ namespace Google.GData.YouTube {
         }
 
         /// <summary>
-        /// convienience method to create an URI based on a userID
+        /// convenience method to create an URI based on a userID
         /// for the subscriptions
         /// </summary>
         /// <param name="userID"></param>
@@ -477,7 +477,7 @@ namespace Google.GData.YouTube {
         }
 
         /// <summary>
-        /// convienience method to create an URI based on a userID
+        /// convenience method to create an URI based on a userID
         /// for the playlists of an user
         /// </summary>
         /// <param name="userID"></param>
@@ -487,7 +487,7 @@ namespace Google.GData.YouTube {
         }
 
         /// <summary>
-        /// convienience method to create an URI based on a userID
+        /// convenience method to create an URI based on a userID
         /// for the favorites of an user
         /// </summary>
         /// <param name="userID"></param>
@@ -497,7 +497,7 @@ namespace Google.GData.YouTube {
         }
 
         /// <summary>
-        /// convienience method to create an URI based on a userID
+        /// convenience method to create an URI based on a userID
         /// for the messages of an user
         /// </summary>
         /// <param name="userID"></param>
@@ -507,7 +507,7 @@ namespace Google.GData.YouTube {
         }
 
         /// <summary>
-        /// convienience method to create an URI based on a userID
+        /// convenience method to create an URI based on a userID
         /// for the contacts of an user
         /// </summary>
         /// <param name="userID"></param>
@@ -517,7 +517,7 @@ namespace Google.GData.YouTube {
         }
 
         /// <summary>
-        /// convienience method to create an URI based on a userID
+        /// convenience method to create an URI based on a userID
         /// for the uploaded videos of an user
         /// </summary>
         /// <param name="userID"></param>

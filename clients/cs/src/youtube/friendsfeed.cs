@@ -21,9 +21,6 @@ using Google.GData.Client;
 using Google.GData.Extensions;
 
 namespace Google.GData.YouTube {
-
- 
-    //////////////////////////////////////////////////////////////////////
     /// <summary>
     /// A user's contacts feed lists all of the contacts for a specified user.
     /// To request the currently logged-in user's contact list, send an HTTP
@@ -34,26 +31,23 @@ namespace Google.GData.YouTube {
     /// In the URL above, you must replace the text username with the user's YouTube username.
     /// Contacts can be classified as either Friends or Family.
     /// </summary>
-    //////////////////////////////////////////////////////////////////////
-    public class FriendsFeed : YouTubeFeed
-    {
-
+    public class FriendsFeed : YouTubeFeed {
         /// <summary>
         ///  default constructor
         /// </summary>
         /// <param name="uriBase">the base URI of the feedEntry</param>
         /// <param name="iService">the Service to use</param>
-        public FriendsFeed(Uri uriBase, IService iService) : base(uriBase, iService)
-        {
+        public FriendsFeed(Uri uriBase, IService iService)
+            : base(uriBase, iService) {
         }
 
         /// <summary>
         /// this needs to get implemented by subclasses
         /// </summary>
         /// <returns>AtomEntry</returns>
-        public override AtomEntry CreateFeedEntry()
-        {
+        public override AtomEntry CreateFeedEntry() {
             return new FriendsEntry();
         }
     }
 }
+
