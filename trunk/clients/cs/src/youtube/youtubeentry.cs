@@ -26,12 +26,9 @@ using Google.GData.Extensions.AppControl;
 using System.Globalization;
 
 namespace Google.GData.YouTube {
-
-    //////////////////////////////////////////////////////////////////////
     /// <summary>
     /// Entry API customization class for defining entries in a YouTubeFeed feed.
     /// </summary>
-    //////////////////////////////////////////////////////////////////////
     public class YouTubeEntry : YouTubeBaseEntry {
         private ExtensionCollection<YtAccessControl> accessControls;
 
@@ -63,6 +60,7 @@ namespace Google.GData.YouTube {
                 acf = new AppControl();
                 this.AddExtension(acf);
             }
+
             // add the youtube state element
             acf.ExtensionFactories.Add(new State());
 
@@ -80,7 +78,7 @@ namespace Google.GData.YouTube {
         }
 
         /// <summary>
-        ///  property accessor for the Access Control Collection 
+        /// property accessor for the Access Control Collection 
         /// </summary>
         public ExtensionCollection<YtAccessControl> AccessControls {
             get {
@@ -167,13 +165,12 @@ namespace Google.GData.YouTube {
         public Rating Rating {
             get {
                 return FindExtension(GDataParserNameTable.XmlRatingElement,
-                                     GDataParserNameTable.gNamespace) as Rating;
+                    GDataParserNameTable.gNamespace) as Rating;
             }
             set {
-
                 ReplaceExtension(GDataParserNameTable.XmlRatingElement,
-                               GDataParserNameTable.gNamespace,
-                               value);
+                    GDataParserNameTable.gNamespace,
+                    value);
             }
         }
 
@@ -211,7 +208,6 @@ namespace Google.GData.YouTube {
                 link.HRef = value;
             }
         }
-        /////////////////////////////////////////////////////////////////////////////
 
         /// <summary>
         /// returns the yt:duration element
@@ -258,7 +254,7 @@ namespace Google.GData.YouTube {
         }
 
         /// <summary>
-        ///  property accessor for the VideoID, if applicable
+        /// property accessor for the VideoID, if applicable
         /// </summary>
         public string VideoId {
             get {
@@ -279,7 +275,7 @@ namespace Google.GData.YouTube {
         }
 
         /// <summary>
-        ///  property accessor for the Uploaded element, if applicable
+        /// property accessor for the Uploaded element, if applicable
         /// returns the date the video was uplaoded
         /// </summary>
         public string Uploaded {
@@ -292,8 +288,8 @@ namespace Google.GData.YouTube {
         }
 
         /// <summary>
-        ///  property accessor for the media:credit element, if applicable
-        ///  The media:credit element identifies who uploaded the video
+        /// property accessor for the media:credit element, if applicable
+        /// The media:credit element identifies who uploaded the video
         /// returns the date the video was uplaoded
         /// </summary>
         public MediaCredit Uploader {
@@ -313,10 +309,8 @@ namespace Google.GData.YouTube {
             }
         }
 
-        //////////////////////////////////////////////////////////////////////
         /// <summary>accessor for the related videos feed URI</summary> 
         /// <returns> </returns>
-        //////////////////////////////////////////////////////////////////////
         public AtomUri RelatedVideosUri {
             get {
                 AtomLink link = this.Links.FindService(YouTubeNameTable.RelatedVideo, AtomLink.ATOM_TYPE);
@@ -325,10 +319,8 @@ namespace Google.GData.YouTube {
             }
         }
 
-        //////////////////////////////////////////////////////////////////////
         /// <summary>accessor for the video responses feed URI</summary> 
         /// <returns> </returns>
-        //////////////////////////////////////////////////////////////////////
         public AtomUri VideoResponsesUri {
             get {
                 AtomLink link = this.Links.FindService(YouTubeNameTable.ResponseVideo, AtomLink.ATOM_TYPE);
@@ -337,10 +329,8 @@ namespace Google.GData.YouTube {
             }
         }
 
-        //////////////////////////////////////////////////////////////////////
         /// <summary>accessor for the video responses feed URI</summary> 
         /// <returns> </returns>
-        //////////////////////////////////////////////////////////////////////
         public AtomUri ComplaintUri {
             get {
                 AtomLink link = this.Links.FindService(YouTubeNameTable.Complaint, AtomLink.ATOM_TYPE);
@@ -361,7 +351,7 @@ namespace Google.GData.YouTube {
                 Private p = null;
                 if (this.Media != null) {
                     p = Media.FindExtension(YouTubeNameTable.Private,
-                                    YouTubeNameTable.NSYouTube) as Private;
+                        YouTubeNameTable.NSYouTube) as Private;
                 }
                 return p != null;
             }
@@ -369,7 +359,7 @@ namespace Google.GData.YouTube {
                 Private p = null;
                 if (this.Media != null) {
                     p = Media.FindExtension(YouTubeNameTable.Private,
-                                    YouTubeNameTable.NSYouTube) as Private;
+                        YouTubeNameTable.NSYouTube) as Private;
                 }
                 if (value) {
                     if (p == null) {
@@ -419,12 +409,9 @@ namespace Google.GData.YouTube {
             return base.CreateAtomSubElement(reader, parser);
         }
 
-        //////////////////////////////////////////////////////////////////////
         /// <summary>Returns the constant representing this XML element.</summary> 
-        //////////////////////////////////////////////////////////////////////
         public override string XmlName {
             get { return null; }
         }
-        /////////////////////////////////////////////////////////////////////////////
     }
 }
