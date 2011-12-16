@@ -116,6 +116,9 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\third_party\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System">
       <Name>System</Name>
     </Reference>
@@ -171,6 +174,7 @@
     <Compile Include="gauthsubrequest.cs" />
     <Compile Include="gdatabatch.cs" />
     <Compile Include="goauthrequest.cs" />
+    <Compile Include="goauth2request.cs" />
     <Compile Include="HttpUtility.cs" />
     <Compile Include="logrequest.cs" />
     <Compile Include="mediaservice.cs" />

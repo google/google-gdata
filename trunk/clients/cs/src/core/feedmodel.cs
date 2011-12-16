@@ -527,7 +527,8 @@ namespace Google.GData.Client {
             none,
             clientLogin,
             authSub,
-            oAuth
+            oAuth,
+            oAuth2
         }
 
         private AuthenticationType authType = AuthenticationType.none;
@@ -654,6 +655,18 @@ namespace Google.GData.Client {
             this.authType = AuthenticationType.authSub;
             this.privateKey = privateKey;
             this.authSubToken = authSubToken;
+        }
+
+        /// <summary>
+        /// a constructor for a OAuth 2.0 authorization scenario.
+        /// <param name="applicationName"></param>
+        /// <param name="parameters">OAuth 2.0 parameters</param>
+        public RequestSettings(
+            string applicationName,
+            OAuth2Parameters parameters)
+            : this(applicationName) {
+            this.authType = AuthenticationType.oAuth2;
+            this.OAuth2Parameters = parameters;
         }
 
         /// <summary>
@@ -892,6 +905,8 @@ namespace Google.GData.Client {
             set { this.clientLoginHandler = value; }
         }
 
+        public OAuth2Parameters OAuth2Parameters { get; set; }
+
         /// <summary>
         /// Creates a HttpWebRequest object that can be used against a given service.
         /// for a RequestSetting object that is using client login, this might call
@@ -928,7 +943,7 @@ namespace Google.GData.Client {
 
         private void EnsureClientLoginCredentials(HttpWebRequest request, string serviceName) {
             if (String.IsNullOrEmpty(this.Credentials.ClientToken)) {
-                this.Credentials.ClientToken = 
+                this.Credentials.ClientToken =
                     Utilities.QueryClientLoginToken(
                     this.Credentials,
                     serviceName,
@@ -1027,6 +1042,8 @@ namespace Google.GData.Client {
                 authFactory.Token = settings.Token;
                 authFactory.TokenSecret = settings.TokenSecret;
                 s.RequestFactory = authFactory;
+            } else if (settings.OAuth2Parameters != null) {
+                s.RequestFactory = new GOAuth2RequestFactory(s.ServiceIdentifier, settings.Application, settings.OAuth2Parameters);
             } else {
                 GDataGAuthRequestFactory authFactory = s.RequestFactory as GDataGAuthRequestFactory;
                 if (authFactory != null) {
