@@ -87,6 +87,17 @@ namespace Google.GData.Apps.GoogleMailSettings
 			return base.Insert(labelUri, entry) as AppsExtendedEntry;
         }
 
+        /// <summary>
+        /// Deletes a Google Mail label for the given userName
+        /// </summary>
+        /// <param name="userName">The user for whom this should be done</param>
+        /// <param name="label">The name of the label to be deleted</param>
+        public void DeleteLabel(string userName, string label) {
+            string uri = AppsGoogleMailSettingsNameTable.AppsGoogleMailSettingsBaseFeedUri + "/"
+                + domain + "/" + userName + labelFeedUriSuffix + "/" +  HttpUtility.UrlEncode(label);
+            base.Delete(new Uri(uri));
+        }
+
 		/// <summary>
 		/// Retrieves all labels and their settings in Google Mail for the given userName
 		/// </summary>
