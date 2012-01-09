@@ -1474,7 +1474,9 @@ namespace Google.GData.Client {
             }
 
             Y r = null;
-            AtomEntry ae = this.Service.Insert(address, entry.AtomEntry);
+            FeedQuery q = PrepareQuery<FeedQuery>(address.AbsoluteUri);
+
+            AtomEntry ae = this.Service.Insert(q.Uri, entry.AtomEntry);
             if (ae != null) {
                 r = new Y();
                 r.AtomEntry = ae;
@@ -1487,27 +1489,7 @@ namespace Google.GData.Client {
         /// </summary>
         /// <returns>the reflected entry from the server if any given</returns>
         public Y Insert<Y>(Feed<Y> feed, Y entry) where Y : Entry, new() {
-            if (entry == null) {
-                throw new ArgumentNullException("Entry was null");
-            }
-
-            if (entry.AtomEntry == null) {
-                throw new ArgumentNullException("Entry.AtomEntry was null");
-            }
-
-            if (feed == null) {
-                throw new ArgumentNullException("Feed was null");
-            }
-
-            Y r = null;
-            FeedQuery q = PrepareQuery<FeedQuery>(feed.AtomFeed.Post);
-
-            AtomEntry ae = this.Service.Insert(q.Uri, entry.AtomEntry);
-            if (ae != null) {
-                r = new Y();
-                r.AtomEntry = ae;
-            }
-            return r;
+            return Insert(new Uri(feed.AtomFeed.Post), entry);
         }
 
         /// <summary>
