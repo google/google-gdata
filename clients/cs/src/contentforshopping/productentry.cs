@@ -57,6 +57,11 @@ namespace Google.GData.ContentForShopping {
         /// </summary> 
         private ExtensionCollection<Size> sizes;
 
+        /// <summary>
+        /// Custom attributes collection
+        /// </summary> 
+        private ExtensionCollection<CustomAttribute> customAttributes;
+
         public ProductEntry()
             : base() {
             this.AddExtension(new ProductId());
@@ -72,6 +77,7 @@ namespace Google.GData.ContentForShopping {
             this.AddExtension(new Channel());
             this.AddExtension(new Color());
             this.AddExtension(new Condition());
+            this.AddExtension(new CustomAttribute());
             this.AddExtension(new Edition());
             this.AddExtension(new Feature());
             this.AddExtension(new FeaturedProduct());
@@ -708,6 +714,18 @@ namespace Google.GData.ContentForShopping {
                     this.sizes = new ExtensionCollection<Size>(this);
                 }
                 return this.sizes;
+            }
+        }
+
+        /// <summary>
+        /// Custom attribute collection.
+        /// </summary>
+        public ExtensionCollection<CustomAttribute> CustomAttributes {
+            get {
+                if (this.customAttributes == null) {
+                    this.customAttributes = new ExtensionCollection<CustomAttribute>(this);
+                }
+                return this.customAttributes;
             }
         }
     }

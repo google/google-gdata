@@ -71,6 +71,7 @@
     <Compile Include="elements\author.cs" />
     <Compile Include="elements\channel.cs" />
     <Compile Include="elements\additionalimagelink.cs" />
+    <Compile Include="elements\customattribute.cs" />
     <Compile Include="elements\status.cs" />
     <Compile Include="elements\warnings.cs" />
     <Compile Include="elements\warningmessage.cs" />
