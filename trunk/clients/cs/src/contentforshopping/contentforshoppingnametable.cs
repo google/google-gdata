@@ -337,5 +337,25 @@ namespace Google.GData.ContentForShopping
         /// XML element name for warning message.
         /// </summary>
         public const string WarningMessage = "message";
+
+        /// <summary>
+        /// XML element name for attribute.
+        /// </summary>
+        public const string Attribute = "attribute";
+
+        /// <summary>
+        /// XML element name for name.
+        /// </summary>
+        public const string Name = "name";
+
+        /// <summary>
+        /// XML element name for type.
+        /// </summary>
+        public const string Type = "type";
+
+        /// <summary>
+        /// XML element name for unit.
+        /// </summary>
+        public const string Unit = "unit";
     }
 }
