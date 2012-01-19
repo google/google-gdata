@@ -396,7 +396,7 @@ namespace Google.GData.Client {
                 IVersionAware v = this.factory as IVersionAware;
                 if (v != null) {
                     // need to add the version header to the request
-                    http.Headers.Add(GDataGAuthRequestFactory.GDataVersion, v.ProtocolMajor.ToString() + "." + v.ProtocolMinor.ToString());
+                    http.Headers.Set(GDataGAuthRequestFactory.GDataVersion, v.ProtocolMajor.ToString() + "." + v.ProtocolMinor.ToString());
                 }
 
                 // we do not want this to autoredirect, our security header will be 
@@ -412,7 +412,7 @@ namespace Google.GData.Client {
                     // to open the request stream with a DELETE method.
                     string currentMethod = http.Method;
 
-                    http.Headers.Add(GoogleAuthentication.Override, currentMethod);
+                    http.Headers.Set(GoogleAuthentication.Override, currentMethod);
                     http.Method = HttpMethods.Post;
 
                     // not put and delete, all is post
