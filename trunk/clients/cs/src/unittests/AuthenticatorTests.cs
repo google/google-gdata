@@ -29,32 +29,32 @@ namespace Google.GData.Client.LiveTests {
     [TestFixture]
     [Category("AuthenticatorTests")]
     public class AuthenticatorTestSuite : OAuthTestSuite {
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>default empty constructor</summary> 
-        //////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// default empty constructor
+        /// </summary> 
         public AuthenticatorTestSuite() {
         }
 
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>the setup method</summary> 
-        //////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// the setup method
+        /// </summary> 
         [SetUp]
         public override void InitTest() {
             Tracing.TraceCall();
             base.InitTest();
         }
 
-        ////////////////////////////////////////////////////////////////////
-        /// <summary>the end it all method</summary> 
-        //////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// the end it all method
+        /// </summary>
         [TearDown]
         public override void EndTest() {
             Tracing.ExitTracing();
         }
 
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>runs an authentication test with client auth</summary> 
-        //////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// runs an authentication test with client auth
+        /// </summary>
         [Test]
         public void ClientLoginAuthenticatorTest() {
             Tracing.TraceMsg("Entering ClientLoginAuthenticatorTest");
@@ -66,7 +66,7 @@ namespace Google.GData.Client.LiveTests {
                 this.passWord);
 
             HttpWebRequest request = auth.CreateHttpWebRequest("GET", new Uri(DocumentsListQuery.documentsBaseUri));
-            request.Headers.Add(GDataGAuthRequestFactory.GDataVersion, "3.0");
+            request.Headers.Set(GDataGAuthRequestFactory.GDataVersion, "3.0");
             HttpWebResponse response = request.GetResponse() as HttpWebResponse;
 
             if (response.StatusCode == HttpStatusCode.Redirect) {
@@ -79,9 +79,9 @@ namespace Google.GData.Client.LiveTests {
             Assert.IsTrue(response.StatusCode == HttpStatusCode.OK);
         }
 
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>runs an authentication test with 2-legged OAuth</summary> 
-        //////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// runs an authentication test with 2-legged OAuth
+        /// </summary>
         [Test]
         public void OAuth2LeggedAuthenticatorTest() {
             Tracing.TraceMsg("Entering OAuth2LeggedAuthenticationTest");
@@ -91,7 +91,8 @@ namespace Google.GData.Client.LiveTests {
                 this.oAuthConsumerKey,
                 this.oAuthConsumerSecret,
                 this.oAuthUser,
-                this.oAuthDomain);
+                this.oAuthDomain,
+                this.oAuthSignatureMethod);
 
             HttpWebRequest request = auth.CreateHttpWebRequest("GET", new Uri("https://www.google.com/calendar/feeds/default/owncalendars/full"));
             HttpWebResponse response = request.GetResponse() as HttpWebResponse;
@@ -106,9 +107,9 @@ namespace Google.GData.Client.LiveTests {
             Assert.IsTrue(response.StatusCode == HttpStatusCode.OK);
         }
 
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>runs an authentication test with 3-legged OAuth</summary> 
-        //////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// runs an authentication test with 3-legged OAuth
+        /// </summary>
         [Test]
         public void OAuth3LeggedAuthenticatorTest() {
             Tracing.TraceMsg("Entering OAuth3LeggedAuthenticationTest");
@@ -118,7 +119,9 @@ namespace Google.GData.Client.LiveTests {
                 this.oAuthConsumerKey,
                 this.oAuthConsumerSecret,
                 this.oAuthToken,
-                this.oAuthTokenSecret);
+                this.oAuthTokenSecret,
+                this.oAuthScope,
+                this.oAuthSignatureMethod);
 
             HttpWebRequest request = auth.CreateHttpWebRequest("GET", new Uri("https://www.google.com/calendar/feeds/default/owncalendars/full"));
             HttpWebResponse response = request.GetResponse() as HttpWebResponse;

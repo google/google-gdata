@@ -475,22 +475,22 @@ namespace Google.GData.Client {
                     }
 
                     if (this.useGZip) {
-                        web.Headers.Add("Accept-Encoding", "gzip");
+                        web.Headers.Set("Accept-Encoding", "gzip");
                     }
 
                     if (this.Etag != null) {
                         if (this.Etag != GDataRequestFactory.IfMatchAll) {
-                            web.Headers.Add(GDataRequestFactory.EtagHeader, this.Etag);
+                            web.Headers.Set(GDataRequestFactory.EtagHeader, this.Etag);
                         }
                         switch (this.type) {
                             case GDataRequestType.Update:
                             case GDataRequestType.Delete:
                                 if (!Utilities.IsWeakETag(this)) {
-                                    web.Headers.Add(GDataRequestFactory.IfMatch, this.Etag);
+                                    web.Headers.Set(GDataRequestFactory.IfMatch, this.Etag);
                                 }
                                 break;
                             case GDataRequestType.Query:
-                                web.Headers.Add(GDataRequestFactory.IfNoneMatch, this.Etag);
+                                web.Headers.Set(GDataRequestFactory.IfNoneMatch, this.Etag);
                                 break;
                         }
                     }
@@ -516,7 +516,7 @@ namespace Google.GData.Client {
                     }
 
                     if (this.Slug != null) {
-                        this.Request.Headers.Add(GDataRequestFactory.SlugHeader + ": " + this.Slug);
+                        this.Request.Headers.Set(GDataRequestFactory.SlugHeader, this.Slug);
                     }
 
                     if (this.factory.Proxy != null) {

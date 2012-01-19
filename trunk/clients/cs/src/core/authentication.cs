@@ -355,6 +355,7 @@ namespace Google.GData.Client {
     public class OAuth2LeggedAuthenticator : OAuthAuthenticator {
         private string oAuthUser;
         private string oAuthDomain;
+        private OAuthParameters parameters;
 
         public static string OAuthParameter = "xoauth_requestor_id";
 
@@ -372,10 +373,12 @@ namespace Google.GData.Client {
             string consumerKey,
             string consumerSecret,
             string user,
-            string domain)
+            string domain,
+            string signatureMethod)
             : base(applicationName, consumerKey, consumerSecret) {
             this.oAuthUser = user;
             this.oAuthDomain = domain;
+            this.parameters = new OAuthParameters() { ConsumerKey = consumerKey, ConsumerSecret = consumerSecret, SignatureMethod = signatureMethod };
         }
 
         /// <summary>
@@ -409,11 +412,8 @@ namespace Google.GData.Client {
 
             string oauthHeader = OAuthUtil.GenerateHeader(
                 request.RequestUri,
-                this.ConsumerKey,
-                this.ConsumerSecret,
-                null,
-                null,
-                request.Method);
+                request.Method,
+                parameters);
             request.Headers.Add(oauthHeader);
         }
 
@@ -426,7 +426,7 @@ namespace Google.GData.Client {
         /// <returns></returns>
         public override Uri ApplyAuthenticationToUri(Uri source) {
             UriBuilder builder = new UriBuilder(source);
-            string queryToAppend = OAuth2LeggedAuthenticator.OAuthParameter + "=" + this.oAuthUser + "%40" + this.OAuthDomain;
+            string queryToAppend = OAuthParameter + "=" + this.oAuthUser + "%40" + this.OAuthDomain;
 
             if (builder.Query != null && builder.Query.Length > 1) {
                 builder.Query = builder.Query.Substring(1) + "&" + queryToAppend;
@@ -441,6 +441,7 @@ namespace Google.GData.Client {
     public class OAuth3LeggedAuthenticator : OAuthAuthenticator {
         private string token;
         private string tokenSecret;
+        private OAuthParameters parameters;
 
         /// <summary>
         ///  a constructor for OpenAuthentication login use cases using 3-legged oAuth
@@ -455,10 +456,11 @@ namespace Google.GData.Client {
             string consumerKey,
             string consumerSecret,
             string token,
-            string tokenSecret)
+            string tokenSecret,
+            string scope,
+            string signatureMethod)
             : base(applicationName, consumerKey, consumerSecret) {
-            this.token = token;
-            this.tokenSecret = tokenSecret;
+            this.parameters = new OAuthParameters() { ConsumerKey = consumerKey, ConsumerSecret = consumerSecret, Token = token, TokenSecret = tokenSecret, Scope = scope, SignatureMethod = signatureMethod };
         }
 
         /// <summary>
@@ -467,7 +469,7 @@ namespace Google.GData.Client {
         /// <returns></returns>
         public string Token {
             get {
-                return this.token;
+                return this.parameters.Token;
             }
         }
 
@@ -477,7 +479,7 @@ namespace Google.GData.Client {
         /// <returns></returns>
         public string TokenSecret {
             get {
-                return this.tokenSecret;
+                return this.parameters.TokenSecret;
             }
         }
 
@@ -492,11 +494,8 @@ namespace Google.GData.Client {
 
             string oauthHeader = OAuthUtil.GenerateHeader(
                 request.RequestUri,
-                this.ConsumerKey,
-                this.ConsumerSecret,
-                this.Token,
-                this.TokenSecret,
-                request.Method);
+                request.Method,
+                parameters);
             request.Headers.Add(oauthHeader);
         }
     }
