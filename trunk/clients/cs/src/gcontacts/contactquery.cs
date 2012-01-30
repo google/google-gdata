@@ -19,8 +19,6 @@ using System.Text;
 using Google.GData.Client;
 
 namespace Google.GData.Contacts {
-
-    //////////////////////////////////////////////////////////////////////
     /// <summary>
     /// A subclass of FeedQuery, to create an Contacts query URI.
     /// Provides public properties that describe the different
@@ -50,26 +48,24 @@ namespace Google.GData.Contacts {
     /// group	          Constrains the results to only the contacts belonging to the group specified. 
     ///                   Value of this parameter specifies group ID (see also: gContact:groupMembershipInfo).
     /// </summary> 
-    //////////////////////////////////////////////////////////////////////
-    public class GroupsQuery : FeedQuery
-    {
-         /// <summary>
+    public class GroupsQuery : FeedQuery {
+        /// <summary>
         /// contacts group base URI 
         /// </summary>
         public const string groupsBaseUri = "https://www.google.com/m8/feeds/groups/";
 
         /// <summary>
-        /// sortoder value for sorting by lastmodified
+        /// sort oder value for sorting by lastmodified
         /// </summary>
         public const string OrderByLastModified = "lastmodified";
 
         /// <summary>
-        /// sortoder value for sorting ascending
+        /// sort oder value for sorting ascending
         /// </summary>
         public const string SortOrderAscending = "ascending";
 
         /// <summary>
-        /// sortoder value for sorting descending
+        /// sort oder value for sorting descending
         /// </summary>
         public const string SortOrderDescending = "ascending";
 
@@ -80,7 +76,7 @@ namespace Google.GData.Contacts {
         /// <summary>
         /// thin projection value
         /// </summary>
-        public const string thinProjection = "thin";        
+        public const string thinProjection = "thin";
         /// <summary>
         /// property-key projection value
         /// </summary>
@@ -90,7 +86,7 @@ namespace Google.GData.Contacts {
         /// </summary>
         public const string fullProjection = "full";
 
-        private string orderBy; 
+        private string orderBy;
         private bool showDeleted;
         private string sortOrder;
 
@@ -98,8 +94,7 @@ namespace Google.GData.Contacts {
         /// base constructor
         /// </summary>
         public GroupsQuery()
-        : base()
-        {
+            : base() {
         }
 
         /// <summary>
@@ -107,109 +102,82 @@ namespace Google.GData.Contacts {
         /// </summary>
         /// <param name="queryUri">the query to use</param>
         public GroupsQuery(string queryUri)
-        : base(queryUri)
-        {
+            : base(queryUri) {
         }
 
-
         /// <summary>
-        /// convienience method to create an URI based on a userID for a groups feed
+        /// convenience method to create an URI based on a userID for a groups feed
         /// this returns a FULL projection by default
         /// </summary>
         /// <param name="userID"></param>
         /// <returns>string</returns>
-        public static string CreateGroupsUri(string userID) 
-        {
+        public static string CreateGroupsUri(string userID) {
             return CreateGroupsUri(userID, ContactsQuery.fullProjection);
         }
 
         /// <summary>
-        /// convienience method to create an URI based on a userID for a groups feed
+        /// convenience method to create an URI based on a userID for a groups feed
         /// </summary>
         /// <param name="userID">if the parameter is NULL, uses the default user</param>
         /// <param name="projection">the projection to use</param>
         /// <returns>string</returns>
-        public static string CreateGroupsUri(string userID, string projection) 
-        {
+        public static string CreateGroupsUri(string userID, string projection) {
             return ContactsQuery.groupsBaseUri + ContactsQuery.UserString(userID) + projection;
         }
 
-        //////////////////////////////////////////////////////////////////////
         /// <summary>Sorting order direction. Can be either ascending or descending</summary> 
         /// <returns> </returns>
-        //////////////////////////////////////////////////////////////////////
-        public string SortOrder
-        {
-            get {return this.sortOrder;}
-            set {this.sortOrder = value;}
+        public string SortOrder {
+            get { return this.sortOrder; }
+            set { this.sortOrder = value; }
         }
-        // end of accessor public string SortOder
 
-
-        //////////////////////////////////////////////////////////////////////
         /// <summary>Sorting criterion. The only supported value is lastmodified</summary>
         /// <returns> </returns>
-        //////////////////////////////////////////////////////////////////////
-        public string OrderBy
-        {
-            get {return this.orderBy;}
-            set {this.orderBy = value;}
+        public string OrderBy {
+            get { return this.orderBy; }
+            set { this.orderBy = value; }
         }
 
-        //////////////////////////////////////////////////////////////////////
         /// <summary>Include deleted contacts in the returned contacts feed. 
         /// Deleted contacts are shown as entries that contain nothing but
-        ///  an atom:id element and a gd:deleted element. (Google retains placeholders 
+        /// an atom:id element and a gd:deleted element. (Google retains placeholders 
         /// for deleted contacts for 30 days after deletion; during that time, 
         /// you can request the placeholders using the showdeleted query
-        ///  parameter.) Valid values are true or false.</summary> 
+        /// parameter.) Valid values are true or false.</summary> 
         /// <returns> </returns>
-        //////////////////////////////////////////////////////////////////////
-        public bool ShowDeleted
-        {
-            get {return this.showDeleted;}
-            set {this.showDeleted = value;}
+        public bool ShowDeleted {
+            get { return this.showDeleted; }
+            set { this.showDeleted = value; }
         }
-        // end of accessor public bool ShowDeleted
-
-   
 
         /// <summary>
         /// helper to create the userstring for a query
         /// </summary>
         /// <param name="user">the user to encode, or NULL if default</param>
         /// <returns></returns>
-        protected static string UserString(string user)
-        {
-            if (user == null)
-            {
+        protected static string UserString(string user) {
+            if (user == null) {
                 return "default/";
             }
-            return Utilities.UriEncodeReserved(user)+ "/"; 
+            return Utilities.UriEncodeReserved(user) + "/";
         }
-   
-        //////////////////////////////////////////////////////////////////////
+
         /// <summary>protected void ParseUri</summary> 
         /// <param name="targetUri">takes an incoming Uri string and parses all the properties out of it</param>
         /// <returns>throws a query exception when it finds something wrong with the input, otherwise returns a baseuri</returns>
-        //////////////////////////////////////////////////////////////////////
-        protected override Uri ParseUri(Uri targetUri)
-        {
+        protected override Uri ParseUri(Uri targetUri) {
             base.ParseUri(targetUri);
-            if (targetUri != null)
-            {
+            if (targetUri != null) {
                 char[] deli = { '?', '&' };
 
                 string source = HttpUtility.UrlDecode(targetUri.Query);
                 TokenCollection tokens = new TokenCollection(source, deli);
-                foreach (String token in tokens)
-                {
-                    if (token.Length > 0)
-                    {
+                foreach (String token in tokens) {
+                    if (token.Length > 0) {
                         char[] otherDeli = { '=' };
                         String[] parameters = token.Split(otherDeli, 2);
-                        switch (parameters[0])
-                        {
+                        switch (parameters[0]) {
                             case "orderby":
                                 this.OrderBy = parameters[1];
                                 break;
@@ -217,8 +185,7 @@ namespace Google.GData.Contacts {
                                 this.SortOrder = parameters[1];
                                 break;
                             case "showdeleted":
-                                if (String.Compare("true", parameters[1], false, CultureInfo.InvariantCulture) == 0)
-                                {
+                                if (String.Compare("true", parameters[1], false, CultureInfo.InvariantCulture) == 0) {
                                     this.ShowDeleted = true;
                                 }
                                 break;
@@ -226,37 +193,31 @@ namespace Google.GData.Contacts {
                     }
                 }
 
-        
+
             }
             return this.Uri;
         }
 
-        //////////////////////////////////////////////////////////////////////
         /// <summary>Creates the partial URI query string based on all
         ///  set properties.</summary> 
         /// <returns> string => the query part of the URI </returns>
-        //////////////////////////////////////////////////////////////////////
-        protected override string CalculateQuery(string basePath)
-        {
+        protected override string CalculateQuery(string basePath) {
             string path = base.CalculateQuery(basePath);
             StringBuilder newPath = new StringBuilder(path, 2048);
-            char paramInsertion = InsertionParameter(path); 
+            char paramInsertion = InsertionParameter(path);
 
-            if (this.OrderBy != null && this.OrderBy.Length > 0)
-            {
+            if (this.OrderBy != null && this.OrderBy.Length > 0) {
                 newPath.Append(paramInsertion);
                 newPath.AppendFormat(CultureInfo.InvariantCulture, "orderby={0}", Utilities.UriEncodeReserved(this.OrderBy));
                 paramInsertion = '&';
             }
 
-            if (this.SortOrder != null && this.SortOrder.Length > 0)
-            {
+            if (this.SortOrder != null && this.SortOrder.Length > 0) {
                 newPath.Append(paramInsertion);
                 newPath.AppendFormat(CultureInfo.InvariantCulture, "sortorder={0}", Utilities.UriEncodeReserved(this.SortOrder));
                 paramInsertion = '&';
             }
-            if (this.ShowDeleted)
-            {
+            if (this.ShowDeleted) {
                 newPath.Append(paramInsertion);
                 newPath.Append("showdeleted=true");
                 paramInsertion = '&';
@@ -265,9 +226,6 @@ namespace Google.GData.Contacts {
         }
     }
 
-
-
-    //////////////////////////////////////////////////////////////////////
     /// <summary>
     /// A subclass of GroupsQuery, to create an Contacts query URI.
     /// Provides public properties that describe the different
@@ -296,9 +254,7 @@ namespace Google.GData.Contacts {
     /// group	          Constrains the results to only the contacts belonging to the group specified. 
     ///                   Value of this parameter specifies group ID (see also: gContact:groupMembershipInfo).
     /// </summary> 
-    //////////////////////////////////////////////////////////////////////
-    public class ContactsQuery : GroupsQuery
-    {
+    public class ContactsQuery : GroupsQuery {
         /// <summary>
         /// contacts base URI 
         /// </summary>
@@ -310,8 +266,7 @@ namespace Google.GData.Contacts {
         /// base constructor
         /// </summary>
         public ContactsQuery()
-        : base()
-        {
+            : base() {
         }
 
         /// <summary>
@@ -319,93 +274,72 @@ namespace Google.GData.Contacts {
         /// </summary>
         /// <param name="queryUri">the query to use</param>
         public ContactsQuery(string queryUri)
-        : base(queryUri)
-        {
+            : base(queryUri) {
         }
 
         /// <summary>
-        /// convienience method to create an URI based on a userID for a contacts feed
+        /// convenience method to create an URI based on a userID for a contacts feed
         /// this returns a FULL projection by default
         /// </summary>
         /// <param name="userID">if the parameter is NULL, uses the default user</param>
         /// <returns>string</returns>
-        public static string CreateContactsUri(string userID) 
-        {
+        public static string CreateContactsUri(string userID) {
             return CreateContactsUri(userID, ContactsQuery.fullProjection);
         }
 
         /// <summary>
-        /// convienience method to create an URI based on a userID for a contacts feed
+        /// convenience method to create an URI based on a userID for a contacts feed
         /// this returns a FULL projection by default
         /// </summary>
         /// <param name="userID">if the parameter is NULL, uses the default user</param>
         /// <param name="projection">the projection to use</param>
         /// <returns>string</returns>
-        public static string CreateContactsUri(string userID, string projection) 
-        {
+        public static string CreateContactsUri(string userID, string projection) {
             return ContactsQuery.contactsBaseUri + UserString(userID) + projection;
         }
 
-
-        /////////////////////////////////////////////////////////////////////
         /// <summary>Constrains the results to only the contacts belonging to the 
         /// group specified. Value of this parameter specifies group ID</summary> 
         /// <returns> </returns>
-        //////////////////////////////////////////////////////////////////////
-        public string Group
-        {
-            get {return this.group;}
-            set {this.group = value;}
+        public string Group {
+            get { return this.group; }
+            set { this.group = value; }
         }
-        // end of accessor public string SortOder
-   
-        //////////////////////////////////////////////////////////////////////
+
         /// <summary>protected void ParseUri</summary> 
         /// <param name="targetUri">takes an incoming Uri string and parses all the properties out of it</param>
         /// <returns>throws a query exception when it finds something wrong with the input, otherwise returns a baseuri</returns>
-        //////////////////////////////////////////////////////////////////////
-        protected override Uri ParseUri(Uri targetUri)
-        {
+        protected override Uri ParseUri(Uri targetUri) {
             base.ParseUri(targetUri);
-            if (targetUri != null)
-            {
+            if (targetUri != null) {
                 char[] deli = { '?', '&' };
 
                 string source = HttpUtility.UrlDecode(targetUri.Query);
                 TokenCollection tokens = new TokenCollection(source, deli);
-                foreach (String token in tokens)
-                {
-                    if (token.Length > 0)
-                    {
+                foreach (String token in tokens) {
+                    if (token.Length > 0) {
                         char[] otherDeli = { '=' };
                         String[] parameters = token.Split(otherDeli, 2);
-                        switch (parameters[0])
-                        {
+                        switch (parameters[0]) {
                             case "group":
                                 this.Group = parameters[1];
                                 break;
                         }
                     }
                 }
-
-        
             }
             return this.Uri;
         }
 
-        //////////////////////////////////////////////////////////////////////
         /// <summary>Creates the partial URI query string based on all
         ///  set properties.</summary> 
         /// <returns> string => the query part of the URI </returns>
-        //////////////////////////////////////////////////////////////////////
-        protected override string CalculateQuery(string basePath)
-        {
+        protected override string CalculateQuery(string basePath) {
             string path = base.CalculateQuery(basePath);
             StringBuilder newPath = new StringBuilder(path, 2048);
-            char paramInsertion = InsertionParameter(path); 
+            char paramInsertion = InsertionParameter(path);
 
-            if (this.Group != null && this.Group.Length > 0)
-            {
+            if (this.Group != null && this.Group.Length > 0) {
                 newPath.Append(paramInsertion);
                 newPath.AppendFormat(CultureInfo.InvariantCulture, "group={0}", Utilities.UriEncodeReserved(this.Group));
                 paramInsertion = '&';

@@ -13,37 +13,29 @@
  * limitations under the License.
 */
 
-
 using System;
 using System.IO;
 using System.Collections;
 using System.Text;
-using System.Net; 
+using System.Net;
 using Google.GData.Client;
 using Google.GData.Extensions;
 using Google.GData.Contacts;
 using System.Collections.Generic;
 
-namespace Google.Contacts
-{
-
+namespace Google.Contacts {
     /// <summary>
     /// the base class for contacts elements
     /// </summary>
-    public abstract class ContactBase : Entry
-    {
-
+    public abstract class ContactBase : Entry {
         /// <summary>
         /// returns if the Contact or Group is deleted
         /// </summary>
         /// <returns>the deleted status of the underlying object or false if no object set yet</returns>
-        public bool Deleted
-        {
-            get
-            {
+        public bool Deleted {
+            get {
                 BaseContactEntry b = this.AtomEntry as BaseContactEntry;
-                if (b != null)
-                {
+                if (b != null) {
                     return b.Deleted;
                 }
                 return false;
@@ -55,13 +47,10 @@ namespace Google.Contacts
         /// </summary>
         /// <returns>the properties on the underlying object, or null if no 
         /// object set yet</returns>
-        public ExtensionCollection<ExtendedProperty> ExtendedProperties
-        {
-            get
-            {
+        public ExtensionCollection<ExtendedProperty> ExtendedProperties {
+            get {
                 BaseContactEntry b = this.AtomEntry as BaseContactEntry;
-                if (b != null)
-                {
+                if (b != null) {
                     return b.ExtendedProperties;
                 }
                 return null;
@@ -69,64 +58,50 @@ namespace Google.Contacts
         }
     }
 
-
     /// <summary>
-    /// the Comment entry for a Comments Feed, a feed of Comment for YouTube
+    /// the Contact entry for a Contacts Feed
     /// </summary>
-    public class Contact : ContactBase
-    {
+    public class Contact : ContactBase {
         /// <summary>
         /// creates the inner contact object when needed
         /// </summary>
         /// <returns></returns>
-        protected override void EnsureInnerObject()
-        {
-            if (this.AtomEntry == null)
-            {
+        protected override void EnsureInnerObject() {
+            if (this.AtomEntry == null) {
                 this.AtomEntry = new ContactEntry();
             }
         }
-
-
 
         /// <summary>
         /// readonly accessor for the ContactEntry that is underneath this object.
         /// </summary>
         /// <returns></returns>
-        public  ContactEntry ContactEntry
-        {
-            get
-            {
+        public ContactEntry ContactEntry {
+            get {
                 return this.AtomEntry as ContactEntry;
             }
         }
 
-
         /// <summary>
-        /// convienience accessor to find the primary Email
+        /// convenience accessor to find the primary Email
         /// there is no setter, to change this use the Primary Flag on 
         /// an individual object
         /// </summary>
-        public EMail PrimaryEmail
-        {
-            get
-            {
+        public EMail PrimaryEmail {
+            get {
                 EnsureInnerObject();
                 return this.ContactEntry.PrimaryEmail;
             }
         }
 
         /// <summary>
-        /// convienience accessor to find the primary Phonenumber
+        /// convenience accessor to find the primary Phonenumber
         /// there is no setter, to change this use the Primary Flag on 
         /// an individual object
         /// </summary>
-        public PhoneNumber PrimaryPhonenumber
-        {
-            get
-            {
-                if (this.ContactEntry != null)
-                {
+        public PhoneNumber PrimaryPhonenumber {
+            get {
+                if (this.ContactEntry != null) {
                     return this.ContactEntry.PrimaryPhonenumber;
                 }
                 return null;
@@ -134,58 +109,45 @@ namespace Google.Contacts
         }
 
         /// <summary>
-        /// convienience accessor to find the primary PostalAddress
+        /// convenience accessor to find the primary PostalAddress
         /// there is no setter, to change this use the Primary Flag on 
         /// an individual object
         /// </summary>
-        public StructuredPostalAddress PrimaryPostalAddress
-        {
-            get
-            {   
+        public StructuredPostalAddress PrimaryPostalAddress {
+            get {
                 EnsureInnerObject();
                 return this.ContactEntry.PrimaryPostalAddress;
             }
         }
-        
+
         /// <summary>
-        /// convienience accessor to find the primary IMAddress
+        /// convenience accessor to find the primary IMAddress
         /// there is no setter, to change this use the Primary Flag on 
         /// an individual object
         /// </summary>
-        public IMAddress PrimaryIMAddress
-        {
-            get
-            {
+        public IMAddress PrimaryIMAddress {
+            get {
                 EnsureInnerObject();
                 return this.ContactEntry.PrimaryIMAddress;
             }
         }
 
-
-
-
         /// <summary>
         /// returns the groupmembership info on this object
         /// </summary>
         /// <returns></returns>
-        public ExtensionCollection<GroupMembership> GroupMembership
-        {
-            get 
-            {
+        public ExtensionCollection<GroupMembership> GroupMembership {
+            get {
                 EnsureInnerObject();
                 return this.ContactEntry.GroupMembership;
             }
         }
 
-
-
         /// <summary>
         /// getter/setter for the email extension element
         /// </summary>
-        public ExtensionCollection<EMail> Emails
-        {
-            get 
-            {
+        public ExtensionCollection<EMail> Emails {
+            get {
                 EnsureInnerObject();
                 return this.ContactEntry.Emails;
             }
@@ -194,48 +156,50 @@ namespace Google.Contacts
         /// <summary>
         /// getter/setter for the IM extension element
         /// </summary>
-        public ExtensionCollection<IMAddress> IMs
-        {
-            get 
-            {
+        public ExtensionCollection<IMAddress> IMs {
+            get {
                 EnsureInnerObject();
                 return this.ContactEntry.IMs;
             }
         }
 
         /// <summary>
-        /// returns the phonenumber collection
+        /// returns the phone number collection
         /// </summary>
-        public ExtensionCollection<PhoneNumber> Phonenumbers
-        {
-            get 
-            {
+        public ExtensionCollection<PhoneNumber> Phonenumbers {
+            get {
                 EnsureInnerObject();
                 return this.ContactEntry.Phonenumbers;
             }
         }
 
         /// <summary>
-        /// returns the phonenumber collection
+        /// returns the postal address collection
         /// </summary>
-        public ExtensionCollection<StructuredPostalAddress> PostalAddresses
-        {
-            get 
-            {
+        public ExtensionCollection<StructuredPostalAddress> PostalAddresses {
+            get {
                 EnsureInnerObject();
                 return this.ContactEntry.PostalAddresses;
             }
         }
 
         /// <summary>
-        /// returns the phonenumber collection
+        /// returns the organization collection
         /// </summary>
-        public ExtensionCollection<Organization> Organizations
-        {
-            get 
-            {
+        public ExtensionCollection<Organization> Organizations {
+            get {
                 EnsureInnerObject();
                 return this.ContactEntry.Organizations;
+            }
+        }
+
+        /// <summary>
+        /// returns the language collection
+        /// </summary>
+        public ExtensionCollection<Language> Languages {
+            get {
+                EnsureInnerObject();
+                return this.ContactEntry.Languages;
             }
         }
 
@@ -244,10 +208,8 @@ namespace Google.Contacts
         /// and add/replace it in the atomlinks colleciton. 
         /// </summary>
         /// <returns></returns>
-        public Uri PhotoUri
-        {
-            get 
-            {
+        public Uri PhotoUri {
+            get {
                 EnsureInnerObject();
                 return this.ContactEntry.PhotoUri;
             }
@@ -258,15 +220,12 @@ namespace Google.Contacts
         /// that needs to be used when you want to delete or update that picture.
         /// </summary>
         /// <returns>the etag value as a string</returns>
-        public string PhotoEtag
-        {
-            get
-            {
+        public string PhotoEtag {
+            get {
                 EnsureInnerObject();
                 return this.ContactEntry.PhotoEtag;
             }
-            set
-            {
+            set {
                 EnsureInnerObject();
                 this.ContactEntry.PhotoEtag = value;
             }
@@ -276,15 +235,12 @@ namespace Google.Contacts
         /// returns the location associated with a contact
         /// </summary>
         /// <returns></returns>
-        public string Location
-        {
-           get
-            {
+        public string Location {
+            get {
                 EnsureInnerObject();
                 return this.ContactEntry.Location;
             }
-            set
-            {
+            set {
                 EnsureInnerObject();
                 this.ContactEntry.Location = value;
             }
@@ -292,51 +248,40 @@ namespace Google.Contacts
         /// <summary>
         /// the contacts name object
         /// </summary>
-        public Name Name
-        {
-            get
-            {
+        public Name Name {
+            get {
                 EnsureInnerObject();
                 if (this.ContactEntry.Name == null)
                     this.ContactEntry.Name = new Name();
                 return this.ContactEntry.Name;
             }
-            set
-            {
+            set {
                 EnsureInnerObject();
                 this.ContactEntry.Name = value;
             }
         }
     }
 
-
     /// <summary>
     /// the group entry for a contacts groups Feed
     /// </summary>
-    public class Group : ContactBase
-    {
-       
+    public class Group : ContactBase {
         /// <summary>
         /// creates the inner contact object when needed
         /// </summary>
         /// <returns></returns>
-        protected override void EnsureInnerObject()
-        {
-            if (this.AtomEntry == null)
-            {
+        protected override void EnsureInnerObject() {
+            if (this.AtomEntry == null) {
                 this.AtomEntry = new GroupEntry();
             }
         }
-
 
         /// <summary>
         /// readonly accessor for the YouTubeEntry that is underneath this object.
         /// </summary>
         /// <returns></returns>
-        public  GroupEntry GroupEntry
-        {
-            get
-            {
+        public GroupEntry GroupEntry {
+            get {
                 return this.AtomEntry as GroupEntry;
             }
         }
@@ -349,10 +294,8 @@ namespace Google.Contacts
         /// Currently the values can be Contacts, Friends, Family and Coworkers
         /// </summary>
         /// <returns>the system group or null</returns>
-        public string SystemGroup
-        {
-            get
-            {
+        public string SystemGroup {
+            get {
                 EnsureInnerObject();
                 return this.GroupEntry.SystemGroup;
             }
@@ -360,9 +303,6 @@ namespace Google.Contacts
 
     }
 
-
-
-    //////////////////////////////////////////////////////////////////////
     /// <summary>
     /// The Contacts Data API provides two types of feed: contacts feed and 
     /// contact groups feed.
@@ -388,16 +328,13 @@ namespace Google.Contacts
     ///         }
     ///  </code>
     ///  </example>
-    //////////////////////////////////////////////////////////////////////
-    public class ContactsRequest : FeedRequest<ContactsService>
-    {
-
+    public class ContactsRequest : FeedRequest<ContactsService> {
         /// <summary>
         /// default constructor for a YouTubeRequest
         /// </summary>
         /// <param name="settings"></param>
-        public ContactsRequest(RequestSettings settings) : base(settings)
-        {
+        public ContactsRequest(RequestSettings settings)
+            : base(settings) {
             this.Service = new ContactsService(settings.Application);
             PrepareService();
         }
@@ -405,9 +342,8 @@ namespace Google.Contacts
         /// <summary>
         /// returns a Feed of contacts for the default user
         /// </summary>
-        /// <returns>a feed of Videos</returns>
-        public Feed<Contact> GetContacts()
-        {
+        /// <returns>a feed of Contacts</returns>
+        public Feed<Contact> GetContacts() {
             return GetContacts(null);
         }
 
@@ -415,20 +351,17 @@ namespace Google.Contacts
         /// returns a Feed of contacts for the given user
         /// </summary>
         /// <param name="user">the username</param>
-        /// <returns>a feed of Videos</returns>
-        public Feed<Contact> GetContacts(string user)
-        {
+        /// <returns>a feed of Contacts</returns>
+        public Feed<Contact> GetContacts(string user) {
             ContactsQuery q = PrepareQuery<ContactsQuery>(ContactsQuery.CreateContactsUri(user));
-            return PrepareFeed<Contact>(q); 
+            return PrepareFeed<Contact>(q);
         }
 
-
         /// <summary>
-        ///  returns a feed of Groups for the default user
+        /// returns a feed of Groups for the default user
         /// </summary>
-        /// <returns>a feed of Videos</returns>
-        public Feed<Group> GetGroups()
-        {
+        /// <returns>a feed of Groups</returns>
+        public Feed<Group> GetGroups() {
             return GetGroups(null);
         }
 
@@ -436,68 +369,56 @@ namespace Google.Contacts
         ///  returns a feed of Groups for the given user
         /// </summary>
         /// <param name="user">the user for whom to retrieve the feed</param>
-        /// <returns>a feed of Videos</returns>
-        public Feed<Group> GetGroups(string user)
-        {
+        /// <returns>a feed of Groups</returns>
+        public Feed<Group> GetGroups(string user) {
             GroupsQuery q = PrepareQuery<GroupsQuery>(GroupsQuery.CreateGroupsUri(user));
-            return PrepareFeed<Group>(q); 
+            return PrepareFeed<Group>(q);
         }
-
-
 
         /// <summary>
         /// returns the photo stream for a given contact. If there is no photo,
         /// the 404 is catched and null is returned.
         /// </summary>
-        /// <param name="c">the contact that you want to get the photo off</param>
+        /// <param name="c">the contact that you want to get the photo of</param>
         /// <returns></returns>
-        public Stream GetPhoto(Contact c)
-        {
-            Stream retStream = null; 
-            try
-            {
-                if (c.PhotoUri != null)
-                {
+        public Stream GetPhoto(Contact c) {
+            Stream retStream = null;
+            try {
+                if (c.PhotoUri != null) {
                     retStream = this.Service.Query(c.PhotoUri, c.PhotoEtag);
                 }
-            }
-            catch (GDataRequestException e)
-            {
+            } catch (GDataRequestException e) {
                 HttpWebResponse r = e.Response as HttpWebResponse;
-                if (r != null && r.StatusCode != HttpStatusCode.NotFound)
-                {
-                    throw; 
+                if (r != null && r.StatusCode != HttpStatusCode.NotFound) {
+                    throw;
                 }
             }
             return retStream;
         }
 
         /// <summary>
-        /// set's the photo of a given contact entry
+        /// sets the photo of a given contact entry
         /// </summary>
         /// <param name="c">the contact that should be modified</param>
         /// <param name="photoStream">a stream to an JPG image</param>
         /// <returns></returns>
-        public void SetPhoto(Contact c, Stream photoStream)
-        {
+        public void SetPhoto(Contact c, Stream photoStream) {
             Stream res = this.Service.StreamSend(c.PhotoUri, photoStream, GDataRequestType.Update, "image/jpg", null, c.PhotoEtag);
             GDataReturnStream r = res as GDataReturnStream;
-            if (r != null)
-            {
+            if (r != null) {
                 c.PhotoEtag = r.Etag;
             }
             res.Close();
         }
 
         /// <summary>
-        /// set's the photo of a given contact entry
+        /// sets the photo of a given contact entry
         /// </summary>
         /// <param name="c">the contact that should be modified</param>
         /// <param name="photoStream">a stream to an JPG image</param>
-        /// <param name="mimeType">specifies the type of the image, like image/jpg</param>
+        /// <param name="mimeType">specifies the MIME type of the image, e.g. image/jpg</param>
         /// <returns></returns>
-        public void SetPhoto(Contact c, Stream photoStream, string mimeType)
-        {
+        public void SetPhoto(Contact c, Stream photoStream, string mimeType) {
             Stream res = this.Service.StreamSend(c.PhotoUri, photoStream, GDataRequestType.Update, mimeType, null, c.PhotoEtag);
             res.Close();
         }

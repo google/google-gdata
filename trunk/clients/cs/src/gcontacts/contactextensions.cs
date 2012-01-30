@@ -192,10 +192,8 @@ namespace Google.GData.Contacts {
             this.Attributes.Add(XmlAttributeDeleted, null);
         }
 
-        /////////////////////////////////////////////////////////////////////
         /// <summary>Identifies the group to which the contact belongs or belonged.
         /// The group is referenced by its id.</summary>
-        //////////////////////////////////////////////////////////////////////
         public string HRef {
             get {
                 return this.Attributes[XmlAttributeHRef] as string;
@@ -205,12 +203,10 @@ namespace Google.GData.Contacts {
             }
         }
 
-        /////////////////////////////////////////////////////////////////////
-        /// <summary>Means, that the group membership was removed for the contact.
+        /// <summary>Means that the group membership was removed for the contact.
         /// This attribute will only be included if showdeleted is specified
         /// as query parameter, otherwise groupMembershipInfo for groups a contact
         /// does not belong to anymore is simply not returned.</summary>
-        //////////////////////////////////////////////////////////////////////
         public string Deleted {
             get {
                 return this.Attributes[XmlAttributeDeleted] as string;
@@ -236,11 +232,9 @@ namespace Google.GData.Contacts {
             this.Attributes.Add(XmlAttributeId, null);
         }
 
-        /////////////////////////////////////////////////////////////////////
         /// <summary>Identifies the system group. Note that you still need
         /// to use the group entries href membership to retrieve the group
         /// </summary>
-        //////////////////////////////////////////////////////////////////////
         public string Id {
             get {
                 return this.Attributes[XmlAttributeId] as string;
@@ -348,10 +342,8 @@ namespace Google.GData.Contacts {
             this.Attributes.Add(AttributeWhen, initValue);
         }
 
-        //////////////////////////////////////////////////////////////////////
         /// <summary>Birthday date, given in format YYYY-MM-DD (with the year), or --MM-DD (without the year)</summary>
         /// <returns> </returns>
-        //////////////////////////////////////////////////////////////////////
         public string When {
             get {
                 return this.Attributes[AttributeWhen] as string;
@@ -380,10 +372,8 @@ namespace Google.GData.Contacts {
             this.Attributes.Add(AttributeHref, null);
         }
 
-        //////////////////////////////////////////////////////////////////////
         /// <summary>The URL of the the related link.</summary>
         /// <returns> </returns>
-        //////////////////////////////////////////////////////////////////////
         public string Href {
             get {
                 return this.Attributes[AttributeHref] as string;
@@ -445,10 +435,8 @@ namespace Google.GData.Contacts {
             this.ExtensionFactories.Add(new When());
         }
 
-        //////////////////////////////////////////////////////////////////////
         /// <summary>Predefined calendar link type. Can be one of work, home or free-busy</summary>
         /// <returns> </returns>
-        //////////////////////////////////////////////////////////////////////
         public string Relation {
             get {
                 return this.Attributes[ContactsNameTable.AttributeRel] as string;
@@ -458,10 +446,8 @@ namespace Google.GData.Contacts {
             }
         }
 
-        //////////////////////////////////////////////////////////////////////
         /// <summary>User-defined calendar link type.</summary>
         /// <returns> </returns>
-        //////////////////////////////////////////////////////////////////////
         public string Label {
             get {
                 return this.Attributes[ContactsNameTable.AttributeLabel] as string;
@@ -515,10 +501,8 @@ namespace Google.GData.Contacts {
             this.Attributes.Add(ContactsNameTable.AttributeLabel, null);
         }
 
-        //////////////////////////////////////////////////////////////////////
         /// <summary>Predefined calendar link type. Can be one of work, home or free-busy</summary>
         /// <returns> </returns>
-        //////////////////////////////////////////////////////////////////////
         public string Relation {
             get {
                 return this.Attributes[ContactsNameTable.AttributeRel] as string;
@@ -528,10 +512,8 @@ namespace Google.GData.Contacts {
             }
         }
 
-        //////////////////////////////////////////////////////////////////////
         /// <summary>User-defined calendar link type.</summary>
         /// <returns> </returns>
-        //////////////////////////////////////////////////////////////////////
         public string Label {
             get {
                 return this.Attributes[ContactsNameTable.AttributeLabel] as string;
@@ -628,10 +610,8 @@ namespace Google.GData.Contacts {
             this.Attributes.Add(ContactsNameTable.AttributeRel, null);
         }
 
-        //////////////////////////////////////////////////////////////////////
         /// <summary>Predefined calendar link type. Can be one of work, home or free-busy</summary>
         /// <returns> </returns>
-        //////////////////////////////////////////////////////////////////////
         public string Relation {
             get {
                 return this.Attributes[ContactsNameTable.AttributeRel] as string;
@@ -675,10 +655,8 @@ namespace Google.GData.Contacts {
             this.Attributes.Add(AttributeCode, null);
         }
 
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>A freeform name of a language. Must not be empty or all whitespace..</summary>
+        /// <summary>A freeform name of a language. Must not be empty or all whitespace.</summary>
         /// <returns> </returns>
-        //////////////////////////////////////////////////////////////////////
         public string Label {
             get {
                 return this.Attributes[ContactsNameTable.AttributeLabel] as string;
@@ -688,10 +666,8 @@ namespace Google.GData.Contacts {
             }
         }
 
-        //////////////////////////////////////////////////////////////////////
-        /// <summary>A language code conforming to the IETF BCP 47 specification. .</summary>
+        /// <summary>A language code conforming to the IETF BCP 47 specification.</summary>
         /// <returns> </returns>
-        //////////////////////////////////////////////////////////////////////
         public string Code {
             get {
                 return this.Attributes[AttributeCode] as string;
@@ -824,10 +800,8 @@ namespace Google.GData.Contacts {
             this.Attributes.Add(ContactsNameTable.AttributeRel, initValue);
         }
 
-        //////////////////////////////////////////////////////////////////////
         /// <summary>Predefined calendar link type. Can be one of work, home or free-busy</summary>
         /// <returns> </returns>
-        //////////////////////////////////////////////////////////////////////
         public string Relation {
             get {
                 return this.Attributes[ContactsNameTable.AttributeRel] as string;
@@ -853,10 +827,8 @@ namespace Google.GData.Contacts {
             this.Attributes.Add(ContactsNameTable.AttributeRel, null);
         }
 
-        //////////////////////////////////////////////////////////////////////
         /// <summary>A freeform name of a language. Must not be empty or all whitespace.</summary>
         /// <returns> </returns>
-        //////////////////////////////////////////////////////////////////////
         public string Label {
             get {
                 return this.Attributes[ContactsNameTable.AttributeLabel] as string;
@@ -866,10 +838,8 @@ namespace Google.GData.Contacts {
             }
         }
 
-        //////////////////////////////////////////////////////////////////////
         /// <summary>defines the link type.</summary>
         /// <returns> </returns>
-        //////////////////////////////////////////////////////////////////////
         public string Rel {
             get {
                 return this.Attributes[ContactsNameTable.AttributeRel] as string;
@@ -906,10 +876,8 @@ namespace Google.GData.Contacts {
             this.Attributes.Add(ContactsNameTable.AttributeRel, initValue);
         }
 
-        //////////////////////////////////////////////////////////////////////
         /// <summary>returns the relationship value</summary>
         /// <returns> </returns>
-        //////////////////////////////////////////////////////////////////////
         public string Relation {
             get {
                 return this.Attributes[ContactsNameTable.AttributeRel] as string;
@@ -975,10 +943,8 @@ namespace Google.GData.Contacts {
             this.Attributes.Add(XmlAttributeIndexed, initValue ? Utilities.XSDTrue : Utilities.XSDFalse);
         }
 
-        //////////////////////////////////////////////////////////////////////
         /// <summary>Indexed attribute.</summary>
         /// <returns> </returns>
-        //////////////////////////////////////////////////////////////////////
         public bool Indexed {
             get {
                 bool result;
@@ -1049,10 +1015,8 @@ namespace Google.GData.Contacts {
             this.Attributes.Add(AttributeKey, initKey);
         }
 
-        //////////////////////////////////////////////////////////////////////
         /// <summary>A simple string value used to name this field. Case-sensitive</summary>
         /// <returns> </returns>
-        //////////////////////////////////////////////////////////////////////
         public string Key {
             get {
                 return this.Attributes[AttributeKey] as string;
