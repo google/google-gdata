@@ -35,7 +35,7 @@ namespace Google.GData.Client {
     }
 
     /// <summary>
-    ///  this is the static collection of all google service names
+    /// this is the static collection of all google service names
     /// </summary>
     public static class ServiceNames {
         public static string YouTube = "youtube";
@@ -152,7 +152,7 @@ namespace Google.GData.Client {
         private string serviceName;
 
         /// <summary>
-        ///  a constructor for client login use cases
+        /// a constructor for client login use cases
         /// </summary>
         /// <param name="applicationName"></param>
         /// <param name="username"></param>
@@ -163,7 +163,7 @@ namespace Google.GData.Client {
         }
 
         /// <summary>
-        ///  a constructor for client login use cases
+        /// a constructor for client login use cases
         /// </summary>
         /// <param name="applicationName">The name of the application</param>
         /// <param name="credentials">the user credentials</param>
@@ -176,7 +176,7 @@ namespace Google.GData.Client {
         }
 
         /// <summary>
-        ///  a constructor for client login use cases
+        /// a constructor for client login use cases
         /// </summary>
         /// <param name="applicationName">The name of the application</param>
         /// <param name="credentials">the user credentials</param>
@@ -360,7 +360,7 @@ namespace Google.GData.Client {
         public static string OAuthParameter = "xoauth_requestor_id";
 
         /// <summary>
-        /// a constructor for OpenAuthentication login use cases
+        /// a constructor for 2-legged OAuth
         /// </summary>
         /// <param name="applicationName">The name of the application</param>
         /// <param name="consumerKey">the consumerKey to use</param>
@@ -444,7 +444,7 @@ namespace Google.GData.Client {
         private OAuthParameters parameters;
 
         /// <summary>
-        ///  a constructor for OpenAuthentication login use cases using 3-legged oAuth
+        /// a constructor for 3-legged OAuth
         /// </summary>
         /// <param name="applicationName">The name of the application</param>
         /// <param name="consumerKey">the consumerKey to use</param>
@@ -497,6 +497,41 @@ namespace Google.GData.Client {
                 request.Method,
                 parameters);
             request.Headers.Add(oauthHeader);
+        }
+    }
+
+    public class OAuth2Authenticator : Authenticator {
+        private OAuth2Parameters parameters;
+
+        /// <summary>
+        /// a constructor for OAuth 2.0
+        /// </summary>
+        /// <param name="applicationName">The name of the application</param>
+        /// <param name="consumerKey">the consumerKey to use</param>
+        /// <param name="consumerSecret">the consumerSecret to use</param>
+        /// <param name="token">The token to be used</param>
+        /// <param name="tokenSecret">The tokenSecret to be used</param>
+        /// <returns></returns>
+        public OAuth2Authenticator(string applicationName, OAuth2Parameters parameters)
+            : base(applicationName) {
+            this.parameters = parameters;
+        }
+
+        /// <summary>
+        /// Takes an existing httpwebrequest and modifies its headers according to
+        /// the authentication system used.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public override void ApplyAuthenticationToRequest(HttpWebRequest request) {
+            base.ApplyAuthenticationToRequest(request);
+
+            if (!string.IsNullOrEmpty(parameters.AccessCode) && string.IsNullOrEmpty(parameters.AccessToken)) {
+                OAuthUtil.GetAccessToken(parameters);
+            }
+
+            request.Headers.Set("Authorization", String.Format(
+                "{0} {1}", parameters.TokenType, parameters.AccessToken));
         }
     }
 }
