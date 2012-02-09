@@ -1,9 +1,0 @@
-prefix=@prefix@
-libdir=${prefix}/lib
-
-Name: GData Sharp Health
-Description: CLI bindings to Google Health
-Version: @VERSION@
-
-Requires: gdata-sharp-core
-Libs: -r:${libdir}/mono/GData-Sharp/Google.GData.Health.dll
