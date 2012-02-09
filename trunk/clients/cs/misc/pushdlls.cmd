@@ -20,7 +20,6 @@ xcopy /y ..\src\gapps\bin\Release\*.dll ..\lib\Release\*.*
 xcopy /y ..\src\gcalendar\bin\Release\*.dll ..\lib\Release\*.*
 xcopy /y ..\src\gcodesearch\bin\Release\*.dll ..\lib\Release\*.*
 xcopy /y ..\src\gcontacts\bin\Release\*.dll ..\lib\Release\*.*
-xcopy /y ..\src\ghealth\bin\Release\*.dll ..\lib\Release\*.*
 xcopy /y ..\src\gphotos\bin\Release\*.dll ..\lib\Release\*.*
 xcopy /y ..\src\gspreadsheet\bin\Release\*.dll ..\lib\Release\*.*
 xcopy /y ..\src\WebmasterTools\bin\Release\*.dll ..\lib\Release\*.*
@@ -38,7 +37,6 @@ xcopy /y ..\src\gapps\bin\Debug\*.dll ..\lib\Debug\*.*
 xcopy /y ..\src\gcalendar\bin\Debug\*.dll ..\lib\Debug\*.*
 xcopy /y ..\src\gcodesearch\bin\Debug\*.dll ..\lib\Debug\*.*
 xcopy /y ..\src\gcontacts\bin\Debug\*.dll ..\lib\Debug\*.*
-xcopy /y ..\src\ghealth\bin\Debug\*.dll ..\lib\Debug\*.*
 xcopy /y ..\src\gphotos\bin\Debug\*.dll ..\lib\Debug\*.*
 xcopy /y ..\src\gspreadsheet\bin\Debug\*.dll ..\lib\Debug\*.*
 xcopy /y ..\src\WebmasterTools\bin\Debug\*.dll ..\lib\Debug\*.*
@@ -71,7 +69,6 @@ xcopy /y ..\samples\gapps_calendar_resource_sample\bin\Release\*.exe ..\lib\Rele
 xcopy /y ..\samples\gapps_google_mail_settings_sample\bin\Release\*.exe ..\lib\Release\*.*
 xcopy /y ..\samples\gapps_multidomain_sample\bin\Release\*.exe ..\lib\Release\*.*
 xcopy /y ..\samples\gapps_orgmanagement_sample\bin\Release\*.exe ..\lib\Release\*.*
-xcopy /y ..\samples\health\bin\Release\*.exe ..\lib\Release\*.*
 xcopy /y ..\samples\PhotoBrowser\bin\Release\*.exe ..\lib\Release\*.*
 xcopy /y ..\samples\spreadsheets\bin\Release\*.exe ..\lib\Release\*.*
 xcopy /y ..\samples\unshare_profiles\bin\Release\*.exe ..\lib\Release\*.*
@@ -89,7 +86,6 @@ xcopy /y ..\src\gapps\bin\*.xml ..\docs\*.*
 xcopy /y ..\src\gcalendar\bin\*.xml ..\docs\*.*
 xcopy /y ..\src\gcodesearch\bin\*.xml ..\docs\*.*
 xcopy /y ..\src\gcontacts\bin\*.xml ..\docs\*.*
-xcopy /y ..\src\ghealth\bin\*.xml ..\docs\*.*
 xcopy /y ..\src\gphotos\bin\*.xml ..\docs\*.*
 xcopy /y ..\src\gspreadsheets\bin\*.xml ..\docs\*.*
 xcopy /y ..\src\webmastertools\bin\*.xml ..\docs\*.*

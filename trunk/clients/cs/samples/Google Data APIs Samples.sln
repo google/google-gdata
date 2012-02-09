@@ -20,8 +20,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spreadsheet", "spreadsheets
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpreadsheetCmdLine", "spreadsheets\SpreadsheetCmdLine.csproj", "{9E2C1938-1C98-4FBA-8C72-AB655226D87B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HealthTool", "health\HealthTool.csproj", "{A49A2E05-8E85-4017-985D-E01F70749418}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gapps_google_mail_settings_sample", "gapps_google_mail_settings_sample\gapps_google_mail_settings_sample.csproj", "{9E0D8646-537A-4899-92F2-56A919F83C5E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YouTubeNotifier", "YouTubeNotifier\YouTubeNotifier.csproj", "{91B3DC78-1120-4803-A2D6-88753174F819}"
@@ -142,14 +140,6 @@ Global
 		{9E2C1938-1C98-4FBA-8C72-AB655226D87B}.DocListUploader - Release|Any CPU.Build.0 = Release|Any CPU
 		{9E2C1938-1C98-4FBA-8C72-AB655226D87B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9E2C1938-1C98-4FBA-8C72-AB655226D87B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A49A2E05-8E85-4017-985D-E01F70749418}.ASP|Any CPU.ActiveCfg = ASP|Any CPU
-		{A49A2E05-8E85-4017-985D-E01F70749418}.ASP|Any CPU.Build.0 = ASP|Any CPU
-		{A49A2E05-8E85-4017-985D-E01F70749418}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A49A2E05-8E85-4017-985D-E01F70749418}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A49A2E05-8E85-4017-985D-E01F70749418}.DocListUploader - Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A49A2E05-8E85-4017-985D-E01F70749418}.DocListUploader - Release|Any CPU.Build.0 = Release|Any CPU
-		{A49A2E05-8E85-4017-985D-E01F70749418}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A49A2E05-8E85-4017-985D-E01F70749418}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9E0D8646-537A-4899-92F2-56A919F83C5E}.ASP|Any CPU.ActiveCfg = Release|Any CPU
 		{9E0D8646-537A-4899-92F2-56A919F83C5E}.ASP|Any CPU.Build.0 = Release|Any CPU
 		{9E0D8646-537A-4899-92F2-56A919F83C5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU

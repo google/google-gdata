@@ -39,14 +39,12 @@
 <DocumentationSource sourceFile="..\lib\Release\Google.GData.ContentForShopping.dll" />
 <DocumentationSource sourceFile="..\lib\Release\Google.GData.Documents.dll" />
 <DocumentationSource sourceFile="..\lib\Release\Google.GData.Extensions.dll" />
-<DocumentationSource sourceFile="..\lib\Release\Google.GData.Health.dll" />
 <DocumentationSource sourceFile="..\lib\Release\Google.GData.Photos.dll" />
 <DocumentationSource sourceFile="..\lib\Release\Google.GData.Spreadsheets.dll" />
 <DocumentationSource sourceFile="..\lib\Release\Google.GData.WebmasterTools.dll" />
 <DocumentationSource sourceFile="..\lib\Release\Google.GData.YouTube.dll" />
 <DocumentationSource sourceFile="..\docs\gphotos.xml" />
 <DocumentationSource sourceFile="..\docs\gspreadsheet.xml" />
-<DocumentationSource sourceFile="..\docs\health.xml" />
 <DocumentationSource sourceFile="..\docs\webmastertool.xml" />
 <DocumentationSource sourceFile="..\docs\youtube.xml" /></DocumentationSources>
     <NamespaceSummaries>
