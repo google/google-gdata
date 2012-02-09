@@ -18,7 +18,7 @@ using Google.GData.Extensions;
 namespace Google.GData.ContentForShopping.Elements {
     public class AdditionalImageLink : SimpleElement {
         /// <summary>
-        /// default constructor for sc:additional_image_link 
+        /// default constructor for sc:additional_image_link
         /// </summary>
         public AdditionalImageLink()
             : base(ContentForShoppingNameTable.AdditionalImageLink,

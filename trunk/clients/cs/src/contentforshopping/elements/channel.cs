@@ -20,7 +20,7 @@ namespace Google.GData.ContentForShopping.Elements
     public class Channel : SimpleElement
     {
         /// <summary>
-        /// default constructor for scp:channel 
+        /// default constructor for scp:channel
         /// </summary>
         public Channel()
             : base(ContentForShoppingNameTable.Channel,

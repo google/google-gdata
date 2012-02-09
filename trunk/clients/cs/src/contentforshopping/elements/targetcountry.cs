@@ -20,7 +20,7 @@ namespace Google.GData.ContentForShopping.Elements
     public class TargetCountry : SimpleElement
     {
         /// <summary>
-        /// default constructor for sc:target_country 
+        /// default constructor for sc:target_country
         /// </summary>
         public TargetCountry()
             : base(ContentForShoppingNameTable.TargetCountry,

@@ -44,13 +44,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gapps_multidomain_sample", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gapps_calendar_resource_sample", "gapps_calendar_resource_sample\gapps_calendar_resource_sample.csproj", "{9315B760-35DC-4317-9E1E-0EFCC2AEF792}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "contentforshopping_sample", "contentforshopping_sample\contentforshopping_sample.csproj", "{76068312-0218-4217-A756-5BAC1D3F803C}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gapps_audit_sample", "gapps_audit_sample\gapps_audit_sample.csproj", "{C483632B-85BB-47E6-B87C-6598E95E82C7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookThemAll", "BookThemAll\BookThemAll.csproj", "{B5BA2D1F-D31D-464C-8556-0C34B4F00320}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "unshare_profiles", "unshare_profiles\unshare_profiles.csproj", "{54B7E6CE-7A55-4EEB-8273-CF8C28068E91}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "contentforshopping_sample", "contentforshopping\contentforshopping_sample\contentforshopping_sample.csproj", "{76068312-0218-4217-A756-5BAC1D3F803C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "managedaccounts_sample", "contentforshopping\managedaccounts\managedaccounts_sample.csproj", "{0317459B-9DF7-4409-B78A-0A790C742B80}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -236,14 +238,6 @@ Global
 		{9315B760-35DC-4317-9E1E-0EFCC2AEF792}.DocListUploader - Release|Any CPU.Build.0 = Release|Any CPU
 		{9315B760-35DC-4317-9E1E-0EFCC2AEF792}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9315B760-35DC-4317-9E1E-0EFCC2AEF792}.Release|Any CPU.Build.0 = Release|Any CPU
-		{76068312-0218-4217-A756-5BAC1D3F803C}.ASP|Any CPU.ActiveCfg = Release|Any CPU
-		{76068312-0218-4217-A756-5BAC1D3F803C}.ASP|Any CPU.Build.0 = Release|Any CPU
-		{76068312-0218-4217-A756-5BAC1D3F803C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{76068312-0218-4217-A756-5BAC1D3F803C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{76068312-0218-4217-A756-5BAC1D3F803C}.DocListUploader - Release|Any CPU.ActiveCfg = Release|Any CPU
-		{76068312-0218-4217-A756-5BAC1D3F803C}.DocListUploader - Release|Any CPU.Build.0 = Release|Any CPU
-		{76068312-0218-4217-A756-5BAC1D3F803C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{76068312-0218-4217-A756-5BAC1D3F803C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C483632B-85BB-47E6-B87C-6598E95E82C7}.ASP|Any CPU.ActiveCfg = Release|Any CPU
 		{C483632B-85BB-47E6-B87C-6598E95E82C7}.ASP|Any CPU.Build.0 = Release|Any CPU
 		{C483632B-85BB-47E6-B87C-6598E95E82C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -268,6 +262,22 @@ Global
 		{54B7E6CE-7A55-4EEB-8273-CF8C28068E91}.DocListUploader - Release|Any CPU.Build.0 = Release|Any CPU
 		{54B7E6CE-7A55-4EEB-8273-CF8C28068E91}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{54B7E6CE-7A55-4EEB-8273-CF8C28068E91}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76068312-0218-4217-A756-5BAC1D3F803C}.ASP|Any CPU.ActiveCfg = Release|Any CPU
+		{76068312-0218-4217-A756-5BAC1D3F803C}.ASP|Any CPU.Build.0 = Release|Any CPU
+		{76068312-0218-4217-A756-5BAC1D3F803C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76068312-0218-4217-A756-5BAC1D3F803C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76068312-0218-4217-A756-5BAC1D3F803C}.DocListUploader - Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76068312-0218-4217-A756-5BAC1D3F803C}.DocListUploader - Release|Any CPU.Build.0 = Release|Any CPU
+		{76068312-0218-4217-A756-5BAC1D3F803C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76068312-0218-4217-A756-5BAC1D3F803C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0317459B-9DF7-4409-B78A-0A790C742B80}.ASP|Any CPU.ActiveCfg = Release|Any CPU
+		{0317459B-9DF7-4409-B78A-0A790C742B80}.ASP|Any CPU.Build.0 = Release|Any CPU
+		{0317459B-9DF7-4409-B78A-0A790C742B80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0317459B-9DF7-4409-B78A-0A790C742B80}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0317459B-9DF7-4409-B78A-0A790C742B80}.DocListUploader - Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0317459B-9DF7-4409-B78A-0A790C742B80}.DocListUploader - Release|Any CPU.Build.0 = Release|Any CPU
+		{0317459B-9DF7-4409-B78A-0A790C742B80}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0317459B-9DF7-4409-B78A-0A790C742B80}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

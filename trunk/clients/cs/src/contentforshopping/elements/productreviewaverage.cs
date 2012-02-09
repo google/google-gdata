@@ -20,7 +20,7 @@ namespace Google.GData.ContentForShopping.Elements
     public class ProductReviewAverage : SimpleElement
     {
         /// <summary>
-        /// default constructor for scp:product_review_average 
+        /// default constructor for scp:product_review_average
         /// </summary>
         public ProductReviewAverage()
             : base(ContentForShoppingNameTable.ProductReviewAverage,

@@ -20,7 +20,7 @@ namespace Google.GData.ContentForShopping.Elements
     public class GoogleProductCategory : SimpleElement
     {
         /// <summary>
-        /// default constructor for scp:google_product_category 
+        /// default constructor for scp:google_product_category
         /// </summary>
         public GoogleProductCategory()
             : base(ContentForShoppingNameTable.GoogleProductCategory,

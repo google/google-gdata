@@ -20,7 +20,7 @@ namespace Google.GData.ContentForShopping.Elements
     public class Gender : SimpleElement
     {
         /// <summary>
-        /// default constructor for scp:gender 
+        /// default constructor for scp:gender
         /// </summary>
         public Gender()
             : base(ContentForShoppingNameTable.Gender,

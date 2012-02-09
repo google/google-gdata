@@ -20,7 +20,7 @@ namespace Google.GData.ContentForShopping.Elements
     public class Feature : SimpleElement
     {
         /// <summary>
-        /// default constructor for scp:feature 
+        /// default constructor for scp:feature
         /// </summary>
         public Feature()
             : base(ContentForShoppingNameTable.Feature,

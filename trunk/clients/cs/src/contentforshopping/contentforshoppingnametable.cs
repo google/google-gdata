@@ -16,7 +16,7 @@ using System;
 
 namespace Google.GData.ContentForShopping
 {
-	class ContentForShoppingNameTable
+    class ContentForShoppingNameTable
     {
         /// <summary>
         /// The Structured Content namespace.
@@ -25,8 +25,8 @@ namespace Google.GData.ContentForShopping
 
         /// <summary>
         /// prefix for Structured Content namespace
-        /// </summary> 
-        public const string scDataPrefix = "sc"; 
+        /// </summary>
+        public const string scDataPrefix = "sc";
 
         /// <summary>
         /// The Structured Content Products namespace.
@@ -35,8 +35,8 @@ namespace Google.GData.ContentForShopping
 
         /// <summary>
         /// prefix for Structured Content Products namespace
-        /// </summary> 
-        public const string scpDataPrefix = "scp"; 
+        /// </summary>
+        public const string scpDataPrefix = "scp";
 
         /// <summary>
         /// XML element name for product identifier.
@@ -357,5 +357,25 @@ namespace Google.GData.ContentForShopping
         /// XML element name for unit.
         /// </summary>
         public const string Unit = "unit";
+
+        /// <summary>
+        /// XML element name account status
+        /// </summary>
+        public const string AccountStatus = "account_status";
+
+        /// <summary>
+        /// XML element name for adult content.
+        /// </summary>
+        public const string AdultContent = "adult_content";
+
+        /// <summary>
+        /// XML element name for internal id.
+        /// </summary>
+        public const string InternalId = "internal_id";
+
+        /// <summary>
+        /// XML element name for reviews url.
+        /// </summary>
+        public const string ReviewsUrl = "reviews_url";
     }
 }

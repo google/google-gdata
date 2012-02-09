@@ -20,7 +20,7 @@ namespace Google.GData.ContentForShopping.Elements
     public class Condition : SimpleElement
     {
         /// <summary>
-        /// default constructor for scp:condition 
+        /// default constructor for scp:condition
         /// </summary>
         public Condition()
             : base(ContentForShoppingNameTable.Condition,

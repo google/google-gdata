@@ -20,7 +20,7 @@ namespace Google.GData.ContentForShopping.Elements
     public class Price : SimpleElement
     {
         /// <summary>
-        /// default constructor for scp:price 
+        /// default constructor for scp:price
         /// </summary>
         public Price()
             : base(ContentForShoppingNameTable.Price,

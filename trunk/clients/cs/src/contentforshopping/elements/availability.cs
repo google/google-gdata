@@ -20,7 +20,7 @@ namespace Google.GData.ContentForShopping.Elements
     public class Availability : SimpleElement
     {
         /// <summary>
-        /// default constructor for scp:availability 
+        /// default constructor for scp:availability
         /// </summary>
         public Availability()
             : base(ContentForShoppingNameTable.Availability,

@@ -20,7 +20,7 @@ namespace Google.GData.ContentForShopping.Elements
     public class Quantity : SimpleElement
     {
         /// <summary>
-        /// default constructor for scp:quantity 
+        /// default constructor for scp:quantity
         /// </summary>
         public Quantity()
             : base(ContentForShoppingNameTable.Quantity,

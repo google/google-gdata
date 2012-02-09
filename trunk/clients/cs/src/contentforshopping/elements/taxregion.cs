@@ -20,7 +20,7 @@ namespace Google.GData.ContentForShopping.Elements
     public class TaxRegion : SimpleElement
     {
         /// <summary>
-        /// default constructor for scp:tax_region 
+        /// default constructor for scp:tax_region
         /// </summary>
         public TaxRegion()
             : base(ContentForShoppingNameTable.TaxRegion,

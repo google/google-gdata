@@ -20,7 +20,7 @@ namespace Google.GData.ContentForShopping.Elements
     public class Publisher : SimpleElement
     {
         /// <summary>
-        /// default constructor for scp:publisher 
+        /// default constructor for scp:publisher
         /// </summary>
         public Publisher()
             : base(ContentForShoppingNameTable.Publisher,

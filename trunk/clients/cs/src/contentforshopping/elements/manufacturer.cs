@@ -20,7 +20,7 @@ namespace Google.GData.ContentForShopping.Elements
     public class Manufacturer : SimpleElement
     {
         /// <summary>
-        /// default constructor for scp:manufacturer 
+        /// default constructor for scp:manufacturer
         /// </summary>
         public Manufacturer()
             : base(ContentForShoppingNameTable.Manufacturer,

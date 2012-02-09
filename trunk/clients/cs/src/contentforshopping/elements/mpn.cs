@@ -20,7 +20,7 @@ namespace Google.GData.ContentForShopping.Elements
     public class Mpn : SimpleElement
     {
         /// <summary>
-        /// default constructor for scp:mpn 
+        /// default constructor for scp:mpn
         /// </summary>
         public Mpn()
             : base(ContentForShoppingNameTable.Mpn,

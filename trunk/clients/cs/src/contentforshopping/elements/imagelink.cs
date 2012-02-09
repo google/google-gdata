@@ -20,7 +20,7 @@ namespace Google.GData.ContentForShopping.Elements
     public class ImageLink : SimpleElement
     {
         /// <summary>
-        /// default constructor for sc:image_link 
+        /// default constructor for sc:image_link
         /// </summary>
         public ImageLink()
             : base(ContentForShoppingNameTable.ImageLink,

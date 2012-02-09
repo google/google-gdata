@@ -20,7 +20,7 @@ namespace Google.GData.ContentForShopping.Elements
     public class Color : SimpleElement
     {
         /// <summary>
-        /// default constructor for scp:color 
+        /// default constructor for scp:color
         /// </summary>
         public Color()
             : base(ContentForShoppingNameTable.Color,

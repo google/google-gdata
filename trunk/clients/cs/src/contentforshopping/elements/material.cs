@@ -20,7 +20,7 @@ namespace Google.GData.ContentForShopping.Elements
     public class Material : SimpleElement
     {
         /// <summary>
-        /// default constructor for scp:material 
+        /// default constructor for scp:material
         /// </summary>
         public Material()
             : base(ContentForShoppingNameTable.Material,

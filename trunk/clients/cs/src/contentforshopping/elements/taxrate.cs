@@ -20,7 +20,7 @@ namespace Google.GData.ContentForShopping.Elements
     public class TaxRate : SimpleElement
     {
         /// <summary>
-        /// default constructor for scp:tax_rate 
+        /// default constructor for scp:tax_rate
         /// </summary>
         public TaxRate()
             : base(ContentForShoppingNameTable.TaxRate,
