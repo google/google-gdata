@@ -20,7 +20,7 @@ namespace Google.GData.ContentForShopping.Elements
     public class ExpirationDate : SimpleElement
     {
         /// <summary>
-        /// default constructor for sc:expiration_date 
+        /// default constructor for sc:expiration_date
         /// </summary>
         public ExpirationDate()
             : base(ContentForShoppingNameTable.ExpirationDate,

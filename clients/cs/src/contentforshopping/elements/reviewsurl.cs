@@ -1,4 +1,4 @@
-﻿/* Copyright (c) 2006 Google Inc.
+/* Copyright (c) 2006 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,15 +17,15 @@ using Google.GData.Extensions;
 
 namespace Google.GData.ContentForShopping.Elements
 {
-    public class ProductReviewCount : SimpleElement
+    public class ReviewsUrl : SimpleElement
     {
         /// <summary>
-        /// default constructor for scp:product_review_count
+        /// default constructor for sc:reviews_url
         /// </summary>
-        public ProductReviewCount()
-            : base(ContentForShoppingNameTable.ProductReviewCount,
-               ContentForShoppingNameTable.scpDataPrefix,
-               ContentForShoppingNameTable.ProductsNamespace)
+        public ReviewsUrl()
+            : base(ContentForShoppingNameTable.ReviewsUrl,
+               ContentForShoppingNameTable.scDataPrefix,
+               ContentForShoppingNameTable.BaseNamespace)
         {
         }
     }

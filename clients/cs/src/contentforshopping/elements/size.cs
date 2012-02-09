@@ -20,7 +20,7 @@ namespace Google.GData.ContentForShopping.Elements
     public class Size : SimpleElement
     {
         /// <summary>
-        /// default constructor for scp:size 
+        /// default constructor for scp:size
         /// </summary>
         public Size()
             : base(ContentForShoppingNameTable.Size,

@@ -18,7 +18,7 @@ using Google.GData.Extensions;
 namespace Google.GData.ContentForShopping.Elements {
     public class RequiredDestination : SimpleElement {
         /// <summary>
-        /// default constructor for sc:required_destination 
+        /// default constructor for sc:required_destination
         /// </summary>
         public RequiredDestination()
             : base(ContentForShoppingNameTable.RequiredDestination,

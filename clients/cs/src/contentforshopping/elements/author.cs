@@ -20,7 +20,7 @@ namespace Google.GData.ContentForShopping.Elements
     public class Author : SimpleElement
     {
         /// <summary>
-        /// default constructor for scp:author 
+        /// default constructor for scp:author
         /// </summary>
         public Author()
             : base(ContentForShoppingNameTable.Author,

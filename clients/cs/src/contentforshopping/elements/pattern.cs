@@ -20,7 +20,7 @@ namespace Google.GData.ContentForShopping.Elements
     public class Pattern : SimpleElement
     {
         /// <summary>
-        /// default constructor for scp:pattern 
+        /// default constructor for scp:pattern
         /// </summary>
         public Pattern()
             : base(ContentForShoppingNameTable.Pattern,

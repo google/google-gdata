@@ -20,7 +20,7 @@ namespace Google.GData.ContentForShopping.Elements
     public class Adult : SimpleElement
     {
         /// <summary>
-        /// default constructor for sc:adult 
+        /// default constructor for sc:adult
         /// </summary>
         public Adult()
             : base(ContentForShoppingNameTable.Adult,

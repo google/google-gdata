@@ -20,7 +20,7 @@ namespace Google.GData.ContentForShopping.Elements
     public class ModelNumber : SimpleElement
     {
         /// <summary>
-        /// default constructor for scp:model_number 
+        /// default constructor for scp:model_number
         /// </summary>
         public ModelNumber()
             : base(ContentForShoppingNameTable.ModelNumber,

@@ -20,7 +20,7 @@ namespace Google.GData.ContentForShopping.Elements
     public class Brand : SimpleElement
     {
         /// <summary>
-        /// default constructor for scp:brand 
+        /// default constructor for scp:brand
         /// </summary>
         public Brand()
             : base(ContentForShoppingNameTable.Brand,

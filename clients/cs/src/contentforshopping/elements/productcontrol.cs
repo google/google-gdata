@@ -21,11 +21,11 @@ namespace Google.GData.ContentForShopping.Elements {
     public class ProductControl : AppControl {
         /// <summary>
         /// Status collection
-        /// </summary> 
+        /// </summary>
         private ExtensionCollection<Status> statusList;
 
         /// <summary>
-        /// default constructor for app:control in the Content for Shopping API 
+        /// default constructor for app:control in the Content for Shopping API
         /// </summary>
         public ProductControl()
             : base(BaseNameTable.NSAppPublishingFinal) {

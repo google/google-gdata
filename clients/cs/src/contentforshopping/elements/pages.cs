@@ -20,7 +20,7 @@ namespace Google.GData.ContentForShopping.Elements
     public class Pages : SimpleElement
     {
         /// <summary>
-        /// default constructor for scp:pages 
+        /// default constructor for scp:pages
         /// </summary>
         public Pages()
             : base(ContentForShoppingNameTable.Pages,

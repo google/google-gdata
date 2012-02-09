@@ -20,7 +20,7 @@ namespace Google.GData.ContentForShopping.Elements
     public class ProductId : SimpleElement
     {
         /// <summary>
-        /// default constructor for sc:id 
+        /// default constructor for sc:id
         /// </summary>
         public ProductId()
             : base(ContentForShoppingNameTable.ProductId,

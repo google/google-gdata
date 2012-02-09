@@ -20,7 +20,7 @@ namespace Google.GData.ContentForShopping.Elements
     public class AgeGroup : SimpleElement
     {
         /// <summary>
-        /// default constructor for scp:age_group 
+        /// default constructor for scp:age_group
         /// </summary>
         public AgeGroup()
             : base(ContentForShoppingNameTable.AgeGroup,

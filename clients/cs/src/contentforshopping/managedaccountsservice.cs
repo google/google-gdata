@@ -1,4 +1,4 @@
-﻿/* Copyright (c) 2006 Google Inc.
+/* Copyright (c) 2006 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,11 +23,11 @@ using Google.GData.Extensions;
 
 namespace Google.GData.ContentForShopping {
     /// <summary>
-    /// The ContentForShoppingService class extends the basic Service abstraction
-    /// to define a service that is preconfigured for access to the
-    /// Google Content API for Shopping.
+    /// The ManagedAccountsService class extends the basic Service abstraction
+    /// to define a service that is preconfigured for access to the managed
+    /// accounts feed of the Google Content API for Shopping.
     /// </summary>
-    public class ContentForShoppingService : Service {
+    public class ManagedAccountsService : Service {
         /// <summary>The Content for Shopping service's name</summary>
         public const String GContentForShoppingService = "structuredcontent";
 
@@ -50,7 +50,7 @@ namespace Google.GData.ContentForShopping {
         /// </summary>
         /// <param name="applicationName">The name of the client application
         /// using this service.</param>
-        public ContentForShoppingService(String applicationName)
+        public ManagedAccountsService(String applicationName)
             : base(GContentForShoppingService, applicationName)
         {
             this.NewAtomEntry += new FeedParserEventHandler(this.OnParsedNewEntry);
@@ -61,38 +61,38 @@ namespace Google.GData.ContentForShopping {
         ///  overwritten Query method
         /// </summary>
         /// <param name="feedQuery">The FeedQuery to use</param>
-        /// <returns>the retrieved ProductFeed</returns>
-        public ProductFeed Query(ProductQuery feedQuery)
+        /// <returns>the retrieved ManagedAccountsFeed</returns>
+        public ManagedAccountsFeed Query(ManagedAccountsQuery feedQuery)
         {
-            return base.Query(feedQuery) as ProductFeed;
+            return base.Query(feedQuery) as ManagedAccountsFeed;
         }
 
         /// <summary>
-        /// Inserts a new product entry into the specified feed.
+        /// Inserts a new managed accounts entry into the specified feed.
         /// </summary>
         /// <param name="feed">the feed into which this entry should be inserted</param>
         /// <param name="entry">the entry to insert</param>
         /// <returns>the inserted entry</returns>
-        public ProductEntry Insert(ProductFeed feed, ProductEntry entry)
+        public ManagedAccountsEntry Insert(ManagedAccountsFeed feed, ManagedAccountsEntry entry)
         {
             return base.Insert(feed, entry);
         }
 
         /// <summary>
-        /// Updates an existing product entry with the new values
+        /// Updates an existing managed accounts entry with the new values
         /// </summary>
         /// <param name="entry">the entry to insert</param>
         /// <returns>the updated entry returned by the server</returns>
-        public ProductEntry Update(ProductEntry entry)
+        public ManagedAccountsEntry Update(ManagedAccountsEntry entry)
         {
             return base.Update(entry);
         }
 
         /// <summary>
-        /// Deletes an existing product.
+        /// Deletes an existing managed account.
         /// </summary>
         /// <param name="entry">the entry to delete</param>
-        public void Delete(ProductEntry entry)
+        public void Delete(ManagedAccountsEntry entry)
         {
             base.Delete(entry);
         }
@@ -110,12 +110,12 @@ namespace Google.GData.ContentForShopping {
             }
             if (e.CreatingEntry == true)
             {
-                e.Entry = new ProductEntry();
+                e.Entry = new ManagedAccountsEntry();
             }
         }
 
         /// <summary>
-        /// Feed handler. Instantiates a new <code>ProductFeed</code>.
+        /// Feed handler. Instantiates a new <code>ManagedAccountsFeed</code>.
         /// </summary>
         /// <param name="sender">the object that's sending the event</param>
         /// <param name="e"><code>ServiceEventArgs</code>, holds the feed</param>
@@ -125,7 +125,7 @@ namespace Google.GData.ContentForShopping {
             {
                 throw new ArgumentNullException("e");
             }
-            e.Feed = new ProductFeed(e.Uri, e.Service);
+            e.Feed = new ManagedAccountsFeed(e.Uri, e.Service);
         }
     }
 }

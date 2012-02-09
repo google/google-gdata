@@ -20,7 +20,7 @@ namespace Google.GData.ContentForShopping.Elements
     public class ContentLanguage : SimpleElement
     {
         /// <summary>
-        /// default constructor for sc:content_language 
+        /// default constructor for sc:content_language
         /// </summary>
         public ContentLanguage()
             : base(ContentForShoppingNameTable.ContentLanguage,

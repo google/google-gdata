@@ -20,7 +20,7 @@ namespace Google.GData.ContentForShopping.Elements
     public class Edition : SimpleElement
     {
         /// <summary>
-        /// default constructor for scp:edition 
+        /// default constructor for scp:edition
         /// </summary>
         public Edition()
             : base(ContentForShoppingNameTable.Edition,

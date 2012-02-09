@@ -20,7 +20,7 @@ namespace Google.GData.ContentForShopping.Elements
     public class Year : SimpleElement
     {
         /// <summary>
-        /// default constructor for scp:year 
+        /// default constructor for scp:year
         /// </summary>
         public Year()
             : base(ContentForShoppingNameTable.Year,

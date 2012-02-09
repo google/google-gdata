@@ -20,7 +20,7 @@ namespace Google.GData.ContentForShopping.Elements
     public class Gtin : SimpleElement
     {
         /// <summary>
-        /// default constructor for scp:gtin 
+        /// default constructor for scp:gtin
         /// </summary>
         public Gtin()
             : base(ContentForShoppingNameTable.Gtin,

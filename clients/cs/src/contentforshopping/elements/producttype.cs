@@ -20,7 +20,7 @@ namespace Google.GData.ContentForShopping.Elements
     public class ProductType : SimpleElement
     {
         /// <summary>
-        /// default constructor for scp:product_type 
+        /// default constructor for scp:product_type
         /// </summary>
         public ProductType()
             : base(ContentForShoppingNameTable.ProductType,

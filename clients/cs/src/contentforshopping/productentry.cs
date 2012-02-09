@@ -29,37 +29,37 @@ namespace Google.GData.ContentForShopping {
 
         /// <summary>
         /// AdditionalImageLink collection
-        /// </summary> 
+        /// </summary>
         private ExtensionCollection<AdditionalImageLink> additionalImageLinks;
 
         /// <summary>
         /// Tax collection
-        /// </summary> 
+        /// </summary>
         private ExtensionCollection<Tax> taxRules;
 
         /// <summary>
         /// Shipping collection
-        /// </summary> 
+        /// </summary>
         private ExtensionCollection<Shipping> shippingRules;
 
         /// <summary>
         /// Color collection
-        /// </summary> 
+        /// </summary>
         private ExtensionCollection<Color> colors;
 
         /// <summary>
         /// Feature collection
-        /// </summary> 
+        /// </summary>
         private ExtensionCollection<Feature> features;
 
         /// <summary>
         /// Size collection
-        /// </summary> 
+        /// </summary>
         private ExtensionCollection<Size> sizes;
 
         /// <summary>
         /// Custom attributes collection
-        /// </summary> 
+        /// </summary>
         private ExtensionCollection<CustomAttribute> customAttributes;
 
         public ProductEntry()
@@ -98,7 +98,7 @@ namespace Google.GData.ContentForShopping {
             this.AddExtension(new ProductReviewCount());
             this.AddExtension(new ProductType());
             this.AddExtension(new ProductWeight());
-            this.AddExtension(new Publisher()); 
+            this.AddExtension(new Publisher());
             this.AddExtension(new Quantity());
             this.AddExtension(new Shipping());
             this.AddExtension(new ShippingWeight());

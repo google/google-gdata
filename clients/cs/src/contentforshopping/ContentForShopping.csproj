@@ -120,12 +120,20 @@
     <Compile Include="elements\gtin.cs" />
     <Compile Include="elements\targetcountry.cs" />
     <Compile Include="elements\productid.cs" />
+    <Compile Include="elements\accountstatus.cs" />
+    <Compile Include="elements\adultcontent.cs" />
+    <Compile Include="elements\internalid.cs" />
+    <Compile Include="elements\reviewsurl.cs" />
     <Compile Include="productentry.cs" />
     <Compile Include="productfeed.cs" />
     <Compile Include="productquery.cs" />
     <Compile Include="itemquery.cs" />
     <Compile Include="contentforshoppingnametable.cs" />
     <Compile Include="contentforshoppingservice.cs" />
+    <Compile Include="managedaccountsentry.cs" />
+    <Compile Include="managedaccountsfeed.cs" />
+    <Compile Include="managedaccountsquery.cs" />
+    <Compile Include="managedaccountsservice.cs" />
     <Compile Include="AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -156,7 +164,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>

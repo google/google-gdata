@@ -20,7 +20,7 @@ namespace Google.GData.ContentForShopping.Elements
     public class TaxShip : SimpleElement
     {
         /// <summary>
-        /// default constructor for scp:tax_ship 
+        /// default constructor for scp:tax_ship
         /// </summary>
         public TaxShip()
             : base(ContentForShoppingNameTable.TaxShip,
