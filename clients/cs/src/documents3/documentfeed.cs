@@ -21,9 +21,6 @@ using Google.GData.Client;
 using Google.GData.Extensions;
 
 namespace Google.GData.Documents {
-
- 
-    //////////////////////////////////////////////////////////////////////
     /// <summary>
     /// Google Documents List feed URI takes the following form:
     ///     http://docs.google.com/feeds/documents/visibility/projection
@@ -35,37 +32,32 @@ namespace Google.GData.Documents {
     /// Currently, in the Documents List feed, only the private/full combination 
     /// for visibility and projection is available. 
     /// </summary>
-    //////////////////////////////////////////////////////////////////////
-    public class DocumentsFeed : AbstractFeed
-    {
-
+    public class DocumentsFeed : AbstractFeed {
         /// <summary>
         ///  default constructor
         /// </summary>
         /// <param name="uriBase">the base URI of the feedEntry</param>
         /// <param name="iService">the Service to use</param>
-        public DocumentsFeed(Uri uriBase, IService iService) : base(uriBase, iService)
-        {
-           // todo: add extension elements as appropriate
+        public DocumentsFeed(Uri uriBase, IService iService)
+            : base(uriBase, iService) {
+            // todo: add extension elements as appropriate
         }
 
         /// <summary>
         /// this needs to get implemented by subclasses
         /// </summary>
         /// <returns>AtomEntry</returns>
-        public override AtomEntry CreateFeedEntry()
-        {
+        public override AtomEntry CreateFeedEntry() {
             return new DocumentEntry();
         }
 
         /// <summary>
-        /// get's called after we already handled the custom entry, to handle all 
+        /// is called after we already handled the custom entry, to handle all 
         /// other potential parsing tasks
         /// </summary>
         /// <param name="e"></param>
         /// <param name="parser">the atom feed parser used</param>
-        protected override void HandleExtensionElements(ExtensionElementEventArgs e, AtomFeedParser parser)
-        {
+        protected override void HandleExtensionElements(ExtensionElementEventArgs e, AtomFeedParser parser) {
             base.HandleExtensionElements(e, parser);
         }
     }
