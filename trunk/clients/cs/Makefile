@@ -29,7 +29,6 @@ ALLLIBS = \
   Google.GData.AccessControl.dll \
   Google.GData.Contacts.dll \
   Google.GData.YouTube.dll \
-  Google.GData.Health.dll \
   Google.GData.Blogger.dll \
   Google.GData.Analytics.dll
 
@@ -51,8 +50,7 @@ samples = \
   gblogger_demo.exe \
   gcal_demo.exe \
   gspreadsheet_demo.exe \
-  PhotoTool.exe \
-  HealthTool.exe
+  PhotoTool.exe
 
 all: $(ALLLIBS) tests $(samples) $(PKGCONFIG_FILES)
 
@@ -67,7 +65,6 @@ gphotos_sources = $(wildcard src/gphotos/*.cs) $(wildcard version/*.cs)
 gdocuments_sources = $(wildcard src/documents3/*.cs) $(wildcard version/*.cs)
 gcontact_sources = $(wildcard src/gcontacts/*.cs) $(wildcard version/*.cs)
 youtube_sources = $(wildcard src/youtube/*.cs) $(wildcard version/*.cs)
-health_sources = $(wildcard src/ghealth/*.cs) $(wildcard version/*.cs)
 blogger_sources = $(wildcard src/blogger/*.cs) $(wildcard version/*.cs)
 analytics_sources = $(wildcard src/analytics/*.cs) $(wildcard version/*.cs)
 test_sources = $(wildcard src/unittests/*.cs) $(wildcard src/unittests/gapps/*.cs)\
@@ -106,9 +103,6 @@ Google.GData.Contacts.dll: $(CORELIBS) $(gcontact_sources) src/gcontacts/contact
 
 Google.GData.YouTube.dll: $(CORELIBS) $(youtube_sources) src/youtube/youtube.sn
 	$(CSC) $(DEFINES) -target:library -out:$@ $(COREREFS) $(youtube_sources) -keyfile:src/youtube/youtube.sn
-
-Google.GData.Health.dll: $(CORELIBS) $(health_sources) src/ghealth/ghealth.sn
-	$(CSC) $(DEFINES) -target:library -out:$@ $(COREREFS) $(health_sources) -keyfile:src/ghealth/ghealth.sn
 
 Google.GData.Blogger.dll: $(CORELIBS) $(blogger_sources) src/blogger/blogger.sn
 	$(CSC) $(DEFINES) -target:library -out:$@ $(COREREFS) $(blogger_sources) -keyfile:src/blogger/blogger.sn
@@ -159,10 +153,6 @@ gspreadsheet_demo.exe: $(ALLLIBS) $(gspreadsheet_demo_sources)
 PhotoTool_sources = $(wildcard samples/PhotoBrowser/*.cs)
 PhotoTool.exe: $(ALLLIBS) $(PhotoTool_sources)
 	$(CSC) -out:$@ $(ALLREFS) -r:System.Windows.Forms -r:System.Drawing -r:System.Data $(PhotoTool_sources)
-
-healthtool_sources = $(wildcard samples/health/*.cs)
-HealthTool.exe: $(ALLLIBS) $(healthtool_sources)
-	$(CSC) -out:$@ $(ALLREFS) $(healthtool_sources)
 
 test:
 	nunit-console2 unittests.dll

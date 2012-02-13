@@ -21,8 +21,6 @@ using System.Diagnostics;
 using Google.GData.Client;
 
 namespace Google.GData.Documents {
-
-    //////////////////////////////////////////////////////////////////////
     /// <summary>
     /// A subclass of FeedQuery, to create an Documents query URI.
     /// Provides public properties that describe the different
@@ -57,16 +55,11 @@ namespace Google.GData.Documents {
     ///             Label: folder-name	
     ///             All documents inside the given folder for the requesting user
     ///  </summary>
-    //////////////////////////////////////////////////////////////////////
-    public class DocumentsListQuery : FeedQuery
-    {
-
-  
+    public class DocumentsListQuery : FeedQuery {
         /// <summary>
         /// document feed base URI 
         /// </summary>
         public static string documentsBaseUri = "https://docs.google.com/feeds/default/private/full";
-      
 
         /// <summary>
         /// document feed base URI with ACLs
@@ -98,17 +91,16 @@ namespace Google.GData.Documents {
         /// </summary>
         public static string revisionsUriTemplate = "https://docs.google.com/feeds/default/private/full/{0}/revisions/{1}";
 
-       
         /// <summary>
         /// predefined query category for documents
         /// </summary>
-        public static QueryCategory DOCUMENTS = new QueryCategory(new AtomCategory("document")); 
+        public static QueryCategory DOCUMENTS = new QueryCategory(new AtomCategory("document"));
 
         /// <summary>
         /// predefined query category for spreadsheets
         /// </summary>
         public static QueryCategory SPREADSHEETS = new QueryCategory(new AtomCategory("spreadsheet"));
-        
+
         /// <summary>
         /// predefined query category for presentations
         /// </summary>
@@ -118,48 +110,52 @@ namespace Google.GData.Documents {
         /// predefined query category for PDFS
         /// </summary>
         public static QueryCategory PDFS = new QueryCategory(new AtomCategory("pdf"));
-     
+
         /// <summary>
         /// predefined query category for Forms
         /// </summary>
         public static QueryCategory FORMS = new QueryCategory(new AtomCategory("form"));
-        
-        
+
         /// <summary>
         /// predefined query category for starred documents
         /// </summary>
         public static QueryCategory STARRED = new QueryCategory(new AtomCategory("starred"));
+
         /// <summary>
         /// predefined query category for starred documents
         /// </summary>
         public static QueryCategory VIEWED = new QueryCategory(new AtomCategory("viewed"));
+
         /// <summary>
         /// predefined query category for hidden documents
         /// </summary>
         public static QueryCategory HIDDEN = new QueryCategory(new AtomCategory("hidden"));
+
         /// <summary>
         /// predefined query category for trashed documents
         /// </summary>
         public static QueryCategory TRASHED = new QueryCategory(new AtomCategory("trashed"));
+
         /// <summary>
         /// predefined query category for user owned documents
         /// </summary>
         public static QueryCategory MINE = new QueryCategory(new AtomCategory("mine"));
+
         /// <summary>
         /// predefined query category for private documents
         /// </summary>
         public static QueryCategory PRIVATE = new QueryCategory(new AtomCategory("private"));
+
         /// <summary>
         /// predefined query category for shared documents
         /// </summary>
         public static QueryCategory SHARED = new QueryCategory(new AtomCategory("shared-with-domain"));
 
-        
         //Local variable to hold the contents of a title query
         private string title;
         //Local variable to hold if the title query we are doing should be exact.
         private bool titleExact;
-        
+
         private string owner;
         private string writer;
         private string reader;
@@ -171,15 +167,11 @@ namespace Google.GData.Documents {
         private DateTime editedMin;
         private DateTime editedMax;
 
-        
-
-
         /// <summary>
         /// base constructor
         /// </summary>
         public DocumentsListQuery()
-        : base(documentsBaseUri)
-        {
+            : base(documentsBaseUri) {
             this.CategoryQueriesAsParameter = true;
         }
 
@@ -188,59 +180,43 @@ namespace Google.GData.Documents {
         /// </summary>
         /// <param name="queryUri">the query to use</param>
         public DocumentsListQuery(string queryUri)
-        : base(queryUri)
-        {
+            : base(queryUri) {
             this.CategoryQueriesAsParameter = true;
         }
-      
-        
-        //////////////////////////////////////////////////////////////////////
+
         /// <summary>Doclist does not support index based paging</returns>
-        //////////////////////////////////////////////////////////////////////
-        [Obsolete("Index based paging is not supported on DocumentsList")] 
-        public override int StartIndex
-        {
+        [Obsolete("Index based paging is not supported on DocumentsList")]
+        public override int StartIndex {
             get { return 0; }
             set { }
         }
-        /////////////////////////////////////////////////////////////////////////////
-
 
         /// <summary>
         /// Restricts the results to only starred documents
         /// </summary>
         [CLSCompliant(false)]
-        public bool Starred
-        {
-            get
-            {
+        public bool Starred {
+            get {
                 return this.Categories.Contains(DocumentsListQuery.STARRED);
             }
-            set
-            {
-                if (value)
-                {
+            set {
+                if (value) {
                     this.Categories.Add(DocumentsListQuery.STARRED);
-                }
-                else
-                {
+                } else {
                     this.Categories.Remove(DocumentsListQuery.STARRED);
                 }
             }
         }
 
         /// <summary>
-        /// shows folders if true in the result
+        /// if true, shows folders in the result
         /// </summary>
         [CLSCompliant(false)]
-        public bool ShowFolders
-        {
-            get
-            {
+        public bool ShowFolders {
+            get {
                 return this.showFolders;
             }
-            set
-            {
+            set {
                 this.showFolders = value;
             }
         }
@@ -248,14 +224,11 @@ namespace Google.GData.Documents {
         /// <summary>
         /// Restricts the results to only documents with titles matching a string.
         /// </summary>
-        public string Title
-        {
-            get
-            {
+        public string Title {
+            get {
                 return this.title;
             }
-            set
-            {
+            set {
                 this.title = value;
             }
         }
@@ -264,14 +237,11 @@ namespace Google.GData.Documents {
         /// Restricts the results to only documents matching a string provided
         /// by the Title property exactly. (No partial matches.)
         /// </summary>
-        public bool TitleExact
-        {
-            get
-            {
+        public bool TitleExact {
+            get {
                 return this.titleExact;
             }
-            set
-            {
+            set {
                 this.titleExact = value;
             }
         }
@@ -279,14 +249,11 @@ namespace Google.GData.Documents {
         /// <summary>
         /// Searches for documents with a specific owner. Use the email address of the owner
         /// </summary>
-        public string Owner
-        {
-            get
-            {
+        public string Owner {
+            get {
                 return this.owner;
             }
-            set
-            {
+            set {
                 this.owner = value;
             }
         }
@@ -294,45 +261,36 @@ namespace Google.GData.Documents {
         /// Searches for documents which can be written to by specific users.
         /// Use a single email address or a comma separated list of email addresses.
         /// </summary>
-        public string Writer
-        {
-            get
-            {
+        public string Writer {
+            get {
                 return this.writer;
             }
-            set
-            {
+            set {
                 this.writer = value;
             }
         }
-        
+
         /// <summary>
         /// Searches for documents which can be read by specific users.
         /// Use a single email address or a comma separated list of email addresses.
         /// </summary>
-        public string Reader
-        {
-            get
-            {
+        public string Reader {
+            get {
                 return this.reader;
             }
-            set
-            {
+            set {
                 this.reader = value;
             }
         }
-        
+
         /// <summary>
         /// Specifies whether to attempt OCR on a .jpg, .png, of .gif upload.
         /// </summary>
-        public bool Ocr
-        {
-            get
-            {
+        public bool Ocr {
+            get {
                 return this.ocr;
             }
-            set
-            {
+            set {
                 this.ocr = value;
             }
         }
@@ -340,91 +298,67 @@ namespace Google.GData.Documents {
         /// <summary>
         /// Specifies whether the query should return documents which are in the trash as well as other documents.
         /// </summary>
-        public bool ShowDeleted
-        {
-            get
-            {
+        public bool ShowDeleted {
+            get {
                 return this.showDeleted;
             }
-            set
-            {
+            set {
                 this.showDeleted = value;
             }
         }
         /// <summary>
         /// Specifies the language to translate a document into.
         /// </summary>
-        public string TargetLanguage
-        {
-            get
-            {
+        public string TargetLanguage {
+            get {
                 return this.targetLanguage;
             }
-            set
-            {
+            set {
                 this.targetLanguage = value;
             }
         }
-        
+
         /// <summary>
         /// Specifies the source langugate to translate a document from.
         /// </summary>
-        public string SourceLanguage
-        {
-            get
-            {
+        public string SourceLanguage {
+            get {
                 return this.sourceLanguage;
             }
-            set
-            {
+            set {
                 this.sourceLanguage = value;
             }
         }
 
-        //////////////////////////////////////////////////////////////////////
         /// <summary>
         /// Lower bound on the last time a document was edited by the current user.
         /// </summary> 
-        //////////////////////////////////////////////////////////////////////
-        public DateTime EditedMin
-        {
+        public DateTime EditedMin {
             get { return this.editedMin; }
             set { this.editedMin = value; }
         }
-        /////////////////////////////////////////////////////////////////////////////
 
-        //////////////////////////////////////////////////////////////////////
         /// <summary>Upper bound on the last time a document was edited by the current user.</summary> 
-        //////////////////////////////////////////////////////////////////////
-        public DateTime EditedMax
-        {
+        public DateTime EditedMax {
             get { return this.editedMax; }
             set { this.editedMax = value; }
         }
-        /////////////////////////////////////////////////////////////////////////////
 
-        //////////////////////////////////////////////////////////////////////
         /// <summary>Parses custom properties out of the incoming URI</summary> 
         /// <param name="targetUri">A URI representing a query on a feed</param>
         /// <returns>returns the base uri</returns>
-        //////////////////////////////////////////////////////////////////////
-        protected override Uri ParseUri(Uri targetUri)
-        {
+        protected override Uri ParseUri(Uri targetUri) {
             base.ParseUri(targetUri);
-            if (targetUri != null)
-            {
+            if (targetUri != null) {
                 char[] deli = { '?', '&' };
 
                 string source = HttpUtility.UrlDecode(targetUri.Query);
                 TokenCollection tokens = new TokenCollection(source, deli);
-                foreach (String token in tokens)
-                {
-                    if (token.Length > 0)
-                    {
+                foreach (String token in tokens) {
+                    if (token.Length > 0) {
                         char[] otherDeli = { '=' };
                         String[] parameters = token.Split(otherDeli, 2);
-                        switch (parameters[0])
-                        {
+                        switch (parameters[0]) {
                             case "title-exact":
                                 this.TitleExact = bool.Parse(parameters[1]);
                                 break;
@@ -461,41 +395,36 @@ namespace Google.GData.Documents {
                             case "edited-max":
                                 this.EditedMax = DateTime.Parse(parameters[1], CultureInfo.InvariantCulture);
                                 break;
-                          
-                            }
+                        }
                     }
                 }
             }
             return this.Uri;
         }
 
-        //////////////////////////////////////////////////////////////////////
         /// <summary>Creates the partial URI query string based on all
-        ///  set properties.</summary> 
+        /// set properties.</summary> 
         /// <returns> A string representing the query part of the URI.</returns>
-        //////////////////////////////////////////////////////////////////////
-        protected override string CalculateQuery(string basePath)
-        {
+        protected override string CalculateQuery(string basePath) {
             string path = base.CalculateQuery(basePath);
             StringBuilder newPath = new StringBuilder(path, 2048);
-            char paramInsertion = InsertionParameter(path); 
+            char paramInsertion = InsertionParameter(path);
 
-            paramInsertion = AppendQueryPart(this.Title, "title", paramInsertion, newPath);            
+            paramInsertion = AppendQueryPart(this.Title, "title", paramInsertion, newPath);
 
-            if (this.TitleExact)
-            {
-                paramInsertion = AppendQueryPart("true", "title-exact", paramInsertion, newPath);            
+            if (this.TitleExact) {
+                paramInsertion = AppendQueryPart("true", "title-exact", paramInsertion, newPath);
             }
-            if (this.ShowFolders)
-            {
+
+            if (this.ShowFolders) {
                 paramInsertion = AppendQueryPart("true", "showfolders", paramInsertion, newPath);
             }
-            if (this.Ocr)
-            {
+
+            if (this.Ocr) {
                 paramInsertion = AppendQueryPart("true", "ocr", paramInsertion, newPath);
             }
-            if (this.ShowDeleted)
-            {
+
+            if (this.ShowDeleted) {
                 paramInsertion = AppendQueryPart("true", "showDeleted", paramInsertion, newPath);
             }
 
@@ -506,94 +435,74 @@ namespace Google.GData.Documents {
             paramInsertion = AppendQueryPart(this.EditedMax, "edited-max", paramInsertion, newPath);
             paramInsertion = AppendQueryPart(this.TargetLanguage, "targetLanguage", paramInsertion, newPath);
             paramInsertion = AppendQueryPart(this.SourceLanguage, "sourceLanguage", paramInsertion, newPath);
-           
+
             return newPath.ToString();
         }
     }
 
-
-
     /// <summary>
     /// a subclass setup to just retrieve all word processor documents
     /// </summary>
-    public class TextDocumentQuery : DocumentsListQuery
-    {
-
+    public class TextDocumentQuery : DocumentsListQuery {
         /// <summary>
         /// base constructor
         /// </summary>
         public TextDocumentQuery()
-        : base()
-        {
+            : base() {
             this.Categories.Add(DocumentsListQuery.DOCUMENTS);
         }
-   }
-
+    }
 
     /// <summary>
     /// a subclass setup to just retrieve all spreadsheets
     /// </summary>
-    public class SpreadsheetQuery : DocumentsListQuery
-    {
-
+    public class SpreadsheetQuery : DocumentsListQuery {
         /// <summary>
         /// base constructor
         /// </summary>
         public SpreadsheetQuery()
-        : base()
-        {
+            : base() {
             this.Categories.Add(DocumentsListQuery.SPREADSHEETS);
         }
-   }
+    }
 
-     /// <summary>
+    /// <summary>
     /// a subclass setup to just retrieve all presentations
     /// </summary>
-    public class PresentationsQuery : DocumentsListQuery
-    {
-
+    public class PresentationsQuery : DocumentsListQuery {
         /// <summary>
         /// base constructor
         /// </summary>
         public PresentationsQuery()
-        : base()
-        {
+            : base() {
             this.Categories.Add(DocumentsListQuery.PRESENTATIONS);
         }
-   }
+    }
 
-     /// <summary>
+    /// <summary>
     /// a subclass setup to just retrieve all PDFs
     /// </summary>
-    public class PDFsQuery : DocumentsListQuery
-    {
-
+    public class PDFsQuery : DocumentsListQuery {
         /// <summary>
         /// base constructor
         /// </summary>
         public PDFsQuery()
-        : base()
-        {
+            : base() {
             this.Categories.Add(DocumentsListQuery.PDFS);
         }
-   }    
-
+    }
 
     /// <summary>
     /// a subclass setup to just retrieve all Folders
     /// </summary>
-    public class FolderQuery : DocumentsListQuery
-    {
-
+    public class FolderQuery : DocumentsListQuery {
         /// <summary>
         /// base constructor
         /// </summary>
         public FolderQuery(string folderId)
-        : base()
-        {
+            : base() {
             this.baseUri = String.Format(DocumentsListQuery.foldersUriTemplate, folderId);
             this.ShowFolders = true;
         }
-   }    
-    
+    }
 }

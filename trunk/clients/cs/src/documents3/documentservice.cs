@@ -18,16 +18,12 @@ using System;
 using System.IO;
 using System.Collections;
 using System.Text;
-using System.Net; 
+using System.Net;
 using Google.GData.Client;
 using Google.GData.Extensions;
 using Google.GData.AccessControl;
 
-
-
 namespace Google.GData.Documents {
-
-    //////////////////////////////////////////////////////////////////////
     /// <summary>
     /// The Google Documents List data API allows client applications to upload 
     /// documents to Google Documents and list them in the form of Google data 
@@ -40,10 +36,7 @@ namespace Google.GData.Documents {
     ///     Find all of your documents that contain specific keywords.
     ///     Get a list of spreadsheets which can be accessed through the Google Spreadsheets data API. 
     /// </summary>
-    //////////////////////////////////////////////////////////////////////
-    public class DocumentsService : Service
-    {
- 
+    public class DocumentsService : Service {
         /// <summary>
         /// the documents namespace
         /// </summary>
@@ -62,8 +55,7 @@ namespace Google.GData.Documents {
         /// <summary>
         /// Static constructor used to initialize GDocumentsAllowedTypes.
         /// </summary>
-        static DocumentsService()
-        {
+        static DocumentsService() {
             DocumentTypes = new Hashtable();
             DocumentTypes.Add("CSV", "text/csv");
             DocumentTypes.Add("TAB", "text/tab-separated-values");
@@ -86,24 +78,22 @@ namespace Google.GData.Documents {
         }
 
         /// <summary>
-        ///  default constructor
+        /// default constructor
         /// </summary>
-        /// <param name="applicationName">the applicationname</param>
-        public DocumentsService(string applicationName) : base(ServiceNames.Documents, applicationName)
-        {
-            this.NewFeed += new ServiceEventHandler(this.OnNewFeed); 
+        /// <param name="applicationName">the application name</param>
+        public DocumentsService(string applicationName)
+            : base(ServiceNames.Documents, applicationName) {
+            this.NewFeed += new ServiceEventHandler(this.OnNewFeed);
         }
-   
+
         /// <summary>
         /// overloaded to create typed version of Query
         /// </summary>
         /// <param name="feedQuery"></param>
         /// <returns>EventFeed</returns>
-        public DocumentsFeed Query(DocumentsListQuery feedQuery) 
-        {
+        public DocumentsFeed Query(DocumentsListQuery feedQuery) {
             return base.Query(feedQuery) as DocumentsFeed;
         }
-
 
         /// <summary>
         /// Simple method to upload a document, presentation, or spreadsheet
@@ -112,15 +102,13 @@ namespace Google.GData.Documents {
         /// <param name="fileName">The full path to the file.</param>
         /// <param name="documentName">The desired name of the document on the server.</param>
         /// <returns>A DocumentEntry describing the created document.</returns>
-        public DocumentEntry UploadDocument(string fileName, string documentName)
-        {
+        public DocumentEntry UploadDocument(string fileName, string documentName) {
             FileInfo fileInfo = new FileInfo(fileName);
             //convert the extension to caps and strip the "." off the front
             string ext = fileInfo.Extension.ToUpper().Substring(1);
 
             String contentType = (String)DocumentTypes[ext];
-            if (contentType == null)
-            {
+            if (contentType == null) {
                 throw new ArgumentException("File extension '" + ext + "' could not be matched to a contentType automatically.");
             }
 
@@ -134,8 +122,7 @@ namespace Google.GData.Documents {
         /// <param name="documentName">The desired name of the document on the server.</param>
         /// <param name="contentType">The mime type of the document</param>
         /// <returns>A DocumentEntry describing the created document.</returns>
-        public DocumentEntry UploadDocument(string fileName, string documentName, string contentType)
-        {
+        public DocumentEntry UploadDocument(string fileName, string documentName, string contentType) {
             return UploadFile(fileName, documentName, contentType, true);
         }
 
@@ -147,47 +134,36 @@ namespace Google.GData.Documents {
         /// <param name="contentType">The mime type of the file</param>
         /// <param name="convert">Indiates if the document should be converted to a known type on the server</param>
         /// <returns>A DocumentEntry describing the created document.</returns>
-        public DocumentEntry UploadFile(string fileName, string documentName, string contentType, bool convert)
-        {
+        public DocumentEntry UploadFile(string fileName, string documentName, string contentType, bool convert) {
             DocumentEntry entry = null;
 
             FileInfo fileInfo = new FileInfo(fileName);
             FileStream stream = fileInfo.Open(FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
 
-            try
-            {
+            try {
                 Uri postUri;
 
-                if (!convert)
-                {
+                if (!convert) {
                     postUri = new Uri(DocumentsListQuery.documentsBaseUri + "?convert=false");
-                }
-                else
-                {
+                } else {
                     postUri = new Uri(DocumentsListQuery.documentsBaseUri);
                 }
 
-
-                if (documentName == null)
-                {
+                if (documentName == null) {
                     documentName = fileInfo.Name;
                 }
 
-                if (contentType == null)
-                {
+                if (contentType == null) {
                     throw new ArgumentException("You need to specify a content type, like text/html");
                 }
 
                 entry = this.Insert(postUri, stream, contentType, documentName) as DocumentEntry;
-            }
-            finally
-            {
+            } finally {
                 stream.Close();
             }
 
             return entry;
         }
-
 
         /// <summary>
         /// by default all services now use version 1 for the protocol.
@@ -195,9 +171,8 @@ namespace Google.GData.Documents {
         /// Documents uses Version 3
         /// </summary>
         /// <returns></returns>
-        protected override void InitVersionInformation()
-        {
-             this.ProtocolMajor = VersionDefaults.VersionThree;
+        protected override void InitVersionInformation() {
+            this.ProtocolMajor = VersionDefaults.VersionThree;
         }
 
         /// <summary>
@@ -205,35 +180,26 @@ namespace Google.GData.Documents {
         /// </summary>
         /// <param name="feedQuery"></param>
         /// <returns>EventFeed</returns>
-        public AclFeed Query(AclQuery feedQuery)
-        {
+        public AclFeed Query(AclQuery feedQuery) {
             return base.Query(feedQuery) as AclFeed;
         }
 
-
-
-
-        //////////////////////////////////////////////////////////////////////
         /// <summary>eventchaining. We catch this by from the base service, which 
         /// would not by default create an atomFeed</summary> 
         /// <param name="sender"> the object which send the event</param>
         /// <param name="e">FeedParserEventArguments, holds the feedentry</param> 
         /// <returns> </returns>
-        //////////////////////////////////////////////////////////////////////
-        protected void OnNewFeed(object sender, ServiceEventArgs e)
-        {
+        protected void OnNewFeed(object sender, ServiceEventArgs e) {
             Tracing.TraceMsg("Created new Documents Feed");
-            if (e == null)
-            {
-                throw new ArgumentNullException("e"); 
+            if (e == null) {
+                throw new ArgumentNullException("e");
             }
-            if (e.Uri.AbsoluteUri.IndexOf("/acl") != -1)
-            {
+
+            if (e.Uri.AbsoluteUri.IndexOf("/acl") != -1) {
                 e.Feed = new AclFeed(e.Uri, e.Service);
-            }
-            else
+            } else {
                 e.Feed = new DocumentsFeed(e.Uri, e.Service);
+            }
         }
-        /////////////////////////////////////////////////////////////////////////////
     }
 }
