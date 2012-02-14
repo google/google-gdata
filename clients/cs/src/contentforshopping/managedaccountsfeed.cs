@@ -38,7 +38,5 @@ namespace Google.GData.ContentForShopping {
         public override AtomEntry CreateFeedEntry() {
             return new ManagedAccountsEntry();
         }
-
-        /// Do we need to add <openSearch:totalResults> and <openSearch:startIndex>?
     }
 }
