@@ -197,7 +197,7 @@ namespace Google.Documents {
                         this.DocumentEntry.IsSpreadsheet = true;
                         break;
                     case Document.DocumentType.Unknown:
-                        throw new ArgumentException("Type.Unknown is not allowed to be set");
+                        break;
                 }
             }
         }
@@ -553,10 +553,6 @@ namespace Google.Documents {
         /// <param name="baseDomain">OBSOLETE - if null, default is used. Otherwise needs to specify the domain to download from, ending with a slash</param>
         /// <returns></returns>
         public Stream Download(Document document, Document.DownloadType type, string baseDomain, int sheetNumber) {
-            if (document.Type == Document.DocumentType.Unknown) {
-                throw new ArgumentException("Document has an unknown type");
-            }
-
             if (document.Type == Document.DocumentType.Folder) {
                 throw new ArgumentException("Document is a folder, can not be downloaded");
             }
@@ -606,6 +602,10 @@ namespace Google.Documents {
                             throw new ArgumentException("type is invalid for a presentation");
                     }
                     break;
+
+                case Document.DocumentType.Unknown:
+                    break;
+
                 default:
                     queryUri += type.ToString();
                     break;
@@ -654,6 +654,10 @@ namespace Google.Documents {
         /// helper function used by the Download methods
         /// </summary>
         private string BuildDocumentPartialExportUrl(string baseUrl) {
+            if (!baseUrl.Contains("/export")) {
+                return baseUrl;
+            }
+
             char r = '?';
             if (baseUrl.IndexOf('?') != -1) {
                 r = '&';
