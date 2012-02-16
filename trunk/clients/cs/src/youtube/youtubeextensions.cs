@@ -1268,7 +1268,7 @@ namespace Google.GData.YouTube {
         /// <summary>the like video rating</summary>
         public const string Like = "like";
         /// <summary>the dislike video rating</summary>
-        public const string Dislikes = "dislikes";
+        public const string Dislike = "dislike";
 
         /// <summary>
         /// default constructor for yt:rating.

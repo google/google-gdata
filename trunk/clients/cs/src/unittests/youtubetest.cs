@@ -234,8 +234,8 @@ namespace Google.GData.Client.LiveTests {
         }
 
         [Test]
-        public void YouTubeYtRatingsTest() {
-            Tracing.TraceMsg("Entering YouTubeYtRatingsTest");
+        public void YouTubeYtRatingsLikeTest() {
+            Tracing.TraceMsg("Entering YouTubeYtRatingsLikeTest");
             string videoOwner = "GoogleDevelopers";
 
             YouTubeRequestSettings settings = new YouTubeRequestSettings("NETUnittests", this.ytDevKey, this.ytUser, this.ytPwd);
@@ -250,6 +250,27 @@ namespace Google.GData.Client.LiveTests {
                 v.YouTubeEntry.YtRating = rating;
                 YouTubeEntry ratedEntry = f.Service.Insert(new Uri(v.YouTubeEntry.RatingsLink.ToString()), v.YouTubeEntry);
                 Assert.AreEqual(YtRating.Like, ratedEntry.YtRating.RatingValue, "YtRating should be equal to like");
+                break; // we can stop after one
+            }
+        }
+
+        [Test]
+        public void YouTubeYtRatingsDislikeTest() {
+            Tracing.TraceMsg("Entering YouTubeYtRatingsDislikeTest");
+            string videoOwner = "GoogleDevelopers";
+
+            YouTubeRequestSettings settings = new YouTubeRequestSettings("NETUnittests", this.ytDevKey, this.ytUser, this.ytPwd);
+
+            YouTubeRequest f = new YouTubeRequest(settings);
+            // GetVideoFeed gets you a users video feed
+            Feed<Video> feed = f.GetVideoFeed(videoOwner);
+            // this will get you just the first 25 videos.
+
+            foreach (Video v in feed.Entries) {
+                YtRating rating = new YtRating(YtRating.Dislike);
+                v.YouTubeEntry.YtRating = rating;
+                YouTubeEntry ratedEntry = f.Service.Insert(new Uri(v.YouTubeEntry.RatingsLink.ToString()), v.YouTubeEntry);
+                Assert.AreEqual(YtRating.Dislike, ratedEntry.YtRating.RatingValue, "YtRating should be equal to dislike");
                 break; // we can stop after one
             }
         }
