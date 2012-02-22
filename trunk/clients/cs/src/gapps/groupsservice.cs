@@ -177,6 +177,15 @@ namespace Google.GData.Apps.Groups {
         /// Retrieves all members of a group.
         /// </summary>
         /// <param name="groupId">The ID of the group for which you wish to retrieve a member list</param>
+        /// <returns>The list of members for the group</returns>
+        public MemberFeed RetrieveAllMembers(String groupId) {
+            return RetrieveAllMembers(groupId, true);
+        }
+
+        /// <summary>
+        /// Retrieves all members of a group.
+        /// </summary>
+        /// <param name="groupId">The ID of the group for which you wish to retrieve a member list</param>
         /// <param name="includeSuspendedUsers">Whether to include suspended users</param>
         /// <returns>The list of members for the group</returns>
         public MemberFeed RetrieveAllMembers(String groupId, Boolean includeSuspendedUsers) {
@@ -206,6 +215,30 @@ namespace Google.GData.Apps.Groups {
                 memberId);
 
             return Get(requestUri) as MemberEntry;
+        }
+
+        /// <summary>
+        /// Checks whether an user is a group member.
+        /// </summary>
+        /// <param name="memberEmail">Email of the member that is being checked</param>
+        /// <param name="groupId">The ID of the group for which you wish to check the membership</param>
+        /// <returns>True if the user is a member of the group, false otherwise</returns>
+        public bool IsMember(String memberEmail, String groupId) {
+            try {
+                MemberEntry entry = RetrieveMember(memberEmail, groupId);
+                return entry != null;
+            } catch (GDataRequestException e) {
+                AppsException appsException = AppsException.ParseAppsException(e);
+                if (appsException == null) {
+                    return false;
+                }
+
+                if (appsException.ErrorCode.Equals(AppsException.EntityDoesNotExist)) {
+                    return false;
+                } else {
+                    throw appsException;
+                }
+            }
         }
 
         /// <summary>
@@ -274,6 +307,30 @@ namespace Google.GData.Apps.Groups {
                 AppsGroupsNameTable.owner);
 
             return QueryExtendedFeed(requestUri, true) as OwnerFeed;
+        }
+
+        /// <summary>
+        /// Checks whether an user is a group owner.
+        /// </summary>
+        /// <param name="ownerEmail">Email of the owner that is being checked</param>
+        /// <param name="groupId">The ID of the group for which you wish to check the ownership</param>
+        /// <returns>True if the user is an owner of the group, false otherwise</returns>
+        public bool IsOwner(String ownerEmail, String groupId) {
+            try {
+                OwnerEntry entry = RetrieveOwner(ownerEmail, groupId);
+                return entry != null;
+            } catch (GDataRequestException e) {
+                AppsException appsException = AppsException.ParseAppsException(e);
+                if (appsException == null) {
+                    return false;
+                }
+
+                if (appsException.ErrorCode.Equals(AppsException.EntityDoesNotExist)) {
+                    return false;
+                } else {
+                    throw appsException;
+                }
+            }
         }
 
         /// <summary>
