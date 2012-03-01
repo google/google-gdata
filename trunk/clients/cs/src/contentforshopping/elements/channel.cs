@@ -24,7 +24,7 @@ namespace Google.GData.ContentForShopping.Elements
         /// </summary>
         public Channel()
             : base(ContentForShoppingNameTable.Channel,
-               ContentForShoppingNameTable.scpDataPrefix,
+               ContentForShoppingNameTable.scDataPrefix,
                ContentForShoppingNameTable.ProductsNamespace)
         {
         }
