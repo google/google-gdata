@@ -74,6 +74,26 @@ namespace Google.GData.ContentForShopping
         public const string Adult = "adult";
 
         /// <summary>
+        /// XML element name for adwords_grouping.
+        /// </summary>
+        public const string AdwordsGrouping = "adwords_grouping";
+
+        /// <summary>
+        /// XML element name for adwords_labels.
+        /// </summary>
+        public const string AdwordsLabels = "adwords_labels";
+
+        /// <summary>
+        /// XML element name for adwords_queryparam.
+        /// </summary>
+        public const string AdwordsQueryParam = "adwords_queryparam";
+
+        /// <summary>
+        /// XML element name for adwords_redirect.
+        /// </summary>
+        public const string AdwordsRedirect = "adwords_redirect";
+
+        /// <summary>
         /// XML element name for age_group.
         /// </summary>
         public const string AgeGroup = "age_group";

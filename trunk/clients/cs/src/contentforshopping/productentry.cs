@@ -58,6 +58,16 @@ namespace Google.GData.ContentForShopping {
         private ExtensionCollection<Size> sizes;
 
         /// <summary>
+        /// AdwordsLabels collection
+        /// </summary>
+        private ExtensionCollection<AdwordsLabels> adwordsLabelsCollection;
+
+        /// <summary>
+        /// AdwordsQueryParam collection
+        /// </summary>
+        private ExtensionCollection<AdwordsQueryParam> adwordsQueryParams;
+
+        /// <summary>
         /// Custom attributes collection
         /// </summary>
         private ExtensionCollection<CustomAttribute> customAttributes;
@@ -70,6 +80,10 @@ namespace Google.GData.ContentForShopping {
             this.AddExtension(new ExpirationDate());
             this.AddExtension(new AdditionalImageLink());
             this.AddExtension(new Adult());
+            this.AddExtension(new AdwordsGrouping());
+            this.AddExtension(new AdwordsLabels());
+            this.AddExtension(new AdwordsQueryParam());
+            this.AddExtension(new AdwordsRedirect());
             this.AddExtension(new AgeGroup());
             this.AddExtension(new Author());
             this.AddExtension(new Availability());
@@ -205,6 +219,36 @@ namespace Google.GData.ContentForShopping {
                 SetStringValue<Adult>(value.ToString(),
                     ContentForShoppingNameTable.Adult,
                     ContentForShoppingNameTable.BaseNamespace);
+            }
+        }
+
+        /// <summary>
+        /// Adwords Grouping
+        /// </summary>
+        public string AdwordsGrouping {
+            get {
+                return GetStringValue<AdwordsGrouping>(ContentForShoppingNameTable.AdwordsGrouping,
+                    ContentForShoppingNameTable.ProductsNamespace);
+            }
+            set {
+                SetStringValue<AdwordsGrouping>(value,
+                    ContentForShoppingNameTable.AdwordsGrouping,
+                    ContentForShoppingNameTable.ProductsNamespace);
+            }
+        }
+
+        /// <summary>
+        /// Adwords Redirect
+        /// </summary>
+        public string AdwordsRedirect {
+            get {
+                return GetStringValue<AdwordsRedirect>(ContentForShoppingNameTable.AdwordsRedirect,
+                    ContentForShoppingNameTable.ProductsNamespace);
+            }
+            set {
+                SetStringValue<AdwordsRedirect>(value,
+                    ContentForShoppingNameTable.AdwordsRedirect,
+                    ContentForShoppingNameTable.ProductsNamespace);
             }
         }
 
@@ -714,6 +758,30 @@ namespace Google.GData.ContentForShopping {
                     this.sizes = new ExtensionCollection<Size>(this);
                 }
                 return this.sizes;
+            }
+        }
+
+        /// <summary>
+        /// AdwordsLabels collection
+        /// </summary>
+        public ExtensionCollection<AdwordsLabels> AdwordsLabelsCollection {
+            get {
+                if (this.adwordsLabelsCollection == null) {
+                    this.adwordsLabelsCollection = new ExtensionCollection<AdwordsLabels>(this);
+                }
+                return this.adwordsLabelsCollection;
+            }
+        }
+
+        /// <summary>
+        /// AdwordsQueryParam collection
+        /// </summary>
+        public ExtensionCollection<AdwordsQueryParam> AdwordsQueryParams {
+            get {
+                if (this.adwordsQueryParams == null) {
+                    this.adwordsQueryParams = new ExtensionCollection<AdwordsQueryParam>(this);
+                }
+                return this.adwordsQueryParams;
             }
         }
 
