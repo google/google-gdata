@@ -61,6 +61,10 @@
     <Compile Include="..\..\version\AssemblyVersion.cs">
       <Link>AssemblyVersion.cs</Link>
     </Compile>
+    <Compile Include="elements\adwordsgrouping.cs" />
+    <Compile Include="elements\adwordslabels.cs" />
+    <Compile Include="elements\adwordsqueryparam.cs" />
+    <Compile Include="elements\adwordsredirect.cs" />
     <Compile Include="elements\contentlanguage.cs" />
     <Compile Include="elements\brand.cs" />
     <Compile Include="elements\condition.cs" />
