@@ -85,6 +85,9 @@ namespace Google.GData.Client.ResumableUpload {
             get {
                 return this.entry;
             }
+            set {
+                this.entry = value as AbstractEntry;
+            }
         }
 
         public string Slug {
@@ -221,6 +224,7 @@ namespace Google.GData.Client.ResumableUpload {
                 HttpMethods.Post,
                 this.ProgressReportDelegate,
                 userData);
+            data.UriToUse = GetResumableCreateUri(payload.Links);
             WorkerResumableUploadHandler workerDelegate = new WorkerResumableUploadHandler(AsyncInsertWorker);
             this.AsyncStarter(data, workerDelegate, userData);
         }
@@ -264,11 +268,11 @@ namespace Google.GData.Client.ResumableUpload {
                 AbstractEntry abstractEntry = data.Entry as AbstractEntry;
                 if (abstractEntry != null) {
                     using (var response = Insert(data.Authentication, abstractEntry, data)) {
-                        HandleResponseStream(data, response.GetResponseStream(), -1);
+                        HandleResponseStream(data, response.GetResponseStream(), -1, abstractEntry.Service);
                     }
                 } else {
                     using (var response = Insert(data.Authentication, data.UriToUse, data.DataStream, data.ContentType, data.Slug, data)) {
-                        HandleResponseStream(data, response.GetResponseStream(), -1);
+                        HandleResponseStream(data, response.GetResponseStream(), -1, null);
                     }
                 }
             } catch (Exception e) {
