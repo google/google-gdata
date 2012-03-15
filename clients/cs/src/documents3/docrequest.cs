@@ -654,7 +654,7 @@ namespace Google.Documents {
         /// helper function used by the Download methods
         /// </summary>
         private string BuildDocumentPartialExportUrl(string baseUrl) {
-            if (!baseUrl.Contains("/export")) {
+            if (!baseUrl.ToLowerInvariant().Contains("/export")) {
                 return baseUrl;
             }
 
