@@ -796,5 +796,15 @@ namespace Google.GData.ContentForShopping {
                 return this.customAttributes;
             }
         }
+
+        /// <summary>
+        /// gd:errors element
+        /// </summary>
+        /// <returns></returns>
+        public ExtensionCollection<BatchError> BatchErrors {
+            get {
+                return this.Content.BatchErrors.Errors;
+            }
+        }
     }
 }
