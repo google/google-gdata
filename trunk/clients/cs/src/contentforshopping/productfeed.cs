@@ -29,6 +29,7 @@ namespace Google.GData.ContentForShopping {
         /// <param name="iService">The ContentForShopping service.</param>
         public ProductFeed(Uri uriBase, IService iService)
             : base(uriBase, iService) {
+            this.AddExtension(new BatchErrors());
         }
 
         /// <summary>
