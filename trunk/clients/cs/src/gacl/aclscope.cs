@@ -21,74 +21,61 @@ using System.Diagnostics;
 using Google.GData.Client;
 using Google.GData.Extensions;
 
-namespace Google.GData.AccessControl 
-{
-
+namespace Google.GData.AccessControl {
     /// <summary>
     /// GData schema extension describing an account role
     /// </summary>
-    public class AclScope : SimpleAttribute
-    {
+    public class AclScope : SimpleAttribute {
         /// <summary>string constant for the user scope</summary>
-        public const string SCOPE_USER =  "user";
+        public const string SCOPE_USER = "user";
         /// <summary>string constant for the user scope</summary>
-        public const string SCOPE_DOMAIN  =  "domain";
+        public const string SCOPE_DOMAIN = "domain";
         /// <summary>string constant for the user scope</summary>
-        public const string SCOPE_DEFAULT =  "default";
+        public const string SCOPE_DEFAULT = "default";
 
         /// <summary>
         /// default constructor
         /// </summary>
-        public AclScope() : this(null, null)
-        {}
+        public AclScope()
+            : this(null, null) { }
 
         /// <summary>
         /// default constructor with an init value
         /// </summary>
         /// <param name="initValue"></param>
-        public AclScope(string initValue) : this(initValue, null)           
-        {}
+        public AclScope(string initValue)
+            : this(initValue, null) { }
 
         /// <summary>
         /// constructor taking an initial value and a name
         /// </summary>
         /// <param name="initValue"></param>
         /// <param name="initName"></param>
-        public AclScope(string initValue, string initName) : base(AclNameTable.XmlAclScopeElement,
-                                         AclNameTable.gAclAlias,
-                                         AclNameTable.gAclNamespace,
-                                         initValue)
-        {
+        public AclScope(string initValue, string initName)
+            : base(AclNameTable.XmlAclScopeElement,
+                AclNameTable.gAclAlias,
+                AclNameTable.gAclNamespace,
+                initValue) {
             this.Attributes.Add(AclNameTable.XmlAttributeType, initName);
         }
 
-
-
-        //////////////////////////////////////////////////////////////////////
         /// <summary>accessor method public string Type</summary> 
         /// <returns> </returns>
-        //////////////////////////////////////////////////////////////////////
-        public String Type
-        {
-            get {return this.Attributes[AclNameTable.XmlAttributeType] as string;}
+        public String Type {
+            get { return this.Attributes[AclNameTable.XmlAttributeType] as string; }
             set {
                 if (String.Compare(value, SCOPE_USER) == 0 ||
-                    String.Compare(value, SCOPE_DOMAIN) == 0 || 
-                    String.Compare(value, SCOPE_DEFAULT) == 0)
-                {
+                    String.Compare(value, SCOPE_DOMAIN) == 0 ||
+                    String.Compare(value, SCOPE_DEFAULT) == 0) {
                     this.Attributes[AclNameTable.XmlAttributeType] = value;
-                    if (String.Compare(value, SCOPE_DEFAULT) == 0)
-                    {
+                    if (String.Compare(value, SCOPE_DEFAULT) == 0) {
                         // empty the value
                         this.Value = String.Empty;
                     }
-                }
-                else 
-                {
-                    throw new System.ArgumentException("Type should be one of the predifined values", value);
+                } else {
+                    throw new System.ArgumentException("Type should be one of the predefined values", value);
                 }
             }
         }
-        // end of accessor public string Type
     }
 }

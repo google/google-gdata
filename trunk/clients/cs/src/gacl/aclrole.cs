@@ -21,26 +21,23 @@ using System.Diagnostics;
 using Google.GData.Client;
 using Google.GData.Extensions;
 
-namespace Google.GData.AccessControl 
-{
-
-     /// <summary>
+namespace Google.GData.AccessControl {
+    /// <summary>
     /// GData schema extension describing an account role
     /// </summary>
-    public class AclRole : EnumConstruct
-    {
+    public class AclRole : EnumConstruct {
         /// <summary>string constant for the none role</summary>
-        public const string ROLE_NONE =  "none";
+        public const string ROLE_NONE = "none";
         /// <summary>string constant for the read only role</summary>
-        public const string CALENDAR_ROLE_READ = AclNameTable.gAclCalPrefix+ "read";
+        public const string CALENDAR_ROLE_READ = AclNameTable.gAclCalPrefix + "read";
         /// <summary>string constant for the free/busy role</summary>
-        public const string CALENDAR_ROLE_FREEBUSY = AclNameTable.gAclCalPrefix+ "freebusy";
+        public const string CALENDAR_ROLE_FREEBUSY = AclNameTable.gAclCalPrefix + "freebusy";
         /// <summary>string constant for the editor role</summary>
-        public const string CALENDAR_ROLE_EDITOR = AclNameTable.gAclCalPrefix+ "editor";
+        public const string CALENDAR_ROLE_EDITOR = AclNameTable.gAclCalPrefix + "editor";
         /// <summary>string constant for the owner role</summary>
-        public const string CALENDAR_ROLE_OWNER = AclNameTable.gAclCalPrefix+ "owner";
+        public const string CALENDAR_ROLE_OWNER = AclNameTable.gAclCalPrefix + "owner";
         /// <summary>string constant for the root role</summary>
-        public const string CALENDAR_ROLE_ROOT = AclNameTable.gAclCalPrefix+ "root";
+        public const string CALENDAR_ROLE_ROOT = AclNameTable.gAclCalPrefix + "root";
 
         /// <summary>object constant for the none role</summary>
         public static AclRole ACL_NONE = new AclRole(ROLE_NONE);
@@ -54,22 +51,20 @@ namespace Google.GData.AccessControl
         public static AclRole ACL_CALENDAR_OWNER = new AclRole(CALENDAR_ROLE_OWNER);
         /// <summary>object constant for the root role</summary>
         public static AclRole ACL_CALENDAR_ROOT = new AclRole(CALENDAR_ROLE_ROOT);
-      
+
         /// <summary>
         ///  default constructor
         /// </summary>
         public AclRole()
-        : base(AclNameTable.XmlAclRoleElement, AclNameTable.gAclAlias, AclNameTable.gAclNamespace)
-        {
+            : base(AclNameTable.XmlAclRoleElement, AclNameTable.gAclAlias, AclNameTable.gAclNamespace) {
         }
 
         /// <summary>
-        ///  constructor with a default string value
+        /// constructor with a default string value
         /// </summary>
-        /// <param name="value">transparency value</param>
+        /// <param name="value">ACL value</param>
         public AclRole(string value)
-        : base(AclNameTable.XmlAclRoleElement, AclNameTable.gAclAlias, AclNameTable.gAclNamespace, value)
-        {
+            : base(AclNameTable.XmlAclRoleElement, AclNameTable.gAclAlias, AclNameTable.gAclNamespace, value) {
         }
     }
 }
