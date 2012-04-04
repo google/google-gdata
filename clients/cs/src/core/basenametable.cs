@@ -191,6 +191,8 @@ namespace Google.GData.Client {
         public const string XmlName = "name";
         /// <summary>XmlAttribute for type in enums</summary> 
         public const string XmlAttributeType = "type";
+        /// <summary>XmlAttribute for key in enums</summary> 
+        public const string XmlAttributeKey = "key";
 
         /// <summary>initializes the name table for use with atom parsing. This is the
         /// only place where strings are defined for parsing</summary> 

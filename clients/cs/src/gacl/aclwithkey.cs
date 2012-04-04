@@ -24,16 +24,24 @@ using Google.GData.Extensions;
 
 namespace Google.GData.AccessControl {
     /// <summary>
-    /// Entry API customization class for defining entries in an AccessControl feed.
+    /// GData schema extension describing an ACL with authorization key
     /// </summary>
-    public class AclEntry : BaseAclEntry {
+    public class AclWithKey : SimpleContainer {
         /// <summary>
-        /// Constructs a new AccessControlEntry instance with the appropriate category
-        /// to indicate that it is an AccessControlEntry.
+        /// Constructs a new AclWithKey instance.
         /// </summary>
-        public AclEntry()
-            : base() {
-            this.AddExtension(new AclRole());
+        public AclWithKey() : this(null) {
+        }
+
+        /// <summary>
+        /// Constructs a new AclWithKey instance.
+        /// </summary>
+        public AclWithKey(string key)
+            : base(AclNameTable.XmlAclWithKeyElement,
+            AclNameTable.gAclAlias,
+            AclNameTable.gAclNamespace) {
+            this.ExtensionFactories.Add(new AclRole());
+            this.Attributes.Add(AclNameTable.XmlAttributeKey, key);
         }
 
         /// <summary>
@@ -47,6 +55,18 @@ namespace Google.GData.AccessControl {
             set {
                 ReplaceExtension(AclNameTable.XmlAclRoleElement,
                     AclNameTable.gAclNamespace, value);
+            }
+        }
+
+        /// <summary>
+        /// property accessor for the key attribute
+        /// </summary>
+        public String Type {
+            get {
+                return this.Attributes[AclNameTable.XmlAttributeKey] as String;
+            }
+            set {
+                this.Attributes[AclNameTable.XmlAttributeType] = value;
             }
         }
     }

@@ -23,26 +23,19 @@ using Google.GData.Client;
 using Google.GData.Extensions;
 
 namespace Google.GData.AccessControl {
-    /// <summary>
-    /// Entry API customization class for defining entries in an AccessControl feed.
-    /// </summary>
-    public class AclEntry : BaseAclEntry {
-        /// <summary>
-        /// Constructs a new AccessControlEntry instance with the appropriate category
-        /// to indicate that it is an AccessControlEntry.
-        /// </summary>
-        public AclEntry()
+    public class AclEntryWithKey : BaseAclEntry {
+        public AclEntryWithKey()
             : base() {
-            this.AddExtension(new AclRole());
+            this.AddExtension(new AclWithKey());
         }
 
         /// <summary>
-        /// property accessor for the AclRole
+        /// property accessor for the AclWithKey
         /// </summary>
-        public AclRole Role {
+        public AclWithKey WithKey {
             get {
                 return FindExtension(AclNameTable.XmlAclRoleElement,
-                    AclNameTable.gAclNamespace) as AclRole;
+                    AclNameTable.gAclNamespace) as AclWithKey;
             }
             set {
                 ReplaceExtension(AclNameTable.XmlAclRoleElement,

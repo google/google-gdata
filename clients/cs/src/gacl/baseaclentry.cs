@@ -24,28 +24,35 @@ using Google.GData.Extensions;
 
 namespace Google.GData.AccessControl {
     /// <summary>
-    /// Entry API customization class for defining entries in an AccessControl feed.
+    /// Entry API base class for defining entries in an AccessControl feed.
     /// </summary>
-    public class AclEntry : BaseAclEntry {
+    public abstract class BaseAclEntry : AbstractEntry {
+        /// <summary>
+        /// Category used to label entries that contain AccessControl extension data.
+        /// </summary>
+        public static AtomCategory ACL_CATEGORY =
+            new AtomCategory(AclNameTable.ACL_KIND, new AtomUri(BaseNameTable.gKind));
+
         /// <summary>
         /// Constructs a new AccessControlEntry instance with the appropriate category
         /// to indicate that it is an AccessControlEntry.
         /// </summary>
-        public AclEntry()
+        public BaseAclEntry()
             : base() {
-            this.AddExtension(new AclRole());
+            Categories.Add(ACL_CATEGORY);
+            this.AddExtension(new AclScope());
         }
 
         /// <summary>
-        /// property accessor for the AclRole
+        /// property accessor for the AclScope
         /// </summary>
-        public AclRole Role {
+        public AclScope Scope {
             get {
-                return FindExtension(AclNameTable.XmlAclRoleElement,
-                    AclNameTable.gAclNamespace) as AclRole;
+                return FindExtension(AclNameTable.XmlAclScopeElement,
+                    AclNameTable.gAclNamespace) as AclScope;
             }
             set {
-                ReplaceExtension(AclNameTable.XmlAclRoleElement,
+                ReplaceExtension(AclNameTable.XmlAclScopeElement,
                     AclNameTable.gAclNamespace, value);
             }
         }

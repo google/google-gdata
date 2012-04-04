@@ -17,14 +17,9 @@ using System;
 using Google.GData.Client;
 using Google.GData.Extensions;
 
-
-namespace Google.GData.AccessControl
-{
-    ///////////////////////////////////////////////////////////////////////
+namespace Google.GData.AccessControl {
     /// <summary>Google Access Control List namespace</summary>
-    ///////////////////////////////////////////////////////////////////////
-    public class AclNameTable : BaseNameTable
-    {
+    public class AclNameTable : BaseNameTable {
         /// <summary>default access control namespace</summary> 
         public const string gAclNamespace = "http://schemas.google.com/acl/2007";
 
@@ -50,15 +45,15 @@ namespace Google.GData.AccessControl
             gAclPrefix + "controlledObject";
 
         /// <summary>access kind</summary> 
-        public const string ACL_KIND =  gAclPrefix + "accessRule";
+        public const string ACL_KIND = gAclPrefix + "accessRule";
 
         /// <summary>the scope element</summary> 
         public const string XmlAclScopeElement = "scope";
 
         /// <summary>the role element</summary> 
         public const string XmlAclRoleElement = "role";
+
+        /// <summary>the withKey element</summary> 
+        public const string XmlAclWithKeyElement = "withKey";
     }
 }
-
-
- 
