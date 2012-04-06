@@ -147,6 +147,10 @@
       <Link>AssemblyVersion.cs</Link>
     </Compile>
     <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="changesfeed.cs" />
+    <Compile Include="changeentry.cs" />
+    <Compile Include="metadataentry.cs" />
+    <Compile Include="metadatafeed.cs" />
     <Compile Include="documententry.cs" />
     <Compile Include="documentfeed.cs" />
     <Compile Include="documentquery.cs" />

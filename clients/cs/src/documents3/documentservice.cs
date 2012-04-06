@@ -13,7 +13,6 @@
  * limitations under the License.
 */
 
-
 using System;
 using System.IO;
 using System.Collections;
@@ -184,6 +183,24 @@ namespace Google.GData.Documents {
             return base.Query(feedQuery) as AclFeed;
         }
 
+        /// <summary>
+        /// overloaded to create typed version of Query
+        /// </summary>
+        /// <param name="feedQuery"></param>
+        /// <returns>ChangesFeed</returns>
+        public ChangesFeed Query(ChangesQuery feedQuery) {
+            return base.Query(feedQuery) as ChangesFeed;
+        }
+
+        /// <summary>
+        /// overloaded to create typed version of Query
+        /// </summary>
+        /// <param name="feedQuery"></param>
+        /// <returns>EventFeed</returns>
+        public MetadataFeed Query(MetadataQuery feedQuery) {
+            return base.Query(feedQuery) as MetadataFeed;
+        }
+
         /// <summary>eventchaining. We catch this by from the base service, which 
         /// would not by default create an atomFeed</summary> 
         /// <param name="sender"> the object which send the event</param>
@@ -195,8 +212,13 @@ namespace Google.GData.Documents {
                 throw new ArgumentNullException("e");
             }
 
-            if (e.Uri.AbsoluteUri.IndexOf("/acl") != -1) {
+            string feedUri = e.Uri.AbsoluteUri;
+            if (feedUri.IndexOf("/acl") != -1) {
                 e.Feed = new AclFeed(e.Uri, e.Service);
+            } else if (feedUri.IndexOf("/changes") > -1) {
+                e.Feed = new ChangesFeed(e.Uri, e.Service);
+            } else if (feedUri.IndexOf("/metadata/") > -1) {
+                e.Feed = new MetadataFeed(e.Uri, e.Service);
             } else {
                 e.Feed = new DocumentsFeed(e.Uri, e.Service);
             }

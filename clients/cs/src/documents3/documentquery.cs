@@ -87,7 +87,17 @@ namespace Google.GData.Documents {
         public static string allFoldersUri = "https://docs.google.com/feeds/default/private/full/-/folder";
 
         /// <summary>
-        /// template to get a revisison for a given resourceID and revisionID
+        /// template to access the changes feed
+        /// </summary>
+        public static string allChangesTemplate = "https://docs.google.com/feeds/{0}/private/changes";
+
+        /// <summary>
+        /// template to access the metadata feed
+        /// </summary>
+        public static string metadataTemplate = "https://docs.google.com/feeds/metadata/{0}";
+
+        /// <summary>
+        /// template to get a revision for a given resourceID and revisionID
         /// </summary>
         public static string revisionsUriTemplate = "https://docs.google.com/feeds/default/private/full/{0}/revisions/{1}";
 
@@ -105,6 +115,11 @@ namespace Google.GData.Documents {
         /// predefined query category for presentations
         /// </summary>
         public static QueryCategory PRESENTATIONS = new QueryCategory(new AtomCategory("presentation"));
+
+        /// <summary>
+        /// predefined query category for drawings
+        /// </summary>
+        public static QueryCategory DRAWINGS = new QueryCategory(new AtomCategory("drawing"));
 
         /// <summary>
         /// predefined query category for PDFS
@@ -163,6 +178,7 @@ namespace Google.GData.Documents {
         private string sourceLanguage;
         private bool showFolders = false;
         private bool showDeleted = false;
+        private bool includeProfileInfo = false;
         private bool ocr = false;
         private DateTime editedMin;
         private DateTime editedMax;
@@ -204,6 +220,57 @@ namespace Google.GData.Documents {
                     this.Categories.Add(DocumentsListQuery.STARRED);
                 } else {
                     this.Categories.Remove(DocumentsListQuery.STARRED);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Restricts the results to only viewed documents
+        /// </summary>
+        [CLSCompliant(false)]
+        public bool Viewed {
+            get {
+                return this.Categories.Contains(DocumentsListQuery.VIEWED);
+            }
+            set {
+                if (value) {
+                    this.Categories.Add(DocumentsListQuery.VIEWED);
+                } else {
+                    this.Categories.Remove(DocumentsListQuery.VIEWED);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Restricts the results to only trashed documents
+        /// </summary>
+        [CLSCompliant(false)]
+        public bool Trashed {
+            get {
+                return this.Categories.Contains(DocumentsListQuery.TRASHED);
+            }
+            set {
+                if (value) {
+                    this.Categories.Add(DocumentsListQuery.TRASHED);
+                } else {
+                    this.Categories.Remove(DocumentsListQuery.TRASHED);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Restricts the results to only documents owned by the user
+        /// </summary>
+        [CLSCompliant(false)]
+        public bool Mine {
+            get {
+                return this.Categories.Contains(DocumentsListQuery.MINE);
+            }
+            set {
+                if (value) {
+                    this.Categories.Add(DocumentsListQuery.MINE);
+                } else {
+                    this.Categories.Remove(DocumentsListQuery.MINE);
                 }
             }
         }
@@ -306,6 +373,7 @@ namespace Google.GData.Documents {
                 this.showDeleted = value;
             }
         }
+
         /// <summary>
         /// Specifies the language to translate a document into.
         /// </summary>
@@ -342,6 +410,18 @@ namespace Google.GData.Documents {
         public DateTime EditedMax {
             get { return this.editedMax; }
             set { this.editedMax = value; }
+        }
+
+        /// <summary>
+        /// Specifies whether the query should return additional profile information for the users.
+        /// </summary>
+        public bool IncludeProfileInfo {
+            get {
+                return this.includeProfileInfo;
+            }
+            set {
+                this.includeProfileInfo = value;
+            }
         }
 
         /// <summary>Parses custom properties out of the incoming URI</summary> 
@@ -395,6 +475,9 @@ namespace Google.GData.Documents {
                             case "edited-max":
                                 this.EditedMax = DateTime.Parse(parameters[1], CultureInfo.InvariantCulture);
                                 break;
+                            case "include-profile-info":
+                                this.IncludeProfileInfo = bool.Parse(parameters[1]);
+                                break;
                         }
                     }
                 }
@@ -426,6 +509,10 @@ namespace Google.GData.Documents {
 
             if (this.ShowDeleted) {
                 paramInsertion = AppendQueryPart("true", "showDeleted", paramInsertion, newPath);
+            }
+
+            if (this.IncludeProfileInfo) {
+                paramInsertion = AppendQueryPart("true", "include-profile-info", paramInsertion, newPath);
             }
 
             paramInsertion = AppendQueryPart(this.Owner, "owner", paramInsertion, newPath);
@@ -480,6 +567,19 @@ namespace Google.GData.Documents {
     }
 
     /// <summary>
+    /// a subclass setup to just retrieve all drawings
+    /// </summary>
+    public class DrawingsQuery : DocumentsListQuery {
+        /// <summary>
+        /// base constructor
+        /// </summary>
+        public DrawingsQuery()
+            : base() {
+            this.Categories.Add(DocumentsListQuery.DRAWINGS);
+        }
+    }
+
+    /// <summary>
     /// a subclass setup to just retrieve all PDFs
     /// </summary>
     public class PDFsQuery : DocumentsListQuery {
@@ -499,10 +599,136 @@ namespace Google.GData.Documents {
         /// <summary>
         /// base constructor
         /// </summary>
+        public FolderQuery()
+            : base() {
+            this.baseUri = DocumentsListQuery.allFoldersUri;
+        }
+
+        /// <summary>
+        /// base constructor
+        /// </summary>
         public FolderQuery(string folderId)
             : base() {
             this.baseUri = String.Format(DocumentsListQuery.foldersUriTemplate, folderId);
             this.ShowFolders = true;
+        }
+    }
+
+    /// <summary>
+    /// a subclass setup to retrieve all changes
+    /// </summary>
+    public class ChangesQuery : DocumentsListQuery {
+        private int startIndex;
+        private bool expandAcl;
+
+        /// <summary>
+        /// base constructor
+        /// </summary>
+        public ChangesQuery()
+            : this("default") {
+        }
+
+        /// <summary>
+        /// base constructor
+        /// </summary>
+        public ChangesQuery(string userId)
+            : base() {
+                this.baseUri = String.Format(DocumentsListQuery.allChangesTemplate, userId);
+        }
+
+        public override int StartIndex {
+            get {
+                return this.startIndex;
+            }
+            set {
+                this.startIndex = value;
+            }
+        }
+
+        public bool ExpandAcl {
+            get {
+                return this.expandAcl;
+            }
+            set {
+                this.expandAcl = value;
+            }
+        }
+
+        protected override string CalculateQuery(string basePath) {
+            string path = base.CalculateQuery(basePath);
+            StringBuilder newPath = new StringBuilder(path, 2048);
+            char paramInsertion = InsertionParameter(path);
+
+            if (this.ExpandAcl) {
+                paramInsertion = AppendQueryPart("true", "expand-acl", paramInsertion, newPath);
+            }
+
+            return newPath.ToString();
+        }
+    }
+
+    /// <summary>
+    /// a subclass setup to retrieve information about a user account
+    /// </summary>
+    public class MetadataQuery : DocumentsListQuery {
+        private int remainingChangestampsFirst;
+        private int remainingChangestampsLimit;
+
+        /// <summary>
+        /// base constructor
+        /// </summary>
+        public MetadataQuery()
+            : this("default") {
+        }
+
+        /// <summary>
+        /// base constructor
+        /// </summary>
+        public MetadataQuery(string userId)
+            : base() {
+                this.baseUri = String.Format(DocumentsListQuery.metadataTemplate, userId);
+        }
+
+        public int RemainingChangestampsFirst {
+            get {
+                return this.remainingChangestampsFirst;
+            }
+            set {
+                this.remainingChangestampsFirst = value;
+            }
+        }
+
+        public int RemainingChangestampsLimit {
+            get {
+                return this.remainingChangestampsLimit;
+            }
+            set {
+                this.remainingChangestampsLimit = value;
+            }
+        }
+
+        protected override string CalculateQuery(string basePath) {
+            string path = base.CalculateQuery(basePath);
+            StringBuilder newPath = new StringBuilder(path, 2048);
+            char paramInsertion = InsertionParameter(path);
+
+            if (this.RemainingChangestampsFirst > 0) {
+                paramInsertion = AppendQueryPart(
+                    this.RemainingChangestampsFirst.ToString(),
+                    "remaining-changestamps-first",
+                    paramInsertion,
+                    newPath);
+            }
+
+            if (this.RemainingChangestampsLimit > 0) {
+                paramInsertion = AppendQueryPart(
+                    this.RemainingChangestampsLimit.ToString(),
+                    "remaining-changestamps-limit",
+                    paramInsertion,
+                    newPath);
+            }
+
+            return newPath.ToString();
         }
     }
 }
