@@ -34,6 +34,42 @@ namespace Google.GData.Documents {
         public const string Prefix = "docs";
         /// <summary>Writers can invite element</summary>
         public const string WritersCanInvite = "writersCanInvite";
+        /// <summary>Changestamp element</summary>
+        public const string Changestamp = "changestamp";
+        /// <summary>QuotaBytesTotal element</summary>
+        public const string QuotaBytesTotal = "quotaBytesTotal";
+        /// <summary>QuotaBytesUsedInTrash element</summary>
+        public const string QuotaBytesUsedInTrash = "quotaBytesUsedInTrash";
+        /// <summary>LargestChangestamp element</summary>
+        public const string LargestChangestamp = "largestChangestamp";
+        /// <summary>RemainingChangestamps element</summary>
+        public const string RemainingChangestamps = "remainingChangestamps";
+        /// <summary>ImportFormat element</summary>
+        public const string ImportFormat = "importFormat";
+        /// <summary>ExportFormat element</summary>
+        public const string ExportFormat = "exportFormat";
+        /// <summary>Source element</summary>
+        public const string Source = "source";
+        /// <summary>Target element</summary>
+        public const string Target = "target";
+        /// <summary>Feature element</summary>
+        public const string Feature = "feature";
+        /// <summary>FeatureName element</summary>
+        public const string FeatureName = "featureName";
+        /// <summary>FeatureRate element</summary>
+        public const string FeatureRate = "featureRate";
+        /// <summary>MaxUploadSize element</summary>
+        public const string MaxUploadSize = "maxUploadSize";
+        /// <summary>Kind element</summary>
+        public const string Kind = "kind";
+        /// <summary>AdditionalRoleInfo element</summary>
+        public const string AdditionalRoleInfo = "additionalRoleInfo";
+        /// <summary>AdditionalRoleSet element</summary>
+        public const string AdditionalRoleSet = "additionalRoleSet";
+        /// <summary>AdditionalRole element</summary>
+        public const string AdditionalRole = "additionalRole";
+        /// <summary>PrimaryRole element</summary>
+        public const string PrimaryRole = "primaryRole";
     }
 
     /// <summary>
@@ -381,7 +417,7 @@ namespace Google.GData.Documents {
         }
 
         /// <summary>
-        /// returns the last modififiedBy Element
+        /// returns the last modifiedBy Element
         /// </summary>
         /// <returns></returns>
         public LastModifiedBy LastModified {
