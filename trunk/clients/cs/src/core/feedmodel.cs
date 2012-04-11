@@ -1449,6 +1449,10 @@ namespace Google.GData.Client {
                 throw new ArgumentNullException("Entry.AtomEntry was null");
             }
 
+            if (entry.AtomEntry.EditUri == null) {
+                throw new ArgumentNullException("The AtomEntry has no EditUri");
+            }
+
             FeedQuery q = PrepareQuery<FeedQuery>(entry.AtomEntry.EditUri.ToString());
             this.Service.Delete(q.Uri, entry.ETag);
         }
