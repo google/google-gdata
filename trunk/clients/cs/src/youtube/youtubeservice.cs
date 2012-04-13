@@ -129,6 +129,24 @@ namespace Google.GData.YouTube {
         }
 
         /// <summary>
+        /// returns a shows feed based on a youtubeQuery
+        /// </summary>
+        /// <param name="feedQuery"></param>
+        /// <returns>EventFeed</returns>
+        public ShowFeed GetShows(YouTubeQuery feedQuery) {
+            return base.Query(feedQuery) as ShowFeed;
+        }
+
+        /// <summary>
+        /// returns a show season feed based on a youtubeQuery
+        /// </summary>
+        /// <param name="feedQuery"></param>
+        /// <returns>EventFeed</returns>
+        public ShowSeasonFeed GetShowSeasons(YouTubeQuery feedQuery) {
+            return base.Query(feedQuery) as ShowSeasonFeed;
+        }
+
+        /// <summary>
         /// returns a subscription feed based on a youtubeQuery
         /// </summary>
         /// <param name="feedQuery"></param>
@@ -262,6 +280,15 @@ namespace Google.GData.YouTube {
             } else if (Regex.IsMatch(path, @"/feeds/api/users/(\w+)/comments")) {
                 // user based list of comments are https://gdata.youtube.com/feeds/api/videos/videoid/comments
                 e.Feed = new CommentsFeed(e.Uri, e.Service);
+            } else if (Regex.IsMatch(path, @"/feeds/api/users/(\w+)/shows")) {
+                // user based list of shows are https://gdata.youtube.com/feeds/api/users/username/shows
+                e.Feed = new ShowFeed(e.Uri, e.Service);
+            } else if (Regex.IsMatch(path, @"/feeds/api/charts/shows/(\w+)")) {
+                // standard list of shows are https://gdata.youtube.com/feeds/api/charts/shows/feedname
+                e.Feed = new ShowFeed(e.Uri, e.Service);
+            } else if (Regex.IsMatch(path, @"/feeds/api/shows/([\w-]+)/content")) {
+                // show based list of seasons are https://gdata.youtube.com/feeds/api/shows/showname/content
+                e.Feed = new ShowSeasonFeed(e.Uri, e.Service);
             } else if (Regex.IsMatch(path, @"/feeds/api/users/(\w+)/uploads")) {
                 // user based upload service url https://gdata.youtube.com/feeds/api/users/videoid/uploads
                 e.Feed = new YouTubeFeed(e.Uri, e.Service);
@@ -277,6 +304,12 @@ namespace Google.GData.YouTube {
             } else {
                 // everything not detected yet, is a youtubefeed.
                 e.Feed = new YouTubeFeed(e.Uri, e.Service);
+                if (!Regex.IsMatch(path, @"/feeds/api/playlists/([\w-]+)")
+                    && !Regex.IsMatch(path, @"/feeds/api/seasons/([\w-]+)/episodes")
+                    )
+                {
+                    throw new Exception(path);
+                }
             }
         }
 

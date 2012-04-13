@@ -149,6 +149,10 @@
     <Compile Include="playlistsfeed.cs" />
     <Compile Include="profileentry.cs" />
     <Compile Include="profilefeed.cs" />
+    <Compile Include="showentry.cs" />
+    <Compile Include="showfeed.cs" />
+    <Compile Include="showseasonentry.cs" />
+    <Compile Include="showseasonfeed.cs" />
     <Compile Include="subscriptionentry.cs" />
     <Compile Include="subscriptionfeed.cs" />
     <Compile Include="youtubebaseentry.cs" />
