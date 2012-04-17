@@ -102,6 +102,11 @@ namespace Google.GData.Documents {
         public static string revisionsUriTemplate = "https://docs.google.com/feeds/default/private/full/{0}/revisions/{1}";
 
         /// <summary>
+        /// URI to access the archive feed
+        /// </summary>
+        public static string archiveUri = "https://docs.google.com/feeds/default/private/archive";
+
+        /// <summary>
         /// predefined query category for documents
         /// </summary>
         public static QueryCategory DOCUMENTS = new QueryCategory(new AtomCategory("document"));
@@ -729,6 +734,19 @@ namespace Google.GData.Documents {
             }
 
             return newPath.ToString();
+        }
+    }
+
+    /// <summary>
+    /// a query object used to interact with the Archive feed
+    /// </summary>
+    public class ArchiveQuery : DocumentsListQuery {
+        /// <summary>
+        /// base constructor
+        /// </summary>
+        public ArchiveQuery(string archiveId)
+            : base() {
+            this.baseUri = DocumentsListQuery.archiveUri + "/" + archiveId;
         }
     }
 }
