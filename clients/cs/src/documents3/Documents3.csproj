@@ -151,6 +151,8 @@
     <Compile Include="changeentry.cs" />
     <Compile Include="archiveentry.cs" />
     <Compile Include="archivefeed.cs" />
+    <Compile Include="revisionfeed.cs" />
+    <Compile Include="revisionentry.cs" />
     <Compile Include="metadataentry.cs" />
     <Compile Include="metadatafeed.cs" />
     <Compile Include="documententry.cs" />

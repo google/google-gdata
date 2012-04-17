@@ -749,4 +749,17 @@ namespace Google.GData.Documents {
             this.baseUri = DocumentsListQuery.archiveUri + "/" + archiveId;
         }
     }
+
+    /// <summary>
+    /// a query object used to interact with the Revision feed
+    /// </summary>
+    public class RevisionQuery : DocumentsListQuery {
+        /// <summary>
+        /// base constructor
+        /// </summary>
+        public RevisionQuery(string revisionUri)
+            : base() {
+            this.baseUri = revisionUri;
+        }
+    }
 }

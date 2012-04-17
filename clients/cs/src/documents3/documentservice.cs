@@ -210,6 +210,15 @@ namespace Google.GData.Documents {
             return base.Query(feedQuery) as ArchiveFeed;
         }
 
+        /// <summary>
+        /// overloaded to create typed version of Query
+        /// </summary>
+        /// <param name="feedQuery"></param>
+        /// <returns>RevisionFeed</returns>
+        public RevisionFeed Query(RevisionQuery feedQuery) {
+            return base.Query(feedQuery) as RevisionFeed;
+        }
+
         /// <summary>eventchaining. We catch this by from the base service, which 
         /// would not by default create an atomFeed</summary> 
         /// <param name="sender"> the object which send the event</param>
@@ -230,6 +239,8 @@ namespace Google.GData.Documents {
                 e.Feed = new MetadataFeed(e.Uri, e.Service);
             } else if (feedUri.IndexOf("/archive") > -1) {
                 e.Feed = new ArchiveFeed(e.Uri, e.Service);
+            } else if (feedUri.IndexOf("/revisions") > -1) {
+                e.Feed = new RevisionFeed(e.Uri, e.Service);
             } else {
                 e.Feed = new DocumentsFeed(e.Uri, e.Service);
             }
