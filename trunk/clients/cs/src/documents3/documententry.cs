@@ -92,6 +92,12 @@ namespace Google.GData.Documents {
         public const string ArchiveFailure = "archiveFailure";
         /// <summary>ArchiveNotifyStatus element</summary>
         public const string ArchiveNotifyStatus = "archiveNotifyStatus";
+        /// <summary>Publish element</summary>
+        public const string Publish = "publish";
+        /// <summary>PublishAuto element</summary>
+        public const string PublishAuto = "publishAuto";
+        /// <summary>PublishOutsideDomain element</summary>
+        public const string PublishOutsideDomain = "publishOutsideDomain";
     }
 
     /// <summary>
