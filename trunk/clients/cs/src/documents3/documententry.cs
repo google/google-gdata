@@ -52,6 +52,8 @@ namespace Google.GData.Documents {
         public const string Source = "source";
         /// <summary>Target element</summary>
         public const string Target = "target";
+        /// <summary>Reason element</summary>
+        public const string Reason = "reason";
         /// <summary>Feature element</summary>
         public const string Feature = "feature";
         /// <summary>FeatureName element</summary>
@@ -70,6 +72,26 @@ namespace Google.GData.Documents {
         public const string AdditionalRole = "additionalRole";
         /// <summary>PrimaryRole element</summary>
         public const string PrimaryRole = "primaryRole";
+        /// <summary>ArchiveResourceId element</summary>
+        public const string ArchiveResourceId = "archiveResourceId";
+        /// <summary>ArchiveConversion element</summary>
+        public const string ArchiveConversion = "archiveConversion";
+        /// <summary>ArchiveNotify element</summary>
+        public const string ArchiveNotify = "archiveNotify";
+        /// <summary>ArchiveStatus element</summary>
+        public const string ArchiveStatus = "archiveStatus";
+        /// <summary>ArchiveComplete element</summary>
+        public const string ArchiveComplete = "archiveComplete";
+        /// <summary>ArchiveTotal element</summary>
+        public const string ArchiveTotal = "archiveTotal";
+        /// <summary>ArchiveTotalComplete element</summary>
+        public const string ArchiveTotalComplete = "archiveTotalComplete";
+        /// <summary>ArchiveTotalFailure element</summary>
+        public const string ArchiveTotalFailure = "archiveTotalFailure";
+        /// <summary>ArchiveFailure element</summary>
+        public const string ArchiveFailure = "archiveFailure";
+        /// <summary>ArchiveNotifyStatus element</summary>
+        public const string ArchiveNotifyStatus = "archiveNotifyStatus";
     }
 
     /// <summary>
@@ -442,7 +464,7 @@ namespace Google.GData.Documents {
     /// </summary>
     public class WritersCanInvite : SimpleAttribute {
         /// <summary>
-        /// default constructor for gd:resourceid 
+        /// default constructor for gd:writersCanInvite 
         /// </summary>
         public WritersCanInvite()
             : base(DocumentslistNametable.WritersCanInvite,

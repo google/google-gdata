@@ -149,6 +149,8 @@
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="changesfeed.cs" />
     <Compile Include="changeentry.cs" />
+    <Compile Include="archiveentry.cs" />
+    <Compile Include="archivefeed.cs" />
     <Compile Include="metadataentry.cs" />
     <Compile Include="metadatafeed.cs" />
     <Compile Include="documententry.cs" />
