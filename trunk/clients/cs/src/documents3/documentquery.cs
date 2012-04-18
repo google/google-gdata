@@ -175,6 +175,8 @@ namespace Google.GData.Documents {
         private string title;
         //Local variable to hold if the title query we are doing should be exact.
         private bool titleExact;
+        //Local variable to hold if the root collection should be shown in the feed.
+        private bool showRoot;
 
         private string owner;
         private string writer;
@@ -290,6 +292,18 @@ namespace Google.GData.Documents {
             }
             set {
                 this.showFolders = value;
+            }
+        }
+
+        /// <summary>
+        /// if true, shows root in the result
+        /// </summary>
+        public bool ShowRoot {
+            get {
+                return this.showRoot;
+            }
+            set {
+                this.showRoot = value;
             }
         }
 
@@ -483,6 +497,9 @@ namespace Google.GData.Documents {
                             case "include-profile-info":
                                 this.IncludeProfileInfo = bool.Parse(parameters[1]);
                                 break;
+                            case "showroot":
+                                this.ShowRoot = bool.Parse(parameters[1]);
+                                break;
                         }
                     }
                 }
@@ -514,6 +531,10 @@ namespace Google.GData.Documents {
 
             if (this.ShowDeleted) {
                 paramInsertion = AppendQueryPart("true", "showDeleted", paramInsertion, newPath);
+            }
+
+            if (this.ShowRoot) {
+                paramInsertion = AppendQueryPart("true", "showroot", paramInsertion, newPath);
             }
 
             if (this.IncludeProfileInfo) {
