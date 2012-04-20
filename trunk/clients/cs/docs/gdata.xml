@@ -39,11 +39,11 @@
         </member>
         <member name="M:Google.GData.Client.OAuthBase.EncodingPerRFC3986(System.String)">
             <summary>
-            All parameter names and values are escaped using the [RFC3986]  
-            percent-encoding (%xx) mechanism. Characters not in the unreserved character 
-            MUST be encoded. Characters in the unreserved character set MUST NOT be encoded. 
-            Hexadecimal characters in encodings MUST be upper case. Text names and values MUST be 
-            encoded as UTF-8 octets before percent-encoding them per [RFC3629] 
+            All parameter names and values are escaped using the [RFC3986]
+            percent-encoding (%xx) mechanism. Characters not in the unreserved character
+            MUST be encoded. Characters in the unreserved character set MUST NOT be encoded.
+            Hexadecimal characters in encodings MUST be upper case. Text names and values MUST be
+            encoded as UTF-8 octets before percent-encoding them per [RFC3629]
             </summary>
             <param name="value">The value to Url encode</param>
             <returns>Returns a Url encoded string</returns>
@@ -60,7 +60,7 @@
             Generate the signature base that is used to produce the signature
             </summary>
             <param name="url">The full url that needs to be signed including its non OAuth url parameters</param>
-            <param name="consumerKey">The consumer key</param>        
+            <param name="consumerKey">The consumer key</param>
             <param name="token">The token, if available. If not available pass null or an empty string</param>
             <param name="tokenSecret">The token secret, if available. If not available pass null or an empty string</param>
             <param name="httpMethod">The http method used. Must be a valid HTTP method verb (POST,GET,PUT, etc)</param>
@@ -75,7 +75,7 @@
             Generate the signature base that is used to produce the signature
             </summary>
             <param name="url">The full url that needs to be signed including its non OAuth url parameters</param>
-            <param name="httpMethod">The http method used. Must be a valid HTTP method verb (POST,GET,PUT, etc)</param>       
+            <param name="httpMethod">The http method used. Must be a valid HTTP method verb (POST,GET,PUT, etc)</param>
             <param name="parameters">The OAuth parameters</param>
             <returns>The signature base</returns>
         </member>
@@ -90,7 +90,7 @@
         <member name="M:Google.GData.Client.OAuthBase.GenerateSignature(System.Uri,System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
             <summary>
             Generates a signature using the HMAC-SHA1 algorithm
-            </summary>		
+            </summary>
             <param name="url">The full url that needs to be signed including its non OAuth url parameters</param>
             <param name="consumerKey">The consumer key</param>
             <param name="consumerSecret">The consumer seceret</param>
@@ -104,8 +104,8 @@
         </member>
         <member name="M:Google.GData.Client.OAuthBase.GenerateSignature(System.Uri,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
             <summary>
-            Generates a signature using the specified signatureMethod 
-            </summary>		
+            Generates a signature using the specified signatureMethod
+            </summary>
             <param name="url">The full url that needs to be signed including its non OAuth url parameters</param>
             <param name="consumerKey">The consumer key</param>
             <param name="consumerSecret">The consumer seceret</param>
@@ -120,8 +120,8 @@
         </member>
         <member name="M:Google.GData.Client.OAuthBase.GenerateSignature(System.Uri,System.String,Google.GData.Client.OAuthParameters)">
             <summary>
-            Generates a signature using the specified signatureMethod 
-            </summary>		
+            Generates a signature using the specified signatureMethod
+            </summary>
             <param name="url">The full url that needs to be signed including its non OAuth url parameters</param>
             <param name="httpMethod">The http method used. Must be a valid HTTP method verb (POST,GET,PUT, etc)</param>
             <param name="parameters">The OAuth parameters</param>
@@ -131,7 +131,7 @@
         <!-- Badly formed XML comment ignored for member "M:Google.GData.Client.OAuthBase.GenerateOAuthSignature(System.String,System.String)" -->
         <member name="M:Google.GData.Client.OAuthBase.GenerateTimeStamp">
             <summary>
-            Generate the timestamp for the signature        
+            Generate the timestamp for the signature
             </summary>
             <returns></returns>
         </member>
@@ -140,6 +140,494 @@
             Generate a nonce
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:Google.GData.Client.OAuthBase.GetExchangeAccessCodeRequestBody(Google.GData.Client.OAuth2Parameters)">
+            <summary>
+            Generate the request body for exchanging an access code for an access token.
+            </summary>
+            <param name="parameters">The OAuth 2.0 parameters</param>
+        </member>
+        <member name="M:Google.GData.Client.OAuthBase.GetRefreshAccessTokenRequestBody(Google.GData.Client.OAuth2Parameters)">
+            <summary>
+            Generate the request body for refreshing an access token.
+            </summary>
+            <param name="parameters">The OAuth 2.0 parameters</param>
+        </member>
+        <member name="M:Google.GData.Client.OAuthBase.GetOAuth2AccessToken(Google.GData.Client.OAuth2Parameters,System.String)">
+            <summary>
+            Send the request body to the OAuth 2.0 token endpoint to retrieve an access token.
+            When successful, updates the OAuthParameter instance passed as parameter by setting
+            AccessToken, RefreshToken and TokenExpiry.
+            </summary>
+            <param name="parameters">The OAuth 2.0 parameters</param>
+            <param name="requestBody">The request body to send</param>
+        </member>
+        <member name="T:Google.GData.Client.GOAuth2RequestFactory">
+            <summary>
+            A request factory to generate an authorization header suitable for use
+            with OAuth 2.0.
+            </summary>
+        </member>
+        <member name="T:Google.GData.Client.GDataGAuthRequestFactory">
+            <summary>base GDataRequestFactory implementation</summary> 
+        </member>
+        <member name="T:Google.GData.Client.GDataRequestFactory">
+            <summary>base GDataRequestFactory implementation</summary> 
+        </member>
+        <member name="T:Google.GData.Client.IGDataRequestFactory">
+            <summary>the one that creates GDatarequests on the service
+            </summary> 
+        </member>
+        <member name="M:Google.GData.Client.IGDataRequestFactory.CreateRequest(Google.GData.Client.GDataRequestType,System.Uri)">
+            <summary>creation method for GDatarequests</summary> 
+        </member>
+        <member name="P:Google.GData.Client.IGDataRequestFactory.UseGZip">
+            <summary>set wether or not to use gzip for new requests</summary>
+        </member>
+        <member name="P:Google.GData.Client.IGDataRequestFactory.UseSSL">
+            <summary>
+            indicates that the service should use SSL exclusively
+            </summary>
+        </member>
+        <member name="F:Google.GData.Client.GDataRequestFactory.GDataAgent">
+            <summary>this factory's agent</summary> 
+        </member>
+        <member name="F:Google.GData.Client.GDataRequestFactory.DefaultContentType">
+            <summary>
+            the default content type for the atom envelope
+            </summary>
+        </member>
+        <member name="F:Google.GData.Client.GDataRequestFactory.SetCookieHeader">
+            <summary>Cookie setting header, returned from server</summary>
+        </member>
+        <member name="F:Google.GData.Client.GDataRequestFactory.CookieHeader">
+            <summary>Cookie client header</summary>
+        </member>
+        <member name="F:Google.GData.Client.GDataRequestFactory.SlugHeader">
+            <summary>Slug client header</summary>
+        </member>
+        <member name="F:Google.GData.Client.GDataRequestFactory.ContentOverrideHeader">
+            <summary>content override header for resumable upload</summary>
+        </member>
+        <member name="F:Google.GData.Client.GDataRequestFactory.ContentLengthOverrideHeader">
+            <summary>content length header for resumable upload</summary>
+        </member>
+        <member name="F:Google.GData.Client.GDataRequestFactory.EtagHeader">
+            <summary>
+            constant for the Etag header
+            </summary>
+        </member>
+        <member name="F:Google.GData.Client.GDataRequestFactory.IfMatch">
+            <summary>
+            constant for the If-Match header
+            </summary>
+        </member>
+        <member name="F:Google.GData.Client.GDataRequestFactory.IfNoneMatch">
+            <summary>
+            constant for the if-None-match header
+            </summary>
+        </member>
+        <member name="F:Google.GData.Client.GDataRequestFactory.IfMatchAll">
+            <summary>
+            constant for the ifmatch value that matches everything
+            </summary>
+        </member>
+        <member name="F:Google.GData.Client.GDataRequestFactory.userAgent">
+            <summary>holds the user-agent</summary> 
+        </member>
+        <member name="M:Google.GData.Client.GDataRequestFactory.#ctor(System.String)">
+            <summary>default constructor</summary> 
+        </member>
+        <member name="M:Google.GData.Client.GDataRequestFactory.CreateRequest(Google.GData.Client.GDataRequestType,System.Uri)">
+            <summary>default constructor</summary> 
+        </member>
+        <member name="P:Google.GData.Client.GDataRequestFactory.UseGZip">
+            <summary>whether or not new requests should use GZip</summary>
+        </member>
+        <member name="P:Google.GData.Client.GDataRequestFactory.Cookies">
+            <summary>The cookie container that is used for requests.</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Client.GDataRequestFactory.ContentType">
+            <summary>sets and gets the Content Type, used for binary transfers</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Client.GDataRequestFactory.Slug">
+            <summary>sets and gets the slug header, used for binary transfers
+            note that the data will be converted to ASCII and URLencoded on setting it
+            </summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Client.GDataRequestFactory.UserAgent">
+            <summary>accessor method public string UserAgent</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Client.GDataRequestFactory.Proxy">
+            <summary>accessor method to the webproxy object to use</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Client.GDataRequestFactory.KeepAlive">
+            <summary>indicates if the connection should be kept alive, default
+            is true</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Client.GDataRequestFactory.UseSSL">
+            <summary>indicates if the connection should use https</summary>
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Client.GDataRequestFactory.Timeout">
+            <summary>gets and sets the Timeout property used for the created
+            HTTPRequestObject in milliseconds. if you set it to -1 it will stick 
+            with the default of the HTTPRequestObject. From MSDN:
+            The number of milliseconds to wait before the request times out. 
+            The default is 100,000 milliseconds (100 seconds).</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Client.GDataRequestFactory.CustomHeaders">
+            <summary>accessor method public StringArray CustomHeaders</summary> 
+            <returns> </returns>
+        </member>
+        <member name="T:Google.GData.Client.IVersionAware">
+            <summary>
+            this interface indicates that an element is aware of Core and Service
+            specific version changes. 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.GData.Client.IVersionAware.ProtocolMajor">
+            <summary>
+            returns the major version of the protocol this element is using
+            </summary>
+        </member>
+        <member name="P:Google.GData.Client.IVersionAware.ProtocolMinor">
+            <summary>
+            returns the minor version of the protocol this element is using
+            </summary>
+        </member>
+        <member name="F:Google.GData.Client.GDataGAuthRequestFactory.GDataVersion">
+            <summary>
+            the header used to indicate version requests
+            </summary>
+        </member>
+        <member name="M:Google.GData.Client.GDataGAuthRequestFactory.#ctor(System.String,System.String)">
+            <summary>default constructor</summary> 
+        </member>
+        <member name="M:Google.GData.Client.GDataGAuthRequestFactory.#ctor(System.String,System.String,System.Int32)">
+            <summary>overloaded constructor</summary> 
+        </member>
+        <member name="M:Google.GData.Client.GDataGAuthRequestFactory.CreateRequest(Google.GData.Client.GDataRequestType,System.Uri)">
+            <summary>default constructor</summary>
+        </member>
+        <member name="M:Google.GData.Client.GDataGAuthRequestFactory.QueryAuthToken(Google.GData.Client.GDataCredentials)">
+            <summary>Gets an authentication token for the current credentials</summary> 
+        </member>
+        <member name="P:Google.GData.Client.GDataGAuthRequestFactory.GAuthToken">
+            <summary>Get/Set accessor for gAuthToken</summary> 
+        </member>
+        <member name="P:Google.GData.Client.GDataGAuthRequestFactory.UserAgent">
+            <summary>accessor method public string UserAgent, with GFE support</summary> 
+            <remarks>GFE will enable gzip support ONLY for browser that have the string
+            "gzip" in their user agent (IE or Mozilla), since lot of browsers have a
+            broken gzip support.</remarks>
+        </member>
+        <member name="P:Google.GData.Client.GDataGAuthRequestFactory.ApplicationName">
+            <summary>Get/Set accessor for the application name</summary> 
+        </member>
+        <member name="P:Google.GData.Client.GDataGAuthRequestFactory.Service">
+            <summary>returns the service string</summary> 
+        </member>
+        <member name="P:Google.GData.Client.GDataGAuthRequestFactory.MethodOverride">
+            <summary>Let's assume you are behind a corporate firewall that does not 
+            allow all HTTP verbs (as you know, the atom protocol uses GET, 
+            POST, PUT and DELETE). If you set MethodOverride to true,
+            PUT and DELETE will be simulated using HTTP Post. It will
+            add an X-Method-Override header to the request that 
+            indicates the "real" method we wanted to send. 
+            </summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Client.GDataGAuthRequestFactory.StrictRedirect">
+            <summary>indicates if a redirect should be followed on not HTTPGet</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Client.GDataGAuthRequestFactory.NumberOfRetries">
+            <summary>
+            property accessor to adjust how often a request of this factory should retry
+            </summary>
+        </member>
+        <member name="P:Google.GData.Client.GDataGAuthRequestFactory.AccountType">
+            <summary>
+            property accessor to set the account type that is used during
+            authentication. Defaults, if not set, to HOSTED_OR_GOOGLE
+            </summary>
+        </member>
+        <member name="P:Google.GData.Client.GDataGAuthRequestFactory.CaptchaAnswer">
+            <summary>property to hold the Answer for a challenge</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Client.GDataGAuthRequestFactory.CaptchaToken">
+            <summary>property to hold the token for a challenge</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Client.GDataGAuthRequestFactory.Handler">
+            <summary>accessor method public string Handler</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Client.GDataGAuthRequestFactory.ProtocolMajor">
+            <summary>
+            returns the major protocol version number this element 
+            is working against. 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.GData.Client.GDataGAuthRequestFactory.ProtocolMinor">
+            <summary>
+            returns the minor protocol version number this element 
+            is working against. 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="F:Google.GData.Client.GOAuth2RequestFactory.GDataGAuthSubAgent">
+            <summary>this factory's agent</summary>
+        </member>
+        <member name="M:Google.GData.Client.GOAuth2RequestFactory.#ctor(System.String,System.String,Google.GData.Client.OAuth2Parameters)">
+            <summary>
+            Constructor.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Client.GOAuth2RequestFactory.CreateRequest(Google.GData.Client.GDataRequestType,System.Uri)">
+            <summary>
+            default constructor.
+            </summary>
+        </member>
+        <member name="T:Google.GData.Client.GOAuth2Request">
+            <summary>
+            GOAuthSubRequest implementation.
+            </summary>
+        </member>
+        <member name="T:Google.GData.Client.GDataGAuthRequest">
+            <summary>base GDataRequest implementation</summary> 
+        </member>
+        <member name="T:Google.GData.Client.GDataRequest">
+            <summary>base GDataRequest implementation</summary> 
+        </member>
+        <member name="T:Google.GData.Client.IGDataRequest">
+            <summary>Thin layer to abstract the request/response
+            </summary> 
+        </member>
+        <member name="M:Google.GData.Client.IGDataRequest.GetRequestStream">
+            <summary>gets the request stream to write into</summary> 
+        </member>
+        <member name="M:Google.GData.Client.IGDataRequest.Execute">
+            <summary>Executes the request</summary> 
+        </member>
+        <member name="M:Google.GData.Client.IGDataRequest.GetResponseStream">
+            <summary>gets the response stream to read from</summary> 
+        </member>
+        <member name="P:Google.GData.Client.IGDataRequest.Credentials">
+            <summary>get/set for credentials to the service calls. Gets passed through to GDatarequest</summary> 
+        </member>
+        <member name="P:Google.GData.Client.IGDataRequest.UseGZip">
+            <summary>set wether or not to use gzip for this request</summary>
+        </member>
+        <member name="P:Google.GData.Client.IGDataRequest.IfModifiedSince">
+            <summary>set a timestamp for conditional GET</summary>
+        </member>
+        <member name="T:Google.GData.Client.ISupportsEtag">
+            <summary>
+            interface to indicate that an element supports an Etag. Currently implemented on AbstractEntry,
+            AbstractFeed and GDataRequest
+            </summary>
+        </member>
+        <member name="P:Google.GData.Client.ISupportsEtag.Etag">
+            <summary>set the etag for updates</summary>
+        </member>
+        <member name="F:Google.GData.Client.GDataRequest.webRequest">
+            <summary>holds the webRequest object</summary> 
+        </member>
+        <member name="F:Google.GData.Client.GDataRequest.webResponse">
+            <summary>holds the webresponse object</summary> 
+        </member>
+        <member name="F:Google.GData.Client.GDataRequest.targetUri">
+            <summary>holds the target Uri</summary> 
+        </member>
+        <member name="F:Google.GData.Client.GDataRequest.type">
+            <summary>holds request type</summary> 
+        </member>
+        <member name="F:Google.GData.Client.GDataRequest.credentials">
+            <summary>holds the credential information</summary> 
+        </member>
+        <member name="F:Google.GData.Client.GDataRequest.requestStream">
+            <summary>holds the request if a stream is open</summary> 
+        </member>
+        <member name="F:Google.GData.Client.GDataRequest.disposed">
+            <summary>holds if we are disposed</summary> 
+        </member>
+        <member name="F:Google.GData.Client.GDataRequest.useGZip">
+            <summary>set whether or not this request should use GZip</summary>
+        </member>
+        <member name="F:Google.GData.Client.GDataRequest.ifModifiedSince">
+            <summary>holds the timestamp for conditional GET</summary>
+        </member>
+        <member name="F:Google.GData.Client.GDataRequest.responseStream">
+            <summary>stream from the response</summary>
+        </member>
+        <member name="F:Google.GData.Client.GDataRequest.contentType">
+            <summary>holds the contenttype to use if overridden</summary>
+        </member>
+        <member name="F:Google.GData.Client.GDataRequest.slugHeader">
+            <summary>holds the slugheader to use if overridden</summary>
+        </member>
+        <member name="M:Google.GData.Client.GDataRequest.#ctor(Google.GData.Client.GDataRequestType,System.Uri,Google.GData.Client.GDataRequestFactory)">
+            <summary>default constructor</summary> 
+        </member>
+        <member name="M:Google.GData.Client.GDataRequest.Dispose">
+            <summary>implements the disposable interface</summary> 
+        </member>
+        <member name="M:Google.GData.Client.GDataRequest.Dispose(System.Boolean)">
+            <summary>does the real disposition</summary> 
+            <param name="disposing">indicates if dispose called it or finalize</param>
+        </member>
+        <member name="M:Google.GData.Client.GDataRequest.Reset">
+            <summary>resets the object's state</summary> 
+        </member>
+        <member name="M:Google.GData.Client.GDataRequest.GetRequestStream">
+            <summary>returns the writable request stream</summary> 
+            <returns> the stream to write into</returns>
+        </member>
+        <member name="M:Google.GData.Client.GDataRequest.EnsureWebRequest">
+            <summary>ensures that the correct HTTP verb is set on the stream</summary> 
+        </member>
+        <member name="M:Google.GData.Client.GDataRequest.EnsureCredentials">
+            <summary>sets up the correct credentials for this call, pending 
+            security scheme</summary> 
+        </member>
+        <member name="M:Google.GData.Client.GDataRequest.LogRequest(System.Net.WebRequest)">
+            <summary>Logs the request object if overridden in subclass</summary>
+            <param name="request">the request to log</param> 
+        </member>
+        <member name="M:Google.GData.Client.GDataRequest.LogResponse(System.Net.WebResponse)">
+            <summary>Logs the response object if overridden in subclass</summary>
+            <param name="response">the response to log</param>
+        </member>
+        <member name="M:Google.GData.Client.GDataRequest.Execute">
+            <summary>Executes the request and prepares the response stream. Also 
+            does error checking</summary> 
+        </member>
+        <member name="M:Google.GData.Client.GDataRequest.GetResponseStream">
+            <summary>gets the readable response stream</summary> 
+            <returns> the response stream</returns>
+        </member>
+        <member name="M:Google.GData.Client.GDataRequest.GetFinalizedRequest">
+            <summary>returns a valid web request with the correct credentials</summary> 
+            <returns>the HTTP web request</returns>
+        </member>
+        <member name="P:Google.GData.Client.GDataRequest.TargetUri">
+            <summary>
+            exposing the private targetUri so that subclasses can override
+            the value for redirect handling
+            </summary>
+        </member>
+        <member name="P:Google.GData.Client.GDataRequest.UseGZip">
+            <summary>set whether or not this request should use GZip</summary>
+        </member>
+        <member name="P:Google.GData.Client.GDataRequest.IfModifiedSince">
+            <summary>set a timestamp for conditional GET</summary>
+        </member>
+        <member name="P:Google.GData.Client.GDataRequest.Credentials">
+            <summary>accessor method for the GDataCredentials used</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Client.GDataRequest.ContentType">
+            <summary>sets and gets the content Type, used for binary transfers</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Client.GDataRequest.Etag">
+            <summary>sets and gets the etag header value, used for concurrency</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Client.GDataRequest.Slug">
+            <summary>sets and gets the slugHeader, used for binary transfers
+            will encode to ascii and urlencode the string on setting it. 
+            </summary>
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Client.GDataRequest.ContentLength">
+            <summary>
+            returnes the content-length of the response, -1 if none was given
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.GData.Client.GDataRequest.Request">
+            <summary>accessor method protected WebRequest Request</summary> 
+            <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Client.GDataRequest.Response">
+            <summary>accessor method protected WebResponse Response</summary> 
+            <returns> </returns>
+        </member>
+        <member name="F:Google.GData.Client.GDataGAuthRequest.requestCopy">
+            <summary>holds the input in memory stream</summary> 
+        </member>
+        <member name="F:Google.GData.Client.GDataGAuthRequest.factory">
+            <summary>holds the factory instance</summary> 
+        </member>
+        <member name="M:Google.GData.Client.GDataGAuthRequest.#ctor(Google.GData.Client.GDataRequestType,System.Uri,Google.GData.Client.GDataGAuthRequestFactory)">
+            <summary>default constructor</summary> 
+        </member>
+        <member name="M:Google.GData.Client.GDataGAuthRequest.GetRequestStream">
+            <summary>returns the writable request stream</summary> 
+            <returns> the stream to write into</returns>
+        </member>
+        <member name="M:Google.GData.Client.GDataGAuthRequest.Dispose(System.Boolean)">
+            <summary>does the real disposition</summary> 
+            <param name="disposing">indicates if dispose called it or finalize</param>
+        </member>
+        <member name="M:Google.GData.Client.GDataGAuthRequest.EnsureCredentials">
+            <summary>sets up the correct credentials for this call, pending 
+            security scheme</summary> 
+        </member>
+        <member name="M:Google.GData.Client.GDataGAuthRequest.EnsureWebRequest">
+            <summary>sets the redirect to false after everything else
+            is done </summary> 
+        </member>
+        <member name="M:Google.GData.Client.GDataGAuthRequest.QueryAuthToken(Google.GData.Client.GDataCredentials)">
+            <summary>goes to the Google auth service, and gets a new auth token</summary> 
+            <returns>the auth token, or NULL if none received</returns>
+        </member>
+        <member name="M:Google.GData.Client.GDataGAuthRequest.Execute">
+            <summary>Executes the request and prepares the response stream. Also 
+            does error checking</summary>
+        </member>
+        <member name="M:Google.GData.Client.GDataGAuthRequest.Execute(System.Int32)">
+            <summary>Executes the request and prepares the response stream. Also 
+            does error checking</summary> 
+            <param name="retryCounter">indicates the n-th time this is run</param>
+        </member>
+        <member name="M:Google.GData.Client.GDataGAuthRequest.CopyRequestData">
+            <summary>takes our copy of the stream, and puts it into the request stream</summary> 
+        </member>
+        <member name="P:Google.GData.Client.GDataGAuthRequest.RequestCopy">
+            <summary>Read only accessor for requestCopy</summary> 
+        </member>
+        <member name="P:Google.GData.Client.GDataGAuthRequest.ResponseVersion">
+            <summary>
+            returns the version information that the response indicated
+            can be NULL if used against a non versioned endpoint
+            </summary>
+        </member>
+        <member name="F:Google.GData.Client.GOAuth2Request.factory">
+            <summary>holds the factory instance</summary>
+        </member>
+        <member name="M:Google.GData.Client.GOAuth2Request.#ctor(Google.GData.Client.GDataRequestType,System.Uri,Google.GData.Client.GOAuth2RequestFactory)">
+            <summary>
+            default constructor.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Client.GOAuth2Request.EnsureCredentials">
+            <summary>
+            sets up the correct credentials for this call.
+            </summary>
         </member>
         <member name="T:Google.GData.Extensions.AppControl.AppControl">
             <summary>
@@ -187,23 +675,6 @@
         <member name="P:Google.GData.Client.IExtensionElementFactory.XmlPrefix">
             <summary>
             returns the xml prefix used 
-            </summary>
-        </member>
-        <member name="T:Google.GData.Client.IVersionAware">
-            <summary>
-            this interface indicates that an element is aware of Core and Service
-            specific version changes. 
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="P:Google.GData.Client.IVersionAware.ProtocolMajor">
-            <summary>
-            returns the major version of the protocol this element is using
-            </summary>
-        </member>
-        <member name="P:Google.GData.Client.IVersionAware.ProtocolMinor">
-            <summary>
-            returns the minor version of the protocol this element is using
             </summary>
         </member>
         <member name="F:Google.GData.Extensions.ExtensionBase.attributes">
@@ -322,8 +793,8 @@
         </member>
         <member name="P:Google.GData.Extensions.ExtensionBase.ChildNodes">
             <summary>
-             returns the list of childnodes that are unknown to the extension
-             used for example for the GD:ExtendedProperty
+            returns the list of childnodes that are unknown to the extension
+            used for example for the GD:ExtendedProperty
             </summary>
             <returns></returns>
         </member>
@@ -395,10 +866,10 @@
         </member>
         <member name="M:Google.GData.Extensions.SimpleContainer.FindExtension(System.String,System.String)">
             <summary>
-            Finds a specific ExtensionElement based on it's local name
-            and it's namespace. If namespace is NULL, the first one where
+            Finds a specific ExtensionElement based on its local name
+            and its namespace. If namespace is NULL, the first one where
             the localname matches is found. If there are extensionelements that do 
-            not implment ExtensionElementFactory, they will not be taken into account
+            not implrment ExtensionElementFactory, they will not be taken into account
             </summary>
             <param name="localName">the xml local name of the element to find</param>
             <param name="ns">the namespace of the elementToPersist</param>
@@ -424,10 +895,10 @@
         </member>
         <member name="M:Google.GData.Extensions.SimpleContainer.FindExtensions(System.String,System.String)">
             <summary>
-            Finds all ExtensionElement based on it's local name
-            and it's namespace. If namespace is NULL, allwhere
+            Finds all ExtensionElement based on its local name
+            and its namespace. If namespace is NULL, all where
             the localname matches is found. If there are extensionelements that do 
-            not implment ExtensionElementFactory, they will not be taken into account
+            not implrment ExtensionElementFactory, they will not be taken into account
             Primary use of this is to find XML nodes
             </summary>
             <param name="localName">the xml local name of the element to find</param>
@@ -436,10 +907,10 @@
         </member>
         <member name="M:Google.GData.Extensions.SimpleContainer.FindExtensions``1(System.String,System.String)">
             <summary>
-            Finds all ExtensionElement based on it's local name
-            and it's namespace. If namespace is NULL, allwhere
+            Finds all ExtensionElement based on its local name
+            and its namespace. If namespace is NULL, all where
             the localname matches is found. If there are extensionelements that do 
-            not implment ExtensionElementFactory, they will not be taken into account
+            not implement ExtensionElementFactory, they will not be taken into account
             Primary use of this is to find XML nodes
             </summary>
             <param name="localName">the xml local name of the element to find</param>
@@ -448,7 +919,7 @@
         </member>
         <member name="M:Google.GData.Extensions.SimpleContainer.DeleteExtensions(System.String,System.String)">
             <summary>
-            Delete's all Extensions from the Extension list that match
+            Deletes all Extensions from the Extension list that match
             a localName and a Namespace. 
             </summary>
             <param name="localName">the local name to find</param>
@@ -476,7 +947,7 @@
         <member name="M:Google.GData.Extensions.SimpleContainer.SaveInnerXml(System.Xml.XmlWriter)">
             <summary>
             saves out the inner xml, so all of our subelements
-            get's called from Save, whcih takes care of saving attributes
+            gets called from Save, whcih takes care of saving attributes
             </summary>
             <param name="writer"></param>
         </member>
@@ -563,32 +1034,32 @@
         </member>
         <member name="P:Google.GData.Extensions.SimpleElement.Value">
             <summary>
-             Accessor Method for the value as string
+            Accessor Method for the value as string
             </summary>
         </member>
         <member name="P:Google.GData.Extensions.SimpleElement.IntegerValue">
             <summary>
-             Accessor Method for the value as integer
+            Accessor Method for the value as integer
             </summary>
         </member>
         <member name="P:Google.GData.Extensions.SimpleElement.UnsignedIntegerValue">
             <summary>
-             Accessor Method for the value as unsigned integer
+            Accessor Method for the value as unsigned integer
             </summary>
         </member>
         <member name="P:Google.GData.Extensions.SimpleElement.UnsignedLongValue">
             <summary>
-             Accessor Method for the value as unsigned long
+            Accessor Method for the value as unsigned long
             </summary>
         </member>
         <member name="P:Google.GData.Extensions.SimpleElement.FloatValue">
             <summary>
-             Accessor Method for the value as float
+            Accessor Method for the value as float
             </summary>
         </member>
         <member name="P:Google.GData.Extensions.SimpleElement.BooleanValue">
             <summary>
-             Accessor Method for the value as boolean
+            Accessor Method for the value as boolean
             </summary>
         </member>
         <member name="M:Google.GData.Extensions.AppControl.AppDraft.#ctor">
@@ -692,7 +1163,8 @@
              </summary>
         </member>
         <member name="T:Google.GData.Client.AtomBase">
-            <summary>AtomBase object representation.
+            <summary>
+            AtomBase object representation.
             </summary> 
         </member>
         <member name="F:Google.GData.Client.AtomBase.uriBase">
@@ -722,14 +1194,18 @@
             <returns> </returns>
         </member>
         <member name="M:Google.GData.Client.AtomBase.IsPersistable">
-            <summary>checks if the element or one subelement are persistable</summary> 
+            <summary>
+            checks if the element or one subelement are persistable
+            </summary>
         </member>
         <member name="M:Google.GData.Client.AtomBase.IsDirty">
-            <summary>returns if the element or one subelement is dirty</summary> 
+            <summary>returns if the element or one subelement is dirty</summary>
         </member>
         <member name="M:Google.GData.Client.AtomBase.GetAbsoluteUri(System.String)">
-            <summary>Read only accessor for AbsoluteUri. This is pushed down
-            whenever a base changes.</summary> 
+            <summary>
+            Read only accessor for AbsoluteUri. This is pushed down
+            whenever a base changes.
+            </summary> 
         </member>
         <member name="M:Google.GData.Client.AtomBase.BaseUriChanged(Google.GData.Client.AtomUri)">
             <summary>This starts the calculation, to push down the base
@@ -784,10 +1260,10 @@
         </member>
         <member name="M:Google.GData.Client.AtomBase.FindExtensions(System.String,System.String)">
             <summary>
-            Finds all ExtensionElement based on it's local name
-            and it's namespace. If namespace is NULL, allwhere
+            Finds all ExtensionElement based on local name
+            and namespace. If namespace is NULL, all where
             the localname matches is found. If there are extensionelements that do 
-            not implment ExtensionElementFactory, they will not be taken into account
+            not implement ExtensionElementFactory, they will not be taken into account
             Primary use of this is to find XML nodes
             </summary>
             <param name="localName">the xml local name of the element to find</param>
@@ -796,10 +1272,10 @@
         </member>
         <member name="M:Google.GData.Client.AtomBase.FindExtensions(System.String,System.String,Google.GData.Client.ExtensionList)">
             <summary>
-            Finds all ExtensionElement based on it's local name
-            and it's namespace. If namespace is NULL, allwhere
+            Finds all ExtensionElement based on local name
+            and namespace. If namespace is NULL, all where
             the localname matches is found. If there are extensionelements that do 
-            not implment ExtensionElementFactory, they will not be taken into account
+            not implement ExtensionElementFactory, they will not be taken into account
             Primary use of this is to find XML nodes
             </summary>
             <param name="localName">the xml local name of the element to find</param>
@@ -809,10 +1285,10 @@
         </member>
         <member name="M:Google.GData.Client.AtomBase.FindExtensions``1(System.String,System.String)">
             <summary>
-            Finds all ExtensionElement based on it's local name
-            and it's namespace. If namespace is NULL, allwhere
+            Finds all ExtensionElement based on local name
+            and amespace. If namespace is NULL, all where
             the localname matches is found. If there are extensionelements that do 
-            not implment ExtensionElementFactory, they will not be taken into account
+            not implement ExtensionElementFactory, they will not be taken into account
             Primary use of this is to find XML nodes
             </summary>
             <param name="localName">the xml local name of the element to find</param>
@@ -821,7 +1297,7 @@
         </member>
         <member name="M:Google.GData.Client.AtomBase.DeleteExtensions(System.String,System.String)">
             <summary>
-            Delete's all Extensions from the Extension list that match
+            Deletes all Extensions from the Extension list that match
             a localName and a Namespace. 
             </summary>
             <param name="localName">the local name to find</param>
@@ -934,7 +1410,7 @@
         </member>
         <member name="M:Google.GData.Client.AtomBase.OnVersionInfoChanged">
             <summary>
-            this potential overloaded method get's called when the version information
+            this potential overloaded method gets called when the version information
             of an object is changed. It handles setting the versioninformation on 
             all children and the factories. 
             </summary>
@@ -942,7 +1418,7 @@
         </member>
         <member name="M:Google.GData.Client.AtomBase.SetVersionInfo(Google.GData.Client.IVersionAware)">
             <summary>
-            this get's called out of a notification chain. It set's 
+            this gets called out of a notification chain. It sets 
             this objects version info and the extension lists. We do not
             use the property accessor to avoid the notification loop
             </summary>
@@ -966,7 +1442,7 @@
             <summary>Returns the XML name as string used for the element when persisting.</summary> 
         </member>
         <member name="P:Google.GData.Client.AtomBase.Base">
-            <summary>calculates or set's the base uri of an element</summary> 
+            <summary>calculates or sets the base uri of an element</summary> 
             <returns>an AtomUri for the Base URI when get is called</returns>
         </member>
         <member name="P:Google.GData.Client.AtomBase.Language">
@@ -1044,7 +1520,7 @@
         </member>
         <member name="M:Google.GData.Client.AtomEntry.SkipNode(System.Xml.XmlNode)">
             <summary>checks if this is a namespace 
-            decl that we already added</summary> 
+            declaration that we already added</summary> 
             <param name="node">XmlNode to check</param>
             <returns>true if this node should be skipped </returns>
         </member>
@@ -1116,7 +1592,7 @@
         </member>
         <member name="P:Google.GData.Client.AtomEntry.BatchData">
             <summary>accessor to the batchdata for the entry</summary> 
-            <returns> GDataBatch object </returns>
+            <returns>GDataBatch object</returns>
         </member>
         <member name="P:Google.GData.Client.AtomEntry.EditUri">
             <summary>accessor method public Uri EditUri</summary> 
@@ -1202,7 +1678,7 @@
             <returns> </returns>
         </member>
         <member name="P:Google.GData.Client.AtomEntry.ReadOnly">
-            <summary>returns whether or not the entry is read-only </summary> 
+            <summary>returns whether or not the entry is read-only</summary> 
         </member>
         <member name="T:Google.GData.Client.AtomTextConstructElementType">
             <summary>enum to define the AtomTextConstructs Type...</summary> 
@@ -1323,10 +1799,12 @@
             <returns> </returns>
         </member>
         <member name="P:Google.GData.Client.AtomBaseLink.AbsoluteUri">
-            <summary>public Uri AbsoluteUri</summary> 
+            <summary>public Uri AbsoluteUri</summary>         
         </member>
         <member name="T:Google.GData.Client.BaseIsDirty">
-            <summary>Helper object to walk the tree for the dirty flag.</summary> 
+            <summary>
+            Helper object to walk the tree for the dirty flag.
+            </summary> 
         </member>
         <member name="T:Google.GData.Client.IBaseWalkerAction">
             <summary>Thin layer to create an action on an item/response
@@ -1341,7 +1819,9 @@
             <returns>the value of the dirty flag</returns>
         </member>
         <member name="T:Google.GData.Client.BaseMarkDirty">
-            <summary>Helper object to walk the tree for the dirty flag.</summary> 
+            <summary>
+            Helper object to walk the tree for the dirty flag.
+            </summary> 
         </member>
         <member name="F:Google.GData.Client.BaseMarkDirty.flag">
             <summary>Holds if set/unset to dirty.</summary> 
@@ -1377,7 +1857,7 @@
         </member>
         <member name="T:Google.GData.Client.ServiceNames">
             <summary>
-             this is the static collection of all google service names
+            this is the static collection of all google service names
             </summary>
         </member>
         <member name="T:Google.GData.Client.Authenticator">
@@ -1438,7 +1918,7 @@
         </member>
         <member name="M:Google.GData.Client.ClientLoginAuthenticator.#ctor(System.String,System.String,System.String,System.String)">
             <summary>
-             a constructor for client login use cases
+            a constructor for client login use cases
             </summary>
             <param name="applicationName"></param>
             <param name="username"></param>
@@ -1447,7 +1927,7 @@
         </member>
         <member name="M:Google.GData.Client.ClientLoginAuthenticator.#ctor(System.String,System.String,Google.GData.Client.GDataCredentials)">
             <summary>
-             a constructor for client login use cases
+            a constructor for client login use cases
             </summary>
             <param name="applicationName">The name of the application</param>
             <param name="credentials">the user credentials</param>
@@ -1455,7 +1935,7 @@
         </member>
         <member name="M:Google.GData.Client.ClientLoginAuthenticator.#ctor(System.String,System.String,Google.GData.Client.GDataCredentials,System.Uri)">
             <summary>
-             a constructor for client login use cases
+            a constructor for client login use cases
             </summary>
             <param name="applicationName">The name of the application</param>
             <param name="credentials">the user credentials</param>
@@ -1536,9 +2016,9 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Google.GData.Client.OAuth2LeggedAuthenticator.#ctor(System.String,System.String,System.String,System.String,System.String)">
+        <member name="M:Google.GData.Client.OAuth2LeggedAuthenticator.#ctor(System.String,System.String,System.String,System.String,System.String,System.String)">
             <summary>
-            a constructor for OpenAuthentication login use cases
+            a constructor for 2-legged OAuth
             </summary>
             <param name="applicationName">The name of the application</param>
             <param name="consumerKey">the consumerKey to use</param>
@@ -1576,9 +2056,9 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Google.GData.Client.OAuth3LeggedAuthenticator.#ctor(System.String,System.String,System.String,System.String,System.String)">
+        <member name="M:Google.GData.Client.OAuth3LeggedAuthenticator.#ctor(System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
             <summary>
-             a constructor for OpenAuthentication login use cases using 3-legged oAuth
+            a constructor for 3-legged OAuth
             </summary>
             <param name="applicationName">The name of the application</param>
             <param name="consumerKey">the consumerKey to use</param>
@@ -1605,6 +2085,25 @@
             <summary>
             returns the TokenSecret for oAuth
             </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Google.GData.Client.OAuth2Authenticator.#ctor(System.String,Google.GData.Client.OAuth2Parameters)">
+            <summary>
+            a constructor for OAuth 2.0
+            </summary>
+            <param name="applicationName">The name of the application</param>
+            <param name="consumerKey">the consumerKey to use</param>
+            <param name="consumerSecret">the consumerSecret to use</param>
+            <param name="token">The token to be used</param>
+            <param name="tokenSecret">The tokenSecret to be used</param>
+            <returns></returns>
+        </member>
+        <member name="M:Google.GData.Client.OAuth2Authenticator.ApplyAuthenticationToRequest(System.Net.HttpWebRequest)">
+            <summary>
+            Takes an existing httpwebrequest and modifies its headers according to
+            the authentication system used.
+            </summary>
+            <param name="request"></param>
             <returns></returns>
         </member>
         <member name="T:Google.GData.Extensions.ExtensionCollection`1">
@@ -1740,277 +2239,6 @@
             <summary>
             returns a windows conforming NetworkCredential 
             </summary>
-        </member>
-        <member name="T:Google.GData.Client.GDataRequestFactory">
-            <summary>base GDataRequestFactory implementation</summary> 
-        </member>
-        <member name="T:Google.GData.Client.IGDataRequestFactory">
-            <summary>the one that creates GDatarequests on the service
-            </summary> 
-        </member>
-        <member name="M:Google.GData.Client.IGDataRequestFactory.CreateRequest(Google.GData.Client.GDataRequestType,System.Uri)">
-            <summary>creation method for GDatarequests</summary> 
-        </member>
-        <member name="P:Google.GData.Client.IGDataRequestFactory.UseGZip">
-            <summary>set wether or not to use gzip for new requests</summary>
-        </member>
-        <member name="P:Google.GData.Client.IGDataRequestFactory.UseSSL">
-            <summary>
-            indicates that the service should use SSL exclusively
-            </summary>
-        </member>
-        <member name="F:Google.GData.Client.GDataRequestFactory.GDataAgent">
-            <summary>this factory's agent</summary> 
-        </member>
-        <member name="F:Google.GData.Client.GDataRequestFactory.DefaultContentType">
-            <summary>
-            the default content type for the atom envelope
-            </summary>
-        </member>
-        <member name="F:Google.GData.Client.GDataRequestFactory.SetCookieHeader">
-            <summary>Cookie setting header, returned from server</summary>
-        </member>
-        <member name="F:Google.GData.Client.GDataRequestFactory.CookieHeader">
-            <summary>Cookie client header</summary>
-        </member>
-        <member name="F:Google.GData.Client.GDataRequestFactory.SlugHeader">
-            <summary>Slug client header</summary>
-        </member>
-        <member name="F:Google.GData.Client.GDataRequestFactory.ContentOverrideHeader">
-            <summary>content override header for resumable upload</summary>
-        </member>
-        <member name="F:Google.GData.Client.GDataRequestFactory.ContentLengthOverrideHeader">
-            <summary>content length header for resumable upload</summary>
-        </member>
-        <member name="F:Google.GData.Client.GDataRequestFactory.EtagHeader">
-            <summary>
-            constant for the Etag header
-            </summary>
-        </member>
-        <member name="F:Google.GData.Client.GDataRequestFactory.IfMatch">
-            <summary>
-            constant for the If-Match header
-            </summary>
-        </member>
-        <member name="F:Google.GData.Client.GDataRequestFactory.IfNoneMatch">
-            <summary>
-            constant for the if-None-match header
-            </summary>
-        </member>
-        <member name="F:Google.GData.Client.GDataRequestFactory.IfMatchAll">
-            <summary>
-            constant for the ifmatch value that matches everything
-            </summary>
-        </member>
-        <member name="F:Google.GData.Client.GDataRequestFactory.userAgent">
-            <summary>holds the user-agent</summary> 
-        </member>
-        <member name="M:Google.GData.Client.GDataRequestFactory.#ctor(System.String)">
-            <summary>default constructor</summary> 
-        </member>
-        <member name="M:Google.GData.Client.GDataRequestFactory.CreateRequest(Google.GData.Client.GDataRequestType,System.Uri)">
-            <summary>default constructor</summary> 
-        </member>
-        <member name="P:Google.GData.Client.GDataRequestFactory.UseGZip">
-            <summary>whether or not new requests should use GZip</summary>
-        </member>
-        <member name="P:Google.GData.Client.GDataRequestFactory.Cookies">
-            <summary>The cookie container that is used for requests. Note 
-            that this is not available on the compact framework</summary> 
-            <returns> </returns>
-        </member>
-        <member name="P:Google.GData.Client.GDataRequestFactory.ContentType">
-            <summary>sets and gets the Content Type, used for binary transfers</summary> 
-            <returns> </returns>
-        </member>
-        <member name="P:Google.GData.Client.GDataRequestFactory.Slug">
-            <summary>sets and gets the slug header, used for binary transfers
-            note that the data will be converted to ASCII and URLencoded on setting it
-            </summary> 
-            <returns> </returns>
-        </member>
-        <member name="P:Google.GData.Client.GDataRequestFactory.UserAgent">
-            <summary>accessor method public string UserAgent</summary> 
-            <returns> </returns>
-        </member>
-        <member name="P:Google.GData.Client.GDataRequestFactory.Proxy">
-            <summary>accessor method to the webproxy object to use</summary> 
-            <returns> </returns>
-        </member>
-        <member name="P:Google.GData.Client.GDataRequestFactory.KeepAlive">
-            <summary>indicates if the connection should be kept alive, default
-            is true</summary> 
-            <returns> </returns>
-        </member>
-        <member name="P:Google.GData.Client.GDataRequestFactory.UseSSL">
-            <summary>indicates if the connection should use https</summary>
-            <returns> </returns>
-        </member>
-        <member name="P:Google.GData.Client.GDataRequestFactory.Timeout">
-            <summary>gets and sets the Timeout property used for the created
-            HTTPRequestObject in milliseconds. if you set it to -1 it will stick 
-            with the default of the HTTPRequestObject. From MSDN:
-            The number of milliseconds to wait before the request times out. 
-            The default is 100,000 milliseconds (100 seconds).</summary> 
-            <returns> </returns>
-        </member>
-        <member name="P:Google.GData.Client.GDataRequestFactory.CustomHeaders">
-            <summary>accessor method public StringArray CustomHeaders</summary> 
-            <returns> </returns>
-        </member>
-        <member name="T:Google.GData.Client.GDataRequest">
-            <summary>base GDataRequest implmentation</summary> 
-        </member>
-        <member name="T:Google.GData.Client.IGDataRequest">
-            <summary>Thin layer to abstract the request/response
-            </summary> 
-        </member>
-        <member name="M:Google.GData.Client.IGDataRequest.GetRequestStream">
-            <summary>gets the request stream to write into</summary> 
-        </member>
-        <member name="M:Google.GData.Client.IGDataRequest.Execute">
-            <summary>Executes the request</summary> 
-        </member>
-        <member name="M:Google.GData.Client.IGDataRequest.GetResponseStream">
-            <summary>gets the response stream to read from</summary> 
-        </member>
-        <member name="P:Google.GData.Client.IGDataRequest.Credentials">
-            <summary>get/set for credentials to the service calls. Gets passed through to GDatarequest</summary> 
-        </member>
-        <member name="P:Google.GData.Client.IGDataRequest.UseGZip">
-            <summary>set wether or not to use gzip for this request</summary>
-        </member>
-        <member name="P:Google.GData.Client.IGDataRequest.IfModifiedSince">
-            <summary>set a timestamp for conditional GET</summary>
-        </member>
-        <member name="T:Google.GData.Client.ISupportsEtag">
-            <summary>
-            interface to indicate that an element supports an Etag. Currently implemented on AbstractEntry,
-            AbstractFeed and GDataRequest
-            </summary>
-        </member>
-        <member name="P:Google.GData.Client.ISupportsEtag.Etag">
-            <summary>set the etag for updates</summary>
-        </member>
-        <member name="F:Google.GData.Client.GDataRequest.webRequest">
-            <summary>holds the webRequest object</summary> 
-        </member>
-        <member name="F:Google.GData.Client.GDataRequest.webResponse">
-            <summary>holds the webresponse object</summary> 
-        </member>
-        <member name="F:Google.GData.Client.GDataRequest.targetUri">
-            <summary>holds the target Uri</summary> 
-        </member>
-        <member name="F:Google.GData.Client.GDataRequest.type">
-            <summary>holds request type</summary> 
-        </member>
-        <member name="F:Google.GData.Client.GDataRequest.credentials">
-            <summary>holds the credential information</summary> 
-        </member>
-        <member name="F:Google.GData.Client.GDataRequest.requestStream">
-            <summary>holds the request if a stream is open</summary> 
-        </member>
-        <member name="F:Google.GData.Client.GDataRequest.disposed">
-            <summary>holds if we are disposed</summary> 
-        </member>
-        <member name="F:Google.GData.Client.GDataRequest.useGZip">
-            <summary>set whether or not this request should use GZip</summary>
-        </member>
-        <member name="F:Google.GData.Client.GDataRequest.ifModifiedSince">
-            <summary>holds the timestamp for conditional GET</summary>
-        </member>
-        <member name="F:Google.GData.Client.GDataRequest.responseStream">
-            <summary>stream from the response</summary>
-        </member>
-        <member name="F:Google.GData.Client.GDataRequest.contentType">
-            <summary>holds the contenttype to use if overridden</summary>
-        </member>
-        <member name="F:Google.GData.Client.GDataRequest.slugHeader">
-            <summary>holds the slugheader to use if overridden</summary>
-        </member>
-        <member name="M:Google.GData.Client.GDataRequest.#ctor(Google.GData.Client.GDataRequestType,System.Uri,Google.GData.Client.GDataRequestFactory)">
-            <summary>default constructor</summary> 
-        </member>
-        <member name="M:Google.GData.Client.GDataRequest.Dispose">
-            <summary>implements the disposable interface</summary> 
-        </member>
-        <member name="M:Google.GData.Client.GDataRequest.Dispose(System.Boolean)">
-            <summary>does the real disposition</summary> 
-            <param name="disposing">indicates if dispose called it or finalize</param>
-        </member>
-        <member name="M:Google.GData.Client.GDataRequest.Reset">
-            <summary>resets the object's state</summary> 
-        </member>
-        <member name="M:Google.GData.Client.GDataRequest.GetRequestStream">
-            <summary>returns the writable request stream</summary> 
-            <returns> the stream to write into</returns>
-        </member>
-        <member name="M:Google.GData.Client.GDataRequest.EnsureWebRequest">
-            <summary>ensures that the correct HTTP verb is set on the stream</summary> 
-        </member>
-        <member name="M:Google.GData.Client.GDataRequest.EnsureCredentials">
-            <summary>sets up the correct credentials for this call, pending 
-            security scheme</summary> 
-        </member>
-        <member name="M:Google.GData.Client.GDataRequest.LogRequest(System.Net.WebRequest)">
-            <summary>Logs the request object if overridden in subclass</summary>
-            <param name="request">the request to log</param> 
-        </member>
-        <member name="M:Google.GData.Client.GDataRequest.LogResponse(System.Net.WebResponse)">
-            <summary>Logs the response object if overridden in subclass</summary>
-            <param name="response">the response to log</param> 
-        </member>
-        <member name="M:Google.GData.Client.GDataRequest.Execute">
-            <summary>Executes the request and prepares the response stream. Also 
-            does error checking</summary> 
-        </member>
-        <member name="M:Google.GData.Client.GDataRequest.GetResponseStream">
-            <summary>gets the readable response stream</summary> 
-            <returns> the response stream</returns>
-        </member>
-        <member name="P:Google.GData.Client.GDataRequest.TargetUri">
-            <summary>
-            exposing the private targetUri so that subclasses can override
-            the value for redirect handling
-            </summary>
-        </member>
-        <member name="P:Google.GData.Client.GDataRequest.UseGZip">
-            <summary>set whether or not this request should use GZip</summary>
-        </member>
-        <member name="P:Google.GData.Client.GDataRequest.IfModifiedSince">
-            <summary>set a timestamp for conditional GET</summary>
-        </member>
-        <member name="P:Google.GData.Client.GDataRequest.Credentials">
-            <summary>accessor method for the GDataCredentials used</summary> 
-            <returns> </returns>
-        </member>
-        <member name="P:Google.GData.Client.GDataRequest.ContentType">
-            <summary>sets and gets the content Type, used for binary transfers</summary> 
-            <returns> </returns>
-        </member>
-        <member name="P:Google.GData.Client.GDataRequest.Etag">
-            <summary>sets and gets the etag header value, used for concurrency</summary> 
-            <returns> </returns>
-        </member>
-        <member name="P:Google.GData.Client.GDataRequest.Slug">
-            <summary>sets and gets the slugHeader, used for binary transfers
-            will encode to ascii and urlencode the string on setting it. 
-            </summary>
-            <returns> </returns>
-        </member>
-        <member name="P:Google.GData.Client.GDataRequest.ContentLength">
-            <summary>
-            returnes the contentlength of the response, -1 if none was given
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="P:Google.GData.Client.GDataRequest.Request">
-            <summary>accessor method protected WebRequest Request</summary> 
-            <returns> </returns>
-        </member>
-        <member name="P:Google.GData.Client.GDataRequest.Response">
-            <summary>accessor method protected WebResponse Response</summary> 
-            <returns> </returns>
         </member>
         <member name="T:Google.GData.Client.QueryCategoryOperator">
             <summary>Enum to describe the different category boolean operations.
@@ -2235,8 +2463,8 @@
         </member>
         <member name="P:Google.GData.Client.FeedQuery.BaseAddress">
             <summary>
-             this will simply return/set the baseUri without any parsing as a string
-             this is the same as using the constructor for most cases, it is here to allow the creation
+            this will simply return/set the baseUri without any parsing as a string
+            this is the same as using the constructor for most cases, it is here to allow the creation
             of template methods.
             </summary>
             <returns></returns>
@@ -2284,9 +2512,9 @@
             </summary>
         </member>
         <member name="P:Google.GData.Client.FeedQuery.ExtraParameters">
-            <summary>ExtraParameters holds a string that just get's added to the
+            <summary>ExtraParameters holds a string that just gets added to the
             query string per se. The parameter should honor URL encoding, the library
-            will not touch it's value, but just append it to the existing query. The 
+            will not touch its value, but just append it to the existing query. The 
             URL parameter characters will be inserted by the FeedQuery object.</summary> 
             <returns></returns>
         </member>
@@ -2295,24 +2523,24 @@
             <returns>the requested author</returns>
         </member>
         <member name="P:Google.GData.Client.FeedQuery.StartDate">
-            <summary>set's the mininum daterange value for the updated element</summary> 
+            <summary>sets the mininum daterange value for the updated element</summary> 
             <returns>the min (inclusive) date/time</returns>
         </member>
         <member name="P:Google.GData.Client.FeedQuery.EndDate">
-            <summary>set's the maximum daterange value for the updated element</summary> 
+            <summary>sets the maximum daterange value for the updated element</summary> 
             <returns>the max (exclusive) date/time</returns>
         </member>
         <member name="P:Google.GData.Client.FeedQuery.MinPublication">
-            <summary>set's the mininum daterange value for the publication element</summary> 
+            <summary>sets the mininum daterange value for the publication element</summary> 
             <returns>the min (inclusive) date/time</returns>
         </member>
         <member name="P:Google.GData.Client.FeedQuery.MaxPublication">
-            <summary>set's the maximum daterange value for the publication element</summary> 
+            <summary>sets the maximum daterange value for the publication element</summary> 
             <returns>the max (exclusive) date/time</returns>
         </member>
         <member name="P:Google.GData.Client.FeedQuery.ModifiedSince">
             <summary>
-            set's the ModifiedSince date. If this is set to something different than
+            sets the ModifiedSince date. If this is set to something different than
             DateTime.MinValue, and the FeedQuery object is used for a Service.Query
             call, this will cause an ifmodified Since header to be created.
             </summary>
@@ -2347,8 +2575,7 @@
         <member name="T:Google.GData.Client.Service">
             <summary>async functionality of the Service implementation
             </summary> 
-            <summary>base Service implementation
-            </summary> 
+            <summary>base Service implementation</summary> 
         </member>
         <member name="M:Google.GData.Client.AsyncDataHandler.CancelAsync(System.Object)">
             <summary>
@@ -2359,6 +2586,16 @@
             <param name="userData">your identifier for the operation to be cancelled</param>
         </member>
         <member name="M:Google.GData.Client.AsyncDataHandler.HandleResponseStream(Google.GData.Client.AsyncData,System.IO.Stream,System.Int64)">
+            <summary>
+            handles the response stream
+            copies it into the memory stream, or parses it into a feed.
+            </summary>
+            <param name="data"></param>
+            <param name="responseStream"></param>
+            <param name="contentLength"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Google.GData.Client.AsyncDataHandler.HandleResponseStream(Google.GData.Client.AsyncData,System.IO.Stream,System.Int64,Google.GData.Client.IService)">
             <summary>
             handles the response stream
             copies it into the memory stream, or parses it into a feed.
@@ -2612,8 +2849,8 @@
         <member name="M:Google.GData.Client.Service.OnRequestFactoryChanged">
             <summary>
             notifier if someone changes the requestfactory of the service. 
-            This will cause the service to set the versionnumber on the 
-            request factory to it's own
+            This will cause the service to set the version number on the 
+            request factory to its own
             </summary>
         </member>
         <member name="M:Google.GData.Client.Service.QueryAuthenticationToken">
@@ -2742,6 +2979,13 @@
             <returns> the new Entry, as returned from the server</returns>
         </member>
         <member name="M:Google.GData.Client.Service.Insert``1(System.Uri,``0)">
+            <summary>templated type safe verion of the interface</summary> 
+            <typeparam name="TEntry"></typeparam>
+            <param name="feedUri"></param>
+            <param name="entry">the old entry to update</param> 
+            <returns> the new Entry, as returned from the server</returns> 
+        </member>
+        <member name="M:Google.GData.Client.Service.Insert``1(System.String,``0)">
             <summary>templated type safe verion of the interface</summary> 
             <typeparam name="TEntry"></typeparam>
             <param name="feedUri"></param>
@@ -2909,6 +3153,10 @@
         <member name="M:Google.GData.Client.Service.Delete(System.Uri)">
             <summary>Deletes an Atom entry when given a Uri</summary>
             <param name="uriTarget">The target Uri to call http delete against</param>
+        </member>
+        <member name="M:Google.GData.Client.Service.Delete(System.String)">
+            <summary>Deletes an Atom entry when given a Uri</summary>
+            <param name="uriTarget">The target Uri string to call http delete against</param>
         </member>
         <member name="M:Google.GData.Client.Service.Delete(System.Uri,System.String)">
             <summary>Deletes an Atom entry when given a Uri</summary>
@@ -3323,7 +3571,7 @@
             <summary>updated time stamp</summary> 
         </member>
         <member name="M:Google.GData.Client.AtomSource.#ctor">
-            <summary>public void AtomSource()</summary> 
+            <summary>public void AtomSource()</summary>
         </member>
         <member name="M:Google.GData.Client.AtomSource.#ctor(Google.GData.Client.AtomFeed)">
             <summary>public AtomSource(AtomFeed feed)</summary> 
@@ -3342,7 +3590,7 @@
             <returns>true or false, pending outcome</returns>
         </member>
         <member name="P:Google.GData.Client.AtomSource.Authors">
-            <summary>accessor method public Contributors AtomPersonCollection</summary> 
+            <summary>accessor method public Authors AtomPersonCollection</summary> 
             <returns> </returns>
         </member>
         <member name="P:Google.GData.Client.AtomSource.Contributors">
@@ -3687,92 +3935,6 @@
         <member name="T:Google.GData.Client.GDataLoggingRequestFactory">
             <summary>base GDataRequestFactory implmentation</summary> 
         </member>
-        <member name="T:Google.GData.Client.GDataGAuthRequestFactory">
-            <summary>base GDataRequestFactory implementation</summary> 
-        </member>
-        <member name="F:Google.GData.Client.GDataGAuthRequestFactory.GDataVersion">
-            <summary>
-             the header used to indicate version requests
-            </summary>
-        </member>
-        <member name="M:Google.GData.Client.GDataGAuthRequestFactory.#ctor(System.String,System.String)">
-            <summary>default constructor</summary> 
-        </member>
-        <member name="M:Google.GData.Client.GDataGAuthRequestFactory.#ctor(System.String,System.String,System.Int32)">
-            <summary>overloaded constructor</summary> 
-        </member>
-        <member name="M:Google.GData.Client.GDataGAuthRequestFactory.CreateRequest(Google.GData.Client.GDataRequestType,System.Uri)">
-            <summary>default constructor</summary> 
-        </member>
-        <member name="M:Google.GData.Client.GDataGAuthRequestFactory.QueryAuthToken(Google.GData.Client.GDataCredentials)">
-            <summary>Gets an authentication token for the current credentials</summary> 
-        </member>
-        <member name="P:Google.GData.Client.GDataGAuthRequestFactory.GAuthToken">
-            <summary>Get/Set accessor for gAuthToken</summary> 
-        </member>
-        <member name="P:Google.GData.Client.GDataGAuthRequestFactory.UserAgent">
-            <summary>accessor method public string UserAgent, with GFE support</summary> 
-            <remarks>GFE will enable gzip support ONLY for browser that have the string
-            "gzip" in their user agent (IE or Mozilla), since lot of browsers have a
-            broken gzip support.</remarks>
-        </member>
-        <member name="P:Google.GData.Client.GDataGAuthRequestFactory.ApplicationName">
-            <summary>Get/Set accessor for the application name</summary> 
-        </member>
-        <member name="P:Google.GData.Client.GDataGAuthRequestFactory.Service">
-            <summary>returns the service string</summary> 
-        </member>
-        <member name="P:Google.GData.Client.GDataGAuthRequestFactory.MethodOverride">
-            <summary>Let's assume you are behind a corporate firewall that does not 
-            allow all HTTP verbs (as you know, the atom protocol uses GET, 
-            POST, PUT and DELETE). If you set MethodOverride to true,
-            PUT and DELETE will be simulated using HTTP Post. It will
-            add an X-Method-Override header to the request that 
-            indicates the "real" method we wanted to send. 
-            </summary> 
-            <returns> </returns>
-        </member>
-        <member name="P:Google.GData.Client.GDataGAuthRequestFactory.StrictRedirect">
-            <summary>indicates if a redirect should be followed on not HTTPGet</summary> 
-            <returns> </returns>
-        </member>
-        <member name="P:Google.GData.Client.GDataGAuthRequestFactory.NumberOfRetries">
-            <summary>
-            property accessor to adjust how often a request of this factory should retry
-            </summary>
-        </member>
-        <member name="P:Google.GData.Client.GDataGAuthRequestFactory.AccountType">
-            <summary>
-            property accessor to set the account type that is used during
-            authentication. Defaults, if not set, to HOSTED_OR_GOOGLE
-            </summary>
-        </member>
-        <member name="P:Google.GData.Client.GDataGAuthRequestFactory.CaptchaAnswer">
-            <summary>property to hold the Answer for a challenge</summary> 
-            <returns> </returns>
-        </member>
-        <member name="P:Google.GData.Client.GDataGAuthRequestFactory.CaptchaToken">
-            <summary>property to hold the token for a challenge</summary> 
-            <returns> </returns>
-        </member>
-        <member name="P:Google.GData.Client.GDataGAuthRequestFactory.Handler">
-            <summary>accessor method public string Handler</summary> 
-            <returns> </returns>
-        </member>
-        <member name="P:Google.GData.Client.GDataGAuthRequestFactory.ProtocolMajor">
-            <summary>
-            returns the major protocol version number this element 
-            is working against. 
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="P:Google.GData.Client.GDataGAuthRequestFactory.ProtocolMinor">
-            <summary>
-            returns the minor protocol version number this element 
-            is working against. 
-            </summary>
-            <returns></returns>
-        </member>
         <member name="F:Google.GData.Client.GDataLoggingRequestFactory.strInput">
             <summary>holds the filename for the input request</summary> 
         </member>
@@ -3802,59 +3964,6 @@
         </member>
         <member name="T:Google.GData.Client.GDataLoggingRequest">
             <summary>base GDataRequest implementation</summary> 
-        </member>
-        <member name="T:Google.GData.Client.GDataGAuthRequest">
-            <summary>base GDataRequest implementation</summary> 
-        </member>
-        <member name="F:Google.GData.Client.GDataGAuthRequest.requestCopy">
-            <summary>holds the input in memory stream</summary> 
-        </member>
-        <member name="F:Google.GData.Client.GDataGAuthRequest.factory">
-            <summary>holds the factory instance</summary> 
-        </member>
-        <member name="M:Google.GData.Client.GDataGAuthRequest.#ctor(Google.GData.Client.GDataRequestType,System.Uri,Google.GData.Client.GDataGAuthRequestFactory)">
-            <summary>default constructor</summary> 
-        </member>
-        <member name="M:Google.GData.Client.GDataGAuthRequest.GetRequestStream">
-            <summary>returns the writable request stream</summary> 
-            <returns> the stream to write into</returns>
-        </member>
-        <member name="M:Google.GData.Client.GDataGAuthRequest.Dispose(System.Boolean)">
-            <summary>does the real disposition</summary> 
-            <param name="disposing">indicates if dispose called it or finalize</param>
-        </member>
-        <member name="M:Google.GData.Client.GDataGAuthRequest.EnsureCredentials">
-            <summary>sets up the correct credentials for this call, pending 
-            security scheme</summary> 
-        </member>
-        <member name="M:Google.GData.Client.GDataGAuthRequest.EnsureWebRequest">
-            <summary>sets the redirect to false after everything else
-            is done </summary> 
-        </member>
-        <member name="M:Google.GData.Client.GDataGAuthRequest.QueryAuthToken(Google.GData.Client.GDataCredentials)">
-            <summary>goes to the Google auth service, and gets a new auth token</summary> 
-            <returns>the auth token, or NULL if none received</returns>
-        </member>
-        <member name="M:Google.GData.Client.GDataGAuthRequest.Execute">
-            <summary>Executes the request and prepares the response stream. Also 
-            does error checking</summary> 
-        </member>
-        <member name="M:Google.GData.Client.GDataGAuthRequest.Execute(System.Int32)">
-            <summary>Executes the request and prepares the response stream. Also 
-            does error checking</summary> 
-            <param name="retryCounter">indicates the n-th time this is run</param>
-        </member>
-        <member name="M:Google.GData.Client.GDataGAuthRequest.CopyRequestData">
-            <summary>takes our copy of the stream, and puts it into the request stream</summary> 
-        </member>
-        <member name="P:Google.GData.Client.GDataGAuthRequest.RequestCopy">
-            <summary>Read only accessor for requestCopy</summary> 
-        </member>
-        <member name="P:Google.GData.Client.GDataGAuthRequest.ResponseVersion">
-            <summary>
-            returns the version information that the response indicated
-            can be NULL if used against a non versioned endpoint
-            </summary>
         </member>
         <member name="F:Google.GData.Client.GDataLoggingRequest.strInput">
             <summary>holds the filename for the input request</summary> 
@@ -4244,6 +4353,21 @@
             sets up the correct credentials for this call.
             </summary>
         </member>
+        <member name="F:Google.GData.Extensions.BatchErrors.errors">
+            <summary>
+            Error collection
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.BatchErrors.#ctor">
+            <summary>
+            default constructor for gd:errors
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.BatchErrors.Errors">
+            <summary>
+            Error collection.
+            </summary>
+        </member>
         <member name="T:Google.GData.Client.AuthSubUtil">
             <summary>helper class for communications between a 3rd party site and Google using the AuthSub protocol
             </summary> 
@@ -4531,12 +4655,12 @@
         </member>
         <member name="F:Google.GData.Client.BaseNameTable.NSOpenSearchRss">
             <summary>
-             namespace of the opensearch v1.0 elements
+            namespace of the opensearch v1.0 elements
             </summary>
         </member>
         <member name="F:Google.GData.Client.BaseNameTable.NSOpenSearch11">
             <summary>
-             namespace of the opensearch v1.1 elements
+            namespace of the opensearch v1.1 elements
             </summary>
         </member>
         <member name="F:Google.GData.Client.BaseNameTable.NSAtom">
@@ -4601,6 +4725,24 @@
         </member>
         <member name="F:Google.GData.Client.BaseNameTable.gBatchPrefix">
             <summary>prefix for gdata:batch if writing</summary> 
+        </member>
+        <member name="F:Google.GData.Client.BaseNameTable.gdErrors">
+            <summary>prefix for gd:errors</summary> 
+        </member>
+        <member name="F:Google.GData.Client.BaseNameTable.gdError">
+            <summary>prefix for gd:error</summary> 
+        </member>
+        <member name="F:Google.GData.Client.BaseNameTable.gdDomain">
+            <summary>prefix for gd:domain</summary> 
+        </member>
+        <member name="F:Google.GData.Client.BaseNameTable.gdCode">
+            <summary>prefix for gd:code</summary> 
+        </member>
+        <member name="F:Google.GData.Client.BaseNameTable.gdLocation">
+            <summary>prefix for gd:location</summary> 
+        </member>
+        <member name="F:Google.GData.Client.BaseNameTable.gdInternalReason">
+            <summary>prefix for gd:internalReason</summary> 
         </member>
         <member name="F:Google.GData.Client.BaseNameTable.gAppPublishingPrefix">
             <summary>prefix for appPublishing if writing</summary> 
@@ -4668,6 +4810,9 @@
         <member name="F:Google.GData.Client.BaseNameTable.XmlAttributeType">
             <summary>XmlAttribute for type in enums</summary> 
         </member>
+        <member name="F:Google.GData.Client.BaseNameTable.XmlAttributeKey">
+            <summary>XmlAttribute for key in enums</summary> 
+        </member>
         <member name="F:Google.GData.Client.BaseNameTable.atomNameTable">
             <summary>the nametable itself, based on XML core</summary> 
         </member>
@@ -4726,10 +4871,10 @@
             <summary>Read only accessor for BatchInterrupt</summary> 
         </member>
         <member name="P:Google.GData.Client.BaseNameTable.BatchContentType">
-            <summary>Read only accessor for BatchContentType</summary> 
+            <summary>Read only accessor for BatchContentType</summary>
         </member>
         <member name="P:Google.GData.Client.BaseNameTable.BatchStatusCode">
-            <summary>Read only accessor for BatchStatusCode</summary> 
+            <summary>Read only accessor for BatchStatusCode</summary>
         </member>
         <member name="P:Google.GData.Client.BaseNameTable.BatchErrors">
             <summary>Read only accessor for BatchErrors</summary> 
@@ -4759,13 +4904,13 @@
             <summary>Read only accessor for totalResults</summary> 
         </member>
         <member name="P:Google.GData.Client.BaseNameTable.StartIndex">
-            <summary>Read only accessor for startIndex</summary> 
+            <summary>Read only accessor for startIndex</summary>
         </member>
         <member name="P:Google.GData.Client.BaseNameTable.ItemsPerPage">
-            <summary>Read only accessor for itemsPerPage</summary> 
+            <summary>Read only accessor for itemsPerPage</summary>
         </member>
         <member name="P:Google.GData.Client.BaseNameTable.Parameter">
-            <summary>Read only accessor for parameter</summary> 
+            <summary>Read only accessor for parameter</summary>
         </member>
         <member name="P:Google.GData.Client.BaseNameTable.Base">
             <summary>Read only accessor for baseUri</summary> 
@@ -4774,7 +4919,7 @@
             <summary>Read only accessor for language</summary> 
         </member>
         <member name="P:Google.GData.Client.BaseNameTable.Value">
-            <summary>Read only accessor for value</summary> 
+            <summary>Read only accessor for value</summary>
         </member>
         <member name="P:Google.GData.Client.BaseNameTable.Type">
             <summary>Read only accessor for value</summary> 
@@ -5371,6 +5516,92 @@
             Returns the value corresponding to the key in the dictionary or null if the key is not present
             </summary>
         </member>
+        <member name="T:Google.GData.Client.OAuth2Parameters">
+            <summary>
+            Stores the parameters used to make OAuth 2.0 requests
+            </summary>
+        </member>
+        <member name="P:Google.GData.Client.OAuth2Parameters.AccessType">
+            <summary>
+            Valid values are:
+              * "offline" (default): token endpoint returns both an access and refresh token.
+              * "online": only an access token is returned by the token endpoint.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Client.OAuth2Parameters.ResponseType">
+            <summary>
+            Valid values are:
+              * "code" (default): retrieve a code to be exchanged for an acces token.
+              * "token": directly retrieve an access token from the auth endpoint.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Client.OAuth2Parameters.ApprovalPrompt">
+            <summary>
+            Valid values are:
+              * "auto" (default): only show the approval prompt if the user never approved.
+              * "force": always show the approval prompt.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.BatchError.#ctor">
+            <summary>
+            default constructor for gd:error
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.BatchError.Domain">
+            <summary>
+            returns the gd:domain
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.BatchError.Code">
+            <summary>
+            returns the gd:code
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.BatchError.Location">
+            <summary>
+            returns the gd:location
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.BatchError.InternalReason">
+            <summary>
+            returns the gd:internalReason
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.BatchError.Id">
+            <summary>
+            returns the id
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.BatchErrorDomain.#ctor">
+            <summary>
+            default constructor for gd:domain
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.BatchErrorCode.#ctor">
+            <summary>
+            default constructor for gd:code
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.BatchErrorLocation.#ctor">
+            <summary>
+            default constructor for gd:location
+            </summary>
+        </member>
+        <member name="P:Google.GData.Extensions.BatchErrorLocation.Type">
+            <summary>
+            Type property accessor
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.BatchErrorInternalReason.#ctor">
+            <summary>
+            default constructor for gd:internalReason
+            </summary>
+        </member>
+        <member name="M:Google.GData.Extensions.BatchErrorId.#ctor">
+            <summary>
+            default constructor for id
+            </summary>
+        </member>
         <member name="T:Google.GData.Client.AtomContentConverter">
             <summary>TypeConverter, so that AtomContentConverter shows up in the property pages
             </summary> 
@@ -5386,7 +5617,7 @@
             </summary> 
         </member>
         <member name="F:Google.GData.Client.AtomContent.type">
-            <summary>holds the  type attribute</summary> 
+            <summary>holds the type attribute</summary> 
         </member>
         <member name="F:Google.GData.Client.AtomContent.src">
             <summary>holds the src URI attribute</summary> 
@@ -5395,7 +5626,7 @@
             <summary>holds the content</summary> 
         </member>
         <member name="M:Google.GData.Client.AtomContent.#ctor">
-            <summary>default constructor. Set's the content type to text.</summary> 
+            <summary>default constructor. Sets the content type to text.</summary> 
         </member>
         <member name="M:Google.GData.Client.AtomContent.ShouldBePersisted">
             <summary>figures out if this object should be persisted</summary> 
@@ -5403,12 +5634,12 @@
         </member>
         <member name="M:Google.GData.Client.AtomContent.SaveXmlAttributes(System.Xml.XmlWriter)">
             <summary>overridden to save attributes for this(XmlWriter writer)</summary> 
-            <param name="writer">the xmlwriter to save into </param>
+            <param name="writer">the xmlwriter to save into</param>
         </member>
         <member name="M:Google.GData.Client.AtomContent.SaveInnerXml(System.Xml.XmlWriter)">
             <summary>saves the inner state of the element. Note that if the 
             content type is xhtml, no encoding will be done by this object</summary> 
-            <param name="writer">the xmlWriter to save into </param>
+            <param name="writer">the xmlWriter to save into</param>
         </member>
         <member name="P:Google.GData.Client.AtomContent.XmlName">
             <summary>Returns the constant representing this XML element.</summary> 
@@ -5427,6 +5658,12 @@
         <member name="P:Google.GData.Client.AtomContent.Content">
             <summary>accessor method public string Content</summary> 
             <returns> </returns>
+        </member>
+        <member name="P:Google.GData.Client.AtomContent.BatchErrors">
+            <summary>
+            gd:errors element
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:Google.GData.Client.AbstractEntry">
             <summary>
@@ -5501,7 +5738,7 @@
         </member>
         <member name="T:Google.GData.Client.Utilities">
             <summary>String utilities
-            </summary> 
+            </summary>
         </member>
         <member name="F:Google.GData.Client.Utilities.XSDTrue">
             <summary>
@@ -5552,7 +5789,7 @@
             <returns>the string representation</returns>
         </member>
         <member name="M:Google.GData.Client.Utilities.EncodeString(System.String)">
-            <summary>helper to read in a string and Encode it</summary> 
+            <summary>helper to read in a string and encode it</summary> 
             <param name="content">the xmlreader string</param>
             <returns>UTF8 encoded string</returns>
         </member>
@@ -5592,14 +5829,14 @@
         </member>
         <member name="M:Google.GData.Client.Utilities.IsWeakETag(System.String)">
             <summary>
-             tests an etag for weakness. returns TRUE for weak etags and for null strings
+            tests an etag for weakness. returns TRUE for weak etags and for null strings
             </summary>
             <param name="eTag"></param>
             <returns></returns>
         </member>
         <member name="M:Google.GData.Client.Utilities.IsWeakETag(Google.GData.Client.ISupportsEtag)">
             <summary>
-             tests an etag for weakness. returns TRUE for weak etags and for null strings
+            tests an etag for weakness. returns TRUE for weak etags and for null strings
             </summary>
             <param name="ise">the element that supports an etag</param>
             <returns></returns>
@@ -5666,8 +5903,8 @@
         </member>
         <member name="M:Google.GData.Client.Utilities.FindToken(Google.GData.Client.TokenCollection,System.String)">
             <summary>searches tokenCollection for a specific NEXT value. 
-             The collection is assume to be a key/value pair list, so if A,B,C,D is the list
-              A and C are keys, B and  D are values
+            The collection is assume to be a key/value pair list, so if A,B,C,D is the list
+            A and C are keys, B and  D are values
             </summary> 
             <param name="tokens">the TokenCollection to search</param>
             <param name="key">the key to search for</param>
@@ -5675,10 +5912,10 @@
         </member>
         <member name="M:Google.GData.Client.Utilities.ParseStreamInTokenCollection(System.IO.Stream)">
             <summary>converts a form response stream to a TokenCollection,
-             by parsing the contents of the stream for newlines and equal signs
-             the input stream is assumed to be an ascii encoded form resonse
+            by parsing the contents of the stream for newlines and equal signs
+            the input stream is assumed to be an ascii encoded form resonse
             </summary> 
-             <param name="inputStream">the stream to read and parse</param>
+            <param name="inputStream">the stream to read and parse</param>
             <returns> the resulting TokenCollection </returns>
         </member>
         <member name="M:Google.GData.Client.Utilities.ParseValueFormStream(System.IO.Stream,System.String)">
@@ -5770,9 +6007,9 @@
             <summary>returns a blank emptyDate. That's the default for an empty string date</summary> 
         </member>
         <member name="T:Google.GData.Client.TokenCollection">
-            <summary>standard string tokenizer class. Pretty much cut/copy/paste out of 
-            MSDN. 
-            </summary> 
+            <summary>
+            standard string tokenizer class. Pretty much cut/copy/paste out of MSDN. 
+            </summary>
         </member>
         <member name="M:Google.GData.Client.TokenCollection.#ctor(System.String,System.Char[])">
             <summary>Constructor, takes a string and a delimiter set</summary> 
@@ -5847,7 +6084,7 @@
             <returns> </returns>
         </member>
         <member name="P:Google.GData.Client.ServiceEventArgs.Service">
-            <summary>the service to be used for the feed to be created. </summary> 
+            <summary>the service to be used for the feed to be created.</summary> 
             <returns> </returns>
         </member>
         <member name="P:Google.GData.Client.ServiceEventArgs.Uri">
@@ -6012,6 +6249,41 @@
             Token and TokenSecret.
             </summary>
             <param name="parameters">The OAuth parameters</param>
+        </member>
+        <member name="M:Google.GData.Client.OAuthUtil.CreateOAuth2AuthorizationUrl(Google.GData.Client.OAuth2Parameters)">
+            <summary>
+            Generates the url which the user should visit in order to authenticate and
+            authorize with the Service Provider.
+            When successful, updates the OAuth2Parameters instance passed as parameter by setting
+            the returned access code.
+            </summary>
+            <param name="parameters">The OAuth 2.0 parameters</param>
+            <returns>The full authorization url the user should visit</returns>
+        </member>
+        <member name="M:Google.GData.Client.OAuthUtil.GetAccessToken(System.String,Google.GData.Client.OAuth2Parameters)">
+            <summary>
+            Exchanges the user-authorized request token for an OAuth 2.0 access token.
+            When successful, updates the OAuthParameter instance passed as parameter by setting
+            AccessToken, RefreshToken and TokenExpiry.
+            </summary>
+            <param name="queryString">The query string containing the access code</param>
+            <param name="parameters">The OAuth 2.0 parameters</param>
+        </member>
+        <member name="M:Google.GData.Client.OAuthUtil.GetAccessToken(Google.GData.Client.OAuth2Parameters)">
+            <summary>
+            Exchanges the user-authorized request token for an OAuth 2.0 access token.
+            When successful, updates the OAuthParameter instance passed as parameter by setting
+            AccessToken, RefreshToken and TokenExpiry.
+            </summary>
+            <param name="parameters">The OAuth 2.0 parameters</param>
+        </member>
+        <member name="M:Google.GData.Client.OAuthUtil.RefreshAccessToken(Google.GData.Client.OAuth2Parameters)">
+            <summary>
+            Refresh the OAuth 2.0 access token.
+            When successful, updates the OAuthParameter instance passed as parameter by setting
+            AccessToken, RefreshToken and TokenExpiry.
+            </summary>
+            <param name="parameters">The OAuth 2.0 parameters</param>
         </member>
         <member name="T:Google.GData.Client.GDataBatchOperationType">
             <summary>enum to define the GDataBatchOperationType...</summary> 
@@ -6333,7 +6605,8 @@
             </summary>
         </member>
         <member name="T:Google.GData.Client.Feed`1">
-            <summary>a generic Feed class
+            <summary>
+            a generic Feed class
             </summary>
         </member>
         <member name="M:Google.GData.Client.Feed`1.#ctor(Google.GData.Client.AtomFeed)">
@@ -6382,7 +6655,7 @@
         </member>
         <member name="P:Google.GData.Client.Feed`1.Maximum">
             <summary>
-            the maxium number of entries to be retrieved. This is normally
+            the maximum number of entries to be retrieved. This is normally
             setup using the RequestSettings when the feed is constructed.
             </summary>
             <returns></returns>
@@ -6394,30 +6667,30 @@
             </summary>
         </member>
         <member name="P:Google.GData.Client.Feed`1.Entries">
-                    <summary>
-                     returns the initial list of entries.This page is the data
-                     you got from the Requestobject and will remain constant.
-                     Unless you set AutoPaging to true, in that case:
-                     This will go back to the server and fetch data again if
-                     needed. Example. If you pagesize is 30, you get an initial set of
-                     30 entries. While enumerating, when reaching 30, the code will go
-                     to the server and get the next 30 rows. It will continue to do so
-                     until the server reports no more rows available.
-                     Note that you should cache the entries returned in a list of your own
-                     if you want to access them more than once, as this one does no caching on
-                     it's own.
-                     </summary>
-                      <example>
-                             The following code illustrates a possible use of
-                             the <c>Entries</c> property:
-                             <code>
-                               YouTubeRequestSettings settings = new YouTubeRequestSettings("yourApp", "yourClient", "yourKey", "username", "pwd");
-                               YouTubeRequest f = new YouTubeRequest(settings);
-                               Feed&lt;Playlist&gt; feed = f.GetPlaylistsFeed(null);
-                               foreach (Vidoe v in feed.Entries)
-                             </code>
-                         </example>
-                     <returns></returns>
+            <summary>
+            returns the initial list of entries.This page is the data
+            you got from the Requestobject and will remain constant.
+            Unless you set AutoPaging to true, in that case:
+            This will go back to the server and fetch data again if
+            needed. Example. If you pagesize is 30, you get an initial set of
+            30 entries. While enumerating, when reaching 30, the code will go
+            to the server and get the next 30 rows. It will continue to do so
+            until the server reports no more rows available.
+            Note that you should cache the entries returned in a list of your own
+            if you want to access them more than once, as this one does no caching on
+            it's own.
+            </summary>
+            <example>
+            The following code illustrates a possible use of
+            the <c>Entries</c> property:
+            <code>
+            YouTubeRequestSettings settings = new YouTubeRequestSettings("yourApp", "yourClient", "yourKey", "username", "pwd");
+            YouTubeRequest f = new YouTubeRequest(settings);
+            Feed&lt;Playlist&gt; feed = f.GetPlaylistsFeed(null);
+            foreach (Vidoe v in feed.Entries)
+            </code>
+            </example>
+            <returns></returns>
         </member>
         <member name="T:Google.GData.Client.Entry">
             <summary>
@@ -6433,7 +6706,9 @@
             <returns></returns>
         </member>
         <member name="M:Google.GData.Client.Entry.ToString">
-            <summary>override for ToString, returns the Entries Title</summary>
+            <summary>
+            override for ToString, returns the Entries Title
+            </summary>
         </member>
         <member name="M:Google.GData.Client.Entry.EnsureInnerObject">
             <summary>
@@ -6443,7 +6718,7 @@
         </member>
         <member name="P:Google.GData.Client.Entry.AtomEntry">
             <summary>
-             the original AtomEntry object that this object is standing in for
+            the original AtomEntry object that this object is standing in for
             </summary>
             <returns></returns>
         </member>
@@ -6522,7 +6797,8 @@
             <returns> </returns>
         </member>
         <member name="P:Google.GData.Client.Entry.ETag">
-            <summary>access the associated media element. Note, that setting this
+            <summary>
+            access the associated media element. Note, that setting this
             WILL cause subsequent updates to be done using MIME multipart posts
             </summary>
             <returns> </returns>
@@ -6544,7 +6820,7 @@
         </member>
         <member name="M:Google.GData.Client.RequestSettings.#ctor(System.String,System.String,System.String)">
             <summary>
-             a constructor for client login use cases
+            a constructor for client login use cases
             </summary>
             <param name="applicationName">The name of the application</param>
             <param name="userName">the user name</param>
@@ -6553,7 +6829,7 @@
         </member>
         <member name="M:Google.GData.Client.RequestSettings.#ctor(System.String,System.String,System.String,System.String,System.String)">
             <summary>
-             a constructor for OpenAuthentication login use cases
+            a constructor for OpenAuthentication login use cases
             </summary>
             <param name="applicationName">The name of the application</param>
             <param name="consumerKey">the consumerKey to use</param>
@@ -6564,7 +6840,7 @@
         </member>
         <member name="M:Google.GData.Client.RequestSettings.#ctor(System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
             <summary>
-             a constructor for OpenAuthentication login use cases using 2 or 3 legged oAuth
+            a constructor for OpenAuthentication login use cases using 2 or 3-legged OAuth
             </summary>
             <param name="applicationName">The name of the application</param>
             <param name="consumerKey">the consumerKey to use</param>
@@ -6577,7 +6853,7 @@
         </member>
         <member name="M:Google.GData.Client.RequestSettings.#ctor(System.String,Google.GData.Client.GDataCredentials)">
             <summary>
-             a constructor for client login use cases
+            a constructor for client login use cases
             </summary>
             <param name="applicationName">The name of the application</param>
             <param name="credentials">the user credentials</param>
@@ -6600,6 +6876,7 @@
             <param name="privateKey"></param>
             <returns></returns>
         </member>
+        <!-- Badly formed XML comment ignored for member "M:Google.GData.Client.RequestSettings.#ctor(System.String,Google.GData.Client.OAuth2Parameters)" -->
         <member name="M:Google.GData.Client.RequestSettings.CreateHttpWebRequest(System.String,System.String,System.Uri)">
              <summary>
              Creates a HttpWebRequest object that can be used against a given service.
@@ -6652,13 +6929,13 @@
         </member>
         <member name="P:Google.GData.Client.RequestSettings.Token">
             <summary>
-            returns the Token for oAuth
+            returns the Token for OAuth
             </summary>
             <returns></returns>
         </member>
         <member name="P:Google.GData.Client.RequestSettings.TokenSecret">
             <summary>
-            returns the TokenSecret for oAuth
+            returns the TokenSecret for OAuth
             </summary>
             <returns></returns>
         </member>
@@ -6693,28 +6970,27 @@
             <returns></returns>
         </member>
         <member name="P:Google.GData.Client.RequestSettings.AutoPaging">
-             <summary>
-             AutoPaging specifies if a feed iterator should return to the server to fetch more data
-             automatically. If set to false, a loop over feed.Entries will stop when the currently
-             fetched set of data reaches it's end.  This is false by default. <seealso cref="P:Google.GData.Client.RequestSettings.Maximum"/>
-            
-             </summary>
-              <example>
-                     The following code illustrates a possible use of
-                      the <c>AutoPaging</c> property:
-                      <code>
-                       YouTubeRequestSettings settings = new YouTubeRequestSettings("yourApp", "yourClient", "yourKey", "username", "pwd");
-                        settings.AutoPaging = true;
-              </code>
-              </example>
-             <returns></returns>
+            <summary>
+            AutoPaging specifies if a feed iterator should return to the server to fetch more data
+            automatically. If set to false, a loop over feed.Entries will stop when the currently
+            fetched set of data reaches it's end.  This is false by default. <seealso cref="P:Google.GData.Client.RequestSettings.Maximum"/>
+            </summary>
+             <example>
+                    The following code illustrates a possible use of
+                     the <c>AutoPaging</c> property:
+                     <code>
+                      YouTubeRequestSettings settings = new YouTubeRequestSettings("yourApp", "yourClient", "yourKey", "username", "pwd");
+                       settings.AutoPaging = true;
+             </code>
+             </example>
+            <returns></returns>
         </member>
         <member name="P:Google.GData.Client.RequestSettings.Maximum">
             <summary>
             the Maximum specifies how many entries should be retrieved in total. This works together with
             <seealso cref="P:Google.GData.Client.RequestSettings.AutoPaging"/>. If set, AutoPaging of a feed will stop when the
-            specified amount of entries was iterated over. If Maximum is smaller than  PageSize (<seealso cref="P:Google.GData.Client.RequestSettings.PageSize"/>),
-             an exception is thrown. The default is -1 (ignored).
+            specified amount of entries was iterated over. If Maximum is smaller than PageSize (<seealso cref="P:Google.GData.Client.RequestSettings.PageSize"/>),
+            an exception is thrown. The default is -1 (ignored).
             </summary>
              <example>
                     The following code illustrates a possible use of
@@ -6759,7 +7035,8 @@
             <returns></returns>
         </member>
         <member name="P:Google.GData.Client.RequestSettings.ClientLoginHandler">
-            <summary>ClientLoginHandler - this is the URI that is used to
+            <summary>
+            ClientLoginHandler - this is the URI that is used to
             retrieve a client login authentication token
             </summary>
             <returns> </returns>
@@ -6958,13 +7235,13 @@
         <!-- Badly formed XML comment ignored for member "M:Google.GData.Client.FeedRequest`1.Retrieve``1(Google.GData.Client.FeedQuery)" -->
         <member name="M:Google.GData.Client.FeedRequest`1.Update``1(``0)">
             <summary>
-             sends the data back to the server.
+            sends the data back to the server.
             </summary>
             <returns>the reflected entry from the server if any given</returns>
         </member>
         <member name="M:Google.GData.Client.FeedRequest`1.Delete``1(``0)">
             <summary>
-             deletes the Entry from the Server
+            deletes the Entry from the Server
             </summary>
         </member>
         <member name="M:Google.GData.Client.FeedRequest`1.Insert``1(System.Uri,``0)">
@@ -6986,10 +7263,8 @@
             <returns></returns>
         </member>
         <member name="P:Google.GData.Client.FeedRequest`1.AtomService">
-             <summary>
-            
-             </summary>
-             <returns></returns>
+            <summary></summary>
+            <returns></returns>
         </member>
         <member name="P:Google.GData.Client.FeedRequest`1.Service">
             <summary>
@@ -7198,7 +7473,7 @@
         </member>
         <member name="M:Google.GData.Client.ResumableUpload.ResumableUploader.QueryStatus(Google.GData.Client.Authenticator,System.Uri)">
             <summary>
-             askes the server about the current status
+            asks the server about the current status
             </summary>
             <param name="authentication"></param>
             <param name="targetUri"></param>
@@ -7206,7 +7481,7 @@
         </member>
         <member name="M:Google.GData.Client.ResumableUpload.ResumableUploader.AsyncInsertWorker(Google.GData.Client.ResumableUpload.AsyncResumableUploadData,System.ComponentModel.AsyncOperation,System.Threading.SendOrPostCallback)">
             <summary>
-             worker method for the the resumable insert
+            worker method for the the resumable insert
             </summary>
             <param name="data"></param>
             <param name="asyncOp"></param>
@@ -7215,7 +7490,7 @@
         </member>
         <member name="M:Google.GData.Client.ResumableUpload.ResumableUploader.Update(Google.GData.Client.Authenticator,Google.GData.Client.AbstractEntry)">
             <summary>
-            Uploads an entry, including it's media to the uri given inside the entry
+            Uploads an entry, including its media to the uri given inside the entry
             </summary>
             <param name="resumableUploadUri"></param>
             <param name="authentication">The authentication information to be used</param>
@@ -7261,8 +7536,10 @@
             <param name="mediaType"></param>
         </member>
         <member name="M:Google.GData.Client.ResumableUpload.ResumableUploader.CopyData(System.IO.Stream,System.Net.HttpWebRequest,System.Int32,Google.GData.Client.AsyncData,System.Uri)">
-            <summary>takes our copy of the stream, and puts it into the request stream
-            returns FALSE when we are done by reaching the end of the input stream</summary> 
+            <summary>
+            takes our copy of the stream, and puts it into the request stream
+            returns FALSE when we are done by reaching the end of the input stream
+            </summary> 
         </member>
         <member name="M:Google.GData.Client.ResumableUpload.ResumableUploader.InitiateUpload(System.Uri,Google.GData.Client.Authenticator,System.String,System.String,System.Int64)">
             <summary>
@@ -7346,7 +7623,7 @@
             </summary> 
         </member>
         <member name="F:Google.GData.Client.GoogleAuthentication.AccountPrefix">
-             <summary>account prefix path </summary>
+            <summary>account prefix path </summary>
         </member>
         <member name="F:Google.GData.Client.GoogleAuthentication.DefaultProtocol">
             <summary>protocol</summary>
@@ -8247,37 +8524,57 @@
             <param name="msg"> msg string to display</param>
         </member>
         <member name="T:Google.GData.Client.GAuthSubRequestFactory">
-            <summary> GDataAuthSubRequestFactory implementation</summary> 
+            <summary>
+            GDataAuthSubRequestFactory implementation
+            </summary>
         </member>
         <member name="F:Google.GData.Client.GAuthSubRequestFactory.privateKey">
             holds the private key that is used to sign the requests
         </member>
         <member name="M:Google.GData.Client.GAuthSubRequestFactory.#ctor(System.String,System.String)">
-            <summary>default constructor</summary> 
+            <summary>
+            default constructor
+            </summary>
         </member>
         <member name="M:Google.GData.Client.GAuthSubRequestFactory.CreateRequest(Google.GData.Client.GDataRequestType,System.Uri)">
-            <summary>default constructor</summary> 
+            <summary>
+            default constructor
+            </summary>
         </member>
         <member name="P:Google.GData.Client.GAuthSubRequestFactory.Token">
-            <summary>accessor method public string Token</summary> 
-            <returns>the string token for the authsub request </returns>
+            <summary>
+            accessor method public string Token
+            </summary>
+            <returns>
+            the string token for the authsub request
+            </returns>
         </member>
         <member name="P:Google.GData.Client.GAuthSubRequestFactory.PrivateKey">
-            <summary>accessor method public AsymmetricAlgorithm PrivateKey</summary> 
-            <returns>the private Key used for the authsub request </returns>
+            <summary>
+            accessor method public AsymmetricAlgorithm PrivateKey
+            </summary>
+            <returns>
+            the private Key used for the authsub request
+            </returns>
         </member>
         <member name="T:Google.GData.Client.GAuthSubRequest">
-            <summary>base GDataRequest implementation</summary> 
+            <summary>
+            base GDataRequest implementation
+            </summary>
         </member>
         <member name="F:Google.GData.Client.GAuthSubRequest.factory">
             <summary>holds the factory instance</summary> 
         </member>
         <member name="M:Google.GData.Client.GAuthSubRequest.#ctor(Google.GData.Client.GDataRequestType,System.Uri,Google.GData.Client.GAuthSubRequestFactory)">
-            <summary>default constructor</summary> 
+            <summary>
+            default constructor
+            </summary>
         </member>
         <member name="M:Google.GData.Client.GAuthSubRequest.EnsureCredentials">
-            <summary>sets up the correct credentials for this call, pending 
-            security scheme</summary> 
+            <summary>
+            sets up the correct credentials for this call, pending 
+            security scheme
+            </summary>
         </member>
     </members>
 </doc>

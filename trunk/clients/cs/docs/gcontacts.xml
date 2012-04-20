@@ -14,13 +14,13 @@
             </summary>
         </member>
         <member name="F:Google.GData.Contacts.ContactsService.GContactService">
-            <summary>The Calendar service's name</summary> 
+            <summary>The Calendar service name</summary> 
         </member>
         <member name="M:Google.GData.Contacts.ContactsService.#ctor(System.String)">
             <summary>
-             default constructor
+            default constructor
             </summary>
-            <param name="applicationName">the applicationname</param>
+            <param name="applicationName">the application name</param>
         </member>
         <member name="M:Google.GData.Contacts.ContactsService.Query(Google.GData.Contacts.ContactsQuery)">
             <summary>
@@ -85,7 +85,7 @@
             </summary>
         </member>
         <member name="F:Google.GData.Contacts.ContactEntry.CONTACT_CATEGORY">
-            <summary>`
+            <summary>
             Category used to label entries that contain contact extension data.
             </summary>
         </member>
@@ -109,28 +109,28 @@
         </member>
         <member name="P:Google.GData.Contacts.ContactEntry.PrimaryEmail">
             <summary>
-            convienience accessor to find the primary Email
+            convenience accessor to find the primary Email
             there is no setter, to change this use the Primary Flag on
             an individual object
             </summary>
         </member>
         <member name="P:Google.GData.Contacts.ContactEntry.PrimaryPhonenumber">
             <summary>
-            convienience accessor to find the primary Phonenumber
+            convenience accessor to find the primary Phonenumber
             there is no setter, to change this use the Primary Flag on
             an individual object
             </summary>
         </member>
         <member name="P:Google.GData.Contacts.ContactEntry.PrimaryPostalAddress">
             <summary>
-            convienience accessor to find the primary PostalAddress
+            convenience accessor to find the primary PostalAddress
             there is no setter, to change this use the Primary Flag on
             an individual object
             </summary>
         </member>
         <member name="P:Google.GData.Contacts.ContactEntry.PrimaryIMAddress">
             <summary>
-            convienience accessor to find the primary IMAddress
+            convenience accessor to find the primary IMAddress
             there is no setter, to change this use the Primary Flag on
             an individual object
             </summary>
@@ -228,12 +228,12 @@
         </member>
         <member name="P:Google.GData.Contacts.ContactEntry.Name">
             <summary>
-             returns the Name object
+            returns the Name object
             </summary>
         </member>
         <member name="P:Google.GData.Contacts.ContactEntry.BillingInformation">
             <summary>
-            Contacts billing information.
+            Contact billing information.
             </summary>
             <returns></returns>
         </member>
@@ -251,7 +251,7 @@
         </member>
         <member name="P:Google.GData.Contacts.ContactEntry.Initials">
             <summary>
-            Contacts initals
+            Contact's initals
             </summary>
             <returns></returns>
         </member>
@@ -281,13 +281,13 @@
         </member>
         <member name="P:Google.GData.Contacts.ContactEntry.Priority">
             <summary>
-            Priority ascribed to the contact.
+            Priority associated with the contact.
             </summary>
             <returns></returns>
         </member>
         <member name="P:Google.GData.Contacts.ContactEntry.Sensitivity">
             <summary>
-            Sensitivity ascribed to the contact.
+            Sensitivity associated with the contact.
             </summary>
             <returns></returns>
         </member>
@@ -334,7 +334,7 @@
             <summary>
              default constructor with user name
             </summary>
-            <param name="userName">the username for the contacts feed</param>
+            <param name="username">the username for the contacts feed</param>
             <param name="iService">the Service to use</param>
         </member>
         <member name="M:Google.GData.Contacts.ContactsFeed.CreateFeedEntry">
@@ -345,7 +345,7 @@
         </member>
         <member name="M:Google.GData.Contacts.ContactsFeed.HandleExtensionElements(Google.GData.Client.ExtensionElementEventArgs,Google.GData.Client.AtomFeedParser)">
             <summary>
-            get's called after we already handled the custom entry, to handle all 
+            gets called after we already handled the custom entry, to handle all 
             other potential parsing tasks
             </summary>
             <param name="e"></param>
@@ -376,7 +376,7 @@
             <summary>
              default constructor with user name
             </summary>
-            <param name="userName">the username for the contacts feed</param>
+            <param name="username">the username for the contacts feed</param>
             <param name="iService">the Service to use</param>
         </member>
         <member name="M:Google.GData.Contacts.GroupsFeed.CreateFeedEntry">
@@ -387,7 +387,7 @@
         </member>
         <member name="M:Google.GData.Contacts.GroupsFeed.HandleExtensionElements(Google.GData.Client.ExtensionElementEventArgs,Google.GData.Client.AtomFeedParser)">
             <summary>
-            get's called after we already handled the custom entry, to handle all 
+            gets called after we already handled the custom entry, to handle all 
             other potential parsing tasks
             </summary>
             <param name="e"></param>
@@ -563,7 +563,7 @@
             The group is referenced by its id.</summary>
         </member>
         <member name="P:Google.GData.Contacts.GroupMembership.Deleted">
-            <summary>Means, that the group membership was removed for the contact.
+            <summary>Means that the group membership was removed for the contact.
             This attribute will only be included if showdeleted is specified
             as query parameter, otherwise groupMembershipInfo for groups a contact
             does not belong to anymore is simply not returned.</summary>
@@ -805,11 +805,11 @@
             <param name="initValue"/>
         </member>
         <member name="P:Google.GData.Contacts.Language.Label">
-            <summary>A freeform name of a language. Must not be empty or all whitespace..</summary>
+            <summary>A freeform name of a language. Must not be empty or all whitespace.</summary>
             <returns> </returns>
         </member>
         <member name="P:Google.GData.Contacts.Language.Code">
-            <summary>A language code conforming to the IETF BCP 47 specification. .</summary>
+            <summary>A language code conforming to the IETF BCP 47 specification.</summary>
             <returns> </returns>
         </member>
         <member name="T:Google.GData.Contacts.MaidenName">
@@ -1069,17 +1069,17 @@
         </member>
         <member name="F:Google.GData.Contacts.GroupsQuery.OrderByLastModified">
             <summary>
-            sortoder value for sorting by lastmodified
+            sort oder value for sorting by lastmodified
             </summary>
         </member>
         <member name="F:Google.GData.Contacts.GroupsQuery.SortOrderAscending">
             <summary>
-            sortoder value for sorting ascending
+            sort oder value for sorting ascending
             </summary>
         </member>
         <member name="F:Google.GData.Contacts.GroupsQuery.SortOrderDescending">
             <summary>
-            sortoder value for sorting descending
+            sort oder value for sorting descending
             </summary>
         </member>
         <member name="F:Google.GData.Contacts.GroupsQuery.baseProjection">
@@ -1115,7 +1115,7 @@
         </member>
         <member name="M:Google.GData.Contacts.GroupsQuery.CreateGroupsUri(System.String)">
             <summary>
-            convienience method to create an URI based on a userID for a groups feed
+            convenience method to create an URI based on a userID for a groups feed
             this returns a FULL projection by default
             </summary>
             <param name="userID"></param>
@@ -1123,7 +1123,7 @@
         </member>
         <member name="M:Google.GData.Contacts.GroupsQuery.CreateGroupsUri(System.String,System.String)">
             <summary>
-            convienience method to create an URI based on a userID for a groups feed
+            convenience method to create an URI based on a userID for a groups feed
             </summary>
             <param name="userID">if the parameter is NULL, uses the default user</param>
             <param name="projection">the projection to use</param>
@@ -1157,10 +1157,10 @@
         <member name="P:Google.GData.Contacts.GroupsQuery.ShowDeleted">
             <summary>Include deleted contacts in the returned contacts feed. 
             Deleted contacts are shown as entries that contain nothing but
-             an atom:id element and a gd:deleted element. (Google retains placeholders 
+            an atom:id element and a gd:deleted element. (Google retains placeholders 
             for deleted contacts for 30 days after deletion; during that time, 
             you can request the placeholders using the showdeleted query
-             parameter.) Valid values are true or false.</summary> 
+            parameter.) Valid values are true or false.</summary> 
             <returns> </returns>
         </member>
         <member name="T:Google.GData.Contacts.ContactsQuery">
@@ -1211,7 +1211,7 @@
         </member>
         <member name="M:Google.GData.Contacts.ContactsQuery.CreateContactsUri(System.String)">
             <summary>
-            convienience method to create an URI based on a userID for a contacts feed
+            convenience method to create an URI based on a userID for a contacts feed
             this returns a FULL projection by default
             </summary>
             <param name="userID">if the parameter is NULL, uses the default user</param>
@@ -1219,7 +1219,7 @@
         </member>
         <member name="M:Google.GData.Contacts.ContactsQuery.CreateContactsUri(System.String,System.String)">
             <summary>
-            convienience method to create an URI based on a userID for a contacts feed
+            convenience method to create an URI based on a userID for a contacts feed
             this returns a FULL projection by default
             </summary>
             <param name="userID">if the parameter is NULL, uses the default user</param>
@@ -1261,7 +1261,7 @@
         </member>
         <member name="T:Google.Contacts.Contact">
             <summary>
-            the Comment entry for a Comments Feed, a feed of Comment for YouTube
+            the Contact entry for a Contacts Feed
             </summary>
         </member>
         <member name="M:Google.Contacts.Contact.EnsureInnerObject">
@@ -1278,28 +1278,28 @@
         </member>
         <member name="P:Google.Contacts.Contact.PrimaryEmail">
             <summary>
-            convienience accessor to find the primary Email
+            convenience accessor to find the primary Email
             there is no setter, to change this use the Primary Flag on 
             an individual object
             </summary>
         </member>
         <member name="P:Google.Contacts.Contact.PrimaryPhonenumber">
             <summary>
-            convienience accessor to find the primary Phonenumber
+            convenience accessor to find the primary Phonenumber
             there is no setter, to change this use the Primary Flag on 
             an individual object
             </summary>
         </member>
         <member name="P:Google.Contacts.Contact.PrimaryPostalAddress">
             <summary>
-            convienience accessor to find the primary PostalAddress
+            convenience accessor to find the primary PostalAddress
             there is no setter, to change this use the Primary Flag on 
             an individual object
             </summary>
         </member>
         <member name="P:Google.Contacts.Contact.PrimaryIMAddress">
             <summary>
-            convienience accessor to find the primary IMAddress
+            convenience accessor to find the primary IMAddress
             there is no setter, to change this use the Primary Flag on 
             an individual object
             </summary>
@@ -1322,17 +1322,22 @@
         </member>
         <member name="P:Google.Contacts.Contact.Phonenumbers">
             <summary>
-            returns the phonenumber collection
+            returns the phone number collection
             </summary>
         </member>
         <member name="P:Google.Contacts.Contact.PostalAddresses">
             <summary>
-            returns the phonenumber collection
+            returns the postal address collection
             </summary>
         </member>
         <member name="P:Google.Contacts.Contact.Organizations">
             <summary>
-            returns the phonenumber collection
+            returns the organization collection
+            </summary>
+        </member>
+        <member name="P:Google.Contacts.Contact.Languages">
+            <summary>
+            returns the language collection
             </summary>
         </member>
         <member name="P:Google.Contacts.Contact.PhotoUri">
@@ -1424,39 +1429,39 @@
             <summary>
             returns a Feed of contacts for the default user
             </summary>
-            <returns>a feed of Videos</returns>
+            <returns>a feed of Contacts</returns>
         </member>
         <member name="M:Google.Contacts.ContactsRequest.GetContacts(System.String)">
             <summary>
             returns a Feed of contacts for the given user
             </summary>
             <param name="user">the username</param>
-            <returns>a feed of Videos</returns>
+            <returns>a feed of Contacts</returns>
         </member>
         <member name="M:Google.Contacts.ContactsRequest.GetGroups">
             <summary>
-             returns a feed of Groups for the default user
+            returns a feed of Groups for the default user
             </summary>
-            <returns>a feed of Videos</returns>
+            <returns>a feed of Groups</returns>
         </member>
         <member name="M:Google.Contacts.ContactsRequest.GetGroups(System.String)">
             <summary>
              returns a feed of Groups for the given user
             </summary>
             <param name="user">the user for whom to retrieve the feed</param>
-            <returns>a feed of Videos</returns>
+            <returns>a feed of Groups</returns>
         </member>
         <member name="M:Google.Contacts.ContactsRequest.GetPhoto(Google.Contacts.Contact)">
             <summary>
             returns the photo stream for a given contact. If there is no photo,
             the 404 is catched and null is returned.
             </summary>
-            <param name="c">the contact that you want to get the photo off</param>
+            <param name="c">the contact that you want to get the photo of</param>
             <returns></returns>
         </member>
         <member name="M:Google.Contacts.ContactsRequest.SetPhoto(Google.Contacts.Contact,System.IO.Stream)">
             <summary>
-            set's the photo of a given contact entry
+            sets the photo of a given contact entry
             </summary>
             <param name="c">the contact that should be modified</param>
             <param name="photoStream">a stream to an JPG image</param>
@@ -1464,11 +1469,11 @@
         </member>
         <member name="M:Google.Contacts.ContactsRequest.SetPhoto(Google.Contacts.Contact,System.IO.Stream,System.String)">
             <summary>
-            set's the photo of a given contact entry
+            sets the photo of a given contact entry
             </summary>
             <param name="c">the contact that should be modified</param>
             <param name="photoStream">a stream to an JPG image</param>
-            <param name="mimeType">specifies the type of the image, like image/jpg</param>
+            <param name="mimeType">specifies the MIME type of the image, e.g. image/jpg</param>
             <returns></returns>
         </member>
         <member name="T:Google.GData.Contacts.GroupEntry">
@@ -1482,7 +1487,7 @@
             </summary>
         </member>
         <member name="F:Google.GData.Contacts.GroupEntry.GROUP_CATEGORY">
-            <summary>`
+            <summary>
             Category used to label entries that contain contact extension data.
             </summary>
         </member>

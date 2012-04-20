@@ -304,7 +304,7 @@
         </member>
         <member name="M:Google.GData.Extensions.LastModifiedBy.#ctor">
             <summary>
-            default constructor for media:group
+            default constructor
             </summary>
         </member>
         <member name="P:Google.GData.Extensions.LastModifiedBy.Name">
@@ -321,7 +321,7 @@
         </member>
         <member name="T:Google.GData.Extensions.LastModifiedByName">
             <summary>
-            simple subclass to hold the name subportion for the lastmodifed container
+            simple subclass to hold the name subportion for the lastmodified container
             </summary>
         </member>
         <member name="M:Google.GData.Extensions.LastModifiedByName.#ctor">
@@ -331,7 +331,7 @@
         </member>
         <member name="T:Google.GData.Extensions.LastModifiedByEMail">
             <summary>
-            simple sublcass to hold the email subportion of the lastmodified container
+            simple subclass to hold the email subportion of the lastmodified container
             </summary>
         </member>
         <member name="M:Google.GData.Extensions.LastModifiedByEMail.#ctor">
@@ -1144,16 +1144,6 @@
             Category term for a nickname entry.
             </summary>
         </member>
-        <member name="F:Google.GData.Extensions.Apps.AppsNameTable.EmailList">
-            <summary>
-            Category term for an email list entry.
-            </summary>
-        </member>
-        <member name="F:Google.GData.Extensions.Apps.AppsNameTable.EmailListRecipient">
-            <summary>
-            Category term for an email list recipient entry.
-            </summary>
-        </member>
         <member name="F:Google.GData.Extensions.Apps.AppsNameTable.AppsLogin">
             <summary>
             XML element name for user login information.
@@ -1197,16 +1187,6 @@
         <member name="F:Google.GData.Extensions.Apps.AppsNameTable.AppsLoginChangePasswordAtNextLogin">
             <summary>
             XML attribute for the changePasswordAtNextLogin flag of a login element.
-            </summary>
-        </member>
-        <member name="F:Google.GData.Extensions.Apps.AppsNameTable.AppsEmailList">
-            <summary>
-            XML element name for email list data.
-            </summary>
-        </member>
-        <member name="F:Google.GData.Extensions.Apps.AppsNameTable.AppsEmailListName">
-            <summary>
-            XML attribute for the name of an email list.
             </summary>
         </member>
         <member name="F:Google.GData.Extensions.Apps.AppsNameTable.AppsNickname">
@@ -1330,6 +1310,11 @@
             Name table for Google Apps extensions specific to the Groups Provisioning
             </summary>
         </member>
+        <member name="T:Google.GData.Extensions.Apps.PermissionLevel">
+            <summary>
+            The permission level for a Google Group.
+            </summary>
+        </member>
         <member name="T:Google.GData.Extensions.Apps.AppsOrganizationNameTable">
             <summary>
             Name table for Google Apps extensions specific to the Organization Units Provisioning
@@ -1358,28 +1343,6 @@
         <member name="T:Google.GData.Extensions.Apps.RequestStatus">
             <summary>
             The status of a request.
-            </summary>
-        </member>
-        <member name="T:Google.GData.Extensions.Apps.EmailListElement">
-            <summary>
-            Extension element sed to model a Google Apps email list.
-            Has attribute "name".
-            </summary>
-        </member>
-        <member name="M:Google.GData.Extensions.Apps.EmailListElement.#ctor">
-            <summary>
-            Constructs an empty EmailListElement instance.
-            </summary>
-        </member>
-        <member name="M:Google.GData.Extensions.Apps.EmailListElement.#ctor(System.String)">
-            <summary>
-            Constructs a new EmailListElement instance with the specified value.
-            </summary>
-            <param name="name">the name attribute of this EmailListElement</param>
-        </member>
-        <member name="P:Google.GData.Extensions.Apps.EmailListElement.Name">
-            <summary>
-            Name property accessor.
             </summary>
         </member>
         <member name="T:Google.GData.Extensions.Apps.LoginElement">
@@ -1851,7 +1814,7 @@
             <summary>holds the feed property</summary>
         </member>
         <member name="F:Google.GData.Extensions.FeedLink.rel">
-            <summary>holds the rel attribute of the EntyrLink element</summary> 
+            <summary>holds the rel attribute of the EntryLink element</summary> 
         </member>
         <member name="M:Google.GData.Extensions.FeedLink.#ctor">
             <summary>

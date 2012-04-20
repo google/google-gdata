@@ -24,12 +24,6 @@ In trunk/clients/cs/version you find AssemblyVersion.cs. This is the version mas
 all other places. Change this to 1.8.0.0 etc to make a build with a stable version number, after you released this,
 change it to 1.8.0.* again, so that subsequent builds create higher version numbers.
 
-
-Building the MOBILE version of the SDK
-
-Another solution file, for windows mobile, exists in trunk/clients/cs/src/VS2005.mobile/GDataMobile.sln". 
-This file will only build the subset of DLLs for the Windows Mobile release. 
-
 Building the Samples
 
 Open the "Google Data APIs Samples.sln" solution file in trunk/clients/cs/samples and you will

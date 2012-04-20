@@ -4,6 +4,32 @@
         <name>Google.GData.AccessControl</name>
     </assembly>
     <members>
+        <member name="T:Google.GData.AccessControl.BaseAclEntry">
+            <summary>
+            Entry API base class for defining entries in an AccessControl feed.
+            </summary>
+        </member>
+        <member name="F:Google.GData.AccessControl.BaseAclEntry.ACL_CATEGORY">
+            <summary>
+            Category used to label entries that contain AccessControl extension data.
+            </summary>
+        </member>
+        <member name="M:Google.GData.AccessControl.BaseAclEntry.#ctor">
+            <summary>
+            Constructs a new AccessControlEntry instance with the appropriate category
+            to indicate that it is an AccessControlEntry.
+            </summary>
+        </member>
+        <member name="P:Google.GData.AccessControl.BaseAclEntry.Scope">
+            <summary>
+            property accessor for the AclScope
+            </summary>
+        </member>
+        <member name="P:Google.GData.AccessControl.AclEntryWithKey.WithKey">
+            <summary>
+            property accessor for the AclWithKey
+            </summary>
+        </member>
         <member name="M:Google.AccessControl.Acl.EnsureInnerObject">
             <summary>
             creates the inner contact object when needed
@@ -55,7 +81,7 @@
         <member name="T:Google.GData.AccessControl.AclQuery">
             <summary>
             A subclass of FeedQuery, to create an ACL query URI.
-            currently only exists to allow a Service.Query overload that 
+            currently only exists to allow a Service. Query overload that 
             creates an ACL feed
             </summary> 
         </member>
@@ -88,20 +114,40 @@
         </member>
         <member name="M:Google.GData.AccessControl.AclFeed.HandleExtensionElements(Google.GData.Client.ExtensionElementEventArgs,Google.GData.Client.AtomFeedParser)">
             <summary>
-            get's called after we already handled the custom entry, to handle all 
+            gets called after we already handled the custom entry, to handle all 
             other potential parsing tasks
             </summary>
             <param name="e">the Event arguments</param>
             <param name="parser">the atom feed parser used</param>
         </member>
+        <member name="T:Google.GData.AccessControl.AclWithKey">
+            <summary>
+            GData schema extension describing an ACL with authorization key
+            </summary>
+        </member>
+        <member name="M:Google.GData.AccessControl.AclWithKey.#ctor">
+            <summary>
+            Constructs a new AclWithKey instance.
+            </summary>
+        </member>
+        <member name="M:Google.GData.AccessControl.AclWithKey.#ctor(System.String)">
+            <summary>
+            Constructs a new AclWithKey instance.
+            </summary>
+        </member>
+        <member name="P:Google.GData.AccessControl.AclWithKey.Role">
+            <summary>
+            property accessor for the AclRole
+            </summary>
+        </member>
+        <member name="P:Google.GData.AccessControl.AclWithKey.Type">
+            <summary>
+            property accessor for the key attribute
+            </summary>
+        </member>
         <member name="T:Google.GData.AccessControl.AclEntry">
             <summary>
             Entry API customization class for defining entries in an AccessControl feed.
-            </summary>
-        </member>
-        <member name="F:Google.GData.AccessControl.AclEntry.ACL_CATEGORY">
-            <summary>
-            Category used to label entries that contain AccessControl extension data.
             </summary>
         </member>
         <member name="M:Google.GData.AccessControl.AclEntry.#ctor">
@@ -112,12 +158,7 @@
         </member>
         <member name="P:Google.GData.AccessControl.AclEntry.Role">
             <summary>
-             property accessor for the AclRole
-            </summary>
-        </member>
-        <member name="P:Google.GData.AccessControl.AclEntry.Scope">
-            <summary>
-             property accessor for the AclScope
+            property accessor for the AclRole
             </summary>
         </member>
         <member name="T:Google.GData.AccessControl.AclNameTable">
@@ -153,6 +194,9 @@
         </member>
         <member name="F:Google.GData.AccessControl.AclNameTable.XmlAclRoleElement">
             <summary>the role element</summary> 
+        </member>
+        <member name="F:Google.GData.AccessControl.AclNameTable.XmlAclWithKeyElement">
+            <summary>the withKey element</summary> 
         </member>
         <member name="T:Google.GData.AccessControl.AclRole">
             <summary>
@@ -202,9 +246,9 @@
         </member>
         <member name="M:Google.GData.AccessControl.AclRole.#ctor(System.String)">
             <summary>
-             constructor with a default string value
+            constructor with a default string value
             </summary>
-            <param name="value">transparency value</param>
+            <param name="value">ACL value</param>
         </member>
     </members>
 </doc>

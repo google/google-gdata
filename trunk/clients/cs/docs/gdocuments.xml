@@ -32,7 +32,7 @@
         </member>
         <member name="M:Google.GData.Documents.DocumentsFeed.HandleExtensionElements(Google.GData.Client.ExtensionElementEventArgs,Google.GData.Client.AtomFeedParser)">
             <summary>
-            get's called after we already handled the custom entry, to handle all 
+            is called after we already handled the custom entry, to handle all 
             other potential parsing tasks
             </summary>
             <param name="e"></param>
@@ -51,6 +51,102 @@
         </member>
         <member name="F:Google.GData.Documents.DocumentslistNametable.WritersCanInvite">
             <summary>Writers can invite element</summary>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentslistNametable.Changestamp">
+            <summary>Changestamp element</summary>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentslistNametable.QuotaBytesTotal">
+            <summary>QuotaBytesTotal element</summary>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentslistNametable.QuotaBytesUsedInTrash">
+            <summary>QuotaBytesUsedInTrash element</summary>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentslistNametable.LargestChangestamp">
+            <summary>LargestChangestamp element</summary>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentslistNametable.RemainingChangestamps">
+            <summary>RemainingChangestamps element</summary>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentslistNametable.ImportFormat">
+            <summary>ImportFormat element</summary>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentslistNametable.ExportFormat">
+            <summary>ExportFormat element</summary>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentslistNametable.Source">
+            <summary>Source element</summary>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentslistNametable.Target">
+            <summary>Target element</summary>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentslistNametable.Reason">
+            <summary>Reason element</summary>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentslistNametable.Feature">
+            <summary>Feature element</summary>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentslistNametable.FeatureName">
+            <summary>FeatureName element</summary>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentslistNametable.FeatureRate">
+            <summary>FeatureRate element</summary>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentslistNametable.MaxUploadSize">
+            <summary>MaxUploadSize element</summary>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentslistNametable.Kind">
+            <summary>Kind element</summary>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentslistNametable.AdditionalRoleInfo">
+            <summary>AdditionalRoleInfo element</summary>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentslistNametable.AdditionalRoleSet">
+            <summary>AdditionalRoleSet element</summary>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentslistNametable.AdditionalRole">
+            <summary>AdditionalRole element</summary>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentslistNametable.PrimaryRole">
+            <summary>PrimaryRole element</summary>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentslistNametable.ArchiveResourceId">
+            <summary>ArchiveResourceId element</summary>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentslistNametable.ArchiveConversion">
+            <summary>ArchiveConversion element</summary>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentslistNametable.ArchiveNotify">
+            <summary>ArchiveNotify element</summary>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentslistNametable.ArchiveStatus">
+            <summary>ArchiveStatus element</summary>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentslistNametable.ArchiveComplete">
+            <summary>ArchiveComplete element</summary>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentslistNametable.ArchiveTotal">
+            <summary>ArchiveTotal element</summary>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentslistNametable.ArchiveTotalComplete">
+            <summary>ArchiveTotalComplete element</summary>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentslistNametable.ArchiveTotalFailure">
+            <summary>ArchiveTotalFailure element</summary>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentslistNametable.ArchiveFailure">
+            <summary>ArchiveFailure element</summary>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentslistNametable.ArchiveNotifyStatus">
+            <summary>ArchiveNotifyStatus element</summary>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentslistNametable.Publish">
+            <summary>Publish element</summary>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentslistNametable.PublishAuto">
+            <summary>PublishAuto element</summary>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentslistNametable.PublishOutsideDomain">
+            <summary>PublishOutsideDomain element</summary>
         </member>
         <member name="T:Google.GData.Documents.DocumentEntry">
             <summary>
@@ -73,9 +169,6 @@
             </summary>
         </member>
         <member name="F:Google.GData.Documents.DocumentEntry.PRESENTATION_CATEGORY">
-            <summary>
-            a predefined atom category for starred documentss
-            </summary>
             <summary>
             a predefined atom category for Presentations
             </summary>
@@ -227,7 +320,7 @@
         </member>
         <member name="P:Google.GData.Documents.DocumentEntry.LastModified">
             <summary>
-            returns the last modififiedBy Element
+            returns the last modifiedBy Element
             </summary>
             <returns></returns>
         </member>
@@ -244,7 +337,40 @@
         </member>
         <member name="M:Google.GData.Documents.WritersCanInvite.#ctor">
             <summary>
-            default constructor for gd:resourceid 
+            default constructor for gd:writersCanInvite 
+            </summary>
+        </member>
+        <member name="M:Google.GData.Documents.RevisionFeed.#ctor(System.Uri,Google.GData.Client.IService)">
+            <summary>
+            default constructor
+            </summary>
+            <param name="uriBase">the base URI of the feedEntry</param>
+            <param name="iService">the Service to use</param>
+        </member>
+        <member name="M:Google.GData.Documents.RevisionFeed.CreateFeedEntry">
+            <summary>
+            this needs to get implemented by subclasses
+            </summary>
+            <returns>AtomEntry</returns>
+        </member>
+        <member name="M:Google.GData.Documents.RevisionEntry.#ctor">
+            <summary>
+            Constructs a new RevisionEntry instance.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Documents.Publish.#ctor">
+            <summary>
+            default constructor for docs:publish
+            </summary>
+        </member>
+        <member name="M:Google.GData.Documents.PublishAuto.#ctor">
+            <summary>
+            default constructor for docs:publishAuto
+            </summary>
+        </member>
+        <member name="M:Google.GData.Documents.PublishOutsideDomain.#ctor">
+            <summary>
+            default constructor for docs:publishOutsideDomain
             </summary>
         </member>
         <member name="T:Google.GData.Documents.DocumentsService">
@@ -283,9 +409,9 @@
         </member>
         <member name="M:Google.GData.Documents.DocumentsService.#ctor(System.String)">
             <summary>
-             default constructor
+            default constructor
             </summary>
-            <param name="applicationName">the applicationname</param>
+            <param name="applicationName">the application name</param>
         </member>
         <member name="M:Google.GData.Documents.DocumentsService.Query(Google.GData.Documents.DocumentsListQuery)">
             <summary>
@@ -336,6 +462,34 @@
             </summary>
             <param name="feedQuery"></param>
             <returns>EventFeed</returns>
+        </member>
+        <member name="M:Google.GData.Documents.DocumentsService.Query(Google.GData.Documents.ChangesQuery)">
+            <summary>
+            overloaded to create typed version of Query
+            </summary>
+            <param name="feedQuery"></param>
+            <returns>ChangesFeed</returns>
+        </member>
+        <member name="M:Google.GData.Documents.DocumentsService.Query(Google.GData.Documents.MetadataQuery)">
+            <summary>
+            overloaded to create typed version of Query
+            </summary>
+            <param name="feedQuery"></param>
+            <returns>EventFeed</returns>
+        </member>
+        <member name="M:Google.GData.Documents.DocumentsService.Query(Google.GData.Documents.ArchiveQuery)">
+            <summary>
+            overloaded to create typed version of Query
+            </summary>
+            <param name="feedQuery"></param>
+            <returns>ArchiveFeed</returns>
+        </member>
+        <member name="M:Google.GData.Documents.DocumentsService.Query(Google.GData.Documents.RevisionQuery)">
+            <summary>
+            overloaded to create typed version of Query
+            </summary>
+            <param name="feedQuery"></param>
+            <returns>RevisionFeed</returns>
         </member>
         <member name="M:Google.GData.Documents.DocumentsService.OnNewFeed(System.Object,Google.GData.Client.ServiceEventArgs)">
             <summary>eventchaining. We catch this by from the base service, which 
@@ -410,9 +564,24 @@
             uri to get you all folders
             </summary>
         </member>
+        <member name="F:Google.GData.Documents.DocumentsListQuery.allChangesTemplate">
+            <summary>
+            template to access the changes feed
+            </summary>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentsListQuery.metadataTemplate">
+            <summary>
+            template to access the metadata feed
+            </summary>
+        </member>
         <member name="F:Google.GData.Documents.DocumentsListQuery.revisionsUriTemplate">
             <summary>
-            template to get a revisison for a given resourceID and revisionID
+            template to get a revision for a given resourceID and revisionID
+            </summary>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentsListQuery.archiveUri">
+            <summary>
+            URI to access the archive feed
             </summary>
         </member>
         <member name="F:Google.GData.Documents.DocumentsListQuery.DOCUMENTS">
@@ -428,6 +597,11 @@
         <member name="F:Google.GData.Documents.DocumentsListQuery.PRESENTATIONS">
             <summary>
             predefined query category for presentations
+            </summary>
+        </member>
+        <member name="F:Google.GData.Documents.DocumentsListQuery.DRAWINGS">
+            <summary>
+            predefined query category for drawings
             </summary>
         </member>
         <member name="F:Google.GData.Documents.DocumentsListQuery.PDFS">
@@ -493,7 +667,7 @@
         </member>
         <member name="M:Google.GData.Documents.DocumentsListQuery.CalculateQuery(System.String)">
             <summary>Creates the partial URI query string based on all
-             set properties.</summary> 
+            set properties.</summary> 
             <returns> A string representing the query part of the URI.</returns>
         </member>
         <!-- Badly formed XML comment ignored for member "P:Google.GData.Documents.DocumentsListQuery.StartIndex" -->
@@ -502,9 +676,29 @@
             Restricts the results to only starred documents
             </summary>
         </member>
+        <member name="P:Google.GData.Documents.DocumentsListQuery.Viewed">
+            <summary>
+            Restricts the results to only viewed documents
+            </summary>
+        </member>
+        <member name="P:Google.GData.Documents.DocumentsListQuery.Trashed">
+            <summary>
+            Restricts the results to only trashed documents
+            </summary>
+        </member>
+        <member name="P:Google.GData.Documents.DocumentsListQuery.Mine">
+            <summary>
+            Restricts the results to only documents owned by the user
+            </summary>
+        </member>
         <member name="P:Google.GData.Documents.DocumentsListQuery.ShowFolders">
             <summary>
-            shows folders if true in the result
+            if true, shows folders in the result
+            </summary>
+        </member>
+        <member name="P:Google.GData.Documents.DocumentsListQuery.ShowRoot">
+            <summary>
+            if true, shows root in the result
             </summary>
         </member>
         <member name="P:Google.GData.Documents.DocumentsListQuery.Title">
@@ -563,6 +757,11 @@
         <member name="P:Google.GData.Documents.DocumentsListQuery.EditedMax">
             <summary>Upper bound on the last time a document was edited by the current user.</summary> 
         </member>
+        <member name="P:Google.GData.Documents.DocumentsListQuery.IncludeProfileInfo">
+            <summary>
+            Specifies whether the query should return additional profile information for the users.
+            </summary>
+        </member>
         <member name="T:Google.GData.Documents.TextDocumentQuery">
             <summary>
             a subclass setup to just retrieve all word processor documents
@@ -593,6 +792,16 @@
             base constructor
             </summary>
         </member>
+        <member name="T:Google.GData.Documents.DrawingsQuery">
+            <summary>
+            a subclass setup to just retrieve all drawings
+            </summary>
+        </member>
+        <member name="M:Google.GData.Documents.DrawingsQuery.#ctor">
+            <summary>
+            base constructor
+            </summary>
+        </member>
         <member name="T:Google.GData.Documents.PDFsQuery">
             <summary>
             a subclass setup to just retrieve all PDFs
@@ -608,9 +817,201 @@
             a subclass setup to just retrieve all Folders
             </summary>
         </member>
+        <member name="M:Google.GData.Documents.FolderQuery.#ctor">
+            <summary>
+            base constructor
+            </summary>
+        </member>
         <member name="M:Google.GData.Documents.FolderQuery.#ctor(System.String)">
             <summary>
             base constructor
+            </summary>
+        </member>
+        <member name="T:Google.GData.Documents.ChangesQuery">
+            <summary>
+            a subclass setup to retrieve all changes
+            </summary>
+        </member>
+        <member name="M:Google.GData.Documents.ChangesQuery.#ctor">
+            <summary>
+            base constructor
+            </summary>
+        </member>
+        <member name="M:Google.GData.Documents.ChangesQuery.#ctor(System.String)">
+            <summary>
+            base constructor
+            </summary>
+        </member>
+        <member name="T:Google.GData.Documents.MetadataQuery">
+            <summary>
+            a subclass setup to retrieve information about a user account
+            </summary>
+        </member>
+        <member name="M:Google.GData.Documents.MetadataQuery.#ctor">
+            <summary>
+            base constructor
+            </summary>
+        </member>
+        <member name="M:Google.GData.Documents.MetadataQuery.#ctor(System.String)">
+            <summary>
+            base constructor
+            </summary>
+        </member>
+        <member name="T:Google.GData.Documents.ArchiveQuery">
+            <summary>
+            a query object used to interact with the Archive feed
+            </summary>
+        </member>
+        <member name="M:Google.GData.Documents.ArchiveQuery.#ctor(System.String)">
+            <summary>
+            base constructor
+            </summary>
+        </member>
+        <member name="T:Google.GData.Documents.RevisionQuery">
+            <summary>
+            a query object used to interact with the Revision feed
+            </summary>
+        </member>
+        <member name="M:Google.GData.Documents.RevisionQuery.#ctor(System.String)">
+            <summary>
+            base constructor
+            </summary>
+        </member>
+        <member name="F:Google.GData.Documents.ArchiveEntry.archiveResourceIds">
+            <summary>
+            ArchiveResourceId collection
+            </summary>
+        </member>
+        <member name="F:Google.GData.Documents.ArchiveEntry.archiveConversions">
+            <summary>
+            ArchiveConversion collection
+            </summary>
+        </member>
+        <member name="F:Google.GData.Documents.ArchiveEntry.archiveFailures">
+            <summary>
+            ArchiveFailure collection
+            </summary>
+        </member>
+        <member name="M:Google.GData.Documents.ArchiveEntry.#ctor">
+            <summary>
+            Constructs a new ArchiveEntry instance.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Documents.ArchiveEntry.ArchiveResourceIds">
+            <summary>
+            ArchiveResourceId collection.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Documents.ArchiveEntry.ArchiveConversions">
+            <summary>
+            ArchiveConversion collection.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Documents.ArchiveEntry.ArchiveFailures">
+            <summary>
+            ArchiveFailure collection.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Documents.ArchiveEntry.ArchiveNotify">
+            <summary>
+            ArchiveNotify.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.GData.Documents.ArchiveEntry.ArchiveStatus">
+            <summary>
+            ArchiveStatus.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.GData.Documents.ArchiveEntry.ArchiveComplete">
+            <summary>
+            ArchiveComplete.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.GData.Documents.ArchiveEntry.ArchiveTotal">
+            <summary>
+            ArchiveTotal.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.GData.Documents.ArchiveEntry.ArchiveTotalComplete">
+            <summary>
+            ArchiveTotalComplete.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.GData.Documents.ArchiveEntry.ArchiveTotalFailure">
+            <summary>
+            ArchiveTotalFailure.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.GData.Documents.ArchiveEntry.ArchiveNotifyStatus">
+            <summary>
+            ArchiveNotifyStatus.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Google.GData.Documents.ArchiveResourceId.#ctor">
+            <summary>
+            default constructor for docs:archiveResourceId
+            </summary>
+        </member>
+        <member name="M:Google.GData.Documents.ArchiveConversion.#ctor">
+            <summary>
+            default constructor for docs:archiveConversion
+            </summary>
+        </member>
+        <member name="P:Google.GData.Documents.ArchiveConversion.Source">
+            <summary>
+            Source property accessor
+            </summary>
+        </member>
+        <member name="P:Google.GData.Documents.ArchiveConversion.Target">
+            <summary>
+            Target property accessor
+            </summary>
+        </member>
+        <member name="M:Google.GData.Documents.ArchiveNotify.#ctor">
+            <summary>
+            default constructor for docs:archiveNotify
+            </summary>
+        </member>
+        <member name="M:Google.GData.Documents.ArchiveStatus.#ctor">
+            <summary>
+            default constructor for docs:archiveStatus
+            </summary>
+        </member>
+        <member name="M:Google.GData.Documents.ArchiveComplete.#ctor">
+            <summary>
+            default constructor for docs:archiveComplete
+            </summary>
+        </member>
+        <member name="M:Google.GData.Documents.ArchiveTotal.#ctor">
+            <summary>
+            default constructor for docs:archiveTotal
+            </summary>
+        </member>
+        <member name="M:Google.GData.Documents.ArchiveTotalComplete.#ctor">
+            <summary>
+            default constructor for docs:archiveTotalComplete
+            </summary>
+        </member>
+        <member name="M:Google.GData.Documents.ArchiveTotalFailure.#ctor">
+            <summary>
+            default constructor for docs:archiveTotalFailure
+            </summary>
+        </member>
+        <member name="M:Google.GData.Documents.ArchiveFailure.#ctor">
+            <summary>
+            default constructor for docs:archiveFailure
+            </summary>
+        </member>
+        <member name="M:Google.GData.Documents.ArchiveNotifyStatus.#ctor">
+            <summary>
+            default constructor for docs:archiveNotifyStatus
             </summary>
         </member>
         <member name="T:Google.Documents.Document">
@@ -981,6 +1382,251 @@
             DocumentsListQuery.documentsBaseUri
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:Google.GData.Documents.MetadataFeed.#ctor(System.Uri,Google.GData.Client.IService)">
+            <summary>
+             default constructor
+            </summary>
+            <param name="uriBase">the base URI of the feedEntry</param>
+            <param name="iService">the Service to use</param>
+        </member>
+        <member name="M:Google.GData.Documents.MetadataFeed.CreateFeedEntry">
+            <summary>
+            this needs to get implemented by subclasses
+            </summary>
+            <returns>AtomEntry</returns>
+        </member>
+        <member name="M:Google.GData.Documents.ArchiveFeed.#ctor(System.Uri,Google.GData.Client.IService)">
+            <summary>
+             default constructor
+            </summary>
+            <param name="uriBase">the base URI of the feedEntry</param>
+            <param name="iService">the Service to use</param>
+        </member>
+        <member name="M:Google.GData.Documents.ArchiveFeed.CreateFeedEntry">
+            <summary>
+            this needs to get implemented by subclasses
+            </summary>
+            <returns>AtomEntry</returns>
+        </member>
+        <member name="M:Google.GData.Documents.ChangeEntry.#ctor">
+            <summary>
+            Constructs a new ChangeEntry instance.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Documents.ChangeEntry.Changestamp">
+            <summary>
+            Changestamp.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Google.GData.Documents.Changestamp.#ctor">
+            <summary>
+            default constructor for docs:changestamp 
+            </summary>
+        </member>
+        <member name="M:Google.GData.Documents.ChangesFeed.#ctor(System.Uri,Google.GData.Client.IService)">
+            <summary>
+             default constructor
+            </summary>
+            <param name="uriBase">the base URI of the feedEntry</param>
+            <param name="iService">the Service to use</param>
+        </member>
+        <member name="M:Google.GData.Documents.ChangesFeed.CreateFeedEntry">
+            <summary>
+            this needs to get implemented by subclasses
+            </summary>
+            <returns>AtomEntry</returns>
+        </member>
+        <member name="F:Google.GData.Documents.MetadataEntry.importFormats">
+            <summary>
+            ImportFormat collection
+            </summary>
+        </member>
+        <member name="F:Google.GData.Documents.MetadataEntry.exportFormats">
+            <summary>
+            ExportFormat collection
+            </summary>
+        </member>
+        <member name="F:Google.GData.Documents.MetadataEntry.features">
+            <summary>
+            Feature collection
+            </summary>
+        </member>
+        <member name="F:Google.GData.Documents.MetadataEntry.maxUploadSizes">
+            <summary>
+            MaxUploadSize collection
+            </summary>
+        </member>
+        <member name="F:Google.GData.Documents.MetadataEntry.additionalRoleInfos">
+            <summary>
+            AdditionalRoleInfo collection
+            </summary>
+        </member>
+        <member name="M:Google.GData.Documents.MetadataEntry.#ctor">
+            <summary>
+            Constructs a new MetadataEntry instance.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Documents.MetadataEntry.QuotaBytesTotal">
+            <summary>
+            QuotaBytesTotal.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.GData.Documents.MetadataEntry.QuotaBytesUsed">
+            <summary>
+            QuotaBytesUsed.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.GData.Documents.MetadataEntry.QuotaBytesUsedInTrash">
+            <summary>
+            QuotaBytesUsedInTrash.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.GData.Documents.MetadataEntry.LargestChangestamp">
+            <summary>
+            LargestChangestamp.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.GData.Documents.MetadataEntry.RemainingChangestamps">
+            <summary>
+            RemainingChangestamps.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.GData.Documents.MetadataEntry.ImportFormats">
+            <summary>
+            ImportFormat collection.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Documents.MetadataEntry.ExportFormats">
+            <summary>
+            ExportFormat collection.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Documents.MetadataEntry.Features">
+            <summary>
+            Feature collection.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Documents.MetadataEntry.MaxUploadSizes">
+            <summary>
+            MaxUploadSize collection.
+            </summary>
+        </member>
+        <member name="P:Google.GData.Documents.MetadataEntry.AdditionalRoleInfos">
+            <summary>
+            AdditionalRoleInfo collection.
+            </summary>
+        </member>
+        <member name="M:Google.GData.Documents.QuotaBytesTotal.#ctor">
+            <summary>
+            default constructor for gd:quotaBytesTotal 
+            </summary>
+        </member>
+        <member name="M:Google.GData.Documents.QuotaBytesUsedInTrash.#ctor">
+            <summary>
+            default constructor for docs:quotaBytesUsedInTrash 
+            </summary>
+        </member>
+        <member name="M:Google.GData.Documents.LargestChangestamp.#ctor">
+            <summary>
+            default constructor for docs:largestChangestamp 
+            </summary>
+        </member>
+        <member name="M:Google.GData.Documents.RemainingChangestamps.#ctor">
+            <summary>
+            default constructor for docs:remainingChangestamps
+            </summary>
+        </member>
+        <member name="M:Google.GData.Documents.ConversionFormat.#ctor(System.String)">
+            <summary>
+            base class for docs:importFormat and docs:exportFormat
+            </summary>
+        </member>
+        <member name="P:Google.GData.Documents.ConversionFormat.Source">
+            <summary>
+            Source property accessor
+            </summary>
+        </member>
+        <member name="P:Google.GData.Documents.ConversionFormat.Target">
+            <summary>
+            Target property accessor
+            </summary>
+        </member>
+        <member name="M:Google.GData.Documents.ImportFormat.#ctor">
+            <summary>
+            default constructor for docs:importFormat 
+            </summary>
+        </member>
+        <member name="M:Google.GData.Documents.ExportFormat.#ctor">
+            <summary>
+            default constructor for docs:emportFormat 
+            </summary>
+        </member>
+        <member name="M:Google.GData.Documents.Feature.#ctor">
+            <summary>
+            base class for docs:importFormat and docs:exportFormat
+            </summary>
+        </member>
+        <member name="P:Google.GData.Documents.Feature.Name">
+            <summary>
+            FeatureName property accessor
+            </summary>
+        </member>
+        <member name="P:Google.GData.Documents.Feature.Rate">
+            <summary>
+            FeatureRate property accessor
+            </summary>
+        </member>
+        <member name="M:Google.GData.Documents.FeatureName.#ctor">
+            <summary>
+            default constructor for docs:featureName 
+            </summary>
+        </member>
+        <member name="M:Google.GData.Documents.FeatureRate.#ctor">
+            <summary>
+            default constructor for docs:featureRate 
+            </summary>
+        </member>
+        <member name="M:Google.GData.Documents.MaxUploadSize.#ctor">
+            <summary>
+            default constructor for docs:maxUploadSize
+            </summary>
+        </member>
+        <member name="P:Google.GData.Documents.MaxUploadSize.Kind">
+            <summary>
+            Kind property accessor
+            </summary>
+        </member>
+        <member name="M:Google.GData.Documents.AdditionalRoleInfo.#ctor">
+            <summary>
+            default constructor for docs:additionalRoleInfo
+            </summary>
+        </member>
+        <member name="P:Google.GData.Documents.AdditionalRoleInfo.Kind">
+            <summary>
+            Kind property accessor
+            </summary>
+        </member>
+        <member name="M:Google.GData.Documents.AdditionalRoleSet.#ctor">
+            <summary>
+            default constructor for docs:additionalRoleSet
+            </summary>
+        </member>
+        <member name="P:Google.GData.Documents.AdditionalRoleSet.PrimaryRole">
+            <summary>
+            PrimaryRole property accessor
+            </summary>
+        </member>
+        <member name="M:Google.GData.Documents.AdditionalRole.#ctor">
+            <summary>
+            default constructor for docs:additionalRole 
+            </summary>
         </member>
     </members>
 </doc>
