@@ -119,7 +119,8 @@ namespace Google.GData.Client.ResumableUpload {
         /// Default constructor. Uses the default chunksize of 25 megabyte
         /// </summary>
         /// <returns></returns>
-        public ResumableUploader() : this(25) {
+        public ResumableUploader()
+            : this(25) {
         }
 
         /// <summary>
@@ -184,7 +185,7 @@ namespace Google.GData.Client.ResumableUpload {
             WebResponse r = null;
             Uri initialUri = ResumableUploader.GetResumableCreateUri(payload.Links);
             if (initialUri == null) {
-                throw new ArgumentException("payload did not contain a resumabled create media Uri");
+                throw new ArgumentException("payload did not contain a resumable create media Uri");
             }
 
             Uri resumeUri = InitiateUpload(initialUri, authentication, payload);
@@ -199,7 +200,7 @@ namespace Google.GData.Client.ResumableUpload {
         private WebResponse Insert(Authenticator authentication, Uri resumableUploadUri,
             Stream payload, string contentType, string slug, AsyncData data) {
 
-            Uri resumeUri = InitiateUpload(resumableUploadUri, authentication, contentType, null, GetStreamLength(payload));
+            Uri resumeUri = InitiateUpload(resumableUploadUri, authentication, contentType, slug, GetStreamLength(payload));
             return UploadStream(HttpMethods.Post, resumeUri, authentication, payload, contentType, data);
         }
 
@@ -615,6 +616,9 @@ namespace Google.GData.Client.ResumableUpload {
                 contentType,
                 contentLength,
                 httpMethod);
+
+            // Zero the content length
+            request.ContentLength = 0;
 
             WebResponse response = request.GetResponse();
             return new Uri(response.Headers["Location"]);
