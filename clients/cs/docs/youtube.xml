@@ -44,7 +44,7 @@
         </member>
         <member name="M:Google.GData.YouTube.YouTubeFeed.HandleExtensionElements(Google.GData.Client.ExtensionElementEventArgs,Google.GData.Client.AtomFeedParser)">
             <summary>
-            get's called after we already handled the custom entry, to handle all 
+            gets called after we already handled the custom entry, to handle all 
             other potential parsing tasks
             </summary>
             <param name="e"></param>
@@ -88,15 +88,22 @@
         </member>
         <member name="M:Google.GData.YouTube.YouTubeService.#ctor(System.String,System.String,System.String)">
             <summary>
-             default constructor
+            obsolete constructor
             </summary>
-            <param name="applicationName">the applicationname</param>
+            <param name="applicationName">the application name</param>
             <param name="client">the client identifier</param>
+            <param name="developerKey">the developerKey</param>/// 
+        </member>
+        <member name="M:Google.GData.YouTube.YouTubeService.#ctor(System.String,System.String)">
+            <summary>
+            default constructor
+            </summary>
+            <param name="applicationName">the application name</param>
             <param name="developerKey">the developerKey</param>/// 
         </member>
         <member name="M:Google.GData.YouTube.YouTubeService.#ctor(System.String)">
             <summary>
-             readonly constructor 
+            readonly constructor 
             </summary>
             <param name="applicationName">the application identifier</param>
         </member>
@@ -124,6 +131,20 @@
         <member name="M:Google.GData.YouTube.YouTubeService.GetPlaylists(Google.GData.YouTube.YouTubeQuery)">
             <summary>
             returns a playlists feed based on a youtubeQuery
+            </summary>
+            <param name="feedQuery"></param>
+            <returns>EventFeed</returns>
+        </member>
+        <member name="M:Google.GData.YouTube.YouTubeService.GetShows(Google.GData.YouTube.YouTubeQuery)">
+            <summary>
+            returns a shows feed based on a youtubeQuery
+            </summary>
+            <param name="feedQuery"></param>
+            <returns>EventFeed</returns>
+        </member>
+        <member name="M:Google.GData.YouTube.YouTubeService.GetShowSeasons(Google.GData.YouTube.YouTubeQuery)">
+            <summary>
+            returns a show season feed based on a youtubeQuery
             </summary>
             <param name="feedQuery"></param>
             <returns>EventFeed</returns>
@@ -271,7 +292,12 @@
         </member>
         <member name="P:Google.GData.YouTube.YouTubeEntry.AccessControls">
             <summary>
-             property accessor for the Access Control Collection 
+            property accessor for the Access Control Collection 
+            </summary>
+        </member>
+        <member name="P:Google.GData.YouTube.YouTubeEntry.Episode">
+            <summary>
+            getter/setter for the Episode extension element
             </summary>
         </member>
         <member name="P:Google.GData.YouTube.YouTubeEntry.Location">
@@ -326,19 +352,19 @@
         </member>
         <member name="P:Google.GData.YouTube.YouTubeEntry.VideoId">
             <summary>
-             property accessor for the VideoID, if applicable
+            property accessor for the VideoID, if applicable
             </summary>
         </member>
         <member name="P:Google.GData.YouTube.YouTubeEntry.Uploaded">
             <summary>
-             property accessor for the Uploaded element, if applicable
+            property accessor for the Uploaded element, if applicable
             returns the date the video was uplaoded
             </summary>
         </member>
         <member name="P:Google.GData.YouTube.YouTubeEntry.Uploader">
             <summary>
-             property accessor for the media:credit element, if applicable
-             The media:credit element identifies who uploaded the video
+            property accessor for the media:credit element, if applicable
+            The media:credit element identifies who uploaded the video
             returns the date the video was uplaoded
             </summary>
         </member>
@@ -403,7 +429,7 @@
         </member>
         <member name="M:Google.GData.YouTube.SubscriptionFeed.#ctor(System.Uri,Google.GData.Client.IService)">
             <summary>
-             default constructor
+            default constructor
             </summary>
             <param name="uriBase">the base URI of the feedEntry</param>
             <param name="iService">the Service to use</param>
@@ -430,7 +456,7 @@
         </member>
         <member name="M:Google.GData.YouTube.PlaylistsFeed.#ctor(System.Uri,Google.GData.Client.IService)">
             <summary>
-             default constructor
+            default constructor
             </summary>
             <param name="uriBase">the base URI of the feedEntry</param>
             <param name="iService">the Service to use</param>
@@ -547,6 +573,58 @@
             list are the same as in the linkcollection, so you can remove them from there
             </summary>
         </member>
+        <member name="T:Google.GData.YouTube.ShowSeasonFeed">
+            <summary>
+            A user's shows feed contains a list of the shows created by
+            that user.
+            </summary>
+        </member>
+        <member name="M:Google.GData.YouTube.ShowSeasonFeed.#ctor(System.Uri,Google.GData.Client.IService)">
+            <summary>
+            default constructor
+            </summary>
+            <param name="uriBase">the base URI of the feedEntry</param>
+            <param name="iService">the Service to use</param>
+        </member>
+        <member name="M:Google.GData.YouTube.ShowSeasonFeed.CreateFeedEntry">
+            <summary>
+            this needs to get implemented by subclasses
+            </summary>
+            <returns>AtomEntry</returns>
+        </member>
+        <member name="T:Google.GData.YouTube.ShowSeasonEntry">
+            <summary>
+            Entry API customization class for defining entries in a Show feed.
+            </summary>
+        </member>
+        <member name="P:Google.GData.YouTube.ShowSeasonEntry.ClipLink">
+            <summary>
+            returns the gd:feedLink element for clips
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.GData.YouTube.ShowSeasonEntry.EpisodeLink">
+            <summary>
+            returns the gd:feedLink element for episodes
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Google.GData.YouTube.ShowEntry">
+            <summary>
+            Entry API customization class for defining entries in a Show feed.
+            </summary>
+        </member>
+        <member name="P:Google.GData.YouTube.ShowEntry.FeedLink">
+            <summary>
+            returns the gd:feedLink element
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.GData.YouTube.ShowEntry.Media">
+            <summary>
+            returns the media:rss group container element
+            </summary>
+        </member>
         <member name="T:Google.GData.YouTube.CommentsFeed">
             <summary>
             Each video entry contains a gd:comments tag, which encapsulates the 
@@ -556,7 +634,7 @@
         </member>
         <member name="M:Google.GData.YouTube.CommentsFeed.#ctor(System.Uri,Google.GData.Client.IService)">
             <summary>
-             default constructor
+            default constructor
             </summary>
             <param name="uriBase">the base URI of the feedEntry</param>
             <param name="iService">the Service to use</param>
@@ -707,6 +785,11 @@
         <member name="F:Google.GData.YouTube.YouTubeNameTable.Duration">
             <summary>
             Duration element string
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.YouTubeNameTable.Episode">
+            <summary>
+            Episode element string
             </summary>
         </member>
         <member name="F:Google.GData.YouTube.YouTubeNameTable.FirstName">
@@ -871,7 +954,7 @@
         </member>
         <member name="T:Google.GData.YouTube.YouTubeCategory">
             <summary>
-             this Category entry will be returned for the list of official YouTubeCategories, 
+            this Category entry will be returned for the list of official YouTubeCategories, 
             using the <seealso cref="M:Google.GData.YouTube.YouTubeQuery.GetYouTubeCategories"/> method
             </summary>
         </member>
@@ -904,7 +987,7 @@
         </member>
         <member name="P:Google.GData.YouTube.MediaGroup.Contents">
             <summary>
-             property accessor for the Contents Collection 
+            property accessor for the Contents Collection 
             </summary>
         </member>
         <member name="P:Google.GData.YouTube.MediaGroup.Credit">
@@ -924,7 +1007,7 @@
         </member>
         <member name="P:Google.GData.YouTube.MediaGroup.VideoId">
             <summary>
-             property accessor for the VideoID, if applicable
+            property accessor for the VideoID, if applicable
             </summary>
         </member>
         <member name="M:Google.GData.YouTube.MediaCredit.#ctor">
@@ -934,7 +1017,7 @@
         </member>
         <member name="P:Google.GData.YouTube.MediaCredit.Type">
             <summary>
-             returns the type of the credit element
+            returns the type of the credit element
             </summary>
             <returns></returns>
         </member>
@@ -945,7 +1028,7 @@
         </member>
         <member name="P:Google.GData.YouTube.MediaContent.Format">
             <summary>
-             returns the type of the credit element
+            returns the type of the credit element
             </summary>
             <returns></returns>
         </member>
@@ -1116,6 +1199,30 @@
         <member name="P:Google.GData.YouTube.Duration.Seconds">
             <summary>returns you the seconds attribute</summary>
             <returns> </returns>
+        </member>
+        <member name="T:Google.GData.YouTube.Episode">
+            <summary>
+            The yt:episode element contains the episode number for the video.
+            </summary>
+        </member>
+        <member name="F:Google.GData.YouTube.Episode.AttributeNumber">
+            <summary>the number xml attribute </summary>
+        </member>
+        <member name="M:Google.GData.YouTube.Episode.#ctor">
+            <summary>
+            default constructor for yt:episode.
+            </summary>
+        </member>
+        <member name="M:Google.GData.YouTube.Episode.#ctor(System.String)">
+            <summary>
+            default constructor for yt:rating.
+            </summary>
+        </member>
+        <member name="P:Google.GData.YouTube.Episode.Number">
+            <summary>
+            convenience accessor for Episode Number.
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:Google.GData.YouTube.FirstName">
             <summary>
@@ -1471,28 +1578,28 @@
             <param name="initValue"></param>
         </member>
         <member name="P:Google.GData.YouTube.Statistics.ViewCount">
-            <summary>convienience accessor for the ViewCount</summary> 
+            <summary>convenience accessor for the ViewCount</summary> 
             <returns> </returns>
         </member>
         <member name="P:Google.GData.YouTube.Statistics.WatchCount">
-            <summary>convienience accessor for the Watched Count</summary> 
+            <summary>convenience accessor for the Watched Count</summary> 
             <returns> </returns>
         </member>
         <member name="P:Google.GData.YouTube.Statistics.SubscriberCount">
-            <summary>convienience accessor for the SubscriberCount</summary> 
+            <summary>convenience accessor for the SubscriberCount</summary> 
             <returns> </returns>
         </member>
         <member name="P:Google.GData.YouTube.Statistics.LastWebAccess">
-            <summary>convienience accessor for the LastWebAccess</summary> 
+            <summary>convenience accessor for the LastWebAccess</summary> 
             <returns> </returns>
         </member>
         <member name="P:Google.GData.YouTube.Statistics.FavoriteCount">
-            <summary>convienience accessor for the Favorite</summary> 
+            <summary>convenience accessor for the Favorite</summary> 
             <returns> </returns>
         </member>
         <member name="T:Google.GData.YouTube.CountHint">
             <summary>
-            The :countHint element  specifies the number of entries in a playlist feed. 
+            The countHint element specifies the number of entries in a playlist feed. 
             The countHint tag appears in the entries in a playlists feed, where each entry contains 
             information about a single playlist
             </summary>
@@ -1623,7 +1730,7 @@
         <member name="F:Google.GData.YouTube.YtRating.Like">
             <summary>the like video rating</summary>
         </member>
-        <member name="F:Google.GData.YouTube.YtRating.Dislikes">
+        <member name="F:Google.GData.YouTube.YtRating.Dislike">
             <summary>the dislike video rating</summary>
         </member>
         <member name="M:Google.GData.YouTube.YtRating.#ctor">
@@ -1863,7 +1970,7 @@
         </member>
         <member name="M:Google.GData.YouTube.YouTubeQuery.CreateSubscriptionUri(System.String)">
             <summary>
-            convienience method to create an URI based on a userID
+            convenience method to create an URI based on a userID
             for the subscriptions
             </summary>
             <param name="userID"></param>
@@ -1871,7 +1978,7 @@
         </member>
         <member name="M:Google.GData.YouTube.YouTubeQuery.CreatePlaylistsUri(System.String)">
             <summary>
-            convienience method to create an URI based on a userID
+            convenience method to create an URI based on a userID
             for the playlists of an user
             </summary>
             <param name="userID"></param>
@@ -1879,7 +1986,7 @@
         </member>
         <member name="M:Google.GData.YouTube.YouTubeQuery.CreateFavoritesUri(System.String)">
             <summary>
-            convienience method to create an URI based on a userID
+            convenience method to create an URI based on a userID
             for the favorites of an user
             </summary>
             <param name="userID"></param>
@@ -1887,7 +1994,7 @@
         </member>
         <member name="M:Google.GData.YouTube.YouTubeQuery.CreateMessagesUri(System.String)">
             <summary>
-            convienience method to create an URI based on a userID
+            convenience method to create an URI based on a userID
             for the messages of an user
             </summary>
             <param name="userID"></param>
@@ -1895,15 +2002,23 @@
         </member>
         <member name="M:Google.GData.YouTube.YouTubeQuery.CreateContactsUri(System.String)">
             <summary>
-            convienience method to create an URI based on a userID
+            convenience method to create an URI based on a userID
             for the contacts of an user
+            </summary>
+            <param name="userID"></param>
+            <returns>string</returns>
+        </member>
+        <member name="M:Google.GData.YouTube.YouTubeQuery.CreateShowsUri(System.String)">
+            <summary>
+            convenience method to create an URI based on a userID
+            for the shows of an user
             </summary>
             <param name="userID"></param>
             <returns>string</returns>
         </member>
         <member name="M:Google.GData.YouTube.YouTubeQuery.CreateUserUri(System.String)">
             <summary>
-            convienience method to create an URI based on a userID
+            convenience method to create an URI based on a userID
             for the uploaded videos of an user
             </summary>
             <param name="userID"></param>
@@ -1966,14 +2081,6 @@
         </member>
         <member name="P:Google.GData.YouTube.YouTubeQuery.Time">
             <summary>accessor method public UploadTime Time</summary> 
-            <returns> </returns>
-        </member>
-        <member name="P:Google.GData.YouTube.YouTubeQuery.VQ">
-            <summary>The vq parameter, which is only supported for video feeds, 
-            specifies a search query term. YouTube will search all video 
-            metadata for videos matching the term. Video metadata includes
-             titles, keywords, descriptions, authors' usernames, and 
-            categories</summary> 
             <returns> </returns>
         </member>
         <member name="P:Google.GData.YouTube.YouTubeQuery.OrderBy">
@@ -2211,12 +2318,12 @@
         </member>
         <member name="P:Google.YouTube.Complaint.Type">
             <summary>
-            set's the type of the complaint
+            sets the type of the complaint
             </summary>
         </member>
         <member name="P:Google.YouTube.Complaint.ComplaintDescription">
             <summary>
-            sets the verbose part of the complain, stored in the yt:content element
+            sets the verbose part of the complaint, stored in the yt:content element
             </summary>
         </member>
         <member name="T:Google.YouTube.Comment">
@@ -2233,7 +2340,6 @@
         <member name="M:Google.YouTube.Comment.ReplyTo(Google.YouTube.Comment)">
             <summary>
             adds the replyToLinks to this comment
-            
             </summary>
             <param name="c">The comment this comment is replying to</param>
         </member>
@@ -2272,8 +2378,8 @@
         </member>
         <member name="P:Google.YouTube.Subscription.QueryString">
             <summary>
-            if the subscripiton is a keyword query, this will be the 
-            subscripted to query term
+            if the subscription is a keyword query, this will be the 
+            subscribed to query term
             </summary>
         </member>
         <member name="P:Google.YouTube.Subscription.PlaylistId">
@@ -2335,7 +2441,7 @@
         </member>
         <member name="P:Google.YouTube.Playlist.PlaylistsEntry">
             <summary>
-            returns the internal atomentry as a PlayListsEntry
+            returns the internal atomentry as a PlaylistsEntry
             </summary>
             <returns></returns>
         </member>
@@ -2343,6 +2449,95 @@
             <summary>
             specifies the number of entries in a playlist feed. This tag appears in the entries in a 
             playlists feed, where each entry contains information about a single playlist.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Google.YouTube.Show">
+            <summary>
+            the Show entry in feed&lt;Shows&gt; for YouTube
+            </summary>
+        </member>
+        <member name="M:Google.YouTube.Show.EnsureInnerObject">
+            <summary>
+            creates the inner show object when needed
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.YouTube.Show.ShowEntry">
+            <summary>
+            returns the internal atomentry as a ShowEntry
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.YouTube.Show.Description">
+            <summary>
+            contains a summary or description of a show.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.YouTube.Show.SeasonUrl">
+            <summary>
+            returns the URL for a feed of show seasons
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.YouTube.Show.Keywords">
+            <summary>
+            returns the keywords for the video, see MediaKeywords for more
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.YouTube.Show.Title">
+            <summary>
+            the title of the show. Overloaded to keep entry.title and the media.title 
+            in sync. 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.YouTube.Show.Thumbnails">
+            <summary>
+            returns the collection of thumbnails for the show
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Google.YouTube.ShowSeason">
+            <summary>
+            the Show entry in feed&lt;Shows&gt; for YouTube
+            </summary>
+        </member>
+        <member name="M:Google.YouTube.ShowSeason.EnsureInnerObject">
+            <summary>
+            creates the inner show season object when needed
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.YouTube.ShowSeason.ShowSeasonEntry">
+            <summary>
+            returns the internal atomentry as a ShowSeasonEntry
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.YouTube.ShowSeason.ClipCount">
+            <summary>
+            returns the count of expected Clips for the season
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.YouTube.ShowSeason.ClipUrl">
+            <summary>
+            returns the feed URL for season Clips
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.YouTube.ShowSeason.EpisodeCount">
+            <summary>
+            returns the count of expected Episodes for the season
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Google.YouTube.ShowSeason.EpisodeUrl">
+            <summary>
+            returns the feed URL for season Episodes
             </summary>
             <returns></returns>
         </member>
@@ -2398,7 +2593,7 @@
         </member>
         <member name="P:Google.YouTube.Video.Thumbnails">
             <summary>
-            returns the collection of thumbnails for the vido
+            returns the collection of thumbnails for the video
             </summary>
             <returns></returns>
         </member>
@@ -2463,7 +2658,7 @@
         </member>
         <member name="P:Google.YouTube.Video.ComplaintUri">
             <summary>
-            returns the complaint Uri, to post a comlaint to.
+            returns the complaint Uri, to post a complaint to.
             </summary>
         </member>
         <member name="P:Google.YouTube.Video.Private">
@@ -2503,7 +2698,7 @@
         </member>
         <member name="P:Google.YouTube.PlayListMember.Position">
             <summary>
-            if the video is a playlist reference, get's and set's it's position in the playlist
+            if the video is a playlist reference, gets and sets its position in the playlist
             </summary>
         </member>
         <member name="T:Google.YouTube.YouTubeRequestSettings">
@@ -2576,7 +2771,14 @@
         </member>
         <member name="M:Google.YouTube.YouTubeRequest.GetStandardFeed(System.String)">
             <summary>
-             returns one of the youtube default feeds. 
+            returns one of the youtube default feeds. 
+            </summary>
+            <param name="feedspec">the string representation of the URI to use</param>
+            <returns>a feed of Videos</returns>
+        </member>
+        <member name="M:Google.YouTube.YouTubeRequest.GetStandardShowFeed(System.String)">
+            <summary>
+            returns the youtube standard show feed. 
             </summary>
             <param name="feedspec">the string representation of the URI to use</param>
             <returns>a feed of Videos</returns>
@@ -2597,10 +2799,31 @@
         </member>
         <member name="M:Google.YouTube.YouTubeRequest.GetPlaylistsFeed(System.String)">
             <summary>
-            returns a Feed of playlists  for a given username
+            returns a Feed of playlists for a given username
             </summary>
             <param name="user">the username</param>
             <returns>a feed of Videos</returns>
+        </member>
+        <member name="M:Google.YouTube.YouTubeRequest.GetShowsFeed(System.String)">
+            <summary>
+            returns a Feed of shows for a given username
+            </summary>
+            <param name="user">the username</param>
+            <returns>a feed of Shows</returns>
+        </member>
+        <member name="M:Google.YouTube.YouTubeRequest.GetShowSeasonFeed(System.String)">
+            <summary>
+            returns a Feed of seasons for a given show
+            </summary>
+            <param name="user">the username</param>
+            <returns>a feed of Shows</returns>
+        </member>
+        <member name="M:Google.YouTube.YouTubeRequest.GetShowSeasonVideos(System.String)">
+            <summary>
+            returns a Feed of videos for a given show season
+            </summary>
+            <param name="user">the username</param>
+            <returns>a feed of Shows</returns>
         </member>
         <member name="M:Google.YouTube.YouTubeRequest.GetRelatedVideos(Google.YouTube.Video)">
             <summary>
@@ -2618,34 +2841,34 @@
         </member>
         <member name="M:Google.YouTube.YouTubeRequest.GetComments(Google.YouTube.Video)">
             <summary>
-            get's the comments for a given video
+            gets the comments for a given video
             </summary>
             <param name="v"></param>
             <returns></returns>
         </member>
         <member name="M:Google.YouTube.YouTubeRequest.GetActivities">
             <summary>
-            get's the activities that your contacts/friends did recently 
+            gets the activities that your contacts/friends did recently 
             </summary>
             <returns></returns>
         </member>
         <member name="M:Google.YouTube.YouTubeRequest.GetActivities(System.Collections.Generic.List{System.String})">
             <summary>
-            get's the activities for the set of users you pass in
+            gets the activities for a list of users
             </summary>
-            <param name="youTubeUsers">The list of youtube user ids to use</param>
+            <param name="youTubeUsers">The list of youtube user ids</param>
             <returns></returns>
         </member>
         <member name="M:Google.YouTube.YouTubeRequest.GetActivities(System.Collections.Generic.List{System.String},System.DateTime)">
             <summary>
-            get's the activities for the set of users you pass in
+            gets the activities for a list of users
             </summary>
-            <param name="youTubeUsers">The list of youtube user ids to use</param>
+            <param name="youTubeUsers">The list of youtube user ids</param>
             <returns></returns>
         </member>
         <member name="M:Google.YouTube.YouTubeRequest.GetActivities(System.DateTime)">
             <summary>
-            get's the activities that your contacts/friends did recently, from the 
+            gets the activities that your contacts/friends did recently, from the 
             given datetime point
             </summary>
             <returns></returns>
@@ -2683,7 +2906,7 @@
         </member>
         <member name="M:Google.YouTube.YouTubeRequest.CreateFormUploadToken(Google.YouTube.Video)">
             <summary>
-            creates the form upload token for the passed in video
+            creates the form upload token for a video
             </summary>
             <param name="v">the created video to be used</param>
             <returns></returns>
@@ -2713,7 +2936,7 @@
         </member>
         <member name="M:Google.YouTube.YouTubeRequest.GetVideoMetaData(System.Collections.Generic.List{Google.YouTube.Activity})">
             <summary>
-            Takes a list of activities, and get's the video meta data from youtube 
+            Takes a list of activities, and gets the video meta data from youtube 
             for those activites that identify a video
             </summary>
             <param name="list">a list of activities</param>
@@ -2726,6 +2949,25 @@
             </summary>
             <param name="inputStream"></param>
             <returns></returns>
+        </member>
+        <member name="T:Google.GData.YouTube.ShowFeed">
+            <summary>
+            A user's shows feed contains a list of the shows created by
+            that user.
+            </summary>
+        </member>
+        <member name="M:Google.GData.YouTube.ShowFeed.#ctor(System.Uri,Google.GData.Client.IService)">
+            <summary>
+            default constructor
+            </summary>
+            <param name="uriBase">the base URI of the feedEntry</param>
+            <param name="iService">the Service to use</param>
+        </member>
+        <member name="M:Google.GData.YouTube.ShowFeed.CreateFeedEntry">
+            <summary>
+            this needs to get implemented by subclasses
+            </summary>
+            <returns>AtomEntry</returns>
         </member>
         <member name="T:Google.GData.YouTube.ProfileFeed">
             <summary>
@@ -2763,7 +3005,7 @@
         </member>
         <member name="P:Google.GData.YouTube.ProfileEntry.Age">
             <summary>
-            The yt:ag> tag specifies the user's age, which is calculated based on the birthdate provided 
+            The yt:age tag specifies the user's age, which is calculated based on the birthdate provided 
             </summary>
             <returns></returns>
         </member>
@@ -2979,30 +3221,26 @@
             Category used to label entries that indicate a user added a friend
             </summary>
         </member>
-        <member name="F:Google.GData.YouTube.ActivityEntry.USERSUBSCRIPTIONADDED_CATEGORY">
-            <summary>
-            Category used to label entries that indicate a user added a subscripton
-            </summary>
-        </member>
+        <!-- Badly formed XML comment ignored for member "F:Google.GData.YouTube.ActivityEntry.USERSUBSCRIPTIONADDED_CATEGORY" -->
         <member name="M:Google.GData.YouTube.ActivityEntry.#ctor">
             <summary>
-            Constructs a new EventEmtry instance
+            Constructs a new ActivityEntry instance
             </summary>
         </member>
         <member name="P:Google.GData.YouTube.ActivityEntry.Type">
             <summary>
-             The type of Event, the user action that caused this.
+             The type of Activity, the user action that caused this.
             </summary>
             <returns></returns>
         </member>
         <member name="P:Google.GData.YouTube.ActivityEntry.VideoId">
             <summary>
-             property accessor for the VideoID, if applicable
+            property accessor for the VideoID, if applicable
             </summary>
         </member>
         <member name="P:Google.GData.YouTube.ActivityEntry.Username">
             <summary>
-             property accessor for the UseName, if applicable
+            property accessor for the UserName, if applicable
             </summary>
         </member>
         <member name="P:Google.GData.YouTube.ActivityEntry.VideoLink">
@@ -3017,7 +3255,7 @@
         </member>
         <member name="M:Google.GData.YouTube.ActivitiesFeed.#ctor(System.Uri,Google.GData.Client.IService)">
             <summary>
-             default constructor
+            default constructor
             </summary>
             <param name="uriBase">the base URI of the feedEntry</param>
             <param name="iService">the Service to use</param>
@@ -3043,7 +3281,7 @@
         </member>
         <member name="M:Google.GData.YouTube.PlaylistFeed.#ctor(System.Uri,Google.GData.Client.IService)">
             <summary>
-             default constructor
+            default constructor
             </summary>
             <param name="uriBase">the base URI of the feedEntry</param>
             <param name="iService">the Service to use</param>
@@ -3100,7 +3338,7 @@
         </member>
         <member name="P:Google.GData.YouTube.SubscriptionEntry.Type">
             <summary>
-            get's and set's the associated atom:category
+            gets and sets the associated atom:category
             </summary>
             <returns></returns>
         </member>

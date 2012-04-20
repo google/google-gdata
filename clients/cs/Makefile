@@ -20,7 +20,6 @@ ACLLIBS= \
 ALLLIBS = \
   Google.GData.Calendar.dll \
   Google.GData.Client.dll \
-  Google.GData.CodeSearch.dll \
   Google.GData.Extensions.dll \
   Google.GData.Spreadsheets.dll \
   Google.GData.Apps.dll \
@@ -56,7 +55,6 @@ all: $(ALLLIBS) tests $(samples) $(PKGCONFIG_FILES)
 
 core_sources = $(wildcard src/core/*.cs) $(wildcard version/*.cs)
 extensions_sources = $(wildcard src/extensions/*.cs) $(wildcard version/*.cs)
-gcodesearch_sources = $(wildcard src/gcodesearch/*.cs) $(wildcard version/*.cs)
 gspreadsheet_sources = $(wildcard src/gspreadsheet/*.cs) $(wildcard version/*.cs)
 gcalendar_sources =  $(wildcard src/gcalendar/*.cs) $(wildcard version/*.cs)
 gacl_sources = $(wildcard src/gacl/*.cs) $(wildcard version/*.cs)
@@ -79,9 +77,6 @@ Google.GData.Extensions.dll: Google.GData.Client.dll $(extension_sources) src/ex
 
 Google.GData.Calendar.dll: $(ACLLIBS) $(gcalendar_sources) src/gcalendar/calendarkey.sn
 	$(CSC) -target:library -out:$@ $(ACLREFS) $(gcalendar_sources) -keyfile:src/gcalendar/calendarkey.sn
-
-Google.GData.CodeSearch.dll: $(CORELIBS) $(gcodesearch_sources) src/gcodesearch/codesearch.sn
-	$(CSC) -target:library -out:$@ $(COREREFS) $(gcodesearch_sources) -keyfile:src/gcodesearch/codesearch.sn
 
 Google.GData.Spreadsheets.dll: $(CORELIBS) $(gspreadsheet_sources) src/gspreadsheet/spreadsheets.sn
 	$(CSC) -target:library -out:$@ $(COREREFS) $(gspreadsheet_sources) -keyfile:src/gspreadsheet/spreadsheets.sn

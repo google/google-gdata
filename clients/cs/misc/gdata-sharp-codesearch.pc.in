@@ -1,9 +1,0 @@
-prefix=@prefix@
-libdir=${prefix}/lib
-
-Name: GData Sharp Code Search
-Description: CLI bindings to Google Code Search
-Version: @VERSION@
-
-Requires: gdata-sharp-core
-Libs: -r:${libdir}/mono/GData-Sharp/Google.GData.CodeSearch.dll

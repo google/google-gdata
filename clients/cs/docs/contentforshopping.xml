@@ -23,12 +23,12 @@
         </member>
         <member name="M:Google.GData.ContentForShopping.Elements.Condition.#ctor">
             <summary>
-            default constructor for scp:condition 
+            default constructor for scp:condition
             </summary>
         </member>
         <member name="M:Google.GData.ContentForShopping.Elements.Brand.#ctor">
             <summary>
-            default constructor for scp:brand 
+            default constructor for scp:brand
             </summary>
         </member>
         <member name="T:Google.GData.ContentForShopping.ProductFeed">
@@ -49,9 +49,14 @@
             </summary>
             <returns>AtomEntry</returns>
         </member>
+        <member name="M:Google.GData.ContentForShopping.Elements.InternalId.#ctor">
+            <summary>
+            default constructor for sc:internal_id
+            </summary>
+        </member>
         <member name="M:Google.GData.ContentForShopping.Elements.TaxShip.#ctor">
             <summary>
-            default constructor for scp:tax_ship 
+            default constructor for scp:tax_ship
             </summary>
         </member>
         <member name="M:Google.GData.ContentForShopping.Elements.ShippingService.#ctor">
@@ -61,17 +66,17 @@
         </member>
         <member name="M:Google.GData.ContentForShopping.Elements.Gender.#ctor">
             <summary>
-            default constructor for scp:gender 
+            default constructor for scp:gender
             </summary>
         </member>
         <member name="M:Google.GData.ContentForShopping.Elements.GoogleProductCategory.#ctor">
             <summary>
-            default constructor for scp:google_product_category 
+            default constructor for scp:google_product_category
             </summary>
         </member>
         <member name="M:Google.GData.ContentForShopping.Elements.RequiredDestination.#ctor">
             <summary>
-            default constructor for sc:required_destination 
+            default constructor for sc:required_destination
             </summary>
         </member>
         <member name="M:Google.GData.ContentForShopping.Elements.RequiredDestination.#ctor(System.String)">
@@ -87,7 +92,7 @@
         </member>
         <member name="M:Google.GData.ContentForShopping.Elements.ExcludedDestination.#ctor">
             <summary>
-            default constructor for sc:required_destination 
+            default constructor for sc:required_destination
             </summary>
         </member>
         <member name="M:Google.GData.ContentForShopping.Elements.ExcludedDestination.#ctor(System.String)">
@@ -101,29 +106,128 @@
             Destination property accessor
             </summary>
         </member>
+        <member name="M:Google.GData.ContentForShopping.Elements.AdwordsLabels.#ctor">
+            <summary>
+            default constructor for scp:adwords_labels
+            </summary>
+        </member>
+        <member name="T:Google.GData.ContentForShopping.ManagedAccountsService">
+            <summary>
+            The ManagedAccountsService class extends the basic Service abstraction
+            to define a service that is preconfigured for access to the managed
+            accounts feed of the Google Content API for Shopping.
+            </summary>
+        </member>
+        <member name="F:Google.GData.ContentForShopping.ManagedAccountsService.GContentForShoppingService">
+            <summary>The Content for Shopping service's name</summary>
+        </member>
+        <member name="M:Google.GData.ContentForShopping.ManagedAccountsService.#ctor(System.String)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="applicationName">The name of the client application
+            using this service.</param>
+        </member>
+        <member name="M:Google.GData.ContentForShopping.ManagedAccountsService.Query(Google.GData.ContentForShopping.ManagedAccountsQuery)">
+            <summary>
+             overwritten Query method
+            </summary>
+            <param name="feedQuery">The FeedQuery to use</param>
+            <returns>the retrieved ManagedAccountsFeed</returns>
+        </member>
+        <member name="M:Google.GData.ContentForShopping.ManagedAccountsService.Insert(Google.GData.ContentForShopping.ManagedAccountsFeed,Google.GData.ContentForShopping.ManagedAccountsEntry)">
+            <summary>
+            Inserts a new managed accounts entry into the specified feed.
+            </summary>
+            <param name="feed">the feed into which this entry should be inserted</param>
+            <param name="entry">the entry to insert</param>
+            <returns>the inserted entry</returns>
+        </member>
+        <member name="M:Google.GData.ContentForShopping.ManagedAccountsService.Update(Google.GData.ContentForShopping.ManagedAccountsEntry)">
+            <summary>
+            Updates an existing managed accounts entry with the new values
+            </summary>
+            <param name="entry">the entry to insert</param>
+            <returns>the updated entry returned by the server</returns>
+        </member>
+        <member name="M:Google.GData.ContentForShopping.ManagedAccountsService.Delete(Google.GData.ContentForShopping.ManagedAccountsEntry)">
+            <summary>
+            Deletes an existing managed account.
+            </summary>
+            <param name="entry">the entry to delete</param>
+        </member>
+        <member name="M:Google.GData.ContentForShopping.ManagedAccountsService.OnParsedNewEntry(System.Object,Google.GData.Client.FeedParserEventArgs)">
+            <summary>
+            Event handler. Called when a new list entry is parsed.
+            </summary>
+            <param name="sender">the object that's sending the event</param>
+            <param name="e">FeedParserEventArguments, holds the feedentry</param>
+        </member>
+        <member name="M:Google.GData.ContentForShopping.ManagedAccountsService.OnParsedNewFeed(System.Object,Google.GData.Client.ServiceEventArgs)">
+            <summary>
+            Feed handler. Instantiates a new <code>ManagedAccountsFeed</code>.
+            </summary>
+            <param name="sender">the object that's sending the event</param>
+            <param name="e"><code>ServiceEventArgs</code>, holds the feed</param>
+        </member>
+        <member name="T:Google.GData.ContentForShopping.ManagedAccountsEntry">
+            <summary>
+            Feed API customization class for defining managed accounts entry.
+            </summary>
+        </member>
+        <member name="P:Google.GData.ContentForShopping.ManagedAccountsEntry.AdultContent">
+            <summary>
+            AdultContent.
+            </summary>
+        </member>
+        <member name="P:Google.GData.ContentForShopping.ManagedAccountsEntry.InternalId">
+            <summary>
+            InternalId.
+            </summary>
+        </member>
+        <member name="P:Google.GData.ContentForShopping.ManagedAccountsEntry.ReviewsUrl">
+            <summary>
+            ReviewsUrl.
+            </summary>
+        </member>
+        <member name="P:Google.GData.ContentForShopping.ManagedAccountsEntry.AccountStatus">
+            <summary>
+            AccountStatus.
+            </summary>
+        </member>
+        <member name="M:Google.GData.ContentForShopping.Elements.AdultContent.#ctor">
+            <summary>
+            default constructor for sc:adult_content
+            </summary>
+        </member>
         <member name="M:Google.GData.ContentForShopping.Elements.ProductId.#ctor">
             <summary>
-            default constructor for sc:id 
+            default constructor for sc:id
             </summary>
         </member>
         <member name="M:Google.GData.ContentForShopping.Elements.ShippingCountry.#ctor">
             <summary>
-            default constructor for scp:shipping_country 
+            default constructor for scp:shipping_country
             </summary>
         </member>
         <member name="M:Google.GData.ContentForShopping.Elements.Edition.#ctor">
             <summary>
-            default constructor for scp:edition 
+            default constructor for scp:edition
             </summary>
         </member>
         <member name="M:Google.GData.ContentForShopping.Elements.ModelNumber.#ctor">
             <summary>
-            default constructor for scp:model_number 
+            default constructor for scp:model_number
             </summary>
         </member>
         <member name="M:Google.GData.ContentForShopping.Elements.Size.#ctor">
             <summary>
-            default constructor for scp:size 
+            default constructor for scp:size
+            </summary>
+        </member>
+        <member name="M:Google.GData.ContentForShopping.Elements.ReviewsUrl.#ctor">
+            <summary>
+            default constructor for sc:reviews_url
             </summary>
         </member>
         <member name="M:Google.GData.ContentForShopping.Elements.ShippingRegion.#ctor">
@@ -144,32 +248,47 @@
         <member name="F:Google.GData.ContentForShopping.ProductEntry.additionalImageLinks">
             <summary>
             AdditionalImageLink collection
-            </summary> 
+            </summary>
         </member>
         <member name="F:Google.GData.ContentForShopping.ProductEntry.taxRules">
             <summary>
             Tax collection
-            </summary> 
+            </summary>
         </member>
         <member name="F:Google.GData.ContentForShopping.ProductEntry.shippingRules">
             <summary>
             Shipping collection
-            </summary> 
+            </summary>
         </member>
         <member name="F:Google.GData.ContentForShopping.ProductEntry.colors">
             <summary>
             Color collection
-            </summary> 
+            </summary>
         </member>
         <member name="F:Google.GData.ContentForShopping.ProductEntry.features">
             <summary>
             Feature collection
-            </summary> 
+            </summary>
         </member>
         <member name="F:Google.GData.ContentForShopping.ProductEntry.sizes">
             <summary>
             Size collection
-            </summary> 
+            </summary>
+        </member>
+        <member name="F:Google.GData.ContentForShopping.ProductEntry.adwordsLabelsCollection">
+            <summary>
+            AdwordsLabels collection
+            </summary>
+        </member>
+        <member name="F:Google.GData.ContentForShopping.ProductEntry.adwordsQueryParams">
+            <summary>
+            AdwordsQueryParam collection
+            </summary>
+        </member>
+        <member name="F:Google.GData.ContentForShopping.ProductEntry.customAttributes">
+            <summary>
+            Custom attributes collection
+            </summary>
         </member>
         <member name="P:Google.GData.ContentForShopping.ProductEntry.AppControl">
             <summary>
@@ -200,6 +319,16 @@
         <member name="P:Google.GData.ContentForShopping.ProductEntry.Adult">
             <summary>
             Adult.
+            </summary>
+        </member>
+        <member name="P:Google.GData.ContentForShopping.ProductEntry.AdwordsGrouping">
+            <summary>
+            Adwords Grouping
+            </summary>
+        </member>
+        <member name="P:Google.GData.ContentForShopping.ProductEntry.AdwordsRedirect">
+            <summary>
+            Adwords Redirect
             </summary>
         </member>
         <member name="P:Google.GData.ContentForShopping.ProductEntry.AgeGroup">
@@ -377,9 +506,30 @@
             Size collection.
             </summary>
         </member>
+        <member name="P:Google.GData.ContentForShopping.ProductEntry.AdwordsLabelsCollection">
+            <summary>
+            AdwordsLabels collection
+            </summary>
+        </member>
+        <member name="P:Google.GData.ContentForShopping.ProductEntry.AdwordsQueryParams">
+            <summary>
+            AdwordsQueryParam collection
+            </summary>
+        </member>
+        <member name="P:Google.GData.ContentForShopping.ProductEntry.CustomAttributes">
+            <summary>
+            Custom attribute collection.
+            </summary>
+        </member>
+        <member name="P:Google.GData.ContentForShopping.ProductEntry.BatchErrors">
+            <summary>
+            gd:errors element
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Google.GData.ContentForShopping.Elements.ImageLink.#ctor">
             <summary>
-            default constructor for sc:image_link 
+            default constructor for sc:image_link
             </summary>
         </member>
         <member name="M:Google.GData.ContentForShopping.Elements.ImageLink.#ctor(System.String)">
@@ -389,7 +539,7 @@
         </member>
         <member name="M:Google.GData.ContentForShopping.Elements.Material.#ctor">
             <summary>
-            default constructor for scp:material 
+            default constructor for scp:material
             </summary>
         </member>
         <member name="M:Google.GData.ContentForShopping.Elements.WarningDomain.#ctor">
@@ -399,17 +549,22 @@
         </member>
         <member name="M:Google.GData.ContentForShopping.Elements.AgeGroup.#ctor">
             <summary>
-            default constructor for scp:age_group 
+            default constructor for scp:age_group
+            </summary>
+        </member>
+        <member name="M:Google.GData.ContentForShopping.Elements.AdwordsRedirect.#ctor">
+            <summary>
+            default constructor for scp:adwords_redirect
             </summary>
         </member>
         <member name="M:Google.GData.ContentForShopping.Elements.Pattern.#ctor">
             <summary>
-            default constructor for scp:pattern 
+            default constructor for scp:pattern
             </summary>
         </member>
         <member name="M:Google.GData.ContentForShopping.Elements.Quantity.#ctor">
             <summary>
-            default constructor for scp:quantity 
+            default constructor for scp:quantity
             </summary>
         </member>
         <member name="M:Google.GData.ContentForShopping.Elements.ShippingPrice.#ctor">
@@ -431,17 +586,17 @@
         </member>
         <member name="M:Google.GData.ContentForShopping.Elements.Feature.#ctor">
             <summary>
-            default constructor for scp:feature 
+            default constructor for scp:feature
             </summary>
         </member>
         <member name="M:Google.GData.ContentForShopping.Elements.Year.#ctor">
             <summary>
-            default constructor for scp:year 
+            default constructor for scp:year
             </summary>
         </member>
         <member name="M:Google.GData.ContentForShopping.Elements.ProductReviewAverage.#ctor">
             <summary>
-            default constructor for scp:product_review_average 
+            default constructor for scp:product_review_average
             </summary>
         </member>
         <member name="M:Google.GData.ContentForShopping.Elements.Warning.#ctor">
@@ -498,22 +653,22 @@
         </member>
         <member name="M:Google.GData.ContentForShopping.Elements.TaxRegion.#ctor">
             <summary>
-            default constructor for scp:tax_region 
+            default constructor for scp:tax_region
             </summary>
         </member>
         <member name="M:Google.GData.ContentForShopping.Elements.Mpn.#ctor">
             <summary>
-            default constructor for scp:mpn 
+            default constructor for scp:mpn
             </summary>
         </member>
         <member name="M:Google.GData.ContentForShopping.Elements.ItemGroupId.#ctor">
             <summary>
-            default constructor for scp:item_group_id 
+            default constructor for scp:item_group_id
             </summary>
         </member>
         <member name="M:Google.GData.ContentForShopping.Elements.Gtin.#ctor">
             <summary>
-            default constructor for scp:gtin 
+            default constructor for scp:gtin
             </summary>
         </member>
         <member name="M:Google.GData.ContentForShopping.Elements.Shipping.#ctor">
@@ -543,12 +698,53 @@
         </member>
         <member name="M:Google.GData.ContentForShopping.Elements.Pages.#ctor">
             <summary>
-            default constructor for scp:pages 
+            default constructor for scp:pages
+            </summary>
+        </member>
+        <member name="M:Google.GData.ContentForShopping.Elements.CustomAttribute.#ctor">
+            <summary>
+            default constructor for sc:attribute
+            </summary>
+        </member>
+        <member name="M:Google.GData.ContentForShopping.Elements.CustomAttribute.#ctor(System.String,System.String)">
+            <summary>
+            default constructor for sc:attribute with an initial value
+            </summary>
+            <param name="name">The attribute's name.</param>
+            <param name="value">The attribute's initial value.</param>
+        </member>
+        <member name="M:Google.GData.ContentForShopping.Elements.CustomAttribute.#ctor(System.String,System.String,System.String,System.String)">
+            <summary>
+            Constructs a new CustomAttribute instance with the specified values.
+            </summary>
+            <param name="name">The attribute's name.</param>
+            <param name="value">The attribute's initial value.</param>
+            <param name="type">The attribute's type.</param>
+            <param name="unit">The attribute's unit.</param>
+        </member>
+        <member name="P:Google.GData.ContentForShopping.Elements.CustomAttribute.Name">
+            <summary>
+            Name property accessor
+            </summary>
+        </member>
+        <member name="P:Google.GData.ContentForShopping.Elements.CustomAttribute.Type">
+            <summary>
+            Type property accessor
+            </summary>
+        </member>
+        <member name="P:Google.GData.ContentForShopping.Elements.CustomAttribute.Unit">
+            <summary>
+            Unit property accessor
+            </summary>
+        </member>
+        <member name="M:Google.GData.ContentForShopping.Elements.AccountStatus.#ctor">
+            <summary>
+            default constructor for sc:account_status
             </summary>
         </member>
         <member name="M:Google.GData.ContentForShopping.Elements.ProductType.#ctor">
             <summary>
-            default constructor for scp:product_type 
+            default constructor for scp:product_type
             </summary>
         </member>
         <member name="M:Google.GData.ContentForShopping.Elements.Tax.#ctor">
@@ -578,22 +774,77 @@
         </member>
         <member name="M:Google.GData.ContentForShopping.Elements.FeaturedProduct.#ctor">
             <summary>
-            default constructor for scp:featured_product 
+            default constructor for scp:featured_product
             </summary>
         </member>
         <member name="M:Google.GData.ContentForShopping.Elements.Manufacturer.#ctor">
             <summary>
-            default constructor for scp:manufacturer 
+            default constructor for scp:manufacturer
             </summary>
         </member>
         <member name="M:Google.GData.ContentForShopping.Elements.ProductReviewCount.#ctor">
             <summary>
-            default constructor for scp:product_review_count 
+            default constructor for scp:product_review_count
             </summary>
         </member>
         <member name="M:Google.GData.ContentForShopping.Elements.WarningCode.#ctor">
             <summary>
             default constructor for sc:warning_code
+            </summary>
+        </member>
+        <member name="T:Google.GData.ContentForShopping.ManagedAccountsQuery">
+            <summary>
+            A subclass of FeedQuery, to create a ContentForShopping managedaccounts
+            query URI. Provides public properties that describe the different
+            aspects of the URI, as well as a composite URI.
+            </summary>
+        </member>
+        <member name="M:Google.GData.ContentForShopping.ManagedAccountsQuery.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:Google.GData.ContentForShopping.ManagedAccountsQuery.#ctor(System.String)">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:Google.GData.ContentForShopping.ManagedAccountsQuery.CalculateQuery(System.String)">
+            <summary>
+            Creates the URI query string based on all set properties.
+            </summary>
+            <returns>the URI query string</returns>
+        </member>
+        <member name="M:Google.GData.ContentForShopping.ManagedAccountsQuery.ParseUri(System.Uri)">
+            <summary>
+            Parses an incoming URI string and sets the instance variables of this object.
+            </summary>
+            <param name="targetUri">Takes an incoming Uri string and parses all the properties of it</param>
+            <returns>Throws a query exception when it finds something wrong with the input, otherwise returns a baseuri.</returns>
+        </member>
+        <member name="M:Google.GData.ContentForShopping.ManagedAccountsQuery.Reset">
+            <summary>
+            Resets object state to default, as if newly created.
+            </summary>
+        </member>
+        <member name="M:Google.GData.ContentForShopping.ManagedAccountsQuery.GetBaseUri">
+            <summary>
+            Returns the base Uri for the feed.
+            </summary>
+        </member>
+        <member name="P:Google.GData.ContentForShopping.ManagedAccountsQuery.AccountId">
+            <summary>
+            Accessor method for AccountId.
+            </summary>
+        </member>
+        <member name="P:Google.GData.ContentForShopping.ManagedAccountsQuery.StartIndex">
+            <summary>
+            Accessor method for StartIndex.
+            </summary>
+        </member>
+        <member name="P:Google.GData.ContentForShopping.ManagedAccountsQuery.MaxResults">
+            <summary>
+            Accessor method for MaxResults.
             </summary>
         </member>
         <member name="T:Google.GData.ContentForShopping.ContentForShoppingService">
@@ -610,7 +861,7 @@
             <summary>
             Constructor
             </summary>
-            <param name="applicationName">The name of the client application 
+            <param name="applicationName">The name of the client application
             using this service.</param>
         </member>
         <member name="M:Google.GData.ContentForShopping.ContentForShoppingService.Query(Google.GData.ContentForShopping.ProductQuery)">
@@ -674,27 +925,50 @@
         </member>
         <member name="M:Google.GData.ContentForShopping.Elements.Genre.#ctor">
             <summary>
-            default constructor for scp:genre 
+            default constructor for scp:genre
             </summary>
         </member>
         <member name="M:Google.GData.ContentForShopping.Elements.Author.#ctor">
             <summary>
-            default constructor for scp:author 
+            default constructor for scp:author
             </summary>
+        </member>
+        <member name="M:Google.GData.ContentForShopping.Elements.AdwordsQueryParam.#ctor">
+            <summary>
+            default constructor for scp:adwords_queryparam
+            </summary>
+        </member>
+        <member name="T:Google.GData.ContentForShopping.ManagedAccountsFeed">
+            <summary>
+            Feed API customization class for defining managed accounts feed.
+            </summary>
+        </member>
+        <member name="M:Google.GData.ContentForShopping.ManagedAccountsFeed.#ctor(System.Uri,Google.GData.Client.IService)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="uriBase">The uri for the managedaccounts feed.</param>
+            <param name="iService">The ContentForShopping service.</param>
+        </member>
+        <member name="M:Google.GData.ContentForShopping.ManagedAccountsFeed.CreateFeedEntry">
+            <summary>
+            returns a new entry for this feed
+            </summary>
+            <returns>AtomEntry</returns>
         </member>
         <member name="M:Google.GData.ContentForShopping.Elements.TargetCountry.#ctor">
             <summary>
-            default constructor for sc:target_country 
+            default constructor for sc:target_country
             </summary>
         </member>
         <member name="M:Google.GData.ContentForShopping.Elements.ExpirationDate.#ctor">
             <summary>
-            default constructor for sc:expiration_date 
+            default constructor for sc:expiration_date
             </summary>
         </member>
         <member name="M:Google.GData.ContentForShopping.Elements.TaxCountry.#ctor">
             <summary>
-            default constructor for scp:tax_country 
+            default constructor for scp:tax_country
             </summary>
         </member>
         <member name="T:Google.GData.ContentForShopping.ProductQuery">
@@ -781,22 +1055,22 @@
         </member>
         <member name="M:Google.GData.ContentForShopping.Elements.TaxRate.#ctor">
             <summary>
-            default constructor for scp:tax_rate 
+            default constructor for scp:tax_rate
             </summary>
         </member>
         <member name="M:Google.GData.ContentForShopping.Elements.Publisher.#ctor">
             <summary>
-            default constructor for scp:publisher 
+            default constructor for scp:publisher
             </summary>
         </member>
         <member name="F:Google.GData.ContentForShopping.Elements.ProductControl.statusList">
             <summary>
             Status collection
-            </summary> 
+            </summary>
         </member>
         <member name="M:Google.GData.ContentForShopping.Elements.ProductControl.#ctor">
             <summary>
-            default constructor for app:control in the Content for Shopping API 
+            default constructor for app:control in the Content for Shopping API
             </summary>
         </member>
         <member name="M:Google.GData.ContentForShopping.Elements.ProductControl.VersionInfoChanged">
@@ -832,7 +1106,7 @@
         <member name="F:Google.GData.ContentForShopping.ContentForShoppingNameTable.scDataPrefix">
             <summary>
             prefix for Structured Content namespace
-            </summary> 
+            </summary>
         </member>
         <member name="F:Google.GData.ContentForShopping.ContentForShoppingNameTable.ProductsNamespace">
             <summary>
@@ -842,7 +1116,7 @@
         <member name="F:Google.GData.ContentForShopping.ContentForShoppingNameTable.scpDataPrefix">
             <summary>
             prefix for Structured Content Products namespace
-            </summary> 
+            </summary>
         </member>
         <member name="F:Google.GData.ContentForShopping.ContentForShoppingNameTable.ProductId">
             <summary>
@@ -877,6 +1151,26 @@
         <member name="F:Google.GData.ContentForShopping.ContentForShoppingNameTable.Adult">
             <summary>
             XML element name for adult.
+            </summary>
+        </member>
+        <member name="F:Google.GData.ContentForShopping.ContentForShoppingNameTable.AdwordsGrouping">
+            <summary>
+            XML element name for adwords_grouping.
+            </summary>
+        </member>
+        <member name="F:Google.GData.ContentForShopping.ContentForShoppingNameTable.AdwordsLabels">
+            <summary>
+            XML element name for adwords_labels.
+            </summary>
+        </member>
+        <member name="F:Google.GData.ContentForShopping.ContentForShoppingNameTable.AdwordsQueryParam">
+            <summary>
+            XML element name for adwords_queryparam.
+            </summary>
+        </member>
+        <member name="F:Google.GData.ContentForShopping.ContentForShoppingNameTable.AdwordsRedirect">
+            <summary>
+            XML element name for adwords_redirect.
             </summary>
         </member>
         <member name="F:Google.GData.ContentForShopping.ContentForShoppingNameTable.AgeGroup">
@@ -1144,9 +1438,49 @@
             XML element name for warning message.
             </summary>
         </member>
+        <member name="F:Google.GData.ContentForShopping.ContentForShoppingNameTable.Attribute">
+            <summary>
+            XML element name for attribute.
+            </summary>
+        </member>
+        <member name="F:Google.GData.ContentForShopping.ContentForShoppingNameTable.Name">
+            <summary>
+            XML element name for name.
+            </summary>
+        </member>
+        <member name="F:Google.GData.ContentForShopping.ContentForShoppingNameTable.Type">
+            <summary>
+            XML element name for type.
+            </summary>
+        </member>
+        <member name="F:Google.GData.ContentForShopping.ContentForShoppingNameTable.Unit">
+            <summary>
+            XML element name for unit.
+            </summary>
+        </member>
+        <member name="F:Google.GData.ContentForShopping.ContentForShoppingNameTable.AccountStatus">
+            <summary>
+            XML element name account status
+            </summary>
+        </member>
+        <member name="F:Google.GData.ContentForShopping.ContentForShoppingNameTable.AdultContent">
+            <summary>
+            XML element name for adult content.
+            </summary>
+        </member>
+        <member name="F:Google.GData.ContentForShopping.ContentForShoppingNameTable.InternalId">
+            <summary>
+            XML element name for internal id.
+            </summary>
+        </member>
+        <member name="F:Google.GData.ContentForShopping.ContentForShoppingNameTable.ReviewsUrl">
+            <summary>
+            XML element name for reviews url.
+            </summary>
+        </member>
         <member name="M:Google.GData.ContentForShopping.Elements.Price.#ctor">
             <summary>
-            default constructor for scp:price 
+            default constructor for scp:price
             </summary>
         </member>
         <member name="M:Google.GData.ContentForShopping.Elements.Price.#ctor(System.String,System.String)">
@@ -1163,12 +1497,12 @@
         </member>
         <member name="M:Google.GData.ContentForShopping.Elements.Availability.#ctor">
             <summary>
-            default constructor for scp:availability 
+            default constructor for scp:availability
             </summary>
         </member>
         <member name="M:Google.GData.ContentForShopping.Elements.Color.#ctor">
             <summary>
-            default constructor for scp:color 
+            default constructor for scp:color
             </summary>
         </member>
         <member name="M:Google.GData.ContentForShopping.Elements.Color.#ctor(System.String)">
@@ -1179,12 +1513,17 @@
         </member>
         <member name="M:Google.GData.ContentForShopping.Elements.Adult.#ctor">
             <summary>
-            default constructor for sc:adult 
+            default constructor for sc:adult
+            </summary>
+        </member>
+        <member name="M:Google.GData.ContentForShopping.Elements.AdwordsGrouping.#ctor">
+            <summary>
+            default constructor for scp:adwords_grouping
             </summary>
         </member>
         <member name="M:Google.GData.ContentForShopping.Elements.AdditionalImageLink.#ctor">
             <summary>
-            default constructor for sc:additional_image_link 
+            default constructor for sc:additional_image_link
             </summary>
         </member>
         <member name="M:Google.GData.ContentForShopping.Elements.AdditionalImageLink.#ctor(System.String)">
@@ -1204,12 +1543,12 @@
         </member>
         <member name="M:Google.GData.ContentForShopping.Elements.Channel.#ctor">
             <summary>
-            default constructor for scp:channel 
+            default constructor for scp:channel
             </summary>
         </member>
         <member name="M:Google.GData.ContentForShopping.Elements.ContentLanguage.#ctor">
             <summary>
-            default constructor for sc:content_language 
+            default constructor for sc:content_language
             </summary>
         </member>
     </members>

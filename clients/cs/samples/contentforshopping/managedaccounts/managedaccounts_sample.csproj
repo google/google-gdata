@@ -52,17 +52,14 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Google.GData.Client, Version=1.8.0.0, Culture=neutral, PublicKeyToken=04a59ca9b0273830, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\Release\Google.GData.Client.dll</HintPath>
+    <Reference Include="Google.GData.Client">
+      <HintPath>..\..\..\lib\Release\Google.GData.Client.dll</HintPath>
     </Reference>
-    <Reference Include="Google.GData.ContentForShopping, Version=1.9.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Google.GData.ContentForShopping">
       <HintPath>..\..\..\lib\Release\Google.GData.ContentForShopping.dll</HintPath>
     </Reference>
-    <Reference Include="Google.GData.Extensions, Version=1.8.0.0, Culture=neutral, PublicKeyToken=0b4c5df2ebf20876, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\Release\Google.GData.Extensions.dll</HintPath>
+    <Reference Include="Google.GData.Extensions">
+      <HintPath>..\..\..\lib\Release\Google.GData.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />

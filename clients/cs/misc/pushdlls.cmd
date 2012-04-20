@@ -18,7 +18,6 @@ xcopy /y ..\src\extensions\bin\Release\*.dll ..\lib\Release\*.*
 xcopy /y ..\src\gacl\bin\Release\*.dll ..\lib\Release\*.*
 xcopy /y ..\src\gapps\bin\Release\*.dll ..\lib\Release\*.*
 xcopy /y ..\src\gcalendar\bin\Release\*.dll ..\lib\Release\*.*
-xcopy /y ..\src\gcodesearch\bin\Release\*.dll ..\lib\Release\*.*
 xcopy /y ..\src\gcontacts\bin\Release\*.dll ..\lib\Release\*.*
 xcopy /y ..\src\gphotos\bin\Release\*.dll ..\lib\Release\*.*
 xcopy /y ..\src\gspreadsheet\bin\Release\*.dll ..\lib\Release\*.*
@@ -35,7 +34,6 @@ xcopy /y ..\src\extensions\bin\Debug\*.dll ..\lib\Debug\*.*
 xcopy /y ..\src\gacl\bin\Debug\*.dll ..\lib\Debug\*.*
 xcopy /y ..\src\gapps\bin\Debug\*.dll ..\lib\Debug\*.*
 xcopy /y ..\src\gcalendar\bin\Debug\*.dll ..\lib\Debug\*.*
-xcopy /y ..\src\gcodesearch\bin\Debug\*.dll ..\lib\Debug\*.*
 xcopy /y ..\src\gcontacts\bin\Debug\*.dll ..\lib\Debug\*.*
 xcopy /y ..\src\gphotos\bin\Debug\*.dll ..\lib\Debug\*.*
 xcopy /y ..\src\gspreadsheet\bin\Debug\*.dll ..\lib\Debug\*.*
@@ -59,7 +57,6 @@ xcopy /y ..\samples\appsforyourdomain\bin\Release\*.exe ..\lib\Release\*.*
 xcopy /y ..\samples\Blogger\bin\Release\*.exe ..\lib\Release\*.*
 xcopy /y ..\samples\BookThemAll\bin\Release\*.exe ..\lib\Release\*.*
 xcopy /y ..\samples\Calendar\bin\Release\*.exe ..\lib\Release\*.*
-xcopy /y ..\samples\CodeSearch\bin\Release\*.exe ..\lib\Release\*.*
 xcopy /y ..\samples\contentforshopping_sample\bin\Release\*.exe ..\lib\Release\*.*
 xcopy /y ..\samples\DocListExporter\bin\Release\*.exe ..\lib\Release\*.*
 xcopy /y ..\samples\DocListUploader\bin\Release\*.exe ..\lib\Release\*.*
@@ -84,7 +81,6 @@ xcopy /y ..\src\extensions\bin\*.xml ..\docs\*.*
 xcopy /y ..\src\gacl\bin\*.xml ..\docs\*.*
 xcopy /y ..\src\gapps\bin\*.xml ..\docs\*.*
 xcopy /y ..\src\gcalendar\bin\*.xml ..\docs\*.*
-xcopy /y ..\src\gcodesearch\bin\*.xml ..\docs\*.*
 xcopy /y ..\src\gcontacts\bin\*.xml ..\docs\*.*
 xcopy /y ..\src\gphotos\bin\*.xml ..\docs\*.*
 xcopy /y ..\src\gspreadsheets\bin\*.xml ..\docs\*.*
