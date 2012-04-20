@@ -8,8 +8,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blogger", "blogger\Blogger.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calendar", "calendar\Calendar.csproj", "{66A10433-B78E-4144-9FD9-882E21D60F1E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeSearch", "codesearch\CodeSearch.csproj", "{3ADFC495-3BCB-4A8E-970C-653B079799B4}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocListUploader", "DocListUploader\DocListUploader.csproj", "{E85CC897-2192-4C43-BEC1-941FE8560786}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExecRequest", "execrequest\ExecRequest.csproj", "{E430FA52-77E9-415E-9C40-48C8E1AD1479}"
@@ -94,14 +92,6 @@ Global
 		{66A10433-B78E-4144-9FD9-882E21D60F1E}.DocListUploader - Release|Any CPU.Build.0 = Release|Any CPU
 		{66A10433-B78E-4144-9FD9-882E21D60F1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{66A10433-B78E-4144-9FD9-882E21D60F1E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3ADFC495-3BCB-4A8E-970C-653B079799B4}.ASP|Any CPU.ActiveCfg = ASP|Any CPU
-		{3ADFC495-3BCB-4A8E-970C-653B079799B4}.ASP|Any CPU.Build.0 = ASP|Any CPU
-		{3ADFC495-3BCB-4A8E-970C-653B079799B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3ADFC495-3BCB-4A8E-970C-653B079799B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3ADFC495-3BCB-4A8E-970C-653B079799B4}.DocListUploader - Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3ADFC495-3BCB-4A8E-970C-653B079799B4}.DocListUploader - Release|Any CPU.Build.0 = Release|Any CPU
-		{3ADFC495-3BCB-4A8E-970C-653B079799B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3ADFC495-3BCB-4A8E-970C-653B079799B4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E85CC897-2192-4C43-BEC1-941FE8560786}.ASP|Any CPU.ActiveCfg = Release|Any CPU
 		{E85CC897-2192-4C43-BEC1-941FE8560786}.ASP|Any CPU.Build.0 = Release|Any CPU
 		{E85CC897-2192-4C43-BEC1-941FE8560786}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
