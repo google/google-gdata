@@ -162,10 +162,6 @@
       <Project>{0AD0FA26-A071-4CAC-851C-05B6C26B9888}</Project>
       <Name>Calendar</Name>
     </ProjectReference>
-    <ProjectReference Include="..\gcodesearch\Codesearch.csproj">
-      <Project>{6C9717F6-4CEF-4665-82DA-31073493FFA0}</Project>
-      <Name>Codesearch</Name>
-    </ProjectReference>
     <ProjectReference Include="..\gcontacts\Contacts.csproj">
       <Project>{66B2AD47-7DD2-43E5-9124-D53486609992}</Project>
       <Name>Contacts</Name>
