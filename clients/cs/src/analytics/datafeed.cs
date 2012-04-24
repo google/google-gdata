@@ -18,17 +18,13 @@ using Google.GData.Client;
 using Google.GData.Extensions;
 using System.Collections.Generic;
 
-namespace Google.GData.Analytics
-{
-    //////////////////////////////////////////////////////////////////////
+namespace Google.GData.Analytics {
     /// <summary>DataFeed, entry
     /// Returns DataEntry containing:
     /// id, updated, title, dxp:dimension, dxp:metric.
     /// Added Extension dxp:aggregates, which contains a list of dxp:metric.
     /// </summary>
-    //////////////////////////////////////////////////////////////////////
-    public class DataFeed : AbstractFeed
-    {
+    public class DataFeed : AbstractFeed {
 
         private List<Segment> segments;
 
@@ -37,8 +33,8 @@ namespace Google.GData.Analytics
         /// </summary>
         /// <param name="uriBase">the base URI of the feedEntry</param>
         /// <param name="iService">the Service to use</param>
-        public DataFeed(Uri uriBase, IService iService) : base(uriBase, iService)
-        {
+        public DataFeed(Uri uriBase, IService iService)
+            : base(uriBase, iService) {
             AddExtension(new Aggregates());
             AddExtension(new DataSource());
             AddExtension(new Segment());
@@ -49,8 +45,7 @@ namespace Google.GData.Analytics
         /// This needs to get implemented by subclasses
         /// </summary>
         /// <returns>AtomEntry</returns>
-        public override AtomEntry CreateFeedEntry()
-        {
+        public override AtomEntry CreateFeedEntry() {
             return new DataEntry();
         }
 
@@ -58,29 +53,24 @@ namespace Google.GData.Analytics
         /// returns the Aggregates object for the DataFeed. 
         /// </summary>
         /// <returns></returns>
-        public Aggregates Aggregates
-        {
+        public Aggregates Aggregates {
             get { return FindExtension(AnalyticsNameTable.XmlAggregatesElement, AnalyticsNameTable.gAnalyticsNamspace) as Aggregates; }
         }
 
-         /// <summary>
+        /// <summary>
         /// returns the DataSource object for the DataFeed. 
         /// </summary>
         /// <returns></returns>
-        public DataSource DataSource
-        {
+        public DataSource DataSource {
             get { return FindExtension(AnalyticsNameTable.XmlDataSourceElement, AnalyticsNameTable.gAnalyticsNamspace) as DataSource; }
         }
 
         /// <summary>
         /// This field controls the segments.
         /// </summary>
-        public List<Segment> Segments
-        {
-            get
-            {
-                if (segments == null)
-                {
+        public List<Segment> Segments {
+            get {
+                if (segments == null) {
                     segments = FindExtensions<Segment>(AnalyticsNameTable.XmlSegmentElement, AnalyticsNameTable.gAnalyticsNamspace);
                 }
                 return segments;

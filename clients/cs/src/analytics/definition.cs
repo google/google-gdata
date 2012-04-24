@@ -13,7 +13,6 @@
  * limitations under the License.
 */
 
-
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -21,26 +20,20 @@ using Google.GData.Analytics;
 using Google.GData.Extensions;
 using Google.GData.Client;
 
+namespace Google.GData.Analytics {
+    public class Definition : SimpleElement {
+        public Definition()
+            : base(AnalyticsNameTable.XmlDefinitionElement,
+            AnalyticsNameTable.gAnalyticsPrefix,
+            AnalyticsNameTable.gAnalyticsNamspace) {
+            this.Attributes.Add(AnalyticsNameTable.XmlAttributeId, null);
+        }
 
-namespace Google.GData.Analytics
-{
-  public class Definition : SimpleElement
-  {
-
-    public Definition() : base(AnalyticsNameTable.XmlDefinitionElement,
-                               AnalyticsNameTable.gAnalyticsPrefix,
-                               AnalyticsNameTable.gAnalyticsNamspace)
-    {
-      //this.Attributes.Add(BaseNameTable.XmlName, null);
-      this.Attributes.Add(AnalyticsNameTable.XmlAttributeId, null); 
+        public Definition(String value)
+            : base(AnalyticsNameTable.XmlDefinitionElement,
+            AnalyticsNameTable.gAnalyticsPrefix,
+            AnalyticsNameTable.gAnalyticsNamspace, value) {
+        }
     }
-
-
-    public Definition(String value) : base(AnalyticsNameTable.XmlDefinitionElement,
-                                           AnalyticsNameTable.gAnalyticsPrefix,
-                                           AnalyticsNameTable.gAnalyticsNamspace, value)
-    {
-    }
-  }
 }
 

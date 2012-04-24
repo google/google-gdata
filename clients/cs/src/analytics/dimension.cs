@@ -18,38 +18,33 @@ using System.Xml;
 using Google.GData.Client;
 using Google.GData.Extensions;
 
-
-namespace Google.GData.Analytics
-{
+namespace Google.GData.Analytics {
     /// <summary>
     /// GData schema extension describing a dimension.
     /// A dimension is part of a DataEntry (entry).
     /// dxp:dimensionone element for each dimension in the query, 
     /// which includes the name and value of the dimension
     /// </summary>
-    public class Dimension : SimpleNameValueAttribute
-    {
-       
+    public class Dimension : SimpleNameValueAttribute {
         /// <summary>
         /// default constructor for an extended property
         /// </summary>
-        public Dimension() : base(AnalyticsNameTable.XmlDimensionElement,
-                                         AnalyticsNameTable.gAnalyticsPrefix,
-                                         AnalyticsNameTable.gAnalyticsNamspace)
-        {
+        public Dimension()
+            : base(AnalyticsNameTable.XmlDimensionElement,
+            AnalyticsNameTable.gAnalyticsPrefix,
+            AnalyticsNameTable.gAnalyticsNamspace) {
         }
 
-      
         /// <summary>
         /// default constructor with a value and a key name
         /// </summary>
         /// <param name="initValue">initial value</param>
         /// <param name="initName">name for the key</param>
-        public Dimension(string initName, string initValue) : base(AnalyticsNameTable.XmlDimensionElement,
-                                         AnalyticsNameTable.gAnalyticsPrefix,
-                                         AnalyticsNameTable.gAnalyticsNamspace)
-        {
-            this.Value = initValue; 
+        public Dimension(string initName, string initValue)
+            : base(AnalyticsNameTable.XmlDimensionElement,
+            AnalyticsNameTable.gAnalyticsPrefix,
+            AnalyticsNameTable.gAnalyticsNamspace) {
+            this.Value = initValue;
             this.Name = initName;
         }
     }

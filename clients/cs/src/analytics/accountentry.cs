@@ -17,116 +17,93 @@ using System.Collections.Generic;
 using Google.GData.Client;
 using Google.GData.Extensions;
 
-namespace Google.GData.Analytics
-{
-  //////////////////////////////////////////////////////////////////////
-  /// <summary>
-  /// AccountEntry API customization class for defining entries in an account feed.
-  /// </summary>
-  //////////////////////////////////////////////////////////////////////
-
-
-  public class AccountEntry : AbstractEntry
-  {
+namespace Google.GData.Analytics {
     /// <summary>
-    /// Lazy loading for the properties and tableId.
+    /// AccountEntry API customization class for defining entries in an account feed.
     /// </summary>
-    private List<Property> properties;
-    private List<CustomVariable> customVariables;
-    private List<Goal> goals;
-    private TableId tableId;
+    public class AccountEntry : AbstractEntry {
+        /// <summary>
+        /// Lazy loading for the properties and tableId.
+        /// </summary>
+        private List<Property> properties;
+        private List<CustomVariable> customVariables;
+        private List<Goal> goals;
+        private TableId tableId;
 
-    /// <summary>
-    /// Constructs a new AccountEntry instance
-    /// </summary>
-    public AccountEntry()
-      : base()
-    {
-      this.AddExtension(new Property());
-      this.AddExtension(new TableId());
-      this.AddExtension(new CustomVariable());
-      this.AddExtension(new Goal());
-    }
-
-    /// <summary>
-    /// This field controls the properties.
-    /// </summary>
-    public List<Property> Properties
-    {
-      get
-      {
-        if (properties == null)
-        {
-          properties = FindExtensions<Property>(AnalyticsNameTable.XmlPropertyElement,
-                              AnalyticsNameTable.gAnalyticsNamspace);
+        /// <summary>
+        /// Constructs a new AccountEntry instance
+        /// </summary>
+        public AccountEntry()
+            : base() {
+            this.AddExtension(new Property());
+            this.AddExtension(new TableId());
+            this.AddExtension(new CustomVariable());
+            this.AddExtension(new Goal());
         }
-        return properties;
-      }
-    }
 
-
-    /// <summary>
-    /// searches through the property list to find a specific one
-    /// </summary>
-    /// <param name="name"></param>
-    /// <returns></returns>
-    public string FindPropertyValue(string name)
-    {
-      foreach (Property p in this.Properties)
-      {
-        if (p.Name == name)
-        {
-          return p.Value;
+        /// <summary>
+        /// This field controls the properties.
+        /// </summary>
+        public List<Property> Properties {
+            get {
+                if (properties == null) {
+                    properties = FindExtensions<Property>(AnalyticsNameTable.XmlPropertyElement,
+                        AnalyticsNameTable.gAnalyticsNamspace);
+                }
+                return properties;
+            }
         }
-      }
-      return null;
-    }
 
-    /// <summary>
-    /// This field controls the tableId (ProfileId).
-    /// </summary>
-    public TableId ProfileId
-    {
-      get
-      {
-        if (tableId == null)
-        {
-          tableId = FindExtension(AnalyticsNameTable.XmlTableIdElement,
-                                  AnalyticsNameTable.gAnalyticsNamspace) as TableId;
+        /// <summary>
+        /// searches through the property list to find a specific one
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public string FindPropertyValue(string name) {
+            foreach (Property p in this.Properties) {
+                if (p.Name == name) {
+                    return p.Value;
+                }
+            }
+            return null;
         }
-        return tableId;
-      }
-    }
 
-    /// <summary>
-    /// This field controls the Custom Variables.
-    /// </summary>
-    public List<CustomVariable> CustomVariables
-    {
-      get
-      {
-        if (customVariables == null)
-        {
-          customVariables = FindExtensions<CustomVariable>(AnalyticsNameTable.XmlCustomVariableElement,
-                                                           AnalyticsNameTable.gaNamespace);
+        /// <summary>
+        /// This field controls the tableId (ProfileId).
+        /// </summary>
+        public TableId ProfileId {
+            get {
+                if (tableId == null) {
+                    tableId = FindExtension(AnalyticsNameTable.XmlTableIdElement,
+                        AnalyticsNameTable.gAnalyticsNamspace) as TableId;
+                }
+                return tableId;
+            }
         }
-        return customVariables;
-      }
-    }
 
-    /// <summary>
-    /// This field controls the goals.
-    /// </summary>
-    public List<Goal> Goals
-    {
-      get
-      {
-        if (goals == null)
-        {
-          goals = FindExtensions<Goal>(AnalyticsNameTable.XmlGoalElement, AnalyticsNameTable.gaNamespace);
+        /// <summary>
+        /// This field controls the Custom Variables.
+        /// </summary>
+        public List<CustomVariable> CustomVariables {
+            get {
+                if (customVariables == null) {
+                    customVariables = FindExtensions<CustomVariable>(AnalyticsNameTable.XmlCustomVariableElement,
+                        AnalyticsNameTable.gaNamespace);
+                }
+                return customVariables;
+            }
         }
-        return goals;
-      }
+
+        /// <summary>
+        /// This field controls the goals.
+        /// </summary>
+        public List<Goal> Goals {
+            get {
+                if (goals == null) {
+                    goals = FindExtensions<Goal>(AnalyticsNameTable.XmlGoalElement, AnalyticsNameTable.gaNamespace);
+                }
+                return goals;
+            }
+        }
     }
-  }
 }

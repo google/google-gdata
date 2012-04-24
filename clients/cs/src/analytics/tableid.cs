@@ -16,33 +16,31 @@
 using System;
 using Google.GData.Extensions;
 
-namespace Google.GData.Analytics
-{
+namespace Google.GData.Analytics {
     /// <summary>
     /// GData schema extension describing a tableId.
     /// Part of a feedentry (account feed entry or DataEntry SourceEntry/dxp:dataSource).
-    /// dxp:tableId  The unique, namespaced ID to be used when requesting data from a profile.
+    /// dxp:tableId The unique, namespaced ID to be used when requesting data from a profile.
     /// </summary>
-    public class TableId : SimpleElement
-    {
+    public class TableId : SimpleElement {
         /// <summary>
         /// Constructs an empty TableId instance
         /// </summary>
-        public TableId() : base(AnalyticsNameTable.XmlTableIdElement,
-                                         AnalyticsNameTable.gAnalyticsPrefix,
-                                         AnalyticsNameTable.gAnalyticsNamspace)
-        {
+        public TableId()
+            : base(AnalyticsNameTable.XmlTableIdElement,
+            AnalyticsNameTable.gAnalyticsPrefix,
+            AnalyticsNameTable.gAnalyticsNamspace) {
         }
-        
+
         /// <summary>
         /// default constructor, takes 1 parameters
         /// </summary>
         /// <param name="value">the value property value</param>
-        public TableId(String value) : base(AnalyticsNameTable.XmlTableIdElement,
-                                         AnalyticsNameTable.gAnalyticsPrefix,
-                                         AnalyticsNameTable.gAnalyticsNamspace,
-                                         value)
-        {
+        public TableId(String value)
+            : base(AnalyticsNameTable.XmlTableIdElement,
+            AnalyticsNameTable.gAnalyticsPrefix,
+            AnalyticsNameTable.gAnalyticsNamspace,
+            value) {
         }
     }
 }

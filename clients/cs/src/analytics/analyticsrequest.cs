@@ -13,44 +13,37 @@
  * limitations under the License.
 */
 
-
 using System;
 using System.IO;
 using System.Collections;
 using System.Text;
-using System.Net; 
+using System.Net;
 using Google.GData.Client;
 using Google.GData.Extensions;
 using Google.GData.Analytics;
 using System.Collections.Generic;
 
-namespace Google.Analytics 
-{
+namespace Google.Analytics {
     /// <summary>
     /// simple class to cover the AcountEntry specific extensions. Gives you access to all Account
     /// specific properties inisde an account feed. 
     /// </summary>
     /// <returns></returns>
-    public class Account : Entry
-    {
+    public class Account : Entry {
         /// <summary>
         /// creates the inner contact object when needed
         /// </summary>
         /// <returns></returns>
-        protected override void EnsureInnerObject()
-        {
-            if (this.AtomEntry == null)
-            {
+        protected override void EnsureInnerObject() {
+            if (this.AtomEntry == null) {
                 this.AtomEntry = new AccountEntry();
             }
         }
         /// <summary>
         /// readonly accessor to the typed underlying atom object
         /// </summary>
-        public AccountEntry AccountEntry
-        {
-            get
-            {
+        public AccountEntry AccountEntry {
+            get {
                 return this.AtomEntry as AccountEntry;
             }
         }
@@ -59,15 +52,12 @@ namespace Google.Analytics
         /// The web property ID associated with the profile.
         /// </summary>
         /// <returns></returns>
-        public string WebPropertyId
-        {
-            get
-            {
-                if (this.AccountEntry != null)
-                {
+        public string WebPropertyId {
+            get {
+                if (this.AccountEntry != null) {
                     return this.AccountEntry.FindPropertyValue("ga:webPropertyId");
                 }
-                return null; 
+                return null;
             }
         }
 
@@ -75,15 +65,12 @@ namespace Google.Analytics
         /// The name of the account associated with the profile
         /// </summary>
         /// <returns></returns>
-        public string AccountName
-        {
-            get
-            {
-                if (this.AccountEntry != null)
-                {
+        public string AccountName {
+            get {
+                if (this.AccountEntry != null) {
                     return this.AccountEntry.FindPropertyValue("ga:accountName");
                 }
-                return null; 
+                return null;
             }
         }
 
@@ -92,15 +79,12 @@ namespace Google.Analytics
         /// used in the tracking code for your web property (e.g. UA-30481-22).
         /// </summary>
         /// <returns></returns>
-        public string AccountId
-        {
-            get
-            {
-                if (this.AccountEntry != null)
-                {
+        public string AccountId {
+            get {
+                if (this.AccountEntry != null) {
                     return this.AccountEntry.FindPropertyValue("ga:accountId");
                 }
-                return null; 
+                return null;
             }
         }
 
@@ -108,15 +92,12 @@ namespace Google.Analytics
         /// The numberic id of the profile
         /// </summary>
         /// <returns></returns>
-        public string ProfileId
-        {
-            get
-            {
-                if (this.AccountEntry != null)
-                {
+        public string ProfileId {
+            get {
+                if (this.AccountEntry != null) {
                     return this.AccountEntry.FindPropertyValue("ga:profileId");
                 }
-                return null; 
+                return null;
             }
         }
 
@@ -124,63 +105,49 @@ namespace Google.Analytics
         /// The unique, namespaced ID to be used when requesting data from a profile.
         /// </summary>
         /// <returns></returns>
-        public string TableId
-        {
-            get
-            {
-                if (this.AccountEntry != null)
-                {
+        public string TableId {
+            get {
+                if (this.AccountEntry != null) {
                     TableId t = this.AccountEntry.ProfileId;
-                    if (t != null)
-                    {
+                    if (t != null) {
                         return t.Value;
                     }
                 }
-                return null; 
+                return null;
             }
         }
     }
 
-
-     /// <summary>
+    /// <summary>
     /// simple class to cover the DataEntry specific extensions. Gives you access to all Data
     /// specific properties inisde an data feed. 
     /// </summary>
     /// <returns></returns>
-    public class Data : Entry
-    {
+    public class Data : Entry {
         /// <summary>
         /// creates the inner contact object when needed
         /// </summary>
         /// <returns></returns>
-        protected override void EnsureInnerObject()
-        {
-            if (this.AtomEntry == null)
-            {
+        protected override void EnsureInnerObject() {
+            if (this.AtomEntry == null) {
                 this.AtomEntry = new DataEntry();
             }
         }
         /// <summary>
         /// readonly accessor to the typed underlying atom object
         /// </summary>
-        public DataEntry DataEntry
-        {
-            get
-            {
+        public DataEntry DataEntry {
+            get {
                 return this.AtomEntry as DataEntry;
             }
         }
 
-
-         /// <summary>
+        /// <summary>
         /// This field controls the dimensions.
         /// </summary>
-        public List<Dimension> Dimensions
-        {
-            get
-            {
-                if (this.DataEntry != null)
-                {
+        public List<Dimension> Dimensions {
+            get {
+                if (this.DataEntry != null) {
                     return this.DataEntry.Dimensions;
                 }
                 return null;
@@ -190,12 +157,9 @@ namespace Google.Analytics
         /// <summary>
         /// This field controls the metrics.
         /// </summary>
-        public List<Metric> Metrics
-        {
-            get
-            {
-                if (this.DataEntry != null)
-                {
+        public List<Metric> Metrics {
+            get {
+                if (this.DataEntry != null) {
                     return this.DataEntry.Metrics;
                 }
                 return null;
@@ -203,20 +167,17 @@ namespace Google.Analytics
         }
     }
 
-
     /// <summary>
     /// subclass of a Feed, specific to Data entries
     /// </summary>
     /// <returns></returns>
-    public class Dataset : Feed<Data>
-    {
-
+    public class Dataset : Feed<Data> {
         /// <summary>
         /// default constructor that takes the underlying atomfeed
         /// </summary>
         /// <param name="af"></param>
-        public Dataset(AtomFeed af) : base(af)
-        {
+        public Dataset(AtomFeed af)
+            : base(af) {
         }
 
         /// <summary>
@@ -225,47 +186,38 @@ namespace Google.Analytics
         /// <param name="service"></param>
         /// <param name="q"></param>
         public Dataset(Service service, FeedQuery q)
-            : base(service, q)
-        {
+            : base(service, q) {
         }
 
         /// <summary>
         /// returns the Aggregates object that contains aggregate data for all metrics requested in the feed
         /// </summary>
         /// <returns></returns>
-        public Aggregates Aggregates
-        {
-            get 
-            {
+        public Aggregates Aggregates {
+            get {
                 Google.GData.Analytics.DataFeed f = this.AtomFeed as Google.GData.Analytics.DataFeed;
-                if (f != null)
-                {
+                if (f != null) {
                     return f.Aggregates;
                 }
-                return null; 
+                return null;
             }
-        }   
+        }
 
         /// <summary>
         /// returns the Aggregates object that contains aggregate data for all metrics requested in the feed
         /// </summary>
         /// <returns></returns>
-        public DataSource DataSource
-        {
-            get 
-            {
+        public DataSource DataSource {
+            get {
                 DataFeed f = this.AtomFeed as DataFeed;
-                if (f != null)
-                {
+                if (f != null) {
                     return f.DataSource;
                 }
-                return null; 
+                return null;
             }
-        }   
+        }
     }
-   
 
-    //////////////////////////////////////////////////////////////////////
     /// <summary>
     /// With the Google Analytics Data Export API, you can develop client 
     /// applications that download Analytics data in the form of Google Data API feeds. 
@@ -289,16 +241,13 @@ namespace Google.Analytics
     ///         }
     ///  </code>
     ///  </example>
-    //////////////////////////////////////////////////////////////////////
-    public class AnalyticsRequest : FeedRequest<AnalyticsService>
-    {
-
+    public class AnalyticsRequest : FeedRequest<AnalyticsService> {
         /// <summary>
-        /// default constructor for a YouTubeRequest
+        /// default constructor for a AnalyticsRequest
         /// </summary>
         /// <param name="settings"></param>
-        public AnalyticsRequest(RequestSettings settings) : base(settings)
-        {
+        public AnalyticsRequest(RequestSettings settings)
+            : base(settings) {
             this.Service = new AnalyticsService(settings.Application);
             PrepareService();
         }
@@ -308,22 +257,19 @@ namespace Google.Analytics
         /// </summary>
         /// <param name="user">the username</param>
         /// <returns>a feed of Account objects</returns>
-        public Feed<Account> GetAccounts()
-        {
+        public Feed<Account> GetAccounts() {
             AccountQuery q = PrepareQuery<AccountQuery>(AccountQuery.HttpsFeedUrl);
-            return PrepareFeed<Account>(q); 
+            return PrepareFeed<Account>(q);
         }
-
 
         /// <summary>
         /// returns a Data Feed per passed in Query. The AnalyticsRequestObject 
-        /// will modidify the passed in Query object to take the default RequestObject settings into 
+        /// will modify the passed in Query object to take the default RequestObject settings into 
         /// account (like paging). if you do not want that behaviour, use the Get method
         /// </summary>
         /// <param name="q"></param>
         /// <returns></returns>
-        public Dataset GetReport(DataQuery q)
-        {
+        public Dataset GetReport(DataQuery q) {
             PrepareQuery(q);
             return PrepareFeed<Data>(q) as Dataset;
         }
@@ -334,11 +280,9 @@ namespace Google.Analytics
         /// <typeparam name="Y"></typeparam>
         /// <param name="uri">The Uri to retrieve</param>
         /// <returns></returns>
-        public Dataset Get(DataQuery q)
-        {
+        public Dataset Get(DataQuery q) {
             return PrepareFeed<Data>(q) as Dataset;
         }
-
 
         /// <summary>
         /// the virtual creator function for feeds, so that we can create feedsubclasses in
@@ -346,14 +290,11 @@ namespace Google.Analytics
         /// </summary>
         /// <param name="q"></param>
         /// <returns></returns>
-        protected override Feed<Y> CreateFeed<Y>(FeedQuery q) 
-        {
-            if (typeof(Y) == typeof(Data))
-            {
-                return new Dataset(this.AtomService, q) as Feed<Y>; 
+        protected override Feed<Y> CreateFeed<Y>(FeedQuery q) {
+            if (typeof(Y) == typeof(Data)) {
+                return new Dataset(this.AtomService, q) as Feed<Y>;
             }
             return base.CreateFeed<Y>(q);
         }
-
     }
 }

@@ -17,38 +17,30 @@ using System;
 using Google.GData.Client;
 using System.Collections.Generic;
 
-namespace Google.GData.Analytics
-{
-    //////////////////////////////////////////////////////////////////////
+namespace Google.GData.Analytics {
     /// <summary>
     /// This is the Google Analytics Account feed that lets you access
     /// the analytics account you own.
     /// </summary>
-    //////////////////////////////////////////////////////////////////////
-    public class AccountFeed : AbstractFeed
-    {
+    public class AccountFeed : AbstractFeed {
 
         private List<Segment> segments;
-        
+
         /// <summary>
-        ///  default constructor
+        /// default constructor
         /// </summary>
         /// <param name="uriBase">the base URI of the feedEntry</param>
         /// <param name="iService">the Service to use</param>
         public AccountFeed(Uri uriBase, IService iService)
-            : base(uriBase, iService)
-        {
+            : base(uriBase, iService) {
             AddExtension(new Segment());
-            
-            
         }
 
         /// <summary>
         /// This needs to get implemented by subclasses
         /// </summary>
         /// <returns>AtomEntry</returns>
-        public override AtomEntry CreateFeedEntry()
-        {
+        public override AtomEntry CreateFeedEntry() {
             return new AccountEntry();
         }
 
@@ -58,24 +50,19 @@ namespace Google.GData.Analytics
         /// </summary>
         /// <param name="e"></param>
         /// <param name="parser">the atom feed parser used</param>
-        protected override void HandleExtensionElements(ExtensionElementEventArgs e, 
-                                                        AtomFeedParser parser)
-        {
+        protected override void HandleExtensionElements(ExtensionElementEventArgs e,
+            AtomFeedParser parser) {
             base.HandleExtensionElements(e, parser);
         }
-
 
         /// <summary>
         /// This field controls the segments.
         /// </summary>
-        public List<Segment> Segments
-        {
-            get
-            {
-                if (segments == null)
-                {
-                    segments = FindExtensions<Segment>(AnalyticsNameTable.XmlSegmentElement, 
-                                                       AnalyticsNameTable.gAnalyticsNamspace);
+        public List<Segment> Segments {
+            get {
+                if (segments == null) {
+                    segments = FindExtensions<Segment>(AnalyticsNameTable.XmlSegmentElement,
+                        AnalyticsNameTable.gAnalyticsNamspace);
                 }
                 return segments;
             }

@@ -17,15 +17,11 @@ using System.Collections.Generic;
 using Google.GData.Client;
 using Google.GData.Extensions;
 
-namespace Google.GData.Analytics
-{
-    //////////////////////////////////////////////////////////////////////
+namespace Google.GData.Analytics {
     /// <summary>
     /// DataEntry API customization class for defining entries in a data feed.
     /// </summary>
-    //////////////////////////////////////////////////////////////////////
-    public class DataEntry : AbstractEntry
-    {
+    public class DataEntry : AbstractEntry {
         /// <summary>
         /// Lazy loading for the dimensions and metrics.
         /// </summary>
@@ -36,8 +32,7 @@ namespace Google.GData.Analytics
         /// Constructs a new DataEntry.
         /// </summary>
         public DataEntry()
-            : base()
-        {
+            : base() {
             this.AddExtension(new Dimension());
             this.AddExtension(new Metric());
         }
@@ -47,8 +42,7 @@ namespace Google.GData.Analytics
         /// </summary>
         /// <param name="extension">The name of the extension element to look for</param>
         /// <returns>SimpleAttribute, or NULL if the extension was not found</returns>
-        public SimpleAttribute getDataExtension(string extension)
-        {
+        public SimpleAttribute getDataExtension(string extension) {
             return FindExtension(extension, AnalyticsNameTable.gAnalyticsNamspace) as SimpleAttribute;
         }
 
@@ -57,11 +51,9 @@ namespace Google.GData.Analytics
         /// </summary>
         /// <param name="extension">The name of the Data extension element to look for</param>
         /// <returns>value as string, or NULL if the extension was not found</returns>
-        public string getAccountExtensionValue(string extension)
-        {
+        public string getAccountExtensionValue(string extension) {
             SimpleAttribute e = getDataExtension(extension);
-            if (e != null)
-            {
+            if (e != null) {
                 return (string)e.Value;
             }
             return null;
@@ -74,16 +66,13 @@ namespace Google.GData.Analytics
         /// <param name="newValue">the new value for this extension element</param>
         /// <returns>SimpleAttribute, either a brand new one, or the one
         /// returned by the service</returns>
-        public SimpleElement setDataExtension(string extension, string newValue)
-        {
-            if (extension == null)
-            {
+        public SimpleElement setDataExtension(string extension, string newValue) {
+            if (extension == null) {
                 throw new System.ArgumentNullException("extension");
             }
 
             SimpleAttribute ele = getDataExtension(extension);
-            if (ele == null)
-            {
+            if (ele == null) {
                 ele = CreateExtension(extension, AnalyticsNameTable.gAnalyticsNamspace) as SimpleAttribute;
                 this.ExtensionElements.Add(ele);
             }
@@ -96,12 +85,9 @@ namespace Google.GData.Analytics
         /// <summary>
         /// This field controls the dimensions.
         /// </summary>
-        public List<Dimension> Dimensions
-        {
-            get
-            {
-                if (dimensions == null)
-                {
+        public List<Dimension> Dimensions {
+            get {
+                if (dimensions == null) {
                     dimensions = FindExtensions<Dimension>(AnalyticsNameTable.XmlDimensionElement, AnalyticsNameTable.gAnalyticsNamspace);
                 }
                 return dimensions;
@@ -111,12 +97,9 @@ namespace Google.GData.Analytics
         /// <summary>
         /// This field controls the metrics.
         /// </summary>
-        public List<Metric> Metrics
-        {
-            get
-            {
-                if (metrics == null)
-                {
+        public List<Metric> Metrics {
+            get {
+                if (metrics == null) {
                     metrics = FindExtensions<Metric>(AnalyticsNameTable.XmlMetricElement, AnalyticsNameTable.gAnalyticsNamspace);
                 }
                 return metrics;

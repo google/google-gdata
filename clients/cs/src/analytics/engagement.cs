@@ -20,77 +20,58 @@ using Google.GData.Analytics;
 using Google.GData.Extensions;
 using Google.GData.Client;
 
-namespace Google.GData.Analytics
-{
-  public class Engagement : SimpleElement
-  {
-    public Engagement()
-      : base(AnalyticsNameTable.XmlEngagementElement,
-             AnalyticsNameTable.gaPrefix,
-             AnalyticsNameTable.gaNamespace)
-    {
-      this.Attributes.Add(AnalyticsNameTable.XmlAttributeComparison, null);
-      this.Attributes.Add(AnalyticsNameTable.XmlAttributeThresholdValue, null);
-      this.Attributes.Add(AnalyticsNameTable.XmlAttributeType, null);
-    }
+namespace Google.GData.Analytics {
+    public class Engagement : SimpleElement {
+        public Engagement()
+            : base(AnalyticsNameTable.XmlEngagementElement,
+            AnalyticsNameTable.gaPrefix,
+            AnalyticsNameTable.gaNamespace) {
+            this.Attributes.Add(AnalyticsNameTable.XmlAttributeComparison, null);
+            this.Attributes.Add(AnalyticsNameTable.XmlAttributeThresholdValue, null);
+            this.Attributes.Add(AnalyticsNameTable.XmlAttributeType, null);
+        }
 
-    public Engagement(String comparison, String thresholdValue, String type)
-      : base(AnalyticsNameTable.XmlEngagementElement,
-             AnalyticsNameTable.gaPrefix,
-             AnalyticsNameTable.gaNamespace)
-    {
-      this.Attributes.Add(AnalyticsNameTable.XmlAttributeComparison, comparison);
-      this.Attributes.Add(AnalyticsNameTable.XmlAttributeThresholdValue, thresholdValue);
-      this.Attributes.Add(AnalyticsNameTable.XmlAttributeType, type);
-    }
+        public Engagement(String comparison, String thresholdValue, String type)
+            : base(AnalyticsNameTable.XmlEngagementElement,
+            AnalyticsNameTable.gaPrefix,
+            AnalyticsNameTable.gaNamespace) {
+            this.Attributes.Add(AnalyticsNameTable.XmlAttributeComparison, comparison);
+            this.Attributes.Add(AnalyticsNameTable.XmlAttributeThresholdValue, thresholdValue);
+            this.Attributes.Add(AnalyticsNameTable.XmlAttributeType, type);
+        }
 
-    //////////////////////////////////////////////////////////////////////
-    /// <summary>Accessor for "Comparison" attribute.</summary> 
-    /// <returns> </returns>
-    //////////////////////////////////////////////////////////////////////
-    public string Comparison
-    {
-      get
-      {
-        return this.Attributes[AnalyticsNameTable.XmlAttributeComparison] as string;
-      }
-      set
-      {
-        this.Attributes[AnalyticsNameTable.XmlAttributeComparison] = value;
-      }
-    }
+        /// <summary>Accessor for "Comparison" attribute.</summary> 
+        /// <returns> </returns>
+        public string Comparison {
+            get {
+                return this.Attributes[AnalyticsNameTable.XmlAttributeComparison] as string;
+            }
+            set {
+                this.Attributes[AnalyticsNameTable.XmlAttributeComparison] = value;
+            }
+        }
 
-    //////////////////////////////////////////////////////////////////////
-    /// <summary>Accessor for "thresholdValue" attribute.</summary> 
-    /// <returns> </returns>
-    //////////////////////////////////////////////////////////////////////
-    public string Threshold
-    {
-      get
-      {
-        return this.Attributes[AnalyticsNameTable.XmlAttributeThresholdValue] as string;
-      }
-      set
-      {
-        this.Attributes[AnalyticsNameTable.XmlAttributeThresholdValue] = value;
-      }
-    }
+        /// <summary>Accessor for "thresholdValue" attribute.</summary> 
+        /// <returns> </returns>
+        public string Threshold {
+            get {
+                return this.Attributes[AnalyticsNameTable.XmlAttributeThresholdValue] as string;
+            }
+            set {
+                this.Attributes[AnalyticsNameTable.XmlAttributeThresholdValue] = value;
+            }
+        }
 
-    //////////////////////////////////////////////////////////////////////
-    /// <summary>Accessor for "type" attribute.</summary> 
-    /// <returns> </returns>
-    //////////////////////////////////////////////////////////////////////
-    public string Type
-    {
-      get
-      {
-        return this.Attributes[AnalyticsNameTable.XmlAttributeType] as string;
-      }
-      set
-      {
-        this.Attributes[AnalyticsNameTable.XmlAttributeType] = value;
-      }
-    }
+        /// <summary>Accessor for "type" attribute.</summary> 
+        /// <returns> </returns>
+        public string Type {
+            get {
+                return this.Attributes[AnalyticsNameTable.XmlAttributeType] as string;
+            }
+            set {
+                this.Attributes[AnalyticsNameTable.XmlAttributeType] = value;
+            }
+        }
 
-  }
+    }
 }
