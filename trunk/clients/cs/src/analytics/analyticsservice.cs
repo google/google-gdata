@@ -16,14 +16,11 @@
 using System;
 using Google.GData.Client;
 
-namespace Google.GData.Analytics
-{
+namespace Google.GData.Analytics {
 
-    #region Ananlytics specific constants
+    #region Analytics specific constants
 
-    public class AnalyticsNameTable
-    {
-
+    public class AnalyticsNameTable {
         // <summary>GData GA extension namespace</summary>
         public const string gaNamespace = "http://schemas.google.com/ga/2009";
         /// <summary>prefix for GA namespace if writing</summary>
@@ -99,12 +96,8 @@ namespace Google.GData.Analytics
         public const string XmlAttributeIndex = "index";
         /// <summary>xml attribute scope for ga:customVariable</summary> 
         public const string XmlAttributeScope = "scope";
-
-
-
-
-
     }
+
     #endregion
 
     /// <summary>
@@ -112,8 +105,7 @@ namespace Google.GData.Analytics
     /// to define a service that is preconfigured for access to the
     /// Google Analytics data API.
     /// </summary>
-    public class AnalyticsService : Service
-    {
+    public class AnalyticsService : Service {
         /// <summary>The Analytics service's name</summary> 
         public const string GAnalyticsService = "analytics";
 
@@ -122,9 +114,8 @@ namespace Google.GData.Analytics
         /// </summary>
         /// <param name="applicationName">the applicationname</param>
         public AnalyticsService(string applicationName)
-            : base(GAnalyticsService, applicationName)
-        {
-            this.NewFeed += new ServiceEventHandler(this.OnNewFeed); 
+            : base(GAnalyticsService, applicationName) {
+            this.NewFeed += new ServiceEventHandler(this.OnNewFeed);
         }
 
         /// <summary>
@@ -132,8 +123,7 @@ namespace Google.GData.Analytics
         /// </summary>
         /// <param name="feedQuery"></param>
         /// <returns>AccountFeed</returns>
-        public AccountFeed Query(AccountQuery feedQuery)
-        {
+        public AccountFeed Query(AccountQuery feedQuery) {
             return base.Query(feedQuery) as AccountFeed;
         }
 
@@ -142,48 +132,36 @@ namespace Google.GData.Analytics
         /// </summary>
         /// <param name="feedQuery"></param>
         /// <returns>DataFeed</returns>
-        public DataFeed Query(DataQuery feedQuery)
-        {
+        public DataFeed Query(DataQuery feedQuery) {
             return base.Query(feedQuery) as DataFeed;
         }
 
         /// <summary>
-        /// by default all services now use version 1 for the protocol.
-        /// this needs to be overridden by a service to specify otherwise. 
-        /// YouTube uses version 2
+        /// This library implements the Google Analytics API version 2.
         /// </summary>
         /// <returns></returns>
-        protected override void InitVersionInformation()
-        {
+        protected override void InitVersionInformation() {
             this.ProtocolMajor = VersionDefaults.VersionTwo;
         }
 
-        //////////////////////////////////////////////////////////////////////
         /// <summary>eventchaining. We catch this by from the base service, which 
         /// would not by default create an atomFeed</summary> 
-        /// <param name="sender"> the object which send the event</param>
+        /// <param name="sender">the object which send the event</param>
         /// <param name="e">FeedParserEventArguments, holds the feedentry</param> 
         /// <returns> </returns>
-        //////////////////////////////////////////////////////////////////////
-        protected void OnNewFeed(object sender, ServiceEventArgs e)
-        {
+        protected void OnNewFeed(object sender, ServiceEventArgs e) {
             Tracing.TraceMsg("Created new Analytics Feed");
-            if (e == null)
-            {
+            if (e == null) {
                 throw new ArgumentNullException("e");
             }
-			// do not use string.contains, does not exist on CF framework
-            if (e.Uri.AbsolutePath.IndexOf("/analytics/feeds/accounts/") != -1)
-            {
+            // do not use string.contains, does not exist on CF framework
+            if (e.Uri.AbsolutePath.IndexOf("/analytics/feeds/accounts/") != -1) {
                 //https://www.google.com/analytics/feeds/accounts/default
-				e.Feed = new AccountFeed(e.Uri, e.Service);
-			}
-			else 
-            {
+                e.Feed = new AccountFeed(e.Uri, e.Service);
+            } else {
                 //https://www.google.com/analytics/feeds/data
-				e.Feed = new DataFeed(e.Uri, e.Service);
-			}
+                e.Feed = new DataFeed(e.Uri, e.Service);
+            }
         }
-        /////////////////////////////////////////////////////////////////////////////
     }
 }

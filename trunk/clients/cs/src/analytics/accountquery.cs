@@ -15,27 +15,22 @@
 /* Created by Morten Christensen, elpadrinodk@gmail.com, http://blog.sitereactor.dk */
 using Google.GData.Client;
 
-namespace Google.GData.Analytics
-{
-    //////////////////////////////////////////////////////////////////////
+namespace Google.GData.Analytics {
     /// <summary>
     /// A subclass of FeedQuery, to create an Analytics Account query URI.
     /// </summary> 
-    //////////////////////////////////////////////////////////////////////
-    public class AccountQuery : FeedQuery
-    {
+    public class AccountQuery : FeedQuery {
         /// <summary>
         /// Analytics account service url, http and https 
         /// </summary>
-        
+
         public const string HttpsFeedUrl = "https://www.google.com/analytics/feeds/accounts/default";
 
         /// <summary>
         /// default constructor, does nothing 
         /// </summary>
         public AccountQuery()
-            : base(HttpsFeedUrl)
-        {
+            : base(HttpsFeedUrl) {
         }
 
         /// <summary>
@@ -43,8 +38,7 @@ namespace Google.GData.Analytics
         /// </summary>
         /// <param name="queryUri">the query to use</param>
         public AccountQuery(string queryUri)
-        : base(queryUri)
-        {
+            : base(queryUri) {
         }
     }
 }

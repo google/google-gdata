@@ -20,77 +20,57 @@ using Google.GData.Analytics;
 using Google.GData.Extensions;
 using Google.GData.Client;
 
-namespace Google.GData.Analytics
-{
-  public class CustomVariable : SimpleElement
-  {
-    public CustomVariable()
-      : base(AnalyticsNameTable.XmlCustomVariableElement,
-             AnalyticsNameTable.gaPrefix,
-             AnalyticsNameTable.gaNamespace)
-    {
-      this.Attributes.Add(AnalyticsNameTable.XmlAttributeIndex, null);
-      this.Attributes.Add(BaseNameTable.XmlName, null);
-      this.Attributes.Add(AnalyticsNameTable.XmlAttributeScope, null);
-    }
+namespace Google.GData.Analytics {
+    public class CustomVariable : SimpleElement {
+        public CustomVariable()
+            : base(AnalyticsNameTable.XmlCustomVariableElement,
+            AnalyticsNameTable.gaPrefix,
+            AnalyticsNameTable.gaNamespace) {
+            this.Attributes.Add(AnalyticsNameTable.XmlAttributeIndex, null);
+            this.Attributes.Add(BaseNameTable.XmlName, null);
+            this.Attributes.Add(AnalyticsNameTable.XmlAttributeScope, null);
+        }
 
-    public CustomVariable(String comparison, String thresholdValue, String type)
-      : base(AnalyticsNameTable.XmlCustomVariableElement,
-             AnalyticsNameTable.gaPrefix,
-             AnalyticsNameTable.gaNamespace)
-    {
-      this.Attributes.Add(AnalyticsNameTable.XmlAttributeIndex, null);
-      this.Attributes.Add(BaseNameTable.XmlName, null);
-      this.Attributes.Add(AnalyticsNameTable.XmlAttributeScope, null);
-    }
+        public CustomVariable(String comparison, String thresholdValue, String type)
+            : base(AnalyticsNameTable.XmlCustomVariableElement,
+            AnalyticsNameTable.gaPrefix,
+            AnalyticsNameTable.gaNamespace) {
+            this.Attributes.Add(AnalyticsNameTable.XmlAttributeIndex, null);
+            this.Attributes.Add(BaseNameTable.XmlName, null);
+            this.Attributes.Add(AnalyticsNameTable.XmlAttributeScope, null);
+        }
 
-    //////////////////////////////////////////////////////////////////////
-    /// <summary>Accessor for "Index" attribute.</summary> 
-    /// <returns> </returns>
-    //////////////////////////////////////////////////////////////////////
-    public string Index
-    {
-      get
-      {
-        return this.Attributes[AnalyticsNameTable.XmlAttributeIndex] as string;
-      }
-      set
-      {
-        this.Attributes[AnalyticsNameTable.XmlAttributeIndex] = value;
-      }
-    }
+        /// <summary>Accessor for "Index" attribute.</summary> 
+        /// <returns> </returns>
+        public string Index {
+            get {
+                return this.Attributes[AnalyticsNameTable.XmlAttributeIndex] as string;
+            }
+            set {
+                this.Attributes[AnalyticsNameTable.XmlAttributeIndex] = value;
+            }
+        }
 
+        /// <summary>Accessor for "Name" attribute.</summary> 
+        /// <returns> </returns>
+        public string Name {
+            get {
+                return this.Attributes[AnalyticsNameTable.XmlAttributeName] as string;
+            }
+            set {
+                this.Attributes[AnalyticsNameTable.XmlAttributeName] = value;
+            }
+        }
 
-    //////////////////////////////////////////////////////////////////////
-    /// <summary>Accessor for "Name" attribute.</summary> 
-    /// <returns> </returns>
-    //////////////////////////////////////////////////////////////////////
-    public string Name
-    {
-      get
-      {
-        return this.Attributes[AnalyticsNameTable.XmlAttributeName] as string;
-      }
-      set
-      {
-        this.Attributes[AnalyticsNameTable.XmlAttributeName] = value;
-      }
+        /// <summary>Accessor for "Scope" attribute.</summary> 
+        /// <returns> </returns>
+        public string Scope {
+            get {
+                return this.Attributes[AnalyticsNameTable.XmlAttributeScope] as string;
+            }
+            set {
+                this.Attributes[AnalyticsNameTable.XmlAttributeScope] = value;
+            }
+        }
     }
-
-    //////////////////////////////////////////////////////////////////////
-    /// <summary>Accessor for "Scope" attribute.</summary> 
-    /// <returns> </returns>
-    //////////////////////////////////////////////////////////////////////
-    public string Scope
-    {
-      get
-      {
-        return this.Attributes[AnalyticsNameTable.XmlAttributeScope] as string;
-      }
-      set
-      {
-        this.Attributes[AnalyticsNameTable.XmlAttributeScope] = value;
-      }
-    }
-  }
 }

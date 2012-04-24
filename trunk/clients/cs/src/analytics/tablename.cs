@@ -16,33 +16,31 @@
 using System;
 using Google.GData.Extensions;
 
-namespace Google.GData.Analytics
-{
+namespace Google.GData.Analytics {
     /// <summary>
     /// GData schema extension describing a tableName.
     /// Part of a feedentry (DataEntry SourceEntry/dxp:dataSource).
     /// dxp:tableName  The name of the profile as it appears in the Analytics administrative UI.
     /// </summary>
-    public class TableName : SimpleElement
-    {
-       /// <summary>
+    public class TableName : SimpleElement {
+        /// <summary>
         /// Constructs an empty TableName instance
         /// </summary>
-        public TableName() : base(AnalyticsNameTable.XmlTableNameElement,
-                                         AnalyticsNameTable.gAnalyticsPrefix,
-                                         AnalyticsNameTable.gAnalyticsNamspace)
-        {
+        public TableName()
+            : base(AnalyticsNameTable.XmlTableNameElement,
+            AnalyticsNameTable.gAnalyticsPrefix,
+            AnalyticsNameTable.gAnalyticsNamspace) {
         }
-        
+
         /// <summary>
         /// default constructor, takes 1 parameters
         /// </summary>
         /// <param name="value">the value property value</param>
-        public TableName(string value) : base(AnalyticsNameTable.XmlTableNameElement,
-                                         AnalyticsNameTable.gAnalyticsPrefix,
-                                         AnalyticsNameTable.gAnalyticsNamspace,
-                                         value)
-        {
+        public TableName(string value)
+            : base(AnalyticsNameTable.XmlTableNameElement,
+            AnalyticsNameTable.gAnalyticsPrefix,
+            AnalyticsNameTable.gAnalyticsNamspace,
+            value) {
         }
     }
 }

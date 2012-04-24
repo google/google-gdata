@@ -20,82 +20,62 @@ using Google.GData.Analytics;
 using Google.GData.Extensions;
 using Google.GData.Client;
 
-namespace Google.GData.Analytics
-{
-
+namespace Google.GData.Analytics {
     /// <summary>
     /// GData schema extension describing a Segment.
     /// Segment is part of Data Feed 
     /// </summary>    
     /// 
-
-    public class Segment : SimpleContainer
-    {
+    public class Segment : SimpleContainer {
 
         private Definition definition;
-        public Segment() : base(AnalyticsNameTable.XmlSegmentElement,
-                AnalyticsNameTable.gAnalyticsPrefix,
-                AnalyticsNameTable.gAnalyticsNamspace)
-        {
+
+        public Segment()
+            : base(AnalyticsNameTable.XmlSegmentElement,
+            AnalyticsNameTable.gAnalyticsPrefix,
+            AnalyticsNameTable.gAnalyticsNamspace) {
             this.Attributes.Add(AnalyticsNameTable.XmlAttributeId, null);
             this.ExtensionFactories.Add(new Definition());
         }
 
-
         public Segment(String name, String id)
             : base(AnalyticsNameTable.XmlSegmentElement,
-                AnalyticsNameTable.gAnalyticsPrefix,
-                AnalyticsNameTable.gAnalyticsNamspace)
-        {
+            AnalyticsNameTable.gAnalyticsPrefix,
+            AnalyticsNameTable.gAnalyticsNamspace) {
             this.Attributes.Add(BaseNameTable.XmlName, name);
             this.Attributes.Add(AnalyticsNameTable.XmlAttributeId, id);
             this.ExtensionFactories.Add(new Definition());
         }
 
-        //////////////////////////////////////////////////////////////////////
         /// <summary>Accessor for "name" attribute.</summary> 
         /// <returns> </returns>
-        //////////////////////////////////////////////////////////////////////
-        public string Name
-        {
-            get
-            {
+        public string Name {
+            get {
                 return this.Attributes[BaseNameTable.XmlName] as string;
             }
-            set
-            {
+            set {
                 this.Attributes[BaseNameTable.XmlName] = value;
             }
         }
 
-        //////////////////////////////////////////////////////////////////////
         /// <summary>Accessor for "name" attribute.</summary> 
         /// <returns> </returns>
-        //////////////////////////////////////////////////////////////////////
-        public string Id
-        {
-            get
-            {
+        public string Id {
+            get {
                 return this.Attributes[AnalyticsNameTable.XmlAttributeId] as string;
             }
-            set
-            {
+            set {
                 this.Attributes[AnalyticsNameTable.XmlAttributeId] = value;
             }
         }
 
-        //////////////////////////////////////////////////////////////////////
         /// <summary>Accessor for "definition" attribute.</summary> 
         /// <returns> </returns>
-        //////////////////////////////////////////////////////////////////////
-        public Definition Definition
-        {
-            get
-            {
-                if(definition == null)
-                {
-                    definition  = FindExtensions<Definition>(AnalyticsNameTable.XmlDefinitionElement, 
-                                                             AnalyticsNameTable.gAnalyticsNamspace)[0];
+        public Definition Definition {
+            get {
+                if (definition == null) {
+                    definition = FindExtensions<Definition>(AnalyticsNameTable.XmlDefinitionElement,
+                        AnalyticsNameTable.gAnalyticsNamspace)[0];
                 }
 
                 return definition;

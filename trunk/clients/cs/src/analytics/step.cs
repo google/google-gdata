@@ -20,78 +20,58 @@ using Google.GData.Analytics;
 using Google.GData.Extensions;
 using Google.GData.Client;
 
-namespace Google.GData.Analytics
-{
-  public class Step : SimpleElement
-  {
-    public Step()
-      : base(AnalyticsNameTable.XmlStepElement,
-             AnalyticsNameTable.gaPrefix,
-             AnalyticsNameTable.gaNamespace)
-    {
-      this.Attributes.Add(BaseNameTable.XmlName, null);
-      this.Attributes.Add(AnalyticsNameTable.XmlAttributeNumber, null);
-      this.Attributes.Add(AnalyticsNameTable.XmlAttributePath, null);
+namespace Google.GData.Analytics {
+    public class Step : SimpleElement {
+        public Step()
+            : base(AnalyticsNameTable.XmlStepElement,
+            AnalyticsNameTable.gaPrefix,
+            AnalyticsNameTable.gaNamespace) {
+            this.Attributes.Add(BaseNameTable.XmlName, null);
+            this.Attributes.Add(AnalyticsNameTable.XmlAttributeNumber, null);
+            this.Attributes.Add(AnalyticsNameTable.XmlAttributePath, null);
+        }
+
+        public Step(String name, String number, String path)
+            : base(AnalyticsNameTable.XmlStepElement,
+            AnalyticsNameTable.gaPrefix,
+            AnalyticsNameTable.gaNamespace) {
+            this.Attributes.Add(BaseNameTable.XmlName, name);
+            this.Attributes.Add(AnalyticsNameTable.XmlAttributeNumber, number);
+            this.Attributes.Add(AnalyticsNameTable.XmlAttributePath, path);
+        }
+
+        /// <summary>Accessor for "name" attribute.</summary> 
+        /// <returns> </returns>
+        public string Name {
+            get {
+                return this.Attributes[BaseNameTable.XmlName] as string;
+            }
+            set {
+                this.Attributes[BaseNameTable.XmlName] = value;
+            }
+        }
+
+        /// <summary>Accessor for "Number" attribute.</summary> 
+        /// <returns> </returns>
+        public string Number {
+            get {
+                return this.Attributes[AnalyticsNameTable.XmlAttributeNumber] as string;
+            }
+            set {
+                this.Attributes[AnalyticsNameTable.XmlAttributeNumber] = value;
+            }
+        }
+
+        /// <summary>Accessor for "Path" attribute.</summary> 
+        /// <returns> </returns>
+        public string Path {
+            get {
+                return this.Attributes[AnalyticsNameTable.XmlAttributePath] as string;
+            }
+            set {
+                this.Attributes[AnalyticsNameTable.XmlAttributePath] = value;
+            }
+        }
     }
-
-    public Step(String name, String number, String path)
-      : base(AnalyticsNameTable.XmlStepElement,
-             AnalyticsNameTable.gaPrefix,
-             AnalyticsNameTable.gaNamespace)
-    {
-      this.Attributes.Add(BaseNameTable.XmlName, name);
-      this.Attributes.Add(AnalyticsNameTable.XmlAttributeNumber, number);
-      this.Attributes.Add(AnalyticsNameTable.XmlAttributePath, path);
-    }
-
-
-    //////////////////////////////////////////////////////////////////////
-    /// <summary>Accessor for "name" attribute.</summary> 
-    /// <returns> </returns>
-    //////////////////////////////////////////////////////////////////////
-    public string Name
-    {
-      get
-      {
-        return this.Attributes[BaseNameTable.XmlName] as string;
-      }
-      set
-      {
-        this.Attributes[BaseNameTable.XmlName] = value;
-      }
-    }
-
-    //////////////////////////////////////////////////////////////////////
-    /// <summary>Accessor for "Number" attribute.</summary> 
-    /// <returns> </returns>
-    //////////////////////////////////////////////////////////////////////
-    public string Number
-    {
-      get
-      {
-        return this.Attributes[AnalyticsNameTable.XmlAttributeNumber] as string;
-      }
-      set
-      {
-        this.Attributes[AnalyticsNameTable.XmlAttributeNumber] = value;
-      }
-    }
-
-    //////////////////////////////////////////////////////////////////////
-    /// <summary>Accessor for "Path" attribute.</summary> 
-    /// <returns> </returns>
-    //////////////////////////////////////////////////////////////////////
-    public string Path
-    {
-      get
-      {
-        return this.Attributes[AnalyticsNameTable.XmlAttributePath] as string;
-      }
-      set
-      {
-        this.Attributes[AnalyticsNameTable.XmlAttributePath] = value;
-      }
-    }  
-  }
 }
 

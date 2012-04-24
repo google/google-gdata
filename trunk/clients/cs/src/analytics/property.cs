@@ -18,26 +18,24 @@ using System.Xml;
 using Google.GData.Client;
 using Google.GData.Extensions;
 
-namespace Google.GData.Analytics
-{
+namespace Google.GData.Analytics {
     /// <summary>
     /// GData schema extension describing a property.
     /// Property is part of the feedentry (Data and Account feed).
     /// Is a dxp:property element containing a name attribute with following
     /// possible values:
-    /// ga:profileIdThe profile ID of the source, such as 1174
-    /// ga:webPropertyIdThe web property ID of the source, such as UA-30481-1
-    /// ga:accountNameThe name of the account as it appears in the Analytics interface.
+    /// ga:profileId The profile ID of the source, such as 1174
+    /// ga:webPropertyId The web property ID of the source, such as UA-30481-1
+    /// ga:accountName The name of the account as it appears in the Analytics interface.
     /// </summary>
-    public class Property : SimpleNameValueAttribute
-    {
+    public class Property : SimpleNameValueAttribute {
         /// <summary>
         /// Constructs an empty Property instance
         /// </summary>
-        public Property() : base(AnalyticsNameTable.XmlPropertyElement,
-                                         AnalyticsNameTable.gAnalyticsPrefix,
-                                         AnalyticsNameTable.gAnalyticsNamspace)
-        {
+        public Property()
+            : base(AnalyticsNameTable.XmlPropertyElement,
+            AnalyticsNameTable.gAnalyticsPrefix,
+            AnalyticsNameTable.gAnalyticsNamspace) {
         }
 
         /// <summary>
@@ -45,10 +43,10 @@ namespace Google.GData.Analytics
         /// </summary>
         /// <param name="name">name property value</param>
         /// <param name="value">the value property value</param>
-        public Property(String name, String value) : base(AnalyticsNameTable.XmlPropertyElement,
-                                         AnalyticsNameTable.gAnalyticsPrefix,
-                                         AnalyticsNameTable.gAnalyticsNamspace)
-        {
+        public Property(String name, String value)
+            : base(AnalyticsNameTable.XmlPropertyElement,
+            AnalyticsNameTable.gAnalyticsPrefix,
+            AnalyticsNameTable.gAnalyticsNamspace) {
             this.Name = name;
             this.Value = value;
         }

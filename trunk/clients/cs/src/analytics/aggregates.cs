@@ -18,38 +18,31 @@ using System.Xml;
 using Google.GData.Client;
 using Google.GData.Extensions;
 
-namespace Google.GData.Analytics
-{
+namespace Google.GData.Analytics {
     /// <summary>
     /// GData schema extension describing aggregate results.
-    /// dxp:aggregates  contains aggregate data for all metrics requested in the feed.
+    /// dxp:aggregates contains aggregate data for all metrics requested in the feed.
     /// </summary>
-    public class Aggregates : SimpleContainer
-    {
+    public class Aggregates : SimpleContainer {
 
         private List<Metric> metrics;
-
 
         /// <summary>
         /// default constructor for dxp:aggregates
         /// </summary>
         public Aggregates() :
             base(AnalyticsNameTable.XmlAggregatesElement,
-                 AnalyticsNameTable.gAnalyticsPrefix,
-                 AnalyticsNameTable.gAnalyticsNamspace)
-        {
+            AnalyticsNameTable.gAnalyticsPrefix,
+            AnalyticsNameTable.gAnalyticsNamspace) {
             this.ExtensionFactories.Add(new Metric());
         }
 
         /// <summary>
         ///  property accessor for the Thumbnails 
         /// </summary>
-        public List<Metric> Metrics
-        {
-            get 
-            {
-                if (this.metrics == null)
-                {
+        public List<Metric> Metrics {
+            get {
+                if (this.metrics == null) {
                     this.metrics = FindExtensions<Metric>(AnalyticsNameTable.XmlMetricElement, AnalyticsNameTable.gAnalyticsNamspace);
                 }
                 return this.metrics;
