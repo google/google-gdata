@@ -304,12 +304,6 @@ namespace Google.GData.YouTube {
             } else {
                 // everything not detected yet, is a youtubefeed.
                 e.Feed = new YouTubeFeed(e.Uri, e.Service);
-                if (!Regex.IsMatch(path, @"/feeds/api/playlists/([\w-]+)")
-                    && !Regex.IsMatch(path, @"/feeds/api/seasons/([\w-]+)/episodes")
-                    )
-                {
-                    throw new Exception(path);
-                }
             }
         }
 
