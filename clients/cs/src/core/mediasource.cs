@@ -21,21 +21,17 @@ using System.Xml;
 using System.Net;
 using System.Collections;
 using System.IO;
-
+using Microsoft.Win32;
 
 #endregion
 
-//////////////////////////////////////////////////////////////////////
 // <summary>Contains the MediaSources currently implemented</summary>
-//////////////////////////////////////////////////////////////////////
-namespace Google.GData.Client
-{
-   /// <summary>
+namespace Google.GData.Client {
+    /// <summary>
     /// placeholder for a media object to be uploaded
     /// the base class only defines some primitives like content type
     /// </summary>
-    public abstract class MediaSource 
-    {
+    public abstract class MediaSource {
         private string contentType;
         private string contentName;
 
@@ -44,8 +40,7 @@ namespace Google.GData.Client
         /// </summary>
         /// <param name="contenttype">the contenttype of the file</param>
         /// <returns></returns>
-        public MediaSource(string contenttype)
-        {
+        public MediaSource(string contenttype) {
             this.ContentType = contenttype;
         }
 
@@ -55,8 +50,7 @@ namespace Google.GData.Client
         /// <param name="name">the name of the content</param>
         /// <param name="contenttype">the contenttype of the file</param>
         /// <returns></returns>
-        public MediaSource(string name, string contenttype)
-        {
+        public MediaSource(string name, string contenttype) {
             this.Name = name;
             this.ContentType = contenttype;
         }
@@ -65,8 +59,7 @@ namespace Google.GData.Client
         /// returns the length of the content of the media source
         /// </summary>
         /// <returns></returns>
-        public abstract long ContentLength
-        {
+        public abstract long ContentLength {
             get;
         }
 
@@ -75,14 +68,11 @@ namespace Google.GData.Client
         /// header send
         /// </summary>
         /// <returns></returns>
-        public string Name
-        {
-            get 
-            {
+        public string Name {
+            get {
                 return this.contentName;
             }
-            set
-            {
+            set {
                 this.contentName = value;
             }
         }
@@ -91,14 +81,11 @@ namespace Google.GData.Client
         /// returns the contenttype of the media source, like img/jpg
         /// </summary>
         /// <returns></returns>
-        public string ContentType
-        {
-            get 
-            {
+        public string ContentType {
+            get {
                 return this.contentType;
             }
-            set 
-            {
+            set {
                 this.contentType = value;
             }
         }
@@ -108,8 +95,7 @@ namespace Google.GData.Client
         /// </summary>
         /// <returns></returns>
         [Obsolete("That name was misleading. Use GetDataStream() instead")]
-        public abstract Stream Data
-        {
+        public abstract Stream Data {
             get;
         }
 
@@ -120,14 +106,11 @@ namespace Google.GData.Client
         public abstract Stream GetDataStream();
     }
 
-
-
     /// <summary>
     /// a file based implementation. Takes a filename as it's base working mode
     /// </summary>
     /// <returns></returns>
-    public class MediaFileSource : MediaSource
-    {
+    public class MediaFileSource : MediaSource {
 
         private string file;
         private Stream stream;
@@ -137,8 +120,8 @@ namespace Google.GData.Client
         /// <param name="fileName">the file to be used, this will be the default slug header</param>
         /// <param name="contentType">the content type to be used</param>
         /// <returns></returns>
-        public MediaFileSource(string fileName, string contentType) : base(fileName, contentType)
-        {
+        public MediaFileSource(string fileName, string contentType)
+            : base(fileName, contentType) {
             this.file = fileName;
 
             //strip out the path from the Slug header
@@ -155,11 +138,9 @@ namespace Google.GData.Client
         /// <param name="contentType">the content type to be used</param>
         /// <returns></returns>
         public MediaFileSource(Stream data, string fileName, string contentType)
-            : base(fileName, contentType)
-        {
+            : base(fileName, contentType) {
             this.stream = data;
         }
-
 
         /// <summary>
         /// tries to get a contenttype for a filename by using the classesRoot
@@ -168,40 +149,30 @@ namespace Google.GData.Client
         /// </summary>
         /// <param name="fileName"></param>
         /// <returns>NULL or the registered contenttype</returns>
-        public static string GetContentTypeForFileName(string fileName)
-        {
+        public static string GetContentTypeForFileName(string fileName) {
             string ext = System.IO.Path.GetExtension(fileName).ToLower();
 
-            using (Microsoft.Win32.RegistryKey registryKey = Microsoft.Win32.Registry.ClassesRoot.OpenSubKey(ext))
-            {
-                if (registryKey != null && registryKey.GetValue("Content Type") != null)
-                {
+            using (RegistryKey registryKey = Registry.ClassesRoot.OpenSubKey(ext)) {
+                if (registryKey != null && registryKey.GetValue("Content Type") != null) {
                     return registryKey.GetValue("Content Type").ToString();
                 }
             }
             return null;
-        }        
-
+        }
 
         /// <summary>
         /// returns the content lenght of the file
         /// </summary>
         /// <returns></returns>
-        public override long ContentLength
-        {
-            get
-            {  
+        public override long ContentLength {
+            get {
                 long result;
 
-                try
-                {
-
+                try {
                     Stream s = this.GetDataStream();
                     result = s.Length;
                     s.Close();
-                }
-                catch (NotSupportedException e)
-                {
+                } catch (NotSupportedException) {
                     result = -1;
                 }
 
@@ -214,31 +185,37 @@ namespace Google.GData.Client
         /// note, the caller has to release the resource
         /// </summary>
         /// <returns></returns>
-        [Obsolete("That name was misleading. Use GetDataStream() instead")]       
-        public override Stream Data
-        {
-            get
-            {
+        [Obsolete("That name was misleading. Use GetDataStream() instead")]
+        public override Stream Data {
+            get {
                 return GetDataStream();
             }
         }
-
 
         /// <summary>
         /// returns the stream for the file. The file will be opened in readonly mode
         /// note, the caller has to release the resource
         /// </summary>
         /// <returns></returns>
-        public override Stream GetDataStream()
-        {
-            if (!String.IsNullOrEmpty(this.file))
-            {
-                FileStream f = File.OpenRead(this.file);
-                return f;
+        public override Stream GetDataStream() {
+            if (!String.IsNullOrEmpty(this.file)) {
+                return File.OpenRead(this.file);
             }
-            return this.stream;
+
+            var newStream = new MemoryStream();
+            this.stream.Position = 0;
+            CopyStream(this.stream, newStream);
+            newStream.Position = 0;
+            return newStream;
+        }
+
+        private void CopyStream(Stream input, Stream output) {
+            byte[] buffer = new byte[32768];
+            int read;
+            while ((read = input.Read(buffer, 0, buffer.Length)) > 0) {
+                output.Write(buffer, 0, read);
+            }
         }
     }
 }
-/////////////////////////////////////////////////////////////////////////////
  
