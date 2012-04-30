@@ -57,7 +57,8 @@ xcopy /y ..\samples\appsforyourdomain\bin\Release\*.exe ..\lib\Release\*.*
 xcopy /y ..\samples\Blogger\bin\Release\*.exe ..\lib\Release\*.*
 xcopy /y ..\samples\BookThemAll\bin\Release\*.exe ..\lib\Release\*.*
 xcopy /y ..\samples\Calendar\bin\Release\*.exe ..\lib\Release\*.*
-xcopy /y ..\samples\contentforshopping_sample\bin\Release\*.exe ..\lib\Release\*.*
+xcopy /y ..\samples\contentforshopping\contentforshopping_sample\bin\Release\*.exe ..\lib\Release\*.*
+xcopy /y ..\samples\contentforshopping\managedaccounts\bin\Release\*.exe ..\lib\Release\*.*
 xcopy /y ..\samples\DocListExporter\bin\Release\*.exe ..\lib\Release\*.*
 xcopy /y ..\samples\DocListUploader\bin\Release\*.exe ..\lib\Release\*.*
 xcopy /y ..\samples\ExecRequest\bin\Release\*.exe ..\lib\Release\*.*
