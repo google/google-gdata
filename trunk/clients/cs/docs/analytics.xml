@@ -8,8 +8,8 @@
             <summary>
             dxp:dataSource: summary information about the Analytics source of the data.
             It contains the following extensions:
-            dxp:tableId  The unique, namespaced profile ID of the source, such as ga:1174
-            dxp:tableName  The name of the profile as it appears in the Analytics administrative UI
+            dxp:tableId The unique, namespaced profile ID of the source, such as ga:1174
+            dxp:tableName The name of the profile as it appears in the Analytics administrative UI
             dxp:property
             </summary>
         </member>
@@ -182,7 +182,7 @@
             <summary>
             GData schema extension describing a tableId.
             Part of a feedentry (account feed entry or DataEntry SourceEntry/dxp:dataSource).
-            dxp:tableId  The unique, namespaced ID to be used when requesting data from a profile.
+            dxp:tableId The unique, namespaced ID to be used when requesting data from a profile.
             </summary>
         </member>
         <member name="M:Google.GData.Analytics.TableId.#ctor">
@@ -378,16 +378,14 @@
         </member>
         <member name="M:Google.GData.Analytics.AnalyticsService.InitVersionInformation">
             <summary>
-            by default all services now use version 1 for the protocol.
-            this needs to be overridden by a service to specify otherwise. 
-            YouTube uses version 2
+            This library implements the Google Analytics API version 2.
             </summary>
             <returns></returns>
         </member>
         <member name="M:Google.GData.Analytics.AnalyticsService.OnNewFeed(System.Object,Google.GData.Client.ServiceEventArgs)">
             <summary>eventchaining. We catch this by from the base service, which 
             would not by default create an atomFeed</summary> 
-            <param name="sender"> the object which send the event</param>
+            <param name="sender">the object which send the event</param>
             <param name="e">FeedParserEventArguments, holds the feedentry</param> 
             <returns> </returns>
         </member>
@@ -636,9 +634,9 @@
             fields.The aggregated statistics for user activity in a profile, 
             categorized by type. Examples of metrics include ga:clicks or ga:pageviews. 
             When queried by themselves, metrics provide an aggregate measure of user
-             activity for your profile, such as overall page views or bounce rate. 
+            activity for your profile, such as overall page views or bounce rate. 
             However, when paired with dimensions, they provide information in the context
-             of the dimension. For example, when pageviews are combined with 
+            of the dimension. For example, when pageviews are combined with 
             ga:countryOrTerritory, you see how many pageviews come from each country.</summary>
             <returns>Metrics</returns>
         </member>
@@ -676,9 +674,9 @@
             Property is part of the feedentry (Data and Account feed).
             Is a dxp:property element containing a name attribute with following
             possible values:
-            ga:profileIdThe profile ID of the source, such as 1174
-            ga:webPropertyIdThe web property ID of the source, such as UA-30481-1
-            ga:accountNameThe name of the account as it appears in the Analytics interface.
+            ga:profileId The profile ID of the source, such as 1174
+            ga:webPropertyId The web property ID of the source, such as UA-30481-1
+            ga:accountName The name of the account as it appears in the Analytics interface.
             </summary>
         </member>
         <member name="M:Google.GData.Analytics.Property.#ctor">
@@ -699,10 +697,10 @@
             A metric is part of a DataEntry (entry).
             One element for each metric in the query.
             A metric contains the following attributes:
-            # namethe name of the metric
-            # typeeither integer or string
-            # valuethe aggregate value for the query for that metric (e.g. 24 for 24 pageviews)
-            # cithe confidence interval, or range of values likely to include the correct value.
+            # name the name of the metric
+            # type either integer or string
+            # value the aggregate value for the query for that metric (e.g. 24 for 24 pageviews)
+            # ci the confidence interval, or range of values likely to include the correct value.
             </summary>
         </member>
         <member name="M:Google.GData.Analytics.Metric.#ctor">
@@ -735,7 +733,7 @@
         </member>
         <member name="M:Google.GData.Analytics.AccountFeed.#ctor(System.Uri,Google.GData.Client.IService)">
             <summary>
-             default constructor
+            default constructor
             </summary>
             <param name="uriBase">the base URI of the feedEntry</param>
             <param name="iService">the Service to use</param>
@@ -870,7 +868,7 @@
         <!-- Badly formed XML comment ignored for member "T:Google.Analytics.AnalyticsRequest" -->
         <member name="M:Google.Analytics.AnalyticsRequest.#ctor(Google.GData.Client.RequestSettings)">
             <summary>
-            default constructor for a YouTubeRequest
+            default constructor for a AnalyticsRequest
             </summary>
             <param name="settings"></param>
         </member>
@@ -884,7 +882,7 @@
         <member name="M:Google.Analytics.AnalyticsRequest.GetReport(Google.GData.Analytics.DataQuery)">
             <summary>
             returns a Data Feed per passed in Query. The AnalyticsRequestObject 
-            will modidify the passed in Query object to take the default RequestObject settings into 
+            will modify the passed in Query object to take the default RequestObject settings into 
             account (like paging). if you do not want that behaviour, use the Get method
             </summary>
             <param name="q"></param>
@@ -909,7 +907,7 @@
         <member name="T:Google.GData.Analytics.Aggregates">
             <summary>
             GData schema extension describing aggregate results.
-            dxp:aggregates  contains aggregate data for all metrics requested in the feed.
+            dxp:aggregates contains aggregate data for all metrics requested in the feed.
             </summary>
         </member>
         <member name="M:Google.GData.Analytics.Aggregates.#ctor">
