@@ -333,7 +333,7 @@ namespace Google.GData.Client {
             }
 
             while (reader.Read()) {
-                if (reader.NodeType == XmlNodeType.EndElement && reader.Depth == depth) {
+                if (reader.NodeType == XmlNodeType.EndElement && reader.Depth <= depth) {
                     return false;
                 } else if (reader.NodeType == XmlNodeType.Element && reader.Depth > depth) {
                     return true;

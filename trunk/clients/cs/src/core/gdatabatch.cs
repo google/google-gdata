@@ -28,18 +28,13 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.ComponentModel;
 
-
 #endregion
 
-//////////////////////////////////////////////////////////////////////
 // contains AtomId
-//////////////////////////////////////////////////////////////////////
-namespace Google.GData.Client
-{
+namespace Google.GData.Client {
 
     /// <summary>enum to define the GDataBatchOperationType...</summary> 
-    public enum GDataBatchOperationType
-    {
+    public enum GDataBatchOperationType {
         /// <summary>this is an insert operatoin</summary> 
         insert,
         /// <summary>this is an update operation</summary> 
@@ -55,8 +50,7 @@ namespace Google.GData.Client
     /// <summary>
     /// holds the batch status information
     /// </summary>
-    public class GDataBatchStatus : IExtensionElementFactory
-    {
+    public class GDataBatchStatus : IExtensionElementFactory {
         private int code;
         private string reason;
         private string contentType;
@@ -66,81 +60,55 @@ namespace Google.GData.Client
         public const int CodeDefault = -1;
 
         /// <summary>
-        /// set's the defaults for code
+        /// sets the defaults for code
         /// </summary>
-        public GDataBatchStatus()
-        {
+        public GDataBatchStatus() {
             this.Code = CodeDefault;
         }
-        //////////////////////////////////////////////////////////////////////
+
         /// <summary>returns the status code of the operation</summary> 
         /// <returns> </returns>
-        //////////////////////////////////////////////////////////////////////
-        public int Code
-        {
-            get
-            {
+        public int Code {
+            get {
                 return this.code;
             }
-            set
-            {
+            set {
                 this.code = value;
             }
         }
-        // end of accessor public string Code
 
-        //////////////////////////////////////////////////////////////////////
         /// <summary>accessor method public string Reason</summary> 
         /// <returns> </returns>
-        //////////////////////////////////////////////////////////////////////
-        public string Reason
-        {
-            get
-            {
+        public string Reason {
+            get {
                 return this.reason;
             }
-            set
-            {
+            set {
                 this.reason = value;
             }
         }
-        // end of accessor public string Reason
 
-
-        //////////////////////////////////////////////////////////////////////
         /// <summary>accessor method public string ContentType</summary> 
         /// <returns> </returns>
-        //////////////////////////////////////////////////////////////////////
-        public string ContentType
-        {
-            get
-            {
+        public string ContentType {
+            get {
                 return this.contentType;
             }
-            set
-            {
+            set {
                 this.contentType = value;
             }
         }
-        // end of accessor public string ContentType
 
-
-        //////////////////////////////////////////////////////////////////////
         /// <summary>the error list</summary> 
         /// <returns> </returns>
-        //////////////////////////////////////////////////////////////////////
-        public List<GDataBatchError> Errors
-        {
-            get
-            {
-                if (this.errorList == null)
-                {
+        public List<GDataBatchError> Errors {
+            get {
+                if (this.errorList == null) {
                     this.errorList = new List<GDataBatchError>();
                 }
                 return this.errorList;
             }
         }
-
 
         #region Persistence overloads
 
@@ -148,28 +116,28 @@ namespace Google.GData.Client
         /// Persistence method for the GDataBatchStatus object
         /// </summary>
         /// <param name="writer">the xmlwriter to write into</param>
-        public void Save(XmlWriter writer)
-        {
-            if (writer == null)
-            {
+        public void Save(XmlWriter writer) {
+            if (writer == null) {
                 throw new System.ArgumentNullException("writer");
             }
+
             writer.WriteStartElement(BaseNameTable.gBatchPrefix, BaseNameTable.XmlElementBatchStatus, BaseNameTable.gBatchPrefix);
 
-            if (this.Code != GDataBatchStatus.CodeDefault)
-            {
+            if (this.Code != GDataBatchStatus.CodeDefault) {
                 writer.WriteAttributeString(BaseNameTable.XmlAttributeBatchStatusCode, this.Code.ToString(CultureInfo.InvariantCulture));
             }
-            if (Utilities.IsPersistable(this.ContentType))
-            {
+
+            if (Utilities.IsPersistable(this.ContentType)) {
                 writer.WriteAttributeString(BaseNameTable.XmlAttributeBatchContentType, this.ContentType);
             }
-            if (Utilities.IsPersistable(this.Reason))
-            {
+
+            if (Utilities.IsPersistable(this.Reason)) {
                 writer.WriteAttributeString(BaseNameTable.XmlAttributeBatchReason, this.Reason);
             }
+
             writer.WriteEndElement();
         }
+
         #endregion
 
         #region IExtensionElementFactory Members
@@ -180,34 +148,24 @@ namespace Google.GData.Client
         /// <param name="reader">XmlReader positioned at the start of the status element</param>
         /// <param name="parser">The Feedparser to be used</param>
         /// <returns>GDataBatchStatus</returns>
-        public static GDataBatchStatus ParseBatchStatus(XmlReader reader, AtomFeedParser parser)
-        {
+        public static GDataBatchStatus ParseBatchStatus(XmlReader reader, AtomFeedParser parser) {
             Tracing.Assert(reader != null, "reader should not be null");
-            if (reader == null)
-            {
+            if (reader == null) {
                 throw new ArgumentNullException("reader");
             }
             GDataBatchStatus status = null;
 
             object localname = reader.LocalName;
-            if (localname.Equals(parser.Nametable.BatchStatus))
-            {
+            if (localname.Equals(parser.Nametable.BatchStatus)) {
                 status = new GDataBatchStatus();
-                if (reader.HasAttributes)
-                {
-                    while (reader.MoveToNextAttribute())
-                    {
+                if (reader.HasAttributes) {
+                    while (reader.MoveToNextAttribute()) {
                         localname = reader.LocalName;
-                        if (localname.Equals(parser.Nametable.BatchReason))
-                        {
+                        if (localname.Equals(parser.Nametable.BatchReason)) {
                             status.Reason = Utilities.DecodedValue(reader.Value);
-                        }
-                        else if (localname.Equals(parser.Nametable.BatchContentType))
-                        {
+                        } else if (localname.Equals(parser.Nametable.BatchContentType)) {
                             status.ContentType = Utilities.DecodedValue(reader.Value);
-                        }
-                        else if (localname.Equals(parser.Nametable.BatchStatusCode))
-                        {
+                        } else if (localname.Equals(parser.Nametable.BatchStatusCode)) {
                             status.Code = int.Parse(Utilities.DecodedValue(reader.Value), CultureInfo.InvariantCulture);
                         }
                     }
@@ -219,12 +177,10 @@ namespace Google.GData.Client
 
                 int lvl = -1;
                 // status can have one child element, errors
-                while (Utilities.NextChildElement(reader, ref lvl))
-                {
+                while (Utilities.NextChildElement(reader, ref lvl)) {
                     localname = reader.LocalName;
 
-                    if (localname.Equals(parser.Nametable.BatchErrors))
-                    {
+                    if (localname.Equals(parser.Nametable.BatchErrors)) {
                         GDataBatchError.ParseBatchErrors(reader, parser, status);
                     }
                 }
@@ -235,10 +191,8 @@ namespace Google.GData.Client
         /// <summary>
         /// the xmlname of the element
         /// </summary>
-        public string XmlName
-        {
-            get
-            {
+        public string XmlName {
+            get {
                 return BaseNameTable.XmlElementBatchStatus;
             }
         }
@@ -246,21 +200,17 @@ namespace Google.GData.Client
         /// <summary>
         ///  the xmlnamespace for a batchstatus
         /// </summary>
-        public string XmlNameSpace
-        {
-            get
-            {
+        public string XmlNameSpace {
+            get {
                 return BaseNameTable.gBatchNamespace;
             }
         }
 
         /// <summary>
-        /// the prefered xmlprefix to use
+        /// the preferred xmlprefix to use
         /// </summary>
-        public string XmlPrefix
-        {
-            get
-            {
+        public string XmlPrefix {
+            get {
                 return BaseNameTable.gBatchPrefix;
             }
         }
@@ -271,109 +221,84 @@ namespace Google.GData.Client
         /// <param name="node"></param>
         /// <param name="parser"></param>
         /// <returns></returns>
-        public IExtensionElementFactory CreateInstance(XmlNode node, AtomFeedParser parser)
-        {
+        public IExtensionElementFactory CreateInstance(XmlNode node, AtomFeedParser parser) {
             return ParseBatchStatus(new XmlNodeReader(node), parser);
         }
 
         #endregion
-
     }
+
     /// <summary>
-    ///  represents the Error element in the GDataBatch response
+    /// represents the Error element in the GDataBatch response
     /// </summary>
-    public class GDataBatchError : IExtensionElementFactory
-    {
+    public class GDataBatchError : IExtensionElementFactory {
         private string errorType;
         private string errorReason;
         private string field;
 
-        //////////////////////////////////////////////////////////////////////
         /// <summary>accessor method Type</summary> 
         /// <returns> </returns>
-        //////////////////////////////////////////////////////////////////////
-        public string Type
-        {
-            get
-            {
+        public string Type {
+            get {
                 return this.errorType;
             }
-            set
-            {
+            set {
                 this.errorType = value;
             }
         }
-        // end of accessor Type
 
-
-        //////////////////////////////////////////////////////////////////////
         /// <summary>accessor method public string Field</summary> 
         /// <returns> </returns>
-        //////////////////////////////////////////////////////////////////////
-        public string Field
-        {
-            get
-            {
+        public string Field {
+            get {
                 return this.field;
             }
-            set
-            {
+            set {
                 this.field = value;
             }
         }
-        // end of accessor public string Field
 
-        //////////////////////////////////////////////////////////////////////
         /// <summary>accessor method public string Reason</summary> 
         /// <returns> </returns>
-        //////////////////////////////////////////////////////////////////////
-        public string Reason
-        {
-            get
-            {
+        public string Reason {
+            get {
                 return this.errorReason;
             }
-            set
-            {
+            set {
                 this.errorReason = value;
             }
         }
-        // end of accessor public string Reason
 
         #region Persistence overloads
+
         /// <summary>
         /// Persistence method for the GDataBatchError object
         /// </summary>
         /// <param name="writer">the xmlwriter to write into</param>
-        public void Save(XmlWriter writer)
-        {
+        public void Save(XmlWriter writer) {
         }
+
         #endregion
 
         #region IExtensionElementFactory Members
 
         /// <summary>
-        ///  parses a list of errors
+        /// parses a list of errors
         /// </summary>
         /// <param name="reader">XmlReader positioned at the start of the status element</param>
         /// <param name="status">the batch status element to add the errors tohe</param>
         /// <param name="parser">the feedparser to be used</param>
-        public static void ParseBatchErrors(XmlReader reader, AtomFeedParser parser, GDataBatchStatus status)
-        {
-            if (reader == null)
-            {
+        public static void ParseBatchErrors(XmlReader reader, AtomFeedParser parser, GDataBatchStatus status) {
+            if (reader == null) {
                 throw new System.ArgumentNullException("reader");
             }
 
             object localname = reader.LocalName;
-            if (localname.Equals(parser.Nametable.BatchErrors))
-            {
+            if (localname.Equals(parser.Nametable.BatchErrors)) {
                 int lvl = -1;
-                while (Utilities.NextChildElement(reader, ref lvl))
-                {
+                while (Utilities.NextChildElement(reader, ref lvl)) {
                     localname = reader.LocalName;
-                    if (localname.Equals(parser.Nametable.BatchError))
-                    {
+                    if (localname.Equals(parser.Nametable.BatchError)) {
                         status.Errors.Add(ParseBatchError(reader, parser));
                     }
                 }
@@ -387,33 +312,23 @@ namespace Google.GData.Client
         /// <param name="reader">XmlReader positioned at the start of the status element</param>
         /// <param name="parser">the feedparser to be used</param>
         /// <returns>GDataBatchError</returns>
-        public static GDataBatchError ParseBatchError(XmlReader reader, AtomFeedParser parser)
-        {
-            if (reader == null)
-            {
+        public static GDataBatchError ParseBatchError(XmlReader reader, AtomFeedParser parser) {
+            if (reader == null) {
                 throw new System.ArgumentNullException("reader");
             }
 
             object localname = reader.LocalName;
             GDataBatchError error = null;
-            if (localname.Equals(parser.Nametable.BatchError))
-            {
+            if (localname.Equals(parser.Nametable.BatchError)) {
                 error = new GDataBatchError();
-                if (reader.HasAttributes)
-                {
-                    while (reader.MoveToNextAttribute())
-                    {
+                if (reader.HasAttributes) {
+                    while (reader.MoveToNextAttribute()) {
                         localname = reader.LocalName;
-                        if (localname.Equals(parser.Nametable.BatchReason))
-                        {
+                        if (localname.Equals(parser.Nametable.BatchReason)) {
                             error.Reason = Utilities.DecodedValue(reader.Value);
-                        }
-                        else if (localname.Equals(parser.Nametable.Type))
-                        {
+                        } else if (localname.Equals(parser.Nametable.Type)) {
                             error.Type = Utilities.DecodedValue(reader.Value);
-                        }
-                        else if (localname.Equals(parser.Nametable.BatchField))
-                        {
+                        } else if (localname.Equals(parser.Nametable.BatchField)) {
                             error.Field = Utilities.DecodedValue(reader.Value);
                         }
                     }
@@ -423,12 +338,10 @@ namespace Google.GData.Client
         }
 
         /// <summary>
-        ///  the name to use
+        /// the name to use
         /// </summary>
-        public string XmlName
-        {
-            get
-            {
+        public string XmlName {
+            get {
                 return BaseNameTable.XmlElementBatchError;
             }
         }
@@ -436,21 +349,17 @@ namespace Google.GData.Client
         /// <summary>
         /// the namespace to use
         /// </summary>
-        public string XmlNameSpace
-        {
-            get
-            {
+        public string XmlNameSpace {
+            get {
                 return BaseNameTable.gBatchNamespace;
             }
         }
 
         /// <summary>
-        /// the prefered prefix
+        /// the preferred prefix
         /// </summary>
-        public string XmlPrefix
-        {
-            get
-            {
+        public string XmlPrefix {
+            get {
                 return BaseNameTable.gBatchPrefix;
             }
         }
@@ -461,119 +370,87 @@ namespace Google.GData.Client
         /// <param name="node"></param>
         /// <param name="parser"></param>
         /// <returns></returns>
-        public IExtensionElementFactory CreateInstance(XmlNode node, AtomFeedParser parser)
-        {
+        public IExtensionElementFactory CreateInstance(XmlNode node, AtomFeedParser parser) {
             return ParseBatchError(new XmlNodeReader(node), parser);
         }
 
         #endregion
     }
+
     /// <summary>
     /// holds the batch status information
     /// </summary>
-    public class GDataBatchInterrupt : IExtensionElementFactory
-    {
+    public class GDataBatchInterrupt : IExtensionElementFactory {
         private string reason;
         private int success;
         private int failures;
         private int parsed;
         private int unprocessed;
 
-
-        //////////////////////////////////////////////////////////////////////
         /// <summary>accessor method public string Reason</summary> 
         /// <returns> </returns>
-        //////////////////////////////////////////////////////////////////////
-        public string Reason
-        {
-            get
-            {
+        public string Reason {
+            get {
                 return this.reason;
             }
-            set
-            {
+            set {
                 this.reason = value;
             }
         }
-        // end of accessor public string Reason
 
-        //////////////////////////////////////////////////////////////////////
         /// <summary>accessor method public int Successes</summary> 
         /// <returns> </returns>
-        //////////////////////////////////////////////////////////////////////
-        public int Successes
-        {
-            get
-            {
+        public int Successes {
+            get {
                 return this.success;
             }
-            set
-            {
+            set {
                 this.success = value;
             }
         }
-        // end of accessor public int Success
 
-
-        //////////////////////////////////////////////////////////////////////
         /// <summary>accessor method public int Failures</summary> 
         /// <returns> </returns>
-        //////////////////////////////////////////////////////////////////////
-        public int Failures
-        {
-            get
-            {
+        public int Failures {
+            get {
                 return this.failures;
             }
-            set
-            {
+            set {
                 this.failures = value;
             }
         }
-        // end of accessor public int Failures
 
-        //////////////////////////////////////////////////////////////////////
         /// <summary>accessor method public int Unprocessed</summary> 
         /// <returns> </returns>
-        //////////////////////////////////////////////////////////////////////
-        public int Unprocessed
-        {
-            get
-            {
+        public int Unprocessed {
+            get {
                 return this.unprocessed;
             }
-            set
-            {
+            set {
                 this.unprocessed = value;
             }
         }
-        // end of accessor public int Unprocessed
 
-        //////////////////////////////////////////////////////////////////////
         /// <summary>accessor method public int Parsed</summary> 
         /// <returns> </returns>
-        //////////////////////////////////////////////////////////////////////
-        public int Parsed
-        {
-            get
-            {
+        public int Parsed {
+            get {
                 return this.parsed;
             }
-            set
-            {
+            set {
                 this.parsed = value;
             }
         }
-        // end of accessor public int Parsed
 
         #region Persistence overloads
+
         /// <summary>
         /// Persistence method for the GDataBatchInterrupt object
         /// </summary>
         /// <param name="writer">the xmlwriter to write into</param>
-        public void Save(XmlWriter writer)
-        {
+        public void Save(XmlWriter writer) {
         }
+
         #endregion
 
         #region IExtensionElementFactory Members
@@ -584,41 +461,27 @@ namespace Google.GData.Client
         /// <param name="reader">XmlReader at the start of the element</param>
         /// <param name="parser">the feedparser to be used</param>
         /// <returns>GDataBatchInterrupt</returns>
-        public static GDataBatchInterrupt ParseBatchInterrupt(XmlReader reader, AtomFeedParser parser)
-        {
-            if (reader == null)
-            {
+        public static GDataBatchInterrupt ParseBatchInterrupt(XmlReader reader, AtomFeedParser parser) {
+            if (reader == null) {
                 throw new ArgumentNullException("reader");
             }
 
             object localname = reader.LocalName;
             GDataBatchInterrupt interrupt = null;
-            if (localname.Equals(parser.Nametable.BatchInterrupt))
-            {
+            if (localname.Equals(parser.Nametable.BatchInterrupt)) {
                 interrupt = new GDataBatchInterrupt();
-                if (reader.HasAttributes)
-                {
-                    while (reader.MoveToNextAttribute())
-                    {
+                if (reader.HasAttributes) {
+                    while (reader.MoveToNextAttribute()) {
                         localname = reader.LocalName;
-                        if (localname.Equals(parser.Nametable.BatchReason))
-                        {
+                        if (localname.Equals(parser.Nametable.BatchReason)) {
                             interrupt.Reason = Utilities.DecodedValue(reader.Value);
-                        }
-                        else if (localname.Equals(parser.Nametable.BatchSuccessCount))
-                        {
+                        } else if (localname.Equals(parser.Nametable.BatchSuccessCount)) {
                             interrupt.Successes = int.Parse(Utilities.DecodedValue(reader.Value), CultureInfo.InvariantCulture);
-                        }
-                        else if (localname.Equals(parser.Nametable.BatchFailureCount))
-                        {
+                        } else if (localname.Equals(parser.Nametable.BatchFailureCount)) {
                             interrupt.Failures = int.Parse(Utilities.DecodedValue(reader.Value), CultureInfo.InvariantCulture);
-                        }
-                        else if (localname.Equals(parser.Nametable.BatchParsedCount))
-                        {
+                        } else if (localname.Equals(parser.Nametable.BatchParsedCount)) {
                             interrupt.Parsed = int.Parse(Utilities.DecodedValue(reader.Value), CultureInfo.InvariantCulture);
-                        }
-                        else if (localname.Equals(parser.Nametable.BatchUnprocessed))
-                        {
+                        } else if (localname.Equals(parser.Nametable.BatchUnprocessed)) {
                             interrupt.Unprocessed = int.Parse(Utilities.DecodedValue(reader.Value), CultureInfo.InvariantCulture);
                         }
 
@@ -626,16 +489,13 @@ namespace Google.GData.Client
                 }
             }
             return interrupt;
-
         }
 
         /// <summary>
         /// returns the xmlname to sue
         /// </summary>
-        public string XmlName
-        {
-            get
-            {
+        public string XmlName {
+            get {
                 return BaseNameTable.XmlElementBatchInterrupt;
             }
         }
@@ -643,10 +503,8 @@ namespace Google.GData.Client
         /// <summary>
         /// returns the xmlnamespace
         /// </summary>
-        public string XmlNameSpace
-        {
-            get
-            {
+        public string XmlNameSpace {
+            get {
                 return BaseNameTable.gBatchNamespace;
             }
         }
@@ -654,10 +512,8 @@ namespace Google.GData.Client
         /// <summary>
         /// the xmlprefix
         /// </summary>
-        public string XmlPrefix
-        {
-            get
-            {
+        public string XmlPrefix {
+            get {
                 return BaseNameTable.gBatchPrefix;
             }
         }
@@ -668,76 +524,63 @@ namespace Google.GData.Client
         /// <param name="node">the xmlnode that is going to be parsed</param>
         /// <param name="parser">the feedparser that is used right now</param>
         /// <returns></returns>
-        public IExtensionElementFactory CreateInstance(XmlNode node, AtomFeedParser parser)
-        {
+        public IExtensionElementFactory CreateInstance(XmlNode node, AtomFeedParser parser) {
             return ParseBatchInterrupt(new XmlNodeReader(node), parser);
         }
 
         #endregion
     }
-    //////////////////////////////////////////////////////////////////////
+
     /// <summary>The GDataFeedBatch object holds batch related information
     /// for the AtomFeed
     /// </summary> 
-    //////////////////////////////////////////////////////////////////////
-    public class GDataBatchFeedData : IExtensionElementFactory
-    {
+    public class GDataBatchFeedData : IExtensionElementFactory {
         private GDataBatchOperationType operationType;
         /// <summary>
         /// constructor, set's the default for the operation type
         /// </summary>
-        public GDataBatchFeedData()
-        {
+        public GDataBatchFeedData() {
             this.operationType = GDataBatchOperationType.Default;
         }
 
-        //////////////////////////////////////////////////////////////////////
         /// <summary>accessor method public GDataBatchOperationType Type</summary> 
         /// <returns> </returns>
-        //////////////////////////////////////////////////////////////////////
-        public GDataBatchOperationType Type
-        {
-            get
-            {
+        public GDataBatchOperationType Type {
+            get {
                 return this.operationType;
             }
-            set
-            {
+            set {
                 this.operationType = value;
             }
         }
-        // end of accessor public GDataBatchOperationType Type
-
 
         #region Persistence overloads
+
         /// <summary>
         /// Persistence method for the GDataBatch object
         /// </summary>
         /// <param name="writer">the xmlwriter to write into</param>
-        public void Save(XmlWriter writer)
-        {
-            if (writer == null)
-            {
+        public void Save(XmlWriter writer) {
+            if (writer == null) {
                 throw new System.ArgumentNullException("writer");
             }
 
-            if (this.Type != GDataBatchOperationType.Default)
-            {
+            if (this.Type != GDataBatchOperationType.Default) {
                 writer.WriteStartElement(XmlPrefix, XmlName, XmlNameSpace);
                 writer.WriteAttributeString(BaseNameTable.XmlAttributeType, this.operationType.ToString());
                 writer.WriteEndElement();
             }
         }
+
         #endregion
+
         #region IExtensionElementFactory Members
 
         /// <summary>
         /// the xmlname to use
         /// </summary>
-        public string XmlName
-        {
-            get
-            {
+        public string XmlName {
+            get {
                 return BaseNameTable.XmlElementBatchOperation;
             }
         }
@@ -745,10 +588,8 @@ namespace Google.GData.Client
         /// <summary>
         /// the xml namespace to use
         /// </summary>
-        public string XmlNameSpace
-        {
-            get
-            {
+        public string XmlNameSpace {
+            get {
                 return BaseNameTable.gBatchNamespace;
             }
         }
@@ -756,10 +597,8 @@ namespace Google.GData.Client
         /// <summary>
         /// the xmlprefix to use
         /// </summary>
-        public string XmlPrefix
-        {
-            get
-            {
+        public string XmlPrefix {
+            get {
                 return BaseNameTable.gBatchPrefix;
             }
         }
@@ -770,22 +609,17 @@ namespace Google.GData.Client
         /// <param name="node">the xmlnode that is going to be parsed</param>
         /// <param name="parser">the feedparser that is used right now</param>
         /// <returns></returns>
-        public IExtensionElementFactory CreateInstance(XmlNode node, AtomFeedParser parser)
-        {
+        public IExtensionElementFactory CreateInstance(XmlNode node, AtomFeedParser parser) {
             throw new Exception("The method or operation is not implemented.");
         }
 
         #endregion
     }
-    /////////////////////////////////////////////////////////////////////////////
 
-    //////////////////////////////////////////////////////////////////////
-    /// <summary>The GDataEntryBatch object holds batch related information\
+    /// <summary>The GDataEntryBatch object holds batch related information
     /// for an AtomEntry
     /// </summary> 
-    //////////////////////////////////////////////////////////////////////
-    public class GDataBatchEntryData : IExtensionElementFactory
-    {
+    public class GDataBatchEntryData : IExtensionElementFactory {
         private GDataBatchOperationType operationType;
         private string id;
         private GDataBatchStatus status;
@@ -794,8 +628,7 @@ namespace Google.GData.Client
         /// <summary>
         /// constructor, sets the default for the operation type
         /// </summary>
-        public GDataBatchEntryData()
-        {
+        public GDataBatchEntryData() {
             this.operationType = GDataBatchOperationType.Default;
         }
 
@@ -803,11 +636,9 @@ namespace Google.GData.Client
         /// Constructor for the batch data
         /// </summary>
         /// <param name="type">The batch operation to be performed</param>
-        public GDataBatchEntryData(GDataBatchOperationType type)
-        {
+        public GDataBatchEntryData(GDataBatchOperationType type) {
             this.Type = type;
         }
-
 
         /// <summary>
         /// Constructor for batch data
@@ -815,112 +646,78 @@ namespace Google.GData.Client
         /// <param name="id">The batch ID of this entry</param>
         /// <param name="type">The batch operation to be performed</param>
         public GDataBatchEntryData(string id, GDataBatchOperationType type)
-            : this(type)
-        {
+            : this(type) {
             this.Id = id;
         }
 
-
-        //////////////////////////////////////////////////////////////////////
         /// <summary>accessor method public GDataBatchOperationType Type</summary> 
         /// <returns> </returns>
-        //////////////////////////////////////////////////////////////////////
-        public GDataBatchOperationType Type
-        {
-            get
-            {
+        public GDataBatchOperationType Type {
+            get {
                 return this.operationType;
             }
-            set
-            {
+            set {
                 this.operationType = value;
             }
         }
-        // end of accessor public GDataBatchOperationType Type
 
-        //////////////////////////////////////////////////////////////////////
         /// <summary>accessor method public string Id</summary> 
         /// <returns> </returns>
-        //////////////////////////////////////////////////////////////////////
-        public string Id
-        {
-            get
-            {
+        public string Id {
+            get {
                 return this.id;
             }
-            set
-            {
+            set {
                 this.id = value;
             }
         }
-        // end of accessor public string Id
 
-
-        //////////////////////////////////////////////////////////////////////
         /// <summary>accessor for the GDataBatchInterrrupt element</summary> 
         /// <returns> </returns>
-        //////////////////////////////////////////////////////////////////////
-        public GDataBatchInterrupt Interrupt
-        {
-            get
-            {
+        public GDataBatchInterrupt Interrupt {
+            get {
                 return this.interrupt;
             }
-            set
-            {
+            set {
                 this.interrupt = value;
             }
         }
-        // end of accessor public Interrupt
 
-
-        //////////////////////////////////////////////////////////////////////
         /// <summary>accessor method public GDataBatchStatus Status</summary> 
         /// <returns> </returns>
-        //////////////////////////////////////////////////////////////////////
-        public GDataBatchStatus Status
-        {
-            get
-            {
-                if (this.status == null)
-                {
+        public GDataBatchStatus Status {
+            get {
+                if (this.status == null) {
                     this.status = new GDataBatchStatus();
                 }
                 return this.status;
             }
-            set
-            {
+            set {
                 this.status = value;
             }
         }
-        // end of accessor public GDataBatchStatus Status
-
-
 
         #region Persistence overloads
         /// <summary>
         /// Persistence method for the GDataEntryBatch object
         /// </summary>
         /// <param name="writer">the xmlwriter to write into</param>
-        public void Save(XmlWriter writer)
-        {
-            if (writer == null)
-            {
+        public void Save(XmlWriter writer) {
+            if (writer == null) {
                 throw new System.ArgumentNullException("writer");
             }
 
-            if (this.Id != null)
-            {
+            if (this.Id != null) {
                 writer.WriteElementString(BaseNameTable.XmlElementBatchId, BaseNameTable.gBatchNamespace, this.id);
             }
-            if (this.Type != GDataBatchOperationType.Default)
-            {
+
+            if (this.Type != GDataBatchOperationType.Default) {
                 writer.WriteStartElement(XmlPrefix, XmlName, XmlNameSpace);
                 writer.WriteAttributeString(BaseNameTable.XmlAttributeType, this.operationType.ToString());
                 writer.WriteEndElement();
             }
-            if (this.status != null)
-            {
+
+            if (this.status != null) {
                 this.status.Save(writer);
             }
         }
@@ -931,10 +728,8 @@ namespace Google.GData.Client
         /// <summary>
         /// xml local name to use
         /// </summary>
-        public string XmlName
-        {
-            get
-            {
+        public string XmlName {
+            get {
                 //TODO This doesn't seem correct.
                 return BaseNameTable.XmlElementBatchOperation;
             }
@@ -943,10 +738,8 @@ namespace Google.GData.Client
         /// <summary>
         /// xml namespace to use
         /// </summary>
-        public string XmlNameSpace
-        {
-            get
-            {
+        public string XmlNameSpace {
+            get {
                 return BaseNameTable.gBatchNamespace;
             }
         }
@@ -954,10 +747,8 @@ namespace Google.GData.Client
         /// <summary>
         /// xml prefix to use
         /// </summary>
-        public string XmlPrefix
-        {
-            get
-            {
+        public string XmlPrefix {
+            get {
                 return BaseNameTable.gBatchPrefix;
             }
         }
@@ -968,15 +759,11 @@ namespace Google.GData.Client
         /// <param name="node"></param>
         /// <param name="parser"></param>
         /// <returns></returns>
-        public IExtensionElementFactory CreateInstance(XmlNode node, AtomFeedParser parser)
-        {
+        public IExtensionElementFactory CreateInstance(XmlNode node, AtomFeedParser parser) {
             //we really don't know how to create an instance of ourself.
             throw new Exception("The method or operation is not implemented.");
         }
 
         #endregion
     }
-    /////////////////////////////////////////////////////////////////////////////
-
 }
-/////////////////////////////////////////////////////////////////////////////
