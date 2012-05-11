@@ -25,44 +25,30 @@ namespace Google.GData.ContentForShopping.Elements {
         private ExtensionCollection<Status> statusList;
 
         /// <summary>
+        /// Required destination collection
+        /// </summary>
+        private ExtensionCollection<RequiredDestination> requiredDestinations;
+
+        /// <summary>
+        /// Validate destination collection
+        /// </summary>
+        private ExtensionCollection<ValidateDestination> validateDestinations;
+
+        /// <summary>
+        /// Excluded destination collection
+        /// </summary>
+        private ExtensionCollection<ExcludedDestination> excludedDestinations;
+
+        /// <summary>
         /// default constructor for app:control in the Content for Shopping API
         /// </summary>
         public ProductControl()
             : base(BaseNameTable.NSAppPublishingFinal) {
             this.ExtensionFactories.Add(new RequiredDestination());
+            this.ExtensionFactories.Add(new ValidateDestination());
             this.ExtensionFactories.Add(new ExcludedDestination());
             this.ExtensionFactories.Add(new Warnings());
             this.ExtensionFactories.Add(new Status());
-        }
-
-        /// <summary>
-        /// returns the sc:required_destination element
-        /// </summary>
-        public RequiredDestination RequiredDestination {
-            get {
-                return FindExtension(ContentForShoppingNameTable.RequiredDestination,
-                    ContentForShoppingNameTable.BaseNamespace) as RequiredDestination;
-            }
-            set {
-                ReplaceExtension(ContentForShoppingNameTable.RequiredDestination,
-                    ContentForShoppingNameTable.BaseNamespace,
-                    value);
-            }
-        }
-
-        /// <summary>
-        /// returns the sc:excluded_destination element
-        /// </summary>
-        public ExcludedDestination ExcludedDestination {
-            get {
-                return FindExtension(ContentForShoppingNameTable.ExcludedDestination,
-                    ContentForShoppingNameTable.BaseNamespace) as ExcludedDestination;
-            }
-            set {
-                ReplaceExtension(ContentForShoppingNameTable.ExcludedDestination,
-                    ContentForShoppingNameTable.BaseNamespace,
-                    value);
-            }
         }
 
         /// <summary>
@@ -77,6 +63,42 @@ namespace Google.GData.ContentForShopping.Elements {
                 ReplaceExtension(ContentForShoppingNameTable.Warnings,
                     ContentForShoppingNameTable.BaseNamespace,
                     value);
+            }
+        }
+
+        /// <summary>
+        /// Returns the sc:required_destination elements
+        /// </summary>
+        public ExtensionCollection<RequiredDestination> RequiredDestinations {
+            get {
+                if (this.requiredDestinations == null) {
+                    this.requiredDestinations = new ExtensionCollection<RequiredDestination>(this);
+                }
+                return this.requiredDestinations;
+            }
+        }
+
+        /// <summary>
+        /// Returns the sc:validate_destination elements
+        /// </summary>
+        public ExtensionCollection<ValidateDestination> ValidateDestinations {
+            get {
+                if (this.validateDestinations == null) {
+                    this.validateDestinations = new ExtensionCollection<ValidateDestination>(this);
+                }
+                return this.validateDestinations;
+            }
+        }
+
+        /// <summary>
+        /// Returns the sc:excluded_destination elements
+        /// </summary>
+        public ExtensionCollection<ExcludedDestination> ExcludedDestinations {
+            get {
+                if (this.excludedDestinations == null) {
+                    this.excludedDestinations = new ExtensionCollection<ExcludedDestination>(this);
+                }
+                return this.excludedDestinations;
             }
         }
 

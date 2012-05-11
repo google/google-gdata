@@ -43,11 +43,6 @@ namespace Google.GData.ContentForShopping {
         private ExtensionCollection<Shipping> shippingRules;
 
         /// <summary>
-        /// Color collection
-        /// </summary>
-        private ExtensionCollection<Color> colors;
-
-        /// <summary>
         /// Feature collection
         /// </summary>
         private ExtensionCollection<Feature> features;
@@ -72,6 +67,11 @@ namespace Google.GData.ContentForShopping {
         /// </summary>
         private ExtensionCollection<CustomAttribute> customAttributes;
 
+        /// <summary>
+        /// Custom groups collection
+        /// </summary>
+        private ExtensionCollection<CustomGroup> customGroups;
+
         public ProductEntry()
             : base() {
             this.AddExtension(new ProductId());
@@ -92,6 +92,7 @@ namespace Google.GData.ContentForShopping {
             this.AddExtension(new Color());
             this.AddExtension(new Condition());
             this.AddExtension(new CustomAttribute());
+            this.AddExtension(new CustomGroup());
             this.AddExtension(new Edition());
             this.AddExtension(new Feature());
             this.AddExtension(new FeaturedProduct());
@@ -107,6 +108,7 @@ namespace Google.GData.ContentForShopping {
             this.AddExtension(new Mpn());
             this.AddExtension(new Pages());
             this.AddExtension(new Pattern());
+            this.AddExtension(new Performance());
             this.AddExtension(new Price());
             this.AddExtension(new ProductReviewAverage());
             this.AddExtension(new ProductReviewCount());
@@ -114,6 +116,8 @@ namespace Google.GData.ContentForShopping {
             this.AddExtension(new ProductWeight());
             this.AddExtension(new Publisher());
             this.AddExtension(new Quantity());
+            this.AddExtension(new SalePrice());
+            this.AddExtension(new SalePriceEffectiveDate());
             this.AddExtension(new Shipping());
             this.AddExtension(new ShippingWeight());
             this.AddExtension(new Size());
@@ -339,6 +343,21 @@ namespace Google.GData.ContentForShopping {
             set {
                 SetStringValue<Channel>(value,
                     ContentForShoppingNameTable.Channel,
+                    ContentForShoppingNameTable.ProductsNamespace);
+            }
+        }
+
+        /// <summary>
+        /// Color.
+        /// </summary>
+        public string Color {
+            get {
+                return GetStringValue<Color>(ContentForShoppingNameTable.Color,
+                    ContentForShoppingNameTable.ProductsNamespace);
+            }
+            set {
+                SetStringValue<Color>(value,
+                    ContentForShoppingNameTable.Color,
                     ContentForShoppingNameTable.ProductsNamespace);
             }
         }
@@ -645,6 +664,51 @@ namespace Google.GData.ContentForShopping {
         }
 
         /// <summary>
+        /// Performance.
+        /// </summary>
+        public Performance Performance {
+            get {
+                return FindExtension(ContentForShoppingNameTable.Performance,
+                    ContentForShoppingNameTable.ProductsNamespace) as Performance;
+            }
+            set {
+                ReplaceExtension(ContentForShoppingNameTable.Performance,
+                    ContentForShoppingNameTable.ProductsNamespace,
+                    value);
+            }
+        }
+
+        /// <summary>
+        /// Sale Price.
+        /// </summary>
+        public SalePrice SalePrice {
+            get {
+                return FindExtension(ContentForShoppingNameTable.SalePrice,
+                    ContentForShoppingNameTable.ProductsNamespace) as SalePrice;
+            }
+            set {
+                ReplaceExtension(ContentForShoppingNameTable.SalePrice,
+                    ContentForShoppingNameTable.ProductsNamespace,
+                    value);
+            }
+        }
+
+        /// <summary>
+        /// Sale Price Effective Date.
+        /// </summary>
+        public string SalePriceEffectiveDate {
+            get {
+                return GetStringValue<SalePriceEffectiveDate>(ContentForShoppingNameTable.SalePriceEffectiveDate,
+                    ContentForShoppingNameTable.ProductsNamespace);
+            }
+            set {
+                SetStringValue<SalePriceEffectiveDate>(value,
+                    ContentForShoppingNameTable.SalePriceEffectiveDate,
+                    ContentForShoppingNameTable.ProductsNamespace);
+            }
+        }
+
+        /// <summary>
         /// Shipping Weight.
         /// </summary>
         public ShippingWeight ShippingWeight {
@@ -726,18 +790,6 @@ namespace Google.GData.ContentForShopping {
         }
 
         /// <summary>
-        /// Color collection.
-        /// </summary>
-        public ExtensionCollection<Color> Colors {
-            get {
-                if (this.colors == null) {
-                    this.colors = new ExtensionCollection<Color>(this);
-                }
-                return this.colors;
-            }
-        }
-
-        /// <summary>
         /// Feature collection.
         /// </summary>
         public ExtensionCollection<Feature> Features {
@@ -794,6 +846,18 @@ namespace Google.GData.ContentForShopping {
                     this.customAttributes = new ExtensionCollection<CustomAttribute>(this);
                 }
                 return this.customAttributes;
+            }
+        }
+
+        /// <summary>
+        /// Custom group collection.
+        /// </summary>
+        public ExtensionCollection<CustomGroup> Groups {
+            get {
+                if (this.customGroups == null) {
+                    this.customGroups = new ExtensionCollection<CustomGroup>(this);
+                }
+                return this.customGroups;
             }
         }
 

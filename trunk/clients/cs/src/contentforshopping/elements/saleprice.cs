@@ -17,25 +17,25 @@ using Google.GData.Extensions;
 
 namespace Google.GData.ContentForShopping.Elements
 {
-    public class ShippingWeight : SimpleElement
+    public class SalePrice : SimpleElement
     {
         /// <summary>
-        /// default constructor for scp:shipping_weight
+        /// default constructor for scp:sale_price
         /// </summary>
-        public ShippingWeight()
-            : base(ContentForShoppingNameTable.ShippingWeight,
+        public SalePrice()
+            : base(ContentForShoppingNameTable.SalePrice,
                ContentForShoppingNameTable.scpDataPrefix,
                ContentForShoppingNameTable.ProductsNamespace)
         {
         }
 
         /// <summary>
-        /// Constructs a new ShippingWeight instance with the specified values.
+        /// Constructs a new SalePrice instance with the specified values.
         /// </summary>
         /// <param name="unit">The price's unit.</param>
         /// <param name="value">The price's value.</param>
-        public ShippingWeight(string unit, string value)
-            : base(ContentForShoppingNameTable.ShippingWeight,
+        public SalePrice(string unit, string value)
+            : base(ContentForShoppingNameTable.SalePrice,
                ContentForShoppingNameTable.scpDataPrefix,
                ContentForShoppingNameTable.ProductsNamespace)
         {

@@ -50,11 +50,11 @@ namespace Google.GData.ContentForShopping.Elements
         {
             get
             {
-                return Convert.ToString(Attributes[ContentForShoppingNameTable.PriceUnit]);
+                return Convert.ToString(Attributes[ContentForShoppingNameTable.Unit]);
             }
             set
             {
-                Attributes[ContentForShoppingNameTable.PriceUnit] = value;
+                Attributes[ContentForShoppingNameTable.Unit] = value;
             }
         }
     }
