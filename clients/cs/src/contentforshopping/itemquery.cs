@@ -11,22 +11,18 @@ namespace Google.GData.ContentForShopping
     /// </summary>
     public abstract class ItemQuery : FeedQuery
     {
-        private const string itemFeedBaseUri = "https://content.googleapis.com/content/v1/";
-        private const string showWarningsParameter = "warnings";
-        private const string dryRunParameter = "dry-run";
-
         private readonly string dataType;
         private string accountId;
         private string projection;
         private string startToken;
-        private bool showWarnings;
-        private bool dryRun;
+        private string performanceStart;
+        private string performanceEnd;
 
          /// <summary>
         /// Constructor
         /// </summary>
         public ItemQuery(string dataType)
-            : base(itemFeedBaseUri)
+            : base(ContentForShoppingNameTable.AllFeedsBaseUri)
         {
             this.dataType = dataType;
         }
@@ -35,7 +31,7 @@ namespace Google.GData.ContentForShopping
         /// Constructor
         /// </summary>
         public ItemQuery(string dataType, string projection, string accountId)
-            : base(itemFeedBaseUri)
+            : base(ContentForShoppingNameTable.AllFeedsBaseUri)
         {
             this.accountId = accountId;
             this.dataType = dataType;
@@ -69,19 +65,19 @@ namespace Google.GData.ContentForShopping
         }
 
         /// <summary>
-        /// Accessor method for ShowWarnings.
+        /// Accessor method for Performance Start.
         /// </summary>
-        public bool ShowWarnings {
-            get { return showWarnings; }
-            set { showWarnings = value; }
+        public string PerformanceStart {
+            get { return performanceStart; }
+            set { performanceStart = value; }
         }
 
         /// <summary>
-        /// Accessor method for DryRun.
+        /// Accessor method for Performance End.
         /// </summary>
-        public bool DryRun {
-            get { return dryRun; }
-            set { dryRun = value; }
+        public string PerformanceEnd {
+            get { return performanceEnd; }
+            set { performanceEnd = value; }
         }
 
         /// <summary>
@@ -94,16 +90,13 @@ namespace Google.GData.ContentForShopping
             StringBuilder newPath = new StringBuilder(path, 2048);
             char paramInsertion = InsertionParameter(path);
 
-            paramInsertion = AppendQueryPart(this.StartToken, "start-token", paramInsertion, newPath);
-            if (ShowWarnings) {
-                newPath.Append(paramInsertion);
-                newPath.Append(showWarningsParameter);
-                paramInsertion = '&';
+            if (this.StartToken != null) {
+                paramInsertion = AppendQueryPart(this.StartToken, "start-token", paramInsertion, newPath);
             }
-            if (DryRun) {
-                newPath.Append(paramInsertion);
-                newPath.Append(dryRunParameter);
-                paramInsertion = '&';
+
+            if (this.PerformanceStart != null && this.PerformanceEnd != null) {
+                paramInsertion = AppendQueryPart(this.PerformanceStart, "performance.start", paramInsertion, newPath);
+                paramInsertion = AppendQueryPart(this.PerformanceEnd, "performance.end", paramInsertion, newPath);
             }
             return newPath.ToString();
         }
@@ -125,14 +118,11 @@ namespace Google.GData.ContentForShopping
                         char[] otherDelimiters = { '=' };
                         String[] parameters = token.Split(otherDelimiters, 2);
                         switch (parameters[0]) {
-                            case "start-token":
-                                StartToken = parameters[1];
+                            case "performance.start":
+                                PerformanceStart = parameters[1];
                                 break;
-                            case showWarningsParameter:
-                                ShowWarnings = true;
-                                break;
-                            case dryRunParameter:
-                                DryRun = true;
+                            case "performance.end":
+                                PerformanceEnd = parameters[1];
                                 break;
                         }
                     }
@@ -153,7 +143,7 @@ namespace Google.GData.ContentForShopping
         /// Returns the base Uri for the feed.
         /// </summary>
         protected override string GetBaseUri() {
-            StringBuilder sb = new StringBuilder(itemFeedBaseUri, 2048);
+            StringBuilder sb = new StringBuilder(ContentForShoppingNameTable.AllFeedsBaseUri, 2048);
 
             sb.Append(accountId);
             sb.Append("/items/");

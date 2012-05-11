@@ -154,9 +154,14 @@ namespace Google.GData.ContentForShopping
         public const string Price = "price";
 
         /// <summary>
-        /// XML element name for price unit.
+        /// XML element name for sale price.
         /// </summary>
-        public const string PriceUnit = "unit";
+        public const string SalePrice = "sale_price";
+
+        /// <summary>
+        /// XML element name for sale price effective date.
+        /// </summary>
+        public const string SalePriceEffectiveDate = "sale_price_effective_date";
 
         /// <summary>
         /// XML element name for product type.
@@ -304,14 +309,14 @@ namespace Google.GData.ContentForShopping
         public const string ShippingWeight = "shipping_weight";
 
         /// <summary>
-        /// XML element name for weight unit.
-        /// </summary>
-        public const string WeightUnit = "unit";
-
-        /// <summary>
         /// XML element name for required destination.
         /// </summary>
         public const string RequiredDestination = "required_destination";
+
+        /// <summary>
+        /// XML element name for validate destination.
+        /// </summary>
+        public const string ValidateDestination = "validate_destination";
 
         /// <summary>
         /// XML element name for excluded destination.
@@ -359,9 +364,34 @@ namespace Google.GData.ContentForShopping
         public const string WarningMessage = "message";
 
         /// <summary>
+        /// XML element name for performance.
+        /// </summary>
+        public const string Performance = "performance";
+
+        /// <summary>
+        /// XML element name for datapoint.
+        /// </summary>
+        public const string Datapoint = "datapoint";
+
+        /// <summary>
+        /// XML element name for date.
+        /// </summary>
+        public const string Date = "date";
+
+        /// <summary>
+        /// XML element name for clicks.
+        /// </summary>
+        public const string Clicks = "clicks";
+
+        /// <summary>
         /// XML element name for attribute.
         /// </summary>
         public const string Attribute = "attribute";
+
+        /// <summary>
+        /// XML element name for group.
+        /// </summary>
+        public const string Group = "group";
 
         /// <summary>
         /// XML element name for name.
@@ -397,5 +427,20 @@ namespace Google.GData.ContentForShopping
         /// XML element name for reviews url.
         /// </summary>
         public const string ReviewsUrl = "reviews_url";
+
+        /// <summary>
+        /// The base URI for all Content API requests.
+        /// </summary>
+        public const string AllFeedsBaseUri = "https://content.googleapis.com/content/v1";
+
+        /// <summary>
+        /// The value of the show warnings URL parameter.
+        /// </summary>
+        public const string ShowWarningsParameter = "warnings";
+
+        /// <summary>
+        /// The value of the dry run URL parameter.
+        /// </summary>
+        public const string DryRunParameter = "dry-run";
     }
 }

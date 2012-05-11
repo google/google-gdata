@@ -76,7 +76,13 @@
     <Compile Include="elements\channel.cs" />
     <Compile Include="elements\additionalimagelink.cs" />
     <Compile Include="elements\customattribute.cs" />
+    <Compile Include="elements\customgroup.cs" />
+    <Compile Include="elements\datapoint.cs" />
+    <Compile Include="elements\performance.cs" />
+    <Compile Include="elements\saleprice.cs" />
+    <Compile Include="elements\salepriceeffectivedate.cs" />
     <Compile Include="elements\status.cs" />
+    <Compile Include="elements\validatedestination.cs" />
     <Compile Include="elements\warnings.cs" />
     <Compile Include="elements\warningmessage.cs" />
     <Compile Include="elements\warninglocation.cs" />

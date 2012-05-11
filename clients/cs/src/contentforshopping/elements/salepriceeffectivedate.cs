@@ -17,45 +17,29 @@ using Google.GData.Extensions;
 
 namespace Google.GData.ContentForShopping.Elements
 {
-    public class ShippingWeight : SimpleElement
+    public class SalePriceEffectiveDate : SimpleElement
     {
         /// <summary>
-        /// default constructor for scp:shipping_weight
+        /// default constructor for scp:sale_price_effective_date
         /// </summary>
-        public ShippingWeight()
-            : base(ContentForShoppingNameTable.ShippingWeight,
+        public SalePriceEffectiveDate()
+            : base(ContentForShoppingNameTable.SalePriceEffectiveDate,
                ContentForShoppingNameTable.scpDataPrefix,
                ContentForShoppingNameTable.ProductsNamespace)
         {
         }
 
         /// <summary>
-        /// Constructs a new ShippingWeight instance with the specified values.
+        /// Constructs a new SalePriceEffectiveDate instance with the specified values.
         /// </summary>
         /// <param name="unit">The price's unit.</param>
         /// <param name="value">The price's value.</param>
-        public ShippingWeight(string unit, string value)
-            : base(ContentForShoppingNameTable.ShippingWeight,
+        public SalePriceEffectiveDate(string unit, string value)
+            : base(ContentForShoppingNameTable.SalePriceEffectiveDate,
                ContentForShoppingNameTable.scpDataPrefix,
                ContentForShoppingNameTable.ProductsNamespace)
         {
-            this.Unit = unit;
             this.Value = value;
-        }
-
-        /// <summary>
-        /// Unit property accessor
-        /// </summary>
-        public string Unit
-        {
-            get
-            {
-                return Convert.ToString(Attributes[ContentForShoppingNameTable.Unit]);
-            }
-            set
-            {
-                Attributes[ContentForShoppingNameTable.Unit] = value;
-            }
         }
     }
 }

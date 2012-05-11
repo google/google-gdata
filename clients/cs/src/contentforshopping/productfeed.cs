@@ -22,6 +22,34 @@ namespace Google.GData.ContentForShopping {
     /// Feed API customization class for defining Product feed.
     /// </summary>
     public class ProductFeed : AbstractFeed {
+
+        /// <summary>
+        /// StartToken from feed if present.
+        /// </summary>
+        public string StartToken {
+            get {
+                if (this.NextChunk != null) {
+                    Uri nextUri = new Uri(this.NextChunk);
+
+                    char[] delimiters = { '?', '&' };
+                    string source = HttpUtility.UrlDecode(nextUri.Query);
+                    TokenCollection tokens = new TokenCollection(source, delimiters);
+                    foreach (String token in tokens) {
+                        if (token.Length > 0) {
+                            char[] otherDelimiters = { '=' };
+                            String[] parameters = token.Split(otherDelimiters, 2);
+
+                            if (parameters[0] == "start-token") {
+                                return parameters[1];
+                            }
+                        }
+                    }
+                }
+
+                return null;
+            }
+        }
+
         /// <summary>
         /// Constructor
         /// </summary>
