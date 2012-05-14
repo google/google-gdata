@@ -274,7 +274,7 @@ namespace Google.GData.Apps.GoogleMailSettings
         /// <returns>a <code>AppsExtendedEntry</code> containing the results of the creation</returns>
         public AppsExtendedEntry UpdateWebclip(string userName, string enable) {
             Uri webclipUri = new Uri(AppsGoogleMailSettingsNameTable.AppsGoogleMailSettingsBaseFeedUri + "/"
-                + domain + "/" + userName + forwardingFeedUriSuffix);
+                + domain + "/" + userName + webclipFeedUriSuffix);
             AppsExtendedEntry entry = new AppsExtendedEntry();
             entry.EditUri = webclipUri;
             entry.Properties.Add(
