@@ -145,6 +145,7 @@ namespace Google.GData.ContentForShopping
         protected override string GetBaseUri() {
             StringBuilder sb = new StringBuilder(ContentForShoppingNameTable.AllFeedsBaseUri, 2048);
 
+            sb.Append("/");
             sb.Append(accountId);
             sb.Append("/items/");
             sb.Append(dataType);
