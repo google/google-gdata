@@ -98,6 +98,8 @@ namespace Google.GData.Documents {
         public const string PublishAuto = "publishAuto";
         /// <summary>PublishOutsideDomain element</summary>
         public const string PublishOutsideDomain = "publishOutsideDomain";
+        /// <summary>Description element</summary>
+        public const string Description = "description";
     }
 
     /// <summary>
@@ -220,6 +222,7 @@ namespace Google.GData.Documents {
             this.AddExtension(new LastViewed());
             this.AddExtension(new LastModifiedBy());
             this.AddExtension(new QuotaBytesUsed());
+            this.AddExtension(new Description());
         }
 
         /// <summary>
@@ -463,6 +466,22 @@ namespace Google.GData.Documents {
                 return FindExtension(GDataParserNameTable.XmlQuotaBytesUsedElement, GDataParserNameTable.gNamespace) as QuotaBytesUsed;
             }
         }
+
+        /// <summary>
+        /// Identifies the description of the resource
+        /// </summary>
+        /// <returns></returns>
+        public string Description {
+            get {
+                return GetStringValue<Description>(DocumentslistNametable.Description,
+                    DocumentslistNametable.NSDocumentslist);
+            }
+            set {
+                SetStringValue<Description>(value,
+                    DocumentslistNametable.Description,
+                    DocumentslistNametable.NSDocumentslist);
+            }
+        }
     }
 
     /// <summary>
@@ -470,10 +489,24 @@ namespace Google.GData.Documents {
     /// </summary>
     public class WritersCanInvite : SimpleAttribute {
         /// <summary>
-        /// default constructor for gd:writersCanInvite 
+        /// default constructor for docs:writersCanInvite 
         /// </summary>
         public WritersCanInvite()
             : base(DocumentslistNametable.WritersCanInvite,
+                   DocumentslistNametable.Prefix,
+                   DocumentslistNametable.NSDocumentslist) {
+        }
+    }
+
+    /// <summary>
+    /// Identifies the description of the resource
+    /// </summary>
+    public class Description : SimpleAttribute {
+        /// <summary>
+        /// default constructor for docs:description 
+        /// </summary>
+        public Description()
+            : base(DocumentslistNametable.Description,
                    DocumentslistNametable.Prefix,
                    DocumentslistNametable.NSDocumentslist) {
         }
