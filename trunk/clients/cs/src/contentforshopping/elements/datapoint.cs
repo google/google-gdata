@@ -25,7 +25,7 @@ namespace Google.GData.ContentForShopping.Elements
         public Datapoint()
             : base(ContentForShoppingNameTable.Datapoint,
                ContentForShoppingNameTable.scDataPrefix,
-               ContentForShoppingNameTable.ProductsNamespace)
+               ContentForShoppingNameTable.BaseNamespace)
         {
         }
 
@@ -37,7 +37,7 @@ namespace Google.GData.ContentForShopping.Elements
         public Datapoint(string date, string clicks)
             : base(ContentForShoppingNameTable.Datapoint,
                ContentForShoppingNameTable.scDataPrefix,
-               ContentForShoppingNameTable.ProductsNamespace)
+               ContentForShoppingNameTable.BaseNamespace)
         {
             this.Date = date;
             this.Clicks = clicks;
