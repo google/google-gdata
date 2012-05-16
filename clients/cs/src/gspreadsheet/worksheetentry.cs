@@ -20,26 +20,23 @@ using System.Collections;
 using Google.GData.Client;
 using Google.GData.Extensions;
 
-namespace Google.GData.Spreadsheets
-{
+namespace Google.GData.Spreadsheets {
     /// <summary>
     /// Entry API customization class for defining entries in a Worksheets feed.
     /// </summary>
-    public class WorksheetEntry : AbstractEntry
-    {
+    public class WorksheetEntry : AbstractEntry {
         /// <summary>
         /// Category used to label entries that contain Cell extension data.
         /// </summary>
-        public static AtomCategory WORKSHEET_CATEGORY
-                = new AtomCategory(GDataSpreadsheetsNameTable.Worksheet,
-                           new AtomUri(BaseNameTable.gKind));
+        public static AtomCategory WORKSHEET_CATEGORY =
+            new AtomCategory(GDataSpreadsheetsNameTable.Worksheet, new AtomUri(BaseNameTable.gKind));
 
         /// <summary>
         /// Constructs a new WorksheetEntry instance with the appropriate category
         /// to indicate that it is a worksheet.
         /// </summary>
-        public WorksheetEntry() : base()
-        {
+        public WorksheetEntry()
+            : base() {
             Categories.Add(WORKSHEET_CATEGORY);
             this.AddExtension(new RowCountElement());
             this.AddExtension(new ColCountElement());
@@ -53,8 +50,7 @@ namespace Google.GData.Spreadsheets
         /// <param name="cols">The number of columns.</param>
         [CLSCompliant(false)]
         public WorksheetEntry(uint rows, uint cols)
-            : this()
-        {
+            : this() {
             this.ColCount = new ColCountElement(cols);
             this.RowCount = new RowCountElement(rows);
         }
@@ -68,26 +64,21 @@ namespace Google.GData.Spreadsheets
         /// <param name="title">The title of the worksheet.</param>
         [CLSCompliant(false)]
         public WorksheetEntry(uint rows, uint cols, string title)
-            : this(rows, cols)
-        {
-            this.Title = new AtomTextConstruct(AtomTextConstructElementType.Title,title);
+            : this(rows, cols) {
+            this.Title = new AtomTextConstruct(AtomTextConstructElementType.Title, title);
         }
 
         /// <summary>
         /// The colCount element in this worksheet entry
         /// </summary>
-        public ColCountElement ColCount
-        {
-            get
-            {
+        public ColCountElement ColCount {
+            get {
                 return FindExtension(GDataSpreadsheetsNameTable.XmlColCountElement,
-                                     GDataSpreadsheetsNameTable.NSGSpreadsheets) as ColCountElement;
+                    GDataSpreadsheetsNameTable.NSGSpreadsheets) as ColCountElement;
             }
-
-            set
-            {
+            set {
                 ReplaceExtension(GDataSpreadsheetsNameTable.XmlColCountElement,
-                                     GDataSpreadsheetsNameTable.NSGSpreadsheets, value);
+                    GDataSpreadsheetsNameTable.NSGSpreadsheets, value);
             }
         }
 
@@ -95,28 +86,33 @@ namespace Google.GData.Spreadsheets
         /// Sets the number of columns for this worksheet entry
         /// </summary>
         [CLSCompliant(false)]
-        public uint Cols
-        {
-            get { return this.ColCount.Count; }
-            set { this.ColCount.Count = value; }
+        public uint Cols {
+            get {
+                if (this.ColCount != null) {
+                    return this.ColCount.Count;
+                }
+                return 0;
+            }
+            set {
+                if (this.ColCount != null) {
+                    this.ColCount.Count = value;
+                } else {
+                    this.ColCount = new ColCountElement(value);
+                }
+            }
         }
-
 
         /// <summary>
         /// The rowCount element in this cell entry
         /// </summary>
-        public RowCountElement RowCount
-        {
-            get
-            {
+        public RowCountElement RowCount {
+            get {
                 return FindExtension(GDataSpreadsheetsNameTable.XmlRowCountElement,
-                                     GDataSpreadsheetsNameTable.NSGSpreadsheets) as RowCountElement;
+                    GDataSpreadsheetsNameTable.NSGSpreadsheets) as RowCountElement;
             }
-
-            set
-            {
+            set {
                 ReplaceExtension(GDataSpreadsheetsNameTable.XmlRowCountElement,
-                                     GDataSpreadsheetsNameTable.NSGSpreadsheets, value);
+                    GDataSpreadsheetsNameTable.NSGSpreadsheets, value);
             }
         }
 
@@ -124,20 +120,28 @@ namespace Google.GData.Spreadsheets
         /// Sets the number of rows for this worksheet entry
         /// </summary>
         [CLSCompliant(false)]
-        public uint Rows
-        {
-            get { return this.RowCount.Count; }
-            set { this.RowCount.Count = value; }
+        public uint Rows {
+            get {
+                if (this.RowCount != null) {
+                    return this.RowCount.Count;
+                }
+                return 0;
+            }
+            set {
+                if (this.RowCount != null) {
+                    this.RowCount.Count = value;
+                } else {
+                    this.RowCount = new RowCountElement(value);
+                }
+            }
         }
-
 
         /// <summary>
         /// Retrieves the cell-based metafeed of the cells within the worksheet.
         /// </summary>
         /// <returns>The CellsFeed of the cells in this worksheet.</returns>
-        public CellFeed QueryCellFeed() 
-        {
-            return QueryCellFeed(ReturnEmptyCells.serverDefault); 
+        public CellFeed QueryCellFeed() {
+            return QueryCellFeed(ReturnEmptyCells.serverDefault);
         }
 
         /// <summary>
@@ -145,21 +149,18 @@ namespace Google.GData.Spreadsheets
         /// </summary>
         /// <param name="returnEmpty">indicates if a full sheet should be returned</param> 
         /// <returns>The CellsFeed of the cells in this worksheet.</returns>
-        public CellFeed QueryCellFeed(ReturnEmptyCells returnEmpty) 
-        {
+        public CellFeed QueryCellFeed(ReturnEmptyCells returnEmpty) {
             CellQuery query = new CellQuery(this.CellFeedLink);
             query.ReturnEmpty = returnEmpty;
-            return this.Service.Query(query) as CellFeed; 
+            return this.Service.Query(query) as CellFeed;
         }
 
         /// <summary>
         /// Retrieves the URI for the cells feed of the worksheet.
         /// </summary>
         /// <returns>The URI of the cells feed for this worksheet.</returns>
-        public string CellFeedLink
-        {
-            get 
-            {
+        public string CellFeedLink {
+            get {
                 AtomLink cellFeedLink = this.Links.FindService(GDataSpreadsheetsNameTable.CellRel, null);
                 return cellFeedLink.HRef.ToString();
             }
