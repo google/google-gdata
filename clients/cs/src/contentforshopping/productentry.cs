@@ -669,11 +669,11 @@ namespace Google.GData.ContentForShopping {
         public Performance Performance {
             get {
                 return FindExtension(ContentForShoppingNameTable.Performance,
-                    ContentForShoppingNameTable.ProductsNamespace) as Performance;
+                    ContentForShoppingNameTable.BaseNamespace) as Performance;
             }
             set {
                 ReplaceExtension(ContentForShoppingNameTable.Performance,
-                    ContentForShoppingNameTable.ProductsNamespace,
+                    ContentForShoppingNameTable.BaseNamespace,
                     value);
             }
         }

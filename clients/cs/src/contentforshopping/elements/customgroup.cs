@@ -22,7 +22,7 @@ namespace Google.GData.ContentForShopping.Elements
         /// <summary>
         /// CustomAttribute collection
         /// </summary>
-        private ExtensionCollection<CustomAttribute> attributes;
+        private ExtensionCollection<CustomAttribute> customAttributes;
 
         /// <summary>
         /// default constructor for sc:group
@@ -35,25 +35,66 @@ namespace Google.GData.ContentForShopping.Elements
         }
 
         /// <summary>
+        /// constructor for sc:group with name
+        /// </summary>
+        /// <param name="name">The group's name.</param>
+        public CustomGroup(string name)
+            : base(ContentForShoppingNameTable.Group,
+               ContentForShoppingNameTable.scDataPrefix,
+               ContentForShoppingNameTable.BaseNamespace)
+        {
+            this.Name = name;
+        }
+
+        /// <summary>
         /// default constructor for sc:group with attributes
         /// </summary>
-        /// <param name="attributes">The list of attributes for the group.</param>
-        public CustomGroup(ExtensionCollection<CustomAttribute> attributes)
+        /// <param name="customAttributes">The list of attributes for the group.</param>
+        public CustomGroup(ExtensionCollection<CustomAttribute> customAttributes)
             : base(ContentForShoppingNameTable.Group,
                 ContentForShoppingNameTable.scDataPrefix,
                 ContentForShoppingNameTable.BaseNamespace) {
-            this.attributes = attributes;
+            this.customAttributes = customAttributes;
+        }
+
+        /// <summary>
+        /// constructor for sc:group with name and attributes
+        /// </summary>
+        /// <param name="name">The group's name.</param>
+        /// <param name="customAttributes">The list of attributes for the group.</param>
+        public CustomGroup(string name, ExtensionCollection<CustomAttribute> customAttributes)
+            : base(ContentForShoppingNameTable.Group,
+               ContentForShoppingNameTable.scDataPrefix,
+               ContentForShoppingNameTable.BaseNamespace)
+        {
+            this.Name = name;
+            this.customAttributes = customAttributes;
+        }
+
+        /// <summary>
+        /// Name property accessor
+        /// </summary>
+        public string Name
+        {
+            get
+            {
+                return Convert.ToString(Attributes[ContentForShoppingNameTable.Name]);
+            }
+            set
+            {
+                Attributes[ContentForShoppingNameTable.Name] = value;
+            }
         }
 
         /// <summary>
         /// Attributes property accessor
         /// </summary>
-        public ExtensionCollection<CustomAttribute> Attributes {
+        public ExtensionCollection<CustomAttribute> CustomAttributes {
             get {
-                if (this.attributes == null) {
-                    this.attributes = new ExtensionCollection<CustomAttribute>(this);
+                if (this.customAttributes == null) {
+                    this.customAttributes = new ExtensionCollection<CustomAttribute>(this);
                 }
-                return this.attributes;
+                return this.customAttributes;
             }
         }
     }
