@@ -97,7 +97,7 @@ Used PWA to power digital photo frames.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="Google.Spreadsheets" isDocumented="True" />
       <NamespaceSummaryItem name="Google.YouTube" isDocumented="True">The Data API lets you incorporate YouTube functionality into your own application or website. You can perform searches, upload videos, create playlists, and more.</NamespaceSummaryItem>
     </NamespaceSummaries>
-    <HelpFileFormat>MSHelpViewer</HelpFileFormat>
+    <HelpFileFormat>HtmlHelp1, MSHelpViewer</HelpFileFormat>
     <WorkingPath>
     </WorkingPath>
     <Preliminary>False</Preliminary>
