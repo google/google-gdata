@@ -148,6 +148,9 @@
         <member name="F:Google.GData.Documents.DocumentslistNametable.PublishOutsideDomain">
             <summary>PublishOutsideDomain element</summary>
         </member>
+        <member name="F:Google.GData.Documents.DocumentslistNametable.Description">
+            <summary>Description element</summary>
+        </member>
         <member name="T:Google.GData.Documents.DocumentEntry">
             <summary>
             Entry API customization class for defining entries in an Event feed.
@@ -330,6 +333,12 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="P:Google.GData.Documents.DocumentEntry.Description">
+            <summary>
+            Identifies the description of the resource
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:Google.GData.Documents.WritersCanInvite">
             <summary>
             Determines if a collaborator can modify a documents ACL
@@ -337,7 +346,17 @@
         </member>
         <member name="M:Google.GData.Documents.WritersCanInvite.#ctor">
             <summary>
-            default constructor for gd:writersCanInvite 
+            default constructor for docs:writersCanInvite 
+            </summary>
+        </member>
+        <member name="T:Google.GData.Documents.Description">
+            <summary>
+            Identifies the description of the resource
+            </summary>
+        </member>
+        <member name="M:Google.GData.Documents.Description.#ctor">
+            <summary>
+            default constructor for docs:description 
             </summary>
         </member>
         <member name="M:Google.GData.Documents.RevisionFeed.#ctor(System.Uri,Google.GData.Client.IService)">

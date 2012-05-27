@@ -6313,7 +6313,7 @@
         </member>
         <member name="M:Google.GData.Client.GDataBatchStatus.#ctor">
             <summary>
-            set's the defaults for code
+            sets the defaults for code
             </summary>
         </member>
         <member name="M:Google.GData.Client.GDataBatchStatus.Save(System.Xml.XmlWriter)">
@@ -6366,12 +6366,12 @@
         </member>
         <member name="P:Google.GData.Client.GDataBatchStatus.XmlPrefix">
             <summary>
-            the prefered xmlprefix to use
+            the preferred xmlprefix to use
             </summary>
         </member>
         <member name="T:Google.GData.Client.GDataBatchError">
             <summary>
-             represents the Error element in the GDataBatch response
+            represents the Error element in the GDataBatch response
             </summary>
         </member>
         <member name="M:Google.GData.Client.GDataBatchError.Save(System.Xml.XmlWriter)">
@@ -6382,7 +6382,7 @@
         </member>
         <member name="M:Google.GData.Client.GDataBatchError.ParseBatchErrors(System.Xml.XmlReader,Google.GData.Client.AtomFeedParser,Google.GData.Client.GDataBatchStatus)">
             <summary>
-             parses a list of errors
+            parses a list of errors
             </summary>
             <param name="reader">XmlReader positioned at the start of the status element</param>
             <param name="status">the batch status element to add the errors tohe</param>
@@ -6418,7 +6418,7 @@
         </member>
         <member name="P:Google.GData.Client.GDataBatchError.XmlName">
             <summary>
-             the name to use
+            the name to use
             </summary>
         </member>
         <member name="P:Google.GData.Client.GDataBatchError.XmlNameSpace">
@@ -6428,7 +6428,7 @@
         </member>
         <member name="P:Google.GData.Client.GDataBatchError.XmlPrefix">
             <summary>
-            the prefered prefix
+            the preferred prefix
             </summary>
         </member>
         <member name="T:Google.GData.Client.GDataBatchInterrupt">
@@ -6537,7 +6537,7 @@
             </summary>
         </member>
         <member name="T:Google.GData.Client.GDataBatchEntryData">
-            <summary>The GDataEntryBatch object holds batch related information\
+            <summary>The GDataEntryBatch object holds batch related information
             for an AtomEntry
             </summary> 
         </member>
@@ -7312,7 +7312,7 @@
             <param name="entry">the feedentry to use </param> 
         </member>
         <member name="P:Google.GData.Client.FeedParserEventArgs.DiscardEntry">
-            <summary>the eventhandler can set this to discard the entry</summary> 
+            <summary>the eventhandler can set this to discard the entry</summary>
         </member>
         <member name="P:Google.GData.Client.FeedParserEventArgs.DoneParsing">
             <summary>Read only accessor for done</summary> 
@@ -7362,7 +7362,7 @@
             <param name="feed">the basefeed object that should be set</param>
         </member>
         <member name="M:Google.GData.Client.BaseFeedParser.OnCreateNewEntry">
-            <summary>overloaded to make it easier to fire the event</summary> 
+            <summary>overloaded to make it easier to fire the event</summary>
         </member>
         <member name="M:Google.GData.Client.BaseFeedParser.OnNewAtomEntry(Google.GData.Client.AtomEntry)">
             <summary>overloaded to make it easier to fire the event</summary> 
@@ -7392,7 +7392,7 @@
             <returns> </returns>
         </member>
         <member name="M:Google.GData.Client.BaseFeedParser.NextElement(System.Xml.XmlReader)">
-            <summary>moves to the next element</summary> 
+            <summary>moves to the next element</summary>
             <param name="reader">the xmlreader to skip </param>
         </member>
         <member name="M:Google.GData.Client.BaseFeedParser.NextChildElement(System.Xml.XmlReader,System.Int32@)">
@@ -8317,7 +8317,7 @@
             <summary>standard empty constructor</summary> 
         </member>
         <member name="M:Google.GData.Client.AtomFeedParser.#ctor(Google.GData.Client.IVersionAware)">
-            <summary>standard empty constructor</summary> 
+            <summary>standard constructor</summary> 
         </member>
         <member name="M:Google.GData.Client.AtomFeedParser.Parse(System.IO.Stream,Google.GData.Client.AtomFeed)">
             <summary>starts the parsing process</summary> 
@@ -8385,7 +8385,7 @@
             <returns> the created AtomCategory object</returns>
         </member>
         <member name="M:Google.GData.Client.AtomFeedParser.ParseLink(System.Xml.XmlReader,Google.GData.Client.AtomBase)">
-            <summary>creates an atomlink object</summary> 
+            <summary>creates an atomlink object</summary>
             <param name="reader">correctly positioned xmlreader</param>
             <param name="owner">the object containing the person</param>
             <returns> the created AtomLink object</returns>

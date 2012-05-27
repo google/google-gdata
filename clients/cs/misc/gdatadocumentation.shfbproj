@@ -19,64 +19,65 @@
     <HtmlHelpName>Google.GData.Documentation</HtmlHelpName>
     <DocumentationSources>
       <DocumentationSource sourceFile="..\docs\analytics.xml" />
-<DocumentationSource sourceFile="..\docs\blogger.xml" />
-<DocumentationSource sourceFile="..\docs\contentforshopping.xml" />
-<DocumentationSource sourceFile="..\docs\gacl.xml" />
-<DocumentationSource sourceFile="..\docs\gapps.xml" />
-<DocumentationSource sourceFile="..\docs\gcal.xml" />
-<DocumentationSource sourceFile="..\docs\gcontacts.xml" />
-<DocumentationSource sourceFile="..\docs\gdata.xml" />
-<DocumentationSource sourceFile="..\docs\gdocuments.xml" />
-<DocumentationSource sourceFile="..\docs\gextension.xml" />
-<DocumentationSource sourceFile="..\lib\Release\Google.GData.AccessControl.dll" />
-<DocumentationSource sourceFile="..\lib\Release\Google.GData.Analytics.dll" />
-<DocumentationSource sourceFile="..\lib\Release\Google.GData.Apps.dll" />
-<DocumentationSource sourceFile="..\lib\Release\Google.GData.Blogger.dll" />
-<DocumentationSource sourceFile="..\lib\Release\Google.GData.Calendar.dll" />
-<DocumentationSource sourceFile="..\lib\Release\Google.GData.Client.dll" />
-<DocumentationSource sourceFile="..\lib\Release\Google.GData.Contacts.dll" />
-<DocumentationSource sourceFile="..\lib\Release\Google.GData.ContentForShopping.dll" />
-<DocumentationSource sourceFile="..\lib\Release\Google.GData.Documents.dll" />
-<DocumentationSource sourceFile="..\lib\Release\Google.GData.Extensions.dll" />
-<DocumentationSource sourceFile="..\lib\Release\Google.GData.Photos.dll" />
-<DocumentationSource sourceFile="..\lib\Release\Google.GData.Spreadsheets.dll" />
-<DocumentationSource sourceFile="..\lib\Release\Google.GData.WebmasterTools.dll" />
-<DocumentationSource sourceFile="..\lib\Release\Google.GData.YouTube.dll" />
-<DocumentationSource sourceFile="..\docs\gphotos.xml" />
-<DocumentationSource sourceFile="..\docs\gspreadsheet.xml" />
-<DocumentationSource sourceFile="..\docs\webmastertool.xml" />
-<DocumentationSource sourceFile="..\docs\youtube.xml" /></DocumentationSources>
+      <DocumentationSource sourceFile="..\docs\blogger.xml" />
+      <DocumentationSource sourceFile="..\docs\contentforshopping.xml" />
+      <DocumentationSource sourceFile="..\docs\gacl.xml" />
+      <DocumentationSource sourceFile="..\docs\gapps.xml" />
+      <DocumentationSource sourceFile="..\docs\gcal.xml" />
+      <DocumentationSource sourceFile="..\docs\gcontacts.xml" />
+      <DocumentationSource sourceFile="..\docs\gdata.xml" />
+      <DocumentationSource sourceFile="..\docs\gdocuments.xml" />
+      <DocumentationSource sourceFile="..\docs\gextension.xml" />
+      <DocumentationSource sourceFile="..\lib\Release\Google.GData.AccessControl.dll" />
+      <DocumentationSource sourceFile="..\lib\Release\Google.GData.Analytics.dll" />
+      <DocumentationSource sourceFile="..\lib\Release\Google.GData.Apps.dll" />
+      <DocumentationSource sourceFile="..\lib\Release\Google.GData.Blogger.dll" />
+      <DocumentationSource sourceFile="..\lib\Release\Google.GData.Calendar.dll" />
+      <DocumentationSource sourceFile="..\lib\Release\Google.GData.Client.dll" />
+      <DocumentationSource sourceFile="..\lib\Release\Google.GData.Contacts.dll" />
+      <DocumentationSource sourceFile="..\lib\Release\Google.GData.ContentForShopping.dll" />
+      <DocumentationSource sourceFile="..\lib\Release\Google.GData.Documents.dll" />
+      <DocumentationSource sourceFile="..\lib\Release\Google.GData.Extensions.dll" />
+      <DocumentationSource sourceFile="..\lib\Release\Google.GData.Photos.dll" />
+      <DocumentationSource sourceFile="..\lib\Release\Google.GData.Spreadsheets.dll" />
+      <DocumentationSource sourceFile="..\lib\Release\Google.GData.WebmasterTools.dll" />
+      <DocumentationSource sourceFile="..\lib\Release\Google.GData.YouTube.dll" />
+      <DocumentationSource sourceFile="..\docs\gphotos.xml" />
+      <DocumentationSource sourceFile="..\docs\gspreadsheet.xml" />
+      <DocumentationSource sourceFile="..\docs\webmastertool.xml" />
+      <DocumentationSource sourceFile="..\docs\youtube.xml" />
+    </DocumentationSources>
     <NamespaceSummaries>
       <NamespaceSummaryItem name="Google.Analytics" isDocumented="True">With Google Analytics, you can gather, view, and analyze data about your website traffic. By embedding our basic JavaScript snippet into your pages, you see which content gets the most visits, average page views and time on site for visits, which ads are driving the most visitors to your site, and more. You can also use the simple administrative interface to set up goals and filters to control what data goes into your reports based on your business needs. The best part: this sophisticated, full-featured web analytics package is free</NamespaceSummaryItem>
-<NamespaceSummaryItem name="Google.Contacts" isDocumented="True">The Google Contacts Data API allows client applications to view and update Contacts content in the form of Google Data API feeds. Your client application can request a list of a user's contacts, edit or delete content in an existing contact, and query the content in an existing contact.
+      <NamespaceSummaryItem name="Google.Contacts" isDocumented="True">The Google Contacts Data API allows client applications to view and update Contacts content in the form of Google Data API feeds. Your client application can request a list of a user's contacts, edit or delete content in an existing contact, and query the content in an existing contact.
 
 Here are some of the things you can do with the Contacts Data API:
 Synchronize Google contacts with contacts on a mobile device
 Maintain relationships between people in social applications
 Give users the ability to communicate directly with their friends from external applications using phone, email, and IM</NamespaceSummaryItem>
-<NamespaceSummaryItem name="Google.Documents" isDocumented="True">The Google Documents List Data API allows client applications to programmatically access and manipulate user data stored with Google Documents</NamespaceSummaryItem>
-<NamespaceSummaryItem name="Google.GData.Analytics" isDocumented="True">With Google Analytics, you can gather, view, and analyze data about your website traffic. By embedding our basic JavaScript snippet into your pages, you see which content gets the most visits, average page views and time on site for visits, which ads are driving the most visitors to your site, and more. You can also use the simple administrative interface to set up goals and filters to control what data goes into your reports based on your business needs. The best part: this sophisticated, full-featured web analytics package is free</NamespaceSummaryItem>
-<NamespaceSummaryItem name="Google.GData.Apps" isDocumented="True">Google Apps provides powerful communication and collaboration tools right from the browser, as well as a platform to develop your critical business applications on top of Google infrastructure. The Google Apps Administrative APIs enable you develop applications that automate administrative tasks and integrate with your existing infrastructure:</NamespaceSummaryItem>
-<NamespaceSummaryItem name="Google.GData.Apps.GoogleMailSettings" isDocumented="True" />
-<NamespaceSummaryItem name="Google.GData.Apps.Groups" isDocumented="True" />
-<NamespaceSummaryItem name="Google.GData.Apps.Migration" isDocumented="True" />
-<NamespaceSummaryItem name="Google.GData.Blogger" isDocumented="True">The Blogger Data API allows client applications to view and update Blogger content in the form of Google Data API feeds. Your client application can use the Data API to create new blog posts, edit or delete existing posts, and query for posts that match particular criteria.</NamespaceSummaryItem>
-<NamespaceSummaryItem name="Google.GData.Calendar" isDocumented="True">The Calendar Data API lets you incorporate Calendar functionality into your own application or website. You can edit calendars, create and delete events, send invitations, and more.</NamespaceSummaryItem>
-<NamespaceSummaryItem name="Google.GData.Client" isDocumented="True">This is core, atom level parsing and object model assembly that is required for all the other, service specific assemblies to work.</NamespaceSummaryItem>
-<NamespaceSummaryItem name="Google.GData.Contacts" isDocumented="True">The Google Contacts Data API allows client applications to view and update Contacts content in the form of Google Data API feeds. Your client application can request a list of a user's contacts, edit or delete content in an existing contact, and query the content in an existing contact.
+      <NamespaceSummaryItem name="Google.Documents" isDocumented="True">The Google Documents List Data API allows client applications to programmatically access and manipulate user data stored with Google Documents</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="Google.GData.Analytics" isDocumented="True">With Google Analytics, you can gather, view, and analyze data about your website traffic. By embedding our basic JavaScript snippet into your pages, you see which content gets the most visits, average page views and time on site for visits, which ads are driving the most visitors to your site, and more. You can also use the simple administrative interface to set up goals and filters to control what data goes into your reports based on your business needs. The best part: this sophisticated, full-featured web analytics package is free</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="Google.GData.Apps" isDocumented="True">Google Apps provides powerful communication and collaboration tools right from the browser, as well as a platform to develop your critical business applications on top of Google infrastructure. The Google Apps Administrative APIs enable you develop applications that automate administrative tasks and integrate with your existing infrastructure:</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="Google.GData.Apps.GoogleMailSettings" isDocumented="True" />
+      <NamespaceSummaryItem name="Google.GData.Apps.Groups" isDocumented="True" />
+      <NamespaceSummaryItem name="Google.GData.Apps.Migration" isDocumented="True" />
+      <NamespaceSummaryItem name="Google.GData.Blogger" isDocumented="True">The Blogger Data API allows client applications to view and update Blogger content in the form of Google Data API feeds. Your client application can use the Data API to create new blog posts, edit or delete existing posts, and query for posts that match particular criteria.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="Google.GData.Calendar" isDocumented="True">The Calendar Data API lets you incorporate Calendar functionality into your own application or website. You can edit calendars, create and delete events, send invitations, and more.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="Google.GData.Client" isDocumented="True">This is core, atom level parsing and object model assembly that is required for all the other, service specific assemblies to work.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="Google.GData.Contacts" isDocumented="True">The Google Contacts Data API allows client applications to view and update Contacts content in the form of Google Data API feeds. Your client application can request a list of a user's contacts, edit or delete content in an existing contact, and query the content in an existing contact.
 
 Here are some of the things you can do with the Contacts Data API:
 Synchronize Google contacts with contacts on a mobile device
 Maintain relationships between people in social applications
 Give users the ability to communicate directly with their friends from external applications using phone, email, and IM</NamespaceSummaryItem>
-<NamespaceSummaryItem name="Google.GData.Documents" isDocumented="True">The Google Documents List Data API allows client applications to programmatically access and manipulate user data stored with Google Documents</NamespaceSummaryItem>
-<NamespaceSummaryItem name="Google.GData.Extensions" isDocumented="True">This assembly holds common extensions that are used in several services.</NamespaceSummaryItem>
-<NamespaceSummaryItem name="Google.GData.Extensions.AppControl" isDocumented="True" />
-<NamespaceSummaryItem name="Google.GData.Extensions.Apps" isDocumented="True" />
-<NamespaceSummaryItem name="Google.GData.Extensions.Exif" isDocumented="True" />
-<NamespaceSummaryItem name="Google.GData.Extensions.Location" isDocumented="True" />
-<NamespaceSummaryItem name="Google.GData.Extensions.MediaRss" isDocumented="True" />
-<NamespaceSummaryItem name="Google.GData.Photos" isDocumented="True">The Picasa Web Albums Data API allows for websites and programs to integrate with Picasa Web Albums, enabling users to create albums, upload and retrieve photos, comment on photos, and more!
+      <NamespaceSummaryItem name="Google.GData.Documents" isDocumented="True">The Google Documents List Data API allows client applications to programmatically access and manipulate user data stored with Google Documents</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="Google.GData.Extensions" isDocumented="True">This assembly holds common extensions that are used in several services.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="Google.GData.Extensions.AppControl" isDocumented="True" />
+      <NamespaceSummaryItem name="Google.GData.Extensions.Apps" isDocumented="True" />
+      <NamespaceSummaryItem name="Google.GData.Extensions.Exif" isDocumented="True" />
+      <NamespaceSummaryItem name="Google.GData.Extensions.Location" isDocumented="True" />
+      <NamespaceSummaryItem name="Google.GData.Extensions.MediaRss" isDocumented="True" />
+      <NamespaceSummaryItem name="Google.GData.Photos" isDocumented="True">The Picasa Web Albums Data API allows for websites and programs to integrate with Picasa Web Albums, enabling users to create albums, upload and retrieve photos, comment on photos, and more!
 
 Here are some of the things developers have done with the API:
 
@@ -84,8 +85,8 @@ Created applications to easily upload photos from devices, desktop applications,
 Created full-featured mobile clients for browsing and uploading to PWA.
 Integrated PWA with blogging software to easily show PWA albums and photos.
 Used PWA to power digital photo frames.</NamespaceSummaryItem>
-<NamespaceSummaryItem name="Google.GData.Spreadsheets" isDocumented="True" />
-<NamespaceSummaryItem name="Google.Picasa" isDocumented="True">The Picasa Web Albums Data API allows for websites and programs to integrate with Picasa Web Albums, enabling users to create albums, upload and retrieve photos, comment on photos, and more!
+      <NamespaceSummaryItem name="Google.GData.Spreadsheets" isDocumented="True" />
+      <NamespaceSummaryItem name="Google.Picasa" isDocumented="True">The Picasa Web Albums Data API allows for websites and programs to integrate with Picasa Web Albums, enabling users to create albums, upload and retrieve photos, comment on photos, and more!
 
 Here are some of the things developers have done with the API:
 
@@ -93,9 +94,10 @@ Created applications to easily upload photos from devices, desktop applications,
 Created full-featured mobile clients for browsing and uploading to PWA.
 Integrated PWA with blogging software to easily show PWA albums and photos.
 Used PWA to power digital photo frames.</NamespaceSummaryItem>
-<NamespaceSummaryItem name="Google.Spreadsheets" isDocumented="True" />
-<NamespaceSummaryItem name="Google.YouTube" isDocumented="True">The Data API lets you incorporate YouTube functionality into your own application or website. You can perform searches, upload videos, create playlists, and more.</NamespaceSummaryItem></NamespaceSummaries>
-    <HelpFileFormat>MSHelpViewer, Website</HelpFileFormat>
+      <NamespaceSummaryItem name="Google.Spreadsheets" isDocumented="True" />
+      <NamespaceSummaryItem name="Google.YouTube" isDocumented="True">The Data API lets you incorporate YouTube functionality into your own application or website. You can perform searches, upload videos, create playlists, and more.</NamespaceSummaryItem>
+    </NamespaceSummaries>
+    <HelpFileFormat>MSHelpViewer</HelpFileFormat>
     <WorkingPath>
     </WorkingPath>
     <Preliminary>False</Preliminary>
