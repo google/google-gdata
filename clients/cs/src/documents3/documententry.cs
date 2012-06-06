@@ -501,7 +501,7 @@ namespace Google.GData.Documents {
     /// <summary>
     /// Identifies the description of the resource
     /// </summary>
-    public class Description : SimpleAttribute {
+    public class Description : SimpleElement {
         /// <summary>
         /// default constructor for docs:description 
         /// </summary>
