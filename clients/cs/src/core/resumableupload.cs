@@ -689,7 +689,7 @@ namespace Google.GData.Client.ResumableUpload {
             long contentLength,
             string httpMethod) {
             HttpWebRequest request = authentication.CreateHttpWebRequest(httpMethod, target);
-            request.Headers.Set(GDataRequestFactory.SlugHeader, slug);
+            request.Headers.Set(GDataRequestFactory.SlugHeader, Utilities.EncodeSlugHeader(slug));
             request.Headers.Set(GDataRequestFactory.ContentOverrideHeader, contentType);
             if (contentLength != -1) {
                 request.Headers.Set(GDataRequestFactory.ContentLengthOverrideHeader, contentLength.ToString());
