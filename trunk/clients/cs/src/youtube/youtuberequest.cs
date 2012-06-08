@@ -41,6 +41,7 @@ namespace Google.YouTube {
         /// </summary>
         public ComplaintEntry ComplaintEntry {
             get {
+                EnsureInnerObject();
                 return this.AtomEntry as ComplaintEntry;
             }
         }
@@ -97,6 +98,7 @@ namespace Google.YouTube {
         /// </summary>
         public CommentEntry CommentEntry {
             get {
+                EnsureInnerObject();
                 return this.AtomEntry as CommentEntry;
             }
         }
@@ -127,6 +129,7 @@ namespace Google.YouTube {
         /// <returns></returns>
         public SubscriptionEntry SubscriptionEntry {
             get {
+                EnsureInnerObject();
                 return this.AtomEntry as SubscriptionEntry;
             }
         }
@@ -236,6 +239,7 @@ namespace Google.YouTube {
         /// <returns></returns>
         public ActivityEntry ActivityEntry {
             get {
+                EnsureInnerObject();
                 return this.AtomEntry as ActivityEntry;
             }
         }
@@ -299,6 +303,7 @@ namespace Google.YouTube {
         /// <returns></returns>
         public PlaylistsEntry PlaylistsEntry {
             get {
+                EnsureInnerObject();
                 return this.AtomEntry as PlaylistsEntry;
             }
         }
@@ -336,6 +341,7 @@ namespace Google.YouTube {
         /// <returns></returns>
         public ShowEntry ShowEntry {
             get {
+                EnsureInnerObject();
                 return this.AtomEntry as ShowEntry;
             }
         }
@@ -465,6 +471,7 @@ namespace Google.YouTube {
         /// <returns></returns>
         public ShowSeasonEntry ShowSeasonEntry {
             get {
+                EnsureInnerObject();
                 return this.AtomEntry as ShowSeasonEntry;
             }
         }
@@ -545,6 +552,7 @@ namespace Google.YouTube {
         /// <returns></returns>
         public YouTubeEntry YouTubeEntry {
             get {
+                EnsureInnerObject();
                 return this.AtomEntry as YouTubeEntry;
             }
         }
@@ -925,6 +933,7 @@ namespace Google.YouTube {
         /// <returns></returns>
         public PlaylistEntry PlaylistEntry {
             get {
+                EnsureInnerObject();
                 return this.AtomEntry as PlaylistEntry;
             }
         }
