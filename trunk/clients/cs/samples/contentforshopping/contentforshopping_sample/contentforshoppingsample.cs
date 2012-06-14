@@ -68,16 +68,13 @@ namespace ContentForShoppingSample {
             entry.Gender = "female";
             entry.Material = "wool";
             entry.Pattern = "Red and blue stripes";
+            entry.Color = "red";
 
 			AtomLink link = new AtomLink();
 			link.HRef = "http://www.example.com";
 			link.Rel = "alternate";
 			link.Type = "text/html";
 			entry.Links.Add(link);
-
-			// Colors
-			entry.Colors.Add(new Color("red"));
-			entry.Colors.Add(new Color("blue"));
 
 			// Shipping rules
 			Shipping s1 = new Shipping();

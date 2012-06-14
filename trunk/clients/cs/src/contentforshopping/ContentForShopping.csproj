@@ -143,7 +143,6 @@
     <Compile Include="managedaccountsentry.cs" />
     <Compile Include="managedaccountsfeed.cs" />
     <Compile Include="managedaccountsquery.cs" />
-    <Compile Include="managedaccountsservice.cs" />
     <Compile Include="AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
