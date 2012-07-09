@@ -67,6 +67,7 @@
     <Compile Include="dataqualityentry.cs" />
     <Compile Include="dataqualityfeed.cs" />
     <Compile Include="dataqualityquery.cs" />
+    <Compile Include="elements\admin.cs" />
     <Compile Include="elements\adwordsgrouping.cs" />
     <Compile Include="elements\adwordslabels.cs" />
     <Compile Include="elements\adwordsqueryparam.cs" />
@@ -98,6 +99,7 @@
     <Compile Include="elements\issuegroups.cs" />
     <Compile Include="elements\itemid.cs" />
     <Compile Include="elements\performance.cs" />
+    <Compile Include="elements\permission.cs" />
     <Compile Include="elements\processingstatus.cs" />
     <Compile Include="elements\saleprice.cs" />
     <Compile Include="elements\salepriceeffectivedate.cs" />
@@ -167,6 +169,9 @@
     <Compile Include="managedaccountsfeed.cs" />
     <Compile Include="managedaccountsquery.cs" />
     <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="usersentry.cs" />
+    <Compile Include="usersfeed.cs" />
+    <Compile Include="usersquery.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\core\Core Client.csproj">

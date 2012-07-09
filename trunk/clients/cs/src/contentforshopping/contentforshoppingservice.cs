@@ -667,6 +667,114 @@ namespace Google.GData.ContentForShopping {
         }
 
         /// <summary>
+        /// Query for Users
+        /// </summary>
+        /// <returns>the retrieved UsersFeed</returns>
+        public UsersFeed QueryUsers()
+        {
+            return QueryUsers(new UsersQuery());
+        }
+
+        /// <summary>
+        /// Query for Users
+        /// </summary>
+        /// <param name="accountId">the account Id intended on the request</param>
+        /// <returns>the retrieved UsersFeed</returns>
+        public UsersFeed QueryUsers(string accountId)
+        {
+            UsersQuery query = new UsersQuery();
+            query.AccountId = accountId;
+            return QueryUsers(query);
+        }
+
+        /// <summary>
+        /// Query for Users
+        /// </summary>
+        /// <param name="feedQuery">The UsersQuery to use</param>
+        /// <returns>the retrieved UsersFeed</returns>
+        public UsersFeed QueryUsers(UsersQuery feedQuery)
+        {
+            if (feedQuery.AccountId == null) {
+                feedQuery.AccountId = this.AccountId;
+            }
+            return base.Query(feedQuery) as UsersFeed;
+        }
+
+        /// <summary>
+        /// Gets a users entry
+        /// </summary>
+        /// <param name="userEmail">The email of the user being retrieved.</param>
+        /// <returns>the retrieved UsersEntry</returns>
+        public UsersEntry GetUser(string userEmail)
+        {
+            string entryUri = CreateUri("users", userEmail).ToString();
+            return base.Get(entryUri) as UsersEntry;
+        }
+
+        /// <summary>
+        /// Gets a users entry
+        /// </summary>
+        /// <param name="accountId">The ID of the account that the user is associated with.</param>
+        /// <param name="userEmail">The email of the user being retrieved.</param>
+        /// <returns>the retrieved UsersEntry</returns>
+        public UsersEntry GetUser(string accountId, string userEmail)
+        {
+            string entryUri = CreateUri(accountId, "users", null, userEmail).ToString();
+            return base.Get(entryUri) as UsersEntry;
+        }
+
+        /// <summary>
+        /// Inserts a new users entry.
+        /// </summary>
+        /// <param name="entry">the entry to insert</param>
+        /// <returns>the inserted entry</returns>
+        public UsersEntry InsertUser(UsersEntry entry)
+        {
+            return base.Insert(CreateUri("users", null), entry) as UsersEntry;
+        }
+
+        /// <summary>
+        /// Inserts a new user entry.
+        /// </summary>
+        /// <param name="entry">the entry to insert</param>
+        /// <param name="accountId">The ID of the account where the user will have privileges.</param>
+        /// <returns>the inserted entry</returns>
+        public UsersEntry InsertUser(UsersEntry entry, string accountId)
+        {
+            return base.Insert(CreateUri(accountId, "users", null, null), entry);
+        }
+
+        /// <summary>
+        /// Inserts a new users entry into the specified feed.
+        /// </summary>
+        /// <param name="feed">the feed into which this entry should be inserted</param>
+        /// <param name="entry">the entry to insert</param>
+        /// <returns>the inserted entry</returns>
+        public UsersEntry InsertUser(UsersFeed feed, UsersEntry entry)
+        {
+            return base.Insert(feed, entry);
+        }
+
+        /// <summary>
+        /// Updates an existing users entry with the new values
+        /// </summary>
+        /// <param name="entry">the entry to update</param>
+        /// <returns>the updated entry returned by the server</returns>
+        public UsersEntry UpdateUser(UsersEntry entry)
+        {
+            return base.Update(entry);
+        }
+
+        /// <summary>
+        /// Deletes an existing user
+        /// </summary>
+        /// <param name="entry">the entry to delete</param>
+        public void DeleteUser(UsersEntry entry)
+        {
+            base.Delete(entry);
+        }
+
+        /// <summary>
         /// Creates a product identifier based on four attributes.
         /// </summary>
         /// <param name="channel">The channel of the product. Usually online or local.</param>
