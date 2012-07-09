@@ -156,7 +156,7 @@ namespace Google.GData.ContentForShopping {
         /// </summary>
         /// <param name="entryUri">The URI of the Product entry.</param>
         /// <returns>the retrieved ProductEntry</returns>
-        public ProductEntry Get(string entryUri)
+        public new ProductEntry Get(string entryUri)
         {
             return base.Get(entryUri) as ProductEntry;
         }
@@ -502,6 +502,114 @@ namespace Google.GData.ContentForShopping {
         }
 
         /// <summary>
+        /// Query for Datafeeds
+        /// </summary>
+        /// <returns>the retrieved DatafeedFeed</returns>
+        public DatafeedFeed QueryDatafeeds()
+        {
+            return QueryDatafeeds(new DatafeedQuery());
+        }
+
+        /// <summary>
+        /// Query for Datafeeds
+        /// </summary>
+        /// <param name="accountId">the account Id intended on the request</param>
+        /// <returns>the retrieved DatafeedFeed</returns>
+        public DatafeedFeed QueryDatafeeds(string accountId)
+        {
+            DatafeedQuery query = new DatafeedQuery();
+            query.AccountId = accountId;
+            return QueryDatafeeds(query);
+        }
+
+        /// <summary>
+        /// Query for Datafeeds
+        /// </summary>
+        /// <param name="feedQuery">The DatafeedQuery to use</param>
+        /// <returns>the retrieved DatafeedFeed</returns>
+        public DatafeedFeed QueryDatafeeds(DatafeedQuery feedQuery)
+        {
+            if (feedQuery.AccountId == null) {
+                feedQuery.AccountId = this.AccountId;
+            }
+            return base.Query(feedQuery) as DatafeedFeed;
+        }
+
+        /// <summary>
+        /// Gets a datafeed entry
+        /// </summary>
+        /// <param name="datafeedId">The datafeed entry ID.</param>
+        /// <returns>the retrieved DatafeedEntry</returns>
+        public DatafeedEntry GetDatafeed(string datafeedId)
+        {
+            string entryUri = CreateUri("datafeeds/products", datafeedId).ToString();
+            return base.Get(entryUri) as DatafeedEntry;
+        }
+
+        /// <summary>
+        /// Gets a datafeed entry
+        /// </summary>
+        /// <param name="accountId">The account ID of the user.</param>
+        /// <param name="datafeedId">The datafeed entry ID.</param>
+        /// <returns>the retrieved DatafeedEntry</returns>
+        public DatafeedEntry GetDatafeed(string accountId, string datafeedId)
+        {
+            string entryUri = CreateUri(accountId, "datafeeds/products", null, datafeedId).ToString();
+            return base.Get(entryUri) as DatafeedEntry;
+        }
+
+        /// <summary>
+        /// Inserts a new datafeed entry.
+        /// </summary>
+        /// <param name="entry">the entry to insert</param>
+        /// <returns>the inserted entry</returns>
+        public DatafeedEntry InsertDatafeed(DatafeedEntry entry)
+        {
+            return base.Insert(CreateUri("datafeeds/products", null), entry) as DatafeedEntry;
+        }
+
+        /// <summary>
+        /// Inserts a new datafeed entry.
+        /// </summary>
+        /// <param name="entry">the entry to insert</param>
+        /// <param name="accountId">The ID of the account that owns the datafeed.</param>
+        /// <returns>the inserted entry</returns>
+        public DatafeedEntry InsertDatafeed(DatafeedEntry entry, string accountId)
+        {
+            return base.Insert(CreateUri(accountId, "datafeeds/products", null, null), entry);
+        }
+
+        /// <summary>
+        /// Inserts a new datafeeds entry into the specified feed.
+        /// </summary>
+        /// <param name="feed">the feed into which this entry should be inserted</param>
+        /// <param name="entry">the entry to insert</param>
+        /// <returns>the inserted entry</returns>
+        public DatafeedEntry InsertDatafeed(DatafeedFeed feed, DatafeedEntry entry)
+        {
+            return base.Insert(feed, entry);
+        }
+
+        /// <summary>
+        /// Updates an existing datafeed entry with the new values
+        /// </summary>
+        /// <param name="entry">the entry to update</param>
+        /// <returns>the updated entry returned by the server</returns>
+        public DatafeedEntry UpdateDatafeed(DatafeedEntry entry)
+        {
+            return base.Update(entry);
+        }
+
+        /// <summary>
+        /// Deletes an existing datafeed.
+        /// </summary>
+        /// <param name="entry">the entry to delete</param>
+        public void DeleteDatafeed(DatafeedEntry entry)
+        {
+            base.Delete(entry);
+        }
+
+        /// <summary>
         /// Creates a product identifier based on four attributes.
         /// </summary>
         /// <param name="channel">The channel of the product. Usually online or local.</param>
@@ -607,6 +715,8 @@ namespace Google.GData.ContentForShopping {
                 e.Feed = new ProductFeed(e.Uri, e.Service);
             } else if (service == "managedaccounts") {
                 e.Feed = new ManagedAccountsFeed(e.Uri, e.Service);
+            } else if (service == "datafeeds") {
+                e.Feed = new DatafeedFeed(e.Uri, e.Service);
             }
         }
     }

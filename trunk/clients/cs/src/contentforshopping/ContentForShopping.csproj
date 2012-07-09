@@ -61,10 +61,14 @@
     <Compile Include="..\..\version\AssemblyVersion.cs">
       <Link>AssemblyVersion.cs</Link>
     </Compile>
+    <Compile Include="datafeedentry.cs" />
+    <Compile Include="datafeedfeed.cs" />
+    <Compile Include="datafeedquery.cs" />
     <Compile Include="elements\adwordsgrouping.cs" />
     <Compile Include="elements\adwordslabels.cs" />
     <Compile Include="elements\adwordsqueryparam.cs" />
     <Compile Include="elements\adwordsredirect.cs" />
+    <Compile Include="elements\attributelanguage.cs" />
     <Compile Include="elements\contentlanguage.cs" />
     <Compile Include="elements\brand.cs" />
     <Compile Include="elements\condition.cs" />
@@ -78,10 +82,17 @@
     <Compile Include="elements\customattribute.cs" />
     <Compile Include="elements\customgroup.cs" />
     <Compile Include="elements\datapoint.cs" />
+    <Compile Include="elements\delimiter.cs" />
+    <Compile Include="elements\encoding.cs" />
+    <Compile Include="elements\feedfilename.cs" />
+    <Compile Include="elements\feedtype.cs" />
+    <Compile Include="elements\fileformat.cs" />
     <Compile Include="elements\performance.cs" />
+    <Compile Include="elements\processingstatus.cs" />
     <Compile Include="elements\saleprice.cs" />
     <Compile Include="elements\salepriceeffectivedate.cs" />
     <Compile Include="elements\status.cs" />
+    <Compile Include="elements\usequotedfields.cs" />
     <Compile Include="elements\validatedestination.cs" />
     <Compile Include="elements\warnings.cs" />
     <Compile Include="elements\warningmessage.cs" />

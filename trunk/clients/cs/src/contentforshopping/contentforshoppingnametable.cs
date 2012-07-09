@@ -389,6 +389,11 @@ namespace Google.GData.ContentForShopping
         public const string Attribute = "attribute";
 
         /// <summary>
+        /// XML element name for format.
+        /// </summary>
+        public const string Format = "format";
+
+        /// <summary>
         /// XML element name for group.
         /// </summary>
         public const string Group = "group";
@@ -442,5 +447,45 @@ namespace Google.GData.ContentForShopping
         /// The value of the dry run URL parameter.
         /// </summary>
         public const string DryRunParameter = "dry-run";
+
+        /// <summary>
+        /// XML element name for attribute language
+        /// </summary>
+        public const string AttributeLanguage = "attribute_language";
+
+        /// <summary>
+        /// XML element name for feed file name
+        /// </summary>
+        public const string FeedFileName = "feed_file_name";
+
+        /// <summary>
+        /// XML element name for feed type
+        /// </summary>
+        public const string FeedType = "feed_type";
+
+        /// <summary>
+        /// XML element name for processing status
+        /// </summary>
+        public const string ProcessingStatus = "processing_status";
+
+        /// <summary>
+        /// XML element name for file format
+        /// </summary>
+        public const string FileFormat = "file_format";
+
+        /// <summary>
+        /// XML element name for delimiter
+        /// </summary>
+        public const string Delimiter = "delimiter";
+
+        /// <summary>
+        /// XML element name for encoding
+        /// </summary>
+        public const string Encoding = "encoding";
+
+        /// <summary>
+        /// XML element name for use quoted fields
+        /// </summary>
+        public const string UseQuotedFields = "use_quoted_fields";
     }
 }

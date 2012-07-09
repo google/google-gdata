@@ -54,7 +54,7 @@ namespace Google.GData.ContentForShopping.Elements {
         /// <summary>
         /// Status property accessor
         /// </summary>
-        public string Value {
+        public override string Value {
             get {
                 return Convert.ToString(Attributes[ContentForShoppingNameTable.Status]);
             }
