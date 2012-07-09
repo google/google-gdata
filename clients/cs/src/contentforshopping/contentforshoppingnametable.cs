@@ -404,6 +404,11 @@ namespace Google.GData.ContentForShopping
         public const string Name = "name";
 
         /// <summary>
+        /// XML element name for scope.
+        /// </summary>
+        public const string Scope = "scope";
+
+        /// <summary>
         /// XML element name for type.
         /// </summary>
         public const string Type = "type";
@@ -487,5 +492,70 @@ namespace Google.GData.ContentForShopping
         /// XML element name for use quoted fields
         /// </summary>
         public const string UseQuotedFields = "use_quoted_fields";
+
+        /// <summary>
+        /// XML element name for admin
+        /// </summary>
+        public const string Admin = "admin";
+
+        /// <summary>
+        /// XML element name for permission
+        /// </summary>
+        public const string Permission = "permission";
+
+        /// <summary>
+        /// XML element name for country
+        /// </summary>
+        public const string Country = "country";
+
+        /// <summary>
+        /// XML element name for example item
+        /// </summary>
+        public const string ExampleItem = "example_item";
+
+        /// <summary>
+        /// XML element name for issue
+        /// </summary>
+        public const string Issue = "issue";
+
+        /// <summary>
+        /// XML element name for issue group
+        /// </summary>
+        public const string IssueGroup = "issue_group";
+
+        /// <summary>
+        /// XML element name for issue groups
+        /// </summary>
+        public const string IssueGroups = "issue_groups";
+
+        /// <summary>
+        /// XML element name for item id
+        /// </summary>
+        public const string ItemId = "item_id";
+
+        /// <summary>
+        /// XML element name for last checked
+        /// </summary>
+        public const string LastChecked = "last_checked";
+
+        /// <summary>
+        /// XML element name for num items
+        /// </summary>
+        public const string NumItems = "num_items";
+
+        /// <summary>
+        /// XML element name for offending term
+        /// </summary>
+        public const string OffendingTerm = "offending_term";
+
+        /// <summary>
+        /// XML element name for submitted value
+        /// </summary>
+        public const string SubmittedValue = "submitted_value";
+
+        /// <summary>
+        /// XML element name for value on landing page
+        /// </summary>
+        public const string ValueOnLandingPage = "value_on_landing_page";
     }
 }

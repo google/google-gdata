@@ -610,6 +610,63 @@ namespace Google.GData.ContentForShopping {
         }
 
         /// <summary>
+        /// Query for data quality feed of subaccounts
+        /// </summary>
+        /// <returns>the retrieved DataQualityFeed</returns>
+        public DataQualityFeed QueryDataQualityFeed()
+        {
+            return QueryDataQualityFeed(new DataQualityQuery());
+        }
+
+        /// <summary>
+        /// Query for data quality feed of subaccounts
+        /// </summary>
+        /// <param name="accountId">the account Id intended on the request</param>
+        /// <returns>the retrieved DataQualityFeed</returns>
+        public DataQualityFeed QueryDataQualityFeed(string accountId)
+        {
+            DataQualityQuery query = new DataQualityQuery();
+            query.AccountId = accountId;
+            return QueryDataQualityFeed(query);
+        }
+
+        /// <summary>
+        /// Query for data quality feed of subaccounts
+        /// </summary>
+        /// <param name="feedQuery">The DataQualityQuery to use</param>
+        /// <returns>the retrieved DataQualityFeed</returns>
+        public DataQualityFeed QueryDataQualityFeed(DataQualityQuery feedQuery)
+        {
+            if (feedQuery.AccountId == null) {
+                feedQuery.AccountId = this.AccountId;
+            }
+            return base.Query(feedQuery) as DataQualityFeed;
+        }
+
+        /// <summary>
+        /// Gets a data quality entry for a subaccount
+        /// </summary>
+        /// <param name="subaccount">The subaccount ID.</param>
+        /// <returns>the retrieved DataQualityEntry</returns>
+        public DataQualityEntry GetDataQualityEntry(string subaccount)
+        {
+            string entryUri = CreateUri("dataquality", subaccount).ToString();
+            return base.Get(entryUri) as DataQualityEntry;
+        }
+
+        /// <summary>
+        /// Gets a data quality entry for a subaccount
+        /// </summary>
+        /// <param name="accountId">The ID of the parent account.</param>
+        /// <param name="subaccount">The subaccount ID.</param>
+        /// <returns>the retrieved DataQualityEntry</returns>
+        public DataQualityEntry GetDataQualityEntry(string accountId, string subaccount)
+        {
+            string entryUri = CreateUri(accountId, "dataquality", null, subaccount).ToString();
+            return base.Get(entryUri) as DataQualityEntry;
+        }
+
+        /// <summary>
         /// Creates a product identifier based on four attributes.
         /// </summary>
         /// <param name="channel">The channel of the product. Usually online or local.</param>

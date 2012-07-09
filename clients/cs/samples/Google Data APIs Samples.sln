@@ -54,6 +54,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "oauth2_sample", "oauth2_sam
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "datafeed_sample", "contentforshopping\datafeeds\datafeed_sample.csproj", "{9EDCE7B2-175C-4BF1-B65D-C0508AFD1F9C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dataquality_sample", "contentforshopping\dataquality\dataquality_sample.csproj", "{85F735DD-694E-4355-8247-559EF4005DD7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		ASP|Any CPU = ASP|Any CPU
@@ -278,6 +280,14 @@ Global
 		{9EDCE7B2-175C-4BF1-B65D-C0508AFD1F9C}.DocListUploader - Release|Any CPU.Build.0 = Release|Any CPU
 		{9EDCE7B2-175C-4BF1-B65D-C0508AFD1F9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9EDCE7B2-175C-4BF1-B65D-C0508AFD1F9C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{85F735DD-694E-4355-8247-559EF4005DD7}.ASP|Any CPU.ActiveCfg = Release|Any CPU
+		{85F735DD-694E-4355-8247-559EF4005DD7}.ASP|Any CPU.Build.0 = Release|Any CPU
+		{85F735DD-694E-4355-8247-559EF4005DD7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{85F735DD-694E-4355-8247-559EF4005DD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{85F735DD-694E-4355-8247-559EF4005DD7}.DocListUploader - Release|Any CPU.ActiveCfg = Release|Any CPU
+		{85F735DD-694E-4355-8247-559EF4005DD7}.DocListUploader - Release|Any CPU.Build.0 = Release|Any CPU
+		{85F735DD-694E-4355-8247-559EF4005DD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{85F735DD-694E-4355-8247-559EF4005DD7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
