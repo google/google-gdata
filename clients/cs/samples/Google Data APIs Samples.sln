@@ -52,6 +52,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "managedaccounts_sample", "c
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "oauth2_sample", "oauth2_sample\oauth2_sample.csproj", "{5EAC218F-9746-4FC2-9EF9-BFCB7165567A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "datafeed_sample", "contentforshopping\datafeeds\datafeed_sample.csproj", "{9EDCE7B2-175C-4BF1-B65D-C0508AFD1F9C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		ASP|Any CPU = ASP|Any CPU
@@ -268,6 +270,14 @@ Global
 		{5EAC218F-9746-4FC2-9EF9-BFCB7165567A}.DocListUploader - Release|Any CPU.Build.0 = Release|Any CPU
 		{5EAC218F-9746-4FC2-9EF9-BFCB7165567A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5EAC218F-9746-4FC2-9EF9-BFCB7165567A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9EDCE7B2-175C-4BF1-B65D-C0508AFD1F9C}.ASP|Any CPU.ActiveCfg = Release|Any CPU
+		{9EDCE7B2-175C-4BF1-B65D-C0508AFD1F9C}.ASP|Any CPU.Build.0 = Release|Any CPU
+		{9EDCE7B2-175C-4BF1-B65D-C0508AFD1F9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9EDCE7B2-175C-4BF1-B65D-C0508AFD1F9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9EDCE7B2-175C-4BF1-B65D-C0508AFD1F9C}.DocListUploader - Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9EDCE7B2-175C-4BF1-B65D-C0508AFD1F9C}.DocListUploader - Release|Any CPU.Build.0 = Release|Any CPU
+		{9EDCE7B2-175C-4BF1-B65D-C0508AFD1F9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9EDCE7B2-175C-4BF1-B65D-C0508AFD1F9C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
