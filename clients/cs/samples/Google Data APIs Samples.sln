@@ -56,6 +56,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "datafeed_sample", "contentf
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dataquality_sample", "contentforshopping\dataquality\dataquality_sample.csproj", "{85F735DD-694E-4355-8247-559EF4005DD7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "users_sample", "contentforshopping\users\users_sample.csproj", "{28CC445E-1463-4538-8445-E1C7AD190252}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		ASP|Any CPU = ASP|Any CPU
@@ -288,6 +290,14 @@ Global
 		{85F735DD-694E-4355-8247-559EF4005DD7}.DocListUploader - Release|Any CPU.Build.0 = Release|Any CPU
 		{85F735DD-694E-4355-8247-559EF4005DD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{85F735DD-694E-4355-8247-559EF4005DD7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28CC445E-1463-4538-8445-E1C7AD190252}.ASP|Any CPU.ActiveCfg = Release|Any CPU
+		{28CC445E-1463-4538-8445-E1C7AD190252}.ASP|Any CPU.Build.0 = Release|Any CPU
+		{28CC445E-1463-4538-8445-E1C7AD190252}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28CC445E-1463-4538-8445-E1C7AD190252}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28CC445E-1463-4538-8445-E1C7AD190252}.DocListUploader - Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28CC445E-1463-4538-8445-E1C7AD190252}.DocListUploader - Release|Any CPU.Build.0 = Release|Any CPU
+		{28CC445E-1463-4538-8445-E1C7AD190252}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28CC445E-1463-4538-8445-E1C7AD190252}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
