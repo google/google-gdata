@@ -159,6 +159,8 @@
     <Compile Include="elements\adultcontent.cs" />
     <Compile Include="elements\internalid.cs" />
     <Compile Include="elements\reviewsurl.cs" />
+    <Compile Include="inventoryentry.cs" />
+    <Compile Include="inventoryfeed.cs" />
     <Compile Include="productentry.cs" />
     <Compile Include="productfeed.cs" />
     <Compile Include="productquery.cs" />

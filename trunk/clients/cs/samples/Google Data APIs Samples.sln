@@ -58,6 +58,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dataquality_sample", "conte
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "users_sample", "contentforshopping\users\users_sample.csproj", "{28CC445E-1463-4538-8445-E1C7AD190252}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "inventory_sample", "contentforshopping\inventory\inventory_sample.csproj", "{5394ACC2-B063-4E2E-9116-6CF4054AF3F4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ContentForShopping", "ContentForShopping", "{D1DB2675-5E8A-41E3-B72B-A1897AFED9A4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		ASP|Any CPU = ASP|Any CPU
@@ -298,8 +302,23 @@ Global
 		{28CC445E-1463-4538-8445-E1C7AD190252}.DocListUploader - Release|Any CPU.Build.0 = Release|Any CPU
 		{28CC445E-1463-4538-8445-E1C7AD190252}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{28CC445E-1463-4538-8445-E1C7AD190252}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5394ACC2-B063-4E2E-9116-6CF4054AF3F4}.ASP|Any CPU.ActiveCfg = Release|Any CPU
+		{5394ACC2-B063-4E2E-9116-6CF4054AF3F4}.ASP|Any CPU.Build.0 = Release|Any CPU
+		{5394ACC2-B063-4E2E-9116-6CF4054AF3F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5394ACC2-B063-4E2E-9116-6CF4054AF3F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5394ACC2-B063-4E2E-9116-6CF4054AF3F4}.DocListUploader - Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5394ACC2-B063-4E2E-9116-6CF4054AF3F4}.DocListUploader - Release|Any CPU.Build.0 = Release|Any CPU
+		{5394ACC2-B063-4E2E-9116-6CF4054AF3F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5394ACC2-B063-4E2E-9116-6CF4054AF3F4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{76068312-0218-4217-A756-5BAC1D3F803C} = {D1DB2675-5E8A-41E3-B72B-A1897AFED9A4}
+		{9EDCE7B2-175C-4BF1-B65D-C0508AFD1F9C} = {D1DB2675-5E8A-41E3-B72B-A1897AFED9A4}
+		{85F735DD-694E-4355-8247-559EF4005DD7} = {D1DB2675-5E8A-41E3-B72B-A1897AFED9A4}
+		{5394ACC2-B063-4E2E-9116-6CF4054AF3F4} = {D1DB2675-5E8A-41E3-B72B-A1897AFED9A4}
+		{28CC445E-1463-4538-8445-E1C7AD190252} = {D1DB2675-5E8A-41E3-B72B-A1897AFED9A4}
 	EndGlobalSection
 EndGlobal
