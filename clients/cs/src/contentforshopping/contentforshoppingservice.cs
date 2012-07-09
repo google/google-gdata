@@ -775,6 +775,140 @@ namespace Google.GData.ContentForShopping {
         }
 
         /// <summary>
+        /// Adds a local ID to an entry
+        /// </summary>
+        /// <param name="entry">the entry to add an ID to</param>
+        /// <param name="language">The language for the entry.</param>
+        /// <param name="country">The target country of the entry.</param>
+        /// <param name="productId">The unique identifier for the product in the given locale.</param>
+        /// <param name="storeCode">The store code for this local product.</param>
+        /// <param name="setEditUri">Boolean to determine which attribute will be set.</param>
+        /// <param name="accountId">The account ID of the user.</param>
+        /// <returns>the entry with ID added</returns>
+        public InventoryEntry AddLocalId(InventoryEntry entry, string language,
+                                         string country, string productId,
+                                         string storeCode, bool setEditUri,
+                                         string accountId)
+        {
+            string localProductId = CreateProductIdentifier("local", language, country, productId);
+            string localProductPath = storeCode + "/items/" + localProductId;
+
+            Uri localProductUri = CreateUri(accountId, "inventory", null, localProductPath);
+
+            if (setEditUri) {
+                entry.EditUri = localProductUri;
+            } else {
+                entry.Id = new AtomId(localProductUri.ToString());
+            }
+
+            return entry;
+        }
+
+        /// <summary>
+        /// Adds a local ID to an entry
+        /// </summary>
+        /// <param name="entry">the entry to add an ID to</param>
+        /// <param name="language">The language for the entry.</param>
+        /// <param name="country">The target country of the entry.</param>
+        /// <param name="productId">The unique identifier for the product in the given locale.</param>
+        /// <param name="storeCode">The store code for this local product.</param>
+        /// <param name="accountId">The account ID of the user.</param>
+        /// <returns>the entry with ID added</returns>
+        public InventoryEntry AddLocalId(InventoryEntry entry, string language,
+                                         string country, string productId,
+                                         string storeCode, string accountId)
+        {
+            return AddLocalId(entry, language, country, productId, storeCode, false, accountId);
+        }
+
+        /// <summary>
+        /// Adds a local ID to an entry
+        /// </summary>
+        /// <param name="entry">the entry to add an ID to</param>
+        /// <param name="language">The language for the entry.</param>
+        /// <param name="country">The target country of the entry.</param>
+        /// <param name="productId">The unique identifier for the product in the given locale.</param>
+        /// <param name="storeCode">The store code for this local product.</param>
+        /// <param name="setEditUri">Boolean to determine which attribute will be set.</param>
+        /// <returns>the entry with ID added</returns>
+        public InventoryEntry AddLocalId(InventoryEntry entry, string language,
+                                         string country, string productId,
+                                         string storeCode, bool setEditUri)
+        {
+            return AddLocalId(entry, language, country, productId, storeCode, setEditUri, this.accountId);
+        }
+
+        /// <summary>
+        /// Adds a local ID to an entry
+        /// </summary>
+        /// <param name="entry">the entry to add an ID to</param>
+        /// <param name="language">The language for the entry.</param>
+        /// <param name="country">The target country of the entry.</param>
+        /// <param name="productId">The unique identifier for the product in the given locale.</param>
+        /// <param name="storeCode">The store code for this local product.</param>
+        /// <returns>the entry with ID added</returns>
+        public InventoryEntry AddLocalId(InventoryEntry entry, string language,
+                                         string country, string productId,
+                                         string storeCode)
+        {
+            return AddLocalId(entry, language, country, productId, storeCode, false, this.accountId);
+        }
+
+        /// <summary>
+        /// Updates an existing inventory entry with the new values
+        ///
+        /// Must have EditUri set to the location of the entry.
+        /// Consider using AddLocalId with setEditUri=true for this.
+        /// </summary>
+        /// <param name="entry">the entry to update</param>
+        /// <returns>the updated entry returned by the server</returns>
+        public InventoryEntry UpdateInventoryEntry(InventoryEntry entry)
+        {
+            return base.Update(entry);
+        }
+
+        /// <summary>
+        /// takes a list of entries, adds update as the batch operation and updates them
+        ///
+        /// Must have Id set on each entry as the proper location.
+        /// Consider using AddLocalId for this.
+        /// </summary>
+        /// <param name="entries">the list of entries to update</param>
+        /// <param name="accountId">The account ID of the user.</param>
+        /// <returns>the returned InventoryFeed</returns>
+        public InventoryFeed UpdateInventoryFeed(List<InventoryEntry> entries, string accountId) {
+            Uri batchUri = CreateUri(accountId, "inventory", null, "batch");
+
+            InventoryFeed feed = new InventoryFeed(null, this);
+
+            foreach(InventoryEntry entry in entries)
+            {
+                if (entry.BatchData != null) {
+                    entry.BatchData.Type = GDataBatchOperationType.update;
+                }
+                else {
+                    entry.BatchData = new GDataBatchEntryData(GDataBatchOperationType.update);
+                }
+
+                feed.Entries.Add(entry);
+            }
+
+            return base.Batch(feed, batchUri) as InventoryFeed;
+        }
+
+        /// <summary>
+        /// takes a list of entries, adds update as the batch operation and updates them
+        ///
+        /// Must have Id set on each entry as the proper location.
+        /// Consider using AddLocalId for this.
+        /// </summary>
+        /// <param name="entries">the list of entries to update</param>
+        /// <returns>the returned InventoryFeed</returns>
+        public InventoryFeed UpdateInventoryFeed(List<InventoryEntry> entries) {
+            return this.UpdateInventoryFeed(entries, this.accountId);
+        }
+
+        /// <summary>
         /// Creates a product identifier based on four attributes.
         /// </summary>
         /// <param name="channel">The channel of the product. Usually online or local.</param>
