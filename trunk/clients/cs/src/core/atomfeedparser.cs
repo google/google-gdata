@@ -212,7 +212,7 @@ namespace Google.GData.Client {
                 } else if (feed != null && IsCurrentNameSpace(reader, BaseNameTable.gBatchNamespace)) {
                     // parse the google batch extensions if they are there
                     ParseBatch(reader, feed);
-                } else if (feed != null && IsCurrentNameSpace(reader, BaseNameTable.OpenSearchNamespace(this.versionInfo))) {
+                } else if (feed != null && (IsCurrentNameSpace(reader, BaseNameTable.NSOpenSearchRss) || IsCurrentNameSpace(reader, BaseNameTable.NSOpenSearch11))) {
                     if (localname.Equals(this.nameTable.TotalResults)) {
                         feed.TotalResults = int.Parse(Utilities.DecodedValue(reader.ReadString()), CultureInfo.InvariantCulture);
                     } else if (localname.Equals(this.nameTable.StartIndex)) {
