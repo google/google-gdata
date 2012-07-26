@@ -1016,6 +1016,12 @@ namespace Google.GData.ContentForShopping {
                 e.Feed = new ManagedAccountsFeed(e.Uri, e.Service);
             } else if (service == "datafeeds") {
                 e.Feed = new DatafeedFeed(e.Uri, e.Service);
+            } else if (service == "dataquality") {
+                e.Feed = new DataQualityFeed(e.Uri, e.Service);
+            } else if (service == "users") {
+                e.Feed = new UsersFeed(e.Uri, e.Service);
+            } else if (service == "inventory") {
+                e.Feed = new InventoryFeed(e.Uri, e.Service);
             }
         }
     }
