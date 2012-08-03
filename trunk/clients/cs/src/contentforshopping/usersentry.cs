@@ -50,7 +50,7 @@ namespace Google.GData.ContentForShopping {
                 return value;
             }
             set {
-                SetStringValue<Admin>(value.ToString(),
+                SetStringValue<Admin>(value.ToString().ToLower(),
                     ContentForShoppingNameTable.Admin,
                     ContentForShoppingNameTable.BaseNamespace);
             }
