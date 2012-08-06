@@ -68,6 +68,8 @@
     <Compile Include="dataqualityfeed.cs" />
     <Compile Include="dataqualityquery.cs" />
     <Compile Include="elements\admin.cs" />
+    <Compile Include="elements\adwordsaccount.cs" />
+    <Compile Include="elements\adwordsaccounts.cs" />
     <Compile Include="elements\adwordsgrouping.cs" />
     <Compile Include="elements\adwordslabels.cs" />
     <Compile Include="elements\adwordsqueryparam.cs" />

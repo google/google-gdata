@@ -94,6 +94,16 @@ namespace Google.GData.ContentForShopping
         public const string AdwordsRedirect = "adwords_redirect";
 
         /// <summary>
+        /// XML element name for adwords_account.
+        /// </summary>
+        public const string AdwordsAccount = "adwords_account";
+
+        /// <summary>
+        /// XML element name for adwords_accounts.
+        /// </summary>
+        public const string AdwordsAccounts = "adwords_accounts";
+
+        /// <summary>
         /// XML element name for age_group.
         /// </summary>
         public const string AgeGroup = "age_group";
