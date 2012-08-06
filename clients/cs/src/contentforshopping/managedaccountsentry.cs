@@ -31,6 +31,7 @@ namespace Google.GData.ContentForShopping {
             this.AddExtension(new InternalId());
             this.AddExtension(new ReviewsUrl());
             this.AddExtension(new AccountStatus());
+            this.AddExtension(new AdwordsAccounts());
         }
 
         /// <summary>
@@ -92,5 +93,8 @@ namespace Google.GData.ContentForShopping {
                     ContentForShoppingNameTable.BaseNamespace);
             }
         }
+                /// <summary>
+        /// AdwordsAccounts.
+        /// </summary>        public AdwordsAccounts AdwordsAccounts {            get {                return FindExtension(ContentForShoppingNameTable.AdwordsAccounts,                    ContentForShoppingNameTable.BaseNamespace) as AdwordsAccounts;            }            set {                ReplaceExtension(ContentForShoppingNameTable.AdwordsAccounts,                    ContentForShoppingNameTable.BaseNamespace,                    value);            }        }
     }
 }
