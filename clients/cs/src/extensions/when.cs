@@ -201,14 +201,17 @@ namespace Google.GData.Extensions
                 {
                     XmlNode whenChildNode = node.FirstChild;
                     IExtensionElementFactory f = new Reminder() as IExtensionElementFactory;
-                    while (whenChildNode != null && whenChildNode is XmlElement)
+                    while (whenChildNode != null)
                     {
-                        if (String.Compare(whenChildNode.NamespaceURI, f.XmlNameSpace, true, CultureInfo.InvariantCulture) == 0)
+                        if (whenChildNode is XmlElement)
                         {
-                            if (String.Compare(whenChildNode.LocalName, f.XmlName, true, CultureInfo.InvariantCulture) == 0)
+                            if (String.Compare(whenChildNode.NamespaceURI, f.XmlNameSpace, true, CultureInfo.InvariantCulture) == 0)
                             {
-                                Reminder r = f.CreateInstance(whenChildNode, null) as Reminder;
-                                when.Reminders.Add(r);
+                                if (String.Compare(whenChildNode.LocalName, f.XmlName, true, CultureInfo.InvariantCulture) == 0)
+                                {
+                                    Reminder r = f.CreateInstance(whenChildNode, null) as Reminder;
+                                    when.Reminders.Add(r);
+                                }
                             }
                         }
                         whenChildNode = whenChildNode.NextSibling;
