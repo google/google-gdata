@@ -394,6 +394,11 @@ namespace Google.GData.ContentForShopping
         public const string Clicks = "clicks";
 
         /// <summary>
+        /// XML element name for paid clicks.
+        /// </summary>
+        public const string PaidClicks = "paid_clicks";
+
+        /// <summary>
         /// XML element name for attribute.
         /// </summary>
         public const string Attribute = "attribute";

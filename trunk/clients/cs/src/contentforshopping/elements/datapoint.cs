@@ -33,14 +33,16 @@ namespace Google.GData.ContentForShopping.Elements
         /// Constructs a new Datapoint instance with the specified values.
         /// </summary>
         /// <param name="date">The datapoint's date.</param>
-        /// <param name="clickse">The datapoint's clicks.</param>
-        public Datapoint(string date, string clicks)
+        /// <param name="clicks">The datapoint's clicks.</param>
+        /// <param name="paidClicks">The datapoint's paid clicks.</param>
+        public Datapoint(string date, string clicks, string paidClicks)
             : base(ContentForShoppingNameTable.Datapoint,
                ContentForShoppingNameTable.scDataPrefix,
                ContentForShoppingNameTable.BaseNamespace)
         {
             this.Date = date;
             this.Clicks = clicks;
+            this.PaidClicks = paidClicks;
         }
 
         /// <summary>
@@ -70,6 +72,21 @@ namespace Google.GData.ContentForShopping.Elements
             set
             {
                 Attributes[ContentForShoppingNameTable.Clicks] = value;
+            }
+        }
+
+        /// <summary>
+        /// PaidClicks property accessor
+        /// </summary>
+        public string PaidClicks
+        {
+            get
+            {
+                return Convert.ToString(Attributes[ContentForShoppingNameTable.PaidClicks]);
+            }
+            set
+            {
+                Attributes[ContentForShoppingNameTable.PaidClicks] = value;
             }
         }
     }
