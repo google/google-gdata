@@ -148,12 +148,27 @@ namespace Google.GData.Client {
                 if (unreservedChars.IndexOf(symbol) != -1) {
                     result.Append(symbol);
                 } else {
-                    result.Append('%' + String.Format("{0:X2}", (int)symbol));
+                    result.Append(PercentEncode(symbol.ToString()));
                 }
             }
 
             return result.ToString();
         }
+
+        public static string PercentEncode(string value) {
+            var bytes = Encoding.UTF8.GetBytes(value);
+            var sb = new StringBuilder();
+            foreach (var b in bytes) {
+                // Support proper encoding of special characters (\n\r\t\b)
+                if ((b > 7 && b < 11) || b == 13) {
+                    sb.Append(string.Format("%0{0:X}", b));
+                } else {
+                    sb.Append(string.Format("%{0:X}", b));
+                }
+            }
+            return sb.ToString();
+        }
+
 
         /// <summary>
         /// Normalizes the request parameters according to the spec for the signature generation.
