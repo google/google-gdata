@@ -1023,7 +1023,10 @@ namespace Google.GData.Extensions.Apps
             IS_TRASH,
 
             /// <summary>Mark as unread</summary>
-            IS_UNREAD
+            IS_UNREAD,
+
+            /// <summary>Marks the message for import into Google Vault</summary>
+            IS_VAULT
         }
 
         /// <summary>Indicates that a mail item should be marked as a draft
@@ -1055,6 +1058,11 @@ namespace Google.GData.Extensions.Apps
         /// inserted into GMail.</summary>
         public static MailItemPropertyElement UNREAD =
             new MailItemPropertyElement(MailItemProperty.IS_UNREAD);
+
+        /// <summary>Indicates that a mail item should be imported to Google
+        /// Vault.</summary>
+        public static MailItemPropertyElement VAULT =
+            new MailItemPropertyElement(MailItemProperty.IS_VAULT);
 
         /// <summary>
         /// Constructs a new <code>MailItemPropertyElement</code>.
