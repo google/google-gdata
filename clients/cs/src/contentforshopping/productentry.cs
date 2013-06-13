@@ -123,6 +123,11 @@ namespace Google.GData.ContentForShopping {
             this.AddExtension(new Size());
             this.AddExtension(new Tax());
             this.AddExtension(new Year());
+            this.AddExtension(new IdentifierExists());
+            this.AddExtension(new UnitPricingMeasure());
+            this.AddExtension(new UnitPricingBaseMeasure());
+            this.AddExtension(new EnergyEfficiencyClass());
+            this.AddExtension(new Multipack());
 
             // replacing the default app:control extension with the API-specific one
             this.RemoveExtension(new AppControl());
@@ -750,6 +755,103 @@ namespace Google.GData.ContentForShopping {
                 ReplaceExtension(ContentForShoppingNameTable.ImageLink,
                     ContentForShoppingNameTable.BaseNamespace,
                     value);
+            }
+        }
+
+
+        /// <summary>
+        /// Identifier exist.
+        /// </summary>
+        public bool IdentifierExists {
+            get {
+                bool value;
+                if (!bool.TryParse (GetStringValue<IdentifierExists> (ContentForShoppingNameTable.IdentifierExists,
+                    ContentForShoppingNameTable.ProductsNamespace), out value)) {
+                    value = false;
+                }
+
+                return value;
+            }
+            set {
+                SetStringValue<IdentifierExists> (value.ToString (),
+                    ContentForShoppingNameTable.IdentifierExists,
+                    ContentForShoppingNameTable.ProductsNamespace);
+            }
+        }
+
+
+        /// <summary>
+        /// Gets or sets the unit pricing measure.
+        /// </summary>
+        /// <value>
+        /// The unit pricing measure.
+        /// </value>
+        public UnitPricingMeasure UnitPricingMeasure {
+            get {
+                return FindExtension (ContentForShoppingNameTable.UnitPricingMeasure,
+                    ContentForShoppingNameTable.ProductsNamespace) as UnitPricingMeasure;
+            }
+            set {
+                ReplaceExtension (ContentForShoppingNameTable.UnitPricingMeasure,
+                    ContentForShoppingNameTable.ProductsNamespace,
+                    value);
+            }
+        }
+
+
+        /// <summary>
+        /// Gets or sets the unit pricing base measure.
+        /// </summary>
+        /// <value>
+        /// The unit pricing base measure.
+        /// </value>
+        public UnitPricingBaseMeasure UnitPricingBaseMeasure {
+            get {
+                return FindExtension (ContentForShoppingNameTable.UnitPricingBaseMeasure,
+                    ContentForShoppingNameTable.ProductsNamespace) as UnitPricingBaseMeasure;
+            }
+            set {
+                ReplaceExtension (ContentForShoppingNameTable.UnitPricingBaseMeasure,
+                    ContentForShoppingNameTable.ProductsNamespace,
+                    value);
+            }
+        }
+
+
+        /// <summary>
+        /// Gets or sets the energy efficiency class.
+        /// </summary>
+        /// <value>
+        /// The energy efficiency class.
+        /// </value>
+        public string EnergyEfficiencyClass {
+            get {
+                return GetStringValue<EnergyEfficiencyClass> (ContentForShoppingNameTable.EnergyEfficiencyClass,
+                    ContentForShoppingNameTable.ProductsNamespace);
+            }
+            set {
+                SetStringValue<EnergyEfficiencyClass> (value,
+                    ContentForShoppingNameTable.EnergyEfficiencyClass,
+                    ContentForShoppingNameTable.ProductsNamespace);
+            }
+        }
+
+
+        /// <summary>
+        /// Gets or sets the merchant multipack quantity.
+        /// </summary>
+        /// <value>
+        /// The merchant multipack quantity.
+        /// </value>
+        public string Multipack {
+            get {
+                return GetStringValue<Multipack> (ContentForShoppingNameTable.Multipack,
+                    ContentForShoppingNameTable.ProductsNamespace);
+            }
+            set {
+                SetStringValue<Multipack> (value,
+                    ContentForShoppingNameTable.Multipack,
+                    ContentForShoppingNameTable.ProductsNamespace);
             }
         }
 
