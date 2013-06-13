@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -176,6 +176,11 @@
     <Compile Include="usersentry.cs" />
     <Compile Include="usersfeed.cs" />
     <Compile Include="usersquery.cs" />
+    <Compile Include="elements\multipack.cs" />
+    <Compile Include="elements\unitpricingbasemeasure.cs" />
+    <Compile Include="elements\unitpricingmeasure.cs" />
+    <Compile Include="elements\energyefficiencyclass.cs" />
+    <Compile Include="elements\identifierexists.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\core\Core Client.csproj">

@@ -572,5 +572,30 @@ namespace Google.GData.ContentForShopping
         /// XML element name for value on landing page
         /// </summary>
         public const string ValueOnLandingPage = "value_on_landing_page";
+
+        /// <summary>
+        /// XML element name for product attribute identifier exist.
+        /// </summary>
+        public const string IdentifierExists = "identifier_exists";
+    
+        /// <summary>
+        /// XML element name for unit pricing measure.
+        /// </summary> 
+        public const string UnitPricingMeasure = "unit_pricing_measure";
+    
+        /// <summary>
+        /// XML element name for unit pricing base measure.
+        /// </summary> 
+        public const string UnitPricingBaseMeasure = "unit_pricing_base_measure";
+
+        /// <summary>
+        /// XML element name for energy efficiency class.
+        /// </summary>
+        public const string EnergyEfficiencyClass = "energy_efficiency_class";
+    
+        /// <summary>
+        /// XML element name for merchant multipack quantity.
+        /// </summary>
+        public const string Multipack = "multipack";
     }
 }
