@@ -1640,6 +1640,10 @@
             <summary>Indicates that a mail item should be marked as unread when
             inserted into GMail.</summary>
         </member>
+        <member name="F:Google.GData.Extensions.Apps.MailItemPropertyElement.VAULT">
+            <summary>Indicates that a mail item should be imported to Google
+            Vault.</summary>
+        </member>
         <member name="M:Google.GData.Extensions.Apps.MailItemPropertyElement.#ctor">
             <summary>
             Constructs a new <code>MailItemPropertyElement</code>.
@@ -1679,6 +1683,9 @@
         </member>
         <member name="F:Google.GData.Extensions.Apps.MailItemPropertyElement.MailItemProperty.IS_UNREAD">
             <summary>Mark as unread</summary>
+        </member>
+        <member name="F:Google.GData.Extensions.Apps.MailItemPropertyElement.MailItemProperty.IS_VAULT">
+            <summary>Marks the message for import into Google Vault</summary>
         </member>
         <member name="T:Google.GData.Extensions.Apps.PropertyElement">
             <summary>
