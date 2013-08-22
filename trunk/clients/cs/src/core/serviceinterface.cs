@@ -143,6 +143,18 @@ namespace Google.GData.Client {
             set;
         }
 
+        /// <summary>persist the content so if reset</summary>
+        AtomBase ContentStore {
+            get;
+            set;
+        }
+
+        /// <summary>denotes if it's a batch request</summary>
+        bool IsBatch {
+            get; 
+            set;
+        }
+
         /// <summary>gets the request stream to write into</summary> 
         Stream GetRequestStream();
         /// <summary>Executes the request</summary> 

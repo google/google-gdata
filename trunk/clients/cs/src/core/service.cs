@@ -644,6 +644,9 @@ namespace Google.GData.Client {
                 eTarget.Etag = eSource.Etag;
             }
 
+            request.ContentStore = baseEntry;
+            request.IsBatch = type == GDataRequestType.Batch;
+            
             if (data != null) {
                 GDataGAuthRequest gr = request as GDataGAuthRequest;
                 if (gr != null) {
