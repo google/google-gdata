@@ -540,6 +540,13 @@ namespace Google.GData.Client {
                     req.Close();
                 }
             }
+            else {
+                if (this.IsBatch) {
+                    this.EnsureWebRequest();
+                    this.ContentStore.SaveToXml(this.GetRequestStream());
+                    this.CopyRequestData();
+                }
+            }
         }
     }
 }

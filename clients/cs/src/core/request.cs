@@ -310,6 +310,9 @@ namespace Google.GData.Client {
         // holds the returned contentlength
         private long contentLength;
         private string eTag;
+		// used to refresh request for batching
+        private AtomBase contentStore;
+        private bool isBatch;
 
         /// <summary>default constructor</summary> 
         internal GDataRequest(GDataRequestType type, Uri uriTarget, GDataRequestFactory factory) {
@@ -386,6 +389,18 @@ namespace Google.GData.Client {
         public string Etag {
             get { return this.eTag; }
             set { this.eTag = value; }
+        }
+
+		/// <summary>copy of batch request content</summary>
+        public AtomBase ContentStore {
+            get { return this.contentStore; }
+            set { this.contentStore = value; }
+        }
+
+        /// <summary>denotes if it's a batch request</summary>
+        public bool IsBatch {
+            get { return this.isBatch; }
+            set { this.isBatch = value; }
         }
 
         /// <summary>sets and gets the slugHeader, used for binary transfers
